@@ -13,6 +13,7 @@ store.ready().then(() => {
   ReactDOM.render(
     <Provider store={store as any}>
       <OptionsApp />
-    </Provider>
-    , document.getElementById('options-root'))
+    </Provider>,
+    document.getElementById('options-root')
+  )
 })
