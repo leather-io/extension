@@ -24,15 +24,13 @@ module.exports = {
   },
   output: {
     path: distRootPath,
-    filename: '[name].js',
+    filename: '[name].js'
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.json'],
+    extensions: ['.js', '.ts', '.tsx', '.json']
   },
   module: {
-    rules: [
-      { test: /\.(js|ts|tsx)?$/, loader: 'awesome-typescript-loader', exclude: /node_modules/ },
-    ]
+    rules: [{ test: /\.(js|ts|tsx)?$/, loader: 'awesome-typescript-loader', exclude: /node_modules/ }]
   },
   devServer: {
     contentBase: './dist'
@@ -44,32 +42,32 @@ module.exports = {
       inject: 'body',
       filename: 'options.html',
       title: 'Web Extension Starter - Options Page',
-      chunks: ['options'],
+      chunks: ['options']
     }),
     new HtmlWebpackPlugin({
       template: path.join(sourceRootPath, 'html', 'popup.html'),
       inject: 'body',
       filename: 'popup.html',
       title: 'Web Extension Starter - Popup Page',
-      chunks: ['popup'],
+      chunks: ['popup']
     }),
     new CopyWebpackPlugin([
       {
         from: path.join(sourceRootPath, 'assets'),
         to: path.join(distRootPath, 'assets'),
-        test: /\.(jpg|jpeg|png|gif|svg)?$/,
+        test: /\.(jpg|jpeg|png|gif|svg)?$/
       },
       {
         from: path.join(sourceRootPath, 'manifest.json'),
         to: path.join(distRootPath, 'manifest.json'),
-        toType: 'file',
+        toType: 'file'
       }
     ]),
     new webpack.DefinePlugin({
-      'NODE_ENV': JSON.stringify(nodeEnv),
-      'WEB_BROWSER': JSON.stringify(webBrowser),
-    }),
-  ],
+      NODE_ENV: JSON.stringify(nodeEnv),
+      WEB_BROWSER: JSON.stringify(webBrowser)
+    })
+  ]
 }
 
 if (nodeEnv === 'watch') {
@@ -82,7 +80,7 @@ if (nodeEnv === 'watch') {
         background: 'background',
         options: 'options',
         popup: 'popup',
-        contentScript: ['counter'],
+        contentScript: ['counter']
       }
     })
   )
