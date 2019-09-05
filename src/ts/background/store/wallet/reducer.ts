@@ -7,12 +7,12 @@ const initialState: WalletState = {
 
 export const walletReducer: Reducer<WalletState, WalletActions> = (state = initialState, action: WalletActions): WalletState => {
   switch(action.type) {
-    case STORE_SEED:
-      return {
-        ...state,
-        seed: action.payload
-      }
-    default:
-      return state
+  case STORE_SEED:
+    return {
+      ...state,
+      seed: action.payload
+    }
+  default:
+    return state
   }
 }

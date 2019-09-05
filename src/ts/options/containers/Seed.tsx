@@ -11,7 +11,7 @@ interface SeedProps {
 }
 
 const Seed = ({ doStoreSeed, seed: _seed }: SeedProps) => {
-  const [seed, setSeed] = useState(_seed || "")
+  const [seed, setSeed] = useState(_seed || '')
   const saveSeed = () => {
     doStoreSeed(seed)
   }
