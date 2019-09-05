@@ -5,7 +5,8 @@ import styled, { ThemeProvider } from 'styled-components'
 import { IAppState } from '../../background/store'
 import GlobalStyle from '../../components/styles/GlobalStyle'
 import { themes, ThemeTypes } from '../../components/styles/themes'
-import Counter from '../../containers/Counter'
+// import Counter from '../../containers/Counter'
+import Seed from './seed'
 
 interface IOptionsApp {
   theme: ThemeTypes
@@ -20,7 +21,7 @@ class OptionsApp extends React.Component<IOptionsApp> {
         <React.Fragment>
           <GlobalStyle />
           <OptionsAppContainer>
-            <Counter/>
+            <Seed/>
           </OptionsAppContainer>
         </React.Fragment>
       </ThemeProvider>
