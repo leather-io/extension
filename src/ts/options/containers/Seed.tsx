@@ -20,9 +20,11 @@ const Seed = ({ doStoreSeed, seed: _seed }: SeedProps) => {
     <div>
       {/* <Box width={1}> */}
       <p>Seed is: {seed}</p>
-      <input type="text" onChange={(evt) => setSeed(evt.target.value)} value={seed} />
+      <input type="text" onChange={evt => setSeed(evt.target.value)} value={seed} />
       <p>
-        <a href="#" onClick={saveSeed}>Save</a>
+        <a href="#" onClick={saveSeed}>
+          Save
+        </a>
       </p>
       {/* </Box> */}
     </div>
@@ -33,7 +35,9 @@ const mapStateToProps = (state: IAppState) => ({
   seed: state.wallet.seed
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ ...WalletActions }, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...WalletActions }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Seed)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Seed)

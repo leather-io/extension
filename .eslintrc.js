@@ -28,18 +28,6 @@ module.exports = {
     'no-param-reassign': 'error',
     'brace-style': 2,
     'no-empty': 'off',
-    '@typescript-eslint/indent': [
-      2,
-      2,
-      {
-        FunctionDeclaration: { parameters: 'first' },
-        FunctionExpression: { parameters: 'first' },
-        ObjectExpression: 'first',
-        ArrayExpression: 'first',
-        ImportDeclaration: 'first',
-        CallExpression: { arguments: 'first' }
-      }
-    ],
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {

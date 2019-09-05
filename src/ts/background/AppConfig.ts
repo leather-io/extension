@@ -6,7 +6,7 @@ const autoSaveAppState = (store: Store<IAppState>) => {
   chrome.windows.onRemoved.addListener(() => saveState(store.getState()))
 
   const saveFrequency = 3000 // 3 seconds
-  setInterval(() => (saveState(store.getState())), saveFrequency)
+  setInterval(() => saveState(store.getState()), saveFrequency)
 }
 
 export const configureApp = (store: Store<IAppState>) => {
