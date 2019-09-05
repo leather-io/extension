@@ -18,7 +18,7 @@ const webBrowser = process.env.WEB_BROWSER ? process.env.WEB_BROWSER : 'chrome'
 module.exports = {
   entry: {
     background: path.join(sourceRootPath, 'ts', 'background', 'index.ts'),
-    options: path.join(sourceRootPath, 'ts', 'options', 'index.tsx'),
+    options: ['react-hot-loader/patch', path.join(sourceRootPath, 'ts', 'options', 'index.tsx')],
     popup: path.join(sourceRootPath, 'ts', 'popup', 'index.tsx'),
     ...locateContentScripts(contentScriptsPath)
   },
@@ -27,13 +27,17 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.json']
+    extensions: ['.js', '.ts', '.tsx', '.json'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
   },
   module: {
-    rules: [{ test: /\.(js|ts|tsx)?$/, loader: 'awesome-typescript-loader', exclude: /node_modules/ }]
+    rules: [{ test: /\.(js|ts|tsx)?$/, loader: ['awesome-typescript-loader'], exclude: /node_modules/ }]
   },
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    hot: true
   },
   plugins: [
     new CheckerPlugin(),
@@ -70,7 +74,7 @@ module.exports = {
   ]
 }
 
-if (nodeEnv === 'watch') {
+if (process.env.EXT_ENV === 'watch') {
   module.exports.watch = true
   module.exports.plugins.push(
     new ChromeExtensionReloader({
