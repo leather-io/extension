@@ -17,6 +17,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
+		"blockstack-ui": "^0.0.78",
 		"react": "^16.8.6",
 		"react-chrome-redux": "^2.0.0-alpha.5",
 		"react-dom": "^16.8.6",
