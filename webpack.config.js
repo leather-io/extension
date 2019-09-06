@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const CheckerPlugin = require('fork-ts-checker-webpack-plugin')
 const ChromeExtensionReloader = require('webpack-chrome-extension-reloader')
 const locateContentScripts = require('./utils/locateContentScripts')
 /* eslint-enable @typescript-eslint/no-var-requires */
@@ -18,7 +18,7 @@ const webBrowser = process.env.WEB_BROWSER ? process.env.WEB_BROWSER : 'chrome'
 module.exports = {
   entry: {
     background: path.join(sourceRootPath, 'ts', 'background', 'index.ts'),
-    options: ['react-hot-loader/patch', path.join(sourceRootPath, 'ts', 'options', 'index.tsx')],
+    options: path.join(sourceRootPath, 'ts', 'options', 'index.tsx'),
     popup: path.join(sourceRootPath, 'ts', 'popup', 'index.tsx'),
     ...locateContentScripts(contentScriptsPath)
   },
@@ -33,7 +33,7 @@ module.exports = {
     }
   },
   module: {
-    rules: [{ test: /\.(js|ts|tsx)?$/, loader: ['awesome-typescript-loader'], exclude: /node_modules/ }]
+    rules: [{ test: /\.(ts|tsx)?$/, loader: 'ts-loader', options: { transpileOnly: true } }]
   },
   devServer: {
     contentBase: './dist',
