@@ -45,14 +45,14 @@ module.exports = {
       template: path.join(sourceRootPath, 'html', 'options.html'),
       inject: 'body',
       filename: 'options.html',
-      title: 'Web Extension Starter - Options Page',
+      title: 'Blockstack',
       chunks: ['options']
     }),
     new HtmlWebpackPlugin({
       template: path.join(sourceRootPath, 'html', 'popup.html'),
       inject: 'body',
       filename: 'popup.html',
-      title: 'Web Extension Starter - Popup Page',
+      title: 'Blockstack',
       chunks: ['popup']
     }),
     new CopyWebpackPlugin([
