@@ -1,4 +1,6 @@
-import { combineReducers } from 'redux'
+import { combineReducers, createStore, Store } from 'redux'
+import { persistReducer, persistStore } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import counter, { ICounter } from './counter/reducer'
 import settings, { IAppSettings } from './settings/reducer'
 import { walletReducer, WalletState } from './wallet'
@@ -13,35 +15,10 @@ declare module 'redux' {
   }
 }
 
-type OnSuccess = () => void
-type OnError = (e: Error) => void
-
 export interface IAppState {
   counter: ICounter
   settings: IAppSettings
   wallet: WalletState
-}
-
-export const loadState = (): IAppState | undefined => {
-  try {
-    const serializedState = localStorage.getItem('appstate')
-    if (serializedState === null) {
-      return undefined
-    }
-    return JSON.parse(serializedState)
-  } catch (err) {
-    return undefined
-  }
-}
-
-export const saveState = (appstate: IAppState, success: OnSuccess = () => {}, error: OnError = () => {}) => {
-  try {
-    const serializedState = JSON.stringify(appstate)
-    localStorage.setItem('appstate', serializedState)
-    success()
-  } catch (e) {
-    error(e)
-  }
 }
 
 const reducers = combineReducers<IAppState>({
@@ -49,5 +26,22 @@ const reducers = combineReducers<IAppState>({
   settings,
   wallet: walletReducer
 })
+
+const persistConfig = {
+  storage,
+  key: 'blockstack-redux'
+}
+
+const persistedReducer = persistReducer(persistConfig, reducers)
+
+const _window = window as any
+
+export const store: Store<IAppState> = createStore(
+  persistedReducer,
+  undefined,
+  _window.__REDUX_DEVTOOLS_EXTENSION__ && _window.__REDUX_DEVTOOLS_EXTENSION__()
+)
+
+export const persistor = persistStore(store)
 
 export default reducers

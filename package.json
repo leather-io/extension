@@ -26,6 +26,7 @@
 		"react-hot-loader": "^4.12.12",
 		"react-redux": "^7.1.1",
 		"redux": "4.0.4",
+		"redux-persist": "^6.0.0",
 		"styled-components": "^4.3.2",
 		"webext-redux": "^2.1.2"
 	},

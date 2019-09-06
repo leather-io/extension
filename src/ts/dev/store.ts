@@ -1,4 +1,3 @@
-import { createStore } from 'redux'
-import reducers from '../background/store'
+import { store } from '../background/store'
 
-export default createStore(reducers)
+export default store
