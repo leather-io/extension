@@ -1,5 +1,6 @@
-import { combineReducers, createStore, Store } from 'redux'
+import { combineReducers, createStore, Store, compose, applyMiddleware } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
+import thunk from 'redux-thunk'
 import storage from 'redux-persist/lib/storage'
 import counter, { ICounter } from './counter/reducer'
 import settings, { IAppSettings } from './settings/reducer'
@@ -36,11 +37,12 @@ const persistedReducer = persistReducer(persistConfig, reducers)
 
 const _window = window as any
 
-export const store: Store<IAppState> = createStore(
-  persistedReducer,
-  undefined,
-  _window.__REDUX_DEVTOOLS_EXTENSION__ && _window.__REDUX_DEVTOOLS_EXTENSION__()
+const middleware = compose(
+  applyMiddleware(thunk),
+  _window.__REDUX_DEVTOOLS_EXTENSION__ ? _window.__REDUX_DEVTOOLS_EXTENSION__() : () => {}
 )
+
+export const store: Store<IAppState> = createStore(persistedReducer, undefined, middleware)
 
 export const persistor = persistStore(store)
 
