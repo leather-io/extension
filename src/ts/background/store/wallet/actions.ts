@@ -1,6 +1,6 @@
-import { WalletActions, STORE_SEED } from './types'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import Wallet from 'blockstack-keychain/lib-esm/wallet'
+import { WalletActions, STORE_SEED } from './types'
 
 export function didStoreSeed(seed: string): WalletActions {
   return {
@@ -9,12 +9,15 @@ export function didStoreSeed(seed: string): WalletActions {
   }
 }
 
-export function doStoreSeed(seed: string): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
+// export function doStoreSeed(seed: string): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
+export function doStoreSeed(seed: string): ThunkAction<Promise<void>, {}, {}, WalletActions> {
   return async (dispatch: ThunkDispatch<{}, {}, WalletActions>) => {
-    const wallet = await Wallet.restore('password', seed)
-    console.log(wallet)
-
+    const url = chrome.runtime.getURL ? chrome.runtime.getURL('worker.js') : './worker.js'
+    const worker = new Worker(url)
+    worker.postMessage({ seed, password: 'password' })
+    worker.addEventListener('message', event => {
+      console.log('got something back', event)
+    })
     dispatch(didStoreSeed(seed))
-    return wallet
   }
 }

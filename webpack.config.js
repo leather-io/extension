@@ -20,11 +20,13 @@ module.exports = {
     background: path.join(sourceRootPath, 'ts', 'background', 'index.ts'),
     options: path.join(sourceRootPath, 'ts', 'options', 'index.tsx'),
     popup: path.join(sourceRootPath, 'ts', 'popup', 'index.tsx'),
+    worker: path.join(sourceRootPath, 'ts', 'worker', 'index.ts'),
     ...locateContentScripts(contentScriptsPath)
   },
   output: {
     path: distRootPath,
-    filename: '[name].js'
+    filename: '[name].js',
+    globalObject: "typeof self !== 'undefined' ? self : this"
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.json'],

@@ -21,7 +21,7 @@ module.exports = {
     es6: true
   },
   rules: {
-    quotes: [2, 'single'],
+    quotes: [2, 'single', { avoidEscape: true }],
     'eol-last': 2,
     'no-mixed-requires': 0,
     'no-var': 2,
