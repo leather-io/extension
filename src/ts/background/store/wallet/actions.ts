@@ -1,5 +1,5 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import Wallet from 'blockstack-keychain/lib-esm/wallet'
+// import Wallet from 'blockstack-keychain/lib-esm/wallet'
 import { WalletActions, STORE_SEED } from './types'
 
 export function didStoreSeed(seed: string): WalletActions {

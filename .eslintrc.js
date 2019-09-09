@@ -2,9 +2,9 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
     'plugin:react/recommended',
+    'prettier/@typescript-eslint',
     // 'plugin:jsx-a11y/recommended'
   ],
   parser: '@typescript-eslint/parser',
@@ -37,7 +37,7 @@ module.exports = {
         },
         singleline: {
           delimiter: 'semi',
-          requireLast: true
+          requireLast: false
         }
       }
     ],
