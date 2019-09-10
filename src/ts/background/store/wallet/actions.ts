@@ -1,11 +1,11 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
-// import Wallet from 'blockstack-keychain/lib-esm/wallet'
+import Wallet from 'blockstack-keychain/lib-esm/wallet'
 import { WalletActions, RESTORE_WALLET, IS_RESTORING_WALLET } from './types'
 
-export function didStoreSeed(seed: string): WalletActions {
+export function didRestoreWallet(wallet: Wallet): WalletActions {
   return {
     type: RESTORE_WALLET,
-    payload: seed
+    payload: wallet
   }
 }
 
@@ -22,8 +22,9 @@ export function doStoreSeed(seed: string): ThunkAction<void, {}, {}, WalletActio
     const worker = new Worker(url)
     worker.postMessage({ seed, password: 'password' })
     worker.addEventListener('message', event => {
-      console.log('got something back', event)
+      const wallet = new Wallet(event.data)
+      console.log('Worker finished restoring wallet', wallet)
+      dispatch(didRestoreWallet(wallet))
     })
-    dispatch(didStoreSeed(seed))
   }
 }

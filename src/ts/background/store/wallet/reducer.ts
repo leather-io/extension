@@ -3,7 +3,8 @@ import { WalletActions, WalletState, RESTORE_WALLET, IS_RESTORING_WALLET } from 
 
 const initialState: WalletState = {
   seed: null,
-  isRestoringWallet: false
+  isRestoringWallet: false,
+  currentWallet: null
 }
 
 export const walletReducer: Reducer<WalletState, WalletActions> = (
@@ -14,7 +15,7 @@ export const walletReducer: Reducer<WalletState, WalletActions> = (
     case RESTORE_WALLET:
       return {
         ...state,
-        seed: action.payload,
+        currentWallet: action.payload,
         isRestoringWallet: false
       }
     case IS_RESTORING_WALLET:
