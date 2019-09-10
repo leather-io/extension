@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
+import Wallet from 'blockstack-keychain/lib-esm/wallet'
 import { IAppState } from '../../background/store'
 import { doStoreSeed } from '../../background/store/wallet'
 import * as WalletActions from '../../background/store/wallet/actions'
@@ -8,13 +9,15 @@ import * as WalletActions from '../../background/store/wallet/actions'
 interface SeedProps {
   seed: string | null
   doStoreSeed: typeof doStoreSeed
+  wallet: Wallet | null
 }
 
-const Seed = ({ doStoreSeed, seed: _seed }: SeedProps) => {
+const Seed = ({ doStoreSeed, seed: _seed, wallet }: SeedProps) => {
   const [seed, setSeed] = useState(_seed || '')
   const saveSeed = () => {
     doStoreSeed(seed)
   }
+  console.log(wallet)
 
   return (
     <div>
@@ -32,7 +35,8 @@ const Seed = ({ doStoreSeed, seed: _seed }: SeedProps) => {
 }
 
 const mapStateToProps = (state: IAppState) => ({
-  seed: state.wallet.seed
+  seed: state.wallet.seed,
+  wallet: state.wallet.currentWallet
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...WalletActions }, dispatch)

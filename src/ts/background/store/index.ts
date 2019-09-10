@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import counter, { ICounter } from './counter/reducer'
 import settings, { IAppSettings } from './settings/reducer'
 import { walletReducer, WalletState } from './wallet'
+import { WalletTransform } from './transforms'
 
 import 'redux'
 // Enhance the Action interface with the option of a payload.
@@ -30,7 +31,8 @@ const reducers = combineReducers<IAppState>({
 
 const persistConfig = {
   storage,
-  key: 'blockstack-redux'
+  key: 'blockstack-redux',
+  transforms: [WalletTransform]
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
