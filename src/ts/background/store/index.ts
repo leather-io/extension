@@ -41,8 +41,10 @@ const _window = window as any
 
 const middleware = compose(
   applyMiddleware(thunk),
-  _window.__REDUX_DEVTOOLS_EXTENSION__ ? _window.__REDUX_DEVTOOLS_EXTENSION__() : () => {}
+  _window.__REDUX_DEVTOOLS_EXTENSION__ ? _window.__REDUX_DEVTOOLS_EXTENSION__() : (f: unknown) => f
 )
+
+export const middlewareComponents = [thunk]
 
 export const store: Store<IAppState> = createStore(persistedReducer, undefined, middleware)
 
