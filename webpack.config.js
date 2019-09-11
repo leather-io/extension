@@ -21,6 +21,7 @@ module.exports = {
     options: path.join(sourceRootPath, 'ts', 'options', 'index.tsx'),
     popup: path.join(sourceRootPath, 'ts', 'popup', 'index.tsx'),
     worker: path.join(sourceRootPath, 'ts', 'worker', 'index.ts'),
+    inpage: path.join(sourceRootPath, 'ts', 'inpage', 'index.ts'),
     ...locateContentScripts(contentScriptsPath)
   },
   output: {
