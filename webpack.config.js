@@ -22,6 +22,7 @@ module.exports = {
     popup: path.join(sourceRootPath, 'ts', 'popup', 'index.tsx'),
     worker: path.join(sourceRootPath, 'ts', 'worker', 'index.ts'),
     inpage: path.join(sourceRootPath, 'ts', 'inpage', 'index.ts'),
+    actions: path.join(sourceRootPath, 'ts', 'actions', 'index.tsx'),
     ...locateContentScripts(contentScriptsPath)
   },
   output: {
@@ -58,6 +59,13 @@ module.exports = {
       filename: 'popup.html',
       title: 'Blockstack',
       chunks: ['popup']
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(sourceRootPath, 'html', 'actions.html'),
+      inject: 'body',
+      filename: 'actions.html',
+      title: 'Blockstack',
+      chunks: ['actions']
     }),
     new CopyWebpackPlugin([
       {
