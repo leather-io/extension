@@ -7,7 +7,8 @@ import { IAppState } from '../../background/store'
 import GlobalStyle from '../../components/styles/GlobalStyle'
 import { themes, ThemeTypes } from '../../components/styles/themes'
 // import Counter from '../../containers/Counter'
-import Seed from './seed'
+import Seed from './Seed'
+import DevActions from './DevActions'
 
 interface IOptionsApp {
   theme: ThemeTypes
@@ -22,6 +23,7 @@ class OptionsApp extends React.Component<IOptionsApp> {
           <GlobalStyle />
           <OptionsAppContainer>
             <Seed />
+            <DevActions />
           </OptionsAppContainer>
         </React.Fragment>
       </ThemeProvider>

@@ -20,7 +20,7 @@ const Seed = ({ doStoreSeed, seed: _seed, wallet }: SeedProps) => {
   console.log(wallet)
 
   return (
-    <div>
+    <div width="100%">
       {/* <Box width={1}> */}
       <p>Seed is: {seed}</p>
       <input type="text" onChange={evt => setSeed(evt.target.value)} value={seed} />
