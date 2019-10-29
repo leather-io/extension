@@ -21,8 +21,7 @@ const buildApp = (store: ReduxStore | Store) => {
 }
 
 if ((module as any).hot) {
-  const store = DevStore
-  buildApp(store)
+  buildApp(DevStore)
 } else {
   const store = new Store({
     portName: 'ExPort' // Communication port between the background component and views such as browser tabs.

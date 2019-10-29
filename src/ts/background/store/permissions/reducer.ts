@@ -17,6 +17,6 @@ export const permissionsReducer: Reducer<PermissionsState, PermissionsActions> =
         authRequest: action.authRequest
       }
     default:
-      return { ...state }
+      return state
   }
 }

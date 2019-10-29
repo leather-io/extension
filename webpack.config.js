@@ -44,6 +44,7 @@ module.exports = {
     hot: true
   },
   devtool: 'inline-source-map',
+  watch: false,
   plugins: [
     new CheckerPlugin(),
     new HtmlWebpackPlugin({
@@ -105,3 +106,10 @@ if (process.env.EXT_ENV === 'watch') {
 if (nodeEnv === 'production') {
   module.exports.plugins.push(new CleanWebpackPlugin(distRootPath, { verbose: true, dry: false }))
 }
+// else {
+//   module.exports.plugins.push(
+//     new webpack.HotModuleReplacementPlugin({
+//       multiStep: true,
+//     })
+//   )
+// }

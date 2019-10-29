@@ -1,26 +1,40 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import * as WalletActions from '../../background/store/wallet/actions'
+// import { Box } from '@blockstack/ui'
+import { doAuthRequest } from '../../background/store/permissions'
+import * as PermissionsActions from '../../background/store/permissions/actions'
+import { openPopup } from '../../actions/utils'
 
-const DevActions = () => {
+interface Props {
+  doAuthRequest: typeof doAuthRequest
+}
+
+const DevActions = ({ doAuthRequest }: Props) => {
   const [authRequest, setAuthRequest] = useState('')
 
   const saveAuthRequest = (evt: React.FormEvent) => {
-    evt && evt.preventDefault
+    evt && evt.preventDefault()
+    doAuthRequest(authRequest)
+    openPopup('http://localhost:8080/actions.html')
     console.log(authRequest)
   }
 
   return (
-    <>
+    <div style={{ width: '100%' }}>
       <br />
       <p>Dev Console</p>
       <form action="/" onSubmit={saveAuthRequest}>
         <input type="text" value={authRequest} onChange={e => setAuthRequest(e.target.value)} />
         <input type="submit" value="Save authRequest" />
       </form>
-    </>
+    </div>
   )
 }
 
-export default DevActions
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...PermissionsActions }, dispatch)
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(DevActions)

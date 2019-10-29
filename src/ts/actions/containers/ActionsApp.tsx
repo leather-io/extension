@@ -30,6 +30,7 @@ class ActionsApp extends React.Component<IActionsApp> {
         <React.Fragment>
           <GlobalStyle />
           <ActionsAppContainer>
+            <p>poptest</p>
             <Demo authRequest={this.props.authRequest} />
           </ActionsAppContainer>
         </React.Fragment>
