@@ -23,7 +23,7 @@ const DevActions = ({ doAuthRequest }: Props) => {
   return (
     <div style={{ width: '100%' }}>
       <br />
-      <p>Dev Console</p>
+      <p>Dev Console:</p>
       <form action="/" onSubmit={saveAuthRequest}>
         <input type="text" value={authRequest} onChange={e => setAuthRequest(e.target.value)} />
         <input type="submit" value="Save authRequest" />

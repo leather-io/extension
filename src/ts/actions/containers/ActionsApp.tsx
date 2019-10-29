@@ -4,6 +4,7 @@ import { Dispatch } from 'redux'
 import styled, { ThemeProvider } from 'styled-components'
 import Identity from 'blockstack-keychain/lib-esm/identity'
 import Wallet from 'blockstack-keychain/lib-esm/wallet'
+import { hot } from 'react-hot-loader/root'
 import { IAppState } from '../../background/store'
 import GlobalStyle from '../../components/styles/GlobalStyle'
 import { themes, ThemeTypes } from '../../components/styles/themes'
@@ -47,7 +48,7 @@ const mapStateToProps = (state: IAppState) => {
   }
 }
 
-export default connect(mapStateToProps)(ActionsApp)
+export default hot(connect(mapStateToProps)(ActionsApp))
 
 const ActionsAppContainer = styled('div')`
   display: flex;

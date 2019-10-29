@@ -17,7 +17,6 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@hot-loader/react-dom": "^16.9.0",
 		"blockstack-keychain": "file:../keychain",
 		"react": "^16.8.6",
 		"react-chrome-redux": "^2.0.0-alpha.5",
@@ -30,6 +29,15 @@
 		"webext-redux": "^2.1.2"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.6.4",
+		"@babel/plugin-proposal-class-properties": "^7.5.5",
+		"@babel/plugin-transform-regenerator": "^7.4.5",
+		"@babel/plugin-transform-runtime": "^7.6.2",
+		"@babel/preset-env": "^7.6.3",
+		"@babel/preset-react": "^7.6.3",
+		"@babel/preset-typescript": "^7.6.0",
+		"@babel/runtime": "^7.6.3",
+		"@hot-loader/react-dom": "^16.9.0",
 		"@types/chrome": "^0.0.86",
 		"@types/jest": "^24.0.15",
 		"@types/node": "^12.6.2",
@@ -42,6 +50,7 @@
 		"@typescript-eslint/eslint-plugin": "^2.1.0",
 		"@typescript-eslint/parser": "^2.1.0",
 		"awesome-typescript-loader": "^5.2.1",
+		"babel-loader": "^8.0.6",
 		"clean-webpack-plugin": "^3.0.0",
 		"copy-webpack-plugin": "^5.0.3",
 		"cross-env": "^5.2.0",
