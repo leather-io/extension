@@ -3,10 +3,10 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled, { ThemeProvider } from 'styled-components'
+import { Flex } from '@blockstack/ui'
 import { IAppState } from '../../background/store'
 import GlobalStyle from '../../components/styles/GlobalStyle'
 import { themes, ThemeTypes } from '../../components/styles/themes'
-// import Counter from '../../containers/Counter'
 import Seed from './Seed'
 import DevActions from './DevActions'
 
@@ -21,10 +21,10 @@ class OptionsApp extends React.Component<IOptionsApp> {
       <ThemeProvider theme={themes[this.props.theme]}>
         <React.Fragment>
           <GlobalStyle />
-          <OptionsAppContainer>
+          <Flex wrap="wrap" pt={5} px={4}>
             <Seed />
             <DevActions />
-          </OptionsAppContainer>
+          </Flex>
         </React.Fragment>
       </ThemeProvider>
     )

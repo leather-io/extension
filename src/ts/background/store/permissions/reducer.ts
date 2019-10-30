@@ -14,7 +14,8 @@ export const permissionsReducer: Reducer<PermissionsState, PermissionsActions> =
     case AUTH_REQUEST:
       return {
         ...state,
-        authRequest: action.authRequest
+        authRequest: action.authRequest,
+        decodedAuthRequest: action.decodedAuthRequest
       }
     default:
       return state

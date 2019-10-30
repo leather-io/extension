@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-// import { Box } from 'blockstack-ui'
+import { Box } from '@blockstack/ui'
 import Wallet from 'blockstack-keychain/lib-esm/wallet'
 import { IAppState } from '../../background/store'
 import { doStoreSeed } from '../../background/store/wallet'
@@ -21,7 +21,7 @@ const Seed = ({ doStoreSeed, seed: _seed, wallet }: SeedProps) => {
   console.log(wallet)
 
   return (
-    <div style={{ width: '100%', display: 'block' }} >
+    <Box width={1}>
       {/* <Box width={1}> */}
       <p>Seed is: {seed}</p>
       <input type="text" onChange={evt => setSeed(evt.target.value)} value={seed} />
@@ -31,7 +31,7 @@ const Seed = ({ doStoreSeed, seed: _seed, wallet }: SeedProps) => {
         </a>
       </p>
       {/* </Box> */}
-    </div>
+    </Box>
   )
 }
 

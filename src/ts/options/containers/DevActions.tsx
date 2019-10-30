@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-// import { Box } from '@blockstack/ui'
+import { Box } from '@blockstack/ui'
 import { doAuthRequest } from '../../background/store/permissions'
 import * as PermissionsActions from '../../background/store/permissions/actions'
 import { openPopup } from '../../actions/utils'
@@ -21,14 +21,14 @@ const DevActions = ({ doAuthRequest }: Props) => {
   }
 
   return (
-    <div style={{ width: '100%' }}>
+    <Box width={1}>
       <br />
       <p>Dev Console:</p>
       <form action="/" onSubmit={saveAuthRequest}>
         <input type="text" value={authRequest} onChange={e => setAuthRequest(e.target.value)} />
         <input type="submit" value="Save authRequest" />
       </form>
-    </div>
+    </Box>
   )
 }
 

@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CheckerPlugin = require('fork-ts-checker-webpack-plugin')
 const ChromeExtensionReloader = require('webpack-chrome-extension-reloader')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const locateContentScripts = require('./utils/locateContentScripts')
 /* eslint-enable @typescript-eslint/no-var-requires */
 
@@ -34,6 +35,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.json'],
+    plugins: [
+      new TsconfigPathsPlugin()
+    ],
     alias: {
       'react-dom': '@hot-loader/react-dom'
     }

@@ -1,64 +1,68 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import styled, { ThemeProvider } from 'styled-components'
-import Identity from 'blockstack-keychain/lib-esm/identity'
-import Wallet from 'blockstack-keychain/lib-esm/wallet'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { ThemeProvider, theme, CSSReset } from '@blockstack/ui'
+import { Flex, Box, Text, Button } from '@blockstack/ui'
 import { hot } from 'react-hot-loader/root'
-import { IAppState } from '../../background/store'
-import GlobalStyle from '../../components/styles/GlobalStyle'
-import { themes, ThemeTypes } from '../../components/styles/themes'
+import { IAppState } from '@store'
+import { selectAuthRequest, selectDecodedAuthRequest } from '@store/permissions/selectors'
+import { selectCurrentWallet } from '@store/wallet/selectors'
+import { AppManifest } from '@dev/types'
 
-interface IActionsApp {
-  identities: Identity[]
-  authRequest: string | null
-  theme: ThemeTypes
-  dispatch: Dispatch
-}
+const ActionsApp: React.FC = () => {
+  const [manifest, setManifest] = useState<AppManifest | null>(null)
+  const { decodedAuthRequest, identities } = useSelector((state: IAppState) => ({
+    authRequest: selectAuthRequest(state),
+    decodedAuthRequest: selectDecodedAuthRequest(state),
+    identities: selectCurrentWallet(state).identities
+  }))
 
-interface DemoProps {
-  authRequest: string | null
-}
-
-const Demo: React.FC<DemoProps> = ({ authRequest }: DemoProps) => {
-  return <p>{authRequest}</p>
-}
-
-class ActionsApp extends React.Component<IActionsApp> {
-  render() {
-    return (
-      <ThemeProvider theme={themes[this.props.theme]}>
-        <React.Fragment>
-          <GlobalStyle />
-          <ActionsAppContainer>
-            <p>poptest</p>
-            <Demo authRequest={this.props.authRequest} />
-          </ActionsAppContainer>
-        </React.Fragment>
-      </ThemeProvider>
-    )
+  if (!decodedAuthRequest) {
+    return <>No auth request found</>
   }
-}
 
-const mapStateToProps = (state: IAppState) => {
-  return {
-    identities: (state.wallet.currentWallet as Wallet).identities,
-    authRequest: state.permissions.authRequest,
-    theme: state.settings.theme
+  console.log(decodedAuthRequest)
+  const loadManifest = async () => {
+    const res = await fetch(decodedAuthRequest.manifest_uri)
+    const json: AppManifest = await res.json()
+    console.log(json)
+    setManifest(json)
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    loadManifest()
+  }, [])
+
+  const signIn = async () => {
+    if (!manifest) {
+      return
+    }
+    const gaiaUrl = 'https://hub.blockstack.org'
+    const authResponse = await identities[0].makeAuthResponse({
+      gaiaUrl,
+      appDomain: manifest.start_url,
+      transitPublicKey: decodedAuthRequest.public_keys[0]
+    })
+    console.log(authResponse)
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <React.Fragment>
+        <CSSReset />
+        <Flex pt={2} px={2} wrap="wrap">
+          <Box width="100%" textAlign="center">
+            <Text textStyle="display.large">{!manifest ? 'Loading...' : `Sign in to ${manifest.name}`}</Text>
+          </Box>
+          <Box width="100%" textAlign="center" pt={6} px={4}>
+            <Button isLoading={!manifest} variant="solid" size="lg" onClick={signIn}>
+              Continue
+            </Button>
+          </Box>
+        </Flex>
+      </React.Fragment>
+    </ThemeProvider>
+  )
 }
 
-export default hot(connect(mapStateToProps)(ActionsApp))
-
-const ActionsAppContainer = styled('div')`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-  height: 200px;
-  width: 300px;
-  margin: 10px;
-  background-color: ${p => p.theme.backgroundColor};
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-`
+export default hot(ActionsApp)
