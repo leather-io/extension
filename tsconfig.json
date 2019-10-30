@@ -44,7 +44,8 @@
 		"paths": {
 			"@store/*": ["background/store/*"],
 			"@store": ["background/store/index"],
-			"@dev/*": ["dev/*"]
+			"@dev/*": ["dev/*"],
+			"@components/*": ["components/*"]
 		},
 		"baseUrl": "src/ts",
 		// "rootDirs": [],                       	/* List of root folders whose combined content represents the structure of the project at runtime. */

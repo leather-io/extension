@@ -7,6 +7,7 @@ import { IAppState } from '@store'
 import { selectAuthRequest, selectDecodedAuthRequest } from '@store/permissions/selectors'
 import { selectCurrentWallet } from '@store/wallet/selectors'
 import { AppManifest } from '@dev/types'
+import Gutter from '@components/gutter'
 
 const ActionsApp: React.FC = () => {
   const [manifest, setManifest] = useState<AppManifest | null>(null)
@@ -43,19 +44,23 @@ const ActionsApp: React.FC = () => {
       appDomain: manifest.start_url,
       transitPublicKey: decodedAuthRequest.public_keys[0]
     })
-    console.log(authResponse)
+    const redirect = `${decodedAuthRequest.redirect_uri}?authResponse=${authResponse}`
+    window.open(redirect)
+    window.close()
   }
 
   return (
     <ThemeProvider theme={theme}>
       <React.Fragment>
         <CSSReset />
-        <Flex pt={2} px={2} wrap="wrap">
+        <Flex pt={6} px={2} wrap="wrap">
+          <Gutter base={6} multiplier={2} width="100%" />
           <Box width="100%" textAlign="center">
             <Text textStyle="display.large">{!manifest ? 'Loading...' : `Sign in to ${manifest.name}`}</Text>
           </Box>
+          <Gutter multiplier={1} width="100%" />
           <Box width="100%" textAlign="center" pt={6} px={4}>
-            <Button isLoading={!manifest} variant="solid" size="lg" onClick={signIn}>
+            <Button isLoading={!manifest} variant="solid" mt={6} size="lg" onClick={signIn}>
               Continue
             </Button>
           </Box>
