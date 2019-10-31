@@ -83,7 +83,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(sourceRootPath, 'html', 'options.html'),
       inject: 'body',
-      filename: 'options.html',
+      filename: 'index.html',
       title: 'Blockstack',
       chunks: ['options']
     }),
@@ -128,7 +128,7 @@ if (process.env.EXT_ENV === 'watch') {
       reloadPage: true,
       entries: {
         background: 'background',
-        options: 'options',
+        options: 'index',
         popup: 'popup',
         contentScript: ['counter']
       }
