@@ -11,11 +11,15 @@ import Gutter from '@components/gutter'
 
 const ActionsApp: React.FC = () => {
   const [manifest, setManifest] = useState<AppManifest | null>(null)
-  const { decodedAuthRequest, identities } = useSelector((state: IAppState) => ({
+  const { decodedAuthRequest, wallet } = useSelector((state: IAppState) => ({
     authRequest: selectAuthRequest(state),
     decodedAuthRequest: selectDecodedAuthRequest(state),
-    identities: selectCurrentWallet(state).identities
+    wallet: selectCurrentWallet(state)
   }))
+
+  if (!wallet) {
+    return <>Must login first</>
+  }
 
   if (!decodedAuthRequest) {
     return <>No auth request found</>
@@ -39,7 +43,7 @@ const ActionsApp: React.FC = () => {
       return
     }
     const gaiaUrl = 'https://hub.blockstack.org'
-    const authResponse = await identities[0].makeAuthResponse({
+    const authResponse = await wallet.identities[0].makeAuthResponse({
       gaiaUrl,
       appDomain: manifest.start_url,
       transitPublicKey: decodedAuthRequest.public_keys[0]
