@@ -3,15 +3,11 @@ const TSDocgenPlugin = require('react-docgen-typescript-webpack-plugin');
 module.exports = ({ config }) => {
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
-    exclude: /node_modules/,
     use: [
-      // {
-      //   loader: require.resolve('ts-loader')
-      // },
       {
         loader: require.resolve('babel-loader'),
         options: {
-          cacheDirectory: true,
+          cacheDirectory: false,
           babelrc: false,
           presets: [
             [
@@ -31,12 +27,10 @@ module.exports = ({ config }) => {
         }
       },
       // Optional
-      // {
-      //   loader: require.resolve('react-docgen-typescript-loader'),
-      // },
+      require.resolve('react-docgen-typescript-loader')
     ],
   });
-  config.plugins.push(new TSDocgenPlugin())
+  // config.plugins.push(new TSDocgenPlugin())
   config.resolve.extensions.push('.ts', '.tsx');
   return config;
 };

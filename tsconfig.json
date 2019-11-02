@@ -67,6 +67,8 @@
 	},
 	"include": [
 		"./src/**/*",
-		"./src/**/*.worker.ts"
+		"./src/**/*.worker.ts",
+		"./stories/**/*",
+		"./storybook/**/*",
 	]
 }

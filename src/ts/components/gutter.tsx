@@ -15,7 +15,8 @@ interface GutterProps extends BoxProps {
  * This is used because our spacing system only goes up to 6,
  * and sometimes you want large bits of spacing, so you can do 6 * 3
  */
-const Gutter: FC<GutterProps> = ({ base = 6, multiplier, ...rest }: GutterProps) => {
+// export default function Gutter({ base = 6, multiplier, ...rest }: GutterProps)) {
+export default function Gutter({ base = 6, multiplier, ...rest }: GutterProps) {
   const boxes = []
   for (let index = 0; index < multiplier; index++) {
     boxes.push(<Box py={base} {...rest} />)
@@ -23,4 +24,4 @@ const Gutter: FC<GutterProps> = ({ base = 6, multiplier, ...rest }: GutterProps)
   return <>{boxes}</>
 }
 
-export default Gutter
+// export default Gutter
