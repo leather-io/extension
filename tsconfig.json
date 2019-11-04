@@ -6,7 +6,7 @@
 		"lib": ["es2017", "dom"],                   /* Specify library files to be included in the compilation. */
 		// "allowJs": true,                       	/* Allow javascript files to be compiled. */
 		// "checkJs": true,                       	/* Report errors in .js files. */
-		"jsx": "react",		                      	/* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
+		"jsx": "preserve",		                      	/* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
 		// "declaration": true,                   	/* Generates corresponding '.d.ts' file. */
 		// "declarationMap": true,                	/* Generates a sourcemap for each corresponding '.d.ts' file. */
 		"sourceMap": true,                     	/* Generates corresponding '.map' file. */
@@ -42,13 +42,13 @@
 		"moduleResolution": "node",           		/* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
 		// "baseUrl": "./",                      	/* Base directory to resolve non-absolute module names. */
 		"paths": {
-			"@store/*": ["src/ts/background/store/*"],
-			"@store": ["src/ts/background/store/index"],
-			"@dev/*": ["src/ts/dev/*"],
-			"@components/*": ["src/ts/components/*"]
+			"@store/*": ["background/store/*"],
+			"@store": ["background/store/index"],
+			"@dev/*": ["dev/*"],
+			"@components/*": ["components/*"]
 		},
-		"baseUrl": "./",
-		"rootDirs": ["src/ts", "stories"],                       	/* List of root folders whose combined content represents the structure of the project at runtime. */
+		"baseUrl": "./src/ts/",
+		// "rootDirs": ["src/ts", "stories"],                       	/* List of root folders whose combined content represents the structure of the project at runtime. */
 		// "typeRoots": [],                      	/* List of folders to include type definitions from. */
 		// "types": [],                          	/* Type declaration files to be included in compilation. */
 		"allowSyntheticDefaultImports": true,  		/* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */

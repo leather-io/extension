@@ -1,8 +1,13 @@
-const TSDocgenPlugin = require('react-docgen-typescript-webpack-plugin');
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = ({ config }) => {
+  const plugins = config.resolve.plugins || []
+  plugins.push(new TsconfigPathsPlugin())
+  config.resolve.plugins = plugins
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
+    include: path.resolve(__dirname, "../src/ts"),
     use: [
       {
         loader: require.resolve('babel-loader'),
@@ -22,15 +27,24 @@ module.exports = ({ config }) => {
             // ["@babel/plugin-proposal-decorators", { legacy: true }],
             ["@babel/plugin-proposal-class-properties", { loose: true }],
             "react-hot-loader/babel",
-            "@babel/plugin-transform-runtime"
+            "@babel/plugin-transform-runtime",
+            ["react-docgen", { DOC_GEN_COLLECTION_NAME: 'STORYBOOK_REACT_CLASSES' }]
           ]
         }
       },
       // Optional
-      require.resolve('react-docgen-typescript-loader')
+      {
+        loader: require.resolve('react-docgen-typescript-loader'),
+        options: {
+          tsconfigPath: path.join(__dirname, "../tsconfig.json"),
+          propFilter: (prop) => {
+            // console.log(prop);
+            return true;
+          }
+        },
+      }
     ],
   });
-  // config.plugins.push(new TSDocgenPlugin())
   config.resolve.extensions.push('.ts', '.tsx');
   return config;
 };
