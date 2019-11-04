@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Box } from '@blockstack/ui'
 import { BoxProps } from '@blockstack/ui/dist/box'
 

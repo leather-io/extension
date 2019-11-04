@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import Gutter from '@components/gutter'
-import { number } from '@storybook/addon-knobs/react'
+import { number } from '@storybook/addon-knobs'
 
 const stories = storiesOf('Components', module)
 
