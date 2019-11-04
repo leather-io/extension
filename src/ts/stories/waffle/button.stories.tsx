@@ -7,14 +7,10 @@ import { Button } from '@blockstack/ui'
 
 const stories = storiesOf('Buttons', module)
 
-export const Solid = () => (
-  <Button>Hello there!</Button>
-)
+export const Solid = () => <Button>Hello there!</Button>
 
 export const Link = () => {
-  <Button variant="link">Nice day?</Button>
+  ;<Button variant="link">Nice day?</Button>
 }
 
-stories.add("Button", withInfo({ inline: true })(() => (
-  <Button>With info!</Button>
-)))
+stories.add('Button', withInfo({ inline: true })(() => <Button>With info!</Button>))
