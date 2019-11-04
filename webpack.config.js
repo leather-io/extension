@@ -3,15 +3,13 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CheckerPlugin = require('fork-ts-checker-webpack-plugin')
 const ChromeExtensionReloader = require('webpack-chrome-extension-reloader')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const locateContentScripts = require('./utils/locateContentScripts')
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const sourceRootPath = path.join(__dirname, 'src')
-const contentScriptsPath = path.join(sourceRootPath, 'ts', 'contentScripts')
 const distRootPath = path.join(__dirname, 'dist')
 const nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 const webBrowser = process.env.WEB_BROWSER ? process.env.WEB_BROWSER : 'chrome'
@@ -24,7 +22,7 @@ module.exports = {
     worker: path.join(sourceRootPath, 'ts', 'worker', 'index.ts'),
     inpage: path.join(sourceRootPath, 'ts', 'inpage', 'index.ts'),
     actions: path.join(sourceRootPath, 'ts', 'actions', 'index.tsx'),
-    ...locateContentScripts(contentScriptsPath)
+    "message-bus": path.join(sourceRootPath, 'ts', 'content-scripts', 'message-bus.ts'),
   },
   output: {
     path: distRootPath,
@@ -76,7 +74,7 @@ module.exports = {
     contentBase: './dist',
     hot: true
   },
-  devtool: 'inline-source-map',
+  devtool: false,
   watch: false,
   plugins: [
     new CheckerPlugin(),
@@ -130,12 +128,12 @@ if (process.env.EXT_ENV === 'watch') {
         background: 'background',
         options: 'index',
         popup: 'popup',
-        contentScript: ['counter']
+        contentScript: ['message-bus']
       }
     })
   )
 }
 
 if (nodeEnv === 'production') {
-  module.exports.plugins.push(new CleanWebpackPlugin(distRootPath, { verbose: true, dry: false }))
+  module.exports.plugins.push(new CleanWebpackPlugin({ verbose: true, dry: false }))
 }
