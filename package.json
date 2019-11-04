@@ -15,7 +15,8 @@
     "test": "jest",
     "test:coverage": "jest --collect-coverage",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
   "dependencies": {
