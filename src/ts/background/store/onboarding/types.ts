@@ -17,7 +17,7 @@ export interface OnboardingState {
 
 interface ChangePageAction {
   type: typeof CHANGE_PAGE;
-  screen: string;
+  screen: Screen;
 }
 
 export type OnboardingActions = ChangePageAction;

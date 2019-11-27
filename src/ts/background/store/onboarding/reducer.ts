@@ -3,11 +3,11 @@ import {
   OnboardingActions,
   OnboardingState,
   CHANGE_PAGE,
-  SCREENS,
+  Screen,
 } from './types';
 
 const initialState: OnboardingState = {
-  screen: SCREENS.INTRO,
+  screen: Screen.INTRO,
   // app: null,
   // secretKey:
   //   'future act silly correct hold endorse essay save prefer filter donate clap',

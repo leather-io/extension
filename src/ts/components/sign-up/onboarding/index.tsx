@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, useModalState } from '../modal';
+import { Modal } from '../modal';
 import {
   Intro,
   HowItWorks,
