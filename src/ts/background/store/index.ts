@@ -12,8 +12,10 @@ import settings, { IAppSettings } from './settings/reducer';
 import { walletReducer, WalletState } from './wallet';
 import { permissionsReducer, PermissionsState } from './permissions';
 import { WalletTransform } from './transforms';
+import { onboardingReducer } from './onboarding/reducer';
 
 import 'redux';
+import { OnboardingState } from './onboarding/types';
 // Enhance the Action interface with the option of a payload.
 // While still importing the Action interface from redux.
 declare module 'redux' {
@@ -27,12 +29,14 @@ export interface IAppState {
   settings: IAppSettings;
   wallet: WalletState;
   permissions: PermissionsState;
+  onboarding: OnboardingState;
 }
 
 const reducers = combineReducers<IAppState>({
   settings,
   wallet: walletReducer,
   permissions: permissionsReducer,
+  onboarding: onboardingReducer,
 });
 
 const persistConfig = {
