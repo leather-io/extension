@@ -41,25 +41,25 @@ const faqs = [
 
 const howDataVaultWorks = [
   {
-    icon: '/static/images/icon-cross-over-eye.svg',
+    icon: '/assets/images/icon-cross-over-eye.svg',
     title: 'Private data storage',
     body:
       'Normally, companies store your data on their servers for them to keep. Data Vault stores your encrypted data independently from the app, so companies like Nurx (and even Data Vault) can’t have access.',
   },
   {
-    icon: '/static/images/icon-padlock.svg',
+    icon: '/assets/images/icon-padlock.svg',
     title: 'Encryption that’s always on',
     body:
       'Encryption turns your data into indecipherable text that can be read only using the Secret Key that you control. This keeps everything you do private.',
   },
   {
-    icon: '/static/images/icon-chain-of-blocks.svg',
+    icon: '/assets/images/icon-chain-of-blocks.svg',
     title: 'Blockchain technology',
     body:
       'The Secret Key that unlocks your Data Vault is made using blockchain technology. That ensures there is only ever one, and that no one can take it from you. Your data will be private, out of the hands of companies, and only accessible to you.',
   },
   {
-    icon: '/static/images/icon-shapes.svg',
+    icon: '/assets/images/icon-shapes.svg',
     title: 'One Vault works with 100s of apps',
     body:
       'You’ll only ever have to create one Data Vault to use 100s of other apps like Nurx privately.',

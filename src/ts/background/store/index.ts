@@ -43,6 +43,7 @@ const persistConfig = {
   storage,
   key: 'blockstack-redux',
   transforms: [WalletTransform],
+  whitelist: ['settings', 'wallet', 'permissions'],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

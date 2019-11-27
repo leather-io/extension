@@ -2,6 +2,7 @@ export const openPopup = (actionsUrl: string) => {
   // window.open(actionsUrl, 'Blockstack', 'scrollbars=no,status=no,menubar=no,width=300px,height=200px,left=0,top=0')
   const height = 584;
   const width = 440;
+  // width=440,height=584
   popupCenter(actionsUrl, 'Blockstack', width, height);
 };
 

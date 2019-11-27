@@ -11,12 +11,13 @@ import {
   SignIn,
 } from './screens';
 import { doChangeScreen } from '@store/onboarding/actions';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '@store';
 import { Screen } from '@store/onboarding/types';
 import { selectCurrentScreen } from '@store/onboarding/selectors';
 
 const RenderScreen = ({ ...rest }) => {
+  const dispatch = useDispatch();
   const { screen } = useSelector((state: IAppState) => ({
     screen: selectCurrentScreen(state),
   }));
@@ -31,15 +32,25 @@ const RenderScreen = ({ ...rest }) => {
   switch (screen) {
     // intro / about
     case Screen.INTRO:
-      return <Intro next={() => doChangeScreen(Screen.CREATE)} {...rest} />;
+      return (
+        <Intro next={() => dispatch(doChangeScreen(Screen.CREATE))} {...rest} />
+      );
 
     case Screen.HOW_IT_WORKS:
-      return <HowItWorks back={() => doChangeScreen(Screen.INTRO)} {...rest} />;
+      return (
+        <HowItWorks
+          back={() => dispatch(doChangeScreen(Screen.INTRO))}
+          {...rest}
+        />
+      );
 
     // create
     case Screen.CREATE:
       return (
-        <Create next={() => doChangeScreen(Screen.SECRET_KEY)} {...rest} />
+        <Create
+          next={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
+          {...rest}
+        />
       );
 
     // Key screens
@@ -47,7 +58,9 @@ const RenderScreen = ({ ...rest }) => {
       return (
         <SecretKey
           next={() =>
-            doChangeScreen(hasSaved ? Screen.CONNECT_APP : Screen.SAVE_KEY)
+            dispatch(
+              doChangeScreen(hasSaved ? Screen.CONNECT_APP : Screen.SAVE_KEY)
+            )
           }
           {...rest}
         />
@@ -58,7 +71,7 @@ const RenderScreen = ({ ...rest }) => {
         <SaveKey
           next={() => {
             setHasSaved(true);
-            doChangeScreen(Screen.CONNECT_APP);
+            dispatch(doChangeScreen(Screen.CONNECT_APP));
           }}
           {...rest}
         />
@@ -68,8 +81,8 @@ const RenderScreen = ({ ...rest }) => {
     case Screen.CONNECT_APP:
       return (
         <Connect
-          next={() => doChangeScreen(Screen.CONNECTED)}
-          back={() => doChangeScreen(Screen.SECRET_KEY)}
+          next={() => dispatch(doChangeScreen(Screen.CONNECTED))}
+          back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
           {...rest}
         />
       );
@@ -80,7 +93,7 @@ const RenderScreen = ({ ...rest }) => {
           next={() => {
             doFinishOnboarding();
           }}
-          back={() => doChangeScreen(Screen.SECRET_KEY)}
+          back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
           {...rest}
         />
       );
@@ -91,7 +104,7 @@ const RenderScreen = ({ ...rest }) => {
       return (
         <SignIn
           next={() => doFinishSignIn()}
-          back={() => doChangeScreen(Screen.SECRET_KEY)}
+          back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
           {...rest}
         />
       );
@@ -103,7 +116,7 @@ const RenderScreen = ({ ...rest }) => {
 
 const Onboarding: React.FC = () => (
   <Modal
-    appIcon="/static/images/graphic-wink-app-icon.png"
+    appIcon="/assets/images/graphic-wink-app-icon.png"
     close={() => {
       console.log('Close Modal');
     }}

@@ -42,7 +42,7 @@ interface WinkIconProps {
 }
 
 const WinkAppIcon: React.FC<WinkIconProps> = ({
-  src = '/static/images/graphic-wink-app-icon-locked.png',
+  src = '/assets/images/graphic-wink-app-icon-locked.png',
   ...rest
 }) => (
   <Box size={['48px', '78px']} mx="auto" {...rest}>
@@ -150,15 +150,15 @@ const Create = props => {
   const mockData: MockData[] = [
     {
       title: 'Private data storage',
-      imageUrl: '/static/images/icon-delay-private.svg',
+      imageUrl: '/assets/images/icon-delay-private.svg',
     },
     {
       title: 'Always-on encryption',
-      imageUrl: '/static/images/icon-delay-padlock.svg',
+      imageUrl: '/assets/images/icon-delay-padlock.svg',
     },
     {
       title: 'Access to 100s of apps',
-      imageUrl: '/static/images/icon-delay-apps.svg',
+      imageUrl: '/assets/images/icon-delay-apps.svg',
     },
     {
       title: 'This will not display',
@@ -351,7 +351,7 @@ const SignIn = props => {
   return (
     <ScreenTemplate
       textAlign="center"
-      before={<WinkAppIcon src="/static/images/graphic-wink-app-icon.png" />}
+      before={<WinkAppIcon src="/assets/images/graphic-wink-app-icon.png" />}
       title="Sign into Wink"
       body={[
         'Enter your Data Vault’s Secret Key to continue',
