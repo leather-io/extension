@@ -104,7 +104,9 @@ const RenderScreen = ({ ...rest }) => {
       return (
         <SignIn
           next={() => doFinishSignIn()}
-          back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
+          back={() => {
+            dispatch(doChangeScreen(Screen.SECRET_KEY));
+          }}
           {...rest}
         />
       );

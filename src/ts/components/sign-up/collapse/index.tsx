@@ -3,15 +3,22 @@ import { Flex, Box, Text } from '@blockstack/ui';
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
 import { useHover } from 'use-events';
 import { doTrack } from '@common/track';
+import { BoxProps } from '@blockstack/ui/dist/box';
 // import { doTrack } from '../../../common/track';
 
-/**
- * This component renders a list of clickable items that
- * will reveal content onClick, then hide it on any other
- * onClick of an item
- */
+interface TitleProps extends BoxProps {
+  isFirst: boolean;
+  isOpen: boolean;
+  hovered: boolean;
+}
 
-const TitleElement = ({ onClick, isFirst, isOpen, hovered, title }) => (
+const TitleElement: React.FC<TitleProps> = ({
+  onClick,
+  isFirst,
+  isOpen,
+  hovered,
+  title,
+}) => (
   <Flex
     align="center"
     borderBottom="1px solid"
@@ -30,7 +37,11 @@ const TitleElement = ({ onClick, isFirst, isOpen, hovered, title }) => (
   </Flex>
 );
 
-const Body = ({ body }) => (
+interface BodyProps {
+  body: string;
+}
+
+const Body: React.FC<BodyProps> = ({ body }) => (
   <Box
     borderBottom="1px solid"
     borderColor="#E5E5EC" // this is not currently in the UI lib, asked jasper about it but he was out of office
@@ -42,9 +53,26 @@ const Body = ({ body }) => (
   </Box>
 );
 
-const Collapse = ({ data, ...rest }) => {
-  const [open, setOpen] = React.useState(null);
-  const handleOpen = key => (key === open ? setOpen(null) : setOpen(key));
+interface Data {
+  title: string;
+  body: string;
+  tracking?: string;
+  icon?: string;
+}
+
+interface CollapseProps {
+  data: Data[];
+}
+
+/**
+ * This component renders a list of clickable items that
+ * will reveal content onClick, then hide it on any other
+ * onClick of an item
+ */
+const Collapse: React.FC<CollapseProps> = ({ data, ...rest }) => {
+  const [open, setOpen] = React.useState<number | null>(null);
+  const handleOpen = (key: number) =>
+    key === open ? setOpen(null) : setOpen(key);
   return (
     <Box fontSize="14px" {...rest}>
       {/*
@@ -63,7 +91,7 @@ const Collapse = ({ data, ...rest }) => {
           <Box key={key} cursor={hovered ? 'pointer' : undefined} {...bind}>
             <TitleElement
               onClick={() => {
-                doTrack(tracking);
+                tracking && doTrack(tracking);
                 handleOpen(key);
               }}
               isFirst={key === 0}

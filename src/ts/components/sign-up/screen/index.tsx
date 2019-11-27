@@ -4,7 +4,7 @@ import { Title, Body, BackLink } from '../typography';
 import { BoxProps } from '@blockstack/ui/dist/box';
 import { Link } from '../../link';
 
-const Footer = props => (
+const Footer: React.FC = props => (
   <Flex
     fontSize={['12px', '14px']}
     color="ink.600"

@@ -5,6 +5,7 @@ import { Logo } from '@components/logo';
 import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 import CloseIcon from 'mdi-react/CloseIcon';
 import { Image } from '@components/image';
+import { BoxProps } from '@blockstack/ui/dist/box';
 
 interface ModalContextTypes {
   isOpen: boolean;
@@ -18,7 +19,15 @@ const ModalContext = React.createContext<ModalContextTypes>({
 
 const useModalState = () => React.useContext(ModalContext);
 
-const HeaderTitle = ({ hideIcon = false, title }) => (
+interface HeaderTitleProps {
+  title: string;
+  hideIcon?: boolean;
+}
+
+const HeaderTitle: React.FC<HeaderTitleProps> = ({
+  hideIcon = false,
+  title,
+}) => (
   <Flex align="center">
     {hideIcon ? null : <Logo mr={2} />}
     <Text fontWeight="bold" fontSize={'12px'}>
@@ -27,7 +36,7 @@ const HeaderTitle = ({ hideIcon = false, title }) => (
   </Flex>
 );
 
-const HeaderCloseButton = ({ onClick }) => (
+const HeaderCloseButton: React.FC<BoxProps> = ({ onClick }) => (
   <PseudoBox
     color="ink.300"
     opacity={0.5}
@@ -37,18 +46,24 @@ const HeaderCloseButton = ({ onClick }) => (
     <CloseIcon size={20} />
   </PseudoBox>
 );
-interface IModalHeader {
-  appIcon?: string;
-  title?: string;
-  close: any;
-  hideIcon?: boolean;
+
+interface AppIconProps {
+  src: string;
+  name: string;
 }
 
-const AppIcon = ({ src, name, ...rest }) => (
+const AppIcon: React.FC<AppIconProps> = ({ src, name, ...rest }) => (
   <Box size={6} {...rest}>
     <Image src={src} alt={name} title={name} />
   </Box>
 );
+
+interface IModalHeader {
+  appIcon?: string;
+  title: string;
+  close: any;
+  hideIcon?: boolean;
+}
 
 const ModalHeader = ({
   appIcon,
@@ -84,7 +99,7 @@ const ModalHeader = ({
   );
 };
 
-const ModalContent = ({ children, ...rest }) => {
+const ModalContent: React.FC = ({ children, ...rest }) => {
   return (
     <Flex width="100%" height="100%" {...rest}>
       {children}
@@ -95,7 +110,7 @@ const ModalContent = ({ children, ...rest }) => {
 interface ModalProps {
   footer?: React.ReactNode;
   appIcon?: string;
-  title?: string;
+  title: string;
   hideIcon?: boolean;
   close: () => void;
 }

@@ -6,7 +6,7 @@ import CheckIcon from 'mdi-react/CheckIcon';
  * This renders a list of items with a checkmark to their left
  */
 
-const Checkmark = props => (
+const Checkmark: React.FC = props => (
   <Box transform="translateY(-2px)" color="ink.300" mr={2} pt={1} {...props}>
     <CheckIcon size={18} />
   </Box>

@@ -1,7 +1,11 @@
 import React from 'react';
 import { Box, Text } from '@blockstack/ui';
 
-const Card = ({ title, children, ...rest }) => {
+interface CardProps {
+  title: string;
+}
+
+const Card: React.FC<CardProps> = ({ title, children, ...rest }) => {
   return (
     <Box
       borderRadius="6px"

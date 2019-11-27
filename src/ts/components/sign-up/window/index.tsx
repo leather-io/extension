@@ -21,7 +21,11 @@ interface WindowState {
   el: HTMLDivElement | null;
 }
 
-const Window = ({ children }) => {
+interface WindowProps {
+  children: React.ReactChildren;
+}
+
+const Window = ({ children }: WindowProps) => {
   const [state, setState] = React.useState<WindowState>({
     win: null,
     el: null,

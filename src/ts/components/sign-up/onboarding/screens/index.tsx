@@ -105,7 +105,11 @@ const Intro = ({ next }: { next?: () => any }) => {
   );
 };
 
-const HowItWorks = props => (
+interface HowItWorksProps {
+  back: () => void;
+}
+
+const HowItWorks: React.FC<HowItWorksProps> = props => (
   <>
     <ScreenTemplate
       title="How Data Vault works"
@@ -131,7 +135,11 @@ interface MockData {
   imageUrl: string;
 }
 
-const createTimeoutLoop = (setState, arr: MockData[], onEnd) =>
+const createTimeoutLoop = (
+  setState: (item: MockData) => void,
+  arr: MockData[],
+  onEnd: () => void
+) =>
   arr.forEach((item, index) =>
     setTimeout(() => {
       setState(item);
@@ -141,7 +149,11 @@ const createTimeoutLoop = (setState, arr: MockData[], onEnd) =>
     }, (index + 1) * 2400)
   );
 
-const Create = props => {
+interface CreateProps {
+  next: () => void;
+}
+
+const Create: React.FC<CreateProps> = props => {
   const [state, setState] = React.useState({
     title: 'Creating your Data Vault',
     imageUrl: '',
@@ -201,7 +213,11 @@ const Create = props => {
   );
 };
 
-const SecretKey = props => {
+interface SecretKeyProps {
+  next: () => void;
+}
+
+const SecretKey: React.FC<SecretKeyProps> = props => {
   const { secretKey } = useSelector((state: IAppState) => ({
     secretKey: selectSecretKey(state),
   }));
@@ -249,7 +265,11 @@ const SecretKey = props => {
   );
 };
 
-const SaveKey = ({ next }) => {
+interface SaveKeyProps {
+  next: () => void;
+}
+
+const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
   return (
     <ScreenTemplate
       title="Save your Secret Key"
@@ -327,7 +347,12 @@ const Connect: React.FC<ConnectProps> = props => {
   );
 };
 
-const Final = props => {
+interface FinalProps {
+  next: () => void;
+  back: () => void;
+}
+
+const Final: React.FC<FinalProps> = props => {
   return (
     <ScreenTemplate
       textAlign="center"
@@ -344,7 +369,12 @@ const Final = props => {
   );
 };
 
-const SignIn = props => {
+interface SignInProps {
+  next: () => void;
+  back: () => void;
+}
+
+const SignIn: React.FC<SignInProps> = props => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
