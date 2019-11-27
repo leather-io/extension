@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider, CSSReset, theme } from '@blockstack/ui';
 
-const PortalContainer = props => {
+const PortalContainer: React.FC = props => {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -16,23 +16,38 @@ const PortalContainer = props => {
   );
 };
 
+interface WindowState {
+  win: Window | null;
+  el: HTMLDivElement | null;
+}
+
 const Window = ({ children }) => {
-  const [state, setState] = React.useState({ win: null, el: null });
+  const [state, setState] = React.useState<WindowState>({
+    win: null,
+    el: null,
+  });
 
   React.useEffect(() => {
-    let win = window.open('', '', 'width=440,height=584,left=200,top=200');
+    const win = window.open(
+      '',
+      '',
+      'width=440,height=584,left=200,top=200'
+    ) as Window;
     win.document.title = 'Continue with Data Vault';
-    let el = document.createElement('div');
+    const el = document.createElement('div');
     win.document.body.appendChild(el);
     setState({ win, el });
 
-    return () => state.win.close();
+    return () => state.win?.close();
   }, []);
 
   if (!state.el) {
     return null;
   } else {
-    return ReactDOM.createPortal(<PortalContainer>{children}</PortalContainer>, state.el);
+    return ReactDOM.createPortal(
+      <PortalContainer>{children}</PortalContainer>,
+      state.el
+    );
   }
 };
 

@@ -5,12 +5,18 @@ import { BoxProps } from '@blockstack/ui/dist/box';
 import { Link } from '../../link';
 
 const Footer = props => (
-  <Flex fontSize={['12px', '14px']} color="ink.600" fontWeight="medium" justify="space-between" {...props} />
+  <Flex
+    fontSize={['12px', '14px']}
+    color="ink.600"
+    fontWeight="medium"
+    justify="space-between"
+    {...props}
+  />
 );
 
 interface IScreenTemplate {
   title: string | React.ElementType;
-  body?: any; // array<string | element> or element
+  body?: any[]; // array<string | element> or element
   back?: any; // fn
   action?:
     | any
@@ -29,7 +35,7 @@ interface IScreenTemplate {
 const ScreenTemplate = ({
   before,
   title,
-  body = null,
+  body,
   action,
   after,
   back,
@@ -56,7 +62,10 @@ const ScreenTemplate = ({
         style={{ pointerEvents: isLoading ? 'unset' : 'none' }}
         opacity={isLoading ? 1 : 0}
       >
-        <Box transition="500ms all" transform={isLoading ? 'none' : 'translateY(10px)'}>
+        <Box
+          transition="500ms all"
+          transform={isLoading ? 'none' : 'translateY(10px)'}
+        >
           <Spinner size="xl" thickness="3px" color="blue" />
         </Box>
       </Flex>
@@ -73,7 +82,9 @@ const ScreenTemplate = ({
         <Stack spacing={2}>
           <Title>{title}</Title>
           <Stack spacing={[3, 4]}>
-            {body && body.length ? body.map((text, key) => <Body key={key}>{text}</Body>) : body}
+            {body && body.length
+              ? body.map((text, key) => <Body key={key}>{text}</Body>)
+              : body}
           </Stack>
         </Stack>
         {action ? (
@@ -95,7 +106,11 @@ const ScreenTemplate = ({
             </Flex>
           ) : (
             <Box>
-              <Button width="100%" onClick={action.onClick} isDisabled={action.disabled}>
+              <Button
+                width="100%"
+                onClick={action.onClick}
+                isDisabled={action.disabled}
+              >
                 {action.label}
               </Button>
             </Box>

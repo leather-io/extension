@@ -1,6 +1,6 @@
-import { OnboardingActions, CHANGE_PAGE } from './types';
+import { OnboardingActions, CHANGE_PAGE, Screen } from './types';
 
-export const doChangeScreen = (screen: string): OnboardingActions => ({
+export const doChangeScreen = (screen: Screen): OnboardingActions => ({
   type: CHANGE_PAGE,
   screen,
 });

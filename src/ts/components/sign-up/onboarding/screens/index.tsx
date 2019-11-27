@@ -4,45 +4,55 @@ import { Toast } from '../../toast';
 import { ScreenTemplate } from '../../screen';
 import { CheckList } from '../../checklist';
 import { Collapse } from '../../collapse';
-import { Image } from '../../../landing/image';
+import { Image } from '@components/image';
 import { Link } from '../../../link';
 import { Card } from '../../card';
 import { SeedTextarea } from '../../seed-textarea';
 
-import { SCREENS } from '../index';
 import { howDataVaultWorks, faqs } from '../data';
-
-import { useOnboardingState } from '../index';
 
 import {
   doTrack,
-  INTRO_CLOSED,
+  // INTRO_CLOSED,
   INTRO_CREATE,
   INTRO_SIGN_IN,
   INTRO_HOW_WORKS,
-  SECRET_KEY_INTRO_CLOSED,
+  // SECRET_KEY_INTRO_CLOSED,
   SECRET_KEY_INTRO_COPIED,
-  SECRET_KEY_INSTR_CLOSE,
+  // SECRET_KEY_INSTR_CLOSE,
   SECRET_KEY_INSTR_CONFIRMED,
-  CONNECT_CLOSED,
+  // CONNECT_CLOSED,
   CONNECT_SAVED,
-  CONNECT_INCORRECT,
+  // CONNECT_INCORRECT,
   CONNECT_BACK,
-  SIGN_IN_CLOSED,
+  // SIGN_IN_CLOSED,
   SIGN_IN_CORRECT,
-  SIGN_IN_INCORRECT,
+  // SIGN_IN_INCORRECT,
   SIGN_IN_CREATE,
-  SIGN_IN_FORGOT
-} from '../../../../common/track';
+  SIGN_IN_FORGOT,
+} from '@common/track';
+import { doChangeScreen } from '@store/onboarding/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { Screen } from '@store/onboarding/types';
+import { IAppState } from '@store';
+import { selectSecretKey } from '@store/onboarding/selectors';
 
-const WinkAppIcon = ({ src = '/static/images/graphic-wink-app-icon-locked.png', ...rest }) => (
+interface WinkIconProps {
+  src?: string;
+}
+
+const WinkAppIcon: React.FC<WinkIconProps> = ({
+  src = '/static/images/graphic-wink-app-icon-locked.png',
+  ...rest
+}) => (
   <Box size={['48px', '78px']} mx="auto" {...rest}>
     <Image src={src} alt="Wink" />
   </Box>
 );
 
 const Intro = ({ next }: { next?: () => any }) => {
-  const { doChangeScreen } = useOnboardingState();
+  const dispatch = useDispatch();
+
   return (
     <>
       <ScreenTemplate
@@ -56,16 +66,16 @@ const Intro = ({ next }: { next?: () => any }) => {
           <CheckList
             items={[
               'Keep everything you do in Wink private with encryption and blockchain',
-              'It’s free and takes just 2 minutes to create'
+              'It’s free and takes just 2 minutes to create',
             ]}
-          />
+          />,
         ]}
         action={{
           label: 'Create Data Vault',
           onClick: () => {
             doTrack(INTRO_CREATE);
-            next();
-          }
+            next && next();
+          },
         }}
         footer={
           <>
@@ -73,7 +83,7 @@ const Intro = ({ next }: { next?: () => any }) => {
               <Link
                 onClick={() => {
                   doTrack(INTRO_SIGN_IN);
-                  doChangeScreen(SCREENS.SIGN_IN);
+                  dispatch(doChangeScreen(Screen.SIGN_IN));
                 }}
               >
                 Sign in instead
@@ -81,7 +91,7 @@ const Intro = ({ next }: { next?: () => any }) => {
               <Link
                 onClick={() => {
                   doTrack(INTRO_HOW_WORKS);
-                  doChangeScreen(SCREENS.HOW_IT_WORKS);
+                  dispatch(doChangeScreen(Screen.HOW_IT_WORKS));
                 }}
               >
                 How Data Vault works
@@ -134,26 +144,26 @@ const createTimeoutLoop = (setState, arr: MockData[], onEnd) =>
 const Create = props => {
   const [state, setState] = React.useState({
     title: 'Creating your Data Vault',
-    imageUrl: ''
+    imageUrl: '',
   });
 
   const mockData: MockData[] = [
     {
       title: 'Private data storage',
-      imageUrl: '/static/images/icon-delay-private.svg'
+      imageUrl: '/static/images/icon-delay-private.svg',
     },
     {
       title: 'Always-on encryption',
-      imageUrl: '/static/images/icon-delay-padlock.svg'
+      imageUrl: '/static/images/icon-delay-padlock.svg',
     },
     {
       title: 'Access to 100s of apps',
-      imageUrl: '/static/images/icon-delay-apps.svg'
+      imageUrl: '/static/images/icon-delay-apps.svg',
     },
     {
       title: 'This will not display',
-      imageUrl: ''
-    }
+      imageUrl: '',
+    },
   ];
 
   React.useEffect(() => {
@@ -169,7 +179,13 @@ const Create = props => {
         ) : (
           <Box>
             <Text>Your Data Vault includes:</Text>
-            <Flex mt={6} mx="auto" width="240px" height="152px" justifyContent="center">
+            <Flex
+              mt={6}
+              mx="auto"
+              width="240px"
+              height="152px"
+              justifyContent="center"
+            >
               <img src={state.imageUrl} />
             </Flex>
           </Box>
@@ -178,7 +194,7 @@ const Create = props => {
       body={[
         <Box pt={10} width="100%">
           <Spinner thickness="3px" size="lg" color="blue" />
-        </Box>
+        </Box>,
       ]}
       title={state.title}
     />
@@ -186,7 +202,9 @@ const Create = props => {
 };
 
 const SecretKey = props => {
-  const { secretKey } = useOnboardingState();
+  const { secretKey } = useSelector((state: IAppState) => ({
+    secretKey: selectSecretKey(state),
+  }));
   const [copied, setCopiedState] = React.useState(false);
 
   React.useEffect(() => {
@@ -203,23 +221,27 @@ const SecretKey = props => {
         title="Your Secret Key"
         body={[
           'Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost forever. So save it somewhere you won’t forget.',
-          (
-            <Card title="Your Secret Key">
-              <SeedTextarea readOnly value={secretKey} className="hidden-secret-key" />
-            </Card>
-          )
+          <Card title="Your Secret Key">
+            <SeedTextarea
+              readOnly
+              value={secretKey}
+              className="hidden-secret-key"
+            />
+          </Card>,
         ]}
         action={{
           label: 'Copy Secret Key',
           onClick: () => {
             doTrack(SECRET_KEY_INTRO_COPIED);
-            const input: HTMLInputElement = document.querySelector('.hidden-secret-key');
+            const input: HTMLInputElement = document.querySelector(
+              '.hidden-secret-key'
+            ) as HTMLInputElement;
             input.select();
-            input.setSelectionRange(0, 99999)
+            input.setSelectionRange(0, 99999);
             document.execCommand('copy');
             setCopiedState(true);
           },
-          disabled: copied
+          disabled: copied,
         }}
       />
       <Toast show={copied} />
@@ -233,21 +255,26 @@ const SaveKey = ({ next }) => {
       title="Save your Secret Key"
       body={[
         'Paste your Secret Key wherever you keep critical, private, information such as passwords.',
-        'Once lost, it’s lost forever. So save it somewhere you won’t forget.'
+        'Once lost, it’s lost forever. So save it somewhere you won’t forget.',
       ]}
       action={{
         label: "I've saved it",
         onClick: () => {
           doTrack(SECRET_KEY_INSTR_CONFIRMED);
           next();
-        }
+        },
       }}
       after={<Collapse data={faqs} />}
     />
   );
 };
 
-const Connect = props => {
+interface ConnectProps {
+  next: () => void;
+  back: () => void;
+}
+
+const Connect: React.FC<ConnectProps> = props => {
   const [isLoading, setLoading] = useState(false);
   return (
     <ScreenTemplate
@@ -258,8 +285,13 @@ const Connect = props => {
         'Enter your Secret Key to continue.',
         <Box>
           {/*Validate, track: CONNECT_INCORRECT */}
-          <Input autoFocus minHeight="80px" placeholder="12-word Secret Key" as="textarea" />
-        </Box>
+          <Input
+            autoFocus
+            minHeight="80px"
+            placeholder="12-word Secret Key"
+            as="textarea"
+          />
+        </Box>,
       ]}
       action={{
         label: 'Continue',
@@ -270,7 +302,7 @@ const Connect = props => {
             props.next();
             setLoading(false);
           }, 1500);
-        }
+        },
       }}
       isLoading={isLoading}
       footer={
@@ -301,10 +333,12 @@ const Final = props => {
       textAlign="center"
       before={<WinkAppIcon />}
       title="You’re all set! Wink has been connected to your Data Vault"
-      body={['Everything you do in Wink will be private, secure, and only accessible with your Secret Key.']}
+      body={[
+        'Everything you do in Wink will be private, secure, and only accessible with your Secret Key.',
+      ]}
       action={{
         label: 'Done',
-        onClick: props.next
+        onClick: props.next,
       }}
     />
   );
@@ -312,7 +346,7 @@ const Final = props => {
 
 const SignIn = props => {
   const [isLoading, setLoading] = useState(false);
-  const { doChangeScreen } = useOnboardingState();
+  const dispatch = useDispatch();
 
   return (
     <ScreenTemplate
@@ -323,8 +357,13 @@ const SignIn = props => {
         'Enter your Data Vault’s Secret Key to continue',
         <Box>
           {/*Validate: track SIGN_IN_INCORRECT*/}
-          <Input autoFocus minHeight="80px" placeholder="12-word Secret Key" as="textarea" />
-        </Box>
+          <Input
+            autoFocus
+            minHeight="80px"
+            placeholder="12-word Secret Key"
+            as="textarea"
+          />
+        </Box>,
       ]}
       action={[
         {
@@ -332,8 +371,8 @@ const SignIn = props => {
           variant: 'text',
           onClick: () => {
             doTrack(SIGN_IN_CREATE);
-            doChangeScreen(SCREENS.INTRO);
-          }
+            dispatch(doChangeScreen(Screen.INTRO));
+          },
         },
         {
           label: 'Continue',
@@ -344,14 +383,16 @@ const SignIn = props => {
               props.next();
               setLoading(false);
             }, 1500);
-          }
-        }
+          },
+        },
       ]}
       isLoading={isLoading}
       footer={
         <>
           <Flex>
-            <Link onClick={() => doTrack(SIGN_IN_FORGOT)}>Forgot Secret Key?</Link>
+            <Link onClick={() => doTrack(SIGN_IN_FORGOT)}>
+              Forgot Secret Key?
+            </Link>
           </Flex>
           <Link>Help</Link>
         </>
@@ -360,4 +401,13 @@ const SignIn = props => {
   );
 };
 
-export { Intro, HowItWorks, Create, SecretKey, Connect, SaveKey, Final, SignIn };
+export {
+  Intro,
+  HowItWorks,
+  Create,
+  SecretKey,
+  Connect,
+  SaveKey,
+  Final,
+  SignIn,
+};

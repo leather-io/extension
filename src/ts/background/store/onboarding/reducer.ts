@@ -9,8 +9,8 @@ import {
 const initialState: OnboardingState = {
   screen: Screen.INTRO,
   // app: null,
-  // secretKey:
-  //   'future act silly correct hold endorse essay save prefer filter donate clap',
+  secretKey:
+    'future act silly correct hold endorse essay save prefer filter donate clap',
   // dispatch: null,
   // doFinishOnboarding: null,
   // doHideOnboarding: null,

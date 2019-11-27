@@ -13,6 +13,7 @@ export enum Screen {
 
 export interface OnboardingState {
   screen: Screen;
+  secretKey?: string;
 }
 
 interface ChangePageAction {

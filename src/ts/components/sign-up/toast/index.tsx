@@ -2,7 +2,11 @@ import React from 'react';
 import { Flex, Box, Text } from '@blockstack/ui';
 import CheckCircleIcon from 'mdi-react/CheckCircleIcon';
 
-const Toast = ({ show = false, icon: Icon = CheckCircleIcon, text = 'Copied to clipboard' }) => (
+const Toast = ({
+  show = false,
+  icon: Icon = CheckCircleIcon,
+  text = 'Copied to clipboard',
+}) => (
   <Flex
     p={6}
     width="100%"

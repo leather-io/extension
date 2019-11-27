@@ -1,19 +1,26 @@
 import React from 'react';
 import { Box, PseudoBox, Flex, Text } from '@blockstack/ui';
-import { useHover } from 'use-events';
-import { Logo } from '../../../common/logo';
+// import { useHover } from 'use-events';
+import { Logo } from '@components/logo';
 import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 import CloseIcon from 'mdi-react/CloseIcon';
-import { Image } from '../../landing/image';
-const ModalContext = React.createContext({ isOpen: false, doOpenModal: null, doCloseModal: null });
+import { Image } from '@components/image';
+
+interface ModalContextTypes {
+  isOpen: boolean;
+  doOpenModal?: () => void;
+  doCloseModal?: () => void;
+}
+
+const ModalContext = React.createContext<ModalContextTypes>({
+  isOpen: false,
+});
 
 const useModalState = () => React.useContext(ModalContext);
 
 const HeaderTitle = ({ hideIcon = false, title }) => (
   <Flex align="center">
-    {hideIcon ? null : (
-      <Logo mr={2} />
-    )}
+    {hideIcon ? null : <Logo mr={2} />}
     <Text fontWeight="bold" fontSize={'12px'}>
       {title}
     </Text>
@@ -21,13 +28,18 @@ const HeaderTitle = ({ hideIcon = false, title }) => (
 );
 
 const HeaderCloseButton = ({ onClick }) => (
-  <PseudoBox color="ink.300" opacity={0.5} _hover={{ opacity: 1, cursor: 'pointer' }} onClick={onClick}>
+  <PseudoBox
+    color="ink.300"
+    opacity={0.5}
+    _hover={{ opacity: 1, cursor: 'pointer' }}
+    onClick={onClick}
+  >
     <CloseIcon size={20} />
   </PseudoBox>
 );
 interface IModalHeader {
   appIcon?: string;
-  title: string;
+  title?: string;
   close: any;
   hideIcon?: boolean;
 }
@@ -38,7 +50,13 @@ const AppIcon = ({ src, name, ...rest }) => (
   </Box>
 );
 
-const ModalHeader = ({ appIcon, close, title, hideIcon, ...rest }: IModalHeader) => {
+const ModalHeader = ({
+  appIcon,
+  close,
+  title,
+  hideIcon,
+  ...rest
+}: IModalHeader) => {
   return (
     <Flex
       p={[4, 5]}
@@ -51,7 +69,9 @@ const ModalHeader = ({ appIcon, close, title, hideIcon, ...rest }: IModalHeader)
       {...rest}
     >
       <Flex align="center">
-        {appIcon ? <AppIcon src={appIcon} name="replace with app name" /> : null}
+        {appIcon ? (
+          <AppIcon src={appIcon} name="replace with app name" />
+        ) : null}
         {appIcon ? (
           <Box pr={1} pl={2} color="ink.300">
             <ChevronRightIcon size={20} />
@@ -72,7 +92,22 @@ const ModalContent = ({ children, ...rest }) => {
   );
 };
 
-const Modal = ({ footer = null, appIcon = null, title, hideIcon = false, close, children }) => {
+interface ModalProps {
+  footer?: React.ReactNode;
+  appIcon?: string;
+  title?: string;
+  hideIcon?: boolean;
+  close: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({
+  footer = null,
+  appIcon,
+  title,
+  hideIcon = false,
+  close,
+  children,
+}) => {
   return (
     <>
       <Flex
@@ -95,8 +130,19 @@ const Modal = ({ footer = null, appIcon = null, title, hideIcon = false, close, 
           borderRadius={['unset', '6px']}
           boxShadow="high"
         >
-          <ModalHeader hideIcon={hideIcon} close={close} appIcon={appIcon} title={title} />
-          <Flex width="100%" p={[5, 8]} overflowY="auto" flexGrow={1} position="relative">
+          <ModalHeader
+            hideIcon={hideIcon}
+            close={close}
+            appIcon={appIcon}
+            title={title}
+          />
+          <Flex
+            width="100%"
+            p={[5, 8]}
+            overflowY="auto"
+            flexGrow={1}
+            position="relative"
+          >
             <ModalContent>{children}</ModalContent>
           </Flex>
           {footer ? footer : null}
@@ -106,7 +152,7 @@ const Modal = ({ footer = null, appIcon = null, title, hideIcon = false, close, 
   );
 };
 
-const ModalProvider = props => {
+const ModalProvider: React.FC = props => {
   const [isOpen, setIsOpen] = React.useState(false);
   const doOpenModal = () => (!isOpen ? setIsOpen(true) : null);
   const doCloseModal = () => (isOpen ? setIsOpen(true) : null);
@@ -115,7 +161,7 @@ const ModalProvider = props => {
       value={{
         isOpen,
         doOpenModal,
-        doCloseModal
+        doCloseModal,
       }}
     >
       {props.children}

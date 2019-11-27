@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const SeedTextarea = styled.textarea`
@@ -7,4 +6,4 @@ export const SeedTextarea = styled.textarea`
   &:focus {
     outline: 0;
   }
-`
+`;

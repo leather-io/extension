@@ -17,6 +17,11 @@ const DevActions = () => {
     openPopup('http://localhost:8080/popup.html');
   };
 
+  const openOnboarding = () => {
+    // console.log('Open onboarding');
+    openPopup('http://localhost:8080/actions.html');
+  };
+
   return (
     <Box width="100%">
       <Text textStyle="display.small" display="block">
@@ -47,6 +52,7 @@ const DevActions = () => {
       </Formik>
       <ButtonGroup variantColor="purple" my={4}>
         <Button onClick={openBrowserActions}>Debug Browser Action</Button>
+        <Button onClick={openOnboarding}>Open Onboarding UI</Button>
       </ButtonGroup>
     </Box>
   );

@@ -12,12 +12,17 @@ const Checkmark = props => (
   </Box>
 );
 
-const Item = ({ children }) => (
+const Item: React.FC = ({ children }) => (
   <Text fontSize="14px" color="ink.600">
     {children}
   </Text>
 );
-const CheckList = ({ items, ...rest }) => (
+
+interface CheckListProps {
+  items: string[];
+}
+
+const CheckList: React.FC<CheckListProps> = ({ items, ...rest }) => (
   <Stack spacing={3} {...rest}>
     {items.map((text, key) => (
       <Flex align="flex-start" textAlign="left" key={key}>

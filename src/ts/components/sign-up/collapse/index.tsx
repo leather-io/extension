@@ -2,7 +2,8 @@ import React from 'react';
 import { Flex, Box, Text } from '@blockstack/ui';
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
 import { useHover } from 'use-events';
-import { doTrack } from '../../../common/track';
+import { doTrack } from '@common/track';
+// import { doTrack } from '../../../common/track';
 
 /**
  * This component renders a list of clickable items that
@@ -35,7 +36,9 @@ const Body = ({ body }) => (
     borderColor="#E5E5EC" // this is not currently in the UI lib, asked jasper about it but he was out of office
     py={3}
   >
-    <Text color="ink.600"><div dangerouslySetInnerHTML={{ __html: body}} /></Text>
+    <Text color="ink.600">
+      <div dangerouslySetInnerHTML={{ __html: body }} />
+    </Text>
   </Box>
 );
 

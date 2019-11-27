@@ -12,7 +12,7 @@ const Gutter: React.FC<GutterProps> = ({
   multiplier,
   ...rest
 }: GutterProps) => {
-  const boxes = [];
+  const boxes: React.ReactNode[] = [];
   for (let index = 0; index < multiplier; index++) {
     boxes.push(<Box py={base} key={`gutter-${index}`} {...rest} />);
   }
