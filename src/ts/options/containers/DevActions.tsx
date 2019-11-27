@@ -10,16 +10,16 @@ const DevActions = () => {
 
   const saveAuthRequest = (authRequest: string) => {
     dispatch(doAuthRequest(authRequest));
-    openPopup('http://localhost:8080/actions.html');
+    openPopup('/actions.html');
   };
 
   const openBrowserActions = () => {
-    openPopup('http://localhost:8080/popup.html');
+    openPopup('/popup.html');
   };
 
   const openOnboarding = () => {
     // console.log('Open onboarding');
-    openPopup('http://localhost:8080/actions.html');
+    openPopup('/actions.html');
   };
 
   return (
@@ -52,7 +52,7 @@ const DevActions = () => {
       </Formik>
       <ButtonGroup variantColor="purple" my={4}>
         <Button onClick={openBrowserActions}>Debug Browser Action</Button>
-        <Button onClick={openOnboarding}>Open Onboarding UI</Button>
+        <Button onClick={openOnboarding}>Debug Onboarding UI</Button>
       </ButtonGroup>
     </Box>
   );
