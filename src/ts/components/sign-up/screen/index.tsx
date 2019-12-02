@@ -14,21 +14,22 @@ const Footer: React.FC = props => (
   />
 );
 
+interface ScreenAction {
+  label: string;
+  onClick?: () => void;
+  href?: string;
+  disabled?: boolean;
+  variant?: string;
+}
+
 interface IScreenTemplate {
   title: string | React.ElementType;
   body?: (string | JSX.Element)[];
-  back?: any; // fn
-  action?:
-    | any
-    | {
-        label: string | React.ElementType;
-        onClick?: any;
-        href?: string;
-        disabled?: boolean;
-      };
-  after?: any;
-  before?: any;
-  footer?: any;
+  back?: () => void;
+  action?: ScreenAction | ScreenAction[];
+  after?: string | JSX.Element;
+  before?: string | JSX.Element;
+  footer?: string | JSX.Element;
   isLoading?: boolean;
   noMinHeight?: boolean;
 }

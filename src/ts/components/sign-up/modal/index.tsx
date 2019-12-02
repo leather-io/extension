@@ -61,7 +61,7 @@ const AppIcon: React.FC<AppIconProps> = ({ src, name, ...rest }) => (
 interface IModalHeader {
   appIcon?: string;
   title: string;
-  close: any;
+  close: () => void;
   hideIcon?: boolean;
 }
 

@@ -52,7 +52,7 @@ const WinkAppIcon: React.FC<WinkIconProps> = ({
   </Box>
 );
 
-const Intro = ({ next }: { next?: () => any }) => {
+const Intro = ({ next }: { next?: () => void }) => {
   const dispatch = useDispatch();
 
   return (
