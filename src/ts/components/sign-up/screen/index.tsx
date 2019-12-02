@@ -16,7 +16,7 @@ const Footer: React.FC = props => (
 
 interface IScreenTemplate {
   title: string | React.ElementType;
-  body?: any[]; // array<string | element> or element
+  body?: (string | JSX.Element)[];
   back?: any; // fn
   action?:
     | any

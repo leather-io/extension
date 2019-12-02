@@ -28,12 +28,14 @@ function isRestoringWallet(): WalletActions {
 }
 
 export function doStoreSeed(
-  seed: string
-): ThunkAction<void, {}, {}, WalletActions> {
+  seed: string,
+  password: string
+): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
   return async dispatch => {
     dispatch(isRestoringWallet());
-    const wallet = await Wallet.restore('password', seed);
+    const wallet = await Wallet.restore(password, seed);
     dispatch(didRestoreWallet(wallet));
+    return wallet;
   };
 }
 

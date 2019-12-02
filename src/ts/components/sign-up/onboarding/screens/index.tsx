@@ -30,12 +30,14 @@ import {
   // SIGN_IN_INCORRECT,
   SIGN_IN_CREATE,
   SIGN_IN_FORGOT,
+  SIGN_IN_INCORRECT,
 } from '@common/track';
 import { doChangeScreen, doCreateSecretKey } from '@store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Screen } from '@store/onboarding/types';
+import { Screen, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { IAppState } from '@store';
 import { selectSecretKey } from '@store/onboarding/selectors';
+import { doStoreSeed } from '@store/wallet';
 
 interface WinkIconProps {
   src?: string;
@@ -378,6 +380,8 @@ interface SignInProps {
 
 const SignIn: React.FC<SignInProps> = props => {
   const [isLoading, setLoading] = useState(false);
+  const [seed, setSeed] = useState('');
+  const [seedError, setSeedError] = useState<null | string>(null);
   const dispatch = useDispatch();
 
   return (
@@ -387,14 +391,24 @@ const SignIn: React.FC<SignInProps> = props => {
       title="Sign into Wink"
       body={[
         'Enter your Data Vault’s Secret Key to continue',
-        <Box>
+        <Box textAlign="left">
           {/*Validate: track SIGN_IN_INCORRECT*/}
           <Input
             autoFocus
             minHeight="80px"
             placeholder="12-word Secret Key"
             as="textarea"
+            value={seed}
+            onChange={(evt: React.FormEvent<HTMLInputElement>) => {
+              setSeedError(null);
+              setSeed(evt.currentTarget.value);
+            }}
           />
+          {seedError && (
+            <Text textAlign="left" textStyle="caption" color="feedback.error">
+              {seedError}
+            </Text>
+          )}
         </Box>,
       ]}
       action={[
@@ -408,13 +422,21 @@ const SignIn: React.FC<SignInProps> = props => {
         },
         {
           label: 'Continue',
-          onClick: () => {
+          onClick: async () => {
             setLoading(true);
-            doTrack(SIGN_IN_CORRECT);
-            setTimeout(() => {
+            try {
+              await doStoreSeed(seed, DEFAULT_PASSWORD)(
+                dispatch,
+                () => ({}),
+                {}
+              );
+              doTrack(SIGN_IN_CORRECT);
               props.next();
-              setLoading(false);
-            }, 1500);
+            } catch (error) {
+              setSeedError("The seed phrase you've entered is invalid.");
+              doTrack(SIGN_IN_INCORRECT);
+            }
+            setLoading(false);
           },
         },
       ]}

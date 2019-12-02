@@ -53,7 +53,7 @@ const Seed = () => {
         onSubmit={values => {
           console.log(values);
           if (values.seed) {
-            dispatch(doStoreSeed(values.seed));
+            dispatch(doStoreSeed(values.seed, values.password));
           } else {
             dispatch(doGenerateWallet(values.password));
           }
