@@ -39,10 +39,11 @@ export function doStoreSeed(
 
 export function doGenerateWallet(
   password: string
-): ThunkAction<void, {}, {}, WalletActions> {
+): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
   return async dispatch => {
     dispatch(isRestoringWallet());
     const wallet = await Wallet.generate(password);
     dispatch(didGenerateWallet(wallet));
+    return wallet;
   };
 }

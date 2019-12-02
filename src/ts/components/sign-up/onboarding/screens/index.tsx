@@ -31,7 +31,7 @@ import {
   SIGN_IN_CREATE,
   SIGN_IN_FORGOT,
 } from '@common/track';
-import { doChangeScreen } from '@store/onboarding/actions';
+import { doChangeScreen, doCreateSecretKey } from '@store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Screen } from '@store/onboarding/types';
 import { IAppState } from '@store';
@@ -158,6 +158,7 @@ const Create: React.FC<CreateProps> = props => {
     title: 'Creating your Data Vault',
     imageUrl: '',
   });
+  const dispatch = useDispatch();
 
   const mockData: MockData[] = [
     {
@@ -180,6 +181,7 @@ const Create: React.FC<CreateProps> = props => {
 
   React.useEffect(() => {
     createTimeoutLoop(setState, mockData, () => props.next());
+    dispatch(doCreateSecretKey());
   }, []);
 
   return (

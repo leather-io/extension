@@ -4,13 +4,14 @@ import {
   OnboardingState,
   CHANGE_PAGE,
   Screen,
+  SAVE_KEY,
 } from './types';
 
 const initialState: OnboardingState = {
   screen: Screen.INTRO,
   // app: null,
-  secretKey:
-    'future act silly correct hold endorse essay save prefer filter donate clap',
+  // secretKey:
+  //   'future act silly correct hold endorse essay save prefer filter donate clap',
   // dispatch: null,
   // doFinishOnboarding: null,
   // doHideOnboarding: null,
@@ -26,6 +27,11 @@ export const onboardingReducer: Reducer<OnboardingState, OnboardingActions> = (
       return {
         ...state,
         screen: action.screen,
+      };
+    case SAVE_KEY:
+      return {
+        ...state,
+        secretKey: action.secretKey,
       };
     default:
       return state;
