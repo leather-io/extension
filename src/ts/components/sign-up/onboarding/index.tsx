@@ -112,8 +112,8 @@ const RenderScreen = ({ ...rest }) => {
     case Screen.CONNECTED:
       return (
         <Final
-          next={() => {
-            doFinishOnboarding();
+          next={async () => {
+            await doFinishOnboarding();
           }}
           back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
           {...rest}
@@ -125,7 +125,7 @@ const RenderScreen = ({ ...rest }) => {
     case Screen.SIGN_IN:
       return (
         <SignIn
-          next={() => doFinishSignIn()}
+          next={async () => await doFinishSignIn()}
           back={() => {
             dispatch(doChangeScreen(Screen.SECRET_KEY));
           }}
