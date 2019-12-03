@@ -5,6 +5,7 @@ import {
   CHANGE_PAGE,
   Screen,
   SAVE_KEY,
+  SAVE_AUTH_REQUEST,
 } from './types';
 
 const initialState: OnboardingState = {
@@ -32,6 +33,12 @@ export const onboardingReducer: Reducer<OnboardingState, OnboardingActions> = (
       return {
         ...state,
         secretKey: action.secretKey,
+      };
+    case SAVE_AUTH_REQUEST:
+      return {
+        ...state,
+        decodedAuthRequest: action.decodedAuthRequest,
+        appManifest: action.appManifest,
       };
     default:
       return state;

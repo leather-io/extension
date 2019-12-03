@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Flex, Box, Text, Stack, Spinner, Input } from '@blockstack/ui';
 import { Toast } from '../../toast';
 import { ScreenTemplate } from '../../screen';
@@ -32,11 +32,19 @@ import {
   SIGN_IN_FORGOT,
   SIGN_IN_INCORRECT,
 } from '@common/track';
-import { doChangeScreen, doCreateSecretKey } from '@store/onboarding/actions';
+import {
+  doChangeScreen,
+  doCreateSecretKey,
+  doSaveAuthRequest,
+} from '@store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Screen, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { IAppState } from '@store';
-import { selectSecretKey } from '@store/onboarding/selectors';
+import {
+  selectSecretKey,
+  selectDecodedAuthRequest,
+  selectAppManifest,
+} from '@store/onboarding/selectors';
 import { doStoreSeed } from '@store/wallet';
 
 interface WinkIconProps {
@@ -54,6 +62,36 @@ const WinkAppIcon: React.FC<WinkIconProps> = ({
 
 const Intro = ({ next }: { next?: () => void }) => {
   const dispatch = useDispatch();
+  const { decodedAuthRequest, appManifest } = useSelector(
+    (state: IAppState) => ({
+      decodedAuthRequest: selectDecodedAuthRequest(state),
+      appManifest: selectAppManifest(state),
+    })
+  );
+
+  useEffect(() => {
+    const { search } = document.location;
+    const matches = /authRequest=(.*)[&|$]/.exec(search);
+    if (matches && matches.length === 2) {
+      const authRequest = matches[1];
+      console.log(authRequest);
+      dispatch(doSaveAuthRequest(authRequest));
+    } else {
+      console.log('No auth request found');
+    }
+  }, []);
+
+  if (!decodedAuthRequest || !appManifest) {
+    return (
+      <ScreenTemplate
+        title="Fetching Authentication Request"
+        body={[
+          'Data Vault is securely fetching information to authenticate you',
+        ]}
+        isLoading
+      />
+    );
+  }
 
   return (
     <>
@@ -61,13 +99,13 @@ const Intro = ({ next }: { next?: () => void }) => {
         before={<WinkAppIcon />}
         textAlign="center"
         noMinHeight
-        title="Use Wink privately and securely with Data Vault"
+        title={`Use ${appManifest.name} privately and securely with Data Vault`}
         body={[
-          'Wink will use your Data Vault to store your data privately, where no one but you can see it.',
+          `${appManifest.name} will use your Data Vault to store your data privately, where no one but you can see it.`,
           <Box mx="auto" width="128px" height="1px" bg="#E5E5EC" />,
           <CheckList
             items={[
-              'Keep everything you do in Wink private with encryption and blockchain',
+              `Keep everything you do in ${appManifest.name} private with encryption and blockchain`,
               'It’s free and takes just 2 minutes to create',
             ]}
           />,

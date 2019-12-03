@@ -1,5 +1,8 @@
+import { DecodedAuthRequest, AppManifest } from '@dev/types';
+
 export const CHANGE_PAGE = 'ONBOARDING/CHANGE_PAGE';
 export const SAVE_KEY = 'ONBOARDING/SAVE_KEY';
+export const SAVE_AUTH_REQUEST = 'ONBOARDING/SAVE_AUTH_REQUEST';
 
 export enum Screen {
   INTRO = 'screens/INTRO',
@@ -18,6 +21,8 @@ export const DEFAULT_PASSWORD = 'password';
 export interface OnboardingState {
   screen: Screen;
   secretKey?: string;
+  decodedAuthRequest?: DecodedAuthRequest;
+  appManifest?: AppManifest;
 }
 
 interface ChangePageAction {
@@ -30,4 +35,13 @@ interface StoreSecretKey {
   secretKey: string;
 }
 
-export type OnboardingActions = ChangePageAction | StoreSecretKey;
+interface SaveAuthRequest {
+  type: typeof SAVE_AUTH_REQUEST;
+  appManifest: AppManifest;
+  decodedAuthRequest: DecodedAuthRequest;
+}
+
+export type OnboardingActions =
+  | ChangePageAction
+  | StoreSecretKey
+  | SaveAuthRequest;
