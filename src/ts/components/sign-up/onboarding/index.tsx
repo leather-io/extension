@@ -14,17 +14,39 @@ import { doChangeScreen } from '@store/onboarding/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '@store';
 import { Screen } from '@store/onboarding/types';
-import { selectCurrentScreen } from '@store/onboarding/selectors';
+import {
+  selectCurrentScreen,
+  selectDecodedAuthRequest,
+  selectAppManifest,
+} from '@store/onboarding/selectors';
+import { selectCurrentWallet } from '@store/wallet/selectors';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen } = useSelector((state: IAppState) => ({
-    screen: selectCurrentScreen(state),
-  }));
+  const { screen, wallet, decodedAuthRequest, appManifest } = useSelector(
+    (state: IAppState) => ({
+      screen: selectCurrentScreen(state),
+      wallet: selectCurrentWallet(state),
+      decodedAuthRequest: selectDecodedAuthRequest(state),
+      appManifest: selectAppManifest(state),
+    })
+  );
 
   // TODO
-  const doFinishSignIn = () => {
-    console.log('Finished!');
+  const doFinishSignIn = async () => {
+    if (!wallet || !appManifest || !decodedAuthRequest) {
+      console.log('Uh oh! Finished onboarding without auth info.');
+      return;
+    }
+    const gaiaUrl = 'https://hub.blockstack.org';
+    const authResponse = await wallet.identities[0].makeAuthResponse({
+      gaiaUrl,
+      appDomain: appManifest.start_url,
+      transitPublicKey: decodedAuthRequest.public_keys[0],
+    });
+    const redirect = `${decodedAuthRequest.redirect_uri}?authResponse=${authResponse}`;
+    window.open(redirect);
+    window.close();
   };
   const doFinishOnboarding = doFinishSignIn;
 

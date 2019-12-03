@@ -71,7 +71,7 @@ const Intro = ({ next }: { next?: () => void }) => {
 
   useEffect(() => {
     const { search } = document.location;
-    const matches = /authRequest=(.*)[&|$]/.exec(search);
+    const matches = /authRequest=(.*)&?/.exec(search);
     if (matches && matches.length === 2) {
       const authRequest = matches[1];
       console.log(authRequest);
