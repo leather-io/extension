@@ -841,10 +841,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@blockstack/keychain@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@blockstack/keychain/-/keychain-0.1.0.tgz#6a03a03ca8c3026301639f16a69e9745668c995b"
-  integrity sha512-4OMUn0mQHt/DTUNqL4wEcz3FGNQKSTcQD+xs7x7UsC+V5FuJO900nvwQlXQXQm5/a0j5HlBZlBh5ksuotbL+Ew==
+"@blockstack/keychain@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@blockstack/keychain/-/keychain-0.1.1.tgz#509889a8babd9c8b4f853bacc09dce5c8c562b55"
+  integrity sha512-TTLo9hUPMHqabD9g68AZM10d/OWqWaU/EpD/zkIgyltlDPxyx1WYuHDoHo+lnRq1mV7x4+bDJLKV0AUEzyqH/Q==
   dependencies:
     bip39 "^3.0.2"
     bitcoinjs-lib "^5.1.6"
