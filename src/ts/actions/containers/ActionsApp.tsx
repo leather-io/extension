@@ -28,11 +28,9 @@ const ActionsApp: React.FC = () => {
     return <>No auth request found</>;
   }
 
-  console.log(decodedAuthRequest);
   const loadManifest = async () => {
     const res = await fetch(decodedAuthRequest.manifest_uri);
     const json: AppManifest = await res.json();
-    console.log(json);
     setManifest(json);
   };
 
