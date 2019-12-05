@@ -15,3 +15,7 @@ export const selectDecodedAuthRequest = (state: IAppState) => {
 export const selectAppManifest = (state: IAppState) => {
   return state.onboarding.appManifest;
 };
+
+export const selectAuthRequest = (state: IAppState) => {
+  return state.onboarding.authRequest;
+};

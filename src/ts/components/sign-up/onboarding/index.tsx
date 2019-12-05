@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from '../modal';
 import {
   Intro,
@@ -10,7 +10,7 @@ import {
   Final,
   SignIn,
 } from './screens';
-import { doChangeScreen } from '@store/onboarding/actions';
+import { doChangeScreen, doSaveAuthRequest } from '@store/onboarding/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '@store';
 import { Screen } from '@store/onboarding/types';
@@ -18,23 +18,30 @@ import {
   selectCurrentScreen,
   selectDecodedAuthRequest,
   selectAppManifest,
+  selectAuthRequest,
 } from '@store/onboarding/selectors';
 import { selectCurrentWallet } from '@store/wallet/selectors';
+import { authenticationInit, finalizeAuthResponse } from '@common/utils';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen, wallet, decodedAuthRequest, appManifest } = useSelector(
-    (state: IAppState) => ({
-      screen: selectCurrentScreen(state),
-      wallet: selectCurrentWallet(state),
-      decodedAuthRequest: selectDecodedAuthRequest(state),
-      appManifest: selectAppManifest(state),
-    })
-  );
+  const {
+    screen,
+    wallet,
+    decodedAuthRequest,
+    appManifest,
+    authRequest,
+  } = useSelector((state: IAppState) => ({
+    screen: selectCurrentScreen(state),
+    wallet: selectCurrentWallet(state),
+    decodedAuthRequest: selectDecodedAuthRequest(state),
+    appManifest: selectAppManifest(state),
+    authRequest: selectAuthRequest(state),
+  }));
 
   // TODO
   const doFinishSignIn = async () => {
-    if (!wallet || !appManifest || !decodedAuthRequest) {
+    if (!wallet || !appManifest || !decodedAuthRequest || !authRequest) {
       console.log('Uh oh! Finished onboarding without auth info.');
       return;
     }
@@ -44,9 +51,7 @@ const RenderScreen = ({ ...rest }) => {
       appDomain: appManifest.start_url,
       transitPublicKey: decodedAuthRequest.public_keys[0],
     });
-    const redirect = `${decodedAuthRequest.redirect_uri}?authResponse=${authResponse}`;
-    window.open(redirect);
-    window.close();
+    finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
   };
   const doFinishOnboarding = doFinishSignIn;
 
@@ -138,16 +143,25 @@ const RenderScreen = ({ ...rest }) => {
   }
 };
 
-const Onboarding: React.FC = () => (
-  <Modal
-    appIcon="/assets/images/graphic-wink-app-icon.png"
-    close={() => {
-      console.log('Close Modal');
-    }}
-    title="Data Vault"
-  >
-    <RenderScreen />
-  </Modal>
-);
+const Onboarding: React.FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const authRequest = authenticationInit();
+    if (authRequest) {
+      dispatch(doSaveAuthRequest(authRequest));
+    }
+  }, []);
+  return (
+    <Modal
+      appIcon="/assets/images/graphic-wink-app-icon.png"
+      close={() => {
+        console.log('Close Modal');
+      }}
+      title="Data Vault"
+    >
+      <RenderScreen />
+    </Modal>
+  );
+};
 
 export { Onboarding };

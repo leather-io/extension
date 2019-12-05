@@ -10,13 +10,6 @@ import {
 
 const initialState: OnboardingState = {
   screen: Screen.INTRO,
-  // app: null,
-  // secretKey:
-  //   'future act silly correct hold endorse essay save prefer filter donate clap',
-  // dispatch: null,
-  // doFinishOnboarding: null,
-  // doHideOnboarding: null,
-  // doFinishSignIn: null,
 };
 
 export const onboardingReducer: Reducer<OnboardingState, OnboardingActions> = (
@@ -37,6 +30,7 @@ export const onboardingReducer: Reducer<OnboardingState, OnboardingActions> = (
     case SAVE_AUTH_REQUEST:
       return {
         ...state,
+        authRequest: action.authRequest,
         decodedAuthRequest: action.decodedAuthRequest,
         appManifest: action.appManifest,
       };

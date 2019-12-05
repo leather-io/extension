@@ -41,23 +41,25 @@ export function doCreateSecretKey(): ThunkAction<
 const loadManifest = async (decodedAuthRequest: DecodedAuthRequest) => {
   const res = await fetch(decodedAuthRequest.manifest_uri);
   const json: AppManifest = await res.json();
-  console.log(json);
   return json;
 };
 
 interface SaveAuthRequestParams {
   appManifest: AppManifest;
   decodedAuthRequest: DecodedAuthRequest;
+  authRequest: string;
 }
 
 const saveAuthRequest = ({
   appManifest,
   decodedAuthRequest,
+  authRequest,
 }: SaveAuthRequestParams): OnboardingActions => {
   return {
     type: SAVE_AUTH_REQUEST,
     appManifest,
     decodedAuthRequest,
+    authRequest,
   };
 };
 
@@ -72,6 +74,7 @@ export function doSaveAuthRequest(
       saveAuthRequest({
         appManifest,
         decodedAuthRequest,
+        authRequest,
       })
     );
   };

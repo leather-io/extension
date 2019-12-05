@@ -21,6 +21,7 @@ export const DEFAULT_PASSWORD = 'password';
 export interface OnboardingState {
   screen: Screen;
   secretKey?: string;
+  authRequest?: string;
   decodedAuthRequest?: DecodedAuthRequest;
   appManifest?: AppManifest;
 }
@@ -39,6 +40,7 @@ interface SaveAuthRequest {
   type: typeof SAVE_AUTH_REQUEST;
   appManifest: AppManifest;
   decodedAuthRequest: DecodedAuthRequest;
+  authRequest: string;
 }
 
 export type OnboardingActions =

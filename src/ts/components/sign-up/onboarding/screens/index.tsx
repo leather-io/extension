@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Flex, Box, Text, Stack, Spinner, Input } from '@blockstack/ui';
 import { Toast } from '../../toast';
 import { ScreenTemplate } from '../../screen';
@@ -32,11 +32,7 @@ import {
   SIGN_IN_FORGOT,
   SIGN_IN_INCORRECT,
 } from '@common/track';
-import {
-  doChangeScreen,
-  doCreateSecretKey,
-  doSaveAuthRequest,
-} from '@store/onboarding/actions';
+import { doChangeScreen, doCreateSecretKey } from '@store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Screen, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { IAppState } from '@store';
@@ -68,18 +64,6 @@ const Intro = ({ next }: { next?: () => void }) => {
       appManifest: selectAppManifest(state),
     })
   );
-
-  useEffect(() => {
-    const { search } = document.location;
-    const matches = /authRequest=(.*)&?/.exec(search);
-    if (matches && matches.length === 2) {
-      const authRequest = matches[1];
-      console.log(authRequest);
-      dispatch(doSaveAuthRequest(authRequest));
-    } else {
-      console.log('No auth request found');
-    }
-  }, []);
 
   if (!decodedAuthRequest || !appManifest) {
     return (
