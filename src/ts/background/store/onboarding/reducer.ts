@@ -28,12 +28,16 @@ export const onboardingReducer: Reducer<OnboardingState, OnboardingActions> = (
         secretKey: action.secretKey,
       };
     case SAVE_AUTH_REQUEST:
-      return {
+      const newState = {
         ...state,
         authRequest: action.authRequest,
         decodedAuthRequest: action.decodedAuthRequest,
         appManifest: action.appManifest,
       };
+      if (action.decodedAuthRequest.sendToSignIn) {
+        newState.screen = Screen.SIGN_IN;
+      }
+      return newState;
     default:
       return state;
   }
