@@ -44,18 +44,14 @@ import {
 } from '@store/onboarding/selectors';
 import { doStoreSeed } from '@store/wallet';
 
-interface WinkIconProps {
-  src?: string;
-}
-
-const WinkAppIcon: React.FC<WinkIconProps> = ({
-  src = '/assets/images/graphic-wink-app-icon-locked.png',
-  ...rest
-}) => (
-  <Box size={['48px', '78px']} mx="auto" {...rest}>
-    <Image src={src} alt="Wink" />
-  </Box>
-);
+const AppIcon: React.FC = ({ ...rest }) => {
+  const appIcon = useSelector((state: IAppState) => selectAppIcon(state));
+  return (
+    <Box size={['48px', '78px']} mx="auto" {...rest}>
+      <Image src={appIcon} alt="Wink" />
+    </Box>
+  );
+};
 
 const Intro = ({ next }: { next?: () => void }) => {
   const dispatch = useDispatch();
@@ -80,7 +76,7 @@ const Intro = ({ next }: { next?: () => void }) => {
   return (
     <>
       <ScreenTemplate
-        before={<WinkAppIcon />}
+        before={<AppIcon />}
         textAlign="center"
         noMinHeight
         title={`Use ${appName} privately and securely with Data Vault`}
@@ -325,7 +321,7 @@ const Connect: React.FC<ConnectProps> = props => {
   return (
     <ScreenTemplate
       textAlign="center"
-      before={<WinkAppIcon />}
+      before={<AppIcon />}
       title="Connect Wink to your Data Vault"
       body={[
         'Enter your Secret Key to continue.',
@@ -382,7 +378,7 @@ const Final: React.FC<FinalProps> = props => {
   return (
     <ScreenTemplate
       textAlign="center"
-      before={<WinkAppIcon />}
+      before={<AppIcon />}
       title="You’re all set! Wink has been connected to your Data Vault"
       body={[
         'Everything you do in Wink will be private, secure, and only accessible with your Secret Key.',
@@ -409,7 +405,7 @@ const SignIn: React.FC<SignInProps> = props => {
   return (
     <ScreenTemplate
       textAlign="center"
-      before={<WinkAppIcon src="/assets/images/graphic-wink-app-icon.png" />}
+      before={<AppIcon />}
       title="Sign into Wink"
       body={[
         'Enter your Data Vault’s Secret Key to continue',
