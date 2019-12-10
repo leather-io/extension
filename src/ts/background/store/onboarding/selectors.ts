@@ -12,10 +12,14 @@ export const selectDecodedAuthRequest = (state: IAppState) => {
   return state.onboarding.decodedAuthRequest;
 };
 
-export const selectAppManifest = (state: IAppState) => {
-  return state.onboarding.appManifest;
-};
-
 export const selectAuthRequest = (state: IAppState) => {
   return state.onboarding.authRequest;
+};
+
+export const selectAppName = (state: IAppState) => {
+  return state.onboarding.appName;
+};
+
+export const selectAppIcon = (state: IAppState) => {
+  return state.onboarding.appIcon;
 };

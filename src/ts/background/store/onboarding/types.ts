@@ -1,4 +1,4 @@
-import { DecodedAuthRequest, AppManifest } from '@dev/types';
+import { DecodedAuthRequest } from '@dev/types';
 
 export const CHANGE_PAGE = 'ONBOARDING/CHANGE_PAGE';
 export const SAVE_KEY = 'ONBOARDING/SAVE_KEY';
@@ -23,7 +23,8 @@ export interface OnboardingState {
   secretKey?: string;
   authRequest?: string;
   decodedAuthRequest?: DecodedAuthRequest;
-  appManifest?: AppManifest;
+  appName?: string;
+  appIcon?: string;
 }
 
 interface ChangePageAction {
@@ -38,7 +39,8 @@ interface StoreSecretKey {
 
 interface SaveAuthRequest {
   type: typeof SAVE_AUTH_REQUEST;
-  appManifest: AppManifest;
+  appName: string;
+  appIcon: string;
   decodedAuthRequest: DecodedAuthRequest;
   authRequest: string;
 }

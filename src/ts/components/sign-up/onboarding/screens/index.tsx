@@ -39,7 +39,8 @@ import { IAppState } from '@store';
 import {
   selectSecretKey,
   selectDecodedAuthRequest,
-  selectAppManifest,
+  selectAppName,
+  selectAppIcon,
 } from '@store/onboarding/selectors';
 import { doStoreSeed } from '@store/wallet';
 
@@ -58,14 +59,13 @@ const WinkAppIcon: React.FC<WinkIconProps> = ({
 
 const Intro = ({ next }: { next?: () => void }) => {
   const dispatch = useDispatch();
-  const { decodedAuthRequest, appManifest } = useSelector(
-    (state: IAppState) => ({
-      decodedAuthRequest: selectDecodedAuthRequest(state),
-      appManifest: selectAppManifest(state),
-    })
-  );
+  const { decodedAuthRequest, appName } = useSelector((state: IAppState) => ({
+    decodedAuthRequest: selectDecodedAuthRequest(state),
+    appName: selectAppName(state),
+    appIcon: selectAppIcon(state),
+  }));
 
-  if (!decodedAuthRequest || !appManifest) {
+  if (!decodedAuthRequest || !appName) {
     return (
       <ScreenTemplate
         title="Fetching Authentication Request"
@@ -83,13 +83,13 @@ const Intro = ({ next }: { next?: () => void }) => {
         before={<WinkAppIcon />}
         textAlign="center"
         noMinHeight
-        title={`Use ${appManifest.name} privately and securely with Data Vault`}
+        title={`Use ${appName} privately and securely with Data Vault`}
         body={[
-          `${appManifest.name} will use your Data Vault to store your data privately, where no one but you can see it.`,
+          `${appName} will use your Data Vault to store your data privately, where no one but you can see it.`,
           <Box mx="auto" width="128px" height="1px" bg="#E5E5EC" />,
           <CheckList
             items={[
-              `Keep everything you do in ${appManifest.name} private with encryption and blockchain`,
+              `Keep everything you do in ${appName} private with encryption and blockchain`,
               'It’s free and takes just 2 minutes to create',
             ]}
           />,

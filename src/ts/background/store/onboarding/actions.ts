@@ -45,19 +45,22 @@ const loadManifest = async (decodedAuthRequest: DecodedAuthRequest) => {
 };
 
 interface SaveAuthRequestParams {
-  appManifest: AppManifest;
+  appName: string;
+  appIcon: string;
   decodedAuthRequest: DecodedAuthRequest;
   authRequest: string;
 }
 
 const saveAuthRequest = ({
-  appManifest,
+  appName,
+  appIcon,
   decodedAuthRequest,
   authRequest,
 }: SaveAuthRequestParams): OnboardingActions => {
   return {
     type: SAVE_AUTH_REQUEST,
-    appManifest,
+    appName,
+    appIcon,
     decodedAuthRequest,
     authRequest,
   };
@@ -69,12 +72,19 @@ export function doSaveAuthRequest(
   return async dispatch => {
     const { payload } = decodeToken(authRequest);
     const decodedAuthRequest = (payload as unknown) as DecodedAuthRequest;
-    const appManifest = await loadManifest(decodedAuthRequest);
+    let appName = decodedAuthRequest.appDetails?.name;
+    let appIcon = decodedAuthRequest.appDetails?.icon;
+    if (!appName || !appIcon) {
+      const appManifest = await loadManifest(decodedAuthRequest);
+      appName = appManifest.name;
+      appIcon = appManifest.icons[0].src;
+    }
     dispatch(
       saveAuthRequest({
-        appManifest,
         decodedAuthRequest,
         authRequest,
+        appName,
+        appIcon,
       })
     );
   };

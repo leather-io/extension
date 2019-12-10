@@ -17,7 +17,6 @@ import { Screen } from '@store/onboarding/types';
 import {
   selectCurrentScreen,
   selectDecodedAuthRequest,
-  selectAppManifest,
   selectAuthRequest,
 } from '@store/onboarding/selectors';
 import { selectCurrentWallet } from '@store/wallet/selectors';
@@ -25,30 +24,26 @@ import { authenticationInit, finalizeAuthResponse } from '@common/utils';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const {
-    screen,
-    wallet,
-    decodedAuthRequest,
-    appManifest,
-    authRequest,
-  } = useSelector((state: IAppState) => ({
-    screen: selectCurrentScreen(state),
-    wallet: selectCurrentWallet(state),
-    decodedAuthRequest: selectDecodedAuthRequest(state),
-    appManifest: selectAppManifest(state),
-    authRequest: selectAuthRequest(state),
-  }));
+  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector(
+    (state: IAppState) => ({
+      screen: selectCurrentScreen(state),
+      wallet: selectCurrentWallet(state),
+      decodedAuthRequest: selectDecodedAuthRequest(state),
+      authRequest: selectAuthRequest(state),
+    })
+  );
 
   // TODO
   const doFinishSignIn = async () => {
-    if (!wallet || !appManifest || !decodedAuthRequest || !authRequest) {
+    if (!wallet || !decodedAuthRequest || !authRequest) {
       console.log('Uh oh! Finished onboarding without auth info.');
       return;
     }
     const gaiaUrl = 'https://hub.blockstack.org';
+    const appURL = new URL(decodedAuthRequest.redirect_uri);
     const authResponse = await wallet.identities[0].makeAuthResponse({
       gaiaUrl,
-      appDomain: appManifest.start_url,
+      appDomain: appURL.origin,
       transitPublicKey: decodedAuthRequest.public_keys[0],
     });
     finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
