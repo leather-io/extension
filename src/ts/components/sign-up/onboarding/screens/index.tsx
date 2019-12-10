@@ -46,9 +46,10 @@ import { doStoreSeed } from '@store/wallet';
 
 const AppIcon: React.FC = ({ ...rest }) => {
   const appIcon = useSelector((state: IAppState) => selectAppIcon(state));
+  const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <Box size={['48px', '78px']} mx="auto" {...rest}>
-      <Image src={appIcon} alt="Wink" />
+      <Image src={appIcon} alt={appName} />
     </Box>
   );
 };
@@ -318,11 +319,12 @@ interface ConnectProps {
 
 const Connect: React.FC<ConnectProps> = props => {
   const [isLoading, setLoading] = useState(false);
+  const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <ScreenTemplate
       textAlign="center"
       before={<AppIcon />}
-      title="Connect Wink to your Data Vault"
+      title={`Connect ${appName} to your Data Vault`}
       body={[
         'Enter your Secret Key to continue.',
         <Box>
@@ -375,13 +377,14 @@ interface FinalProps {
 }
 
 const Final: React.FC<FinalProps> = props => {
+  const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <ScreenTemplate
       textAlign="center"
       before={<AppIcon />}
-      title="You’re all set! Wink has been connected to your Data Vault"
+      title={`You’re all set! ${appName} has been connected to your Data Vault`}
       body={[
-        'Everything you do in Wink will be private, secure, and only accessible with your Secret Key.',
+        `Everything you do in ${appName} will be private, secure, and only accessible with your Secret Key.`,
       ]}
       action={{
         label: 'Done',
@@ -401,12 +404,13 @@ const SignIn: React.FC<SignInProps> = props => {
   const [seed, setSeed] = useState('');
   const [seedError, setSeedError] = useState<null | string>(null);
   const dispatch = useDispatch();
+  const appName = useSelector((state: IAppState) => selectAppName(state));
 
   return (
     <ScreenTemplate
       textAlign="center"
       before={<AppIcon />}
-      title="Sign into Wink"
+      title={`Sign into ${appName}`}
       body={[
         'Enter your Data Vault’s Secret Key to continue',
         <Box textAlign="left">
