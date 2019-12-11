@@ -60,6 +60,7 @@ const AppIcon: React.FC<AppIconProps> = ({ src, name, ...rest }) => (
 
 interface IModalHeader {
   appIcon?: string;
+  appName?: string;
   title: string;
   close: () => void;
   hideIcon?: boolean;
@@ -70,6 +71,7 @@ const ModalHeader = ({
   close,
   title,
   hideIcon,
+  appName,
   ...rest
 }: IModalHeader) => {
   return (
@@ -84,9 +86,7 @@ const ModalHeader = ({
       {...rest}
     >
       <Flex align="center">
-        {appIcon ? (
-          <AppIcon src={appIcon} name="replace with app name" />
-        ) : null}
+        {appIcon ? <AppIcon src={appIcon} name={appName || 'loading'} /> : null}
         {appIcon ? (
           <Box pr={1} pl={2} color="ink.300">
             <ChevronRightIcon size={20} />
@@ -110,6 +110,7 @@ const ModalContent: React.FC = ({ children, ...rest }) => {
 interface ModalProps {
   footer?: React.ReactNode;
   appIcon?: string;
+  appName?: string;
   title: string;
   hideIcon?: boolean;
   close: () => void;
@@ -121,6 +122,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   hideIcon = false,
   close,
+  appName,
   children,
 }) => {
   return (
@@ -149,6 +151,7 @@ const Modal: React.FC<ModalProps> = ({
             hideIcon={hideIcon}
             close={close}
             appIcon={appIcon}
+            appName={appName}
             title={title}
           />
           <Flex

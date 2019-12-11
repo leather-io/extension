@@ -19,6 +19,8 @@ import {
   selectCurrentScreen,
   selectDecodedAuthRequest,
   selectAuthRequest,
+  selectAppIcon,
+  selectAppName,
 } from '@store/onboarding/selectors';
 import { selectCurrentWallet } from '@store/wallet/selectors';
 import { authenticationInit, finalizeAuthResponse } from '@common/utils';
@@ -144,6 +146,9 @@ const RenderScreen = ({ ...rest }) => {
 
 const Onboarding: React.FC = () => {
   const dispatch = useDispatch();
+  const appIcon = useSelector((state: IAppState) => selectAppIcon(state));
+  const appName = useSelector((state: IAppState) => selectAppName(state));
+
   useEffect(() => {
     const authRequest = authenticationInit();
     if (authRequest) {
@@ -152,7 +157,8 @@ const Onboarding: React.FC = () => {
   }, []);
   return (
     <Modal
-      appIcon="/assets/images/graphic-wink-app-icon.png"
+      appIcon={appIcon}
+      appName={appName}
       close={() => {
         console.log('Close Modal');
       }}

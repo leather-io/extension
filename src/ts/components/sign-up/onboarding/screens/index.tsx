@@ -297,6 +297,7 @@ interface SaveKeyProps {
 }
 
 const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
+  const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <ScreenTemplate
       title="Save your Secret Key"
@@ -311,7 +312,7 @@ const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
           next();
         },
       }}
-      after={<Collapse data={faqs} />}
+      after={<Collapse data={faqs(appName as string)} />}
     />
   );
 };

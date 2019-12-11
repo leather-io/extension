@@ -5,10 +5,11 @@ import {
   SECRET_KEY_FAQ_PASSWORD,
 } from '@common/track';
 
-const faqs = [
-  {
-    title: 'Where should I save my Secret Key?',
-    body: `
+const faqs = (appName: string) => {
+  return [
+    {
+      title: 'Where should I save my Secret Key?',
+      body: `
     Save your Secret Key in a place where only you can find it. For example:
     <ul style="list-style: none;">
     <li>• A password manager such as 1password</li>
@@ -17,27 +18,27 @@ const faqs = [
     </ul>
     Don’t save it anywhere where others can find it, or on a website you do not trust. Anybody with access to your Secret Key will have access to your Data Vault and apps.
     `,
-    tracking: SECRET_KEY_FAQ_WHERE,
-  },
-  {
-    title: 'What if I lose my Secret Key?',
-    body:
-      'If you lose your Secret Key, it will be lost forever. Neither Wink nor Data Vault can help you recover your Secret Key.',
-    tracking: SECRET_KEY_FAQ_LOSE,
-  },
-  {
-    title: 'When will I need my Secret Key?',
-    body:
-      'You will use your Secret Key to unlock your Data Vault and connect it to new apps — like a password, but much more secure.',
-    tracking: SECRET_KEY_FAQ_WHEN,
-  },
-  {
-    title: 'Why don’t I have a password?',
-    body:
-      'Your Secret Key is much stronger than a combination of email and password — it’s virtually impossible to hack. Only you know it, which keeps your apps and data secure.',
-    tracking: SECRET_KEY_FAQ_PASSWORD,
-  },
-];
+      tracking: SECRET_KEY_FAQ_WHERE,
+    },
+    {
+      title: 'What if I lose my Secret Key?',
+      body: `If you lose your Secret Key, it will be lost forever. Neither ${appName} nor Data Vault can help you recover your Secret Key.`,
+      tracking: SECRET_KEY_FAQ_LOSE,
+    },
+    {
+      title: 'When will I need my Secret Key?',
+      body:
+        'You will use your Secret Key to unlock your Data Vault and connect it to new apps — like a password, but much more secure.',
+      tracking: SECRET_KEY_FAQ_WHEN,
+    },
+    {
+      title: 'Why don’t I have a password?',
+      body:
+        'Your Secret Key is much stronger than a combination of email and password — it’s virtually impossible to hack. Only you know it, which keeps your apps and data secure.',
+      tracking: SECRET_KEY_FAQ_PASSWORD,
+    },
+  ];
+};
 
 const howDataVaultWorks = [
   {
