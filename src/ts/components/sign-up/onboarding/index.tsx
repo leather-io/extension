@@ -44,6 +44,7 @@ const RenderScreen = ({ ...rest }) => {
     }
     const gaiaUrl = 'https://hub.blockstack.org';
     const appURL = new URL(decodedAuthRequest.redirect_uri);
+    await wallet.identities[0].refresh();
     const authResponse = await wallet.identities[0].makeAuthResponse({
       gaiaUrl,
       appDomain: appURL.origin,
