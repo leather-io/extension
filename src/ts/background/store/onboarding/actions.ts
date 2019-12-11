@@ -5,6 +5,7 @@ import {
   DEFAULT_PASSWORD,
   SAVE_KEY,
   SAVE_AUTH_REQUEST,
+  SET_MAGIC_RECOVERY_CODE,
 } from './types';
 import { decodeToken } from 'jsontokens';
 import { doGenerateWallet } from '@store/wallet';
@@ -20,6 +21,13 @@ export const doChangeScreen = (screen: Screen): OnboardingActions => ({
 export const doSaveSecretKey = (secretKey: string): OnboardingActions => ({
   type: SAVE_KEY,
   secretKey,
+});
+
+export const doSetMagicRecoveryCode = (
+  magicRecoveryCode: string
+): OnboardingActions => ({
+  type: SET_MAGIC_RECOVERY_CODE,
+  magicRecoveryCode,
 });
 
 export function doCreateSecretKey(): ThunkAction<

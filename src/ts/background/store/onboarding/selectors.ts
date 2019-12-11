@@ -23,3 +23,7 @@ export const selectAppName = (state: IAppState) => {
 export const selectAppIcon = (state: IAppState) => {
   return state.onboarding.appIcon;
 };
+
+export const selectMagicRecoveryCode = (state: IAppState) => {
+  return state.onboarding.magicRecoveryCode;
+};

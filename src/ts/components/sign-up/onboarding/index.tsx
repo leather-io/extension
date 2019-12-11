@@ -10,6 +10,7 @@ import {
   Final,
   SignIn,
 } from './screens';
+import DecryptRecoveryCode from '@components/sign-up/onboarding/screens/decrypt-recovery-code';
 import { doChangeScreen, doSaveAuthRequest } from '@store/onboarding/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '@store';
@@ -132,6 +133,9 @@ const RenderScreen = ({ ...rest }) => {
           {...rest}
         />
       );
+
+    case Screen.RECOVERY_CODE:
+      return <DecryptRecoveryCode next={async () => await doFinishSignIn()} />;
 
     default:
       return <Intro {...rest} />;

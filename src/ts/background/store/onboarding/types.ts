@@ -3,6 +3,7 @@ import { DecodedAuthRequest } from '@dev/types';
 export const CHANGE_PAGE = 'ONBOARDING/CHANGE_PAGE';
 export const SAVE_KEY = 'ONBOARDING/SAVE_KEY';
 export const SAVE_AUTH_REQUEST = 'ONBOARDING/SAVE_AUTH_REQUEST';
+export const SET_MAGIC_RECOVERY_CODE = 'ONBOARDING/SET_MAGIC_RECOVERY_CODE';
 
 export enum Screen {
   INTRO = 'screens/INTRO',
@@ -13,6 +14,7 @@ export enum Screen {
   CONNECT_APP = 'screens/CONNECT_APP',
   CONNECTED = 'screens/CONNECTED',
   SIGN_IN = 'screens/SIGN_IN',
+  RECOVERY_CODE = 'screens/RECOVERY_CODE',
 }
 
 // TODO: clarify usage of password for local key encryption
@@ -25,6 +27,7 @@ export interface OnboardingState {
   decodedAuthRequest?: DecodedAuthRequest;
   appName?: string;
   appIcon?: string;
+  magicRecoveryCode?: string;
 }
 
 interface ChangePageAction {
@@ -45,7 +48,13 @@ interface SaveAuthRequest {
   authRequest: string;
 }
 
+interface SetMagicRecoveryCode {
+  type: typeof SET_MAGIC_RECOVERY_CODE;
+  magicRecoveryCode: string;
+}
+
 export type OnboardingActions =
   | ChangePageAction
   | StoreSecretKey
+  | SetMagicRecoveryCode
   | SaveAuthRequest;

@@ -32,7 +32,11 @@ import {
   SIGN_IN_FORGOT,
   SIGN_IN_INCORRECT,
 } from '@common/track';
-import { doChangeScreen, doCreateSecretKey } from '@store/onboarding/actions';
+import {
+  doChangeScreen,
+  doCreateSecretKey,
+  doSetMagicRecoveryCode,
+} from '@store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Screen, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { IAppState } from '@store';
@@ -447,6 +451,11 @@ const SignIn: React.FC<SignInProps> = props => {
           onClick: async () => {
             setLoading(true);
             try {
+              if (seed.trim().split(' ').length <= 1) {
+                dispatch(doSetMagicRecoveryCode(seed.trim()));
+                dispatch(doChangeScreen(Screen.RECOVERY_CODE));
+                return;
+              }
               await doStoreSeed(seed, DEFAULT_PASSWORD)(
                 dispatch,
                 () => ({}),
