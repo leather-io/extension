@@ -25,7 +25,10 @@ describe('Authentication', () => {
     if (!secretKeyEl) {
       throw 'Could not find secret key field';
     }
-    const secretKey: string = await authPage.evaluate(el => el.value, secretKeyEl);
+    const secretKey: string = await authPage.evaluate(
+      el => el.value,
+      secretKeyEl
+    );
     expect(secretKey.split(' ').length).toEqual(12);
     expect(validateMnemonic(secretKey)).toBeTruthy();
 
