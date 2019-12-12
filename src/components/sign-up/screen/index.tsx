@@ -15,6 +15,7 @@ interface ScreenAction {
   href?: string;
   disabled?: boolean;
   variant?: string;
+  id?: string;
 }
 
 interface IScreenTemplate {
@@ -89,11 +90,11 @@ const ScreenTemplate = ({
               {action.map((a, key) => (
                 <Box key={key}>
                   {a.variant && a.variant === 'text' ? (
-                    <Link color="blue" onClick={a.onClick}>
+                    <Link color="blue" onClick={a.onClick} id={a.id}>
                       {a.label}
                     </Link>
                   ) : (
-                    <Button onClick={a.onClick} isDisabled={a.disabled}>
+                    <Button onClick={a.onClick} isDisabled={a.disabled} id={a.id}>
                       {a.label}
                     </Button>
                   )}
@@ -102,7 +103,7 @@ const ScreenTemplate = ({
             </Flex>
           ) : (
             <Box px={5}>
-              <Button width="100%" onClick={action.onClick} isDisabled={action.disabled}>
+              <Button width="100%" onClick={action.onClick} id={action.id} isDisabled={action.disabled}>
                 {action.label}
               </Button>
             </Box>
