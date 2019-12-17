@@ -1,10 +1,4 @@
-import { BlockstackProvider } from '@blockstack/connect';
-
-declare global {
-  interface Window {
-    BlockstackProvider?: BlockstackProvider;
-  }
-}
+import { BlockstackProvider } from '@blockstack/connect/dist/types';
 
 interface Response {
   source: 'blockstack-extension';
@@ -43,9 +37,11 @@ const callAndReceive = async (
   });
 };
 
-window.BlockstackProvider = {
+const provider: BlockstackProvider = {
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
     return url;
   },
 };
+
+window.BlockstackProvider = provider;

@@ -871,10 +871,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@blockstack/connect@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@blockstack/connect/-/connect-0.1.5.tgz#ae9b1609889d00a9ea90fa1710683115c12514b1"
-  integrity sha512-qL11H4G9NhdAXRx9uXuvuzCfNdS3d7VwFuK/QwwdnY5c0rkgp9GfHgHMa32v5asWFPAsIbunMPEJtcjn4npBrg==
+"@blockstack/connect@^0.2.0-beta.1":
+  version "0.2.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@blockstack/connect/-/connect-0.2.0-beta.1.tgz#01c545f74274ea64db04ea8fad7e59482991a8ba"
+  integrity sha512-auN2Ua1inU/F/pVmgFeMx1HsrRUH5buGVd31qNzd8junYL3uvnHaPitRb0GtAVIFtGBq9V8fgOViRtKDb5swOA==
 
 "@blockstack/keychain@^0.1.2":
   version "0.1.3"
