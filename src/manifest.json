@@ -27,7 +27,10 @@
 		],
 		"persistent": true
 	},
-	"web_accessible_resources": ["inpage.js"],
+	"web_accessible_resources": [
+		"inpage.js",
+		"actions.html"
+	],
 	"browser_action": {
 		"default_title": "Blockstack",
 		"default_icon": "assets/logo-16@3x.png",
