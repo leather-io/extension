@@ -72,7 +72,7 @@ module.exports = {
     contentBase: './dist',
     hot: true
   },
-  devtool: false,
+  devtool: 'none',
   watch: false,
   plugins: [
     new CheckerPlugin(),
