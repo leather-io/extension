@@ -19,6 +19,16 @@ export const authenticationInit = () => {
   return null;
 };
 
+export const getEventSourceWindow = (event: MessageEvent) => {
+  const isWindow =
+    !(event.source instanceof MessagePort) &&
+    !(event.source instanceof ServiceWorker);
+  if (isWindow) {
+    return event.source as Window;
+  }
+  return null;
+};
+
 interface FinalizeAuthParams {
   decodedAuthRequest: DecodedAuthRequest;
   authResponse: string;
@@ -55,12 +65,10 @@ export const finalizeAuthResponse = ({
   }, 500);
   window.addEventListener('message', event => {
     if (authRequest && event.data.authRequest === authRequest) {
-      const isWindow =
-        !(event.source instanceof MessagePort) &&
-        !(event.source instanceof ServiceWorker);
-      if (isWindow) {
+      const source = getEventSourceWindow(event);
+      if (source) {
         didSendMessageBack = true;
-        (event.source as Window).postMessage(
+        source.postMessage(
           {
             authRequest,
             authResponse,

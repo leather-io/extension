@@ -1,19 +1,51 @@
-const _window: any = window;
+import { BlockstackProvider } from '@blockstack/connect';
 
-const log = (msg: string) => {
-  console.log(`[BlockstackApp]: ${msg}`);
-};
+declare global {
+  interface Window {
+    BlockstackProvider?: BlockstackProvider;
+  }
+}
 
-_window.BlockstackApp = {
-  auth: (authRequest: string) => {
-    log(`Auth request: ${authRequest}`);
+interface Response {
+  source: 'blockstack-extension';
+  method: string;
+  [key: string]: any;
+}
+
+const callAndReceive = async (
+  methodName: string,
+  opts: any = {}
+): Promise<Response> => {
+  return new Promise((resolve, reject) => {
+    console.log(`BlockstackApp.${methodName}:`, opts);
+    const timeout = setTimeout(() => {
+      reject('Unable to get response from Blockstack extension');
+    }, 1000);
+    const waitForResponse = (event: MessageEvent) => {
+      if (
+        event.data.source === 'blockstack-extension' &&
+        event.data.method === `${methodName}Response`
+      ) {
+        clearTimeout(timeout);
+        window.removeEventListener('message', waitForResponse);
+        resolve(event.data);
+      }
+    };
+    window.addEventListener('message', waitForResponse);
     window.postMessage(
       {
-        method: 'auth',
-        authRequest,
+        method: methodName,
         source: 'blockstack-app',
+        ...opts,
       },
       window.location.origin
     );
+  });
+};
+
+window.BlockstackProvider = {
+  getURL: async () => {
+    const { url } = await callAndReceive('getURL');
+    return url;
   },
 };
