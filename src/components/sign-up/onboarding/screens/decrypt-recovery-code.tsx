@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Input, Text } from '@blockstack/ui';
-import { decrypt } from '@blockstack/keychain';
+import { decrypt, Wallet } from '@blockstack/keychain';
 import { ScreenTemplate } from '../../screen';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../../../store';
@@ -10,7 +10,7 @@ import { doStoreSeed } from '../../../../store/wallet/actions';
 import { DEFAULT_PASSWORD } from '../../../../store/onboarding/types';
 
 interface RecoveryProps {
-  next: () => void;
+  next: (wallet: Wallet) => void;
 }
 
 const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
@@ -53,9 +53,13 @@ const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
           try {
             const codeBuffer = Buffer.from(recoveryCode, 'base64');
             const seed = await decrypt(codeBuffer, password);
-            await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+            const wallet = await doStoreSeed(seed, DEFAULT_PASSWORD)(
+              dispatch,
+              () => ({}),
+              {}
+            );
             doTrack(SIGN_IN_CORRECT);
-            next();
+            next(wallet);
           } catch (error) {
             setPasswordError('Invalid password.');
           }

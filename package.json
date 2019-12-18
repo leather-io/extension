@@ -17,6 +17,7 @@
     "lint:prettier": "prettier --check src/**/*.{ts,tsx} *.js",
     "test": "jest --passWithNoTests",
     "test:coverage": "jest --collect-coverage",
+    "test:watch": "jest --watch",
     "typecheck": "tsc --noEmit"
   },
   "prettier": "@blockstack/prettier-config",

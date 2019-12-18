@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const App: React.FC = () => {
   const [authResponse, setAuthResponse] = useState('');
+  const [appPrivateKey, setAppPrivateKey] = useState('');
   return (
     <div className="App">
       <header className="App-header">
@@ -16,6 +17,9 @@ const App: React.FC = () => {
         {authResponse && (
           <span id="auth-response">{authResponse}</span>
         )}
+        {appPrivateKey && (
+          <span id="app-private-key">{appPrivateKey}</span>
+        )}
         <a
           className="App-link"
           id="auth-action"
@@ -24,7 +28,8 @@ const App: React.FC = () => {
             redirectTo: '/',
             manifestPath: '/manifest.json',
             vaultUrl: 'http://localhost:8080',
-            finished: ({ authResponse }) => {
+            finished: ({ authResponse, userSession }) => {
+              setAppPrivateKey(userSession.loadUserData().appPrivateKey);
               setAuthResponse(authResponse);
             },
             appDetails: {

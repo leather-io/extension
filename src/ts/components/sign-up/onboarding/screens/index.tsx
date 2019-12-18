@@ -38,6 +38,8 @@ import { Screen, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { IAppState } from '@store';
 import { selectSecretKey, selectDecodedAuthRequest, selectAppName, selectAppIcon } from '@store/onboarding/selectors';
 import { doStoreSeed } from '@store/wallet';
+import { Wallet } from '@blockstack/keychain';
+import { selectCurrentWallet } from '@store/wallet/selectors';
 
 const AppIcon: React.FC = ({ ...rest }) => {
   const appIcon = useSelector((state: IAppState) => selectAppIcon(state));
@@ -100,6 +102,7 @@ const Intro = ({ next }: { next?: () => void }) => {
                   doTrack(INTRO_SIGN_IN);
                   dispatch(doChangeScreen(Screen.SIGN_IN));
                 }}
+                id="onboarding-sign-in"
               >
                 Sign in instead
               </Link>
@@ -245,12 +248,7 @@ const SecretKey: React.FC<SecretKeyProps> = props => {
         body={[
           'Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost forever. So save it somewhere you won’t forget.',
           <Card title="Your Secret Key">
-            <SeedTextarea
-              readOnly
-              value={secretKey}
-              className="hidden-secret-key"
-              id="secret-key-field"
-            />
+            <SeedTextarea readOnly value={secretKey} className="hidden-secret-key" id="secret-key-field" />
           </Card>,
         ]}
         action={{
@@ -315,13 +313,7 @@ const Connect: React.FC<ConnectProps> = props => {
         'Enter your Secret Key to continue.',
         <Box>
           {/*Validate, track: CONNECT_INCORRECT */}
-          <Input
-            autoFocus
-            id="secret-key-field"
-            minHeight="80px"
-            placeholder="12-word Secret Key"
-            as="textarea"
-          />
+          <Input autoFocus id="secret-key-field" minHeight="80px" placeholder="12-word Secret Key" as="textarea" />
         </Box>,
       ]}
       action={{
@@ -360,31 +352,30 @@ const Connect: React.FC<ConnectProps> = props => {
 };
 
 interface FinalProps {
-  next: () => void;
+  next: (wallet: Wallet) => void;
   back: () => void;
 }
 
 const Final: React.FC<FinalProps> = props => {
   const appName = useSelector((state: IAppState) => selectAppName(state));
+  const wallet = useSelector((state: IAppState) => selectCurrentWallet(state));
   return (
     <ScreenTemplate
       textAlign="center"
       before={<AppIcon />}
       title={`You're all set! ${appName} has been connected to your Data Vault`}
-      body={[
-        `Everything you do in ${appName} will be private, secure, and only accessible with your Secret Key.`,
-      ]}
+      body={[`Everything you do in ${appName} will be private, secure, and only accessible with your Secret Key.`]}
       action={{
         label: 'Done',
         id: 'done-auth-button',
-        onClick: props.next,
+        onClick: () => props.next(wallet as Wallet),
       }}
     />
   );
 };
 
 interface SignInProps {
-  next: () => void;
+  next: (wallet: Wallet) => void;
   back: () => void;
 }
 
@@ -410,6 +401,7 @@ const SignIn: React.FC<SignInProps> = props => {
             placeholder="12-word Secret Key"
             as="textarea"
             value={seed}
+            id="secret-key-field"
             onChange={(evt: React.FormEvent<HTMLInputElement>) => {
               setSeedError(null);
               setSeed(evt.currentTarget.value);
@@ -433,6 +425,7 @@ const SignIn: React.FC<SignInProps> = props => {
         },
         {
           label: 'Continue',
+          id: 'sign-in-continue',
           onClick: async () => {
             setLoading(true);
             try {
@@ -441,9 +434,9 @@ const SignIn: React.FC<SignInProps> = props => {
                 dispatch(doChangeScreen(Screen.RECOVERY_CODE));
                 return;
               }
-              await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+              const wallet = await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
               doTrack(SIGN_IN_CORRECT);
-              props.next();
+              props.next(wallet);
             } catch (error) {
               setSeedError("The seed phrase you've entered is invalid.");
               doTrack(SIGN_IN_INCORRECT);
