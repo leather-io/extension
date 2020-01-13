@@ -23,25 +23,15 @@ export const doSaveSecretKey = (secretKey: string): OnboardingActions => ({
   secretKey,
 });
 
-export const doSetMagicRecoveryCode = (
-  magicRecoveryCode: string
-): OnboardingActions => ({
+export const doSetMagicRecoveryCode = (magicRecoveryCode: string): OnboardingActions => ({
   type: SET_MAGIC_RECOVERY_CODE,
   magicRecoveryCode,
 });
 
-export function doCreateSecretKey(): ThunkAction<
-  void,
-  {},
-  {},
-  OnboardingActions
-> {
+export function doCreateSecretKey(): ThunkAction<void, {}, {}, OnboardingActions> {
   return async dispatch => {
     const wallet = await dispatch(doGenerateWallet(DEFAULT_PASSWORD));
-    const secretKey = await decrypt(
-      wallet.encryptedBackupPhrase,
-      DEFAULT_PASSWORD
-    );
+    const secretKey = await decrypt(wallet.encryptedBackupPhrase, DEFAULT_PASSWORD);
     dispatch(doSaveSecretKey(secretKey));
   };
 }
@@ -74,9 +64,7 @@ const saveAuthRequest = ({
   };
 };
 
-export function doSaveAuthRequest(
-  authRequest: string
-): ThunkAction<void, {}, {}, OnboardingActions> {
+export function doSaveAuthRequest(authRequest: string): ThunkAction<void, {}, {}, OnboardingActions> {
   return async dispatch => {
     const { payload } = decodeToken(authRequest);
     const decodedAuthRequest = (payload as unknown) as DecodedAuthRequest;

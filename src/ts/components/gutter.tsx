@@ -7,11 +7,7 @@ interface GutterProps extends BoxProps {
   base?: number;
 }
 
-const Gutter: React.FC<GutterProps> = ({
-  base = 6,
-  multiplier,
-  ...rest
-}: GutterProps) => {
+const Gutter: React.FC<GutterProps> = ({ base = 6, multiplier, ...rest }: GutterProps) => {
   const boxes: React.ReactNode[] = [];
   for (let index = 0; index < multiplier; index++) {
     boxes.push(<Box py={base} key={`gutter-${index}`} {...rest} />);
