@@ -1,4 +1,4 @@
-import { hot } from 'react-hot-loader/root';
+
 import * as React from 'react';
 import {
   Flex,
@@ -31,4 +31,4 @@ const OptionsApp: React.FC = () => {
   );
 };
 
-export default hot(OptionsApp);
+export default OptionsApp;

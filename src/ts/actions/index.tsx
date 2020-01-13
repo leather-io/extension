@@ -1,4 +1,3 @@
-import 'react-hot-loader';
 import React from 'react';
 import { Store, applyMiddleware } from 'webext-redux';
 import ReactDOM from 'react-dom';
@@ -6,7 +5,7 @@ import { Store as ReduxStore } from 'redux';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, middlewareComponents } from '../background/store';
-// import ActionsApp from './containers/ActionsApp';
+
 import OnboardingApp from './containers/Onboarding';
 import DevStore from '../dev/store';
 

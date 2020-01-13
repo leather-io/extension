@@ -1,4 +1,3 @@
-import 'react-hot-loader';
 import * as React from 'react';
 import { Store, applyMiddleware } from 'webext-redux';
 import ReactDOM from 'react-dom';
