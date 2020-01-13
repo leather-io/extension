@@ -37,9 +37,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.json'],
     plugins: [new TsconfigPathsPlugin()],
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
   },
   module: {
     rules: [
@@ -63,7 +60,6 @@ module.exports = {
               // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
               // ["@babel/plugin-proposal-decorators", { legacy: true }],
               ['@babel/plugin-proposal-class-properties', { loose: true }],
-              'react-hot-loader/babel',
               '@babel/plugin-transform-runtime',
               '@babel/plugin-proposal-nullish-coalescing-operator',
               '@babel/plugin-proposal-optional-chaining',
