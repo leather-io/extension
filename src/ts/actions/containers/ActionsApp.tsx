@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ThemeProvider, theme, CSSReset } from '@blockstack/ui';
 import { Flex, Box, Text, Button } from '@blockstack/ui';
-import { hot } from 'react-hot-loader/root';
 import { IAppState } from '@store';
 import { selectAuthRequest, selectDecodedAuthRequest } from '@store/permissions/selectors';
 import { selectCurrentWallet } from '@store/wallet/selectors';
@@ -72,4 +71,4 @@ const ActionsApp: React.FC = () => {
   );
 };
 
-export default hot(ActionsApp);
+export default ActionsApp;

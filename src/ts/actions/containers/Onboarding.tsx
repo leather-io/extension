@@ -1,5 +1,4 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { Onboarding } from '@components/sign-up/onboarding';
 import { ThemeProvider, theme, CSSReset } from '@blockstack/ui';
 
@@ -14,4 +13,4 @@ export const OnboardingApp: React.FC = () => {
   );
 };
 
-export default hot(OnboardingApp);
+export default OnboardingApp;

@@ -1,4 +1,3 @@
-import 'react-hot-loader';
 import React from 'react';
 import ExtStore from '@store/ext-store';
 import ReactDOM from 'react-dom';

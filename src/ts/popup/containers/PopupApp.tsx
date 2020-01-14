@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider, theme, CSSReset, Flex, Box, Text } from '@blockstack/ui';
-import { hot } from 'react-hot-loader/root';
 import Gutter from '@components/gutter';
 
 const PopupApp: React.FC = () => {
@@ -19,4 +18,4 @@ const PopupApp: React.FC = () => {
   );
 };
 
-export default hot(PopupApp);
+export default PopupApp;

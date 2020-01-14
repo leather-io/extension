@@ -9,8 +9,8 @@ export function deserializer(payload: any) {
       ...payload[0],
       value: {
         ...payload[0].value,
-        currentWallet: wallet ? new Wallet(wallet) : wallet
-      }
+        currentWallet: wallet ? new Wallet(wallet) : wallet,
+      },
     };
     return [newPayload];
   }
@@ -28,7 +28,7 @@ export const getStore = () => {
   const store = new Store({
     portName: 'ExPort',
     deserializer: (payload: any) => JSON.parse(payload, walletDeserializer),
-    serializer: (payload: any) => JSON.stringify(payload)
+    serializer: (payload: any) => JSON.stringify(payload),
   });
   applyMiddleware(store, ...middlewareComponents);
   return store;

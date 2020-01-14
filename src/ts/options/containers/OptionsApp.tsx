@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import { Flex, ThemeProvider, theme, CSSReset, Stack, Box } from '@blockstack/ui';
 import Seed from './Seed';
@@ -24,4 +23,4 @@ const OptionsApp: React.FC = () => {
   );
 };
 
-export default hot(OptionsApp);
+export default OptionsApp;
