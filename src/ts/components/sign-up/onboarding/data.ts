@@ -1,9 +1,4 @@
-import {
-  SECRET_KEY_FAQ_WHERE,
-  SECRET_KEY_FAQ_LOSE,
-  SECRET_KEY_FAQ_WHEN,
-  SECRET_KEY_FAQ_PASSWORD,
-} from '@common/track';
+import { SECRET_KEY_FAQ_WHERE, SECRET_KEY_FAQ_LOSE, SECRET_KEY_FAQ_WHEN, SECRET_KEY_FAQ_PASSWORD } from '@common/track';
 
 const faqs = (appName: string) => {
   return [
@@ -62,8 +57,7 @@ const howDataVaultWorks = [
   {
     icon: '/assets/images/icon-shapes.svg',
     title: 'One Vault works with 100s of apps',
-    body:
-      'You’ll only ever have to create one Data Vault to use 100s of other apps like Nurx privately.',
+    body: 'You’ll only ever have to create one Data Vault to use 100s of other apps like Nurx privately.',
   },
 ];
 

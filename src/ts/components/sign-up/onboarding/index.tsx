@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '../modal';
-import {
-  Intro,
-  HowItWorks,
-  Create,
-  SecretKey,
-  Connect,
-  SaveKey,
-  Final,
-  SignIn,
-} from './screens';
+import { Intro, HowItWorks, Create, SecretKey, Connect, SaveKey, Final, SignIn } from './screens';
 import DecryptRecoveryCode from '@components/sign-up/onboarding/screens/decrypt-recovery-code';
 import { doChangeScreen, doSaveAuthRequest } from '@store/onboarding/actions';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,14 +18,12 @@ import { authenticationInit, finalizeAuthResponse } from '@common/utils';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector(
-    (state: IAppState) => ({
-      screen: selectCurrentScreen(state),
-      wallet: selectCurrentWallet(state),
-      decodedAuthRequest: selectDecodedAuthRequest(state),
-      authRequest: selectAuthRequest(state),
-    })
-  );
+  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector((state: IAppState) => ({
+    screen: selectCurrentScreen(state),
+    wallet: selectCurrentWallet(state),
+    decodedAuthRequest: selectDecodedAuthRequest(state),
+    authRequest: selectAuthRequest(state),
+  }));
 
   // TODO
   const doFinishSignIn = async () => {
@@ -58,38 +47,19 @@ const RenderScreen = ({ ...rest }) => {
   switch (screen) {
     // intro / about
     case Screen.INTRO:
-      return (
-        <Intro next={() => dispatch(doChangeScreen(Screen.CREATE))} {...rest} />
-      );
+      return <Intro next={() => dispatch(doChangeScreen(Screen.CREATE))} {...rest} />;
 
     case Screen.HOW_IT_WORKS:
-      return (
-        <HowItWorks
-          back={() => dispatch(doChangeScreen(Screen.INTRO))}
-          {...rest}
-        />
-      );
+      return <HowItWorks back={() => dispatch(doChangeScreen(Screen.INTRO))} {...rest} />;
 
     // create
     case Screen.CREATE:
-      return (
-        <Create
-          next={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
-          {...rest}
-        />
-      );
+      return <Create next={() => dispatch(doChangeScreen(Screen.SECRET_KEY))} {...rest} />;
 
     // Key screens
     case Screen.SECRET_KEY:
       return (
-        <SecretKey
-          next={() =>
-            dispatch(
-              doChangeScreen(hasSaved ? Screen.CONNECT_APP : Screen.SAVE_KEY)
-            )
-          }
-          {...rest}
-        />
+        <SecretKey next={() => dispatch(doChangeScreen(hasSaved ? Screen.CONNECT_APP : Screen.SAVE_KEY))} {...rest} />
       );
 
     case Screen.SAVE_KEY:

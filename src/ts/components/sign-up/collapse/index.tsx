@@ -12,13 +12,7 @@ interface TitleProps extends BoxProps {
   hovered: boolean;
 }
 
-const TitleElement: React.FC<TitleProps> = ({
-  onClick,
-  isFirst,
-  isOpen,
-  hovered,
-  title,
-}) => (
+const TitleElement: React.FC<TitleProps> = ({ onClick, isFirst, isOpen, hovered, title }) => (
   <Flex
     align="center"
     borderBottom="1px solid"
@@ -71,8 +65,7 @@ interface CollapseProps {
  */
 const Collapse: React.FC<CollapseProps> = ({ data, ...rest }) => {
   const [open, setOpen] = React.useState<number | null>(null);
-  const handleOpen = (key: number) =>
-    key === open ? setOpen(null) : setOpen(key);
+  const handleOpen = (key: number) => (key === open ? setOpen(null) : setOpen(key));
   return (
     <Box fontSize="14px" {...rest}>
       {/*

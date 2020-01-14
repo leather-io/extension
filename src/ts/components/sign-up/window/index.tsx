@@ -32,11 +32,7 @@ const Window = ({ children }: WindowProps) => {
   });
 
   React.useEffect(() => {
-    const win = window.open(
-      '',
-      '',
-      'width=440,height=584,left=200,top=200'
-    ) as Window;
+    const win = window.open('', '', 'width=440,height=584,left=200,top=200') as Window;
     win.document.title = 'Continue with Data Vault';
     const el = document.createElement('div');
     win.document.body.appendChild(el);
@@ -48,10 +44,7 @@ const Window = ({ children }: WindowProps) => {
   if (!state.el) {
     return null;
   } else {
-    return ReactDOM.createPortal(
-      <PortalContainer>{children}</PortalContainer>,
-      state.el
-    );
+    return ReactDOM.createPortal(<PortalContainer>{children}</PortalContainer>, state.el);
   }
 };
 

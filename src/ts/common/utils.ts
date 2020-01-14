@@ -53,7 +53,7 @@ interface FinalizeAuthParams {
 export const finalizeAuthResponse = ({
   decodedAuthRequest,
   authRequest,
-  authResponse,
+  authResponse
 }: FinalizeAuthParams) => {
   let didSendMessageBack = false;
   setTimeout(() => {
@@ -72,7 +72,7 @@ export const finalizeAuthResponse = ({
           {
             authRequest,
             authResponse,
-            source: 'blockstack-app',
+            source: 'blockstack-app'
           },
           event.origin
         );

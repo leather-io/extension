@@ -8,16 +8,9 @@ export const openPopup = (actionsUrl: string) => {
 
 // from https://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen
 // open a popup, centered on the screen, with logic to handle dual-monitor setups
-export const popupCenter = (
-  url: string,
-  title: string,
-  w: number,
-  h: number
-) => {
-  const dualScreenLeft =
-    window.screenLeft != undefined ? window.screenLeft : window.screenX;
-  const dualScreenTop =
-    window.screenTop != undefined ? window.screenTop : window.screenY;
+export const popupCenter = (url: string, title: string, w: number, h: number) => {
+  const dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+  const dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
 
   const width = window.innerWidth
     ? window.innerWidth
@@ -37,8 +30,7 @@ export const popupCenter = (
     url,
     title,
     // 'scrollbars=no, width=' + w / systemZoom + ', height=' + h / systemZoom + ', top=' + top + ', left=' + left
-    `scrollbars=no, width=${w / systemZoom}, height=${h /
-      systemZoom}, top=${top}, left=${left}`
+    `scrollbars=no, width=${w / systemZoom}, height=${h / systemZoom}, top=${top}, left=${left}`
   );
 
   // Puts focus on the newWindow

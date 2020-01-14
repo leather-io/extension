@@ -28,8 +28,7 @@ const DevActions = () => {
         Dev Console
       </Text>
       <Text my={4} display="block">
-        Mimic an authentication request by entering an{' '}
-        <code>`authRequest`</code> below.
+        Mimic an authentication request by entering an <code>`authRequest`</code> below.
       </Text>
       <Formik
         initialValues={{ authRequest: '' }}

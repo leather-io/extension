@@ -19,9 +19,7 @@ const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const recoveryCode = useSelector(
-    (state: IAppState) => selectMagicRecoveryCode(state) as string
-  );
+  const recoveryCode = useSelector((state: IAppState) => selectMagicRecoveryCode(state) as string);
   return (
     <ScreenTemplate
       title="Enter your password"
