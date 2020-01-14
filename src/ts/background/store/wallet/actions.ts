@@ -1,11 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { Wallet } from '@blockstack/keychain';
-import {
-  WalletActions,
-  RESTORE_WALLET,
-  IS_RESTORING_WALLET,
-  GENERATE_WALLET,
-} from './types';
+import { WalletActions, RESTORE_WALLET, IS_RESTORING_WALLET, GENERATE_WALLET } from './types';
 
 export function didRestoreWallet(wallet: Wallet): WalletActions {
   return {
@@ -27,10 +22,7 @@ function isRestoringWallet(): WalletActions {
   };
 }
 
-export function doStoreSeed(
-  seed: string,
-  password: string
-): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
+export function doStoreSeed(seed: string, password: string): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
   return async dispatch => {
     dispatch(isRestoringWallet());
     const wallet = await Wallet.restore(password, seed);
@@ -39,9 +31,7 @@ export function doStoreSeed(
   };
 }
 
-export function doGenerateWallet(
-  password: string
-): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
+export function doGenerateWallet(password: string): ThunkAction<Promise<Wallet>, {}, {}, WalletActions> {
   return async dispatch => {
     dispatch(isRestoringWallet());
     const wallet = await Wallet.generate(password);

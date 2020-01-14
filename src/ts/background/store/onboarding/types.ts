@@ -53,8 +53,4 @@ interface SetMagicRecoveryCode {
   magicRecoveryCode: string;
 }
 
-export type OnboardingActions =
-  | ChangePageAction
-  | StoreSecretKey
-  | SetMagicRecoveryCode
-  | SaveAuthRequest;
+export type OnboardingActions = ChangePageAction | StoreSecretKey | SetMagicRecoveryCode | SaveAuthRequest;

@@ -24,8 +24,7 @@ const SECRET_KEY_INSTR_CONFIRMED = 'auth_new_confirmed_secret_key';
 const SECRET_KEY_FAQ_WHERE = 'auth_new_selected_secret_key_instruction_where';
 const SECRET_KEY_FAQ_LOSE = 'auth_new_selected_secret_key_instruction_lose';
 const SECRET_KEY_FAQ_WHEN = 'auth_new_selected_secret_key_instruction_when';
-const SECRET_KEY_FAQ_PASSWORD =
-  'auth_new_selected_secret_key_instruction_password';
+const SECRET_KEY_FAQ_PASSWORD = 'auth_new_selected_secret_key_instruction_password';
 
 const CONNECT_CLOSED = 'auth_new_closed_secret_key_entry';
 const CONNECT_SAVED = 'auth_new_entered_correct_secret_key';
