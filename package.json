@@ -4,7 +4,7 @@
   "description": "A web browser extension starter - based on Typescript, React, Redux, Styled-Component, Webpack, and more. Runs on Chrome and Firefox.",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server -d",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --mode development",
     "build:dev": "cross-env NODE_ENV=development EXT_ENV=development webpack -d",
     "prod:web": "cross-env NODE_ENV=production webpack -p",
     "prod:ext": "cross-env NODE_ENV=production EXT_ENV=prod webpack -p",

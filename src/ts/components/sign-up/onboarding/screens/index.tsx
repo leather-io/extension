@@ -32,11 +32,20 @@ import {
   SIGN_IN_FORGOT,
   SIGN_IN_INCORRECT,
 } from '@common/track';
-import { doChangeScreen, doCreateSecretKey, doSetMagicRecoveryCode } from '@store/onboarding/actions';
+import {
+  doChangeScreen,
+  doCreateSecretKey,
+  doSetMagicRecoveryCode,
+} from '@store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Screen, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { IAppState } from '@store';
-import { selectSecretKey, selectDecodedAuthRequest, selectAppName, selectAppIcon } from '@store/onboarding/selectors';
+import {
+  selectSecretKey,
+  selectDecodedAuthRequest,
+  selectAppName,
+  selectAppIcon,
+} from '@store/onboarding/selectors';
 import { doStoreSeed } from '@store/wallet';
 
 const AppIcon: React.FC = ({ ...rest }) => {
@@ -61,7 +70,9 @@ const Intro = ({ next }: { next?: () => void }) => {
     return (
       <ScreenTemplate
         title="Fetching Authentication Request"
-        body={['Data Vault is securely fetching information to authenticate you']}
+        body={[
+          'Data Vault is securely fetching information to authenticate you',
+        ]}
         isLoading
       />
     );
@@ -149,7 +160,11 @@ interface MockData {
   imageUrl: string;
 }
 
-const createTimeoutLoop = (setState: (item: MockData) => void, arr: MockData[], onEnd: () => void) =>
+const createTimeoutLoop = (
+  setState: (item: MockData) => void,
+  arr: MockData[],
+  onEnd: () => void
+) =>
   arr.forEach((item, index) =>
     setTimeout(() => {
       setState(item);
@@ -203,7 +218,13 @@ const Create: React.FC<CreateProps> = props => {
         ) : (
           <Box>
             <Text>Your Data Vault includes:</Text>
-            <Flex mt={6} mx="auto" width="240px" height="152px" justifyContent="center">
+            <Flex
+              mt={6}
+              mx="auto"
+              width="240px"
+              height="152px"
+              justifyContent="center"
+            >
               <img src={state.imageUrl} />
             </Flex>
           </Box>
@@ -244,14 +265,20 @@ const SecretKey: React.FC<SecretKeyProps> = props => {
         body={[
           'Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost forever. So save it somewhere you won’t forget.',
           <Card title="Your Secret Key">
-            <SeedTextarea readOnly value={secretKey} className="hidden-secret-key" />
+            <SeedTextarea
+              readOnly
+              value={secretKey}
+              className="hidden-secret-key"
+            />
           </Card>,
         ]}
         action={{
           label: 'Copy Secret Key',
           onClick: () => {
             doTrack(SECRET_KEY_INTRO_COPIED);
-            const input: HTMLInputElement = document.querySelector('.hidden-secret-key') as HTMLInputElement;
+            const input: HTMLInputElement = document.querySelector(
+              '.hidden-secret-key'
+            ) as HTMLInputElement;
             input.select();
             input.setSelectionRange(0, 99999);
             document.execCommand('copy');
@@ -307,7 +334,12 @@ const Connect: React.FC<ConnectProps> = props => {
         'Enter your Secret Key to continue.',
         <Box>
           {/*Validate, track: CONNECT_INCORRECT */}
-          <Input autoFocus minHeight="80px" placeholder="12-word Secret Key" as="textarea" />
+          <Input
+            autoFocus
+            minHeight="80px"
+            placeholder="12-word Secret Key"
+            as="textarea"
+          />
         </Box>,
       ]}
       action={{
@@ -356,7 +388,9 @@ const Final: React.FC<FinalProps> = props => {
       textAlign="center"
       before={<AppIcon />}
       title={`You’re all set! ${appName} has been connected to your Data Vault`}
-      body={[`Everything you do in ${appName} will be private, secure, and only accessible with your Secret Key.`]}
+      body={[
+        `Everything you do in ${appName} will be private, secure, and only accessible with your Secret Key.`,
+      ]}
       action={{
         label: 'Done',
         onClick: props.next,
@@ -423,7 +457,11 @@ const SignIn: React.FC<SignInProps> = props => {
                 dispatch(doChangeScreen(Screen.RECOVERY_CODE));
                 return;
               }
-              await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+              await doStoreSeed(seed, DEFAULT_PASSWORD)(
+                dispatch,
+                () => ({}),
+                {}
+              );
               doTrack(SIGN_IN_CORRECT);
               props.next();
             } catch (error) {
@@ -438,7 +476,9 @@ const SignIn: React.FC<SignInProps> = props => {
       footer={
         <>
           <Flex>
-            <Link onClick={() => doTrack(SIGN_IN_FORGOT)}>Forgot Secret Key?</Link>
+            <Link onClick={() => doTrack(SIGN_IN_FORGOT)}>
+              Forgot Secret Key?
+            </Link>
           </Flex>
           <Link>Help</Link>
         </>
@@ -447,4 +487,13 @@ const SignIn: React.FC<SignInProps> = props => {
   );
 };
 
-export { Intro, HowItWorks, Create, SecretKey, Connect, SaveKey, Final, SignIn };
+export {
+  Intro,
+  HowItWorks,
+  Create,
+  SecretKey,
+  Connect,
+  SaveKey,
+  Final,
+  SignIn,
+};

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, PseudoBox, Flex, Text } from '@blockstack/ui';
-// import { useHover } from 'use-events';
 import { Logo } from '@components/logo';
 import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 import CloseIcon from 'mdi-react/CloseIcon';
@@ -24,7 +23,10 @@ interface HeaderTitleProps {
   hideIcon?: boolean;
 }
 
-const HeaderTitle: React.FC<HeaderTitleProps> = ({ hideIcon = false, title }) => (
+const HeaderTitle: React.FC<HeaderTitleProps> = ({
+  hideIcon = false,
+  title,
+}) => (
   <Flex align="center">
     {hideIcon ? null : <Logo mr={2} />}
     <Text fontWeight="bold" fontSize={'12px'}>
@@ -34,7 +36,12 @@ const HeaderTitle: React.FC<HeaderTitleProps> = ({ hideIcon = false, title }) =>
 );
 
 const HeaderCloseButton: React.FC<BoxProps> = ({ onClick }) => (
-  <PseudoBox color="ink.300" opacity={0.5} _hover={{ opacity: 1, cursor: 'pointer' }} onClick={onClick}>
+  <PseudoBox
+    color="ink.300"
+    opacity={0.5}
+    _hover={{ opacity: 1, cursor: 'pointer' }}
+    onClick={onClick}
+  >
     <CloseIcon size={20} />
   </PseudoBox>
 );
@@ -58,7 +65,14 @@ interface IModalHeader {
   hideIcon?: boolean;
 }
 
-const ModalHeader = ({ appIcon, close, title, hideIcon, appName, ...rest }: IModalHeader) => {
+const ModalHeader = ({
+  appIcon,
+  close,
+  title,
+  hideIcon,
+  appName,
+  ...rest
+}: IModalHeader) => {
   return (
     <Flex
       p={[4, 5]}
@@ -101,7 +115,15 @@ interface ModalProps {
   close: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ footer = null, appIcon, title, hideIcon = false, close, appName, children }) => {
+const Modal: React.FC<ModalProps> = ({
+  footer = null,
+  appIcon,
+  title,
+  hideIcon = false,
+  close,
+  appName,
+  children,
+}) => {
   return (
     <>
       <Flex
@@ -124,8 +146,20 @@ const Modal: React.FC<ModalProps> = ({ footer = null, appIcon, title, hideIcon =
           borderRadius={['unset', '6px']}
           boxShadow="high"
         >
-          <ModalHeader hideIcon={hideIcon} close={close} appIcon={appIcon} appName={appName} title={title} />
-          <Flex width="100%" p={[5, 8]} overflowY="auto" flexGrow={1} position="relative">
+          <ModalHeader
+            hideIcon={hideIcon}
+            close={close}
+            appIcon={appIcon}
+            appName={appName}
+            title={title}
+          />
+          <Flex
+            width="100%"
+            p={[5, 8]}
+            overflowY="auto"
+            flexGrow={1}
+            position="relative"
+          >
             <ModalContent>{children}</ModalContent>
           </Flex>
           {footer ? footer : null}

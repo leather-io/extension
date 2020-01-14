@@ -5,7 +5,13 @@ import { BoxProps } from '@blockstack/ui/dist/box';
 import { Link } from '../../link';
 
 const Footer: React.FC = props => (
-  <Flex fontSize={['12px', '14px']} color="ink.600" fontWeight="medium" justify="space-between" {...props} />
+  <Flex
+    fontSize={['12px', '14px']}
+    color="ink.600"
+    fontWeight="medium"
+    justify="space-between"
+    {...props}
+  />
 );
 
 interface ScreenAction {
@@ -57,7 +63,10 @@ const ScreenTemplate = ({
         style={{ pointerEvents: isLoading ? 'unset' : 'none' }}
         opacity={isLoading ? 1 : 0}
       >
-        <Box transition="500ms all" transform={isLoading ? 'none' : 'translateY(10px)'}>
+        <Box
+          transition="500ms all"
+          transform={isLoading ? 'none' : 'translateY(10px)'}
+        >
           <Spinner size="xl" thickness="3px" color="blue" />
         </Box>
       </Flex>
@@ -71,12 +80,16 @@ const ScreenTemplate = ({
       >
         {back ? <BackLink onClick={back} /> : null}
         {before && before}
-        <Stack spacing={2}>
-          <Title>{title}</Title>
-          <Stack spacing={[3, 4]}>
-            {body && body.length ? body.map((text, key) => <Body key={key}>{text}</Body>) : body}
+        <Box px={5}>
+          <Stack spacing={2}>
+            <Title>{title}</Title>
+            <Stack spacing={[3, 4]}>
+              {body && body.length
+                ? body.map((text, key) => <Body key={key}>{text}</Body>)
+                : body}
+            </Stack>
           </Stack>
-        </Stack>
+        </Box>
         {action ? (
           Array.isArray(action) ? (
             <Flex justify="space-between" align="center">
@@ -96,7 +109,11 @@ const ScreenTemplate = ({
             </Flex>
           ) : (
             <Box>
-              <Button width="100%" onClick={action.onClick} isDisabled={action.disabled}>
+              <Button
+                width="100%"
+                onClick={action.onClick}
+                isDisabled={action.disabled}
+              >
                 {action.label}
               </Button>
             </Box>
