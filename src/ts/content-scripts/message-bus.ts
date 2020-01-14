@@ -1,8 +1,8 @@
 import { getEventSourceWindow } from '@common/utils';
 
-const backgroundPort = chrome.runtime.connect({
-  name: 'Blockstack-ContentScript',
-});
+// const backgroundPort = chrome.runtime.connect({
+//   name: 'Blockstack-ContentScript',
+// });
 
 window.addEventListener('message', event => {
   const { data } = event;
@@ -21,7 +21,7 @@ window.addEventListener('message', event => {
       );
       return;
     }
-    backgroundPort.postMessage(data);
+    // backgroundPort.postMessage(data);
   }
 });
 
