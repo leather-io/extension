@@ -9,7 +9,7 @@ import { persistor } from '@store';
 import PopupApp from './containers/PopupApp';
 import DevStore from '@dev/store';
 
-const buildApp = (store: ReduxStore | typeof ExtStore) => {
+const buildApp = (store: ReduxStore | ReturnType<typeof ExtStore>) => {
   ReactDOM.render(
     <Provider store={store as any}>
       <PersistGate loading={null} persistor={persistor}>
@@ -24,7 +24,7 @@ if (EXT_ENV === 'web') {
   const store = DevStore;
   buildApp(store);
 } else {
-  const store = ExtStore;
+  const store = ExtStore();
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   store.ready().then(() => buildApp(store));
 }
