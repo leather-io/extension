@@ -18,7 +18,7 @@ jobs: # a collection of steps
             - ./.cache/yarn
       - run: # run tests
           name: test
-          command: yarn test
+          command: yarn test --passWithNoTests
       # - run: # run coverage report
       #     name: code-coverage
       #     command: './node_modules/.bin/nyc report --reporter=text-lcov'

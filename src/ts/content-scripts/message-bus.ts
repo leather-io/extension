@@ -1,11 +1,27 @@
-const backgroundPort = chrome.runtime.connect({
-  name: 'Blockstack-ContentScript',
-});
+import { getEventSourceWindow } from '@common/utils';
+
+// const backgroundPort = chrome.runtime.connect({
+//   name: 'Blockstack-ContentScript',
+// });
 
 window.addEventListener('message', event => {
-  if (event.data.source === 'blockstack-app') {
-    console.log(event);
-    backgroundPort.postMessage(event.data);
+  const { data } = event;
+  if (data.source === 'blockstack-app') {
+    const { method } = data;
+    if (method === 'getURL') {
+      const url = chrome.runtime.getURL('');
+      const source = getEventSourceWindow(event);
+      source?.postMessage(
+        {
+          url,
+          method: 'getURLResponse',
+          source: 'blockstack-extension',
+        },
+        event.origin
+      );
+      return;
+    }
+    // backgroundPort.postMessage(data);
   }
 });
 
