@@ -73,7 +73,7 @@ module.exports = {
   devServer: {
     contentBase: './dist',
   },
-  devtool: false,
+  devtool: 'none',
   watch: false,
   plugins: [
     new CheckerPlugin(),
