@@ -1,6 +1,6 @@
 module.exports = {
   launch: {
-    headless: false,
+    headless: true,
     devTools: true,
   },
   browser: 'chromium',

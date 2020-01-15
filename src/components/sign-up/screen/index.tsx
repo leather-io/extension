@@ -11,7 +11,7 @@ const Footer: React.FC = props => (
 
 interface ScreenAction {
   label: string;
-  onClick?: () => void;
+  onClick?: any;
   href?: string;
   disabled?: boolean;
   variant?: string;
@@ -31,6 +31,7 @@ interface IScreenTemplate {
   noMinHeight?: boolean;
   appIcon?: boolean;
 }
+
 const ScreenTemplate = ({
   before,
   title,

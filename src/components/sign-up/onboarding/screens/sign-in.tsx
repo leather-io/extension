@@ -9,9 +9,10 @@ import { Screen, DEFAULT_PASSWORD } from '../../../../store/onboarding/types';
 import { IAppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
 import { doStoreSeed } from '../../../../store/wallet';
+import { Wallet } from '@blockstack/keychain';
 
 interface SignInProps {
-  next: () => void;
+  next: (wallet?: Wallet) => void;
   back: () => void;
 }
 const SignIn: React.FC<SignInProps> = props => {

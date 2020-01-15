@@ -14,7 +14,7 @@ describe('Authentication', () => {
     demoPageObject = new DemoPageObject();
   });
 
-  test('creating a successful account', async done => {
+  test.only('creating a successful account', async done => {
     await demoPageObject.goToFreshPage();
     await page.click(demoPageObject.$openAuthButton);
 
@@ -23,9 +23,9 @@ describe('Authentication', () => {
 
     expect(authPage.url().startsWith(authPageObject.url)).toBeTruthy();
 
-    await authPage.waitFor('#create-data-vault-button');
+    await authPage.waitFor('#create-data-vault-button', { timeout: 60_000 });
 
-    expect(authPage).toMatch('Tester-Fake-App');
+    await expect(authPage).toMatch('Tester-Fake-App');
     const appIcon = await authPage.$('#app-icon-img');
     const iconSrc = await authPage.evaluate(el => el.src, appIcon);
     expect(iconSrc).toEqual(demoPageObject.url + '/logo512.png');
@@ -56,9 +56,9 @@ describe('Authentication', () => {
     expect(authResponse).toBeTruthy();
     await expect(authPage).toMatch(`You're all set!`);
     done();
-  }, 100_000);
+  }, 150_000);
 
-  xtest('that it does not let you proceed when passing an incorrect seed phrase', async done => {
+  test('that it does not let you proceed when passing an incorrect seed phrase', async done => {
     await demoPageObject.goToFreshPage();
     await page.click(demoPageObject.$openAuthButton);
 
@@ -87,7 +87,7 @@ describe('Authentication', () => {
     await authPage.click('#connect-page-continue-button');
     await expect(authPage).toMatch(`You're all set!`);
     done();
-  }, 100_000);
+  }, 150_000);
 
   test('signing in with an existing seed phrase', async () => {
     await demoPageObject.goToFreshPage();
@@ -113,5 +113,5 @@ describe('Authentication', () => {
     const appPrivateKey: string = await page.evaluate(el => el.innerText, appPrivateKeyEl);
     expect(appPrivateKey).toBeTruthy();
     expect(appPrivateKey).toEqual(await wallet.identities[0].appPrivateKey(demoPageObject.url));
-  }, 40_000);
+  }, 150_000);
 });

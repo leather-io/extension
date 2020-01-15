@@ -6,9 +6,10 @@ import { AppIcon } from '../../app-icon';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
+import { Wallet } from '@blockstack/keychain';
 
 interface FinalProps {
-  next: () => void;
+  next: (wallet: Wallet) => void;
   back: () => void;
 }
 
