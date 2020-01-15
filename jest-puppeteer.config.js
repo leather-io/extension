@@ -1,5 +1,8 @@
 module.exports = {
   launch: {
-    devTools: false
-  }
-}
+    headless: false,
+    devTools: true,
+  },
+  browser: 'chromium',
+  browserContext: 'incognito',
+};
