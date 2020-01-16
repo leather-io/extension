@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --mode development",
-    "build:dev": "cross-env NODE_ENV=development EXT_ENV=development webpack -d",
+    "build:dev": "cross-env NODE_ENV=development EXT_ENV=development webpack --hot --mode development",
     "prod:web": "cross-env NODE_ENV=production webpack -p",
     "prod:ext": "cross-env NODE_ENV=production EXT_ENV=prod webpack -p",
     "watch": "cross-env NODE_ENV=development EXT_ENV=watch webpack -d",
