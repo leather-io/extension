@@ -1,17 +1,12 @@
 import React from 'react';
 import { Button, Flex, Box, Spinner, Stack } from '@blockstack/ui';
-import { Title, Body, BackLink } from '../typography';
+import { Title, Body } from '../typography';
 import { BoxProps } from '@blockstack/ui/dist/box';
 import { Link } from '../../link';
+import { OnboardingHeader } from '@components/sign-up/header';
 
 const Footer: React.FC = props => (
-  <Flex
-    fontSize={['12px', '14px']}
-    color="ink.600"
-    fontWeight="medium"
-    justify="space-between"
-    {...props}
-  />
+  <Flex px={5} fontSize={['12px', '14px']} color="ink.600" fontWeight="medium" justify="space-between" {...props} />
 );
 
 interface ScreenAction {
@@ -25,6 +20,7 @@ interface ScreenAction {
 interface IScreenTemplate {
   title: string | React.ElementType;
   body?: (string | JSX.Element)[];
+  headerTitle?: string | JSX.Element;
   back?: () => void;
   action?: ScreenAction | ScreenAction[];
   after?: string | JSX.Element;
@@ -32,17 +28,19 @@ interface IScreenTemplate {
   footer?: string | JSX.Element;
   isLoading?: boolean;
   noMinHeight?: boolean;
+  appIcon?: boolean;
 }
 const ScreenTemplate = ({
   before,
   title,
   body,
+  headerTitle,
   action,
   after,
-  back,
   footer,
   isLoading,
   noMinHeight = false,
+  appIcon,
   ...rest
 }: IScreenTemplate & BoxProps) => {
   return (
@@ -63,10 +61,7 @@ const ScreenTemplate = ({
         style={{ pointerEvents: isLoading ? 'unset' : 'none' }}
         opacity={isLoading ? 1 : 0}
       >
-        <Box
-          transition="500ms all"
-          transform={isLoading ? 'none' : 'translateY(10px)'}
-        >
+        <Box transition="500ms all" transform={isLoading ? 'none' : 'translateY(10px)'}>
           <Spinner size="xl" thickness="3px" color="blue" />
         </Box>
       </Flex>
@@ -78,21 +73,19 @@ const ScreenTemplate = ({
         style={{ pointerEvents: isLoading ? 'none' : 'unset' }}
         {...rest}
       >
-        {back ? <BackLink onClick={back} /> : null}
+        <OnboardingHeader appIcon={appIcon} title={headerTitle || 'Data Vault'} close={() => console.log('test')} />
         {before && before}
         <Box px={5}>
           <Stack spacing={2}>
             <Title>{title}</Title>
             <Stack spacing={[3, 4]}>
-              {body && body.length
-                ? body.map((text, key) => <Body key={key}>{text}</Body>)
-                : body}
+              {body && body.length ? body.map((text, key) => <Body key={key}>{text}</Body>) : body}
             </Stack>
           </Stack>
         </Box>
         {action ? (
           Array.isArray(action) ? (
-            <Flex justify="space-between" align="center">
+            <Flex px={5} justify="space-between" align="center">
               {action.map((a, key) => (
                 <Box key={key}>
                   {a.variant && a.variant === 'text' ? (
@@ -108,12 +101,8 @@ const ScreenTemplate = ({
               ))}
             </Flex>
           ) : (
-            <Box>
-              <Button
-                width="100%"
-                onClick={action.onClick}
-                isDisabled={action.disabled}
-              >
+            <Box px={5}>
+              <Button width="100%" onClick={action.onClick} isDisabled={action.disabled}>
                 {action.label}
               </Button>
             </Box>

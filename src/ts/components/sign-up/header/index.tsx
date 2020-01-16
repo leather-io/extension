@@ -1,23 +1,50 @@
 import React from 'react';
-import { Box, Flex } from '@blockstack/ui';
+
+import { Box, Flex, Text } from '@blockstack/ui';
 import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 
-interface IOnboardingHeader {
-  appIcon?: string;
+import { useSelector } from 'react-redux';
+import { selectAppIcon } from '@store/onboarding/selectors';
+
+import { Logo } from '@components/logo';
+import { Image } from '@components/image';
+
+interface AppIconProps {
+  src?: string;
+  name?: string;
+}
+
+const AppIcon: React.FC<AppIconProps> = ({ src, name, ...rest }) => (
+  <Box size={6} {...rest}>
+    <Image src={src} alt={name} title={name} />
+  </Box>
+);
+
+interface HeaderTitleProps {
+  title?: string | JSX.Element;
+  hideIcon?: boolean;
+}
+
+const HeaderTitle: React.FC<HeaderTitleProps> = ({ hideIcon = false, title }) => (
+  <Flex align="center">
+    {hideIcon ? null : <Logo mr={2} />}
+    <Text fontWeight="bold" fontSize={'12px'}>
+      {title}
+    </Text>
+  </Flex>
+);
+
+interface OnboardingHeaderProps {
+  appIcon?: boolean;
   appName?: string;
-  title: string;
+  title?: string | JSX.Element;
   close: () => void;
   hideIcon?: boolean;
 }
 
-const OnboardingHeader = ({
-  appIcon,
-  close,
-  title,
-  hideIcon,
-  appName,
-  ...rest
-}: IModalHeader) => {
+const OnboardingHeader = ({ appIcon, title, hideIcon, appName, ...rest }: OnboardingHeaderProps) => {
+  const icon = useSelector(selectAppIcon);
+
   return (
     <Flex
       p={[4, 5]}
@@ -30,7 +57,7 @@ const OnboardingHeader = ({
       {...rest}
     >
       <Flex align="center">
-        {appIcon ? <AppIcon src={appIcon} name={appName || 'loading'} /> : null}
+        {appIcon ? <AppIcon src={icon} name={appName || 'loading'} /> : null}
         {appIcon ? (
           <Box pr={1} pl={2} color="ink.300">
             <ChevronRightIcon size={20} />
@@ -38,7 +65,8 @@ const OnboardingHeader = ({
         ) : null}
         <HeaderTitle hideIcon={hideIcon} title={title} />
       </Flex>
-      <HeaderCloseButton onClick={close} />
     </Flex>
   );
 };
+
+export { OnboardingHeader };

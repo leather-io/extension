@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Create, SecretKey, Connect, SaveKey, Final, SignIn } from './screens';
+import { Create, SecretKey, Connect, SaveKey, SignIn } from './screens';
 import DecryptRecoveryCode from '@components/sign-up/onboarding/screens/decrypt-recovery-code';
 import { doChangeScreen, doSaveAuthRequest } from '@store/onboarding/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '@store';
 import { Screen } from '@store/onboarding/types';
-import {
-  selectCurrentScreen,
-  selectDecodedAuthRequest,
-  selectAuthRequest,
-} from '@store/onboarding/selectors';
+import { selectCurrentScreen, selectDecodedAuthRequest, selectAuthRequest } from '@store/onboarding/selectors';
 import { selectCurrentWallet } from '@store/wallet/selectors';
 import { authenticationInit, finalizeAuthResponse } from '@common/utils';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector(
-    (state: IAppState) => ({
-      screen: selectCurrentScreen(state),
-      wallet: selectCurrentWallet(state),
-      decodedAuthRequest: selectDecodedAuthRequest(state),
-      authRequest: selectAuthRequest(state),
-    })
-  );
+  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector((state: IAppState) => ({
+    screen: selectCurrentScreen(state),
+    wallet: selectCurrentWallet(state),
+    decodedAuthRequest: selectDecodedAuthRequest(state),
+    authRequest: selectAuthRequest(state),
+  }));
 
   // TODO
   const doFinishSignIn = async () => {
@@ -46,24 +40,12 @@ const RenderScreen = ({ ...rest }) => {
   switch (screen) {
     // create
     case Screen.CREATE:
-      return (
-        <Create
-          next={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
-          {...rest}
-        />
-      );
+      return <Create next={() => dispatch(doChangeScreen(Screen.SECRET_KEY))} {...rest} />;
 
     // Key screens
     case Screen.SECRET_KEY:
       return (
-        <SecretKey
-          next={() =>
-            dispatch(
-              doChangeScreen(hasSaved ? Screen.CONNECT_APP : Screen.SAVE_KEY)
-            )
-          }
-          {...rest}
-        />
+        <SecretKey next={() => dispatch(doChangeScreen(hasSaved ? Screen.CONNECT_APP : Screen.SAVE_KEY))} {...rest} />
       );
 
     case Screen.SAVE_KEY:
@@ -81,15 +63,6 @@ const RenderScreen = ({ ...rest }) => {
     case Screen.CONNECT_APP:
       return (
         <Connect
-          next={() => dispatch(doChangeScreen(Screen.CONNECTED))}
-          back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
-          {...rest}
-        />
-      );
-
-    case Screen.CONNECTED:
-      return (
-        <Final
           next={async () => {
             await doFinishOnboarding();
           }}
@@ -115,12 +88,7 @@ const RenderScreen = ({ ...rest }) => {
       return <DecryptRecoveryCode next={async () => await doFinishSignIn()} />;
 
     default:
-      return (
-        <Create
-          next={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
-          {...rest}
-        />
-      );
+      return null;
   }
 };
 
