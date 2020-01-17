@@ -73,7 +73,7 @@ export function doSaveAuthRequest(authRequest: string): ThunkAction<void, {}, {}
     if (!appName || !appIcon) {
       const appManifest = await loadManifest(decodedAuthRequest);
       appName = appManifest.name;
-      appIcon = appManifest.icons[0].src;
+      appIcon = appManifest.icons[0].src as string;
     }
     dispatch(
       saveAuthRequest({
