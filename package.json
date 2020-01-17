@@ -54,6 +54,7 @@
     "@types/node": "^13.1.7",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
+    "@schemastore/web-manifest": "^0.0.4",
     "@types/react-redux": "^7.1.2",
     "@types/react-test-renderer": "^16.8.2",
     "@types/styled-components": "4.4.2",

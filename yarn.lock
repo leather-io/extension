@@ -1075,6 +1075,11 @@
     react-dev-utils "^9.1.0"
     sockjs-client "^1.4.0"
 
+"@schemastore/web-manifest@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@schemastore/web-manifest/-/web-manifest-0.0.4.tgz#b9c5c8374dc9b920bd0c62fb1c94778584b6e4ab"
+  integrity sha512-TprZUZByVT+ijXaUtTO3enUuS7O8Dx4BPTekQXwCme4x+0i2XFUkwx0u/ni2eBARXSgpCZoIdesI7AxpycRg+A==
+
 "@styled-system/background@^5.1.2":
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/@styled-system/background/-/background-5.1.2.tgz#75c63d06b497ab372b70186c0bf608d62847a2ba"
@@ -8598,11 +8603,11 @@ uglify-js@3.4.x:
     source-map "~0.6.1"
 
 uglify-js@^3.1.9:
-  version "3.7.5"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.7.5.tgz#278c7c24927ac5a32d3336fc68fd4ae1177a486a"
-  integrity sha512-GFZ3EXRptKGvb/C1Sq6nO1iI7AGcjyqmIyOw0DrD0675e+NNbGO72xmMM2iEBdFbxaTLo70NbjM/Wy54uZIlsg==
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.6.0.tgz#704681345c53a8b2079fb6cec294b05ead242ff5"
+  integrity sha512-W+jrUHJr3DXKhrsS7NUVxn3zqMOFn0hL/Ei6v0anCIMoKC93TjcflTagwIHLW7SfMFfiQuktQyFVCFHGUE0+yg==
   dependencies:
-    commander "~2.20.3"
+    commander "~2.20.0"
     source-map "~0.6.1"
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
