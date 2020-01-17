@@ -18,17 +18,13 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: {
-    background: path.join(sourceRootPath, 'ts', 'background', 'index.ts'),
-    options: path.join(sourceRootPath, 'ts', 'options', 'index.tsx'),
-    popup: path.join(sourceRootPath, 'ts', 'popup', 'index.tsx'),
-    inpage: path.join(sourceRootPath, 'ts', 'inpage', 'index.ts'),
-    actions: path.join(sourceRootPath, 'ts', 'actions', 'index.tsx'),
-    'message-bus': path.join(
-      sourceRootPath,
-      'ts',
-      'content-scripts',
-      'message-bus.ts'
-    ),
+    background: path.join(sourceRootPath, 'extension', 'background.ts'),
+    popup: path.join(sourceRootPath, 'extension', 'index.tsx'),
+    inpage: path.join(sourceRootPath, 'extension', 'inpage.ts'),
+    'message-bus': path.join(sourceRootPath, 'extension', 'content-scripts', 'message-bus.ts'),
+
+    options: path.join(sourceRootPath, 'index.tsx'),
+    actions: path.join(sourceRootPath, 'actions.tsx'),
   },
   output: {
     path: distRootPath,
@@ -78,21 +74,21 @@ module.exports = {
   plugins: [
     new CheckerPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(sourceRootPath, 'html', 'options.html'),
+      template: path.join(sourceRootPath, '../', 'public', 'html', 'options.html'),
       inject: 'body',
       filename: 'index.html',
       title: 'Blockstack',
       chunks: ['options'],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(sourceRootPath, 'html', 'popup.html'),
+      template: path.join(sourceRootPath, '../', 'public', 'html', 'popup.html'),
       inject: 'body',
       filename: 'popup.html',
       title: 'Blockstack',
       chunks: ['popup'],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(sourceRootPath, 'html', 'actions.html'),
+      template: path.join(sourceRootPath, '../', 'public', 'html', 'actions.html'),
       inject: 'body',
       filename: 'actions.html',
       title: 'Blockstack',
@@ -100,7 +96,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.join(sourceRootPath, 'assets'),
+        from: path.join(sourceRootPath, '../', 'public', 'assets'),
         to: path.join(distRootPath, 'assets'),
         test: /\.(jpg|jpeg|png|gif|svg)?$/,
       },
@@ -115,8 +111,7 @@ module.exports = {
       WEB_BROWSER: JSON.stringify(webBrowser),
       EXT_ENV: JSON.stringify(process.env.EXT_ENV || 'web'),
     }),
-    isDevelopment &&
-      new ReactRefreshWebpackPlugin({ disableRefreshCheck: true }),
+    isDevelopment && new ReactRefreshWebpackPlugin({ disableRefreshCheck: true }),
   ].filter(Boolean),
 };
 
@@ -136,9 +131,6 @@ if (process.env.EXT_ENV === 'watch') {
   );
 }
 
-
 if (nodeEnv === 'production') {
-  module.exports.plugins.push(
-    new CleanWebpackPlugin({ verbose: true, dry: false })
-  );
+  module.exports.plugins.push(new CleanWebpackPlugin({ verbose: true, dry: false }));
 }
