@@ -1,48 +1,38 @@
-version: 2 # use CircleCI 2.0
-jobs: # a collection of steps
-  build: # runs not using Workflows must have a `build` job as entry point
-    working_directory: ~/blockstack-keychain # directory where steps will run
-    docker: # run the steps with Docker
+version: 2
+jobs:
+  build:
+    working_directory: ~/blockstack-app
+    docker:
       - image: circleci/node:10.16.3
-    steps: # a collection of executable commands
-      - checkout # special step to check out source code to working directory
-      - restore_cache: # special step to restore the dependency cache
-          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+    steps:
+      - checkout
+      - restore_cache:
+          # https://circleci.com/docs/2.0/caching/
           key: yarn-packages-{{ checksum "package.json" }}
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
-      - save_cache: # special step to save the dependency cache
+      - save_cache:
           key: yarn-packages-{{ checksum "package.json" }}
           paths:
             - ./.cache/yarn
-      - run: # run tests
-          name: test
-          command: yarn test --passWithNoTests
       # - run: # run coverage report
       #     name: code-coverage
       #     command: './node_modules/.bin/nyc report --reporter=text-lcov'
-      - run: # run lint
-          name: lint
-          command: yarn lint
+      - run:
+          name: Test suite
+          command: yarn test --passWithNoTests
+      - run: 
+          name: Lint Prettier
+          command: yarn lint:prettier
+      - run:
+          name: Lint ESLint
+          command: yarn lint:eslint
       - run:
           name: typecheck
           command: yarn typecheck
-    #   - run:
-    #       name: depcheck
-    #       command: yarn depcheck
-    #   - run:
-    #       name: coverage
-    #       command: yarn codecov
       - run:
           name: Build extension
           command: yarn prod:ext && zip -r extension.zip dist
       - store_artifacts:
           path: extension.zip
-      # - store_artifacts: # special step to save test results as as artifact
-      #     # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-      #     path: test-results.xml
-      #     prefix: tests
-      # - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-      #     path: test-results.xml
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
