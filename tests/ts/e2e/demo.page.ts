@@ -1,7 +1,7 @@
 export class DemoPageObject {
   url = 'http://localhost:3001';
 
-  $openAuthButton = '#auth-action';
+  $openAuthButton = '[data-test="button-open-connect-modal"]';
 
   async goToPage() {
     return page.goto(this.url, { waitUntil: 'domcontentloaded' });
@@ -9,6 +9,5 @@ export class DemoPageObject {
 
   async goToFreshPage() {
     await this.goToPage();
-    // await page.evaluate(() => localStorage.clear());
   }
 }

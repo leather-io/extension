@@ -53,11 +53,7 @@ const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
           try {
             const codeBuffer = Buffer.from(recoveryCode, 'base64');
             const seed = await decrypt(codeBuffer, password);
-            const wallet = await doStoreSeed(seed, DEFAULT_PASSWORD)(
-              dispatch,
-              () => ({}),
-              {}
-            );
+            const wallet = await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
             doTrack(SIGN_IN_CORRECT);
             next(wallet);
           } catch (error) {

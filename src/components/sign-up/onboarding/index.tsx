@@ -5,20 +5,21 @@ import { doChangeScreen, doSaveAuthRequest } from '../../../store/onboarding/act
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../../store';
 import { Screen } from '../../../store/onboarding/types';
+import { selectCurrentWallet } from '../../../store/wallet/selectors';
 import { selectCurrentScreen, selectDecodedAuthRequest, selectAuthRequest } from '../../../store/onboarding/selectors';
 import { authenticationInit, finalizeAuthResponse } from '../../../common/utils';
-import { Wallet } from '@blockstack/keychain';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen, decodedAuthRequest, authRequest } = useSelector((state: IAppState) => ({
+  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector((state: IAppState) => ({
     screen: selectCurrentScreen(state),
+    wallet: selectCurrentWallet(state),
     decodedAuthRequest: selectDecodedAuthRequest(state),
     authRequest: selectAuthRequest(state),
   }));
 
   // TODO
-  const doFinishSignIn = async (wallet: Wallet) => {
+  const doFinishSignIn = async () => {
     if (!wallet || !decodedAuthRequest || !authRequest) {
       console.error('Uh oh! Finished onboarding without auth info.');
       return;
@@ -71,8 +72,8 @@ const RenderScreen = ({ ...rest }) => {
     case Screen.CONNECTED:
       return (
         <Final
-          next={async (wallet: Wallet) => {
-            await doFinishOnboarding(wallet);
+          next={async () => {
+            await doFinishOnboarding();
           }}
           back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
           {...rest}
@@ -84,7 +85,7 @@ const RenderScreen = ({ ...rest }) => {
     case Screen.SIGN_IN:
       return (
         <SignIn
-          next={async (wallet: Wallet) => await doFinishSignIn(wallet)}
+          next={async () => await doFinishSignIn()}
           back={() => {
             dispatch(doChangeScreen(Screen.SECRET_KEY));
           }}
@@ -93,7 +94,7 @@ const RenderScreen = ({ ...rest }) => {
       );
 
     case Screen.RECOVERY_CODE:
-      return <DecryptRecoveryCode next={async (wallet: Wallet) => await doFinishSignIn(wallet)} />;
+      return <DecryptRecoveryCode next={async () => await doFinishSignIn()} />;
 
     default:
       return null;

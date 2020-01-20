@@ -13,7 +13,7 @@ interface FinalProps {
   back: () => void;
 }
 
-const Final: React.FC<FinalProps> = props => {
+export const Final: React.FC<FinalProps> = props => {
   const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <ScreenTemplate
@@ -23,10 +23,9 @@ const Final: React.FC<FinalProps> = props => {
       body={[`Everything you do in ${appName} will be private, secure, and only accessible with your Secret Key.`]}
       action={{
         label: 'Done',
+        testAttr: 'button-connect-flow-finished',
         onClick: props.next,
       }}
     />
   );
 };
-
-export { Final };

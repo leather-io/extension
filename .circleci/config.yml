@@ -1,17 +1,10 @@
-<<<<<<< HEAD
 version: 2
 jobs:
   build:
     working_directory: ~/blockstack-app
     docker:
-=======
-version: 2 # use CircleCI 2.0
-jobs: # a collection of steps
-  build: # runs not using Workflows must have a `build` job as entry point
-    working_directory: ~/blockstack-app # directory where steps will run
-    docker: # run the steps with Docker
->>>>>>> feat: Add first test attr
       - image: circleci/node:10.16.3-browsers
+    parallelism: 2
     steps:
       - checkout
       - restore_cache:
@@ -26,7 +19,7 @@ jobs: # a collection of steps
             - ./.cache/yarn
       # TODO - get this cached so that you don't have to pull down the binaries each time
       - run:
-          name: Update
+          name: Update apt-get
           working_directory: /
           command: |
             sudo apt-get update -y
@@ -65,9 +58,6 @@ jobs: # a collection of steps
           working_directory: ./tests/test-app/
           command: yarn start
           background: true
-      # - run:
-      #     name: Slight delay
-      #     command: sleep 4
       - run:
           name: test
           command: yarn test
