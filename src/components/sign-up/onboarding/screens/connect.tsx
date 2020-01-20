@@ -14,7 +14,6 @@ interface ConnectProps {
 }
 
 const Connect: React.FC<ConnectProps> = props => {
-  // const [isLoading, setLoading] = useState(false);
   const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <ScreenTemplate
@@ -38,15 +37,10 @@ const Connect: React.FC<ConnectProps> = props => {
         label: 'Continue',
         testAttr: 'button-confirm-reenter-seed-phrase',
         onClick: () => {
-          // setLoading(true);
           doTrack(CONNECT_SAVED);
           props.next();
-          // setTimeout(() => {
-          // setLoading(false);
-          // }, 1500);
         },
       }}
-      // isLoading={isLoading}
       footer={
         <>
           <Flex>

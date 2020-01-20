@@ -4,7 +4,6 @@ jobs:
     working_directory: ~/blockstack-app
     docker:
       - image: circleci/node:10.16.3-browsers
-    parallelism: 2
     steps:
       - checkout
       - restore_cache:
