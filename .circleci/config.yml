@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 version: 2
 jobs:
   build:
     working_directory: ~/blockstack-app
     docker:
+=======
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    working_directory: ~/blockstack-app # directory where steps will run
+    docker: # run the steps with Docker
+>>>>>>> feat: Add first test attr
       - image: circleci/node:10.16.3-browsers
     steps:
       - checkout
@@ -62,7 +70,7 @@ jobs:
       #     command: sleep 4
       - run:
           name: test
-          command: yarn test --passWithNoTests
+          command: yarn test
       - run:
           name: Build extension
           command: yarn prod:ext && zip -r extension.zip dist

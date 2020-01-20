@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authenticate } from '@blockstack/connect'
+import { authenticate } from '@blockstack/connect';
 import logo from './logo.svg';
 import './App.css';
 
@@ -10,7 +10,6 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -19,6 +18,7 @@ const App: React.FC = () => {
         <button
           className="App-link"
           id="auth-action"
+          data-test="button-open-connect-modal"
           onClick={() =>
             authenticate({
               redirectTo: '/',

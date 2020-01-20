@@ -43,6 +43,7 @@ const SecretKey: React.FC<SecretKeyProps> = props => {
         ]}
         action={{
           label: 'Copy Secret Key',
+          testAttr: 'btn-copy-secret-key',
           onClick: () => {
             doTrack(SECRET_KEY_INTRO_COPIED);
             const input: HTMLInputElement = document.querySelector('.hidden-secret-key') as HTMLInputElement;
