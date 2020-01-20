@@ -20,12 +20,11 @@ describe('Authentication', () => {
   let authPageObject: AuthPageObject;
   let demoPageObject: DemoPageObject;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await jestPuppeteer.resetBrowser();
     authPageObject = new AuthPageObject();
     demoPageObject = new DemoPageObject();
   });
-
-  afterEach(async () => await jestPuppeteer.resetBrowser());
 
   test('creating a successful account', async done => {
     const { authPage } = await bootstrapConnectModalPageTest(demoPageObject, authPageObject);

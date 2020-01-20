@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Create, SecretKey, Connect, SaveKey, SignIn, Final } from './screens';
+import { Create, SecretKey, Connect, SaveKey, SignIn } from './screens';
 import DecryptRecoveryCode from './screens/decrypt-recovery-code';
 import { doChangeScreen, doSaveAuthRequest } from '../../../store/onboarding/actions';
 import { useSelector, useDispatch } from 'react-redux';
@@ -63,15 +63,6 @@ const RenderScreen = ({ ...rest }) => {
     case Screen.CONNECT_APP:
       return (
         <Connect
-          next={() => dispatch(doChangeScreen(Screen.CONNECTED))}
-          back={() => dispatch(doChangeScreen(Screen.SECRET_KEY))}
-          {...rest}
-        />
-      );
-
-    case Screen.CONNECTED:
-      return (
-        <Final
           next={async () => {
             await doFinishOnboarding();
           }}
@@ -81,7 +72,6 @@ const RenderScreen = ({ ...rest }) => {
       );
 
     // Sign In
-
     case Screen.SIGN_IN:
       return (
         <SignIn

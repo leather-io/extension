@@ -11,7 +11,7 @@ import { selectAppName } from '../../../../store/onboarding/selectors';
 import { doStoreSeed } from '../../../../store/wallet';
 
 interface SignInProps {
-  next: Function;
+  next: () => void;
   back: () => void;
 }
 const SignIn: React.FC<SignInProps> = props => {
@@ -83,4 +83,5 @@ const SignIn: React.FC<SignInProps> = props => {
     />
   );
 };
+
 export { SignIn };
