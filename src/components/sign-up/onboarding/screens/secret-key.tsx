@@ -7,13 +7,10 @@ import { SeedTextarea } from '../../seed-textarea';
 
 import { doTrack, SECRET_KEY_INTRO_COPIED } from '../../../../common/track';
 
-
 import { IAppState } from '../../../../store';
 import { selectSecretKey } from '../../../../store/onboarding/selectors';
-import { ScreenBody } from '../../screen/screen-body';
 import { OnboardingHeader } from '../../header';
-import { ScreenContent } from '../../screen/screen-content';
-import { ScreenActions } from '../../screen/screen-actions';
+import { ScreenBody, ScreenContent, ScreenActions } from '../../screen';
 
 interface SecretKeyProps {
   next: () => void;
@@ -66,4 +63,3 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
     </>
   );
 };
-

@@ -6,11 +6,8 @@ import { doTrack, CONNECT_SAVED, CONNECT_BACK } from '../../../../common/track';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
-import { ScreenBody } from '../../screen/screen-body';
 import { OnboardingHeader } from '../../header';
-import { ScreenContent } from '../../screen/screen-content';
-import { ScreenActions } from '../../screen/screen-actions';
-import { ScreenFooter } from '../../screen/screen-footer';
+import { ScreenContent, ScreenActions, ScreenFooter, ScreenBody } from '../../screen';
 
 interface ConnectProps {
   next: () => void;

@@ -8,10 +8,8 @@ import { ScreenName, DEFAULT_PASSWORD } from '../../../../store/onboarding/types
 import { IAppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
 import { doStoreSeed } from '../../../../store/wallet';
-import { ScreenBody } from '../../screen/screen-body';
 import { OnboardingHeader } from '../../header';
-import { ScreenContent } from '../../screen/screen-content';
-import { ScreenActions } from '../../screen/screen-actions';
+import { ScreenBody, ScreenContent, ScreenActions } from '../../screen';
 
 interface SignInProps {
   next: () => void;

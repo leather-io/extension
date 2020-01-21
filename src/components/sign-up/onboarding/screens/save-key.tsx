@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Collapse } from '../../collapse';
 import { IAppState } from '../../../../store';
 
@@ -7,11 +9,8 @@ import { faqs } from '../data';
 
 import { doTrack, SECRET_KEY_INSTR_CONFIRMED } from '../../../../common/track';
 
-import { useSelector } from 'react-redux';
-import { ScreenBody } from '../../screen/screen-body';
-import { ScreenContent } from '../../screen/screen-content';
-import { ScreenActions } from '../../screen/screen-actions';
 import { OnboardingHeader } from '../../header';
+import { ScreenBody, ScreenContent, ScreenActions } from '../../screen';
 
 interface SaveKeyProps {
   next: () => void;

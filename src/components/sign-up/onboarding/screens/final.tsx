@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux';
 import { IAppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
 import { Wallet } from '@blockstack/keychain';
-import { ScreenContent } from '../../screen/screen-content';
-import { ScreenActions } from '../../screen/screen-actions';
-import { ScreenBody } from '../../screen/screen-body';
+import { ScreenBody, ScreenContent, ScreenActions } from '../../screen';
 
 interface FinalProps {
   next: (wallet: Wallet) => void;

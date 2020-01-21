@@ -45,7 +45,10 @@ const RenderScreen = ({ ...rest }) => {
     // Key screens
     case ScreenName.SECRET_KEY:
       return (
-        <SecretKey next={() => dispatch(doChangeScreen(hasSaved ? ScreenName.CONNECT_APP : ScreenName.SAVE_KEY))} {...rest} />
+        <SecretKey
+          next={() => dispatch(doChangeScreen(hasSaved ? ScreenName.CONNECT_APP : ScreenName.SAVE_KEY))}
+          {...rest}
+        />
       );
 
     case ScreenName.SAVE_KEY:

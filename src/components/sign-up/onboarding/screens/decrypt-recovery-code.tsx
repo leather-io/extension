@@ -7,10 +7,8 @@ import { selectMagicRecoveryCode } from '../../../../store/onboarding/selectors'
 import { doTrack, SIGN_IN_CORRECT } from '../../../../common/track';
 import { doStoreSeed } from '../../../../store/wallet/actions';
 import { DEFAULT_PASSWORD } from '../../../../store/onboarding/types';
-import { ScreenBody } from '../../screen/screen-body';
-import { ScreenContent } from '../../screen/screen-content';
-import { ScreenActions } from '../../screen/screen-actions';
 import { OnboardingHeader } from '../../header';
+import { ScreenBody, ScreenContent, ScreenActions } from '../../screen';
 
 interface RecoveryProps {
   next: () => void;
