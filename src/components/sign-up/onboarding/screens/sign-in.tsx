@@ -5,7 +5,7 @@ import { ScreenTemplate } from '../../screen';
 import { doTrack, SIGN_IN_CORRECT, SIGN_IN_CREATE, SIGN_IN_INCORRECT } from '../../../../common/track';
 import { doChangeScreen, doSetMagicRecoveryCode } from '../../../../store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Screen, DEFAULT_PASSWORD } from '../../../../store/onboarding/types';
+import { ScreenName, DEFAULT_PASSWORD } from '../../../../store/onboarding/types';
 import { IAppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
 import { doStoreSeed } from '../../../../store/wallet';
@@ -55,7 +55,7 @@ const SignIn: React.FC<SignInProps> = props => {
           variant: 'text',
           onClick: () => {
             doTrack(SIGN_IN_CREATE);
-            dispatch(doChangeScreen(Screen.CREATE));
+            dispatch(doChangeScreen(ScreenName.CREATE));
           },
         },
         {
@@ -65,7 +65,7 @@ const SignIn: React.FC<SignInProps> = props => {
             try {
               if (seed.trim().split(' ').length <= 1) {
                 dispatch(doSetMagicRecoveryCode(seed.trim()));
-                dispatch(doChangeScreen(Screen.RECOVERY_CODE));
+                dispatch(doChangeScreen(ScreenName.RECOVERY_CODE));
                 return;
               }
               await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
