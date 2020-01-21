@@ -37,9 +37,9 @@ jobs:
       - run:
           name: Lint ESLint
           command: yarn lint:eslint
-      # - run:
-      #     name: typecheck
-      #     command: yarn typecheck
+      - run:
+          name: typecheck
+          command: yarn typecheck
       - run:
           name: test server
           command: yarn dev

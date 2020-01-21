@@ -46,11 +46,12 @@ describe('Authentication', () => {
     await authPage.type(authPageObject.$textareaSeedPhraseInput, secretKey);
     await authPage.click(authPageObject.$buttonConfirmReenterSeedPhrase);
 
-    await authPage.waitFor(authPageObject.$buttonConnectFlowFinished);
-
-    await expect(authPage).toMatch('You’re all set!');
-
-    await authPage.click(authPageObject.$buttonConnectFlowFinished);
+    //
+    // These steps commented out as the flow has changed slightly
+  
+    // await authPage.waitFor(authPageObject.$buttonConnectFlowFinished);
+    // await expect(authPage).toMatch('You’re all set!');
+    // await authPage.click(authPageObject.$buttonConnectFlowFinished);
 
     await page.waitFor('#auth-response');
     const authResponseEl = await page.$('#auth-response');
