@@ -42,7 +42,7 @@ interface OnboardingHeaderProps {
   hideIcon?: boolean;
 }
 
-const OnboardingHeader = ({ appIcon, title, hideIcon, appName, ...rest }: OnboardingHeaderProps) => {
+const OnboardingHeader = ({ appIcon, title = 'Data Vault', hideIcon, appName, ...rest }: OnboardingHeaderProps) => {
   const icon = useSelector(selectAppIcon);
 
   return (

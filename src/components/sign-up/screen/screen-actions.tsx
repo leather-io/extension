@@ -21,7 +21,7 @@ export const ScreenActions: React.FC<ScreenActionsProps> = ({ action }) => (
   <>
     {action ? (
       Array.isArray(action) ? (
-        <Flex px={5} justify="space-between" align="center">
+        <Flex p={5} justify="space-between" align="center">
           {action.map((a, key) => (
             <Box key={key}>
               {a.variant && a.variant === 'text' ? (
@@ -37,7 +37,7 @@ export const ScreenActions: React.FC<ScreenActionsProps> = ({ action }) => (
           ))}
         </Flex>
       ) : (
-        <Box px={5}>
+        <Box p={5}>
           <Button
             width="100%"
             onClick={action.onClick}

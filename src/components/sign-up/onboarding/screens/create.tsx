@@ -1,9 +1,12 @@
 import React from 'react';
-import { Flex, Box, Text, Spinner } from '@blockstack/ui';
-
-import { ScreenTemplate } from '../../screen';
-import { doCreateSecretKey } from '../../../../store/onboarding/actions';
 import { useDispatch } from 'react-redux';
+import { Box, Spinner, Flex, Text } from '@blockstack/ui';
+
+import { doCreateSecretKey } from '../../../../store/onboarding/actions';
+import { ScreenHeader } from '../../screen/screen-header';
+import { ScreenBody } from '../../screen/screen-body';
+import { OnboardingHeader } from '../../header';
+import { ScreenContent } from '../../screen/screen-content';
 
 interface MockData {
   title: string;
@@ -17,14 +20,14 @@ const createTimeoutLoop = (setState: (item: MockData) => void, arr: MockData[], 
       if (index === arr.length - 1) {
         onEnd();
       }
-    }, (index + 1) * 2400)
+    }, (index + 1) * 200)
   );
 
 interface CreateProps {
   next: () => void;
 }
 
-const Create: React.FC<CreateProps> = props => {
+export const Create: React.FC<CreateProps> = props => {
   const [state, setState] = React.useState({
     title: 'Creating your Data Vault',
     imageUrl: '',
@@ -62,11 +65,11 @@ const Create: React.FC<CreateProps> = props => {
   }, []);
 
   return (
-    <ScreenTemplate
-      textAlign="center"
-      appIcon
-      before={
-        state.imageUrl === '' ? (
+    <>
+      <ScreenHeader />
+      <ScreenBody textAlign="center">
+        <OnboardingHeader appIcon close={() => console.log('sdklfjsdf')} />
+        {state.imageUrl === '' ? (
           undefined
         ) : (
           <Box>
@@ -75,16 +78,16 @@ const Create: React.FC<CreateProps> = props => {
               <img src={state.imageUrl} />
             </Flex>
           </Box>
-        )
-      }
-      body={[
-        <Box pt={10} width="100%">
-          <Spinner thickness="3px" size="lg" color="blue" />
-        </Box>,
-      ]}
-      title={state.title}
-    />
+        )}
+        <ScreenContent
+          title={state.title}
+          body={[
+            <Box pt={10} width="100%">
+              <Spinner thickness="3px" size="lg" color="blue" />
+            </Box>,
+          ]}
+        />
+      </ScreenBody>
+    </>
   );
 };
-
-export { Create };

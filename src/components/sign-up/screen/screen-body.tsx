@@ -1,21 +1,21 @@
 import React from 'react';
 
-import { Stack } from '@blockstack/ui';
+import { Flex, BoxProps } from '@blockstack/ui';
 
-interface ScreenBodyProps {
+interface ScreenBodyProps extends BoxProps {
   noMinHeight?: boolean;
   isLoading?: boolean;
 }
 
 export const ScreenBody: React.FC<ScreenBodyProps> = ({ noMinHeight, isLoading, children, ...rest }) => (
-  <Stack
+  <Flex
     width="100%"
+    flexDirection="column"
     letterSpacing="tighter"
     minHeight={noMinHeight ? undefined : ['calc(100vh - 57px)', 'unset']}
-    spacing={[4, 6]}
     style={{ pointerEvents: isLoading ? 'none' : 'unset' }}
     {...rest}
   >
     {children}
-  </Stack>
+  </Flex>
 );

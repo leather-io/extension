@@ -9,7 +9,7 @@ interface ScreenContentProps {
 }
 
 export const ScreenContent: React.FC<ScreenContentProps> = ({ title, body }) => (
-  <Box px={5}>
+  <Box p={5}>
     <Stack spacing={2}>
       <Title>{title}</Title>
       <Stack spacing={[3, 4]}>
