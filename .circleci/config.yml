@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/blockstack-app
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:10.16.3-browsers
     steps:
       - checkout
       - restore_cache:
@@ -16,12 +16,21 @@ jobs:
           key: yarn-packages-{{ checksum "package.json" }}
           paths:
             - ./.cache/yarn
-      # - run: # run coverage report
-      #     name: code-coverage
-      #     command: './node_modules/.bin/nyc report --reporter=text-lcov'
+      # TODO - get this cached so that you don't have to pull down the binaries each time
       - run:
-          name: Test suite
-          command: yarn test --passWithNoTests
+          name: Update apt-get
+          working_directory: /
+          command: |
+            sudo apt-get update -y
+      - run:
+          name: Install Chrome headless dependencies
+          working_directory: /
+          command: |
+            sudo apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+              libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
+              libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
+              libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
+              ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
       - run: 
           name: Lint Prettier
           command: yarn lint:prettier
@@ -32,7 +41,28 @@ jobs:
           name: typecheck
           command: yarn typecheck
       - run:
+          name: test server
+          command: yarn dev
+          background: true
+      - run:
+          name: Create .env file
+          working_directory: ./tests/test-app/
+          command: echo "SKIP_PREFLIGHT_CHECK=true" >> .env
+      - run:
+          name: Install test deps
+          working_directory: ./tests/test-app/
+          command: yarn
+      - run:
+          name: Run test app
+          working_directory: ./tests/test-app/
+          command: yarn start
+          background: true
+      - run:
+          name: test
+          command: yarn test
+      - run:
           name: Build extension
           command: yarn prod:ext && zip -r extension.zip dist
+      # https://circleci.com/docs/2.0/artifacts/ 
       - store_artifacts:
           path: extension.zip

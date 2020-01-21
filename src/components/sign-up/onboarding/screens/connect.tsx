@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Flex, Box, Text, Input } from '@blockstack/ui';
 import { ScreenTemplate } from '../../screen';
 import { AppIcon } from '../../app-icon';
@@ -14,7 +14,6 @@ interface ConnectProps {
 }
 
 const Connect: React.FC<ConnectProps> = props => {
-  const [isLoading, setLoading] = useState(false);
   const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <ScreenTemplate
@@ -25,21 +24,23 @@ const Connect: React.FC<ConnectProps> = props => {
         'Enter your Secret Key to continue.',
         <Box>
           {/*Validate, track: CONNECT_INCORRECT */}
-          <Input autoFocus minHeight="80px" placeholder="12-word Secret Key" as="textarea" />
+          <Input
+            autoFocus
+            minHeight="80px"
+            placeholder="12-word Secret Key"
+            data-test="textarea-reinput-seed-phrase"
+            as="textarea"
+          />
         </Box>,
       ]}
       action={{
         label: 'Continue',
+        testAttr: 'button-confirm-reenter-seed-phrase',
         onClick: () => {
-          setLoading(true);
           doTrack(CONNECT_SAVED);
-          setTimeout(() => {
-            props.next();
-            setLoading(false);
-          }, 1500);
+          props.next();
         },
       }}
-      isLoading={isLoading}
       footer={
         <>
           <Flex>

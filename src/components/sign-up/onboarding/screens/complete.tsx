@@ -6,13 +6,14 @@ import { AppIcon } from '../../app-icon';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
+import { Wallet } from '@blockstack/keychain';
 
 interface FinalProps {
-  next: () => void;
+  next: (wallet: Wallet) => void;
   back: () => void;
 }
 
-const Final: React.FC<FinalProps> = props => {
+export const Final: React.FC<FinalProps> = props => {
   const appName = useSelector((state: IAppState) => selectAppName(state));
   return (
     <ScreenTemplate
@@ -22,10 +23,9 @@ const Final: React.FC<FinalProps> = props => {
       body={[`Everything you do in ${appName} will be private, secure, and only accessible with your Secret Key.`]}
       action={{
         label: 'Done',
+        testAttr: 'button-connect-flow-finished',
         onClick: props.next,
       }}
     />
   );
 };
-
-export { Final };

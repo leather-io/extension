@@ -5,8 +5,8 @@ import { doChangeScreen, doSaveAuthRequest } from '../../../store/onboarding/act
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../../store';
 import { Screen } from '../../../store/onboarding/types';
-import { selectCurrentScreen, selectDecodedAuthRequest, selectAuthRequest } from '../../../store/onboarding/selectors';
 import { selectCurrentWallet } from '../../../store/wallet/selectors';
+import { selectCurrentScreen, selectDecodedAuthRequest, selectAuthRequest } from '../../../store/onboarding/selectors';
 import { authenticationInit, finalizeAuthResponse } from '../../../common/utils';
 
 const RenderScreen = ({ ...rest }) => {
@@ -72,7 +72,6 @@ const RenderScreen = ({ ...rest }) => {
       );
 
     // Sign In
-
     case Screen.SIGN_IN:
       return (
         <SignIn

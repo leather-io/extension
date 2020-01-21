@@ -11,10 +11,12 @@ const Footer: React.FC = props => (
 
 interface ScreenAction {
   label: string;
-  onClick?: () => void;
+  onClick?: any;
   href?: string;
   disabled?: boolean;
   variant?: string;
+  id?: string;
+  testAttr?: string;
 }
 
 interface IScreenTemplate {
@@ -30,6 +32,7 @@ interface IScreenTemplate {
   noMinHeight?: boolean;
   appIcon?: boolean;
 }
+
 const ScreenTemplate = ({
   before,
   title,
@@ -89,11 +92,11 @@ const ScreenTemplate = ({
               {action.map((a, key) => (
                 <Box key={key}>
                   {a.variant && a.variant === 'text' ? (
-                    <Link color="blue" onClick={a.onClick}>
+                    <Link color="blue" onClick={a.onClick} id={a.id} data-test={a.testAttr}>
                       {a.label}
                     </Link>
                   ) : (
-                    <Button onClick={a.onClick} isDisabled={a.disabled}>
+                    <Button onClick={a.onClick} isDisabled={a.disabled} id={a.id} data-test={a.testAttr}>
                       {a.label}
                     </Button>
                   )}
@@ -102,7 +105,13 @@ const ScreenTemplate = ({
             </Flex>
           ) : (
             <Box px={5}>
-              <Button width="100%" onClick={action.onClick} isDisabled={action.disabled}>
+              <Button
+                width="100%"
+                onClick={action.onClick}
+                id={action.id}
+                isDisabled={action.disabled}
+                data-test={action.testAttr}
+              >
                 {action.label}
               </Button>
             </Box>

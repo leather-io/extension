@@ -25,6 +25,7 @@ const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
       ]}
       action={{
         label: "I've saved it",
+        testAttr: 'button-has-saved-seed-phrase',
         onClick: () => {
           doTrack(SECRET_KEY_INSTR_CONFIRMED);
           next();
