@@ -1,21 +1,20 @@
 import React from 'react';
 
-import { Flex, BoxProps } from '@blockstack/ui';
+import { Box, Stack } from '@blockstack/ui';
+import { Title, Body } from '../typography';
 
-interface ScreenBodyProps extends BoxProps {
-  noMinHeight?: boolean;
-  isLoading?: boolean;
+interface ScreenBodyProps {
+  title: string;
+  body?: (string | JSX.Element)[];
 }
 
-export const ScreenBody: React.FC<ScreenBodyProps> = ({ noMinHeight, isLoading, children, ...rest }) => (
-  <Flex
-    width="100%"
-    flexDirection="column"
-    letterSpacing="tighter"
-    minHeight={noMinHeight ? undefined : ['calc(100vh - 57px)', 'unset']}
-    style={{ pointerEvents: isLoading ? 'none' : 'unset' }}
-    {...rest}
-  >
-    {children}
-  </Flex>
+export const ScreenBody: React.FC<ScreenBodyProps> = ({ title, body }) => (
+  <Box p={5}>
+    <Stack spacing={2}>
+      <Title>{title}</Title>
+      <Stack spacing={[3, 4]}>
+        {body && body.length ? body.map((text, key) => <Body key={key}>{text}</Body>) : body}
+      </Stack>
+    </Stack>
+  </Box>
 );

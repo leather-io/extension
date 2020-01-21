@@ -9,8 +9,8 @@ import { doTrack, SECRET_KEY_INTRO_COPIED } from '../../../../common/track';
 
 import { IAppState } from '../../../../store';
 import { selectSecretKey } from '../../../../store/onboarding/selectors';
-import { OnboardingHeader } from '../../header';
-import { ScreenBody, ScreenContent, ScreenActions } from '../../screen';
+import { ScreenHeader } from '../../header';
+import { Screen, ScreenBody, ScreenActions } from '../../screen';
 
 interface SecretKeyProps {
   next: () => void;
@@ -32,9 +32,9 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
 
   return (
     <>
-      <ScreenBody>
-        <OnboardingHeader appIcon close={() => console.log('sdklfjsdf')} />
-        <ScreenContent
+      <Screen>
+        <ScreenHeader appIcon />
+        <ScreenBody
           title="Your Secret Key"
           body={[
             'Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost forever. So save it somewhere you won’t forget.',
@@ -58,7 +58,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
             disabled: copied,
           }}
         />
-      </ScreenBody>
+      </Screen>
       <Toast show={copied} />
     </>
   );

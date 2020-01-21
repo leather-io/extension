@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Box, Spinner, Flex, Text } from '@blockstack/ui';
 
 import { doCreateSecretKey } from '../../../../store/onboarding/actions';
-import { OnboardingHeader } from '../../header';
-import { ScreenHeader, ScreenBody, ScreenContent } from '../../screen';
+import { ScreenHeader } from '../../header';
+import { Screen, ScreenBody } from '../../screen';
 
 interface MockData {
   title: string;
@@ -63,29 +63,26 @@ export const Create: React.FC<CreateProps> = props => {
   }, []);
 
   return (
-    <>
-      <ScreenHeader />
-      <ScreenBody textAlign="center">
-        <OnboardingHeader appIcon close={() => console.log('sdklfjsdf')} />
-        {state.imageUrl === '' ? (
-          undefined
-        ) : (
-          <Box>
-            <Text>Your Data Vault includes:</Text>
-            <Flex mt={6} mx="auto" width="240px" height="152px" justifyContent="center">
-              <img src={state.imageUrl} />
-            </Flex>
-          </Box>
-        )}
-        <ScreenContent
-          title={state.title}
-          body={[
-            <Box pt={10} width="100%">
-              <Spinner thickness="3px" size="lg" color="blue" />
-            </Box>,
-          ]}
-        />
-      </ScreenBody>
-    </>
+    <Screen textAlign="center">
+      <ScreenHeader appIcon />
+      {state.imageUrl === '' ? (
+        undefined
+      ) : (
+        <Box>
+          <Text>Your Data Vault includes:</Text>
+          <Flex mt={6} mx="auto" width="240px" height="152px" justifyContent="center">
+            <img src={state.imageUrl} />
+          </Flex>
+        </Box>
+      )}
+      <ScreenBody
+        title={state.title}
+        body={[
+          <Box pt={10} width="100%">
+            <Spinner thickness="3px" size="lg" color="blue" />
+          </Box>,
+        ]}
+      />
+    </Screen>
   );
 };
