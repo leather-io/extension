@@ -14,6 +14,7 @@ interface SignInProps {
   next: () => void;
   back: () => void;
 }
+
 const SignIn: React.FC<SignInProps> = props => {
   const [isLoading, setLoading] = useState(false);
   const [seed, setSeed] = useState('');
