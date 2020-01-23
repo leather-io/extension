@@ -4,7 +4,7 @@ import { AppIcon } from '../../app-icon';
 import { Link } from '../../../link';
 import { doTrack, CONNECT_SAVED, CONNECT_BACK } from '../../../../common/track';
 import { useSelector } from 'react-redux';
-import { IAppState } from '../../../../store';
+import { AppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
 import { ScreenHeader } from '../../header';
 import { ScreenBody, ScreenActions, ScreenFooter, Screen } from '../../screen';
@@ -15,7 +15,7 @@ interface ConnectProps {
 }
 
 export const Connect: React.FC<ConnectProps> = props => {
-  const appName = useSelector((state: IAppState) => selectAppName(state));
+  const appName = useSelector((state: AppState) => selectAppName(state));
   return (
     <Screen textAlign="center">
       <ScreenHeader appIcon />
