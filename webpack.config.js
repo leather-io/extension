@@ -35,7 +35,7 @@ module.exports = {
     plugins: [new TsconfigPathsPlugin()],
     alias: {
       react: path.resolve('./node_modules/react'),
-      '@blockstack/ui': path.resolve('./node_modules/@blockstack/ui')
+      '@blockstack/ui': path.resolve('./node_modules/@blockstack/ui'),
     },
   },
   module: {

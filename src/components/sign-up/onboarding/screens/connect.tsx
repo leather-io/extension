@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Flex, Box, Text, Input } from '@blockstack/ui';
-import { ScreenBody, ScreenActions, ScreenFooter, Screen } from '@blockstack/connect'; 
+import { ScreenBody, ScreenActions, ScreenFooter, Screen } from '@blockstack/connect';
 
 import { AppIcon } from '../../app-icon';
 import { Link } from '../../../link';
@@ -83,7 +83,6 @@ export const Connect: React.FC<ConnectProps> = props => {
             Go Back
           </Link>
         </Flex>
-        <Link>Help</Link>
       </ScreenFooter>
     </Screen>
   );
