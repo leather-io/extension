@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Flex, Box, Text, Input } from '@blockstack/ui';
+import { Flex, Box, Text, Input, Button } from '@blockstack/ui';
 import { ScreenBody, ScreenActions, ScreenFooter, Screen } from '@blockstack/connect';
 
 import { AppIcon } from '../../app-icon';
@@ -54,11 +54,9 @@ export const Connect: React.FC<ConnectProps> = props => {
           </Box>,
         ]}
       />
-      <ScreenActions
-        action={{
-          label: 'Continue',
-          testAttr: 'button-confirm-reenter-seed-phrase',
-          onClick: () => {
+      <ScreenActions>
+        <Button
+          onClick={() => {
             if (seedInput !== seed) {
               doTrack(CONNECT_INCORRECT);
               setHasAttemptedContinue(true);
@@ -66,9 +64,13 @@ export const Connect: React.FC<ConnectProps> = props => {
             }
             doTrack(CONNECT_SAVED);
             props.next();
-          },
-        }}
-      />
+          }}
+          width="100%"
+          data-test="button-confirm-reenter-seed-phrase"
+        >
+          Continue
+        </Button>
+      </ScreenActions>
       <ScreenFooter>
         <Flex>
           <Text>Didn’t save your Secret Key?</Text>{' '}

@@ -18,7 +18,7 @@ const createTimeoutLoop = (setState: (item: MockData) => void, arr: MockData[], 
       if (index === arr.length - 1) {
         onEnd();
       }
-    }, (index + 1) * 200)
+    }, (index + 1) * 2400)
   );
 
 interface CreateProps {

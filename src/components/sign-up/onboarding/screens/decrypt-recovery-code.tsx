@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Input, Text } from '@blockstack/ui';
+import { Box, Input, Text, Button } from '@blockstack/ui';
 import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
 import { decrypt } from '@blockstack/keychain';
 
@@ -33,7 +33,6 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
             {/*Validate: track SIGN_IN_INCORRECT*/}
             <Input
               autoFocus
-              // minHeight="80px"
               placeholder="Password"
               type="password"
               value={password}
@@ -50,10 +49,10 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
           </Box>,
         ]}
       />
-      <ScreenActions
-        action={{
-          label: 'Continue',
-          onClick: async () => {
+      <ScreenActions>
+        <Button
+          width="100%"
+          onClick={async () => {
             setLoading(true);
             try {
               const codeBuffer = Buffer.from(recoveryCode, 'base64');
@@ -65,9 +64,10 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
               setPasswordError('Invalid password.');
             }
             setLoading(false);
-          },
-        }}
-      />
+          }
+        }
+        >Continue</Button>
+      </ScreenActions>
     </Screen>
   );
 };

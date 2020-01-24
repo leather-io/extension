@@ -9,23 +9,24 @@ import { doTrack, SECRET_KEY_INTRO_COPIED } from '../../../../common/track';
 import { AppState } from '../../../../store';
 import { selectSecretKey } from '../../../../store/onboarding/selectors';
 import { ScreenHeader } from '../../header';
+import { Button } from '@blockstack/ui';
 
 interface SecretKeyProps {
   next: () => void;
 }
 
 export const SecretKey: React.FC<SecretKeyProps> = props => {
-  const { secretKey } = useSelector((state: AppState) => ({
-    secretKey: selectSecretKey(state),
-  }));
-  const [copied, setCopiedState] = React.useState(false);
+const { secretKey } = useSelector((state: AppState) => ({
+  secretKey: selectSecretKey(state),
+}));
+const [copied, setCopiedState] = React.useState(false);
 
-  React.useEffect(() => {
-    if (copied) {
-      setTimeout(() => {
-        props.next();
-      }, 2500);
-    }
+React.useEffect(() => {
+  if (copied) {
+    setTimeout(() => {
+      props.next();
+    }, 2500);
+  }
   });
 
   return (
@@ -41,21 +42,23 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
             </Card>,
           ]}
         />
-        <ScreenActions
-          action={{
-            label: 'Copy Secret Key',
-            testAttr: 'button-copy-secret-key',
-            onClick: () => {
+        <ScreenActions>
+          <Button
+            data-test="button-copy-secret-key"
+            width="100%"
+            isDisabled={copied}
+            onClick={() => {
               doTrack(SECRET_KEY_INTRO_COPIED);
               const input: HTMLInputElement = document.querySelector('.hidden-secret-key') as HTMLInputElement;
               input.select();
               input.setSelectionRange(0, 99999);
               document.execCommand('copy');
               setCopiedState(true);
-            },
-            disabled: copied,
-          }}
-        />
+            }}
+          >
+            Copy Secret Key
+          </Button>
+        </ScreenActions>
       </Screen>
       <Toast show={copied} />
     </>

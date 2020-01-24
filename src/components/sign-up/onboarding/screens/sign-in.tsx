@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
-import { Box, Text, Input } from '@blockstack/ui';
+import { Box, Text, Input, Flex, Button } from '@blockstack/ui';
 
 import { AppIcon } from '../../app-icon';
 import { doTrack, SIGN_IN_CORRECT, SIGN_IN_CREATE, SIGN_IN_INCORRECT } from '../../../../common/track';
@@ -11,6 +11,7 @@ import { AppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
 import { doStoreSeed } from '../../../../store/wallet';
 import { ScreenHeader } from '../../header';
+import { Link } from '../../../link';
 
 interface SignInProps {
   next: () => void;
@@ -53,19 +54,19 @@ export const SignIn: React.FC<SignInProps> = props => {
           </Box>,
         ]}
       />
-      <ScreenActions
-        action={[
-          {
-            label: 'Create a Data Vault',
-            variant: 'text',
-            onClick: () => {
+      <ScreenActions>
+        <Flex justify="space-between" align="center" width="100%">
+          <Link
+            color="blue"
+            onClick={() => {
               doTrack(SIGN_IN_CREATE);
               dispatch(doChangeScreen(ScreenName.CREATE));
-            },
-          },
-          {
-            label: 'Continue',
-            onClick: async () => {
+            }}
+          >
+            Create a Data Vault
+          </Link>
+          <Button
+            onClick={async () => {
               setLoading(true);
               try {
                 if (seed.trim().split(' ').length <= 1) {
@@ -81,10 +82,12 @@ export const SignIn: React.FC<SignInProps> = props => {
                 doTrack(SIGN_IN_INCORRECT);
               }
               setLoading(false);
-            },
-          },
-        ]}
-      />
+            }}
+          >
+            Continue
+          </Button>
+        </Flex>
+      </ScreenActions>
     </Screen>
   );
 };
