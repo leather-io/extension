@@ -94,8 +94,6 @@ module.exports = {
       filename: 'actions.html',
       title: 'Blockstack',
       chunks: ['actions'],
-      segmentHost: 'cdn.segment.io',
-      segmentKey,
     }),
     new CopyWebpackPlugin([
       {
@@ -113,6 +111,7 @@ module.exports = {
       NODE_ENV: JSON.stringify(nodeEnv),
       WEB_BROWSER: JSON.stringify(webBrowser),
       EXT_ENV: JSON.stringify(process.env.EXT_ENV || 'web'),
+      SEGMENT_KEY: JSON.stringify(segmentKey),
     }),
     isDevelopment && new ReactRefreshWebpackPlugin({ disableRefreshCheck: true }),
   ].filter(Boolean),
