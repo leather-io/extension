@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Spinner, Flex, Text } from '@blockstack/ui';
+import { Screen, ScreenBody } from '@blockstack/connect';
 
 import { doCreateSecretKey } from '../../../../store/onboarding/actions';
 import { ScreenHeader } from '../../header';
-import { Screen, ScreenBody } from '../../screen';
 
 interface MockData {
   title: string;

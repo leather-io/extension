@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Input, Text } from '@blockstack/ui';
-import { decrypt } from '@blockstack/keychain';
 import { useSelector, useDispatch } from 'react-redux';
+import { Box, Input, Text } from '@blockstack/ui';
+import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { decrypt } from '@blockstack/keychain';
+
 import { AppState } from '../../../../store';
 import { selectMagicRecoveryCode } from '../../../../store/onboarding/selectors';
 import { doTrack, SIGN_IN_CORRECT } from '../../../../common/track';
 import { doStoreSeed } from '../../../../store/wallet/actions';
 import { DEFAULT_PASSWORD } from '../../../../store/onboarding/types';
 import { ScreenHeader } from '../../header';
-import { Screen, ScreenBody, ScreenActions } from '../../screen';
 
 interface RecoveryProps {
   next: () => void;

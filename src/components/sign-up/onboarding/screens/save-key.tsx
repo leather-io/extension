@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
 
 import { Collapse } from '../../collapse';
 import { AppState } from '../../../../store';
@@ -10,7 +11,6 @@ import { faqs } from '../data';
 import { doTrack, SECRET_KEY_INSTR_CONFIRMED } from '../../../../common/track';
 
 import { ScreenHeader } from '../../header';
-import { Screen, ScreenBody, ScreenActions } from '../../screen';
 
 interface SaveKeyProps {
   next: () => void;

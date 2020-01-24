@@ -1,11 +1,11 @@
 import React from 'react';
-import { AppIcon } from '../../app-icon';
-
 import { useSelector } from 'react-redux';
+import { Wallet } from '@blockstack/keychain';
+import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+
 import { AppState } from '../../../../store';
 import { selectAppName } from '../../../../store/onboarding/selectors';
-import { Wallet } from '@blockstack/keychain';
-import { Screen, ScreenBody, ScreenActions } from '../../screen';
+import { AppIcon } from '../../app-icon';
 
 interface FinalProps {
   next: (wallet: Wallet) => void;
