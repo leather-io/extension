@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Flex, Box, Button } from '@blockstack/ui';
-import { Link } from '../../link';
+import { Link } from '../link';
 
 interface ScreenAction {
   label: string;

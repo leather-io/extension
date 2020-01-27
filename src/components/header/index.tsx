@@ -2,11 +2,9 @@ import React from 'react';
 import { Box, Flex, Text } from '@blockstack/ui';
 import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 import { useSelector } from 'react-redux';
-
-import { selectAppIcon } from '../../../store/onboarding/selectors';
-
-import { Logo } from '../../logo';
-import { Image } from '../../image';
+import { selectAppIcon } from '@store/onboarding/selectors';
+import { Logo } from '@components/logo';
+import { Image } from '@components/image';
 
 interface AppIconProps {
   src?: string;

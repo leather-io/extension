@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Text, Input } from '@blockstack/ui';
 import { AppIcon } from '../../app-icon';
-import { doTrack, SIGN_IN_CORRECT, SIGN_IN_CREATE, SIGN_IN_INCORRECT } from '../../../../common/track';
-import { doChangeScreen, doSetMagicRecoveryCode } from '../../../../store/onboarding/actions';
+import { doTrack, SIGN_IN_CORRECT, SIGN_IN_CREATE, SIGN_IN_INCORRECT } from '@common/track';
+import { doChangeScreen, doSetMagicRecoveryCode } from '@store/onboarding/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScreenName, DEFAULT_PASSWORD } from '../../../../store/onboarding/types';
-import { AppState } from '../../../../store';
-import { selectAppName } from '../../../../store/onboarding/selectors';
-import { doStoreSeed } from '../../../../store/wallet';
+import { ScreenName, DEFAULT_PASSWORD } from '@store/onboarding/types';
+import { AppState } from '@store';
+import { selectAppName } from '@store/onboarding/selectors';
+import { doStoreSeed } from '@store/wallet';
 import { ScreenHeader } from '../../header';
 import { Screen, ScreenBody, ScreenActions } from '../../screen';
 

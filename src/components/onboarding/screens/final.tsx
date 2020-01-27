@@ -2,8 +2,8 @@ import React from 'react';
 import { AppIcon } from '../../app-icon';
 
 import { useSelector } from 'react-redux';
-import { AppState } from '../../../../store';
-import { selectAppName } from '../../../../store/onboarding/selectors';
+import { AppState } from '@store';
+import { selectAppName } from '@store/onboarding/selectors';
 import { Wallet } from '@blockstack/keychain';
 import { Screen, ScreenBody, ScreenActions } from '../../screen';
 
