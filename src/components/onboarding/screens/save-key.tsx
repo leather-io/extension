@@ -1,16 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { ScreenHeader } from '@components/connected-screen-header';
 
-import { Collapse } from '../../collapse';
+import { Button } from '@blockstack/ui';
+
+import { Collapse } from '@components/collapse';
 import { AppState } from '@store';
 
 import { selectAppName } from '@store/onboarding/selectors';
-import { faqs } from '../data';
+import { faqs } from '@components/onboarding/data';
 
 import { doTrack, SECRET_KEY_INSTR_CONFIRMED } from '@common/track';
-
-import { ScreenHeader } from '../../header';
-import { Screen, ScreenBody, ScreenActions } from '../../screen';
 
 interface SaveKeyProps {
   next: () => void;
@@ -20,7 +21,7 @@ export const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
   const appName = useSelector((state: AppState) => selectAppName(state));
   return (
     <Screen>
-      <ScreenHeader appIcon />
+      <ScreenHeader />
       <ScreenBody
         title="Save your Secret Key"
         body={[
@@ -28,16 +29,18 @@ export const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
           'Once lost, it’s lost forever. So save it somewhere you won’t forget.',
         ]}
       />
-      <ScreenActions
-        action={{
-          label: "I've saved it",
-          testAttr: 'button-has-saved-seed-phrase',
-          onClick: () => {
+      <ScreenActions>
+        <Button
+          width="100%"
+          onClick={() => {
             doTrack(SECRET_KEY_INSTR_CONFIRMED);
             next();
-          },
-        }}
-      />
+          }}
+          data-test="button-has-saved-seed-phrase"
+        >
+          {"I've saved it"}
+        </Button>
+      </ScreenActions>
       <Collapse data={faqs(appName as string)} />
     </Screen>
   );

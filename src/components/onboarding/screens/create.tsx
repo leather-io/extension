@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Spinner, Flex, Text } from '@blockstack/ui';
+import { Screen, ScreenBody } from '@blockstack/connect';
+import { ScreenHeader } from '@components/connected-screen-header';
 
 import { doCreateSecretKey } from '@store/onboarding/actions';
-import { ScreenHeader } from '../../header';
-import { Screen, ScreenBody } from '../../screen';
 
 interface MockData {
   title: string;
@@ -18,7 +18,7 @@ const createTimeoutLoop = (setState: (item: MockData) => void, arr: MockData[], 
       if (index === arr.length - 1) {
         onEnd();
       }
-    }, (index + 1) * 200)
+    }, (index + 1) * 2400)
   );
 
 interface CreateProps {
@@ -64,10 +64,8 @@ export const Create: React.FC<CreateProps> = props => {
 
   return (
     <Screen textAlign="center">
-      <ScreenHeader appIcon />
-      {state.imageUrl === '' ? (
-        undefined
-      ) : (
+      <ScreenHeader />
+      {state.imageUrl === '' ? undefined : (
         <Box>
           <Text>Your Data Vault includes:</Text>
           <Flex mt={6} mx="auto" width="240px" height="152px" justifyContent="center">
