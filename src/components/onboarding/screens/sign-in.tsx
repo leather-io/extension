@@ -28,7 +28,7 @@ export const SignIn: React.FC<SignInProps> = props => {
   return (
     <Screen isLoading={isLoading} textAlign="center">
       <ScreenHeader title="Continue with Data Vault" />
-      <AppIcon />
+      <AppIcon size={72} mt={6} />
       <ScreenBody
         title={`Sign into ${appName}`}
         body={[
@@ -60,7 +60,7 @@ export const SignIn: React.FC<SignInProps> = props => {
             color="blue"
             onClick={() => {
               doTrack(SIGN_IN_CREATE);
-              dispatch(doChangeScreen(ScreenName.CREATE));
+              dispatch(doChangeScreen(ScreenName.USERNAME));
             }}
           >
             Create a Data Vault

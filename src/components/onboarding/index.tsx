@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Create, SecretKey, Connect, SaveKey, SignIn } from './screens';
+import React, { useEffect, useState } from 'react';
+import { ChooseAccount, Connect, Create, SaveKey, SecretKey, SignIn, Username } from './screens';
 import { DecryptRecoveryCode } from './screens/decrypt-recovery-code';
 import { doChangeScreen, doSaveAuthRequest } from '@store/onboarding/actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { ScreenName } from '@store/onboarding/types';
-import { selectCurrentWallet } from '@store/wallet/selectors';
-import { selectCurrentScreen, selectDecodedAuthRequest, selectAuthRequest } from '@store/onboarding/selectors';
+import { selectCurrentWallet, selectIdentities } from '@store/wallet/selectors';
+import { selectAuthRequest, selectCurrentScreen, selectDecodedAuthRequest } from '@store/onboarding/selectors';
 import { authenticationInit, finalizeAuthResponse } from '@common/utils';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector((state: AppState) => ({
+  const { screen, wallet, identities, decodedAuthRequest, authRequest } = useSelector((state: AppState) => ({
     screen: selectCurrentScreen(state),
     wallet: selectCurrentWallet(state),
+    identities: selectIdentities(state),
     decodedAuthRequest: selectDecodedAuthRequest(state),
     authRequest: selectAuthRequest(state),
   }));
@@ -37,7 +38,24 @@ const RenderScreen = ({ ...rest }) => {
   const doFinishOnboarding = doFinishSignIn;
 
   const [hasSaved, setHasSaved] = useState(false);
+
+  /**
+   * TODO: make this check if logged in to data vault better
+   */
+  // React.useEffect(() => {
+  //   if (screen !== ScreenName.CHOOSE_ACCOUNT && identities && identities.length) {
+  //     dispatch(doChangeScreen(ScreenName.CHOOSE_ACCOUNT));
+  //   }
+  // }, [screen, identities]);
+
   switch (screen) {
+    // username
+    case ScreenName.CHOOSE_ACCOUNT:
+      return <ChooseAccount next={() => console.log('testing')} {...rest} />;
+    // username
+    case ScreenName.USERNAME:
+      return <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} {...rest} />;
+
     // create
     case ScreenName.CREATE:
       return <Create next={() => dispatch(doChangeScreen(ScreenName.SECRET_KEY))} {...rest} />;

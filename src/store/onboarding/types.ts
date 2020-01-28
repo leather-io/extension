@@ -6,13 +6,12 @@ export const SAVE_AUTH_REQUEST = 'ONBOARDING/SAVE_AUTH_REQUEST';
 export const SET_MAGIC_RECOVERY_CODE = 'ONBOARDING/SET_MAGIC_RECOVERY_CODE';
 
 export enum ScreenName {
-  INTRO = 'screens/INTRO',
-  HOW_IT_WORKS = 'screens/HOW_IT_WORKS',
+  CHOOSE_ACCOUNT = 'screens/CHOOSE_ACCOUNT',
+  USERNAME = 'screens/USERNAME',
   CREATE = 'screens/CREATE',
   SECRET_KEY = 'screens/SECRET_KEY',
   SAVE_KEY = 'screens/SAVE_KEY',
   CONNECT_APP = 'screens/CONNECT_APP',
-  CONNECTED = 'screens/CONNECTED',
   SIGN_IN = 'screens/SIGN_IN',
   RECOVERY_CODE = 'screens/RECOVERY_CODE',
 }

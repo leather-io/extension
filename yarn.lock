@@ -846,12 +846,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@blockstack/connect@^0.2.0":
+"@blockstack/connect@file:../connect":
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@blockstack/connect/-/connect-0.2.0.tgz#6421b7d4d5ea8befcc21d7e8a7b5fda3617a2c0c"
-  integrity sha512-i2hr4N6I9SUaxIxt27tiJbBIRgs6DwuotE7uvcb8RnODg3oZ107VsJWrkYWr1oxcQCwTefGsKmqsfGYn3XopNA==
   dependencies:
-    "@blockstack/ui" "^1.0.0-alpha.24"
+    "@blockstack/ui" "^1.0.0-alpha.27"
     mdi-react "^6.6.0"
     styled-components "^5.0.0"
     use-events "^1.4.1"
@@ -872,15 +870,32 @@
   resolved "https://registry.yarnpkg.com/@blockstack/prettier-config/-/prettier-config-0.0.5.tgz#871bd2a38b5bc9aabb1cefeeba6199cc64098957"
   integrity sha512-A+wfdVwD1Sxd/D3PPJI67Evo7q2fp15hCOFLB5jmzcS1MdN8BQdFm6j51Sti8xLN4qHmuYkicbFBUluGx2h63g==
 
-"@blockstack/ui@^1.0.0-alpha.24":
-  version "1.0.0-alpha.24"
-  resolved "https://registry.yarnpkg.com/@blockstack/ui/-/ui-1.0.0-alpha.24.tgz#e82bd2c9d96ab4d1c4989a8864c6b626d3491c8b"
-  integrity sha512-U2ESz5K5fxz+KNDM9VhcIM/bnOzGtukf6QQ8nduiXCjOAKe7ct6IFqMk1L7LapRSfg+mMJziVHdjLSj0unJoHw==
+"@blockstack/ui@^1.0.0-alpha.25":
+  version "1.0.0-alpha.25"
+  resolved "https://registry.yarnpkg.com/@blockstack/ui/-/ui-1.0.0-alpha.25.tgz#f4cae2d99ac7c144576fd98ee8a4f3ca84a4be10"
+  integrity sha512-8FLFBAIYVaFRNyeKD2sx5vPy9c7+eJw3LONxmeArSnKSlooZPdBcZNUCTqP83XaCCGsIT9X9Sk+SS9HjUu1fNg==
   dependencies:
     "@styled-system/css" "5.1.4"
     "@types/color" "^3.0.1"
     "@types/styled-components" "^4.4.2"
-    "@types/styled-system" "^5.1.4"
+    "@types/styled-system" "^5.1.5"
+    "@types/styled-system__css" "^5.0.4"
+    color "3.1.2"
+    prop-types "^15.7.2"
+    react-spring "8.0.27"
+    styled-system "5.1.4"
+    use-dark-mode "2.3.1"
+    use-events "^1.4.1"
+
+"@blockstack/ui@^1.0.0-alpha.27":
+  version "1.0.0-alpha.27"
+  resolved "https://registry.yarnpkg.com/@blockstack/ui/-/ui-1.0.0-alpha.27.tgz#1471a085b3f68285c0a8d79cb9ee292a40141106"
+  integrity sha512-DCih4GkfEojd8FPY8538BzcGtETWrYpPln8Yv9XKAsFoEeIbgju4rdJufzUnwvbX3P4fApS/z9cIlZ+5meX4bg==
+  dependencies:
+    "@styled-system/css" "5.1.4"
+    "@types/color" "^3.0.1"
+    "@types/styled-components" "^4.4.2"
+    "@types/styled-system" "^5.1.5"
     "@types/styled-system__css" "^5.0.4"
     color "3.1.2"
     prop-types "^15.7.2"
@@ -1810,10 +1825,10 @@
     "@types/react-native" "*"
     csstype "^2.2.0"
 
-"@types/styled-system@^5.1.4":
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-5.1.4.tgz#c273b1ebb9b26cb1bd9282c994fc56c82d0fbfaf"
-  integrity sha512-iBtFFmlxBbiTMpoKvRupwg75PeVbf7BBsgTlpcVBBbZyUKrhuU/4jtJQUn/wsSndKfxW0U9T17Geq0GGFWkCZw==
+"@types/styled-system@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-5.1.5.tgz#91c46bdc72f09a4d13b215695687ce35382ccad8"
+  integrity sha512-jYTj774fMiRZ7YgmQK6WxiHSI+ket6WqHPQQEq7CURkVqOI6YWUHKqn0WcLwrqQ+fPHYQt9DdoJb7ydZBMmFwQ==
   dependencies:
     csstype "^2.6.4"
 
@@ -2263,6 +2278,11 @@ aproba@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
   integrity sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw==
+
+are-passive-events-supported@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/are-passive-events-supported/-/are-passive-events-supported-1.1.1.tgz#3db180a1753a2186a2de50a32cded3ac0979f5dc"
+  integrity sha512-5wnvlvB/dTbfrCvJ027Y4L4gW/6Mwoy1uFSavney0YO++GU+0e/flnjiBBwH+1kh7xNCgCOGvmJC3s32joYbww==
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -9850,6 +9870,19 @@ use-events@^1.4.1:
   integrity sha512-ANiKauqtfTnK5HCQ8mPlOoBXld/ZjFtC5rJSrH6wYZIke8Nz2DW8gYoMDKlmBk+qBPt24mVwQh8ea5sCqdrfnA==
   dependencies:
     resize-observer-polyfill "1.5.1"
+
+use-latest@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-latest/-/use-latest-1.0.0.tgz#c86d2e4893b15f27def69da574a47136d107facb"
+  integrity sha512-CxmFi75KTXeTIBlZq3LhJ4Hz98pCaRKZHCpnbiaEHIr5QnuHvH8lKYoluPBt/ik7j/hFVPB8K3WqF6mQvLyQTg==
+
+use-onclickoutside@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/use-onclickoutside/-/use-onclickoutside-0.3.1.tgz#fdd723a6a499046b6bc761e4a03af432eee5917b"
+  integrity sha512-aahvbW5+G0XJfzj31FJeLsvc6qdKbzeTsQ8EtkHHq5qTg6bm/qkJeKLcgrpnYeHDDbd7uyhImLGdkbM9BRzOHQ==
+  dependencies:
+    are-passive-events-supported "^1.1.0"
+    use-latest "^1.0.0"
 
 use-persisted-state@^0.3.0:
   version "0.3.0"
