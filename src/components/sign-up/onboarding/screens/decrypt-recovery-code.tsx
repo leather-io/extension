@@ -64,9 +64,10 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
               setPasswordError('Invalid password.');
             }
             setLoading(false);
-          }
-        }
-        >Continue</Button>
+          }}
+        >
+          Continue
+        </Button>
       </ScreenActions>
     </Screen>
   );

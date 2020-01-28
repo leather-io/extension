@@ -16,17 +16,17 @@ interface SecretKeyProps {
 }
 
 export const SecretKey: React.FC<SecretKeyProps> = props => {
-const { secretKey } = useSelector((state: AppState) => ({
-  secretKey: selectSecretKey(state),
-}));
-const [copied, setCopiedState] = React.useState(false);
+  const { secretKey } = useSelector((state: AppState) => ({
+    secretKey: selectSecretKey(state),
+  }));
+  const [copied, setCopiedState] = React.useState(false);
 
-React.useEffect(() => {
-  if (copied) {
-    setTimeout(() => {
-      props.next();
-    }, 2500);
-  }
+  React.useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        props.next();
+      }, 2500);
+    }
   });
 
   return (
