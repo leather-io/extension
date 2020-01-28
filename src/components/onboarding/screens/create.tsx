@@ -65,7 +65,9 @@ export const Create: React.FC<CreateProps> = props => {
   return (
     <Screen textAlign="center">
       <ScreenHeader />
-      {state.imageUrl === '' ? undefined : (
+      {state.imageUrl === '' ? (
+        undefined
+      ) : (
         <Box>
           <Text>Your Data Vault includes:</Text>
           <Flex mt={6} mx="auto" width="240px" height="152px" justifyContent="center">
