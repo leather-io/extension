@@ -9,7 +9,7 @@ import {
   SET_USERNAME,
 } from './types';
 import { decodeToken } from 'jsontokens';
-import { doGenerateWallet } from '../wallet';
+import { doGenerateWallet, didGenerateWallet, WalletActions } from '../wallet';
 import { ThunkAction } from 'redux-thunk';
 import { decrypt, registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { DecodedAuthRequest, AppManifest } from '../../common/dev/types';
@@ -36,17 +36,18 @@ export const doSetUsername = (username: string): OnboardingActions => ({
   username,
 });
 
-export function doCreateSecretKey(): ThunkAction<void, AppState, {}, OnboardingActions> {
+export function doCreateSecretKey(): ThunkAction<void, AppState, {}, OnboardingActions | WalletActions> {
   return async (dispatch, getState) => {
     const wallet = await dispatch(doGenerateWallet(DEFAULT_PASSWORD));
     const username = selectUsername(getState());
     await registerSubdomain({
       identity: wallet.identities[0],
       gaiaHubUrl: 'https://hub.blockstack.org',
-      username: username,
-      subdomain: Subdomains.BLOCKSTACK,
+      username: username as string,
+      subdomain: Subdomains.TEST,
     })
     const secretKey = await decrypt(wallet.encryptedBackupPhrase, DEFAULT_PASSWORD);
+    dispatch(didGenerateWallet(wallet));
     dispatch(doSaveSecretKey(secretKey));
   };
 }

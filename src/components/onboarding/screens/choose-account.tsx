@@ -8,38 +8,20 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectAppName } from '@store/onboarding/selectors';
 import { Drawer } from '@components/drawer';
-import { selectFirstIdentity } from '@store/wallet/selectors';
+import { selectIdentities } from '@store/wallet/selectors';
+import Identity from '@blockstack/keychain/dist/identity';
 
 interface ChooseAccountProps {
   next?: () => void;
   back?: () => void;
 }
 
-const mockAccounts = [
-  {
-    username: 'johnnyappleseed.blockstack.id',
-  },
-  {
-    username: 'somethingverylongandannoying.blockstack.id',
-  },
-  {
-    username: 'thisisalongerusernamemaxlengthagaidzz.blockstack.id',
-  },
-];
-
-const delay = 1500;
-
 export const ChooseAccount: React.FC<ChooseAccountProps> = () => {
-  const appName = useSelector((state: AppState) => selectAppName(state));
+  const { appName, identities } = useSelector((state: AppState) => ({
+    appName: selectAppName(state),
+    identities: selectIdentities(state) as Identity[]
+  }))
   const [showing, setShowing] = React.useState(false);
-  React.useEffect(() => {
-    setTimeout(() => {
-      if (!showing) {
-        setShowing(true);
-      }
-    }, delay);
-  }, [showing]);
-  const identityAddress = useSelector(selectFirstIdentity);
 
   return (
     <Box position="relative">
@@ -51,7 +33,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = () => {
           title="Choose an account"
           body={[
             `to use with ${appName}`,
-            <Accounts accounts={mockAccounts.map(acc => ({ ...acc, identityAddress }))} />,
+            <Accounts identities={identities} />,
           ]}
         />
       </Screen>

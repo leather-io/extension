@@ -3,6 +3,7 @@ import { Box, Text, Flex, BoxProps } from '@blockstack/ui';
 import PlusCircleIcon from 'mdi-react/PlusCircleIcon';
 import { useHover } from 'use-events';
 import { Image } from '@components/image';
+import Identity from '@blockstack/keychain/dist/identity';
 
 interface AccountAvatarProps extends BoxProps {
   username: string;
@@ -65,21 +66,18 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
   );
 };
 
-interface Account {
-  username: string;
-}
 interface AccountsProps {
-  accounts: Account[];
+  identities: Identity[];
 }
-export const Accounts = ({ accounts }: AccountsProps) => {
+export const Accounts = ({ identities }: AccountsProps) => {
   return (
     <>
-      {accounts.map(({ username }, key) => {
+      {identities.map(({ defaultUsername, address }, key) => {
         return (
           <AccountItem
             isFirst={key === 0}
-            iconComponent={() => <AccountAvatar username={username} mr={3} />}
-            label={username}
+            iconComponent={() => <AccountAvatar username={defaultUsername || address} mr={3} />}
+            label={defaultUsername || address}
             key={key}
           />
         );
