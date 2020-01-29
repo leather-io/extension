@@ -1,6 +1,6 @@
 {
-  "name": "web-extension-starter",
-  "description": "A web browser extension starter - based on Typescript, React, Redux, Styled-Component, Webpack, and more. Runs on Chrome and Firefox.",
+  "name": "@blockstack/app",
+  "description": "The Blockstack App is a browser extension for interacting with Blockstack apps.",
   "version": "1.0.0",
   "author": "Blockstack PBC",
   "dependencies": {
