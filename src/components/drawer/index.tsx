@@ -5,10 +5,10 @@ import { Link } from '@components/link';
 import useOnClickOutside from 'use-onclickoutside';
 import { Image } from '@components/image';
 
-type App = {
+interface App {
   icon: string;
   name: string;
-};
+}
 
 const mockApps = [
   { icon: 'https://appco.imgix.net/apps/c6a79902-35d4-4233-b63d-28f220dcd96f?fit=clip&h=144&w=144', name: 'App Name' },

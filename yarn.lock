@@ -846,8 +846,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@blockstack/connect@file:../connect":
-  version "0.2.0"
+"@blockstack/connect@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@blockstack/connect/-/connect-0.3.0.tgz#f300da5cf95268eb39814e507abf652ef37605de"
+  integrity sha512-R9g9NGbcuNz0eBB6/E4xa0/+nGW0ie7+v+lxnkCfPn7LeWwK0SPepSxL4L03C5NyNf07L1hq6/RLkFJGfB/2Zw==
   dependencies:
     "@blockstack/ui" "^1.0.0-alpha.27"
     mdi-react "^6.6.0"

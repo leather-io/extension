@@ -1,10 +1,15 @@
 import React from 'react';
-import { Box, Text, Flex } from '@blockstack/ui';
+import { Box, Text, Flex, BoxProps } from '@blockstack/ui';
 import PlusCircleIcon from 'mdi-react/PlusCircleIcon';
 import { useHover } from 'use-events';
 import { Image } from '@components/image';
 
-const AccountAvatar = ({ username, avatar, ...rest }) => {
+interface AccountAvatarProps extends BoxProps {
+  username: string;
+  avatar?: string;
+}
+
+const AccountAvatar = ({ username, avatar, ...rest }: AccountAvatarProps) => {
   const firstLetter = username[0];
   return (
     <Flex
@@ -27,7 +32,13 @@ const AccountAvatar = ({ username, avatar, ...rest }) => {
   );
 };
 
-const AccountItem = ({ label, iconComponent, isFirst, ...rest }) => {
+interface AccountItemProps {
+  label: string;
+  iconComponent?: (props: { hover: boolean }) => void;
+  isFirst?: boolean;
+}
+
+const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProps) => {
   const [hover, bind] = useHover();
 
   return (
@@ -54,14 +65,20 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }) => {
   );
 };
 
-export const Accounts = ({ accounts }) => {
+interface Account {
+  username: string;
+}
+interface AccountsProps {
+  accounts: Account[];
+}
+export const Accounts = ({ accounts }: AccountsProps) => {
   return (
     <>
       {accounts.map(({ username }, key) => {
         return (
           <AccountItem
             isFirst={key === 0}
-            iconComponent={({ hover }) => <AccountAvatar username={username} mr={3} />}
+            iconComponent={() => <AccountAvatar username={username} mr={3} />}
             label={username}
             key={key}
           />

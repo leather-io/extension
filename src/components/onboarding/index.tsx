@@ -11,7 +11,7 @@ import { authenticationInit, finalizeAuthResponse } from '@common/utils';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen, wallet, identities, decodedAuthRequest, authRequest } = useSelector((state: AppState) => ({
+  const { screen, wallet, decodedAuthRequest, authRequest } = useSelector((state: AppState) => ({
     screen: selectCurrentScreen(state),
     wallet: selectCurrentWallet(state),
     identities: selectIdentities(state),
