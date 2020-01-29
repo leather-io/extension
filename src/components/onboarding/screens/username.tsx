@@ -48,7 +48,7 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
           isDisabled={!isValidUsername}
           width="100%"
           isLoading={loading}
-          onClick={async () => {
+          onClick={() => {
             setLoading(true);
             try {
               console.log('validate');
