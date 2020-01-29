@@ -37,7 +37,7 @@ describe('Authentication', () => {
     await authPage.type(authPageObject.$inputUsername, 'bimba_the_dog');
     await authPage.click(authPageObject.$buttonUsernameContinue);
 
-    // TODO: wait for the secret key to show up
+    await authPage.waitFor(authPageObject.$textareaReadOnlySeedPhrase);
 
     const $secretKeyEl = await authPage.$(authPageObject.$textareaReadOnlySeedPhrase);
     if (!$secretKeyEl) {
@@ -76,6 +76,9 @@ describe('Authentication', () => {
     async function navigateThroughToSecretKeyPage() {
       const pages = await bootstrapConnectModalPageTest(demoPageObject, authPageObject);
       authPage = pages.authPage;
+      await authPage.type(authPageObject.$inputUsername, 'bimba_the_dog');
+      await authPage.click(authPageObject.$buttonUsernameContinue);
+      await authPage.waitFor(authPageObject.$textareaReadOnlySeedPhrase);
       await authPage.click(authPageObject.$buttonCopySecretKey);
       await authPage.waitFor(authPageObject.$buttonHasSavedSeedPhrase);
       await authPage.click(authPageObject.$buttonHasSavedSeedPhrase);
