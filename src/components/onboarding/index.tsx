@@ -19,15 +19,14 @@ const RenderScreen = ({ ...rest }) => {
     authRequest: selectAuthRequest(state),
   }));
 
-  // TODO
-  const doFinishSignIn = async () => {
+  const doFinishSignIn = async (identityIndex = 0) => {
     if (!wallet || !decodedAuthRequest || !authRequest) {
       console.error('Uh oh! Finished onboarding without auth info.');
       return;
     }
     const gaiaUrl = 'https://hub.blockstack.org';
     const appURL = new URL(decodedAuthRequest.redirect_uri);
-    await wallet.identities[0].refresh();
+    await wallet.identities[identityIndex].refresh();
     const authResponse = await wallet.identities[0].makeAuthResponse({
       gaiaUrl,
       appDomain: appURL.origin,
@@ -49,9 +48,9 @@ const RenderScreen = ({ ...rest }) => {
   // }, [screen, identities]);
 
   switch (screen) {
-    // username
-    case ScreenName.CHOOSE_ACCOUNT:
-      return <ChooseAccount next={() => console.log('testing')} {...rest} />;
+    // choose account
+    // case ScreenName.CHOOSE_ACCOUNT:
+    //   return <ChooseAccount next={() => console.log('testing')} {...rest} />;
     // username
     case ScreenName.USERNAME:
       return <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} {...rest} />;
@@ -95,7 +94,11 @@ const RenderScreen = ({ ...rest }) => {
     // Sign In
     case ScreenName.SIGN_IN:
       if (identities && identities.length) {
-        return <ChooseAccount next={() => console.log('testing')} {...rest} />;
+        return <ChooseAccount 
+          next={async (identityIndex: number) => {
+            await doFinishSignIn(identityIndex) 
+          }} {...rest} 
+        />;
       }
       return (
         <SignIn

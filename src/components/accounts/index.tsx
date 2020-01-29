@@ -37,6 +37,7 @@ interface AccountItemProps {
   label: string;
   iconComponent?: (props: { hover: boolean }) => void;
   isFirst?: boolean;
+  onClick?: () => void;
 }
 
 const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProps) => {
@@ -68,8 +69,10 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
 
 interface AccountsProps {
   identities: Identity[];
+  next: (identityIndex: number) => Promise<void>;
 }
-export const Accounts = ({ identities }: AccountsProps) => {
+
+export const Accounts = ({ identities, next }: AccountsProps) => {
   return (
     <>
       {identities.map(({ defaultUsername, address }, key) => {
@@ -79,6 +82,7 @@ export const Accounts = ({ identities }: AccountsProps) => {
             iconComponent={() => <AccountAvatar username={defaultUsername || address} mr={3} />}
             label={defaultUsername || address}
             key={key}
+            onClick={async () => await next(key)}
           />
         );
       })}

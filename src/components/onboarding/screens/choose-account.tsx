@@ -12,11 +12,11 @@ import { selectIdentities } from '@store/wallet/selectors';
 import Identity from '@blockstack/keychain/dist/identity';
 
 interface ChooseAccountProps {
-  next?: () => void;
+  next: (identityIndex: number) => Promise<void>;
   back?: () => void;
 }
 
-export const ChooseAccount: React.FC<ChooseAccountProps> = () => {
+export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   const { appName, identities } = useSelector((state: AppState) => ({
     appName: selectAppName(state),
     identities: selectIdentities(state) as Identity[]
@@ -33,7 +33,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = () => {
           title="Choose an account"
           body={[
             `to use with ${appName}`,
-            <Accounts identities={identities} />,
+            <Accounts identities={identities} next={next} />,
           ]}
         />
       </Screen>
