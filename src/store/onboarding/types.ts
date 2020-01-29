@@ -4,6 +4,7 @@ export const CHANGE_PAGE = 'ONBOARDING/CHANGE_PAGE';
 export const SAVE_KEY = 'ONBOARDING/SAVE_KEY';
 export const SAVE_AUTH_REQUEST = 'ONBOARDING/SAVE_AUTH_REQUEST';
 export const SET_MAGIC_RECOVERY_CODE = 'ONBOARDING/SET_MAGIC_RECOVERY_CODE';
+export const SET_USERNAME = 'ONBOARDING/SET_USERNAME';
 
 export enum ScreenName {
   CHOOSE_ACCOUNT = 'screens/CHOOSE_ACCOUNT',
@@ -27,6 +28,7 @@ export interface OnboardingState {
   appName?: string;
   appIcon?: string;
   magicRecoveryCode?: string;
+  username?: string;
 }
 
 interface ChangePageAction {
@@ -52,4 +54,9 @@ interface SetMagicRecoveryCode {
   magicRecoveryCode: string;
 }
 
-export type OnboardingActions = ChangePageAction | StoreSecretKey | SetMagicRecoveryCode | SaveAuthRequest;
+interface SetUsername {
+  type: typeof SET_USERNAME;
+  username: string;
+}
+
+export type OnboardingActions = ChangePageAction | StoreSecretKey | SetMagicRecoveryCode | SaveAuthRequest | SetUsername;

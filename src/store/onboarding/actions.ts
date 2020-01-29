@@ -6,12 +6,15 @@ import {
   SAVE_KEY,
   SAVE_AUTH_REQUEST,
   SET_MAGIC_RECOVERY_CODE,
+  SET_USERNAME,
 } from './types';
 import { decodeToken } from 'jsontokens';
 import { doGenerateWallet } from '../wallet';
 import { ThunkAction } from 'redux-thunk';
-import { decrypt } from '@blockstack/keychain';
+import { decrypt, registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { DecodedAuthRequest, AppManifest } from '../../common/dev/types';
+import { AppState } from 'store';
+import { selectUsername } from './selectors';
 
 export const doChangeScreen = (screen: ScreenName): OnboardingActions => ({
   type: CHANGE_PAGE,
@@ -28,9 +31,21 @@ export const doSetMagicRecoveryCode = (magicRecoveryCode: string): OnboardingAct
   magicRecoveryCode,
 });
 
-export function doCreateSecretKey(): ThunkAction<void, {}, {}, OnboardingActions> {
-  return async dispatch => {
+export const doSetUsername = (username: string): OnboardingActions => ({
+  type: SET_USERNAME,
+  username,
+});
+
+export function doCreateSecretKey(): ThunkAction<void, AppState, {}, OnboardingActions> {
+  return async (dispatch, getState) => {
     const wallet = await dispatch(doGenerateWallet(DEFAULT_PASSWORD));
+    const username = selectUsername(getState());
+    await registerSubdomain({
+      identity: wallet.identities[0],
+      gaiaHubUrl: 'https://hub.blockstack.org',
+      username: username,
+      subdomain: Subdomains.BLOCKSTACK,
+    })
     const secretKey = await decrypt(wallet.encryptedBackupPhrase, DEFAULT_PASSWORD);
     dispatch(doSaveSecretKey(secretKey));
   };
