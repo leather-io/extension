@@ -856,10 +856,10 @@
     styled-components "^5.0.0"
     use-events "^1.4.1"
 
-"@blockstack/keychain@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@blockstack/keychain/-/keychain-0.2.0.tgz#d9d211d19042eb8d481b641c16e91d65b7410500"
-  integrity sha512-52wDoHzicYHAmaaHn2zkGa7cZpIoUllzVQc1Ddtj+zW+gWA5OYfbfydCazVxCVsGqrqSpVfoSGl8DKL5DL7geQ==
+"@blockstack/keychain@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@blockstack/keychain/-/keychain-0.2.1.tgz#992a6c226534ff358573f41bd507a2931c59bd7c"
+  integrity sha512-Tsj1KtTneqUPTHE93otqXGN8VFRUbEEHKkpGCgFbaSvbz1OTuy18dEKDJn+4t2Qga8xdZZkj3D9l9zejiLjMhg==
   dependencies:
     bip39 "^3.0.2"
     bitcoinjs-lib "^5.1.6"
