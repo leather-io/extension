@@ -18,13 +18,13 @@ const AccountAvatar = ({ username, avatar, ...rest }: AccountAvatarProps) => {
       bg="#007AFF"
       size="36px"
       borderRadius="100%"
-      align={'center'}
-      justify={'center'}
+      align="center"
+      justify="center"
       {...rest}
     >
       {avatar && <Image src={avatar} alt={username} />}
       <Box>
-        <Text color="white" textTransform={'uppercase'} display="block">
+        <Text color="white" textTransform="uppercase" display="block">
           {firstLetter}
         </Text>
       </Box>
@@ -49,7 +49,7 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
       borderBottomColor="inherit"
       borderTop={isFirst ? '1px solid' : undefined}
       borderTopColor="inherit"
-      align={'center'}
+      align="center"
       cursor={hover ? 'pointer' : 'unset'}
       mt={isFirst ? 3 : 0}
       {...bind}
@@ -57,7 +57,7 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
     >
       {iconComponent && iconComponent({ hover })}
       <Box overflow="hidden">
-        <Text textStyle={'body.small.medium'} textDecoration={hover ? 'underline' : 'unset'}>
+        <Text textStyle="body.small.medium" textDecoration={hover ? 'underline' : 'unset'}>
           {label}
         </Text>
       </Box>
