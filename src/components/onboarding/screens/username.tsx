@@ -13,15 +13,11 @@ interface UsernameProps {
 export const Username: React.FC<UsernameProps> = ({ next }) => {
   const [error, setError] = useState('');
   const [username, setUsername] = useState('');
-  const [isValidUsername, setValidity] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   const { name } = useAppDetails();
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setError('');
     setUsername(evt.currentTarget.value || '');
-    if (username.length > 8) {
-      setValidity(true);
-    }
   };
   return (
     <Screen>
@@ -34,7 +30,14 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
             <Flex color="ink.400" pr={4} align="center" height="100%" zIndex={99} position="absolute" right={0} top={0}>
               <Text pt={'2px'}>.blockstack.id</Text>
             </Flex>
-            <Input paddingRight="100px" autoFocus placeholder="username" value={username} onChange={handleInput} />
+            <Input
+              data-test="input-username"
+              paddingRight="100px"
+              autoFocus
+              placeholder="username"
+              value={username}
+              onChange={handleInput}
+            />
             {error && (
               <Text textAlign="left" textStyle="caption" color="feedback.error">
                 {error}
@@ -45,21 +48,10 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
       />
       <ScreenActions>
         <Button
-          isDisabled={!isValidUsername}
           width="100%"
-          isLoading={loading}
+          data-test="button-username-continue"
           onClick={() => {
-            setLoading(true);
-            try {
-              console.log('validate');
-              setTimeout(() => {
-                setLoading(false);
-                next();
-              }, 1500);
-            } catch (e) {
-              console.log(e);
-              setLoading(false);
-            }
+            next();
           }}
         >
           Continue

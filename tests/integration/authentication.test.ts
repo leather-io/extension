@@ -13,7 +13,7 @@ async function bootstrapConnectModalPageTest(demo: DemoPageObject, auth: AuthPag
   const newWindow = await browser.waitForTarget(target => target.url().startsWith(auth.url));
   const authPage = await newWindow.page();
   expect(authPage.url().startsWith(auth.url)).toBeTruthy();
-  await authPage.waitFor(auth.$textareaReadOnlySeedPhrase, { timeout: 15000 });
+  await authPage.waitFor(auth.$inputUsername, { timeout: 15000 });
   return { authPage };
 }
 
@@ -29,6 +29,15 @@ describe('Authentication', () => {
 
   test('creating a successful account', async done => {
     const { authPage } = await bootstrapConnectModalPageTest(demoPageObject, authPageObject);
+
+    const $usernameInputElement = await authPage.$(authPageObject.$inputUsername);
+    if (!$usernameInputElement) {
+      throw 'Could not find username field';
+    }
+    await authPage.type(authPageObject.$inputUsername, 'bimba_the_dog');
+    await authPage.click(authPageObject.$buttonUsernameContinue);
+
+    // TODO: wait for the secret key to show up
 
     const $secretKeyEl = await authPage.$(authPageObject.$textareaReadOnlySeedPhrase);
     if (!$secretKeyEl) {
@@ -59,12 +68,12 @@ describe('Authentication', () => {
     const authResponse: string = await page.evaluate(el => el.innerText, authResponseEl);
     expect(authResponse).toBeTruthy();
     done();
-  }, 60_000);
+  }, 120_000);
 
   describe('Secret Key validation', () => {
     let authPage: Page;
 
-    async function navigateThroughToSecretKeyPage () {
+    async function navigateThroughToSecretKeyPage() {
       const pages = await bootstrapConnectModalPageTest(demoPageObject, authPageObject);
       authPage = pages.authPage;
       await authPage.click(authPageObject.$buttonCopySecretKey);
