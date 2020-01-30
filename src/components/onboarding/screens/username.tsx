@@ -17,7 +17,7 @@ import Identity from '@blockstack/keychain/dist/identity';
 
 interface UsernameProps {
   next: () => void;
-  doFinishSignIn: (identity: Identity) => void;
+  doFinishSignIn: (identity: Identity) => Promise<void>;
 }
 
 const getRandomWord = () => {
@@ -28,6 +28,7 @@ const getRandomWord = () => {
 
 export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(
     () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`
   );
@@ -42,7 +43,7 @@ export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
     setUsername(evt.currentTarget.value || '');
   };
   return (
-    <Screen>
+    <Screen isLoading={loading}>
       <ScreenHeader />
       <ScreenBody
         title="Choose a username"
@@ -74,6 +75,7 @@ export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
           data-test="button-username-continue"
           onClick={async () => {
             if (wallet) {
+              setLoading(true);
               const identity = await wallet.createNewIdentity(DEFAULT_PASSWORD);
               await registerSubdomain({
                 username,
@@ -82,7 +84,7 @@ export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
                 identity,
               });
               dispatch(didGenerateWallet(wallet));
-              doFinishSignIn(identity);
+              await doFinishSignIn(identity);
               return;
             }
 

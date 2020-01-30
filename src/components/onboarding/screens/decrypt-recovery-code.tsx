@@ -13,7 +13,7 @@ import { decrypt } from '@blockstack/keychain';
 import Identity from '@blockstack/keychain/dist/identity';
 
 interface RecoveryProps {
-  next: (identity: Identity) => void;
+  next: (identity: Identity) => Promise<void>;
 }
 
 export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
@@ -60,11 +60,11 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
               const seed = await decrypt(codeBuffer, password);
               const wallet = await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
               doTrack(SIGN_IN_CORRECT);
-              next(wallet.identities[0]);
+              await next(wallet.identities[0]);
             } catch (error) {
               setPasswordError('Invalid password.');
+              setLoading(false);
             }
-            setLoading(false);
           }}
         >
           Continue
