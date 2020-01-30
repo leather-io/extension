@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { WalletActions, WalletState, RESTORE_WALLET, IS_RESTORING_WALLET, GENERATE_WALLET } from './types';
+import { WalletActions, WalletState, RESTORE_WALLET, IS_RESTORING_WALLET, GENERATE_WALLET, LOG_OUT } from './types';
 
 const initialState: WalletState = {
   seed: null,
@@ -30,6 +30,11 @@ export const walletReducer: Reducer<WalletState, WalletActions> = (
         ...state,
         currentWallet: action.payload,
         identities: [...action.payload.identities],
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        ...initialState,
       };
     default:
       return state;
