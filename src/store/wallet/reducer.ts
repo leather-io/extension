@@ -5,6 +5,7 @@ const initialState: WalletState = {
   seed: null,
   isRestoringWallet: false,
   currentWallet: null,
+  identities: null,
 };
 
 export const walletReducer: Reducer<WalletState, WalletActions> = (
@@ -16,6 +17,7 @@ export const walletReducer: Reducer<WalletState, WalletActions> = (
       return {
         ...state,
         currentWallet: action.payload,
+        identities: action.payload.identities,
         isRestoringWallet: false,
       };
     case IS_RESTORING_WALLET:
@@ -26,10 +28,8 @@ export const walletReducer: Reducer<WalletState, WalletActions> = (
     case GENERATE_WALLET:
       return {
         ...state,
-        currentWallet: {
-          ...action.payload,
-          identities: action.payload.identities,
-        },
+        currentWallet: action.payload,
+        identities: action.payload.identities
       };
     default:
       return state;

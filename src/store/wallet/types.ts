@@ -1,4 +1,5 @@
 import Wallet from '@blockstack/keychain/dist/wallet';
+import Identity from '@blockstack/keychain/dist/identity';
 
 export const RESTORE_WALLET = 'WALLET/RESTORE_WALLET';
 export const IS_RESTORING_WALLET = 'WALLET/IS_RESTORING';
@@ -22,6 +23,7 @@ export interface WalletState {
   seed: string | null;
   isRestoringWallet: boolean;
   currentWallet: Wallet | null;
+  identities: Identity[] | null;
 }
 
 export type WalletActions = StoreSeedAction | IsRestoringWalletAction | GenerateWalletAction;
