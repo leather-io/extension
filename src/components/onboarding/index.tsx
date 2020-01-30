@@ -8,6 +8,7 @@ import { ScreenName } from '@store/onboarding/types';
 import { selectIdentities } from '@store/wallet/selectors';
 import { selectAuthRequest, selectCurrentScreen, selectDecodedAuthRequest } from '@store/onboarding/selectors';
 import { authenticationInit, finalizeAuthResponse } from '@common/utils';
+import Identity from '@blockstack/keychain/dist/identity';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
@@ -18,15 +19,19 @@ const RenderScreen = ({ ...rest }) => {
     authRequest: selectAuthRequest(state),
   }));
 
-  const doFinishSignIn = async (identityIndex = 0) => {
+  // const doFinishSignIn = async (identityIndex = 0, identity?: Identity) => {
+  const doFinishSignIn = async (
+    { identityIndex, identity }: { identity?: Identity; identityIndex: number } = { identityIndex: 0 }
+  ) => {
     if (!decodedAuthRequest || !authRequest || !identities) {
       console.error('Uh oh! Finished onboarding without auth info.');
       return;
     }
     const gaiaUrl = 'https://hub.blockstack.org';
     const appURL = new URL(decodedAuthRequest.redirect_uri);
-    await identities[identityIndex].refresh();
-    const authResponse = await identities[identityIndex].makeAuthResponse({
+    const currentIdentity = identity || identities[identityIndex];
+    await currentIdentity.refresh();
+    const authResponse = await currentIdentity.makeAuthResponse({
       gaiaUrl,
       appDomain: appURL.origin,
       transitPublicKey: decodedAuthRequest.public_keys[0],
@@ -53,7 +58,11 @@ const RenderScreen = ({ ...rest }) => {
     // username
     case ScreenName.USERNAME:
       return (
-        <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} doFinishSignIn={doFinishSignIn} {...rest} />
+        <Username
+          next={() => dispatch(doChangeScreen(ScreenName.CREATE))}
+          doFinishSignIn={async identity => await doFinishSignIn({ identity, identityIndex: -1 })}
+          {...rest}
+        />
       );
 
     // create
@@ -98,7 +107,7 @@ const RenderScreen = ({ ...rest }) => {
         return (
           <ChooseAccount
             next={async (identityIndex: number) => {
-              await doFinishSignIn(identityIndex);
+              await doFinishSignIn({ identityIndex });
             }}
             {...rest}
           />

@@ -13,10 +13,11 @@ import { AppState } from '@store';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { didGenerateWallet } from '@store/wallet';
+import Identity from '@blockstack/keychain/dist/identity';
 
 interface UsernameProps {
   next: () => void;
-  doFinishSignIn: (index: number) => void;
+  doFinishSignIn: (identity: Identity) => void;
 }
 
 const getRandomWord = () => {
@@ -81,7 +82,7 @@ export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
                 identity,
               });
               dispatch(didGenerateWallet(wallet));
-              doFinishSignIn(wallet.identities.length - 1);
+              doFinishSignIn(identity);
               return;
             }
 
