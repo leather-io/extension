@@ -1,5 +1,5 @@
 import { Wallet } from '@blockstack/keychain';
-import { validateMnemonic, generateMnemonic, wordlists } from 'bip39';
+import { validateMnemonic, generateMnemonic } from 'bip39';
 import { Page } from 'puppeteer';
 
 import { AuthPageObject } from './page-objects/auth.page';
