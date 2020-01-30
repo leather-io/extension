@@ -19,8 +19,8 @@ interface ChooseAccountProps {
 export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   const { appName, identities } = useSelector((state: AppState) => ({
     appName: selectAppName(state),
-    identities: selectIdentities(state) as Identity[]
-  }))
+    identities: selectIdentities(state) as Identity[],
+  }));
   const [showing, setShowing] = React.useState(false);
 
   return (
@@ -31,10 +31,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
         <AppIcon mt={3} mb={4} size="72px" />
         <ScreenBody
           title="Choose an account"
-          body={[
-            `to use with ${appName}`,
-            <Accounts identities={identities} next={next} />,
-          ]}
+          body={[`to use with ${appName}`, <Accounts identities={identities} next={next} />]}
         />
       </Screen>
     </Box>

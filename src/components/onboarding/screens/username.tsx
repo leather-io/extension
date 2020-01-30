@@ -23,11 +23,13 @@ const getRandomWord = () => {
   const list = wordlists.EN;
   const word = list[Math.floor(Math.random() * list.length)];
   return word;
-}
+};
 
 export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
   const [error, setError] = useState('');
-  const [username, setUsername] = useState(() => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`);
+  const [username, setUsername] = useState(
+    () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`
+  );
   const dispatch = useDispatch();
   const { wallet } = useSelector((state: AppState) => ({
     wallet: selectCurrentWallet(state),
@@ -71,19 +73,19 @@ export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
           data-test="button-username-continue"
           onClick={async () => {
             if (wallet) {
-              const identity = await wallet.createNewIdentity(DEFAULT_PASSWORD)
+              const identity = await wallet.createNewIdentity(DEFAULT_PASSWORD);
               await registerSubdomain({
                 username,
                 subdomain: Subdomains.TEST,
                 gaiaHubUrl: 'https://hub.blockstack.org',
                 identity,
-              })
-              dispatch(didGenerateWallet(wallet))
+              });
+              dispatch(didGenerateWallet(wallet));
               doFinishSignIn(wallet.identities.length - 1);
-              return
+              return;
             }
 
-            dispatch(doSetUsername(username))
+            dispatch(doSetUsername(username));
             next();
           }}
         >

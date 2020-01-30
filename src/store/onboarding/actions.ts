@@ -45,7 +45,7 @@ export function doCreateSecretKey(): ThunkAction<void, AppState, {}, OnboardingA
       gaiaHubUrl: 'https://hub.blockstack.org',
       username: username as string,
       subdomain: Subdomains.TEST,
-    })
+    });
     const secretKey = await decrypt(wallet.encryptedBackupPhrase, DEFAULT_PASSWORD);
     dispatch(didGenerateWallet(wallet));
     dispatch(doSaveSecretKey(secretKey));

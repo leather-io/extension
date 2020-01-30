@@ -59,4 +59,9 @@ interface SetUsername {
   username: string;
 }
 
-export type OnboardingActions = ChangePageAction | StoreSecretKey | SetMagicRecoveryCode | SaveAuthRequest | SetUsername;
+export type OnboardingActions =
+  | ChangePageAction
+  | StoreSecretKey
+  | SetMagicRecoveryCode
+  | SaveAuthRequest
+  | SetUsername;

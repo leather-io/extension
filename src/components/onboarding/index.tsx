@@ -54,7 +54,9 @@ const RenderScreen = ({ ...rest }) => {
     //   return <ChooseAccount next={() => console.log('testing')} {...rest} />;
     // username
     case ScreenName.USERNAME:
-      return <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} doFinishSignIn={doFinishSignIn} {...rest} />;
+      return (
+        <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} doFinishSignIn={doFinishSignIn} {...rest} />
+      );
 
     // create
     case ScreenName.CREATE:
@@ -95,11 +97,14 @@ const RenderScreen = ({ ...rest }) => {
     // Sign In
     case ScreenName.SIGN_IN:
       if (identities && identities.length) {
-        return <ChooseAccount 
-          next={async (identityIndex: number) => {
-            await doFinishSignIn(identityIndex) 
-          }} {...rest} 
-        />;
+        return (
+          <ChooseAccount
+            next={async (identityIndex: number) => {
+              await doFinishSignIn(identityIndex);
+            }}
+            {...rest}
+          />
+        );
       }
       return (
         <SignIn

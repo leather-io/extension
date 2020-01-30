@@ -50,7 +50,7 @@ export const onboardingReducer: Reducer<OnboardingState, OnboardingActions> = (
       return {
         ...state,
         username: action.username,
-      }
+      };
     default:
       return state;
   }

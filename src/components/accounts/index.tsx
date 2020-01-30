@@ -91,7 +91,7 @@ export const Accounts = ({ identities, next }: AccountsProps) => {
         );
       })}
       <AccountItem
-        onClick={() => dispatch(doChangeScreen(ScreenName.USERNAME)) }
+        onClick={() => dispatch(doChangeScreen(ScreenName.USERNAME))}
         iconComponent={({ hover }) => (
           <Flex
             justify="center"
