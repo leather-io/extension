@@ -20,12 +20,6 @@ async function bootstrapConnectModalPageTest(demo: DemoPageObject, auth: AuthPag
   return { authPage };
 }
 
-// const getRandomWord = () => {
-//   const list = wordlists.EN;
-//   const word = list[Math.floor(Math.random() * list.length)];
-//   return word;
-// };
-
 describe('Authentication', () => {
   let authPageObject: AuthPageObject;
   let demoPageObject: DemoPageObject;
@@ -43,7 +37,6 @@ describe('Authentication', () => {
     if (!$usernameInputElement) {
       throw 'Could not find username field';
     }
-    // await authPage.type(authPageObject.$inputUsername, 'bimba_the_dog');
     await authPage.click(authPageObject.$buttonUsernameContinue);
 
     await authPage.waitFor(authPageObject.$textareaReadOnlySeedPhrase);
@@ -65,13 +58,6 @@ describe('Authentication', () => {
     await authPage.type(authPageObject.$textareaSeedPhraseInput, secretKey);
     await authPage.click(authPageObject.$buttonConfirmReenterSeedPhrase);
 
-    //
-    // These steps commented out as the flow has changed slightly
-
-    // await authPage.waitFor(authPageObject.$buttonConnectFlowFinished);
-    // await expect(authPage).toMatch('You’re all set!');
-    // await authPage.click(authPageObject.$buttonConnectFlowFinished);
-
     await page.waitFor('#auth-response');
     const authResponseEl = await page.$('#auth-response');
     const authResponse: string = await page.evaluate(el => el.innerText, authResponseEl);
@@ -84,11 +70,9 @@ describe('Authentication', () => {
 
     async function navigateThroughToSecretKeyPage() {
       const pages = await bootstrapConnectModalPageTest(demoPageObject, authPageObject);
+
       authPage = pages.authPage;
-      // await authPage.type(
-      //   authPageObject.$inputUsername,
-      //   `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`
-      // );
+
       await authPage.click(authPageObject.$buttonUsernameContinue);
       await authPage.screenshot({ path: 'tests/screenshot2.png' });
       await authPage.waitFor(authPageObject.$textareaReadOnlySeedPhrase);
