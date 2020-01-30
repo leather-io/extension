@@ -57,6 +57,16 @@ const RenderScreen = ({ ...rest }) => {
     //   return <ChooseAccount next={() => console.log('testing')} {...rest} />;
     // username
     case ScreenName.USERNAME:
+      if (identities && identities.length) {
+        return (
+          <ChooseAccount
+            next={async (identityIndex: number) => {
+              await doFinishSignIn({ identityIndex });
+            }}
+            {...rest}
+          />
+        );
+      }
       return (
         <Username
           next={() => dispatch(doChangeScreen(ScreenName.CREATE))}
