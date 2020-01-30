@@ -29,7 +29,7 @@ export const walletReducer: Reducer<WalletState, WalletActions> = (
       return {
         ...state,
         currentWallet: action.payload,
-        identities: action.payload.identities
+        identities: action.payload.identities,
       };
     default:
       return state;
