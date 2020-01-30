@@ -51,6 +51,23 @@ const RenderScreen = ({ ...rest }) => {
   //   }
   // }, [screen, identities]);
 
+  const ChooseScreen = () => (
+    <ChooseAccount
+      next={async (identityIndex: number) => {
+        await doFinishSignIn({ identityIndex });
+      }}
+      {...rest}
+    />
+  );
+
+  const UsernameScreen = () => (
+    <Username
+      next={() => dispatch(doChangeScreen(ScreenName.CREATE))}
+      doFinishSignIn={async identity => await doFinishSignIn({ identity, identityIndex: -1 })}
+      {...rest}
+    />
+  );
+
   switch (screen) {
     // choose account
     // case ScreenName.CHOOSE_ACCOUNT:
@@ -58,22 +75,12 @@ const RenderScreen = ({ ...rest }) => {
     // username
     case ScreenName.USERNAME:
       if (identities && identities.length) {
-        return (
-          <ChooseAccount
-            next={async (identityIndex: number) => {
-              await doFinishSignIn({ identityIndex });
-            }}
-            {...rest}
-          />
-        );
+        return <ChooseScreen />;
       }
-      return (
-        <Username
-          next={() => dispatch(doChangeScreen(ScreenName.CREATE))}
-          doFinishSignIn={async identity => await doFinishSignIn({ identity, identityIndex: -1 })}
-          {...rest}
-        />
-      );
+      return <UsernameScreen />;
+
+    case ScreenName.ADD_ACCOUNT:
+      return <UsernameScreen />;
 
     // create
     case ScreenName.CREATE:
@@ -114,14 +121,7 @@ const RenderScreen = ({ ...rest }) => {
     // Sign In
     case ScreenName.SIGN_IN:
       if (identities && identities.length) {
-        return (
-          <ChooseAccount
-            next={async (identityIndex: number) => {
-              await doFinishSignIn({ identityIndex });
-            }}
-            {...rest}
-          />
-        );
+        return <ChooseScreen />;
       }
       return (
         <SignIn

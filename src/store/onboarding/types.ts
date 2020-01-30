@@ -15,6 +15,7 @@ export enum ScreenName {
   CONNECT_APP = 'screens/CONNECT_APP',
   SIGN_IN = 'screens/SIGN_IN',
   RECOVERY_CODE = 'screens/RECOVERY_CODE',
+  ADD_ACCOUNT = 'screens/ADD_ACCOUNT',
 }
 
 // TODO: clarify usage of password for local key encryption
