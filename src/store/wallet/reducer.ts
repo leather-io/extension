@@ -17,7 +17,7 @@ export const walletReducer: Reducer<WalletState, WalletActions> = (
       return {
         ...state,
         currentWallet: action.payload,
-        identities: action.payload.identities,
+        identities: [...action.payload.identities],
         isRestoringWallet: false,
       };
     case IS_RESTORING_WALLET:

@@ -23,13 +23,13 @@ const RenderScreen = ({ ...rest }) => {
   const doFinishSignIn = async (
     { identityIndex, identity }: { identity?: Identity; identityIndex: number } = { identityIndex: 0 }
   ) => {
-    if (!decodedAuthRequest || !authRequest || !identities) {
+    if (!decodedAuthRequest || !authRequest || !(identity || identities)) {
       console.error('Uh oh! Finished onboarding without auth info.');
       return;
     }
     const gaiaUrl = 'https://hub.blockstack.org';
     const appURL = new URL(decodedAuthRequest.redirect_uri);
-    const currentIdentity = identity || identities[identityIndex];
+    const currentIdentity = identity || (identities as Identity[])[identityIndex];
     await currentIdentity.refresh();
     const authResponse = await currentIdentity.makeAuthResponse({
       gaiaUrl,
@@ -134,7 +134,11 @@ const RenderScreen = ({ ...rest }) => {
       );
 
     case ScreenName.RECOVERY_CODE:
-      return <DecryptRecoveryCode next={async () => await doFinishSignIn()} />;
+      return (
+        <DecryptRecoveryCode
+          next={async (identity: Identity) => await doFinishSignIn({ identity, identityIndex: -1 })}
+        />
+      );
 
     default:
       return null;

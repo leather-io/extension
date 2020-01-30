@@ -10,9 +10,10 @@ import { Box, Input, Text, Button } from '@blockstack/ui';
 import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { decrypt } from '@blockstack/keychain';
+import Identity from '@blockstack/keychain/dist/identity';
 
 interface RecoveryProps {
-  next: () => void;
+  next: (identity: Identity) => void;
 }
 
 export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
@@ -57,9 +58,9 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
             try {
               const codeBuffer = Buffer.from(recoveryCode, 'base64');
               const seed = await decrypt(codeBuffer, password);
-              await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+              const wallet = await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
               doTrack(SIGN_IN_CORRECT);
-              next();
+              next(wallet.identities[0]);
             } catch (error) {
               setPasswordError('Invalid password.');
             }
