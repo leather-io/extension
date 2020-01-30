@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { wordlists } from 'bip39';
 
 import { Box, Flex, Input, Text, Button } from '@blockstack/ui';
 import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
+import { getRandomWord } from '@common/utils';
 import { useAppDetails } from '@common/hooks/useAppDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { doSetUsername } from 'store/onboarding/actions';
+import { doSetUsername } from '@store/onboarding/actions';
 import { selectCurrentWallet } from '@store/wallet/selectors';
 import { AppState } from '@store';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
@@ -15,33 +15,30 @@ import { registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { didGenerateWallet } from '@store/wallet';
 import Identity from '@blockstack/keychain/dist/identity';
 
+const generateRandomUsername = () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
+
 interface UsernameProps {
   next: () => void;
   doFinishSignIn: (identity: Identity) => Promise<void>;
 }
 
-const getRandomWord = () => {
-  const list = wordlists.EN;
-  const word = list[Math.floor(Math.random() * list.length)];
-  return word;
-};
-
 export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState(
-    () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`
-  );
   const dispatch = useDispatch();
+  const { name } = useAppDetails();
+
   const { wallet } = useSelector((state: AppState) => ({
     wallet: selectCurrentWallet(state),
   }));
 
-  const { name } = useAppDetails();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState(() => generateRandomUsername());
+
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setError('');
     setUsername(evt.currentTarget.value || '');
   };
+
   return (
     <Screen isLoading={loading}>
       <ScreenHeader />
