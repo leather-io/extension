@@ -26,8 +26,9 @@ const RenderScreen = ({ ...rest }) => {
     }
     const gaiaUrl = 'https://hub.blockstack.org';
     const appURL = new URL(decodedAuthRequest.redirect_uri);
+    console.log(identityIndex, wallet.identities[identityIndex]);
     await wallet.identities[identityIndex].refresh();
-    const authResponse = await wallet.identities[0].makeAuthResponse({
+    const authResponse = await wallet.identities[identityIndex].makeAuthResponse({
       gaiaUrl,
       appDomain: appURL.origin,
       transitPublicKey: decodedAuthRequest.public_keys[0],
@@ -53,7 +54,7 @@ const RenderScreen = ({ ...rest }) => {
     //   return <ChooseAccount next={() => console.log('testing')} {...rest} />;
     // username
     case ScreenName.USERNAME:
-      return <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} {...rest} />;
+      return <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} doFinishSignIn={doFinishSignIn} {...rest} />;
 
     // create
     case ScreenName.CREATE:

@@ -6,11 +6,17 @@ import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 import { useAppDetails } from '@common/hooks/useAppDetails';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { doSetUsername } from 'store/onboarding/actions';
+import { selectCurrentWallet } from '@store/wallet/selectors';
+import { AppState } from '@store';
+import { DEFAULT_PASSWORD } from '@store/onboarding/types';
+import { registerSubdomain, Subdomains } from '@blockstack/keychain';
+import { didGenerateWallet } from '@store/wallet';
 
 interface UsernameProps {
   next: () => void;
+  doFinishSignIn: (index: number) => void;
 }
 
 const getRandomWord = () => {
@@ -19,10 +25,13 @@ const getRandomWord = () => {
   return word;
 }
 
-export const Username: React.FC<UsernameProps> = ({ next }) => {
+export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
   const [error, setError] = useState('');
   const [username, setUsername] = useState(() => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`);
   const dispatch = useDispatch();
+  const { wallet } = useSelector((state: AppState) => ({
+    wallet: selectCurrentWallet(state),
+  }));
 
   const { name } = useAppDetails();
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
@@ -60,7 +69,20 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
         <Button
           width="100%"
           data-test="button-username-continue"
-          onClick={() => {
+          onClick={async () => {
+            if (wallet) {
+              const identity = await wallet.createNewIdentity(DEFAULT_PASSWORD)
+              await registerSubdomain({
+                username,
+                subdomain: Subdomains.TEST,
+                gaiaHubUrl: 'https://hub.blockstack.org',
+                identity,
+              })
+              dispatch(didGenerateWallet(wallet))
+              doFinishSignIn(wallet.identities.length - 1);
+              return
+            }
+
             dispatch(doSetUsername(username))
             next();
           }}

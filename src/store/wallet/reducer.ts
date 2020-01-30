@@ -26,7 +26,10 @@ export const walletReducer: Reducer<WalletState, WalletActions> = (
     case GENERATE_WALLET:
       return {
         ...state,
-        currentWallet: action.payload,
+        currentWallet: {
+          ...action.payload,
+          identities: action.payload.identities,
+        },
       };
     default:
       return state;

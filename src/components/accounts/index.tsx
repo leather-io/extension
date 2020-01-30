@@ -4,6 +4,9 @@ import PlusCircleIcon from 'mdi-react/PlusCircleIcon';
 import { useHover } from 'use-events';
 import { Image } from '@components/image';
 import Identity from '@blockstack/keychain/dist/identity';
+import { useDispatch } from 'react-redux';
+import { doChangeScreen } from '@store/onboarding/actions';
+import { ScreenName } from '@store/onboarding/types';
 
 interface AccountAvatarProps extends BoxProps {
   username: string;
@@ -73,6 +76,7 @@ interface AccountsProps {
 }
 
 export const Accounts = ({ identities, next }: AccountsProps) => {
+  const dispatch = useDispatch();
   return (
     <>
       {identities.map(({ defaultUsername, address }, key) => {
@@ -87,6 +91,7 @@ export const Accounts = ({ identities, next }: AccountsProps) => {
         );
       })}
       <AccountItem
+        onClick={() => dispatch(doChangeScreen(ScreenName.USERNAME)) }
         iconComponent={({ hover }) => (
           <Flex
             justify="center"

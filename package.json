@@ -5,7 +5,7 @@
   "author": "Blockstack PBC",
   "dependencies": {
     "@blockstack/connect": "^0.3.0",
-    "@blockstack/keychain": "^0.2.1",
+    "@blockstack/keychain": "^0.2.2",
     "@blockstack/prettier-config": "^0.0.5",
     "@blockstack/ui": "^1.0.0-alpha.27",
     "@segment/analytics.js-core": "^3.10.1",
