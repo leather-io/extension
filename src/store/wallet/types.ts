@@ -4,7 +4,7 @@ import Identity from '@blockstack/keychain/dist/identity';
 export const RESTORE_WALLET = 'WALLET/RESTORE_WALLET';
 export const IS_RESTORING_WALLET = 'WALLET/IS_RESTORING';
 export const GENERATE_WALLET = 'WALLET/GENERATE';
-export const LOG_OUT = 'WALLET/LOG_OUT';
+export const SIGN_OUT = 'WALLET/SIGN_OUT';
 
 interface StoreSeedAction {
   type: typeof RESTORE_WALLET;
@@ -21,7 +21,7 @@ interface GenerateWalletAction {
 }
 
 interface LogOutAction {
-  type: typeof LOG_OUT;
+  type: typeof SIGN_OUT;
 }
 
 export interface WalletState {

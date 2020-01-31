@@ -75,7 +75,7 @@ const AccountItem = ({ label, iconComponent, isFirst, hasAction, ...rest }: Acco
 interface AccountsProps {
   identities: Identity[];
   showAddAccount?: boolean;
-  next?: (identityIndex: number) => Promise<void>;
+  next?: (identityIndex: number) => void;
 }
 
 export const Accounts = ({ identities, showAddAccount, next }: AccountsProps) => {

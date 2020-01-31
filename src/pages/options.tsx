@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectIdentities } from '@store/wallet/selectors';
 import { AppState } from '../store/index';
 import { LogoWithName } from '@components/logo-with-name';
-import { doLogOut } from '@store/wallet';
+import { doSignOut } from '@store/wallet';
 import { SignOut } from '@components/sign-out';
 
 export const OptionsApp = () => {
@@ -23,7 +23,7 @@ export const OptionsApp = () => {
             <SignOut
               identities={identities}
               signOut={() => {
-                dispatch(doLogOut());
+                dispatch(doSignOut());
               }}
             />
           )}
