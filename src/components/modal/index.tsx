@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, PseudoBox, Flex, Text, BoxProps } from '@blockstack/ui';
+import { Box, PseudoBox, Flex, BoxProps } from '@blockstack/ui';
 import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 import CloseIcon from 'mdi-react/CloseIcon';
 import { Image } from '@components/image';

@@ -41,10 +41,11 @@ interface AccountItemProps {
   label: string;
   iconComponent?: (props: { hover: boolean }) => void;
   isFirst?: boolean;
+  hasAction?: boolean;
   onClick?: () => void;
 }
 
-const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProps) => {
+const AccountItem = ({ label, iconComponent, isFirst, hasAction, ...rest }: AccountItemProps) => {
   const [hover, bind] = useHover();
 
   return (
@@ -56,14 +57,14 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
       borderTop={isFirst ? '1px solid' : undefined}
       borderTopColor="inherit"
       align="center"
-      cursor={hover ? 'pointer' : 'unset'}
+      cursor={hover && hasAction ? 'pointer' : 'unset'}
       mt={isFirst ? 5 : 0}
       {...bind}
       {...rest}
     >
       {iconComponent && iconComponent({ hover })}
       <Box overflow="hidden">
-        <Text textStyle="body.small.medium" textDecoration={hover ? 'underline' : 'unset'}>
+        <Text textStyle="body.small.medium" textDecoration={hover && hasAction ? 'underline' : 'unset'}>
           {label}
         </Text>
       </Box>
@@ -74,7 +75,7 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
 interface AccountsProps {
   identities: Identity[];
   showAddAccount?: boolean;
-  next: (identityIndex: number) => Promise<void>;
+  next?: (identityIndex: number) => Promise<void>;
 }
 
 export const Accounts = ({ identities, showAddAccount, next }: AccountsProps) => {
@@ -88,13 +89,17 @@ export const Accounts = ({ identities, showAddAccount, next }: AccountsProps) =>
             iconComponent={() => <AccountAvatar username={defaultUsername || address} mr={3} />}
             label={defaultUsername || address}
             key={key}
-            onClick={() => next(key)}
+            onClick={() => {
+              if (!next) return;
+              next(key);
+            }}
           />
         );
       })}
       {showAddAccount && (
         <AccountItem
           onClick={() => dispatch(doChangeScreen(ScreenName.ADD_ACCOUNT))}
+          hasAction={!!next}
           iconComponent={({ hover }) => (
             <Flex
               justify="center"

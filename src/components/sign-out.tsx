@@ -14,7 +14,7 @@ export const SignOut = ({ identities, signOut }: SignOutPros) => (
     <Text as="h1" fontWeight="bold" mb={6} display="block">
       Sign out
     </Text>
-    <Accounts identities={identities} next={async () => {}} />
+    <Accounts identities={identities} />
     <Button onClick={signOut} mt={8} width="100%">
       Sign out of Data Vault
     </Button>
