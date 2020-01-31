@@ -28,7 +28,7 @@ export interface WalletState {
   seed: string | null;
   isRestoringWallet: boolean;
   currentWallet: Wallet | null;
-  identities: Identity[] | null;
+  identities: Identity[];
 }
 
 export type WalletActions = StoreSeedAction | IsRestoringWalletAction | GenerateWalletAction | LogOutAction;

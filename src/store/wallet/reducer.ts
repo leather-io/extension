@@ -5,7 +5,7 @@ const initialState: WalletState = {
   seed: null,
   isRestoringWallet: false,
   currentWallet: null,
-  identities: null,
+  identities: [],
 };
 
 export const walletReducer: Reducer<WalletState, WalletActions> = (

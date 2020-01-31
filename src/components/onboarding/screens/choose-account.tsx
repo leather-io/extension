@@ -9,10 +9,14 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectAppName } from '@store/onboarding/selectors';
 import { Drawer } from '@components/drawer';
+<<<<<<< HEAD
 import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { selectDecodedAuthRequest } from '@store/onboarding/selectors';
 import { store } from '@store';
 import { ConfigApp } from '@blockstack/keychain/dist/wallet';
+=======
+import { selectIdentities } from '@store/wallet/selectors';
+>>>>>>> feat: Add homepage
 
 interface ChooseAccountProps {
   next: (identityIndex: number) => void;
@@ -22,8 +26,12 @@ interface ChooseAccountProps {
 export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   const { appName, identities, wallet } = useSelector((state: AppState) => ({
     appName: selectAppName(state),
+<<<<<<< HEAD
     identities: selectIdentities(state) as Identity[],
     wallet: selectCurrentWallet(state) as Wallet,
+=======
+    identities: selectIdentities(state),
+>>>>>>> feat: Add homepage
   }));
   const [reusedApps, setReusedApps] = React.useState<ConfigApp[]>([]);
   const [identityIndex, setIdentityIndex] = React.useState<number | undefined>();
@@ -82,12 +90,8 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
         <ScreenHeader hideIcon title="Continue with Data Vault" />
         <AppIcon mt={10} size="72px" />
         <ScreenBody
-          mt={4}
-          body={[
-            <Title>Choose an account</Title>,
-            <Box mt={2}>to use with {appName}</Box>,
-            <Accounts identities={identities} next={(identityIndex: number) => didSelectAccount({ identityIndex })} />,
-          ]}
+          title="Choose an account"
+          body={[`to use with ${appName}`, <Accounts identities={identities} next={(identityIndex: number) => didSelectAccount({ identityIndex })} showAddAccount />]}
         />
       </Screen>
     </Box>

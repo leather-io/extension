@@ -73,13 +73,14 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
 
 interface AccountsProps {
   identities: Identity[];
-  next: (identityIndex: number) => void;
+  showAddAccount?: boolean;
+  next: (identityIndex: number) => Promise<void>;
 }
 
-export const Accounts = ({ identities, next }: AccountsProps) => {
+export const Accounts = ({ identities, showAddAccount, next }: AccountsProps) => {
   const dispatch = useDispatch();
   return (
-    <>
+    <Flex flexDirection="column">
       {identities.map(({ defaultUsername, address }, key) => {
         return (
           <AccountItem
@@ -91,21 +92,23 @@ export const Accounts = ({ identities, next }: AccountsProps) => {
           />
         );
       })}
-      <AccountItem
-        onClick={() => dispatch(doChangeScreen(ScreenName.ADD_ACCOUNT))}
-        iconComponent={({ hover }) => (
-          <Flex
-            justify="center"
-            width="36px"
-            mr={3}
-            color={hover ? 'ink.400' : 'ink.300'}
-            transition="0.08s all ease-in-out"
-          >
-            <PlusInCircle />
-          </Flex>
-        )}
-        label="Add a new account"
-      />
-    </>
+      {showAddAccount && (
+        <AccountItem
+          onClick={() => dispatch(doChangeScreen(ScreenName.ADD_ACCOUNT))}
+          iconComponent={({ hover }) => (
+            <Flex
+              justify="center"
+              width="36px"
+              mr={3}
+              color={hover ? 'ink.400' : 'ink.300'}
+              transition="0.08s all ease-in-out"
+            >
+              <PlusInCircle />
+            </Flex>
+          )}
+          label="Add a new account"
+        />
+      )}
+    </Flex>
   );
 };
