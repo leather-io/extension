@@ -27,6 +27,37 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   }));
   const [showing, setShowing] = React.useState(false);
 
+  const didSelectAccount = ({ identityIndex }: { identityIndex: number }) => {
+    const state = store.getState();
+    const authRequest = selectDecodedAuthRequest(state);
+    console.log(state, authRequest);
+    if (!authRequest) {
+      console.error('No authRequest found when selecting account');
+      return;
+    }
+    console.log(authRequest);
+    if (wallet.walletConfig && authRequest.scopes.includes('publish_data')) {
+      const url = new URL(authRequest?.redirect_uri);
+      const apps = wallet.walletConfig.identities[identityIndex]?.apps;
+      if (apps) {
+        let isReusing = false;
+        Object.keys(apps).forEach(origin => {
+          const app = apps[origin];
+          console.log(app);
+          if (origin !== url.origin && app.scopes.includes('publish_data')) {
+            isReusing = true;
+          }
+        });
+        if (isReusing) {
+          setShowing(true);
+          return;
+        }
+      }
+      // if (wallet.walletConfig.identities[identityIndex]?.apps[url.origin])
+    }
+    next(identityIndex);
+  };
+
   return (
     <Box position="relative">
       <Drawer close={() => setShowing(false)} showing={showing} />
@@ -35,7 +66,10 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
         <AppIcon mt={3} mb={4} size="72px" />
         <ScreenBody
           title="Choose an account"
-          body={[`to use with ${appName}`, <Accounts identities={identities} next={next} />]}
+          body={[
+            `to use with ${appName}`,
+            <Accounts identities={identities} next={(identityIndex: number) => didSelectAccount({ identityIndex })} />,
+          ]}
         />
       </Screen>
     </Box>
