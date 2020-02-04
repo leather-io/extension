@@ -31,19 +31,19 @@ export const Connect: React.FC<ConnectProps> = props => {
   const isSeedPhraseCorrect = seedInput === seed;
   const error = hasAttemptedContinue && !isSeedPhraseCorrect;
   return (
-    <Screen textAlign="center">
+    <Screen textAlign="center" spacing={0}>
       <ScreenHeader />
-      <AppIcon />
+      <AppIcon mt={10} />
       <ScreenBody
+        mt={4}
         title={`Connect ${appName} to your Data Vault`}
         body={[
-          'Enter your Secret Key to continue.',
-          <Box>
+          <Box mt={6}>
             {/*Validate, track: CONNECT_INCORRECT */}
             <Input
               autoFocus
               minHeight="80px"
-              placeholder="12-word Secret Key"
+              placeholder="Enter your Secret Key"
               data-test="textarea-reinput-seed-phrase"
               as="textarea"
               aria-invalid={error}
@@ -65,13 +65,14 @@ export const Connect: React.FC<ConnectProps> = props => {
             doTrack(CONNECT_SAVED);
             props.next();
           }}
+          mt={6}
           width="100%"
           data-test="button-confirm-reenter-seed-phrase"
         >
           Continue
         </Button>
       </ScreenActions>
-      <ScreenFooter>
+      <ScreenFooter justifyContent="center" mt={6}>
         <Flex>
           <Text>Didn’t save your Secret Key?</Text>{' '}
           <Link
