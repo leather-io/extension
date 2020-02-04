@@ -27,13 +27,14 @@ export const SignIn: React.FC<SignInProps> = props => {
 
   return (
     <Screen isLoading={isLoading} textAlign="center">
-      <ScreenHeader title="Continue with Data Vault" />
-      <AppIcon size={72} mt={6} />
+      <ScreenHeader title="Continue with Data Vault" hideIcon />
+      <AppIcon mt={10} />
       <ScreenBody
         title={`Sign into ${appName}`}
+        mt={4}
         body={[
-          'Enter your Data Vault’s Secret Key to continue',
-          <Box textAlign="left">
+          <Box mt={2}>Enter your Data Vault’s Secret Key to continue</Box>,
+          <Box textAlign="left" mt={6}>
             {/*Validate: track SIGN_IN_INCORRECT*/}
             <Input
               autoFocus
@@ -55,7 +56,7 @@ export const SignIn: React.FC<SignInProps> = props => {
         ]}
       />
       <ScreenActions>
-        <Flex justify="space-between" align="center" width="100%">
+        <Flex justify="space-between" align="center" width="100%" mt={6}>
           <Link
             color="blue"
             onClick={() => {
