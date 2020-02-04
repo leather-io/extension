@@ -26,14 +26,15 @@ export const SignIn: React.FC<SignInProps> = props => {
   const appName = useSelector((state: AppState) => selectAppName(state));
 
   return (
-    <Screen isLoading={isLoading} textAlign="center">
-      <ScreenHeader title="Continue with Data Vault" />
-      <AppIcon size={72} mt={6} />
+    <Screen isLoading={isLoading} spacing={0} textAlign="center">
+      <ScreenHeader title="Continue with Data Vault" hideIcon />
+      <AppIcon mt={10} />
       <ScreenBody
         title={`Sign into ${appName}`}
+        mt={4}
         body={[
-          'Enter your Data Vault’s Secret Key to continue',
-          <Box textAlign="left">
+          <Box mt={2}>Enter your Data Vault’s Secret Key to continue</Box>,
+          <Box textAlign="left" mt={6}>
             {/*Validate: track SIGN_IN_INCORRECT*/}
             <Input
               autoFocus
