@@ -31,7 +31,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
 
   return (
     <>
-      <Screen spacing={0}>
+      <Screen>
         <ScreenHeader />
         <ScreenBody
           title="Your Secret Key"

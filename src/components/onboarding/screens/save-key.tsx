@@ -20,14 +20,19 @@ interface SaveKeyProps {
 export const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
   const appName = useSelector((state: AppState) => selectAppName(state));
   return (
-    <Screen spacing={0}>
+    <Screen>
       <ScreenHeader />
       <ScreenBody
         title="Save your Secret Key"
         mt={6}
         body={[
-          <Text display="block" mt={2}>Paste your Secret Key wherever you keep critical, private, information such as passwords.</Text>,
-          <Text display="block" mt={5}> Once lost, it’s lost forever. So save it somewhere you won’t forget.</Text>,
+          <Text display="block" mt={2}>
+            Paste your Secret Key wherever you keep critical, private, information such as passwords.
+          </Text>,
+          <Text display="block" mt={5}>
+            {' '}
+            Once lost, it’s lost forever. So save it somewhere you won’t forget.
+          </Text>,
         ]}
       />
       <ScreenActions>

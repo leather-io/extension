@@ -38,7 +38,7 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
   };
 
   return (
-    <Screen spacing={0} isLoading={loading}>
+    <Screen isLoading={loading}>
       <ScreenHeader />
       <ScreenBody
         title="Choose a username"

@@ -69,7 +69,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
           next(identityIndex as number);
         }}
       />
-      <Screen textAlign="center" spacing={0}>
+      <Screen textAlign="center">
         <ScreenHeader hideIcon title="Continue with Data Vault" />
         <AppIcon mt={10} size="72px" />
         <ScreenBody

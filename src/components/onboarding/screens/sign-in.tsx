@@ -26,7 +26,7 @@ export const SignIn: React.FC<SignInProps> = props => {
   const appName = useSelector((state: AppState) => selectAppName(state));
 
   return (
-    <Screen isLoading={isLoading} spacing={0} textAlign="center">
+    <Screen isLoading={isLoading} textAlign="center">
       <ScreenHeader title="Continue with Data Vault" hideIcon />
       <AppIcon mt={10} />
       <ScreenBody

@@ -52,7 +52,7 @@ interface Data {
   icon?: string;
 }
 
-interface CollapseProps {
+interface CollapseProps extends BoxProps {
   data: Data[];
 }
 
