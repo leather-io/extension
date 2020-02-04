@@ -4,20 +4,10 @@ import { ScreenBody, ScreenActions } from '@blockstack/connect';
 import { Link } from '@components/link';
 import useOnClickOutside from 'use-onclickoutside';
 import { Image } from '@components/image';
-
-interface App {
-  icon: string;
-  name: string;
-}
-
-const mockApps = [
-  { icon: 'https://appco.imgix.net/apps/c6a79902-35d4-4233-b63d-28f220dcd96f?fit=clip&h=144&w=144', name: 'App Name' },
-  { icon: 'https://appco.imgix.net/apps/409b27e0-5c04-48e0-b9a2-7a6e92cce4f6?fit=clip&h=144&w=144', name: 'App Name' },
-  { icon: 'https://appco.imgix.net/apps/24000ad6-6617-47e8-b3d8-3c7f98ce67ac?fit=clip&h=144&w=144', name: 'App Name' },
-];
+import { ConfigApp } from '@blockstack/keychain/dist/wallet';
 
 interface PreviousAppsProps {
-  apps: App[];
+  apps: ConfigApp[];
 }
 
 const PreviousApps = ({ apps, ...rest }: PreviousAppsProps) => (
@@ -32,7 +22,7 @@ const PreviousApps = ({ apps, ...rest }: PreviousAppsProps) => (
         transform={key > 0 ? `translateX(-${4 * key}px)` : 'none'}
         overflow="hidden"
       >
-        <Image src={app.icon} alt={app.name} />
+        <Image src={app.appIcon} alt={app.name} title={app.name} />
       </Box>
     ))}
   </Flex>
@@ -43,8 +33,10 @@ const transition = '0.2s all ease-in-out';
 interface DrawerProps {
   showing: boolean;
   close: () => void;
+  apps: ConfigApp[];
+  confirm: () => void;
 }
-export const Drawer = ({ showing, close }: DrawerProps) => {
+export const Drawer: React.FC<DrawerProps> = ({ showing, close, apps, confirm }) => {
   const ref = React.useRef(null);
 
   useOnClickOutside(ref, () => showing && close());
@@ -77,9 +69,9 @@ export const Drawer = ({ showing, close }: DrawerProps) => {
         borderTopRightRadius="24px"
       >
         <Stack spacing={4}>
-          <PreviousApps apps={mockApps} />
+          <PreviousApps apps={apps} />
           <ScreenBody
-            title="You're using this account with 3 other apps."
+            title={`You're using this account with ${apps.length} other app${apps.length > 1 ? 's' : ''}.`}
             body={[
               <>
                 The apps used by an account is public information. If you want your use of this app to be private,
@@ -103,7 +95,9 @@ export const Drawer = ({ showing, close }: DrawerProps) => {
               <Button mode="secondary" onClick={close} flexGrow={1}>
                 Go back
               </Button>
-              <Button flexGrow={1}>Continue to app</Button>
+              <Button flexGrow={1} onClick={confirm}>
+                Continue to app
+              </Button>
             </Stack>
           </ScreenActions>
         </Stack>
