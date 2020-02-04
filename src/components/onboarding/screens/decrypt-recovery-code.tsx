@@ -57,9 +57,9 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
             try {
               const codeBuffer = Buffer.from(recoveryCode, 'base64');
               const seed = await decrypt(codeBuffer, password);
-              const wallet = await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+              await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
               doTrack(SIGN_IN_CORRECT);
-              await next({ identityIndex: 0 });
+              next(0);
             } catch (error) {
               setPasswordError('Invalid password.');
               setLoading(false);
