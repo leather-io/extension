@@ -7,22 +7,20 @@ import { ScreenHeader } from '@components/connected-screen-header';
 import { getRandomWord } from '@common/utils';
 import { useAppDetails } from '@common/hooks/useAppDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { doSetUsername } from '@store/onboarding/actions';
+import { doSetUsername, doFinishSignIn } from 'store/onboarding/actions';
 import { selectCurrentWallet } from '@store/wallet/selectors';
 import { AppState } from '@store';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { didGenerateWallet } from '@store/wallet';
-import Identity from '@blockstack/keychain/dist/identity';
 
 const generateRandomUsername = () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
 
 interface UsernameProps {
   next: () => void;
-  doFinishSignIn: (identity: Identity) => Promise<void>;
 }
 
-export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
+export const Username: React.FC<UsernameProps> = ({ next }) => {
   const dispatch = useDispatch();
   const { name } = useAppDetails();
 
@@ -81,7 +79,7 @@ export const Username: React.FC<UsernameProps> = ({ next, doFinishSignIn }) => {
                 identity,
               });
               dispatch(didGenerateWallet(wallet));
-              await doFinishSignIn(identity);
+              dispatch(doFinishSignIn({ identityIndex: wallet.identities.length - 1 }));
               return;
             }
 

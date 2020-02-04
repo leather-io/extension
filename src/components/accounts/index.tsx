@@ -72,7 +72,7 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
 
 interface AccountsProps {
   identities: Identity[];
-  next: (identityIndex: number) => Promise<void>;
+  next: (identityIndex: number) => void;
 }
 
 export const Accounts = ({ identities, next }: AccountsProps) => {
@@ -86,7 +86,7 @@ export const Accounts = ({ identities, next }: AccountsProps) => {
             iconComponent={() => <AccountAvatar username={defaultUsername || address} mr={3} />}
             label={defaultUsername || address}
             key={key}
-            onClick={async () => await next(key)}
+            onClick={() => next(key)}
           />
         );
       })}

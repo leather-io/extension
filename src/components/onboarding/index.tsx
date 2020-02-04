@@ -6,37 +6,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { ScreenName } from '@store/onboarding/types';
 import { selectIdentities } from '@store/wallet/selectors';
-import { selectAuthRequest, selectCurrentScreen, selectDecodedAuthRequest } from '@store/onboarding/selectors';
-import { authenticationInit, finalizeAuthResponse } from '@common/utils';
-import Identity from '@blockstack/keychain/dist/identity';
+import { doFinishSignIn as finishSignIn } from '@store/onboarding/actions';
+import { selectCurrentScreen } from '@store/onboarding/selectors';
+import { authenticationInit } from '@common/utils';
 
 const RenderScreen = ({ ...rest }) => {
   const dispatch = useDispatch();
-  const { screen, decodedAuthRequest, authRequest, identities } = useSelector((state: AppState) => ({
+  const { screen, identities } = useSelector((state: AppState) => ({
     screen: selectCurrentScreen(state),
     identities: selectIdentities(state),
-    decodedAuthRequest: selectDecodedAuthRequest(state),
-    authRequest: selectAuthRequest(state),
   }));
 
   // const doFinishSignIn = async (identityIndex = 0, identity?: Identity) => {
-  const doFinishSignIn = async (
-    { identityIndex, identity }: { identity?: Identity; identityIndex: number } = { identityIndex: 0 }
-  ) => {
-    if (!decodedAuthRequest || !authRequest || !(identity || identities)) {
-      console.error('Uh oh! Finished onboarding without auth info.');
-      return;
-    }
-    const gaiaUrl = 'https://hub.blockstack.org';
-    const appURL = new URL(decodedAuthRequest.redirect_uri);
-    const currentIdentity = identity || (identities as Identity[])[identityIndex];
-    await currentIdentity.refresh();
-    const authResponse = await currentIdentity.makeAuthResponse({
-      gaiaUrl,
-      appDomain: appURL.origin,
-      transitPublicKey: decodedAuthRequest.public_keys[0],
-    });
-    finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
+  const doFinishSignIn = ({ identityIndex }: { identityIndex: number } = { identityIndex: 0 }) => {
+    dispatch(finishSignIn({ identityIndex }));
   };
   const doFinishOnboarding = doFinishSignIn;
 
@@ -53,20 +36,14 @@ const RenderScreen = ({ ...rest }) => {
 
   const ChooseScreen = () => (
     <ChooseAccount
-      next={async (identityIndex: number) => {
-        await doFinishSignIn({ identityIndex });
+      next={(identityIndex: number) => {
+        doFinishSignIn({ identityIndex });
       }}
       {...rest}
     />
   );
 
-  const UsernameScreen = () => (
-    <Username
-      next={() => dispatch(doChangeScreen(ScreenName.CREATE))}
-      doFinishSignIn={async identity => await doFinishSignIn({ identity, identityIndex: -1 })}
-      {...rest}
-    />
-  );
+  const UsernameScreen = () => <Username next={() => dispatch(doChangeScreen(ScreenName.CREATE))} {...rest} />;
 
   switch (screen) {
     // choose account
@@ -110,8 +87,8 @@ const RenderScreen = ({ ...rest }) => {
     case ScreenName.CONNECT_APP:
       return (
         <Connect
-          next={async () => {
-            await doFinishOnboarding();
+          next={() => {
+            doFinishOnboarding();
           }}
           back={() => dispatch(doChangeScreen(ScreenName.SECRET_KEY))}
           {...rest}
@@ -125,7 +102,7 @@ const RenderScreen = ({ ...rest }) => {
       }
       return (
         <SignIn
-          next={async () => await doFinishSignIn()}
+          next={() => doFinishSignIn()}
           back={() => {
             dispatch(doChangeScreen(ScreenName.SECRET_KEY));
           }}
@@ -134,11 +111,7 @@ const RenderScreen = ({ ...rest }) => {
       );
 
     case ScreenName.RECOVERY_CODE:
-      return (
-        <DecryptRecoveryCode
-          next={async (identity: Identity) => await doFinishSignIn({ identity, identityIndex: -1 })}
-        />
-      );
+      return <DecryptRecoveryCode next={(identityIndex: number) => doFinishSignIn({ identityIndex })} />;
 
     default:
       return null;

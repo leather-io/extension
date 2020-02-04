@@ -1,6 +1,7 @@
 import React from 'react';
 import { Screen, ScreenBody } from '@blockstack/connect';
 import { Box } from '@blockstack/ui';
+import { Wallet, Identity } from '@blockstack/keychain';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Accounts } from '@components/accounts';
 import { AppIcon } from '@components/app-icon';
@@ -8,18 +9,21 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectAppName } from '@store/onboarding/selectors';
 import { Drawer } from '@components/drawer';
-import { selectIdentities } from '@store/wallet/selectors';
-import Identity from '@blockstack/keychain/dist/identity';
+import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
+import { selectDecodedAuthRequest } from '@store/onboarding/selectors';
+import { DecodedAuthRequest } from '@common/dev/types';
+import { store } from '@store';
 
 interface ChooseAccountProps {
-  next: (identityIndex: number) => Promise<void>;
+  next: (identityIndex: number) => void;
   back?: () => void;
 }
 
 export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
-  const { appName, identities } = useSelector((state: AppState) => ({
+  const { appName, identities, wallet } = useSelector((state: AppState) => ({
     appName: selectAppName(state),
     identities: selectIdentities(state) as Identity[],
+    wallet: selectCurrentWallet(state) as Wallet,
   }));
   const [showing, setShowing] = React.useState(false);
 
