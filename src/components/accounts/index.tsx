@@ -56,7 +56,7 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
       borderTopColor="inherit"
       align="center"
       cursor={hover ? 'pointer' : 'unset'}
-      mt={isFirst ? 3 : 0}
+      mt={isFirst ? 5 : 0}
       {...bind}
       {...rest}
     >

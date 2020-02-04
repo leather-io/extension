@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
+import { Button, Text } from '@blockstack/ui';
 
 import { Toast } from '@components/toast';
 import { Card } from '@components/card';
@@ -9,8 +10,6 @@ import { SeedTextarea } from '@components/seed-textarea';
 import { doTrack, SECRET_KEY_INTRO_COPIED } from '@common/track';
 import { AppState } from '@store';
 import { selectSecretKey } from '@store/onboarding/selectors';
-
-import { Button } from '@blockstack/ui';
 
 interface SecretKeyProps {
   next: () => void;
@@ -32,13 +31,17 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
 
   return (
     <>
-      <Screen>
+      <Screen spacing={0}>
         <ScreenHeader />
         <ScreenBody
           title="Your Secret Key"
+          mt={6}
           body={[
-            'Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost forever. So save it somewhere you won’t forget.',
-            <Card title="Your Secret Key">
+            <Text mt={2} display="block">
+              Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost
+              forever. So save it somewhere you won’t forget.
+            </Text>,
+            <Card title="Your Secret Key" mt={6}>
               <SeedTextarea readOnly value={secretKey} className="hidden-secret-key" data-test="textarea-seed-phrase" />
             </Card>,
           ]}
@@ -47,6 +50,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
           <Button
             data-test="button-copy-secret-key"
             width="100%"
+            mt={6}
             isDisabled={copied}
             onClick={() => {
               doTrack(SECRET_KEY_INTRO_COPIED);

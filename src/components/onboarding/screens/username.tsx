@@ -38,35 +38,50 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
   };
 
   return (
-    <Screen isLoading={loading}>
+    <Screen spacing={0} isLoading={loading}>
       <ScreenHeader />
       <ScreenBody
         title="Choose a username"
+        mt={4}
         body={[
-          `This is how people will find you in ${name} and other apps you use with Data Vault.`,
-          <Box textAlign="left" position="relative">
-            <Flex color="ink.400" pr={4} align="center" height="100%" zIndex={99} position="absolute" right={0} top={0}>
-              <Text pt={'2px'}>.blockstack.id</Text>
-            </Flex>
-            <Input
-              data-test="input-username"
-              paddingRight="100px"
-              autoFocus
-              placeholder="username"
-              value={username}
-              onChange={handleInput}
-            />
-            {error && (
-              <Text textAlign="left" textStyle="caption" color="feedback.error">
-                {error}
-              </Text>
-            )}
+          <Box>
+            <Text mt={2} display="block">
+              This is how people will find you in ${name} and other apps you use with Data Vault.
+            </Text>
+            <Box textAlign="left" position="relative" mt={4}>
+              <Flex
+                color="ink.400"
+                pr={4}
+                align="center"
+                height="100%"
+                zIndex={99}
+                position="absolute"
+                right={0}
+                top={0}
+              >
+                <Text pt={'2px'}>.blockstack.id</Text>
+              </Flex>
+              <Input
+                data-test="input-username"
+                paddingRight="100px"
+                autoFocus
+                placeholder="username"
+                value={username}
+                onChange={handleInput}
+              />
+              {error && (
+                <Text textAlign="left" textStyle="caption" color="feedback.error">
+                  {error}
+                </Text>
+              )}
+            </Box>
           </Box>,
         ]}
       />
       <ScreenActions>
         <Button
           width="100%"
+          mt={6}
           data-test="button-username-continue"
           onClick={async () => {
             if (wallet) {

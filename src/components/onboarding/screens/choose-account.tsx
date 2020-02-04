@@ -69,13 +69,14 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
           next(identityIndex as number);
         }}
       />
-      <Screen textAlign="center">
+      <Screen textAlign="center" spacing={0}>
         <ScreenHeader hideIcon title="Continue with Data Vault" />
-        <AppIcon mt={3} mb={4} size="72px" />
+        <AppIcon mt={10} size="72px" />
         <ScreenBody
+          mt={4}
           title="Choose an account"
           body={[
-            `to use with ${appName}`,
+            <Box mt={2}>to use with {appName}</Box>,
             <Accounts identities={identities} next={(identityIndex: number) => didSelectAccount({ identityIndex })} />,
           ]}
         />

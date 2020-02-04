@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Text } from '@blockstack/ui';
+import { Box, BoxProps, Text } from '@blockstack/ui';
 
-interface CardProps {
+interface CardProps extends BoxProps {
   title: string;
 }
 
