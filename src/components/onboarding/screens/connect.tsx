@@ -7,9 +7,8 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectAppName, selectSecretKey } from '@store/onboarding/selectors';
 
-import { ScreenBody, ScreenActions, ScreenFooter, Screen } from '@blockstack/connect';
+import { ScreenBody, ScreenActions, ScreenFooter, Screen, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
-import { Title } from '@components/typography';
 
 const ErrorText: React.FC = ({ children }) => (
   <Text textAlign="left" display="block" color="#de0014" mt={2}>

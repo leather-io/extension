@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Box, Text, Input, Flex, Button } from '@blockstack/ui';
 import { AppIcon } from '@components/app-icon';
@@ -12,7 +12,6 @@ import { ScreenName, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { AppState } from '@store';
 import { selectAppName } from '@store/onboarding/selectors';
 import { doStoreSeed } from '@store/wallet';
-import { Title } from '@components/typography';
 
 interface SignInProps {
   next: () => void;

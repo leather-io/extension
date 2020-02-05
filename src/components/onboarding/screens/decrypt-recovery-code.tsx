@@ -7,10 +7,9 @@ import { doStoreSeed } from '@store/wallet/actions';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 
 import { Box, Input, Text, Button } from '@blockstack/ui';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { decrypt } from '@blockstack/keychain';
-import { Title } from '@components/typography';
 
 interface RecoveryProps {
   next: (identityIndex: number) => void;

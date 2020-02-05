@@ -3,7 +3,6 @@ import { Text, Box } from '@blockstack/ui';
 import ChevronLeftIcon from 'mdi-react/ChevronLeftIcon';
 import { BoxProps } from '@blockstack/ui/dist/box';
 
-const Title: React.FC = props => <Text width="100%" fontWeight="medium" fontSize="24px" lineHeight="32px" {...props} />;
 const Body: React.FC = props => <Text fontSize="14px" lineHeight="20px" {...props} />;
 
 const BackLink: React.FC<BoxProps> = props => (
@@ -22,4 +21,4 @@ const BackLink: React.FC<BoxProps> = props => (
   </Text>
 );
 
-export { Title, Body, BackLink };
+export { Body, BackLink };

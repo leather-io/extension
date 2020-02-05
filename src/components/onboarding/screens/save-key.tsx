@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 import { Button, Text } from '@blockstack/ui';
@@ -12,7 +12,6 @@ import { selectAppName } from '@store/onboarding/selectors';
 import { faqs } from '@components/onboarding/data';
 
 import { doTrack, SECRET_KEY_INSTR_CONFIRMED } from '@common/track';
-import { Title } from '@components/typography';
 
 interface SaveKeyProps {
   next: () => void;

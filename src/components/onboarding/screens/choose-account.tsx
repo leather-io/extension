@@ -1,5 +1,5 @@
 import React from 'react';
-import { Screen, ScreenBody } from '@blockstack/connect';
+import { Screen, ScreenBody, Title } from '@blockstack/connect';
 import { Box } from '@blockstack/ui';
 import { Wallet, Identity } from '@blockstack/keychain';
 import { ScreenHeader } from '@components/connected-screen-header';
@@ -13,7 +13,6 @@ import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { selectDecodedAuthRequest } from '@store/onboarding/selectors';
 import { store } from '@store';
 import { ConfigApp } from '@blockstack/keychain/dist/wallet';
-import { Title } from '@components/typography';
 
 interface ChooseAccountProps {
   next: (identityIndex: number) => void;

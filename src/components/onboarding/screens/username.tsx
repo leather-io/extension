@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Flex, Input, Text, Button } from '@blockstack/ui';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 import { getRandomWord } from '@common/utils';
@@ -13,7 +13,6 @@ import { AppState } from '@store';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { didGenerateWallet } from '@store/wallet';
-import { Title } from '@components/typography';
 
 const generateRandomUsername = () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
 

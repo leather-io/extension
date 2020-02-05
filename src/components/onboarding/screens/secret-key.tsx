@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Button, Text } from '@blockstack/ui';
 
@@ -10,7 +10,6 @@ import { SeedTextarea } from '@components/seed-textarea';
 import { doTrack, SECRET_KEY_INTRO_COPIED } from '@common/track';
 import { AppState } from '@store';
 import { selectSecretKey } from '@store/onboarding/selectors';
-import { Title } from '@components/typography';
 
 interface SecretKeyProps {
   next: () => void;
