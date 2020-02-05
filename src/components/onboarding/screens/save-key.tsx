@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 import { Button, Text } from '@blockstack/ui';
@@ -23,9 +23,9 @@ export const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
     <Screen>
       <ScreenHeader />
       <ScreenBody
-        title="Save your Secret Key"
         mt={6}
         body={[
+          <Title>Save your Secret Key</Title>,
           <Text display="block" mt={2}>
             Paste your Secret Key wherever you keep critical, private, information such as passwords.
           </Text>,

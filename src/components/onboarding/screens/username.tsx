@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Flex, Input, Text, Button } from '@blockstack/ui';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 import { getRandomWord } from '@common/utils';
@@ -41,10 +41,10 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
     <Screen isLoading={loading}>
       <ScreenHeader />
       <ScreenBody
-        title="Choose a username"
         mt={4}
         body={[
           <Box>
+            <Title>Choose a username</Title>
             <Text mt={2} display="block">
               This is how people will find you in ${name} and other apps you use with Data Vault.
             </Text>

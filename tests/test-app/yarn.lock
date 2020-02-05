@@ -1046,6 +1046,17 @@
     styled-components "^5.0.0"
     use-events "^1.4.1"
 
+"@blockstack/connect@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@blockstack/connect/-/connect-0.3.3.tgz#6a1bc26564de129003e7dcf2ff4933d59d79053a"
+  integrity sha512-ArLYsGCSGChAL8UiojRP5xx8E0LDKUluosYot8TKJ9C5noKefLO3SMoJx7rQnYnf1zQj7ckIrVWgRgmeiNKAdA==
+  dependencies:
+    "@blockstack/connect" "^0.3.0"
+    "@blockstack/ui" "^1.0.0-alpha.27"
+    mdi-react "^6.6.0"
+    styled-components "^5.0.0"
+    use-events "^1.4.1"
+
 "@blockstack/ui@^1.0.0-alpha.27":
   version "1.0.0-alpha.27"
   resolved "https://registry.yarnpkg.com/@blockstack/ui/-/ui-1.0.0-alpha.27.tgz#1471a085b3f68285c0a8d79cb9ee292a40141106"

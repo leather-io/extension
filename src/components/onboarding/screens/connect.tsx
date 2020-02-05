@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectAppName, selectSecretKey } from '@store/onboarding/selectors';
 
-import { ScreenBody, ScreenActions, ScreenFooter, Screen } from '@blockstack/connect';
+import { ScreenBody, ScreenActions, ScreenFooter, Screen, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 const ErrorText: React.FC = ({ children }) => (
@@ -31,13 +31,13 @@ export const Connect: React.FC<ConnectProps> = props => {
   const isSeedPhraseCorrect = seedInput === seed;
   const error = hasAttemptedContinue && !isSeedPhraseCorrect;
   return (
-    <Screen textAlign="center" spacing={0}>
+    <Screen textAlign="center">
       <ScreenHeader />
       <AppIcon mt={10} />
       <ScreenBody
         mt={4}
-        title={`Connect ${appName} to your Data Vault`}
         body={[
+          <Title>Connect {appName} to your Data Vault</Title>,
           <Box mt={6}>
             {/*Validate, track: CONNECT_INCORRECT */}
             <Input

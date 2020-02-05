@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Spinner, Flex, Text } from '@blockstack/ui';
-import { Screen, ScreenBody } from '@blockstack/connect';
+import { Screen, ScreenBody, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
-import { Title } from '../../typography';
 
 import { doCreateSecretKey } from '@store/onboarding/actions';
 

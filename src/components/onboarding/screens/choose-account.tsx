@@ -1,5 +1,5 @@
 import React from 'react';
-import { Screen, ScreenBody } from '@blockstack/connect';
+import { Screen, ScreenBody, Title } from '@blockstack/connect';
 import { Box } from '@blockstack/ui';
 import { Wallet, Identity } from '@blockstack/keychain';
 import { ScreenHeader } from '@components/connected-screen-header';
@@ -83,8 +83,8 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
         <AppIcon mt={10} size="72px" />
         <ScreenBody
           mt={4}
-          title="Choose an account"
           body={[
+            <Title>Choose an account</Title>,
             <Box mt={2}>to use with {appName}</Box>,
             <Accounts identities={identities} next={(identityIndex: number) => didSelectAccount({ identityIndex })} />,
           ]}

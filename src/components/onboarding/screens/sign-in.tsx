@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Box, Text, Input, Flex, Button } from '@blockstack/ui';
 import { AppIcon } from '@components/app-icon';
@@ -30,9 +30,9 @@ export const SignIn: React.FC<SignInProps> = props => {
       <ScreenHeader title="Continue with Data Vault" hideIcon />
       <AppIcon mt={10} />
       <ScreenBody
-        title={`Sign into ${appName}`}
         mt={4}
         body={[
+          <Title>Sign into {appName}</Title>,
           <Box mt={2}>Enter your Data Vault’s Secret Key to continue</Box>,
           <Box textAlign="left" mt={6}>
             {/*Validate: track SIGN_IN_INCORRECT*/}

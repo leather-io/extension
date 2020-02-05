@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Button, Text } from '@blockstack/ui';
 
@@ -34,9 +34,9 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
       <Screen>
         <ScreenHeader />
         <ScreenBody
-          title="Your Secret Key"
           mt={6}
           body={[
+            <Title>Your Secret Key</Title>,
             <Text mt={2} display="block">
               Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost
               forever. So save it somewhere you won’t forget.
@@ -59,6 +59,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
               input.setSelectionRange(0, 99999);
               document.execCommand('copy');
               setCopiedState(true);
+              document.getSelection()?.empty();
             }}
           >
             Copy Secret Key
