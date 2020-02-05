@@ -59,6 +59,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
               input.setSelectionRange(0, 99999);
               document.execCommand('copy');
               setCopiedState(true);
+              document.getSelection()?.empty();
             }}
           >
             Copy Secret Key

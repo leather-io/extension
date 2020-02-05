@@ -1,13 +1,13 @@
 import React from 'react';
 import { Flex, Box, Text } from '@blockstack/ui';
-import CheckCircleIcon from 'mdi-react/CheckCircleIcon';
+import { SuccessCheckmark } from '../success-checkmark';
 
-const Toast = ({ show = false, icon: Icon = CheckCircleIcon, text = 'Copied to clipboard' }) => (
+export const Toast = ({ show = false, icon: Icon = SuccessCheckmark, text = 'Copied to clipboard' }) => (
   <Flex
     p={6}
     width="100%"
     position="fixed"
-    justify="center"
+    justifyContent="center"
     align="center"
     bottom={0}
     left={0}
@@ -16,10 +16,11 @@ const Toast = ({ show = false, icon: Icon = CheckCircleIcon, text = 'Copied to c
     <Flex
       width={['100%', 'unset']}
       bg="white"
-      boxShadow="high"
+      boxShadow="mid"
       border="1px solid"
       borderColor="inherit"
       p={4}
+      justifyContent="center"
       borderRadius="6px"
       opacity={show ? 1 : 0}
       transform={show ? 'none' : 'translateY(20px)'}
@@ -34,5 +35,3 @@ const Toast = ({ show = false, icon: Icon = CheckCircleIcon, text = 'Copied to c
     </Flex>
   </Flex>
 );
-
-export { Toast };
