@@ -12,6 +12,7 @@ import { ScreenName, DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { AppState } from '@store';
 import { selectAppName } from '@store/onboarding/selectors';
 import { doStoreSeed } from '@store/wallet';
+import { Title } from '@components/typography';
 
 interface SignInProps {
   next: () => void;
@@ -30,9 +31,9 @@ export const SignIn: React.FC<SignInProps> = props => {
       <ScreenHeader title="Continue with Data Vault" hideIcon />
       <AppIcon mt={10} />
       <ScreenBody
-        title={`Sign into ${appName}`}
         mt={4}
         body={[
+          <Title>Sign into {appName}</Title>,
           <Box mt={2}>Enter your Data Vault’s Secret Key to continue</Box>,
           <Box textAlign="left" mt={6}>
             {/*Validate: track SIGN_IN_INCORRECT*/}

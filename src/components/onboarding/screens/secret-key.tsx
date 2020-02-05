@@ -10,6 +10,7 @@ import { SeedTextarea } from '@components/seed-textarea';
 import { doTrack, SECRET_KEY_INTRO_COPIED } from '@common/track';
 import { AppState } from '@store';
 import { selectSecretKey } from '@store/onboarding/selectors';
+import { Title } from '@components/typography';
 
 interface SecretKeyProps {
   next: () => void;
@@ -34,9 +35,9 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
       <Screen>
         <ScreenHeader />
         <ScreenBody
-          title="Your Secret Key"
           mt={6}
           body={[
+            <Title>Your Secret Key</Title>,
             <Text mt={2} display="block">
               Your Data Vault has a Secret Key: 12 words that unlock it, like the key to your home. Once lost, it’s lost
               forever. So save it somewhere you won’t forget.

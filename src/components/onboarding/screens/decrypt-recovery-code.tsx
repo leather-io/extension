@@ -10,6 +10,7 @@ import { Box, Input, Text, Button } from '@blockstack/ui';
 import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { decrypt } from '@blockstack/keychain';
+import { Title } from '@components/typography';
 
 interface RecoveryProps {
   next: (identityIndex: number) => void;
@@ -26,8 +27,8 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
     <Screen isLoading={loading}>
       <ScreenHeader />
       <ScreenBody
-        title="Enter your password"
         body={[
+          <Title>Enter your password</Title>,
           'You entered a Magic Recovery Code. Enter the password you set when you first created your Blockstack ID.',
           <Box textAlign="left">
             {/*Validate: track SIGN_IN_INCORRECT*/}

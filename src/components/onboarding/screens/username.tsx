@@ -13,6 +13,7 @@ import { AppState } from '@store';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { didGenerateWallet } from '@store/wallet';
+import { Title } from '@components/typography';
 
 const generateRandomUsername = () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
 
@@ -41,10 +42,10 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
     <Screen isLoading={loading}>
       <ScreenHeader />
       <ScreenBody
-        title="Choose a username"
         mt={4}
         body={[
           <Box>
+            <Title>Choose a username</Title>
             <Text mt={2} display="block">
               This is how people will find you in ${name} and other apps you use with Data Vault.
             </Text>

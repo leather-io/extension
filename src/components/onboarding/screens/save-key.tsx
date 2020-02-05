@@ -12,6 +12,7 @@ import { selectAppName } from '@store/onboarding/selectors';
 import { faqs } from '@components/onboarding/data';
 
 import { doTrack, SECRET_KEY_INSTR_CONFIRMED } from '@common/track';
+import { Title } from '@components/typography';
 
 interface SaveKeyProps {
   next: () => void;
@@ -23,9 +24,9 @@ export const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
     <Screen>
       <ScreenHeader />
       <ScreenBody
-        title="Save your Secret Key"
         mt={6}
         body={[
+          <Title>Save your Secret Key</Title>,
           <Text display="block" mt={2}>
             Paste your Secret Key wherever you keep critical, private, information such as passwords.
           </Text>,

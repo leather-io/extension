@@ -13,6 +13,7 @@ import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { selectDecodedAuthRequest } from '@store/onboarding/selectors';
 import { store } from '@store';
 import { ConfigApp } from '@blockstack/keychain/dist/wallet';
+import { Title } from '@components/typography';
 
 interface ChooseAccountProps {
   next: (identityIndex: number) => void;
@@ -83,8 +84,8 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
         <AppIcon mt={10} size="72px" />
         <ScreenBody
           mt={4}
-          title="Choose an account"
           body={[
+            <Title>Choose an account</Title>,
             <Box mt={2}>to use with {appName}</Box>,
             <Accounts identities={identities} next={(identityIndex: number) => didSelectAccount({ identityIndex })} />,
           ]}

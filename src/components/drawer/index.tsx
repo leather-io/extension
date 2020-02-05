@@ -5,6 +5,7 @@ import { Link } from '@components/link';
 import useOnClickOutside from 'use-onclickoutside';
 import { Image } from '@components/image';
 import { ConfigApp } from '@blockstack/keychain/dist/wallet';
+import { Title } from '@components/typography';
 
 interface PreviousAppsProps {
   apps: ConfigApp[];
@@ -72,8 +73,10 @@ export const Drawer: React.FC<DrawerProps> = ({ showing, close, apps, confirm })
         <Stack spacing={4}>
           <PreviousApps apps={apps} />
           <ScreenBody
-            title={`You're using this account with ${apps.length} other app${apps.length > 1 ? 's' : ''}.`}
             body={[
+              <Title>
+                You{"'"}re using this account with ${apps.length} other app{apps.length > 1 ? 's' : ''}.
+              </Title>,
               <>
                 The apps used by an account is public information. If you want your use of this app to be private,
                 consider choosing a different account or creating a new account.{' '}
