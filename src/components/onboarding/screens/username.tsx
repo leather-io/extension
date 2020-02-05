@@ -46,7 +46,7 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
           <Box>
             <Title>Choose a username</Title>
             <Text mt={2} display="block">
-              This is how people will find you in ${name} and other apps you use with Data Vault.
+              This is how people will find you in {name} and other apps you use with Data Vault.
             </Text>
             <Box textAlign="left" position="relative" mt={4}>
               <Flex
