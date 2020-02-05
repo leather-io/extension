@@ -34,10 +34,11 @@ interface DrawerProps {
   showing: boolean;
   close: () => void;
   apps: ConfigApp[];
-  confirm: () => void;
+  confirm: (hideWarning: boolean) => Promise<void>;
 }
 export const Drawer: React.FC<DrawerProps> = ({ showing, close, apps, confirm }) => {
   const ref = React.useRef(null);
+  const [checked, setChecked] = React.useState(false);
 
   useOnClickOutside(ref, () => showing && close());
 
@@ -83,7 +84,13 @@ export const Drawer: React.FC<DrawerProps> = ({ showing, close, apps, confirm })
               <>
                 <Flex align="center">
                   <Box mr={2}>
-                    <input name="checkbox" id="checkbox" type="checkbox" />
+                    <input
+                      name="checkbox"
+                      id="checkbox"
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => setChecked(!checked)}
+                    />
                   </Box>
                   <label htmlFor="checkbox">Do not show this again</label>
                 </Flex>
@@ -95,7 +102,7 @@ export const Drawer: React.FC<DrawerProps> = ({ showing, close, apps, confirm })
               <Button mode="secondary" onClick={close} flexGrow={1}>
                 Go back
               </Button>
-              <Button flexGrow={1} onClick={confirm}>
+              <Button flexGrow={1} onClick={async () => await confirm(checked)}>
                 Continue to app
               </Button>
             </Stack>

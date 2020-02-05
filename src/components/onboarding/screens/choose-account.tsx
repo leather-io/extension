@@ -36,7 +36,11 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
       console.error('No authRequest found when selecting account');
       return;
     }
-    if (wallet.walletConfig && authRequest.scopes.includes('publish_data')) {
+    if (
+      wallet.walletConfig &&
+      !wallet.walletConfig.hideWarningForReusingIdentity &&
+      authRequest.scopes.includes('publish_data')
+    ) {
       const url = new URL(authRequest?.redirect_uri);
       const apps = wallet.walletConfig.identities[identityIndex]?.apps;
       if (apps) {
@@ -65,7 +69,12 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
         }}
         showing={reusedApps.length > 0}
         apps={reusedApps}
-        confirm={() => {
+        confirm={async (hideWarning: boolean) => {
+          if (hideWarning) {
+            const gaiaUrl = 'https://hub.blockstack.org';
+            const gaiaConfig = await wallet.createGaiaConfig(gaiaUrl);
+            await wallet.updateConfigForReuseWarning({ gaiaConfig });
+          }
           next(identityIndex as number);
         }}
       />
