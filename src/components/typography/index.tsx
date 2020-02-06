@@ -1,24 +1,4 @@
 import React from 'react';
-import { Text, Box } from '@blockstack/ui';
-import ChevronLeftIcon from 'mdi-react/ChevronLeftIcon';
-import { BoxProps } from '@blockstack/ui/dist/box';
+import { Text } from '@blockstack/ui';
 
-const Body: React.FC = props => <Text fontSize="14px" lineHeight="20px" {...props} />;
-
-const BackLink: React.FC<BoxProps> = props => (
-  <Text
-    display="flex"
-    _hover={{ color: 'ink', textDecoration: 'underline', cursor: 'pointer' }}
-    color="blue"
-    fontWeight="medium"
-    alignItems="center"
-    {...props}
-  >
-    <Box>
-      <ChevronLeftIcon size="1rem" />
-    </Box>
-    Back
-  </Text>
-);
-
-export { Body, BackLink };
+export const Body: React.FC = props => <Text fontSize="14px" lineHeight="20px" {...props} />;

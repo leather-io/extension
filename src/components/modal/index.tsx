@@ -1,9 +1,8 @@
 import React from 'react';
-import { Box, PseudoBox, Flex, Text, BoxProps } from '@blockstack/ui';
+import { Box, PseudoBox, Flex, Text, BoxProps, ChevronIcon } from '@blockstack/ui';
 import { Logo } from '../logo';
 import CloseIcon from 'mdi-react/CloseIcon';
 import { Image } from '@components/image';
-import { Chevron } from '../chevron';
 
 interface ModalContextTypes {
   isOpen: boolean;
@@ -72,7 +71,7 @@ const ModalHeader = ({ appIcon, close, title, hideIcon, appName, ...rest }: Moda
         {appIcon ? <AppIcon src={appIcon} name={appName || 'loading'} /> : null}
         {appIcon ? (
           <Box pr={1} pl={1} color="ink.300">
-            <Chevron direction="right" />
+            <ChevronIcon direction="right" />
           </Box>
         ) : null}
         <HeaderTitle hideIcon={hideIcon} title={title} />
