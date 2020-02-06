@@ -42,7 +42,13 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
               forever. So save it somewhere you won’t forget.
             </Text>,
             <Card title="Your Secret Key" mt={6}>
-              <SeedTextarea readOnly value={secretKey} className="hidden-secret-key" data-test="textarea-seed-phrase" />
+              <SeedTextarea
+                readOnly
+                spellCheck="false"
+                value={secretKey}
+                className="hidden-secret-key"
+                data-test="textarea-seed-phrase"
+              />
             </Card>,
           ]}
         />

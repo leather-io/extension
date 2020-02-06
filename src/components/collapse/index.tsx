@@ -1,6 +1,5 @@
 import React from 'react';
-import { Flex, Box, Text, BoxProps } from '@blockstack/ui';
-import { Chevron } from '../chevron';
+import { Flex, Box, Text, BoxProps, ChevronIcon } from '@blockstack/ui';
 import { useHover } from 'use-events';
 import { doTrack } from '@common/track';
 
@@ -25,7 +24,7 @@ const TitleElement: React.FC<TitleProps> = ({ onClick, isFirst, isOpen, hovered,
       <Text color={isOpen || hovered ? 'ink' : 'ink.600'}>{title}</Text>
     </Box>
     <Box color="ink.300">
-      <Chevron direction={isOpen ? 'up' : 'down'} />
+      <ChevronIcon direction={isOpen ? 'up' : 'down'} />
     </Box>
   </Flex>
 );

@@ -1,12 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Identity } from '@blockstack/keychain';
+
 import { Box, Text, Flex, BoxProps } from '@blockstack/ui';
-import PlusCircleIcon from 'mdi-react/PlusCircleIcon';
 import { useHover } from 'use-events';
 import { Image } from '@components/image';
-import Identity from '@blockstack/keychain/dist/identity';
-import { useDispatch } from 'react-redux';
 import { doChangeScreen } from '@store/onboarding/actions';
 import { ScreenName } from '@store/onboarding/types';
+import { PlusInCircle } from '@components/icons/plus-in-circle';
 
 interface AccountAvatarProps extends BoxProps {
   username: string;
@@ -100,7 +101,7 @@ export const Accounts = ({ identities, next }: AccountsProps) => {
             color={hover ? 'ink.400' : 'ink.300'}
             transition="0.08s all ease-in-out"
           >
-            <PlusCircleIcon size="26px" />
+            <PlusInCircle />
           </Flex>
         )}
         label="Add a new account"
