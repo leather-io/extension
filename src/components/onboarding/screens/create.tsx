@@ -25,7 +25,7 @@ const ExplainerCard = ({ title, imageUrl }: ExplainerCardProps) => (
         </Box>
       )}
       <Box pb={imageUrl ? 6 : 0}>
-        <Title>{title}</Title>
+        <Text textStyle="display.small">{title}</Text>
       </Box>
     </Flex>
     <Flex width="100%" flexDirection="column" alignItems="center">
