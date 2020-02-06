@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box, Text, Flex, BoxProps } from '@blockstack/ui';
+import { useDispatch } from 'react-redux';
 import PlusCircleIcon from 'mdi-react/PlusCircleIcon';
+import { Identity } from '@blockstack/keychain';
+
+import { Box, Text, Flex, BoxProps } from '@blockstack/ui';
 import { useHover } from 'use-events';
 import { Image } from '@components/image';
-import Identity from '@blockstack/keychain/dist/identity';
-import { useDispatch } from 'react-redux';
 import { doChangeScreen } from '@store/onboarding/actions';
 import { ScreenName } from '@store/onboarding/types';
 
