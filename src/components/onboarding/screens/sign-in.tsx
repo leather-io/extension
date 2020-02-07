@@ -64,7 +64,7 @@ export const SignIn: React.FC<SignInProps> = props => {
               dispatch(doChangeScreen(ScreenName.USERNAME));
             }}
           >
-            Create a Data Vault
+            Create a new Data Vault
           </Link>
           <Button
             onClick={async () => {

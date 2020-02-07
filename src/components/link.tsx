@@ -7,7 +7,11 @@ interface LinkProps extends BoxProps {
 
 export const Link: React.FC<LinkProps> = ({ _hover = {}, children, fontSize = '14px', ...rest }) => (
   <Box {...rest}>
-    <Text _hover={{ textDecoration: 'underline', cursor: 'pointer', ..._hover }} fontSize={fontSize} fontWeight="medium">
+    <Text
+      _hover={{ textDecoration: 'underline', cursor: 'pointer', ..._hover }}
+      fontSize={fontSize}
+      fontWeight="medium"
+    >
       {children}
     </Text>
   </Box>
