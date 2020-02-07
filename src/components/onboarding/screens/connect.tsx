@@ -82,6 +82,7 @@ export const Connect: React.FC<ConnectProps> = props => {
             }}
             pl={1}
             color="blue"
+            fontSize="12px"
           >
             Go Back
           </Link>
