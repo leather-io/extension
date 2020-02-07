@@ -41,10 +41,11 @@ interface AccountItemProps {
   label: string;
   iconComponent?: (props: { hover: boolean }) => void;
   isFirst?: boolean;
+  hasAction?: boolean;
   onClick?: () => void;
 }
 
-const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProps) => {
+const AccountItem = ({ label, iconComponent, isFirst, hasAction, ...rest }: AccountItemProps) => {
   const [hover, bind] = useHover();
 
   return (
@@ -56,14 +57,14 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
       borderTop={isFirst ? '1px solid' : undefined}
       borderTopColor="inherit"
       align="center"
-      cursor={hover ? 'pointer' : 'unset'}
+      cursor={hover && hasAction ? 'pointer' : 'unset'}
       mt={isFirst ? 5 : 0}
       {...bind}
       {...rest}
     >
       {iconComponent && iconComponent({ hover })}
       <Box overflow="hidden">
-        <Text textStyle="body.small.medium" textDecoration={hover ? 'underline' : 'unset'}>
+        <Text textStyle="body.small.medium" textDecoration={hover && hasAction ? 'underline' : 'unset'}>
           {label}
         </Text>
       </Box>
@@ -73,13 +74,14 @@ const AccountItem = ({ label, iconComponent, isFirst, ...rest }: AccountItemProp
 
 interface AccountsProps {
   identities: Identity[];
-  next: (identityIndex: number) => void;
+  showAddAccount?: boolean;
+  next?: (identityIndex: number) => void;
 }
 
-export const Accounts = ({ identities, next }: AccountsProps) => {
+export const Accounts = ({ identities, showAddAccount, next }: AccountsProps) => {
   const dispatch = useDispatch();
   return (
-    <>
+    <Flex flexDirection="column">
       {identities.map(({ defaultUsername, address }, key) => {
         return (
           <AccountItem
@@ -87,25 +89,31 @@ export const Accounts = ({ identities, next }: AccountsProps) => {
             iconComponent={() => <AccountAvatar username={defaultUsername || address} mr={3} />}
             label={defaultUsername || address}
             key={key}
-            onClick={() => next(key)}
+            onClick={() => {
+              if (!next) return;
+              next(key);
+            }}
           />
         );
       })}
-      <AccountItem
-        onClick={() => dispatch(doChangeScreen(ScreenName.ADD_ACCOUNT))}
-        iconComponent={({ hover }) => (
-          <Flex
-            justify="center"
-            width="36px"
-            mr={3}
-            color={hover ? 'ink.400' : 'ink.300'}
-            transition="0.08s all ease-in-out"
-          >
-            <PlusInCircle />
-          </Flex>
-        )}
-        label="Add a new account"
-      />
-    </>
+      {showAddAccount && (
+        <AccountItem
+          onClick={() => dispatch(doChangeScreen(ScreenName.ADD_ACCOUNT))}
+          hasAction={!!next}
+          iconComponent={({ hover }) => (
+            <Flex
+              justify="center"
+              width="36px"
+              mr={3}
+              color={hover ? 'ink.400' : 'ink.300'}
+              transition="0.08s all ease-in-out"
+            >
+              <PlusInCircle />
+            </Flex>
+          )}
+          label="Add a new account"
+        />
+      )}
+    </Flex>
   );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Screen, ScreenBody, Title } from '@blockstack/connect';
 import { Box } from '@blockstack/ui';
-import { Wallet, Identity } from '@blockstack/keychain';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Accounts } from '@components/accounts';
 import { AppIcon } from '@components/app-icon';
@@ -9,10 +8,11 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectAppName } from '@store/onboarding/selectors';
 import { Drawer } from '@components/drawer';
-import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { selectDecodedAuthRequest } from '@store/onboarding/selectors';
 import { store } from '@store';
+import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { ConfigApp } from '@blockstack/keychain/dist/wallet';
+import { Wallet } from '@blockstack/keychain';
 
 interface ChooseAccountProps {
   next: (identityIndex: number) => void;
@@ -22,7 +22,7 @@ interface ChooseAccountProps {
 export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   const { appName, identities, wallet } = useSelector((state: AppState) => ({
     appName: selectAppName(state),
-    identities: selectIdentities(state) as Identity[],
+    identities: selectIdentities(state),
     wallet: selectCurrentWallet(state) as Wallet,
   }));
   const [reusedApps, setReusedApps] = React.useState<ConfigApp[]>([]);
@@ -82,11 +82,14 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
         <ScreenHeader hideIcon title="Continue with Data Vault" />
         <AppIcon mt={10} size="72px" />
         <ScreenBody
-          mt={4}
           body={[
             <Title>Choose an account</Title>,
-            <Box mt={2}>to use with {appName}</Box>,
-            <Accounts identities={identities} next={(identityIndex: number) => didSelectAccount({ identityIndex })} />,
+            `to use with ${appName}`,
+            <Accounts
+              identities={identities}
+              next={(identityIndex: number) => didSelectAccount({ identityIndex })}
+              showAddAccount
+            />,
           ]}
         />
       </Screen>
