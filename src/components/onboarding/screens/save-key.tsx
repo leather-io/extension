@@ -38,6 +38,7 @@ export const SaveKey: React.FC<SaveKeyProps> = ({ next }) => {
       <ScreenActions>
         <Button
           width="100%"
+          size="md"
           mt={6}
           onClick={() => {
             doTrack(SECRET_KEY_INSTR_CONFIRMED);

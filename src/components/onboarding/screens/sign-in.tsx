@@ -67,6 +67,7 @@ export const SignIn: React.FC<SignInProps> = props => {
             Create a new Data Vault
           </Link>
           <Button
+            size="md"
             onClick={async () => {
               setLoading(true);
               try {

@@ -81,6 +81,7 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
       <ScreenActions>
         <Button
           width="100%"
+          size="md"
           mt={6}
           data-test="button-username-continue"
           onClick={async () => {
