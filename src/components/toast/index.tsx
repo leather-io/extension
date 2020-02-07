@@ -21,12 +21,13 @@ export const Toast = ({ show = false, icon: Icon = SuccessCheckmark, text = 'Cop
       borderColor="inherit"
       p={4}
       justifyContent="center"
+      alignItems="center"
       borderRadius="6px"
       opacity={show ? 1 : 0}
       transform={show ? 'none' : 'translateY(20px)'}
       transition="150ms all"
     >
-      <Box mr={2} color="green">
+      <Box mr={1} color="green">
         <Icon />
       </Box>
       <Text fontSize="14px" fontWeight="medium">
