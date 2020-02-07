@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Identity } from '@blockstack/keychain';
 
-import { Box, Text, Flex, BoxProps } from '@blockstack/ui';
+import { Box, Text, Flex, FlexProps, BoxProps } from '@blockstack/ui';
 import { useHover } from 'use-events';
 import { Image } from '@components/image';
 import { doChangeScreen } from '@store/onboarding/actions';
@@ -37,7 +37,7 @@ const AccountAvatar = ({ username, avatar, ...rest }: AccountAvatarProps) => {
   );
 };
 
-interface AccountItemProps {
+interface AccountItemProps extends FlexProps {
   label: string;
   iconComponent?: (props: { hover: boolean }) => void;
   isFirst?: boolean;
@@ -112,6 +112,7 @@ export const Accounts = ({ identities, showAddAccount, next }: AccountsProps) =>
             </Flex>
           )}
           label="Add a new account"
+          mb={6}
         />
       )}
     </Flex>
