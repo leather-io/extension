@@ -56,6 +56,7 @@ export const Connect: React.FC<ConnectProps> = props => {
       />
       <ScreenActions>
         <Button
+          size="md"
           onClick={() => {
             if (seedInput !== seed) {
               doTrack(CONNECT_INCORRECT);

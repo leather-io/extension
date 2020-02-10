@@ -52,6 +52,7 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
       <ScreenActions>
         <Button
           width="100%"
+          size="md"
           onClick={async () => {
             setLoading(true);
             try {
