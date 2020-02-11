@@ -31,12 +31,15 @@ export const Connect: React.FC<ConnectProps> = props => {
   const isSeedPhraseCorrect = seedInput === seed;
   const error = hasAttemptedContinue && !isSeedPhraseCorrect;
   return (
-    <Screen textAlign="center" spacing={0}>
+    <Screen textAlign="center">
       <ScreenHeader />
-      <AppIcon mt={10} />
+      <AppIcon size={72} mt={10} />
       <ScreenBody
         mt={4}
         title={`Connect ${appName} to your Data Vault`}
+        titleProps={{
+          px: '72px',
+        }}
         body={[
           <Box mt={6}>
             {/*Validate, track: CONNECT_INCORRECT */}
@@ -48,6 +51,7 @@ export const Connect: React.FC<ConnectProps> = props => {
               as="textarea"
               aria-invalid={error}
               onChange={({ target }: ChangeEvent<HTMLInputElement>) => setSeedInput(target.value)}
+              style={{ resize: 'none' }}
             />
             {error && seedInput === '' && <ErrorText>You must enter your Secret Key</ErrorText>}
             {error && seedInput !== '' && <ErrorText>You{"'"}ve entered your 12-word Secret Key incorrectly</ErrorText>}
@@ -72,10 +76,13 @@ export const Connect: React.FC<ConnectProps> = props => {
           Continue
         </Button>
       </ScreenActions>
-      <ScreenFooter justifyContent="center" mt={6}>
+      <ScreenFooter mt={6} justifySelf="flex-end" justifyContent="center">
         <Flex>
-          <Text>Didn’t save your Secret Key?</Text>{' '}
+          <Text color="ink.600" textStyle={'body.small.medium'}>
+            Didn’t save your Secret Key?
+          </Text>{' '}
           <Link
+            textStyle={'body.small.medium'}
             onClick={() => {
               doTrack(CONNECT_BACK);
               props.back();

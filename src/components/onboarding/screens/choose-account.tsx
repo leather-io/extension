@@ -57,7 +57,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   };
 
   return (
-    <Box position="relative">
+    <Box flexGrow={1} position="relative">
       <Drawer
         close={() => {
           setIdentityIndex(undefined);
