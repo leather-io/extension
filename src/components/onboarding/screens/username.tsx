@@ -14,7 +14,7 @@ import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { didGenerateWallet } from '@store/wallet';
 
-const generateRandomUsername = () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
+const randomUsername = `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
 
 interface UsernameProps {
   next: () => void;
@@ -30,7 +30,7 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState(() => generateRandomUsername());
+  const [username, setUsername] = useState(randomUsername);
 
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setError('');
