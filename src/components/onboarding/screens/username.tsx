@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Flex, Input, Text, Button } from '@blockstack/ui';
-import { Screen, ScreenBody, ScreenActions } from '@blockstack/connect';
+import { Screen, ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 import { getRandomWord } from '@common/utils';
@@ -14,7 +14,7 @@ import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { registerSubdomain, Subdomains } from '@blockstack/keychain';
 import { didGenerateWallet } from '@store/wallet';
 
-const generateRandomUsername = () => `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
+const randomUsername = `${getRandomWord()}-${getRandomWord()}-${getRandomWord()}-${getRandomWord()}`;
 
 interface UsernameProps {
   next: () => void;
@@ -30,7 +30,7 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState(() => generateRandomUsername());
+  const [username, setUsername] = useState(randomUsername);
 
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setError('');
@@ -41,12 +41,12 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
     <Screen isLoading={loading}>
       <ScreenHeader />
       <ScreenBody
-        title="Choose a username"
         mt={4}
         body={[
           <Box>
+            <Title>Choose a username</Title>
             <Text mt={2} display="block">
-              This is how people will find you in ${name} and other apps you use with Data Vault.
+              This is how people will find you in {name} and other apps you use with Data Vault.
             </Text>
             <Box textAlign="left" position="relative" mt={4}>
               <Flex
@@ -81,6 +81,7 @@ export const Username: React.FC<UsernameProps> = ({ next }) => {
       <ScreenActions>
         <Button
           width="100%"
+          size="md"
           mt={6}
           data-test="button-username-continue"
           onClick={async () => {

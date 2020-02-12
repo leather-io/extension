@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { Wallet } from '@blockstack/keychain';
-import { WalletActions, RESTORE_WALLET, IS_RESTORING_WALLET, GENERATE_WALLET, LOG_OUT } from './types';
+import { WalletActions, RESTORE_WALLET, IS_RESTORING_WALLET, GENERATE_WALLET, SIGN_OUT } from './types';
 
 export function didRestoreWallet(wallet: Wallet): WalletActions {
   return {
@@ -22,9 +22,9 @@ function isRestoringWallet(): WalletActions {
   };
 }
 
-export function doLogOut(): WalletActions {
+export function doSignOut(): WalletActions {
   return {
-    type: LOG_OUT,
+    type: SIGN_OUT,
   };
 }
 

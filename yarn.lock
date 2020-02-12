@@ -801,7 +801,14 @@
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-transform-typescript" "^7.8.3"
 
-"@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3":
+"@babel/runtime@^7.3.1":
+  version "7.8.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
+  integrity sha512-neAp3zt80trRVBI1x0azq6c57aNBqYZH8KhMm3TaB7wEI5Q4A2SHfBHE8w9gOhI/lrqxtEbXZgQIrHP+wvSGwQ==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
+"@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.3.tgz#0811944f73a6c926bb2ad35e918dcc1bfab279f1"
   integrity sha512-fVHx1rzEmwB130VTkLnxR+HmxcTjGzH12LYQcFFoBwakMd3aOMD4OsRN7tGG/UOYE2ektgFrS8uACAoRk1CY0w==
@@ -856,22 +863,20 @@
     styled-components "^5.0.0"
     use-events "^1.4.1"
 
-"@blockstack/connect@^0.3.1-beta.2":
-  version "0.3.1-beta.2"
-  resolved "https://registry.yarnpkg.com/@blockstack/connect/-/connect-0.3.1-beta.2.tgz#f1cd0204fa330b1f6ba28e455591b59334db5e59"
-  integrity sha512-SHRd/2qtI5yNvstFhM85Bub7sC0Muxp4GSTW4RExGyRP7Ks5Saab5lLomis6vtrkRPj56MTVpAetTVM+z8qLDw==
+"@blockstack/connect@^0.3.4":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@blockstack/connect/-/connect-0.3.5.tgz#3f8f693688774c58025c3a37bc878fb80bc7fc96"
+  integrity sha512-Jd3vyMTvS15fA5eQHBqf0O8eT+Aa6ZLtgfv1zWEegSVFItM6FZFFEVu/SmvfM56dF8MaRrFZH0f8eQg1lSUOFA==
   dependencies:
     "@blockstack/connect" "^0.3.0"
-    "@blockstack/ui" "^1.0.0-alpha.27"
-    mdi-react "^6.6.0"
+    "@blockstack/ui" "^1.0.0-alpha.31"
     styled-components "^5.0.0"
     use-events "^1.4.1"
-    use-onclickoutside "^0.3.1"
 
-"@blockstack/keychain@^0.2.3-beta.1":
-  version "0.2.3-beta.3"
-  resolved "https://registry.yarnpkg.com/@blockstack/keychain/-/keychain-0.2.3-beta.3.tgz#46d5ddbc6ba48ddefbbd6e94af1248b3e00b62ec"
-  integrity sha512-BNj+vajINUL2YIruF3wWg2yJObrmWUnWFNyCLCSE7Y03fuAblGh6HE2ezAftomCLK6rnfJEDODyrTYJThvIGkw==
+"@blockstack/keychain@^0.2.3-beta.4":
+  version "0.2.3-beta.4"
+  resolved "https://registry.yarnpkg.com/@blockstack/keychain/-/keychain-0.2.3-beta.4.tgz#bee3f13fc164050b99fd671b3d0236162e20a29d"
+  integrity sha512-q6CpHzPy4TLc6irkwyfddjLMK5K9gjdkPIRxTD8ZlNdckGb4AjOo4Y8PDnYhF0zlfYy6b8szcTgpHz7KTZCTeQ==
   dependencies:
     bip39 "^3.0.2"
     bitcoinjs-lib "^5.1.6"
@@ -888,6 +893,23 @@
   version "1.0.0-alpha.27"
   resolved "https://registry.yarnpkg.com/@blockstack/ui/-/ui-1.0.0-alpha.27.tgz#1471a085b3f68285c0a8d79cb9ee292a40141106"
   integrity sha512-DCih4GkfEojd8FPY8538BzcGtETWrYpPln8Yv9XKAsFoEeIbgju4rdJufzUnwvbX3P4fApS/z9cIlZ+5meX4bg==
+  dependencies:
+    "@styled-system/css" "5.1.4"
+    "@types/color" "^3.0.1"
+    "@types/styled-components" "^4.4.2"
+    "@types/styled-system" "^5.1.5"
+    "@types/styled-system__css" "^5.0.4"
+    color "3.1.2"
+    prop-types "^15.7.2"
+    react-spring "8.0.27"
+    styled-system "5.1.4"
+    use-dark-mode "2.3.1"
+    use-events "^1.4.1"
+
+"@blockstack/ui@^1.0.0-alpha.31":
+  version "1.0.0-alpha.31"
+  resolved "https://registry.yarnpkg.com/@blockstack/ui/-/ui-1.0.0-alpha.31.tgz#7c969b40b77eca18f3cb644ceb54d5543418da47"
+  integrity sha512-FiNEVJKMmNtIqq1KWA85WSkVQiXs9eIs3UTTmtojRsvsRw6DeuLUQrRK00QFtrAd4rWhnK5L6wZBa6wdX9ivXQ==
   dependencies:
     "@styled-system/css" "5.1.4"
     "@types/color" "^3.0.1"
@@ -1765,9 +1787,9 @@
     "@types/react" "*"
 
 "@types/react-native@*":
-  version "0.61.7"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.61.7.tgz#e0315b5f627d61470c7f58d7298e732aab90b2c5"
-  integrity sha512-LUhIiZUfGA0+2+/+KeHDpHfBmVYZdw1vwikYF2yTap5duuXtw3SUYn6kiPyBwFf++PmhWJeGeId94vAYbptvaw==
+  version "0.61.10"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.61.10.tgz#d010b9093322bc781151638f74124f58fc87cc90"
+  integrity sha512-z+RWEFfdwHnOLpq70DO//4mjyNqoZypdR3uBqpBB82t2HJg2YbY4j6XIow7sFqeO/r8XibgV9UFEVG2tYIRlSA==
   dependencies:
     "@types/react" "*"
 
@@ -1822,9 +1844,9 @@
     csstype "^2.2.0"
 
 "@types/styled-system@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-5.1.5.tgz#91c46bdc72f09a4d13b215695687ce35382ccad8"
-  integrity sha512-jYTj774fMiRZ7YgmQK6WxiHSI+ket6WqHPQQEq7CURkVqOI6YWUHKqn0WcLwrqQ+fPHYQt9DdoJb7ydZBMmFwQ==
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/@types/styled-system/-/styled-system-5.1.6.tgz#4f45612df1f0987a05465dd280b16818e3e27c73"
+  integrity sha512-npB/Fdqc1TH6UwyB9CtsTXkg3zb8jg/WG4LUEQ85cY6oSRgRbytxfsgbgdG+YWQFtbznp3J/4BAdkPB+WsHheA==
   dependencies:
     csstype "^2.6.4"
 

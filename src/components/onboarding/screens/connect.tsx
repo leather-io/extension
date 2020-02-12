@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectAppName, selectSecretKey } from '@store/onboarding/selectors';
 
-import { ScreenBody, ScreenActions, ScreenFooter, Screen } from '@blockstack/connect';
+import { ScreenBody, ScreenActions, ScreenFooter, Screen, Title } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 
 const ErrorText: React.FC = ({ children }) => (
@@ -36,11 +36,8 @@ export const Connect: React.FC<ConnectProps> = props => {
       <AppIcon size={72} mt={10} />
       <ScreenBody
         mt={4}
-        title={`Connect ${appName} to your Data Vault`}
-        titleProps={{
-          px: '72px',
-        }}
         body={[
+          <Title>Connect {appName} to your Data Vault</Title>,
           <Box mt={6}>
             {/*Validate, track: CONNECT_INCORRECT */}
             <Input
@@ -60,6 +57,7 @@ export const Connect: React.FC<ConnectProps> = props => {
       />
       <ScreenActions>
         <Button
+          size="md"
           onClick={() => {
             if (seedInput !== seed) {
               doTrack(CONNECT_INCORRECT);
@@ -89,6 +87,7 @@ export const Connect: React.FC<ConnectProps> = props => {
             }}
             pl={1}
             color="blue"
+            fontSize="12px"
           >
             Go Back
           </Link>
