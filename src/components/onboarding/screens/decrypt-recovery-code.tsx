@@ -36,6 +36,8 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
               placeholder="Password"
               type="password"
               value={password}
+              spellCheck={false}
+              style={{ resize: 'none' }}
               onChange={(evt: React.FormEvent<HTMLInputElement>) => {
                 setPasswordError('');
                 setCode(evt.currentTarget.value);
