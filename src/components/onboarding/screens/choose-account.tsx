@@ -1,6 +1,5 @@
 import React from 'react';
 import { Screen, ScreenBody, Title, PoweredBy, ScreenFooter } from '@blockstack/connect';
-import { Box } from '@blockstack/ui';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Accounts } from '@components/accounts';
 import { AppIcon } from '@components/app-icon';
@@ -74,7 +73,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   };
 
   return (
-    <Box flexGrow={1} position="relative">
+    <>
       <Drawer
         close={() => {
           setIdentityIndex(undefined);
@@ -111,6 +110,6 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
           <PoweredBy />
         </ScreenFooter>
       </Screen>
-    </Box>
+    </>
   );
 };

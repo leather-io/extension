@@ -4,21 +4,25 @@ import { createGlobalStyle } from 'styled-components';
 import { Onboarding } from '@components/onboarding';
 
 const GlobalStyles = createGlobalStyle`
-#actions-root{
-display: flex;
-min-height: 100vh;
-width: 100%;
-flex-direction: column;
-}`;
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+  #actions-root {
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+`;
 
 export const OnboardingApp: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <React.Fragment>
-        <GlobalStyles />
-        <CSSReset />
-        <Onboarding />
-      </React.Fragment>
+      <CSSReset />
+      <GlobalStyles />
+      <Onboarding />
     </ThemeProvider>
   );
 };
