@@ -19,7 +19,7 @@ const copyToClipboard = (value: string) => {
   document.body.appendChild(el);
 
   const curSelection = document.getSelection();
-  const selected = (curSelection && curSelection.rangeCount > 0) ? curSelection.getRangeAt(0) : false;
+  const selected = curSelection && curSelection.rangeCount > 0 ? curSelection.getRangeAt(0) : false;
   el.select();
 
   document.execCommand('copy');

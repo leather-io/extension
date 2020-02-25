@@ -134,7 +134,7 @@ export default extraConfig;
 // Create an issue on @styled-system/css to allow custom alias to be passed to the `css` function
 
 interface Result {
-  [key: string]: any
+  [key: string]: any;
 }
 
 // Transform the custom alias to a format that styled-system CSS supports

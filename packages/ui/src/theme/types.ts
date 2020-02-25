@@ -7,7 +7,7 @@ interface CustomTheme {
   textStyles?: any;
   fonts: {
     [key: string]: string;
-  }
+  };
 }
 
 export type Theme = StyledSystemTheme & CustomTheme;
