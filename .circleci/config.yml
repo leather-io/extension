@@ -1,57 +1,5 @@
 version: 2
 jobs:
-  bootstrap:
-    working_directory: ~/app
-    docker:
-      - image: circleci/node:12.16.1-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          # https://circleci.com/docs/2.0/caching/
-          key: yarn-packages-{{ checksum "package.json" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          key: yarn-packages-{{ checksum "package.json" }}
-          paths:
-            - ./.cache/yarn
-            - node_modules
-            - packages/app/node_modules
-            - packages/connect/node_modules
-            - packages/ui/node_modules
-            - packages/keychain/node_modules
-      - run:
-          command: yarn lerna bootstrap
-      - run:
-          command: yarn build:libs
-      - run:
-          command: yarn lerna bootstrap
-      - run:
-          name: Install test deps
-          working_directory: ./packages/app/tests/test-app/
-          command: yarn
-  
-  code_check:
-    working_directory: ~/app
-    docker:
-      - image: circleci/node:12.16.1-browsers
-    steps:
-      - checkout
-      - run: 
-        name: Lint Prettier
-        command: yarn lerna run lint:prettier
-      - run:
-        name: Lint ESLint
-        command: yarn lerna run lint:eslint
-      - run:
-        name: typecheck
-        command: yarn typecheck
-      - run:
-        name: depcheck
-        command: yarn lerna run depcheck
-
-
   test_web:
     working_directory: ~/blockstack-app
     docker:
@@ -100,12 +48,6 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  test:
     jobs:
-      - bootstrap
-      - test_web:
-        requires:
-          - bootstrap
-      - code_check:
-        requires:
-          - bootstrap
+      - test_web
