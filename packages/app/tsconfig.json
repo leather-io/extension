@@ -49,6 +49,8 @@
 			"@components/*": ["components/*"],
 			"@containers/*": ["containers/*"],
 			"@common/*": ["common/*"],
+			"@blockstack/connect": ["../../connect/src"],
+			"@blockstack/ui": ["../../ui"]
 		},
 		"baseUrl": "src",
 		// "rootDirs": [],                       	/* List of root folders whose combined content represents the structure of the project at runtime. */

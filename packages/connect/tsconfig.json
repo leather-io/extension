@@ -22,6 +22,7 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
+      "@blockstack/ui": ["../ui"],
       "*": ["node_modules/*"]
     },
     "jsx": "react",
