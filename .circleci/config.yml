@@ -1,11 +1,4 @@
 version: 2
-commands:
-  create_concatenated_package_lock:
-    description: "Concatenate all yarn.lock files recognized by lerna.js into single file. File is used as checksum source for part of caching key."
-    steps:
-      - run:
-          name: Combine package-lock.json files to single file
-          command: npx lerna list -p -a | awk -F packages '{printf "\"packages%s/yarn.lock\" ", $2}' | xargs cat > combined-yarn-lock.txt
 
 jobs:
   test_web:
@@ -14,8 +7,9 @@ jobs:
       - image: circleci/node:12.16.1-browsers
     steps:
       - checkout
-      # TODO - get this cached so that you don't have to pull down the binaries each time
-      - create_concatenated_package_lock
+      - run:
+          name: Combine yarn.lock files to single file
+          command: npx lerna list -p -a | awk -F packages '{printf "\"packages%s/yarn.lock\" ", $2}' | xargs cat > combined-yarn-lock.txt
       - restore_cache:
           # https://circleci.com/docs/2.0/caching/
           keys:
@@ -23,10 +17,10 @@ jobs:
             - yarn-packages
       - run:
           name: Install Dependencies
-          command: yarn install --frozen-lockfile
+          command: yarn --frozen-lockfile
       - run:
           name: Install package dependencies
-          command: yarn --frozen-lockfile
+          command: yarn lerna bootstrap
       - run:
           name: Install test deps
           working_directory: ./packages/app/tests/test-app/
