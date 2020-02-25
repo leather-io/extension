@@ -1,0 +1,111 @@
+version: 2
+jobs:
+  bootstrap:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:12.16.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          # https://circleci.com/docs/2.0/caching/
+          key: yarn-packages-{{ checksum "package.json" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-packages-{{ checksum "package.json" }}
+          paths:
+            - ./.cache/yarn
+            - node_modules
+            - packages/app/node_modules
+            - packages/connect/node_modules
+            - packages/ui/node_modules
+            - packages/keychain/node_modules
+      - run:
+          command: yarn lerna bootstrap
+      - run:
+          command: yarn build:libs
+      - run:
+          command: yarn lerna bootstrap
+      - run:
+          name: Install test deps
+          working_directory: ./packages/app/tests/test-app/
+          command: yarn
+  
+  code_check:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:12.16.1-browsers
+    steps:
+      - checkout
+      - run: 
+        name: Lint Prettier
+        command: yarn lerna run lint:prettier
+      - run:
+        name: Lint ESLint
+        command: yarn lerna run lint:eslint
+      - run:
+        name: typecheck
+        command: yarn typecheck
+      - run:
+        name: depcheck
+        command: yarn lerna run depcheck
+
+
+  test_web:
+    working_directory: ~/blockstack-app
+    docker:
+      - image: circleci/node:12.16.1-browsers
+    steps:
+      - checkout
+      # TODO - get this cached so that you don't have to pull down the binaries each time
+      - run:
+          name: Update apt-get
+          working_directory: /
+          command: |
+            sudo apt-get update -y
+      - run:
+          name: Install Chrome headless dependencies
+          working_directory: /
+          command: |
+            sudo apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+              libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
+              libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
+              libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
+              ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+      - run:
+          name: test server
+          command: yarn lerna run dev --scope @blockstack/app
+          background: true
+      - run:
+          name: Create .env file
+          working_directory: ./packages/app/tests/test-app/
+          command: echo "SKIP_PREFLIGHT_CHECK=true" >> .env
+      
+      - run:
+          name: Run test app
+          working_directory: ./packages/app/tests/test-app/
+          command: yarn start
+          background: true
+      - run:
+          name: test
+          command: yarn lerna run test --scope @blockstack/app
+      - run:
+          name: Build extension
+          command: yarn lerna run prod:ext && zip -r extension.zip ./packages/app/dist
+      # https://circleci.com/docs/2.0/artifacts/ 
+      - store_artifacts:
+          path: extension.zip
+
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - bootstrap
+      - test_web:
+        requires:
+          - bootstrap
+      - code_check:
+        requires:
+          - bootstrap
