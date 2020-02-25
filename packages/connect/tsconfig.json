@@ -23,6 +23,7 @@
     "baseUrl": "./",
     "paths": {
       "@blockstack/ui": ["../ui/src"],
+      "@blockstack/ui/*": ["../ui/src/*"],
       "*": ["node_modules/*"]
     },
     "jsx": "react",
