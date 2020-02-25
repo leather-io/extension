@@ -17,7 +17,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "@blockstack/connect": ["../../connect/src"]
+    },
+    "baseUrl": "./"
   },
   "include": [
     "src"
