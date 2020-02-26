@@ -53,7 +53,7 @@ const aliases =
         react: path.resolve('./node_modules/react'),
       }
     : {
-        react: 'preact/compat',
+        react: path.resolve('./node_modules/preact/compat'),
         'react-dom/test-utils': 'preact/test-utils',
         'react-dom': 'preact/compat',
       };
