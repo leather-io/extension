@@ -51,6 +51,7 @@
 			"@common/*": ["common/*"],
 			"@blockstack/connect": ["../../connect/src"],
 			"@blockstack/ui": ["../../ui/src"],
+			"@blockstack/ui/*": ["../ui/src/*"],
 			"@blockstack/keychain": ["../../keychain/src"]
 		},
 		"baseUrl": "src",

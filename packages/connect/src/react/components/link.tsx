@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Box } from '@blockstack/ui';
-import { BoxProps } from '@blockstack/ui/dist/box/types';
+import { BoxProps } from '@blockstack/ui';
 
 interface LinkProps extends BoxProps {
   _hover?: BoxProps;
