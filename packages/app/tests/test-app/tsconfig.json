@@ -18,9 +18,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "paths": {
-      "@blockstack/connect": ["../../connect/src"]
-    },
     "baseUrl": "./"
   },
   "include": [

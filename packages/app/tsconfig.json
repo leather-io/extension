@@ -51,8 +51,7 @@
 			"@common/*": ["common/*"],
 			"@blockstack/connect": ["../../connect/src"],
 			"@blockstack/ui": ["../../ui/src"],
-			"@blockstack/ui/*": ["../ui/src/*"],
-			"@blockstack/keychain": ["../../keychain/src"]
+			"@blockstack/keychain": ["../../keychain/src"],
 		},
 		"baseUrl": "src",
 		// "rootDirs": [],                       	/* List of root folders whose combined content represents the structure of the project at runtime. */
