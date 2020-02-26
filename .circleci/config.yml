@@ -64,6 +64,8 @@ jobs:
           command: yarn lerna run prod:ext && zip -r extension.zip ./packages/app/dist
       # https://circleci.com/docs/2.0/artifacts/ 
       - store_artifacts:
+          path: packages/app/tests/screenshot.png
+      - store_artifacts:
           path: extension.zip
 
 
