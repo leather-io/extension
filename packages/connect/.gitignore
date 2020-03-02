@@ -10,3 +10,8 @@ dist
 test
 pages
 .next
+<<<<<<< HEAD
+=======
+../test-app/node_modules
+../test-app/.env
+>>>>>>> 4240b9e... build: move test app, adjust tasks
