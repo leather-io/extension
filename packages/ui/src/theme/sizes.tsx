@@ -43,5 +43,3 @@ export const sizes = {
   containers,
   ...namedSpacingUnits,
 };
-
-
