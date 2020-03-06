@@ -8,6 +8,8 @@ jobs:
     name: Link to demo app
     runs-on: ubuntu-latest
     steps:
+      - name: debug
+        run: echo $GITHUB_EVENT_PATH
       - name: get PR number
         id: pr_number
         env:
