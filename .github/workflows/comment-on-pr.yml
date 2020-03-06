@@ -12,8 +12,6 @@ jobs:
         run: echo $GITHUB_EVENT_PATH
       - name: get PR number
         id: pr_number
-        env:
-          GITHUB_EVENT_PATH: ${{ GITHUB_EVENT_PATH }}
         run: echo "::set-output name=pr_number::$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
       - name: comment PR
         uses: unsplash/comment-on-pr@master
