@@ -63,6 +63,7 @@ export interface IdentityKeyPair {
   keyID: string;
   address: string;
   appsNodeKey: string;
+  stxNodeKey: string;
   salt: string;
 }
 
@@ -73,11 +74,13 @@ export async function deriveIdentityKeyPair(
   const identityKey = identityOwnerAddressNode.getIdentityKey();
   const identityKeyID = identityOwnerAddressNode.getIdentityKeyID();
   const appsNode = identityOwnerAddressNode.getAppsNode();
+  const stxNode = identityOwnerAddressNode.getSTXNode();
   const keyPair = {
     key: identityKey,
     keyID: identityKeyID,
     address,
     appsNodeKey: appsNode.toBase58(),
+    stxNodeKey: stxNode.toBase58(),
     salt: identityOwnerAddressNode.getSalt(),
   };
   return keyPair;
