@@ -2,16 +2,12 @@ import { bip32, ECPair } from 'bitcoinjs-lib';
 import { getPublicKeyFromPrivate } from 'blockstack/lib/keys';
 import { makeAuthResponse } from 'blockstack/lib/auth/authMessages';
 
-import { IdentityKeyPair } from './utils/index';
-import {
-  makeGaiaAssociationToken,
-  DEFAULT_GAIA_HUB,
-  getHubInfo,
-  connectToGaiaHubWithConfig,
-} from './utils/gaia';
+import { IdentityKeyPair, getAddress } from './utils/index';
+import { makeGaiaAssociationToken, DEFAULT_GAIA_HUB, getHubInfo, connectToGaiaHubWithConfig } from './utils/gaia';
 import IdentityAddressOwnerNode from './nodes/identity-address-owner-node';
 import { Profile, fetchProfile, DEFAULT_PROFILE, signAndUploadProfile } from './profiles';
 import { ecPairToAddress } from 'blockstack';
+import * as c32check from 'c32check';
 
 interface IdentityConstructorOptions {
   keyPair: IdentityKeyPair;
@@ -152,6 +148,18 @@ export class Identity {
     } catch (error) {
       return;
     }
+  }
+
+  getSTXNode() {
+    const { stxNodeKey } = this.keyPair;
+    const node = bip32.fromBase58(stxNodeKey);
+    return node;
+  }
+
+  async getSTXAddress() {
+    const node = this.getSTXNode();
+    const addr = await getAddress(node);
+    return c32check.b58ToC32(addr);
   }
 }
 

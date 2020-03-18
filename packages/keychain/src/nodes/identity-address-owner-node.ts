@@ -6,6 +6,7 @@ import { getAddress } from '../utils';
 const APPS_NODE_INDEX = 0;
 const SIGNING_NODE_INDEX = 1;
 const ENCRYPTION_NODE_INDEX = 2;
+const STX_NODE_INDEX = 6;
 
 export default class IdentityAddressOwnerNode {
   hdNode: BIP32Interface;
@@ -50,6 +51,10 @@ export default class IdentityAddressOwnerNode {
 
   getSigningNode() {
     return this.hdNode.deriveHardened(SIGNING_NODE_INDEX);
+  }
+
+  getSTXNode() {
+    return this.hdNode.deriveHardened(STX_NODE_INDEX);
   }
 
   async getAppNode(appDomain: string) {

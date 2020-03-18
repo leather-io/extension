@@ -5,6 +5,7 @@ import { decodeToken } from 'jsontokens';
 import { getIdentity, profileResponse } from './helpers';
 import { ecPairToAddress } from 'blockstack';
 import { ECPair } from 'bitcoinjs-lib';
+import { getAddress } from '../src';
 
 interface Decoded {
   [key: string]: any;
@@ -136,4 +137,18 @@ describe('refresh', () => {
     expect(identity.profile?.apps).toBeTruthy();
     expect(identity.profile?.name).toBeFalsy();
   });
+});
+
+test('can get a STX keychain node', async () => {
+  const identity = await getIdentity();
+  const node = identity.getSTXNode();
+  const address = await getAddress(node);
+  expect(address).toEqual('1DMHn24PCo9hMxwdQgGLasuw2FZyHa5g71');
+  expect(address).toBeTruthy();
+});
+
+test('can get a STX address', async () => {
+  const identity = await getIdentity();
+  const addr = await identity.getSTXAddress();
+  expect(addr).toEqual('SP23QFN9B1MQD5WXSH98GPDWGYGRGCPAT9PT3RX8H');
 });

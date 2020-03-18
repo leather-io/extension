@@ -54,6 +54,7 @@
     "bip39": "^3.0.2",
     "bitcoinjs-lib": "^5.1.6",
     "blockstack": "21.0.0-alpha.2",
+    "c32check": "^1.0.1",
     "jsontokens": "^3.0.0",
     "prettier": "^2.0.5",
     "triplesec": "^3.0.27"
