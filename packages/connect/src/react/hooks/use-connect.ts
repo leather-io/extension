@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { authenticate, AuthOptions, FinishedData } from '../../auth';
+import { openContractCall } from '../../transactions';
 import { ConnectContext, ConnectDispatchContext, States } from '../components/connect/context';
 
 const useConnectDispatch = () => {
@@ -66,6 +67,8 @@ export const useConnect = () => {
     });
   };
 
+  const doContractCall = openContractCall;
+
   return {
     isOpen,
     isAuthenticating,
@@ -83,5 +86,6 @@ export const useConnect = () => {
     doFinishAuth,
     doAuth,
     authenticate,
+    doContractCall,
   };
 };

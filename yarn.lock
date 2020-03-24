@@ -1577,6 +1577,21 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@blockstack/clarity-native-bin@^0.1.13-alpha.2":
+  version "0.1.13-alpha.2"
+  resolved "https://registry.yarnpkg.com/@blockstack/clarity-native-bin/-/clarity-native-bin-0.1.13-alpha.2.tgz#808cd57c5aebb4b519103655c5e7a839bba5e38c"
+  integrity sha512-xH9v4rCDpsThfl49NAzrUBTDgUkczPZVElUxH6z7B4OY49C1v4oV0TkTv77ICIS8ypG1TyONLO5tSalmBGA+dQ==
+  dependencies:
+    fs-extra "^8.0.1"
+    node-fetch "^2.6.0"
+    semver "^6.1.1"
+    tar "^4.4.8"
+
+"@blockstack/clarity@^0.1.13-alpha.2":
+  version "0.1.13-alpha.2"
+  resolved "https://registry.yarnpkg.com/@blockstack/clarity/-/clarity-0.1.13-alpha.2.tgz#22e8cb96d8bc8c38c0291f6277bf9ac5ec19bfa1"
+  integrity sha512-ekKG+Lw/mPn7Qo+HWCp1Z467s537V2Yi2ckaznDrT375E3oozr1lshi2Hdqxtkx7KusiGqVKHAE9qlUZHL8+5A==
+
 "@blockstack/eslint-config@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@blockstack/eslint-config/-/eslint-config-1.0.3.tgz#a434ad826732eb654731718cb344d43e42818ae6"
@@ -13788,7 +13803,7 @@ node-fetch@2.1.2:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.1.2.tgz#ab884e8e7e57e38a944753cec706f788d1768bb5"
   integrity sha1-q4hOjn5X44qUR1POxwb3iNF2i7U=
 
-node-fetch@2.6.0, node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.5.0:
+node-fetch@2.6.0, node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.5.0, node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
@@ -17034,7 +17049,7 @@ semver-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
   integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
 
-semver@6.3.0, semver@6.x, semver@^6.0.0, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0:
+semver@6.3.0, semver@6.x, semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
