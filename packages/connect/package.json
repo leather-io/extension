@@ -9,6 +9,7 @@
   ],
   "dependencies": {
     "@blockstack/ui": "^1.1.0",
+    "jsontokens": "^3.0.0",
     "preact": "^10.3.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
