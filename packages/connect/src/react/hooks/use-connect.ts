@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { authenticate, AuthOptions, FinishedData } from '../../auth';
-import { openContractCall } from '../../transactions';
+import { openContractCall, ContractCallOptions } from '../../transactions';
 import { ConnectContext, ConnectDispatchContext, States } from '../components/connect/context';
 
 const useConnectDispatch = () => {
@@ -67,7 +67,13 @@ export const useConnect = () => {
     });
   };
 
-  const doContractCall = openContractCall;
+  const doContractCall = async (opts: ContractCallOptions) => {
+    console.log(authOptions);
+    await openContractCall({
+      ...opts,
+      appDetails: authOptions.appDetails,
+    });
+  };
 
   return {
     isOpen,

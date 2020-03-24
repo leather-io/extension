@@ -1,6 +1,6 @@
 import { UserSession, AppConfig } from 'blockstack';
 import { SECP256K1Client, TokenSigner } from 'jsontokens';
-import { defaultAuthURL } from '../auth';
+import { defaultAuthURL, AuthOptions } from '../auth';
 import { popupCenter } from '../popup';
 
 export interface ContractCallOptions {
@@ -10,10 +10,11 @@ export interface ContractCallOptions {
   functionArgs?: any[];
   authOrigin?: string;
   userSession?: UserSession;
+  appDetails?: AuthOptions['appDetails'];
 }
 
 export const makeContractCallToken = async (opts: ContractCallOptions) => {
-  const { contractAddress, functionName, contractName, functionArgs } = opts;
+  const { contractAddress, functionName, contractName, functionArgs, appDetails } = opts;
   let { userSession } = opts;
   if (!userSession) {
     const appConfig = new AppConfig(['store_write'], document.location.href);
@@ -23,13 +24,17 @@ export const makeContractCallToken = async (opts: ContractCallOptions) => {
   const privateKey = userSession.loadUserData().appPrivateKey;
   const publicKey = SECP256K1Client.derivePublicKey(privateKey);
 
-  const payload = {
+  const payload: any = {
     contractAddress,
     contractName,
     functionName,
     functionArgs: functionArgs || [],
     publicKey,
   };
+
+  if (appDetails) {
+    payload.appDetails = appDetails;
+  }
 
   const tokenSigner = new TokenSigner('ES256k', privateKey);
   const token = await tokenSigner.signAsync(payload);

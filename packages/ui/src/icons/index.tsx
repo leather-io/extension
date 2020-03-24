@@ -11,3 +11,4 @@ export * from './padlock-icon';
 export * from './plus-circle-icon';
 export * from './private-icon';
 export * from './union-line-icon';
+export * from './external-icon';

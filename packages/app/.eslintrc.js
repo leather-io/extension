@@ -48,7 +48,7 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', ignoreRestSiblings: true }],
     '@typescript-eslint/array-type': 'error',
     '@typescript-eslint/no-misused-promises': 'error',
     '@typescript-eslint/no-floating-promises': 'error',
