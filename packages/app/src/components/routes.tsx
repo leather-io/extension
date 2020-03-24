@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import { Home } from '../pages/home';
-import { Create, SaveKey } from '../pages/sign-up';
-import { SignIn, DecryptRecoveryCode } from '../pages/sign-in';
+import { Home } from '@pages/home';
+import { Create, SaveKey } from '@pages/sign-up';
+import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
 
-import { Username } from '../pages/username';
-import { UsernameRegistryError } from '../pages/registery-error';
-import { SecretKey } from '../pages/secret-key';
+import { Username } from '@pages/username';
+import { UsernameRegistryError } from '@pages/registery-error';
+import { SecretKey } from '@pages/secret-key';
 
-import { ChooseAccount } from '../pages/connect';
+import { ChooseAccount } from '@pages/connect';
+
+import { Transaction } from '@pages/transaction';
 
 import { doSaveAuthRequest } from '@store/onboarding/actions';
 import { useDispatch } from 'react-redux';
@@ -113,6 +115,8 @@ export const Routes: React.FC = () => {
           />
         }
       />
+      {/* Transactions */}
+      <Route path="/transaction" element={<Transaction />} />
       {/*Error/Misc*/}
       <Route path="/username-error" element={<UsernameRegistryError />} />
       <Route path="/settings/secret-key" element={<SecretKey next={() => doChangeScreen(ScreenPaths.HOME)} />} />

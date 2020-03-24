@@ -181,6 +181,10 @@ module.exports = {
     contentBase: './dist',
     historyApiFallback: true,
   },
+  node: {
+    Buffer: true,
+    BufferReader: true,
+  },
   devtool: getSourceMap(),
   watch: false,
   plugins: [

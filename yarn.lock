@@ -1631,6 +1631,23 @@
   resolved "https://registry.yarnpkg.com/@blockstack/prettier-config/-/prettier-config-0.0.5.tgz#871bd2a38b5bc9aabb1cefeeba6199cc64098957"
   integrity sha512-A+wfdVwD1Sxd/D3PPJI67Evo7q2fp15hCOFLB5jmzcS1MdN8BQdFm6j51Sti8xLN4qHmuYkicbFBUluGx2h63g==
 
+"@blockstack/stacks-transactions@^0.1.1-alpha.2":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@blockstack/stacks-transactions/-/stacks-transactions-0.1.1.tgz#3e52b2ccd7b3159f5bdede3bf76d494253806921"
+  integrity sha512-Q0QOQmJNtFrEIe6SChkNpI1Zdqj95gGaObDBHwB73ygI4Sizhag4pcOgCKyhrcp0cNxeWtD7RulveaCGyP2kUw==
+  dependencies:
+    "@types/bn.js" "^4.11.6"
+    "@types/elliptic" "^6.4.12"
+    "@types/randombytes" "^2.0.0"
+    "@types/ripemd160" "^2.0.0"
+    "@types/sha.js" "^2.4.0"
+    bn.js "^4.11.8"
+    c32check "^1.0.1"
+    elliptic "^6.5.2"
+    randombytes "^2.1.0"
+    ripemd160 "^2.0.2"
+    sha.js "^2.4.11"
+
 "@blockstack/stats@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@blockstack/stats/-/stats-0.7.0.tgz#be39d3e76c2a16c1cd1283aa702d1e20b5e04645"
@@ -3611,7 +3628,7 @@
   dependencies:
     "@types/color-convert" "*"
 
-"@types/elliptic@^6.4.10", "@types/elliptic@^6.4.9":
+"@types/elliptic@^6.4.10", "@types/elliptic@^6.4.12", "@types/elliptic@^6.4.9":
   version "6.4.12"
   resolved "https://registry.yarnpkg.com/@types/elliptic/-/elliptic-6.4.12.tgz#e8add831f9cc9a88d9d84b3733ff669b68eaa124"
   integrity sha512-gP1KsqoouLJGH6IJa28x7PXb3cRqh83X8HCLezd2dF+XcAIMKYv53KV+9Zn6QA561E120uOqZBQ+Jy/cl+fviw==
@@ -3906,10 +3923,24 @@
     "@types/glob" "*"
     "@types/node" "*"
 
+"@types/ripemd160@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ripemd160/-/ripemd160-2.0.0.tgz#d33e49cf66edf4668828030d4aa80116bbf8ae81"
+  integrity sha512-LD6AO/+8cAa1ghXax9NG9iPDLPUEGB2WWPjd//04KYfXxTwHvlDEfL0NRjrM5z9XWBi6WbKw75Are0rDyn3PSA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/segment-analytics@^0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/segment-analytics/-/segment-analytics-0.0.32.tgz#63e27737a81f6bd0fbecd86207afb92d12d85cca"
   integrity sha512-p0SHnfHfZwemTeaISvu8WUXtw81A4AOU4GEr7B9S9jLx2iu/z/4aLT0flRJtHVusVAlMeJSdobn0uD/oR1sFEw==
+
+"@types/sha.js@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@types/sha.js/-/sha.js-2.4.0.tgz#bce682ef860b40f419d024fa08600c3b8d24bb01"
+  integrity sha512-amxKgPy6WJTKuw8mpUwjX2BSxuBtBmZfRwIUDIuPJKNwGN8CWDli8JTg5ONTWOtcTkHIstvT7oAhhYXqEjStHQ==
+  dependencies:
+    "@types/node" "*"
 
 "@types/shelljs@^0.8.5":
   version "0.8.6"
@@ -5692,6 +5723,11 @@ bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.11.8, bn.js@^4.4.0:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
   integrity sha512-ItfYfPLkWHUjckQCk8xC+LwxgK8NYcXywGigJgSwOP8Y2iyWT4f2vsZnoOXTTbo+o5yXmIUJ4gn5538SO5S3gA==
 
+bn.js@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.1.1.tgz#48efc4031a9c4041b9c99c6941d903463ab62eb5"
+  integrity sha512-IUTD/REb78Z2eodka1QZyyEk66pciRcP6Sroka0aI3tG/iwIdYLrBD62RsubR7vqdt3WyX8p4jxeatzmRSphtA==
+
 body-parser@1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
@@ -5979,7 +6015,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.2.1:
+buffer@^5.2.1, buffer@^5.5.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.6.0.tgz#a31749dc7d81d84db08abf937b6b8c4033f62786"
   integrity sha512-/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==
@@ -7912,7 +7948,7 @@ electron-to-chromium@^1.3.322, electron-to-chromium@^1.3.341, electron-to-chromi
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.372.tgz#fb61b6dfe06f3278a384d084ebef75d463ec7580"
   integrity sha512-77a4jYC52OdisHM+Tne7dgWEvQT1FoNu/jYl279pP88ZtG4ZRIPyhQwAKxj6C2rzsyC1OwsOds9JlZtNncSz6g==
 
-elliptic@^6.0.0, elliptic@^6.4.0, elliptic@^6.4.1, elliptic@^6.5.1:
+elliptic@^6.0.0, elliptic@^6.4.0, elliptic@^6.4.1, elliptic@^6.5.1, elliptic@^6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.2.tgz#05c5678d7173c049d8ca433552224a495d0e3762"
   integrity sha512-f4x70okzZbIQl/NSRLkI/+tteV/9WqL98zx+SQ69KbXxmVrmjwsNUPn/gYJJ0sHvEak24cZgHIPegRePAtA/xw==
