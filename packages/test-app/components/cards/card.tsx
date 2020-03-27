@@ -6,7 +6,7 @@ interface CardProps extends BoxProps {
 }
 
 export const Card: React.FC<CardProps> = ({ children, title, ...props }) => (
-  <Box width="calc(1/3*100% - (1 - 1/3)*20px)" my={6}>
+  <Box width="calc(1/3*100% - (1 - 1/3)*20px)" my={6} mr="10px">
     <Flex
       border="1px solid"
       borderRadius="6px"
@@ -20,7 +20,7 @@ export const Card: React.FC<CardProps> = ({ children, title, ...props }) => (
       <Box textAlign="center" pb={6}>
         <Text as="h1">{title}</Text>
       </Box>
-      <Flex justifyContent="center" wrap="wrap">
+      <Flex wrap="wrap">
         <Box width="100%">{children}</Box>
       </Flex>
     </Flex>

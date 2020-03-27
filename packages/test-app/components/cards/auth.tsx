@@ -7,8 +7,8 @@ export const AuthCard: React.FC = () => {
   const { doOpenAuth, doAuth } = useConnect();
 
   return (
-    <Card title="Authentication">
-      <Stack isInline>
+    <Card title="Authenticate">
+      <Stack>
         <Button onClick={() => doOpenAuth(false)} data-test="sign-up">
           Sign Up
         </Button>

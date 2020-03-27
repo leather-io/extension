@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '@cards/card';
-import { Button } from '@blockstack/ui';
+import { Button, Text } from '@blockstack/ui';
 import { useConnect } from '@blockstack/connect';
 import { getAuthOrigin } from '@common/utils';
 
@@ -10,7 +10,9 @@ export const HelloContractCard: React.FC = () => {
 
   return (
     <Card title="Hello Clarity">
+      <Text display="inline-block">Invoke a clarity function that simply returns &quot;Hello, World&quot;</Text>
       <Button
+        mt={3}
         onClick={async () =>
           await doContractCall({
             authOrigin,

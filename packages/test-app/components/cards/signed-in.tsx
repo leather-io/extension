@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card } from '@cards/card';
 import { Button, Box, Text, Flex } from '@blockstack/ui';
+import { AppContext } from '@common/context';
 
-export const SignedIn = (props: { username: string; handleSignOut: () => void }) => {
+interface SignOutProps {
+  signOut: () => void;
+}
+
+export const SignedIn: React.FC<SignOutProps> = ({ signOut }) => {
+  const state = useContext(AppContext);
+
   return (
     <Card title="Welcome Back!">
-      <Box textAlign="center" pt={4}>
-        <Text as="h2">{props.username}</Text>
+      <Box pt={4}>
+        <Text as="h2">{state.userData?.username}</Text>
       </Box>
-      <Flex mt={6} align="center" justify="center">
-        <Button mx="auto" onClick={props.handleSignOut}>
+      <Flex mt={6}>
+        <Button
+          onClick={() => {
+            signOut();
+          }}
+        >
           Sign out
         </Button>
       </Flex>
