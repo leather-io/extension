@@ -10,6 +10,6 @@ module.exports = {
       },
     },
   },
-  setupFiles: ['./tests/global-setup.ts'],
-  setupFilesAfterEnv: ['./tests/setup.ts'],
+  // setupFiles: ['./tests/global-setup.ts'],
+  // setupFilesAfterEnv: ['./tests/setup.ts'],
 };
