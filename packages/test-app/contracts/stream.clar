@@ -70,30 +70,6 @@
       ((author tx-sender))
       ((status status))
     )
-    (ok 'true)
+    (ok status)
   )
 )
-
-;; (define-map squares 
-;;    ((x int)) 
-;;    ((square int))
-;; )
-
-;;;;; Data
-;; (define-map namespaces
-;;   ((namespace (buff 19)))
-;;   ((namespace-import principal)
-;;    (revealed-at uint)
-;;    (launched-at (optional uint))
-;;    (namespace-version uint)
-;;    (renewal-rule uint)
-;;    ;; (price-function (tuple 
-;;    ;;  (buckets (list 16 uint)) 
-;;    ;;  (base uint) 
-;;    ;;  (coeff uint) 
-;;    ;;  (nonalpha-discount uint) 
-;;    ;;  (no-vowel-discount uint)))
-;;    ))
-
-;; asdf
-
