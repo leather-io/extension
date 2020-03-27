@@ -69,23 +69,6 @@ describe('hello world contract test suite', () => {
       // console.log(queryResult);
       expect(queryResult).toEqual(`(ok (tuple (recipient '${bob}) (sender '${alice}) (start-block u2)))`);
     });
-    // it("should return 'hello world'", async () => {
-    //   const query = helloWorldClient.createQuery({ method: { name: 'say-hi', args: [] } });
-    //   const receipt = await helloWorldClient.submitQuery(query);
-    //   const result = Result.unwrap(receipt);
-    //   const parsedResult = Buffer.from(result.replace('0x', ''), 'hex').toString();
-    //   // assert.equal(parsedResult, 'hello world');
-    //   expect(parsedResult).toEqual('hello world');
-    // });
-    // it('should echo number', async () => {
-    //   const query = helloWorldClient.createQuery({
-    //     method: { name: 'echo-number', args: ['123'] },
-    //   });
-    //   const receipt = await helloWorldClient.submitQuery(query);
-    //   const result = Result.unwrap(receipt);
-    //   // assert.equal(result, '123');
-    //   expect(result).toEqual('123');
-    // });
   });
 
   afterAll(async () => {
