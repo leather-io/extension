@@ -78,11 +78,8 @@ export const Transaction: React.FC = () => {
   ];
 
   useEffect(() => {
-    const requestToken = location.search
-      .substr(1)
-      .split('&')
-      .find(param => param.startsWith('request='))
-      ?.split('=')[1];
+    const urlParams = new URLSearchParams(location.search);
+    const requestToken = urlParams.get('requestToken');
     if (requestToken) {
       const token = decodeToken(requestToken);
       const reqState = (token.payload as unknown) as RequestState;
