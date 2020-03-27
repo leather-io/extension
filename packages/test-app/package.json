@@ -57,7 +57,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime": "^7.9.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.2.0",
-    "@blockstack/clarity-native-bin": "^0.1.13-alpha.2",
+    "@blockstack/clarity-native-bin": "^0.1.13-alpha.5",
     "@schemastore/web-manifest": "^0.0.4",
     "@types/chrome": "^0.0.104",
     "@types/expect-puppeteer": "^4.4.1",
