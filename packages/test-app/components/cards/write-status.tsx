@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card } from '@cards/card';
-import { Flex, Box, Button, Input } from '@blockstack/ui';
+import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
 import { getAuthOrigin } from '@common/utils';
 import { useConnect } from '@blockstack/connect';
 
@@ -26,7 +26,8 @@ export const WriteStatusCard: React.FC = () => {
   return (
     <Card title="Status Contract">
       <Flex justifyContent="center" wrap="wrap">
-        <Box width="100%">
+        <Text display="inline-block">Save a small phrase on the Stacks Blockchain.</Text>
+        <Box width="100%" mt={3}>
           <Input
             type="text"
             placeholder="Status"

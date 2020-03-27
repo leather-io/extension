@@ -1,8 +1,11 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import { makeSTXTokenTransfer, TransactionVersion } from '@blockstack/stacks-transactions';
 import BigNum from 'bn.js';
 
 export const StacksController = express.Router();
+
+StacksController.use(cors());
 
 StacksController.post('/faucet', (req: Request, res: Response) => {
   try {
