@@ -26,7 +26,7 @@
     "@blockstack/keychain": "^0.4.0",
     "@blockstack/prettier-config": "^0.0.6",
     "@blockstack/ui": "^1.6.0",
-    "@blockstack/clarity": "^0.1.13-alpha.2",
+    "@blockstack/clarity": "0.1.13-alpha.6",
     "@rehooks/document-title": "^1.0.1",
     "blockstack": "^21.0.0",
     "formik": "^2.1.4",

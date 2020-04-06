@@ -1587,10 +1587,10 @@
     semver "^6.1.1"
     tar "^4.4.8"
 
-"@blockstack/clarity@^0.1.13-alpha.2":
-  version "0.1.13-alpha.2"
-  resolved "https://registry.yarnpkg.com/@blockstack/clarity/-/clarity-0.1.13-alpha.2.tgz#22e8cb96d8bc8c38c0291f6277bf9ac5ec19bfa1"
-  integrity sha512-ekKG+Lw/mPn7Qo+HWCp1Z467s537V2Yi2ckaznDrT375E3oozr1lshi2Hdqxtkx7KusiGqVKHAE9qlUZHL8+5A==
+"@blockstack/clarity@0.1.13-alpha.6":
+  version "0.1.13-alpha.6"
+  resolved "https://registry.yarnpkg.com/@blockstack/clarity/-/clarity-0.1.13-alpha.6.tgz#8d788fa53e8065f3471114ee35e6f4e5ca807352"
+  integrity sha512-CwryV6mPflR/uxxIqLHEiGrjkuHbF8Rn6jaO45A7w1g1tt2KuC0WuKJsLXdzWrnQPEQsKIxs/1i9av5QA1db3g==
 
 "@blockstack/eslint-config@^1.0.3":
   version "1.0.3"

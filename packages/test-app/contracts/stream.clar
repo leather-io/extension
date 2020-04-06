@@ -28,7 +28,6 @@
     (map-set streams 
       ((id (var-get next-stream-id)))
       (
-        ;; (start-block (unwrap-panic (get-block-info? time block-height)))
         (start-block block-height)
         (recipient recipient)
         (sender tx-sender)
@@ -36,7 +35,6 @@
     )
     (var-set next-stream-id (+ (var-get next-stream-id) u1))
     (ok 'true)
-    ;; (var-set)
   )
 )
 
