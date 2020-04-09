@@ -1,7 +1,12 @@
 import { UserSession, AppConfig } from 'blockstack';
 import { SECP256K1Client, TokenSigner } from 'jsontokens';
 import { defaultAuthURL, AuthOptions } from '../auth';
-import { popupCenter } from '../popup';
+import { popupCenter, setupListener } from '../popup';
+
+export interface FinishedTxData {
+  txId: string;
+  txRaw: string;
+}
 
 export interface ContractCallOptions {
   contractAddress: string;
@@ -11,6 +16,7 @@ export interface ContractCallOptions {
   authOrigin?: string;
   userSession?: UserSession;
   appDetails?: AuthOptions['appDetails'];
+  finished?: (data: FinishedTxData) => void;
 }
 
 export const makeContractCallToken = async (opts: ContractCallOptions) => {
@@ -49,6 +55,17 @@ export const openContractCall = async (opts: ContractCallOptions) => {
   urlParams.set('request', token);
   const popup = popupCenter({
     url: `${authURL.origin}/#/transaction?${urlParams.toString()}`,
+  });
+
+  setupListener<FinishedTxData>({
+    popup,
+    authURL,
+    finished: data => {
+      if (opts.finished) {
+        opts.finished(data);
+      }
+    },
+    messageParams: {},
   });
   return popup;
 };

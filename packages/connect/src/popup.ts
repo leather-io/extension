@@ -64,3 +64,40 @@ export const popupCenter = ({
 
   return newWindow;
 };
+
+interface ListenerParams<FinishedType> {
+  popup: Window | null;
+  messageParams: {
+    [key: string]: any;
+  };
+  finished: (payload: FinishedType) => void | Promise<void>;
+  authURL: URL;
+}
+
+export const setupListener = <T>({ popup, messageParams, finished, authURL }: ListenerParams<T>) => {
+  const interval = setInterval(() => {
+    if (popup) {
+      try {
+        popup.postMessage(messageParams, authURL.origin);
+      } catch (error) {
+        console.warn('[Blockstack] Unable to send ping to authentication service');
+        clearInterval(interval);
+      }
+    }
+  }, 100);
+
+  const receiveMessage = async (event: MessageEvent) => {
+    const data = event.data as T;
+    await finished(data);
+    window.focus();
+    window.removeEventListener('message', receiveMessageCallback);
+    clearInterval(interval);
+  };
+
+  const receiveMessageCallback = (event: MessageEvent) => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    receiveMessage(event);
+  };
+
+  window.addEventListener('message', receiveMessageCallback, false);
+};
