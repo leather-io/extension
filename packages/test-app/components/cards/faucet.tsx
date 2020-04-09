@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '@cards/card';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
+import { broadcastTX } from '@blockstack/rpc-client';
 
 interface FaucetResponse {
   tx?: string;
@@ -33,6 +34,8 @@ export const FaucetCard: React.FC = () => {
     const data: FaucetResponse = await res.json();
     if (data.tx) {
       setTX(data.tx);
+      const buf = Buffer.from(data.tx, 'hex');
+      await broadcastTX(buf);
     }
     console.log(data);
   };

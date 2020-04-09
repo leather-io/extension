@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "typecheck": "lerna run typecheck --parallel",
-    "dev": "NODE_ENV=development yarn lerna exec --parallel 'yarn dev' --scope test-app --scope @blockstack/app --scope server",
+    "dev": "NODE_ENV=development yarn lerna exec --parallel 'yarn dev' --scope test-app --scope @blockstack/app",
     "bootstrap": "yarn lerna exec --parallel 'yarn'",
     "build:libs": "yarn build:ui && yarn build:keychain && yarn build:connect",
     "build:ui": "lerna run build --scope @blockstack/ui",

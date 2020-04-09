@@ -5,7 +5,6 @@
   "author": "Hank Stoever",
   "main": "dist/index.js",
   "module": "dist/rpc-client.esm.js",
-  "private": true,
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -14,14 +13,10 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint"
+    "lint": "tsdx lint",
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "prettier": {
     "printWidth": 80,
     "semi": true,

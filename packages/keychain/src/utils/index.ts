@@ -142,6 +142,7 @@ export const makeIdentity = async (masterKeychain: BIP32Interface, index: number
     keyPair: identityKeyPair,
     address: identityKeyPair.address,
     usernames: [],
+    nonce: 0,
   });
   return identity;
 };
