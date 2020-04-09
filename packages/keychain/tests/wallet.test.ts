@@ -32,6 +32,7 @@ describe('Restoring a wallet', () => {
           'xprvA1y4zBndD83n6PWgVH6ivkTpNQ2WU1UGPg9hWa2q8sCANa7YrYMZFHWMhrbpsarx' +
           'XMuQRa4jtaT2YXugwsKrjFgn765tUHu9XjyiDFEjB7f',
         salt: 'c15619adafe7e75a195a1a2b5788ca42e585a3fd181ae2ff009c6089de54ed9e',
+        nonce: 0,
         stxNodeKey:
           'xprvA1y4zBndD83nNNFWE1UiWpmc9hpPuk8xjPNwb2j341txeJmCHe8VWT7VKS6FcgnCtbuBP2kzyW34ESdJtJ81AQxCbr9cmQsUHHZ8dtyTxCy',
       },

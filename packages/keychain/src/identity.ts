@@ -7,6 +7,9 @@ import { makeGaiaAssociationToken, DEFAULT_GAIA_HUB, getHubInfo, connectToGaiaHu
 import IdentityAddressOwnerNode from './nodes/identity-address-owner-node';
 import { Profile, fetchProfile, DEFAULT_PROFILE, signAndUploadProfile } from './profiles';
 import { ecPairToAddress } from 'blockstack';
+import { makeContractCall, TransactionVersion, bufferCV, PostConditionMode } from '@blockstack/stacks-transactions';
+import BN from 'bn.js';
+import { fetchAccount } from '@blockstack/rpc-client';
 import * as c32check from 'c32check';
 
 interface IdentityConstructorOptions {
@@ -15,10 +18,18 @@ interface IdentityConstructorOptions {
   usernames?: string[];
   defaultUsername?: string;
   profile?: Profile;
+  nonce: number;
 }
 
 interface RefreshOptions {
   gaiaUrl: string;
+}
+
+interface ContractCallOptions {
+  contractName: string;
+  contractAddress: string;
+  functionName: string;
+  functionArgs: any[];
 }
 
 export class Identity {
@@ -27,13 +38,15 @@ export class Identity {
   public defaultUsername?: string;
   public usernames: string[];
   public profile?: Profile;
+  public nonce: number;
 
-  constructor({ keyPair, address, usernames, defaultUsername, profile }: IdentityConstructorOptions) {
+  constructor({ keyPair, address, usernames, defaultUsername, profile, nonce }: IdentityConstructorOptions) {
     this.keyPair = keyPair;
     this.address = address;
     this.usernames = usernames || [];
     this.defaultUsername = defaultUsername;
     this.profile = profile;
+    this.nonce = 0 || nonce;
   }
 
   async makeAuthResponse({
@@ -144,10 +157,46 @@ export class Identity {
     return node;
   }
 
+  getSTXPrivateKey() {
+    const { stxNodeKey } = this.keyPair;
+    const node = bip32.fromBase58(stxNodeKey);
+    if (!node.privateKey) {
+      throw new Error(`Unable to get STX private key for identity ${this.address}`);
+    }
+    return node.privateKey;
+  }
+
   async getSTXAddress() {
     const node = this.getSTXNode();
     const addr = await getAddress(node);
     return c32check.b58ToC32(addr);
+  }
+
+  async fetchAccount() {
+    const address = await this.getSTXAddress();
+    const account = await fetchAccount(address);
+    return account;
+  }
+
+  async signContractCall({ contractName, contractAddress, functionName, functionArgs }: ContractCallOptions) {
+    const { nonce } = await this.fetchAccount();
+    const args = functionArgs.map(arg => {
+      return bufferCV(Buffer.from(arg));
+    });
+    const tx = makeContractCall(
+      contractAddress,
+      contractName,
+      functionName,
+      args,
+      new BN(0),
+      this.getSTXPrivateKey().toString('hex'),
+      {
+        version: TransactionVersion.Testnet,
+        nonce: new BN(nonce),
+        postConditionMode: PostConditionMode.Allow,
+      }
+    );
+    return tx;
   }
 }
 

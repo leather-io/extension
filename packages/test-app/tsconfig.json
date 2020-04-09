@@ -55,6 +55,7 @@
 			"@blockstack/keychain": ["../../keychain/src"],
       "@blockstack/keychain/*": ["../../keychain/src/*"],
       "@cards/*": ["../components/cards/*"],
+      "@blockstack/rpc-client": ["../../rpc-client/src"]
 		},
 		"baseUrl": "src",
 		// "rootDirs": [],                       	/* List of root folders whose combined content represents the structure of the project at runtime. */

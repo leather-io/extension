@@ -26,6 +26,7 @@
     "@blockstack/connect": "^2.3.1",
     "@blockstack/keychain": "^0.3.1",
     "@blockstack/prettier-config": "^0.0.5",
+    "@blockstack/rpc-client": "^0.1.0",
     "@blockstack/ui": "^1.1.0",
     "@rehooks/document-title": "^1.0.1",
     "blockstack": "^19.3.0",

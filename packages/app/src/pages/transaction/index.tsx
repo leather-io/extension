@@ -6,11 +6,12 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 import { useWallet } from '@common/hooks/use-wallet';
-import { makeContractCall, TransactionVersion, BufferCV, StacksTransaction } from '@blockstack/stacks-transactions';
-import BN from 'bn.js';
+// import { makeContractCall, TransactionVersion, BufferCV } from '@blockstack/stacks-transactions';
+// import BN from 'bn.js';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TabbedCard, Tab } from '@components/tabbed-card';
-import { Toast } from '@components/toast';
+import { broadcastTX } from '@blockstack/rpc-client';
+// import { Toast } from '@components/toast';
 
 interface RequestState {
   contractAddress: string;
@@ -40,11 +41,13 @@ const Textarea = styled.textarea`
 
 export const Transaction: React.FC = () => {
   const location = useLocation();
-  const { identities } = useWallet();
+  const { wallet } = useWallet();
   const [requestState, setRequestState] = useState<RequestState | undefined>();
   const [txHash, setTxHash] = useState('');
-  const [tx, setTx] = useState<StacksTransaction | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
+  // const [tx, setTx] = useState<StacksTransaction | null>(null);
+  // const [copied, setCopied] = useState(false);
+  // const dispatch = useDispatch();
 
   const getInputJSON = () => {
     if (requestState) {
@@ -60,11 +63,11 @@ export const Transaction: React.FC = () => {
       content: <TabContent json={getInputJSON()} />,
       key: 'inputs',
     },
-    {
-      title: 'Outputs',
-      content: <TabContent json={tx} />,
-      key: 'outputs',
-    },
+    // {
+    //   title: 'Outputs',
+    //   content: <TabContent json={tx} />,
+    //   key: 'outputs',
+    // },
     {
       title: (
         <>
@@ -80,48 +83,40 @@ export const Transaction: React.FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const requestToken = urlParams.get('request');
-    if (requestToken) {
+    if (requestToken && wallet) {
       const token = decodeToken(requestToken);
       const reqState = (token.payload as unknown) as RequestState;
+      setLoading(false);
       setRequestState(reqState);
-      console.log(reqState);
-      const [identity] = identities;
-      const args = reqState.functionArgs.map(arg => {
-        return new BufferCV(Buffer.from(arg));
-      });
-      const tx = makeContractCall(
-        reqState.contractAddress,
-        reqState.contractName,
-        reqState.functionName,
-        args,
-        new BN(0),
-        new BN(0), // TODO: actually track nonce
-        (identity.getSTXNode().privateKey as Buffer).toString('hex'),
-        TransactionVersion.Testnet
-      );
-      console.log(tx);
-      const serialized = tx.serialize().toString('hex');
-      setTxHash(serialized);
-      setTx(tx);
-      console.log(serialized);
     }
   }, []);
 
-  const handleButtonClick = () => {
-    const input: HTMLInputElement = document.querySelector('.hidden-tx-hash') as HTMLInputElement;
-    input.select();
-    input.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-    setCopied(true);
-    document.getSelection()?.empty();
-    setTimeout(() => {
-      setCopied(false);
-    }, 1600);
+  const handleButtonClick = async () => {
+    if (requestState && wallet) {
+      setLoading(true);
+      const [identity] = wallet.identities;
+      const { contractName, contractAddress, functionName, functionArgs } = requestState;
+      console.log('about to sign');
+      const tx = await identity.signContractCall({
+        contractName,
+        contractAddress,
+        functionName,
+        functionArgs,
+      });
+      const serialized = tx.serialize().toString('hex');
+      console.log(serialized);
+      setTxHash(serialized);
+      const res = await broadcastTX(tx.serialize());
+      console.log(res);
+      const data = await res.json();
+      console.log(data);
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      <Screen>
+      <Screen isLoading={loading}>
         {/* TODO: only show testnet banner if in testnet mode */}
         <TestnetBanner />
         <ScreenHeader
@@ -143,7 +138,7 @@ export const Transaction: React.FC = () => {
             <Box width="100%" mt={5}>
               <Text fontWeight={600}>
                 <Text>Total</Text>
-                <Text style={{ float: 'right' }}>{tx?.auth?.spendingCondition?.feeRate?.toString()} STX</Text>
+                <Text style={{ float: 'right' }}>0 STX</Text>
               </Text>
             </Box>,
           ]}
@@ -153,9 +148,9 @@ export const Transaction: React.FC = () => {
             width="100%"
             mt={5}
             size="lg"
-            onClick={() => {
+            onClick={async () => {
               // event.preventDefault();
-              handleButtonClick();
+              await handleButtonClick();
             }}
           >
             Confirm Transaction
@@ -166,7 +161,7 @@ export const Transaction: React.FC = () => {
         </ScreenFooter>
       </Screen>
       <Textarea className="hidden-tx-hash" value={txHash} readOnly />
-      <Toast show={copied} text="Copied TX hash to clipboard" />
+      {/* <Toast show={copied} text="Copied TX hash to clipboard" /> */}
     </>
   );
 };
