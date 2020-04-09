@@ -11,7 +11,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TabbedCard, Tab } from '@components/tabbed-card';
 import { broadcastTX } from '@blockstack/rpc-client';
-// import { Toast } from '@components/toast';
+import { finalizeTxSignature } from '@common/utils';
 
 interface RequestState {
   contractAddress: string;
@@ -96,7 +96,6 @@ export const Transaction: React.FC = () => {
       setLoading(true);
       const [identity] = wallet.identities;
       const { contractName, contractAddress, functionName, functionArgs } = requestState;
-      console.log('about to sign');
       const tx = await identity.signContractCall({
         contractName,
         contractAddress,
@@ -104,13 +103,11 @@ export const Transaction: React.FC = () => {
         functionArgs,
       });
       const serialized = tx.serialize().toString('hex');
-      console.log(serialized);
       setTxHash(serialized);
       const res = await broadcastTX(tx.serialize());
-      console.log(res);
-      const data = await res.json();
-      console.log(data);
+      const { txId } = await res.json();
       setLoading(false);
+      finalizeTxSignature({ txId, txRaw: serialized });
     }
   };
 

@@ -20,6 +20,9 @@ export const WriteStatusCard: React.FC = () => {
       functionName: 'write-status!',
       functionArgs: [status],
       contractName: 'stream',
+      finished: data => {
+        console.log('finished!', data);
+      },
     });
   };
 
