@@ -94,6 +94,7 @@ export const finalizeTxSignature = (data: FinishedTxData) => {
         event.origin
       );
     }
+    window.close();
   });
 };
 

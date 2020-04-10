@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 import { useWallet } from '@common/hooks/use-wallet';
-// import { makeContractCall, TransactionVersion, BufferCV } from '@blockstack/stacks-transactions';
+import { TransactionVersion, AddressVersion } from '@blockstack/stacks-transactions';
 // import BN from 'bn.js';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TabbedCard, Tab } from '@components/tabbed-card';
@@ -45,14 +45,15 @@ export const Transaction: React.FC = () => {
   const [requestState, setRequestState] = useState<RequestState | undefined>();
   const [txHash, setTxHash] = useState('');
   const [loading, setLoading] = useState(true);
-  // const [tx, setTx] = useState<StacksTransaction | null>(null);
-  // const [copied, setCopied] = useState(false);
-  // const dispatch = useDispatch();
 
   const getInputJSON = () => {
-    if (requestState) {
+    if (requestState && wallet) {
       const { appDetails, publicKey, ...rest } = requestState;
-      return rest;
+      const [identity] = wallet.identities;
+      return {
+        ...rest,
+        'tx-sender': identity.getSTXAddress(AddressVersion.TestnetSingleSig).toString(),
+      };
     }
     return {};
   };
@@ -63,11 +64,6 @@ export const Transaction: React.FC = () => {
       content: <TabContent json={getInputJSON()} />,
       key: 'inputs',
     },
-    // {
-    //   title: 'Outputs',
-    //   content: <TabContent json={tx} />,
-    //   key: 'outputs',
-    // },
     {
       title: (
         <>
@@ -96,11 +92,13 @@ export const Transaction: React.FC = () => {
       setLoading(true);
       const [identity] = wallet.identities;
       const { contractName, contractAddress, functionName, functionArgs } = requestState;
+      const version = TransactionVersion.Testnet;
       const tx = await identity.signContractCall({
         contractName,
         contractAddress,
         functionName,
         functionArgs,
+        version,
       });
       const serialized = tx.serialize().toString('hex');
       setTxHash(serialized);

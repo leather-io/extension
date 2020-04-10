@@ -17,10 +17,13 @@ import {
   TransactionVersion,
   bufferCV,
   PostConditionMode,
+  Address,
+  AddressVersion,
+  StacksPublicKey,
+  AddressHashMode,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
 import { fetchAccount } from '@blockstack/rpc-client';
-import * as c32check from 'c32check';
 
 interface IdentityConstructorOptions {
   keyPair: IdentityKeyPair;
@@ -40,6 +43,7 @@ interface ContractCallOptions {
   contractAddress: string;
   functionName: string;
   functionArgs: any[];
+  version: TransactionVersion;
 }
 
 export class Identity {
@@ -189,15 +193,15 @@ export class Identity {
     return node.privateKey;
   }
 
-  async getSTXAddress() {
-    const node = this.getSTXNode();
-    const addr = await getAddress(node);
-    return c32check.b58ToC32(addr);
+  getSTXAddress(version: AddressVersion) {
+    const pk = StacksPublicKey.fromPrivateKey(this.getSTXPrivateKey().toString('hex'));
+    const address = Address.fromPublicKeys(version, AddressHashMode.SerializeP2PKH, 1, [pk]);
+    return address;
   }
 
-  async fetchAccount() {
-    const address = await this.getSTXAddress();
-    const account = await fetchAccount(address);
+  async fetchAccount(version: AddressVersion) {
+    const address = this.getSTXAddress(version);
+    const account = await fetchAccount(address.toString());
     return account;
   }
 
@@ -206,8 +210,13 @@ export class Identity {
     contractAddress,
     functionName,
     functionArgs,
+    version,
   }: ContractCallOptions) {
-    const { nonce } = await this.fetchAccount();
+    const addressVersion =
+      version === TransactionVersion.Mainnet
+        ? AddressVersion.MainnetSingleSig
+        : AddressVersion.TestnetSingleSig;
+    const { nonce } = await this.fetchAccount(addressVersion);
     const args = functionArgs.map(arg => {
       return bufferCV(Buffer.from(arg));
     });
@@ -219,7 +228,7 @@ export class Identity {
       new BN(0),
       this.getSTXPrivateKey().toString('hex'),
       {
-        version: TransactionVersion.Testnet,
+        version: version,
         nonce: new BN(nonce),
         postConditionMode: PostConditionMode.Allow,
       }

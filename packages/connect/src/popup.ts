@@ -87,11 +87,13 @@ export const setupListener = <T>({ popup, messageParams, finished, authURL }: Li
   }, 100);
 
   const receiveMessage = async (event: MessageEvent) => {
-    const data = event.data as T;
-    await finished(data);
-    window.focus();
-    window.removeEventListener('message', receiveMessageCallback);
-    clearInterval(interval);
+    if (event.data.source === 'blockstack-app') {
+      const data = event.data as T;
+      await finished(data);
+      window.focus();
+      window.removeEventListener('message', receiveMessageCallback);
+      clearInterval(interval);
+    }
   };
 
   const receiveMessageCallback = (event: MessageEvent) => {
