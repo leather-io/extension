@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { Function } from './function';
 
 const initialValues = {
-  contractName: 'stream',
+  contractName: 'status',
   contractAddress: 'ST22T6ZS7HVWEMZHHFK77H4GTNDTWNPQAX8WZAKHJ',
 };
 
