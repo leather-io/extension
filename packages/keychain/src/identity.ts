@@ -2,15 +2,23 @@ import { bip32, ECPair } from 'bitcoinjs-lib';
 import { getPublicKeyFromPrivate } from 'blockstack/lib/keys';
 import { makeAuthResponse } from 'blockstack/lib/auth/authMessages';
 
-import { IdentityKeyPair, getAddress } from './utils/index';
+import { IdentityKeyPair } from './utils/index';
 import { makeGaiaAssociationToken, DEFAULT_GAIA_HUB, getHubInfo, connectToGaiaHubWithConfig } from './utils/gaia';
 import IdentityAddressOwnerNode from './nodes/identity-address-owner-node';
 import { Profile, fetchProfile, DEFAULT_PROFILE, signAndUploadProfile } from './profiles';
 import { ecPairToAddress } from 'blockstack';
-import { makeContractCall, TransactionVersion, bufferCV, PostConditionMode } from '@blockstack/stacks-transactions';
+import {
+  makeContractCall,
+  TransactionVersion,
+  bufferCV,
+  PostConditionMode,
+  Address,
+  AddressVersion,
+  StacksPublicKey,
+  AddressHashMode,
+} from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
 import { fetchAccount } from '@blockstack/rpc-client';
-import * as c32check from 'c32check';
 
 interface IdentityConstructorOptions {
   keyPair: IdentityKeyPair;
@@ -30,6 +38,7 @@ interface ContractCallOptions {
   contractAddress: string;
   functionName: string;
   functionArgs: any[];
+  version: TransactionVersion;
 }
 
 export class Identity {
@@ -166,20 +175,22 @@ export class Identity {
     return node.privateKey;
   }
 
-  async getSTXAddress() {
-    const node = this.getSTXNode();
-    const addr = await getAddress(node);
-    return c32check.b58ToC32(addr);
+  getSTXAddress(version: AddressVersion) {
+    const pk = StacksPublicKey.fromPrivateKey(this.getSTXPrivateKey().toString('hex'));
+    const address = Address.fromPublicKeys(version, AddressHashMode.SerializeP2PKH, 1, [pk]);
+    return address;
   }
 
-  async fetchAccount() {
-    const address = await this.getSTXAddress();
-    const account = await fetchAccount(address);
+  async fetchAccount(version: AddressVersion) {
+    const address = this.getSTXAddress(version);
+    const account = await fetchAccount(address.toString());
     return account;
   }
 
-  async signContractCall({ contractName, contractAddress, functionName, functionArgs }: ContractCallOptions) {
-    const { nonce } = await this.fetchAccount();
+  async signContractCall({ contractName, contractAddress, functionName, functionArgs, version }: ContractCallOptions) {
+    const addressVersion =
+      version === TransactionVersion.Mainnet ? AddressVersion.MainnetSingleSig : AddressVersion.TestnetSingleSig;
+    const { nonce } = await this.fetchAccount(addressVersion);
     const args = functionArgs.map(arg => {
       return bufferCV(Buffer.from(arg));
     });
@@ -191,7 +202,7 @@ export class Identity {
       new BN(0),
       this.getSTXPrivateKey().toString('hex'),
       {
-        version: TransactionVersion.Testnet,
+        version: version,
         nonce: new BN(nonce),
         postConditionMode: PostConditionMode.Allow,
       }
