@@ -9,6 +9,7 @@ import { UserSession, AppConfig } from 'blockstack';
 import { defaultState, AppContext, AppState } from '@common/context';
 import { SignedIn } from '@cards/signed-in';
 import { FaucetCard } from '@cards/faucet';
+import { ContractDebugger } from '@components/contract-debugger';
 
 export const App: React.FC = () => {
   const [state, setState] = React.useState<AppState>(defaultState);
@@ -61,6 +62,10 @@ export const App: React.FC = () => {
             </>
           )}
         </Flex>
+        <Text as="h2" fontSize={5} mt={6}>
+          Contract Debugger
+        </Text>
+        <ContractDebugger />
       </>
     );
   };
