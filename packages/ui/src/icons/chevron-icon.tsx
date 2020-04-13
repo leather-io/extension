@@ -24,7 +24,12 @@ const rotate = (direction: Direction = 'right') => {
   }
 };
 
-export const ChevronIcon: React.FC<ChevronProps> = ({ direction, size = 16, style = {}, ...props }) => (
+export const ChevronIcon: React.FC<ChevronProps> = ({
+  direction,
+  size = 16,
+  style = {},
+  ...props
+}) => (
   <Svg
     width={size}
     height={size}
@@ -32,6 +37,9 @@ export const ChevronIcon: React.FC<ChevronProps> = ({ direction, size = 16, styl
     style={{ ...style, transform: `rotate(${rotate(direction)}deg)` }}
     {...props}
   >
-    <path fill={props.color || 'currentColor'} d="M4.7 7.367l3.3 3.3 3.3-3.3-.943-.943L8 8.78 5.643 6.424l-.943.943z" />
+    <path
+      fill={props.color || 'currentColor'}
+      d="M4.7 7.367l3.3 3.3 3.3-3.3-.943-.943L8 8.78 5.643 6.424l-.943.943z"
+    />
   </Svg>
 );
