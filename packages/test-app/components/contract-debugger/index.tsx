@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Input, Button, FormControl, FormLabel, Text } from '@blockstack/ui';
+import { Flex, Box, Input, Button, FormControl, FormLabel } from '@blockstack/ui';
 import { fetchContractInterface, ContractInterface } from '@blockstack/rpc-client';
 import { useFormik } from 'formik';
 import { Function } from './function';
@@ -30,9 +30,6 @@ export const ContractDebugger: React.FC = () => {
   });
 
   const getInterfaceView = () => {
-    if (loading) {
-      return <Text>Loading...</Text>;
-    }
     if (!contractInterface) {
       return null;
     }
@@ -75,7 +72,9 @@ export const ContractDebugger: React.FC = () => {
               placeholder="i.e. my-token"
             />
           </FormControl>
-          <Button mt={4}>Submit</Button>
+          <Button mt={4} isLoading={loading} loadingText="Fetching Interface">
+            Submit
+          </Button>
         </form>
       </Box>
       <Box width="50%">{getInterfaceView()}</Box>

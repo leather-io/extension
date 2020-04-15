@@ -19,6 +19,7 @@ export const HelloContractCard: React.FC = () => {
             contractAddress: 'ST22T6ZS7HVWEMZHHFK77H4GTNDTWNPQAX8WZAKHJ',
             functionName: 'say-hi',
             contractName: 'stream',
+            functionArgs: [],
           })
         }
       >
