@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '@cards/card';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
 import { getAuthOrigin } from '@common/utils';
-import { useConnect } from '@blockstack/connect';
+import { useConnect, ContractCallArgumentType } from '@blockstack/connect';
 
 export const WriteStatusCard: React.FC = () => {
   const { doContractCall } = useConnect();
@@ -18,7 +18,7 @@ export const WriteStatusCard: React.FC = () => {
       authOrigin,
       contractAddress: 'ST22T6ZS7HVWEMZHHFK77H4GTNDTWNPQAX8WZAKHJ',
       functionName: 'write-status!',
-      functionArgs: [status],
+      functionArgs: [{ value: status, type: ContractCallArgumentType.BUFFER }],
       contractName: 'status',
       finished: data => {
         console.log('finished!', data);

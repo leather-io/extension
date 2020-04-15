@@ -3,7 +3,7 @@ import { Box, Input, FormControl, FormLabel, Text, Button } from '@blockstack/ui
 import { ContractInterfaceFunction, ContractInterfaceFunctionArg, callReadOnly } from '@blockstack/rpc-client';
 import { standardPrincipalCV, deserializeCV, BufferCV, ClarityType } from '@blockstack/stacks-transactions';
 import { getAuthOrigin } from '@common/utils';
-import { useConnect } from '@blockstack/connect';
+import { useConnect, ContractCallArgumentType, ContractCallArgument } from '@blockstack/connect';
 import Styled from 'styled-components';
 
 interface FunctionProps {
@@ -107,19 +107,25 @@ export const Function: React.FC<FunctionProps> = ({ func, contractAddress, contr
       switch (func.access) {
         case 'read_only':
           await doReadOnly();
+          setLoading(false);
           break;
         case 'public':
           const authOrigin = getAuthOrigin();
+          const functionArgs: ContractCallArgument[] = func.args.map(arg => {
+            const type = (typeof arg.type === 'string' ? arg.type : 'buff') as ContractCallArgumentType;
+            return { type, value: state[arg.name].value };
+          });
           await doContractCall({
             authOrigin,
             contractAddress,
             functionName: func.name,
-            functionArgs: func.args.map(arg => state[arg.name].value),
+            functionArgs,
             contractName,
             finished: data => {
               const { txId } = data;
               console.log('finished!', data);
               setResult(`TXID ${txId}`);
+              setLoading(false);
             },
           });
           break;
@@ -128,8 +134,8 @@ export const Function: React.FC<FunctionProps> = ({ func, contractAddress, contr
       }
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
