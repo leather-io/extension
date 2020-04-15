@@ -15,7 +15,6 @@ import { ecPairToAddress } from 'blockstack';
 import {
   makeContractCall,
   TransactionVersion,
-  bufferCV,
   PostConditionMode,
   Address,
   AddressVersion,
