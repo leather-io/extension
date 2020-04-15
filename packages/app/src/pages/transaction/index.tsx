@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 import { useWallet } from '@common/hooks/use-wallet';
-import { TransactionVersion, AddressVersion } from '@blockstack/stacks-transactions';
+import { TransactionVersion, AddressVersion, addressToString } from '@blockstack/stacks-transactions';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TabbedCard, Tab } from '@components/tabbed-card';
 import { broadcastTX } from '@blockstack/rpc-client';
@@ -51,7 +51,7 @@ export const Transaction: React.FC = () => {
       const [identity] = wallet.identities;
       return {
         ...rest,
-        'tx-sender': identity.getSTXAddress(AddressVersion.TestnetSingleSig).toString(),
+        'tx-sender': addressToString(identity.getSTXAddress(AddressVersion.TestnetSingleSig)),
       };
     }
     return {};
