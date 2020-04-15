@@ -16,11 +16,12 @@ import {
   makeContractCall,
   TransactionVersion,
   PostConditionMode,
-  Address,
   AddressVersion,
-  StacksPublicKey,
   AddressHashMode,
   ClarityValue,
+  fromPrivateKey,
+  fromPublicKeys,
+  addressToString,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
 import { fetchAccount } from '@blockstack/rpc-client';
@@ -194,14 +195,14 @@ export class Identity {
   }
 
   getSTXAddress(version: AddressVersion) {
-    const pk = StacksPublicKey.fromPrivateKey(this.getSTXPrivateKey().toString('hex'));
-    const address = Address.fromPublicKeys(version, AddressHashMode.SerializeP2PKH, 1, [pk]);
+    const pk = fromPrivateKey(this.getSTXPrivateKey().toString('hex'));
+    const address = fromPublicKeys(version, AddressHashMode.SerializeP2PKH, 1, [pk]);
     return address;
   }
 
   async fetchAccount(version: AddressVersion) {
     const address = this.getSTXAddress(version);
-    const account = await fetchAccount(address.toString());
+    const account = await fetchAccount(addressToString(address));
     return account;
   }
 
