@@ -16,6 +16,7 @@ import {
   AddressVersion,
   StacksPublicKey,
   AddressHashMode,
+  ClarityValue,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
 import { fetchAccount } from '@blockstack/rpc-client';
@@ -37,7 +38,7 @@ interface ContractCallOptions {
   contractName: string;
   contractAddress: string;
   functionName: string;
-  functionArgs: any[];
+  functionArgs: ClarityValue[];
   version: TransactionVersion;
 }
 
@@ -191,14 +192,11 @@ export class Identity {
     const addressVersion =
       version === TransactionVersion.Mainnet ? AddressVersion.MainnetSingleSig : AddressVersion.TestnetSingleSig;
     const { nonce } = await this.fetchAccount(addressVersion);
-    const args = functionArgs.map(arg => {
-      return bufferCV(Buffer.from(arg));
-    });
     const tx = makeContractCall(
       contractAddress,
       contractName,
       functionName,
-      args,
+      functionArgs,
       new BN(0),
       this.getSTXPrivateKey().toString('hex'),
       {

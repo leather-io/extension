@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Screen, ScreenBody, ScreenActions, Title, PoweredBy, ScreenFooter, AuthOptions } from '@blockstack/connect';
+import {
+  Screen,
+  ScreenBody,
+  ScreenActions,
+  Title,
+  PoweredBy,
+  ScreenFooter,
+  ContractCallPayload,
+} from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Button, Box, Text, ExternalIcon } from '@blockstack/ui';
 import styled from 'styled-components';
@@ -7,20 +15,11 @@ import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 import { useWallet } from '@common/hooks/use-wallet';
 import { TransactionVersion, AddressVersion } from '@blockstack/stacks-transactions';
-// import BN from 'bn.js';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TabbedCard, Tab } from '@components/tabbed-card';
 import { broadcastTX } from '@blockstack/rpc-client';
 import { finalizeTxSignature } from '@common/utils';
-
-interface RequestState {
-  contractAddress: string;
-  functionName: string;
-  contractName: string;
-  functionArgs: any[];
-  appDetails?: AuthOptions['appDetails'];
-  publicKey: string;
-}
+import { encodeContractCallArgument } from '@common/stacks-utils';
 
 interface TabContentProps {
   json: any;
@@ -42,7 +41,7 @@ const Textarea = styled.textarea`
 export const Transaction: React.FC = () => {
   const location = useLocation();
   const { wallet } = useWallet();
-  const [requestState, setRequestState] = useState<RequestState | undefined>();
+  const [requestState, setRequestState] = useState<ContractCallPayload | undefined>();
   const [txHash, setTxHash] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -81,7 +80,7 @@ export const Transaction: React.FC = () => {
     const requestToken = urlParams.get('request');
     if (requestToken && wallet) {
       const token = decodeToken(requestToken);
-      const reqState = (token.payload as unknown) as RequestState;
+      const reqState = (token.payload as unknown) as ContractCallPayload;
       setLoading(false);
       setRequestState(reqState);
     }
@@ -91,13 +90,16 @@ export const Transaction: React.FC = () => {
     if (requestState && wallet) {
       setLoading(true);
       const [identity] = wallet.identities;
-      const { contractName, contractAddress, functionName, functionArgs } = requestState;
+      const { contractName, contractAddress, functionName } = requestState;
       const version = TransactionVersion.Testnet;
+      const args = requestState.functionArgs.map(arg => {
+        return encodeContractCallArgument(arg);
+      });
       const tx = await identity.signContractCall({
         contractName,
         contractAddress,
         functionName,
-        functionArgs,
+        functionArgs: args,
         version,
       });
       const serialized = tx.serialize().toString('hex');

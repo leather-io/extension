@@ -8,15 +8,35 @@ export interface FinishedTxData {
   txRaw: string;
 }
 
-export interface ContractCallOptions {
+interface ContractCallBase {
   contractAddress: string;
-  functionName: string;
   contractName: string;
-  functionArgs?: any[];
+  functionName: string;
+  functionArgs: ContractCallArgument[];
+  appDetails?: AuthOptions['appDetails'];
+}
+
+export interface ContractCallOptions extends ContractCallBase {
   authOrigin?: string;
   userSession?: UserSession;
-  appDetails?: AuthOptions['appDetails'];
   finished?: (data: FinishedTxData) => void;
+}
+
+export enum ContractCallArgumentType {
+  BUFFER = 'buffer',
+  UINT = 'uint',
+  INT = 'int',
+  PRINCIPAL = 'principal',
+  BOOL = 'bool',
+}
+
+export interface ContractCallArgument {
+  type: ContractCallArgumentType;
+  value: string;
+}
+
+export interface ContractCallPayload extends ContractCallBase {
+  publicKey: string;
 }
 
 export const makeContractCallToken = async (opts: ContractCallOptions) => {
@@ -30,11 +50,11 @@ export const makeContractCallToken = async (opts: ContractCallOptions) => {
   const privateKey = userSession.loadUserData().appPrivateKey;
   const publicKey = SECP256K1Client.derivePublicKey(privateKey);
 
-  const payload: any = {
+  const payload: ContractCallPayload = {
     contractAddress,
     contractName,
     functionName,
-    functionArgs: functionArgs || [],
+    functionArgs,
     publicKey,
   };
 
@@ -43,7 +63,7 @@ export const makeContractCallToken = async (opts: ContractCallOptions) => {
   }
 
   const tokenSigner = new TokenSigner('ES256k', privateKey);
-  const token = await tokenSigner.signAsync(payload);
+  const token = await tokenSigner.signAsync(payload as any);
   return token;
 };
 
