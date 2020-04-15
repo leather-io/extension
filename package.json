@@ -47,5 +47,8 @@
   "workspaces":[
     "packages/*"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "resolutions": {
+    "buffer": "5.6.0"
+  }
 }
