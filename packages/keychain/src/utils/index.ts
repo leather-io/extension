@@ -73,10 +73,10 @@ export interface IdentityKeyPair {
   salt: string;
 }
 
-export async function deriveIdentityKeyPair(
+export function deriveIdentityKeyPair(
   identityOwnerAddressNode: IdentityAddressOwnerNode
-): Promise<IdentityKeyPair> {
-  const address = await identityOwnerAddressNode.getAddress();
+): IdentityKeyPair {
+  const address = identityOwnerAddressNode.getAddress();
   const identityKey = identityOwnerAddressNode.getIdentityKey();
   const identityKeyID = identityOwnerAddressNode.getIdentityKeyID();
   const appsNode = identityOwnerAddressNode.getAppsNode();
@@ -134,7 +134,7 @@ export const makeIdentity = async (masterKeychain: BIP32Interface, index: number
     identityPrivateKeychainNode,
     index
   );
-  const identityKeyPair = await deriveIdentityKeyPair(identityOwnerAddressNode);
+  const identityKeyPair = deriveIdentityKeyPair(identityOwnerAddressNode);
   const identity = new Identity({
     keyPair: identityKeyPair,
     address: identityKeyPair.address,
