@@ -42,7 +42,11 @@ export const Routes: React.FC = () => {
       return <Navigate to={onboardingPath} />;
     }
     if (isSignedIn) {
-      return <Navigate to={{ pathname: '/', hash: `connect/choose-account?${location.hash.split('?')[1]}` }} />;
+      return (
+        <Navigate
+          to={{ pathname: '/', hash: `connect/choose-account?${location.hash.split('?')[1]}` }}
+        />
+      );
     }
     if (decodedAuthRequest?.sendToSignIn) {
       return <Navigate to={{ pathname: '/', hash: `sign-in?${location.hash.split('?')[1]}` }} />;
@@ -65,7 +69,10 @@ export const Routes: React.FC = () => {
       <Route path="/" element={<Home />} />
       {/*Sign Up*/}
       <Route path="/sign-up" element={getSignUpElement()} />
-      <Route path="/sign-up/secret-key" element={<SecretKey next={() => doChangeScreen(ScreenPaths.SAVE_KEY)} />} />
+      <Route
+        path="/sign-up/secret-key"
+        element={<SecretKey next={() => doChangeScreen(ScreenPaths.SAVE_KEY)} />}
+      />
       <Route
         path="/sign-up/save-secret-key"
         element={
@@ -108,7 +115,10 @@ export const Routes: React.FC = () => {
       />
       {/*Error/Misc*/}
       <Route path="/username-error" element={<UsernameRegistryError />} />
-      <Route path="/settings/secret-key" element={<SecretKey next={() => doChangeScreen(ScreenPaths.HOME)} />} />
+      <Route
+        path="/settings/secret-key"
+        element={<SecretKey next={() => doChangeScreen(ScreenPaths.HOME)} />}
+      />
     </RoutesDom>
   );
 };

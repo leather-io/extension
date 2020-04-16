@@ -3,7 +3,12 @@ import { getPublicKeyFromPrivate } from 'blockstack/lib/keys';
 import { makeAuthResponse } from 'blockstack/lib/auth/authMessages';
 
 import { IdentityKeyPair } from './utils/index';
-import { makeGaiaAssociationToken, DEFAULT_GAIA_HUB, getHubInfo, connectToGaiaHubWithConfig } from './utils/gaia';
+import {
+  makeGaiaAssociationToken,
+  DEFAULT_GAIA_HUB,
+  getHubInfo,
+  connectToGaiaHubWithConfig,
+} from './utils/gaia';
 import IdentityAddressOwnerNode from './nodes/identity-address-owner-node';
 import { Profile, fetchProfile, DEFAULT_PROFILE, signAndUploadProfile } from './profiles';
 import { ecPairToAddress } from 'blockstack';
@@ -27,7 +32,13 @@ export class Identity {
   public usernames: string[];
   public profile?: Profile;
 
-  constructor({ keyPair, address, usernames, defaultUsername, profile }: IdentityConstructorOptions) {
+  constructor({
+    keyPair,
+    address,
+    usernames,
+    defaultUsername,
+    profile,
+  }: IdentityConstructorOptions) {
     this.keyPair = keyPair;
     this.address = address;
     this.usernames = usernames || [];
@@ -51,13 +62,17 @@ export class Identity {
     const profileUrl = await this.profileUrl(hubInfo.read_url_prefix);
     if (scopes.includes('publish_data')) {
       const profile =
-        this.profile || (await fetchProfile({ identity: this, gaiaUrl: hubInfo.read_url_prefix })) || DEFAULT_PROFILE;
+        this.profile ||
+        (await fetchProfile({ identity: this, gaiaUrl: hubInfo.read_url_prefix })) ||
+        DEFAULT_PROFILE;
       // console.log(profile)
       if (!profile.apps) {
         profile.apps = {};
       }
       const challengeSigner = ECPair.fromPrivateKey(Buffer.from(appPrivateKey, 'hex'));
-      profile.apps[appDomain] = `${hubInfo.read_url_prefix}${await ecPairToAddress(challengeSigner)}`;
+      profile.apps[appDomain] = `${hubInfo.read_url_prefix}${await ecPairToAddress(
+        challengeSigner
+      )}`;
       const gaiaHubConfig = await connectToGaiaHubWithConfig({
         hubInfo,
         privateKey: this.keyPair.key,

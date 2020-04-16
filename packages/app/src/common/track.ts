@@ -51,7 +51,10 @@ export const titleNameMap = {
   [ScreenPaths.HOME]: 'Secret Key',
 };
 
-export const doTrackScreenChange = (screen: ScreenPaths, decodedAuthRequest: DecodedAuthRequest | undefined) => {
+export const doTrackScreenChange = (
+  screen: ScreenPaths,
+  decodedAuthRequest: DecodedAuthRequest | undefined
+) => {
   document.title = titleNameMap[screen];
   const appURL = decodedAuthRequest ? new URL(decodedAuthRequest?.redirect_uri) : null;
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
