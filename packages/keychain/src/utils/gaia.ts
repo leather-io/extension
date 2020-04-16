@@ -49,14 +49,14 @@ interface ConnectToGaiaOptions {
   gaiaHubUrl: string;
 }
 
-export const connectToGaiaHubWithConfig = async ({
+export const connectToGaiaHubWithConfig = ({
   hubInfo,
   privateKey,
   gaiaHubUrl,
-}: ConnectToGaiaOptions): Promise<GaiaHubConfig> => {
+}: ConnectToGaiaOptions): GaiaHubConfig => {
   const readURL = hubInfo.read_url_prefix;
   const token = makeGaiaAuthToken({ hubInfo, privateKey, gaiaHubUrl });
-  const address = await ecPairToAddress(
+  const address = ecPairToAddress(
     hexStringToECPair(privateKey + (privateKey.length === 64 ? '01' : ''))
   );
   return {
@@ -64,6 +64,7 @@ export const connectToGaiaHubWithConfig = async ({
     address,
     token,
     server: gaiaHubUrl,
+    max_file_upload_size_megabytes: undefined,
   };
 };
 
@@ -75,11 +76,11 @@ interface ReadOnlyGaiaConfigOptions {
 /**
  * When you already know the Gaia read URL, make a Gaia config that doesn't have to fetch `/hub_info`
  */
-export const makeReadOnlyGaiaConfig = async ({
+export const makeReadOnlyGaiaConfig = ({
   readURL,
   privateKey,
-}: ReadOnlyGaiaConfigOptions): Promise<GaiaHubConfig> => {
-  const address = await ecPairToAddress(
+}: ReadOnlyGaiaConfigOptions): GaiaHubConfig => {
+  const address = ecPairToAddress(
     hexStringToECPair(privateKey + (privateKey.length === 64 ? '01' : ''))
   );
   return {
@@ -87,6 +88,7 @@ export const makeReadOnlyGaiaConfig = async ({
     address,
     token: 'not_used',
     server: 'not_used',
+    max_file_upload_size_megabytes: undefined,
   };
 };
 

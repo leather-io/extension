@@ -145,7 +145,7 @@ export class Wallet {
     rootNode: bip32.BIP32Interface;
     gaiaReadURL: string;
   }) {
-    const gaiaConfig = await makeReadOnlyGaiaConfig({
+    const gaiaConfig = makeReadOnlyGaiaConfig({
       readURL: gaiaReadURL,
       privateKey: this.configPrivateKey,
     });
