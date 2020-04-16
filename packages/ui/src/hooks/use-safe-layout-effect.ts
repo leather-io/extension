@@ -2,7 +2,7 @@ import * as React from 'react';
 import { isBrowser } from '../utils';
 
 /**
- * useSafeLayoutEffect enables us to safely call `useLayoutEffect` on the browserpr
+ * useSafeLayoutEffect enables us to safely call `useLayoutEffect` on the browser
  * (for SSR reasons)
  *
  * React currently throws a warning when using useLayoutEffect on the server.
