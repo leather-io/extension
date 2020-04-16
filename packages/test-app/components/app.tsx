@@ -99,9 +99,7 @@ export const App: React.FC = () => {
           <Flex direction="column" minHeight="100vh" bg="whitesmoke">
             {authResponse && <input type="hidden" id="auth-response" value={authResponse} />}
             {appPrivateKey && <input type="hidden" id="app-private-key" value={appPrivateKey} />}
-
             <Header signOut={signOut} />
-
             <AppContent />
           </Flex>
         </AppContext.Provider>

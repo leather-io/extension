@@ -2,8 +2,13 @@ import { bip32, ECPair } from 'bitcoinjs-lib';
 import { getPublicKeyFromPrivate } from 'blockstack/lib/keys';
 import { makeAuthResponse } from 'blockstack/lib/auth/authMessages';
 
-import { IdentityKeyPair } from './utils/index';
-import { makeGaiaAssociationToken, DEFAULT_GAIA_HUB, getHubInfo, connectToGaiaHubWithConfig } from './utils/gaia';
+import { IdentityKeyPair } from './utils';
+import {
+  makeGaiaAssociationToken,
+  DEFAULT_GAIA_HUB,
+  getHubInfo,
+  connectToGaiaHubWithConfig,
+} from './utils/gaia';
 import IdentityAddressOwnerNode from './nodes/identity-address-owner-node';
 import { Profile, fetchProfile, DEFAULT_PROFILE, signAndUploadProfile } from './profiles';
 import { ecPairToAddress } from 'blockstack';
@@ -52,7 +57,15 @@ export class Identity {
   public profile?: Profile;
   public nonce: number;
 
-  constructor({ keyPair, address, usernames, defaultUsername, profile, nonce }: IdentityConstructorOptions) {
+  constructor({
+    keyPair,
+    address,
+    usernames,
+    defaultUsername,
+    profile,
+    nonce,
+  }: IdentityConstructorOptions) {
+
     this.keyPair = keyPair;
     this.address = address;
     this.usernames = usernames || [];
@@ -75,14 +88,16 @@ export class Identity {
     const appPrivateKey = await this.appPrivateKey(appDomain);
     const hubInfo = await getHubInfo(gaiaUrl);
     const profileUrl = await this.profileUrl(hubInfo.read_url_prefix);
-    const profile = (await fetchProfile({ identity: this, gaiaUrl: hubInfo.read_url_prefix })) || DEFAULT_PROFILE;
+    const profile =
+      (await fetchProfile({ identity: this, gaiaUrl: hubInfo.read_url_prefix })) || DEFAULT_PROFILE;
     if (scopes.includes('publish_data')) {
-      // console.log(profile)
       if (!profile.apps) {
         profile.apps = {};
       }
       const challengeSigner = ECPair.fromPrivateKey(Buffer.from(appPrivateKey, 'hex'));
-      profile.apps[appDomain] = `${hubInfo.read_url_prefix}${await ecPairToAddress(challengeSigner)}`;
+      profile.apps[appDomain] = `${hubInfo.read_url_prefix}${await ecPairToAddress(
+        challengeSigner
+      )}`;
       const gaiaHubConfig = await connectToGaiaHubWithConfig({
         hubInfo,
         privateKey: this.keyPair.key,
