@@ -252,6 +252,6 @@ describe.each(environments)('auth scenarios - %o %o', (browserType, deviceType) 
       appPrivateKeyEl
     )) as string;
     expect(appPrivateKey).toBeTruthy();
-    expect(appPrivateKey).toEqual(await wallet.identities[0].appPrivateKey(DemoPage.url));
+    expect(appPrivateKey).toEqual(wallet.identities[0].appPrivateKey(DemoPage.url));
   }, 60_000);
 });
