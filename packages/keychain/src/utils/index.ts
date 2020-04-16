@@ -61,7 +61,7 @@ export async function getIdentityOwnerAddressNode(
   return new IdentityAddressOwnerNode(identityPrivateKeychain.deriveHardened(identityIndex), salt);
 }
 
-export async function getAddress(node: BIP32Interface) {
+export function getAddress(node: BIP32Interface) {
   return publicKeyToAddress(node.publicKey);
 }
 
@@ -103,7 +103,7 @@ export async function getBlockchainIdentities(
   const bitcoinPublicKeychainNode = bitcoinPrivateKeychainNode.neutered();
   const bitcoinPublicKeychain = bitcoinPublicKeychainNode.toBase58();
 
-  const firstBitcoinAddress = await getAddress(getBitcoinAddressNode(bitcoinPublicKeychainNode));
+  const firstBitcoinAddress = getAddress(getBitcoinAddressNode(bitcoinPublicKeychainNode));
 
   const identityAddresses: string[] = [];
   const identityKeypairs = [];

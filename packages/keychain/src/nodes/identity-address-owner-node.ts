@@ -40,7 +40,7 @@ export default class IdentityAddressOwnerNode {
     return this.hdNode.deriveHardened(APPS_NODE_INDEX);
   }
 
-  async getAddress() {
+  getAddress() {
     return getAddress(this.hdNode);
   }
 
