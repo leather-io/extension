@@ -60,7 +60,7 @@ test('adds to apps in profile if publish_data scope', async () => {
   expect(apps[appDomain]).not.toBeFalsy();
   const appPrivateKey = await decryptPrivateKey(transitPrivateKey, payload.private_key);
   const challengeSigner = ECPair.fromPrivateKey(Buffer.from(appPrivateKey as string, 'hex'));
-  const expectedDomain = `https://gaia.blockstack.org/hub/${await ecPairToAddress(
+  const expectedDomain = `https://gaia.blockstack.org/hub/${ecPairToAddress(
     challengeSigner
   )}`;
   expect(apps[appDomain]).toEqual(expectedDomain);
