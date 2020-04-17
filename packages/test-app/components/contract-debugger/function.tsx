@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Input, FormControl, FormLabel, Text, Button } from '@blockstack/ui';
-import { ContractInterfaceFunction, ContractInterfaceFunctionArg, callReadOnly } from '@blockstack/rpc-client';
+import { ContractInterfaceFunction, ContractInterfaceFunctionArg } from '@blockstack/rpc-client';
 import { standardPrincipalCV, deserializeCV, BufferCV, ClarityType } from '@blockstack/stacks-transactions';
-import { getAuthOrigin } from '@common/utils';
+import { getAuthOrigin, getRPCClient } from '@common/utils';
 import { useConnect, ContractCallArgumentType, ContractCallArgument } from '@blockstack/connect';
 import Styled from 'styled-components';
 
@@ -82,7 +82,8 @@ export const Function: React.FC<FunctionProps> = ({ func, contractAddress, contr
       const cv = standardPrincipalCV(state[arg.name].value);
       return cv;
     });
-    const data = await callReadOnly({
+    const client = getRPCClient();
+    const data = await client.callReadOnly({
       contractName,
       contractAddress,
       args: funcArgs,

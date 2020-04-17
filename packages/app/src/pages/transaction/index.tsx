@@ -17,9 +17,8 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { TransactionVersion, AddressVersion, addressToString } from '@blockstack/stacks-transactions';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TabbedCard, Tab } from '@components/tabbed-card';
-import { broadcastTX } from '@blockstack/rpc-client';
 import { finalizeTxSignature } from '@common/utils';
-import { encodeContractCallArgument } from '@common/stacks-utils';
+import { encodeContractCallArgument, getRPCClient } from '@common/stacks-utils';
 
 interface TabContentProps {
   json: any;
@@ -95,16 +94,18 @@ export const Transaction: React.FC = () => {
       const args = requestState.functionArgs.map(arg => {
         return encodeContractCallArgument(arg);
       });
+      const rpcClient = getRPCClient();
       const tx = await identity.signContractCall({
         contractName,
         contractAddress,
         functionName,
         functionArgs: args,
         version,
+        rpcClient,
       });
       const serialized = tx.serialize().toString('hex');
       setTxHash(serialized);
-      const res = await broadcastTX(tx.serialize());
+      const res = await rpcClient.broadcastTX(tx.serialize());
       const { txId } = await res.json();
       setLoading(false);
       finalizeTxSignature({ txId, txRaw: serialized });

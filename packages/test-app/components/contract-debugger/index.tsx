@@ -1,8 +1,9 @@
 import React from 'react';
 import { Flex, Box, Input, Button, FormControl, FormLabel } from '@blockstack/ui';
-import { fetchContractInterface, ContractInterface } from '@blockstack/rpc-client';
+import { ContractInterface } from '@blockstack/rpc-client';
 import { useFormik } from 'formik';
 import { Function } from './function';
+import { getRPCClient } from '@common/utils';
 
 const initialValues = {
   contractName: 'status',
@@ -19,7 +20,8 @@ export const ContractDebugger: React.FC = () => {
       const { contractName, contractAddress } = values;
       setLoading(true);
       // saveAuthRequest(values.contractName);
-      const contractInterface = await fetchContractInterface({
+      const client = getRPCClient();
+      const contractInterface = await client.fetchContractInterface({
         contractName,
         contractAddress,
       });

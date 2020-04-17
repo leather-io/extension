@@ -19,7 +19,7 @@ import {
   addressToString,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
-import { fetchAccount } from '@blockstack/rpc-client';
+import RPCClient from '@blockstack/rpc-client';
 
 interface IdentityConstructorOptions {
   keyPair: IdentityKeyPair;
@@ -40,6 +40,7 @@ interface ContractCallOptions {
   functionName: string;
   functionArgs: ClarityValue[];
   version: TransactionVersion;
+  rpcClient: RPCClient;
 }
 
 export class Identity {
@@ -182,16 +183,23 @@ export class Identity {
     return address;
   }
 
-  async fetchAccount(version: AddressVersion) {
+  async fetchAccount({ version, rpcClient }: { version: AddressVersion; rpcClient: RPCClient }) {
     const address = this.getSTXAddress(version);
-    const account = await fetchAccount(addressToString(address));
+    const account = await rpcClient.fetchAccount(addressToString(address));
     return account;
   }
 
-  async signContractCall({ contractName, contractAddress, functionName, functionArgs, version }: ContractCallOptions) {
+  async signContractCall({
+    contractName,
+    contractAddress,
+    functionName,
+    functionArgs,
+    version,
+    rpcClient,
+  }: ContractCallOptions) {
     const addressVersion =
       version === TransactionVersion.Mainnet ? AddressVersion.MainnetSingleSig : AddressVersion.TestnetSingleSig;
-    const { nonce } = await this.fetchAccount(addressVersion);
+    const { nonce } = await this.fetchAccount({ version: addressVersion, rpcClient });
     const tx = makeContractCall(
       contractAddress,
       contractName,
