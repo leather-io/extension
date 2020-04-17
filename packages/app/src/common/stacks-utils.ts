@@ -8,6 +8,7 @@ import {
   standardPrincipalCV,
   bufferCV,
 } from '@blockstack/stacks-transactions';
+import RPCClient from '@blockstack/rpc-client';
 
 export const encodeContractCallArgument = ({ type, value }: ContractCallArgument) => {
   switch (type) {
@@ -31,4 +32,10 @@ export const encodeContractCallArgument = ({ type, value }: ContractCallArgument
     default:
       throw new Error(`Unexpected Clarity type: ${type}`);
   }
+};
+
+export const getRPCClient = () => {
+  const { origin } = location;
+  const url = origin.includes('localhost') ? 'http://localhost:3999' : 'http://crashy-stacky.zone117x.com';
+  return new RPCClient(url);
 };

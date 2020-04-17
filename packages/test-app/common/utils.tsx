@@ -1,3 +1,5 @@
+import { RPCClient } from '@blockstack/rpc-client';
+
 export const getAuthOrigin = () => {
   let authOrigin = 'http://localhost:8080';
   // In order to have deploy previews use the same version of the authenticator,
@@ -12,4 +14,10 @@ export const getAuthOrigin = () => {
     authOrigin = 'https://app.blockstack.org';
   }
   return authOrigin;
+};
+
+export const getRPCClient = () => {
+  const { origin } = location;
+  const url = origin.includes('localhost') ? 'http://localhost:3999' : 'http://crashy-stacky.zone117x.com';
+  return new RPCClient(url);
 };

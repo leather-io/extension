@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '@cards/card';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
-import { broadcastTX } from '@blockstack/rpc-client';
+import { getRPCClient } from '@common/utils';
 
 interface FaucetResponse {
   tx?: string;
@@ -17,11 +17,6 @@ export const FaucetCard: React.FC = () => {
   };
 
   const getServerURL = () => {
-    // TODO: use production server URL
-    // const { hostname } = document.location;
-    // if (hostname.includes('deploy-preview')) {
-    //   return `https://${hostname.rec}`
-    // }
     return 'http://localhost:5555';
   };
 
@@ -35,7 +30,8 @@ export const FaucetCard: React.FC = () => {
     if (data.tx) {
       setTX(data.tx);
       const buf = Buffer.from(data.tx, 'hex');
-      await broadcastTX(buf);
+      const client = getRPCClient();
+      await client.broadcastTX(buf);
     }
     console.log(data);
   };
