@@ -19,8 +19,8 @@ import {
   AddressVersion,
   AddressHashMode,
   ClarityValue,
-  fromPrivateKey,
-  fromPublicKeys,
+  pubKeyfromPrivKey,
+  addressFromPublicKeys,
   addressToString,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
@@ -195,8 +195,8 @@ export class Identity {
   }
 
   getSTXAddress(version: AddressVersion) {
-    const pk = fromPrivateKey(this.getSTXPrivateKey().toString('hex'));
-    const address = fromPublicKeys(version, AddressHashMode.SerializeP2PKH, 1, [pk]);
+    const pk = pubKeyfromPrivKey(this.getSTXPrivateKey().toString('hex'));
+    const address = addressFromPublicKeys(version, AddressHashMode.SerializeP2PKH, 1, [pk]);
     return address;
   }
 
