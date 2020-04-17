@@ -75,9 +75,8 @@ export class Identity {
     const appPrivateKey = await this.appPrivateKey(appDomain);
     const hubInfo = await getHubInfo(gaiaUrl);
     const profileUrl = await this.profileUrl(hubInfo.read_url_prefix);
+    const profile = (await fetchProfile({ identity: this, gaiaUrl: hubInfo.read_url_prefix })) || DEFAULT_PROFILE;
     if (scopes.includes('publish_data')) {
-      const profile =
-        this.profile || (await fetchProfile({ identity: this, gaiaUrl: hubInfo.read_url_prefix })) || DEFAULT_PROFILE;
       // console.log(profile)
       if (!profile.apps) {
         profile.apps = {};
@@ -90,9 +89,8 @@ export class Identity {
         gaiaHubUrl: gaiaUrl,
       });
       await signAndUploadProfile({ profile, identity: this, gaiaHubUrl: gaiaUrl, gaiaHubConfig });
-      this.profile = profile;
     }
-    // const appBucketUrl = await getAppBucketUrl(gaiaUrl, appPrivateKey)
+    this.profile = profile;
 
     const compressedAppPublicKey = getPublicKeyFromPrivate(appPrivateKey.slice(0, 64));
     const associationToken = makeGaiaAssociationToken(this.keyPair.key, compressedAppPublicKey);
