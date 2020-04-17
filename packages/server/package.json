@@ -17,7 +17,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@blockstack/stacks-transactions": "0.2.0-alpha.4",
+    "@blockstack/stacks-transactions": "0.3.0-alpha.1",
     "bn.js": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
