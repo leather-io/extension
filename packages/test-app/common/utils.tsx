@@ -18,6 +18,6 @@ export const getAuthOrigin = () => {
 
 export const getRPCClient = () => {
   const { origin } = location;
-  const url = origin.includes('localhost') ? 'http://localhost:3999' : 'http://crashy-stacky.zone117x.com';
+  const url = origin.includes('localhost') ? 'http://localhost:3999' : 'https://crashy-stacky.zone117x.com';
   return new RPCClient(url);
 };
