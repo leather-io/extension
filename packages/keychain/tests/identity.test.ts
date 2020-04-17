@@ -6,6 +6,7 @@ import { getIdentity, profileResponse } from './helpers';
 import { ecPairToAddress } from 'blockstack';
 import { ECPair } from 'bitcoinjs-lib';
 import { getAddress } from '../src';
+import { AddressVersion, addressToString } from '@blockstack/stacks-transactions';
 
 interface Decoded {
   [key: string]: any;
@@ -149,6 +150,6 @@ test('can get a STX keychain node', async () => {
 
 test('can get a STX address', async () => {
   const identity = await getIdentity();
-  const addr = await identity.getSTXAddress();
-  expect(addr).toEqual('SP23QFN9B1MQD5WXSH98GPDWGYGRGCPAT9PT3RX8H');
+  const addr = identity.getSTXAddress(AddressVersion.MainnetSingleSig);
+  expect(addressToString(addr)).toEqual('SP1C91XQ71PVHG9EJQ2F5DCNNWKVMEGYP84FR6H1B');
 });
