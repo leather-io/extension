@@ -43,6 +43,7 @@ export const Transaction: React.FC = () => {
   const [requestState, setRequestState] = useState<ContractCallPayload | undefined>();
   const [txHash, setTxHash] = useState('');
   const [loading, setLoading] = useState(true);
+  const [contractSrc, setContractSrc] = useState('');
 
   const getInputJSON = () => {
     if (requestState && wallet) {
@@ -74,14 +75,24 @@ export const Transaction: React.FC = () => {
     },
   ];
 
+  const setupWithState = async (reqState: ContractCallPayload) => {
+    const client = getRPCClient();
+    const source = await client.fetchContractSource({
+      contractName: reqState.contractName,
+      contractAddress: reqState.contractAddress,
+    });
+    setContractSrc(source);
+    setLoading(false);
+    setRequestState(reqState);
+  };
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const requestToken = urlParams.get('request');
     if (requestToken && wallet) {
       const token = decodeToken(requestToken);
       const reqState = (token.payload as unknown) as ContractCallPayload;
-      setLoading(false);
-      setRequestState(reqState);
+      setupWithState(reqState);
     }
   }, []);
 
