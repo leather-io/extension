@@ -17,12 +17,16 @@ export const FaucetCard: React.FC = () => {
   };
 
   const getServerURL = () => {
-    return 'http://localhost:5555';
+    const { origin } = location;
+    if (origin.includes('localhost')) {
+      return 'http://localhost:3999';
+    }
+    return 'https://crashy-stacky.zone117x.com';
   };
 
   const onSubmit = async () => {
     console.log(address);
-    const url = `${getServerURL()}/api/faucet?address=${address}`;
+    const url = `${getServerURL()}/sidecar/v1/debug/faucet?address=${address}`;
     const res = await fetch(url, {
       method: 'POST',
     });
