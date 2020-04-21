@@ -111,6 +111,19 @@ export class RPCClient {
     console.log(data);
     return data;
   }
+
+  async fetchContractSource({
+    contractName,
+    contractAddress,
+  }: {
+    contractName: string;
+    contractAddress: string;
+  }) {
+    const url = `${this.url}/v2/contracts/source/${contractAddress}/${contractName}`;
+    const res = await fetch(url);
+    const { source }: { source: string } = await res.json();
+    return source;
+  }
 }
 
 export default RPCClient;
