@@ -63,7 +63,7 @@ export class RPCClient {
   }
 
   async broadcastTX(hex: Buffer) {
-    const url = `${this.url}/debug/v2/transactions`;
+    const url = `${this.url}/v2/transactions`;
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'omit',

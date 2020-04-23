@@ -15,3 +15,4 @@ export * from './private-icon';
 export * from './union-line-icon';
 export * from './close-icon';
 export * from './external-icon';
+export * from './failed-icon';

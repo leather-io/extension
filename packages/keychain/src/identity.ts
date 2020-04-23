@@ -45,7 +45,7 @@ interface ContractCallOptions {
   functionName: string;
   functionArgs: ClarityValue[];
   version: TransactionVersion;
-  rpcClient: RPCClient;
+  nonce: number;
 }
 
 export class Identity {
@@ -207,25 +207,20 @@ export class Identity {
     return account;
   }
 
-  async signContractCall({
+  signContractCall({
     contractName,
     contractAddress,
     functionName,
     functionArgs,
     version,
-    rpcClient,
+    nonce,
   }: ContractCallOptions) {
-    const addressVersion =
-      version === TransactionVersion.Mainnet
-        ? AddressVersion.MainnetSingleSig
-        : AddressVersion.TestnetSingleSig;
-    const { nonce } = await this.fetchAccount({ version: addressVersion, rpcClient });
     const tx = makeContractCall(
       contractAddress,
       contractName,
       functionName,
       functionArgs,
-      new BN(0),
+      new BN(200),
       this.getSTXPrivateKey().toString('hex'),
       {
         version: version,

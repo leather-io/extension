@@ -9,16 +9,17 @@ import {
   ContractCallPayload,
 } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
-import { Button, Box, Text, ExternalIcon } from '@blockstack/ui';
+import { Button, Box, Text } from '@blockstack/ui';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 import { useWallet } from '@common/hooks/use-wallet';
 import { TransactionVersion, AddressVersion, addressToString } from '@blockstack/stacks-transactions';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
+import { TxError } from '@components/transactions/tx-error';
 import { TabbedCard, Tab } from '@components/tabbed-card';
 import { finalizeTxSignature } from '@common/utils';
-import { encodeContractCallArgument, getRPCClient } from '@common/stacks-utils';
+import { encodeContractCallArgument, getRPCClient, stacksValue } from '@common/stacks-utils';
 
 interface TabContentProps {
   json: any;
@@ -44,6 +45,10 @@ export const Transaction: React.FC = () => {
   const [txHash, setTxHash] = useState('');
   const [loading, setLoading] = useState(true);
   const [contractSrc, setContractSrc] = useState('');
+  const [balance, setBalance] = useState(0);
+  const [nonce, setNonce] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const client = getRPCClient();
 
   const getInputJSON = () => {
     if (requestState && wallet) {
@@ -67,33 +72,54 @@ export const Transaction: React.FC = () => {
       title: (
         <>
           View Source
-          <ExternalIcon display="inline-block" width="9px" ml={1} />
+          {/* Add this icon when we can link to the explorer */}
+          {/* <ExternalIcon display="inline-block" width="9px" ml={1} /> */}
         </>
       ),
-      content: <span>src</span>,
+      content: (
+        <Box whiteSpace="pre" overflow="scroll" color="gray" maxHeight="200px">
+          {contractSrc}
+        </Box>
+      ),
       key: 'source',
     },
   ];
 
+  const setupAccountInfo = async () => {
+    if (wallet) {
+      const [identity] = wallet.identities;
+      const account = await client.fetchAccount(
+        addressToString(identity.getSTXAddress(AddressVersion.TestnetSingleSig))
+      );
+      setBalance(account.balance.toNumber());
+      setNonce(account.nonce);
+    }
+  };
+
   const setupWithState = async (reqState: ContractCallPayload) => {
-    const client = getRPCClient();
     const source = await client.fetchContractSource({
       contractName: reqState.contractName,
       contractAddress: reqState.contractAddress,
     });
     setContractSrc(source);
-    setLoading(false);
     setRequestState(reqState);
   };
 
-  useEffect(() => {
+  const setup = async () => {
     const urlParams = new URLSearchParams(location.search);
     const requestToken = urlParams.get('request');
     if (requestToken && wallet) {
       const token = decodeToken(requestToken);
       const reqState = (token.payload as unknown) as ContractCallPayload;
-      setupWithState(reqState);
+      await Promise.all([setupWithState(reqState), setupAccountInfo()]);
+      setLoading(false);
+    } else {
+      console.error('Unable to find contract call parameter');
     }
+  };
+
+  useEffect(() => {
+    setup();
   }, []);
 
   const handleButtonClick = async () => {
@@ -106,22 +132,36 @@ export const Transaction: React.FC = () => {
         return encodeContractCallArgument(arg);
       });
       const rpcClient = getRPCClient();
-      const tx = await identity.signContractCall({
+      const tx = identity.signContractCall({
         contractName,
         contractAddress,
         functionName,
         functionArgs: args,
         version,
-        rpcClient,
+        nonce,
       });
       const serialized = tx.serialize().toString('hex');
       setTxHash(serialized);
       const res = await rpcClient.broadcastTX(tx.serialize());
-      const { txId } = await res.json();
+      // const { txId } = await res.json();
+      if (res.ok) {
+        const txId = await res.text();
+        finalizeTxSignature({ txId, txRaw: serialized });
+      } else {
+        const response = await res.json();
+        if (response.error) {
+          console.error(response.error);
+          console.error(response.reason);
+          setError(`${response.error} - ${response.reason}`);
+        }
+      }
       setLoading(false);
-      finalizeTxSignature({ txId, txRaw: serialized });
     }
   };
+
+  if (error) {
+    return <TxError message={error} />;
+  }
 
   return (
     <>
@@ -131,8 +171,7 @@ export const Transaction: React.FC = () => {
         <ScreenHeader
           rightContent={
             <Text textStyle="caption.small" color="gray" fontSize={0}>
-              {/* TODO: use RPC API to get balance */}
-              100.00 STX available
+              {stacksValue(balance)} available
             </Text>
           }
         />
