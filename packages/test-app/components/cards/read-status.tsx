@@ -6,6 +6,7 @@ import { standardPrincipalCV, BufferCV, deserializeCV, ClarityType } from '@bloc
 
 export const ReadStatusCard: React.FC = () => {
   const [address, setAddress] = useState('');
+  const [result, setResult] = useState('');
 
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setAddress(evt.currentTarget.value || '');
@@ -26,15 +27,20 @@ export const ReadStatusCard: React.FC = () => {
     if (cv.type === ClarityType.Buffer) {
       const ua = Array.from(cv.buffer);
       const str = String.fromCharCode.apply(null, ua);
-      // setResult(str);
+      setResult(str);
       console.log(str);
     }
   };
 
   return (
     <Card title="Read Status">
-      <Flex justifyContent="center" wrap="wrap">
-        <Text display="inline-block">Fetch the status for a specific address.</Text>
+      <Flex wrap="wrap">
+        <Text display="block">Fetch the status for a specific address.</Text>
+        {result && (
+          <Text display="block" fontWeight={600} my={3} width="100%">
+            {result}
+          </Text>
+        )}
         <Box width="100%" mt={3}>
           <Input
             type="text"
