@@ -4,6 +4,7 @@ import { ContractInterface } from '@blockstack/rpc-client';
 import { useFormik } from 'formik';
 import { Function } from './function';
 import { getRPCClient } from '@common/utils';
+import { TabbedCard, Tab } from '@components/tabbed-card';
 
 const initialValues = {
   contractName: 'status',
@@ -12,6 +13,7 @@ const initialValues = {
 
 export const ContractDebugger: React.FC = () => {
   const [contractInterface, setContractInterface] = React.useState<ContractInterface | null>(null);
+  const [contractSource, setContractSource] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const formik = useFormik({
     initialValues,
@@ -21,10 +23,17 @@ export const ContractDebugger: React.FC = () => {
       setLoading(true);
       // saveAuthRequest(values.contractName);
       const client = getRPCClient();
-      const contractInterface = await client.fetchContractInterface({
-        contractName,
-        contractAddress,
-      });
+      const [contractInterface, contractSource] = await Promise.all([
+        client.fetchContractInterface({
+          contractName,
+          contractAddress,
+        }),
+        client.fetchContractSource({
+          contractName,
+          contractAddress,
+        }),
+      ]);
+      setContractSource(contractSource);
       setContractInterface(contractInterface);
       setLoading(false);
       console.log(contractInterface);
@@ -47,6 +56,23 @@ export const ContractDebugger: React.FC = () => {
     });
     return funcs;
   };
+
+  const tabs: Tab[] = [
+    {
+      title: 'Interface',
+      content: getInterfaceView(),
+      key: 'interface',
+    },
+    {
+      title: 'Source',
+      content: (
+        <Box whiteSpace="pre" overflow="scroll" maxHeight="600px">
+          {contractSource}
+        </Box>
+      ),
+      key: 'source',
+    },
+  ];
 
   return (
     <Flex wrap="wrap">
@@ -79,7 +105,12 @@ export const ContractDebugger: React.FC = () => {
           </Button>
         </form>
       </Box>
-      <Box width="50%">{getInterfaceView()}</Box>
+      {contractInterface && (
+        <Box width="50%" px={3}>
+          <TabbedCard tabs={tabs} />
+          {/* {getInterfaceView()} */}
+        </Box>
+      )}
     </Flex>
   );
 };

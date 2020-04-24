@@ -90,13 +90,17 @@ export const Function: React.FC<FunctionProps> = ({ func, contractAddress, contr
       functionName: func.name,
     });
     console.log(data);
-    const cv = deserializeCV(Buffer.from(data.result.slice(2), 'hex')) as BufferCV;
+    const cv = deserializeCV(Buffer.from(data.result.slice(2), 'hex'));
     console.log(cv);
     if (cv.type === ClarityType.Buffer) {
       const ua = Array.from(cv.buffer);
       const str = String.fromCharCode.apply(null, ua);
       setResult(str);
       console.log(str);
+    } else if (cv.type === ClarityType.Int || cv.type === ClarityType.UInt) {
+      setResult(cv.value.toNumber().toString());
+    } else {
+      setResult(JSON.stringify(cv));
     }
   };
 
