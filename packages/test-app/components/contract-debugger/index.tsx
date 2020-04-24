@@ -7,7 +7,7 @@ import { getRPCClient } from '@common/utils';
 
 const initialValues = {
   contractName: 'status',
-  contractAddress: 'ST2ZRX0K27GW0SP3GJCEMHD95TQGJMKB7G9Y0X1MH',
+  contractAddress: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6',
 };
 
 export const ContractDebugger: React.FC = () => {

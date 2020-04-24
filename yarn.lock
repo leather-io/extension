@@ -1250,10 +1250,10 @@
   resolved "https://registry.yarnpkg.com/@blockstack/prettier-config/-/prettier-config-0.0.6.tgz#8a41cd378ba061b79770987f2a6ad0c92b64bd72"
   integrity sha512-ke0MdyblmoUqSJBEutsG8/6G7KAjCB+uOcgZHPJvJr4R+i5yRhT4GSe5nV/wREINuK0jj2GvaA6qlx4PQTKQUA==
 
-"@blockstack/stacks-transactions@0.3.0-alpha.1":
-  version "0.3.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@blockstack/stacks-transactions/-/stacks-transactions-0.3.0-alpha.1.tgz#4ea991950327979a2a05cc77c1cfbb1174740cca"
-  integrity sha512-zn+O+mIGsnAWbRV65nx8krF3LJe7cjdGWCTYAn8SjCZxxxB82MR9K3pNCLgSxqQFCaLMYIU6C02NKth37dGOIA==
+"@blockstack/stacks-transactions@0.3.0-alpha.5":
+  version "0.3.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@blockstack/stacks-transactions/-/stacks-transactions-0.3.0-alpha.5.tgz#86ae67291413865e60da450166477dfd6db2cd6d"
+  integrity sha512-kq4FlQ4XWqacuPqkMS1mtA3m4BZ6d7ajJqKyZnDeTajDPbuP2cKZrzg40Gu/M4ixzvXB5CGMhfMmBpL773WM+A==
   dependencies:
     "@types/bn.js" "^4.11.6"
     "@types/elliptic" "^6.4.12"
@@ -1263,6 +1263,7 @@
     "@types/sha.js" "^2.4.0"
     bn.js "^4.11.8"
     c32check "^1.0.1"
+    cross-fetch "^3.0.4"
     elliptic "^6.5.2"
     lodash "^4.17.15"
     randombytes "^2.1.0"

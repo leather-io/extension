@@ -16,7 +16,7 @@ export const HelloContractCard: React.FC = () => {
         onClick={async () =>
           await doContractCall({
             authOrigin,
-            contractAddress: 'ST2ZRX0K27GW0SP3GJCEMHD95TQGJMKB7G9Y0X1MH',
+            contractAddress: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6',
             functionName: 'say-hi',
             contractName: 'stream',
             functionArgs: [],
