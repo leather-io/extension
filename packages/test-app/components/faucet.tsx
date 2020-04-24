@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Card } from '@cards/card';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
 import { getRPCClient } from '@common/utils';
 
@@ -8,7 +7,7 @@ interface FaucetResponse {
   success: boolean;
 }
 
-export const FaucetCard: React.FC = () => {
+export const Faucet: React.FC = () => {
   const [address, setAddress] = useState('');
   const [tx, setTX] = useState('');
 
@@ -41,11 +40,18 @@ export const FaucetCard: React.FC = () => {
   };
 
   return (
-    <Card title="Faucet">
-      <Text display="inline-block">Receive some free testnet STX for testing out the network.</Text>
-      <Text display="inline-block" my={3} fontSize={1} style={{ wordBreak: 'break-all' }}>
-        {tx}
+    <Box mb={6} maxWidth="600px">
+      <Text as="h2" fontSize={5} mt={6}>
+        Faucet
       </Text>
+      <Text display="block" my={4} textStyle="caption.medium">
+        Receive some free testnet STX for testing out the network. STX are required to execute smart contract functions.
+      </Text>
+      {tx && (
+        <Text display="inline-block" my={3} fontSize={1} style={{ wordBreak: 'break-all' }}>
+          {tx}
+        </Text>
+      )}
       <Flex wrap="wrap">
         <Box width="100%">
           <Input
@@ -61,6 +67,6 @@ export const FaucetCard: React.FC = () => {
           <Button>Receive Testnet STX</Button>
         </Box>
       </Flex>
-    </Card>
+    </Box>
   );
 };

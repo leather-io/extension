@@ -1,14 +1,13 @@
 import React, { useEffect, useContext } from 'react';
-import { ThemeProvider, theme, Flex, CSSReset, Text } from '@blockstack/ui';
+import { ThemeProvider, theme, Flex, CSSReset, Text, Box } from '@blockstack/ui';
 import { Connect, AuthOptions } from '@blockstack/connect';
 import { WriteStatusCard } from '@cards/write-status';
-import { AuthCard } from '@cards/auth';
 import { getAuthOrigin } from '@common/utils';
 import { UserSession, AppConfig } from 'blockstack';
 import { defaultState, AppContext, AppState } from '@common/context';
-import { SignedIn } from '@cards/signed-in';
-import { FaucetCard } from '@cards/faucet';
+import { Faucet } from '@components/faucet';
 import { ContractDebugger } from '@components/contract-debugger';
+import { Header } from '@components/header';
 import { ReadStatusCard } from '@cards/read-status';
 
 export const App: React.FC = () => {
@@ -38,21 +37,18 @@ export const App: React.FC = () => {
     const state = useContext(AppContext);
 
     return (
-      <>
-        <Text as="h2" fontSize={4} mt={6}>
-          Authentication
-        </Text>
-        <Flex wrap="wrap" justifyContent="left">
-          <AuthCard />
-          {state.userData && <SignedIn signOut={signOut} />}
-        </Flex>
+      <Box p={6}>
+        <Faucet />
         <Text as="h2" fontSize={5} mt={6}>
           Smart Contracts
+        </Text>
+        <Text display="block" textStyle="caption.medium" maxWidth="600px" my={4}>
+          Interact with a pre-existing smart contract. Anyone can write their &quot;status&quot;, and each STX address
+          can have one status at a time. You can also fetch someone else&apos;s status, if you know their STX address.
         </Text>
         <Flex wrap="wrap" justifyContent="left">
           {state.userData ? (
             <>
-              <FaucetCard />
               <WriteStatusCard />
               <ReadStatusCard />
             </>
@@ -65,8 +61,12 @@ export const App: React.FC = () => {
         <Text as="h2" fontSize={5} mt={6}>
           Contract Debugger
         </Text>
+        <Text display="block" my={4} textStyle="caption.medium" maxWidth="600px">
+          Enter the information for any published smart contract. That contract&apos;s interface will be fetched, and
+          you&apos;ll be able to execute public and read-only functions on that contract.
+        </Text>
         <ContractDebugger />
-      </>
+      </Box>
     );
   };
 
@@ -94,13 +94,11 @@ export const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <AppContext.Provider value={state}>
           <CSSReset />
-          <Flex direction="column" minHeight="100vh" width="100vw" bg="whitesmoke" p={6}>
+          <Flex direction="column" minHeight="100vh" bg="whitesmoke">
             {authResponse && <input type="hidden" id="auth-response" value={authResponse} />}
             {appPrivateKey && <input type="hidden" id="app-private-key" value={appPrivateKey} />}
 
-            <Text as="h1" fontSize={7}>
-              Blockstack Kitchen Sink
-            </Text>
+            <Header signOut={signOut} />
 
             <AppContent />
           </Flex>
