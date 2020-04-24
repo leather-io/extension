@@ -113,7 +113,9 @@ export const Function: React.FC<FunctionProps> = ({ func, contractAddress, contr
         case 'public':
           const authOrigin = getAuthOrigin();
           const functionArgs: ContractCallArgument[] = func.args.map(arg => {
-            const type = (typeof arg.type === 'string' ? arg.type : 'buff') as ContractCallArgumentType;
+            const type = (typeof arg.type === 'string'
+              ? arg.type
+              : ContractCallArgumentType.BUFFER) as ContractCallArgumentType;
             return { type, value: state[arg.name].value };
           });
           await doContractCall({

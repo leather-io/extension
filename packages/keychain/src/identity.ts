@@ -22,6 +22,7 @@ import {
   pubKeyfromPrivKey,
   addressFromPublicKeys,
   addressToString,
+  ChainID,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
 import RPCClient from '@blockstack/rpc-client';
@@ -226,6 +227,7 @@ export class Identity {
         version: version,
         nonce: new BN(nonce),
         postConditionMode: PostConditionMode.Allow,
+        chainId: ChainID.Testnet,
       }
     );
     return tx;

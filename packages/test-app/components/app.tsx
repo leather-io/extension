@@ -4,12 +4,12 @@ import { Connect, AuthOptions } from '@blockstack/connect';
 import { WriteStatusCard } from '@cards/write-status';
 import { AuthCard } from '@cards/auth';
 import { getAuthOrigin } from '@common/utils';
-import { HelloContractCard } from '@cards/hello-contract';
 import { UserSession, AppConfig } from 'blockstack';
 import { defaultState, AppContext, AppState } from '@common/context';
 import { SignedIn } from '@cards/signed-in';
 import { FaucetCard } from '@cards/faucet';
 import { ContractDebugger } from '@components/contract-debugger';
+import { ReadStatusCard } from '@cards/read-status';
 
 export const App: React.FC = () => {
   const [state, setState] = React.useState<AppState>(defaultState);
@@ -53,8 +53,8 @@ export const App: React.FC = () => {
           {state.userData ? (
             <>
               <FaucetCard />
-              <HelloContractCard />
               <WriteStatusCard />
+              <ReadStatusCard />
             </>
           ) : (
             <>

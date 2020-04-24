@@ -21,6 +21,7 @@
   )
   (begin
     (print tx-sender)
+    (print status)
     (map-set statuses
       ((author tx-sender))
       ((status status))

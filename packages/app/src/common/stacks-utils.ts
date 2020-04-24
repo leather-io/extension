@@ -29,7 +29,7 @@ export const encodeContractCallArgument = ({ type, value }: ContractCallArgument
         return standardPrincipalCV(value);
       }
     case ContractCallArgumentType.BUFFER:
-      return bufferCV(Buffer.from(value, 'hex'));
+      return bufferCV(Buffer.from(value));
     default:
       throw new Error(`Unexpected Clarity type: ${type}`);
   }
