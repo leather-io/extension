@@ -7,6 +7,7 @@ import { standardPrincipalCV, BufferCV, deserializeCV, ClarityType } from '@bloc
 export const ReadStatusCard: React.FC = () => {
   const [address, setAddress] = useState('');
   const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setAddress(evt.currentTarget.value || '');
@@ -15,6 +16,7 @@ export const ReadStatusCard: React.FC = () => {
   const onSubmit = async () => {
     const args = [standardPrincipalCV(address)];
     const client = getRPCClient();
+    setLoading(true);
     const data = await client.callReadOnly({
       contractName: 'status',
       contractAddress: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6',
@@ -30,6 +32,7 @@ export const ReadStatusCard: React.FC = () => {
       setResult(str);
       console.log(str);
     }
+    setLoading(false);
   };
 
   return (
@@ -52,7 +55,7 @@ export const ReadStatusCard: React.FC = () => {
           />
         </Box>
         <Box width="100%" mt={3} onClick={onSubmit}>
-          <Button>Submit</Button>
+          <Button isLoading={loading}>Submit</Button>
         </Box>
       </Flex>
     </Card>

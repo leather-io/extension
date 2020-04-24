@@ -12,6 +12,7 @@ export const Faucet: React.FC = () => {
   const [tx, setTX] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const client = getRPCClient();
 
@@ -35,6 +36,7 @@ export const Faucet: React.FC = () => {
     }
     if (balance.toNumber() > currentBalance) {
       setLoading(false);
+      setSuccess(true);
       return;
     }
     setTimeout(async () => {
@@ -44,6 +46,8 @@ export const Faucet: React.FC = () => {
 
   const onSubmit = async () => {
     setLoading(true);
+    setError('');
+    setTX('');
     console.log(address);
     const url = `${getServerURL()}/sidecar/v1/debug/faucet?address=${address}`;
     const res = await fetch(url, {
@@ -53,9 +57,11 @@ export const Faucet: React.FC = () => {
     console.log(data);
     if (data.txId) {
       setTX(data.txId);
+      const { balance } = await client.fetchAccount(address);
+      await waitForBalance(balance.toNumber(), 0);
+    } else {
+      setError('Something went wrong when requesting the faucet.');
     }
-    const { balance } = await client.fetchAccount(address);
-    await waitForBalance(balance.toNumber(), 0);
   };
 
   return (
@@ -88,8 +94,8 @@ export const Faucet: React.FC = () => {
           />
         </Box>
         <Box width="100%" mt={3} onClick={onSubmit}>
-          <Button isLoading={loading} loadingText=" Waiting For TX to Confirm">
-            Receive Testnet STX
+          <Button isLoading={loading} loadingText=" Waiting for TX to Confirm" isDisabled={success}>
+            {success ? 'Faucet TX Confirmed' : 'Receive Testnet STX'}
           </Button>
         </Box>
       </Flex>
