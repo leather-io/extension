@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Input, FormControl, FormLabel, Text, Button } from '@blockstack/ui';
 import { ContractInterfaceFunction, ContractInterfaceFunctionArg } from '@blockstack/rpc-client';
-import { standardPrincipalCV, deserializeCV, BufferCV, ClarityType } from '@blockstack/stacks-transactions';
+import { standardPrincipalCV, deserializeCV, ClarityType } from '@blockstack/stacks-transactions';
 import { getAuthOrigin, getRPCClient } from '@common/utils';
 import { useConnect, ContractCallArgumentType, ContractCallArgument } from '@blockstack/connect';
 import Styled from 'styled-components';

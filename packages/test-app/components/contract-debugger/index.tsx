@@ -108,7 +108,6 @@ export const ContractDebugger: React.FC = () => {
       {contractInterface && (
         <Box width="50%" px={3}>
           <TabbedCard tabs={tabs} />
-          {/* {getInterfaceView()} */}
         </Box>
       )}
     </Flex>

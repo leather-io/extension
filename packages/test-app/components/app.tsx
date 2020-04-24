@@ -62,8 +62,8 @@ export const App: React.FC = () => {
           Contract Debugger
         </Text>
         <Text display="block" my={4} textStyle="caption.medium" maxWidth="600px">
-          Enter the information for any published smart contract. That contract&apos;s interface will be fetched, and
-          you&apos;ll be able to execute public and read-only functions on that contract.
+          Enter the information for any published smart contract. That contract&apos;s interface and source code will be
+          fetched, and you&apos;ll be able to execute public and read-only functions on that contract.
         </Text>
         <ContractDebugger />
       </Box>
