@@ -50,7 +50,7 @@ export const ContractDebugger: React.FC = () => {
 
   return (
     <Flex wrap="wrap">
-      <Box width="50%" p={5}>
+      <Box width="50%">
         <form onSubmit={formik.handleSubmit}>
           <FormControl my={4}>
             <FormLabel>Contract Address</FormLabel>

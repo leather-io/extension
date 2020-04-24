@@ -28,7 +28,7 @@ export const WriteStatusCard: React.FC = () => {
 
   return (
     <Card title="Status Contract">
-      <Flex justifyContent="center" wrap="wrap">
+      <Flex wrap="wrap">
         <Text display="inline-block">Save a small phrase on the Stacks Blockchain.</Text>
         <Box width="100%" mt={3}>
           <Input
