@@ -9,6 +9,7 @@ import { Faucet } from '@components/faucet';
 import { ContractDebugger } from '@components/contract-debugger';
 import { Header } from '@components/header';
 import { ReadStatusCard } from '@cards/read-status';
+import { AuthCard } from '@cards/auth';
 
 export const App: React.FC = () => {
   const [state, setState] = React.useState<AppState>(defaultState);
@@ -38,6 +39,7 @@ export const App: React.FC = () => {
 
     return (
       <Box p={6}>
+        {!state.userData && <AuthCard />}
         <Faucet />
         <Text as="h2" fontSize={5} mt={6}>
           Smart Contracts
@@ -54,7 +56,9 @@ export const App: React.FC = () => {
             </>
           ) : (
             <>
-              <Text>Sign in or register to interact with smart contracts</Text>
+              <Text textStyle="caption.medium" mb={3} display="block">
+                Sign in or register to interact with smart contracts
+              </Text>
             </>
           )}
         </Flex>
