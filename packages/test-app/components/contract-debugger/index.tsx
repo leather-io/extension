@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Input, Button, FormControl, FormLabel } from '@blockstack/ui';
+import { Flex, Box, Input, Button, FormControl, FormLabel, CodeBlock } from '@blockstack/ui';
 import { ContractInterface } from '@blockstack/rpc-client';
 import { useFormik } from 'formik';
 import { Function } from './function';
@@ -65,11 +65,7 @@ export const ContractDebugger: React.FC = () => {
     },
     {
       title: 'Source',
-      content: (
-        <Box whiteSpace="pre" overflow="scroll" maxHeight="600px">
-          {contractSource}
-        </Box>
-      ),
+      content: <CodeBlock code={contractSource} showLineNumbers />,
       key: 'source',
     },
   ];
