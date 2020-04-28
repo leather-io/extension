@@ -1,6 +1,6 @@
 {
   "name": "@blockstack/rpc-client",
-  "version": "0.1.0",
+  "version": "0.2.0-alpha.0",
   "license": "MIT",
   "author": "Hank Stoever",
   "main": "dist/index.js",
@@ -16,7 +16,6 @@
     "lint": "tsdx lint",
     "prepublishOnly": "yarn build"
   },
-  "peerDependencies": {},
   "prettier": {
     "printWidth": 80,
     "semi": true,
