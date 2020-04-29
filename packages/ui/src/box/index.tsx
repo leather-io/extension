@@ -1,4 +1,5 @@
-import React, { forwardRef, Ref } from 'react';
+import React from 'react';
+import { forwardRefWithAs as forwardRef } from '../utils/forward-ref-with-as';
 import { createShouldForwardProp, props } from '@styled-system/should-forward-prop';
 import styled from 'styled-components';
 import css from '@styled-system/css';
@@ -131,7 +132,7 @@ const BoxWithPseudoStyles = styled(StyledBox)<BoxProps>(
   }
 );
 
-const Box = forwardRef((props: BoxProps, ref: Ref<HTMLDivElement>) => (
+const Box = forwardRef<BoxProps, 'div'>((props, ref) => (
   <BoxWithPseudoStyles ref={ref} {...props} />
 ));
 
