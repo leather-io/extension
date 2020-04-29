@@ -56,7 +56,7 @@ The exact interface you'll use [is defined as](https://github.com/blockstack/con
 ```typescript
 export interface AuthOptions {
   // The URL you want the user to be redirected to after authentication.
-  redirectTo: string;
+  redirectTo?: string;
   manifestPath?: string;
   finished?: (payload: FinishedData) => void;
   authOrigin?: string;
@@ -69,7 +69,7 @@ export interface AuthOptions {
 }
 ```
 
-- `redirectTo`: The path in your app where users go after sign in.
+- `redirectTo`: __(optional)__ The path in your app where users go after sign in.
 - `appDetails`: an optional object which includes `appName: string` and `appIcon: string`. This will speed up the process of loading your app's information during onboarding.
 - `manifestPath`: __(optional)__ - the path in your app where your manifest.json file can be found
 - `finished`: __(optional)__ - A callback that can be invoked after authentication. This prevents having to do a whole page refresh in a new tab. One argument is passed to this callback, which is an object with `userSession` included. If included, then the `redirectTo` path is ignored, and the user will be logged in automatically.
