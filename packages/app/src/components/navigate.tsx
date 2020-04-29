@@ -1,6 +1,8 @@
 import React from 'react';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import { useNavigate } from 'react-router-dom';
 
 interface ToOptions {
