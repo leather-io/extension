@@ -14,6 +14,7 @@ import { Profile, fetchProfile, DEFAULT_PROFILE, signAndUploadProfile } from './
 import { ecPairToAddress } from 'blockstack';
 import {
   makeContractCall,
+  makeSmartContractDeploy,
   TransactionVersion,
   PostConditionMode,
   AddressVersion,
@@ -45,6 +46,13 @@ interface ContractCallOptions {
   contractAddress: string;
   functionName: string;
   functionArgs: ClarityValue[];
+  version: TransactionVersion;
+  nonce: number;
+}
+
+interface ContractDeployOptions {
+  contractName: string;
+  contractSource: string;
   version: TransactionVersion;
   nonce: number;
 }
@@ -227,6 +235,22 @@ export class Identity {
       functionName,
       functionArgs,
       new BN(200),
+      this.getSTXPrivateKey().toString('hex'),
+      {
+        version: version,
+        nonce: new BN(nonce),
+        postConditionMode: PostConditionMode.Allow,
+        chainId: ChainID.Testnet,
+      }
+    );
+    return tx;
+  }
+
+  signContractDeploy({ contractName, contractSource, version, nonce }: ContractDeployOptions) {
+    const tx = makeSmartContractDeploy(
+      contractName,
+      contractSource,
+      new BN(2000),
       this.getSTXPrivateKey().toString('hex'),
       {
         version: version,

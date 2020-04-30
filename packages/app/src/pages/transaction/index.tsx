@@ -7,6 +7,8 @@ import {
   PoweredBy,
   ScreenFooter,
   ContractCallPayload,
+  ContractDeployPayload,
+  TransactionPayload,
 } from '@blockstack/connect';
 import { ScreenHeader } from '@components/connected-screen-header';
 import { Button, Box, Text } from '@blockstack/ui';
@@ -21,9 +23,25 @@ import { TabbedCard, Tab } from '@components/tabbed-card';
 import { finalizeTxSignature } from '@common/utils';
 import { encodeContractCallArgument, getRPCClient, stacksValue } from '@common/stacks-utils';
 
+const broadcastTx = (serializedTx: Buffer) => {
+  const rpcClient = getRPCClient();
+  return rpcClient.broadcastTX(serializedTx);
+};
+
 interface TabContentProps {
   json: any;
 }
+
+const getInputJSON = (pendingTransaction: TransactionPayload | undefined, identity: any) => {
+  if (pendingTransaction && identity) {
+    const { appDetails, publicKey, ...rest } = pendingTransaction;
+    return {
+      ...rest,
+      'tx-sender': addressToString(identity.getSTXAddress(AddressVersion.TestnetSingleSig)),
+    };
+  }
+  return {};
+};
 
 const TabContent: React.FC<TabContentProps> = ({ json }) => {
   return (
@@ -38,10 +56,41 @@ const Textarea = styled.textarea`
   left: -999px;
 `;
 
+const generateContractCallTx = (txData: ContractCallPayload, identity: any, nonce: number) => {
+  const { contractName, contractAddress, functionName, functionArgs } = txData;
+  const version = TransactionVersion.Testnet;
+  const args = functionArgs.map(arg => {
+    return encodeContractCallArgument(arg);
+  });
+
+  return identity.signContractCall({
+    contractName,
+    contractAddress,
+    functionName,
+    functionArgs: args,
+    version,
+    nonce,
+  });
+};
+
+const generateContractDeployTx = (txData: ContractDeployPayload, identity: any, nonce: number) => {
+  const { contractName, contractSource } = txData;
+  const version = TransactionVersion.Testnet;
+
+  return identity.signContractDeploy({
+    contractName,
+    contractSource,
+    version,
+    nonce,
+  });
+};
+
 export const Transaction: React.FC = () => {
   const location = useLocation();
-  const { wallet } = useWallet();
-  const [requestState, setRequestState] = useState<ContractCallPayload | undefined>();
+  const { firstIdentity: identity } = useWallet();
+  const [pendingTransaction, setPendingTransaction] = useState<
+    ContractCallPayload | ContractDeployPayload | undefined
+  >();
   const [txHash, setTxHash] = useState('');
   const [loading, setLoading] = useState(true);
   const [contractSrc, setContractSrc] = useState('');
@@ -50,22 +99,10 @@ export const Transaction: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const client = getRPCClient();
 
-  const getInputJSON = () => {
-    if (requestState && wallet) {
-      const { appDetails, publicKey, ...rest } = requestState;
-      const [identity] = wallet.identities;
-      return {
-        ...rest,
-        'tx-sender': addressToString(identity.getSTXAddress(AddressVersion.TestnetSingleSig)),
-      };
-    }
-    return {};
-  };
-
   const tabs: Tab[] = [
     {
       title: 'Inputs',
-      content: <TabContent json={getInputJSON()} />,
+      content: <TabContent json={getInputJSON(pendingTransaction, identity)} />,
       key: 'inputs',
     },
     {
@@ -86,8 +123,7 @@ export const Transaction: React.FC = () => {
   ];
 
   const setupAccountInfo = async () => {
-    if (wallet) {
-      const [identity] = wallet.identities;
+    if (identity) {
       const account = await client.fetchAccount(
         addressToString(identity.getSTXAddress(AddressVersion.TestnetSingleSig))
       );
@@ -96,62 +132,59 @@ export const Transaction: React.FC = () => {
     }
   };
 
-  const setupWithState = async (reqState: ContractCallPayload) => {
-    const source = await client.fetchContractSource({
-      contractName: reqState.contractName,
-      contractAddress: reqState.contractAddress,
-    });
-    if (source) {
-      setContractSrc(source);
-      setRequestState(reqState);
-    } else {
-      setError(`Unable to find contract ${reqState.contractName}.${reqState.contractAddress}`);
+  const setupWithState = async (tx: ContractCallPayload | ContractDeployPayload) => {
+    if (tx.txType === 'contract-call') {
+      const contractSource = await client.fetchContractSource({
+        contractName: tx.contractName,
+        contractAddress: tx.contractAddress,
+      });
+      if (contractSource) {
+        setContractSrc(contractSource);
+        setPendingTransaction(tx);
+      } else {
+        setError(`Unable to find contract ${tx.contractAddress}.${tx.contractName}`);
+      }
+    }
+    if (tx.txType === 'contract-deploy') {
+      console.log(tx);
+      setContractSrc(tx.contractSource);
+      setPendingTransaction(tx);
     }
   };
 
-  const setup = async () => {
+  const decodeRequest = async () => {
     const urlParams = new URLSearchParams(location.search);
     const requestToken = urlParams.get('request');
-    if (requestToken && wallet) {
+    if (requestToken && identity) {
       const token = decodeToken(requestToken);
-      const reqState = (token.payload as unknown) as ContractCallPayload;
+      const reqState = (token.payload as unknown) as TransactionPayload;
       await Promise.all([setupWithState(reqState), setupAccountInfo()]);
       setLoading(false);
     } else {
+      setError('Unable to decode request');
       console.error('Unable to find contract call parameter');
     }
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    setup();
+    decodeRequest().then(() => console.log('done'));
   }, []);
 
-  const handleButtonClick = async () => {
-    if (requestState && wallet) {
+  const handleBroadcastContractCall = async () => {
+    if (identity && pendingTransaction && pendingTransaction.txType === 'contract-call') {
       setLoading(true);
-      const [identity] = wallet.identities;
-      const { contractName, contractAddress, functionName } = requestState;
-      const version = TransactionVersion.Testnet;
-      const args = requestState.functionArgs.map(arg => {
-        return encodeContractCallArgument(arg);
-      });
-      const rpcClient = getRPCClient();
-      const tx = identity.signContractCall({
-        contractName,
-        contractAddress,
-        functionName,
-        functionArgs: args,
-        version,
-        nonce,
-      });
-      const serialized = tx.serialize().toString('hex');
-      setTxHash(serialized);
-      const res = await rpcClient.broadcastTX(tx.serialize());
-      // const { txId } = await res.json();
+
+      const tx = generateContractCallTx(pendingTransaction, identity, nonce);
+
+      const txRaw = tx.serialize().toString('hex');
+
+      setTxHash(txRaw);
+
+      const res = await broadcastTx(tx.serialize());
+
       if (res.ok) {
         const txId = await res.text();
-        finalizeTxSignature({ txId, txRaw: serialized });
+        finalizeTxSignature({ txId, txRaw });
       } else {
         const response = await res.json();
         if (response.error) {
@@ -161,6 +194,42 @@ export const Transaction: React.FC = () => {
         }
       }
       setLoading(false);
+    }
+  };
+
+  const handleBroadcastContractDeploy = async () => {
+    if (identity && pendingTransaction && pendingTransaction.txType === 'contract-deploy') {
+      setLoading(true);
+
+      const tx = generateContractDeployTx(pendingTransaction, identity, nonce);
+
+      const txRaw = tx.serialize().toString('hex');
+
+      setTxHash(txRaw);
+
+      const res = await broadcastTx(tx.serialize());
+
+      if (res.ok) {
+        const txId = await res.text();
+        finalizeTxSignature({ txId, txRaw });
+      } else {
+        const response = await res.json();
+        if (response.error) {
+          console.error(response.error);
+          console.error(response.reason);
+          setError(`${response.error} - ${response.reason}`);
+        }
+      }
+      setLoading(false);
+    }
+  };
+
+  const handleButtonClick = async () => {
+    if (pendingTransaction?.txType === 'contract-call') {
+      await handleBroadcastContractCall();
+    }
+    if (pendingTransaction?.txType === 'contract-deploy') {
+      await handleBroadcastContractDeploy();
     }
   };
 
@@ -185,7 +254,7 @@ export const Transaction: React.FC = () => {
           body={[
             <Title>Confirm Transaction</Title>,
             <Text mt={2} display="inline-block">
-              with {requestState?.appDetails?.name}
+              with {pendingTransaction?.appDetails?.name}
             </Text>,
             <TabbedCard mt={4} mb={4} tabs={tabs} />,
             <Box width="100%" mt={5}>

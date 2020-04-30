@@ -29,7 +29,7 @@
     "@blockstack/rpc-client": "^0.2.0-alpha.0",
     "@blockstack/stacks-transactions": "0.3.0-alpha.5",
     "@blockstack/stats": "^0.7.0",
-    "@blockstack/ui": "^1.2.0-alpha.0",
+    "@blockstack/ui": "^1.2.0-beta.13",
     "@rehooks/document-title": "^1.0.1",
     "@types/react-router-dom": "^5.1.3",
     "bignumber.js": "^9.0.0",

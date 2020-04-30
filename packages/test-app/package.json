@@ -27,7 +27,7 @@
     "@blockstack/keychain": "^0.4.0-alpha.0",
     "@blockstack/prettier-config": "^0.0.5",
     "@blockstack/rpc-client": "^0.2.0-alpha.0",
-    "@blockstack/ui": "^1.2.0-alpha.0",
+    "@blockstack/ui": "^1.2.0-beta.13",
     "@rehooks/document-title": "^1.0.1",
     "blockstack": "^21.0.0",
     "formik": "^2.1.4",
