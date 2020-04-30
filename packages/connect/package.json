@@ -32,6 +32,7 @@
     "preact": "^10.4.0",
     "prettier": "^2.0.5",
     "styled-components": "^5.1.0",
+    "jsontokens": "^3.0.0",
     "use-events": "^1.4.1",
     "use-onclickoutside": "^0.3.1"
   },
@@ -75,6 +76,5 @@
     "styled-components": "^5.1.0",
     "use-events": "^1.4.1",
     "use-onclickoutside": "^0.3.1"
-  },
-  "gitHead": "4237af0d61b8bfc1cda8889ee6172a4b0cd6cc7b"
+  }
 }

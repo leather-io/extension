@@ -115,9 +115,14 @@ export class Identity {
     const compressedAppPublicKey = getPublicKeyFromPrivate(appPrivateKey.slice(0, 64));
     const associationToken = makeGaiaAssociationToken(this.keyPair.key, compressedAppPublicKey);
 
+    const profile = {
+      ...(this.profile || {}),
+      stxAddress: addressToString(this.getSTXAddress(AddressVersion.TestnetSingleSig)),
+    };
+
     return makeAuthResponse(
       this.keyPair.key,
-      this.profile || {},
+      profile,
       this.defaultUsername || '',
       {
         profileUrl,
