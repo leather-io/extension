@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { authenticate, AuthOptions, FinishedData } from '../../auth';
-import { openContractCall, ContractCallOptions } from '../../transactions';
+import { openContractCall, openContractDeploy } from '../../transactions';
+import { ContractCallOptions, ContractDeployOptions } from '../../transactions/types';
 import { ConnectContext, ConnectDispatchContext, States } from '../components/connect/context';
 
 const useConnectDispatch = () => {
@@ -12,7 +13,7 @@ const useConnectDispatch = () => {
 };
 
 export const useConnect = () => {
-  const { isOpen, isAuthenticating, authData, screen, authOptions } = useContext(ConnectContext);
+  const { isOpen, isAuthenticating, authData, screen, authOptions, userSession } = useContext(ConnectContext);
   const dispatch = useConnectDispatch();
 
   const doUpdateAuthOptions = (payload: Partial<AuthOptions>) => {
@@ -67,20 +68,17 @@ export const useConnect = () => {
     });
   };
 
-  const doContractCall = async (opts: ContractCallOptions) => {
-    console.log(authOptions);
-    await openContractCall({
+  const doContractCall = async (opts: ContractCallOptions) =>
+    openContractCall({
       ...opts,
       appDetails: authOptions.appDetails,
     });
-  };
 
-  // const doContractDeploy = async (opts: ContractDeployOptions) => {
-  //   await openContractDeploy({
-  //     ...opts,
-  //     appDetails: authOptions.appDetails,
-  //   });
-  // };
+  const doContractDeploy = async (opts: ContractDeployOptions) =>
+    openContractDeploy({
+      ...opts,
+      appDetails: authOptions.appDetails,
+    });
 
   return {
     isOpen,
@@ -88,6 +86,7 @@ export const useConnect = () => {
     authData,
     authOptions,
     screen,
+    userSession,
     doOpenAuth,
     doCloseAuth,
     doChangeScreen,
@@ -100,6 +99,6 @@ export const useConnect = () => {
     doAuth,
     authenticate,
     doContractCall,
-    // doContractDeploy,
+    doContractDeploy,
   };
 };
