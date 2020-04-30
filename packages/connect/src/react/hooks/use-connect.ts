@@ -75,6 +75,13 @@ export const useConnect = () => {
     });
   };
 
+  // const doContractDeploy = async (opts: ContractDeployOptions) => {
+  //   await openContractDeploy({
+  //     ...opts,
+  //     appDetails: authOptions.appDetails,
+  //   });
+  // };
+
   return {
     isOpen,
     isAuthenticating,
@@ -93,5 +100,6 @@ export const useConnect = () => {
     doAuth,
     authenticate,
     doContractCall,
+    // doContractDeploy,
   };
 };
