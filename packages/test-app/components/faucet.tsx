@@ -7,8 +7,8 @@ interface FaucetResponse {
   success: boolean;
 }
 
-export const Faucet: React.FC = () => {
-  const [address, setAddress] = useState('');
+export const Faucet = ({ address: _address = '' }: { address: string }) => {
+  const [address, setAddress] = useState(_address);
   const [tx, setTX] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,19 +48,26 @@ export const Faucet: React.FC = () => {
     setLoading(true);
     setError('');
     setTX('');
-    console.log(address);
-    const url = `${getServerURL()}/sidecar/v1/debug/faucet?address=${address}`;
-    const res = await fetch(url, {
-      method: 'POST',
-    });
-    const data: FaucetResponse = await res.json();
-    console.log(data);
-    if (data.txId) {
-      setTX(data.txId);
-      const { balance } = await client.fetchAccount(address);
-      await waitForBalance(balance.toNumber(), 0);
-    } else {
+
+    try {
+      const url = `${getServerURL()}/sidecar/v1/debug/faucet?address=${address}`;
+      const res = await fetch(url, {
+        method: 'POST',
+      });
+      const data: FaucetResponse = await res.json();
+      console.log(data);
+      if (data.txId) {
+        setTX(data.txId);
+        const { balance } = await client.fetchAccount(address);
+        await waitForBalance(balance.toNumber(), 0);
+      } else {
+        setError('Something went wrong when requesting the faucet.');
+      }
+    } catch (e) {
       setError('Something went wrong when requesting the faucet.');
+      setLoading(false);
+      setTX('');
+      console.error(e.message);
     }
   };
 
