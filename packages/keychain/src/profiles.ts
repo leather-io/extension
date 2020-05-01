@@ -19,6 +19,12 @@ export interface Profile {
   apps?: {
     [origin: string]: string;
   };
+  appsMeta?: {
+    [origin: string]: {
+      publicKey: string;
+      storage: string;
+    };
+  };
   name?: string;
   image?: ProfileImage[];
   [key: string]: any;
