@@ -56,12 +56,10 @@ export const App: React.FC = () => {
 
   const AppContent: React.FC = () => {
     const state = useContext(AppContext);
-    console.log(state);
-
     return (
       <Box p={6}>
         <Faucet address={state.userData?.profile?.stxAddress} />
-        <Deploy />
+        {state.userData ? <Deploy /> : null}
         <Text as="h2" fontSize={5} mt={6}>
           Smart Contracts
         </Text>
