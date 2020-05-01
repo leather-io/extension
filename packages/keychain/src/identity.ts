@@ -56,7 +56,7 @@ export class Identity {
         profile.apps = {};
       }
       const challengeSigner = ECPair.fromPrivateKey(Buffer.from(appPrivateKey, 'hex'));
-      profile.apps[appDomain] = `${hubInfo.read_url_prefix}${await ecPairToAddress(challengeSigner)}`;
+      profile.apps[appDomain] = `${hubInfo.read_url_prefix}${await ecPairToAddress(challengeSigner)}/`;
       const gaiaHubConfig = await connectToGaiaHubWithConfig({
         hubInfo,
         privateKey: this.keyPair.key,
