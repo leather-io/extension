@@ -22,6 +22,7 @@ import { TxError } from '@components/transactions/tx-error';
 import { TabbedCard, Tab } from '@components/tabbed-card';
 import { finalizeTxSignature } from '@common/utils';
 import { encodeContractCallArgument, getRPCClient, stacksValue } from '@common/stacks-utils';
+import { Identity } from '@blockstack/keychain';
 
 const broadcastTx = (serializedTx: Buffer) => {
   const rpcClient = getRPCClient();
@@ -32,7 +33,7 @@ interface TabContentProps {
   json: any;
 }
 
-const getInputJSON = (pendingTransaction: TransactionPayload | undefined, identity: any) => {
+const getInputJSON = (pendingTransaction: TransactionPayload | undefined, identity: Identity) => {
   if (pendingTransaction && identity) {
     const { appDetails, publicKey, ...rest } = pendingTransaction;
     return {
@@ -98,6 +99,10 @@ export const Transaction: React.FC = () => {
   const [nonce, setNonce] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const client = getRPCClient();
+
+  if (!identity) {
+    throw new Error('User must be logged in.');
+  }
 
   const tabs: Tab[] = [
     {
@@ -167,7 +172,8 @@ export const Transaction: React.FC = () => {
   };
 
   useEffect(() => {
-    decodeRequest().then(() => console.log('done'));
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    decodeRequest();
   }, []);
 
   const handleBroadcastContractCall = async () => {
