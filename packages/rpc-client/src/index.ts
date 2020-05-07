@@ -92,7 +92,7 @@ export class RPCClient {
     args,
   }: CallReadOnly) {
     const url = `${this.url}/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`;
-    const argsStrings = args.map(arg => {
+    const argsStrings = args.map((arg) => {
       return `0x${serializeCV(arg).toString('hex')}`;
     });
     const body = {
@@ -121,8 +121,11 @@ export class RPCClient {
   }) {
     const url = `${this.url}/v2/contracts/source/${contractAddress}/${contractName}`;
     const res = await fetch(url);
-    const { source }: { source: string } = await res.json();
-    return source;
+    if (res.ok) {
+      const { source }: { source: string } = await res.json();
+      return source;
+    }
+    return null;
   }
 }
 
