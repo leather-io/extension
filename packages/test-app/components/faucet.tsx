@@ -25,7 +25,7 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
     if (origin.includes('localhost')) {
       return 'http://localhost:3999';
     }
-    return 'https://crashy-stacky.zone117x.com';
+    return 'https://sidecar.staging.blockstack.xyz';
   };
 
   const waitForBalance = async (currentBalance: number, attempts: number) => {
@@ -77,7 +77,8 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
         Faucet
       </Text>
       <Text display="block" my={4} textStyle="caption.medium">
-        Receive some free testnet STX for testing out the network. STX are required to execute smart contract functions.
+        Receive some free testnet STX for testing out the network. STX are required to execute smart
+        contract functions.
       </Text>
       {tx && (
         <Text display="inline-block" my={1} fontSize={1} style={{ wordBreak: 'break-all' }}>

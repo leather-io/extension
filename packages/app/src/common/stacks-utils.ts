@@ -37,8 +37,7 @@ export const encodeContractCallArgument = ({ type, value }: ContractCallArgument
 
 export const getRPCClient = () => {
   const { origin } = location;
-  const url = origin.includes('localhost') ? 'http://localhost:3999' : 'https://crashy-stacky.zone117x.com';
-  // const url = 'https://crashy-stacky.zone117x.com';
+  const url = origin.includes('localhost') ? 'http://localhost:3999' : 'https://sidecar.staging.blockstack.xyz';
   return new RPCClient(url);
 };
 
