@@ -101,8 +101,12 @@ export const Transaction: React.FC = () => {
       contractName: reqState.contractName,
       contractAddress: reqState.contractAddress,
     });
-    setContractSrc(source);
-    setRequestState(reqState);
+    if (source) {
+      setContractSrc(source);
+      setRequestState(reqState);
+    } else {
+      setError(`Unable to find contract ${reqState.contractName}.${reqState.contractAddress}`);
+    }
   };
 
   const setup = async () => {
@@ -119,6 +123,7 @@ export const Transaction: React.FC = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     setup();
   }, []);
 
