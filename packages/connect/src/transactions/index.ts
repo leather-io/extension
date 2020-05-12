@@ -28,7 +28,10 @@ const makeKeys = (_userSession?: UserSession) => {
   return { privateKey, publicKey };
 };
 
-const signPayload = async (payload: ContractCallPayload | ContractDeployPayload, privateKey: string) => {
+const signPayload = async (
+  payload: ContractCallPayload | ContractDeployPayload,
+  privateKey: string
+) => {
   const tokenSigner = new TokenSigner('ES256k', privateKey);
   return tokenSigner.signAsync(payload as any);
 };

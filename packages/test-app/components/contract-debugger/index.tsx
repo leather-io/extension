@@ -33,7 +33,7 @@ export const ContractDebugger: React.FC = () => {
           contractAddress,
         }),
       ]);
-      setContractSource(contractSource);
+      setContractSource(contractSource || '');
       setContractInterface(contractInterface);
       setLoading(false);
       console.log(contractInterface);
