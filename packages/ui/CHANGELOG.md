@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/blockstackpbc/blockstack-ui/compare/@blockstack/ui@1.4.0...@blockstack/ui@1.4.1) (2020-05-12)
+
+
+### Bug Fixes
+
+* add popper/core ([19ae807](https://github.com/blockstackpbc/blockstack-ui/commit/19ae807f6db86d66b7809b5a5ca8d137766ef8d0))
+
+
+
+
+
 # [1.4.0](https://github.com/blockstackpbc/blockstack-ui/compare/@blockstack/ui@1.1.1...@blockstack/ui@1.4.0) (2020-05-06)
 
 
