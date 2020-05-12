@@ -10,7 +10,13 @@ const Stack = forwardRef<any, StackProps>(
     const validChildren = Array.isArray(children) ? children.filter(isValidElement) : [];
 
     return (
-      <Flex align={align} justify={justify} flexDir={isInline ? 'row' : 'column'} ref={ref} {...rest}>
+      <Flex
+        align={align}
+        justify={justify}
+        flexDir={isInline ? 'row' : 'column'}
+        ref={ref}
+        {...rest}
+      >
         {Children.map(validChildren, (child, index) => {
           if (!isValidElement(child)) {
             return null;

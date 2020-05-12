@@ -3,9 +3,19 @@ import * as React from 'react';
 import { Omit } from '../common-types';
 import * as CSS from 'csstype';
 
-export type FontSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
+export type FontSizeValues =
+  | 'xs'
+  | 'sm'
+  | 'base'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | '5xl'
+  | '6xl';
 
-export type FontWeight =
+export type FontWeightValues =
   | 'hairline'
   | 'thin'
   | 'light'
@@ -16,39 +26,51 @@ export type FontWeight =
   | 'extrabold'
   | 'black';
 
-export interface IFontSize {
-  fontSize?: StyledSystem.ResponsiveValue<FontSize> | StyledSystem.FontSizeProps['fontSize'];
+export interface FontSize {
+  fontSize?: StyledSystem.ResponsiveValue<FontSizeValues> | StyledSystem.FontSizeProps['fontSize'];
 }
 
-export interface IFontWeight {
-  fontWeight?: StyledSystem.ResponsiveValue<FontWeight> | StyledSystem.FontWeightProps['fontWeight'];
+export interface FontWeight {
+  fontWeight?:
+    | StyledSystem.ResponsiveValue<FontWeightValues>
+    | StyledSystem.FontWeightProps['fontWeight'];
 }
 
-export type LineHeight = 'none' | 'shorter' | 'short' | 'normal' | 'tall' | 'taller';
+export type LineHeightValues = 'none' | 'shorter' | 'short' | 'normal' | 'tall' | 'taller';
 
-export interface ILineHeight {
-  lineHeight?: StyledSystem.ResponsiveValue<LineHeight> | StyledSystem.LineHeightProps['lineHeight'];
+export interface LineHeight {
+  lineHeight?:
+    | StyledSystem.ResponsiveValue<LineHeightValues>
+    | StyledSystem.LineHeightProps['lineHeight'];
 }
 
-export type LetterSpacing = 'tighter' | 'tight' | 'normal' | 'wide' | 'wider' | 'widest';
+export type LetterSpacingValues = 'tighter' | 'tight' | 'normal' | 'wide' | 'wider' | 'widest';
 
-export interface ILetterSpacing {
-  letterSpacing?: StyledSystem.ResponsiveValue<LetterSpacing> | StyledSystem.LetterSpacingProps['letterSpacing'];
+export interface LetterSpacing {
+  letterSpacing?:
+    | StyledSystem.ResponsiveValue<LetterSpacingValues>
+    | StyledSystem.LetterSpacingProps['letterSpacing'];
 }
 
-export interface ITextAlign {
-  textAlign?: StyledSystem.ResponsiveValue<CSS.TextAlignProperty> | StyledSystem.TextAlignProps['textAlign'];
+export interface TextAlign {
+  textAlign?:
+    | StyledSystem.ResponsiveValue<CSS.TextAlignProperty>
+    | StyledSystem.TextAlignProps['textAlign'];
 }
 
-export interface ITextDecoration {
-  textDecoration?: StyledSystem.ResponsiveValue<CSS.TextDecorationProperty<any>> | CSS.TextDecorationProperty<any>;
+export interface TextDecoration {
+  textDecoration?:
+    | StyledSystem.ResponsiveValue<CSS.TextDecorationProperty<any>>
+    | CSS.TextDecorationProperty<any>;
 }
 
-export interface ITextTransform {
-  textTransform?: StyledSystem.ResponsiveValue<CSS.TextTransformProperty> | CSS.TextTransformProperty;
+export interface TextTransform {
+  textTransform?:
+    | StyledSystem.ResponsiveValue<CSS.TextTransformProperty>
+    | CSS.TextTransformProperty;
 }
 
-export type TextStyle =
+export type TextStyleValues =
   | 'display.large'
   | 'display.small'
   | 'body.large.medium'
@@ -58,12 +80,16 @@ export type TextStyle =
   | 'caption'
   | 'caption.medium';
 
-export interface ITextStyle {
-  textStyle?: StyledSystem.ResponsiveValue<TextStyle> | StyledSystem.TextStyleProps['textStyle'];
+export interface TextStyle {
+  textStyle?:
+    | StyledSystem.ResponsiveValue<TextStyleValues>
+    | StyledSystem.TextStyleProps['textStyle'];
 }
 
-export interface IAs {
-  as?: React.ElementType;
+export type AsType = React.ElementType<any>;
+
+export interface As {
+  as?: AsType;
 }
 
 export interface WhiteSpace {
@@ -84,25 +110,25 @@ export type TypographyProps = Omit<
 > &
   WhiteSpace;
 
-export interface IFlexDirectionShorthandProps {
+export interface FlexDirectionShorthandProps {
   flexDir?: StyledSystem.FlexDirectionProps['flexDirection'];
 }
 
-export interface IDisplayShorthandProps {
+export interface DisplayShorthandProps {
   d?: StyledSystem.DisplayProps['display'];
 }
 
 export type BoxShadow = 'low' | 'mid' | 'high' | 'inner' | 'none' | CSS.BoxShadowProperty;
 
-export interface IOtherProps {
+export interface OtherProps {
+  children?: React.ReactNode[] | React.ReactNode;
   cursor?: CSS.CursorProperty | StyledSystem.ResponsiveValue<CSS.CursorProperty>;
   transform?: CSS.TransformProperty | StyledSystem.ResponsiveValue<CSS.TransformProperty>;
   transition?: CSS.TransitionProperty | StyledSystem.ResponsiveValue<CSS.TransitionProperty>;
   boxShadow?: BoxShadow | StyledSystem.ResponsiveValue<BoxShadow>;
-  children?: React.ReactNode[] | React.ReactNode;
 }
 
-export type ShorthandProps = IFlexDirectionShorthandProps & IDisplayShorthandProps;
+export type ShorthandProps = FlexDirectionShorthandProps & DisplayShorthandProps;
 
 export type StyledSystemProps = StyledSystem.LayoutProps &
   StyledSystem.ColorProps &
@@ -117,18 +143,157 @@ export type StyledSystemProps = StyledSystem.LayoutProps &
   StyledSystem.OverflowProps;
 
 export type ModifiedStyledSystemProps = TypographyProps &
-  IFontSize &
-  ILetterSpacing &
-  ITextAlign &
-  ITextStyle &
-  IFontWeight &
-  ILineHeight &
-  ITextDecoration &
-  ITextTransform &
-  IOtherProps;
+  FontSize &
+  LetterSpacing &
+  TextAlign &
+  TextStyle &
+  FontWeight &
+  LineHeight &
+  TextDecoration &
+  TextTransform &
+  OtherProps;
 
-export type BoxHTMLProps = React.RefAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>;
+export type BoxHTMLProps = React.RefAttributes<HTMLDivElement> &
+  React.HTMLAttributes<HTMLDivElement>;
 
-export type BoxProps = StyledSystemProps & ModifiedStyledSystemProps & ShorthandProps & IAs & BoxHTMLProps;
+export type BoxPropsBase = StyledSystemProps &
+  ModifiedStyledSystemProps &
+  ShorthandProps &
+  As &
+  BoxHTMLProps;
 
-export type Box = React.FC<BoxProps>;
+export type Box = React.FC<BoxPropsBase>;
+
+export type PropsOf<T extends AsType> = React.ComponentPropsWithRef<T>;
+
+/**
+ * Remove as from the types accepted in pseudo styles
+ */
+type BoxSystemProps = Omit<BoxPropsBase, 'as'>;
+
+export interface BoxProps extends BoxPropsBase {
+  /**
+   * Styles for CSS selector `&:after`
+   *
+   * NOTE:When using this, ensure the `content` is wrapped in a backtick.
+   * @example
+   * ```jsx
+   * <PseudoBox _after={{content:`""` }}/>
+   * ```
+   */
+  _after?: BoxSystemProps;
+  /**
+   * Styles for CSS selector `&:before`
+   *
+   * NOTE:When using this, ensure the `content` is wrapped in a backtick.
+   * @example
+   * ```jsx
+   * <PseudoBox _before={{content:`""` }}/>
+   * ```
+   */
+  _before?: BoxSystemProps;
+  /**
+   * Styles for CSS selector `&:focus`
+   */
+  _focus?: BoxSystemProps;
+  /**
+   * Styles for CSS selector `&:hover`
+   */
+  _hover?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:active`
+   */
+  _active?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&[aria-pressed=true]`
+   * Typically used to style the current "pressed" state of toggle buttons
+   */
+  _pressed?: BoxSystemProps;
+  /**
+   * Styles to apply when the ARIA attribute `aria-selected` is `true`
+   * - CSS selector `&[aria-selected=true]`
+   */
+  _selected?: BoxSystemProps;
+  /**
+   * Styles to apply when a child of this element has received focus
+   * - CSS Selector `&:focus-within`
+   */
+  _focusWithin?: BoxSystemProps;
+
+  /**
+   * Styles to apply when the ARIA attribute `aria-invalid` is `true`
+   * - CSS selector `&[aria-invalid=true]`
+   */
+  _invalid?: BoxSystemProps;
+  /**
+   * Styles to apply when this element is disabled. The passed styles are applied to these CSS selectors:
+   * - `&[aria-disabled=true]`
+   * - `&:disabled`
+   * - `&:disabled:focus`
+   * - `&:disabled:hover`
+   * - `&:focus[aria-disabled=true]`
+   * - `&:hover[aria-disabled=true]`
+   */
+  _disabled?: BoxSystemProps;
+  /**
+   * Styles to apply when the ARIA attribute `aria-grabbed` is `true`
+   * - CSS selector `&[aria-grabbed=true]`
+   */
+  _grabbed?: BoxSystemProps;
+  /**
+   * Styles to apply when the ARIA attribute `aria-expanded` is `true`
+   * - CSS selector `&[aria-expanded=true]`
+   */
+  _expanded?: BoxSystemProps;
+  /**
+   * Styles to apply when the ARIA attribute `aria-checked` is `true`
+   * - CSS selector `&[aria-checked=true]`
+   */
+  _checked?: BoxSystemProps;
+  /**
+   * Styles to apply when the ARIA attribute `aria-checked` is `mixed`
+   * - CSS selector `&[aria-checked=mixed]`
+   */
+  _mixed?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:nth-child(odd)`
+   */
+  _odd?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:nth-child(even)`
+   */
+  _even?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:visited`
+   */
+  _visited?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:readonly`
+   */
+  _readOnly?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:first-of-type`
+   */
+  _first?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:last-of-type`
+   */
+  _last?: BoxSystemProps;
+  /**
+   * Styles to apply when you hover on a parent that has `role=group`.
+   */
+  _groupHover?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:not(:first-of-type)`
+   */
+  _notFirst?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&:not(:last-of-type)`
+   */
+  _notLast?: BoxSystemProps;
+  /**
+   * Styles for CSS Selector `&::placeholder`.
+   * Useful for inputs
+   */
+  _placeholder?: BoxSystemProps;
+}
