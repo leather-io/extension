@@ -11,7 +11,7 @@
   (begin
     (print author)
     (default-to ""
-      (get status (map-get? statuses {author author}))
+      (get status (map-get? statuses {author: author}))
     )
   )
 )

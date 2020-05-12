@@ -74,7 +74,12 @@ interface ListenerParams<FinishedType> {
   authURL: URL;
 }
 
-export const setupListener = <T>({ popup, messageParams, finished, authURL }: ListenerParams<T>) => {
+export const setupListener = <T>({
+  popup,
+  messageParams,
+  finished,
+  authURL,
+}: ListenerParams<T>) => {
   const interval = setInterval(() => {
     if (popup) {
       try {
