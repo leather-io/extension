@@ -1,8 +1,8 @@
 {
   "name": "@blockstack/waffle-docs",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
-    "@blockstack/ui": "^1.1.1",
+    "@blockstack/ui": "^1.4.0",
     "@mdx-js/loader": "1.5.7",
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.7",
     "now": "^17.0.4",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "styled-components": "^5.0.1"
