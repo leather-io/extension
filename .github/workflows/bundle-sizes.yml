@@ -27,7 +27,7 @@ jobs:
       run: yarn
     - name: Lerna Bootstrap
       run: yarn lerna bootstrap
-    - uses: preactjs/compressed-size-action@v1
+    - uses: preactjs/compressed-size-action@v2
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         build-script: "lerna run build --stream --scope @blockstack/connect"
