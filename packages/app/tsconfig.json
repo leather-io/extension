@@ -32,6 +32,7 @@
       "@blockstack/keychain": ["../../keychain/src"],
       "@blockstack/keychain/*": ["../../keychain/src/*"],
       "@blockstack/rpc-client": ["../../rpc-client/src"],
+      "@pages/*": ["pages/*"]
     },
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true

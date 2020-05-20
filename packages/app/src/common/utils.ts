@@ -63,7 +63,7 @@ export const finalizeAuthResponse = ({ decodedAuthRequest, authRequest, authResp
       }
     }
     window.close();
-  }, 150);
+  }, 250);
   window.addEventListener('message', event => {
     if (authRequest && event.data.authRequest === authRequest) {
       const source = getEventSourceWindow(event);

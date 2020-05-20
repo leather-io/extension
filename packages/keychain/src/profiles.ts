@@ -5,8 +5,9 @@ import {
   makeProfileZoneFile,
 } from 'blockstack';
 import { IdentityKeyPair } from './utils';
+import { uploadToGaiaHub } from './utils/gaia';
 import Identity from './identity';
-import { uploadToGaiaHub, GaiaHubConfig } from 'blockstack/lib/storage/hub';
+import { GaiaHubConfig } from 'blockstack/lib/storage/hub';
 
 const PERSON_TYPE = 'Person';
 const CONTEXT = 'http://schema.org';
@@ -77,12 +78,12 @@ export async function uploadProfile(
   const identityHubConfig =
     gaiaHubConfig || (await connectToGaiaHub(gaiaHubUrl, identity.keyPair.key));
 
-  return uploadToGaiaHub(
+  const uploadResponse = await uploadToGaiaHub(
     DEFAULT_PROFILE_FILE_NAME,
     signedProfileTokenData,
-    identityHubConfig,
-    'application/json'
+    identityHubConfig
   );
+  return uploadResponse;
 }
 
 interface SendToRegistrarParams {

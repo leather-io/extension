@@ -2,7 +2,7 @@ import { bip32, ECPair } from 'bitcoinjs-lib';
 import { getPublicKeyFromPrivate } from 'blockstack/lib/keys';
 import { makeAuthResponse } from 'blockstack/lib/auth/authMessages';
 
-import { IdentityKeyPair, getAddress } from './utils/index';
+import { IdentityKeyPair } from './utils/index';
 import {
   makeGaiaAssociationToken,
   DEFAULT_GAIA_HUB,
@@ -102,7 +102,7 @@ export class Identity {
         profile.apps = {};
       }
       const challengeSigner = ECPair.fromPrivateKey(Buffer.from(appPrivateKey, 'hex'));
-      const storageUrl = `${hubInfo.read_url_prefix}${await ecPairToAddress(challengeSigner)}/`;
+      const storageUrl = `${hubInfo.read_url_prefix}${ecPairToAddress(challengeSigner)}/`;
       profile.apps[appDomain] = storageUrl;
       if (!profile.appsMeta) {
         profile.appsMeta = {};
@@ -111,7 +111,7 @@ export class Identity {
         storage: storageUrl,
         publicKey: challengeSigner.publicKey.toString('hex'),
       };
-      const gaiaHubConfig = await connectToGaiaHubWithConfig({
+      const gaiaHubConfig = connectToGaiaHubWithConfig({
         hubInfo,
         privateKey: this.keyPair.key,
         gaiaHubUrl: gaiaUrl,
@@ -123,14 +123,12 @@ export class Identity {
     const compressedAppPublicKey = getPublicKeyFromPrivate(appPrivateKey.slice(0, 64));
     const associationToken = makeGaiaAssociationToken(this.keyPair.key, compressedAppPublicKey);
 
-    const profile = {
-      ...(this.profile || {}),
-      stxAddress: addressToString(this.getSTXAddress(AddressVersion.TestnetSingleSig)),
-    };
-
     return makeAuthResponse(
       this.keyPair.key,
-      profile,
+      {
+        ...(this.profile || {}),
+        stxAddress: addressToString(this.getSTXAddress(AddressVersion.TestnetSingleSig)),
+      },
       this.defaultUsername || '',
       {
         profileUrl,

@@ -156,7 +156,7 @@ export function doFinishSignIn(
     const currentIdentity = identities[identityIndex];
     await currentIdentity.refresh();
     const gaiaConfig = await wallet.createGaiaConfig(gaiaUrl);
-    await wallet.getOrCreateConfig(gaiaConfig);
+    await wallet.getOrCreateConfig({ gaiaConfig, skipUpload: true });
     await wallet.updateConfigWithAuth({
       identityIndex,
       gaiaConfig,

@@ -89,7 +89,13 @@ interface ListenerParams {
   userSession: UserSession;
 }
 
-const setupAuthListener = ({ popup, authRequest, finished, authURL, userSession }: ListenerParams) => {
+const setupAuthListener = ({
+  popup,
+  authRequest,
+  finished,
+  authURL,
+  userSession,
+}: ListenerParams) => {
   setupListener<FinishedEventData>({
     popup,
     finished: async (data: FinishedEventData) => {

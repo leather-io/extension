@@ -18,8 +18,8 @@ import {
   getPublicKeyFromPrivate,
   decryptContent,
 } from 'blockstack';
-import { GaiaHubConfig, uploadToGaiaHub } from 'blockstack/lib/storage/hub';
-import { makeReadOnlyGaiaConfig, DEFAULT_GAIA_HUB } from '../utils/gaia';
+import { GaiaHubConfig } from 'blockstack/lib/storage/hub';
+import { makeReadOnlyGaiaConfig, DEFAULT_GAIA_HUB, uploadToGaiaHub } from '../utils/gaia';
 
 const CONFIG_INDEX = 45;
 
@@ -145,7 +145,7 @@ export class Wallet {
     rootNode: bip32.BIP32Interface;
     gaiaReadURL: string;
   }) {
-    const gaiaConfig = await makeReadOnlyGaiaConfig({
+    const gaiaConfig = makeReadOnlyGaiaConfig({
       readURL: gaiaReadURL,
       privateKey: this.configPrivateKey,
     });
@@ -206,7 +206,13 @@ export class Wallet {
     }
   }
 
-  async getOrCreateConfig(gaiaConfig: GaiaHubConfig): Promise<WalletConfig> {
+  async getOrCreateConfig({
+    gaiaConfig,
+    skipUpload,
+  }: {
+    gaiaConfig: GaiaHubConfig;
+    skipUpload?: boolean;
+  }): Promise<WalletConfig> {
     if (this.walletConfig) {
       return this.walletConfig;
     }
@@ -222,14 +228,16 @@ export class Wallet {
       })),
     };
     this.walletConfig = newConfig;
-    await this.updateConfig(gaiaConfig);
+    if (!skipUpload) {
+      await this.updateConfig(gaiaConfig);
+    }
     return newConfig;
   }
 
   async updateConfig(gaiaConfig: GaiaHubConfig): Promise<void> {
     const publicKey = getPublicKeyFromPrivate(this.configPrivateKey);
     const encrypted = await encryptContent(JSON.stringify(this.walletConfig), { publicKey });
-    await uploadToGaiaHub('wallet-config.json', encrypted, gaiaConfig, 'application/json');
+    await uploadToGaiaHub('wallet-config.json', encrypted, gaiaConfig);
   }
 
   async updateConfigWithAuth({
