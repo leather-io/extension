@@ -61,7 +61,7 @@ export async function getIdentityOwnerAddressNode(
   return new IdentityAddressOwnerNode(identityPrivateKeychain.deriveHardened(identityIndex), salt);
 }
 
-export async function getAddress(node: BIP32Interface) {
+export function getAddress(node: BIP32Interface) {
   return publicKeyToAddress(node.publicKey);
 }
 

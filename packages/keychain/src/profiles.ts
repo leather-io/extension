@@ -59,11 +59,11 @@ export const registrars = {
   },
 };
 
-export async function signProfileForUpload(profile: any, keypair: IdentityKeyPair) {
+export function signProfileForUpload(profile: any, keypair: IdentityKeyPair) {
   const privateKey = keypair.key;
   const publicKey = keypair.keyID;
 
-  const token = await signProfileToken(profile, privateKey, { publicKey });
+  const token = signProfileToken(profile, privateKey, { publicKey });
   const tokenRecord = wrapProfileToken(token);
   const tokenRecords = [tokenRecord];
   return JSON.stringify(tokenRecords, null, 2);
@@ -147,9 +147,8 @@ export const registerSubdomain = async ({
   username,
   subdomain,
 }: RegisterParams) => {
-  // const profile = identity.profile || DEFAULT_PROFILE
-  const profile = DEFAULT_PROFILE;
-  const signedProfileTokenData = await signProfileForUpload(profile, identity.keyPair);
+  const profile = identity.profile || DEFAULT_PROFILE;
+  const signedProfileTokenData = signProfileForUpload(profile, identity.keyPair);
   const profileUrl = await uploadProfile(gaiaHubUrl, identity, signedProfileTokenData);
   const fullUsername = `${username}.${subdomain}`;
   const zoneFile = makeProfileZoneFile(fullUsername, profileUrl);
@@ -159,7 +158,6 @@ export const registerSubdomain = async ({
     zoneFile,
     identity,
   });
-  // eslint-disable-next-line require-atomic-updates
   identity.defaultUsername = fullUsername;
   identity.usernames.push(fullUsername);
   return identity;
@@ -176,7 +174,7 @@ export const signAndUploadProfile = async ({
   identity: Identity;
   gaiaHubConfig?: GaiaHubConfig;
 }) => {
-  const signedProfileTokenData = await signProfileForUpload(profile, identity.keyPair);
+  const signedProfileTokenData = signProfileForUpload(profile, identity.keyPair);
   await uploadProfile(gaiaHubUrl, identity, signedProfileTokenData, gaiaHubConfig);
 };
 

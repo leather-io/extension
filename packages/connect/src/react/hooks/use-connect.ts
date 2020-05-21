@@ -13,7 +13,9 @@ const useConnectDispatch = () => {
 };
 
 export const useConnect = () => {
-  const { isOpen, isAuthenticating, authData, screen, authOptions, userSession } = useContext(ConnectContext);
+  const { isOpen, isAuthenticating, authData, screen, authOptions, userSession } = useContext(
+    ConnectContext
+  );
   const dispatch = useConnectDispatch();
 
   const doUpdateAuthOptions = (payload: Partial<AuthOptions>) => {

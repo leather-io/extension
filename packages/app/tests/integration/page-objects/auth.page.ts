@@ -14,8 +14,10 @@ export class AuthPage {
   $buttonConnectFlowFinished = createTestSelector('button-connect-flow-finished');
   $firstAccount = createTestSelector('account-index-0');
   onboardingSignIn = '#onboarding-sign-in';
-  eightCharactersErrMsg = 'text="Your username should be at least 8 characters, with a maximum of 37 characters."';
-  lowerCharactersErrMsg = 'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
+  eightCharactersErrMsg =
+    'text="Your username should be at least 8 characters, with a maximum of 37 characters."';
+  lowerCharactersErrMsg =
+    'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
   iHaveSavedIt = 'text="I\'ve saved it"';
   passwordInput = '//input[@type="password"]';
   addNewAccountLink = '//span[text()="Add a new account"]';

@@ -16,7 +16,11 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 import { useWallet } from '@common/hooks/use-wallet';
-import { TransactionVersion, AddressVersion, addressToString } from '@blockstack/stacks-transactions';
+import {
+  TransactionVersion,
+  AddressVersion,
+  addressToString,
+} from '@blockstack/stacks-transactions';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TxError } from '@components/transactions/tx-error';
 import { TabbedCard, Tab } from '@components/tabbed-card';

@@ -12,10 +12,17 @@ export const UsernameRegistryError: React.FC = () => (
       body={[
         <Flex flexDirection="column" mx={4}>
           <Box>
-            <Title>There was a problem registering your username. We&apos;ve alerted our team to the issue.</Title>
+            <Title>
+              There was a problem registering your username. We&apos;ve alerted our team to the
+              issue.
+            </Title>
             <Button
               mt={6}
-              onClick={() => window.open('mailto:support@blockstack.org?subject=Error%20when%20registering%20username')}
+              onClick={() =>
+                window.open(
+                  'mailto:support@blockstack.org?subject=Error%20when%20registering%20username'
+                )
+              }
             >
               Contact Support
             </Button>

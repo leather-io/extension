@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Card } from '@cards/card';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
 import { getRPCClient } from '@common/utils';
-import { standardPrincipalCV, BufferCV, deserializeCV, ClarityType } from '@blockstack/stacks-transactions';
+import {
+  standardPrincipalCV,
+  BufferCV,
+  deserializeCV,
+  ClarityType,
+} from '@blockstack/stacks-transactions';
 
 export const ReadStatusCard: React.FC = () => {
   const [address, setAddress] = useState('');

@@ -2,7 +2,7 @@ import { Client, Provider, ProviderRegistry, Result, ResultInterface } from '@bl
 
 function unwrapOkResult(input: ResultInterface<string, unknown>): string {
   const { result } = input;
-  const match = /^\(ok\s0x(\w+)\)$/.exec(result as string);
+  const match = /^\(ok\s0x(\w+)\)$/.exec(result);
   // const res = match[1];
   if (!match) {
     throw new Error('Unable to parse result');
@@ -24,7 +24,11 @@ describe('hello world contract test suite', () => {
 
   beforeEach(async () => {
     provider = await ProviderRegistry.createProvider();
-    helloWorldClient = new Client('SP3GWX3NE58KXHESRYE4DYQ1S31PQJTCRXB3PE9SB.stream', 'stream', provider);
+    helloWorldClient = new Client(
+      'SP3GWX3NE58KXHESRYE4DYQ1S31PQJTCRXB3PE9SB.stream',
+      'stream',
+      provider
+    );
   });
 
   it('should have a valid syntax', async () => {
@@ -67,7 +71,9 @@ describe('hello world contract test suite', () => {
       const queryReceipt = await helloWorldClient.submitQuery(query);
       const queryResult = Result.unwrap(queryReceipt);
       // console.log(queryResult);
-      expect(queryResult).toEqual(`(ok (tuple (recipient '${bob}) (sender '${alice}) (start-block u2)))`);
+      expect(queryResult).toEqual(
+        `(ok (tuple (recipient '${bob}) (sender '${alice}) (start-block u2)))`
+      );
     });
   });
 

@@ -8,7 +8,8 @@ import { AuthPage } from './page-objects/auth.page';
 import { Wallet } from '@blockstack/keychain';
 
 const SECRET_KEY = 'invite helmet save lion indicate chuckle world pride afford hard broom draft';
-const WRONG_SECRET_KEY = 'invite helmet save lion indicate chuckle world pride afford hard broom yup';
+const WRONG_SECRET_KEY =
+  'invite helmet save lion indicate chuckle world pride afford hard broom yup';
 const WRONG_MAGIC_RECOVERY_KEY =
   'KDR6O8gKXGmstxj4d2oQqCi806M/Cmrbiatc6g7MkQQLVreRA95IoPtvrI3N230jTTGb2XWT5joRFKPfY/2YlmRz1brxoaDJCNS4z18Iw5Y=';
 const WRONG_PASSWORD = 'sstest202020';
@@ -103,7 +104,9 @@ describe.each(environments)('auth scenarios - %o %o', (browserType, deviceType) 
     expect(secretKey.split(' ').length).toEqual(SEED_PHRASE_LENGTH);
     expect(validateMnemonic(secretKey)).toBeTruthy();
     await authPage.clickIHaveSavedIt();
-    await authPage.setUserName(`${getRandomWord()}_${getRandomWord()}_${getRandomWord()}_${getRandomWord()}`);
+    await authPage.setUserName(
+      `${getRandomWord()}_${getRandomWord()}_${getRandomWord()}_${getRandomWord()}`
+    );
     await authPage.page.click(authPage.$buttonUsernameContinue);
     const authResponse = await demoPage.waitForAuthResponse();
     expect(authResponse).toBeTruthy();
@@ -176,7 +179,9 @@ describe.each(environments)('auth scenarios - %o %o', (browserType, deviceType) 
     //TEST6 Name already taken
     await authPage.page.type(authPage.$inputUsername, 'test1234');
     await authPage.page.click(authPage.$buttonUsernameContinue);
-    expect(await authPage.page.waitForSelector('text="This username is not available"')).toBeTruthy();
+    expect(
+      await authPage.page.waitForSelector('text="This username is not available"')
+    ).toBeTruthy();
     await authPage.page.evaluate(() => {
       const el = document.querySelector('[data-test="input-username"]') as HTMLInputElement;
       el.value = '';
@@ -242,7 +247,10 @@ describe.each(environments)('auth scenarios - %o %o', (browserType, deviceType) 
     expect(authResponse).toBeTruthy();
 
     const appPrivateKeyEl = await demoPage.page.$('#app-private-key');
-    const appPrivateKey = (await demoPage.page.evaluate(el => el?.getAttribute('value'), appPrivateKeyEl)) as string;
+    const appPrivateKey = (await demoPage.page.evaluate(
+      el => el?.getAttribute('value'),
+      appPrivateKeyEl
+    )) as string;
     expect(appPrivateKey).toBeTruthy();
     expect(appPrivateKey).toEqual(await wallet.identities[0].appPrivateKey(DemoPage.url));
   }, 60_000);

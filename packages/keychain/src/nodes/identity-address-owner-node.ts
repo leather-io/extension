@@ -57,20 +57,20 @@ export default class IdentityAddressOwnerNode {
     return this.hdNode.deriveHardened(STX_NODE_INDEX);
   }
 
-  async getAppNode(appDomain: string) {
+  getAppNode(appDomain: string) {
     return getLegacyAppNode(this.hdNode, this.salt, appDomain);
   }
 
-  async getAppPrivateKey(appDomain: string) {
-    const appNode = await this.getAppNode(appDomain);
+  getAppPrivateKey(appDomain: string) {
+    const appNode = this.getAppNode(appDomain);
     if (!appNode.privateKey) {
       throw new Error('App node does not have private key');
     }
     return appNode.privateKey.toString('hex');
   }
 
-  async getAppAddress(appDomain: string) {
-    const appNode = await this.getAppNode(appDomain);
+  getAppAddress(appDomain: string) {
+    const appNode = this.getAppNode(appDomain);
     return publicKeyToAddress(appNode.publicKey);
   }
 }

@@ -39,8 +39,8 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
       setSuccess(true);
       return;
     }
-    setTimeout(async () => {
-      await waitForBalance(currentBalance, attempts + 1);
+    setTimeout(() => {
+      waitForBalance(currentBalance, attempts + 1);
     }, 10000);
   };
 

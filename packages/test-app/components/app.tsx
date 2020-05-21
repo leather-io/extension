@@ -14,7 +14,7 @@ import { SampleContracts } from '@common/contracts';
 const Deploy = () => {
   const authOrigin = getAuthOrigin();
   const { doContractDeploy, userSession } = useConnect();
-  const handleSubmit = async () =>
+  const handleSubmit = () =>
     doContractDeploy({
       authOrigin,
       contractSource: SampleContracts[0].contractSource,
@@ -64,8 +64,9 @@ export const App: React.FC = () => {
           Smart Contracts
         </Text>
         <Text display="block" textStyle="caption.medium" maxWidth="600px" my={4}>
-          Interact with a pre-existing smart contract. Anyone can write their &quot;status&quot;, and each STX address
-          can have one status at a time. You can also fetch someone else&apos;s status, if you know their STX address.
+          Interact with a pre-existing smart contract. Anyone can write their &quot;status&quot;,
+          and each STX address can have one status at a time. You can also fetch someone else&apos;s
+          status, if you know their STX address.
         </Text>
         <Flex wrap="wrap" justifyContent="left">
           {state.userData ? (
@@ -85,8 +86,9 @@ export const App: React.FC = () => {
           Contract Debugger
         </Text>
         <Text display="block" my={4} textStyle="caption.medium" maxWidth="600px">
-          Enter the information for any published smart contract. That contract&apos;s interface and source code will be
-          fetched, and you&apos;ll be able to execute public and read-only functions on that contract.
+          Enter the information for any published smart contract. That contract&apos;s interface and
+          source code will be fetched, and you&apos;ll be able to execute public and read-only
+          functions on that contract.
         </Text>
         <ContractDebugger />
       </Box>

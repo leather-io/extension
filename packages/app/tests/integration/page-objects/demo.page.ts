@@ -49,7 +49,10 @@ export class DemoPage {
   async waitForAuthResponse() {
     await this.page.waitForSelector('#auth-response');
     const authResponseEl = await this.page.$('#auth-response');
-    const authResponse = (await this.page.evaluate(el => el?.getAttribute('value'), authResponseEl)) as string;
+    const authResponse = (await this.page.evaluate(
+      el => el?.getAttribute('value'),
+      authResponseEl
+    )) as string;
     return authResponse;
   }
 
