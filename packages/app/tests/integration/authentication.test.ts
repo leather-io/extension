@@ -67,7 +67,7 @@ describe.each(environments)('auth scenarios - %o %o', (browserType, deviceType) 
     const auth = await AuthPage.getAuthPage(browser);
     const authPage = auth.page;
 
-    await authPage.waitFor(auth.$textareaReadOnlySeedPhrase);
+    await authPage.waitForSelector(auth.$textareaReadOnlySeedPhrase);
 
     const $secretKeyEl = await authPage.$(auth.$textareaReadOnlySeedPhrase);
     if (!$secretKeyEl) {
@@ -79,7 +79,7 @@ describe.each(environments)('auth scenarios - %o %o', (browserType, deviceType) 
 
     await authPage.click(auth.$buttonCopySecretKey);
 
-    await authPage.waitFor(auth.$buttonHasSavedSeedPhrase);
+    await authPage.waitForSelector(auth.$buttonHasSavedSeedPhrase);
     await authPage.click(auth.$buttonHasSavedSeedPhrase);
 
     const $usernameInputElement = await authPage.$(auth.$inputUsername);

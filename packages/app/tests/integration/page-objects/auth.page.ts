@@ -38,7 +38,7 @@ export class AuthPage {
     const authPage = new this(page);
     await page.waitForSelector(createTestSelector('screen'));
     if (signUp) {
-      await page.waitFor(authPage.$textareaReadOnlySeedPhrase, { timeout: 15000 });
+      await page.waitForSelector(authPage.$textareaReadOnlySeedPhrase, { timeout: 15000 });
     }
     return authPage;
   }
