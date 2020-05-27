@@ -72,7 +72,7 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
   };
 
   return (
-    <Box mb={6} maxWidth="600px">
+    <Box mb={6} maxWidth="600px" mt={6}>
       <Text as="h2" fontSize={5} mt={6}>
         Faucet
       </Text>

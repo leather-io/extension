@@ -3,10 +3,12 @@ import { Card } from '@cards/card';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
 import { getAuthOrigin } from '@common/utils';
 import { useConnect, ContractCallArgumentType } from '@blockstack/connect';
+import { ExplorerLink } from '@components/explorer-link';
 
 export const WriteStatusCard: React.FC = () => {
   const { doContractCall } = useConnect();
   const [status, setStatus] = useState('');
+  const [txId, setTxId] = useState('');
 
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setStatus(evt.currentTarget.value || '');
@@ -21,6 +23,7 @@ export const WriteStatusCard: React.FC = () => {
       functionArgs: [{ value: status, type: ContractCallArgumentType.BUFFER }],
       contractName: 'status',
       finished: data => {
+        setTxId(data.txId);
         console.log('finished!', data);
       },
     });
@@ -30,6 +33,7 @@ export const WriteStatusCard: React.FC = () => {
     <Card title="Status Contract">
       <Flex wrap="wrap">
         <Text display="inline-block">Save a small phrase on the Stacks Blockchain.</Text>
+        {txId && <ExplorerLink txId={txId} />}
         <Box width="100%" mt={3}>
           <Input
             type="text"
