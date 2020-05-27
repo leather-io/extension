@@ -1,5 +1,5 @@
-import { Page } from 'playwright-core/lib/page';
-import { BrowserContext } from 'playwright-core/lib/browserContext';
+import { Page } from 'playwright-core';
+import { BrowserContext } from 'playwright-core';
 import { createTestSelector } from '../utils';
 
 export class DemoPage {
@@ -34,7 +34,7 @@ export class DemoPage {
   //  * Explicitly set the return type here to prevent the primitive being lost when using new
   //  * @return {Page} from 'playwright-core/lib/page';
   //  */
-  async clickAlreadyHaveSecretKey() {
+  clickAlreadyHaveSecretKey() {
     return this.page.click(this.alreadyHaveSecretKeyLink);
   }
 
@@ -42,7 +42,7 @@ export class DemoPage {
     // return
   }
 
-  async openConnect() {
+  openConnect() {
     return this.page.click(this.openConnectBtn);
   }
 
@@ -56,7 +56,7 @@ export class DemoPage {
     return authResponse;
   }
 
-  async clickConnectGetStarted() {
+  clickConnectGetStarted() {
     return this.page.click(this.getStartedPopUp);
   }
 }

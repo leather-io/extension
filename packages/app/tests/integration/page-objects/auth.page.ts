@@ -1,4 +1,4 @@
-import { Page } from 'playwright-core/lib/page';
+import { Page } from 'playwright-core';
 import { createTestSelector, wait, Browser } from '../utils';
 
 export class AuthPage {
@@ -101,7 +101,7 @@ export class AuthPage {
     await this.page.click(this.continueBtn);
   }
 
-  async chooseAccount(username: string) {
+  chooseAccount(username: string) {
     return this.page.click(`text="${username}"`);
   }
 

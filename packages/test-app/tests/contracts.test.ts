@@ -2,6 +2,9 @@ import { Client, Provider, ProviderRegistry, Result, ResultInterface } from '@bl
 
 function unwrapOkResult(input: ResultInterface<string, unknown>): string {
   const { result } = input;
+  if (!result) {
+    throw new Error('Unable to parse result');
+  }
   const match = /^\(ok\s0x(\w+)\)$/.exec(result);
   // const res = match[1];
   if (!match) {

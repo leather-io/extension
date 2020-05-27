@@ -1,13 +1,11 @@
-import { CRBrowser } from 'playwright-core/lib/chromium/crBrowser';
-import { WKBrowser } from 'playwright-core/lib/webkit/wkBrowser';
-import { FFBrowser } from 'playwright-core/lib/firefox/ffBrowser';
-import { Page } from 'playwright-core/lib/page';
+export { Browser } from 'playwright-core';
+import { Page } from 'playwright-core';
 
 export function createTestSelector(name: string) {
   return `[data-test="${name}"]`;
 }
 
-export type Browser = CRBrowser | WKBrowser | FFBrowser;
+// export type Browser = CRBrowser | WKBrowser | FFBrowser;
 
 export function randomString(len: number) {
   const charSet = 'abcdefghijklmnopqrstuvwxyz0123456789';
