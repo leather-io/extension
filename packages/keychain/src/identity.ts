@@ -92,7 +92,7 @@ export class Identity {
     transitPublicKey: string;
     scopes?: string[];
   }) {
-    const appPrivateKey = await this.appPrivateKey(appDomain);
+    const appPrivateKey = this.appPrivateKey(appDomain);
     const hubInfo = await getHubInfo(gaiaUrl);
     const profileUrl = await this.profileUrl(hubInfo.read_url_prefix);
     const profile =
@@ -143,7 +143,7 @@ export class Identity {
     );
   }
 
-  async appPrivateKey(appDomain: string) {
+  appPrivateKey(appDomain: string) {
     const { salt, appsNodeKey } = this.keyPair;
     const appsNode = new IdentityAddressOwnerNode(bip32.fromBase58(appsNodeKey), salt);
     return appsNode.getAppPrivateKey(appDomain);

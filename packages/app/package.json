@@ -26,7 +26,7 @@
     "@blockstack/connect": "^2.4.0-alpha.0",
     "@blockstack/keychain": "^0.4.0-alpha.0",
     "@blockstack/rpc-client": "^0.2.0-alpha.0",
-    "@blockstack/stacks-transactions": "0.3.0-alpha.5",
+    "@blockstack/stacks-transactions": "0.4.4",
     "@blockstack/stats": "^0.7.0",
     "@blockstack/ui": "^1.2.0-beta.13",
     "@rehooks/document-title": "^1.0.1",
