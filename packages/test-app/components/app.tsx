@@ -11,6 +11,7 @@ import { Header } from '@components/header';
 import { ReadStatusCard } from '@cards/read-status';
 import { SampleContracts } from '@common/contracts';
 import { CounterActions } from '@components/counter-actions';
+import { ExplorerLink } from '@components/explorer-link';
 
 export const Deploy = () => {
   const authOrigin = getAuthOrigin();
@@ -67,6 +68,10 @@ export const App: React.FC = () => {
           STX address can have one status at a time. You can also fetch someone else&apos;s status,
           if you know their STX address.
         </Text>
+        <ExplorerLink
+          txId="STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6.status"
+          text="View contract in explorer"
+        />
         <Flex wrap="wrap" justifyContent="left" mb={6}>
           {state.userData ? (
             <>
@@ -88,6 +93,10 @@ export const App: React.FC = () => {
           Interact with a smart contract that keeps a single "counter" state variable. The public
           methods &quot;increment&quot; and &quot;decrement&quot; change the value of the counter.
         </Text>
+        <ExplorerLink
+          txId="STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6.counter"
+          text="View contract in explorer"
+        />
         <CounterActions />
         <Faucet address={state.userData?.profile?.stxAddress} />
       </Box>
