@@ -49,15 +49,9 @@ export const CounterActions: React.FC = () => {
     <Box>
       {!userData && <Text display="block">Log in to change the state of this smart contract.</Text>}
       <ButtonGroup spacing={4} my={5}>
-        <Button isLoading={loading} onClick={() => callMethod('increment')}>
-          Increment
-        </Button>
-        <Button isLoading={loading} onClick={() => callMethod('decrement')}>
-          Decrement
-        </Button>
-        <Button isLoading={loading} onClick={getCounter}>
-          Get Current Value
-        </Button>
+        <Button onClick={() => callMethod('increment')}>Increment</Button>
+        <Button onClick={() => callMethod('decrement')}>Decrement</Button>
+        <Button onClick={getCounter}>Get Current Value</Button>
       </ButtonGroup>
       {txId && !loading && <ExplorerLink txId={txId} />}
       {counter !== null && !loading && (
