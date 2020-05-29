@@ -16,14 +16,13 @@ import {
   makeContractCall,
   makeSmartContractDeploy,
   TransactionVersion,
-  PostConditionMode,
   AddressVersion,
   AddressHashMode,
   ClarityValue,
   pubKeyfromPrivKey,
   addressFromPublicKeys,
   addressToString,
-  ChainID,
+  StacksTestnet,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
 import RPCClient from '@blockstack/rpc-client';
@@ -224,39 +223,30 @@ export class Identity {
     contractAddress,
     functionName,
     functionArgs,
-    version,
     nonce,
   }: ContractCallOptions) {
-    const tx = makeContractCall(
+    const tx = makeContractCall({
       contractAddress,
       contractName,
       functionName,
       functionArgs,
-      new BN(200),
-      this.getSTXPrivateKey().toString('hex'),
-      {
-        version: version,
-        nonce: new BN(nonce),
-        postConditionMode: PostConditionMode.Allow,
-        chainId: ChainID.Testnet,
-      }
-    );
+      senderKey: this.getSTXPrivateKey().toString('hex'),
+      fee: new BN(200),
+      nonce: new BN(nonce),
+      network: new StacksTestnet(),
+    });
     return tx;
   }
 
-  signContractDeploy({ contractName, contractSource, version, nonce }: ContractDeployOptions) {
-    const tx = makeSmartContractDeploy(
+  signContractDeploy({ contractName, contractSource, nonce }: ContractDeployOptions) {
+    const tx = makeSmartContractDeploy({
       contractName,
-      contractSource,
-      new BN(2000),
-      this.getSTXPrivateKey().toString('hex'),
-      {
-        version: version,
-        nonce: new BN(nonce),
-        postConditionMode: PostConditionMode.Allow,
-        chainId: ChainID.Testnet,
-      }
-    );
+      codeBody: contractSource,
+      fee: new BN(2000),
+      senderKey: this.getSTXPrivateKey().toString('hex'),
+      network: new StacksTestnet(),
+      nonce: new BN(nonce),
+    });
     return tx;
   }
 }
