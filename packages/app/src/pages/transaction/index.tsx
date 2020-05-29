@@ -20,6 +20,7 @@ import {
   TransactionVersion,
   AddressVersion,
   addressToString,
+  StacksTransaction,
 } from '@blockstack/stacks-transactions';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TxError } from '@components/transactions/tx-error';
@@ -61,7 +62,7 @@ const Textarea = styled.textarea`
   left: -999px;
 `;
 
-const generateContractCallTx = (txData: ContractCallPayload, identity: any, nonce: number) => {
+const generateContractCallTx = (txData: ContractCallPayload, identity: Identity, nonce: number) => {
   const { contractName, contractAddress, functionName, functionArgs } = txData;
   const version = TransactionVersion.Testnet;
   const args = functionArgs.map(arg => {
@@ -78,7 +79,11 @@ const generateContractCallTx = (txData: ContractCallPayload, identity: any, nonc
   });
 };
 
-const generateContractDeployTx = (txData: ContractDeployPayload, identity: any, nonce: number) => {
+const generateContractDeployTx = (
+  txData: ContractDeployPayload,
+  identity: Identity,
+  nonce: number
+) => {
   const { contractName, contractSource } = txData;
   const version = TransactionVersion.Testnet;
 
@@ -93,9 +98,7 @@ const generateContractDeployTx = (txData: ContractDeployPayload, identity: any, 
 export const Transaction: React.FC = () => {
   const location = useLocation();
   const { firstIdentity: identity } = useWallet();
-  const [pendingTransaction, setPendingTransaction] = useState<
-    ContractCallPayload | ContractDeployPayload | undefined
-  >();
+  const [pendingTransaction, setPendingTransaction] = useState<TransactionPayload | undefined>();
   const [txHash, setTxHash] = useState('');
   const [loading, setLoading] = useState(true);
   const [contractSrc, setContractSrc] = useState('');
@@ -128,6 +131,7 @@ export const Transaction: React.FC = () => {
         </Box>
       ),
       key: 'source',
+      hide: pendingTransaction?.txType === 'stx-transfer',
     },
   ];
 
@@ -141,7 +145,7 @@ export const Transaction: React.FC = () => {
     }
   };
 
-  const setupWithState = async (tx: ContractCallPayload | ContractDeployPayload) => {
+  const setupWithState = async (tx: TransactionPayload) => {
     if (tx.txType === 'contract-call') {
       const contractSource = await client.fetchContractSource({
         contractName: tx.contractName,
@@ -153,10 +157,11 @@ export const Transaction: React.FC = () => {
       } else {
         setError(`Unable to find contract ${tx.contractAddress}.${tx.contractName}`);
       }
-    }
-    if (tx.txType === 'contract-deploy') {
+    } else if (tx.txType === 'contract-deploy') {
       console.log(tx);
       setContractSrc(tx.contractSource);
+      setPendingTransaction(tx);
+    } else if (tx.txType === 'stx-transfer') {
       setPendingTransaction(tx);
     }
   };
@@ -176,34 +181,36 @@ export const Transaction: React.FC = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     decodeRequest();
   }, []);
+
+  const finishTransaction = async (tx: StacksTransaction) => {
+    const txRaw = tx.serialize().toString('hex');
+
+    setTxHash(txRaw);
+
+    const res = await broadcastTx(tx.serialize());
+
+    if (res.ok) {
+      const txId = await res.text();
+      finalizeTxSignature({ txId, txRaw });
+    } else {
+      const response = await res.json();
+      if (response.error) {
+        console.error(response.error);
+        console.error(response.reason);
+        setError(`${response.error} - ${response.reason}`);
+      }
+    }
+    setLoading(false);
+  };
 
   const handleBroadcastContractCall = async () => {
     if (identity && pendingTransaction && pendingTransaction.txType === 'contract-call') {
       setLoading(true);
 
-      const tx = generateContractCallTx(pendingTransaction, identity, nonce);
-
-      const txRaw = tx.serialize().toString('hex');
-
-      setTxHash(txRaw);
-
-      const res = await broadcastTx(tx.serialize());
-
-      if (res.ok) {
-        const txId = await res.text();
-        finalizeTxSignature({ txId, txRaw });
-      } else {
-        const response = await res.json();
-        if (response.error) {
-          console.error(response.error);
-          console.error(response.reason);
-          setError(`${response.error} - ${response.reason}`);
-        }
-      }
-      setLoading(false);
+      const tx = await generateContractCallTx(pendingTransaction, identity, nonce);
+      await finishTransaction(tx);
     }
   };
 
@@ -211,26 +218,22 @@ export const Transaction: React.FC = () => {
     if (identity && pendingTransaction && pendingTransaction.txType === 'contract-deploy') {
       setLoading(true);
 
-      const tx = generateContractDeployTx(pendingTransaction, identity, nonce);
+      const tx = await generateContractDeployTx(pendingTransaction, identity, nonce);
+      await finishTransaction(tx);
+    }
+  };
 
-      const txRaw = tx.serialize().toString('hex');
-
-      setTxHash(txRaw);
-
-      const res = await broadcastTx(tx.serialize());
-
-      if (res.ok) {
-        const txId = await res.text();
-        finalizeTxSignature({ txId, txRaw });
-      } else {
-        const response = await res.json();
-        if (response.error) {
-          console.error(response.error);
-          console.error(response.reason);
-          setError(`${response.error} - ${response.reason}`);
-        }
-      }
-      setLoading(false);
+  const handleSTXTransfer = async () => {
+    if (identity && pendingTransaction && pendingTransaction.txType === 'stx-transfer') {
+      setLoading(true);
+      const { recipient, memo, amount } = pendingTransaction;
+      const tx = await identity.signSTXTransfer({
+        recipient,
+        memo,
+        amount,
+        nonce,
+      });
+      await finishTransaction(tx);
     }
   };
 
@@ -240,6 +243,9 @@ export const Transaction: React.FC = () => {
     }
     if (pendingTransaction?.txType === 'contract-deploy') {
       await handleBroadcastContractDeploy();
+    }
+    if (pendingTransaction?.txType === 'stx-transfer') {
+      await handleSTXTransfer();
     }
   };
 

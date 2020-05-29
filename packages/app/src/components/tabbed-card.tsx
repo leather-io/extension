@@ -5,6 +5,7 @@ export interface Tab {
   title: string | React.ReactNode;
   key: string;
   content: React.ReactNode;
+  hide?: boolean;
 }
 
 export interface TabHeaderProps extends BoxProps {
@@ -63,16 +64,21 @@ export const TabbedCard: React.FC<TabbedCardProps> = ({ tabs, ...rest }) => {
 
   const activeTab = tabs.find(tab => tab.key === activeKey);
 
-  const Header = tabs.map(tab => (
-    <TabHeader
-      tab={tab}
-      active={tab.key === activeKey}
-      onClick={() => {
-        setActiveKey(tab.key);
-      }}
-      key={tab.key}
-    />
-  ));
+  const Header = tabs.map(tab => {
+    if (tab.hide) {
+      return null;
+    }
+    return (
+      <TabHeader
+        tab={tab}
+        active={tab.key === activeKey}
+        onClick={() => {
+          setActiveKey(tab.key);
+        }}
+        key={tab.key}
+      />
+    );
+  });
   return (
     <Flex borderWidth="1px" borderColor="gray.light" borderRadius="8px" {...rest} wrap="wrap">
       <Box width="100%">

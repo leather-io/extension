@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
 import { getRPCClient } from '@common/utils';
+import { ExplorerLink } from './explorer-link';
 
 interface FaucetResponse {
   txId?: string;
@@ -80,11 +81,7 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
         Receive some free testnet STX for testing out the network. STX are required to execute smart
         contract functions.
       </Text>
-      {tx && (
-        <Text display="inline-block" my={1} fontSize={1} style={{ wordBreak: 'break-all' }}>
-          TXID: {tx}
-        </Text>
-      )}
+      {tx && <ExplorerLink txId={tx} />}
       {error && (
         <Text display="inline-block" my={1} fontSize={1} color="red">
           {error}
@@ -101,8 +98,13 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
             name="address"
           />
         </Box>
-        <Box width="100%" mt={3} onClick={onSubmit}>
-          <Button isLoading={loading} loadingText=" Waiting for TX to Confirm" isDisabled={success}>
+        <Box width="100%" mt={3}>
+          <Button
+            isLoading={loading}
+            loadingText=" Waiting for TX to Confirm"
+            isDisabled={success}
+            onClick={onSubmit}
+          >
             {success ? 'Faucet TX Confirmed' : 'Receive Testnet STX'}
           </Button>
         </Box>

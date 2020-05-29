@@ -23,6 +23,7 @@ import {
   addressFromPublicKeys,
   addressToString,
   StacksTestnet,
+  makeSTXTokenTransfer,
 } from '@blockstack/stacks-transactions';
 import BN from 'bn.js';
 import RPCClient from '@blockstack/rpc-client';
@@ -53,6 +54,13 @@ interface ContractDeployOptions {
   contractName: string;
   contractSource: string;
   version: TransactionVersion;
+  nonce: number;
+}
+
+interface STXTransferOptions {
+  recipient: string;
+  amount: string;
+  memo?: string;
   nonce: number;
 }
 
@@ -218,14 +226,14 @@ export class Identity {
     return account;
   }
 
-  signContractCall({
+  async signContractCall({
     contractName,
     contractAddress,
     functionName,
     functionArgs,
     nonce,
   }: ContractCallOptions) {
-    const tx = makeContractCall({
+    const tx = await makeContractCall({
       contractAddress,
       contractName,
       functionName,
@@ -238,10 +246,23 @@ export class Identity {
     return tx;
   }
 
-  signContractDeploy({ contractName, contractSource, nonce }: ContractDeployOptions) {
-    const tx = makeSmartContractDeploy({
+  async signContractDeploy({ contractName, contractSource, nonce }: ContractDeployOptions) {
+    const tx = await makeSmartContractDeploy({
       contractName,
       codeBody: contractSource,
+      fee: new BN(2000),
+      senderKey: this.getSTXPrivateKey().toString('hex'),
+      network: new StacksTestnet(),
+      nonce: new BN(nonce),
+    });
+    return tx;
+  }
+
+  async signSTXTransfer({ recipient, amount, memo, nonce }: STXTransferOptions) {
+    const tx = await makeSTXTokenTransfer({
+      recipient,
+      amount: new BN(amount),
+      memo,
       fee: new BN(2000),
       senderKey: this.getSTXPrivateKey().toString('hex'),
       network: new StacksTestnet(),

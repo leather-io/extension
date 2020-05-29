@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
-import { ThemeProvider, theme, Flex, CSSReset, Text, Button, Box } from '@blockstack/ui';
-import { Connect, AuthOptions, useConnect } from '@blockstack/connect';
+import { ThemeProvider, theme, Flex, CSSReset, Text, Box } from '@blockstack/ui';
+import { Connect, AuthOptions } from '@blockstack/connect';
 import { WriteStatusCard } from '@cards/write-status';
 import { getAuthOrigin } from '@common/utils';
 import { UserSession, AppConfig } from 'blockstack';
@@ -9,29 +9,10 @@ import { Faucet } from '@components/faucet';
 // import { ContractDebugger } from '@components/contract-debugger';
 import { Header } from '@components/header';
 import { ReadStatusCard } from '@cards/read-status';
-import { SampleContracts } from '@common/contracts';
 import { CounterActions } from '@components/counter-actions';
 import { ExplorerLink } from '@components/explorer-link';
-
-export const Deploy = () => {
-  const authOrigin = getAuthOrigin();
-  const { doContractDeploy, userSession } = useConnect();
-  const handleSubmit = () =>
-    doContractDeploy({
-      authOrigin,
-      contractSource: SampleContracts[0].contractSource,
-      contractName: SampleContracts[0].contractName,
-      userSession,
-      finished: data => {
-        console.log('finished!', data);
-      },
-    });
-  return (
-    <Box>
-      <Button onClick={handleSubmit}>Deploy</Button>
-    </Box>
-  );
-};
+import { Deploy } from '@components/deploy';
+import { STXTransfer } from '@components/stx-transfer';
 
 export const App: React.FC = () => {
   const [state, setState] = React.useState<AppState>(defaultState);
@@ -99,6 +80,8 @@ export const App: React.FC = () => {
         />
         <CounterActions />
         <Faucet address={state.userData?.profile?.stxAddress} />
+        <Deploy />
+        <STXTransfer />
       </Box>
     );
   };

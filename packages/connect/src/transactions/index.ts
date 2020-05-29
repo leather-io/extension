@@ -10,6 +10,9 @@ import {
   FinishedTxData,
   TransactionPopup,
   TransactionOptions,
+  STXTransferOptions,
+  STXTransferPayload,
+  TransactionPayload,
 } from './types';
 
 export * from './types';
@@ -28,10 +31,7 @@ const makeKeys = (_userSession?: UserSession) => {
   return { privateKey, publicKey };
 };
 
-const signPayload = async (
-  payload: ContractCallPayload | ContractDeployPayload,
-  privateKey: string
-) => {
+const signPayload = async (payload: TransactionPayload, privateKey: string) => {
   const tokenSigner = new TokenSigner('ES256k', privateKey);
   return tokenSigner.signAsync(payload as any);
 };
@@ -98,6 +98,25 @@ export const makeContractDeployToken = async (opts: ContractDeployOptions) => {
   return signPayload(payload, privateKey);
 };
 
+export const makeSTXTransferToken = async (opts: STXTransferOptions) => {
+  const { amount, recipient, memo, appDetails } = opts;
+  const { privateKey, publicKey } = makeKeys(opts.userSession);
+
+  const payload: STXTransferPayload = {
+    amount,
+    recipient,
+    memo,
+    publicKey,
+    txType: 'stx-transfer',
+  };
+
+  if (appDetails) {
+    payload.appDetails = appDetails;
+  }
+
+  return signPayload(payload, privateKey);
+};
+
 async function generateTokenAndOpenPopup<T extends TransactionOptions>(
   opts: T,
   makeTokenFn: (opts: T) => Promise<string>
@@ -111,3 +130,6 @@ export const openContractCall = async (opts: ContractCallOptions) =>
 
 export const openContractDeploy = async (opts: ContractDeployOptions) =>
   generateTokenAndOpenPopup(opts, makeContractDeployToken);
+
+export const openSTXTransfer = async (opts: STXTransferOptions) =>
+  generateTokenAndOpenPopup(opts, makeSTXTransferToken);

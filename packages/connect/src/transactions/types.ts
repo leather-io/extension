@@ -65,11 +65,32 @@ export interface ContractDeployPayload extends ContractDeployOptions {
 }
 
 /**
+ * STX Transfer
+ */
+
+export interface STXTransferBase extends TxBase {
+  recipient: string;
+  amount: string;
+  memo?: string;
+}
+
+export interface STXTransferOptions extends STXTransferBase {
+  authOrigin?: string;
+  userSession?: UserSession;
+  finished?: (data: FinishedTxData) => void;
+}
+
+export interface STXTransferPayload extends STXTransferOptions {
+  publicKey: string;
+  txType: 'stx-transfer';
+}
+
+/**
  * Transaction Popup
  */
 
-export type TransactionOptions = ContractCallOptions | ContractDeployOptions;
-export type TransactionPayload = ContractCallPayload | ContractDeployPayload;
+export type TransactionOptions = ContractCallOptions | ContractDeployOptions | STXTransferOptions;
+export type TransactionPayload = ContractCallPayload | ContractDeployPayload | STXTransferPayload;
 
 export interface TransactionPopup {
   token: string;

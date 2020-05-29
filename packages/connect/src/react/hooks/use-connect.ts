@@ -1,7 +1,11 @@
 import { useContext } from 'react';
 import { authenticate, AuthOptions, FinishedData } from '../../auth';
-import { openContractCall, openContractDeploy } from '../../transactions';
-import { ContractCallOptions, ContractDeployOptions } from '../../transactions/types';
+import { openContractCall, openContractDeploy, openSTXTransfer } from '../../transactions';
+import {
+  ContractCallOptions,
+  ContractDeployOptions,
+  STXTransferOptions,
+} from '../../transactions/types';
 import { ConnectContext, ConnectDispatchContext, States } from '../components/connect/context';
 
 const useConnectDispatch = () => {
@@ -46,7 +50,6 @@ export const useConnect = () => {
         sendToSignIn: true,
       };
       doStartAuth();
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       authenticate(options);
       return;
     }
@@ -59,7 +62,6 @@ export const useConnect = () => {
   };
   const doAuth = (options: Partial<AuthOptions> = {}) => {
     doStartAuth();
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     authenticate({
       ...authOptions,
       ...options,
@@ -78,6 +80,12 @@ export const useConnect = () => {
 
   const doContractDeploy = async (opts: ContractDeployOptions) =>
     openContractDeploy({
+      ...opts,
+      appDetails: authOptions.appDetails,
+    });
+
+  const doSTXTransfer = async (opts: STXTransferOptions) =>
+    openSTXTransfer({
       ...opts,
       appDetails: authOptions.appDetails,
     });
@@ -102,5 +110,6 @@ export const useConnect = () => {
     authenticate,
     doContractCall,
     doContractDeploy,
+    doSTXTransfer,
   };
 };
