@@ -1,8 +1,8 @@
 import { UserSession, AppConfig } from 'blockstack';
 import './types';
-import { popupCenter } from './popup';
+import { popupCenter, setupListener } from './popup';
 
-const defaultAuthURL = 'https://app.blockstack.org';
+export const defaultAuthURL = 'https://app.blockstack.org';
 
 export interface FinishedData {
   authResponse: string;
@@ -34,7 +34,6 @@ export const authenticate = async ({
 }: AuthOptions) => {
   if (!userSession) {
     const appConfig = new AppConfig(['store_write'], document.location.href);
-    // eslint-disable-next-line no-param-reassign
     userSession = new UserSession({ appConfig });
   }
   if (userSession.isUserSignedIn()) {
@@ -71,7 +70,8 @@ export const authenticate = async ({
     url: `${authURL.origin}/#/${path}?${urlParams.toString()}`,
   });
 
-  setupListener({ popup, authRequest, finished, authURL, userSession });
+  // setupListener({ popup, authRequest, finished, authURL, userSession });
+  setupAuthListener({ popup, authURL, authRequest, finished, userSession });
 };
 
 interface FinishedEventData {
@@ -88,44 +88,30 @@ interface ListenerParams {
   userSession: UserSession;
 }
 
-const setupListener = ({ popup, authRequest, finished, authURL, userSession }: ListenerParams) => {
-  const interval = setInterval(() => {
-    if (popup) {
-      try {
-        popup.postMessage(
-          {
-            authRequest,
-          },
-          authURL.origin
-        );
-      } catch (error) {
-        console.warn('[Blockstack] Unable to send ping to authentication service');
-        clearInterval(interval);
+const setupAuthListener = ({
+  popup,
+  authRequest,
+  finished,
+  authURL,
+  userSession,
+}: ListenerParams) => {
+  setupListener<FinishedEventData>({
+    popup,
+    finished: async (data: FinishedEventData) => {
+      if (data.authRequest === authRequest) {
+        if (finished) {
+          const { authResponse } = data;
+          await userSession.handlePendingSignIn(authResponse);
+          finished({
+            authResponse,
+            userSession,
+          });
+        }
       }
-    }
-  }, 100);
-
-  const receiveMessage = async (event: MessageEvent) => {
-    const data: FinishedEventData = event.data;
-    if (data.authRequest === authRequest) {
-      if (finished) {
-        window.focus();
-        const { authResponse } = data;
-        await userSession.handlePendingSignIn(authResponse);
-        finished({
-          authResponse,
-          userSession,
-        });
-      }
-      window.removeEventListener('message', receiveMessageCallback);
-      clearInterval(interval);
-    }
-  };
-
-  const receiveMessageCallback = (event: MessageEvent) => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    receiveMessage(event);
-  };
-
-  window.addEventListener('message', receiveMessageCallback, false);
+    },
+    messageParams: {
+      authRequest,
+    },
+    authURL,
+  });
 };

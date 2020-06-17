@@ -1,5 +1,6 @@
 import { DecodedAuthRequest } from './dev/types';
 import { wordlists } from 'bip39';
+import { FinishedTxData } from '@blockstack/connect';
 
 export const getAuthRequestParam = () => {
   const { hash } = document.location;
@@ -21,7 +22,8 @@ export const authenticationInit = () => {
 };
 
 export const getEventSourceWindow = (event: MessageEvent) => {
-  const isWindow = !(event.source instanceof MessagePort) && !(event.source instanceof ServiceWorker);
+  const isWindow =
+    !(event.source instanceof MessagePort) && !(event.source instanceof ServiceWorker);
   if (isWindow) {
     return event.source as Window;
   }
@@ -49,8 +51,11 @@ interface FinalizeAuthParams {
  * but using a new tab.
  *
  */
-
-export const finalizeAuthResponse = ({ decodedAuthRequest, authRequest, authResponse }: FinalizeAuthParams) => {
+export const finalizeAuthResponse = ({
+  decodedAuthRequest,
+  authRequest,
+  authResponse,
+}: FinalizeAuthParams) => {
   let didSendMessageBack = false;
   setTimeout(() => {
     if (!didSendMessageBack) {
@@ -63,7 +68,7 @@ export const finalizeAuthResponse = ({ decodedAuthRequest, authRequest, authResp
       }
     }
     window.close();
-  }, 150);
+  }, 250);
   window.addEventListener('message', event => {
     if (authRequest && event.data.authRequest === authRequest) {
       const source = getEventSourceWindow(event);
@@ -81,6 +86,23 @@ export const finalizeAuthResponse = ({ decodedAuthRequest, authRequest, authResp
     }
   });
 };
+
+export const finalizeTxSignature = (data: FinishedTxData) => {
+  window.addEventListener('message', event => {
+    const source = getEventSourceWindow(event);
+    if (source) {
+      source.postMessage(
+        {
+          ...data,
+          source: 'blockstack-app',
+        },
+        event.origin
+      );
+    }
+    window.close();
+  });
+};
+
 export const openPopup = (actionsUrl: string) => {
   // window.open(actionsUrl, 'Blockstack', 'scrollbars=no,status=no,menubar=no,width=300px,height=200px,left=0,top=0')
   const height = 584;
@@ -88,6 +110,7 @@ export const openPopup = (actionsUrl: string) => {
   // width=440,height=584
   popupCenter(actionsUrl, 'Blockstack', width, height);
 };
+
 // open a popup, centered on the screen, with logic to handle dual-monitor setups
 export const popupCenter = (url: string, title: string, w: number, h: number) => {
   const dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;

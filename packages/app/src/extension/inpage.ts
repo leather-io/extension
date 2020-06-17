@@ -1,4 +1,4 @@
-import { BlockstackProvider } from '@blockstack/connect/types';
+import { BlockstackProvider } from '@blockstack/connect';
 
 interface Response {
   source: 'blockstack-extension';
@@ -13,7 +13,10 @@ const callAndReceive = async (methodName: string, opts: any = {}): Promise<Respo
       reject('Unable to get response from Blockstack extension');
     }, 1000);
     const waitForResponse = (event: MessageEvent) => {
-      if (event.data.source === 'blockstack-extension' && event.data.method === `${methodName}Response`) {
+      if (
+        event.data.source === 'blockstack-extension' &&
+        event.data.method === `${methodName}Response`
+      ) {
         clearTimeout(timeout);
         window.removeEventListener('message', waitForResponse);
         resolve(event.data);

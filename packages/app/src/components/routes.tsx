@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { Home } from '../pages/home';
-import { Create, SaveKey } from '../pages/sign-up';
-import { SignIn, DecryptRecoveryCode } from '../pages/sign-in';
+import { Home } from '@pages/home';
+import { Create, SaveKey } from '@pages/sign-up';
+import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
 
-import { Username } from '../pages/username';
-import { SecretKey } from '../pages/secret-key';
+import { Username } from '@pages/username';
+import { SecretKey } from '@pages/secret-key';
 
-import { ChooseAccount } from '../pages/connect';
+import { ChooseAccount } from '@pages/connect';
+
+import { Transaction } from '@pages/transaction';
 
 import { doSaveAuthRequest } from '@store/onboarding/actions';
 import { useDispatch } from 'react-redux';
@@ -51,7 +53,12 @@ export const Routes: React.FC = () => {
       );
     }
     if (decodedAuthRequest?.sendToSignIn && search) {
-      return <Navigate to={{ pathname: '/', hash: `sign-in?${search}` }} screenPath={ScreenPaths.SIGN_IN} />;
+      return (
+        <Navigate
+          to={{ pathname: '/', hash: `sign-in?${search}` }}
+          screenPath={ScreenPaths.SIGN_IN}
+        />
+      );
     }
     return <Create next={() => doChangeScreen(ScreenPaths.SECRET_KEY)} />;
   };
@@ -71,7 +78,10 @@ export const Routes: React.FC = () => {
       <Route path="/" element={<Home />} />
       {/*Sign Up*/}
       <Route path="/sign-up" element={getSignUpElement()} />
-      <Route path="/sign-up/secret-key" element={<SecretKey next={() => doChangeScreen(ScreenPaths.SAVE_KEY)} />} />
+      <Route
+        path="/sign-up/secret-key"
+        element={<SecretKey next={() => doChangeScreen(ScreenPaths.SAVE_KEY)} />}
+      />
       <Route
         path="/sign-up/save-secret-key"
         element={
@@ -112,8 +122,13 @@ export const Routes: React.FC = () => {
           />
         }
       />
+      {/* Transactions */}
+      <Route path="/transaction" element={<Transaction />} />
       {/*Error/Misc*/}
-      <Route path="/settings/secret-key" element={<SecretKey next={() => doChangeScreen(ScreenPaths.HOME)} />} />
+      <Route
+        path="/settings/secret-key"
+        element={<SecretKey next={() => doChangeScreen(ScreenPaths.HOME)} />}
+      />
     </RoutesDom>
   );
 };

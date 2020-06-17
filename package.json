@@ -2,8 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "typecheck": "lerna run typecheck --parallel",
-    "dev": "yarn lerna exec --parallel 'yarn dev' --scope test-app --scope @blockstack/app",
+    "typecheck": "lerna run typecheck --parallel --no-bail --stream",
+    "dev": "NODE_ENV=development yarn lerna exec --parallel 'yarn dev' --scope test-app --scope @blockstack/app",
     "bootstrap": "yarn lerna exec --parallel 'yarn'",
     "build:libs": "yarn build:ui && yarn build:keychain && yarn build:connect",
     "build:ui": "lerna run build --scope @blockstack/ui",
@@ -45,7 +45,10 @@
     "husky": "^4.2.3",
     "lerna": "^3.20.2",
     "prettier": "^2.0.5",
-    "typescript": "^3.8.2"
+    "typescript": "^3.9.3"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "resolutions": {
+    "buffer": "5.6.0"
+  }
 }

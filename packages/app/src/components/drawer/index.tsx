@@ -4,7 +4,7 @@ import { ScreenBody, ScreenActions, Title } from '@blockstack/connect';
 import useOnClickOutside from 'use-onclickoutside';
 
 import { Image } from '@components/image';
-import { ConfigApp } from '@blockstack/keychain/wallet';
+import { ConfigApp } from '@blockstack/keychain';
 
 interface PreviousAppsProps {
   apps: ConfigApp[];
@@ -75,11 +75,12 @@ export const Drawer: React.FC<DrawerProps> = ({ showing, close, apps, confirm })
           <ScreenBody
             body={[
               <Title>
-                You{"'"}re using this account with {apps.length} other app{apps.length > 1 ? 's' : ''}.
+                You{"'"}re using this account with {apps.length} other app
+                {apps.length > 1 ? 's' : ''}.
               </Title>,
               <Text display="block" mt={3}>
-                The apps used by an account is public information. If you want your use of this app to be private,
-                consider choosing a different account or creating a new account.
+                The apps used by an account is public information. If you want your use of this app
+                to be private, consider choosing a different account or creating a new account.
               </Text>,
               <>
                 <Flex mt={4} align="center">

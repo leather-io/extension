@@ -1,4 +1,4 @@
-import { Page } from 'playwright-core/lib/page';
+import { Page } from 'playwright-core';
 import { createTestSelector, wait, Browser } from '../utils';
 
 export class AuthPage {
@@ -14,8 +14,10 @@ export class AuthPage {
   $buttonConnectFlowFinished = createTestSelector('button-connect-flow-finished');
   $firstAccount = createTestSelector('account-index-0');
   onboardingSignIn = '#onboarding-sign-in';
-  eightCharactersErrMsg = 'text="Your username should be at least 8 characters, with a maximum of 37 characters."';
-  lowerCharactersErrMsg = 'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
+  eightCharactersErrMsg =
+    'text="Your username should be at least 8 characters, with a maximum of 37 characters."';
+  lowerCharactersErrMsg =
+    'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
   iHaveSavedIt = 'text="I\'ve saved it"';
   passwordInput = '//input[@type="password"]';
   addNewAccountLink = '//span[text()="Add a new account"]';
@@ -36,7 +38,7 @@ export class AuthPage {
     const authPage = new this(page);
     await page.waitForSelector(createTestSelector('screen'));
     if (signUp) {
-      await page.waitFor(authPage.$textareaReadOnlySeedPhrase, { timeout: 15000 });
+      await page.waitForSelector(authPage.$textareaReadOnlySeedPhrase, { timeout: 15000 });
     }
     return authPage;
   }
@@ -45,7 +47,7 @@ export class AuthPage {
    * Due to flakiness of getting the pop-up page, this has some 'retry' logic
    */
   static async recursiveGetAuthPage(browser: Browser, attempt = 1): Promise<Page> {
-    const page = (await browser.contexts()[0].pages())[1];
+    const page = browser.contexts()[0].pages()[1];
     if (!page) {
       if (attempt > 3) {
         throw new Error('Unable to get auth page popup');
@@ -99,7 +101,7 @@ export class AuthPage {
     await this.page.click(this.continueBtn);
   }
 
-  async chooseAccount(username: string) {
+  chooseAccount(username: string) {
     return this.page.click(`text="${username}"`);
   }
 

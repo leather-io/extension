@@ -23,9 +23,6 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Install monorepo deps
       run: yarn
-    - name: Install Keychain dependencies
-      run: yarn
-      working-directory: ./packages/keychain
     - name: Keychain tests
       run: yarn lerna run test --scope @blockstack/keychain
 

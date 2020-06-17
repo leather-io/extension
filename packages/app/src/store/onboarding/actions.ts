@@ -27,6 +27,7 @@ import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { finalizeAuthResponse } from '@common/utils';
 import { gaiaUrl } from '@common/constants';
 import { doTrackScreenChange } from '@common/track';
+import { TransactionVersion } from '@blockstack/stacks-transactions';
 
 export const doSetOnboardingProgress = (status: boolean): OnboardingActions => {
   return {
@@ -61,7 +62,12 @@ export const doSetOnboardingPath = (onboardingPath?: ScreenPaths): OnboardingAct
   onboardingPath,
 });
 
-export function doCreateSecretKey(): ThunkAction<void, AppState, {}, OnboardingActions | WalletActions> {
+export function doCreateSecretKey(): ThunkAction<
+  void,
+  AppState,
+  {},
+  OnboardingActions | WalletActions
+> {
   return async dispatch => {
     const wallet = await dispatch(doGenerateWallet(DEFAULT_PASSWORD));
     const secretKey = await decrypt(wallet.encryptedBackupPhrase, DEFAULT_PASSWORD);
@@ -101,7 +107,9 @@ const saveAuthRequest = ({
   };
 };
 
-export function doSaveAuthRequest(authRequest: string): ThunkAction<void, AppState, {}, OnboardingActions> {
+export function doSaveAuthRequest(
+  authRequest: string
+): ThunkAction<void, AppState, {}, OnboardingActions> {
   return async (dispatch, getState) => {
     const { payload } = decodeToken(authRequest);
     const decodedAuthRequest = (payload as unknown) as DecodedAuthRequest;
@@ -156,7 +164,7 @@ export function doFinishSignIn(
     const currentIdentity = identities[identityIndex];
     await currentIdentity.refresh();
     const gaiaConfig = await wallet.createGaiaConfig(gaiaUrl);
-    await wallet.getOrCreateConfig(gaiaConfig);
+    await wallet.getOrCreateConfig({ gaiaConfig, skipUpload: true });
     await wallet.updateConfigWithAuth({
       identityIndex,
       gaiaConfig,
@@ -168,11 +176,15 @@ export function doFinishSignIn(
         name: appName as string,
       },
     });
+    const stxAddress = wallet.stacksPrivateKey
+      ? wallet.getSigner().getSTXAddress(TransactionVersion.Testnet)
+      : undefined;
     const authResponse = await currentIdentity.makeAuthResponse({
       gaiaUrl,
       appDomain: appURL.origin,
       transitPublicKey: decodedAuthRequest.public_keys[0],
       scopes: decodedAuthRequest.scopes,
+      stxAddress,
     });
     finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
     dispatch(doSetOnboardingPath(undefined));

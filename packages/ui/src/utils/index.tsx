@@ -338,11 +338,8 @@ export function split<T extends Dict, K extends keyof T>(object: T, keys: K[]) {
 export function get(obj: any, path: string | number, fallback?: any, index?: number) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   //@ts-ignore
-  // eslint-disable-next-line no-param-reassign
   path = (path?.split?.('.') ?? [path]) as string;
-  // eslint-disable-next-line no-param-reassign
   for (index = 0; index < path.length; index++) {
-    // eslint-disable-next-line no-param-reassign
     obj = obj ? obj[path[index]] : undefined;
   }
   return obj === undefined ? fallback : obj;
