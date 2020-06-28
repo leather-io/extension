@@ -31,6 +31,8 @@ Although [`blockstack.js`](https://github.com/blockstack/blockstack.js) exposes 
 
 `@blockstack/connect` provides developers with a plug-and-play API that is simple to use, and provides great, out-of-the-box education that end-users can understand.
 
+![Blockstack Connect flow](docs/blockstack-connect.png)
+
 ## Installation
 
 With yarn:
@@ -71,11 +73,11 @@ export interface AuthOptions {
 
 - `redirectTo`: The path in your app where users go after sign in.
 - `appDetails`: an optional object which includes `appName: string` and `appIcon: string`. This will speed up the process of loading your app's information during onboarding.
-- `manifestPath`: __(optional)__ - the path in your app where your manifest.json file can be found
-- `finished`: __(optional)__ - A callback that can be invoked after authentication. This prevents having to do a whole page refresh in a new tab. One argument is passed to this callback, which is an object with `userSession` included. If included, then the `redirectTo` path is ignored, and the user will be logged in automatically.
-- `authOrigin`: __(optional)__ - The URL you'd like to use for authentication. Only necessary for local development of the authenticator.
-- `sendToSignIn`: __(optional)__ - defaults to `false`. Whether the user should go straight to the 'sign in' flow.
-- `userSession`: __(optional)__ - pass a `UserSession` instance to use for authentication. If it's not passed, `@blockstack/connect` will create one for you.
+- `manifestPath`: **(optional)** - the path in your app where your manifest.json file can be found
+- `finished`: **(optional)** - A callback that can be invoked after authentication. This prevents having to do a whole page refresh in a new tab. One argument is passed to this callback, which is an object with `userSession` included. If included, then the `redirectTo` path is ignored, and the user will be logged in automatically.
+- `authOrigin`: **(optional)** - The URL you'd like to use for authentication. Only necessary for local development of the authenticator.
+- `sendToSignIn`: **(optional)** - defaults to `false`. Whether the user should go straight to the 'sign in' flow.
+- `userSession`: **(optional)** - pass a `UserSession` instance to use for authentication. If it's not passed, `@blockstack/connect` will create one for you.
 
 ### In React Apps
 
@@ -97,11 +99,7 @@ const authOptions = {
   },
 };
 
-const App = () => (
-  <Connect authOptions={authOptions}>
-    // the rest of your app's components
-  </Connect>
-)
+const App = () => <Connect authOptions={authOptions}>// the rest of your app's components</Connect>;
 ```
 
 Later, when you want to begin the onboarding process, use the `useConnect` hook to get `connect`'s `doOpenAuth` method.
@@ -112,23 +110,20 @@ import { useConnect } from '@blockstack/connect';
 const SignInButton = () => {
   const { doOpenAuth } = useConnect();
 
-  return (
-    <Button onClick={doOpenAuth}>
-      Sign In
-    </Button>
-  )
-}
+  return <Button onClick={doOpenAuth}>Sign In</Button>;
+};
 ```
 
 ### In ES6 (non-React) apps
 
 If you aren't using React, or just want a simpler API, then you can use the `showBlockstackConnect` method.
 
-
 ```javascript
 import { showBlockstackConnect } from '@blockstack/connect';
 
-const authOptions = { /** See docs above for options */ };
+const authOptions = {
+  /** See docs above for options */
+};
 showBlockstackConnect(authOptions);
 ```
 
@@ -150,9 +145,10 @@ First, include the script in your HTML:
 
 Then, you can use API methods under the `blockstackConnect` global variable:
 
-
 ```javascript
-const authOptions = { /** See docs above for options */ };
+const authOptions = {
+  /** See docs above for options */
+};
 blockstackConnect.showBlockstackConnect(authOptions);
 ```
 
@@ -169,11 +165,10 @@ const authOptions = {
   sendToSignIn: true,
   // your other AuthOptions
 };
-authenticate(authOptions)
+authenticate(authOptions);
 ```
 
 Or, if you're using our React hooks, pass `true` as the first argument in `doOpenAuth`.
-
 
 ```javascript
 const { doOpenAuth } = useConnect();
@@ -183,7 +178,7 @@ doOpenAuth(true);
 
 ## Design Guidance
 
-Blockstack is valuable to users, but it can also be a barrier to those unfamiliar with Blockstack. The following guidelines serve to remedy that and help you onboard as many new users as you can. 
+Blockstack is valuable to users, but it can also be a barrier to those unfamiliar with Blockstack. The following guidelines serve to remedy that and help you onboard as many new users as you can.
 
 ### Delay Blockstack onboarding as long as possible
 
