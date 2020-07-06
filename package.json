@@ -27,8 +27,8 @@
     "packages/**"
   ],
   "devDependencies": {
-    "@blockstack/eslint-config": "^1.0.4",
-    "@blockstack/prettier-config": "^0.0.6",
+    "@blockstack/eslint-config": "latest",
+    "@blockstack/prettier-config": "latest",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@commitlint/config-lerna-scopes": "^8.3.4",
@@ -44,7 +44,7 @@
     "eslint-plugin-react-hooks": "^3.0.0",
     "husky": "^4.2.3",
     "lerna": "^3.20.2",
-    "prettier": "^2.0.5",
+    "prettier": "latest",
     "typescript": "^3.8.2"
   },
   "dependencies": {
