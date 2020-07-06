@@ -7,6 +7,7 @@ import {
   makeSTXTokenTransfer,
   PostConditionMode,
   getAddressFromPrivateKey,
+  PostCondition,
 } from '@blockstack/stacks-transactions';
 import RPCClient from '@blockstack/rpc-client';
 import { bip32 } from 'bitcoinjs-lib';
@@ -20,6 +21,8 @@ interface ContractCallOptions {
   functionArgs: ClarityValue[];
   version: TransactionVersion;
   nonce: number;
+  postConditions?: PostCondition[];
+  postConditionMode?: PostConditionMode;
 }
 
 interface ContractDeployOptions {
@@ -27,6 +30,8 @@ interface ContractDeployOptions {
   codeBody: string;
   version: TransactionVersion;
   nonce: number;
+  postConditions?: PostCondition[];
+  postConditionMode?: PostConditionMode;
 }
 
 interface STXTransferOptions {
@@ -34,6 +39,8 @@ interface STXTransferOptions {
   amount: string;
   memo?: string;
   nonce: number;
+  postConditions?: PostCondition[];
+  postConditionMode?: PostConditionMode;
 }
 
 export class WalletSigner {
@@ -71,6 +78,8 @@ export class WalletSigner {
     functionName,
     functionArgs,
     nonce,
+    postConditionMode,
+    postConditions,
   }: ContractCallOptions) {
     const tx = await makeContractCall({
       contractAddress,
@@ -81,12 +90,19 @@ export class WalletSigner {
       fee: new BN(200),
       nonce: new BN(nonce),
       network: new StacksTestnet(),
-      postConditionMode: PostConditionMode.Allow,
+      postConditionMode,
+      postConditions,
     });
     return tx;
   }
 
-  async signContractDeploy({ contractName, codeBody, nonce }: ContractDeployOptions) {
+  async signContractDeploy({
+    contractName,
+    codeBody,
+    nonce,
+    postConditionMode,
+    postConditions,
+  }: ContractDeployOptions) {
     const tx = await makeContractDeploy({
       contractName,
       codeBody: codeBody,
@@ -94,12 +110,20 @@ export class WalletSigner {
       senderKey: this.getSTXPrivateKey().toString('hex'),
       network: new StacksTestnet(),
       nonce: new BN(nonce),
-      postConditionMode: PostConditionMode.Allow,
+      postConditionMode,
+      postConditions,
     });
     return tx;
   }
 
-  async signSTXTransfer({ recipient, amount, memo, nonce }: STXTransferOptions) {
+  async signSTXTransfer({
+    recipient,
+    amount,
+    memo,
+    nonce,
+    postConditionMode,
+    postConditions,
+  }: STXTransferOptions) {
     const tx = await makeSTXTokenTransfer({
       recipient,
       amount: new BN(amount),
@@ -108,7 +132,8 @@ export class WalletSigner {
       senderKey: this.getSTXPrivateKey().toString('hex'),
       network: new StacksTestnet(),
       nonce: new BN(nonce),
-      postConditionMode: PostConditionMode.Allow,
+      postConditionMode,
+      postConditions,
     });
     return tx;
   }

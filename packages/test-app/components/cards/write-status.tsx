@@ -4,6 +4,7 @@ import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
 import { getAuthOrigin } from '@common/utils';
 import { useConnect, ContractCallArgumentType } from '@blockstack/connect';
 import { ExplorerLink } from '@components/explorer-link';
+import { PostConditionMode } from '@blockstack/stacks-transactions';
 
 export const WriteStatusCard: React.FC = () => {
   const { doContractCall } = useConnect();
@@ -26,6 +27,7 @@ export const WriteStatusCard: React.FC = () => {
         setTxId(data.txId);
         console.log('finished!', data);
       },
+      postConditionMode: PostConditionMode.Deny,
     });
   };
 

@@ -1,8 +1,11 @@
 import { UserSession } from 'blockstack';
 import { AuthOptions } from '../auth';
+import { PostConditionMode, PostCondition } from '@blockstack/stacks-transactions';
 
 export interface TxBase {
   appDetails?: AuthOptions['appDetails'];
+  postConditionMode?: PostConditionMode;
+  postConditions?: PostCondition[];
 }
 
 export interface FinishedTxData {
