@@ -3,6 +3,8 @@ import React from 'react';
 import Editor from 'react-simple-code-editor';
 import { createGlobalStyle } from 'styled-components';
 import { Box, BoxProps, Highlighter } from '@blockstack/ui';
+// TODO: change when new version is published
+import { Language } from '@blockstack/ui/dist/ui/src/highlighter/types';
 
 const TextAreaOverrides = createGlobalStyle`
 .code-editor{
@@ -36,7 +38,7 @@ const TextAreaOverrides = createGlobalStyle`
 interface CodeEditorProps extends Partial<Omit<BoxProps, 'onChange'>> {
   value: string;
   disabled?: boolean;
-  language?: string;
+  language?: Language;
   onChange?: (code: string) => void;
   name?: string;
   id?: string;
@@ -81,9 +83,9 @@ export const CodeEditor = React.memo((props: CodeEditorProps) => {
           textareaId={id}
           // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
-          language={language as any}
+          language={language}
           onValueChange={updateContent}
-          highlight={c => <Highlighter code={c} language={language as any} />}
+          highlight={c => <Highlighter code={c} language={language} />}
           style={
             {
               ...style,
