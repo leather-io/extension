@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.11 (2020-07-07)
+
+
+### Bug Fixes
+
+* modal component state mgmt, style override ([7f6792d](https://github.com/blockstack/ux/commit/7f6792db8870d7528231d7deda39142609ffd4e7))
+
+
+
+
+
 ## 0.1.10 (2020-06-30)
 
 **Note:** Version bump only for package @blockstack/ui-docs

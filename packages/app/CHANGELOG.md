@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.10.6 (2020-07-07)
+
+
+### Bug Fixes
+
+* modal component state mgmt, style override ([7f6792d](https://github.com/blockstack/blockstack-app/commit/7f6792db8870d7528231d7deda39142609ffd4e7))
+
+
+
+
+
 ## 1.10.5 (2020-06-30)
 
 **Note:** Version bump only for package @blockstack/app
