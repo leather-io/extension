@@ -21,7 +21,6 @@ export const Header: React.FC<HeaderProps> = ({ signOut }) => {
       </Box>
       {state.userData ? (
         <Box>
-          <Text textStyle="caption.medium">{state.userData.username}</Text>
           <Link
             display="inline-block"
             ml={2}

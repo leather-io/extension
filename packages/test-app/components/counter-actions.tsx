@@ -56,9 +56,9 @@ export const CounterActions: React.FC = () => {
     <Box>
       {!userData && <Text display="block">Log in to change the state of this smart contract.</Text>}
       <ButtonGroup spacing={4} my={5}>
-        <Button onClick={() => callMethod('increment')}>Increment</Button>
-        <Button onClick={() => callMethod('decrement')}>Decrement</Button>
-        <Button onClick={getCounter}>Get Current Value</Button>
+        <Button onClick={() => callMethod('increment')}>Increase by 1</Button>
+        <Button onClick={() => callMethod('decrement')}>Decrease by 1</Button>
+        <Button onClick={getCounter}>Get current value</Button>
       </ButtonGroup>
       {error && (
         <Text display="block" color="red">

@@ -37,11 +37,19 @@ export const encodeContractCallArgument = ({ type, value }: ContractCallArgument
 
 export const getRPCClient = () => {
   const { origin } = location;
-  const url = origin.includes('localhost') ? 'http://localhost:3999' : 'https://sidecar.staging.blockstack.xyz';
+  const url = origin.includes('localhost')
+    ? 'http://localhost:3999'
+    : 'https://sidecar.staging.blockstack.xyz';
   return new RPCClient(url);
 };
 
-export const stacksValue = ({ value, fixedDecimals = false }: { value: number; fixedDecimals?: boolean }) => {
+export const stacksValue = ({
+  value,
+  fixedDecimals = false,
+}: {
+  value: number;
+  fixedDecimals?: boolean;
+}) => {
   const microStacks = new BigNumber(value);
   const stacks = microStacks.shiftedBy(-6);
   const stxString = fixedDecimals ? stacks.toFormat(6) : stacks.decimalPlaces(6).toFormat();

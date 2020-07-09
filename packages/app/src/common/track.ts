@@ -55,7 +55,10 @@ export const titleNameMap = {
   [ScreenPaths.HOME]: 'Secret Key',
 };
 
-export const doTrackScreenChange = (screen: ScreenPaths, decodedAuthRequest?: DecodedAuthRequest) => {
+export const doTrackScreenChange = (
+  screen: ScreenPaths,
+  decodedAuthRequest?: DecodedAuthRequest
+) => {
   if (titleNameMap[screen]) {
     document.title = titleNameMap[screen];
   }
