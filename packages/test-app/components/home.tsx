@@ -46,7 +46,7 @@ export const Home: React.FC = () => {
 
     return (
       <>
-        <Container borderColor="ink.600" borderWidth={0} borderBottomWidth="1px">
+        <Container borderColor="#F0F0F5" borderWidth={0} borderBottomWidth="1px">
           <Flex>
             <Tab active={tab === 'status'}>
               <Text onClick={() => setTab('status')}>Status smart contract</Text>

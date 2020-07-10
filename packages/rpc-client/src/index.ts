@@ -1,5 +1,6 @@
 import BN from 'bn.js';
 import { serializeCV, ClarityValue } from '@blockstack/stacks-transactions';
+import { TransactionResults } from '@blockstack/stacks-blockchain-sidecar-types';
 
 export interface Account {
   balance: BN;
@@ -129,6 +130,13 @@ export class RPCClient {
       return source;
     }
     return null;
+  }
+
+  async fetchAddressTransactions({ address }: { address: string }) {
+    const url = `${this.url}/sidecar/v1/address/${address}/transactions`;
+    const res = await fetch(url);
+    const data: TransactionResults = await res.json();
+    return data.results;
   }
 }
 

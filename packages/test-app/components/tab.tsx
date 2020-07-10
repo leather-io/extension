@@ -18,7 +18,14 @@ export const InactiveTab: React.FC = ({ children }) => {
 
 export const ActiveTab: React.FC = ({ children }) => {
   return (
-    <Box color="ink.900" mr={4} py={3} borderColor="blue" borderBottomWidth="2px" cursor="pointer">
+    <Box
+      color="ink.900"
+      mr={4}
+      py={3}
+      borderColor="#111215"
+      borderBottomWidth="2px"
+      cursor="pointer"
+    >
       {children}
     </Box>
   );

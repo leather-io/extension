@@ -1,4 +1,8 @@
 import { RPCClient } from '@blockstack/rpc-client';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 export const getAuthOrigin = () => {
   let authOrigin = process.env.AUTH_ORIGIN || 'http://localhost:8080';
@@ -25,3 +29,5 @@ export const getRPCClient = () => {
     : 'https://sidecar.staging.blockstack.xyz';
   return new RPCClient(url);
 };
+
+export const toRelativeTime = (ts: number): string => dayjs().to(ts);

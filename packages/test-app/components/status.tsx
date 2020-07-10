@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { space, Box, Text, Button, Input } from '@blockstack/ui';
+import React, { useState, useEffect } from 'react';
+import { space, Box, Text, Button, Input, Flex } from '@blockstack/ui';
 import { ExplorerLink } from './explorer-link';
 import { ContractCallArgumentType, useConnect } from '@blockstack/connect';
 import {
@@ -10,6 +10,8 @@ import {
   ClarityType,
 } from '@blockstack/stacks-transactions';
 import { getAuthOrigin, getRPCClient } from '@common/utils';
+import { ContractCallTransaction } from '@blockstack/stacks-blockchain-sidecar-types';
+import { TxCard } from '@components/tx-card';
 
 export const Status = () => {
   const [status, setStatus] = useState('');
@@ -18,7 +20,23 @@ export const Status = () => {
   const [txId, setTxId] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [transactions, setTransactions] = useState<ContractCallTransaction[]>([]);
   const { doContractCall } = useConnect();
+
+  const client = getRPCClient();
+
+  useEffect(() => {
+    const getTransactions = async () => {
+      const transactions = await client.fetchAddressTransactions({
+        address: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6.status',
+      });
+      const filtered = transactions.filter(t => {
+        return t.tx_type === 'contract_call';
+      });
+      setTransactions(filtered as ContractCallTransaction[]);
+    };
+    void getTransactions();
+  }, []);
 
   const getAddressCV = () => {
     try {
@@ -35,7 +53,6 @@ export const Status = () => {
       return;
     }
     const args = [addressCV];
-    const client = getRPCClient();
     setLoading(true);
     try {
       const data = await client.callReadOnly({
@@ -97,6 +114,19 @@ export const Status = () => {
         text="View contract in explorer"
         skipConfirmCheck
       />
+
+      {transactions.length > 0 && (
+        <>
+          <Text display="block" my={space('base-loose')} textStyle="body.large.medium">
+            Latest statuses
+          </Text>
+          <Flex flexWrap="wrap" justifyContent="left">
+            {transactions.slice(0, 3).map(t => (
+              <TxCard tx={t} label={JSON.parse(t.tx_result?.repr || '')} />
+            ))}
+          </Flex>
+        </>
+      )}
 
       <Text display="block" my={space('base-loose')} textStyle="body.large.medium">
         Write a status

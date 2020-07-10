@@ -10,10 +10,10 @@ export const Auth: React.FC = () => {
         Sign in with your Blockstack account to try the demo
       </Text>
       <ButtonGroup spacing={space('base')} mt={space('base-loose')}>
-        <Button size="lg" onClick={() => doOpenAuth(true)}>
+        <Button size="lg" onClick={() => doOpenAuth(true)} data-test="sign-in">
           Sign in
         </Button>
-        <Button size="lg" mode="tertiary" onClick={() => doOpenAuth()}>
+        <Button size="lg" mode="tertiary" onClick={() => doOpenAuth()} data-test="sign-up">
           Sign up
         </Button>
       </ButtonGroup>
