@@ -41,6 +41,7 @@ export const TableOfContents = ({ headings }: { headings?: string[] }) => {
         minWidth={['100%', '200px', '200px']}
         position="sticky"
         top="118px"
+        pr={space('base')}
       >
         <Box mb={space('extra-tight')}>
           <Text fontWeight="bold" fontSize="14px">

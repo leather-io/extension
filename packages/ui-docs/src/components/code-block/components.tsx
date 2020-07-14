@@ -88,14 +88,15 @@ export const Preview = ({ liveProviderProps }) => (
   </Box>
 );
 
-export const SimpleCodeBlock = ({ editorCode, language }) => (
+export const SimpleCodeBlock = ({ editorCode, language, ...rest }) => (
   <BaseCodeBlock
-    borderTop={border()}
-    borderBottom={border()}
-    borderLeft={['none', border(), border()]}
-    borderRight={['none', border(), border()]}
+    borderTop={'1px solid rgb(39, 41, 46)'}
+    borderBottom={'1px solid rgb(39, 41, 46)'}
+    borderLeft={['none', '1px solid rgb(39, 41, 46)', '1px solid rgb(39, 41, 46)']}
+    borderRight={['none', '1px solid rgb(39, 41, 46)', '1px solid rgb(39, 41, 46)']}
     borderRadius={['unset', 'unset', '12px', '12px']}
     code={editorCode}
     language={language}
+    {...rest}
   />
 );

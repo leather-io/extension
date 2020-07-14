@@ -20,11 +20,13 @@ const BaseHeading: React.FC<BoxProps> = React.memo(props => (
   <Heading width="100%" mt={space('base-loose')} {...props} />
 ));
 
-const H1: React.FC<BoxProps> = props => <BaseHeading as="h1" mb={space('base-tight')} {...props} />;
+const H1: React.FC<BoxProps> = props => <BaseHeading as="h1" mb={space('loose')} {...props} />;
 const H2: React.FC<BoxProps> = props => (
-  <BaseHeading as="h2" mt={space('extra-loose')} mb={space('base')} {...props} />
+  <BaseHeading as="h2" mt={'48px'} mb={space('loose')} {...props} />
 );
-const H3: React.FC<BoxProps> = props => <BaseHeading as="h3" mb={space('base')} {...props} />;
+const H3: React.FC<BoxProps> = props => (
+  <BaseHeading as="h3" mt={space('extra-loose')} mb={space('loose')} {...props} />
+);
 const H4: React.FC<BoxProps> = props => <BaseHeading as="h4" {...props} />;
 const H5: React.FC<BoxProps> = props => <BaseHeading as="h5" {...props} />;
 const H6: React.FC<BoxProps> = props => <BaseHeading as="h6" {...props} />;
@@ -41,7 +43,30 @@ const Hr: React.FC<BoxProps> = props => (
   />
 );
 
-const P: React.FC<BoxProps> = props => <Text display="block" as="p" {...props} />;
+const P: React.FC<BoxProps> = props => (
+  <Text
+    as="p"
+    css={css({
+      display: 'block',
+      fontSize: '16.5px',
+      lineHeight: '28px',
+      padding: '0.05px 0',
+      ':before': {
+        content: "''",
+        marginTop: '-0.4878787878787879em',
+        display: 'block',
+        height: 0,
+      },
+      ':after': {
+        content: "''",
+        marginBottom: '-0.4878787878787879em',
+        display: 'block',
+        height: 0,
+      },
+    })}
+    {...props}
+  />
+);
 const Ol: React.FC<BoxProps> = props => (
   <Box pl={space('base')} mt={space('base')} mb={space('base-tight')} as="ol" {...props} />
 );

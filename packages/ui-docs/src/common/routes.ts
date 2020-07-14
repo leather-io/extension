@@ -1,8 +1,17 @@
 export const topNavLinks = [
   'Getting started',
   'Patterns and Principles',
+  'Contributing',
+  'Further reading',
+];
+
+export const designGraph = [
+  'What is it?',
   'System props',
   'Responsive styles',
+  'Colors',
+  'Space',
+  'Typography',
   'Theme',
 ];
 
@@ -24,30 +33,27 @@ export const components = [
   'Stack',
   'Text',
   'Theme Provider',
+  'Toast',
   'Tooltip',
   'Transition',
 ];
 
 export const hooks = [
-  'useControllable',
-  'useDisclosure',
+  'Utilities',
+  'useClipboard',
   'useEventListener',
   'useForceUpdate',
   'useId',
-  'useLatestRef',
-  'useMergeRefs',
   'useTheme',
 ];
 
-export const bottomNavLinks = ['Contributing', 'Further reading'];
-
-export const routes = [...topNavLinks, ...components, ...hooks, ...bottomNavLinks];
+export const routes = [...topNavLinks, ...designGraph, ...components, ...hooks];
 
 export const paginationRoutes = {
   top: topNavLinks,
+  ['design-graph']: designGraph,
   components,
-  hooks,
-  bottom: bottomNavLinks,
+  misc: hooks,
 };
 
 export const links = {

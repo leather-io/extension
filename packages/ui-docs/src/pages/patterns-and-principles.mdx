@@ -4,41 +4,49 @@ title: 'Patterns and principles'
 
 # Patterns and principles
 
-Blockstack UI is built with a few things in mind: consistency, composability, easy of use, and extensibility.
-These components aren't meant to be highly complex instances of specific UI elements; rather they are meant to be
-primitive components that you can use to build anything you want.
+Blockstack UI is built with a few things in mind: accessibility, consistency, composability,
+easy of use, and extensibility. These components aren't meant to be highly complex instances
+of specific UI elements; rather they are meant to be primitive components that you can use to
+build anything you want.
 
-## System props
+## Basic concepts
 
-All component styles can be extended or overwritten via system props to
-reduce the use of `css` or creating new `styled()` wrapper components.
-Compose new components from one of the base primitives: `Box`, `PseudoBox`,
+### Components and props
+
+The majority of what `@blockstack/ui` exports are components. Components are encapsulated bits
+of UI that serve some function. They let you split UI into small, independent, reusable pieces.
+This allows you to work on them in isolation, and allows for composition. Components are the
+highest level API in `@blockstack/ui`, and they all take some kind of `props`: arbitrary inputs
+that affect the component in some way.
+
+You can read more about [Components, Props, & React here.](https://reactjs.org/docs/components-and-props.html)
+
+### System props
+
+All of the components are styled and built with System Props, via `styled-system`. Any styles
+can be extended or overwritten via system props to reduce the use of `css` or creating new
+`styled()` wrapper components. Compose new components from one of the base primitives: `Box`,
 `Flex`, `Grid`, or `Text`. [Read more here](/system-props).
 
-## Base primitives
+### Base primitives
 
-All components are built from one or many of the base primitive components:
-[`Box`](/box), [`PseudoBox`](/pseudoBox), [`Flex`](/flex), [`Grid`](/grid),
-or [`Text`](/text). If you have worked within something like React Native,
-concepts of primitive components should be a bit familiar. `Box` is not
-unlike `View`. Rather than thinking in divs, try to think in primitives.
-Do I need my parent wrapper to have `display: flex`?, then I should use
-`Flex` as the base component to extend from.
+All components are built from one of the base primitive components: [`Box`](/components/box),
+[`Flex`](/components/flex), [`Grid`](/components/grid), or [`Text`](/components/text). If you
+have worked within something like React Native before, concepts of primitive components should
+be a bit familiar. `Box` is not unlike `View`. Rather than thinking in divs, try to think in primitives.
+Do I need my parent wrapper to have `display: flex`?, then I should use `Flex` as the base component to extend from.
 
-## Composition
+### Composition
 
-Break down components into smaller parts with minimal props to keep
-complexity low, and compose them together. This will ensure that the
-styles and functionality are flexible and extensible.
+Break down components into smaller parts with minimal props to keep complexity low, and compose them together.
+This will ensure that the styles and functionality are flexible and extensible.
 
-## Accessibility
+### Accessibility
 
-When creating a component, keep accessibility top of mind.
-This includes keyboard navigation, focus management, color contrast, voice
-over, and the correct `aria-*` attributes.
+When creating a component, keep accessibility top of mind. This includes keyboard navigation, focus management,
+color contrast, and the correct `aria-*` attributes.
 
-## Naming
+### Naming
 
-Generally, ensure a prop name is indicative of what it does. Boolean props
-should be named using auxilliary verbs such as `does`, `has`, `is` and
-`should`. For example, `Button` uses `isDisabled`, `isLoading`, etc.
+Generally, ensure a prop name is indicative of what it does. Boolean props should be named using verbs such
+as `does`, `has`, `is` and `should`. For example, `Button` uses `isDisabled`, `isLoading`, and `Stack` uses `isInline`.

@@ -12,37 +12,7 @@ palette, units for space and type sizes, font families, responsive breakpoints,
 box shadows, and more. Blockstack UI is based on the
 [Styled System theme specification](https://system-ui.com/theme/).
 
-## Colors
 
-All of the colors come from a `theme.colors` object. By default these
-colors can be referenced by the `color`, `borderColor`, and `backgroundColor`,
-`fill`, `stroke`, style props. For example, passing `blue.100` to a `bg`
-prop would result in the color: `#e3e5ff`. Each color typically contains a range from 50-900.
-You can also pass `blue` with no range.
-
-```js
-// theme.js
-export default {
-  colors: {
-    transparent: 'transparent',
-    current: 'currentColor',
-    black: '#000000',
-    white: '#ffffff',
-    blue: Object.assign('#3700ff', {
-      50: '#f2f2ff',
-      100: '#e3e5ff',
-      150: '#D8DAF3',
-      200: '#c5ccff',
-      300: '#aab3ff',
-      // ...
-      900: '#5548ff',
-    }),
-    // ...
-  },
-};
-```
-
-<Colors />
 
 ## Typography
 

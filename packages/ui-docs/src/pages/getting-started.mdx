@@ -4,11 +4,30 @@ title: 'Getting started'
 
 # Getting Started
 
-First we need to install `@blockstack/ui` and its various dependencies.
+Blockstack UI is a component library built for use with React. It uses [styled-components](https://styled-components.com)
+and [styled-system](https://styled-system.com) under the hood for a CSS-in-JS solution for building complex, accessible UI components.
+
+## Installation
+
+> Note: we use `yarn`, but you can also use `npm`
+
+First, make sure to install `styled-components` and its babel plugin:
 
 ```
-yarn add @blockstack/ui styled-components babel-plugin-styled-components
+yarn add styled-components babel-plugin-styled-components
 ```
+
+Then, install `@blockstack/ui`:
+
+```
+yarn add @blockstack/ui
+```
+
+### With next.js
+
+If you're using `@blockstack/ui` with next.js, make sure to check out the
+[styled-components example](https://github.com/vercel/next.js/tree/master/examples/with-styled-components) to correctly
+use styled-components in a SSR environment.
 
 ## Usage
 
