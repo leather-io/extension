@@ -8,6 +8,8 @@ import { Tooltip } from '@components/tooltip';
 import { useActiveHeading } from '@common/hooks/use-active-heading';
 import { Text, Title } from '@components/typography';
 import { border } from '@common/utils';
+import { css } from '@styled-system/css';
+import { useRouter } from 'next/router';
 
 const preProps = {
   display: 'inline-block',
@@ -19,7 +21,32 @@ const preProps = {
   boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04)',
   bg: color('bg'),
 };
-export const InlineCode = (props: any) => <Text as="code" {...preProps} {...props} />;
+export const InlineCode: React.FC<BoxProps> = ({ children, ...rest }) => (
+  <Text
+    as="code"
+    css={css({
+      fontSize: '16.5px',
+      lineHeight: '28px',
+      padding: '0.05px 0',
+      ':before': {
+        content: "''",
+        marginTop: '-0.4878787878787879em',
+        display: 'block',
+        height: 0,
+      },
+      ':after': {
+        content: "''",
+        marginBottom: '-0.4878787878787879em',
+        display: 'block',
+        height: 0,
+      },
+      ...preProps,
+      ...rest,
+    })}
+  >
+    {children}
+  </Text>
+);
 
 export const Pre = (props: any) => <Text as="pre" {...props} />;
 
@@ -135,29 +162,82 @@ export const TextItem = (props: any) => (
 
 const baseStyles = {
   letterSpacing: '-0.01em',
+  dispay: 'flex',
   fontFeatureSettings: `'ss01' on`,
 };
 
 const h1 = {
-  fontSize: '36px',
+  fontWeight: 'bolder',
+  fontSize: '44px',
   lineHeight: '52px',
-  fontWeight: 'bold',
+  padding: '0.05px 0',
+  ':before': {
+    content: "''",
+    marginTop: '-0.2284090909090909em',
+    display: 'block',
+    height: 0,
+  },
+  ':after': {
+    content: "''",
+    marginBottom: '-0.22840909090909092em',
+    display: 'block',
+    height: 0,
+  },
+};
+const h2 = {
+  fontWeight: 600,
+  fontSize: '27.5px',
+  lineHeight: '34px',
+  padding: '0.05px 0',
+  ':before': {
+    content: "''",
+    marginTop: '-0.25636363636363635em',
+    display: 'block',
+    height: 0,
+  },
+  ':after': {
+    content: "''",
+    marginBottom: '-0.2563636363636364em',
+    display: 'block',
+    height: 0,
+  },
 };
 
-const h2 = {
-  fontSize: '24px',
-  lineHeight: '40px',
-  fontWeight: 'bold',
-};
 const h3 = {
-  fontSize: '18px',
+  fontWeight: 500,
+  fontSize: '22px',
   lineHeight: '32px',
-  fontWeight: 'bold',
+  padding: '0.05px 0',
+  ':before': {
+    content: "''",
+    marginTop: '-0.3659090909090909em',
+    display: 'block',
+    height: 0,
+  },
+  ':after': {
+    content: "''",
+    marginBottom: '-0.3659090909090909em',
+    display: 'block',
+    height: 0,
+  },
 };
 
 const h4 = {
-  fontSize: '18px',
-  lineHeight: '32px',
+  fontSize: '19.25px',
+  lineHeight: '28px',
+  padding: '0.05px 0',
+  ':before': {
+    content: "''",
+    marginTop: '-0.36623376623376624em',
+    display: 'block',
+    height: 0,
+  },
+  ':after': {
+    content: "''",
+    marginBottom: '-0.36623376623376624em',
+    display: 'block',
+    height: 0,
+  },
 };
 const h5 = {
   fontSize: '16px',
@@ -182,13 +262,15 @@ const headings = {
 
 const getHeadingStyles = (as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') => {
   return {
-    ...baseStyles,
     ...headings[as],
   };
 };
 
 const LinkButton = React.memo(({ link, onClick, ...rest }: BoxProps & { link: string }) => {
-  const { onCopy } = useClipboard(link);
+  const url =
+    typeof document !== 'undefined' && document.location.origin + document.location.pathname + link;
+
+  const { onCopy } = useClipboard(url);
   const label = 'Copy url';
   return (
     <Box
@@ -246,17 +328,27 @@ export const Heading = ({ as, children, id, ...rest }: FlexProps) => {
   const handleLinkClick = () => {
     doChangeActiveSlug(id);
   };
+  const styles = getHeadingStyles(as as any);
 
   return (
     <Title
       as={as}
-      color={isActive ? color('accent') : color('text-title')}
-      display="flex"
-      style={{ alignItems: 'center' }}
-      position="relative"
       {...bind}
-      {...getHeadingStyles(as as any)}
-      {...rest}
+      css={css({
+        ...baseStyles,
+        ...styles,
+        color: isActive ? color('accent') : (color('text-title') as any),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        alignItems: 'center',
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        position: 'relative',
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        display: 'flex',
+        ...rest,
+      })}
     >
       {children}
       <AnchorOffset id={id} />

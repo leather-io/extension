@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text as BaseText, BoxProps, color } from '@blockstack/ui';
+import { Text as BaseText, BoxProps, color, FlexProps } from '@blockstack/ui';
 import { border } from '@common/utils';
 
 export const Text = React.forwardRef((props: BoxProps, ref) => (
@@ -46,6 +46,7 @@ export type LinkProps = BoxProps & Partial<React.AnchorHTMLAttributes<HTMLAnchor
 
 export const Link = React.forwardRef(({ _hover = {}, ...props }: LinkProps, ref) => (
   <Text
+    display="inline-block"
     _hover={{
       textDecoration: 'underline',
       cursor: 'pointer',

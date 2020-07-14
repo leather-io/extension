@@ -2,59 +2,62 @@
 title: 'Contributing'
 ---
 
-# Contributing to Blockstack UI
+# Contributing
 
-First of all: thank you for being interesting in helping the project out!
+We want contributing to Blockstack UI to be enjoyable and educational for everyone. When interested in contributing to
+this project, please first [create a new issue here](https://github.com/blockstack/ux/issues/new) and tell us about the
+changes you are hoping to implement.
 
-We want contributing to Blockstack UI to be enjoyable, and educational for anyone
-and everyone. When contributing to this repository, please first discuss the change you wish
-to make via creating an issue here.
+## Blockstack UI contribution
 
-Please note we have a code of conduct, please follow it in all your interactions
-with the project.
+Blockstack UI is contained within a monorepo with a few other Blockstack projects. The monorepo
+uses [Lerna](https://github.com/lerna/lerna) and [yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/).
+If you are unfamiliar with those, please read about them a bit before getting started with your contributions.
 
-## Getting started
+### Basic steps to get started
 
-Please create a new branch from an up to date master on your fork. (Note, urgent
-hotfixes should be branched off the latest stable release rather than master.)
-
-- Fork the Blockstack UI repository on Github
+- Fork the Blockstack UI repository on Github.
 - Clone your fork to your local machine
-  `git clone git@github.com:<yourname>/blockstack-ui.git`
+  `git clone git@github.com:<yourname>/ux.git`
 - Create a branch `git checkout -b feature/my-feature-branch`
-- Make your changes, lint, then push to to GitHub with
+- Run `yarn` to install all of the dependencies.
+- Make sure you're working in either `packages/ui` or `packages/ui-docs` to contribute to these projects.
+- Make your changes, run `yarn lint`, then push to to GitHub with
   `git push --set-upstream origin feature/my-feature-branch`.
 - Visit GitHub and make your pull request.
 
-If you have an existing local repository, please update it before you start, to
-minimise the chance of merge conflicts.
-
 ```sh
-git remote add upstream git@github.com:blockstack/blockstack-ui.git
+git remote add upstream git@github.com:blockstack/ux.git
 git checkout master
 git pull upstream master
 git checkout -b feature/my-feature-branch
 ```
 
-## Docs contribution
+### Locally testing the UI library
 
-Blockstack UI uses next.js for its documentation website. Please follow the fork and cloning process above, but for this repo.
+To view your changes in a live environment, we have a test application within the monorepo found at `packages/test-app`
+that always uses whatever code is in the `packages/ui` directory. This is possible because most of the projects in the
+monorepo are linked together via a tsconfig.json `paths` configuration. To run the test app, navigate to `packages/test-app`
+and run `yarn dev`.
 
-```sh
-git clone git@github.com:<yourname>/blockstack-ui-docs.git
-git checkout -b feature/my-feature-branch
-```
+Additionally, when you open up a PR, the Blockstack UI package will be built and deployed within the
+[CodeSandbox CI](https://codesandbox.io/docs/ci) tool, giving you the ability to test out the changes in a sharable manner.
+
+## Documentation contribution
+
+The documentation site for Blockstack UI is built with [next.js](https://github.com/vercel/next.js) and written in TypeScript.
+If you have not yet forked the project and installed the dependencies, please follow the instructions above.
 
 ### Usage
 
-Fork, clone, and create a new branch and then install the dependencies via `npm install` and then run a dev enviroment via:
+Next.js has a development mode that uses [Fast Refresh](https://nextjs.org/blog/next-9-4#fast-refresh) to automatically
+reload the site as you make changes. To start the dev mode, simply run:
 
 ```sh
-yarn dev
+cd packages/ui-docs && yarn dev
 ```
 
 You can now access the documentation site [locally](http://localhost:3000).
-Changes to the docs will hot reload the site.
 
 ## Contributor Covenant Code of Conduct
 

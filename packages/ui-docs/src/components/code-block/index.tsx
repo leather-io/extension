@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { mdx } from '@mdx-js/react';
 import * as BlockstackUI from '@blockstack/ui';
+import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-tsx';
 import { JsxEditor, SimpleCodeBlock, Preview } from '@components/code-block/components';
 import { useForceUpdate } from '@blockstack/ui';
 
@@ -38,9 +40,9 @@ export const CodeBlock = ({ className, live = true, isManual, render, children, 
     );
   }
   if (render) {
-    return <Preview liveProviderProps={liveProviderProps} />;
+    return <Preview liveProviderProps={liveProviderProps} {...props} />;
   }
-  return <SimpleCodeBlock editorCode={editorCode} language={language} />;
+  return <SimpleCodeBlock editorCode={editorCode} language={language} {...props} />;
 };
 
 CodeBlock.defaultProps = {

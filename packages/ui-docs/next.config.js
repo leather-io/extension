@@ -8,6 +8,7 @@ const remarkPlugins = [
   require('remark-images'),
   require('remark-unwrap-images'),
   require('remark-slug'),
+  require('gatsby-remark-shiki'),
 ];
 
 module.exports = withBundleAnalyzer(

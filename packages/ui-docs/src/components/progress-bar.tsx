@@ -2,6 +2,7 @@ import * as React from 'react';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { createGlobalStyle, css } from 'styled-components';
+import debounce from 'lodash.debounce';
 
 const styles = css`
   /* Make clicks pass-through */
@@ -70,12 +71,20 @@ export const useProgressBar = () => {
 };
 
 export const ProgressBar = () => {
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const start = debounce(NProgress.start, 450);
   React.useEffect(() => {
     Router.events.on('routeChangeStart', url => {
-      NProgress.start();
+      start();
     });
-    Router.events.on('routeChangeComplete', () => NProgress.done());
-    Router.events.on('routeChangeError', () => NProgress.done());
+    Router.events.on('routeChangeComplete', () => {
+      start.cancel();
+      NProgress.done();
+    });
+    Router.events.on('routeChangeError', () => {
+      start.cancel();
+      NProgress.done();
+    });
   }, []);
   return (
     <>

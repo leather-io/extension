@@ -4,17 +4,20 @@ import { border, slugify } from '@common/utils';
 import { Text, Caption } from '@components/typography';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { topNavLinks, components, hooks, bottomNavLinks } from '@common/routes';
+import { topNavLinks, designGraph, components, hooks } from '@common/routes';
 import { useMobileMenuState } from '@common/hooks/use-mobile-menu';
+import dynamic from 'next/dynamic';
+const SearchBox = dynamic(() => import('./search'));
+import { SIDEBAR_WIDTH } from '@common/constants';
 
 const sections = [
   { links: topNavLinks },
+  { title: 'Design graph', prefix: 'design-graph/', links: designGraph },
   { title: 'Components', prefix: 'components/', links: components },
-  { title: 'Hooks', prefix: 'hooks/', links: hooks },
-  { links: bottomNavLinks },
+  { title: 'Utils & hooks', prefix: 'misc/', links: hooks },
 ];
 
-const Wrapper = ({ width = '200px', children, ...rest }: any) => (
+const Wrapper = ({ width = `${SIDEBAR_WIDTH}px`, children, ...rest }: any) => (
   <Box
     position="relative"
     width={width}
@@ -100,6 +103,7 @@ const Section = ({ section, isLast, ...rest }: any) => (
 const SideNav = ({ ...rest }: any) => {
   return (
     <Wrapper {...rest}>
+      <SearchBox />
       {sections.map((section, sectionKey, arr) => (
         <Section key={sectionKey} section={section} isLast={sectionKey === arr.length - 1} />
       ))}

@@ -10,6 +10,8 @@ import cookieStorage from 'store/storages/cookieStorage';
 import GoogleFonts from 'next-google-fonts';
 import { useFathom } from '@common/hooks/use-fathom';
 import { trackGoal } from 'fathom-client';
+import Head from 'next/head';
+import '@docsearch/react/dist/style.css';
 
 const COLOR_MODE_COOKIE = 'color_mode';
 
@@ -26,6 +28,10 @@ const AppWrapper = ({ children, colorMode = 'light', version }: any) => (
         <ProgressBar />
         <MDXProvider components={MDXComponents}>
           <AppStateProvider version={version}>
+            <Head>
+              <link rel="preconnect" href="https://bh4d9od16a-dsn.algolia.net" crossOrigin="true" />
+              <link rel="preconnect" href="https://cdn.usefathom.com" crossOrigin="true" />
+            </Head>
             <CSSReset />
             {children}
           </AppStateProvider>
