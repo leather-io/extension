@@ -6,6 +6,7 @@ import { Tab } from './tab';
 import { Status } from './status';
 import { Counter } from './counter';
 import { useFaucet } from '@common/use-faucet';
+import { ExplorerLink } from './explorer-link';
 
 type Tabs = 'status' | 'counter';
 
@@ -37,9 +38,10 @@ export const Home: React.FC = () => {
       return (
         <Container px={6} width="100%">
           <Spinner mr={4} />
-          <Text textStyle="body.large">
+          <Text textStyle="body.large" display="block">
             Please wait while we get you some Stacks tokens to test with
           </Text>
+          <ExplorerLink txId={faucet.txId} />
         </Container>
       );
     }

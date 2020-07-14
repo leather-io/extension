@@ -7,6 +7,7 @@ export const useFaucet = () => {
   const [balance, setBalance] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [waiting, setWaiting] = useState(false);
+  const [txId, setTxId] = useState('');
   const [error, setError] = useState('');
   const client = getRPCClient();
 
@@ -42,6 +43,7 @@ export const useFaucet = () => {
       const data: FaucetResponse = await res.json();
       console.log(data);
       if (data.txId) {
+        setTxId(data.txId);
         const { balance } = await client.fetchAccount(stxAddress);
         await waitForBalance(balance.toNumber(), 0);
       } else {
@@ -75,5 +77,6 @@ export const useFaucet = () => {
     loading,
     waiting,
     error,
+    txId,
   };
 };
