@@ -1,6 +1,10 @@
-import { TransactionVersion, StacksTransaction } from '@blockstack/stacks-transactions';
+import {
+  TransactionVersion,
+  StacksTransaction,
+  deserializeCV,
+} from '@blockstack/stacks-transactions';
 import { Wallet } from '@blockstack/keychain';
-import { encodeContractCallArgument, getRPCClient } from './stacks-utils';
+import { getRPCClient } from './stacks-utils';
 import {
   ContractDeployPayload,
   ContractCallPayload,
@@ -23,7 +27,7 @@ export const generateContractCallTx = ({
   const { contractName, contractAddress, functionName, functionArgs } = txData;
   const version = TransactionVersion.Testnet;
   const args = functionArgs.map(arg => {
-    return encodeContractCallArgument(arg);
+    return deserializeCV(Buffer.from(arg, 'hex'));
   });
 
   return wallet.getSigner().signContractCall({

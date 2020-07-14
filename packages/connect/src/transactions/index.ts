@@ -15,6 +15,7 @@ import {
   TransactionPayload,
   TransactionTypes,
 } from './types';
+import { serializeCV } from '@blockstack/stacks-transactions';
 
 export * from './types';
 
@@ -65,11 +66,18 @@ export const makeContractCallToken = async (opts: ContractCallOptions) => {
   const { contractAddress, functionName, contractName, functionArgs, appDetails } = opts;
   const { privateKey, publicKey } = getKeys(opts.userSession);
 
+  const args: string[] = functionArgs.map(arg => {
+    if (typeof arg === 'string') {
+      return arg;
+    }
+    return serializeCV(arg).toString('hex');
+  });
+
   const payload: ContractCallPayload = {
     contractAddress,
     contractName,
     functionName,
-    functionArgs,
+    functionArgs: args,
     txType: TransactionTypes.ContractCall,
     publicKey,
   };
@@ -104,7 +112,7 @@ export const makeSTXTransferToken = async (opts: STXTransferOptions) => {
   const { privateKey, publicKey } = getKeys(opts.userSession);
 
   const payload: STXTransferPayload = {
-    amount,
+    amount: amount.toString(10),
     recipient,
     memo,
     publicKey,

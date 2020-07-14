@@ -176,7 +176,7 @@ export const Transaction: React.FC = () => {
         <TestnetBanner />
         <ScreenHeader
           rightContent={
-            <Text textStyle="caption.small" color="gray" fontSize={0}>
+            <Text textStyle="caption" color="gray" fontSize={0}>
               {stacksValue({ value: balance })} available
             </Text>
           }

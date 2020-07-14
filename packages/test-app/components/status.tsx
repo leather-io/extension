@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { space, Box, Text, Button, Input, Flex } from '@blockstack/ui';
 import { ExplorerLink } from './explorer-link';
-import { ContractCallArgumentType, useConnect } from '@blockstack/connect';
+import { useConnect } from '@blockstack/connect';
 import {
   PostConditionMode,
   standardPrincipalCV,
   BufferCV,
   deserializeCV,
   ClarityType,
+  bufferCV,
 } from '@blockstack/stacks-transactions';
 import { getAuthOrigin, getRPCClient } from '@common/utils';
 import { ContractCallTransaction } from '@blockstack/stacks-blockchain-sidecar-types';
@@ -78,11 +79,12 @@ export const Status = () => {
 
   const onSubmitWrite = async () => {
     const authOrigin = getAuthOrigin();
+    const statusArg = bufferCV(Buffer.from(status));
     await doContractCall({
       authOrigin,
       contractAddress: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6',
       functionName: 'write-status!',
-      functionArgs: [{ value: status, type: ContractCallArgumentType.BUFFER }],
+      functionArgs: [statusArg],
       contractName: 'status',
       finished: data => {
         setTxId(data.txId);

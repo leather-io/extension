@@ -1,11 +1,22 @@
 import { UserSession } from 'blockstack';
 import { AuthOptions } from '../auth';
-import { PostConditionMode, PostCondition } from '@blockstack/stacks-transactions';
+import {
+  PostConditionMode,
+  PostCondition,
+  StacksNetwork,
+  AnchorMode,
+  ClarityValue,
+} from '@blockstack/stacks-transactions';
+import BN from 'bn.js';
 
 export interface TxBase {
   appDetails?: AuthOptions['appDetails'];
   postConditionMode?: PostConditionMode;
   postConditions?: PostCondition[];
+  network?: StacksNetwork;
+  anchorMode?: AnchorMode;
+  senderKey?: string;
+  nonce?: number;
 }
 
 export interface FinishedTxData {
@@ -35,7 +46,7 @@ export interface ContractCallBase extends TxBase {
   contractAddress: string;
   contractName: string;
   functionName: string;
-  functionArgs: ContractCallArgument[];
+  functionArgs: (string | ClarityValue)[];
 }
 
 export interface ContractCallOptions extends ContractCallBase {
@@ -52,6 +63,7 @@ export interface ContractCallArgument {
 export interface ContractCallPayload extends ContractCallBase {
   txType: TransactionTypes.ContractCall;
   publicKey: string;
+  functionArgs: string[];
 }
 
 /**
@@ -79,7 +91,7 @@ export interface ContractDeployPayload extends ContractDeployOptions {
 
 export interface STXTransferBase extends TxBase {
   recipient: string;
-  amount: string;
+  amount: BN | string;
   memo?: string;
 }
 
@@ -92,6 +104,7 @@ export interface STXTransferOptions extends STXTransferBase {
 export interface STXTransferPayload extends STXTransferOptions {
   publicKey: string;
   txType: TransactionTypes.STXTransfer;
+  amount: string;
 }
 
 /**

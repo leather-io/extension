@@ -8,6 +8,7 @@ import {
   PostConditionMode,
   getAddressFromPrivateKey,
   PostCondition,
+  StacksNetwork,
 } from '@blockstack/stacks-transactions';
 import RPCClient from '@blockstack/rpc-client';
 import { bip32 } from 'bitcoinjs-lib';
@@ -23,6 +24,7 @@ interface ContractCallOptions {
   nonce: number;
   postConditions?: PostCondition[];
   postConditionMode?: PostConditionMode;
+  network?: StacksNetwork;
 }
 
 interface ContractDeployOptions {
@@ -32,6 +34,7 @@ interface ContractDeployOptions {
   nonce: number;
   postConditions?: PostCondition[];
   postConditionMode?: PostConditionMode;
+  network?: StacksNetwork;
 }
 
 interface STXTransferOptions {
@@ -41,6 +44,7 @@ interface STXTransferOptions {
   nonce: number;
   postConditions?: PostCondition[];
   postConditionMode?: PostConditionMode;
+  network?: StacksNetwork;
 }
 
 export class WalletSigner {
