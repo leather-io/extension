@@ -20,6 +20,7 @@ const Base: React.FC = () => {
 
 export const showBlockstackConnect = (authOptions: AuthOptions) => {
   const baseDiv = document.createElement('div');
+  baseDiv.id = '__connect-base';
   document.body.appendChild(baseDiv);
   ReactDOM.render(
     <Connect authOptions={authOptions}>

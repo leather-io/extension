@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConnectProvider } from './context';
-import { Modal } from '../modal';
 import { AuthOptions } from '../../../auth';
+import { Shadow } from '../../components/shadow';
 
 /**
  * Usage
@@ -25,7 +25,7 @@ import { AuthOptions } from '../../../auth';
 const Connect = ({ authOptions, children }: { authOptions: AuthOptions; children: any }) => {
   return (
     <ConnectProvider authOptions={authOptions}>
-      <Modal />
+      <Shadow />
       {children}
     </ConnectProvider>
   );
