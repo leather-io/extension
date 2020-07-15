@@ -17,6 +17,9 @@ export class DemoPage {
   alreadyHaveSecretKeyLink = '//span[text()="I already have a Secret Key"]';
   openConnectBtn = createTestSelector('sign-up');
   openSignInBtn = createTestSelector('sign-in');
+  statusInput = createTestSelector('status-input');
+  submitStatusButton = createTestSelector('submit-write-status');
+  submitStatusTxid = createTestSelector('submit-status-txid');
 
   page: Page;
 
@@ -49,8 +52,28 @@ export class DemoPage {
   async waitForAuthResponse() {
     await this.page.waitForSelector('#auth-response', { state: 'attached', timeout: 15000 });
     const authResponseEl = await this.page.$('#auth-response');
-    const authResponse = (await this.page.evaluate(el => el?.getAttribute('value'), authResponseEl)) as string;
+    const authResponse = (await this.page.evaluate(
+      el => el?.getAttribute('value'),
+      authResponseEl
+    )) as string;
     return authResponse;
+  }
+
+  async getSTXAddress() {
+    await this.page.waitForSelector('#user-stx-address', { state: 'attached', timeout: 15000 });
+    const stxAddressEl = await this.page.$('#user-stx-address');
+    const stxAddress = (await this.page.evaluate(
+      el => el?.getAttribute('value'),
+      stxAddressEl
+    )) as string;
+    return stxAddress;
+  }
+
+  async getStatusTxid() {
+    await this.page.waitForSelector(this.submitStatusTxid);
+    const txidEl = await this.page.$(this.submitStatusTxid);
+    const txid = (await this.page.evaluate(el => el?.getAttribute('data-txid'), txidEl)) as string;
+    return txid;
   }
 
   clickConnectGetStarted() {

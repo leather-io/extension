@@ -1,5 +1,8 @@
 export { Browser } from 'playwright-core';
-import { Page } from 'playwright-core';
+import { Page, Browser } from 'playwright-core';
+import { validateMnemonic, wordlists } from 'bip39';
+import { DemoPage } from './page-objects/demo.page';
+import { AuthPage } from './page-objects/auth.page';
 
 export function createTestSelector(name: string) {
   return `[data-test="${name}"]`;
@@ -15,6 +18,12 @@ export function randomString(len: number) {
   return randomString;
 }
 
+export const getRandomWord = () => {
+  const list = wordlists.EN;
+  const word = list[Math.floor(Math.random() * list.length)];
+  return word;
+};
+
 export const wait = async (ms: number) => {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -22,6 +31,36 @@ export const wait = async (ms: number) => {
     }, ms);
   });
 };
+
+export const authenticate = async (demoPage: DemoPage, browser: Browser) => {
+  await demoPage.openConnect();
+  await demoPage.clickConnectGetStarted();
+  const auth = await AuthPage.getAuthPage(browser);
+  const authPage = auth.page;
+  await authPage.waitForSelector(auth.$textareaReadOnlySeedPhrase);
+  await authPage.click(auth.$buttonCopySecretKey);
+
+  await authPage.waitForSelector(auth.$buttonHasSavedSeedPhrase);
+  await authPage.click(auth.$buttonHasSavedSeedPhrase);
+  await authPage.type(
+    auth.$inputUsername,
+    `${getRandomWord()}_${getRandomWord()}_${getRandomWord()}_${getRandomWord()}`
+  );
+  await authPage.click(auth.$buttonUsernameContinue);
+
+  await demoPage.waitForAuthResponse();
+}
+
+export const login = async (demoPage: DemoPage, browser: Browser) => {
+  const SECRET_KEY = 'invite helmet save lion indicate chuckle world pride afford hard broom draft';
+  const USERNAME = 'thisis45678';
+  await demoPage.openConnect();
+  await demoPage.clickAlreadyHaveSecretKey();
+  const authPage = await AuthPage.getAuthPage(browser, false);
+  await authPage.loginWithPreviousSecretKey(SECRET_KEY);
+  await authPage.chooseAccount(USERNAME);
+  await demoPage.waitForAuthResponse();
+}
 
 export const debug = async (page: Page) => {
   // this.setTimeout(345600000);

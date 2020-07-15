@@ -1,0 +1,75 @@
+name: Transaction Signing Integration Tests
+
+on: [push]
+
+jobs:
+
+  test-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+        with:
+          path: main
+
+      - uses: actions/checkout@v2
+        name: Checkout Sidecar
+        with:
+          repository: blockstack/stacks-blockchain-sidecar
+          path: sidecar
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: fix/stacks-tx-version
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '13.x'
+      
+      - name: Install chromium
+        run: |
+          apt-get update
+          apt-get install -yq libgbm-dev
+
+      - name: Install Sidecar deps
+        run: npm install
+        working-directory: ./sidecar
+
+      - name: Install local deps
+        run: yarn
+        working-directory: ./main
+
+      - name: Run sidecar environment
+        run: |
+          echo "::set-env name=STACKS_SIDECAR_EVENT_HOST::http://0.0.0.0"
+          npm run devenv:deploy -- -d
+          npm run devenv:logs -- --no-color &> docker-compose-logs.txt &
+        working-directory: ./sidecar
+
+      - name: Run local environment
+        run: yarn dev &> app-logs.txt &
+        working-directory: ./main
+
+      - name: curl
+        uses: wei/curl@master
+        with:
+          args: http://localhost:3999
+
+      - name: Run tests
+        run: yarn test tests/integration/transactions.test.ts
+        working-directory: ./main
+
+      - name: Print sidecar environment logs
+        run: cat docker-compose-logs.txt
+        if: failure()
+        working-directory: ./sidecar
+
+      - name: Print integration environment logs
+        run: cat app-logs.txt
+        if: failure()
+        working-directory: ./main
+
+      - name: Teardown integration environment
+        run: npm run devenv:stop
+        if: always()
+        working-directory: ./sidecar

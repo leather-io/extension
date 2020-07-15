@@ -124,7 +124,7 @@ export const Status = () => {
           </Text>
           <Flex flexWrap="wrap" justifyContent="left">
             {transactions.slice(0, 3).map(t => (
-              <TxCard tx={t} label={JSON.parse(t.tx_result?.repr || '')} />
+              <TxCard tx={t} label={t.tx_result?.repr.replace(/"/g, '') || ''} />
             ))}
           </Flex>
         </>
@@ -139,6 +139,7 @@ export const Status = () => {
           type="text"
           placeholder="Status"
           textStyle="body.small"
+          data-test="status-input"
           value={status}
           onChange={handleStatus}
           name="status"
@@ -150,8 +151,8 @@ export const Status = () => {
           }}
         />
       </Box>
-      {txId && <ExplorerLink txId={txId} />}
-      <Button my={space('base-loose')} onClick={onSubmitWrite}>
+      {txId && <ExplorerLink txId={txId} testSelector="submit-status-txid" />}
+      <Button my={space('base-loose')} onClick={onSubmitWrite} data-test="submit-write-status">
         Write status
       </Button>
 

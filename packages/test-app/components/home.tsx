@@ -25,6 +25,8 @@ export const Home: React.FC = () => {
   const [tab, setTab] = useState<Tabs>('status');
   const faucet = useFaucet();
 
+  const stxAddress: string | undefined = state.userData?.profile?.stxAddress;
+
   const Page: React.FC = () => {
     if (faucet.loading) {
       return (
@@ -49,6 +51,7 @@ export const Home: React.FC = () => {
     return (
       <>
         <Container borderColor="#F0F0F5" borderWidth={0} borderBottomWidth="1px">
+          {stxAddress && <input type="hidden" id="user-stx-address" value={stxAddress} />}
           <Flex>
             <Tab active={tab === 'status'}>
               <Text onClick={() => setTab('status')}>Status smart contract</Text>

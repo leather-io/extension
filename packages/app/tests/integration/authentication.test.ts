@@ -1,8 +1,8 @@
-import { validateMnemonic, wordlists, generateMnemonic } from 'bip39';
+import { validateMnemonic, generateMnemonic } from 'bip39';
 import { BrowserContext } from 'playwright-core';
 import { chromium } from 'playwright';
 import { DemoPage } from './page-objects/demo.page';
-import { randomString, Browser } from './utils';
+import { randomString, Browser, getRandomWord } from './utils';
 import { AuthPage } from './page-objects/auth.page';
 import { Wallet } from '@blockstack/keychain';
 import { ChainID } from '@blockstack/stacks-transactions';
@@ -16,12 +16,6 @@ const CORRECT_PASSWORD = 'test202020';
 const USERNAME = 'thisis45678';
 
 const SEED_PHRASE_LENGTH = 12;
-
-const getRandomWord = () => {
-  const list = wordlists.EN;
-  const word = list[Math.floor(Math.random() * list.length)];
-  return word;
-};
 
 const environments = [chromium];
 // type BrowserLauncher = typeof chromium | typeof webkit | typeof firefox;

@@ -201,6 +201,7 @@ export const Transaction: React.FC = () => {
           <Button
             width="100%"
             mt={5}
+            data-test={pendingTransaction ? 'confirm-tx-button' : null}
             size="lg"
             onClick={async () => {
               await handleButtonClick();
