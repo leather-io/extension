@@ -14,9 +14,7 @@ import { TableOfContents } from '@components/toc';
 import { css } from '@styled-system/css';
 import { SIDEBAR_WIDTH, TOC_WIDTH } from '@common/constants';
 export const MdxOverrides = createGlobalStyle`
-.DocSearch-Container{
-z-index: 99999;
-}
+
 :root{
 --docsearch-modal-background:  ${color('bg')};
 --docsearch-primary-color-R: 84;

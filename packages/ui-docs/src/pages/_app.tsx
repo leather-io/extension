@@ -11,7 +11,7 @@ import GoogleFonts from 'next-google-fonts';
 import { useFathom } from '@common/hooks/use-fathom';
 import { trackGoal } from 'fathom-client';
 import Head from 'next/head';
-import '@docsearch/react/dist/style.css';
+import '@docsearch/css';
 
 const COLOR_MODE_COOKIE = 'color_mode';
 
