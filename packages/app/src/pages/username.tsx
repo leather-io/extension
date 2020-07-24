@@ -154,15 +154,15 @@ export const Username: React.FC<{}> = () => {
               <Input
                 autoComplete="username"
                 data-test="input-username"
-                autoCapitalize="false"
                 paddingRight="100px"
                 autoFocus
                 fontSize="16px"
-                spellCheck={false}
                 value={username}
                 aria-invalid={error !== null}
                 onChange={handleInput}
+                spellCheck="false"
                 autoCorrect="off"
+                autoCapitalize="off"
               />
             </Box>
             {error && hasAttemptedSubmit && (
