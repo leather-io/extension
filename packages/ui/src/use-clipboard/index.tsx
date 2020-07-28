@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-interface Clipboard {
+interface UiClipboard {
   value: string;
   onCopy: () => void;
   hasCopied: boolean;
@@ -30,16 +30,17 @@ const copyToClipboard = (value: string) => {
   }
 };
 
-function useClipboard(value: string): Clipboard {
+export function useClipboard(value: string): UiClipboard {
   const [hasCopied, setHasCopied] = useState(false);
+  const timers = useRef<number[]>([]);
 
   const onCopy = () => {
     copyToClipboard(value);
     setHasCopied(true);
-    setTimeout(() => setHasCopied(false), 1500);
+    timers.current.push(setTimeout(() => setHasCopied(false), 1250));
   };
+
+  useEffect(() => () => timers.current.forEach(timer => clearTimeout(timer)), []);
 
   return { value, onCopy, hasCopied };
 }
-
-export { useClipboard };
