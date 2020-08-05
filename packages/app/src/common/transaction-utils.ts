@@ -59,8 +59,6 @@ export const generateContractDeployTx = ({
     codeBody,
     version,
     nonce,
-    postConditionMode: txData.postConditionMode,
-    postConditions: txData.postConditions,
   });
 };
 
@@ -79,8 +77,6 @@ export const generateSTXTransferTx = ({
     memo,
     amount,
     nonce,
-    postConditionMode: txData.postConditionMode,
-    postConditions: txData.postConditions,
   });
 };
 
