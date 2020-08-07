@@ -14,6 +14,7 @@ import {
 } from '@blockstack/connect';
 import { doTrack, TRANSACTION_SIGN_SUBMIT, TRANSACTION_SIGN_ERROR } from '@common/track';
 import { finalizeTxSignature } from './utils';
+import * as BigNum from 'bn.js';
 
 export const generateContractCallTx = ({
   txData,
@@ -30,6 +31,14 @@ export const generateContractCallTx = ({
     return deserializeCV(Buffer.from(arg, 'hex'));
   });
 
+  const conditions = txData.postConditions?.map(c => {
+    const condition = c as unknown;
+    if (condition.amount) {
+      condition.amount = new BigNum(condition.amount, 16);
+    }
+    return c;
+  });
+
   return wallet.getSigner().signContractCall({
     contractName,
     contractAddress,
@@ -38,7 +47,7 @@ export const generateContractCallTx = ({
     version,
     nonce,
     postConditionMode: txData.postConditionMode,
-    postConditions: txData.postConditions,
+    postConditions: conditions,
   });
 };
 
@@ -59,8 +68,6 @@ export const generateContractDeployTx = ({
     codeBody,
     version,
     nonce,
-    postConditionMode: txData.postConditionMode,
-    postConditions: txData.postConditions,
   });
 };
 
@@ -79,8 +86,6 @@ export const generateSTXTransferTx = ({
     memo,
     amount,
     nonce,
-    postConditionMode: txData.postConditionMode,
-    postConditions: txData.postConditions,
   });
 };
 
