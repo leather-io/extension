@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.13.6 (2020-08-11)
+
+
+### Bug Fixes
+
+* show correct secret key on home screen, fixes [#517](https://github.com/blockstack/ux/issues/517) ([e14afcf](https://github.com/blockstack/ux/commit/e14afcf036ef25d45a541005aa9bb88cd218f4ab))
+
+
+
+
+
 ## 1.13.5 (2020-07-30)
 
 
