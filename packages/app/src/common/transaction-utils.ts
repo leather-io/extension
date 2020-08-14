@@ -59,6 +59,8 @@ export const generateContractDeployTx = ({
     codeBody,
     version,
     nonce,
+    postConditionMode: txData.postConditionMode,
+    postConditions: txData.postConditions,
   });
 };
 
