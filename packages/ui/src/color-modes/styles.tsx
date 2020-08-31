@@ -1,8 +1,11 @@
-import { createGlobalStyle } from 'styled-components';
+/** @jsx jsx */
+import { jsx, css, Global } from '@emotion/react';
 import { generateCssVariables } from './utils';
 
-export const ColorModes = createGlobalStyle`
-  :root{
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+const colorModes = css`
+  :root {
     ${generateCssVariables('light')};
   }
 
@@ -18,7 +21,9 @@ export const ColorModes = createGlobalStyle`
     }
   }
 
-  html, body, #__next {
+  html,
+  body,
+  #__next {
     background: var(--colors-bg);
     border-color: var(--colors-border);
   }
@@ -44,11 +49,13 @@ export const ColorModes = createGlobalStyle`
 
   input::-ms-input-placeholder,
   textarea::-ms-input-placeholder {
-    color:  var(--colors-input-placeholder) !important;
+    color: var(--colors-input-placeholder) !important;
   }
 
   input::placeholder,
   textarea::placeholder {
-    color:  var(--colors-input-placeholder) !important;
+    color: var(--colors-input-placeholder) !important;
   }
-  `;
+`;
+
+export const ColorModes: any = <Global styles={colorModes} />;

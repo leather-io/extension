@@ -1,42 +1,43 @@
 import React from 'react';
-import { forwardRef } from 'react';
-import { useFormControl } from '../form-control';
-import { PseudoBox } from '../pseudo-box';
+import { ForwardRefExoticComponentWithAs, forwardRefWithAs } from '@stacks/ui-core';
+import { Box } from '../box';
 import { InputProps } from './types';
 
 import useInputStyle from './styles';
 
 export * from './types';
 
-export const Input = forwardRef<any, InputProps>((props, ref) => {
+export const Input: ForwardRefExoticComponentWithAs<InputProps, 'input'> = forwardRefWithAs<
+  InputProps,
+  'input'
+>((props, ref) => {
   const {
-    as,
+    as = 'input',
     'aria-label': ariaLabel,
     'aria-describedby': ariaDescribedby,
     isReadOnly,
-    // isFullWidth,
-    // isDisabled,
-    // isInvalid,
-    // isRequired,
+    isFullWidth,
+    isDisabled,
+    isInvalid,
+    isRequired,
     style = {},
     ...rest
   } = props;
 
   const inputStyleProps = useInputStyle(props);
-  const formControl = useFormControl(props);
 
   return (
-    <PseudoBox
+    <Box
       ref={ref}
       as={as}
-      _readOnly={formControl.isReadOnly}
+      _readOnly={isReadOnly}
       aria-readonly={isReadOnly}
-      isDisabled={formControl.isDisabled}
+      isDisabled={isDisabled}
       aria-label={ariaLabel}
-      aria-invalid={formControl.isInvalid}
-      isRequired={formControl.isRequired}
-      aria-required={formControl.isRequired}
-      aria-disabled={formControl.isDisabled}
+      aria-invalid={isInvalid}
+      isRequired={isRequired}
+      aria-required={isRequired}
+      aria-disabled={isDisabled}
       aria-describedby={ariaDescribedby}
       textStyle="body.small"
       style={{ WebkitAppearance: 'none', ...style }}
@@ -45,11 +46,5 @@ export const Input = forwardRef<any, InputProps>((props, ref) => {
     />
   );
 });
-
-Input.defaultProps = {
-  as: 'input',
-  isFullWidth: true,
-  focusBorderColor: 'blue.300',
-};
 
 Input.displayName = 'Input';

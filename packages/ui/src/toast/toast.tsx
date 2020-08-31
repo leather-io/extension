@@ -245,7 +245,6 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
               <Box
                 p="base"
                 border="1px solid"
-                borderColor="inherit"
                 borderRadius="6px"
                 maxWidth="100%"
                 {...styles.toast}

@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "packages": {
+    "@blockstack/ui": {
+      "signature": "8aa2ad8324d2cbf3ce492563a483d6a5",
+      "pure": true
+    },
+    "@stacks/system-ui": {
+      "signature": "3374fa323df176bfcbc6943d3f964806",
+      "pure": true
+    }
+  }
+}

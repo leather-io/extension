@@ -1,7 +1,9 @@
-import styled from 'styled-components';
-import { Box } from '../box';
+/** @jsx jsx */
+import * as React from 'react';
+import { jsx, css } from '@emotion/react';
+import { Box, BoxProps } from '../box';
 
-const VisuallyHidden = styled(Box)`
+const visuallyHidden = css`
   border: 0px;
   clip: rect(0px, 0px, 0px, 0px);
   height: 1px;
@@ -13,4 +15,6 @@ const VisuallyHidden = styled(Box)`
   position: absolute;
 `;
 
-export { VisuallyHidden };
+export const VisuallyHidden: React.FC<BoxProps> = props => (
+  <Box css={visuallyHidden as any} {...props} />
+);

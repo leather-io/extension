@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.3",
-    "tsdx": "^0.13.2"
+    "tsdx": "^0.13.3"
   },
   "resolutions": {
     "@blockstack/eslint-config": "^1.0.5",

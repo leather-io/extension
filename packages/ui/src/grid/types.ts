@@ -1,19 +1,18 @@
-import * as StyledSystem from 'styled-system';
 import { BoxProps } from '../box';
 
 interface GridPropsBase {
-  templateColumns?: StyledSystem.GridTemplateColumnsProps['gridTemplateColumns'];
-  gap?: StyledSystem.GridGapProps['gridGap'];
-  rowGap?: StyledSystem.GridRowGapProps['gridRowGap'];
-  columnGap?: StyledSystem.GridColumnGapProps['gridColumnGap'];
-  autoFlow?: StyledSystem.GridAutoFlowProps['gridAutoFlow'];
-  autoRows?: StyledSystem.GridAutoRowsProps['gridAutoRows'];
-  autoColumns?: StyledSystem.GridAutoColumnsProps['gridAutoColumns'];
-  templateRows?: StyledSystem.GridTemplateRowsProps['gridTemplateRows'];
-  templateAreas?: StyledSystem.GridTemplateAreasProps['gridTemplateAreas'];
-  area?: StyledSystem.GridAreaProps['gridArea'];
-  column?: StyledSystem.GridColumnProps['gridColumn'];
-  row?: StyledSystem.GridRowProps['gridRow'];
+  templateColumns?: BoxProps['gridTemplateColumns'];
+  gap?: BoxProps['gap'];
+  rowGap?: BoxProps['rowGap'];
+  columnGap?: BoxProps['columnGap'];
+  autoFlow?: BoxProps['gridAutoFlow'];
+  autoRows?: BoxProps['gridAutoRows'];
+  autoColumns?: BoxProps['gridAutoColumns'];
+  templateRows?: BoxProps['gridTemplateRows'];
+  templateAreas?: BoxProps['gridTemplateAreas'];
+  area?: BoxProps['gridArea'];
+  column?: BoxProps['gridColumn'];
+  row?: BoxProps['gridRow'];
 }
 
-export type GridProps = BoxProps & GridPropsBase & React.RefAttributes<HTMLElement>;
+export type GridProps = BoxProps & GridPropsBase;

@@ -1,8 +1,7 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { Box } from '../box';
 import { Text } from '../text';
 import { FormLabelProps } from './types';
-import { useFormControl } from '../form-control';
 
 export * from './types';
 
@@ -16,13 +15,15 @@ export const RequiredIndicator = (props: any) => (
  * It reads from the `FormControl` context to handle it's styles for
  * the various form states.
  */
-export const FormLabel = forwardRef<any, FormLabelProps>(({ children, ...props }, ref) => {
-  const formControl = useFormControl(props);
+export const FormLabel: React.FC<FormLabelProps> = (
+  { children, isDisabled, isRequired, ...props },
+  ref
+) => {
   return (
     <Text
       ref={ref}
       pb="4px"
-      opacity={formControl.isDisabled ? 0.4 : 1}
+      opacity={isDisabled ? 0.4 : 1}
       textAlign="left"
       verticalAlign="middle"
       display="inline-block"
@@ -31,10 +32,10 @@ export const FormLabel = forwardRef<any, FormLabelProps>(({ children, ...props }
       {...props}
     >
       {children}
-      {formControl.isRequired && <RequiredIndicator />}
+      {isRequired && <RequiredIndicator />}
     </Text>
   );
-});
+};
 
 FormLabel.displayName = 'FormLabel';
 

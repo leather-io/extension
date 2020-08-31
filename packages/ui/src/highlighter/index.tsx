@@ -4,10 +4,8 @@ import { Box } from '../box';
 import { Flex } from '../flex';
 import { startPad } from '../utils';
 import { useTheme } from '../hooks';
-
 import { GrammaticalToken, GetGrammaticalTokenProps, RenderProps, Language } from './types';
 import { theme } from './prism-theme';
-import './clarity';
 
 export * from './types';
 

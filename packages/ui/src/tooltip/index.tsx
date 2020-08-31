@@ -1,39 +1,38 @@
 import * as React from 'react';
-import { Box, PropsOf } from '../box';
+import { Box, BoxProps } from '../box';
 import { useTooltip, UseTooltipProps } from './hooks';
 import { Portal } from '../portal';
 import { isString, omit, pick } from '../utils';
 import { VisuallyHidden } from '../visually-hidden';
 
-export type TooltipProps = PropsOf<typeof Box> &
-  UseTooltipProps & {
-    /**
-     * The react component to use as the
-     * trigger for the tooltip
-     */
-    children?: React.ReactNode;
-    /**
-     * The label of the tooltip
-     */
-    label?: string;
-    /**
-     * The accessible, human friendly label to use for
-     * screen readers.
-     *
-     * If passed, tooltip will show the content `label`
-     * but expose only `aria-label` to assistive technologies
-     */
-    'aria-label'?: string;
-    /**
-     * If `true`, the tooltip will wrap it's children
-     * in a `<span/>` with `tabIndex=0`
-     */
-    shouldWrapChildren?: boolean;
-    /**
-     * If `true`, the tooltip will show an arrow tip
-     */
-    hasArrow?: boolean;
-  };
+export type TooltipProps = UseTooltipProps & {
+  /**
+   * The react component to use as the
+   * trigger for the tooltip
+   */
+  children?: React.ReactNode;
+  /**
+   * The label of the tooltip
+   */
+  label?: string;
+  /**
+   * The accessible, human friendly label to use for
+   * screen readers.
+   *
+   * If passed, tooltip will show the content `label`
+   * but expose only `aria-label` to assistive technologies
+   */
+  'aria-label'?: string;
+  /**
+   * If `true`, the tooltip will wrap it's children
+   * in a `<span/>` with `tabIndex=0`
+   */
+  shouldWrapChildren?: boolean;
+  /**
+   * If `true`, the tooltip will show an arrow tip
+   */
+  hasArrow?: boolean;
+} & BoxProps;
 
 export function Tooltip(props: TooltipProps) {
   const { children, label, shouldWrapChildren, 'aria-label': ariaLabel, hasArrow, ...rest } = props;

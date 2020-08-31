@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-(function (Prism) {
+export function clarityPrismLang(Prism) {
   // Functions to construct regular expressions
   // simple form
   // e.g. (interactive ... or (interactive)
@@ -111,4 +111,4 @@ buff|hash160|sha256|sha512|sha512/256|keccak256|true|false|none)' +
   };
 
   Prism.languages.clarity = language;
-});
+}

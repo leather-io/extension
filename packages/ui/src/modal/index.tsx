@@ -49,11 +49,11 @@ const ModalUnderlay = ({ isOpen, noAnimation }: ModalUnderlayProps) => (
     }}
   />
 );
-interface ModalWrapperProps extends FlexProps {
+interface ModalWrapperProps {
   isOpen: boolean;
 }
 
-const ModalWrapper = ({ isOpen, ...rest }: ModalWrapperProps) => (
+const ModalWrapper: React.FC<ModalWrapperProps & FlexProps> = ({ isOpen, ...rest }) => (
   <Flex
     zIndex={999999}
     position="fixed"
@@ -75,33 +75,34 @@ const ModalWrapper = ({ isOpen, ...rest }: ModalWrapperProps) => (
   />
 );
 
-interface ModalCardContainerProps extends FlexProps {
+interface ModalCardContainerProps {
   isOpen: boolean;
   noAnimation: boolean;
 }
 
-const ModalCardContainer = React.forwardRef<any, ModalCardContainerProps>(
-  ({ noAnimation, isOpen, ...rest }, ref) => (
-    <Flex
-      flexDirection="column"
-      position="relative"
-      bg="white"
-      mx="auto"
-      minWidth={['100%', '396px']}
-      maxWidth={['100%', '396px']}
-      maxHeight={['100%', 'calc(100% - 48px)']}
-      borderRadius={['unset', '6px']}
-      boxShadow="high"
-      transform={noAnimation ? 'translateY(0px)' : isOpen ? 'translateY(0px)' : 'translateY(15px)'}
-      transition={noAnimation ? 'unset' : 'all 0.2s ease-in-out'}
-      style={{
-        willChange: 'transform',
-      }}
-      ref={ref}
-      {...rest}
-    />
-  )
-);
+const ModalCardContainer: React.FC<ModalCardContainerProps & FlexProps> = React.forwardRef<
+  any,
+  ModalCardContainerProps & FlexProps
+>(({ noAnimation, isOpen, ...rest }, ref) => (
+  <Flex
+    flexDirection="column"
+    position="relative"
+    bg="white"
+    mx="auto"
+    minWidth={['100%', '396px']}
+    maxWidth={['100%', '396px']}
+    maxHeight={['100%', 'calc(100% - 48px)']}
+    borderRadius={['unset', '6px']}
+    boxShadow="high"
+    transform={noAnimation ? 'translateY(0px)' : isOpen ? 'translateY(0px)' : 'translateY(15px)'}
+    transition={noAnimation ? 'unset' : 'all 0.2s ease-in-out'}
+    style={{
+      willChange: 'transform',
+    }}
+    ref={ref}
+    {...rest}
+  />
+));
 
 export const Modal: React.FC<ModalProps> = React.memo(
   ({
@@ -114,7 +115,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
     ...props
   }) => {
     const { doCloseModal } = useModalState();
-    const ref = React.useRef(null);
+    const ref = React.useRef<any>(null);
 
     React.useEffect(() => {
       const func = (event: KeyboardEvent) => {
@@ -147,7 +148,13 @@ export const Modal: React.FC<ModalProps> = React.memo(
       <>
         <ModalUnderlay isOpen={isOpen} noAnimation={noAnimation} />
         <ModalWrapper isOpen={isOpen}>
-          <ModalCardContainer ref={ref} isOpen={isOpen} noAnimation={noAnimation} {...props}>
+          <ModalCardContainer
+            isOpen={isOpen}
+            noAnimation={noAnimation}
+            {...props}
+            // @ts-ignore
+            ref={ref as any}
+          >
             <Header component={HeaderComponent} />
             <Box overflowY="auto">{children}</Box>
             <Footer component={FooterComponent} />

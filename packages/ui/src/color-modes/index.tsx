@@ -57,7 +57,7 @@ export const ColorModeProvider = ({
 
   return (
     <ColorModeContext.Provider value={{ colorMode: mode, toggleColorMode }}>
-      <ColorModes colorMode={mode} />
+      <ColorModes />
       {children}
     </ColorModeContext.Provider>
   );

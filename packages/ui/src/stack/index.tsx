@@ -2,11 +2,10 @@ import React, { forwardRef, Children, cloneElement, isValidElement } from 'react
 import { Flex } from '../flex';
 import { Box } from '../box';
 import { StackProps } from './types';
-import { SpacingProps } from '../theme/types';
 
 export * from './types';
 
-const Stack = forwardRef<any, StackProps>(
+const Stack: React.FC<StackProps> = forwardRef(
   ({ isInline, children, align, justify, spacing = 2, shouldWrapChildren, ...rest }, ref) => {
     const validChildren = Array.isArray(children) ? children.filter(isValidElement) : [];
 
@@ -32,7 +31,7 @@ const Stack = forwardRef<any, StackProps>(
 
           if (shouldWrapChildren) {
             return (
-              <Box d="inline-block" {...(spacingProps as SpacingProps)}>
+              <Box display="inline-block" {...spacingProps}>
                 {child}
               </Box>
             );

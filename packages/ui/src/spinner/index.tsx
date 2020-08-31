@@ -1,5 +1,6 @@
-import React, { forwardRef } from 'react';
-import styled, { keyframes } from 'styled-components';
+/** @jsx jsx */
+import { forwardRef } from 'react';
+import { jsx, keyframes } from '@emotion/react';
 import { Box } from '../box';
 import { VisuallyHidden } from '../visually-hidden';
 import { SpinnerProps, SpinnerSize } from './types';
@@ -11,10 +12,6 @@ const spin = keyframes`
   100% {
     transform: rotate(360deg);
   }
-`;
-
-const StyledBox = styled(Box)`
-  animation: ${spin} ${(props: SpinnerProps) => props.speed} linear infinite;
 `;
 
 const getSize = (size: SpinnerSize): string => {
@@ -55,7 +52,7 @@ const Spinner = forwardRef<any, SpinnerProps>(
     const _size = getSize(size);
 
     return (
-      <StyledBox
+      <Box
         ref={ref}
         display="inline-block"
         borderWidth={thickness}
@@ -66,10 +63,11 @@ const Spinner = forwardRef<any, SpinnerProps>(
         speed={speed}
         color={color}
         size={_size}
+        animation={`${spin} ${speed} linear infinite`}
         {...props}
       >
         {label && <VisuallyHidden>{label}</VisuallyHidden>}
-      </StyledBox>
+      </Box>
     );
   }
 );

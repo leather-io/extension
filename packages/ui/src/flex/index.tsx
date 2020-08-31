@@ -1,19 +1,11 @@
-import React, { forwardRef } from 'react';
+import * as React from 'react';
 import { Box } from '../box';
+import { forwardRefWithAs, ForwardRefExoticComponentWithAs } from '@stacks/ui-core';
 import { FlexProps } from './types';
 
-const Flex = forwardRef<any, FlexProps>(({ align, justify, wrap, direction, ...rest }, ref) => (
-  <Box
-    ref={ref}
-    display="flex"
-    flexDirection={direction}
-    alignItems={align}
-    justifyContent={justify}
-    flexWrap={wrap}
-    {...rest}
-  />
-));
+export const Flex: ForwardRefExoticComponentWithAs<
+  FlexProps,
+  'div'
+> = forwardRefWithAs((props, ref) => <Box display="flex" ref={ref} {...props} />);
 
-Flex.displayName = 'Flex';
-
-export { Flex, FlexProps };
+export { FlexProps };

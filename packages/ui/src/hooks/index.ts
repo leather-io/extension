@@ -10,3 +10,4 @@ export * from './use-safe-layout-effect';
 export * from './use-timeout';
 export * from './use-theme';
 export * from './use-color-mode';
+export * from './use-media-query';

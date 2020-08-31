@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PseudoBoxProps } from '../pseudo-box';
+import { BoxProps } from '../box';
 import { Omit } from '../common-types';
 
 export type InputVariant = 'outline' | 'unstyled' | 'flushed' | 'filled';
@@ -64,6 +64,6 @@ type OmittedTypes = 'size' | 'disabled' | 'required' | 'checked' | 'defaultCheck
 type InputHTMLAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, OmittedTypes>;
 
 export type InputProps<T = HTMLInputElement> = InputPropsBase<T> &
-  PseudoBoxProps &
+  BoxProps &
   InputHTMLAttributes &
   React.RefAttributes<T>;

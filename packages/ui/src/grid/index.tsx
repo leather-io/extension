@@ -1,46 +1,11 @@
-import React, { forwardRef } from 'react';
+import * as React from 'react';
 import { Box } from '../box';
+import { forwardRefWithAs, ForwardRefExoticComponentWithAs } from '@stacks/ui-core';
 import { GridProps } from './types';
 
-const Grid = forwardRef<any, GridProps>(
-  (
-    {
-      templateColumns,
-      gap,
-      rowGap,
-      columnGap,
-      autoFlow,
-      autoRows,
-      autoColumns,
-      templateRows,
-      templateAreas,
-      area,
-      column,
-      row,
-      ...props
-    },
-    ref
-  ) => (
-    <Box
-      ref={ref}
-      display="grid"
-      gridArea={area}
-      gridTemplateAreas={templateAreas}
-      gridGap={gap}
-      gridRowGap={rowGap}
-      gridColumnGap={columnGap}
-      gridAutoColumns={autoColumns}
-      gridColumn={column}
-      gridRow={row}
-      gridAutoFlow={autoFlow}
-      gridAutoRows={autoRows}
-      gridTemplateRows={templateRows}
-      gridTemplateColumns={templateColumns}
-      {...props}
-    />
-  )
-);
+export const Grid: ForwardRefExoticComponentWithAs<
+  GridProps,
+  'div'
+> = forwardRefWithAs((props, ref) => <Box display="grid" ref={ref} {...props} />);
 
-Grid.displayName = 'Grid';
-
-export { Grid };
+export { GridProps };

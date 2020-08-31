@@ -1,6 +1,6 @@
 import { BoxProps } from '../box';
 
-interface FlexPropsBase {
+export interface FlexPropsBase {
   /**
    * Shorthand for Styled-System `alignItems` prop
    */
@@ -19,4 +19,4 @@ interface FlexPropsBase {
   direction?: BoxProps['flexDirection'];
 }
 
-export type FlexProps = FlexPropsBase & BoxProps;
+export type FlexProps = BoxProps & FlexPropsBase;

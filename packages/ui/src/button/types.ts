@@ -63,4 +63,6 @@ export interface ButtonStyles {
   customStyles?: CustomStyles;
 }
 
-export type ButtonProps = ButtonPropsBase & BoxProps & React.RefAttributes<HTMLButtonElement>;
+export type ButtonProps = ButtonPropsBase &
+  Omit<BoxProps, 'size'> &
+  React.RefAttributes<HTMLButtonElement>;

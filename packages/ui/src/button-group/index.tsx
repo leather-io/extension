@@ -1,16 +1,12 @@
 import React, { Children, cloneElement } from 'react';
 import { Box } from '../box';
 import { ButtonGroupProps } from './types';
+import { ForwardRefExoticComponentWithAs, forwardRefWithAs } from '@stacks/ui-core';
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({
-  size,
-  variantColor,
-  variant,
-  isAttached,
-  spacing = 2,
-  children,
-  ...rest
-}) => {
+const ButtonGroup: ForwardRefExoticComponentWithAs<ButtonGroupProps, 'div'> = forwardRefWithAs<
+  ButtonGroupProps,
+  'div'
+>(({ size, variantColor, variant, isAttached, spacing = 2, children, ...rest }, ref) => {
   const clones = Children.map(children, (child, index) => {
     const isFirst = index === 0;
     const isLast = index === Children.count(children) - 1;
@@ -32,11 +28,11 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
   });
 
   return (
-    <Box display="inline-block" {...rest}>
+    <Box display="inline-block" ref={ref} {...rest}>
       {clones}
     </Box>
   );
-};
+});
 
 ButtonGroup.displayName = 'ButtonGroup';
 

@@ -1,12 +1,15 @@
 import React from 'react';
-import { forwardRef } from 'react';
+import { ForwardRefExoticComponentWithAs, forwardRefWithAs } from '@stacks/ui-core';
 import { Box } from '../box';
 import { inputSizes } from '../input/styles';
 import { InputElementProps, PositionedInputElementProps } from './types';
 
 export * from './types';
 
-const InputElement = forwardRef<any, InputElementProps>(
+const InputElement: ForwardRefExoticComponentWithAs<InputElementProps, 'div'> = forwardRefWithAs<
+  InputElementProps,
+  'div'
+>(
   (
     { size = 'default', children, placement = 'left', disablePointerEvents = false, ...props },
     ref
@@ -38,11 +41,17 @@ const InputElement = forwardRef<any, InputElementProps>(
   }
 );
 
-const InputLeftElement = forwardRef<any, PositionedInputElementProps>((props, ref) => (
+const InputLeftElement: ForwardRefExoticComponentWithAs<
+  PositionedInputElementProps,
+  'div'
+> = forwardRefWithAs<PositionedInputElementProps>((props, ref) => (
   <InputElement ref={ref} placement="left" {...props} />
 ));
 
-const InputRightElement = forwardRef<any, PositionedInputElementProps>((props, ref) => (
+const InputRightElement: ForwardRefExoticComponentWithAs<
+  PositionedInputElementProps,
+  'div'
+> = forwardRefWithAs<PositionedInputElementProps>((props, ref) => (
   <InputElement ref={ref} placement="right" {...props} />
 ));
 

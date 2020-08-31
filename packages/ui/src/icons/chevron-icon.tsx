@@ -3,9 +3,10 @@ import { Svg } from '../svg';
 import { BoxProps } from '../box';
 import { Direction } from './icon-utils';
 
-interface ChevronProps extends BoxProps {
+interface ChevronPropsBase {
   direction?: Direction;
 }
+type ChevronProps = ChevronPropsBase & Omit<BoxProps, 'direction'>;
 
 const rotate = (direction: Direction = 'right') => {
   switch (direction) {
@@ -36,7 +37,7 @@ export const ChevronIcon: React.FC<ChevronProps> = ({
     {...props}
   >
     <path
-      fill={props.color || 'currentColor'}
+      fill="currentColor"
       d="M4.7 7.367l3.3 3.3 3.3-3.3-.943-.943L8 8.78 5.643 6.424l-.943.943z"
     />
   </Svg>

@@ -1,4 +1,5 @@
-import { css } from 'styled-components';
+/** @jsx jsx */
+import { css } from '@emotion/react';
 
 const tailwindPreflight = css`
   /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

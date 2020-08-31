@@ -1,21 +1,15 @@
 import * as React from 'react';
 import { Box, BoxProps } from '../box';
+import { forwardRefWithAs, ForwardRefExoticComponentWithAs } from '@stacks/ui-core';
 
-interface SVGProps {
-  viewBox?: string;
-  fill?: string;
-}
-
-type SVG = SVGProps & BoxProps;
-
-export const Svg = ({
-  width = '24px',
-  height = 'auto',
-  viewBox = '0 0 24 24',
-  fill = 'none',
-  ...rest
-}: SVG) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  return <Box as="svg" width={width} height={height} viewBox={viewBox} fill={fill} {...rest} />;
+const defaultProps = {
+  width: '24px',
+  height: 'auto',
+  fill: 'none',
+  viewBox: '0 0 24 24',
 };
+
+export const Svg: ForwardRefExoticComponentWithAs<BoxProps, 'svg'> = forwardRefWithAs<
+  BoxProps,
+  'svg'
+>((props: BoxProps, ref) => <Box ref={ref} as="svg" {...defaultProps} {...props} />);

@@ -1,4 +1,5 @@
-import styled, { createGlobalStyle, css } from 'styled-components';
+/** @jsx jsx */
+import { jsx, Global, css } from '@emotion/react';
 import preflight from './preflight';
 import { theme } from '../theme/theme';
 
@@ -57,9 +58,9 @@ const cssReset = css`
   }
 `;
 
-const CSSReset = createGlobalStyle`${cssReset}`;
+const CSSReset = <Global styles={cssReset} />;
 
-const ScopedCSSReset = styled.div`
+const scopedCss = css`
   *,
   *::before,
   *::after {
@@ -89,5 +90,7 @@ const ScopedCSSReset = styled.div`
     font-family: ${theme && theme.fonts && theme.fonts.body};
   }
 `;
+
+const ScopedCSSReset = <Global styles={scopedCss} />;
 
 export { CSSReset, ScopedCSSReset };

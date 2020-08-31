@@ -1,10 +1,10 @@
-import React, { Ref, forwardRef } from 'react';
-import { PseudoBox } from '../pseudo-box';
+import React from 'react';
 import { Box } from '../box';
 import { useButtonStyle } from './styles';
 import { Spinner } from '../spinner';
 import { ButtonProps } from './types';
 import { useHover } from 'use-events';
+import { forwardRefWithAs } from '@stacks/ui-core';
 
 export * from './types';
 
@@ -23,7 +23,7 @@ const HoverChange = ({ isHovered, isDisabled }: { isHovered: boolean; isDisabled
   />
 );
 
-export const Button = forwardRef<Ref<HTMLDivElement>, ButtonProps>(
+export const Button = forwardRefWithAs<ButtonProps, 'button'>(
   (
     {
       isDisabled,
@@ -51,7 +51,7 @@ export const Button = forwardRef<Ref<HTMLDivElement>, ButtonProps>(
     const [hovered, bind] = useHover();
 
     return (
-      <PseudoBox
+      <Box
         disabled={isDisabled}
         aria-disabled={isDisabled}
         ref={ref}
@@ -92,7 +92,7 @@ export const Button = forwardRef<Ref<HTMLDivElement>, ButtonProps>(
         {mode === 'primary' ? (
           <HoverChange isDisabled={isDisabled || false} isHovered={hovered} />
         ) : null}
-      </PseudoBox>
+      </Box>
     );
   }
 );

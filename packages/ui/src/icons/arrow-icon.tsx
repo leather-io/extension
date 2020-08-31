@@ -3,7 +3,7 @@ import { Svg } from '../svg';
 import { BoxProps } from '../box';
 import { Direction } from './icon-utils';
 
-interface ArrowIconProps extends BoxProps {
+interface ArrowIconProps {
   direction?: Direction;
 }
 
@@ -22,7 +22,7 @@ const rotate = (direction: Direction = 'up') => {
   }
 };
 
-export const ArrowIcon: React.FC<ArrowIconProps> = ({ direction, style, ...props }) => (
+export const ArrowIcon: React.FC<ArrowIconProps & BoxProps> = ({ direction, style, ...props }) => (
   <Svg
     width="11px"
     height="14px"

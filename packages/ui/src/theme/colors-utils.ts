@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import Color from 'color';
 
 export const get = (color: string, hue: string) => `${color}.${hue}`;
