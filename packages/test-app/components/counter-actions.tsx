@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup, Box, Text } from '@blockstack/ui';
 import { AppContext } from '@common/context';
 import { getAuthOrigin, getRPCClient } from '@common/utils';
-import { useConnect } from '@blockstack/connect';
+import { useConnect } from '@blockstack/connect-react';
 import { deserializeCV, IntCV } from '@blockstack/stacks-transactions';
 import { ExplorerLink } from '@components/explorer-link';
 

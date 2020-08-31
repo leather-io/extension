@@ -15,7 +15,12 @@
     "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "baseUrl": "./",
+    "resolveJsonModule": true,
+    "paths": {
+      "@blockstack/connect-core": ["../connect-core/src"],
+    }
   },
   "include": [
     "src"
