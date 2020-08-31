@@ -5,8 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AuthOptions } from "@blockstack/connect-core";
 export namespace Components {
     interface ConnectModal {
+        "authOptions": AuthOptions;
     }
 }
 declare global {
@@ -22,6 +24,9 @@ declare global {
 }
 declare namespace LocalJSX {
     interface ConnectModal {
+        "authOptions"?: AuthOptions;
+        "onSignIn"?: (event: CustomEvent<any>) => void;
+        "onSignUp"?: (event: CustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "connect-modal": ConnectModal;

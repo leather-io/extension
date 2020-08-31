@@ -1,16 +1,23 @@
-import { h } from '@stencil/core';
+import { h, EventEmitter } from '@stencil/core';
 import { PadlockIcon } from '../assets/padlock-icon';
 import { EyeIcon } from '../assets/eye-icon';
 import { state, Screens } from '../../../store';
 import { LinkIcon } from '../assets/link-icon';
 import { PadlockBox } from '../assets/padlock-box';
+import { AuthOptions } from '@blockstack/connect-core';
 
-export const Intro = () => {
+interface IntroProps {
+  authOptions: AuthOptions;
+  signUp: EventEmitter;
+  signIn: EventEmitter;
+}
+
+export const Intro = ({ authOptions, signUp, signIn }: IntroProps) => {
   return (
     <div>
       <div class="app-element-container">
         <div class="app-element-app-icon">
-          <img src="http://localhost:3000/assets/messenger-app-icon.png" alt="Testing App" />
+          <img src={authOptions.appDetails.icon} alt="Testing App" />
         </div>
         <div class="app-element-link">
           <LinkIcon />
@@ -20,7 +27,7 @@ export const Intro = () => {
         </div>
       </div>
       <span class="modal-header pxl">
-        Testing App guarantees your privacy by encrypting everything
+        {authOptions.appDetails.name} guarantees your privacy by encrypting everything
       </span>
       <div class="divider" />
       <div class="intro-entry">
@@ -41,12 +48,19 @@ export const Intro = () => {
         </span>
       </div>
       <div class="button-container">
-        <button class="button">
+        <button
+          class="button"
+          onClick={() => {
+            signUp.emit();
+          }}
+        >
           <span>Get your Secret Key</span>
         </button>
       </div>
       <div class="modal-footer">
-        <span class="link">Sign in</span>
+        <span class="link" onClick={() => signIn.emit()}>
+          Sign in
+        </span>
         <span class="link" onClick={() => (state.screen = Screens.HOW_IT_WORKS)}>
           How it works
         </span>

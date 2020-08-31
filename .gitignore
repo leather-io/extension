@@ -40,3 +40,6 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+
+yalc.lock
+.yalc

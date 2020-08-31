@@ -1,5 +1,5 @@
 {
-  "name": "connect-ui",
+  "name": "@blockstack/connect-ui",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
@@ -19,9 +19,11 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
+    "@blockstack/connect-core": "file:.yalc/@blockstack/connect-core",
     "@stencil/core": "^1.17.3"
   },
   "license": "MIT",
