@@ -1,13 +1,10 @@
 import React from 'react';
 import { Flex, Text } from '@blockstack/ui';
-import { useAppDetails } from '../../hooks/use-app-details';
+import { selectAppName } from '@store/onboarding/selectors';
+import { useSelector } from 'react-redux';
 import { AppIcon } from '../app-icon';
 
 export interface ScreenHeaderProps {
-  appDetails?: {
-    name: string;
-    icon: string;
-  };
   title?: string | JSX.Element;
   rightContent?: React.FC | JSX.Element;
   close?: () => void;
@@ -16,22 +13,12 @@ export interface ScreenHeaderProps {
 }
 
 export const ScreenHeader = ({
-  appDetails,
   hideLogo = false,
   rightContent,
   title: _title,
   ...rest
 }: ScreenHeaderProps) => {
-  const { name, icon } = useAppDetails();
-
-  let appName = name;
-  let appIcon = icon;
-
-  if (appDetails) {
-    appName = appDetails.name;
-    appIcon = appDetails.icon;
-  }
-
+  const name = useSelector(selectAppName);
   return (
     <Flex
       py={[4, 5]}
@@ -47,9 +34,9 @@ export const ScreenHeader = ({
     >
       <Flex width="100%" align="center" justifyContent="space-between">
         <Flex align="center">
-          {hideLogo ? null : <AppIcon src={appIcon} alt={appName || 'loading'} mr="tight" />}
+          {hideLogo ? null : <AppIcon mr="tight" />}
           <Text fontWeight={500} textStyle={'body.small.medium'} fontSize={'12px'}>
-            {appName}
+            {name}
           </Text>
         </Flex>
         {rightContent ? rightContent : null}

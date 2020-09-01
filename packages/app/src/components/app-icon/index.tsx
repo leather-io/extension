@@ -6,7 +6,7 @@ import { Image } from '@components/image';
 import { AppState } from '@store';
 import { selectAppName, selectFullAppIcon } from '@store/onboarding/selectors';
 
-export const AppIcon = ({ ...rest }: BoxProps) => {
+export const AppIcon: React.FC<BoxProps> = ({ ...rest }: BoxProps) => {
   const appIcon = useSelector((state: AppState) => selectFullAppIcon(state));
   const appName = useSelector((state: AppState) => selectAppName(state));
   return (

@@ -4,11 +4,11 @@ import { CloseIcon } from './assets/close-icon';
 import { ChevronIcon } from './assets/chevron-icon';
 import { Intro } from './screens/screens-intro';
 import { HowItWorks } from './screens/screens-how-it-works';
-import { AuthOptions } from '@blockstack/connect-core';
+import { AuthOptions } from '@blockstack/connect/auth';
 
 @Component({
   tag: 'connect-modal',
-  styleUrl: 'modal.sass',
+  styleUrl: 'modal.scss',
   assetsDirs: ['screens', 'assets'],
 })
 export class Modal {

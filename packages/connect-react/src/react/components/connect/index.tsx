@@ -1,7 +1,6 @@
 import React from 'react';
 import { ConnectProvider } from './context';
-import { Modal } from '../modal';
-import { AuthOptions } from '../../../auth';
+import { AuthOptions } from '@blockstack/connect';
 
 /**
  * Usage
@@ -23,12 +22,7 @@ import { AuthOptions } from '../../../auth';
  * <Connect authOptions={authOptions} />
  */
 const Connect = ({ authOptions, children }: { authOptions: AuthOptions; children: any }) => {
-  return (
-    <ConnectProvider authOptions={authOptions}>
-      <Modal />
-      {children}
-    </ConnectProvider>
-  );
+  return <ConnectProvider authOptions={authOptions}>{children}</ConnectProvider>;
 };
 
 export { Connect };

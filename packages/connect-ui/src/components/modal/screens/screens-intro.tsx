@@ -4,7 +4,7 @@ import { EyeIcon } from '../assets/eye-icon';
 import { state, Screens } from '../../../store';
 import { LinkIcon } from '../assets/link-icon';
 import { PadlockBox } from '../assets/padlock-box';
-import { AuthOptions } from '@blockstack/connect-core';
+import { AuthOptions } from '@blockstack/connect/auth';
 
 interface IntroProps {
   authOptions: AuthOptions;
@@ -44,7 +44,7 @@ export const Intro = ({ authOptions, signUp, signIn }: IntroProps) => {
           <EyeIcon />
         </div>
         <span class="intro-entry-copy">
-          You'll get a Secret Key that automatically encrypts everything you do
+          {authOptions.appDetails.name} won't be able to see, access, or track your activity
         </span>
       </div>
       <div class="button-container">

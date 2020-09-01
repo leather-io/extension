@@ -24,13 +24,14 @@
     padding-left: 24px;
     padding-right: 24px;
   }
- .pxl {
-    padding-left: 32px;
-    padding-right: 32px;
-  }
   div {
     box-sizing: border-box;
   }
+}
+
+.pxl {
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .modal-top {
@@ -44,7 +45,7 @@
 }
 
 .modal-content {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .modal-header {

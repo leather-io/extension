@@ -19,7 +19,7 @@
     "baseUrl": "./",
     "resolveJsonModule": true,
     "paths": {
-      "@blockstack/connect-core": ["../connect-core/src"],
+      "@blockstack/connect/auth": ["../connect/src/auth"],
     }
   },
   "include": [

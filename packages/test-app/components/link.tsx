@@ -32,3 +32,9 @@ export const Link: React.FC<LinkProps> = ({
     </Text>
   </Box>
 );
+
+export const MediumLink: React.FC<LinkProps> = ({ children, fontSize = '14px', ...rest }) => (
+  <Link fontSize={fontSize} {...rest}>
+    {children}
+  </Link>
+);

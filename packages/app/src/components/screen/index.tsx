@@ -4,4 +4,6 @@ export * from './screen-body';
 export * from './screen-footer';
 export * from './screen-header';
 export * from './screen-loader';
-export * from '../powered-by';
+export * from './powered-by';
+export * from '../typography';
+export * from './spacing';
