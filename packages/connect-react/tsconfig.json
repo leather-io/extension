@@ -21,6 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "baseUrl": "./",
+    "paths": {
+      "@blockstack/connect": ["../connect/src/index"]
+    },
     "jsx": "react",
     "esModuleInterop": true,
     "skipLibCheck": true,

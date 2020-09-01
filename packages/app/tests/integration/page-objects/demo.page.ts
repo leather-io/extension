@@ -34,8 +34,9 @@ export class DemoPage {
   //  * Explicitly set the return type here to prevent the primitive being lost when using new
   //  * @return {Page} from 'playwright-core/lib/page';
   //  */
-  clickAlreadyHaveSecretKey() {
-    return this.page.click(this.alreadyHaveSecretKeyLink);
+  async clickAlreadyHaveSecretKey() {
+    const modal = await this.page.waitForSelector('connect-modal', { state: 'attached' });
+    await modal.dispatchEvent('signIn');
   }
 
   async goToPage() {
@@ -83,7 +84,8 @@ export class DemoPage {
     }
   }
 
-  clickConnectGetStarted() {
-    return this.page.click(this.getStartedPopUp);
+  async clickConnectGetStarted() {
+    const modal = await this.page.waitForSelector('connect-modal', { state: 'attached' });
+    await modal.dispatchEvent('signUp');
   }
 }
