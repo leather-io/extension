@@ -1613,11 +1613,6 @@
   resolved "https://registry.yarnpkg.com/@blockstack/clarity/-/clarity-0.1.16.tgz#75483365bc28d25eabb6b95df4ebafa5f67954fb"
   integrity sha512-3XuPsQCz+wfSQHLVGhdfgiCVsZh2mkSZpDiV+TguoYOWtzAOZJQSoL0CdAkri0rDe5r+AM4s57lpukqgraRTaA==
 
-"@blockstack/connect-core@file:packages/connect-ui/.yalc/@blockstack/connect-core":
-  version "1.0.0"
-  dependencies:
-    jsontokens "^3.0.0"
-
 "@blockstack/eslint-config@^1.0.3", "@blockstack/eslint-config@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@blockstack/eslint-config/-/eslint-config-1.0.5.tgz#a745661123c5e6c2682b5eb7400a4bc72390959d"

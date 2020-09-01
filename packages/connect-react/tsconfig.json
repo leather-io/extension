@@ -21,10 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "baseUrl": "./",
-    "paths": {
-      "@blockstack/ui": ["../ui/src"],
-      "@blockstack/ui/*": ["../ui/src/*"]
-    },
     "jsx": "react",
     "esModuleInterop": true,
     "skipLibCheck": true,

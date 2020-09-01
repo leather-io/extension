@@ -31,12 +31,9 @@
     }
   ],
   "dependencies": {
+    "@blockstack/connect": "2.12.1",
     "@blockstack/ui": "^2.12.7",
-    "jsontokens": "^3.0.0",
-    "preact": "^10.4.0",
-    "styled-components": "^5.1.0",
-    "use-events": "^1.4.1",
-    "use-onclickoutside": "^0.3.1"
+    "jsontokens": "^3.0.0"
   },
   "devDependencies": {
     "@babel/helper-validator-identifier": "^7.9.5",
@@ -72,9 +69,6 @@
   "peerDependencies": {
     "blockstack": "^19",
     "react": "^16.31.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^5.1.0",
-    "use-events": "^1.4.1",
-    "use-onclickoutside": "^0.3.1"
+    "react-dom": "^16.13.1"
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Flex, FlexProps } from '@blockstack/ui';
 import { Body, Pretitle, Title } from '../typography';
-import { PX } from '../../common';
+import { PX } from './spacing';
 
 export interface ScreenBodyProps extends FlexProps {
   pretitle?: string | React.ElementType;

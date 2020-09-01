@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 
 import { Box, Button, Input, Text } from '@blockstack/ui';
-import {
-  PoweredBy,
-  Screen,
-  ScreenActions,
-  ScreenBody,
-  ScreenFooter,
-  Title,
-} from '@blockstack/connect';
-import { ScreenHeader } from '@components/connected-screen-header';
+import { PoweredBy, Screen, ScreenActions, ScreenBody, ScreenFooter, ScreenHeader } from '@screen';
+import { Title } from '@components/typography';
 
 import { useAppDetails } from '@common/hooks/useAppDetails';
 import { useDispatch } from '@common/hooks/use-dispatch';
