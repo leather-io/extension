@@ -44,7 +44,7 @@ export class DemoPage {
   }
 
   openConnect() {
-    return this.page.click(this.openConnectBtn);
+    return this.page.click(this.openConnectBtn, { timeout: 7000 });
   }
 
   async screenshot(name = 'screenshot') {

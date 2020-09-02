@@ -11,13 +11,22 @@ export const showBlockstackConnect = (authOptions: AuthOptions) => {
       ...authOptions,
       sendToSignIn: false,
     });
-    console.log('signin up');
   });
   element.addEventListener('signIn', () => {
-    console.log('signin in');
     authenticate({
       ...authOptions,
       sendToSignIn: true,
     });
   });
+  const handleEsc = function (ev: KeyboardEvent) {
+    if (ev.key === 'Escape') {
+      document.removeEventListener('keydown', handleEsc);
+      element.remove();
+    }
+  };
+  element.addEventListener('closeModal', () => {
+    document.removeEventListener('keydown', handleEsc);
+    element.remove();
+  });
+  document.addEventListener('keydown', handleEsc);
 };

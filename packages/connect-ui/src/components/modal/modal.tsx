@@ -1,4 +1,4 @@
-import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Event, EventEmitter, Listen } from '@stencil/core';
 import { state, Screens } from '../../store';
 import { CloseIcon } from './assets/close-icon';
 import { ChevronIcon } from './assets/chevron-icon';
@@ -19,6 +19,9 @@ export class Modal {
   @Event()
   signIn: EventEmitter;
 
+  @Event()
+  closeModal: EventEmitter;
+
   render() {
     return (
       <div class="modal-container">
@@ -26,7 +29,9 @@ export class Modal {
           <div class="modal-top">
             {state.screen === Screens.HOW_IT_WORKS ? <ChevronIcon /> : null}
             <div />
-            {state.screen !== Screens.HOW_IT_WORKS ? <CloseIcon /> : null}
+            {state.screen !== Screens.HOW_IT_WORKS ? (
+              <CloseIcon onClick={() => this.closeModal.emit()} />
+            ) : null}
           </div>
           <div class="modal-content">
             {state.screen === Screens.INTRO && (
