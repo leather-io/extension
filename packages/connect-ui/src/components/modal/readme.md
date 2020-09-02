@@ -14,10 +14,11 @@
 
 ## Events
 
-| Event    | Description | Type               |
-| -------- | ----------- | ------------------ |
-| `signIn` |             | `CustomEvent<any>` |
-| `signUp` |             | `CustomEvent<any>` |
+| Event        | Description | Type               |
+| ------------ | ----------- | ------------------ |
+| `closeModal` |             | `CustomEvent<any>` |
+| `signIn`     |             | `CustomEvent<any>` |
+| `signUp`     |             | `CustomEvent<any>` |
 
 
 ----------------------------------------------
