@@ -36,7 +36,7 @@ if (process.env.CI) {
   // environments.push([firefox, undefined]);
 }
 
-jest.retryTimes(process.env.CI ? 2 : 1);
+// jest.retryTimes(process.env.CI ? 2 : 1);
 describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) => {
   let browser: Browser;
   let context: BrowserContext;
@@ -63,7 +63,8 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
     }
   });
 
-  it('creating a successful account', async () => {
+  it.only('creating a successful account', async () => {
+    await demoPage.screenshot('home-page');
     await demoPage.openConnect();
     await demoPage.clickConnectGetStarted();
     const auth = await AuthPage.getAuthPage(browser);

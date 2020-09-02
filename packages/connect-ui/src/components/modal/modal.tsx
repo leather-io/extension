@@ -1,4 +1,4 @@
-import { Component, h, Prop, Event, EventEmitter, Listen } from '@stencil/core';
+import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
 import { state, Screens } from '../../store';
 import { CloseIcon } from './assets/close-icon';
 import { ChevronIcon } from './assets/chevron-icon';
