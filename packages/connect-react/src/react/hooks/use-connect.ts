@@ -54,19 +54,19 @@ export const useConnect = () => {
     });
   };
 
-  const doContractCall = async (opts: ContractCallOptions) =>
+  const doContractCall = (opts: ContractCallOptions) =>
     openContractCall({
       ...opts,
       appDetails: authOptions.appDetails,
     });
 
-  const doContractDeploy = async (opts: ContractDeployOptions) =>
+  const doContractDeploy = (opts: ContractDeployOptions) =>
     openContractDeploy({
       ...opts,
       appDetails: authOptions.appDetails,
     });
 
-  const doSTXTransfer = async (opts: STXTransferOptions) =>
+  const doSTXTransfer = (opts: STXTransferOptions) =>
     openSTXTransfer({
       ...opts,
       appDetails: authOptions.appDetails,
