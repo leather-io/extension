@@ -198,7 +198,6 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
     await authPage.loginWithPreviousSecretKey(SECRET_KEY);
     await authPage.chooseAccount(USERNAME);
     await authPage.screenshot('existing-key.png');
-    await authPage.confirmContinueToApp();
     const authResponse = await demoPage.waitForAuthResponse(browser);
     expect(authResponse).toBeTruthy();
   }, 90000);
@@ -233,7 +232,6 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
     await authPage.loginWithPreviousSecretKey(WRONG_MAGIC_RECOVERY_KEY);
     await authPage.setPassword(CORRECT_PASSWORD);
     await authPage.chooseAccount('thisisit202020');
-    await authPage.confirmContinueToApp();
     const authResponse = await demoPage.waitForAuthResponse(browser);
     expect(authResponse).toBeTruthy();
   }, 90000);

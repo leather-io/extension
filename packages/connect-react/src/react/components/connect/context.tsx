@@ -3,15 +3,7 @@ import { AuthOptions, FinishedData } from '@blockstack/connect';
 import { UserSession } from 'blockstack/lib';
 
 enum States {
-  MODAL_OPEN = 'modal/open',
-  MODAL_CLOSE = 'modal/close',
-  START_AUTH = 'data/START_AUTH',
-  FINISH_AUTH = 'data/FINISH_AUTH',
-  CANCEL_AUTH = 'data/CANCEL_AUTH',
   UPDATE_AUTH_OPTIONS = 'data/update-auth-options',
-  SCREENS_INTRO = 'screens/intro',
-  SCREENS_HOW_IT_WORKS = 'screens/how-it-works',
-  SCREENS_SIGN_IN = 'screens/sign-in',
 }
 
 type Action = { type: string; payload?: any };
@@ -21,7 +13,6 @@ type Dispatch = (action: Action) => void;
 type State = {
   isOpen: boolean;
   isAuthenticating: boolean;
-  screen: string;
   authData?: FinishedData;
   authOptions: AuthOptions;
   userSession?: UserSession;
@@ -30,7 +21,6 @@ type State = {
 const initialState: State = {
   isOpen: false,
   isAuthenticating: false,
-  screen: States.SCREENS_INTRO,
   authData: undefined,
   userSession: undefined,
   authOptions: {
@@ -48,40 +38,6 @@ const initialState: State = {
 
 const connectReducer = (state: State, { type, payload }: { type: string; payload?: any }) => {
   switch (type) {
-    case States.MODAL_OPEN: {
-      return { ...state, isOpen: true };
-    }
-    case States.MODAL_CLOSE: {
-      return { ...state, isOpen: false };
-    }
-    case States.START_AUTH: {
-      return { ...state, isAuthenticating: true };
-    }
-    case States.FINISH_AUTH: {
-      return { ...state, isAuthenticating: false, authData: payload };
-    }
-    case States.CANCEL_AUTH: {
-      return { ...state, isAuthenticating: false };
-    }
-    case States.SCREENS_INTRO: {
-      return {
-        ...state,
-        screen: States.SCREENS_INTRO,
-      };
-    }
-    case States.SCREENS_HOW_IT_WORKS: {
-      return {
-        ...state,
-        screen: States.SCREENS_HOW_IT_WORKS,
-      };
-    }
-    case States.SCREENS_SIGN_IN: {
-      return {
-        ...state,
-        screen: States.SCREENS_SIGN_IN,
-      };
-    }
-
     case States.UPDATE_AUTH_OPTIONS: {
       return {
         ...state,

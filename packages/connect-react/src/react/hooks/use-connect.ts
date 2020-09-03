@@ -1,11 +1,15 @@
 import { useContext } from 'react';
-import { authenticate, AuthOptions, FinishedData } from '../../auth';
-import { openContractCall, openContractDeploy, openSTXTransfer } from '../../transactions';
 import {
+  authenticate,
+  AuthOptions,
   ContractCallOptions,
   ContractDeployOptions,
   STXTransferOptions,
-} from '../../transactions/types';
+  openContractCall,
+  openContractDeploy,
+  openSTXTransfer,
+  showBlockstackConnect,
+} from '@blockstack/connect';
 import { ConnectContext, ConnectDispatchContext, States } from '../components/connect/context';
 
 const useConnectDispatch = () => {
@@ -17,7 +21,7 @@ const useConnectDispatch = () => {
 };
 
 export const useConnect = () => {
-  const { isOpen, isAuthenticating, authData, screen, authOptions, userSession } = useContext(
+  const { isOpen, isAuthenticating, authData, authOptions, userSession } = useContext(
     ConnectContext
   );
   const dispatch = useConnectDispatch();
@@ -26,49 +30,27 @@ export const useConnect = () => {
     return dispatch({ type: States.UPDATE_AUTH_OPTIONS, payload });
   };
 
-  const doChangeScreen = (newScreen: string) => dispatch({ type: newScreen });
-  const doGoToIntroScreen = () => doChangeScreen(States.SCREENS_INTRO);
-  const doGoToHowItWorksScreen = () => doChangeScreen(States.SCREENS_HOW_IT_WORKS);
-  const doGoToSignInScreen = () => doChangeScreen(States.SCREENS_SIGN_IN);
-
-  const doStartAuth = () => dispatch({ type: States.START_AUTH });
-  const doFinishAuth = (payload: FinishedData) => {
-    dispatch({ type: States.FINISH_AUTH, payload });
-    doCloseAuth();
-  };
-  const doCancelAuth = () => dispatch({ type: States.CANCEL_AUTH });
-
   const doOpenAuth = (signIn?: boolean, opts?: Partial<AuthOptions>) => {
     if (signIn) {
-      const options = {
+      const options: AuthOptions = {
         ...authOptions,
         ...opts,
-        finished: (payload: FinishedData) => {
-          doFinishAuth(payload);
-          authOptions.finished && authOptions.finished(payload);
-        },
         sendToSignIn: true,
       };
-      doStartAuth();
       void authenticate(options);
       return;
+    } else {
+      showBlockstackConnect({
+        ...authOptions,
+        sendToSignIn: false,
+      });
     }
     authOptions && doUpdateAuthOptions(authOptions);
-    dispatch({ type: States.MODAL_OPEN });
-  };
-  const doCloseAuth = () => {
-    dispatch({ type: States.MODAL_CLOSE });
-    setTimeout(doGoToIntroScreen, 250);
   };
   const doAuth = (options: Partial<AuthOptions> = {}) => {
-    doStartAuth();
     void authenticate({
       ...authOptions,
       ...options,
-      finished: payload => {
-        authOptions.finished && authOptions.finished(payload);
-        doFinishAuth(payload);
-      },
     });
   };
 
@@ -98,14 +80,6 @@ export const useConnect = () => {
     screen,
     userSession,
     doOpenAuth,
-    doCloseAuth,
-    doChangeScreen,
-    doGoToIntroScreen,
-    doGoToHowItWorksScreen,
-    doGoToSignInScreen,
-    doCancelAuth,
-    doStartAuth,
-    doFinishAuth,
     doAuth,
     authenticate,
     doContractCall,
