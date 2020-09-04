@@ -2,7 +2,10 @@
   "name": "@blockstack/connect",
   "version": "2.12.2",
   "scripts": {
-    "build": "tsdx build --format cjs,esm,umd",
+    "build": "yarn build:modules && yarn build:standalone",
+    "build:modules": "tsdx build --format cjs,esm,umd",
+    "build:standalone": "NODE_ENV=production webpack --mode=production",
+    "build:standalone:analyze": "NODE_ENV=production ANALYZE=true webpack --mode=production",
     "prepublishOnly": "yarn build",
     "start": "tsdx watch",
     "test": "tsdx test",
