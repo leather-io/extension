@@ -32,7 +32,7 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/auth.esm.js",
+  "module": "dist/connect.esm.js",
   "peerDependencies": {
     "blockstack": "^19"
   }
