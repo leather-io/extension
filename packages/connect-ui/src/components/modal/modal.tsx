@@ -10,6 +10,7 @@ import { AuthOptions } from '@blockstack/connect/auth';
   tag: 'connect-modal',
   styleUrl: 'modal.scss',
   assetsDirs: ['screens', 'assets'],
+  shadow: true,
 })
 export class Modal {
   @Prop() authOptions: AuthOptions;
