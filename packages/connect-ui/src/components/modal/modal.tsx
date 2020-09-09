@@ -24,8 +24,14 @@ export class Modal {
   closeModal: EventEmitter;
 
   render() {
+    const handleContainerClick = (event: MouseEvent) => {
+      const target = event.target as HTMLDivElement;
+      if (target.className?.includes && target.className.includes('modal-container')) {
+        this.closeModal.emit();
+      }
+    };
     return (
-      <div class="modal-container">
+      <div class="modal-container" onClick={handleContainerClick}>
         <div class="modal-body">
           <div class="modal-top">
             {state.screen === Screens.HOW_IT_WORKS ? <ChevronIcon /> : null}
