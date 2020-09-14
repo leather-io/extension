@@ -20,7 +20,8 @@
   "unpkg": "dist/bundle.js",
   "dependencies": {
     "@blockstack/connect-ui": "2.12.1",
-    "jsontokens": "^3.0.0"
+    "jsontokens": "^3.0.0",
+    "@blockstack/stacks-transactions": "0.7.0"
   },
   "devDependencies": {
     "blockstack": "21.0.0",
