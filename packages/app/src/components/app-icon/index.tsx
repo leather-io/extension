@@ -10,7 +10,7 @@ export const AppIcon: React.FC<BoxProps> = ({ ...rest }: BoxProps) => {
   const appIcon = useSelector((state: AppState) => selectFullAppIcon(state));
   const appName = useSelector((state: AppState) => selectAppName(state));
   return (
-    <Box size={['48px', '78px']} mx="auto" {...rest}>
+    <Box size={'24px'} mx="auto" {...rest}>
       <Image src={appIcon} alt={appName} />
     </Box>
   );

@@ -18,7 +18,7 @@ export const HowItWorks = () => {
         <span class="hiw-content">
           Blockstack is the open-source technology that generates your Secret Key. There's no
           company that owns or controls Blockstack, it is independent. Go to{' '}
-          <a href="https://blockstack.org" target="_blank" class="link">
+          <a href="https://blockstack.org" target="_blank" class="link link-l">
             blockstack.org
           </a>{' '}
           to learn more.

@@ -47,7 +47,7 @@ export const SignIn: React.FC<SignInProps> = props => {
     const parsedKeyInput = seed.trim();
     try {
       if (parsedKeyInput.length === 0) {
-        setSeedError('Entering your secret key is required.');
+        setSeedError('Entering your Secret Key is required.');
         setLoading(false);
         return;
       }

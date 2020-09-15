@@ -145,7 +145,7 @@ export const Username: React.FC<{}> = () => {
             </Text>
             <Box textAlign="left" position="relative" mt={4}>
               <Input
-                autoComplete="username"
+                autoComplete="off"
                 data-test="input-username"
                 autoCapitalize="false"
                 paddingRight="100px"

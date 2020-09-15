@@ -16,6 +16,7 @@
 
 .modal-body {
   width: 398px;
+  max-width: 100%;
   max-height: calc(100% - 48px);
   background: white;
   flex-direction: column;
@@ -57,6 +58,7 @@
   line-height: 28px;
   padding: 10px 32px;
   display: block;
+  text-align: center;
 }
 
 .divider {
@@ -161,6 +163,10 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.link-l {
+  font-size: 14px;
 }
 
 .app-element-container {
