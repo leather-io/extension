@@ -29,7 +29,7 @@
     "baseUrl": "./src",
     "rootDirs": ["../rpc-client/src", "./src"],
     "skipLibCheck": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "strictNullChecks": true,
     "paths": {
       "@blockstack/rpc-client": ["../../rpc-client/src"]
