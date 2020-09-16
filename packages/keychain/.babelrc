@@ -1,5 +1,9 @@
 {
   "plugins": [
-    "@babel/plugin-proposal-optional-chaining"
+    "@babel/plugin-proposal-optional-chaining",
+    [
+      "babel-plugin-transform-async-to-promises",
+      { "inlineHelpers": true, "externalHelpers": false }
+    ]
   ]
 }
