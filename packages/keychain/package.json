@@ -4,9 +4,9 @@
   "description": "A package for managing Blockstack keychains",
   "main": "./dist/index.js",
   "umd:main": "./dist/keychain.umd.production.js",
-  "module": "./dist/keychain.esm.js",
+  "module": "./dist/index.esm.js",
   "author": "Hank Stoever",
-  "types": "./dist/keychain/src/index.d.ts",
+  "types": "./dist/types/keychain/src/index.d.ts",
   "scripts": {
     "clean": "shx rm -rf ./lib*/",
     "dev": "cross-env NODE_ENV=development tsdx watch",
