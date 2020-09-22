@@ -49,6 +49,10 @@ interface ConfigIdentity {
 export interface WalletConfig {
   identities: ConfigIdentity[];
   hideWarningForReusingIdentity?: boolean;
+  lastTx?: {
+    nonce: number;
+    blockHeight: number;
+  };
 }
 
 export interface ConstructorOptions {
@@ -264,6 +268,10 @@ export class Wallet {
         address: i.address,
         apps: {},
       })),
+      lastTx: {
+        nonce: 0,
+        blockHeight: 0,
+      },
     };
     this.walletConfig = newConfig;
     if (!skipUpload) {

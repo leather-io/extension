@@ -41,6 +41,13 @@ interface CallReadOnly extends FetchContractInterface {
   functionName: string;
 }
 
+/**
+ * N.B.: Incomplete interface for `/v2/info`
+ */
+interface NodeInfo {
+  stacksTipHeight: number;
+}
+
 export class RPCClient {
   url: string;
 
@@ -137,6 +144,15 @@ export class RPCClient {
     const res = await fetch(url);
     const data: TransactionResults = await res.json();
     return data.results;
+  }
+
+  async fetchInfo(): Promise<NodeInfo> {
+    const url = `${this.url}/v2/info`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return {
+      stacksTipHeight: data.stacks_tip_height,
+    };
   }
 }
 

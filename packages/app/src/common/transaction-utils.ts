@@ -14,7 +14,6 @@ import {
   TransactionTypes,
 } from '@stacks/connect';
 import { doTrack, TRANSACTION_SIGN_SUBMIT, TRANSACTION_SIGN_ERROR } from '@common/track';
-import { finalizeTxSignature } from './utils';
 import BigNum from 'bn.js';
 
 const getPostConditions = (postConditions?: PostCondition[]): PostCondition[] | undefined => {
@@ -147,19 +146,20 @@ export const finishTransaction = async ({
     const txIdJson: string = await res.json();
     const txId = `0x${txIdJson}`;
     const txRaw = `0x${serialized.toString('hex')}`;
-    finalizeTxSignature({ txId, txRaw });
+    return {
+      txId,
+      txRaw,
+    };
   } else {
     const response = await res.json();
-    if (response.error) {
-      const error = `${response.error} - ${response.reason}`;
-      doTrack(TRANSACTION_SIGN_ERROR, {
-        txType: pendingTransaction?.txType,
-        appName: pendingTransaction?.appDetails?.name,
-        error: error,
-      });
-      console.error(response.error);
-      console.error(response.reason);
-      throw new Error(error);
-    }
+    const error = `${response.error} - ${response.reason}`;
+    doTrack(TRANSACTION_SIGN_ERROR, {
+      txType: pendingTransaction?.txType,
+      appName: pendingTransaction?.appDetails?.name,
+      error: error,
+    });
+    console.error(response.error);
+    console.error(response.reason);
+    throw new Error(error);
   }
 };
