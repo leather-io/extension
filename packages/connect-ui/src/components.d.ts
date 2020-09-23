@@ -25,9 +25,9 @@ declare global {
 declare namespace LocalJSX {
     interface ConnectModal {
         "authOptions"?: AuthOptions;
-        "onCloseModal"?: (event: CustomEvent<any>) => void;
-        "onSignIn"?: (event: CustomEvent<any>) => void;
-        "onSignUp"?: (event: CustomEvent<any>) => void;
+        "onOnCloseModal"?: (event: CustomEvent<any>) => void;
+        "onOnSignIn"?: (event: CustomEvent<any>) => void;
+        "onOnSignUp"?: (event: CustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "connect-modal": ConnectModal;
