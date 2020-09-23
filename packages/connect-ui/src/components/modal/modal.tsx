@@ -15,19 +15,19 @@ import { AuthOptions } from '@blockstack/connect/auth';
 export class Modal {
   @Prop() authOptions: AuthOptions;
   @Event()
-  signUp: EventEmitter;
+  onSignUp: EventEmitter;
 
   @Event()
-  signIn: EventEmitter;
+  onSignIn: EventEmitter;
 
   @Event()
-  closeModal: EventEmitter;
+  onCloseModal: EventEmitter;
 
   render() {
     const handleContainerClick = (event: MouseEvent) => {
       const target = event.target as HTMLDivElement;
       if (target.className?.includes && target.className.includes('modal-container')) {
-        this.closeModal.emit();
+        this.onCloseModal.emit();
       }
     };
     return (
@@ -37,12 +37,12 @@ export class Modal {
             {state.screen === Screens.HOW_IT_WORKS ? <ChevronIcon /> : null}
             <div />
             {state.screen !== Screens.HOW_IT_WORKS ? (
-              <CloseIcon onClick={() => this.closeModal.emit()} />
+              <CloseIcon onClick={() => this.onCloseModal.emit()} />
             ) : null}
           </div>
           <div class="modal-content">
             {state.screen === Screens.INTRO && (
-              <Intro authOptions={this.authOptions} signUp={this.signUp} signIn={this.signIn} />
+              <Intro authOptions={this.authOptions} signUp={this.onSignUp} signIn={this.onSignIn} />
             )}
             {state.screen === Screens.HOW_IT_WORKS && <HowItWorks />}
           </div>

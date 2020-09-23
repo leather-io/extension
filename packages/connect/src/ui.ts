@@ -13,27 +13,27 @@ export const showBlockstackConnect = (authOptions: AuthOptions) => {
       callback(finishedData);
     }
   };
-  element.addEventListener('signUp', () => {
+  element.addEventListener('onSignUp', () => {
     authenticate({
       ...authOptions,
       sendToSignIn: false,
       onFinish: finishedWrapper,
     });
   });
-  element.addEventListener('signIn', () => {
+  element.addEventListener('onSignIn', () => {
     authenticate({
       ...authOptions,
       sendToSignIn: true,
       onFinish: finishedWrapper,
     });
   });
-  const handleEsc = function (ev: KeyboardEvent) {
+  const handleEsc = (ev: KeyboardEvent) => {
     if (ev.key === 'Escape') {
       document.removeEventListener('keydown', handleEsc);
       element.remove();
     }
   };
-  element.addEventListener('closeModal', () => {
+  element.addEventListener('onCloseModal', () => {
     document.removeEventListener('keydown', handleEsc);
     element.remove();
   });
