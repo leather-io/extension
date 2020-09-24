@@ -45,6 +45,9 @@ jobs:
             - yarn-packages-{{ checksum "package.json" }}-{{ checksum "combined-yarn-lock.txt" }}
             - yarn-packages
       - run:
+          name: Install playwright
+          command: $HOME/.yarn/bin/yarn add playwright playwright-chromium playwright-firefox playwright-webkit -W
+      - run:
           name: Install Dependencies
           command: $HOME/.yarn/bin/yarn --frozen-lockfile
       - run:
