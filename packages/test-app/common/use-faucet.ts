@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { AppContext } from '@common/context';
-import { getRPCClient } from './utils';
+import { getRPCClient, network } from './utils';
 import { useSTXAddress } from './use-stx-address';
 
 export const useFaucet = () => {
@@ -11,7 +11,7 @@ export const useFaucet = () => {
   const [waiting, setWaiting] = useState(false);
   const [txId, setTxId] = useState('');
   const [error, setError] = useState('');
-  const client = getRPCClient();
+  const client = getRPCClient(network);
 
   interface FaucetResponse {
     txId?: string;

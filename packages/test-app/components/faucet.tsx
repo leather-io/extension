@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flex, Box, Button, Input, Text } from '@blockstack/ui';
-import { getRPCClient } from '@common/utils';
+import { getRPCClient, network } from '@common/utils';
 import { ExplorerLink } from './explorer-link';
 
 interface FaucetResponse {
@@ -15,18 +15,10 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const client = getRPCClient();
+  const client = getRPCClient(network);
 
   const handleInput = (evt: React.FormEvent<HTMLInputElement>) => {
     setAddress(evt.currentTarget.value || '');
-  };
-
-  const getServerURL = () => {
-    const { origin } = location;
-    if (origin.includes('localhost')) {
-      return 'http://localhost:3999';
-    }
-    return 'https://stacks-node-api.blockstack.org';
   };
 
   const waitForBalance = async (currentBalance: number, attempts: number) => {
@@ -53,7 +45,7 @@ export const Faucet = ({ address: _address = '' }: { address: string }) => {
     setTX('');
 
     try {
-      const url = `${getServerURL()}/extended/v1/debug/faucet?address=${address}`;
+      const url = `${client.url}/extended/v1/debug/faucet?address=${address}`;
       const res = await fetch(url, {
         method: 'POST',
       });

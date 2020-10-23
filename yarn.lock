@@ -1001,39 +1001,10 @@
   resolved "https://registry.yarnpkg.com/@blockstack/prettier-config/-/prettier-config-0.0.6.tgz#8a41cd378ba061b79770987f2a6ad0c92b64bd72"
   integrity sha512-ke0MdyblmoUqSJBEutsG8/6G7KAjCB+uOcgZHPJvJr4R+i5yRhT4GSe5nV/wREINuK0jj2GvaA6qlx4PQTKQUA==
 
-"@blockstack/rpc-client@^0.3.0-alpha.21":
-  version "0.3.0-alpha.22"
-  resolved "https://registry.yarnpkg.com/@blockstack/rpc-client/-/rpc-client-0.3.0-alpha.22.tgz#2e72f3d9ab734c0eed00a3ef3b2c1a2c12b0f232"
-  integrity sha512-pfIg0WYkCUZ/fbM9ic3dMf9n9dU3NAJrGLMHTXgxndQRktf8fWBSXOxA4PUuBFzVh4aDlfEGh0PWS4WPe/FRnA==
-  dependencies:
-    "@blockstack/stacks-transactions" "0.5.1"
-    cross-fetch "^3.0.4"
-
 "@blockstack/stacks-blockchain-sidecar-types@^0.0.19":
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/@blockstack/stacks-blockchain-sidecar-types/-/stacks-blockchain-sidecar-types-0.0.19.tgz#569ed8e94a00c62b1bbfec806d2e06cade9ef464"
   integrity sha512-xuXw+TOzxqC/Bcj2Ob7Svp5ukDaKVuoV5OiNDaC3mF4rkt+HvKxj1loGmPrsIT0mbsjHTf0pxfHuEZvvugZdQw==
-
-"@blockstack/stacks-transactions@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@blockstack/stacks-transactions/-/stacks-transactions-0.5.1.tgz#b58057d52567406ce26669ba0abcaf583cf2d21c"
-  integrity sha512-szzDyRBHnPDE7hoqm6TJbKvUPE5aHRapS4gqiDetOwZzq/aDqIrFVHSgU1GM7m1d2q2jlN1knW4IiRJUeCxw0Q==
-  dependencies:
-    "@types/bn.js" "^4.11.6"
-    "@types/elliptic" "^6.4.12"
-    "@types/lodash" "^4.14.149"
-    "@types/randombytes" "^2.0.0"
-    "@types/ripemd160" "^2.0.0"
-    "@types/sha.js" "^2.4.0"
-    bn.js "^4.11.8"
-    c32check "^1.0.1"
-    cross-fetch "^3.0.4"
-    elliptic "^6.5.2"
-    lodash "^4.17.15"
-    randombytes "^2.1.0"
-    ripemd160 "^2.0.2"
-    sha.js "^2.4.11"
-    smart-buffer "^4.1.0"
 
 "@blockstack/stacks-transactions@0.7.0":
   version "0.7.0"
@@ -1059,7 +1030,7 @@
   resolved "https://registry.yarnpkg.com/@blockstack/stats/-/stats-0.7.0.tgz#be39d3e76c2a16c1cd1283aa702d1e20b5e04645"
   integrity sha512-AS/UdJH/cJ7K8la3/TbQziEMlRrNI/4VEHSfYUsEzU7Nx892G6qE4uu/XvW9ycS0Jg2/TW2bjTnRijsyecaEJA==
 
-"@blockstack/ui@^2.12.13":
+"@blockstack/ui@^2.12.13", "@blockstack/ui@^2.12.14":
   version "2.12.14"
   resolved "https://registry.yarnpkg.com/@blockstack/ui/-/ui-2.12.14.tgz#75409fa90f6f588f027fda6defb0e4de8766c175"
   integrity sha512-um0LeI4VtPgjQd4QFQAs+p6IxGKrQcUrQ/Dr6y6Z+rQu1KB3krhFi/l6jKrqnjKQ1stCSSo1390zxNZhviVKnw==
@@ -3031,11 +3002,6 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
-"@types/lodash@^4.14.149":
-  version "4.14.163"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.163.tgz#6026f73c8267a0b7d41c7c8aadacfa2a5255774f"
-  integrity sha512-BeZM/FZaV53emqyHxn9L39Oz6XbHMBRLA1b1quROku48J/1kYYxPmVOJ/qSQheb81on4BI7H6QDo6bkUuRaDNQ==
-
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -3161,13 +3127,6 @@
   integrity sha512-8gBudvllD2A/c0CcEX/BivIDorHFt5UI5m46TsNj8DjWCCTTZT74kEe4g+QsY7P/B9WdO98d82zZgXO/RQzu2Q==
   dependencies:
     "@types/glob" "*"
-    "@types/node" "*"
-
-"@types/ripemd160@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/ripemd160/-/ripemd160-2.0.0.tgz#d33e49cf66edf4668828030d4aa80116bbf8ae81"
-  integrity sha512-LD6AO/+8cAa1ghXax9NG9iPDLPUEGB2WWPjd//04KYfXxTwHvlDEfL0NRjrM5z9XWBi6WbKw75Are0rDyn3PSA==
-  dependencies:
     "@types/node" "*"
 
 "@types/segment-analytics@^0.0.32":
@@ -4441,6 +4400,11 @@ bip174@^1.0.1:
   resolved "https://registry.yarnpkg.com/bip174/-/bip174-1.0.1.tgz#858a587f9529e22ee9b0572fd884e5783696824d"
   integrity sha512-Mq2aFs1TdMfxBpYPg7uzjhsiXbAtoVq44TNjEWtvuZBiBgc3m7+n55orYMtTAxdg7jWbL4DtH0MKocJER4xERQ==
 
+bip174@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bip174/-/bip174-2.0.1.tgz#39cf8ca99e50ce538fb762589832f4481d07c254"
+  integrity sha512-i3X26uKJOkDTAalYAp0Er+qGMDhrbbh2o93/xiPyAN2s25KrClSpe3VXo/7mNJoqA5qfko8rLS2l3RWZgYmjKQ==
+
 bip32@^2.0.4:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/bip32/-/bip32-2.0.5.tgz#e3808a9e97a880dbafd0f5f09ca4a1e14ee275d2"
@@ -4483,6 +4447,27 @@ bitcoinjs-lib@^5.1.6:
   dependencies:
     bech32 "^1.1.2"
     bip174 "^1.0.1"
+    bip32 "^2.0.4"
+    bip66 "^1.1.0"
+    bitcoin-ops "^1.4.0"
+    bs58check "^2.0.0"
+    create-hash "^1.1.0"
+    create-hmac "^1.1.3"
+    merkle-lib "^2.0.10"
+    pushdata-bitcoin "^1.0.1"
+    randombytes "^2.0.1"
+    tiny-secp256k1 "^1.1.1"
+    typeforce "^1.11.3"
+    varuint-bitcoin "^1.0.4"
+    wif "^2.0.1"
+
+bitcoinjs-lib@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-5.2.0.tgz#caf8b5efb04274ded1b67e0706960b93afb9d332"
+  integrity sha512-5DcLxGUDejgNBYcieMIUfjORtUeNWl828VWLHJGVKZCb4zIS1oOySTUr0LGmcqJBQgTBz3bGbRQla4FgrdQEIQ==
+  dependencies:
+    bech32 "^1.1.2"
+    bip174 "^2.0.1"
     bip32 "^2.0.4"
     bip66 "^1.1.0"
     bitcoin-ops "^1.4.0"
@@ -13691,7 +13676,7 @@ ripemd160-min@^0.0.6:
   resolved "https://registry.yarnpkg.com/ripemd160-min/-/ripemd160-min-0.0.6.tgz#a904b77658114474d02503e819dcc55853b67e62"
   integrity sha512-+GcJgQivhs6S9qvLogusiTcS9kQUfgR75whKuy5jIhuiOfQuJ8fjqxV6EGD5duH1Y/FawFUMtMhyeq3Fbnib8A==
 
-ripemd160@^2.0.0, ripemd160@^2.0.1, ripemd160@^2.0.2:
+ripemd160@^2.0.0, ripemd160@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-2.0.2.tgz#a1c1a6f624751577ba5d07914cbc92850585890c"
   integrity sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==

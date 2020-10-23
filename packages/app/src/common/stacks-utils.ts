@@ -7,9 +7,11 @@ import {
   contractPrincipalCV,
   standardPrincipalCV,
   bufferCV,
+  StacksNetwork,
 } from '@blockstack/stacks-transactions';
 import RPCClient from '@stacks/rpc-client';
 import BigNumber from 'bignumber.js';
+import { defaultStacksNetwork } from './constants';
 
 export const encodeContractCallArgument = ({ type, value }: ContractCallArgument) => {
   switch (type) {
@@ -35,12 +37,9 @@ export const encodeContractCallArgument = ({ type, value }: ContractCallArgument
   }
 };
 
-export const getRPCClient = () => {
-  const { origin } = location;
-  const url = origin.includes('localhost')
-    ? 'http://localhost:3999'
-    : 'https://stacks-node-api.blockstack.org';
-  return new RPCClient(url);
+export const getRPCClient = (network: StacksNetwork = defaultStacksNetwork) => {
+  const { coreApiUrl } = network;
+  return new RPCClient(coreApiUrl);
 };
 
 export const stacksValue = ({

@@ -1,4 +1,5 @@
 import { RPCClient } from '@stacks/rpc-client';
+import { StacksNetwork, StacksTestnet } from '@blockstack/stacks-transactions';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -14,19 +15,20 @@ export const getAuthOrigin = () => {
     // Our netlify sites are called "authenticator-demo" for this app, and
     // "stacks-authenticator" for the authenticator.
     authOrigin = document.location.origin.replace('authenticator-demo', 'stacks-authenticator');
-  } else if (origin.includes('authenticator-demo')) {
-    // TODO: revert this when 301 is merged
-    authOrigin = 'https://deploy-preview-301--stacks-authenticator.netlify.app';
-    // authOrigin = 'https://app.blockstack.org';
   }
   return authOrigin;
 };
 
-export const getRPCClient = () => {
-  const { origin } = location;
-  const url = origin.includes('localhost')
-    ? 'http://localhost:3999'
-    : 'https://stacks-node-api.blockstack.org';
+export const useLocalNode = location.origin.includes('localhost');
+const defaultStacksNodeApiUrl = useLocalNode
+  ? 'http://localhost:3999'
+  : 'https://stacks-node-api.blockstack.org';
+
+export const network = new StacksTestnet();
+network.coreApiUrl = defaultStacksNodeApiUrl;
+
+export const getRPCClient = (network?: StacksNetwork) => {
+  const url = network ? network.coreApiUrl : defaultStacksNodeApiUrl;
   return new RPCClient(url);
 };
 

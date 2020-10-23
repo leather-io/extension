@@ -1,6 +1,6 @@
 import React from 'react';
-import { getAuthOrigin } from '@common/utils';
 import { useConnect } from '@stacks/connect-react';
+import { getAuthOrigin, network } from '@common/utils';
 import { SampleContracts } from '@common/contracts';
 import { Box, Button, Text } from '@blockstack/ui';
 import { ExplorerLink } from './explorer-link';
@@ -15,6 +15,7 @@ export const Deploy = () => {
       codeBody: SampleContracts[0].contractSource,
       contractName: SampleContracts[0].contractName,
       userSession,
+      network,
       finished: data => {
         setTx(data.txId);
         console.log('finished!', data);

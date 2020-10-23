@@ -10,7 +10,7 @@ import {
   ClarityType,
   bufferCV,
 } from '@blockstack/stacks-transactions';
-import { getAuthOrigin, getRPCClient } from '@common/utils';
+import { getAuthOrigin, getRPCClient, network } from '@common/utils';
 import { ContractCallTransaction } from '@blockstack/stacks-blockchain-sidecar-types';
 import { TxCard } from '@components/tx-card';
 import { useSTXAddress } from '@common/use-stx-address';
@@ -26,7 +26,7 @@ export const Status = () => {
   const [transactions, setTransactions] = useState<ContractCallTransaction[]>([]);
   const { doContractCall } = useConnect();
 
-  const client = getRPCClient();
+  const client = getRPCClient(network);
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -88,6 +88,7 @@ export const Status = () => {
       functionName: 'write-status!',
       functionArgs: [statusArg],
       contractName: 'status',
+      network,
       finished: data => {
         setTxId(data.txId);
         console.log('finished!', data);

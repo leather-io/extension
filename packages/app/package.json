@@ -28,7 +28,7 @@
     "@blockstack/prettier-config": "^0.0.6",
     "@blockstack/stacks-transactions": "0.7.0",
     "@blockstack/stats": "^0.7.0",
-    "@blockstack/ui": "^2.12.13",
+    "@blockstack/ui": "^2.12.14",
     "@rehooks/document-title": "^1.0.1",
     "@stacks/connect": "^4.3.0",
     "@stacks/connect-ui": "^2.17.0",
