@@ -21,16 +21,16 @@ export const getAuthOrigin = () => {
   return authOrigin;
 };
 
-export const useLocalNode = location.origin.includes('localhost');
-const defaultStackNodeApiUrl = useLocalNode
+export const useLocalNode = location.origin.includes('localhost') && false;
+const defaultStacksNodeApiUrl = useLocalNode
   ? 'http://localhost:3999'
   : 'https://stacks-node-api.blockstack.org';
 
 export const network = new StacksTestnet();
-network.coreApiUrl = defaultStackNodeApiUrl;
+network.coreApiUrl = defaultStacksNodeApiUrl;
 
 export const getRPCClient = (network?: StacksNetwork) => {
-  const url = network ? network.coreApiUrl : defaultStackNodeApiUrl;
+  const url = network ? network.coreApiUrl : defaultStacksNodeApiUrl;
   return new RPCClient(url);
 };
 

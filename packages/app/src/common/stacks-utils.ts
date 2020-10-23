@@ -11,7 +11,7 @@ import {
 } from '@blockstack/stacks-transactions';
 import RPCClient from '@blockstack/rpc-client';
 import BigNumber from 'bignumber.js';
-import { defaultStackNodeApiUrl } from './constants';
+import { network } from './constants';
 
 export const encodeContractCallArgument = ({ type, value }: ContractCallArgument) => {
   switch (type) {
@@ -37,9 +37,9 @@ export const encodeContractCallArgument = ({ type, value }: ContractCallArgument
   }
 };
 
-export const getRPCClient = (network?: StacksNetwork) => {
-  const url = network ? network.coreApiUrl : defaultStackNodeApiUrl;
-  return new RPCClient(url);
+export const getRPCClient = (network: StacksNetwork = defaultStacksNetwork) => {
+  const { coreApiUrl } = network;
+  return new RPCClient(coreApiUrl);
 };
 
 export const stacksValue = ({

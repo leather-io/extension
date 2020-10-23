@@ -55,11 +55,11 @@
     "typescript": "^3.7.3"
   },
   "dependencies": {
-    "@blockstack/rpc-client": "^0.3.0-alpha.21",
-    "@blockstack/stacks-transactions": "0.5.1",
+    "@blockstack/rpc-client": "^0.3.0-alpha.22",
+    "@blockstack/stacks-transactions": "0.7.0",
     "bip39": "^3.0.2",
-    "bitcoinjs-lib": "^5.1.6",
-    "blockstack": "21.0.0",
+    "bitcoinjs-lib": "^5.2.0",
+    "blockstack": "21.1.1",
     "bn.js": "^5.1.1",
     "c32check": "^1.0.1",
     "jsontokens": "^3.0.0",

@@ -1633,6 +1633,14 @@
   resolved "https://registry.yarnpkg.com/@blockstack/prettier-config/-/prettier-config-0.0.6.tgz#8a41cd378ba061b79770987f2a6ad0c92b64bd72"
   integrity sha512-ke0MdyblmoUqSJBEutsG8/6G7KAjCB+uOcgZHPJvJr4R+i5yRhT4GSe5nV/wREINuK0jj2GvaA6qlx4PQTKQUA==
 
+"@blockstack/rpc-client@^0.3.0-alpha.22":
+  version "0.3.0-alpha.22"
+  resolved "https://registry.yarnpkg.com/@blockstack/rpc-client/-/rpc-client-0.3.0-alpha.22.tgz#2e72f3d9ab734c0eed00a3ef3b2c1a2c12b0f232"
+  integrity sha512-pfIg0WYkCUZ/fbM9ic3dMf9n9dU3NAJrGLMHTXgxndQRktf8fWBSXOxA4PUuBFzVh4aDlfEGh0PWS4WPe/FRnA==
+  dependencies:
+    "@blockstack/stacks-transactions" "0.5.1"
+    cross-fetch "^3.0.4"
+
 "@blockstack/stacks-blockchain-sidecar-types@^0.0.19":
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/@blockstack/stacks-blockchain-sidecar-types/-/stacks-blockchain-sidecar-types-0.0.19.tgz#569ed8e94a00c62b1bbfec806d2e06cade9ef464"
@@ -5393,6 +5401,11 @@ bip174@^1.0.1:
   resolved "https://registry.yarnpkg.com/bip174/-/bip174-1.0.1.tgz#858a587f9529e22ee9b0572fd884e5783696824d"
   integrity sha512-Mq2aFs1TdMfxBpYPg7uzjhsiXbAtoVq44TNjEWtvuZBiBgc3m7+n55orYMtTAxdg7jWbL4DtH0MKocJER4xERQ==
 
+bip174@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bip174/-/bip174-2.0.1.tgz#39cf8ca99e50ce538fb762589832f4481d07c254"
+  integrity sha512-i3X26uKJOkDTAalYAp0Er+qGMDhrbbh2o93/xiPyAN2s25KrClSpe3VXo/7mNJoqA5qfko8rLS2l3RWZgYmjKQ==
+
 bip32@^2.0.4:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/bip32/-/bip32-2.0.5.tgz#e3808a9e97a880dbafd0f5f09ca4a1e14ee275d2"
@@ -5449,6 +5462,27 @@ bitcoinjs-lib@^5.1.6:
     varuint-bitcoin "^1.0.4"
     wif "^2.0.1"
 
+bitcoinjs-lib@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-5.2.0.tgz#caf8b5efb04274ded1b67e0706960b93afb9d332"
+  integrity sha512-5DcLxGUDejgNBYcieMIUfjORtUeNWl828VWLHJGVKZCb4zIS1oOySTUr0LGmcqJBQgTBz3bGbRQla4FgrdQEIQ==
+  dependencies:
+    bech32 "^1.1.2"
+    bip174 "^2.0.1"
+    bip32 "^2.0.4"
+    bip66 "^1.1.0"
+    bitcoin-ops "^1.4.0"
+    bs58check "^2.0.0"
+    create-hash "^1.1.0"
+    create-hmac "^1.1.3"
+    merkle-lib "^2.0.10"
+    pushdata-bitcoin "^1.0.1"
+    randombytes "^2.0.1"
+    tiny-secp256k1 "^1.1.1"
+    typeforce "^1.11.3"
+    varuint-bitcoin "^1.0.4"
+    wif "^2.0.1"
+
 bl@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/bl/-/bl-4.0.2.tgz#52b71e9088515d0606d9dd9cc7aa48dc1f98e73a"
@@ -5462,6 +5496,34 @@ blockstack@21.0.0:
   version "21.0.0"
   resolved "https://registry.yarnpkg.com/blockstack/-/blockstack-21.0.0.tgz#28dcf8ecf4878c0273697dee33d4585d5876bdc9"
   integrity sha512-KH/eg3vlMZc93T4+rIjGwnSROqye/WOr46cDCrcnmkKdeUd2D2i/g5L6S9zTzIWQGQ7HWWLS1FZ9Xk8GcJdBKg==
+  dependencies:
+    "@types/bn.js" "^4.11.6"
+    "@types/cheerio" "^0.22.13"
+    "@types/elliptic" "^6.4.10"
+    "@types/node" "^12.7.12"
+    "@types/randombytes" "^2.0.0"
+    ajv "^4.11.5"
+    bip39 "^3.0.2"
+    bitcoinjs-lib "^5.1.6"
+    bn.js "^4.11.8"
+    cross-fetch "^3.0.4"
+    elliptic "^6.5.1"
+    form-data "^2.5.1"
+    jsontokens "3.0.0"
+    query-string "^6.8.3"
+    randombytes "^2.1.0"
+    request "^2.88.0"
+    ripemd160-min "0.0.5"
+    schema-inspector "^1.6.8"
+    sha.js "^2.4.11"
+    tslib "^1.10.0"
+    uuid "^3.3.3"
+    zone-file "^1.0.0"
+
+blockstack@21.1.1:
+  version "21.1.1"
+  resolved "https://registry.yarnpkg.com/blockstack/-/blockstack-21.1.1.tgz#c5088842a455ee377390e050b82b558a00ee888e"
+  integrity sha512-Zd66+peKmLxyF5lL6wN/ate/n/acmtXFi8fWei1Nb3g+25uPbrKINse2UMLFLlIsSPlshMoxMizvEfrmV7Fq5Q==
   dependencies:
     "@types/bn.js" "^4.11.6"
     "@types/cheerio" "^0.22.13"

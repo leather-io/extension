@@ -14,6 +14,7 @@ import {
   TransactionTypes,
 } from '@blockstack/connect';
 import { doTrack, TRANSACTION_SIGN_SUBMIT, TRANSACTION_SIGN_ERROR } from '@common/track';
+import { defaultStacksNetwork } from './constants';
 import { finalizeTxSignature } from './utils';
 import BigNum from 'bn.js';
 
@@ -53,7 +54,7 @@ export const generateContractCallTx = ({
     nonce,
     postConditionMode: txData.postConditionMode,
     postConditions: getPostConditions(txData.postConditions),
-    network: txData.network,
+    network: txData.network || defaultStacksNetwork,
   });
 };
 
@@ -76,7 +77,7 @@ export const generateContractDeployTx = ({
     nonce,
     postConditionMode: txData.postConditionMode,
     postConditions: getPostConditions(txData.postConditions),
-    network: txData.network,
+    network: txData.network || defaultStacksNetwork,
   });
 };
 
@@ -95,7 +96,7 @@ export const generateSTXTransferTx = ({
     memo,
     amount,
     nonce,
-    network: txData.network,
+    network: txData.network || defaultStacksNetwork,
   });
 };
 
