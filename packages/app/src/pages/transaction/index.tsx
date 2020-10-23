@@ -27,6 +27,8 @@ import { getRPCClient, stacksValue } from '@common/stacks-utils';
 import { Wallet } from '@blockstack/keychain';
 import { doTrack, TRANSACTION_SIGN_START, TRANSACTION_SIGN_ERROR } from '@common/track';
 import { finishTransaction, generateTransaction } from '@common/transaction-utils';
+import { StacksNetwork } from '@blockstack/stacks-transactions';
+import RPCClient from '@blockstack/rpc-client';
 
 interface TabContentProps {
   json: any;
@@ -60,7 +62,6 @@ export const Transaction: React.FC = () => {
   const [contractSrc, setContractSrc] = useState('');
   const [balance, setBalance] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const client = getRPCClient();
 
   if (!wallet) {
     throw new Error('User must be logged in.');
@@ -90,16 +91,16 @@ export const Transaction: React.FC = () => {
     },
   ];
 
-  const setupAccountInfo = async () => {
+  const setupAccountInfo = async (rpcClient: RPCClient) => {
     const account = await wallet.getSigner().fetchAccount({
       version: TransactionVersion.Testnet,
-      rpcClient: client,
+      rpcClient,
     });
     setBalance(account.balance.toNumber());
     return account;
   };
 
-  const setupWithState = async (tx: TransactionPayload) => {
+  const setupWithState = async (tx: TransactionPayload, rpcClient: RPCClient) => {
     if (tx.network) {
       const network =
         tx.network.version === TransactionVersion.Mainnet
@@ -108,7 +109,7 @@ export const Transaction: React.FC = () => {
       tx.network = { ...network, ...tx.network };
     }
     if (tx.txType === TransactionTypes.ContractCall) {
-      const contractSource = await client.fetchContractSource({
+      const contractSource = await rpcClient.fetchContractSource({
         contractName: tx.contractName,
         contractAddress: tx.contractAddress,
       });
@@ -143,8 +144,12 @@ export const Transaction: React.FC = () => {
     if (requestToken) {
       const token = decodeToken(requestToken);
       const reqState = (token.payload as unknown) as TransactionPayload;
+      const client = getRPCClient(reqState.network);
       try {
-        const [txData, account] = await Promise.all([setupWithState(reqState), setupAccountInfo()]);
+        const [txData, account] = await Promise.all([
+          setupWithState(reqState, client),
+          setupAccountInfo(client),
+        ]);
         const tx = await generateTransaction({
           wallet,
           nonce: account.nonce,

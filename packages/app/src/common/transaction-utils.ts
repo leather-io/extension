@@ -137,7 +137,7 @@ export const finishTransaction = async ({
 }) => {
   const serialized = tx.serialize();
   const txRaw = serialized.toString('hex');
-  const client = getRPCClient();
+  const client = getRPCClient(pendingTransaction.network);
   const res = await client.broadcastTX(serialized);
 
   if (res.ok) {
