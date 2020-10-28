@@ -22,6 +22,8 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Lerna link
+        run: yarn lerna link
       - name: Install monorepo deps
         run: yarn --frozen-lockfile
         if: steps.lerna-cache.outputs.cache-hit != 'true'
