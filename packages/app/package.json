@@ -25,10 +25,10 @@
   "version": "1.15.7",
   "author": "Blockstack PBC",
   "dependencies": {
-    "@blockstack/connect": "^2.12.7",
-    "@blockstack/keychain": "^0.12.7",
+    "@stacks/connect": "^2.12.7",
+    "@stacks/keychain": "^0.12.7",
     "@blockstack/prettier-config": "^0.0.6",
-    "@blockstack/rpc-client": "^0.3.0-alpha.21",
+    "@stacks/rpc-client": "^0.3.0-alpha.21",
     "@blockstack/stacks-transactions": "0.7.0",
     "@blockstack/stats": "^0.7.0",
     "@blockstack/ui": "^2.12.13",

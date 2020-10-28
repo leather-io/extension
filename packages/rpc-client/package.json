@@ -1,5 +1,5 @@
 {
-  "name": "@blockstack/rpc-client",
+  "name": "@stacks/rpc-client",
   "version": "0.3.0-alpha.21",
   "license": "MIT",
   "author": "Hank Stoever",

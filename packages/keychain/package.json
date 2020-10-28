@@ -1,5 +1,5 @@
 {
-  "name": "@blockstack/keychain",
+  "name": "@stacks/keychain",
   "version": "0.12.7",
   "description": "A package for managing Blockstack keychains",
   "main": "./dist/index.js",
