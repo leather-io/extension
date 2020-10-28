@@ -15,8 +15,7 @@
     "lint:eslint": "eslint \"packages/**/src/**/*.{ts,tsx}\" -f unix",
     "lint:fix": "eslint \"packages/**/src/**/*.{ts,tsx}\" -f unix --fix",
     "lint:prettier": "prettier --check \"packages/**/src/**/*.{ts,tsx}\" *.js",
-    "lint:prettier:fix": "prettier --write \"packages/**/src/**/*.{ts,tsx}\" *.js",
-    "version": "lerna bootstrap"
+    "lint:prettier:fix": "prettier --write \"packages/**/src/**/*.{ts,tsx}\" *.js"
   },
   "prettier": "@blockstack/prettier-config",
   "husky": {
