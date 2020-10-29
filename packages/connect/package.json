@@ -1,6 +1,6 @@
 {
   "name": "@stacks/connect",
-  "version": "2.12.8",
+  "version": "2.12.9",
   "scripts": {
     "build": "yarn build:modules && yarn build:standalone",
     "build:modules": "tsdx build --format cjs,esm,umd",
@@ -20,7 +20,7 @@
   "unpkg": "dist/bundle.js",
   "dependencies": {
     "@blockstack/stacks-transactions": "0.7.0",
-    "@stacks/connect-ui": "^2.12.2",
+    "@stacks/connect-ui": "^2.12.3",
     "jsontokens": "^3.0.0"
   },
   "devDependencies": {
