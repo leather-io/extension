@@ -70,8 +70,8 @@
   "main": "dist/index.js",
   "module": "dist/auth.esm.js",
   "peerDependencies": {
-    "blockstack": "^19",
-    "react": "^16.31.1",
+    "blockstack": "^21.1.1",
+    "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.1.0",
     "use-events": "^1.4.1",
