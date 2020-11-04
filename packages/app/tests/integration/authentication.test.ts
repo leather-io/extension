@@ -5,7 +5,7 @@ import { webkit, devices, chromium } from 'playwright';
 import { DemoPage } from './page-objects/demo.page';
 import { randomString, Browser } from './utils';
 import { AuthPage } from './page-objects/auth.page';
-import { Wallet } from '@blockstack/keychain';
+import { Wallet } from '@stacks/keychain';
 import { ChainID } from '@blockstack/stacks-transactions';
 
 const SECRET_KEY = 'invite helmet save lion indicate chuckle world pride afford hard broom draft';
@@ -41,8 +41,15 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
   let browser: Browser;
   let context: BrowserContext;
   let demoPage: DemoPage;
+  let consoleLogs: any[];
   beforeEach(async () => {
-    browser = await browserType.launch();
+    const launchArgs: string[] = [];
+    if (browserType.name() === 'chromium') {
+      launchArgs.push('--no-sandbox');
+    }
+    browser = await browserType.launch({
+      args: launchArgs,
+    });
     console.log('[DEBUG]: Launched puppeteer browser');
     if (deviceType) {
       context = await browser.newContext({
@@ -52,7 +59,11 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
     } else {
       context = await browser.newContext();
     }
+    consoleLogs = [];
     demoPage = await DemoPage.init(context);
+    demoPage.page.on('console', event => {
+      consoleLogs = consoleLogs.concat(event.args());
+    });
   }, 10000);
 
   afterEach(async () => {
@@ -64,6 +75,8 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
   });
 
   it('creating a successful account', async () => {
+    await demoPage.screenshot('home-page');
+    console.log(consoleLogs);
     await demoPage.openConnect();
     await demoPage.clickConnectGetStarted();
     const auth = await AuthPage.getAuthPage(browser);
@@ -197,7 +210,6 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
     await authPage.loginWithPreviousSecretKey(SECRET_KEY);
     await authPage.chooseAccount(USERNAME);
     await authPage.screenshot('existing-key.png');
-    await authPage.confirmContinueToApp();
     const authResponse = await demoPage.waitForAuthResponse(browser);
     expect(authResponse).toBeTruthy();
   }, 90000);
@@ -232,7 +244,6 @@ describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) 
     await authPage.loginWithPreviousSecretKey(WRONG_MAGIC_RECOVERY_KEY);
     await authPage.setPassword(CORRECT_PASSWORD);
     await authPage.chooseAccount('thisisit202020');
-    await authPage.confirmContinueToApp();
     const authResponse = await demoPage.waitForAuthResponse(browser);
     expect(authResponse).toBeTruthy();
   }, 90000);

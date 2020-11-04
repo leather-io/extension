@@ -1,5 +1,5 @@
-import { Subdomains } from '@blockstack/keychain';
-import { StacksTestnet } from '@blockstack/stacks-transactions';
+import { Subdomains } from '@stacks/keychain';
+import { StacksTestnet } from '@stacks/transactions';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 export const defaultStacksNetwork = new StacksTestnet();

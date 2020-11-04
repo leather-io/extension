@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Flex, Stack, Button, Text } from '@blockstack/ui';
-import { ScreenBody, ScreenActions, Title } from '@blockstack/connect';
+import { ScreenBody, ScreenActions } from '@screen';
+import { Title } from '@components/typography';
 import useOnClickOutside from 'use-onclickoutside';
 
 import { Image } from '@components/image';
-import { ConfigApp } from '@blockstack/keychain';
+import { ConfigApp } from '@stacks/keychain';
 
 interface PreviousAppsProps {
   apps: ConfigApp[];

@@ -8,7 +8,7 @@ Source code is available on Github at https://github.com/blockstack/ux/tree/mast
 
 The Blockstack App is an application for interacting and authenticating with [Blockstack](https://blockstack.org) apps. It can be used as a hosted web app (available at [app.blockstack.org](https://app.blockstack.org)) or as a browser extension.
 
-To use this application with your own Blockstack App, we recommend using [Blockstack Connect](https://github.com/blockstack/connect).
+To use this application with your own Blockstack App, we recommend using [Blockstack Connect](https://github.com/blockstack/ux/packages/connect).
 
 Table of Contents:
 
@@ -29,9 +29,11 @@ Although this app is usable as a browser extension, the best interface for devel
 
 ### Setup
 
-After cloning this repository, install dependencies:
+Clone this repository and install dependencies:
 
 ~~~bash
+git clone https://github.com/blockstack/ux
+cd ux
 yarn
 ~~~
 
@@ -43,21 +45,27 @@ yarn dev
 
 Then, open [localhost:8080](http://localhost:8080).
 
-## Building and using as a browser extension
+## Build and install browser extension
 
-First, build the project:
+Clone this repository, install dependencies and build the extension:
 
 ~~~bash
+git clone https://github.com/blockstack/ux
+cd ux
+yarn
+cd packages/app
 yarn prod:ext
 ~~~
 
-### Installing for Chrome/Brave
+Then if installing for Chrome or Brave:
+
 1. Go to: [**chrome://extensions**](chrome://extensions)
 2. Toggle: "**developer mode**" on.
 3. Click on: "**Load unpacked**"
 4. Select the newly created folder "**dist**" from the project folder.
 
-### Installing for Firefox
+If installing for Firefox:
+
 1. Go to: [**about:debugging**](about:debugging)
 2. Click on "**This Firefox**"
 3. Click on: "**Load Temporary Add-on…**"

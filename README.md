@@ -3,9 +3,9 @@
 This monorepo contains a few key packages that the User Experience team at Blockstack maintains:
 
 - [`app`](./packages/app): An application for authenticating into Blockstack apps. Available as a web app and a browser extension.
-- [`@blockstack/connect`](./packages/connect): A developer tool for building excellent user experiences in Blockstack apps
-- [`@blockstack/ui`](./packages/ui): Blockstack's internal design system and React component library
-- [`@blockstack/keychain`](./packages/keychain): A library for Blockstack identity management
+- [`@stacks/connect`](./packages/connect): A developer tool for building excellent user experiences in Blockstack apps
+- [`@stacks/ui`](./packages/ui): Blockstack's internal design system and React component library
+- [`@stacks/keychain`](./packages/keychain): A library for Blockstack identity management
 - [`test-app`](./packages/test-app): A simple React app for testing out Connect and the App.
 - [`ui-docs`](./packages/ui-docs): A documentation site for `@blockstack/ui`.
 
@@ -21,3 +21,8 @@ The first time you setup a development environment for this repository, follow t
     - `packages/app` which is the auth app, running at localhost:8080
 
 For development instructions of specific packages, see the `README` in each package folder.
+
+## Building browser extensions
+
+1. From the root of this repository, in the command line, run `sh build-ext.sh`
+2. The extension will be packaged as `extension.zip` inside this folder.

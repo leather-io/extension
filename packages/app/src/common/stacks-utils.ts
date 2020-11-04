@@ -1,4 +1,4 @@
-import { ContractCallArgument, ContractCallArgumentType } from '@blockstack/connect';
+import { ContractCallArgument, ContractCallArgumentType } from '@stacks/connect';
 import {
   uintCV,
   intCV,
@@ -9,7 +9,7 @@ import {
   bufferCV,
   StacksNetwork,
 } from '@blockstack/stacks-transactions';
-import RPCClient from '@blockstack/rpc-client';
+import RPCClient from '@stacks/rpc-client';
 import BigNumber from 'bignumber.js';
 import { network } from './constants';
 

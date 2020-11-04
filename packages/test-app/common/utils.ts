@@ -1,5 +1,5 @@
-import { RPCClient } from '@blockstack/rpc-client';
-import { StacksNetwork, StacksTestnet } from '@blockstack/stacks-transactions';
+import { RPCClient } from '@stacks/rpc-client';
+import { StacksNetwork, StacksTestnet } from '@stacks/transactions';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 

@@ -3,20 +3,18 @@
   "private": true,
   "scripts": {
     "typecheck": "lerna run typecheck --parallel --no-bail --stream",
-    "dev": "NODE_ENV=development yarn lerna exec --parallel 'yarn dev' --scope test-app --scope @blockstack/app",
+    "dev": "NODE_ENV=development yarn lerna exec --parallel 'yarn dev' --scope test-app --scope @stacks/app",
     "bootstrap": "yarn lerna exec --parallel 'yarn'",
     "build:libs": "yarn build:ui && yarn build:keychain && yarn build:connect",
-    "build:ui": "lerna run build --scope @blockstack/ui",
-    "build:keychain": "lerna run build --scope @blockstack/keychain",
-    "build:connect": "lerna run build --scope @blockstack/connect",
-    "build:app": "lerna run prod:web --scope @blockstack/app",
+    "build:keychain": "lerna run build --scope @stacks/keychain",
+    "build:connect": "lerna run build --scope @stacks/connect",
+    "build:app": "lerna run prod:web --scope @stacks/app",
     "build:test-app": "lerna run prod:web --scope test-app",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "lint:eslint": "eslint \"packages/**/src/**/*.{ts,tsx}\" -f unix",
     "lint:fix": "eslint \"packages/**/src/**/*.{ts,tsx}\" -f unix --fix",
     "lint:prettier": "prettier --check \"packages/**/src/**/*.{ts,tsx}\" *.js",
-    "lint:prettier:fix": "prettier --write \"packages/**/src/**/*.{ts,tsx}\" *.js",
-    "version": "lerna bootstrap"
+    "lint:prettier:fix": "prettier --write \"packages/**/src/**/*.{ts,tsx}\" *.js"
   },
   "prettier": "@blockstack/prettier-config",
   "husky": {
@@ -25,7 +23,7 @@
     }
   },
   "workspaces": [
-    "packages/**"
+    "packages/*"
   ],
   "devDependencies": {
     "@blockstack/eslint-config": "^1.0.5",
@@ -46,9 +44,10 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "husky": "^4.2.3",
-    "lerna": "^3.20.2",
+    "lerna": "^3.22.1",
     "prettier": "^2.0.5",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "yalc": "^1.0.0-pre.42"
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.3",
@@ -58,6 +57,8 @@
     "@blockstack/eslint-config": "^1.0.5",
     "eslint-plugin-import": "2.21.2",
     "@blockstack/prettier-config": "^0.0.6",
-    "buffer": "5.6.0"
+    "buffer": "5.6.0",
+    "typescript": "3.9.3",
+    "@types/node": "12.7.12"
   }
 }
