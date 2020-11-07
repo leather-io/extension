@@ -53,7 +53,7 @@ export const finalizeAuthResponse = ({
   authResponse,
 }: FinalizeAuthParams) => {
   const dangerousUri = decodedAuthRequest.redirect_uri;
-  if (!isValidUrl(dangerousUri) || dangerousUri.includes('javascript')) {
+  if (!isValidUrl(dangerousUri)) {
     throw new Error('Cannot proceed auth with malformed url');
   }
   const redirect = `${dangerousUri}?authResponse=${authResponse}`;

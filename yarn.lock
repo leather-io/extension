@@ -4592,10 +4592,6 @@ bindings@^1.3.0, bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
-bip174@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/bip174/-/bip174-1.0.1.tgz#858a587f9529e22ee9b0572fd884e5783696824d"
-
 bip174@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/bip174/-/bip174-2.0.1.tgz#39cf8ca99e50ce538fb762589832f4481d07c254"
@@ -4687,6 +4683,11 @@ bl@^4.0.3:
     buffer "^5.5.0"
     inherits "^2.0.4"
     readable-stream "^3.4.0"
+
+blns@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/blns/-/blns-2.0.4.tgz#620ca057e32f157b253dc6528d9a1be3522cb470"
+  integrity sha1-YgygV+MvFXslPcZSjZob41IstHA=
 
 blockstack@21.0.0:
   version "21.0.0"
