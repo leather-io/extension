@@ -1,14 +1,11 @@
 import { validateMnemonic, wordlists, generateMnemonic } from 'bip39';
 import { BrowserContext } from 'playwright-core';
-import { BrowserType, WebKitBrowser } from 'playwright-core/types/types';
-import { webkit, devices, chromium } from 'playwright';
 import { DemoPage } from './page-objects/demo.page';
-import { randomString, Browser } from './utils';
+import { randomString, Browser, environments, SECRET_KEY } from './utils';
 import { AuthPage } from './page-objects/auth.page';
 import { Wallet } from '@stacks/keychain';
 import { ChainID } from '@blockstack/stacks-transactions';
 
-const SECRET_KEY = 'invite helmet save lion indicate chuckle world pride afford hard broom draft';
 const WRONG_SECRET_KEY =
   'invite helmet save lion indicate chuckle world pride afford hard broom yup';
 const WRONG_MAGIC_RECOVERY_KEY =
@@ -25,18 +22,7 @@ const getRandomWord = () => {
   return word;
 };
 
-type Device = typeof devices['iPhone 11 Pro'];
-const environments: [BrowserType<WebKitBrowser>, Device | undefined][] = [[chromium, undefined]];
-
-if (process.env.CI) {
-  environments.push([webkit, undefined]);
-  environments.push([webkit, devices['iPhone 11 Pro']]);
-  environments.push([chromium, devices['Pixel 2']]);
-  // Playwright has issues with Firefox and multi-page
-  // environments.push([firefox, undefined]);
-}
-
-jest.retryTimes(process.env.CI ? 2 : 1);
+jest.retryTimes(process.env.CI ? 2 : 0);
 describe.each(environments)('auth scenarios - %s %s', (browserType, deviceType) => {
   let browser: Browser;
   let context: BrowserContext;

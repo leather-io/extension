@@ -65,6 +65,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
                 value={secretKey}
                 className="hidden-secret-key"
                 data-test="textarea-seed-phrase"
+                data-loaded={String(!!secretKey)}
               />
             </Card>,
           ]}
