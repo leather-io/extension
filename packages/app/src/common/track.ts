@@ -40,6 +40,9 @@ export const pageTrackingNameMap = {
   [ScreenPaths.REGISTRY_ERROR]: 'Username Registry Error',
   [ScreenPaths.SETTINGS_KEY]: 'Settings: Secret Key',
   [ScreenPaths.HOME]: 'App Home',
+  [ScreenPaths.INSTALLED]: 'Connect Installed',
+  [ScreenPaths.SIGN_IN_INSTALLED]: 'Installation Sign In',
+  [ScreenPaths.SIGN_UP_INSTALLED]: 'Installation Sign Up',
 };
 
 export const titleNameMap = {
@@ -54,6 +57,9 @@ export const titleNameMap = {
   [ScreenPaths.REGISTRY_ERROR]: 'Failed to register username',
   [ScreenPaths.SETTINGS_KEY]: 'View your Secret Key',
   [ScreenPaths.HOME]: 'Secret Key',
+  [ScreenPaths.INSTALLED]: 'Welcome to Connect',
+  [ScreenPaths.SIGN_IN_INSTALLED]: 'Sign in',
+  [ScreenPaths.SIGN_UP_INSTALLED]: 'Sign up',
 };
 
 export const doTrackScreenChange = (

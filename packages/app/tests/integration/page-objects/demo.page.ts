@@ -1,5 +1,4 @@
-import { Page } from 'playwright-core';
-import { BrowserContext } from 'playwright-core';
+import { Page, BrowserContext } from 'playwright-core';
 import { createTestSelector, Browser } from '../utils';
 
 export class DemoPage {

@@ -20,6 +20,8 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
+import { Installed } from '@pages/install';
+import { InstalledSignIn } from '@pages/install/sign-in';
 
 export const Routes: React.FC = () => {
   const dispatch = useDispatch();
@@ -68,6 +70,9 @@ export const Routes: React.FC = () => {
   return (
     <RoutesDom>
       <Route path="/" element={<Home />} />
+      {/* Installation */}
+      <Route path="/installed" element={<Installed />} />
+      <Route path="/installed/sign-in" element={<InstalledSignIn />} />
       {/*Sign Up*/}
       <Route path="/sign-up" element={getSignUpElement()} />
       <Route
