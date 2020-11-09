@@ -28,6 +28,7 @@ import { finalizeAuthResponse } from '@common/utils';
 import { gaiaUrl } from '@common/constants';
 import { doTrackScreenChange } from '@common/track';
 import { TransactionVersion } from '@blockstack/stacks-transactions';
+import { verifyAuthRequest } from 'blockstack';
 
 export const doSetOnboardingProgress = (status: boolean): OnboardingActions => {
   return {
@@ -107,10 +108,11 @@ const saveAuthRequest = ({
   };
 };
 
-export function doSaveAuthRequest(
-  authRequest: string
-): ThunkAction<void, AppState, {}, OnboardingActions> {
+type DoSaveAuthRequestReturn = ThunkAction<void, AppState, {}, OnboardingActions>;
+export function doSaveAuthRequest(authRequest: string): DoSaveAuthRequestReturn {
   return async (dispatch, getState) => {
+    const isValidPayload = await verifyAuthRequest(authRequest);
+    if (!isValidPayload) throw new Error('JWT auth token is not valid');
     const { payload } = decodeToken(authRequest);
     const decodedAuthRequest = (payload as unknown) as DecodedAuthRequest;
     let appName = decodedAuthRequest.appDetails?.name;
