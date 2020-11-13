@@ -21,6 +21,6 @@ chrome.runtime.onInstalled.addListener(details => {
 
 chrome.runtime.onInstalled.addListener(details => {
   if (details.reason === 'install') {
-    chrome.tabs.create({ url: chrome.runtime.getURL(`index.html#/${ScreenPaths.INSTALLED}`) });
+    chrome.tabs.create({ url: chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`) });
   }
 });
