@@ -36,6 +36,9 @@ export enum ScreenPaths {
   INSTALLED = '/installed',
   SIGN_IN_INSTALLED = '/installed/sign-in',
   SIGN_UP_INSTALLED = '/installed/sign-up',
+  POPUP_HOME = '/popup',
+  POPUP_SEND = '/popup/send',
+  POPUP_RECEIVE = '/popup/receive',
 }
 
 export const persistedScreens = [

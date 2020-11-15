@@ -7,7 +7,7 @@ import { AppIcon } from '@components/app-icon';
 import { useSelector } from 'react-redux';
 import { AppState, store } from '@store';
 import { selectAppName, selectDecodedAuthRequest } from '@store/onboarding/selectors';
-import { Drawer } from '@components/drawer';
+import { ReuseAppDrawer } from '@components/drawer/reuse-app-drawer';
 import { ConfigApp } from '@stacks/keychain';
 import { gaiaUrl } from '@common/constants';
 import { ExtensionButton } from '@components/extension-button';
@@ -99,7 +99,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
 
   return (
     <Box flexGrow={1} position="relative">
-      <Drawer
+      <ReuseAppDrawer
         close={() => {
           setIdentityIndex(undefined);
           doTrack(CHOOSE_ACCOUNT_REUSE_WARNING_BACK);

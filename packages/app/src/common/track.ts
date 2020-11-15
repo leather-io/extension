@@ -43,6 +43,9 @@ export const pageTrackingNameMap = {
   [ScreenPaths.INSTALLED]: 'Connect Installed',
   [ScreenPaths.SIGN_IN_INSTALLED]: 'Installation Sign In',
   [ScreenPaths.SIGN_UP_INSTALLED]: 'Installation Sign Up',
+  [ScreenPaths.POPUP_HOME]: 'Popup Home',
+  [ScreenPaths.POPUP_SEND]: 'Popup Send',
+  [ScreenPaths.POPUP_RECEIVE]: 'Popup Receive',
 };
 
 export const titleNameMap = {
@@ -60,6 +63,9 @@ export const titleNameMap = {
   [ScreenPaths.INSTALLED]: 'Welcome to Connect',
   [ScreenPaths.SIGN_IN_INSTALLED]: 'Sign in',
   [ScreenPaths.SIGN_UP_INSTALLED]: 'Sign up',
+  [ScreenPaths.POPUP_HOME]: 'Connect',
+  [ScreenPaths.POPUP_SEND]: 'Send a Token',
+  [ScreenPaths.POPUP_RECEIVE]: 'Receive a Token',
 };
 
 export const doTrackScreenChange = (

@@ -22,6 +22,9 @@ import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
 import { Installed } from '@pages/install';
 import { InstalledSignIn } from '@pages/install/sign-in';
+import { PopupHome } from '@pages/popup';
+import { PopupSend } from '@pages/popup/send';
+import { PopupReceive } from '@pages/popup/receive';
 
 export const Routes: React.FC = () => {
   const dispatch = useDispatch();
@@ -73,6 +76,10 @@ export const Routes: React.FC = () => {
       {/* Installation */}
       <Route path="/installed" element={<Installed />} />
       <Route path="/installed/sign-in" element={<InstalledSignIn />} />
+      {/* Popup */}
+      <Route path={ScreenPaths.POPUP_HOME} element={<PopupHome />} />
+      <Route path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
+      <Route path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
       {/*Sign Up*/}
       <Route path="/sign-up" element={getSignUpElement()} />
       <Route
