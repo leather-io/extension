@@ -5,6 +5,11 @@ import {
   selectFirstIdentity,
   selectIsRestoringWallet,
   selectIsSignedIn,
+  selectCurrentIdentity,
+  selectCurrentIdentityIndex,
+  selectCurrentNetwork,
+  selectNetworks,
+  selectCurrentNetworkKey,
 } from '@store/wallet/selectors';
 import { selectSecretKey } from '@store/onboarding/selectors';
 import { decrypt } from '@stacks/keychain';
@@ -19,6 +24,11 @@ export const useWallet = () => {
   const wallet = useSelector(selectCurrentWallet);
   const onboardingSecretKey = useSelector(selectSecretKey);
   const isRestoringWallet = useSelector(selectIsRestoringWallet);
+  const currentIdentityIndex = useSelector(selectCurrentIdentityIndex);
+  const currentIdentity = useSelector(selectCurrentIdentity);
+  const networks = useSelector(selectNetworks);
+  const currentNetwork = useSelector(selectCurrentNetwork);
+  const currentNetworkKey = useSelector(selectCurrentNetworkKey);
   const isSignedIn = useSelector(selectIsSignedIn);
   const [secretKey, setSecretKey] = useState(onboardingSecretKey);
 
@@ -44,5 +54,17 @@ export const useWallet = () => {
     void updateSTXKeychain();
   }, []);
 
-  return { identities, firstIdentity, wallet, secretKey, isRestoringWallet, isSignedIn };
+  return {
+    identities,
+    firstIdentity,
+    wallet,
+    secretKey,
+    isRestoringWallet,
+    isSignedIn,
+    currentIdentity,
+    currentIdentityIndex,
+    networks,
+    currentNetwork,
+    currentNetworkKey,
+  };
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Svg, BoxProps } from '@blockstack/ui';
+import { Svg, BoxProps } from '@stacks/ui';
 
 export const ConnectIcon: React.FC<BoxProps> = props => (
   <Svg {...props} width="72" height="6" viewBox="0 0 72 16" fill="none">

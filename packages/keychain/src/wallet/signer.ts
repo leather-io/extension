@@ -21,7 +21,7 @@ interface ContractCallOptions {
   functionName: string;
   functionArgs: ClarityValue[];
   version: TransactionVersion;
-  nonce: number;
+  nonce?: number;
   postConditions?: PostCondition[];
   postConditionMode?: PostConditionMode;
   network?: StacksNetwork;
@@ -31,7 +31,7 @@ interface ContractDeployOptions {
   contractName: string;
   codeBody: string;
   version: TransactionVersion;
-  nonce: number;
+  nonce?: number;
   postConditions?: PostCondition[];
   postConditionMode?: PostConditionMode;
   network?: StacksNetwork;
@@ -41,7 +41,7 @@ interface STXTransferOptions {
   recipient: string;
   amount: string;
   memo?: string;
-  nonce: number;
+  nonce?: number;
   postConditions?: PostCondition[];
   postConditionMode?: PostConditionMode;
   network?: StacksNetwork;
@@ -55,7 +55,7 @@ export class WalletSigner {
   }
 
   getSTXAddress(version: TransactionVersion) {
-    return getAddressFromPrivateKey(this.getSTXPrivateKey(), version);
+    return getAddressFromPrivateKey(this.privateKey, version);
   }
 
   getSTXPrivateKey() {
@@ -87,7 +87,6 @@ export class WalletSigner {
     contractAddress,
     functionName,
     functionArgs,
-    nonce,
     postConditionMode,
     postConditions,
     network,
@@ -97,8 +96,7 @@ export class WalletSigner {
       contractName,
       functionName,
       functionArgs,
-      senderKey: this.getSTXPrivateKey().toString('hex'),
-      nonce: new BN(nonce),
+      senderKey: this.privateKey,
       network: network || this.getNetwork(),
       postConditionMode,
       postConditions,
@@ -109,7 +107,6 @@ export class WalletSigner {
   async signContractDeploy({
     contractName,
     codeBody,
-    nonce,
     postConditionMode,
     postConditions,
     network,
@@ -117,9 +114,8 @@ export class WalletSigner {
     const tx = await makeContractDeploy({
       contractName,
       codeBody: codeBody,
-      senderKey: this.getSTXPrivateKey().toString('hex'),
+      senderKey: this.privateKey,
       network: network || this.getNetwork(),
-      nonce: new BN(nonce),
       postConditionMode,
       postConditions,
     });
@@ -130,7 +126,6 @@ export class WalletSigner {
     recipient,
     amount,
     memo,
-    nonce,
     postConditionMode,
     postConditions,
     network,
@@ -139,9 +134,8 @@ export class WalletSigner {
       recipient,
       amount: new BN(amount),
       memo,
-      senderKey: this.getSTXPrivateKey().toString('hex'),
+      senderKey: this.privateKey,
       network: network || this.getNetwork(),
-      nonce: new BN(nonce),
       postConditionMode,
       postConditions,
     });

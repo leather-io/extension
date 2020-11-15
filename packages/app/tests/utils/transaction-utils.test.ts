@@ -50,7 +50,7 @@ describe('generated transactions', () => {
     });
     const token = decodeToken(txDataToken);
     const txData = (token.payload as unknown) as TransactionPayload;
-    const tx = await generateTransaction({ txData, wallet, nonce: 1 });
+    const tx = await generateTransaction({ txData, signer: wallet.identities[0].getSigner() });
     expect(tx.postConditionMode).toEqual(PostConditionMode.Allow);
     const postCondition = tx.postConditions.values[0];
     if ('amount' in postCondition) {

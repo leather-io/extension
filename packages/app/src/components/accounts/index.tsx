@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Identity } from '@stacks/keychain';
-import { Text, Flex, FlexProps, Spinner } from '@blockstack/ui';
+import { Text, Flex, FlexProps, Spinner, color } from '@stacks/ui';
 import { ScreenPaths } from '@store/onboarding/types';
 import { PlusInCircle } from '@components/icons/plus-in-circle';
 import { ListItem } from './list-item';
@@ -97,10 +97,10 @@ export const Accounts = ({ identities, showAddAccount, identityIndex, next }: Ac
           hasAction
           iconComponent={() => (
             <Flex
-              justify="center"
+              justifyContent="center"
               width="36px"
               mr={3}
-              color="ink.300"
+              color={color('text-caption')}
               transition="0.08s all ease-in-out"
             >
               <PlusInCircle />

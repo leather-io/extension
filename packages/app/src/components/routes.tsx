@@ -8,7 +8,7 @@ import { SecretKey } from '@pages/secret-key';
 
 import { ChooseAccount } from '@pages/connect';
 
-import { Transaction } from '@pages/transaction';
+import { TransactionPage } from '@pages/transaction';
 
 import { doSaveAuthRequest } from '@store/onboarding/actions';
 import { useDispatch } from '@common/hooks/use-dispatch';
@@ -22,6 +22,11 @@ import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
 import { Installed } from '@pages/install';
 import { InstalledSignIn } from '@pages/install/sign-in';
+import { PopupHome } from '@pages/popup';
+import { PopupSend } from '@pages/popup/send';
+import { PopupReceive } from '@pages/popup/receive';
+import { AddNetwork } from '@pages/popup/add-network';
+import { EditPostConditionsPage } from '@pages/transaction/edit-post-conditions';
 
 export const Routes: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,7 +40,7 @@ export const Routes: React.FC = () => {
     if (authRequest) {
       dispatch(doSaveAuthRequest(authRequest));
     }
-  }, [authRequest]);
+  }, [authRequest, dispatch]);
 
   const doFinishSignIn = ({ identityIndex }: { identityIndex: number } = { identityIndex: 0 }) =>
     dispatch(finishSignIn({ identityIndex }));
@@ -73,6 +78,12 @@ export const Routes: React.FC = () => {
       {/* Installation */}
       <Route path="/installed" element={<Installed />} />
       <Route path="/installed/sign-in" element={<InstalledSignIn />} />
+      {/* Popup */}
+      <Route path={ScreenPaths.POPUP_HOME} element={<PopupHome />} />
+      <Route path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
+      <Route path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
+      <Route path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
+      <Route path={ScreenPaths.EDIT_POST_CONDITIONS} element={<EditPostConditionsPage />} />
       {/*Sign Up*/}
       <Route path="/sign-up" element={getSignUpElement()} />
       <Route
@@ -120,7 +131,7 @@ export const Routes: React.FC = () => {
         }
       />
       {/* Transactions */}
-      <Route path="/transaction" element={<Transaction />} />
+      <Route path="/transaction" element={<TransactionPage />} />
       {/*Error/Misc*/}
       <Route
         path="/settings/secret-key"
