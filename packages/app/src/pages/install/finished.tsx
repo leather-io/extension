@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text, Button } from '@blockstack/ui';
+import { Box, Flex, Text } from '@stacks/ui';
 import { ConnectHeader } from '@pages/install/header';
 import { InstalledIllustration } from '@components/icons/installed-illustation';
 
@@ -15,7 +15,13 @@ export const InstallFinished: React.FC = () => {
     >
       <ConnectHeader />
       <Flex flex={1} justifyContent={[null, 'center']}>
-        <Flex flexDirection="column" pb="120px" align="center" justify="center" flexGrow={1}>
+        <Flex
+          flexDirection="column"
+          pb="120px"
+          alignItems="center"
+          justifyContent="center"
+          flexGrow={1}
+        >
           <Flex
             flexDirection="column"
             mt={[null, '6vh']}
@@ -35,9 +41,9 @@ export const InstallFinished: React.FC = () => {
               your browser.
             </Text>
           </Box>
-          <Box maxWidth={[null, '396px']} minWidth={[null, '396px']} mt="base-loose">
+          {/* <Box maxWidth={[null, '396px']} minWidth={[null, '396px']} mt="base-loose">
             <Button width="100%">Continue to Swapr</Button>
-          </Box>
+          </Box> */}
         </Flex>
       </Flex>
     </Flex>

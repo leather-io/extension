@@ -6,6 +6,10 @@ import {
   IS_RESTORING_WALLET,
   GENERATE_WALLET,
   SIGN_OUT,
+  ADD_NETWORK,
+  CHANGE_NETWORK,
+  Network,
+  SET_IDENTITY_INDEX,
 } from './types';
 import { ChainID } from '@blockstack/stacks-transactions';
 
@@ -32,6 +36,27 @@ function isRestoringWallet(): WalletActions {
 export function doSignOut(): WalletActions {
   return {
     type: SIGN_OUT,
+  };
+}
+
+export function doAddNetwork(network: Network): WalletActions {
+  return {
+    type: ADD_NETWORK,
+    ...network,
+  };
+}
+
+export function doChangeNetwork(key: string): WalletActions {
+  return {
+    type: CHANGE_NETWORK,
+    key,
+  };
+}
+
+export function doSetIdentityIndex(index: number): WalletActions {
+  return {
+    type: SET_IDENTITY_INDEX,
+    index,
   };
 }
 

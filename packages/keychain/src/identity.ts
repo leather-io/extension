@@ -13,6 +13,8 @@ import {
 import IdentityAddressOwnerNode from './nodes/identity-address-owner-node';
 import { Profile, fetchProfile, DEFAULT_PROFILE, signAndUploadProfile } from './profiles';
 import { ecPairToAddress } from 'blockstack';
+import { TransactionVersion, getAddressFromPrivateKey } from '@blockstack/stacks-transactions';
+import { WalletSigner } from './wallet/signer';
 
 interface IdentityConstructorOptions {
   keyPair: IdentityKeyPair;
@@ -176,6 +178,18 @@ export class Identity {
     } catch (error) {
       return;
     }
+  }
+
+  getStxAddress(): string {
+    return getAddressFromPrivateKey(this.keyPair.key, TransactionVersion.Testnet);
+  }
+
+  getDisplayName(): string {
+    return this.defaultUsername || this.getStxAddress();
+  }
+
+  getSigner() {
+    return new WalletSigner({ privateKey: this.keyPair.key });
   }
 }
 

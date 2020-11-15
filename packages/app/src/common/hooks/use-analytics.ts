@@ -4,8 +4,6 @@ import { doTrack as track, doTrackScreenChange } from '@common/track';
 import { doChangeScreen as changeScreen, doSetOnboardingPath } from '@store/onboarding/actions';
 import { ScreenPaths, persistedScreens } from '@store/onboarding/types';
 import { useAppDetails } from './useAppDetails';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
 import { useNavigate } from 'react-router-dom';
 
 export const useAnalytics = () => {

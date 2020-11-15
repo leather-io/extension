@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, PseudoBox, Flex, Text, Button } from '@blockstack/ui';
+import { Box, Flex, Text, Button } from '@stacks/ui';
 import { useDispatch } from '@common/hooks/use-dispatch';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/use-analytics';
@@ -26,17 +26,23 @@ export const Installed: React.FC = () => {
 
   return (
     <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">
-      <Flex justifyContent="space-between" align="center" mb={[null, '6vh', '12vh']}>
-        <PseudoBox
+      <Flex justifyContent="space-between" alignItems="center" mb={[null, '6vh', '12vh']}>
+        <Box
           _hover={{ cursor: 'pointer' }}
-          onClick={() => doChangeScreen(ScreenPaths.INSTALLED)}
+          onClick={() => void doChangeScreen(ScreenPaths.INSTALLED)}
         >
           <ConnectIcon />
-        </PseudoBox>
+        </Box>
         <Box />
       </Flex>
       <Flex flex={1} justifyContent={[null, 'center']}>
-        <Flex flexDirection="column" pb="120px" align="center" justify="center" flexGrow={1}>
+        <Flex
+          flexDirection="column"
+          pb="120px"
+          alignItems="center"
+          justifyContent="center"
+          flexGrow={1}
+        >
           <Box>
             <Text fontSize="32px" lineHeight="48px" fontWeight="500">
               Connect is installed

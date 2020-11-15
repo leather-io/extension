@@ -1,6 +1,6 @@
 import React, { useState, createRef } from 'react';
 import { Screen, ScreenBody, ScreenActions, Title, ScreenFooter, ScreenHeader } from '@screen';
-import { Box, Text, Input, Flex, Button, space } from '@blockstack/ui';
+import { Box, Text, Input, Flex, Button, space } from '@stacks/ui';
 import { AppIcon } from '@components/app-icon';
 import { Link } from '@components/link';
 import useDocumentTitle from '@rehooks/document-title';
@@ -79,7 +79,7 @@ export const SignIn: React.FC<SignInProps> = props => {
               autoCapitalize="off"
               spellCheck={false}
               style={{ resize: 'none' }}
-              ref={textAreaRef}
+              ref={textAreaRef as any}
               onChange={async (evt: React.FormEvent<HTMLInputElement>) => {
                 setSeedError(null);
                 setSeed(evt.currentTarget.value);
@@ -105,7 +105,7 @@ export const SignIn: React.FC<SignInProps> = props => {
         ]}
       />
       <ScreenActions>
-        <Flex justify="space-between" align="center" width="100%" mt={6}>
+        <Flex justifyContent="space-between" alignItems="center" width="100%" mt={6}>
           <Link
             color="blue"
             onClick={() => {
@@ -119,7 +119,7 @@ export const SignIn: React.FC<SignInProps> = props => {
             size="lg"
             type="submit"
             data-test="sign-in-key-continue"
-            onClick={async event => {
+            onClick={async (event: MouseEvent) => {
               event.preventDefault();
               return onSubmit();
             }}

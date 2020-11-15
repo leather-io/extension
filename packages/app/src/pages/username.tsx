@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Input, Text } from '@blockstack/ui';
+import { Box, Button, Input, Text } from '@stacks/ui';
 import { PoweredBy, Screen, ScreenActions, ScreenBody, ScreenFooter, ScreenHeader } from '@screen';
 import { Title } from '@components/typography';
 
@@ -34,7 +34,7 @@ const identityNameLengthError =
 const identityNameIllegalCharError =
   'You can only use lowercase letters (a–z), numbers (0–9), and underscores (_).';
 const identityNameUnavailableError = 'This username is not available';
-const errorTextMap = {
+export const errorTextMap = {
   [IdentityNameValidityError.MINIMUM_LENGTH]: identityNameLengthError,
   [IdentityNameValidityError.MAXIMUM_LENGTH]: identityNameLengthError,
   [IdentityNameValidityError.ILLEGAL_CHARACTER]: identityNameIllegalCharError,
@@ -125,7 +125,7 @@ export const Username: React.FC<{}> = () => {
         onTryAgain={() => {
           setSubmissionError(undefined);
           setLoadingStatus();
-          onSubmit();
+          void onSubmit();
         }}
       />
     );

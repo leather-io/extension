@@ -37,7 +37,7 @@ export function randomString(len: number) {
 export const wait = async (ms: number) => {
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve();
+      resolve(true);
     }, ms);
   });
 };
@@ -69,7 +69,7 @@ export const debug = async (page: Page) => {
           }
           stdin.pause();
         }
-        resolve();
+        resolve(true);
       }
     };
     if (!listening) {

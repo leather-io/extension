@@ -1,5 +1,5 @@
 import React from 'react';
-import { Svg, BoxProps } from '@blockstack/ui';
+import { Svg, BoxProps } from '@stacks/ui';
 
 export const InstalledIllustration: React.FC<BoxProps> = props => (
   <Svg {...props} width="192" height="114" viewBox="0 0 192 114">

@@ -1,5 +1,5 @@
 import React, { createRef, useState, useCallback } from 'react';
-import { Box, Flex, Text, Button, Input } from '@blockstack/ui';
+import { Box, Flex, Text, Button, Input } from '@stacks/ui';
 import { ConnectHeader } from '@pages/install/header';
 import { useDispatch } from '@common/hooks/use-dispatch';
 import { doSetMagicRecoveryCode } from '@store/onboarding/actions';
@@ -47,7 +47,13 @@ export const InstalledSignIn: React.FC = () => {
     <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">
       <ConnectHeader />
       <Flex flex={1} justifyContent={[null, 'center']}>
-        <Flex flexDirection="column" pb="120px" align="center" justify="center" flexGrow={1}>
+        <Flex
+          flexDirection="column"
+          pb="120px"
+          alignItems="center"
+          justifyContent="center"
+          flexGrow={1}
+        >
           <Box mt="base">
             <Text fontSize="32px" lineHeight="48px" fontWeight="500">
               Continue with Secret Key
@@ -68,7 +74,7 @@ export const InstalledSignIn: React.FC = () => {
               autoCapitalize="off"
               spellCheck={false}
               style={{ resize: 'none' }}
-              ref={textAreaRef}
+              ref={textAreaRef as any}
               onChange={async (evt: React.FormEvent<HTMLInputElement>) => {
                 setSeedError(null);
                 setSeed(evt.currentTarget.value);
@@ -97,7 +103,7 @@ export const InstalledSignIn: React.FC = () => {
               isLoading={isLoading}
               isDisabled={isLoading}
               data-test="sign-in-key-continue"
-              onClick={async event => {
+              onClick={async (event: MouseEvent) => {
                 event.preventDefault();
                 return onSubmit();
               }}
