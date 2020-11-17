@@ -15,7 +15,13 @@ export const InstallFinished: React.FC = () => {
     >
       <ConnectHeader />
       <Flex flex={1} justifyContent={[null, 'center']}>
-        <Flex flexDirection="column" pb="120px" align="center" justify="center" flexGrow={1}>
+        <Flex
+          flexDirection="column"
+          pb="120px"
+          alignItems="center"
+          justifyContent="center"
+          flexGrow={1}
+        >
           <Flex
             flexDirection="column"
             mt={[null, '6vh']}

@@ -113,7 +113,7 @@ export const SignIn: React.FC<SignInProps> = props => {
         ]}
       />
       <ScreenActions>
-        <Flex justify="space-between" align="center" width="100%" mt={6}>
+        <Flex justifyContent="space-between" alignItems="center" width="100%" mt={6}>
           <Link
             color="blue"
             onClick={() => {

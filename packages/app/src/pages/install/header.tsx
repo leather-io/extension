@@ -7,7 +7,7 @@ import { ConnectIcon } from '@components/icons/connect-icon';
 export const ConnectHeader: React.FC = () => {
   const { doChangeScreen } = useAnalytics();
   return (
-    <Flex justifyContent="space-between" align="center" mb={[null, '6vh', '12vh']}>
+    <Flex justifyContent="space-between" alignItems="center" mb={[null, '6vh', '12vh']}>
       <Box _hover={{ cursor: 'pointer' }} onClick={() => doChangeScreen(ScreenPaths.HOME)}>
         <ConnectIcon />
       </Box>

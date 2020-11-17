@@ -8,8 +8,8 @@ interface ScreenLoaderProps {
 
 export const ScreenLoader: React.FC<ScreenLoaderProps> = ({ isLoading }) => (
   <Flex
-    align="center"
-    justify="center"
+    alignItems="center"
+    justifyContent="center"
     position="absolute"
     top={0}
     left={0}

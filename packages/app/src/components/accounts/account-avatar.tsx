@@ -16,8 +16,8 @@ export const AccountAvatar = ({ username, avatar, ...rest }: AccountAvatarProps)
       bg="#007AFF"
       size="36px"
       borderRadius="100%"
-      align="center"
-      justify="center"
+      alignItems="center"
+      justifyContent="center"
       {...rest}
     >
       {avatar && <Image src={avatar} alt={username} />}

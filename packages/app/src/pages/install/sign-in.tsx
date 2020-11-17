@@ -47,7 +47,13 @@ export const InstalledSignIn: React.FC = () => {
     <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">
       <ConnectHeader />
       <Flex flex={1} justifyContent={[null, 'center']}>
-        <Flex flexDirection="column" pb="120px" align="center" justify="center" flexGrow={1}>
+        <Flex
+          flexDirection="column"
+          pb="120px"
+          alignItems="center"
+          justifyContent="center"
+          flexGrow={1}
+        >
           <Box mt="base">
             <Text fontSize="32px" lineHeight="48px" fontWeight="500">
               Continue with Secret Key

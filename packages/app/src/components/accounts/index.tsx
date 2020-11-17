@@ -97,7 +97,7 @@ export const Accounts = ({ identities, showAddAccount, identityIndex, next }: Ac
           hasAction
           iconComponent={() => (
             <Flex
-              justify="center"
+              justifyContent="center"
               width="36px"
               mr={3}
               color="ink.300"

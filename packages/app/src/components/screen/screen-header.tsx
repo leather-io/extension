@@ -28,12 +28,12 @@ export const ScreenHeader = ({
       borderBottomColor="inherit"
       borderRadius={['unset', '6px 6px 0 0']}
       bg="white"
-      align="center"
-      justify="space-between"
+      alignItems="center"
+      justifyContent="space-between"
       {...rest}
     >
-      <Flex width="100%" align="center" justifyContent="space-between">
-        <Flex align="center">
+      <Flex width="100%" alignItems="center" justifyContent="space-between">
+        <Flex alignItems="center">
           {hideLogo ? null : <AppIcon mr="tight" />}
           <Text fontWeight={500} textStyle={'body.small.medium'} fontSize={'12px'}>
             {name}

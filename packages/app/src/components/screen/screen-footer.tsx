@@ -10,7 +10,7 @@ export const ScreenFooter: React.FC<FlexProps> = ({ children, ...rest }) => (
     fontSize={['12px', '14px']}
     color="ink.600"
     fontWeight="medium"
-    justify="space-between"
+    justifyContent="space-between"
     {...rest}
   >
     {children}

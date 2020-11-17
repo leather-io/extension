@@ -56,7 +56,7 @@ export const ReuseAppDrawer: React.FC<ReuseAppDrawerProps> = ({
             be private, consider choosing a different account or creating a new account.
           </Text>,
           <>
-            <Flex mt={4} align="center">
+            <Flex mt={4} alignItems="center">
               <Box mr={2}>
                 <input
                   name="checkbox"

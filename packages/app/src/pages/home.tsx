@@ -9,7 +9,7 @@ import { doSignOut } from '@store/wallet';
 import { doSetOnboardingPath } from '@store/onboarding/actions';
 
 const SignedOut = () => (
-  <Flex flexDirection="column" pb="120px" align="center" justify="center" flexGrow={1}>
+  <Flex flexDirection="column" pb="120px" alignItems="center" justifyContent="center" flexGrow={1}>
     <Box>
       <Text fontSize="20px" lineHeight="28px" fontWeight="500">
         You are now signed out
@@ -48,7 +48,7 @@ export const Home = () => {
 
   return (
     <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">
-      <Flex justifyContent="space-between" align="center">
+      <Flex justifyContent="space-between" alignItems="center">
         <Box />
         {isSignedIn ? <SecretKeyButton /> : null}
       </Flex>
