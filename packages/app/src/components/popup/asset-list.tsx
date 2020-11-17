@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Flex, Text, BoxProps } from '@blockstack/ui';
+import { Box, Flex, Text, BoxProps } from '@stacks/ui';
 import { TokenAssets } from '@components/popup/token-assets';
 import { CollectibleAssets } from '@components/popup/collectible-assets';
 

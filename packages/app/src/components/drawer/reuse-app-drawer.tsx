@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Stack, Button, Text } from '@blockstack/ui';
+import { Box, Flex, Stack, Button, Text } from '@stacks/ui';
 import { ScreenBody, ScreenActions } from '@screen';
 import { Title } from '@components/typography';
 import { BaseDrawer, BaseDrawerProps } from './index';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Stack } from '@blockstack/ui';
+import { Box, Flex, Stack } from '@stacks/ui';
 import useOnClickOutside from 'use-onclickoutside';
 
 const transition = '0.2s all ease-in-out';

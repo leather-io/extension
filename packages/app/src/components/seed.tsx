@@ -1,11 +1,11 @@
 import React from 'react';
 import { validateMnemonic } from 'bip39';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Input, Text, Button, FormControl, FormLabel } from '@blockstack/ui';
-import { AppState } from '../store';
+import { Box, Input, Text, Button, FormLabel } from '@stacks/ui';
+import { AppState } from '@store';
 import { doStoreSeed, doGenerateWallet } from '../store/wallet';
 import { Formik, FormikErrors } from 'formik';
-import { selectCurrentWallet, selectIsRestoringWallet } from '../store/wallet/selectors';
+import { selectCurrentWallet, selectIsRestoringWallet } from '@store/wallet/selectors';
 
 interface FormValues {
   seed: string;
@@ -58,7 +58,7 @@ const Seed = () => {
       >
         {({ handleSubmit, values, handleChange, errors }) => (
           <form onSubmit={handleSubmit}>
-            <FormControl my={4}>
+            <Box my={4}>
               <FormLabel>Secret Key</FormLabel>
               <Input
                 textStyle="body.small"
@@ -69,8 +69,8 @@ const Seed = () => {
                 placeholder="Enter your 12 word seed"
                 aria-invalid={errors.seed ? 'true' : undefined}
               />
-            </FormControl>
-            <FormControl my={4} isRequired>
+            </Box>
+            <Box my={4} isRequired>
               <FormLabel>Password</FormLabel>
               <Input
                 textStyle="body.small"
@@ -81,7 +81,7 @@ const Seed = () => {
                 placeholder="Password"
                 aria-invalid={errors.password ? 'true' : undefined}
               />
-            </FormControl>
+            </Box>
             <Button mt={4} type="submit" isLoading={restoring}>
               Submit
             </Button>

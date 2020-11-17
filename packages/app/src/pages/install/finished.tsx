@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text, Button } from '@blockstack/ui';
+import { Box, Flex, Text, Button } from '@stacks/ui';
 import { ConnectHeader } from '@pages/install/header';
 import { InstalledIllustration } from '@components/icons/installed-illustation';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Input, Button, ButtonGroup } from '@blockstack/ui';
+import { Box, Text, Input, Button, ButtonGroup } from '@stacks/ui';
 import { Formik } from 'formik';
 import { openPopup } from '../common/utils';
 import { useDispatch } from '@common/hooks/use-dispatch';

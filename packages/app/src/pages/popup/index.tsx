@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Button, ArrowIcon, BoxProps } from '@blockstack/ui';
+import { Box, Text, Button, ArrowIcon, BoxProps } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { AssetList } from '@components/popup/asset-list';
 import { useAnalytics } from '@common/hooks/use-analytics';
@@ -24,7 +24,11 @@ const TxButton: React.FC<TxButtonProps> = ({ variant, onClick }) => {
         tertiary: {},
       }}
     >
-      <ArrowIcon direction={variant === 'send' ? 'up' : 'down'} mr="base-tight" height="12px" />
+      <ArrowIcon
+        direction={variant === 'send' ? ('up' as any) : ('down' as any)}
+        mr="base-tight"
+        height="12px"
+      />
       {variant === 'send' ? 'Send' : 'Receive'}
     </Button>
   );

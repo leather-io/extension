@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, InputGroup, Input, FormLabel, Text, Button } from '@blockstack/ui';
+import { Box, InputGroup, Input, FormLabel, Text, Button } from '@stacks/ui';
 import { Formik } from 'formik';
 import { PopupContainer } from '@components/popup/container';
 import { ConfirmSendDrawer } from '@components/drawer/confirm-send-drawer';

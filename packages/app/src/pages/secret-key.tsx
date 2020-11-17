@@ -9,7 +9,7 @@ import {
   ScreenFooter,
   ScreenHeader,
 } from '@screen';
-import { Button, Text } from '@blockstack/ui';
+import { Button, Text } from '@stacks/ui';
 
 import { Toast } from '@components/toast';
 import { Card } from '@components/card';

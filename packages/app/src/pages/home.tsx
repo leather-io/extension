@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, PseudoBox, Flex, Text } from '@blockstack/ui';
+import { Box, Flex, Text } from '@stacks/ui';
 import { SignOut } from '@components/sign-out';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { useDispatch } from '@common/hooks/use-dispatch';
@@ -33,14 +33,11 @@ const SignedOut = () => (
 const SecretKeyButton = () => {
   const { doChangeScreen } = useAnalytics();
   return (
-    <PseudoBox
-      _hover={{ cursor: 'pointer' }}
-      onClick={() => doChangeScreen(ScreenPaths.SETTINGS_KEY)}
-    >
+    <Box _hover={{ cursor: 'pointer' }} onClick={() => doChangeScreen(ScreenPaths.SETTINGS_KEY)}>
       <Text color="blue" fontWeight={500} textStyle="body.small.medium" fontSize="12px">
         View Secret Key
       </Text>
-    </PseudoBox>
+    </Box>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Identity } from '@stacks/keychain';
-import { Text, Flex, FlexProps, Spinner } from '@blockstack/ui';
+import { Text, Flex, FlexProps, Spinner } from '@stacks/ui';
 import { ScreenPaths } from '@store/onboarding/types';
 import { PlusInCircle } from '@components/icons/plus-in-circle';
 import { ListItem } from './list-item';

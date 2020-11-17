@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flex, Box, BoxProps, Text } from '@blockstack/ui';
+import { Flex, Box, Text, FlexProps } from '@stacks/ui';
 import { Image } from '@components/image';
 
-interface AccountAvatarProps extends BoxProps {
+interface AccountAvatarProps extends FlexProps {
   username: string;
   avatar?: string;
 }

@@ -1,5 +1,5 @@
 import React, { createRef, useState, useCallback } from 'react';
-import { Box, Flex, Text, Button, Input } from '@blockstack/ui';
+import { Box, Flex, Text, Button, Input } from '@stacks/ui';
 import { ConnectHeader } from '@pages/install/header';
 import { useDispatch } from '@common/hooks/use-dispatch';
 import { doSetMagicRecoveryCode } from '@store/onboarding/actions';
@@ -68,7 +68,7 @@ export const InstalledSignIn: React.FC = () => {
               autoCapitalize="off"
               spellCheck={false}
               style={{ resize: 'none' }}
-              ref={textAreaRef}
+              ref={textAreaRef as any}
               onChange={async (evt: React.FormEvent<HTMLInputElement>) => {
                 setSeedError(null);
                 setSeed(evt.currentTarget.value);

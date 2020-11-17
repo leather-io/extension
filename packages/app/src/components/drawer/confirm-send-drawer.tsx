@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Button, Text } from '@blockstack/ui';
+import { Box, Flex, Button, Text } from '@stacks/ui';
 import { BaseDrawer, BaseDrawerProps } from './index';
 
 const Divider: React.FC = () => <Box height="1px" backgroundColor="ink.200" my="base" />;

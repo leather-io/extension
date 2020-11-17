@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Flex, Text } from '@blockstack/ui';
-import styled from 'styled-components';
+import { Box, Flex, Text } from '@stacks/ui';
+import styled from '@emotion/styled';
 
 const BannerText = styled(Text)`
   font-size: 11px;

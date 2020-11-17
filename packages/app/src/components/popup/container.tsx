@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Flex, Text, CloseIcon } from '@blockstack/ui';
+import { Box, Flex, Text, CloseIcon } from '@stacks/ui';
 import { ConnectIcon } from '@components/icons/connect-icon';
-import Styled from 'styled-components';
+import styled from '@emotion/styled';
 
-const CloseIconContainer = Styled(Box)`
+const CloseIconContainer = styled(Box)`
   svg {
     height: 12px;
     opacity: 50%;

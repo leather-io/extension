@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Flex, BoxProps } from '@blockstack/ui';
+import { Flex, FlexProps } from '@stacks/ui';
 import { PX } from './spacing';
 
-type ScreenFooterProps = BoxProps;
-
-export const ScreenFooter: React.FC<ScreenFooterProps> = ({ children, ...rest }) => (
+export const ScreenFooter: React.FC<FlexProps> = ({ children, ...rest }) => (
   <Flex
     mx={PX}
     flex={1}

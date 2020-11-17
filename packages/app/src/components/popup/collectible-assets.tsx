@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Box, BoxProps } from '@blockstack/ui';
+import { Text, Box, BoxProps } from '@stacks/ui';
 
 export const CollectibleAssets: React.FC<BoxProps> = props => {
   return (

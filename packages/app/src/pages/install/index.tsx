@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, PseudoBox, Flex, Text, Button } from '@blockstack/ui';
+import { Box, Flex, Text, Button } from '@stacks/ui';
 import { useDispatch } from '@common/hooks/use-dispatch';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/use-analytics';
@@ -27,12 +27,9 @@ export const Installed: React.FC = () => {
   return (
     <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">
       <Flex justifyContent="space-between" align="center" mb={[null, '6vh', '12vh']}>
-        <PseudoBox
-          _hover={{ cursor: 'pointer' }}
-          onClick={() => doChangeScreen(ScreenPaths.INSTALLED)}
-        >
+        <Box _hover={{ cursor: 'pointer' }} onClick={() => doChangeScreen(ScreenPaths.INSTALLED)}>
           <ConnectIcon />
-        </PseudoBox>
+        </Box>
         <Box />
       </Flex>
       <Flex flex={1} justifyContent={[null, 'center']}>

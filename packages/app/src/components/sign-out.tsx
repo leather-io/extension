@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Button, FlexProps } from '@blockstack/ui';
+import { Flex, Text, Button, FlexProps } from '@stacks/ui';
 import { Accounts } from '@components/accounts';
 
 import { useWallet } from '@common/hooks/use-wallet';

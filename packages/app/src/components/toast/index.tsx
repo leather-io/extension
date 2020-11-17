@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Text } from '@blockstack/ui';
+import { Flex, Box, Text } from '@stacks/ui';
 import { SuccessCheckmark } from '../success-checkmark';
 
 export const Toast = ({

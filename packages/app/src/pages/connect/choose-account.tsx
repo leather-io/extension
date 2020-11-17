@@ -1,7 +1,7 @@
 import React from 'react';
 import { Screen, ScreenBody, ScreenFooter, ScreenHeader } from '@screen';
 import { Title } from '@components/typography';
-import { Box, PseudoBox, Text } from '@blockstack/ui';
+import { Box, Text } from '@stacks/ui';
 import { Accounts } from '@components/accounts';
 import { AppIcon } from '@components/app-icon';
 import { useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Navigate } from '@components/navigate';
-import { isValidUrl } from '../../common/validate-url';
+import { isValidUrl } from '@common/validate-url';
 
 interface ChooseAccountProps {
   next: (identityIndex: number) => void;
@@ -32,11 +32,11 @@ interface ChooseAccountProps {
 const SettingsButton = () => {
   const { doChangeScreen } = useAnalytics();
   return (
-    <PseudoBox _hover={{ cursor: 'pointer' }} onClick={() => doChangeScreen(ScreenPaths.HOME)}>
+    <Box _hover={{ cursor: 'pointer' }} onClick={() => doChangeScreen(ScreenPaths.HOME)}>
       <Text color="blue" fontWeight={500} textStyle="body.small.medium" fontSize="12px">
         Settings
       </Text>
-    </PseudoBox>
+    </Box>
   );
 };
 

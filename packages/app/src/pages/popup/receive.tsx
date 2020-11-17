@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Button, useClipboard } from '@blockstack/ui';
+import { Box, Text, Button, useClipboard } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';

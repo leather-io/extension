@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text } from '@blockstack/ui';
+import { Flex, Text } from '@stacks/ui';
 import { Logo } from './logo';
 
 interface LogoWithNameProps {
