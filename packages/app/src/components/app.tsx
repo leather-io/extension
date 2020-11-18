@@ -6,6 +6,8 @@ import { useMessagePong } from '@common/hooks/use-message-pong';
 import { version } from '../../package.json';
 
 import { css, Global } from '@emotion/react';
+import { ColorModeProvider } from '@components/color-modes';
+import { CssReset } from '@components/css-reset';
 
 const globalStyle = css`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -58,12 +60,15 @@ export const App: React.FC = () => {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      <React.Fragment>
-        <Global styles={globalStyle} />
-        <Router>
-          <Routes />
-        </Router>
-      </React.Fragment>
+      <ColorModeProvider>
+        <React.Fragment>
+          <CssReset />
+          <Global styles={globalStyle} />
+          <Router>
+            <Routes />
+          </Router>
+        </React.Fragment>
+      </ColorModeProvider>
     </ThemeProvider>
   );
 };

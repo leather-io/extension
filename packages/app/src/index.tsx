@@ -8,14 +8,12 @@ import { persistor } from '@store';
 import App from '@components/app';
 import DevStore from './common/dev/store';
 import { setStatsConfig } from '@common/track';
-import { CssReset } from '@components/css-reset';
 
 const buildApp = (store: ReduxStore | ReturnType<typeof ExtStore>) => {
   setStatsConfig();
   ReactDOM.render(
     <Provider store={store as any}>
       <PersistGate loading={null} persistor={persistor}>
-        <CssReset />
         <App />
       </PersistGate>
     </Provider>,
