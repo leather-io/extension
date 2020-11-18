@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from '@common/hooks/use-dispatch';
-import { Spinner, Flex, Text } from '@stacks/ui';
+import { Spinner, Flex, Text, color } from '@stacks/ui';
 import { Screen, ScreenBody, PoweredBy, ScreenFooter, ScreenHeader } from '@screen';
 
 import { doCreateSecretKey, doSetOnboardingProgress } from '@store/onboarding/actions';
@@ -22,7 +22,7 @@ const ExplainerCard = ({ title, imageUrl }: ExplainerCardProps) => (
       <Text textStyle="display.small">{title}</Text>
     </Flex>
     <Flex width="100%" flexDirection="column" alignItems="center">
-      <Spinner thickness="3px" size="lg" color="blue" />
+      <Spinner thickness="3px" size="lg" color={color('accent')} />
     </Flex>
   </Flex>
 );
