@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@stacks/auth": "^1.0.0-beta.11",
+    "@stacks/connect": "^4.2.4",
     "@stencil/core": "^1.17.3"
   },
   "license": "MIT",
