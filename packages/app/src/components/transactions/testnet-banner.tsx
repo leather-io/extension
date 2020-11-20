@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text } from '@blockstack/ui';
+import { Box, Flex, Text } from '@stacks/ui';
 import styled from 'styled-components';
 
 const BannerText = styled(Text)`

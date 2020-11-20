@@ -7,10 +7,10 @@ import {
   makeStandardFungiblePostCondition,
   FungibleConditionCode,
   createAssetInfo,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import { makeContractCallToken, TransactionPayload } from '../../../connect/src/index';
 import BN from 'bn.js';
-import { decodeToken } from 'blockstack';
+import { decodeToken } from 'jsontokens';
 
 describe('generated transactions', () => {
   test('can handle encoded payload', async () => {

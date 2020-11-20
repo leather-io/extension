@@ -7,7 +7,7 @@ import {
   contractPrincipalCV,
   standardPrincipalCV,
   bufferCV,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import RPCClient from '@stacks/rpc-client';
 import BigNumber from 'bignumber.js';
 

@@ -7,7 +7,7 @@ import {
   GENERATE_WALLET,
   SIGN_OUT,
 } from './types';
-import { ChainID } from '@blockstack/stacks-transactions';
+import { ChainID } from '@stacks/transactions';
 
 export function didRestoreWallet(wallet: Wallet): WalletActions {
   return {

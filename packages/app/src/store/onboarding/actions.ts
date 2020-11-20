@@ -27,7 +27,7 @@ import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { finalizeAuthResponse } from '@common/utils';
 import { gaiaUrl } from '@common/constants';
 import { doTrackScreenChange } from '@common/track';
-import { TransactionVersion } from '@blockstack/stacks-transactions';
+import { TransactionVersion } from '@stacks/transactions';
 
 export const doSetOnboardingProgress = (status: boolean): OnboardingActions => {
   return {

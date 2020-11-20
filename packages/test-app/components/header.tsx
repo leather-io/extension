@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { Flex, Box, Text } from '@blockstack/ui';
-import { BlockstackIcon } from '@blockstack/ui';
+import { Flex, Box, Text } from '@stacks/ui';
+import { BlockstackIcon } from '@stacks/ui';
 import { AppContext } from '@common/context';
 import { Link } from '@components/link';
 

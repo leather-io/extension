@@ -1,4 +1,4 @@
-import { UserSession, AppConfig } from 'blockstack';
+import { UserSession, AppConfig } from '@stacks/auth';
 import './types';
 import { popupCenter, setupListener } from './popup';
 import { version } from '../package.json';

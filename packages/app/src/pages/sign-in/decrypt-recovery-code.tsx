@@ -6,7 +6,7 @@ import { SIGN_IN_CORRECT } from '@common/track';
 import { doStoreSeed } from '@store/wallet/actions';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 
-import { Box, Input, Text, Button } from '@blockstack/ui';
+import { Box, Input, Text, Button } from '@stacks/ui';
 import {
   Screen,
   ScreenBody,

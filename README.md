@@ -4,10 +4,9 @@ This monorepo contains a few key packages that the User Experience team at Block
 
 - [`app`](./packages/app): An application for authenticating into Blockstack apps. Available as a web app and a browser extension.
 - [`@stacks/connect`](./packages/connect): A developer tool for building excellent user experiences in Blockstack apps
+- [`@stacks/connect-react`](./packages/connect-react): A React UI for @stacks/connect
 - [`@stacks/ui`](./packages/ui): Blockstack's internal design system and React component library
-- [`@stacks/keychain`](./packages/keychain): A library for Blockstack identity management
 - [`test-app`](./packages/test-app): A simple React app for testing out Connect and the App.
-- [`ui-docs`](./packages/ui-docs): A documentation site for `@blockstack/ui`.
 
 ## Development environment setup
 
@@ -17,8 +16,8 @@ The first time you setup a development environment for this repository, follow t
 2. Run `yarn` to install dependencies
 3. Run `yarn bootstrap` to link dependencies within this repository
 4. In the command line, run `yarn dev` which will run two apps:
-    - `packages/test-app` which runs at localhost:3000 and implements an example of connect
-    - `packages/app` which is the auth app, running at localhost:8080
+   - `packages/test-app` which runs at localhost:3000 and implements an example of connect
+   - `packages/app` which is the auth app, running at localhost:8080
 
 For development instructions of specific packages, see the `README` in each package folder.
 
@@ -30,11 +29,12 @@ For development instructions of specific packages, see the `README` in each pack
 ### Optional - Build browser extensions using Docker
 
 1. Build the docker image locally:
-    ```bash
-    docker build . -t ux
-    ```
+
+   ```bash
+   docker build . -t ux
+   ```
 
 1. Copy the built extensions to your local machine:
-    ```bash
-    docker run -d --name ux ux && docker cp ux:extension.zip . && docker rm -f ux
-    ```
+   ```bash
+   docker run -d --name ux ux && docker cp ux:extension.zip . && docker rm -f ux
+   ```

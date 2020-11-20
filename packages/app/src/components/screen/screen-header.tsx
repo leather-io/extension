@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text } from '@blockstack/ui';
+import { Flex, Text } from '@stacks/ui';
 import { selectAppName } from '@store/onboarding/selectors';
 import { useSelector } from 'react-redux';
 import { AppIcon } from '../app-icon';

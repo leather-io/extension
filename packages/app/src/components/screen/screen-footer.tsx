@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, BoxProps } from '@blockstack/ui';
+import { Flex, BoxProps } from '@stacks/ui';
 import { PX } from './spacing';
 
 type ScreenFooterProps = BoxProps;

@@ -2,8 +2,8 @@ import {
   TransactionVersion,
   StacksTransaction,
   deserializeCV,
-} from '@blockstack/stacks-transactions';
-import { PostCondition } from '@blockstack/stacks-transactions/lib/postcondition';
+  PostCondition,
+} from '@stacks/transactions';
 import { Wallet } from '@stacks/keychain';
 import { getRPCClient } from './stacks-utils';
 import {

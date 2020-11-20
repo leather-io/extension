@@ -9,16 +9,12 @@ import {
   ScreenFooter,
   ScreenHeader,
 } from '@screen';
-import { Button, Box, Text } from '@blockstack/ui';
+import { Button, Box, Text } from '@stacks/ui';
 import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 import { useWallet } from '@common/hooks/use-wallet';
-import {
-  TransactionVersion,
-  StacksTransaction,
-  StacksMainnet,
-  StacksTestnet,
-} from '@blockstack/stacks-transactions';
+import { TransactionVersion, StacksTransaction } from '@stacks/transactions';
+import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import { TestnetBanner } from '@components/transactions/testnet-banner';
 import { TxError } from '@components/transactions/tx-error';
 import { TabbedCard, Tab } from '@components/tabbed-card';

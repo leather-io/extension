@@ -1,7 +1,7 @@
 import React from 'react';
 import { validateMnemonic } from 'bip39';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Input, Text, Button, FormControl, FormLabel } from '@blockstack/ui';
+import { Box, Input, Text, Button, FormControl, FormLabel } from '@stacks/ui';
 import { AppState } from '../store';
 import { doStoreSeed, doGenerateWallet } from '../store/wallet';
 import { Formik, FormikErrors } from 'formik';

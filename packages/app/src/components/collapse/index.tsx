@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Text, BoxProps, ChevronIcon } from '@blockstack/ui';
+import { Flex, Box, Text, BoxProps, ChevronIcon } from '@stacks/ui';
 import { useHover } from 'use-events';
 import { useAnalytics } from '@common/hooks/use-analytics';
 

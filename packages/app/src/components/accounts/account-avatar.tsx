@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, BoxProps, Text } from '@blockstack/ui';
+import { Flex, Box, BoxProps, Text } from '@stacks/ui';
 import { Image } from '@components/image';
 
 interface AccountAvatarProps extends BoxProps {

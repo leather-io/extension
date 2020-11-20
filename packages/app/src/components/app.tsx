@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ThemeProvider, theme, CSSReset } from '@blockstack/ui';
+import { ThemeProvider, theme, CSSReset } from '@stacks/ui';
 import { createGlobalStyle } from 'styled-components';
 import { Routes } from '@components/routes';
 import { HashRouter as Router } from 'react-router-dom';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHover } from 'use-events';
-import { Flex, Box } from '@blockstack/ui';
+import { Flex, Box } from '@stacks/ui';
 import { transition } from '@common/constants';
 
 export const ListItem = ({ iconComponent, isFirst, hasAction, children, ...rest }: any) => {

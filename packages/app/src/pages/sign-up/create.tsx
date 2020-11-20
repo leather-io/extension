@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from '@common/hooks/use-dispatch';
-import { Spinner, Flex, Text } from '@blockstack/ui';
+import { Spinner, Flex, Text } from '@stacks/ui';
 import { Screen, ScreenBody, PoweredBy, ScreenFooter, ScreenHeader } from '@screen';
 
 import { doCreateSecretKey, doSetOnboardingProgress } from '@store/onboarding/actions';

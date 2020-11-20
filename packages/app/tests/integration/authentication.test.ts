@@ -6,7 +6,7 @@ import { DemoPage } from './page-objects/demo.page';
 import { randomString, Browser } from './utils';
 import { AuthPage } from './page-objects/auth.page';
 import { Wallet } from '@stacks/keychain';
-import { ChainID } from '@blockstack/stacks-transactions';
+import { ChainID } from '@stacks/transactions';
 
 const SECRET_KEY = 'invite helmet save lion indicate chuckle world pride afford hard broom draft';
 const WRONG_SECRET_KEY =

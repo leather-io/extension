@@ -1,6 +1,6 @@
 import React, { useState, createRef } from 'react';
 import { Screen, ScreenBody, ScreenActions, Title, ScreenFooter, ScreenHeader } from '@screen';
-import { Box, Text, Input, Flex, Button, space } from '@blockstack/ui';
+import { Box, Text, Input, Flex, Button, space } from '@stacks/ui';
 import { AppIcon } from '@components/app-icon';
 import { Link } from '@components/link';
 import useDocumentTitle from '@rehooks/document-title';

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '@common/context';
-import { Box, Spinner, Text, Flex, space, BoxProps, FailedIcon } from '@blockstack/ui';
+import { Box, Spinner, Text, Flex, space, BoxProps, FailedIcon } from '@stacks/ui';
 import { Auth } from './auth';
 import { Tab } from './tab';
 import { Status } from './status';

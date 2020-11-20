@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Text, Flex, PseudoBox, ChevronIcon, BoxProps } from '@blockstack/ui';
+import { Box, Text, Flex, PseudoBox, ChevronIcon, BoxProps } from '@stacks/ui';
 import { PoweredBy } from '@screen';
 import { buildEnterKeyEvent } from '@components/link';
 import { ChromeIcon } from '@components/icons/chrome-icon';

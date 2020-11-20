@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, PseudoBox, Flex, Text } from '@blockstack/ui';
+import { Box, PseudoBox, Flex, Text } from '@stacks/ui';
 import { SignOut } from '@components/sign-out';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { useDispatch } from '@common/hooks/use-dispatch';

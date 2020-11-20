@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, PseudoBox, Box } from '@blockstack/ui';
+import { Flex, PseudoBox, Box } from '@stacks/ui';
 import { BlockstackMini } from '../vector';
 import { buildEnterKeyEvent } from '../link';
 

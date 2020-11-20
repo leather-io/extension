@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Box, Spinner } from '@blockstack/ui';
+import { Flex, Box, Spinner } from '@stacks/ui';
 
 interface ScreenLoaderProps {
   isLoading?: boolean;
