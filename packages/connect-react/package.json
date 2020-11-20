@@ -40,7 +40,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@blockstack/eslint-config": "^1.0.3",
     "@blockstack/prettier-config": "^0.0.6",
-    "@stacks/auth": "^1.0.0-beta.10",
+    "@stacks/auth": "^1.0.0-beta.11",
     "@types/jest": "^25.2.1",
     "@types/react-dom": "^16.9.6",
     "@types/styled-components": "^5.1.0",
@@ -65,7 +65,7 @@
   "main": "dist/index.js",
   "module": "dist/connect-react.esm.js",
   "peerDependencies": {
-    "@stacks/auth": "^1.0.0-beta.10",
+    "@stacks/auth": "^1.0.0-beta.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

@@ -19,7 +19,7 @@
   "typings": "dist/connect/src/index.d.ts",
   "unpkg": "dist/bundle.js",
   "dependencies": {
-    "@stacks/transactions": "^1.0.0-beta.10",
+    "@stacks/transactions": "^1.0.0-beta.11",
     "@stacks/connect-ui": "^2.16.4",
     "jsontokens": "^3.0.0"
   },
@@ -34,6 +34,6 @@
   "main": "dist/index.js",
   "module": "dist/connect.esm.js",
   "peerDependencies": {
-    "@stacks/auth": ">=1.0.0-beta.10"
+    "@stacks/auth": ">=1.0.0-beta.11"
   }
 }

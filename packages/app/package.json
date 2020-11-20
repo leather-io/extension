@@ -33,7 +33,7 @@
     "@stacks/connect-ui": "^2.16.4",
     "@stacks/keychain": "^0.16.4",
     "@stacks/rpc-client": "^0.7.4",
-    "@stacks/transactions": "^1.0.0-beta.10",
+    "@stacks/transactions": "^1.0.0-beta.11",
     "@stacks/ui": "^3.0.0-alpha.19",
     "@types/dompurify": "^2.0.4",
     "@types/react-router-dom": "^5.1.3",
