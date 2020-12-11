@@ -47,7 +47,16 @@ const SelectedAsset: React.FC<{ setInput: (input: string) => void }> = ({ setInp
     return `${truncateMiddle(address)}.${contractName}::${assetName}`;
   };
   return (
-    <Box width="100%" my="loose">
+    <Box
+      width="100%"
+      my="loose"
+      px="base"
+      py="tight"
+      borderRadius="8px"
+      borderColor="rgb(229, 229, 236)"
+      borderWidth="1px"
+      _hover={{ borderColor: 'ink.300' }}
+    >
       <Flex flexWrap="wrap" flexDirection="row">
         <Box width="32px" py="tight" mr="base">
           <DynamicColorCircle mr="tight" size="32px" string={name}>

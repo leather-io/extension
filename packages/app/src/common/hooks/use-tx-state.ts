@@ -7,17 +7,21 @@ import {
   pendingTransactionStore,
   signedTransactionStore,
   requestTokenStore,
+  pendingTransactionFunctionSelector,
 } from '@store/recoil/transaction';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState, useRecoilValueLoadable } from 'recoil';
 
 export const useTxState = () => {
   const location = useLocation();
   const { currentIdentity } = useWallet();
   const [error, setError] = useState<string | null>(null);
   const pendingTransaction = useRecoilValue(pendingTransactionStore);
-  const contractSource = useRecoilValue(contractSourceStore);
-  const contractInterface = useRecoilValue(contractInterfaceStore);
-  const signedTransaction = useRecoilValue(signedTransactionStore(currentIdentity.keyPair.key));
+  const contractSource = useRecoilValueLoadable(contractSourceStore);
+  const contractInterface = useRecoilValueLoadable(contractInterfaceStore);
+  const pendingTransactionFunction = useRecoilValueLoadable(pendingTransactionFunctionSelector);
+  const signedTransaction = useRecoilValueLoadable(
+    signedTransactionStore(currentIdentity.keyPair.key)
+  );
   const requestToken = useRecoilValue(requestTokenStore);
   const setRequestToken = useSetRecoilState(requestTokenStore);
 
@@ -46,5 +50,6 @@ export const useTxState = () => {
     contractSource,
     error,
     contractInterface,
+    pendingTransactionFunction,
   };
 };

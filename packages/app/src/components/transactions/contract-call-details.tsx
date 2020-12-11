@@ -9,14 +9,20 @@ import {
   ClarityType,
   getCVTypeString,
 } from '@blockstack/stacks-transactions';
+import { LoadingRectangle } from '@components/loading-rectangle';
 
 interface ArgumentProps {
   arg: string;
-  name: string;
+  index: number;
 }
-const Argument: React.FC<ArgumentProps> = ({ arg, name }) => {
+const Argument: React.FC<ArgumentProps> = ({ arg, index }) => {
+  const { pendingTransactionFunction } = useTxState();
   const argCV = deserializeCV(Buffer.from(arg, 'hex'));
   const strValue = cvToString(argCV);
+  const name =
+    pendingTransactionFunction.state === 'hasValue'
+      ? pendingTransactionFunction.contents.args[index].name
+      : null;
   const getCVString = () => {
     if (argCV.type === ClarityType.PrincipalStandard) {
       return truncateMiddle(strValue);
@@ -27,7 +33,11 @@ const Argument: React.FC<ArgumentProps> = ({ arg, name }) => {
     <Box mt="base" width="100%">
       <Flex>
         <Box flexGrow={1}>
-          <Text display="block">{name}</Text>
+          {name ? (
+            <Text display="block">{name}</Text>
+          ) : (
+            <LoadingRectangle width="100px" height="14px" />
+          )}
           <Text textStyle="caption" color="ink.600">
             {getCVTypeString(argCV)}
           </Text>
@@ -43,20 +53,13 @@ const Argument: React.FC<ArgumentProps> = ({ arg, name }) => {
 };
 
 export const ContractCallDetails: React.FC = () => {
-  const { pendingTransaction, contractInterface } = useTxState();
-  if (!pendingTransaction || pendingTransaction.txType !== 'contract_call' || !contractInterface) {
-    return null;
-  }
-  const selectedFunction = contractInterface.functions.find(func => {
-    return func.name === pendingTransaction.functionName;
-  });
-  if (!selectedFunction) {
+  const { pendingTransaction } = useTxState();
+  if (!pendingTransaction || pendingTransaction.txType !== 'contract_call') {
     return null;
   }
 
   const args = pendingTransaction.functionArgs.map((arg, index) => {
-    const funcArg = selectedFunction.args[index];
-    return <Argument key={funcArg.name} arg={arg} name={funcArg.name} />;
+    return <Argument key={`${arg}-${index}`} arg={arg} index={index} />;
   });
   return (
     <>
