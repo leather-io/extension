@@ -36,9 +36,38 @@ const TxButton: React.FC<TxButtonProps> = ({ variant, onClick }) => {
   );
 };
 
+export const SignedOut = () => {
+  const { doChangeScreen } = useAnalytics();
+  return (
+    <PopupContainer hideActions={true}>
+      <Box width="100%" mt="extra-loose" textAlign="center">
+        <Text textStyle="display.large" display="block">
+          You're logged out!
+        </Text>
+        <Button
+          my="extra-loose"
+          onClick={() => {
+            if (typeof chrome !== 'undefined' && chrome.runtime.getURL) {
+              window.open(chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`));
+            } else {
+              doChangeScreen(ScreenPaths.INSTALLED);
+            }
+          }}
+        >
+          Get started
+        </Button>
+      </Box>
+    </PopupContainer>
+  );
+};
+
 export const PopupHome: React.FC = () => {
   const { currentIdentity } = useWallet();
   const { doChangeScreen } = useAnalytics();
+
+  if (!currentIdentity) {
+    return <SignedOut />;
+  }
   return (
     <PopupContainer>
       <Box width="100%" mt="loose">

@@ -9,16 +9,6 @@ wrapStore(store, {
   serializer: (payload: any) => JSON.stringify(payload),
 });
 
-// chrome.browserAction.onClicked.addListener(() => {
-//   chrome.runtime.openOptionsPage();
-// });
-
-chrome.runtime.onInstalled.addListener(details => {
-  if (details.reason === 'install') {
-    chrome.tabs.create({ url: chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`) });
-  }
-});
-
 chrome.runtime.onInstalled.addListener(details => {
   if (details.reason === 'install') {
     chrome.tabs.create({ url: chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`) });

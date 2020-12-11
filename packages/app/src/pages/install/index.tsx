@@ -7,6 +7,7 @@ import { ScreenPaths } from '@store/onboarding/types';
 import { ConnectIcon } from '@components/icons/connect-icon';
 import { InstallFinished } from '@pages/install/finished';
 import { doCreateSecretKey } from '@store/onboarding/actions';
+import { Link } from '@components/link';
 
 export const Installed: React.FC = () => {
   const dispatch = useDispatch();
@@ -65,9 +66,9 @@ export const Installed: React.FC = () => {
           </Flex>
           <Box pt="base-loose">
             <Text fontSize="14px" lineHeight="20px" color="blue" position="relative">
-              <a href="/#/installed/sign-in" title="Continue with Secret Key" data-test="sign-in">
+              <Link onClick={() => doChangeScreen(ScreenPaths.SIGN_IN_INSTALLED)}>
                 Continue with Secret Key
-              </a>
+              </Link>
             </Text>
           </Box>
         </Flex>

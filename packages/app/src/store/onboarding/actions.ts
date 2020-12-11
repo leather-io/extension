@@ -27,7 +27,6 @@ import { selectIdentities, selectCurrentWallet } from '@store/wallet/selectors';
 import { finalizeAuthResponse } from '@common/utils';
 import { gaiaUrl } from '@common/constants';
 import { doTrackScreenChange } from '@common/track';
-import { TransactionVersion } from '@blockstack/stacks-transactions';
 
 export const doSetOnboardingProgress = (status: boolean): OnboardingActions => {
   return {
@@ -176,15 +175,11 @@ export function doFinishSignIn(
         name: appName as string,
       },
     });
-    const stxAddress = wallet.stacksPrivateKey
-      ? wallet.getSigner().getSTXAddress(TransactionVersion.Testnet)
-      : undefined;
     const authResponse = await currentIdentity.makeAuthResponse({
       gaiaUrl,
       appDomain: appURL.origin,
       transitPublicKey: decodedAuthRequest.public_keys[0],
       scopes: decodedAuthRequest.scopes,
-      stxAddress,
     });
     finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
     dispatch(doSetOnboardingPath(undefined));

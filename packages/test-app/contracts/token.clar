@@ -1,7 +1,5 @@
-(define-constant owner 'ST23DA7M8MW7T9DAHR8WADX72B80EVF2Q94S1B54X)
-
 (define-fungible-token connect-token)
-(begin (ft-mint? connect-token u10000000 owner))
+(begin (ft-mint? connect-token u10000000 tx-sender))
 
 (define-public (transfer
     (recipient principal)

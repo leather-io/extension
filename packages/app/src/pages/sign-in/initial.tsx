@@ -76,6 +76,7 @@ export const SignIn: React.FC<SignInProps> = props => {
               as="textarea"
               value={seed}
               fontSize={'16px'}
+              width="100%"
               autoCapitalize="off"
               spellCheck={false}
               style={{ resize: 'none' }}

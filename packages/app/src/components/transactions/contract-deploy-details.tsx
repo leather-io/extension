@@ -23,7 +23,7 @@ export const ContractDeployDetails: React.FC = () => {
           Contract Deploy Details
         </Text>
       </Box>
-      <Box>
+      <Box maxWidth="100%">
         <Flex dir="column" flexWrap="wrap" width="100%">
           <Box mt="base" width="100%">
             <Flex my="base">
@@ -53,10 +53,10 @@ export const ContractDeployDetails: React.FC = () => {
               </Box>
             </Flex>
             <Flex my="base" dir="column">
-              <Box mb="base">
+              <Box mb="base" width="100%">
                 <Text display="block">Contract Code</Text>
               </Box>
-              <CodeBlock code={pendingTransaction.codeBody} Prism={Prism as any} />
+              <CodeBlock width="100%" code={pendingTransaction.codeBody} Prism={Prism as any} />
             </Flex>
           </Box>
         </Flex>

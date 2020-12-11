@@ -54,13 +54,11 @@ export class Identity {
     gaiaUrl,
     transitPublicKey,
     scopes = [],
-    stxAddress,
   }: {
     appDomain: string;
     gaiaUrl: string;
     transitPublicKey: string;
     scopes?: string[];
-    stxAddress?: string;
   }) {
     const appPrivateKey = this.appPrivateKey(appDomain);
     const hubInfo = await getHubInfo(gaiaUrl);
@@ -104,7 +102,7 @@ export class Identity {
       this.keyPair.key,
       {
         ...(this.profile || {}),
-        stxAddress,
+        stxAddress: this.getStxAddress(),
       },
       this.defaultUsername || '',
       {
