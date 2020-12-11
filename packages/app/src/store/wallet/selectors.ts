@@ -1,5 +1,4 @@
 import { AppState } from '..';
-import { defaultNetworks, defaultNetworkKey } from './reducer';
 
 export const selectCurrentWallet = (state: AppState) => state.wallet.currentWallet;
 export const selectIdentities = (state: AppState) => state.wallet.identities;
@@ -14,12 +13,4 @@ export const selectCurrentIdentity = (state: AppState) => {
   const identityIndex = selectCurrentIdentityIndex(state);
   const identity = identities[identityIndex];
   return identity;
-};
-
-export const selectNetworks = (state: AppState) => state.wallet.networks || defaultNetworks;
-export const selectCurrentNetworkKey = (state: AppState) =>
-  state.wallet.currentNetwork || defaultNetworkKey;
-export const selectCurrentNetwork = (state: AppState) => {
-  const networks = selectNetworks(state);
-  return networks[selectCurrentNetworkKey(state)];
 };

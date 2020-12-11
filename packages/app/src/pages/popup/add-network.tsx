@@ -1,15 +1,15 @@
 import React from 'react';
 import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
+import { useSetRecoilState } from 'recoil';
+import { networksStore } from '@store/recoil/networks';
 import { PopupContainer } from '@components/popup/container';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
-import { useDispatch } from '@common/hooks/use-dispatch';
-import { doAddNetwork } from '@store/wallet/actions';
 
 export const AddNetwork: React.FC = () => {
   const { doChangeScreen } = useAnalytics();
-  const dispatch = useDispatch();
+  const setNetworks = useSetRecoilState(networksStore);
   return (
     <PopupContainer title="Add a network" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)}>
       <Box mt="base">
@@ -23,7 +23,16 @@ export const AddNetwork: React.FC = () => {
       <Formik
         initialValues={{ name: '', url: '', key: '' }}
         onSubmit={values => {
-          dispatch(doAddNetwork(values));
+          const { name, url, key } = values;
+          setNetworks(networks => {
+            return {
+              ...networks,
+              [key]: {
+                url,
+                name,
+              },
+            };
+          });
           doChangeScreen(ScreenPaths.POPUP_HOME);
         }}
       >

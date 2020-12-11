@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { space, Box, Text, Button, ButtonGroup } from '@blockstack/ui';
 import { getAuthOrigin } from '@common/utils';
 import { useConnect } from '@stacks/connect-react';
@@ -12,11 +12,26 @@ import {
   standardPrincipalCV,
   trueCV,
 } from '@blockstack/stacks-transactions';
+import { Link } from './link';
+import { ExplorerLink } from './explorer-link';
 
 export const Debugger = () => {
   const { doContractCall, doSTXTransfer, doContractDeploy } = useConnect();
+  const [txId, setTxId] = useState<string>('');
+  const [txType, setTxType] = useState<string>('');
+
+  const clearState = () => {
+    setTxId('');
+    setTxType('');
+  };
+
+  const setState = (type: string, id: string) => {
+    setTxId(id);
+    setTxType(type);
+  };
 
   const callFaker = async () => {
+    clearState();
     const authOrigin = getAuthOrigin();
     const network = new StacksTestnet();
     const args = [
@@ -37,11 +52,13 @@ export const Debugger = () => {
       functionArgs: args,
       finished: data => {
         console.log('finished faker!', data);
+        setState('Contract Call', data.txId);
       },
     });
   };
 
   const stxTransfer = async () => {
+    clearState();
     const authOrigin = getAuthOrigin();
     const network = new StacksTestnet();
     await doSTXTransfer({
@@ -51,11 +68,13 @@ export const Debugger = () => {
       recipient: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6',
       finished: data => {
         console.log('finished stx transfer!', data);
+        setState('Stacks Transfer', data.txId);
       },
     });
   };
 
   const deployContract = async () => {
+    clearState();
     const authOrigin = getAuthOrigin();
     const network = new StacksTestnet();
     await doContractDeploy({
@@ -65,6 +84,25 @@ export const Debugger = () => {
       codeBody: '(print true)',
       finished: data => {
         console.log('finished stx transfer!', data);
+        setState('Contract Deploy', data.txId);
+      },
+    });
+  };
+
+  const getFaucetTokens = async () => {
+    clearState();
+    const authOrigin = getAuthOrigin();
+    const network = new StacksTestnet();
+    await doContractCall({
+      network,
+      authOrigin,
+      contractAddress: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6',
+      contractName: 'connect-token',
+      functionName: 'faucet',
+      functionArgs: [],
+      finished: data => {
+        console.log('finished faucet!', data);
+        setState('Token Faucet', data.txId);
       },
     });
   };
@@ -73,12 +111,20 @@ export const Debugger = () => {
       <Text as="h2" textStyle="display.small">
         Debugger
       </Text>
-      <Text textStyle="body.large" display="block" my={space('loose')}>
+      <Text textStyle="body.large" display="block" my={space('base')}>
         Random utilities for testing things out.
       </Text>
+      {txId && (
+        <Text textStyle="body.large" display="block" my={space('base')}>
+          <Text color="green" fontSize={1}>
+            Successfully deployed &quot;{txType}&quot;
+          </Text>
+          <ExplorerLink txId={txId} />
+        </Text>
+      )}
 
       <Box>
-        <ButtonGroup spacing={4} my={5}>
+        <ButtonGroup spacing={4} my="base">
           <Button mt={3} onClick={callFaker}>
             Contract call
           </Button>
@@ -87,6 +133,9 @@ export const Debugger = () => {
           </Button>
           <Button mt={3} onClick={deployContract}>
             Contract deploy
+          </Button>
+          <Button mt={3} onClick={getFaucetTokens}>
+            Get tokens
           </Button>
         </ButtonGroup>
       </Box>

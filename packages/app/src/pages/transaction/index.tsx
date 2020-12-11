@@ -5,6 +5,8 @@ import { LoadingRectangle } from '@components/loading-rectangle';
 import { useTxState } from '@common/hooks/use-tx-state';
 import { stacksValue } from '@common/stacks-utils';
 import { ContractCallDetails } from '@components/transactions/contract-call-details';
+import { StxTransferDetails } from '@components/transactions/stx-transfer-details';
+import { ContractDeployDetails } from '@components/transactions/contract-deploy-details';
 import { PostConditions } from '@components/transactions/post-conditions/list';
 import { showTxDetails } from '@store/recoil/transaction';
 import { useRecoilValue } from 'recoil';
@@ -36,7 +38,7 @@ export const TransactionPage: React.FC = () => {
 };
 
 export const TransactionPageContent: React.FC = () => {
-  const { pendingTransaction, signedTransaction, contractInterface } = useTxState();
+  const { pendingTransaction, signedTransaction } = useTxState();
   const { currentNetwork } = useWallet();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const showDetails = useRecoilValue(showTxDetails);
@@ -69,10 +71,11 @@ export const TransactionPageContent: React.FC = () => {
       </Box>
       <PostConditions />
       {showDetails && (
-        <ContractCallDetails
-          pendingTransaction={pendingTransaction}
-          contractInterface={contractInterface}
-        />
+        <>
+          <ContractCallDetails />
+          <StxTransferDetails />
+          <ContractDeployDetails />
+        </>
       )}
       <Box flexGrow={1} />
       <Box width="100%" mt="extra-loose">

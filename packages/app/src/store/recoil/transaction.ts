@@ -3,23 +3,19 @@ import {
   StacksMainnet,
   StacksTestnet,
   PostCondition,
-  StacksTransaction,
-  Authorization,
 } from '@blockstack/stacks-transactions';
 import { TransactionPayload, TransactionTypes } from '@stacks/connect';
 import { decodeToken } from 'blockstack';
 import { atom, selector, selectorFamily } from 'recoil';
-import RPCClient from '@stacks/rpc-client';
 import { WalletSigner } from '@stacks/keychain';
 import { generateTransaction } from '@common/transaction-utils';
-import { SingleSigSpendingCondition } from '@blockstack/stacks-transactions/lib/authorization';
-import BN from 'bn.js';
+import { rpcClientStore, currentNetworkStore } from '@store/recoil/networks';
 
 /** Transaction signing popup */
 
 export const showTxDetails = atom<boolean>({
   key: 'transaction.show-details',
-  default: false,
+  default: true,
 });
 
 export const requestTokenStore = atom<string>({
@@ -44,16 +40,16 @@ export const pendingTransactionStore = selector({
   get: ({ get }) => {
     try {
       const token = decodeToken(get(requestTokenStore));
+      const currentNetwork = get(currentNetworkStore);
       const tx = (token.payload as unknown) as TransactionPayload;
       const postConditions = get(postConditionsStore);
       tx.postConditions = [...postConditions];
-      if (tx.network) {
-        const network =
-          tx.network.version === TransactionVersion.Mainnet
-            ? new StacksMainnet()
-            : new StacksTestnet();
-        tx.network = { ...network, ...tx.network };
-      }
+      const network =
+        tx.network?.version === TransactionVersion.Mainnet
+          ? new StacksMainnet()
+          : new StacksTestnet();
+      network.coreApiUrl = currentNetwork.url;
+      tx.network = network;
       return tx;
     } catch (error) {
       console.error('pending error', error.message);
@@ -62,15 +58,15 @@ export const pendingTransactionStore = selector({
   },
 });
 
-export const contractSourceStore = selectorFamily({
+export const contractSourceStore = selector({
   key: 'transaction.contract-source',
-  get: (apiServer: string) => async ({ get }) => {
+  get: async ({ get }) => {
     const tx = get(pendingTransactionStore);
+    const rpcClient = get(rpcClientStore);
     if (!tx) {
       return '';
     }
     if (tx.txType === TransactionTypes.ContractCall) {
-      const rpcClient = new RPCClient(apiServer);
       const source = await rpcClient.fetchContractSource({
         contractName: tx.contractName,
         contractAddress: tx.contractAddress,
@@ -83,15 +79,15 @@ export const contractSourceStore = selectorFamily({
   },
 });
 
-export const contractInterfaceStore = selectorFamily({
+export const contractInterfaceStore = selector({
   key: 'transaction.contract-interface',
-  get: (apiServer: string) => async ({ get }) => {
+  get: async ({ get }) => {
     const tx = get(pendingTransactionStore);
+    const rpcClient = get(rpcClientStore);
     if (!tx) {
       return undefined;
     }
     if (tx.txType === TransactionTypes.ContractCall) {
-      const rpcClient = new RPCClient(apiServer);
       const abi = await rpcClient.fetchContractInterface({
         contractName: tx.contractName,
         contractAddress: tx.contractAddress,
