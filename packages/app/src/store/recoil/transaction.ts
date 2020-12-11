@@ -98,12 +98,34 @@ export const contractInterfaceStore = selector({
   },
 });
 
+export const pendingTransactionFunctionSelector = selector({
+  key: 'transactions.pending-transaction-function',
+  get: async ({ get }) => {
+    const pendingTransaction = get(pendingTransactionStore);
+    const contractInterface = get(contractInterfaceStore);
+    if (
+      !pendingTransaction ||
+      pendingTransaction.txType !== 'contract_call' ||
+      !contractInterface
+    ) {
+      throw new Error("Can't get selected function without a contract call pending transaction.");
+    }
+    const selectedFunction = contractInterface.functions.find(func => {
+      return func.name === pendingTransaction.functionName;
+    });
+    if (!selectedFunction) {
+      throw new Error('Attempting to call a contract with a function that does not exist');
+    }
+    return selectedFunction;
+  },
+});
+
 export const signedTransactionStore = selectorFamily({
   key: 'transaction.signedTransaction',
   get: (privateKey: string) => async ({ get }) => {
     const pendingTransaction = get(pendingTransactionStore);
     if (!pendingTransaction) {
-      return undefined;
+      throw new Error('Unable to get signed transaction - no pending transaction found.');
     }
     const signer = new WalletSigner({ privateKey });
     const tx = await generateTransaction({

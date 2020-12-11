@@ -54,9 +54,9 @@ export const TransactionPageContent: React.FC = () => {
 
   const nodeUrl = currentNetwork.url;
   const submit = useCallback(async () => {
-    if (!pendingTransaction || !signedTransaction) return;
+    if (!pendingTransaction || signedTransaction.state !== 'hasValue') return;
     setIsSubmitting(true);
-    await finishTransaction({ tx: signedTransaction, pendingTransaction, nodeUrl });
+    await finishTransaction({ tx: signedTransaction.contents, pendingTransaction, nodeUrl });
     setIsSubmitting(false);
   }, [pendingTransaction, signedTransaction, nodeUrl]);
   return (
@@ -87,15 +87,25 @@ export const TransactionPageContent: React.FC = () => {
           </Box>
           <Box>
             <Text textStyle="caption" color="ink.600">
-              {stacksValue({
-                value: signedTransaction?.auth.spendingCondition?.fee?.toNumber() || 0,
-              })}
+              {signedTransaction.state === 'loading' ? (
+                <LoadingRectangle width="100px" height="14px" />
+              ) : null}
+              {signedTransaction.state === 'hasValue'
+                ? stacksValue({
+                    value: signedTransaction.contents.auth.spendingCondition?.fee?.toNumber() || 0,
+                  })
+                : null}
             </Text>
           </Box>
         </Flex>
       </Box>
       <Box mt="base">
-        <Button width="100%" onClick={submit} isLoading={isSubmitting}>
+        <Button
+          width="100%"
+          onClick={submit}
+          isLoading={isSubmitting}
+          isDisabled={signedTransaction.state !== 'hasValue'}
+        >
           Confirm
         </Button>
       </Box>
