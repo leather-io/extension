@@ -20,12 +20,19 @@ const CloseIconContainer = styled(Box)`
 interface PopupHomeProps {
   title?: string;
   onClose?: () => void;
+  hideActions?: boolean;
 }
-export const PopupContainer: React.FC<PopupHomeProps> = ({ children, title, onClose }) => {
+export const PopupContainer: React.FC<PopupHomeProps> = ({
+  children,
+  title,
+  onClose,
+  hideActions,
+}) => {
   const [isShowingSwitchAccount, setShowingSwitchAccount] = useState(false);
   const [isShowingNetworks, setShowingNetworks] = useState(false);
   const [isShowingPopover, setShowingPopover] = useState(false);
   const setAccountDrawerStep = useSetRecoilState(accountDrawerStep);
+  const isExtension = EXT_ENV !== 'web';
   return (
     <>
       <AccountsDrawer
@@ -38,7 +45,8 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({ children, title, onCl
       <NetworksDrawer showing={isShowingNetworks} close={() => setShowingNetworks(false)} />
       <Flex
         minHeight="100vh"
-        width="440px"
+        minWidth={isExtension ? '440px' : undefined}
+        maxWidth="100vw"
         background="white"
         p="24px"
         flexWrap="wrap"
@@ -54,15 +62,13 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({ children, title, onCl
               <ConnectIcon height="16px" />
             )}
           </Box>
-          {onClose ? (
+          {hideActions ? null : onClose ? (
             <CloseIconContainer>
               <ArrowIcon
                 height="16px"
                 cursor="pointer"
                 onClick={onClose}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                direction="left"
+                direction={'left' as any}
               />
             </CloseIconContainer>
           ) : (

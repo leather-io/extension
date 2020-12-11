@@ -10,10 +10,10 @@ interface Networks {
 }
 
 export const defaultNetworks: Networks = {
-  mainnet: {
-    url: 'https://core.blockstack.org',
-    name: 'Mainnet',
-  },
+  // mainnet: {
+  //   url: 'https://core.blockstack.org',
+  //   name: 'Mainnet',
+  // },
   testnet: {
     url: 'https://stacks-node-api.blockstack.org',
     name: 'Testnet',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { space, Box, Text, Button, ButtonGroup } from '@blockstack/ui';
 import { getAuthOrigin } from '@common/utils';
+import { demoTokenContract } from '@common/contracts';
 import { useConnect } from '@stacks/connect-react';
 import {
   StacksTestnet,
@@ -12,7 +13,6 @@ import {
   standardPrincipalCV,
   trueCV,
 } from '@blockstack/stacks-transactions';
-import { Link } from './link';
 import { ExplorerLink } from './explorer-link';
 
 export const Debugger = () => {
@@ -81,7 +81,7 @@ export const Debugger = () => {
       network,
       authOrigin,
       contractName: `demo-deploy-${new Date().getTime().toString()}`,
-      codeBody: '(print true)',
+      codeBody: demoTokenContract,
       finished: data => {
         console.log('finished stx transfer!', data);
         setState('Contract Deploy', data.txId);
@@ -112,12 +112,12 @@ export const Debugger = () => {
         Debugger
       </Text>
       <Text textStyle="body.large" display="block" my={space('base')}>
-        Random utilities for testing things out.
+        Try out a bunch of different transactions on the Stacks blockchain testnet.
       </Text>
       {txId && (
         <Text textStyle="body.large" display="block" my={space('base')}>
           <Text color="green" fontSize={1}>
-            Successfully deployed &quot;{txType}&quot;
+            Successfully broadcasted &quot;{txType}&quot;
           </Text>
           <ExplorerLink txId={txId} />
         </Text>

@@ -81,7 +81,7 @@ export const ContractCallDetails: React.FC = () => {
       <Divider />
       <Box mt="base">
         <Text fontWeight="500" display="block">
-          Arguments
+          {pendingTransaction.functionArgs.length > 0 ? 'Arguments' : 'No arguments provided'}
         </Text>
       </Box>
       <Box>

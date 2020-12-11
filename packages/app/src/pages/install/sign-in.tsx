@@ -73,6 +73,7 @@ export const InstalledSignIn: React.FC = () => {
               fontSize={'16px'}
               autoCapitalize="off"
               spellCheck={false}
+              width="100%"
               style={{ resize: 'none' }}
               ref={textAreaRef as any}
               onChange={async (evt: React.FormEvent<HTMLInputElement>) => {
