@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransactionPayload } from '@stacks/connect';
+import { useTxState } from '@common/hooks/use-tx-state';
 import { Box, Text, Flex } from '@stacks/ui';
 import { Divider } from '@components/divider';
 import { truncateMiddle } from '@stacks/ui-utils';
@@ -9,7 +9,6 @@ import {
   ClarityType,
   getCVTypeString,
 } from '@blockstack/stacks-transactions';
-import { ContractInterface } from '@stacks/rpc-client';
 
 interface ArgumentProps {
   arg: string;
@@ -43,14 +42,8 @@ const Argument: React.FC<ArgumentProps> = ({ arg, name }) => {
   );
 };
 
-interface ContractCallDetailsProps {
-  pendingTransaction?: TransactionPayload;
-  contractInterface?: ContractInterface;
-}
-export const ContractCallDetails: React.FC<ContractCallDetailsProps> = ({
-  pendingTransaction,
-  contractInterface,
-}) => {
+export const ContractCallDetails: React.FC = () => {
+  const { pendingTransaction, contractInterface } = useTxState();
   if (!pendingTransaction || pendingTransaction.txType !== 'contract_call' || !contractInterface) {
     return null;
   }

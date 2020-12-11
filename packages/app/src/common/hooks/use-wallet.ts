@@ -7,15 +7,14 @@ import {
   selectIsSignedIn,
   selectCurrentIdentity,
   selectCurrentIdentityIndex,
-  selectCurrentNetwork,
-  selectNetworks,
-  selectCurrentNetworkKey,
 } from '@store/wallet/selectors';
 import { selectSecretKey } from '@store/onboarding/selectors';
 import { decrypt } from '@stacks/keychain';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import { useState, useEffect } from 'react';
 import { doStoreSeed } from '@store/wallet';
+import { useRecoilValue } from 'recoil';
+import { currentNetworkKeyStore, currentNetworkStore, networksStore } from '@store/recoil/networks';
 
 export const useWallet = () => {
   const dispatch = useDispatch();
@@ -26,9 +25,9 @@ export const useWallet = () => {
   const isRestoringWallet = useSelector(selectIsRestoringWallet);
   const currentIdentityIndex = useSelector(selectCurrentIdentityIndex);
   const currentIdentity = useSelector(selectCurrentIdentity);
-  const networks = useSelector(selectNetworks);
-  const currentNetwork = useSelector(selectCurrentNetwork);
-  const currentNetworkKey = useSelector(selectCurrentNetworkKey);
+  const networks = useRecoilValue(networksStore);
+  const currentNetwork = useRecoilValue(currentNetworkStore);
+  const currentNetworkKey = useRecoilValue(currentNetworkKeyStore);
   const isSignedIn = useSelector(selectIsSignedIn);
   const [secretKey, setSecretKey] = useState(onboardingSecretKey);
 

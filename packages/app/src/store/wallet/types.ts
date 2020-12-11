@@ -26,31 +26,9 @@ interface LogOutAction {
   type: typeof SIGN_OUT;
 }
 
-interface ChangeNetworkAction {
-  type: typeof CHANGE_NETWORK;
-  key: string;
-}
-
 interface SetIdentityAction {
   type: typeof SET_IDENTITY_INDEX;
   index: number;
-}
-
-export interface Network {
-  key: string;
-  url: string;
-  name: string;
-}
-
-interface AddNetworkAction extends Network {
-  type: typeof ADD_NETWORK;
-}
-
-interface Networks {
-  [key: string]: {
-    url: string;
-    name: string;
-  };
 }
 
 export interface WalletState {
@@ -59,15 +37,11 @@ export interface WalletState {
   currentWallet?: Wallet;
   identities: Identity[];
   currentIdentityIndex: number;
-  networks: Networks;
-  currentNetwork: string;
 }
 
 export type WalletActions =
   | StoreSeedAction
   | IsRestoringWalletAction
   | GenerateWalletAction
-  | AddNetworkAction
-  | ChangeNetworkAction
   | SetIdentityAction
   | LogOutAction;

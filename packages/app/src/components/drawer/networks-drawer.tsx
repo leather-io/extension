@@ -5,13 +5,13 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
-import { useDispatch } from '@common/hooks/use-dispatch';
-import { doChangeNetwork } from '@store/wallet/actions';
+import { useSetRecoilState } from 'recoil';
+import { currentNetworkKeyStore } from '@store/recoil/networks';
 
 export const NetworksDrawer: React.FC<BaseDrawerProps> = ({ showing, close }) => {
   const { networks, currentNetworkKey } = useWallet();
+  const setCurrentNetworkKey = useSetRecoilState(currentNetworkKeyStore);
   const { doChangeScreen } = useAnalytics();
-  const dispatch = useDispatch();
   const networkRows = Object.keys(networks).map(networkKey => {
     const network = networks[networkKey];
     return (
@@ -25,7 +25,7 @@ export const NetworksDrawer: React.FC<BaseDrawerProps> = ({ showing, close }) =>
         px={6}
         py="base"
         onClick={() => {
-          dispatch(doChangeNetwork(networkKey));
+          setCurrentNetworkKey(networkKey);
           close();
         }}
       >
