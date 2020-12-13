@@ -1,25 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Box, Flex, Text, Button } from '@stacks/ui';
-import { useDispatch } from '@common/hooks/use-dispatch';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { ConnectIcon } from '@components/icons/connect-icon';
 import { InstallFinished } from '@pages/install/finished';
-import { doCreateSecretKey } from '@store/onboarding/actions';
 import { Link } from '@components/link';
 
 export const Installed: React.FC = () => {
-  const dispatch = useDispatch();
-  const { identities } = useWallet();
+  const { isSignedIn, doMakeWallet } = useWallet();
   const { doChangeScreen } = useAnalytics();
-  const [isCreatingWallet, setIsCreatingWallet] = useState(false);
-  const isSignedIn = identities.length > 0;
 
-  const makeSecretKey = useCallback(async () => {
+  const [isCreatingWallet, setIsCreatingWallet] = useState(false);
+
+  const register = useCallback(() => {
     setIsCreatingWallet(true);
-    await dispatch(doCreateSecretKey());
-  }, []);
+    doMakeWallet();
+  }, [doMakeWallet]);
 
   if (isSignedIn) {
     return <InstallFinished />;
@@ -60,7 +57,7 @@ export const Installed: React.FC = () => {
             maxWidth={[null, '396px']}
             minWidth={[null, '396px']}
           >
-            <Button onClick={makeSecretKey} isLoading={isCreatingWallet} data-test="sign-up">
+            <Button onClick={register} isLoading={isCreatingWallet} data-test="sign-up">
               I'm new to Connect
             </Button>
           </Flex>

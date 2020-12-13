@@ -2,21 +2,18 @@ import React from 'react';
 import { Flex, Text, Button, FlexProps } from '@stacks/ui';
 import { Accounts } from '@components/accounts';
 
-import { useWallet } from '@common/hooks/use-wallet';
-
 interface SignOutProps extends FlexProps {
   signOut: () => void;
   buttonMode?: 'primary' | 'secondary';
 }
 
 export const SignOut = ({ buttonMode = 'primary', signOut, ...rest }: SignOutProps) => {
-  const { identities } = useWallet();
   return (
     <Flex flexDirection="column" maxWidth={[null, '320px']} mt={[null, '6vh', '12vh']} {...rest}>
       <Text as="h1" fontWeight="bold" mb={6} display="block">
         My usernames
       </Text>
-      <Accounts identities={identities} />
+      <Accounts />
       <Button mode={buttonMode} onClick={signOut} mt={8} width="100%">
         Sign out
       </Button>

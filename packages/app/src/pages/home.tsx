@@ -5,7 +5,6 @@ import { useAnalytics } from '@common/hooks/use-analytics';
 import { useDispatch } from '@common/hooks/use-dispatch';
 import { ScreenPaths } from '@store/onboarding/types';
 import { useWallet } from '@common/hooks/use-wallet';
-import { doSignOut } from '@store/wallet';
 import { doSetOnboardingPath } from '@store/onboarding/actions';
 
 const SignedOut = () => (
@@ -43,8 +42,7 @@ const SecretKeyButton = () => {
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const { identities } = useWallet();
-  const isSignedIn = identities.length > 0;
+  const { isSignedIn, doSignOut } = useWallet();
 
   return (
     <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">
@@ -58,7 +56,7 @@ export const Home = () => {
             maxWidth={[null, '396px']}
             buttonMode="secondary"
             signOut={() => {
-              dispatch(doSignOut());
+              doSignOut();
               dispatch(doSetOnboardingPath(undefined));
             }}
           />

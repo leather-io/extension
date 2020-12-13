@@ -7,10 +7,10 @@ import useDocumentTitle from '@rehooks/document-title';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIGN_IN_CORRECT, SIGN_IN_CREATE, SIGN_IN_INCORRECT } from '@common/track';
 import { doSetMagicRecoveryCode } from '@store/onboarding/actions';
-import { ScreenPaths, DEFAULT_PASSWORD } from '@store/onboarding/types';
+import { ScreenPaths } from '@store/onboarding/types';
 import { AppState } from '@store';
 import { selectAppName } from '@store/onboarding/selectors';
-import { doStoreSeed } from '@store/wallet';
+import { useWallet } from '@common/hooks/use-wallet';
 import { ErrorLabel } from '@components/error-label';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ExtensionButton } from '@components/extension-button';
@@ -25,6 +25,7 @@ interface SignInProps {
 }
 
 export const SignIn: React.FC<SignInProps> = props => {
+  const { doStoreSeed } = useWallet();
   const [isLoading, setLoading] = useState(false);
   const [seed, setSeed] = useState('');
   const [seedError, setSeedError] = useState<null | string>(null);
@@ -48,7 +49,7 @@ export const SignIn: React.FC<SignInProps> = props => {
         doChangeScreen(ScreenPaths.RECOVERY_CODE);
         return;
       }
-      await doStoreSeed(parsedKeyInput, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+      await doStoreSeed(parsedKeyInput);
       doTrack(SIGN_IN_CORRECT);
       props.next();
     } catch (error) {

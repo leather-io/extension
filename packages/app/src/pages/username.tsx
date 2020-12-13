@@ -6,7 +6,7 @@ import { Title } from '@components/typography';
 
 import { useAppDetails } from '@common/hooks/useAppDetails';
 import { useDispatch } from '@common/hooks/use-dispatch';
-import { doFinishSignIn, doSetUsername } from '@store/onboarding/actions';
+import { doSetUsername } from '@store/onboarding/actions';
 import { useWallet } from '@common/hooks/use-wallet';
 import { UsernameRegistryError, ErrorReason } from './registery-error';
 
@@ -17,7 +17,6 @@ import {
   registerSubdomain,
   validateSubdomain,
 } from '@stacks/keychain';
-import { didGenerateWallet } from '@store/wallet';
 import { ErrorLabel } from '@components/error-label';
 import { gaiaUrl, Subdomain } from '@common/constants';
 import {
@@ -44,7 +43,7 @@ export const errorTextMap = {
 export const Username: React.FC<{}> = () => {
   const { pathname } = useLocation();
 
-  const { wallet } = useWallet();
+  const { wallet, setWallet, doFinishSignIn } = useWallet();
   const dispatch = useDispatch();
   const { name } = useAppDetails();
   const { doTrack } = useAnalytics();
@@ -106,8 +105,8 @@ export const Username: React.FC<{}> = () => {
         identity,
       });
       doTrack(USERNAME_SUBMIT_SUCCESS);
-      await dispatch(didGenerateWallet(wallet));
-      await dispatch(doFinishSignIn({ identityIndex }));
+      setWallet(wallet);
+      await doFinishSignIn(identityIndex);
     } catch (error) {
       doTrack(USERNAME_REGISTER_FAILED, { status: error.status });
       if (error.status === 409) {

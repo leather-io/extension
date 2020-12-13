@@ -2,9 +2,10 @@ import { fetchAllAccountData, AllAccountData, fetchBalances } from '@common/api/
 import { useWallet } from '@common/hooks/use-wallet';
 import useSWR from 'swr';
 
-export const useFetchAccountData = (principal: string) => {
-  const { currentNetwork } = useWallet();
+export const useFetchAccountData = () => {
+  const { currentNetwork, currentIdentity } = useWallet();
   const apiServer = currentNetwork.url;
+  const principal = currentIdentity?.getStxAddress();
 
   const fetcher = (apiServer: string, principal: string): Promise<AllAccountData> =>
     fetchAllAccountData(apiServer)(principal);
@@ -20,7 +21,7 @@ export const useFetchAccountData = (principal: string) => {
 export const useFetchBalances = (suspense?: boolean) => {
   const { currentNetwork, currentIdentity } = useWallet();
   const apiServer = currentNetwork.url;
-  const principal = currentIdentity.getStxAddress();
+  const principal = currentIdentity?.getStxAddress();
 
   const fetcher = (apiServer: string, principal: string) => fetchBalances(apiServer)(principal);
 

@@ -13,7 +13,7 @@ clarity(Prism);
 export const ContractDeployDetails: React.FC = () => {
   const { pendingTransaction } = useTxState();
   const { currentIdentity } = useWallet();
-  if (!pendingTransaction || pendingTransaction.txType !== 'smart_contract') {
+  if (!pendingTransaction || pendingTransaction.txType !== 'smart_contract' || !currentIdentity) {
     return null;
   }
   return (

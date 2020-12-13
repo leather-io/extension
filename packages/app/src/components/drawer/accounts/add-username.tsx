@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Box, Text, Input, Button, Flex } from '@stacks/ui';
-import { useDispatch } from '@common/hooks/use-dispatch';
-import { didGenerateWallet } from '@store/wallet/actions';
 import { IdentityNameValidityError, registerSubdomain, validateSubdomain } from '@stacks/keychain';
 import { errorTextMap } from '@pages/username';
 import { ErrorLabel } from '@components/error-label';
@@ -13,13 +11,12 @@ interface AddUsernameProps {
   close: () => void;
 }
 export const AddUsername: React.FC<AddUsernameProps> = ({ close }) => {
-  const { wallet, currentIdentity } = useWallet();
+  const { wallet, currentIdentity, setWallet } = useWallet();
   const [username, setUsername] = useState('');
   const [error, setError] = useState<IdentityNameValidityError | null>(null);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
 
-  if (!wallet) {
+  if (!wallet || !currentIdentity) {
     return null;
   }
   const onSubmit = async () => {
@@ -40,7 +37,7 @@ export const AddUsername: React.FC<AddUsernameProps> = ({ close }) => {
         gaiaHubUrl: gaiaUrl,
         identity: currentIdentity,
       });
-      await dispatch(didGenerateWallet(wallet));
+      setWallet(wallet);
       setLoading(false);
       close();
     } catch (error) {

@@ -1,25 +1,12 @@
 import React, { useEffect } from 'react';
+
 import { Home } from '@pages/home';
 import { Create, SaveKey } from '@pages/sign-up';
 import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
-
 import { Username } from '@pages/username';
 import { SecretKey } from '@pages/secret-key';
-
 import { ChooseAccount } from '@pages/connect';
-
 import { TransactionPage } from '@pages/transaction';
-
-import { doSaveAuthRequest } from '@store/onboarding/actions';
-import { useDispatch } from '@common/hooks/use-dispatch';
-import { ScreenPaths } from '@store/onboarding/types';
-import { doFinishSignIn as finishSignIn } from '@store/onboarding/actions';
-import { authenticationInit } from '@common/utils';
-import { useAnalytics } from '@common/hooks/use-analytics';
-import { useWallet } from '@common/hooks/use-wallet';
-import { useOnboardingState } from '@common/hooks/use-onboarding-state';
-import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
-import { Navigate } from '@components/navigate';
 import { Installed } from '@pages/install';
 import { InstalledSignIn } from '@pages/install/sign-in';
 import { PopupHome } from '@pages/popup';
@@ -28,24 +15,27 @@ import { PopupReceive } from '@pages/popup/receive';
 import { AddNetwork } from '@pages/popup/add-network';
 import { EditPostConditionsPage } from '@pages/transaction/edit-post-conditions';
 
+import { ScreenPaths } from '@store/onboarding/types';
+import { authenticationInit } from '@common/utils';
+import { useAnalytics } from '@common/hooks/use-analytics';
+import { useWallet } from '@common/hooks/use-wallet';
+import { useOnboardingState } from '@common/hooks/use-onboarding-state';
+import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
+import { Navigate } from '@components/navigate';
+
 export const Routes: React.FC = () => {
-  const dispatch = useDispatch();
   const { doChangeScreen } = useAnalytics();
-  const { identities } = useWallet();
+  const { isSignedIn: signedIn, doFinishSignIn, doSaveAuthRequest } = useWallet();
   const { isOnboardingInProgress, onboardingPath } = useOnboardingState();
   const authRequest = authenticationInit();
   const { search } = useLocation();
+  const isSignedIn = signedIn && !isOnboardingInProgress;
 
   useEffect(() => {
     if (authRequest) {
-      dispatch(doSaveAuthRequest(authRequest));
+      doSaveAuthRequest(authRequest);
     }
-  }, [authRequest, dispatch]);
-
-  const doFinishSignIn = ({ identityIndex }: { identityIndex: number } = { identityIndex: 0 }) =>
-    dispatch(finishSignIn({ identityIndex }));
-
-  const isSignedIn = !isOnboardingInProgress && identities.length;
+  }, [doSaveAuthRequest, authRequest]);
 
   const getSignUpElement = () => {
     if (onboardingPath) {
@@ -125,7 +115,7 @@ export const Routes: React.FC = () => {
         element={
           <ChooseAccount
             next={(identityIndex: number) => {
-              doFinishSignIn({ identityIndex });
+              doFinishSignIn(identityIndex);
             }}
           />
         }
