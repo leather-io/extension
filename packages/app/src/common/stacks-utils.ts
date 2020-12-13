@@ -89,7 +89,7 @@ export const truncateMiddle = (input: string, offset = 5): string => {
 
 export const getIdentityDisplayName = (identity: Identity, truncate = false): string => {
   if (identity.defaultUsername) {
-    return identity.defaultUsername.replace(/\.id\.blockstack$/, '');
+    return identity.defaultUsername.split('.')[0];
   }
   const address = identity.getStxAddress();
   if (truncate) {
