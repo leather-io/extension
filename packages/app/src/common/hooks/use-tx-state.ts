@@ -10,10 +10,12 @@ import {
   pendingTransactionFunctionSelector,
 } from '@store/recoil/transaction';
 import { useRecoilValue, useSetRecoilState, useRecoilValueLoadable } from 'recoil';
+import { currentNetworkStore } from '@store/recoil/networks';
+import { finishTransaction } from '@common/transaction-utils';
 
 export const useTxState = () => {
   const location = useLocation();
-  const { currentIdentity } = useWallet();
+  const { currentIdentity, doSetLatestNonce } = useWallet();
   const [error, setError] = useState<string | null>(null);
   const pendingTransaction = useRecoilValue(pendingTransactionStore);
   const contractSource = useRecoilValueLoadable(contractSourceStore);
@@ -22,6 +24,7 @@ export const useTxState = () => {
   const signedTransaction = useRecoilValueLoadable(signedTransactionStore);
   const requestToken = useRecoilValue(requestTokenStore);
   const setRequestToken = useSetRecoilState(requestTokenStore);
+  const currentNetwork = useRecoilValue(currentNetworkStore);
 
   if (!currentIdentity) {
     throw new Error('User must be logged in.');
@@ -38,6 +41,13 @@ export const useTxState = () => {
     }
   }, [location.search, setRequestToken, requestToken]);
 
+  const doSubmitPendingTransaction = useCallback(async () => {
+    if (!pendingTransaction || signedTransaction.state !== 'hasValue') return;
+    const tx = signedTransaction.contents;
+    await finishTransaction({ tx, pendingTransaction, nodeUrl: currentNetwork.url });
+    doSetLatestNonce(tx);
+  }, [pendingTransaction, signedTransaction, currentNetwork.url, doSetLatestNonce]);
+
   useEffect(() => {
     decodeRequest();
   }, [decodeRequest]);
@@ -49,5 +59,6 @@ export const useTxState = () => {
     error,
     contractInterface,
     pendingTransactionFunction,
+    doSubmitPendingTransaction,
   };
 };

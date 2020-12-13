@@ -11,8 +11,6 @@ import { PostConditions } from '@components/transactions/post-conditions/list';
 import { showTxDetails } from '@store/recoil/transaction';
 import { useRecoilValue } from 'recoil';
 import { TransactionTypes } from '@stacks/connect';
-import { finishTransaction } from '@common/transaction-utils';
-import { useWallet } from '@common/hooks/use-wallet';
 
 export const TxLoading: React.FC = () => {
   return (
@@ -38,8 +36,7 @@ export const TransactionPage: React.FC = () => {
 };
 
 export const TransactionPageContent: React.FC = () => {
-  const { pendingTransaction, signedTransaction } = useTxState();
-  const { currentNetwork } = useWallet();
+  const { pendingTransaction, signedTransaction, doSubmitPendingTransaction } = useTxState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const showDetails = useRecoilValue(showTxDetails);
   const txType = pendingTransaction?.txType;
@@ -52,13 +49,11 @@ export const TransactionPageContent: React.FC = () => {
     return 'Sign transaction';
   }, [txType]);
 
-  const nodeUrl = currentNetwork.url;
   const submit = useCallback(async () => {
-    if (!pendingTransaction || signedTransaction.state !== 'hasValue') return;
     setIsSubmitting(true);
-    await finishTransaction({ tx: signedTransaction.contents, pendingTransaction, nodeUrl });
+    await doSubmitPendingTransaction();
     setIsSubmitting(false);
-  }, [pendingTransaction, signedTransaction, nodeUrl]);
+  }, [doSubmitPendingTransaction]);
   return (
     <>
       <Box mt="extra-loose">
