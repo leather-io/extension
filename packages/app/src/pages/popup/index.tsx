@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Text, Button, ArrowIcon, BoxProps, Spinner } from '@stacks/ui';
+import { Box, Text, Button, ArrowIcon, BoxProps, Spinner, Flex } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { getIdentityDisplayName } from '@common/stacks-utils';
 import { AccountInfo } from '@components/popup/account-info';
+import { LoadingRectangle } from '@components/loading-rectangle';
 
 interface TxButtonProps extends BoxProps {
   variant: 'send' | 'receive';
@@ -61,6 +62,19 @@ export const SignedOut = () => {
   );
 };
 
+const HomeLoading: React.FC = () => {
+  return (
+    <Flex flexDirection="column" mt="extra-loose">
+      <Box width="100%">
+        <LoadingRectangle width="60%" height="80px" />
+      </Box>
+      <Box width="100%" mt="loose" mb="extra-loose">
+        <LoadingRectangle width="100%" height="120px" />
+      </Box>
+    </Flex>
+  );
+};
+
 export const PopupHome: React.FC = () => {
   const { currentIdentity } = useWallet();
   const { doChangeScreen } = useAnalytics();
@@ -81,7 +95,7 @@ export const PopupHome: React.FC = () => {
           <TxButton onClick={() => doChangeScreen(ScreenPaths.POPUP_RECEIVE)} variant="receive" />
         </Box>
       </Box>
-      <React.Suspense fallback={<Spinner />}>
+      <React.Suspense fallback={<HomeLoading />}>
         <AccountInfo />
       </React.Suspense>
     </PopupContainer>
