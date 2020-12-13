@@ -6,12 +6,39 @@ import { Card } from '@components/card';
 import { SeedTextarea } from '@components/seed-textarea';
 import { Toast } from '@components/toast';
 import { SetPasswordPage } from '@pages/set-password';
+import { useAnalytics } from '@common/hooks/use-analytics';
+import { ScreenPaths } from '@store/onboarding/types';
 
 enum Step {
   INITIAL = 0,
   VIEW_KEY = 1,
   SET_PASSWORD = 2,
 }
+
+export const SignedOut = () => {
+  const { doChangeScreen } = useAnalytics();
+  return (
+    <PopupContainer hideActions={true}>
+      <Box width="100%" mt="extra-loose" textAlign="center">
+        <Text textStyle="display.large" display="block">
+          You're logged out!
+        </Text>
+        <Button
+          my="extra-loose"
+          onClick={() => {
+            if (typeof chrome !== 'undefined' && chrome.runtime.getURL) {
+              window.open(chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`));
+            } else {
+              doChangeScreen(ScreenPaths.INSTALLED);
+            }
+          }}
+        >
+          Get started
+        </Button>
+      </Box>
+    </PopupContainer>
+  );
+};
 
 export const AccountGate: React.FC = ({ children }) => {
   const [step, setStep] = useState<Step>(Step.INITIAL);
@@ -42,14 +69,14 @@ export const AccountGate: React.FC = ({ children }) => {
       return (
         <PopupContainer hideActions title="Your Secret Key">
           <Toast show={hasCopied} />
-          <Box my="loose">
+          <Box mt="loose">
             <Text>
               Here’s your Secret Key: 12 words that prove it’s you when you want to use {name} on a
               new device. Once lost it’s lost forever, so save it somewhere you won’t forget.
             </Text>
           </Box>
-          <Box>
-            <Card title="Your Secret Key" mt={6}>
+          <Box my="loose">
+            <Card title="Your Secret Key">
               <SeedTextarea
                 readOnly
                 spellCheck="false"
@@ -77,5 +104,5 @@ export const AccountGate: React.FC = ({ children }) => {
     }
   }
 
-  throw 'Error: cannot access page when not signed in.';
+  return <SignedOut />;
 };
