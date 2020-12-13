@@ -4,8 +4,8 @@ import { ConnectHeader } from '@pages/install/header';
 import { useDispatch } from '@common/hooks/use-dispatch';
 import { doSetMagicRecoveryCode } from '@store/onboarding/actions';
 import { useAnalytics } from '@common/hooks/use-analytics';
-import { ScreenPaths, DEFAULT_PASSWORD } from '@store/onboarding/types';
-import { doStoreSeed } from '@store/wallet';
+import { ScreenPaths } from '@store/onboarding/types';
+import { useWallet } from '@common/hooks/use-wallet';
 import { SIGN_IN_CORRECT, SIGN_IN_INCORRECT } from '@common/track';
 import { ErrorLabel } from '@components/error-label';
 
@@ -15,6 +15,7 @@ export const InstalledSignIn: React.FC = () => {
   const [seed, setSeed] = useState('');
   const [seedError, setSeedError] = useState<null | string>(null);
   const dispatch = useDispatch();
+  const { doStoreSeed } = useWallet();
   const { doChangeScreen, doTrack } = useAnalytics();
 
   const hasLineReturn = (input: string) => input.includes('\n');
@@ -33,7 +34,8 @@ export const InstalledSignIn: React.FC = () => {
         doChangeScreen(ScreenPaths.RECOVERY_CODE);
         return;
       }
-      await doStoreSeed(parsedKeyInput, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+      await doStoreSeed(parsedKeyInput);
+
       doTrack(SIGN_IN_CORRECT);
       doChangeScreen(ScreenPaths.INSTALLED);
     } catch (error) {
@@ -41,7 +43,7 @@ export const InstalledSignIn: React.FC = () => {
       doTrack(SIGN_IN_INCORRECT);
     }
     setLoading(false);
-  }, [seed, seedError]);
+  }, [seed, dispatch, doStoreSeed, doChangeScreen, doTrack]);
 
   return (
     <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">

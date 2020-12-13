@@ -108,7 +108,7 @@ export const EditPostConditions: React.FC = () => {
         // TODO: error;
         return;
       }
-      const address = currentIdentity.getStxAddress();
+      const address = currentIdentity?.getStxAddress() || '';
       if (selectedAsset.type === 'ft') {
         const { address: contractAddress, contractName, assetName } = getAssetStringParts(
           selectedAsset.contractAddress

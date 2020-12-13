@@ -45,7 +45,7 @@ export const ConfirmSendDrawer: React.FC<ConfirmSendDrawerProps> = ({
   const [loading, setLoading] = useState(false);
   const { doChangeScreen } = useAnalytics();
   const getTx = useCallback(async () => {
-    if (!asset) return;
+    if (!asset || !currentIdentity) return;
     const network = new StacksTestnet();
     network.coreApiUrl = currentNetwork.url;
     setLoading(true);

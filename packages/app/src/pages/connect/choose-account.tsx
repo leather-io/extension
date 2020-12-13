@@ -44,7 +44,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
   const { appName } = useSelector((state: AppState) => ({
     appName: selectAppName(state),
   }));
-  const { wallet, identities } = useWallet();
+  const { wallet } = useWallet();
   const [reusedApps, setReusedApps] = React.useState<ConfigApp[]>([]);
   const [identityIndex, setIdentityIndex] = React.useState<number | undefined>();
   const { doTrack } = useAnalytics();
@@ -125,7 +125,6 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = ({ next }) => {
             <Title pb={2}>Choose an account</Title>,
             `to use with ${appName}`,
             <Accounts
-              identities={identities}
               identityIndex={identityIndex}
               next={(identityIndex: number) => didSelectAccount({ identityIndex })}
               showAddAccount

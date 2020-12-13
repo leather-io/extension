@@ -6,9 +6,10 @@ import {
 } from '@blockstack/stacks-transactions';
 import { TransactionPayload, TransactionTypes } from '@stacks/connect';
 import { decodeToken } from 'blockstack';
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, selector } from 'recoil';
 import { WalletSigner } from '@stacks/keychain';
 import { generateTransaction } from '@common/transaction-utils';
+import { currentIdentityStore } from '@store/recoil/wallet';
 import { rpcClientStore, currentNetworkStore } from '@store/recoil/networks';
 
 /** Transaction signing popup */
@@ -100,7 +101,7 @@ export const contractInterfaceStore = selector({
 
 export const pendingTransactionFunctionSelector = selector({
   key: 'transactions.pending-transaction-function',
-  get: async ({ get }) => {
+  get: ({ get }) => {
     const pendingTransaction = get(pendingTransactionStore);
     const contractInterface = get(contractInterfaceStore);
     if (
@@ -120,14 +121,18 @@ export const pendingTransactionFunctionSelector = selector({
   },
 });
 
-export const signedTransactionStore = selectorFamily({
+export const signedTransactionStore = selector({
   key: 'transaction.signedTransaction',
-  get: (privateKey: string) => async ({ get }) => {
+  get: async ({ get }) => {
+    const currentIdentity = get(currentIdentityStore);
     const pendingTransaction = get(pendingTransactionStore);
+    if (!currentIdentity) {
+      throw new Error('Unable to sign transaction when logged out.');
+    }
     if (!pendingTransaction) {
       throw new Error('Unable to get signed transaction - no pending transaction found.');
     }
-    const signer = new WalletSigner({ privateKey });
+    const signer = new WalletSigner({ privateKey: currentIdentity.keyPair.key });
     const tx = await generateTransaction({
       signer,
       txData: pendingTransaction,

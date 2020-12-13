@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Button, ArrowIcon, BoxProps, Spinner, Flex } from '@stacks/ui';
+import { Box, Text, Button, ArrowIcon, BoxProps, Flex } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
@@ -76,6 +76,7 @@ const HomeLoading: React.FC = () => {
 };
 
 export const PopupHome: React.FC = () => {
+  console.log(useWallet());
   const { currentIdentity } = useWallet();
   const { doChangeScreen } = useAnalytics();
 

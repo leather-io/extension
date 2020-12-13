@@ -5,8 +5,7 @@ import { getIdentityDisplayName } from '@common/stacks-utils';
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';
 import { useSetRecoilState } from 'recoil';
 import { accountDrawerStep, AccountStep } from '@store/recoil';
-import { useDispatch } from '@common/hooks/use-dispatch';
-import { doSetIdentityIndex } from '@store/wallet/actions';
+import { currentIdentityIndexStore } from '@store/recoil/wallet';
 
 interface SwitchAccountProps {
   close: () => void;
@@ -14,8 +13,8 @@ interface SwitchAccountProps {
 export const SwitchAccounts: React.FC<SwitchAccountProps> = ({ close }) => {
   const { identities, currentIdentityIndex } = useWallet();
   const setAccountDrawerStep = useSetRecoilState(accountDrawerStep);
-  const dispatch = useDispatch();
-  const identityRows = identities.map((identity, index) => {
+  const setCurrentIdentityIndex = useSetRecoilState(currentIdentityIndexStore);
+  const identityRows = (identities || []).map((identity, index) => {
     return (
       <Box
         width="100%"
@@ -27,7 +26,7 @@ export const SwitchAccounts: React.FC<SwitchAccountProps> = ({ close }) => {
         // px={6}
         py="base"
         onClick={() => {
-          dispatch(doSetIdentityIndex(index));
+          setCurrentIdentityIndex(index);
           close();
         }}
       >

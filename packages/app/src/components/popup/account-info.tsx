@@ -1,14 +1,12 @@
 import React from 'react';
 import { AssetList } from '@components/popup/asset-list';
 import { useFetchAccountData } from '@common/hooks/use-account-info';
-import { useWallet } from '@common/hooks/use-wallet';
 import { Flex } from '@stacks/ui';
 import { TxItem } from './tx-item';
 import { MempoolTransaction, Transaction } from '@blockstack/stacks-blockchain-api-types';
 
 export const AccountInfo: React.FC = () => {
-  const { currentIdentity } = useWallet();
-  const { data } = useFetchAccountData(currentIdentity.getStxAddress());
+  const { data } = useFetchAccountData();
   if (!data) {
     return null;
   }

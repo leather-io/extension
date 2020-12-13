@@ -19,9 +19,7 @@ export const useTxState = () => {
   const contractSource = useRecoilValueLoadable(contractSourceStore);
   const contractInterface = useRecoilValueLoadable(contractInterfaceStore);
   const pendingTransactionFunction = useRecoilValueLoadable(pendingTransactionFunctionSelector);
-  const signedTransaction = useRecoilValueLoadable(
-    signedTransactionStore(currentIdentity.keyPair.key)
-  );
+  const signedTransaction = useRecoilValueLoadable(signedTransactionStore);
   const requestToken = useRecoilValue(requestTokenStore);
   const setRequestToken = useSetRecoilState(requestTokenStore);
 

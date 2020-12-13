@@ -1,15 +1,33 @@
-import { atom, AtomEffect } from 'recoil';
+import { atom, AtomEffect, DefaultValue } from 'recoil';
 
-export const localStorageEffect = <T>(): AtomEffect<T> => ({ setSelf, onSet, node }) => {
+interface LocalStorageTransformer<T> {
+  serialize: (atom: T | DefaultValue) => string;
+  deserialize: (serialized: string) => T;
+}
+
+export const localStorageEffect = <T>(transformer?: LocalStorageTransformer<T>): AtomEffect<T> => ({
+  setSelf,
+  onSet,
+  node,
+}) => {
   const { key } = node;
   if (typeof window !== 'undefined') {
     const savedValue = localStorage.getItem(key);
     if (savedValue != null) {
-      setSelf(JSON.parse(savedValue));
+      if (transformer) {
+        setSelf(transformer.deserialize(savedValue));
+      } else {
+        setSelf(JSON.parse(savedValue));
+      }
     }
 
     onSet(newValue => {
-      localStorage.setItem(key, JSON.stringify(newValue));
+      if (transformer) {
+        const serialized = transformer.serialize(newValue);
+        localStorage.setItem(key, serialized);
+      } else {
+        localStorage.setItem(key, JSON.stringify(newValue));
+      }
     });
   }
 };
