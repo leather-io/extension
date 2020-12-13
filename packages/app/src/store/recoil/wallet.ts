@@ -1,6 +1,7 @@
-import { atom, selector } from 'recoil';
+import { atom, selector, atomFamily } from 'recoil';
 import { localStorageEffect } from './index';
 import { Wallet } from '@stacks/keychain';
+import { currentNetworkKeyStore } from './networks';
 
 export const secretKeyStore = atom<string | undefined>({
   key: 'wallet.secret-key',
@@ -30,6 +31,38 @@ export const walletStore = atom<Wallet | undefined>({
     }),
   ],
   dangerouslyAllowMutability: true,
+});
+
+/**
+ * Map from {network, stxAddress} to latest nonce sent from this device
+ */
+export const latestNoncesStore = atomFamily<
+  { nonce: number; blockHeight: number },
+  [string, string]
+>({
+  key: 'wallet.latest-nonces',
+  default: args => {
+    const key = `wallet.latest-nonces__${JSON.stringify(args)}`;
+    const current = localStorage.getItem(key);
+    if (current) {
+      return JSON.parse(current);
+    }
+    return {
+      nonce: 0,
+      blockHeight: 0,
+    };
+  },
+  effects_UNSTABLE: [localStorageEffect()],
+});
+
+export const latestNonceStore = selector({
+  key: 'wallet.latest-nonce',
+  get: ({ get }) => {
+    const network = get(currentNetworkKeyStore);
+    const currentIdentity = get(currentIdentityStore);
+    const nonce = get(latestNoncesStore([network, currentIdentity?.getStxAddress() || '']));
+    return nonce;
+  },
 });
 
 export const currentIdentityIndexStore = atom<number | undefined>({

@@ -11,6 +11,7 @@ import { WalletSigner } from '@stacks/keychain';
 import { generateTransaction } from '@common/transaction-utils';
 import { currentIdentityStore } from '@store/recoil/wallet';
 import { rpcClientStore, currentNetworkStore } from '@store/recoil/networks';
+import { correctNonceStore } from './api';
 
 /** Transaction signing popup */
 
@@ -126,6 +127,7 @@ export const signedTransactionStore = selector({
   get: async ({ get }) => {
     const currentIdentity = get(currentIdentityStore);
     const pendingTransaction = get(pendingTransactionStore);
+    const nonce = get(correctNonceStore);
     if (!currentIdentity) {
       throw new Error('Unable to sign transaction when logged out.');
     }
@@ -135,6 +137,7 @@ export const signedTransactionStore = selector({
     const signer = new WalletSigner({ privateKey: currentIdentity.keyPair.key });
     const tx = await generateTransaction({
       signer,
+      nonce,
       txData: pendingTransaction,
     });
     return tx;

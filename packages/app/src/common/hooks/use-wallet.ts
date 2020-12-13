@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { decrypt, Wallet, makeIdentity, encryptMnemonicFormatted } from '@stacks/keychain';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState, useRecoilValueLoadable } from 'recoil';
 import { useDispatch } from 'react-redux';
 import { gaiaUrl } from '@common/constants';
 import { bip32 } from 'bitcoinjs-lib';
@@ -12,9 +12,10 @@ import {
   encryptedSecretKeyStore,
   secretKeyStore,
   hasSetPasswordStore,
+  latestNoncesStore,
 } from '@store/recoil/wallet';
 
-import { ChainID } from '@blockstack/stacks-transactions';
+import { ChainID, StacksTransaction } from '@blockstack/stacks-transactions';
 import { DEFAULT_PASSWORD, ScreenPaths } from '@store/onboarding/types';
 import { mnemonicToSeed } from 'bip39';
 import { useOnboardingState } from './use-onboarding-state';
@@ -28,6 +29,7 @@ import {
 import { doTrackScreenChange } from '@common/track';
 import { AppManifest, DecodedAuthRequest } from '@common/dev/types';
 import { decodeToken } from 'blockstack';
+import { chainInfoStore } from '@store/recoil/api';
 
 const loadManifest = async (decodedAuthRequest: DecodedAuthRequest) => {
   const res = await fetch(decodedAuthRequest.manifest_uri);
@@ -45,6 +47,10 @@ export const useWallet = () => {
   const networks = useRecoilValue(networksStore);
   const currentNetwork = useRecoilValue(currentNetworkStore);
   const currentNetworkKey = useRecoilValue(currentNetworkKeyStore);
+  const chainInfo = useRecoilValueLoadable(chainInfoStore);
+  const setLatestNonces = useSetRecoilState(
+    latestNoncesStore([currentNetworkKey, currentIdentity?.getStxAddress() || ''])
+  );
   const dispatch = useDispatch();
   const { decodedAuthRequest, authRequest, appName, appIcon, screen } = useOnboardingState();
 
@@ -103,6 +109,19 @@ export const useWallet = () => {
       setHasSetPassword(true);
     },
     [secretKey, setEncryptedSecretKey, setHasSetPassword]
+  );
+
+  const doSetLatestNonce = useCallback(
+    (tx: StacksTransaction) => {
+      const newNonce = tx.auth.spendingCondition?.nonce.toNumber();
+      if (newNonce && chainInfo.state === 'hasValue') {
+        setLatestNonces({
+          blockHeight: chainInfo.contents.stacks_tip_height,
+          nonce: newNonce,
+        });
+      }
+    },
+    [chainInfo, setLatestNonces]
   );
 
   const doFinishSignIn = useCallback(
@@ -195,6 +214,7 @@ export const useWallet = () => {
     doFinishSignIn,
     doSaveAuthRequest,
     doSetPassword,
+    doSetLatestNonce,
     setWallet,
   };
 };

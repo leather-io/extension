@@ -40,7 +40,7 @@ export const ConfirmSendDrawer: React.FC<ConfirmSendDrawerProps> = ({
   balances,
 }) => {
   const [tx, setTx] = useState<StacksTransaction | undefined>();
-  const { currentIdentity, currentNetwork } = useWallet();
+  const { currentIdentity, currentNetwork, doSetLatestNonce } = useWallet();
   const asset = useRecoilValue(selectedAssetStore);
   const [loading, setLoading] = useState(false);
   const { doChangeScreen } = useAnalytics();
@@ -106,10 +106,11 @@ export const ConfirmSendDrawer: React.FC<ConfirmSendDrawerProps> = ({
       return;
     }
     await broadcastTransaction(tx, network);
+    doSetLatestNonce(tx);
     close();
     doChangeScreen(ScreenPaths.POPUP_HOME);
     setLoading(false);
-  }, [tx, currentNetwork.url, close, doChangeScreen]);
+  }, [tx, currentNetwork.url, close, doChangeScreen, doSetLatestNonce]);
 
   return (
     <BaseDrawer showing={showing} close={close}>
