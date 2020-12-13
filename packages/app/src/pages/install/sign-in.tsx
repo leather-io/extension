@@ -37,7 +37,7 @@ export const InstalledSignIn: React.FC = () => {
       await doStoreSeed(parsedKeyInput);
 
       doTrack(SIGN_IN_CORRECT);
-      doChangeScreen(ScreenPaths.INSTALLED);
+      doChangeScreen(ScreenPaths.SET_PASSWORD);
     } catch (error) {
       setSeedError("The Secret Key you've entered is invalid");
       doTrack(SIGN_IN_INCORRECT);

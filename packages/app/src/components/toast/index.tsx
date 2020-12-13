@@ -15,6 +15,7 @@ export const Toast = ({
     alignItems="center"
     bottom={0}
     left={0}
+    zIndex={1000}
     style={{ pointerEvents: 'none' }}
   >
     <Flex

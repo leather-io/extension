@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { decrypt, Wallet, makeIdentity } from '@stacks/keychain';
+import { decrypt, Wallet, makeIdentity, encryptMnemonicFormatted } from '@stacks/keychain';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useDispatch } from 'react-redux';
 import { gaiaUrl } from '@common/constants';
@@ -93,6 +93,18 @@ export const useWallet = () => {
     setHasSetPassword(false);
   }, [setWallet, setCurrentIdentityIndex, setSecretKey, setEncryptedSecretKey, setHasSetPassword]);
 
+  const doSetPassword = useCallback(
+    async (password: string) => {
+      if (!secretKey) {
+        throw new Error('Cannot set password - not logged in.');
+      }
+      const { encryptedMnemonicHex } = await encryptMnemonicFormatted(secretKey, password);
+      setEncryptedSecretKey(encryptedMnemonicHex);
+      setHasSetPassword(true);
+    },
+    [secretKey, setEncryptedSecretKey, setHasSetPassword]
+  );
+
   const doFinishSignIn = useCallback(
     async (identityIndex: number) => {
       if (!decodedAuthRequest || !authRequest || !identities || !wallet) {
@@ -182,6 +194,7 @@ export const useWallet = () => {
     doSignOut,
     doFinishSignIn,
     doSaveAuthRequest,
+    doSetPassword,
     setWallet,
   };
 };

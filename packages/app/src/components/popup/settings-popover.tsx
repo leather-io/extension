@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
 import { Box, Text, BoxProps } from '@stacks/ui';
 import useOnClickOutside from 'use-onclickoutside';
+import { useWallet } from '@common/hooks/use-wallet';
+import { useAnalytics } from '@common/hooks/use-analytics';
+import { ScreenPaths } from '@store/onboarding/types';
 import { Divider } from '@components/divider';
 
 const SettingsItem: React.FC<BoxProps> = ({ onClick, ...props }) => (
@@ -32,6 +35,8 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
   showCreateAccount,
 }) => {
   const ref = React.useRef(null);
+  const { doSignOut } = useWallet();
+  const { doChangeScreen } = useAnalytics();
 
   useOnClickOutside(ref, () => {
     if (showing) {
@@ -83,6 +88,16 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
       <Divider />
       <SettingsItem mb="tight" onClick={clicked(showNetworks)}>
         <Text>Change Network</Text>
+      </SettingsItem>
+      <Divider />
+      <SettingsItem
+        mb="tight"
+        onClick={() => {
+          doSignOut();
+          doChangeScreen(ScreenPaths.INSTALLED);
+        }}
+      >
+        <Text>Sign Out</Text>
       </SettingsItem>
     </Box>
   );

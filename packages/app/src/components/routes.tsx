@@ -14,6 +14,7 @@ import { PopupSend } from '@pages/popup/send';
 import { PopupReceive } from '@pages/popup/receive';
 import { AddNetwork } from '@pages/popup/add-network';
 import { EditPostConditionsPage } from '@pages/transaction/edit-post-conditions';
+import { SetPasswordPage } from '@pages/set-password';
 
 import { ScreenPaths } from '@store/onboarding/types';
 import { authenticationInit } from '@common/utils';
@@ -22,6 +23,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
+import { AccountGate } from '@components/account-gate';
 
 export const Routes: React.FC = () => {
   const { doChangeScreen } = useAnalytics();
@@ -69,7 +71,15 @@ export const Routes: React.FC = () => {
       <Route path="/installed" element={<Installed />} />
       <Route path="/installed/sign-in" element={<InstalledSignIn />} />
       {/* Popup */}
-      <Route path={ScreenPaths.POPUP_HOME} element={<PopupHome />} />
+      <Route
+        path={ScreenPaths.POPUP_HOME}
+        element={
+          <AccountGate>
+            <PopupHome />
+          </AccountGate>
+        }
+      />
+      <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
       <Route path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
       <Route path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
       <Route path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
