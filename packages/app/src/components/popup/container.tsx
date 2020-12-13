@@ -44,7 +44,7 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({
       />
       <NetworksDrawer showing={isShowingNetworks} close={() => setShowingNetworks(false)} />
       <Flex
-        minHeight="100vh"
+        minHeight="max(100vh, 400px)"
         minWidth={isExtension ? '440px' : undefined}
         maxWidth="100vw"
         background="white"

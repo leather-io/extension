@@ -49,6 +49,7 @@ export const pageTrackingNameMap = {
   [ScreenPaths.ADD_NETWORK]: 'Add Network',
   [ScreenPaths.EDIT_POST_CONDITIONS]: 'Edit Post Conditions',
   [ScreenPaths.TRANSACTION_POPUP]: 'Sign a Transaction',
+  [ScreenPaths.SET_PASSWORD]: 'Set Password',
 };
 
 export const titleNameMap = {
@@ -72,6 +73,7 @@ export const titleNameMap = {
   [ScreenPaths.ADD_NETWORK]: 'Add Network',
   [ScreenPaths.EDIT_POST_CONDITIONS]: 'Edit Post Conditions',
   [ScreenPaths.TRANSACTION_POPUP]: 'Sign a Transaction',
+  [ScreenPaths.SET_PASSWORD]: 'Set your password',
 };
 
 export const doTrackScreenChange = (
