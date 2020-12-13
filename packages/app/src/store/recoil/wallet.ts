@@ -29,6 +29,7 @@ export const walletStore = atom<Wallet | undefined>({
       },
     }),
   ],
+  dangerouslyAllowMutability: true,
 });
 
 export const currentIdentityIndexStore = atom<number | undefined>({
@@ -53,4 +54,5 @@ export const currentIdentityStore = selector({
     }
     return wallet.identities[identityIndex];
   },
+  dangerouslyAllowMutability: true,
 });
