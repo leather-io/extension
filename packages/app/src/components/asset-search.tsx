@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Box, Text, Flex, Input, BoxProps, DynamicColorCircle, CloseIcon } from '@stacks/ui';
+import { Box, Text, Flex, Input, BoxProps, CloseIcon } from '@stacks/ui';
+import { AssetAvatar } from '@components/stx-avatar';
 import { useCombobox } from 'downshift';
 import { useFetchBalances } from '@common/hooks/use-account-info';
 import { getAssetStringParts, toHumanReadableStx, truncateMiddle } from '@stacks/ui-utils';
@@ -7,6 +8,7 @@ import { AssetRow } from '@components/popup/asset-row';
 import { Asset, selectedAssetStore } from '@store/recoil/asset-search';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LoadingRectangle } from './loading-rectangle';
+import type { AddressBalanceResponse } from '@blockstack/stacks-blockchain-api-types';
 
 interface AssetResultProps extends BoxProps {
   asset: Asset;
@@ -59,9 +61,14 @@ const SelectedAsset: React.FC<{ setInput: (input: string) => void }> = ({ setInp
     >
       <Flex flexWrap="wrap" flexDirection="row">
         <Box width="32px" py="tight" mr="base">
-          <DynamicColorCircle mr="tight" size="32px" string={name}>
+          <AssetAvatar
+            useStx={name === 'Stacks Token'}
+            gradientString={name}
+            mr="tight"
+            size="32px"
+          >
             {name[0]}
-          </DynamicColorCircle>
+          </AssetAvatar>
         </Box>
         <Box flexGrow={1}>
           <Text display="block" fontWeight="500">
@@ -97,14 +104,14 @@ export const AssetSearch: React.FC = () => {
 
   const assets: Asset[] = useMemo(() => {
     if (!balancesJSON) return [];
-    const balances = JSON.parse(balancesJSON);
+    const balances: AddressBalanceResponse = JSON.parse(balancesJSON);
     const _assets: Asset[] = [];
     if (!balances) return _assets;
     _assets.push({
       type: 'stx',
       contractAddress: '',
       balance: toHumanReadableStx(balances.stx.balance),
-      subtitle: '',
+      subtitle: 'STX',
       name: 'Stacks Token',
     });
     Object.keys(balances.fungible_tokens).forEach(key => {
