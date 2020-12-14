@@ -35,7 +35,7 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
   showCreateAccount,
 }) => {
   const ref = React.useRef(null);
-  const { doSignOut } = useWallet();
+  const { doSignOut, currentIdentity } = useWallet();
   const { doChangeScreen } = useAnalytics();
 
   useOnClickOutside(ref, () => {
@@ -81,10 +81,14 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
       >
         <Text>View Secret Key</Text>
       </SettingsItem> */}
-      <Divider />
-      <SettingsItem onClick={clicked(showAddUsername)}>
-        <Text>Add username</Text>
-      </SettingsItem>
+      {currentIdentity && !currentIdentity.defaultUsername ? (
+        <>
+          <Divider />
+          <SettingsItem onClick={clicked(showAddUsername)}>
+            <Text>Add username</Text>
+          </SettingsItem>
+        </>
+      ) : null}
       <Divider />
       <SettingsItem mb="tight" onClick={clicked(showNetworks)}>
         <Text>Change Network</Text>
