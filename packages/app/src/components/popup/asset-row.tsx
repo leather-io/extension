@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Text, Box, BoxProps, DynamicColorCircle } from '@stacks/ui';
+import { Flex, Text, Box, BoxProps } from '@stacks/ui';
+import { AssetAvatar } from '@components/stx-avatar';
 
 interface AssetRowProps extends BoxProps {
   name: string;
@@ -18,9 +19,14 @@ export const AssetRow: React.FC<AssetRowProps> = ({
     <Box width="100%" mb="base" {...props}>
       <Flex flexWrap="wrap" flexDirection="row" cursor="pointer">
         <Box width="32px" py="tight" mr="base">
-          <DynamicColorCircle mr="tight" size="32px" string={name}>
+          <AssetAvatar
+            useStx={name === 'STX' || name === 'Stacks Token'}
+            gradientString={name}
+            mr="tight"
+            size="32px"
+          >
             {friendlyName[0]}
-          </DynamicColorCircle>
+          </AssetAvatar>
         </Box>
         <Box flexGrow={1}>
           <Text display="block" fontWeight="500">

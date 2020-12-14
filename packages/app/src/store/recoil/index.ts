@@ -13,11 +13,16 @@ export const localStorageEffect = <T>(transformer?: LocalStorageTransformer<T>):
   const { key } = node;
   if (typeof window !== 'undefined') {
     const savedValue = localStorage.getItem(key);
-    if (savedValue != null) {
-      if (transformer) {
-        setSelf(transformer.deserialize(savedValue));
-      } else {
-        setSelf(JSON.parse(savedValue));
+    if (savedValue) {
+      try {
+        if (transformer) {
+          setSelf(transformer.deserialize(savedValue));
+        } else {
+          setSelf(JSON.parse(savedValue));
+        }
+      } catch (error) {
+        console.log(key, savedValue);
+        console.log(error);
       }
     }
 
@@ -26,7 +31,11 @@ export const localStorageEffect = <T>(transformer?: LocalStorageTransformer<T>):
         const serialized = transformer.serialize(newValue);
         localStorage.setItem(key, serialized);
       } else {
-        localStorage.setItem(key, JSON.stringify(newValue));
+        if (newValue !== null && newValue !== undefined) {
+          localStorage.setItem(key, JSON.stringify(newValue));
+        } else {
+          localStorage.removeItem(key);
+        }
       }
     });
   }
