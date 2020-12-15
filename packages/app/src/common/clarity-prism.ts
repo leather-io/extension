@@ -1,26 +1,34 @@
-// @ts-nocheck
+import * as PrismLib from 'prismjs';
 
-export const clarity = Prism => {
+interface PrismType {
+  languages: typeof PrismLib.languages;
+  tokenize: typeof PrismLib.tokenize;
+  highlight: typeof PrismLib.highlight;
+  [key: string]: any;
+}
+
+export const clarity = (Prism: PrismType) => {
   // Functions to construct regular expressions
   // simple form
   // e.g. (interactive ... or (interactive)
-  function simple_form(name) {
-    return RegExp('(\\()' + name + '(?=[\\s\\)])');
-  }
+  // function simple_form(name) {
+  //   return RegExp('(\\()' + name + '(?=[\\s\\)])');
+  // }
+
   // booleans and numbers
-  function primitive(pattern) {
-    return RegExp('([\\s([])' + pattern + '(?=[\\s)])');
+  function primitive(pattern: string) {
+    return RegExp(`([\\s([])${pattern}(?=[\\s)])`);
   }
 
   // Patterns in regular expressions
 
   // Open parenthesis for look-behind
   const par = '(\\()';
-  const endpar = '(?=\\))';
+  // const endpar = '(?=\\))';
   // End the pattern with look-ahead space
   const space = '(?=\\s)';
 
-  const language = {
+  const language: PrismLib.Grammar = {
     // Three or four semicolons are considered a heading.
     heading: {
       pattern: /;;;.*/,
@@ -112,3 +120,7 @@ buff|hash160|sha256|sha512|sha512/256|keccak256|true|false|none)' +
 
   Prism.languages.clarity = language;
 };
+
+clarity(PrismLib);
+
+export const Prism = PrismLib;
