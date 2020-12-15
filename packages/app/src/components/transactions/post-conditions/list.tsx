@@ -23,7 +23,7 @@ export const PostConditions: React.FC = () => {
   const { doChangeScreen } = useAnalytics();
 
   const postConditionComponents = postConditions.map((pc, index) => {
-    return <PostConditionComponent pc={pc} key={pc.type + pc.conditionCode} index={index} />;
+    return <PostConditionComponent pc={pc} key={`${pc.type}-${pc.conditionCode}`} index={index} />;
   });
 
   const getPostConditionsContent = () => {

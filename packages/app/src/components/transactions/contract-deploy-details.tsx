@@ -3,12 +3,7 @@ import { useTxState } from '@common/hooks/use-tx-state';
 import { Box, Text, Flex, CodeBlock } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { useWallet } from '@common/hooks/use-wallet';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import Prism from 'prismjs';
-import { clarity } from '@common/clarity-prism';
-import 'prismjs/components/prism-json';
-clarity(Prism);
+import { Prism } from '@common/clarity-prism';
 
 export const ContractDeployDetails: React.FC = () => {
   const { pendingTransaction } = useTxState();
