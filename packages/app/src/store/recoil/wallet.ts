@@ -6,7 +6,7 @@ import { currentNetworkKeyStore } from './networks';
 export const secretKeyStore = atom<string | undefined>({
   key: 'wallet.secret-key',
   default: undefined,
-  effects_UNSTABLE: [localStorageEffect()],
+  effects_UNSTABLE: [localStorageEffect({ onlyExtension: true })],
 });
 
 export const hasSetPasswordStore = atom<boolean>({
@@ -20,13 +20,16 @@ export const walletStore = atom<Wallet | undefined>({
   default: undefined,
   effects_UNSTABLE: [
     localStorageEffect({
-      serialize: wallet => {
-        if (!wallet) return '';
-        return JSON.stringify(wallet);
-      },
-      deserialize: walletJSON => {
-        if (!walletJSON) return undefined;
-        return new Wallet(JSON.parse(walletJSON));
+      onlyExtension: true,
+      transformer: {
+        serialize: wallet => {
+          if (!wallet) return '';
+          return JSON.stringify(wallet);
+        },
+        deserialize: walletJSON => {
+          if (!walletJSON) return undefined;
+          return new Wallet(JSON.parse(walletJSON));
+        },
       },
     }),
   ],
@@ -88,4 +91,10 @@ export const currentIdentityStore = selector({
     return wallet.identities[identityIndex];
   },
   dangerouslyAllowMutability: true,
+});
+
+export const lastSeenStore = atom<number>({
+  key: 'wallet.last-seen',
+  default: new Date().getTime(),
+  effects_UNSTABLE: [localStorageEffect()],
 });

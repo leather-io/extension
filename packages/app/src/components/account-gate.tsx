@@ -8,6 +8,7 @@ import { Toast } from '@components/toast';
 import { SetPasswordPage } from '@pages/set-password';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
+import { Unlock } from '@components/unlock';
 
 enum Step {
   INITIAL = 0,
@@ -42,7 +43,7 @@ export const SignedOut = () => {
 
 export const AccountGate: React.FC = ({ children }) => {
   const [step, setStep] = useState<Step>(Step.INITIAL);
-  const { hasSetPassword, isSignedIn, secretKey } = useWallet();
+  const { hasSetPassword, isSignedIn, secretKey, encryptedSecretKey } = useWallet();
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
 
   if (isSignedIn && hasSetPassword) return <>{children}</>;
@@ -102,6 +103,10 @@ export const AccountGate: React.FC = ({ children }) => {
     } else if (step === Step.SET_PASSWORD) {
       return <SetPasswordPage />;
     }
+  }
+
+  if (!isSignedIn && encryptedSecretKey) {
+    return <Unlock />;
   }
 
   return <SignedOut />;

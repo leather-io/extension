@@ -2,25 +2,31 @@ import React from 'react';
 import { Flex, Text, Box, BoxProps, color } from '@stacks/ui';
 import type { AddressBalanceResponse } from '@blockstack/stacks-blockchain-api-types';
 import { stacksValue } from '@common/stacks-utils';
+import { useWallet } from '@common/hooks/use-wallet';
 import { AssetRow } from './asset-row';
 
-const NoTokens: React.FC<BoxProps> = props => (
-  <Box width="100%" py="extra-loose" textAlign="center" {...props}>
-    <Text color={color('text-caption')} fontSize={1} display="block" mb="extra-tight">
-      You don't own any tokens.
-    </Text>
-    <Text
-      as="a"
-      href="https://binance.com"
-      target="_blank"
-      rel="noreferrer noopener"
-      color={color('accent')}
-      fontSize={1}
-    >
-      Buy Stacks Token
-    </Text>
-  </Box>
-);
+const NoTokens: React.FC<BoxProps> = props => {
+  const { currentNetworkKey } = useWallet();
+  return (
+    <Box width="100%" py="extra-loose" textAlign="center" {...props}>
+      <Text color={color('text-caption')} fontSize={1} display="block" mb="extra-tight">
+        You don't own any tokens.
+      </Text>
+      {currentNetworkKey === 'mainnet' ? (
+        <Text
+          as="a"
+          href="https://binance.com"
+          target="_blank"
+          rel="noreferrer noopener"
+          color={color('accent')}
+          fontSize={1}
+        >
+          Buy Stacks Token
+        </Text>
+      ) : null}
+    </Box>
+  );
+};
 
 interface TokenAssetProps extends BoxProps {
   balances: AddressBalanceResponse;

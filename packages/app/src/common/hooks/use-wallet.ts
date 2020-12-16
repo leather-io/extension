@@ -1,6 +1,12 @@
 import { useCallback } from 'react';
 import { decrypt, Wallet, makeIdentity, encryptMnemonicFormatted } from '@stacks/keychain';
-import { useRecoilValue, useRecoilState, useSetRecoilState, useRecoilValueLoadable } from 'recoil';
+import {
+  useRecoilValue,
+  useRecoilState,
+  useSetRecoilState,
+  useRecoilValueLoadable,
+  useRecoilCallback,
+} from 'recoil';
 import { useDispatch } from 'react-redux';
 import { gaiaUrl } from '@common/constants';
 import { bip32 } from 'bitcoinjs-lib';
@@ -194,6 +200,23 @@ export const useWallet = () => {
     [dispatch, identities, screen]
   );
 
+  const doUnlockWallet = useCallback(
+    async (password: string) => {
+      if (!encryptedSecretKey) {
+        throw new Error('Tried to unlock wallet when no encrypted key found.');
+      }
+      const secretKey = await decrypt(Buffer.from(encryptedSecretKey, 'hex'), password);
+      setHasSetPassword(true);
+      await doStoreSeed(secretKey);
+    },
+    [encryptedSecretKey, doStoreSeed, setHasSetPassword]
+  );
+
+  const doLockWallet = useRecoilCallback(({ set }) => () => {
+    set(walletStore, undefined);
+    set(secretKeyStore, undefined);
+  });
+
   return {
     identities,
     firstIdentity,
@@ -215,6 +238,8 @@ export const useWallet = () => {
     doSaveAuthRequest,
     doSetPassword,
     doSetLatestNonce,
+    doUnlockWallet,
+    doLockWallet,
     setWallet,
   };
 };

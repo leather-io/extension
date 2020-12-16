@@ -24,13 +24,16 @@ import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
 import { AccountGate } from '@components/account-gate';
+import { lastSeenStore } from '@store/recoil/wallet';
+import { useSetRecoilState } from 'recoil';
 
 export const Routes: React.FC = () => {
   const { doChangeScreen } = useAnalytics();
   const { isSignedIn: signedIn, doFinishSignIn, doSaveAuthRequest } = useWallet();
   const { isOnboardingInProgress, onboardingPath } = useOnboardingState();
   const authRequest = authenticationInit();
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
+  const setLastSeen = useSetRecoilState(lastSeenStore);
   const isSignedIn = signedIn && !isOnboardingInProgress;
 
   useEffect(() => {
@@ -38,6 +41,12 @@ export const Routes: React.FC = () => {
       doSaveAuthRequest(authRequest);
     }
   }, [doSaveAuthRequest, authRequest]);
+
+  // Keep track of 'last seen' by updating it whenever a route is set.
+  useEffect(() => {
+    setLastSeen(new Date().getTime());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   const getSignUpElement = () => {
     if (onboardingPath) {
