@@ -19,7 +19,7 @@ export const localStorageEffect = <T>({
   transformer,
   onlyExtension,
 }: LocalStorageEffectOptions<T> = {}): AtomEffect<T> => ({ setSelf, onSet, node }) => {
-  if (onlyExtension && EXT_ENV === 'web') return;
+  if (onlyExtension && EXT_ENV === 'web' && NODE_ENV !== 'development') return;
 
   const key = localStorageKey(node.key);
   if (typeof window !== 'undefined') {
