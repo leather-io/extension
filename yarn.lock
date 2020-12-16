@@ -17334,7 +17334,7 @@ webpack-dev-server@^3.10.3:
     ws "^6.2.1"
     yargs "^13.3.2"
 
-webpack-extension-reloader@^1.1.0:
+webpack-extension-reloader@^1.1.0, webpack-extension-reloader@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/webpack-extension-reloader/-/webpack-extension-reloader-1.1.4.tgz#f5e5fa580e617c114cc45ddb6eb25c5d6a4dd2f6"
   dependencies:

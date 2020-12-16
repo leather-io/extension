@@ -35,7 +35,7 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
   showCreateAccount,
 }) => {
   const ref = React.useRef(null);
-  const { doSignOut, currentIdentity } = useWallet();
+  const { doSignOut, currentIdentity, doLockWallet } = useWallet();
   const { doChangeScreen } = useAnalytics();
 
   useOnClickOutside(ref, () => {
@@ -102,6 +102,15 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
         }}
       >
         <Text>Sign Out</Text>
+      </SettingsItem>
+      <SettingsItem
+        mb="tight"
+        onClick={async () => {
+          doChangeScreen(ScreenPaths.POPUP_HOME);
+          await doLockWallet();
+        }}
+      >
+        <Text>Lock</Text>
       </SettingsItem>
     </Box>
   );
