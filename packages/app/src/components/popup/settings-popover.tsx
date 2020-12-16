@@ -105,9 +105,9 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
       </SettingsItem>
       <SettingsItem
         mb="tight"
-        onClick={async () => {
+        onClick={() => {
           doChangeScreen(ScreenPaths.POPUP_HOME);
-          await doLockWallet();
+          doLockWallet();
         }}
       >
         <Text>Lock</Text>
