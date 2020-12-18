@@ -19,6 +19,7 @@ import {
   secretKeyStore,
   hasSetPasswordStore,
   latestNoncesStore,
+  identitiesStore,
 } from '@store/recoil/wallet';
 
 import { ChainID, StacksTransaction } from '@blockstack/stacks-transactions';
@@ -49,6 +50,7 @@ export const useWallet = () => {
   const [encryptedSecretKey, setEncryptedSecretKey] = useRecoilState(encryptedSecretKeyStore);
   const [currentIdentityIndex, setCurrentIdentityIndex] = useRecoilState(currentIdentityIndexStore);
   const [hasSetPassword, setHasSetPassword] = useRecoilState(hasSetPasswordStore); // 🧐 setHasSetPassword 🤮
+  const [identities, setIdentities] = useRecoilState(identitiesStore);
   const currentIdentity = useRecoilValue(currentIdentityStore);
   const networks = useRecoilValue(networksStore);
   const currentNetwork = useRecoilValue(currentNetworkStore);
@@ -60,7 +62,6 @@ export const useWallet = () => {
   const dispatch = useDispatch();
   const { decodedAuthRequest, authRequest, appName, appIcon, screen } = useOnboardingState();
 
-  const identities = wallet?.identities;
   const firstIdentity = identities?.[0];
   const isSignedIn = !!wallet;
 
@@ -68,23 +69,27 @@ export const useWallet = () => {
     const wallet = await Wallet.generate(DEFAULT_PASSWORD, ChainID.Mainnet);
     const secretKey = await decrypt(wallet.encryptedBackupPhrase, DEFAULT_PASSWORD);
     setWallet(wallet);
+    setIdentities(wallet.identities);
     setSecretKey(secretKey);
     setEncryptedSecretKey(wallet.encryptedBackupPhrase);
     setCurrentIdentityIndex(0);
-  }, [setWallet, setSecretKey, setEncryptedSecretKey, setCurrentIdentityIndex]);
+  }, [setWallet, setSecretKey, setEncryptedSecretKey, setCurrentIdentityIndex, setIdentities]);
 
   const doStoreSeed = useCallback(
     async (secretKey: string) => {
       const wallet = await Wallet.restore(DEFAULT_PASSWORD, secretKey, ChainID.Mainnet);
       setWallet(wallet);
+      setIdentities(wallet.identities);
       setSecretKey(secretKey);
       setEncryptedSecretKey(wallet.encryptedBackupPhrase);
       setCurrentIdentityIndex(0);
     },
-    [setWallet, setSecretKey, setEncryptedSecretKey, setCurrentIdentityIndex]
+    [setWallet, setSecretKey, setEncryptedSecretKey, setCurrentIdentityIndex, setIdentities]
   );
 
-  const doCreateNewIdentity = useCallback(async () => {
+  const doCreateNewIdentity = useRecoilCallback(({ snapshot, set }) => async () => {
+    const secretKey = await snapshot.getPromise(secretKeyStore);
+    const wallet = await snapshot.getPromise(walletStore);
     if (!secretKey || !wallet) {
       throw 'Unable to create a new identity - not logged in.';
     }
@@ -92,18 +97,26 @@ export const useWallet = () => {
     const rootNode = bip32.fromSeed(seed);
     const index = wallet.identities.length;
     const identity = await makeIdentity(rootNode, index);
-    wallet.identities.push(identity);
-    setWallet(wallet);
-    setCurrentIdentityIndex(index);
-  }, [wallet, secretKey, setCurrentIdentityIndex, setWallet]);
+    set(walletStore, wallet);
+    set(identitiesStore, [...wallet.identities, identity]);
+    set(currentIdentityIndexStore, index);
+  });
 
   const doSignOut = useCallback(() => {
     setWallet(undefined);
+    setIdentities(undefined);
     setCurrentIdentityIndex(undefined);
     setSecretKey(undefined);
     setEncryptedSecretKey(undefined);
     setHasSetPassword(false);
-  }, [setWallet, setCurrentIdentityIndex, setSecretKey, setEncryptedSecretKey, setHasSetPassword]);
+  }, [
+    setWallet,
+    setCurrentIdentityIndex,
+    setSecretKey,
+    setEncryptedSecretKey,
+    setHasSetPassword,
+    setIdentities,
+  ]);
 
   const doSetPassword = useCallback(
     async (password: string) => {

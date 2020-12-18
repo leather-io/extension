@@ -12,7 +12,8 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ close }) => {
   const setAccountDrawerStep = useSetRecoilState(accountDrawerStep);
   useEffect(() => {
     void doCreateNewIdentity();
-  }, [doCreateNewIdentity]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Box width="100%" px={6}>
       <Box>
