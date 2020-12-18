@@ -1,6 +1,6 @@
 import { atom, selector, atomFamily } from 'recoil';
 import { localStorageEffect } from './index';
-import { Wallet } from '@stacks/keychain';
+import { Identity, Wallet } from '@stacks/keychain';
 import { currentNetworkKeyStore } from './networks';
 
 export const secretKeyStore = atom<string | undefined>({
@@ -34,6 +34,26 @@ export const walletStore = atom<Wallet | undefined>({
     }),
   ],
   dangerouslyAllowMutability: true,
+});
+
+export const identitiesStore = atom<Identity[] | undefined>({
+  key: 'wallet.identities',
+  default: undefined,
+  effects_UNSTABLE: [
+    localStorageEffect({
+      onlyExtension: true,
+      transformer: {
+        serialize: identities => {
+          if (!identities) return '';
+          return JSON.stringify(identities);
+        },
+        deserialize: identitiesJSON => {
+          if (!identitiesJSON) return '';
+          return JSON.parse(identitiesJSON).map((identity: Identity) => new Identity(identity));
+        },
+      },
+    }),
+  ],
 });
 
 /**
@@ -84,11 +104,11 @@ export const currentIdentityStore = selector({
   key: 'wallet.current-identity',
   get: ({ get }) => {
     const identityIndex = get(currentIdentityIndexStore);
-    const wallet = get(walletStore);
-    if (identityIndex === undefined || !wallet) {
+    const identities = get(identitiesStore);
+    if (identityIndex === undefined || !identities) {
       return undefined;
     }
-    return wallet.identities[identityIndex];
+    return identities[identityIndex];
   },
   dangerouslyAllowMutability: true,
 });
