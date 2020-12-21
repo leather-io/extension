@@ -13,7 +13,7 @@ export const AddNetwork: React.FC = () => {
   return (
     <PopupContainer title="Add a network" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)}>
       <Box mt="base">
-        <Text>
+        <Text fontSize={2}>
           Enter an address from the{' '}
           <a href="https://docs.blockstack.org/references/stacks-blockchain-api">Sidecar API</a>{' '}
           that proxies a node. Before using a new node, Make sure you review and trust the host

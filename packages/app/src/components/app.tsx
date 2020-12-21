@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider } from '@stacks/ui';
 import { RecoilRoot } from 'recoil';
-import { theme } from '@stacks/ui-theme';
+import { theme } from '@common/theme';
 import { Routes } from '@components/routes';
 import { HashRouter as Router } from 'react-router-dom';
 import { useMessagePong } from '@common/hooks/use-message-pong';
@@ -15,8 +15,7 @@ const globalStyle = css`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
   @font-face {
     font-family: 'Open Sauce';
-    src: url('/assets/fonts/opensaucesans-medium-webfont.woff2') format('woff2'),
-      url('/assets/fonts/opensaucesans-medium-webfont.woff') format('woff');
+    src: url('/assets/fonts/OpenSauceOne-Medium.woff2') format('woff2');
     font-weight: 500;
     font-display: swap;
     font-style: normal;
@@ -24,9 +23,16 @@ const globalStyle = css`
 
   @font-face {
     font-family: 'Open Sauce';
-    src: url('/assets/fonts/opensaucesans-regular-webfont.woff2') format('woff2'),
-      url('/assets/fonts/opensaucesans-regular-webfont.woff') format('woff');
+    src: url('/assets/fonts/OpenSauceOne-Regular.woff2') format('woff2');
     font-weight: 400;
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Open Sauce';
+    src: url('/assets/fonts/OpenSauceOne-SemiBold.woff2') format('woff2');
+    font-weight: 600;
     font-weight: normal;
     font-style: normal;
   }
@@ -42,6 +48,7 @@ const globalStyle = css`
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
       sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    -webkit-font-smoothing: antialiased;
   }
 
   h1,

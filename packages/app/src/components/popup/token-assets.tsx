@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Box, BoxProps, color } from '@stacks/ui';
+import { Flex, Text, Box, BoxProps } from '@stacks/ui';
 import type { AddressBalanceResponse } from '@blockstack/stacks-blockchain-api-types';
 import { stacksValue } from '@common/stacks-utils';
 import { useWallet } from '@common/hooks/use-wallet';
@@ -8,18 +8,20 @@ import { AssetRow } from './asset-row';
 const NoTokens: React.FC<BoxProps> = props => {
   const { currentNetworkKey } = useWallet();
   return (
-    <Box width="100%" py="extra-loose" textAlign="center" {...props}>
-      <Text color={color('text-caption')} fontSize={1} display="block" mb="extra-tight">
+    <Box width="100%" py="extra-loose" my="extra-loose" textAlign="center" {...props}>
+      <Text color="ink.600" fontSize={2} display="block" mb="extra-tight" fontWeight="500">
         You don't own any tokens.
       </Text>
       {currentNetworkKey === 'mainnet' ? (
         <Text
           as="a"
-          href="https://binance.com"
+          href="https://coinmarketcap.com/currencies/blockstack/markets/"
           target="_blank"
           rel="noreferrer noopener"
-          color={color('accent')}
-          fontSize={1}
+          fontSize={2}
+          color="blue"
+          textDecoration="none"
+          fontWeight="500"
         >
           Buy Stacks Token
         </Text>

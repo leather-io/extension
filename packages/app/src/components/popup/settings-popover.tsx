@@ -1,21 +1,25 @@
 import React, { useCallback } from 'react';
-import { Box, Text, BoxProps } from '@stacks/ui';
+import { Box, Text, BoxProps, Flex } from '@stacks/ui';
 import useOnClickOutside from 'use-onclickoutside';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { Divider } from '@components/divider';
 
-const SettingsItem: React.FC<BoxProps> = ({ onClick, ...props }) => (
+const SettingsItem: React.FC<BoxProps> = ({ onClick, children, ...props }) => (
   <Box
     {...props}
     width="100%"
     p="base-tight"
+    display="block"
+    color="ink.1000"
     _hover={{ backgroundColor: 'ink.150' }}
     onClick={e => {
       onClick?.(e);
     }}
-  />
+  >
+    <Text textStyle="body.small">{children}</Text>
+  </Box>
 );
 
 interface SettingsPopoverProps {
@@ -35,7 +39,7 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
   showCreateAccount,
 }) => {
   const ref = React.useRef(null);
-  const { doSignOut, currentIdentity, doLockWallet } = useWallet();
+  const { doSignOut, currentIdentity, doLockWallet, identities, currentNetworkKey } = useWallet();
   const { doChangeScreen } = useAnalytics();
 
   useOnClickOutside(ref, () => {
@@ -68,30 +72,31 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
       display={showing ? 'block' : 'none'}
     >
       <SettingsItem mt="tight" onClick={clicked(showSwitchAccount)}>
-        <Text>Switch account</Text>
+        Switch account
       </SettingsItem>
-      <SettingsItem onClick={clicked(showCreateAccount)}>
-        <Text>Create an Account</Text>
-      </SettingsItem>
+      {identities && identities.length > 1 ? (
+        <SettingsItem onClick={clicked(showCreateAccount)}>Create an Account</SettingsItem>
+      ) : null}
       {/* <SettingsItem
         onClick={() => {
           const url = chrome.runtime.getURL(ScreenPaths.SETTINGS_KEY);
           window.open(url, '_blank');
         }}
       >
-        <Text>View Secret Key</Text>
+        View Secret Key
       </SettingsItem> */}
       {currentIdentity && !currentIdentity.defaultUsername ? (
         <>
           <Divider />
-          <SettingsItem onClick={clicked(showAddUsername)}>
-            <Text>Add username</Text>
-          </SettingsItem>
+          <SettingsItem onClick={clicked(showAddUsername)}>Add username</SettingsItem>
         </>
       ) : null}
       <Divider />
       <SettingsItem mb="tight" onClick={clicked(showNetworks)}>
-        <Text>Change Network</Text>
+        <Flex width="100%">
+          <Box flexGrow={1}>Change Network</Box>
+          <Box color="ink.600">{currentNetworkKey}</Box>
+        </Flex>
       </SettingsItem>
       <Divider />
       <SettingsItem
@@ -101,7 +106,7 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
           doChangeScreen(ScreenPaths.INSTALLED);
         }}
       >
-        <Text>Sign Out</Text>
+        Sign Out
       </SettingsItem>
       <SettingsItem
         mb="tight"
@@ -110,7 +115,7 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
           doLockWallet();
         }}
       >
-        <Text>Lock</Text>
+        Lock
       </SettingsItem>
     </Box>
   );

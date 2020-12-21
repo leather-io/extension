@@ -27,7 +27,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ redirect }) => {
   return (
     <PopupContainer hideActions title="Set a password">
       <Box my="loose">
-        <Text>
+        <Text fontSize={2}>
           <Text color="green" fontWeight="500">
             This password is for this device only.
           </Text>{' '}

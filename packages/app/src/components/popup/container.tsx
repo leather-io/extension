@@ -11,9 +11,9 @@ import { accountDrawerStep, AccountStep } from '@store/recoil';
 
 const CloseIconContainer = styled(Box)`
   svg {
-    height: 12px;
+    height: 14px;
     opacity: 50%;
-    margin-top: 10px;
+    // margin-top: 10px;
   }
 `;
 
@@ -52,26 +52,35 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({
         flexWrap="wrap"
         flexDirection="column"
       >
+        {onClose && (
+          <Box width="100%" mb="tight">
+            <CloseIconContainer>
+              <ArrowIcon
+                height="18px"
+                cursor="pointer"
+                onClick={onClose}
+                direction={'left' as any}
+              />
+            </CloseIconContainer>
+          </Box>
+        )}
         <Flex width="100%">
           <Box flexGrow={1}>
             {title ? (
-              <Text fontSize={4} fontWeight="600">
+              <Text
+                fontSize={4}
+                fontWeight="600"
+                textStyle="display.large"
+                fontFamily="heading"
+                color="ink.1000"
+              >
                 {title}
               </Text>
             ) : (
               <ConnectIcon height="16px" />
             )}
           </Box>
-          {hideActions ? null : onClose ? (
-            <CloseIconContainer>
-              <ArrowIcon
-                height="16px"
-                cursor="pointer"
-                onClick={onClose}
-                direction={'left' as any}
-              />
-            </CloseIconContainer>
-          ) : (
+          {hideActions ? null : (
             <Box cursor="pointer" position="relative">
               <SettingsPopover
                 showing={isShowingPopover}

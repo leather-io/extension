@@ -25,7 +25,7 @@ export const PostConditionBase: React.FC<PostConditionBaseProps> = props => {
     <Box mb="base">
       <Flex dir="column">
         <Box mb="base">
-          <Text>You {props.title}</Text>
+          <Text fontSize={2}>You {props.title}</Text>
         </Box>
         <Box>
           <Flex dir="row">

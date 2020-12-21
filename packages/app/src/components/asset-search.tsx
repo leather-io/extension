@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Box, Text, Flex, Input, BoxProps, CloseIcon } from '@stacks/ui';
+import { Box, Text, Flex, Input, BoxProps, ChevronIcon } from '@stacks/ui';
 import { AssetAvatar } from '@components/stx-avatar';
 import { useCombobox } from 'downshift';
 import { useFetchBalances } from '@common/hooks/use-account-info';
@@ -9,6 +9,8 @@ import { Asset, selectedAssetStore } from '@store/recoil/asset-search';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LoadingRectangle } from './loading-rectangle';
 import type { AddressBalanceResponse } from '@blockstack/stacks-blockchain-api-types';
+import { microStxToStx } from '@common/stacks-utils';
+import BigNumber from 'bignumber.js';
 
 interface AssetResultProps extends BoxProps {
   asset: Asset;
@@ -35,63 +37,90 @@ export const AssetResult: React.FC<AssetResultProps> = props => {
 };
 
 const SelectedAsset: React.FC<{ setInput: (input: string) => void }> = ({ setInput }) => {
+  const { data: balances } = useFetchBalances();
   const selectedAsset = useRecoilValue(selectedAssetStore);
   const setSelectedAsset = useSetRecoilState(selectedAssetStore);
+
+  const balance = useMemo<string | undefined>(() => {
+    if (!selectedAsset || !balances) return;
+    if (selectedAsset.type === 'stx') {
+      const stx = microStxToStx(balances.stx.balance);
+      return stx.decimalPlaces(6).toFormat();
+    } else {
+      const token = Object.keys(balances.fungible_tokens).find(contract => {
+        return contract.startsWith(selectedAsset.contractAddress);
+      });
+      if (token) {
+        const balanceBN = new BigNumber(balances.fungible_tokens[token].balance);
+        return balanceBN.toFormat();
+      }
+    }
+    return;
+  }, [selectedAsset, balances]);
 
   if (!selectedAsset) {
     return null;
   }
-  const { name, contractAddress, type } = selectedAsset;
-  const subtitle = () => {
-    if (type === 'stx') return 'STX';
-    if (!contractAddress) return '';
-    const { assetName, address, contractName } = getAssetStringParts(contractAddress);
-    return `${truncateMiddle(address)}.${contractName}::${assetName}`;
-  };
+  const { name } = selectedAsset;
   return (
-    <Box
-      width="100%"
-      my="loose"
-      px="base"
-      py="tight"
-      borderRadius="8px"
-      borderColor="rgb(229, 229, 236)"
-      borderWidth="1px"
-      _hover={{ borderColor: 'ink.300' }}
-    >
-      <Flex flexWrap="wrap" flexDirection="row">
-        <Box width="32px" py="tight" mr="base">
-          <AssetAvatar
-            useStx={name === 'Stacks Token'}
-            gradientString={name}
-            mr="tight"
-            size="32px"
-          >
-            {name[0]}
-          </AssetAvatar>
-        </Box>
-        <Box flexGrow={1}>
-          <Text display="block" fontWeight="500">
-            {name}
-          </Text>
-          <Text fontSize={0} color="ink.600">
-            {subtitle()}
-          </Text>
-        </Box>
-        <Box textAlign="right" pt="tight">
-          <CloseIcon
-            size={4}
-            cursor="pointer"
-            position="relative"
-            top="5px"
-            onClick={() => {
-              setInput('');
-              setSelectedAsset(undefined);
-            }}
-          />
-        </Box>
-      </Flex>
-    </Box>
+    <Flex dir="column" mt="loose">
+      <Box>
+        <Text display="block" fontSize={1} fontWeight="500" mb="tight">
+          Token
+        </Text>
+      </Box>
+      <Box
+        width="100%"
+        px="base"
+        py="base-tight"
+        borderRadius="8px"
+        borderColor="rgb(229, 229, 236)"
+        borderWidth="1px"
+        onClick={() => {
+          setInput('');
+          setSelectedAsset(undefined);
+        }}
+      >
+        <Flex flexWrap="wrap" flexDirection="row">
+          <Box width="24px" mr="base">
+            <AssetAvatar
+              useStx={name === 'Stacks Token'}
+              gradientString={name}
+              mr="tight"
+              size="24px"
+            >
+              {name[0]}
+            </AssetAvatar>
+          </Box>
+          <Box flexGrow={1}>
+            <Text display="block" fontWeight="400" fontSize={2} color="ink.1000">
+              {name}
+            </Text>
+          </Box>
+          <Box px="base">
+            {balances ? (
+              <Text fontSize={2} color="ink.600">
+                {balance}
+              </Text>
+            ) : (
+              <LoadingRectangle height="16px" width="60px" />
+            )}
+          </Box>
+          <Box textAlign="right" height="24px">
+            <ChevronIcon
+              size="24px"
+              direction="down"
+              cursor="pointer"
+              opacity="70%"
+              onClick={() => {
+                setInput('');
+                setSelectedAsset(undefined);
+              }}
+            />
+          </Box>
+        </Flex>
+      </Box>
+    </Flex>
   );
 };
 
@@ -195,7 +224,7 @@ export const AssetSearch: React.FC = () => {
         <Text
           as="label"
           display="block"
-          mb="extra-tight"
+          mb="tight"
           fontSize={1}
           fontWeight="500"
           htmlFor="amount"

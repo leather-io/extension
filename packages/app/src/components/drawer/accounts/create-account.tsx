@@ -22,7 +22,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ close }) => {
         </Text>
       </Box>
       <Box py="base">
-        <Text>
+        <Text fontSize={2}>
           Your new account has been created. A username makes your account easy to recognize. Would
           you like to add a username?
         </Text>

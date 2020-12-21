@@ -115,7 +115,7 @@ export const PopupSend: React.FC = () => {
                   <Text
                     as="label"
                     display="block"
-                    mb="extra-tight"
+                    mb="tight"
                     fontSize={1}
                     fontWeight="500"
                     htmlFor="amount"
@@ -160,7 +160,7 @@ export const PopupSend: React.FC = () => {
                   <Text
                     as="label"
                     display="block"
-                    mb="extra-tight"
+                    mb="tight"
                     fontSize={1}
                     fontWeight="500"
                     htmlFor="amount"

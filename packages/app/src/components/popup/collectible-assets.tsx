@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text, Box, BoxProps, color, Flex } from '@stacks/ui';
+import { Text, Box, BoxProps, Flex } from '@stacks/ui';
 import { AddressBalanceResponse } from '@blockstack/stacks-blockchain-api-types';
 import { AssetRow } from './asset-row';
 
 const NoCollectibles: React.FC<BoxProps> = props => (
-  <Box width="100%" py="extra-loose" textAlign="center" {...props}>
-    <Text color={color('text-caption')} fontSize={1} display="block" mb="extra-tight">
+  <Box width="100%" py="extra-loose" my="extra-loose" textAlign="center" {...props}>
+    <Text fontSize={2} display="block" mb="extra-tight" color="ink.600" fontWeight="500">
       You don't own any collectibles.
     </Text>
   </Box>
