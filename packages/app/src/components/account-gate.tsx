@@ -53,7 +53,7 @@ export const AccountGate: React.FC = ({ children }) => {
       return (
         <PopupContainer hideActions title="Save your Secret Key">
           <Box my="loose">
-            <Text>
+            <Text fontSize={2}>
               Before adding tokens to your account, save your Secret Key. You’ll need your Secret
               Key to access your account, its data and assets on a new device.
             </Text>
@@ -71,7 +71,7 @@ export const AccountGate: React.FC = ({ children }) => {
         <PopupContainer hideActions title="Your Secret Key">
           <Toast show={hasCopied} />
           <Box mt="loose">
-            <Text>
+            <Text fontSize={2}>
               Here’s your Secret Key: 12 words that prove it’s you when you want to use {name} on a
               new device. Once lost it’s lost forever, so save it somewhere you won’t forget.
             </Text>

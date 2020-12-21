@@ -57,7 +57,13 @@ export const TransactionPageContent: React.FC = () => {
   return (
     <>
       <Box mt="extra-loose">
-        <Text fontSize={5} fontWeight="500" display="block">
+        <Text
+          display="block"
+          fontFamily="heading"
+          textStyle="display.large"
+          fontSize={5}
+          color="ink.1000"
+        >
           {pageTitle}
         </Text>
         <Text textStyle="caption" color="ink.600">

@@ -29,13 +29,17 @@ export const AssetRow: React.FC<AssetRowProps> = ({
           </AssetAvatar>
         </Box>
         <Box flexGrow={1}>
-          <Text display="block" fontWeight="500">
+          <Text display="block" fontWeight="400" color="ink.1000">
             {friendlyName}
           </Text>
-          <Text fontSize={1}>{subtitle}</Text>
+          <Text fontSize={1} color="ink.400">
+            {subtitle}
+          </Text>
         </Box>
         <Box textAlign="right" pt="tight">
-          <Text fontWeight="500">{value}</Text>
+          <Text fontWeight="400" color="ink.1000">
+            {value}
+          </Text>
         </Box>
       </Flex>
     </Box>

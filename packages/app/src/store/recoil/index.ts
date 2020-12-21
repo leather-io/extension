@@ -43,7 +43,7 @@ export const localStorageEffect = <T>({
         if (serialized) {
           localStorage.setItem(key, serialized);
         } else {
-          localStorage.remoteItem(key);
+          localStorage.removeItem(key);
         }
       } else {
         if (newValue !== null && newValue !== undefined) {

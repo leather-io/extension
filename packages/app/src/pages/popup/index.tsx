@@ -60,7 +60,13 @@ export const PopupHome: React.FC = () => {
   return (
     <PopupContainer>
       <Box width="100%" mt="loose">
-        <Text fontSize="24px" fontWeight="600" lineHeight="40px">
+        <Text
+          fontSize="24px"
+          fontWeight="600"
+          lineHeight="40px"
+          fontFamily="heading"
+          color="ink.1000"
+        >
           {getIdentityDisplayName(currentIdentity, true)}
         </Text>
       </Box>

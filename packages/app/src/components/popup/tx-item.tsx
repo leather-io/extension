@@ -51,10 +51,10 @@ export const TxItem: React.FC<TxItemProps> = ({ transaction }) => {
       </Text>
       <Flex dir="row">
         <Box flexGrow={1}>
-          <Text display="block" fontWeight="500">
+          <Text display="block" fontWeight="400" color="ink.1000">
             {getTxLabel(transaction)}
           </Text>
-          <Text fontSize={1} color="ink.600">
+          <Text fontSize={0} color="ink.400">
             {truncateMiddle(transaction.tx_id)}
           </Text>
         </Box>

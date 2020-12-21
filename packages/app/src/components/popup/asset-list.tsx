@@ -18,9 +18,12 @@ export const AssetList: React.FC<AssetListProps> = ({ balances }) => {
         borderColor: 'blue',
         borderWidth: '0 0 2px 0',
         color: 'blue',
+        fontWeight: '500',
       };
     }
-    return {};
+    return {
+      color: 'ink.600',
+    };
   };
 
   const TabHeader: React.FC<{ tab: Tab }> = ({ tab }) => {
@@ -31,10 +34,11 @@ export const AssetList: React.FC<AssetListProps> = ({ balances }) => {
         textAlign="center"
         p="base-tight"
         cursor="pointer"
+        fontSize="14px"
         {...getTabStyles(tab)}
         onClick={() => setCurrentTab(tab)}
       >
-        <Text>{tabName.charAt(0).toUpperCase() + tabName.slice(1)}</Text>
+        <Text fontSize={2}>{tabName.charAt(0).toUpperCase() + tabName.slice(1)}</Text>
       </Box>
     );
   };
