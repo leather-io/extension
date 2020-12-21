@@ -23,6 +23,7 @@ export const BaseDrawer: React.FC<BaseDrawerProps> = ({ showing, close, children
       transition={transition}
       position="fixed"
       height="100%"
+      pt="loose"
       width="100%"
       alignItems="flex-end"
       dir="column"
