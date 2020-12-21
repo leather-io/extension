@@ -20,8 +20,9 @@ export const SwitchAccounts: React.FC<SwitchAccountProps> = ({ close }) => {
         width="100%"
         key={identity.address}
         _hover={{
-          backgroundColor: 'ink.150',
+          letterSpacing: '0.25px',
         }}
+        transition="100ms letter-spacing"
         cursor="pointer"
         // px={6}
         py="base"
@@ -33,7 +34,7 @@ export const SwitchAccounts: React.FC<SwitchAccountProps> = ({ close }) => {
         <Flex width="100%">
           <Box flexGrow={1}>
             <Text fontSize={2} display="block">
-              {getIdentityDisplayName(identity, true)}
+              {getIdentityDisplayName(identity, index)}
             </Text>
             <Text fontSize={1} color="gray">
               {identity.getStxAddress()}

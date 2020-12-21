@@ -11,14 +11,15 @@ const SettingsItem: React.FC<BoxProps> = ({ onClick, children, ...props }) => (
     {...props}
     width="100%"
     p="base-tight"
-    display="block"
     color="ink.1000"
     _hover={{ backgroundColor: 'ink.150' }}
     onClick={e => {
       onClick?.(e);
     }}
   >
-    <Text textStyle="body.small">{children}</Text>
+    <Text textStyle="body.small" display="block">
+      {children}
+    </Text>
   </Box>
 );
 

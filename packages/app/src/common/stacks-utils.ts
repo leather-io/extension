@@ -87,15 +87,11 @@ export const truncateMiddle = (input: string, offset = 5): string => {
   return `${start}…${end}`;
 };
 
-export const getIdentityDisplayName = (identity: Identity, truncate = false): string => {
+export const getIdentityDisplayName = (identity: Identity, index: number): string => {
   if (identity.defaultUsername) {
     return identity.defaultUsername.split('.')[0];
   }
-  const address = identity.getStxAddress();
-  if (truncate) {
-    return truncateMiddle(address);
-  }
-  return address;
+  return `Account ${index + 1}`;
 };
 
 export const validateStacksAddress = (stacksAddress: string): boolean => {

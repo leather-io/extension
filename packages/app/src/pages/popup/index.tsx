@@ -51,10 +51,11 @@ const HomeLoading: React.FC = () => {
 };
 
 export const PopupHome: React.FC = () => {
-  const { currentIdentity } = useWallet();
+  const { currentIdentity, currentIdentityIndex } = useWallet();
   const { doChangeScreen } = useAnalytics();
+  console.log(useWallet());
 
-  if (!currentIdentity) {
+  if (!currentIdentity || currentIdentityIndex === undefined) {
     return null;
   }
   return (
@@ -66,8 +67,12 @@ export const PopupHome: React.FC = () => {
           lineHeight="40px"
           fontFamily="heading"
           color="ink.1000"
+          display="block"
         >
-          {getIdentityDisplayName(currentIdentity, true)}
+          {getIdentityDisplayName(currentIdentity, currentIdentityIndex)}
+        </Text>
+        <Text textStyle="body.small" color="ink.600">
+          {currentIdentity.getStxAddress()}
         </Text>
       </Box>
       <Box width="100%" mt="loose">
