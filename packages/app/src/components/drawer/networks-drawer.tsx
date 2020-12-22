@@ -58,7 +58,14 @@ export const NetworksDrawer: React.FC = () => {
         {networkRows}
       </Flex>
       <Box width="100%" px={6}>
-        <Button onClick={() => doChangeScreen(ScreenPaths.ADD_NETWORK)}>Add a network</Button>
+        <Button
+          onClick={() => {
+            setShowNetworks(false);
+            doChangeScreen(ScreenPaths.ADD_NETWORK);
+          }}
+        >
+          Add a network
+        </Button>
       </Box>
     </ControlledDrawer>
   );
