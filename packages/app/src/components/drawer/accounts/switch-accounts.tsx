@@ -4,7 +4,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { getIdentityDisplayName } from '@common/stacks-utils';
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';
 import { useSetRecoilState } from 'recoil';
-import { accountDrawerStep, AccountStep } from '@store/recoil';
+import { accountDrawerStep, AccountStep } from '@store/recoil/drawers';
 import { currentIdentityIndexStore } from '@store/recoil/wallet';
 
 interface SwitchAccountProps {

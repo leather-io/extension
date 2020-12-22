@@ -1,4 +1,4 @@
-import { atom, AtomEffect, DefaultValue } from 'recoil';
+import { AtomEffect, DefaultValue } from 'recoil';
 
 export const ATOM_LOCALSTORAGE_PREFIX = '__hiro-recoil__';
 
@@ -55,14 +55,3 @@ export const localStorageEffect = <T>({
     });
   }
 };
-
-export enum AccountStep {
-  Switch = 'switch',
-  Create = 'create',
-  Username = 'username',
-}
-
-export const accountDrawerStep = atom<AccountStep>({
-  key: 'drawers.accounts.visibility',
-  default: AccountStep.Switch,
-});

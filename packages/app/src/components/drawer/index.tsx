@@ -3,7 +3,6 @@ import { Box, Flex } from '@stacks/ui';
 import useOnClickOutside from 'use-onclickoutside';
 
 const transition = '0.2s all ease-in-out';
-
 export interface BaseDrawerProps {
   showing: boolean;
   close: () => void;
