@@ -28,7 +28,12 @@ import { useSetRecoilState } from 'recoil';
 
 export const Routes: React.FC = () => {
   const { doChangeScreen } = useAnalytics();
-  const { isSignedIn: signedIn, doFinishSignIn, doSaveAuthRequest } = useWallet();
+  const {
+    isSignedIn: signedIn,
+    doFinishSignIn,
+    doSaveAuthRequest,
+    encryptedSecretKey,
+  } = useWallet();
   const { isOnboardingInProgress, onboardingPath } = useOnboardingState();
   const authRequest = authenticationInit();
   const { search, pathname } = useLocation();
@@ -73,7 +78,7 @@ export const Routes: React.FC = () => {
   };
 
   const getHomeComponent = () => {
-    if (isSignedIn) {
+    if (isSignedIn || encryptedSecretKey) {
       return <AccountGate element={<PopupHome />} />;
     }
     return <Installed />;
