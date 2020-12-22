@@ -9,19 +9,20 @@ import {
   requestTokenStore,
   pendingTransactionFunctionSelector,
 } from '@store/recoil/transaction';
-import { useRecoilValue, useSetRecoilState, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { currentNetworkStore } from '@store/recoil/networks';
 import { finishTransaction } from '@common/transaction-utils';
+import { useLoadable } from '@common/hooks/use-loadable';
 
 export const useTxState = () => {
   const location = useLocation();
   const { currentIdentity, doSetLatestNonce } = useWallet();
   const [error, setError] = useState<string | null>(null);
   const pendingTransaction = useRecoilValue(pendingTransactionStore);
-  const contractSource = useRecoilValueLoadable(contractSourceStore);
-  const contractInterface = useRecoilValueLoadable(contractInterfaceStore);
-  const pendingTransactionFunction = useRecoilValueLoadable(pendingTransactionFunctionSelector);
-  const signedTransaction = useRecoilValueLoadable(signedTransactionStore);
+  const contractSource = useLoadable(contractSourceStore);
+  const contractInterface = useLoadable(contractInterfaceStore);
+  const pendingTransactionFunction = useLoadable(pendingTransactionFunctionSelector);
+  const signedTransaction = useLoadable(signedTransactionStore);
   const requestToken = useRecoilValue(requestTokenStore);
   const setRequestToken = useSetRecoilState(requestTokenStore);
   const currentNetwork = useRecoilValue(currentNetworkStore);

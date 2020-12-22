@@ -88,12 +88,12 @@ export const TransactionPageContent: React.FC = () => {
           </Box>
           <Box>
             <Text textStyle="caption" color="ink.600">
-              {signedTransaction.state === 'loading' ? (
+              {signedTransaction.state === 'loading' && !signedTransaction.value ? (
                 <LoadingRectangle width="100px" height="14px" />
               ) : null}
-              {signedTransaction.state === 'hasValue'
+              {signedTransaction.value
                 ? stacksValue({
-                    value: signedTransaction.contents.auth.spendingCondition?.fee?.toNumber() || 0,
+                    value: signedTransaction.value.auth.spendingCondition?.fee?.toNumber() || 0,
                   })
                 : null}
             </Text>
@@ -105,7 +105,7 @@ export const TransactionPageContent: React.FC = () => {
           width="100%"
           onClick={submit}
           isLoading={isSubmitting}
-          isDisabled={signedTransaction.state !== 'hasValue'}
+          isDisabled={!signedTransaction.value}
         >
           Confirm
         </Button>
