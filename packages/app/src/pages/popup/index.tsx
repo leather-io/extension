@@ -53,7 +53,6 @@ const HomeLoading: React.FC = () => {
 export const PopupHome: React.FC = () => {
   const { currentIdentity, currentIdentityIndex } = useWallet();
   const { doChangeScreen } = useAnalytics();
-  console.log(useWallet());
 
   if (!currentIdentity || currentIdentityIndex === undefined) {
     return null;

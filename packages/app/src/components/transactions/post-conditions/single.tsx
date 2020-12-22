@@ -125,7 +125,6 @@ export const PostConditionComponent: React.FC<PostConditionProps> = ({ pc, index
 
   const removePostCondition = useCallback(() => {
     setPostConditions(pcs => {
-      console.log('removing at index', index, pcs);
       const _postConditions = [...pcs];
       _postConditions.splice(index, 1);
       return _postConditions;

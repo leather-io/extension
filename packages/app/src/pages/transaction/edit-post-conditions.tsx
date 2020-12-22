@@ -115,7 +115,6 @@ export const EditPostConditions: React.FC = () => {
         );
         const assetInfo = createAssetInfo(contractAddress, contractName, assetName);
         const code = parseInt((values.code as unknown) as string) as FungibleConditionCode;
-        console.log(code);
         pc = makeStandardFungiblePostCondition(address, code, new BN(values.amount, 10), assetInfo);
       } else if (selectedAsset.type === 'stx') {
         const code = parseInt((values.code as unknown) as string) as FungibleConditionCode;
