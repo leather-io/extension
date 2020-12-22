@@ -1,12 +1,6 @@
 import { useCallback } from 'react';
 import { decrypt, Wallet, makeIdentity, encryptMnemonicFormatted } from '@stacks/keychain';
-import {
-  useRecoilValue,
-  useRecoilState,
-  useSetRecoilState,
-  useRecoilValueLoadable,
-  useRecoilCallback,
-} from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState, useRecoilCallback } from 'recoil';
 import { useDispatch } from 'react-redux';
 import { gaiaUrl } from '@common/constants';
 import { bip32 } from 'bitcoinjs-lib';
@@ -37,6 +31,7 @@ import { doTrackScreenChange } from '@common/track';
 import { AppManifest, DecodedAuthRequest } from '@common/dev/types';
 import { decodeToken } from 'blockstack';
 import { chainInfoStore } from '@store/recoil/api';
+import { useLoadable } from '@common/hooks/use-loadable';
 
 const loadManifest = async (decodedAuthRequest: DecodedAuthRequest) => {
   const res = await fetch(decodedAuthRequest.manifest_uri);
@@ -55,7 +50,7 @@ export const useWallet = () => {
   const networks = useRecoilValue(networksStore);
   const currentNetwork = useRecoilValue(currentNetworkStore);
   const currentNetworkKey = useRecoilValue(currentNetworkKeyStore);
-  const chainInfo = useRecoilValueLoadable(chainInfoStore);
+  const chainInfo = useLoadable(chainInfoStore);
   const setLatestNonces = useSetRecoilState(
     latestNoncesStore([currentNetworkKey, currentIdentity?.getStxAddress() || ''])
   );
@@ -133,14 +128,14 @@ export const useWallet = () => {
   const doSetLatestNonce = useCallback(
     (tx: StacksTransaction) => {
       const newNonce = tx.auth.spendingCondition?.nonce.toNumber();
-      if (newNonce && chainInfo.state === 'hasValue') {
+      if (newNonce && chainInfo.value) {
         setLatestNonces({
-          blockHeight: chainInfo.contents.stacks_tip_height,
+          blockHeight: chainInfo.value.stacks_tip_height,
           nonce: newNonce,
         });
       }
     },
-    [chainInfo, setLatestNonces]
+    [chainInfo.value, setLatestNonces]
   );
 
   const doFinishSignIn = useCallback(
