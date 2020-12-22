@@ -10,6 +10,8 @@ import { version } from '../../package.json';
 import { css, Global } from '@emotion/react';
 import { ColorModeProvider } from '@components/color-modes';
 import { CssReset } from '@components/css-reset';
+import { AccountsDrawer } from './drawer/accounts';
+import { NetworksDrawer } from './drawer/networks-drawer';
 
 const globalStyle = css`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -75,6 +77,8 @@ export const App: React.FC = () => {
             <CssReset />
             <Global styles={globalStyle} />
             <Router>
+              <AccountsDrawer />
+              <NetworksDrawer />
               <Routes />
             </Router>
           </React.Fragment>

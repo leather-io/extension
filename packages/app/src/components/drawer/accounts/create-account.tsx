@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Box, Flex, Text, Button } from '@stacks/ui';
 import { useSetRecoilState } from 'recoil';
-import { accountDrawerStep, AccountStep } from '@store/recoil';
+import { accountDrawerStep, AccountStep } from '@store/recoil/drawers';
 
 interface CreateAccountProps {
   close: () => void;

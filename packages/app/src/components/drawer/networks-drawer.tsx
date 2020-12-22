@@ -1,14 +1,18 @@
 import React from 'react';
 import { Box, Flex, Text, Button } from '@stacks/ui';
-import { BaseDrawerProps, BaseDrawer } from '.';
+import { ControlledDrawer } from './controlled';
 import { useWallet } from '@common/hooks/use-wallet';
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { useSetRecoilState } from 'recoil';
 import { currentNetworkKeyStore } from '@store/recoil/networks';
+import { showNetworksStore } from '@store/recoil/drawers';
+import { useDrawers } from '@common/hooks/use-drawers';
 
-export const NetworksDrawer: React.FC<BaseDrawerProps> = ({ showing, close }) => {
+export const NetworksDrawer: React.FC = () => {
+  const { setShowNetworks } = useDrawers();
+
   const { networks, currentNetworkKey } = useWallet();
   const setCurrentNetworkKey = useSetRecoilState(currentNetworkKeyStore);
   const { doChangeScreen } = useAnalytics();
@@ -26,7 +30,7 @@ export const NetworksDrawer: React.FC<BaseDrawerProps> = ({ showing, close }) =>
         py="base"
         onClick={() => {
           setCurrentNetworkKey(networkKey);
-          close();
+          setShowNetworks(false);
         }}
       >
         <Flex width="100%">
@@ -44,7 +48,7 @@ export const NetworksDrawer: React.FC<BaseDrawerProps> = ({ showing, close }) =>
     );
   });
   return (
-    <BaseDrawer showing={showing} close={close}>
+    <ControlledDrawer state={showNetworksStore}>
       <Box width="100%" px={6}>
         <Text fontSize={4} fontWeight="600">
           Select Network
@@ -56,6 +60,6 @@ export const NetworksDrawer: React.FC<BaseDrawerProps> = ({ showing, close }) =>
       <Box width="100%" px={6}>
         <Button onClick={() => doChangeScreen(ScreenPaths.ADD_NETWORK)}>Add a network</Button>
       </Box>
-    </BaseDrawer>
+    </ControlledDrawer>
   );
 };

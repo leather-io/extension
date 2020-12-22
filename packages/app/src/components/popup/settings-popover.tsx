@@ -2,8 +2,10 @@ import React, { useCallback } from 'react';
 import { Box, Text, BoxProps, Flex } from '@stacks/ui';
 import useOnClickOutside from 'use-onclickoutside';
 import { useWallet } from '@common/hooks/use-wallet';
+import { useDrawers } from '@common/hooks/use-drawers';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
+import { AccountStep } from '@store/recoil/drawers';
 import { Divider } from '@components/divider';
 
 const SettingsItem: React.FC<BoxProps> = ({ onClick, children, ...props }) => (
@@ -23,25 +25,22 @@ const SettingsItem: React.FC<BoxProps> = ({ onClick, children, ...props }) => (
   </Box>
 );
 
-interface SettingsPopoverProps {
-  showing: boolean;
-  close: () => void;
-  showSwitchAccount: () => void;
-  showNetworks: () => void;
-  showAddUsername: () => void;
-  showCreateAccount: () => void;
-}
-export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
-  showing,
-  close,
-  showSwitchAccount,
-  showNetworks,
-  showAddUsername,
-  showCreateAccount,
-}) => {
-  const ref = React.useRef(null);
+export const SettingsPopover: React.FC = () => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
   const { doSignOut, currentIdentity, doLockWallet, identities, currentNetworkKey } = useWallet();
+  const {
+    setShowNetworks,
+    setShowAccounts,
+    setAccountStep,
+    setShowSettings,
+    showSettings,
+  } = useDrawers();
   const { doChangeScreen } = useAnalytics();
+
+  const showing = showSettings;
+  const close = useCallback(() => {
+    setShowSettings(false);
+  }, [setShowSettings]);
 
   useOnClickOutside(ref, () => {
     if (showing) {
@@ -49,11 +48,11 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
     }
   });
 
-  const clicked = useCallback(
-    cb => {
+  const wrappedCloseCallback = useCallback(
+    (callback: () => void) => {
       return () => {
+        callback();
         close();
-        cb();
       };
     },
     [close]
@@ -63,8 +62,8 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
     <Box
       ref={ref}
       position="absolute"
-      top="14px"
-      right="0px"
+      top="44px"
+      right="26px"
       borderRadius="8px"
       width="296px"
       boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08);"
@@ -72,11 +71,24 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
       background="white"
       display={showing ? 'block' : 'none'}
     >
-      <SettingsItem mt="tight" onClick={clicked(showSwitchAccount)}>
+      <SettingsItem
+        mt="tight"
+        onClick={wrappedCloseCallback(() => {
+          setAccountStep(AccountStep.Switch);
+          setShowAccounts(true);
+        })}
+      >
         Switch account
       </SettingsItem>
       {identities && identities.length > 1 ? (
-        <SettingsItem onClick={clicked(showCreateAccount)}>Create an Account</SettingsItem>
+        <SettingsItem
+          onClick={wrappedCloseCallback(() => {
+            setAccountStep(AccountStep.Create);
+            setShowAccounts(true);
+          })}
+        >
+          Create an Account
+        </SettingsItem>
       ) : null}
       {/* <SettingsItem
         onClick={() => {
@@ -89,11 +101,23 @@ export const SettingsPopover: React.FC<SettingsPopoverProps> = ({
       {currentIdentity && !currentIdentity.defaultUsername ? (
         <>
           <Divider />
-          <SettingsItem onClick={clicked(showAddUsername)}>Add username</SettingsItem>
+          <SettingsItem
+            onClick={wrappedCloseCallback(() => {
+              setAccountStep(AccountStep.Username);
+              setShowAccounts(true);
+            })}
+          >
+            Add username
+          </SettingsItem>
         </>
       ) : null}
       <Divider />
-      <SettingsItem mb="tight" onClick={clicked(showNetworks)}>
+      <SettingsItem
+        mb="tight"
+        onClick={wrappedCloseCallback(() => {
+          setShowNetworks(true);
+        })}
+      >
         <Flex width="100%">
           <Box flexGrow={1}>Change Network</Box>
           <Box color="ink.600">{currentNetworkKey}</Box>

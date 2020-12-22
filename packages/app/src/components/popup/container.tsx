@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { Box, Flex, Text, ArrowIcon } from '@stacks/ui';
+import React from 'react';
+import { Box, Flex, Text, ArrowIcon, BoxProps } from '@stacks/ui';
 import { ConnectIcon } from '@components/icons/connect-icon';
 import styled from '@emotion/styled';
-import { AccountsDrawer } from '@components/drawer/accounts';
-import { NetworksDrawer } from '@components/drawer/networks-drawer';
 import { EllipsisIcon } from '@components/icons/ellipsis-icon';
 import { SettingsPopover } from './settings-popover';
-import { useSetRecoilState } from 'recoil';
-import { accountDrawerStep, AccountStep } from '@store/recoil';
+import { useDrawers } from '@common/hooks/use-drawers';
 
 const CloseIconContainer = styled(Box)`
   svg {
@@ -28,21 +25,20 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({
   onClose,
   hideActions,
 }) => {
-  const [isShowingSwitchAccount, setShowingSwitchAccount] = useState(false);
-  const [isShowingNetworks, setShowingNetworks] = useState(false);
-  const [isShowingPopover, setShowingPopover] = useState(false);
-  const setAccountDrawerStep = useSetRecoilState(accountDrawerStep);
+  const { setShowSettings } = useDrawers();
   const isExtension = EXT_ENV !== 'web';
+
+  const Settings: React.FC<BoxProps> = props => {
+    if (hideActions) return null;
+    return (
+      <Box cursor="pointer" position="relative" {...props}>
+        <EllipsisIcon onClick={() => setShowSettings(true)} />
+      </Box>
+    );
+  };
+
   return (
     <>
-      <AccountsDrawer
-        showing={isShowingSwitchAccount}
-        close={() => {
-          setShowingSwitchAccount(false);
-          setAccountDrawerStep(AccountStep.Switch);
-        }}
-      />
-      <NetworksDrawer showing={isShowingNetworks} close={() => setShowingNetworks(false)} />
       <Flex
         minHeight="max(100vh, 400px)"
         minWidth={isExtension ? '440px' : undefined}
@@ -52,60 +48,48 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({
         flexWrap="wrap"
         flexDirection="column"
       >
-        {onClose && (
-          <Box width="100%" mb="tight">
-            <CloseIconContainer>
-              <ArrowIcon
-                height="18px"
-                cursor="pointer"
-                onClick={onClose}
-                direction={'left' as any}
-              />
-            </CloseIconContainer>
-          </Box>
-        )}
-        <Flex width="100%">
+        <SettingsPopover />
+        <Flex width="100%" dir="row" display={['none', 'flex']}>
           <Box flexGrow={1}>
-            {title ? (
-              <Text
-                fontSize={4}
-                fontWeight="600"
-                textStyle="display.large"
-                fontFamily="heading"
-                color="ink.1000"
-              >
-                {title}
-              </Text>
-            ) : (
-              <ConnectIcon height="16px" />
-            )}
+            <ConnectIcon height="16px" />
           </Box>
-          {hideActions ? null : (
-            <Box cursor="pointer" position="relative">
-              <SettingsPopover
-                showing={isShowingPopover}
-                close={() => setShowingPopover(false)}
-                showSwitchAccount={() => {
-                  setAccountDrawerStep(AccountStep.Switch);
-                  setShowingSwitchAccount(true);
-                }}
-                showNetworks={() => {
-                  setShowingNetworks(true);
-                }}
-                showAddUsername={() => {
-                  setAccountDrawerStep(AccountStep.Username);
-                  setShowingSwitchAccount(true);
-                }}
-                showCreateAccount={() => {
-                  setAccountDrawerStep(AccountStep.Create);
-                  setShowingSwitchAccount(true);
-                }}
-              />
-              <EllipsisIcon onClick={() => setShowingPopover(true)} />
-            </Box>
-          )}
+          <Settings />
         </Flex>
-        {children}
+        <Flex width="100%" justifyContent="center">
+          <Flex dir="column" maxWidth="512px" minWidth="min(100%, 512px)">
+            <Flex width="100%" dir="row">
+              <Box flexGrow={1}>
+                {onClose && (
+                  <Box width="100%" mb="tight">
+                    <CloseIconContainer>
+                      <ArrowIcon
+                        height="18px"
+                        cursor="pointer"
+                        onClick={onClose}
+                        direction={'left' as any}
+                      />
+                    </CloseIconContainer>
+                  </Box>
+                )}
+                {title ? (
+                  <Text
+                    fontSize={4}
+                    fontWeight="600"
+                    textStyle="display.large"
+                    fontFamily="heading"
+                    color="ink.1000"
+                  >
+                    {title}
+                  </Text>
+                ) : (
+                  <ConnectIcon height="16px" display={['flex', 'none']} />
+                )}
+              </Box>
+              <Settings display={['flex', 'none']} />
+            </Flex>
+            {children}
+          </Flex>
+        </Flex>
       </Flex>
     </>
   );
