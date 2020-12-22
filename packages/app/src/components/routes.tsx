@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { Home } from '@pages/home';
 import { Create, SaveKey } from '@pages/sign-up';
 import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
 import { Username } from '@pages/username';
@@ -23,7 +22,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
-import { AccountGate } from '@components/account-gate';
+import { AccountGate, AccountGateRoute } from '@components/account-gate';
 import { lastSeenStore } from '@store/recoil/wallet';
 import { useSetRecoilState } from 'recoil';
 
@@ -73,26 +72,28 @@ export const Routes: React.FC = () => {
     return <Username />;
   };
 
+  const getHomeComponent = () => {
+    if (isSignedIn) {
+      return <AccountGate element={<PopupHome />} />;
+    }
+    return <Installed />;
+  };
+
   return (
     <RoutesDom>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={getHomeComponent()} />
       {/* Installation */}
       <Route path="/installed" element={<Installed />} />
       <Route path="/installed/sign-in" element={<InstalledSignIn />} />
-      {/* Popup */}
-      <Route
-        path={ScreenPaths.POPUP_HOME}
-        element={
-          <AccountGate>
-            <PopupHome />
-          </AccountGate>
-        }
+      <AccountGateRoute path={ScreenPaths.POPUP_HOME} element={<PopupHome />} />
+      <AccountGateRoute path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
+      <AccountGateRoute path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
+      <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
+      <AccountGateRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
+      <AccountGateRoute
+        path={ScreenPaths.EDIT_POST_CONDITIONS}
+        element={<EditPostConditionsPage />}
       />
-      <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
-      <Route path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
-      <Route path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
-      <Route path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
-      <Route path={ScreenPaths.EDIT_POST_CONDITIONS} element={<EditPostConditionsPage />} />
       {/*Sign Up*/}
       <Route path="/sign-up" element={getSignUpElement()} />
       <Route

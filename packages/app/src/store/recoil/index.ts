@@ -32,8 +32,8 @@ export const localStorageEffect = <T>({
           setSelf(JSON.parse(savedValue));
         }
       } catch (error) {
-        console.log(key, savedValue);
-        console.log(error);
+        console.error(`Error when saving the recoil state ${key}.`, error);
+        console.error('Recoil value:', savedValue);
       }
     }
 

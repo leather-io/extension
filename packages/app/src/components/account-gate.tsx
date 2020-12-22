@@ -9,6 +9,7 @@ import { SetPasswordPage } from '@pages/set-password';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { Unlock } from '@components/unlock';
+import { Route } from 'react-router-dom';
 
 enum Step {
   INITIAL = 0,
@@ -41,12 +42,15 @@ export const SignedOut = () => {
   );
 };
 
-export const AccountGate: React.FC = ({ children }) => {
+interface AccountGateProps {
+  element: React.ReactNode;
+}
+export const AccountGate: React.FC<AccountGateProps> = ({ element }) => {
   const [step, setStep] = useState<Step>(Step.INITIAL);
   const { hasSetPassword, isSignedIn, secretKey, encryptedSecretKey } = useWallet();
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
 
-  if (isSignedIn && hasSetPassword) return <>{children}</>;
+  if (isSignedIn && hasSetPassword) return <>{element}</>;
 
   if (isSignedIn && !hasSetPassword) {
     if (step === Step.INITIAL) {
@@ -110,4 +114,12 @@ export const AccountGate: React.FC = ({ children }) => {
   }
 
   return <SignedOut />;
+};
+
+interface AccountGateRouteProps {
+  path: ScreenPaths;
+  element: React.ReactNode;
+}
+export const AccountGateRoute: React.FC<AccountGateRouteProps> = ({ path, element }) => {
+  return <Route path={path} element={<AccountGate element={element} />} />;
 };

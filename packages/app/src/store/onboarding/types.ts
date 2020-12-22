@@ -37,11 +37,11 @@ export enum ScreenPaths {
   SIGN_IN_INSTALLED = '/installed/sign-in',
   SIGN_UP_INSTALLED = '/installed/sign-up',
   SET_PASSWORD = '/set-password',
-  POPUP_HOME = '/popup',
-  POPUP_SEND = '/popup/send',
-  POPUP_RECEIVE = '/popup/receive',
-  ADD_NETWORK = '/popup/add-network',
-  EDIT_POST_CONDITIONS = '/popup/post-condtions',
+  POPUP_HOME = '/',
+  POPUP_SEND = '/send',
+  POPUP_RECEIVE = '/receive',
+  ADD_NETWORK = '/add-network',
+  EDIT_POST_CONDITIONS = '/transaction/post-conditions',
   TRANSACTION_POPUP = '/transaction',
 }
 

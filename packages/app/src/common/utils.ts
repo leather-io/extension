@@ -14,12 +14,7 @@ export const getAuthRequestParam = () => {
 
 export const authenticationInit = () => {
   const authRequest = getAuthRequestParam();
-  if (authRequest) {
-    return authRequest;
-  } else {
-    console.log('No auth request found');
-  }
-  return null;
+  return authRequest;
 };
 
 export const getEventSourceWindow = (event: MessageEvent) => {
