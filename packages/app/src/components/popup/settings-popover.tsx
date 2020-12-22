@@ -71,25 +71,26 @@ export const SettingsPopover: React.FC = () => {
       background="white"
       display={showing ? 'block' : 'none'}
     >
-      <SettingsItem
-        mt="tight"
-        onClick={wrappedCloseCallback(() => {
-          setAccountStep(AccountStep.Switch);
-          setShowAccounts(true);
-        })}
-      >
-        Switch account
-      </SettingsItem>
       {identities && identities.length > 1 ? (
         <SettingsItem
+          mt="tight"
           onClick={wrappedCloseCallback(() => {
-            setAccountStep(AccountStep.Create);
+            setAccountStep(AccountStep.Switch);
             setShowAccounts(true);
           })}
         >
-          Create an Account
+          Switch account
         </SettingsItem>
       ) : null}
+      <SettingsItem
+        onClick={wrappedCloseCallback(() => {
+          setAccountStep(AccountStep.Create);
+          setShowAccounts(true);
+        })}
+      >
+        Create an Account
+      </SettingsItem>
+
       {/* <SettingsItem
         onClick={() => {
           const url = chrome.runtime.getURL(ScreenPaths.SETTINGS_KEY);
