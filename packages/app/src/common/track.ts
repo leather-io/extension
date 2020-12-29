@@ -34,6 +34,7 @@ export const pageTrackingNameMap = {
   [ScreenPaths.GENERATION]: 'Generation',
   [ScreenPaths.SECRET_KEY]: 'Copy Secret Key',
   [ScreenPaths.SAVE_KEY]: 'Save Secret Key',
+  [ScreenPaths.ONBOARDING_PASSWORD]: 'Onboarding password',
   [ScreenPaths.SIGN_IN]: 'Sign In',
   [ScreenPaths.RECOVERY_CODE]: 'Magic Recovery Code',
   [ScreenPaths.ADD_ACCOUNT]: ' Select Username',
@@ -74,6 +75,7 @@ export const titleNameMap = {
   [ScreenPaths.EDIT_POST_CONDITIONS]: 'Edit Post Conditions',
   [ScreenPaths.TRANSACTION_POPUP]: 'Sign a Transaction',
   [ScreenPaths.SET_PASSWORD]: 'Set your password',
+  [ScreenPaths.ONBOARDING_PASSWORD]: 'Set your password',
 };
 
 export const doTrackScreenChange = (

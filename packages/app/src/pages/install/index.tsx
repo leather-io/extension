@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Flex, Text, Button } from '@stacks/ui';
+import { Box, Text, Button } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
@@ -24,6 +24,7 @@ export const Installed: React.FC = () => {
 
   return (
     <PopupContainer>
+      <Box flexGrow={0.5} />
       <Box width="100%" textAlign="center">
         <Box mt="extra-loose">
           <Text fontSize="32px" lineHeight="48px" fontWeight="500">
@@ -36,18 +37,13 @@ export const Installed: React.FC = () => {
           </Text>
         </Box>
       </Box>
-      <Box flexGrow={1} />
+      <Box flexGrow={0.5} />
       <Box width="100%" textAlign="center" mb="extra-loose">
-        <Flex
-          flexDirection="column"
-          mt={[null, 'base-loose']}
-          maxWidth={[null, '396px']}
-          minWidth={[null, '396px']}
-        >
-          <Button onClick={register} isLoading={isCreatingWallet} data-test="sign-up">
+        <Box width="100%">
+          <Button onClick={register} isLoading={isCreatingWallet} data-test="sign-up" width="100%">
             I'm new to Connect
           </Button>
-        </Flex>
+        </Box>
         <Box pt="base-loose">
           <Text fontSize="14px" lineHeight="20px" color="blue" position="relative">
             <Link onClick={() => doChangeScreen(ScreenPaths.SIGN_IN_INSTALLED)}>
@@ -56,6 +52,7 @@ export const Installed: React.FC = () => {
           </Text>
         </Box>
       </Box>
+      <Box flexGrow={0.5} />
     </PopupContainer>
   );
 };

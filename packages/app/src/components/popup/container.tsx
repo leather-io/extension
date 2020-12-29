@@ -42,7 +42,7 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({
   return (
     <>
       <Flex
-        minHeight="max(100vh, 400px)"
+        minHeight={`max(${isExtension ? '100vh' : '600px'}, 400px)`}
         minWidth={isExtension ? '440px' : undefined}
         maxWidth="100vw"
         background="white"

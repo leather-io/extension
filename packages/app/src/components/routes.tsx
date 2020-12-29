@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Create, SaveKey } from '@pages/sign-up';
+import { Create, SaveKey, OnboardingPassword } from '@pages/sign-up';
 import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
 import { Username } from '@pages/username';
 import { SecretKey } from '@pages/secret-key';
@@ -109,6 +109,16 @@ export const Routes: React.FC = () => {
         path="/sign-up/save-secret-key"
         element={
           <SaveKey
+            next={() => {
+              doChangeScreen(ScreenPaths.ONBOARDING_PASSWORD);
+            }}
+          />
+        }
+      />
+      <Route
+        path={ScreenPaths.ONBOARDING_PASSWORD}
+        element={
+          <OnboardingPassword
             next={() => {
               doChangeScreen(ScreenPaths.USERNAME);
             }}

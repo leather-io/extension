@@ -138,11 +138,11 @@ export const Username: React.FC<{}> = () => {
         body={[
           <Box>
             <Title>Choose a username</Title>
-            <Text mt={2} display="block">
+            <Text mt="base" display="block" mb="extra-loose">
               This is how people will find you in {name} and other apps you use with your Secret
               Key.
             </Text>
-            <Box textAlign="left" position="relative" mt={4}>
+            <Box textAlign="left" position="relative" mt="extra-loose">
               <Input
                 data-test="input-username"
                 paddingRight="100px"
@@ -155,6 +155,7 @@ export const Username: React.FC<{}> = () => {
                 autoComplete="off"
                 autoCapitalize="off"
                 spellCheck="false"
+                width="100%"
               />
             </Box>
             {error && hasAttemptedSubmit && (
