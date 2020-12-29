@@ -134,7 +134,7 @@ export const ConfirmSendDrawer: React.FC<ConfirmSendDrawerProps> = ({
         <Text fontSize={2} fontWeight="500" display="block" mb="extra-tight">
           To
         </Text>
-        <Text fontSize={2} overflowWrap="break-word">
+        <Text fontSize={1} overflowWrap="break-word">
           {recipient}
         </Text>
       </Box>

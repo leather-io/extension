@@ -127,19 +127,19 @@ export const SettingsPopover: React.FC = () => {
       <Divider />
       <SettingsItem
         mb="tight"
-        onClick={() => {
+        onClick={wrappedCloseCallback(() => {
           doSignOut();
           doChangeScreen(ScreenPaths.INSTALLED);
-        }}
+        })}
       >
         Sign Out
       </SettingsItem>
       <SettingsItem
         mb="tight"
-        onClick={() => {
+        onClick={wrappedCloseCallback(() => {
           doChangeScreen(ScreenPaths.POPUP_HOME);
           doLockWallet();
-        }}
+        })}
       >
         Lock
       </SettingsItem>
