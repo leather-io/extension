@@ -154,6 +154,11 @@ export const PopupSend: React.FC = () => {
                     Send max
                   </Link>
                 ) : null}
+                {errors.amount ? (
+                  <ErrorLabel>
+                    <Text textStyle="caption">{errors.amount}</Text>
+                  </ErrorLabel>
+                ) : null}
               </Box>
               <Box width="100%" mt="base">
                 <InputGroup flexDirection="column">

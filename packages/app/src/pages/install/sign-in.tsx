@@ -1,6 +1,5 @@
 import React, { createRef, useState, useCallback } from 'react';
-import { Box, Flex, Text, Button, Input } from '@stacks/ui';
-import { ConnectHeader } from '@pages/install/header';
+import { Box, Text, Button, Input } from '@stacks/ui';
 import { useDispatch } from '@common/hooks/use-dispatch';
 import { doSetMagicRecoveryCode } from '@store/onboarding/actions';
 import { useAnalytics } from '@common/hooks/use-analytics';
@@ -8,6 +7,7 @@ import { ScreenPaths } from '@store/onboarding/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { SIGN_IN_CORRECT, SIGN_IN_INCORRECT } from '@common/track';
 import { ErrorLabel } from '@components/error-label';
+import { PopupContainer } from '@components/popup/container';
 
 export const InstalledSignIn: React.FC = () => {
   const textAreaRef = createRef<HTMLTextAreaElement>();
@@ -46,76 +46,68 @@ export const InstalledSignIn: React.FC = () => {
   }, [seed, dispatch, doStoreSeed, doChangeScreen, doTrack]);
 
   return (
-    <Flex wrap="wrap" py={5} px={4} flexDirection="column" minHeight="100vh">
-      <ConnectHeader />
-      <Flex flex={1} justifyContent={[null, 'center']}>
-        <Flex
-          flexDirection="column"
-          pb="120px"
-          alignItems="center"
-          justifyContent="center"
-          flexGrow={1}
-        >
-          <Box mt="base">
-            <Text fontSize="32px" lineHeight="48px" fontWeight="500">
-              Continue with Secret Key
-            </Text>
-          </Box>
-          <Box maxWidth={[null, '396px']} minWidth={[null, '396px']} textAlign="center" mt="base">
-            <Text fontSize="base" color="ink.600">
-              Enter your Secret Key to sign in to Connect.
-            </Text>
-            <Input
-              autoFocus
-              mt="base-loose"
-              minHeight="68px"
-              placeholder="12-word Secret Key"
-              as="textarea"
-              value={seed}
-              fontSize={'16px'}
-              autoCapitalize="off"
-              spellCheck={false}
-              width="100%"
-              style={{ resize: 'none' }}
-              ref={textAreaRef as any}
-              onChange={async (evt: React.FormEvent<HTMLInputElement>) => {
-                setSeedError(null);
-                setSeed(evt.currentTarget.value);
-                if (hasLineReturn(evt.currentTarget.value)) {
-                  textAreaRef.current?.blur();
-                  await onSubmit();
-                }
-              }}
-            />
-            {seedError && (
-              <ErrorLabel lineHeight="16px">
-                <Text
-                  textAlign="left"
-                  textStyle="caption"
-                  color="feedback.error"
-                  data-test="sign-in-seed-error"
-                >
-                  {seedError}
-                </Text>
-              </ErrorLabel>
-            )}
-          </Box>
-          <Box maxWidth={[null, '396px']} minWidth={[null, '396px']} mt="base-loose">
-            <Button
-              width="100%"
-              isLoading={isLoading}
-              isDisabled={isLoading}
-              data-test="sign-in-key-continue"
-              onClick={async (event: MouseEvent) => {
-                event.preventDefault();
-                return onSubmit();
-              }}
+    <PopupContainer>
+      <Box mt="extra-loose">
+        <Text fontSize={['32px', '24px']} lineHeight="48px" fontWeight="500">
+          Continue with Secret Key
+        </Text>
+      </Box>
+      <Box maxWidth={[null, '396px']} minWidth={[null, '396px']} textAlign="center" mt="base">
+        <Text fontSize="base" color="ink.600">
+          Enter your Secret Key to sign in to Connect.
+        </Text>
+      </Box>
+      <Box flexGrow={1} />
+      <Box width="100%">
+        <Input
+          autoFocus
+          mt="base-loose"
+          minHeight="68px"
+          placeholder="12-word Secret Key"
+          as="textarea"
+          value={seed}
+          fontSize={'16px'}
+          autoCapitalize="off"
+          spellCheck={false}
+          width="100%"
+          style={{ resize: 'none' }}
+          ref={textAreaRef as any}
+          onChange={async (evt: React.FormEvent<HTMLInputElement>) => {
+            setSeedError(null);
+            setSeed(evt.currentTarget.value);
+            if (hasLineReturn(evt.currentTarget.value)) {
+              textAreaRef.current?.blur();
+              await onSubmit();
+            }
+          }}
+        />
+        {seedError && (
+          <ErrorLabel lineHeight="16px">
+            <Text
+              textAlign="left"
+              textStyle="caption"
+              color="feedback.error"
+              data-test="sign-in-seed-error"
             >
-              Sign in
-            </Button>
-          </Box>
-        </Flex>
-      </Flex>
-    </Flex>
+              {seedError}
+            </Text>
+          </ErrorLabel>
+        )}
+      </Box>
+      <Box width="100%" my="base-loose">
+        <Button
+          width="100%"
+          isLoading={isLoading}
+          isDisabled={isLoading}
+          data-test="sign-in-key-continue"
+          onClick={async (event: MouseEvent) => {
+            event.preventDefault();
+            return onSubmit();
+          }}
+        >
+          Sign in
+        </Button>
+      </Box>
+    </PopupContainer>
   );
 };
