@@ -5,6 +5,7 @@ import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { buildEnterKeyEvent } from '@components/link';
+import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 
 interface SetPasswordProps {
   redirect?: boolean;
@@ -14,15 +15,18 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ redirect }) => {
   const [loading, setLoading] = useState(false);
   const { doSetPassword } = useWallet();
   const { doChangeScreen } = useAnalytics();
+  const { decodedAuthRequest } = useOnboardingState();
 
   const submit = useCallback(async () => {
     setLoading(true);
     await doSetPassword(password);
     setLoading(false);
-    if (redirect) {
+    if (decodedAuthRequest) {
+      doChangeScreen(ScreenPaths.USERNAME);
+    } else if (redirect) {
       doChangeScreen(ScreenPaths.INSTALLED);
     }
-  }, [doSetPassword, doChangeScreen, password, redirect]);
+  }, [doSetPassword, doChangeScreen, password, redirect, decodedAuthRequest]);
 
   return (
     <PopupContainer hideActions title="Set a password">

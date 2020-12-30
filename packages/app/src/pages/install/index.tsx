@@ -6,9 +6,11 @@ import { ScreenPaths } from '@store/onboarding/types';
 import { InstallFinished } from '@pages/install/finished';
 import { Link } from '@components/link';
 import { PopupContainer } from '@components/popup/container';
+import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 
 export const Installed: React.FC = () => {
   const { isSignedIn, doMakeWallet } = useWallet();
+  const { decodedAuthRequest } = useOnboardingState();
   const { doChangeScreen } = useAnalytics();
 
   const [isCreatingWallet, setIsCreatingWallet] = useState(false);
@@ -16,7 +18,10 @@ export const Installed: React.FC = () => {
   const register = useCallback(() => {
     setIsCreatingWallet(true);
     doMakeWallet();
-  }, [doMakeWallet]);
+    if (decodedAuthRequest) {
+      doChangeScreen(ScreenPaths.SET_PASSWORD);
+    }
+  }, [doMakeWallet, doChangeScreen, decodedAuthRequest]);
 
   if (isSignedIn) {
     return <InstallFinished />;
@@ -24,7 +29,6 @@ export const Installed: React.FC = () => {
 
   return (
     <PopupContainer>
-      <Box flexGrow={0.5} />
       <Box width="100%" textAlign="center">
         <Box mt="extra-loose">
           <Text fontSize="32px" lineHeight="48px" fontWeight="500">
@@ -37,7 +41,7 @@ export const Installed: React.FC = () => {
           </Text>
         </Box>
       </Box>
-      <Box flexGrow={0.5} />
+      <Box my="extra-loose" />
       <Box width="100%" textAlign="center" mb="extra-loose">
         <Box width="100%">
           <Button onClick={register} isLoading={isCreatingWallet} data-test="sign-up" width="100%">
@@ -52,7 +56,7 @@ export const Installed: React.FC = () => {
           </Text>
         </Box>
       </Box>
-      <Box flexGrow={0.5} />
+      <Box my="extra-loose" />
     </PopupContainer>
   );
 };

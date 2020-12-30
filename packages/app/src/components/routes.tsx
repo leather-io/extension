@@ -53,9 +53,6 @@ export const Routes: React.FC = () => {
   }, [pathname]);
 
   const getSignUpElement = () => {
-    if (onboardingPath) {
-      return <Navigate to={onboardingPath} screenPath={onboardingPath} />;
-    }
     if (isSignedIn) {
       return (
         <Navigate
@@ -64,7 +61,7 @@ export const Routes: React.FC = () => {
         />
       );
     }
-    return <Create next={() => doChangeScreen(ScreenPaths.SECRET_KEY)} />;
+    return <Installed />;
   };
 
   const getUsernameElement = () => {
@@ -100,7 +97,7 @@ export const Routes: React.FC = () => {
       />
       <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
       {/*Sign Up*/}
-      <Route path="/sign-up" element={getSignUpElement()} />
+      <Route path={ScreenPaths.GENERATION} element={getSignUpElement()} />
       <Route
         path="/sign-up/secret-key"
         element={<SecretKey next={() => doChangeScreen(ScreenPaths.SAVE_KEY)} />}
@@ -125,7 +122,7 @@ export const Routes: React.FC = () => {
           />
         }
       />
-      <Route path="/sign-up/username" element={getUsernameElement()} />
+      <Route path={ScreenPaths.USERNAME} element={<Username />} />
       {/*Sign In*/}
       <Route
         path="/sign-in"
@@ -133,10 +130,7 @@ export const Routes: React.FC = () => {
           isSignedIn ? (
             <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />
           ) : (
-            <SignIn
-              next={() => doChangeScreen(ScreenPaths.CHOOSE_ACCOUNT)}
-              back={() => doChangeScreen(ScreenPaths.SECRET_KEY)}
-            />
+            <InstalledSignIn />
           )
         }
       />
@@ -156,7 +150,7 @@ export const Routes: React.FC = () => {
         }
       />
       {/* Transactions */}
-      <Route path="/transaction" element={<TransactionPage />} />
+      <AccountGateRoute path={ScreenPaths.TRANSACTION_POPUP} element={<TransactionPage />} />
       {/*Error/Misc*/}
       <Route
         path="/settings/secret-key"
