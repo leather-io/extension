@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Create, SaveKey, OnboardingPassword } from '@pages/sign-up';
-import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
+import { SaveKey, OnboardingPassword } from '@pages/sign-up';
+import { DecryptRecoveryCode } from '@pages/sign-in';
 import { Username } from '@pages/username';
 import { SecretKey } from '@pages/secret-key';
 import { ChooseAccount } from '@pages/connect';
@@ -34,7 +34,7 @@ export const Routes: React.FC = () => {
     doSaveAuthRequest,
     encryptedSecretKey,
   } = useWallet();
-  const { isOnboardingInProgress, onboardingPath } = useOnboardingState();
+  const { isOnboardingInProgress } = useOnboardingState();
   const authRequest = authenticationInit();
   const { search, pathname } = useLocation();
   const setLastSeen = useSetRecoilState(lastSeenStore);
@@ -62,16 +62,6 @@ export const Routes: React.FC = () => {
       );
     }
     return <Installed />;
-  };
-
-  const getUsernameElement = () => {
-    if (onboardingPath) {
-      return <Username />;
-    }
-    if (isSignedIn) {
-      return <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />;
-    }
-    return <Username />;
   };
 
   const getHomeComponent = () => {
@@ -139,8 +129,8 @@ export const Routes: React.FC = () => {
         element={<DecryptRecoveryCode next={() => doChangeScreen(ScreenPaths.CHOOSE_ACCOUNT)} />}
       />
       <Route path="/sign-in/add-account" element={<Username />} />;
-      <Route
-        path="/connect/choose-account"
+      <AccountGateRoute
+        path={ScreenPaths.CHOOSE_ACCOUNT}
         element={
           <ChooseAccount
             next={(identityIndex: number) => {
