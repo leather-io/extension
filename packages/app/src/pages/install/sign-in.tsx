@@ -63,7 +63,7 @@ export const InstalledSignIn: React.FC = () => {
           autoFocus
           mt="base-loose"
           minHeight="68px"
-          placeholder="12-word Secret Key"
+          placeholder="Enter your Secret Key"
           as="textarea"
           value={seed}
           fontSize={'16px'}
