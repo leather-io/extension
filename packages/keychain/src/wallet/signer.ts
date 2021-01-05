@@ -92,18 +92,20 @@ export class WalletSigner {
     network,
     nonce,
   }: ContractCallOptions) {
-    const tx = await makeContractCall({
-      contractAddress,
-      contractName,
-      functionName,
-      functionArgs,
-      fee: this.getFee(),
-      senderKey: this.privateKey,
-      network: network || this.getNetwork(),
-      postConditionMode,
-      postConditions,
-      nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
-    });
+    const tx = await makeContractCall(
+      this.wrapFee({
+        contractAddress,
+        contractName,
+        functionName,
+        functionArgs,
+        fee: this.getFee(),
+        senderKey: this.privateKey,
+        network: network || this.getNetwork(),
+        postConditionMode,
+        postConditions,
+        nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
+      })
+    );
     return tx;
   }
 
@@ -115,16 +117,17 @@ export class WalletSigner {
     network,
     nonce,
   }: ContractDeployOptions) {
-    const tx = await makeContractDeploy({
-      contractName,
-      codeBody: codeBody,
-      fee: this.getFee(),
-      senderKey: this.privateKey,
-      network: network || this.getNetwork(),
-      postConditionMode,
-      postConditions,
-      nonce: nonce ? new BN(nonce, 10) : undefined,
-    });
+    const tx = await makeContractDeploy(
+      this.wrapFee({
+        contractName,
+        codeBody: codeBody,
+        senderKey: this.privateKey,
+        network: network || this.getNetwork(),
+        postConditionMode,
+        postConditions,
+        nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
+      })
+    );
     return tx;
   }
 
@@ -137,17 +140,18 @@ export class WalletSigner {
     network,
     nonce,
   }: STXTransferOptions) {
-    const tx = await makeSTXTokenTransfer({
-      recipient,
-      amount: new BN(amount),
-      memo,
-      fee: this.getFee(),
-      senderKey: this.privateKey,
-      network: network || this.getNetwork(),
-      postConditionMode,
-      postConditions,
-      nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
-    });
+    const tx = await makeSTXTokenTransfer(
+      this.wrapFee({
+        recipient,
+        amount: new BN(amount),
+        memo,
+        senderKey: this.privateKey,
+        network: network || this.getNetwork(),
+        postConditionMode,
+        postConditions,
+        nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
+      })
+    );
     return tx;
   }
 
@@ -156,5 +160,16 @@ export class WalletSigner {
       return new BN(0);
     }
     return undefined;
+  }
+
+  wrapFee<T>(options: T) {
+    const fee = this.getFee();
+    if (fee !== undefined) {
+      return {
+        ...options,
+        fee,
+      };
+    }
+    return options;
   }
 }

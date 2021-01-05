@@ -38,10 +38,11 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
     try {
       const codeBuffer = Buffer.from(recoveryCode, 'base64');
       const seed = await decrypt(codeBuffer, password);
-      await doStoreSeed(seed);
+      await doStoreSeed(seed, password);
       doTrack(SIGN_IN_CORRECT);
       next();
     } catch (error) {
+      console.error(error);
       setPasswordError('Incorrect password');
       setLoading(false);
     }
@@ -90,6 +91,7 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
             return onSubmit();
           }}
           type="submit"
+          data-test="decrypt-recovery-button"
         >
           Continue
         </Button>

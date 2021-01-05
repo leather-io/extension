@@ -111,7 +111,7 @@ export const pendingTransactionFunctionSelector = selector({
       pendingTransaction.txType !== 'contract_call' ||
       !contractInterface
     ) {
-      throw new Error("Can't get selected function without a contract call pending transaction.");
+      return undefined;
     }
     const selectedFunction = contractInterface.functions.find(func => {
       return func.name === pendingTransaction.functionName;

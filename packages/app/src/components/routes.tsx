@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Create, SaveKey, OnboardingPassword } from '@pages/sign-up';
-import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
+import { SaveKey, OnboardingPassword } from '@pages/sign-up';
+import { DecryptRecoveryCode } from '@pages/sign-in';
 import { Username } from '@pages/username';
 import { SecretKey } from '@pages/secret-key';
 import { ChooseAccount } from '@pages/connect';
@@ -70,14 +70,7 @@ export const Routes: React.FC = () => {
         />
       );
     }
-    return <Create next={() => doChangeScreen(ScreenPaths.SECRET_KEY)} />;
-  };
-
-  const getUsernameElement = () => {
-    if (isSignedIn) {
-      return <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />;
-    }
-    return <Username />;
+    return <Installed />;
   };
 
   const getHomeComponent = () => {
@@ -128,7 +121,7 @@ export const Routes: React.FC = () => {
           />
         }
       />
-      <Route path={ScreenPaths.USERNAME} element={getUsernameElement()} />
+      <Route path={ScreenPaths.USERNAME} element={<Username />} />
       {/*Sign In*/}
       <Route
         path={ScreenPaths.SIGN_IN}
@@ -136,10 +129,7 @@ export const Routes: React.FC = () => {
           isSignedIn ? (
             <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />
           ) : (
-            <SignIn
-              next={() => doChangeScreen(ScreenPaths.CHOOSE_ACCOUNT)}
-              back={() => doChangeScreen(ScreenPaths.SECRET_KEY)}
-            />
+            <InstalledSignIn />
           )
         }
       />
@@ -159,7 +149,7 @@ export const Routes: React.FC = () => {
         }
       />
       {/* Transactions */}
-      <Route path={ScreenPaths.TRANSACTION_POPUP} element={<TransactionPage />} />
+      <AccountGateRoute path={ScreenPaths.TRANSACTION_POPUP} element={<TransactionPage />} />
       {/*Error/Misc*/}
       <AccountGateRoute
         path={ScreenPaths.SETTINGS_KEY}

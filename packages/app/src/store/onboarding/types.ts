@@ -27,7 +27,7 @@ export enum ScreenPaths {
   SETTINGS_KEY = '/settings/secret-key',
   SAVE_KEY = '/sign-up/save-secret-key',
   ONBOARDING_PASSWORD = '/sign-up/set-password',
-  USERNAME = '/sign-up/username',
+  USERNAME = '/username',
   SIGN_IN = '/sign-in',
   RECOVERY_CODE = '/sign-in/recover',
   ADD_ACCOUNT = '/sign-in/add-account',

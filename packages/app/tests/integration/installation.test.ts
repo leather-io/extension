@@ -1,9 +1,11 @@
 import { environments, Browser, SECRET_KEY } from './utils';
-import { InstallPage } from './page-objects/install.page';
+import { WalletPage } from './page-objects/wallet.page';
 import { BrowserContext } from 'playwright-core';
 import { setupMocks } from './mocks';
+import { ScreenPaths } from '@store/onboarding/types';
 
 jest.setTimeout(20_000);
+jest.retryTimes(process.env.CI ? 2 : 0);
 environments.forEach(([browserType, deviceType]) => {
   const deviceLabel = deviceType
     ? ` - ${deviceType.viewport.height}x${deviceType.viewport.width}`
@@ -11,7 +13,7 @@ environments.forEach(([browserType, deviceType]) => {
   describe(`Installation integration tests - ${browserType.name()}${deviceLabel}`, () => {
     let browser: Browser;
     let context: BrowserContext;
-    let installPage: InstallPage;
+    let installPage: WalletPage;
     let consoleLogs: string[];
 
     beforeAll(async () => {
@@ -37,7 +39,7 @@ environments.forEach(([browserType, deviceType]) => {
       }
       await setupMocks(context);
       consoleLogs = [];
-      installPage = await InstallPage.init(context);
+      installPage = await WalletPage.init(context, ScreenPaths.INSTALLED);
       installPage.page.on('console', event => {
         consoleLogs = consoleLogs.concat(event.text());
       });
@@ -68,6 +70,7 @@ environments.forEach(([browserType, deviceType]) => {
     it('should be able to login from installation page', async () => {
       await installPage.clickSignIn();
       await installPage.loginWithPreviousSecretKey(SECRET_KEY);
+      await installPage.waitForFinishedPage();
       const secretKey = await installPage.getSecretKey();
       expect(secretKey).toEqual(SECRET_KEY);
     });

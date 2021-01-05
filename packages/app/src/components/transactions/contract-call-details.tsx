@@ -21,7 +21,7 @@ const Argument: React.FC<ArgumentProps> = ({ arg, index }) => {
   const strValue = cvToString(argCV);
   const name =
     pendingTransactionFunction.state === 'hasValue'
-      ? pendingTransactionFunction.contents.args[index].name
+      ? pendingTransactionFunction.contents?.args[index].name
       : null;
   const getCVString = () => {
     if (argCV.type === ClarityType.PrincipalStandard) {

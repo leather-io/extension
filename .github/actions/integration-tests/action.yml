@@ -15,6 +15,6 @@ runs:
     - name: Integration Tests
       shell: bash
       run: |
-        yarn lerna run serve:test --parallel &
+        yarn serve:test &
         cd packages/app &&
         yarn test:integration
