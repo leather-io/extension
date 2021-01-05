@@ -40,23 +40,20 @@ export const requestTokenStore = atom<string>({
 export const pendingTransactionStore = selector({
   key: 'transaction.pending-transaction',
   get: ({ get }) => {
-    try {
-      const token = decodeToken(get(requestTokenStore));
-      const currentNetwork = get(currentNetworkStore);
-      const tx = (token.payload as unknown) as TransactionPayload;
-      const postConditions = get(postConditionsStore);
-      tx.postConditions = [...postConditions];
-      const network =
-        tx.network?.version === TransactionVersion.Mainnet
-          ? new StacksMainnet()
-          : new StacksTestnet();
-      network.coreApiUrl = currentNetwork.url;
-      tx.network = network;
-      return tx;
-    } catch (error) {
-      console.error('pending error', error.message);
-      return undefined;
-    }
+    const requestToken = get(requestTokenStore);
+    if (!requestToken) return undefined;
+    const token = decodeToken(requestToken);
+    const currentNetwork = get(currentNetworkStore);
+    const tx = (token.payload as unknown) as TransactionPayload;
+    const postConditions = get(postConditionsStore);
+    tx.postConditions = [...postConditions];
+    const network =
+      tx.network?.version === TransactionVersion.Mainnet
+        ? new StacksMainnet()
+        : new StacksTestnet();
+    network.coreApiUrl = currentNetwork.url;
+    tx.network = network;
+    return tx;
   },
 });
 
@@ -90,11 +87,15 @@ export const contractInterfaceStore = selector({
       return undefined;
     }
     if (tx.txType === TransactionTypes.ContractCall) {
-      const abi = await rpcClient.fetchContractInterface({
-        contractName: tx.contractName,
-        contractAddress: tx.contractAddress,
-      });
-      return abi;
+      try {
+        const abi = await rpcClient.fetchContractInterface({
+          contractName: tx.contractName,
+          contractAddress: tx.contractAddress,
+        });
+        return abi;
+      } catch (error) {
+        throw `Unable to fetch interface for contract ${tx.contractAddress}.${tx.contractName}`;
+      }
     }
     return undefined;
   },
@@ -116,7 +117,10 @@ export const pendingTransactionFunctionSelector = selector({
       return func.name === pendingTransaction.functionName;
     });
     if (!selectedFunction) {
-      throw new Error('Attempting to call a contract with a function that does not exist');
+      throw new Error(
+        `Attempting to call a function (\`${pendingTransaction.functionName}\`) that ` +
+          `does not exist on contract ${pendingTransaction.contractAddress}.${pendingTransaction.contractName}`
+      );
     }
     return selectedFunction;
   },

@@ -89,6 +89,20 @@ export const Debugger = () => {
     });
   };
 
+  const callNullContract = async () => {
+    clearState();
+    const authOrigin = getAuthOrigin();
+    const network = new StacksTestnet();
+    await doContractCall({
+      network,
+      authOrigin,
+      contractAddress: 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6',
+      contractName: `connect-token-${new Date().getTime()}`,
+      functionName: 'faucet',
+      functionArgs: [],
+    });
+  };
+
   const getFaucetTokens = async () => {
     clearState();
     const authOrigin = getAuthOrigin();
@@ -136,6 +150,9 @@ export const Debugger = () => {
           </Button>
           <Button mt={3} onClick={getFaucetTokens}>
             Get tokens
+          </Button>
+          <Button mt={3} onClick={callNullContract}>
+            Non-existent contract
           </Button>
         </ButtonGroup>
       </Box>

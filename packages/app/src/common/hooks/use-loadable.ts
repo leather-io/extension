@@ -17,6 +17,7 @@ export const useLoadable = <T>(recoilValue: RecoilValue<T>) => {
 
   return {
     ...loadable,
+    key: recoilValue.key,
     value,
   };
 };

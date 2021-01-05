@@ -2,6 +2,7 @@ import { selector, atom, atomFamily } from 'recoil';
 import { currentIdentityStore, latestNonceStore } from './wallet';
 import { rpcClientStore, currentNetworkStore } from './networks';
 import type { CoreNodeInfoResponse } from '@blockstack/stacks-blockchain-api-types';
+import { fetchAllAccountData } from '@common/api/accounts';
 
 export const apiRevalidation = atom({
   key: 'api.revalidation',
@@ -50,15 +51,21 @@ export const chainInfoStore = selector({
     get(apiRevalidation);
     get(intervalStore(15000));
     const { url } = get(currentNetworkStore);
-    const res = await fetch(`${url}/v2/info`);
-    const info: CoreNodeInfoResponse = await res.json();
-    return info;
+    try {
+      const res = await fetch(`${url}/v2/info`);
+      const info: CoreNodeInfoResponse = await res.json();
+      return info;
+    } catch (error) {
+      throw `Unable to fetch account data from ${url}`;
+    }
   },
 });
 
 export const correctNonceStore = selector({
   key: 'api.correct-nonce',
   get: ({ get }) => {
+    get(apiRevalidation);
+    get(intervalStore(15000));
     const chainInfo = get(chainInfoStore);
     const account = get(accountInfoStore);
     const lastTx = get(latestNonceStore);
@@ -75,5 +82,31 @@ export const correctNonceStore = selector({
     }
     // No blocks have been mined since the latest transaction from this user.
     return lastTx.nonce + 1;
+  },
+});
+
+export const accountDataStore = selector({
+  key: 'api.account-data',
+  get: async ({ get }) => {
+    const { url } = get(currentNetworkStore);
+    const currentIdentity = get(currentIdentityStore);
+    const principal = currentIdentity?.getStxAddress();
+    if (!principal) {
+      throw 'Unable to get account info when logged out.';
+    }
+    try {
+      const accountData = await fetchAllAccountData(url)(principal);
+      return accountData;
+    } catch (error) {
+      throw `Unable to fetch account data from ${url}`;
+    }
+  },
+});
+
+export const accountBalancesStore = selector({
+  key: 'api.account-balances',
+  get: ({ get }) => {
+    const accountData = get(accountDataStore);
+    return accountData.balances;
   },
 });
