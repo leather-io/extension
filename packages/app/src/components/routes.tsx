@@ -102,7 +102,7 @@ export const Routes: React.FC = () => {
       <AccountGateRoute path={ScreenPaths.POPUP_HOME} element={<PopupHome />} />
       <AccountGateRoute path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
       <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
-      <AccountGateRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
+      <RouterRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
       <AccountGateRoute
         path={ScreenPaths.EDIT_POST_CONDITIONS}
         element={<EditPostConditionsPage />}
