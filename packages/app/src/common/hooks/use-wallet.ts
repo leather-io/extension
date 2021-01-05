@@ -63,23 +63,39 @@ export const useWallet = () => {
   const doMakeWallet = useCallback(async () => {
     const wallet = await Wallet.generate(DEFAULT_PASSWORD, ChainID.Mainnet);
     const secretKey = await decrypt(wallet.encryptedBackupPhrase, DEFAULT_PASSWORD);
+    dispatch(doSetOnboardingProgress(true));
     setWallet(wallet);
     setIdentities(wallet.identities);
     setSecretKey(secretKey);
     setEncryptedSecretKey(wallet.encryptedBackupPhrase);
     setCurrentIdentityIndex(0);
-  }, [setWallet, setSecretKey, setEncryptedSecretKey, setCurrentIdentityIndex, setIdentities]);
+  }, [
+    setWallet,
+    setSecretKey,
+    setEncryptedSecretKey,
+    setCurrentIdentityIndex,
+    setIdentities,
+    dispatch,
+  ]);
 
   const doStoreSeed = useCallback(
-    async (secretKey: string) => {
-      const wallet = await Wallet.restore(DEFAULT_PASSWORD, secretKey, ChainID.Mainnet);
+    async (secretKey: string, password?: string) => {
+      const wallet = await Wallet.restore(password || DEFAULT_PASSWORD, secretKey, ChainID.Mainnet);
       setWallet(wallet);
       setIdentities(wallet.identities);
       setSecretKey(secretKey);
       setEncryptedSecretKey(wallet.encryptedBackupPhrase);
       setCurrentIdentityIndex(0);
+      if (password !== undefined) setHasSetPassword(true);
     },
-    [setWallet, setSecretKey, setEncryptedSecretKey, setCurrentIdentityIndex, setIdentities]
+    [
+      setWallet,
+      setSecretKey,
+      setEncryptedSecretKey,
+      setCurrentIdentityIndex,
+      setIdentities,
+      setHasSetPassword,
+    ]
   );
 
   const doCreateNewIdentity = useRecoilCallback(({ snapshot, set }) => async () => {

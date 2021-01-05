@@ -52,18 +52,18 @@ export const InstalledSignIn: React.FC = () => {
           Continue with Secret Key
         </Text>
       </Box>
-      <Box maxWidth={[null, '396px']} minWidth={[null, '396px']} textAlign="center" mt="base">
+      <Box mt="base">
         <Text fontSize="base" color="ink.600">
           Enter your Secret Key to sign in to Connect.
         </Text>
       </Box>
-      <Box flexGrow={1} />
+      <Box flexGrow={[1, 1, 0.5]} />
       <Box width="100%">
         <Input
           autoFocus
           mt="base-loose"
           minHeight="68px"
-          placeholder="12-word Secret Key"
+          placeholder="Enter your Secret Key"
           as="textarea"
           value={seed}
           fontSize={'16px'}

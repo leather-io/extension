@@ -5,6 +5,7 @@ import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { buildEnterKeyEvent } from '@components/link';
+import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 
 interface SetPasswordProps {
   redirect?: boolean;
@@ -12,17 +13,25 @@ interface SetPasswordProps {
 export const SetPasswordPage: React.FC<SetPasswordProps> = ({ redirect }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { doSetPassword } = useWallet();
+  const { doSetPassword, identities } = useWallet();
   const { doChangeScreen } = useAnalytics();
+  const { decodedAuthRequest } = useOnboardingState();
 
   const submit = useCallback(async () => {
     setLoading(true);
     await doSetPassword(password);
     setLoading(false);
-    if (redirect) {
+    if (decodedAuthRequest) {
+      console.log('should choose account?');
+      if (identities && (identities.length > 1 || identities[0].defaultUsername)) {
+        doChangeScreen(ScreenPaths.CHOOSE_ACCOUNT);
+      } else {
+        doChangeScreen(ScreenPaths.USERNAME);
+      }
+    } else if (redirect) {
       doChangeScreen(ScreenPaths.INSTALLED);
     }
-  }, [doSetPassword, doChangeScreen, password, redirect]);
+  }, [doSetPassword, doChangeScreen, password, redirect, decodedAuthRequest, identities]);
 
   return (
     <PopupContainer hideActions title="Set a password">
@@ -34,7 +43,8 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ redirect }) => {
           To access your account on a new device you’ll use just your Secret Key.
         </Text>
       </Box>
-      <Box my="base" width="100%">
+      <Box flexGrow={[1, 1, 0.5]} />
+      <Box width="100%">
         <Input
           placeholder="Set a password"
           width="100%"
@@ -46,8 +56,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ redirect }) => {
           onKeyUp={buildEnterKeyEvent(submit)}
         />
       </Box>
-      <Box flexGrow={1} />
-      <Box>
+      <Box mt="base">
         <Button
           width="100%"
           isLoading={loading}

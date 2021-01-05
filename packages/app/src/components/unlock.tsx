@@ -40,6 +40,7 @@ export const Unlock: React.FC = () => {
           autoFocus
           type="password"
           value={password}
+          data-test="set-password"
           onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
           onKeyUp={buildEnterKeyEvent(submit)}
         />
@@ -53,7 +54,13 @@ export const Unlock: React.FC = () => {
       )}
       <Box flexGrow={1} />
       <Box>
-        <Button width="100%" isLoading={loading} isDisabled={loading} onClick={submit}>
+        <Button
+          width="100%"
+          isLoading={loading}
+          isDisabled={loading}
+          onClick={submit}
+          data-test="set-password-done"
+        >
           Unlock
         </Button>
       </Box>

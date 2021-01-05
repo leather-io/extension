@@ -4,7 +4,7 @@
   "scripts": {
     "typecheck": "lerna run typecheck --parallel --no-bail --stream",
     "dev": "NODE_ENV=development yarn lerna exec --parallel 'yarn dev' --scope test-app --scope @stacks/app",
-    "bootstrap": "yarn lerna exec --parallel 'yarn'",
+    "bootstrap": "lerna exec --parallel 'yarn'",
     "build:libs": "yarn build:ui && yarn build:keychain && yarn build:connect",
     "build:keychain": "lerna run build --scope @stacks/keychain",
     "build:connect": "lerna run build --scope @stacks/connect",
@@ -20,7 +20,8 @@
     "lint:fix": "eslint \"packages/**/src/**/*.{ts,tsx}\" --fix",
     "lint:prettier": "prettier --check \"packages/**/src/**/*.{ts,tsx}\" *.js",
     "lint:prettier:fix": "prettier --write \"packages/**/src/**/*.{ts,tsx}\" *.js",
-    "postinstall": "yarn build:connect-ui"
+    "postinstall": "yarn build:connect-ui",
+    "serve:test": "lerna run serve:test --parallel --stream"
   },
   "prettier": "@blockstack/prettier-config",
   "husky": {
