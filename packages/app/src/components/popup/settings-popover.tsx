@@ -27,7 +27,14 @@ const SettingsItem: React.FC<BoxProps> = ({ onClick, children, ...props }) => (
 
 export const SettingsPopover: React.FC = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
-  const { doSignOut, currentIdentity, doLockWallet, identities, currentNetworkKey } = useWallet();
+  const {
+    doSignOut,
+    currentIdentity,
+    doLockWallet,
+    identities,
+    currentNetworkKey,
+    isSignedIn,
+  } = useWallet();
   const {
     setShowNetworks,
     setShowAccounts,
@@ -82,14 +89,16 @@ export const SettingsPopover: React.FC = () => {
           Switch account
         </SettingsItem>
       ) : null}
-      <SettingsItem
-        onClick={wrappedCloseCallback(() => {
-          setAccountStep(AccountStep.Create);
-          setShowAccounts(true);
-        })}
-      >
-        Create an Account
-      </SettingsItem>
+      {isSignedIn ? (
+        <SettingsItem
+          onClick={wrappedCloseCallback(() => {
+            setAccountStep(AccountStep.Create);
+            setShowAccounts(true);
+          })}
+        >
+          Create an Account
+        </SettingsItem>
+      ) : null}
 
       {/* <SettingsItem
         onClick={() => {
@@ -112,7 +121,7 @@ export const SettingsPopover: React.FC = () => {
           </SettingsItem>
         </>
       ) : null}
-      <Divider />
+      {isSignedIn ? <Divider /> : null}
       <SettingsItem
         mb="tight"
         onClick={wrappedCloseCallback(() => {
@@ -124,25 +133,29 @@ export const SettingsPopover: React.FC = () => {
           <Box color="ink.600">{currentNetworkKey}</Box>
         </Flex>
       </SettingsItem>
-      <Divider />
-      <SettingsItem
-        mb="tight"
-        onClick={wrappedCloseCallback(() => {
-          doSignOut();
-          doChangeScreen(ScreenPaths.INSTALLED);
-        })}
-      >
-        Sign Out
-      </SettingsItem>
-      <SettingsItem
-        mb="tight"
-        onClick={wrappedCloseCallback(() => {
-          doChangeScreen(ScreenPaths.POPUP_HOME);
-          doLockWallet();
-        })}
-      >
-        Lock
-      </SettingsItem>
+      {isSignedIn ? (
+        <>
+          <Divider />
+          <SettingsItem
+            mb="tight"
+            onClick={wrappedCloseCallback(() => {
+              doSignOut();
+              doChangeScreen(ScreenPaths.INSTALLED);
+            })}
+          >
+            Sign Out
+          </SettingsItem>
+          <SettingsItem
+            mb="tight"
+            onClick={wrappedCloseCallback(() => {
+              doChangeScreen(ScreenPaths.POPUP_HOME);
+              doLockWallet();
+            })}
+          >
+            Lock
+          </SettingsItem>
+        </>
+      ) : null}
     </Box>
   );
 };

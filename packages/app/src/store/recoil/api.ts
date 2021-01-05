@@ -2,6 +2,7 @@ import { selector, atom, atomFamily } from 'recoil';
 import { currentIdentityStore, latestNonceStore } from './wallet';
 import { rpcClientStore, currentNetworkStore } from './networks';
 import type { CoreNodeInfoResponse } from '@blockstack/stacks-blockchain-api-types';
+import { fetchAllAccountData } from '@common/api/accounts';
 
 export const apiRevalidation = atom({
   key: 'api.revalidation',
@@ -50,30 +51,67 @@ export const chainInfoStore = selector({
     get(apiRevalidation);
     get(intervalStore(15000));
     const { url } = get(currentNetworkStore);
-    const res = await fetch(`${url}/v2/info`);
-    const info: CoreNodeInfoResponse = await res.json();
-    return info;
+    const infoUrl = `${url}/v2/info`;
+    try {
+      const res = await fetch(infoUrl);
+      const info: CoreNodeInfoResponse = await res.json();
+      return info;
+    } catch (error) {
+      throw `Unable to fetch chain data from ${infoUrl}`;
+    }
   },
 });
 
 export const correctNonceStore = selector({
   key: 'api.correct-nonce',
   get: ({ get }) => {
-    const chainInfo = get(chainInfoStore);
-    const account = get(accountInfoStore);
-    const lastTx = get(latestNonceStore);
+    get(apiRevalidation);
+    get(intervalStore(15000));
+    try {
+      const chainInfo = get(chainInfoStore);
+      const account = get(accountInfoStore);
+      const lastTx = get(latestNonceStore);
 
-    // Blocks have been mined since the last TX from this user.
-    // This is the most likely scenario.
-    if (account.nonce > lastTx.nonce) {
-      return account.nonce;
+      // Blocks have been mined since the last TX from this user.
+      // This is the most likely scenario.
+      if (account.nonce > lastTx.nonce) {
+        return account.nonce;
+      }
+      // The current stacks chain has been reset since the user's last TX.
+      // In this case, use the remote nonce.
+      if (chainInfo.stacks_tip_height < lastTx.blockHeight) {
+        return account.nonce;
+      }
+      // No blocks have been mined since the latest transaction from this user.
+      return lastTx.nonce + 1;
+    } catch {
+      return 0;
     }
-    // The current stacks chain has been reset since the user's last TX.
-    // In this case, use the remote nonce.
-    if (chainInfo.stacks_tip_height < lastTx.blockHeight) {
-      return account.nonce;
+  },
+});
+
+export const accountDataStore = selector({
+  key: 'api.account-data',
+  get: async ({ get }) => {
+    const { url } = get(currentNetworkStore);
+    const currentIdentity = get(currentIdentityStore);
+    const principal = currentIdentity?.getStxAddress();
+    if (!principal) {
+      throw 'Unable to get account info when logged out.';
     }
-    // No blocks have been mined since the latest transaction from this user.
-    return lastTx.nonce + 1;
+    try {
+      const accountData = await fetchAllAccountData(url)(principal);
+      return accountData;
+    } catch (error) {
+      throw `Unable to fetch account data from ${url}`;
+    }
+  },
+});
+
+export const accountBalancesStore = selector({
+  key: 'api.account-balances',
+  get: ({ get }) => {
+    const accountData = get(accountDataStore);
+    return accountData.balances;
   },
 });

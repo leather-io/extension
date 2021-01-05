@@ -27,7 +27,7 @@ export const PopupSend: React.FC = () => {
   const { currentNetwork } = useWallet();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>();
-  const { data: balances } = useFetchBalances();
+  const balances = useFetchBalances();
   const selectedAsset = useRecoilValue(selectedAssetStore);
   const initialValues: FormValues = {
     amount: 0,
@@ -46,10 +46,10 @@ export const PopupSend: React.FC = () => {
           errors.recipient = 'The address you provided is not valid.';
         }
         if (selectedAsset) {
-          if (balances) {
+          if (balances.value) {
             const amountBN = new BigNumber(amount);
             if (selectedAsset.type === 'stx') {
-              const curBalance = microStxToStx(balances.stx.balance);
+              const curBalance = microStxToStx(balances.value.stx.balance);
               if (curBalance.lt(amountBN)) {
                 errors.amount = `You don't have enough tokens. Your balance is ${curBalance.toString()}`;
               }
@@ -100,7 +100,7 @@ export const PopupSend: React.FC = () => {
             }}
             {...values}
             showing={isShowing}
-            balances={balances}
+            balances={balances.value}
           />
           <PopupContainer title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)}>
             <form onSubmit={handleSubmit}>
@@ -132,21 +132,21 @@ export const PopupSend: React.FC = () => {
                     name="amount"
                   />
                 </InputGroup>
-                {balances && selectedAsset ? (
+                {balances.value && selectedAsset ? (
                   <Link
                     color="blue"
                     textStyle="caption"
                     onClick={() => {
-                      if (!selectedAsset) return;
+                      if (!selectedAsset || !balances.value) return;
                       if (selectedAsset.type === 'stx') {
-                        const stx = microStxToStx(balances.stx.balance);
+                        const stx = microStxToStx(balances.value.stx.balance);
                         setFieldValue('amount', stx.toNumber());
                       } else {
-                        const token = Object.keys(balances.fungible_tokens).find(contract => {
+                        const token = Object.keys(balances.value.fungible_tokens).find(contract => {
                           return contract.startsWith(selectedAsset.contractAddress);
                         });
                         if (token) {
-                          setFieldValue('amount', balances.fungible_tokens[token].balance);
+                          setFieldValue('amount', balances.value.fungible_tokens[token].balance);
                         }
                       }
                     }}

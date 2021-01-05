@@ -119,9 +119,9 @@ export const PostConditionComponent: React.FC<PostConditionProps> = ({ pc, index
   const setCurrentPostConditionIndex = useSetRecoilState(currentPostConditionIndexStore);
   const setSelectedAsset = useSetRecoilState(selectedAssetStore);
   const setPostConditions = useSetRecoilState(postConditionsStore);
-  const { data: balances } = useFetchBalances();
+  const balancesLoadable = useFetchBalances();
   const { doChangeScreen } = useAnalytics();
-  const balancesJSON = JSON.stringify(balances);
+  const balancesJSON = JSON.stringify(balancesLoadable.value);
 
   const removePostCondition = useCallback(() => {
     setPostConditions(pcs => {
