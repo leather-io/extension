@@ -20,11 +20,20 @@ import { authenticationInit } from '@common/utils';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/use-onboarding-state';
-import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
+import { Routes as RoutesDom, Route as RouterRoute, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
 import { AccountGate, AccountGateRoute } from '@components/account-gate';
 import { lastSeenStore } from '@store/recoil/wallet';
 import { useSetRecoilState } from 'recoil';
+import { ErrorBoundary } from './error-boundary';
+
+interface RouteProps {
+  path: ScreenPaths;
+  element: React.ReactNode;
+}
+export const Route: React.FC<RouteProps> = ({ path, element }) => {
+  return <RouterRoute path={path} element={<ErrorBoundary>{element}</ErrorBoundary>} />;
+};
 
 export const Routes: React.FC = () => {
   const { doChangeScreen } = useAnalytics();
@@ -80,27 +89,27 @@ export const Routes: React.FC = () => {
 
   return (
     <RoutesDom>
-      <Route path="/" element={getHomeComponent()} />
+      <Route path={ScreenPaths.HOME} element={getHomeComponent()} />
       {/* Installation */}
-      <Route path="/installed" element={<Installed />} />
-      <Route path="/installed/sign-in" element={<InstalledSignIn />} />
+      <Route path={ScreenPaths.INSTALLED} element={<Installed />} />
+      <Route path={ScreenPaths.SIGN_IN_INSTALLED} element={<InstalledSignIn />} />
       <AccountGateRoute path={ScreenPaths.POPUP_HOME} element={<PopupHome />} />
       <AccountGateRoute path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
       <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
-      <AccountGateRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
+      <RouterRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
       <AccountGateRoute
         path={ScreenPaths.EDIT_POST_CONDITIONS}
         element={<EditPostConditionsPage />}
       />
       <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
       {/*Sign Up*/}
-      <Route path="/sign-up" element={getSignUpElement()} />
+      <Route path={ScreenPaths.GENERATION} element={getSignUpElement()} />
       <Route
-        path="/sign-up/secret-key"
+        path={ScreenPaths.SECRET_KEY}
         element={<SecretKey next={() => doChangeScreen(ScreenPaths.SAVE_KEY)} />}
       />
       <Route
-        path="/sign-up/save-secret-key"
+        path={ScreenPaths.SAVE_KEY}
         element={
           <SaveKey
             next={() => {
@@ -119,10 +128,10 @@ export const Routes: React.FC = () => {
           />
         }
       />
-      <Route path="/sign-up/username" element={getUsernameElement()} />
+      <Route path={ScreenPaths.USERNAME} element={getUsernameElement()} />
       {/*Sign In*/}
       <Route
-        path="/sign-in"
+        path={ScreenPaths.SIGN_IN}
         element={
           isSignedIn ? (
             <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />
@@ -135,12 +144,12 @@ export const Routes: React.FC = () => {
         }
       />
       <Route
-        path="/sign-in/recover"
+        path={ScreenPaths.RECOVERY_CODE}
         element={<DecryptRecoveryCode next={() => doChangeScreen(ScreenPaths.CHOOSE_ACCOUNT)} />}
       />
-      <Route path="/sign-in/add-account" element={<Username />} />;
+      <Route path={ScreenPaths.ADD_ACCOUNT} element={<Username />} />;
       <Route
-        path="/connect/choose-account"
+        path={ScreenPaths.CHOOSE_ACCOUNT}
         element={
           <ChooseAccount
             next={(identityIndex: number) => {
@@ -150,7 +159,7 @@ export const Routes: React.FC = () => {
         }
       />
       {/* Transactions */}
-      <Route path="/transaction" element={<TransactionPage />} />
+      <Route path={ScreenPaths.TRANSACTION_POPUP} element={<TransactionPage />} />
       {/*Error/Misc*/}
       <AccountGateRoute
         path={ScreenPaths.SETTINGS_KEY}

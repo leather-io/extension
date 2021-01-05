@@ -37,11 +37,12 @@ export const AssetResult: React.FC<AssetResultProps> = props => {
 };
 
 const SelectedAsset: React.FC<{ setInput: (input: string) => void }> = ({ setInput }) => {
-  const { data: balances } = useFetchBalances();
+  const balancesLoadable = useFetchBalances();
   const selectedAsset = useRecoilValue(selectedAssetStore);
   const setSelectedAsset = useSetRecoilState(selectedAssetStore);
 
   const balance = useMemo<string | undefined>(() => {
+    const balances = balancesLoadable.value;
     if (!selectedAsset || !balances) return;
     if (selectedAsset.type === 'stx') {
       const stx = microStxToStx(balances.stx.balance);
@@ -56,7 +57,7 @@ const SelectedAsset: React.FC<{ setInput: (input: string) => void }> = ({ setInp
       }
     }
     return;
-  }, [selectedAsset, balances]);
+  }, [selectedAsset, balancesLoadable]);
 
   if (!selectedAsset) {
     return null;
@@ -98,7 +99,7 @@ const SelectedAsset: React.FC<{ setInput: (input: string) => void }> = ({ setInp
             </Text>
           </Box>
           <Box px="base">
-            {balances ? (
+            {balance ? (
               <Text fontSize={2} color="ink.600">
                 {balance}
               </Text>
@@ -125,10 +126,10 @@ const SelectedAsset: React.FC<{ setInput: (input: string) => void }> = ({ setInp
 };
 
 export const AssetSearch: React.FC = () => {
-  const { data: balances } = useFetchBalances();
+  const balancesLoadable = useFetchBalances();
   const selectedAsset = useRecoilValue(selectedAssetStore);
   const setSelectedAsset = useSetRecoilState(selectedAssetStore);
-  const balancesJSON = JSON.stringify(balances);
+  const balancesJSON = JSON.stringify(balancesLoadable.value);
   const [searchResults, setSearchResults] = useState<Asset[]>([]);
 
   const assets: Asset[] = useMemo(() => {
@@ -210,7 +211,7 @@ export const AssetSearch: React.FC = () => {
     return <SelectedAsset setInput={setInputValue} />;
   }
 
-  if (!balances) {
+  if (balancesLoadable.state === 'loading') {
     return (
       <Box my="loose">
         <LoadingRectangle width="80%" height="32px" />

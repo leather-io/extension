@@ -10,6 +10,7 @@ import { useAnalytics } from '@common/hooks/use-analytics';
 import { ScreenPaths } from '@store/onboarding/types';
 import { Unlock } from '@components/unlock';
 import { Route } from 'react-router-dom';
+import { ErrorBoundary } from './error-boundary';
 
 enum Step {
   INITIAL = 0,
@@ -126,5 +127,10 @@ interface AccountGateRouteProps {
   element: React.ReactNode;
 }
 export const AccountGateRoute: React.FC<AccountGateRouteProps> = ({ path, element }) => {
-  return <Route path={path} element={<AccountGate element={element} />} />;
+  return (
+    <Route
+      path={path}
+      element={<AccountGate element={<ErrorBoundary>{element}</ErrorBoundary>} />}
+    />
+  );
 };

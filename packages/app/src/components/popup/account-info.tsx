@@ -1,12 +1,31 @@
 import React from 'react';
+import { Box } from '@stacks/ui';
 import { AssetList } from '@components/popup/asset-list';
 import { useFetchAccountData } from '@common/hooks/use-account-info';
 import { Flex } from '@stacks/ui';
 import { TxItem } from './tx-item';
 import { MempoolTransaction, Transaction } from '@blockstack/stacks-blockchain-api-types';
+import { LoadingRectangle } from '@components/loading-rectangle';
+
+const HomeLoading: React.FC = () => {
+  return (
+    <Flex flexDirection="column" mt="extra-loose">
+      <Box width="100%">
+        <LoadingRectangle width="60%" height="80px" />
+      </Box>
+      <Box width="100%" mt="loose" mb="extra-loose">
+        <LoadingRectangle width="100%" height="120px" />
+      </Box>
+    </Flex>
+  );
+};
 
 export const AccountInfo: React.FC = () => {
-  const { data } = useFetchAccountData();
+  const accountData = useFetchAccountData();
+  if (accountData.state === 'loading') {
+    return <HomeLoading />;
+  }
+  const data = accountData.value;
   if (!data) {
     return null;
   }
