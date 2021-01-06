@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Input, Text } from '@blockstack/ui';
+import { Box, Button, Input, Text } from '@stacks/ui';
 import { PoweredBy, Screen, ScreenActions, ScreenBody, ScreenFooter, ScreenHeader } from '@screen';
 import { Title } from '@components/typography';
 
 import { useAppDetails } from '@common/hooks/useAppDetails';
 import { useDispatch } from '@common/hooks/use-dispatch';
-import { doFinishSignIn, doSetUsername } from '@store/onboarding/actions';
+import { doSetUsername, doSetOnboardingPath } from '@store/onboarding/actions';
 import { useWallet } from '@common/hooks/use-wallet';
 import { UsernameRegistryError, ErrorReason } from './registery-error';
 
@@ -17,7 +17,6 @@ import {
   registerSubdomain,
   validateSubdomain,
 } from '@stacks/keychain';
-import { didGenerateWallet } from '@store/wallet';
 import { ErrorLabel } from '@components/error-label';
 import { gaiaUrl, Subdomain } from '@common/constants';
 import {
@@ -34,7 +33,7 @@ const identityNameLengthError =
 const identityNameIllegalCharError =
   'You can only use lowercase letters (a–z), numbers (0–9), and underscores (_).';
 const identityNameUnavailableError = 'This username is not available';
-const errorTextMap = {
+export const errorTextMap = {
   [IdentityNameValidityError.MINIMUM_LENGTH]: identityNameLengthError,
   [IdentityNameValidityError.MAXIMUM_LENGTH]: identityNameLengthError,
   [IdentityNameValidityError.ILLEGAL_CHARACTER]: identityNameIllegalCharError,
@@ -44,7 +43,7 @@ const errorTextMap = {
 export const Username: React.FC<{}> = () => {
   const { pathname } = useLocation();
 
-  const { wallet } = useWallet();
+  const { wallet, setWallet, doFinishSignIn } = useWallet();
   const dispatch = useDispatch();
   const { name } = useAppDetails();
   const { doTrack } = useAnalytics();
@@ -105,10 +104,12 @@ export const Username: React.FC<{}> = () => {
         gaiaHubUrl: gaiaUrl,
         identity,
       });
+      dispatch(doSetOnboardingPath(undefined));
       doTrack(USERNAME_SUBMIT_SUCCESS);
-      await dispatch(didGenerateWallet(wallet));
-      await dispatch(doFinishSignIn({ identityIndex }));
+      setWallet(wallet);
+      await doFinishSignIn(identityIndex);
     } catch (error) {
+      console.error(error);
       doTrack(USERNAME_REGISTER_FAILED, { status: error.status });
       if (error.status === 409) {
         setSubmissionError('rateLimited');
@@ -125,7 +126,7 @@ export const Username: React.FC<{}> = () => {
         onTryAgain={() => {
           setSubmissionError(undefined);
           setLoadingStatus();
-          onSubmit();
+          void onSubmit();
         }}
       />
     );
@@ -139,11 +140,11 @@ export const Username: React.FC<{}> = () => {
         body={[
           <Box>
             <Title>Choose a username</Title>
-            <Text mt={2} display="block">
+            <Text mt="base" display="block" mb="extra-loose">
               This is how people will find you in {name} and other apps you use with your Secret
               Key.
             </Text>
-            <Box textAlign="left" position="relative" mt={4}>
+            <Box textAlign="left" position="relative" mt="extra-loose">
               <Input
                 data-test="input-username"
                 paddingRight="100px"
@@ -156,6 +157,7 @@ export const Username: React.FC<{}> = () => {
                 autoComplete="off"
                 autoCapitalize="off"
                 spellCheck="false"
+                width="100%"
               />
             </Box>
             {error && hasAttemptedSubmit && (

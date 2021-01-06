@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState } from '@store';
 import { selectMagicRecoveryCode } from '@store/onboarding/selectors';
 import { SIGN_IN_CORRECT } from '@common/track';
-import { doStoreSeed } from '@store/wallet/actions';
-import { DEFAULT_PASSWORD } from '@store/onboarding/types';
+import { useWallet } from '@common/hooks/use-wallet';
 
-import { Box, Input, Text, Button } from '@blockstack/ui';
+import { Box, Input, Text, Button } from '@stacks/ui';
 import {
   Screen,
   ScreenBody,
@@ -27,9 +26,9 @@ interface RecoveryProps {
 export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
   const title = 'Enter your password';
   const [passwordError, setPasswordError] = useState('');
+  const { doStoreSeed } = useWallet();
   const [password, setCode] = useState('');
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
   const { doTrack } = useAnalytics();
 
   const recoveryCode = useSelector((state: AppState) => selectMagicRecoveryCode(state) as string);
@@ -39,7 +38,7 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
     try {
       const codeBuffer = Buffer.from(recoveryCode, 'base64');
       const seed = await decrypt(codeBuffer, password);
-      await doStoreSeed(seed, DEFAULT_PASSWORD)(dispatch, () => ({}), {});
+      await doStoreSeed(seed);
       doTrack(SIGN_IN_CORRECT);
       next();
     } catch (error) {
@@ -86,7 +85,7 @@ export const DecryptRecoveryCode: React.FC<RecoveryProps> = ({ next }) => {
           width="100%"
           mt={6}
           size="lg"
-          onClick={async event => {
+          onClick={async (event: MouseEvent) => {
             event.preventDefault();
             return onSubmit();
           }}

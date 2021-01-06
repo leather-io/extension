@@ -2,7 +2,7 @@ import { Page, BrowserContext } from 'playwright-core';
 import { createTestSelector, wait } from '../utils';
 
 export class AuthPage {
-  static url = 'http://localhost:8080';
+  static url = 'http://localhost:8081';
   page: Page;
   $buttonCopySecretKey = createTestSelector('button-copy-secret-key');
   $buttonHasSavedSeedPhrase = createTestSelector('button-has-saved-seed-phrase');
@@ -26,6 +26,8 @@ export class AuthPage {
   invalidSecretKey = 'text="The Secret Key you\'ve entered is invalid"';
   incorrectPassword = 'text="Incorrect password"';
   confirmContinue = createTestSelector('confirm-continue-app');
+  passwordField = createTestSelector('onboarding-password');
+  confirmPasswordButton = createTestSelector('button-has-set-password');
 
   continueBtn = 'text="Continue"';
 
@@ -36,7 +38,7 @@ export class AuthPage {
   static async getAuthPage(context: BrowserContext, signUp = true) {
     const page = await this.recursiveGetAuthPage(context);
     if (!page) {
-      context.pages()[0].screenshot({ path: `tests/screenshots/no-auth-page-found.png` });
+      await context.pages()[0].screenshot({ path: `tests/screenshots/no-auth-page-found.png` });
       throw new Error('Unable to get auth page popup');
     }
     const authPage = new this(page);
@@ -52,7 +54,7 @@ export class AuthPage {
    */
   static async recursiveGetAuthPage(context: BrowserContext, attempt = 1): Promise<Page> {
     const pages = context.pages();
-    const page = pages.find(p => p.url().includes('localhost:8080'));
+    const page = pages.find(p => p.url().includes(this.url));
     if (!page) {
       if (attempt > 3) {
         throw new Error('Unable to get auth page popup');
@@ -65,13 +67,16 @@ export class AuthPage {
 
   async saveSecretPhrase() {
     await this.page.waitForSelector(this.$textareaReadOnlySeedPhrase);
-    wait(3000);
+    await wait(3000);
     await this.screenshot(`save-secret-phrase-${new Date().getTime()}`);
     const $secretKeyEl = await this.page.$(this.$textareaReadOnlySeedPhrase);
     if (!$secretKeyEl) {
       throw 'Could not find secret key field';
     }
-    const secretKey = (await this.page.$eval(this.$textareaReadOnlySeedPhrase, (el: any) => el.value)) as string;
+    const secretKey = (await this.page.$eval(
+      this.$textareaReadOnlySeedPhrase,
+      (el: HTMLTextAreaElement) => el.value
+    )) as string;
     if (!secretKey) throw 'Unable to get secret key';
     // const secretKey = (await this.page.$eval(this.$textareaReadOnlySeedPhrase, element => element.value)) as string;
     await this.page.click(this.$buttonCopySecretKey);
@@ -114,7 +119,7 @@ export class AuthPage {
   }
 
   chooseAccount(username: string) {
-    return this.page.click(`text="${username}"`);
+    return this.page.click(`[data-test="account-${username}"]`);
   }
 
   async clickIHaveSavedIt() {
@@ -123,5 +128,10 @@ export class AuthPage {
     if (error == null) {
       await this.page.click(this.iHaveSavedIt);
     }
+  }
+
+  async enterPassword() {
+    await this.page.fill(this.passwordField, 'mysecretpassword');
+    await this.page.click(this.confirmPasswordButton);
   }
 }

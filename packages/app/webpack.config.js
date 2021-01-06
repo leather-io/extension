@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CheckerPlugin = require('fork-ts-checker-webpack-plugin');
-const ChromeExtensionReloader = require('webpack-chrome-extension-reloader');
+const ExtensionReloader = require('webpack-extension-reloader');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -42,7 +42,7 @@ const sourceRootPath = path.join(__dirname, 'src');
 const distRootPath = path.join(__dirname, 'dist');
 const nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 const webBrowser = process.env.WEB_BROWSER ? process.env.WEB_BROWSER : 'chrome';
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDevelopment = nodeEnv === 'development';
 const analyzeBundle = process.env.ANALYZE === 'true';
 const segmentKey = process.env.SEGMENT_KEY || getSegmentKey();
 const statsURL = process.env.STATS_URL || 'https://stats.blockstack.xyz';
@@ -262,7 +262,7 @@ module.exports = {
 if (process.env.EXT_ENV === 'watch') {
   module.exports.watch = true;
   module.exports.plugins.push(
-    new ChromeExtensionReloader({
+    new ExtensionReloader({
       port: 9128,
       reloadPage: true,
       entries: {

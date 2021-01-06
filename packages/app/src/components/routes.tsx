@@ -1,49 +1,58 @@
 import React, { useEffect } from 'react';
-import { Home } from '@pages/home';
-import { Create, SaveKey } from '@pages/sign-up';
-import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
 
+import { Create, SaveKey, OnboardingPassword } from '@pages/sign-up';
+import { SignIn, DecryptRecoveryCode } from '@pages/sign-in';
 import { Username } from '@pages/username';
 import { SecretKey } from '@pages/secret-key';
-
 import { ChooseAccount } from '@pages/connect';
+import { TransactionPage } from '@pages/transaction';
+import { Installed } from '@pages/install';
+import { InstalledSignIn } from '@pages/install/sign-in';
+import { PopupHome } from '@pages/popup';
+import { PopupSend } from '@pages/popup/send';
+import { PopupReceive } from '@pages/popup/receive';
+import { AddNetwork } from '@pages/popup/add-network';
+import { EditPostConditionsPage } from '@pages/transaction/edit-post-conditions';
+import { SetPasswordPage } from '@pages/set-password';
 
-import { Transaction } from '@pages/transaction';
-
-import { doSaveAuthRequest } from '@store/onboarding/actions';
-import { useDispatch } from '@common/hooks/use-dispatch';
 import { ScreenPaths } from '@store/onboarding/types';
-import { doFinishSignIn as finishSignIn } from '@store/onboarding/actions';
 import { authenticationInit } from '@common/utils';
 import { useAnalytics } from '@common/hooks/use-analytics';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/use-onboarding-state';
 import { Routes as RoutesDom, Route, useLocation } from 'react-router-dom';
 import { Navigate } from '@components/navigate';
+import { AccountGate, AccountGateRoute } from '@components/account-gate';
+import { lastSeenStore } from '@store/recoil/wallet';
+import { useSetRecoilState } from 'recoil';
 
 export const Routes: React.FC = () => {
-  const dispatch = useDispatch();
   const { doChangeScreen } = useAnalytics();
-  const { identities } = useWallet();
-  const { isOnboardingInProgress, onboardingPath } = useOnboardingState();
+  const {
+    isSignedIn: signedIn,
+    doFinishSignIn,
+    doSaveAuthRequest,
+    encryptedSecretKey,
+  } = useWallet();
+  const { isOnboardingInProgress } = useOnboardingState();
   const authRequest = authenticationInit();
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
+  const setLastSeen = useSetRecoilState(lastSeenStore);
+  const isSignedIn = signedIn && !isOnboardingInProgress;
 
   useEffect(() => {
     if (authRequest) {
-      dispatch(doSaveAuthRequest(authRequest));
+      doSaveAuthRequest(authRequest);
     }
-  }, [authRequest]);
+  }, [doSaveAuthRequest, authRequest]);
 
-  const doFinishSignIn = ({ identityIndex }: { identityIndex: number } = { identityIndex: 0 }) =>
-    dispatch(finishSignIn({ identityIndex }));
-
-  const isSignedIn = !isOnboardingInProgress && identities.length;
+  // Keep track of 'last seen' by updating it whenever a route is set.
+  useEffect(() => {
+    setLastSeen(new Date().getTime());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   const getSignUpElement = () => {
-    if (onboardingPath) {
-      return <Navigate to={onboardingPath} screenPath={onboardingPath} />;
-    }
     if (isSignedIn) {
       return (
         <Navigate
@@ -56,18 +65,34 @@ export const Routes: React.FC = () => {
   };
 
   const getUsernameElement = () => {
-    if (onboardingPath) {
-      return <Username />;
-    }
     if (isSignedIn) {
       return <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />;
     }
     return <Username />;
   };
 
+  const getHomeComponent = () => {
+    if (isSignedIn || encryptedSecretKey) {
+      return <AccountGate element={<PopupHome />} />;
+    }
+    return <Installed />;
+  };
+
   return (
     <RoutesDom>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={getHomeComponent()} />
+      {/* Installation */}
+      <Route path="/installed" element={<Installed />} />
+      <Route path="/installed/sign-in" element={<InstalledSignIn />} />
+      <AccountGateRoute path={ScreenPaths.POPUP_HOME} element={<PopupHome />} />
+      <AccountGateRoute path={ScreenPaths.POPUP_SEND} element={<PopupSend />} />
+      <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE} element={<PopupReceive />} />
+      <AccountGateRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
+      <AccountGateRoute
+        path={ScreenPaths.EDIT_POST_CONDITIONS}
+        element={<EditPostConditionsPage />}
+      />
+      <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
       {/*Sign Up*/}
       <Route path="/sign-up" element={getSignUpElement()} />
       <Route
@@ -78,6 +103,16 @@ export const Routes: React.FC = () => {
         path="/sign-up/save-secret-key"
         element={
           <SaveKey
+            next={() => {
+              doChangeScreen(ScreenPaths.ONBOARDING_PASSWORD);
+            }}
+          />
+        }
+      />
+      <Route
+        path={ScreenPaths.ONBOARDING_PASSWORD}
+        element={
+          <OnboardingPassword
             next={() => {
               doChangeScreen(ScreenPaths.USERNAME);
             }}
@@ -109,16 +144,16 @@ export const Routes: React.FC = () => {
         element={
           <ChooseAccount
             next={(identityIndex: number) => {
-              doFinishSignIn({ identityIndex });
+              doFinishSignIn(identityIndex);
             }}
           />
         }
       />
       {/* Transactions */}
-      <Route path="/transaction" element={<Transaction />} />
+      <Route path="/transaction" element={<TransactionPage />} />
       {/*Error/Misc*/}
-      <Route
-        path="/settings/secret-key"
+      <AccountGateRoute
+        path={ScreenPaths.SETTINGS_KEY}
         element={<SecretKey next={() => doChangeScreen(ScreenPaths.HOME)} />}
       />
     </RoutesDom>
