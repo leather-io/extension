@@ -36,7 +36,7 @@ export class AuthPage {
   static async getAuthPage(context: BrowserContext, signUp = true) {
     const page = await this.recursiveGetAuthPage(context);
     if (!page) {
-      context.pages()[0].screenshot({ path: `tests/screenshots/no-auth-page-found.png` });
+      await context.pages()[0].screenshot({ path: `tests/screenshots/no-auth-page-found.png` });
       throw new Error('Unable to get auth page popup');
     }
     const authPage = new this(page);
@@ -65,13 +65,16 @@ export class AuthPage {
 
   async saveSecretPhrase() {
     await this.page.waitForSelector(this.$textareaReadOnlySeedPhrase);
-    wait(3000);
+    await wait(3000);
     await this.screenshot(`save-secret-phrase-${new Date().getTime()}`);
     const $secretKeyEl = await this.page.$(this.$textareaReadOnlySeedPhrase);
     if (!$secretKeyEl) {
       throw 'Could not find secret key field';
     }
-    const secretKey = (await this.page.$eval(this.$textareaReadOnlySeedPhrase, (el: any) => el.value)) as string;
+    const secretKey = (await this.page.$eval(
+      this.$textareaReadOnlySeedPhrase,
+      (el: HTMLTextAreaElement) => el.value
+    )) as string;
     if (!secretKey) throw 'Unable to get secret key';
     // const secretKey = (await this.page.$eval(this.$textareaReadOnlySeedPhrase, element => element.value)) as string;
     await this.page.click(this.$buttonCopySecretKey);

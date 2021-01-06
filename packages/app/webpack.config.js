@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CheckerPlugin = require('fork-ts-checker-webpack-plugin');
-const ChromeExtensionReloader = require('webpack-chrome-extension-reloader');
+const ExtensionReloader = require('webpack-extension-reloader');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -262,7 +262,7 @@ module.exports = {
 if (process.env.EXT_ENV === 'watch') {
   module.exports.watch = true;
   module.exports.plugins.push(
-    new ChromeExtensionReloader({
+    new ExtensionReloader({
       port: 9128,
       reloadPage: true,
       entries: {
