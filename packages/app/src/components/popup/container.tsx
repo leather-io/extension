@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import { EllipsisIcon } from '@components/icons/ellipsis-icon';
 import { SettingsPopover } from './settings-popover';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { useWallet } from '@common/hooks/use-wallet';
 
 const CloseIconContainer = styled(Box)`
   svg {
@@ -27,11 +26,10 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({
   hideActions,
 }) => {
   const { setShowSettings } = useDrawers();
-  const { isSignedIn } = useWallet();
   const isExtension = EXT_ENV !== 'web';
 
   const Settings: React.FC<BoxProps> = props => {
-    if (hideActions || !isSignedIn) return null;
+    if (hideActions) return null;
     return (
       <Box cursor="pointer" position="relative" {...props}>
         <EllipsisIcon onClick={() => setShowSettings(true)} />

@@ -51,12 +51,13 @@ export const chainInfoStore = selector({
     get(apiRevalidation);
     get(intervalStore(15000));
     const { url } = get(currentNetworkStore);
+    const infoUrl = `${url}/v2/info`;
     try {
-      const res = await fetch(`${url}/v2/info`);
+      const res = await fetch(infoUrl);
       const info: CoreNodeInfoResponse = await res.json();
       return info;
     } catch (error) {
-      throw `Unable to fetch account data from ${url}`;
+      throw `Unable to fetch chain data from ${infoUrl}`;
     }
   },
 });
@@ -66,22 +67,26 @@ export const correctNonceStore = selector({
   get: ({ get }) => {
     get(apiRevalidation);
     get(intervalStore(15000));
-    const chainInfo = get(chainInfoStore);
-    const account = get(accountInfoStore);
-    const lastTx = get(latestNonceStore);
+    try {
+      const chainInfo = get(chainInfoStore);
+      const account = get(accountInfoStore);
+      const lastTx = get(latestNonceStore);
 
-    // Blocks have been mined since the last TX from this user.
-    // This is the most likely scenario.
-    if (account.nonce > lastTx.nonce) {
-      return account.nonce;
+      // Blocks have been mined since the last TX from this user.
+      // This is the most likely scenario.
+      if (account.nonce > lastTx.nonce) {
+        return account.nonce;
+      }
+      // The current stacks chain has been reset since the user's last TX.
+      // In this case, use the remote nonce.
+      if (chainInfo.stacks_tip_height < lastTx.blockHeight) {
+        return account.nonce;
+      }
+      // No blocks have been mined since the latest transaction from this user.
+      return lastTx.nonce + 1;
+    } catch {
+      return 0;
     }
-    // The current stacks chain has been reset since the user's last TX.
-    // In this case, use the remote nonce.
-    if (chainInfo.stacks_tip_height < lastTx.blockHeight) {
-      return account.nonce;
-    }
-    // No blocks have been mined since the latest transaction from this user.
-    return lastTx.nonce + 1;
   },
 });
 

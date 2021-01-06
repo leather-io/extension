@@ -10,6 +10,7 @@ import {
   pendingTransactionStore,
 } from '@store/recoil/transaction';
 import { accountDataStore, chainInfoStore } from '@store/recoil/api';
+import { walletStore } from '@store/recoil/wallet';
 import { useRecoilValue } from 'recoil';
 
 const openGithubIssue = (loadable: ReturnType<typeof useLoadable>) => {
@@ -44,6 +45,8 @@ Bug found testing Stacks Wallet for Web.
   window.open(`https://github.com/blockstack/ux/issues/new?${String(issueParams)}`, '_blank');
 };
 
+type Loadables = ReturnType<typeof useLoadable>[];
+
 /**
  * `ErrorBoundary` will look at all of our Recoil loadables and check to see if there is an error.
  * This catches a good chunk of common errors relating to network issues, both for the home page,
@@ -55,16 +58,22 @@ Bug found testing Stacks Wallet for Web.
  */
 export const ErrorBoundary: React.FC = ({ children }) => {
   const pendingTransaction = useRecoilValue(pendingTransactionStore);
-  const loadables: ReturnType<typeof useLoadable>[] = [
-    useLoadable(chainInfoStore),
-    useLoadable(accountDataStore),
+  const wallet = useRecoilValue(walletStore);
+  let loadables: Loadables = [useLoadable(chainInfoStore)];
+  const walletLoadables: Loadables = [useLoadable(accountDataStore)];
+  const txLoadables: Loadables = [
+    useLoadable(contractSourceStore),
+    useLoadable(contractInterfaceStore),
+    useLoadable(pendingTransactionFunctionSelector),
+    useLoadable(signedTransactionStore),
   ];
 
+  if (wallet) {
+    loadables = loadables.concat(walletLoadables);
+  }
+
   if (pendingTransaction) {
-    loadables.push(useLoadable(contractSourceStore));
-    loadables.push(useLoadable(contractInterfaceStore));
-    loadables.push(useLoadable(pendingTransactionFunctionSelector));
-    loadables.push(useLoadable(signedTransactionStore));
+    loadables = loadables.concat(txLoadables);
   }
 
   const errorLoadables = loadables.filter(loadable => loadable.errorMaybe());
