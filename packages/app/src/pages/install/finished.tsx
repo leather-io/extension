@@ -9,7 +9,7 @@ export const InstallFinished: React.FC = () => {
       <Flex flexDirection="column" mt="extra-loose" width="80%" mx="auto">
         <InstalledIllustration />
       </Flex>
-      <Box mt="base" width="100%" textAlign="center">
+      <Box mt="base" width="100%" textAlign="center" data-test="install-finished">
         <Text fontSize="32px" lineHeight="48px" fontWeight="500">
           You&apos;re all set!
         </Text>

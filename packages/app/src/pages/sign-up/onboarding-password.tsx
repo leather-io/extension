@@ -47,6 +47,7 @@ export const OnboardingPassword: React.FC<OnboardingPasswordProps> = ({ next }) 
                 setPassword(e.currentTarget.value)
               }
               onKeyUp={buildEnterKeyEvent(submit)}
+              data-test="onboarding-password"
             />
           </Box>,
         ]}

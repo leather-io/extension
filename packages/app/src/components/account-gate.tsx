@@ -49,10 +49,11 @@ export const AccountGate: React.FC<AccountGateProps> = ({ element }) => {
   const [step, setStep] = useState<Step>(Step.INITIAL);
   const { hasSetPassword, isSignedIn, secretKey, encryptedSecretKey } = useWallet();
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
+  console.log(isSignedIn, hasSetPassword);
 
   if (isSignedIn && hasSetPassword) return <>{element}</>;
 
-  if (isSignedIn && !hasSetPassword) {
+  if ((isSignedIn || encryptedSecretKey) && !hasSetPassword) {
     if (step === Step.INITIAL) {
       return (
         <PopupContainer hideActions title="Save your Secret Key">
@@ -64,7 +65,7 @@ export const AccountGate: React.FC<AccountGateProps> = ({ element }) => {
           </Box>
           <Box flexGrow={1} />
           <Box>
-            <Button width="100%" onClick={() => setStep(Step.VIEW_KEY)}>
+            <Button width="100%" onClick={() => setStep(Step.VIEW_KEY)} data-test="save-key">
               Save Secret Key
             </Button>
           </Box>
@@ -98,7 +99,11 @@ export const AccountGate: React.FC<AccountGateProps> = ({ element }) => {
             <Button mb="base" width="100%" mode="secondary" onClick={onCopy}>
               Copy to clipboard
             </Button>
-            <Button width="100%" onClick={() => setStep(Step.SET_PASSWORD)}>
+            <Button
+              width="100%"
+              onClick={() => setStep(Step.SET_PASSWORD)}
+              data-test="confirm-saved-key"
+            >
               I've saved it
             </Button>
           </Box>

@@ -54,6 +54,7 @@ export const identitiesStore = atom<Identity[] | undefined>({
       },
     }),
   ],
+  dangerouslyAllowMutability: true,
 });
 
 /**

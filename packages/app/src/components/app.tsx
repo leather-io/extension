@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ThemeProvider } from '@stacks/ui';
+import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 import { RecoilRoot } from 'recoil';
 import { theme } from '@common/theme';
 import { Routes } from '@components/routes';
@@ -8,7 +8,6 @@ import { useMessagePong } from '@common/hooks/use-message-pong';
 import { version } from '../../package.json';
 
 import { css, Global } from '@emotion/react';
-import { ColorModeProvider } from '@components/color-modes';
 import { CssReset } from '@components/css-reset';
 import { AccountsDrawer } from './drawer/accounts';
 import { NetworksDrawer } from './drawer/networks-drawer';
@@ -51,6 +50,7 @@ const globalStyle = css`
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
       sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     -webkit-font-smoothing: antialiased;
+    background-color: white;
   }
 
   h1,
@@ -72,7 +72,7 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <RecoilRoot>
-        <ColorModeProvider>
+        <ColorModeProvider defaultMode="light">
           <React.Fragment>
             <CssReset />
             <Global styles={globalStyle} />

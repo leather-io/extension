@@ -40,6 +40,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ redirect }) => {
           width="100%"
           autoFocus
           type="password"
+          data-test="set-password"
           value={password}
           onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
           onKeyUp={buildEnterKeyEvent(submit)}
@@ -47,7 +48,13 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ redirect }) => {
       </Box>
       <Box flexGrow={1} />
       <Box>
-        <Button width="100%" isLoading={loading} isDisabled={loading} onClick={submit}>
+        <Button
+          width="100%"
+          isLoading={loading}
+          isDisabled={loading}
+          onClick={submit}
+          data-test="set-password-done"
+        >
           Done
         </Button>
       </Box>

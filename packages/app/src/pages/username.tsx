@@ -6,7 +6,7 @@ import { Title } from '@components/typography';
 
 import { useAppDetails } from '@common/hooks/useAppDetails';
 import { useDispatch } from '@common/hooks/use-dispatch';
-import { doSetUsername } from '@store/onboarding/actions';
+import { doSetUsername, doSetOnboardingPath } from '@store/onboarding/actions';
 import { useWallet } from '@common/hooks/use-wallet';
 import { UsernameRegistryError, ErrorReason } from './registery-error';
 
@@ -104,10 +104,12 @@ export const Username: React.FC<{}> = () => {
         gaiaHubUrl: gaiaUrl,
         identity,
       });
+      dispatch(doSetOnboardingPath(undefined));
       doTrack(USERNAME_SUBMIT_SUCCESS);
       setWallet(wallet);
       await doFinishSignIn(identityIndex);
     } catch (error) {
+      console.error(error);
       doTrack(USERNAME_REGISTER_FAILED, { status: error.status });
       if (error.status === 409) {
         setSubmissionError('rateLimited');
