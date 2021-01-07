@@ -34,7 +34,7 @@ export const Routes: React.FC = () => {
     doSaveAuthRequest,
     encryptedSecretKey,
   } = useWallet();
-  const { isOnboardingInProgress, onboardingPath } = useOnboardingState();
+  const { isOnboardingInProgress } = useOnboardingState();
   const authRequest = authenticationInit();
   const { search, pathname } = useLocation();
   const setLastSeen = useSetRecoilState(lastSeenStore);
@@ -53,9 +53,6 @@ export const Routes: React.FC = () => {
   }, [pathname]);
 
   const getSignUpElement = () => {
-    if (onboardingPath) {
-      return <Navigate to={onboardingPath} screenPath={onboardingPath} />;
-    }
     if (isSignedIn) {
       return (
         <Navigate
@@ -68,9 +65,6 @@ export const Routes: React.FC = () => {
   };
 
   const getUsernameElement = () => {
-    if (onboardingPath) {
-      return <Username />;
-    }
     if (isSignedIn) {
       return <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />;
     }
@@ -158,8 +152,8 @@ export const Routes: React.FC = () => {
       {/* Transactions */}
       <Route path="/transaction" element={<TransactionPage />} />
       {/*Error/Misc*/}
-      <Route
-        path="/settings/secret-key"
+      <AccountGateRoute
+        path={ScreenPaths.SETTINGS_KEY}
         element={<SecretKey next={() => doChangeScreen(ScreenPaths.HOME)} />}
       />
     </RoutesDom>

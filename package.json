@@ -11,6 +11,8 @@
     "build:connect-ui": "lerna run build --scope @stacks/connect-ui",
     "build:app": "yarn build:connect-ui && lerna run prod:web --scope @stacks/app",
     "build:test-app": "lerna run prod:web --scope test-app",
+    "build:test": "lerna run build:test --parallel --stream",
+    "build:test:watch": "lerna run build:test:watch --parallel --stream",
     "build:extension": "lerna run prod:ext",
     "deploy-contracts": "lerna run deploy-contracts --stream",
     "lint": "yarn lint:eslint && yarn lint:prettier",

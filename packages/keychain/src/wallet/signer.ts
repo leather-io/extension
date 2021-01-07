@@ -102,7 +102,7 @@ export class WalletSigner {
       network: network || this.getNetwork(),
       postConditionMode,
       postConditions,
-      nonce: nonce ? new BN(nonce, 10) : undefined,
+      nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
     });
     return tx;
   }
@@ -146,7 +146,7 @@ export class WalletSigner {
       network: network || this.getNetwork(),
       postConditionMode,
       postConditions,
-      nonce: nonce ? new BN(nonce, 10) : undefined,
+      nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
     });
     return tx;
   }

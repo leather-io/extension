@@ -15,18 +15,18 @@ import {
 import { doTrack, TRANSACTION_SIGN_SUBMIT, TRANSACTION_SIGN_ERROR } from '@common/track';
 import { finalizeTxSignature } from './utils';
 import RPCClient from '@stacks/rpc-client';
+import BN from 'bn.js';
 
 const getPostConditions = (postConditions?: PostCondition[]): PostCondition[] | undefined => {
-  return postConditions;
-  // return postConditions?.map(postCondition => {
-  //   if ('amount' in postCondition && postCondition.amount) {
-  //     return {
-  //       ...postCondition,
-  //       amount: new BigNum(postCondition.amount, 16),
-  //     };
-  //   }
-  //   return postCondition;
-  // });
+  return postConditions?.map(postCondition => {
+    if ('amount' in postCondition && postCondition.amount) {
+      return {
+        ...postCondition,
+        amount: new BN(postCondition.amount, 16),
+      };
+    }
+    return postCondition;
+  });
 };
 
 export const generateContractCallTx = ({

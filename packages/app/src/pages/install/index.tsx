@@ -45,7 +45,13 @@ export const Installed: React.FC = () => {
           </Button>
         </Box>
         <Box pt="base-loose">
-          <Text fontSize="14px" lineHeight="20px" color="blue" position="relative">
+          <Text
+            fontSize="14px"
+            lineHeight="20px"
+            color="blue"
+            position="relative"
+            data-test="sign-in"
+          >
             <Link onClick={() => doChangeScreen(ScreenPaths.SIGN_IN_INSTALLED)}>
               Continue with Secret Key
             </Link>

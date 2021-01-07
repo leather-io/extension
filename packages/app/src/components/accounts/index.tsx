@@ -71,6 +71,7 @@ export const Accounts = ({ showAddAccount, identityIndex, next }: AccountsProps)
             cursor={selectedAddress ? 'not-allowed' : 'pointer'}
             iconComponent={() => <AccountAvatar username={defaultUsername || address} mr={3} />}
             hasAction={!!next && selectedAddress === null}
+            data-test={`account-${(defaultUsername || address).split('.')[0]}`}
             onClick={() => {
               if (!next) return;
               if (selectedAddress) return;

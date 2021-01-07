@@ -160,12 +160,17 @@ export const useWallet = () => {
           name: appName as string,
         },
       });
+      const { defaultUsername } = currentIdentity;
+      if (NODE_ENV === 'test') {
+        currentIdentity.defaultUsername = '';
+      }
       const authResponse = await currentIdentity.makeAuthResponse({
         gaiaUrl,
         appDomain: appURL.origin,
         transitPublicKey: decodedAuthRequest.public_keys[0],
         scopes: decodedAuthRequest.scopes,
       });
+      currentIdentity.defaultUsername = defaultUsername;
       finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
       setWallet(wallet);
       dispatch(doSetOnboardingPath(undefined));

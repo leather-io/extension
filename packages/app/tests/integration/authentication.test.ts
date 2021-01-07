@@ -1,8 +1,8 @@
 import { validateMnemonic, wordlists, generateMnemonic } from 'bip39';
 import { BrowserContext } from 'playwright-core';
 import { randomString, Browser, wait, environments, SECRET_KEY } from './utils';
+import { setupMocks } from './mocks';
 import { DemoPage } from './page-objects/demo.page';
-// import { randomString, Browser, environments, SECRET_KEY } from './utils';
 import { AuthPage } from './page-objects/auth.page';
 import { Wallet } from '@stacks/keychain';
 import { ChainID } from '@blockstack/stacks-transactions';
@@ -32,7 +32,7 @@ environments.forEach(([browserType, deviceType]) => {
     let browser: Browser;
     let context: BrowserContext;
     let demoPage: DemoPage;
-    let consoleLogs: any[];
+    let consoleLogs: string[];
 
     beforeAll(async () => {
       const launchArgs: string[] = [];
@@ -55,6 +55,7 @@ environments.forEach(([browserType, deviceType]) => {
       } else {
         context = await browser.newContext();
       }
+      await setupMocks(context);
       consoleLogs = [];
       demoPage = await DemoPage.init(context);
       demoPage.page.on('console', event => {
@@ -94,7 +95,9 @@ environments.forEach(([browserType, deviceType]) => {
       await authPage.waitForSelector(auth.$buttonHasSavedSeedPhrase);
       await authPage.click(auth.$buttonHasSavedSeedPhrase);
 
-      const $usernameInputElement = await authPage.$(auth.$inputUsername);
+      await auth.enterPassword();
+
+      const $usernameInputElement = await authPage.waitForSelector(auth.$inputUsername);
       if (!$usernameInputElement) {
         throw 'Could not find username field';
       }
@@ -116,6 +119,7 @@ environments.forEach(([browserType, deviceType]) => {
       expect(secretKey.split(' ').length).toEqual(SEED_PHRASE_LENGTH);
       expect(validateMnemonic(secretKey)).toBeTruthy();
       await authPage.clickIHaveSavedIt();
+      await authPage.enterPassword();
       await authPage.setUserName(
         `${getRandomWord()}_${getRandomWord()}_${getRandomWord()}_${getRandomWord()}`
       );
@@ -130,6 +134,7 @@ environments.forEach(([browserType, deviceType]) => {
       const authPage = await AuthPage.getAuthPage(context);
       await authPage.saveSecretPhrase();
       await authPage.clickIHaveSavedIt();
+      await authPage.enterPassword();
       await authPage.page.waitForSelector(authPage.$inputUsername);
 
       //TEST1 less than 7

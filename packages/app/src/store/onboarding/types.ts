@@ -49,6 +49,7 @@ export enum ScreenPaths {
 export const persistedScreens = [
   ScreenPaths.SECRET_KEY,
   ScreenPaths.SAVE_KEY,
+  ScreenPaths.ONBOARDING_PASSWORD,
   ScreenPaths.USERNAME,
 ];
 
