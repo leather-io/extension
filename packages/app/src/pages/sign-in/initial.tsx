@@ -73,7 +73,7 @@ export const SignIn: React.FC<SignInProps> = props => {
             <Input
               autoFocus
               minHeight="68px"
-              placeholder="12-word Secret Key"
+              placeholder="12 or 24-word Secret Key"
               as="textarea"
               value={seed}
               fontSize={'16px'}

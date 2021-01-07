@@ -44,6 +44,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
     document.getSelection()?.empty();
   };
 
+  const wordCount = secretKey ? secretKey.split(" ").length.toString() : "24"
   return (
     <>
       <Screen onSubmit={handleButtonClick}>
@@ -54,7 +55,7 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
           body={[
             <Title>{title}</Title>,
             <Text mt={2} display="block">
-              Here’s your Secret Key: 12 words that prove it’s you when you want to use {name} on a
+              Here’s your Secret Key: {wordCount} words that prove it’s you when you want to use {name} on a
               new device. Once lost it’s lost forever, so save it somewhere you won’t forget.
             </Text>,
             <Card title="Your Secret Key" mt={6}>
