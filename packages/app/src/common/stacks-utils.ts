@@ -12,7 +12,7 @@ import {
   PostCondition,
   FungibleConditionCode,
   NonFungibleConditionCode,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { Identity } from '@stacks/keychain';
 import { c32addressDecode } from 'c32check';

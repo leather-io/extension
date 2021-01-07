@@ -21,7 +21,7 @@ import {
   NonFungibleConditionCode,
   createAssetInfo,
   PostConditionType,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import { useFormik } from 'formik';
 import { getAssetStringParts } from '@stacks/ui-utils';
 import BN from 'bn.js';

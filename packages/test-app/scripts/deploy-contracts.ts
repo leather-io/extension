@@ -6,7 +6,7 @@ import {
   TransactionVersion,
   makeContractDeploy,
   StacksTestnet,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import * as BN from 'bn.js';
 import * as dotenv from 'dotenv';
 dotenv.config();

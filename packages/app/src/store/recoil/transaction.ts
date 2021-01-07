@@ -3,9 +3,9 @@ import {
   StacksMainnet,
   StacksTestnet,
   PostCondition,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import { TransactionPayload, TransactionTypes } from '@stacks/connect';
-import { decodeToken } from 'blockstack';
+import { decodeToken } from 'jsontokens';
 import { atom, selector } from 'recoil';
 import { WalletSigner } from '@stacks/keychain';
 import { generateTransaction } from '@common/transaction-utils';

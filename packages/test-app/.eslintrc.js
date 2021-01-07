@@ -1,8 +1,8 @@
 module.exports = {
-  extends: ['@blockstack/eslint-config'],
+  extends: ['@stacks/eslint-config'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json'
+    project: './tsconfig.json',
   },
   plugins: ['jest'],
   env: {
@@ -25,5 +25,5 @@ module.exports = {
     '@typescript-eslint/ban-types': [0],
     '@typescript-eslint/restrict-template-expressions': [0],
     '@typescript-eslint/explicit-module-boundary-types': [0],
-  }
+  },
 };

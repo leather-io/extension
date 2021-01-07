@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, ButtonGroup, Box, Text } from '@blockstack/ui';
+import { Button, ButtonGroup, Box, Text } from '@stacks/ui';
 import { AppContext } from '@common/context';
 import { getAuthOrigin, getRPCClient } from '@common/utils';
-import { deserializeCV, IntCV, StacksTestnet } from '@blockstack/stacks-transactions';
+import { deserializeCV, IntCV, StacksTestnet } from '@stacks/transactions';
 import { useConnect } from '@stacks/connect-react';
 import { ExplorerLink } from '@components/explorer-link';
 

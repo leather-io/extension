@@ -17,7 +17,7 @@
     "test": "tsdx test",
     "typecheck": "tsc --noEmit"
   },
-  "prettier": "@blockstack/prettier-config",
+  "prettier": "@stacks/prettier-config",
   "publishConfig": {
     "access": "public"
   },
@@ -38,13 +38,12 @@
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
-    "@blockstack/eslint-config": "^1.0.3",
-    "@blockstack/prettier-config": "^0.0.6",
+    "@stacks/eslint-config": "^1.0.7",
+    "@stacks/prettier-config": "^0.0.7",
     "@types/jest": "^25.2.1",
     "@types/react-dom": "^16.9.6",
     "@types/styled-components": "^5.1.0",
     "babel-loader": "^8.1.0",
-    "blockstack": "21.0.0",
     "bundlesize": "^0.18.0",
     "husky": "^4.2.1",
     "prettier": "^2.0.5",
@@ -65,7 +64,6 @@
   "main": "dist/index.js",
   "module": "dist/connect-react.esm.js",
   "peerDependencies": {
-    "blockstack": ">=19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

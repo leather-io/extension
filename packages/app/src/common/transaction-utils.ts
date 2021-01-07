@@ -1,9 +1,9 @@
 import {
+  PostCondition,
   TransactionVersion,
   StacksTransaction,
   deserializeCV,
-} from '@blockstack/stacks-transactions';
-import { PostCondition } from '@blockstack/stacks-transactions/lib/postcondition';
+} from '@stacks/transactions';
 import { WalletSigner } from '@stacks/keychain';
 import {
   ContractDeployPayload,

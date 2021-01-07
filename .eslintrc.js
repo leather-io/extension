@@ -1,11 +1,8 @@
 module.exports = {
   root: true,
   reportUnusedDisableDirectives: true,
-  extends: ['@blockstack/eslint-config'],
-  plugins: [
-    'react-hooks',
-    'jest',
-  ],
+  extends: ['@stacks/eslint-config'],
+  plugins: ['react-hooks', 'jest'],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: './tsconfig.json',
@@ -18,5 +15,5 @@ module.exports = {
     '@typescript-eslint/ban-types': [0],
     '@typescript-eslint/restrict-template-expressions': [0],
     '@typescript-eslint/explicit-module-boundary-types': [0],
-  }
+  },
 };

@@ -20,7 +20,7 @@
     "lint:prettier:fix": "prettier --write \"packages/**/src/**/*.{ts,tsx}\" *.js",
     "postinstall": "yarn build:connect-ui"
   },
-  "prettier": "@blockstack/prettier-config",
+  "prettier": "@stacks/prettier-config",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -30,11 +30,11 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@blockstack/eslint-config": "^1.0.5",
-    "@blockstack/prettier-config": "^0.0.6",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@commitlint/config-lerna-scopes": "^8.3.4",
+    "@stacks/eslint-config": "^1.0.7",
+    "@stacks/prettier-config": "^0.0.7",
     "@typescript-eslint/eslint-plugin": "4.2.0",
     "@typescript-eslint/parser": "4.2.0",
     "babel-eslint": "^10.1.0",
@@ -62,8 +62,8 @@
     "tsdx": "^0.13.2"
   },
   "resolutions": {
-    "@blockstack/eslint-config": "^1.0.5",
-    "@blockstack/prettier-config": "^0.0.6",
+    "@stacks/eslint-config": "^1.0.7",
+    "@stacks/prettier-config": "^0.0.7",
     "@typescript-eslint/eslint-plugin": "4.2.0",
     "@typescript-eslint/parser": "4.2.0",
     "@types/node": "12.7.12",

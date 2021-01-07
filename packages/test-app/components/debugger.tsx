@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { space, Box, Text, Button, ButtonGroup } from '@blockstack/ui';
+import { space, Box, Text, Button, ButtonGroup } from '@stacks/ui';
 import { getAuthOrigin } from '@common/utils';
 import { demoTokenContract } from '@common/contracts';
 import { useConnect } from '@stacks/connect-react';
@@ -12,7 +12,7 @@ import {
   stringUtf8CV,
   standardPrincipalCV,
   trueCV,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import { ExplorerLink } from './explorer-link';
 
 export const Debugger = () => {

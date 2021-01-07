@@ -16,7 +16,7 @@ import {
   identitiesStore,
 } from '@store/recoil/wallet';
 
-import { ChainID, StacksTransaction } from '@blockstack/stacks-transactions';
+import { ChainID, StacksTransaction } from '@stacks/transactions';
 import { DEFAULT_PASSWORD, ScreenPaths } from '@store/onboarding/types';
 import { mnemonicToSeed } from 'bip39';
 import { useOnboardingState } from './use-onboarding-state';
@@ -29,7 +29,7 @@ import {
 } from '@store/onboarding/actions';
 import { doTrackScreenChange } from '@common/track';
 import { AppManifest, DecodedAuthRequest } from '@common/dev/types';
-import { decodeToken } from 'blockstack';
+import { decodeToken } from 'jsontokens';
 import { chainInfoStore } from '@store/recoil/api';
 import { useLoadable } from '@common/hooks/use-loadable';
 

@@ -14,7 +14,7 @@ import {
   FungibleConditionCode,
   PostCondition,
   createAssetInfo,
-} from '@blockstack/stacks-transactions';
+} from '@stacks/transactions';
 import { useWallet } from '@common/hooks/use-wallet';
 import BN from 'bn.js';
 import { stacksValue, stxToMicroStx } from '@common/stacks-utils';

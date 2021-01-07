@@ -7,7 +7,7 @@ This monorepo contains a few key packages that the User Experience team at Block
 - [`@stacks/ui`](./packages/ui): Blockstack's internal design system and React component library
 - [`@stacks/keychain`](./packages/keychain): A library for Blockstack identity management
 - [`test-app`](./packages/test-app): A simple React app for testing out Connect and the App.
-- [`ui-docs`](./packages/ui-docs): A documentation site for `@blockstack/ui`.
+- [`ui-docs`](./packages/ui-docs): A documentation site for `@stacks/ui`.
 
 <!-- TOC depthFrom:2 -->
 
@@ -23,12 +23,12 @@ This monorepo contains a few key packages that the User Experience team at Block
 
 The first time you setup a development environment for this repository, follow these steps:
 
-~~~bash
+```bash
 git clone https://github.com/blockstack/ux
 cd ux
 yarn
 yarn bootstrap
-~~~
+```
 
 1. Clone this package.
 2. Run `yarn` to install dependencies
@@ -37,8 +37,9 @@ yarn bootstrap
 ### Running the apps locally
 
 In the command line, run `yarn dev` which will run two apps:
-  - `packages/test-app` which runs at localhost:3000 and implements an example of connect
-  - `packages/app` which is the auth app, running at localhost:8080
+
+- `packages/test-app` which runs at localhost:3000 and implements an example of connect
+- `packages/app` which is the auth app, running at localhost:8080
 
 For development instructions of specific packages, see the `README` in each package folder.
 
@@ -50,14 +51,15 @@ For development instructions of specific packages, see the `README` in each pack
 ### Optional - Build browser extensions using Docker
 
 1. Build the docker image locally:
-    ```bash
-    docker build . -t ux
-    ```
+
+   ```bash
+   docker build . -t ux
+   ```
 
 1. Copy the built extensions to your local machine:
-    ```bash
-    docker run -d --name ux ux && docker cp ux:connect-extension.zip . && docker rm -f ux
-    ```
+   ```bash
+   docker run -d --name ux ux && docker cp ux:connect-extension.zip . && docker rm -f ux
+   ```
 
 ## Install browser extension from source
 
