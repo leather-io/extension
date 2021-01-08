@@ -2,6 +2,20 @@ name: Pull Request
 on: [pull_request, workflow_dispatch]
 
 jobs:
+  check_fork:
+    name: Disable jobs for forks
+    runs-on: ubuntu-latest
+    outputs:
+      is_fork: ${{ steps.is_fork.outputs.is_fork }}
+    steps:
+      - name: Check for secret
+        id: is_fork
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+        run: |
+          echo "Is a fork: ${{ env.WEB_EXT_API_KEY == '' }}"
+          echo "::set-output name=is_fork::${{ env.WEB_EXT_API_KEY != '' }}"
+
   commitlint:
     runs-on: ubuntu-latest
     env:
@@ -13,12 +27,14 @@ jobs:
       - uses: wagoid/commitlint-github-action@v1
 
   code_checks:
+    needs: [check_fork]
     name: Code checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - uses: lucasmotta/pull-request-sticky-header@1.0.0
+        if: needs.check_fork.outputs.is_fork == 'true'
         with:
           header: '> Try out this version of the Stacks Wallet - download [extension builds](https://github.com/blockstack/ux/actions/runs/${{ github.run_id }}), the [hosted version](https://pr-${{ github.event.number }}.app.stacks.engineering), or the [Stacks testnet demo app](https://pr-${{ github.event.number }}.testnet-demo.stacks.engineering)'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,7 +42,6 @@ jobs:
         uses: actions/setup-node@v2-beta
         with:
           node-version: 12.16.1
-      - uses: microsoft/playwright-github-action@v1
       - name: Restore lerna cache
         uses: actions/cache@v2
         with:
@@ -73,7 +88,8 @@ jobs:
   publish_npm_betas:
     name: Publish NPM beta versions
     runs-on: ubuntu-latest
-    if: github.repository == 'blockstack/ux'
+    needs: [check_fork]
+    if: needs.check_fork.outputs.is_fork == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -120,7 +136,8 @@ jobs:
   publish_beta_web_apps:
     name: Publich beta hosted versions
     runs-on: ubuntu-latest
-    if: github.repository == 'blockstack/ux'
+    needs: [check_fork]
+    if: needs.check_fork.outputs.is_fork == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -183,7 +200,8 @@ jobs:
   publish_firefox_beta:
     name: Publish beta firefox extension
     runs-on: ubuntu-latest
-    if: github.repository == 'blockstack/ux'
+    needs: [check_fork]
+    if: needs.check_fork.outputs.is_fork == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
