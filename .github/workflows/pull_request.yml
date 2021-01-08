@@ -6,15 +6,15 @@ jobs:
     name: Disable jobs for forks
     runs-on: ubuntu-latest
     outputs:
-      is_fork: ${{ steps.is_fork.outputs.is_fork }}
+      is_not_fork: ${{ steps.is_not_fork.outputs.is_not_fork }}
     steps:
       - name: Check for secret
-        id: is_fork
+        id: is_not_fork
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
         run: |
           echo "Is a fork: ${{ env.WEB_EXT_API_KEY == '' }}"
-          echo "::set-output name=is_fork::${{ env.WEB_EXT_API_KEY != '' }}"
+          echo "::set-output name=is_not_fork::${{ env.WEB_EXT_API_KEY != '' }}"
 
   commitlint:
     runs-on: ubuntu-latest
@@ -33,8 +33,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       - uses: lucasmotta/pull-request-sticky-header@1.0.0
-        if: needs.check_fork.outputs.is_fork == 'true'
+        if: needs.check_fork.outputs.is_not_fork == 'true'
         with:
           header: '> Try out this version of the Stacks Wallet - download [extension builds](https://github.com/blockstack/ux/actions/runs/${{ github.run_id }}), the [hosted version](https://pr-${{ github.event.number }}.app.stacks.engineering), or the [Stacks testnet demo app](https://pr-${{ github.event.number }}.testnet-demo.stacks.engineering)'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,8 +56,21 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: Upload Extension Zip
         with:
-          name: connect-extension
-          path: connect-extension.zip
+          name: stacks-wallet-chromium
+          path: stacks-wallet-chromium.zip
+      - name: Get git branch
+        id: git-branch
+        run: echo "::set-output name=branch::$(git rev-parse --abbrev-ref HEAD | cut -d'/' -f2 )"
+      - name: Echo git branch
+        run: echo "${{ steps.git-branch.outputs.branch }}"
+      - name: Upload chromium extension to GCS
+        if: needs.check_fork.outputs.is_not_fork == 'true' && steps.git-branch.outputs.branch == 'connect-2'
+        uses: google-github-actions/upload-cloud-storage@864317d
+        with:
+          credentials: ${{ secrets.GCS_BUCKET_CREDENTIALS }}
+          path: ./stacks-wallet-chromium.zip
+          destination: wallet-extensions
+
 
   integration_tests:
     name: Integration tests
@@ -89,7 +104,7 @@ jobs:
     name: Publish NPM beta versions
     runs-on: ubuntu-latest
     needs: [check_fork]
-    if: needs.check_fork.outputs.is_fork == 'true'
+    if: needs.check_fork.outputs.is_not_fork == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -137,7 +152,7 @@ jobs:
     name: Publich beta hosted versions
     runs-on: ubuntu-latest
     needs: [check_fork]
-    if: needs.check_fork.outputs.is_fork == 'true'
+    if: needs.check_fork.outputs.is_not_fork == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -201,10 +216,12 @@ jobs:
     name: Publish beta firefox extension
     runs-on: ubuntu-latest
     needs: [check_fork]
-    if: needs.check_fork.outputs.is_fork == 'true'
+    if: needs.check_fork.outputs.is_not_fork == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       - name: Set Node Version
         uses: actions/setup-node@v2-beta
         with:
@@ -228,3 +245,25 @@ jobs:
         with:
           name: connect-addon
           path: web-ext-artifacts/*.xpi
+      - name: Get Firefox addon filename
+        id: addon-file
+        run: echo "::set-output name=addon_path::$(find ./web-ext-artifacts -type f -iname "*.xpi" | tail -n1)"
+      - name: Echo FF addon file
+        env:
+          ADDON_PATH: ${{ steps.addon-file.outputs.addon_path }}
+        run: echo $ADDON_PATH
+      - name: Get git branch
+        id: git-branch
+        run: echo "::set-output name=branch::$(git rev-parse --abbrev-ref HEAD | cut -d'/' -f2 )"
+      - name: Echo git branch
+        run: echo "${{ steps.git-branch.outputs.branch }}"
+      - name: Rename Firefox addon file
+        run: cp ${{ steps.addon-file.outputs.addon_path }} stacks-wallet-firefox.xpi
+      # TODO: move this action to the `publish` workflow after Stacks Wallet is released
+      - name: Upload chromium extension to GCS
+        if: needs.check_fork.outputs.is_not_fork == 'true' && steps.git-branch.outputs.branch == 'connect-2'
+        uses: google-github-actions/upload-cloud-storage@864317d
+        with:
+          credentials: ${{ secrets.GCS_BUCKET_CREDENTIALS }}
+          path: ./stacks-wallet-firefox.xpi
+          destination: wallet-extensions/
