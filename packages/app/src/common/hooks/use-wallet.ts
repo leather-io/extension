@@ -29,7 +29,7 @@ import {
 } from '@store/onboarding/actions';
 import { doTrackScreenChange } from '@common/track';
 import { AppManifest, DecodedAuthRequest } from '@common/dev/types';
-import { decodeToken } from 'blockstack';
+import { decodeToken, verifyAuthRequest } from 'blockstack';
 import { chainInfoStore } from '@store/recoil/api';
 import { useLoadable } from '@common/hooks/use-loadable';
 
@@ -197,6 +197,8 @@ export const useWallet = () => {
 
   const doSaveAuthRequest = useCallback(
     async (authRequest: string) => {
+      const isValidPayload = await verifyAuthRequest(authRequest);
+      if (!isValidPayload) throw new Error('JWT auth token is not valid');
       const { payload } = decodeToken(authRequest);
       const decodedAuthRequest = (payload as unknown) as DecodedAuthRequest;
       let appName = decodedAuthRequest.appDetails?.name;
