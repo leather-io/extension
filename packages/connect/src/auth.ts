@@ -1,13 +1,13 @@
 import { AppConfig, UserSession } from '@stacks/auth';
-import type { FinishedData, AuthOptions } from './types/auth';
+import type { FinishedData, AuthOptions } from './types';
 import { popupCenter, setupListener } from './popup';
-import { version } from '../package.json';
+import packageJson from '../package.json';
 import { getStacksProvider } from './utils';
 
 export const defaultAuthURL = 'https://app.blockstack.org';
 
 if (typeof window !== 'undefined') {
-  (window as any).__CONNECT_VERSION__ = version;
+  (window as any).__CONNECT_VERSION__ = packageJson.version;
 }
 
 export const isMobile = () => {
@@ -70,7 +70,7 @@ export const authenticate = (authOptions: AuthOptions) => {
     {
       sendToSignIn,
       appDetails,
-      connectVersion: version,
+      connectVersion: packageJson.version,
     }
   );
 
@@ -120,7 +120,7 @@ export function authenticateWithExtensionUrl({
     {
       sendToSignIn,
       appDetails,
-      connectVersion: version,
+      connectVersion: packageJson.version,
     }
   );
 

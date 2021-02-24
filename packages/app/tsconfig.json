@@ -2,7 +2,10 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "jsx": "react",
     "sourceMap": true,
     "removeComments": true,
@@ -21,20 +24,46 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "@store/*": ["store/*"],
-      "@store": ["store/index"],
-      "@dev/*": ["dev/*"],
-      "@components/*": ["components/*"],
-      "@containers/*": ["containers/*"],
-      "@common/*": ["common/*"],
-      "@screen": ["components/screen/index"],
-      "@stacks/connect": ["../../connect/src"],
-      "@stacks/rpc-client": ["../../rpc-client/src"],
-      "@extension/*": ["extension/*"],
-      "@pages/*": ["pages/*"]
+      "@store/*": [
+        "store/*"
+      ],
+      "@store": [
+        "store/index"
+      ],
+      "@dev/*": [
+        "dev/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@containers/*": [
+        "containers/*"
+      ],
+      "@common/*": [
+        "common/*"
+      ],
+      "@screen": [
+        "components/screen/index"
+      ],
+      "@stacks/connect": [
+        "../../connect/src"
+      ],
+      "@stacks/rpc-client": [
+        "../../rpc-client/src"
+      ],
+      "@extension/*": [
+        "extension/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ]
     },
     "baseUrl": "src",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
   },
-  "include": ["./src/**/*", "./tests/**/*"]
+  "include": [
+    "./src/**/*",
+    "./tests/**/*"
+  ]
 }
