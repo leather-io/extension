@@ -1,10 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-import * as webpack from 'webpack';
+import { Configuration, Chunk, IgnorePlugin } from 'webpack';
 import baseConfig, { DIST_ROOT_PATH } from './webpack.config';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import { ESBuildMinifyPlugin } from 'esbuild-loader';
 
-const config: webpack.Configuration = {
+const config: Configuration = {
   ...baseConfig,
   mode: 'production',
   output: {
@@ -14,8 +13,11 @@ const config: webpack.Configuration = {
   },
   devtool: false,
   plugins: [
-    ...baseConfig.plugins,
-    new webpack.IgnorePlugin(/^\.\/wordlists\/(?!english)/, /bip39\/src$/),
+    ...(baseConfig.plugins as any),
+    new IgnorePlugin({
+      resourceRegExp: /^\.\/wordlists\/(?!english)/,
+      contextRegExp: /bip39\/src$/,
+    }),
     new CleanWebpackPlugin({ verbose: true, dry: false, cleanStaleWebpackAssets: false }),
   ],
   optimization: {
@@ -24,9 +26,15 @@ const config: webpack.Configuration = {
       chunks: 'all',
       name: 'common',
     },
+    minimizer: [
+      new ESBuildMinifyPlugin({
+        target: 'es2015',
+      }),
+    ],
     runtimeChunk: {
-      name: entrypoint => `runtime-${entrypoint.name}`,
+      name: (entrypoint: Chunk) => `runtime-${entrypoint.name}`,
     },
   },
 };
+
 export default config;

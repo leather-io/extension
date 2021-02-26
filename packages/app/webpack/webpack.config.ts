@@ -1,10 +1,17 @@
-// @ts-nocheck
 import * as path from 'path';
 import * as webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import { getSegmentKey, getGithubDetails } from './utils';
+import { ESBuildPlugin } from 'esbuild-loader';
+
+// I am not sure why these fail. @hank can you try to fix this ts error?
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export const NODE_ENV = process.env.NODE_ENV || 'development';
 export const EXT_ENV = process.env.EXT_ENV || 'web';
@@ -27,7 +34,7 @@ const config: webpack.Configuration = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.json', '.d.ts'],
-    plugins: [new TsconfigPathsPlugin()],
+    plugins: [new TsconfigPathsPlugin() as any],
     fallback: {
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('stream-browserify'),
@@ -39,27 +46,31 @@ const config: webpack.Configuration = {
       {
         test: /\.(ts|tsx)?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            babelrc: false,
-            presets: ['@babel/preset-typescript', '@babel/preset-react'],
-            plugins: [
-              ['@babel/plugin-proposal-class-properties', { loose: true }],
-              '@babel/plugin-transform-runtime',
-              '@babel/plugin-proposal-nullish-coalescing-operator',
-              '@babel/plugin-proposal-optional-chaining',
-              IS_DEV && require.resolve('react-refresh/babel'),
-            ].filter(Boolean),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              babelrc: false,
+              presets: ['@babel/preset-typescript', '@babel/preset-react'],
+              plugins: [IS_DEV && require.resolve('react-refresh/babel')].filter(Boolean),
+            },
           },
-        },
+          {
+            loader: 'esbuild-loader',
+            options: {
+              loader: 'tsx',
+              target: 'es2015',
+            },
+          },
+        ],
       },
     ],
   },
   watch: false,
   plugins: [
     new webpack.ProgressPlugin(),
+    new ESBuildPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'index.html'),
       inject: 'body',
@@ -95,7 +106,7 @@ const config: webpack.Configuration = {
           return Buffer.from(content);
         },
       },
-    ]),
+    ] as any),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV),
       WEB_BROWSER: JSON.stringify(WEB_BROWSER),

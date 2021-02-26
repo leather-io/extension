@@ -1,8 +1,7 @@
-// @ts-nocheck
-import * as webpack from 'webpack';
+import { Configuration } from 'webpack';
 import baseConfig, { DIST_ROOT_PATH } from './webpack.config';
 
-const config: webpack.Configuration = {
+const config: Configuration = {
   ...baseConfig,
   mode: 'development',
   output: {
