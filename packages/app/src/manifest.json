@@ -8,7 +8,7 @@
     "256": "assets/connect-logo/Stacks256w.png",
     "512": "assets/connect-logo/Stacks512w.png"
   },
-  "content_security_policy": "script-src 'self'<% DEV_CSR %>; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
+  "content_security_policy": "script-src 'self'<% DEV_CSR %>; object-src <% DEV_OBJECT_SRC %>; frame-src 'none'; frame-ancestors 'none';",
   "permissions": [
     "activeTab",
     "storage"

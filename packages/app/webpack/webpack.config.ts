@@ -79,12 +79,15 @@ const config: webpack.Configuration = {
         toType: 'file',
         transform(content: any) {
           const csrTag = '<% DEV_CSR %>';
+          const objectSrcTag = '<% DEV_OBJECT_SRC %>';
           const versionTag = '<% VERSION %>';
           content = content.toString();
           if (NODE_ENV === 'development') {
             content = content.replace(csrTag, " 'unsafe-eval'");
+            content = content.replace(objectSrcTag, "'self'"); // to enable fast refresh in dev mode
           } else {
             content = content.replace(csrTag, '');
+            content = content.replace(objectSrcTag, "'none'"); // important security for prod
           }
           const fullVersion = version;
           console.log('Extension Version:', fullVersion);
