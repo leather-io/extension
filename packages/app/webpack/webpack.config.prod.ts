@@ -8,8 +8,8 @@ const config: Configuration = {
   mode: 'production',
   output: {
     path: DIST_ROOT_PATH,
-    chunkFilename: '[name].[contenthash:8].chunk.js',
-    filename: '[name].[contenthash:8].js',
+    chunkFilename: '[name].chunk.js',
+    filename: '[name].js',
   },
   devtool: false,
   plugins: [
