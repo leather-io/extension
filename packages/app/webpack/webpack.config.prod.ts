@@ -1,4 +1,4 @@
-import { Configuration, Chunk, IgnorePlugin } from 'webpack';
+import { Configuration, IgnorePlugin } from 'webpack';
 import baseConfig, { DIST_ROOT_PATH } from './webpack.config';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { ESBuildMinifyPlugin } from 'esbuild-loader';
@@ -22,18 +22,20 @@ const config: Configuration = {
   ],
   optimization: {
     minimize: true,
+    flagIncludedChunks: false,
+    // occurrenceOrder: false,
+    concatenateModules: false,
     splitChunks: {
-      chunks: 'all',
-      name: 'common',
+      minSize: 10000,
+      maxAsyncRequests: Infinity,
+      maxInitialRequests: Infinity,
     },
     minimizer: [
       new ESBuildMinifyPlugin({
         target: 'es2015',
       }),
     ],
-    runtimeChunk: {
-      name: (entrypoint: Chunk) => `runtime-${entrypoint.name}`,
-    },
+    runtimeChunk: false,
   },
 };
 
