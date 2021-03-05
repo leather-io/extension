@@ -2,46 +2,10 @@ name: Publish
 on:
   push:
     branches:
-      - 'master'
+      - 'app.blockstack.org'
   workflow_dispatch:
 
 jobs:
-  publish_extension:
-    runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'chore(release)')"
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set Node Version
-        uses: actions/setup-node@v2-beta
-        with:
-          node-version: 12.16.1
-      - name: Restore lerna cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - name: Build extension
-        run: sh build-ext.sh
-      - uses: actions/upload-artifact@v2
-        name: Upload Extension Zip
-        with:
-          name: connect-extension
-          path: connect-extension.zip
-      - name: Sign Production Firefox version
-        continue-on-error: true
-        run: yarn web-ext sign --channel=listed
-        env:
-          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-      - uses: actions/upload-artifact@v2
-        name: Upload Firefox Add-On XPI
-        with:
-          name: connect-addon
-          path: web-ext-artifacts/*.xpi
-
   deploy-prod-apps:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, 'chore(release)')"

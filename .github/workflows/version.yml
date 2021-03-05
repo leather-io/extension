@@ -2,7 +2,7 @@ name: Version
 on:
   push:
     branches:
-      - 'master'
+      - 'app.blockstack.org'
   workflow_dispatch:
 
 env:
