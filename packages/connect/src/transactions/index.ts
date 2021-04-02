@@ -1,4 +1,4 @@
-import { UserSession, AppConfig } from 'blockstack';
+import { UserSession, AppConfig } from '@stacks/auth';
 import { SECP256K1Client, TokenSigner } from 'jsontokens';
 import { defaultAuthURL } from '../auth';
 import { popupCenter, setupListener } from '../popup';

@@ -3,7 +3,7 @@ import { ThemeProvider, theme, Flex, CSSReset } from '@blockstack/ui';
 import { Connect } from '@stacks/connect-react';
 import { AuthOptions } from '@stacks/connect';
 import { getAuthOrigin } from '@common/utils';
-import { UserSession, AppConfig } from 'blockstack';
+import { UserSession, AppConfig } from '@stacks/auth';
 import { defaultState, AppContext, AppState } from '@common/context';
 import { Header } from '@components/header';
 import { Home } from '@components/home';
@@ -14,7 +14,14 @@ export const App: React.FC = () => {
   const [authResponse, setAuthResponse] = React.useState('');
   const [appPrivateKey, setAppPrivateKey] = React.useState('');
 
-  const appConfig = new AppConfig(['store_write', 'publish_data'], document.location.href);
+  // Temporary config to use testnet registrar for lookups
+  const appConfig = new AppConfig(
+    ['store_write'],
+    document.location.href,
+    undefined,
+    undefined,
+    'https://stacks-node-api.testnet.stacks.co'
+  );
   const userSession = new UserSession({ appConfig });
 
   const signOut = () => {

@@ -8,6 +8,7 @@ import { IdentityKeyPair } from './utils';
 import { uploadToGaiaHub } from './utils/gaia';
 import Identity from './identity';
 import { GaiaHubConfig } from 'blockstack/lib/storage/hub';
+import * as c32check from 'c32check';
 
 const PERSON_TYPE = 'Person';
 const CONTEXT = 'http://schema.org';
@@ -46,16 +47,33 @@ const DEFAULT_PROFILE_FILE_NAME = 'profile.json';
 export enum Subdomains {
   TEST = 'test-personal.id',
   BLOCKSTACK = 'id.blockstack',
+  TEST_V2 = 'test-registrar.id',
 }
 
-export const registrars = {
+interface Registrars {
+  [key: string]: {
+    registerUrl: string;
+    apiUrl: string;
+    apiKey?: string;
+    addressVersion: number;
+  };
+}
+
+export const registrars: Registrars = {
   [Subdomains.TEST]: {
     registerUrl: 'https://test-registrar.blockstack.org/register',
     apiUrl: 'https://test-registrar.blockstack.org/v1/names',
+    addressVersion: 26,
+  },
+  [Subdomains.TEST_V2]: {
+    registerUrl: 'https://registrar.testnet.stacks.co/register',
+    apiUrl: 'https://registrar.testnet.stacks.co/v1/names',
+    addressVersion: 26,
   },
   [Subdomains.BLOCKSTACK]: {
     registerUrl: 'https://registrar.blockstack.org/register',
     apiUrl: 'https://registrar.blockstack.org/v1/names',
+    addressVersion: 22,
   },
 };
 
@@ -102,22 +120,25 @@ const sendUsernameToRegistrar = async ({
   zoneFile,
   identity,
 }: SendToRegistrarParams) => {
-  const { registerUrl } = registrars[subdomain];
+  const { registerUrl, apiKey, addressVersion } = registrars[subdomain];
 
   const registrationRequestBody = JSON.stringify({
     name: username,
-    owner_address: identity.address,
+    owner_address: c32check.b58ToC32(identity.address, addressVersion),
     zonefile: zoneFile,
   });
 
-  const requestHeaders = {
+  const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-  };
+  });
+  if (apiKey) {
+    headers.set('Authorization', `bearer ${apiKey}`);
+  }
 
   const response = await fetch(registerUrl, {
     method: 'POST',
-    headers: requestHeaders,
+    headers,
     body: registrationRequestBody,
   });
 

@@ -1,4 +1,4 @@
-import { AppConfig, UserSession } from 'blockstack';
+import { AppConfig, UserSession } from '@stacks/auth';
 import './types';
 import { popupCenter, setupListener } from './popup';
 import { version } from '../package.json';
@@ -61,7 +61,13 @@ export const shouldUsePopup = () => {
 
 export const getOrCreateUserSession = (userSession?: UserSession): UserSession => {
   if (!userSession) {
-    const appConfig = new AppConfig(['store_write'], document.location.href);
+    const appConfig = new AppConfig(
+      ['store_write'],
+      document.location.href,
+      undefined,
+      undefined,
+      'https://registrar.testnet.stacks.co'
+    );
     userSession = new UserSession({ appConfig });
   }
   return userSession;
