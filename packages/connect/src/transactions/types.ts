@@ -1,4 +1,4 @@
-import { UserSession } from 'blockstack';
+import { UserSession } from '@stacks/auth';
 import { AuthOptions } from '../auth';
 import {
   PostConditionMode,
