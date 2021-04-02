@@ -23,8 +23,11 @@ export const getAuthOrigin = () => {
 };
 
 export const getRPCClient = () => {
-  const { origin } = location;
+  // const { origin } = location;
   const url = 'https://stacks-node-api.testnet.stacks.co';
+  // const url = origin.includes('localhost')
+  //   ? 'http://localhost:3999'
+  //   : 'https://stacks-node-api.blockstack.org';
   return new RPCClient(url);
 };
 
