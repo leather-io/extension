@@ -9,6 +9,7 @@ import {
 import { getIdentity, getNewIdentity } from './helpers';
 import { decodeToken, TokenVerifier } from 'jsontokens';
 import { makeProfileZoneFile } from 'blockstack';
+import { b58ToC32 } from 'c32check';
 
 describe('signProfileForUpload', () => {
   it('should create a signed JSON string', async () => {
@@ -41,22 +42,28 @@ describe('registerSubdomain', () => {
       .once(JSON.stringify({ success: true }));
 
     const identity = await getNewIdentity();
+    const subdomain = Subdomains.TEST_V2;
     await registerSubdomain({
       identity,
       gaiaHubUrl: 'http://gaia.com',
       username: 'tester',
-      subdomain: Subdomains.TEST,
+      subdomain: subdomain,
     });
-    expect(identity.defaultUsername).toEqual('tester.test-personal.id');
-    expect(identity.usernames).toEqual(['tester.test-personal.id']);
+    expect(identity.defaultUsername).toEqual('tester.test-registrar.id');
+    expect(identity.usernames).toEqual(['tester.test-registrar.id']);
     expect(fetchMock.mock.calls.length).toEqual(3);
     const [registrarUrl, fetchOpts] = fetchMock.mock.calls[2];
-    expect(registrarUrl).toEqual(registrars[Subdomains.TEST].registerUrl);
+    const registrar = registrars[subdomain];
+    expect(registrarUrl).toEqual(registrar.registerUrl);
     expect(fetchOpts.method).toEqual('POST');
-    const zoneFile = makeProfileZoneFile('tester.test-personal.id', 'http://gaia.com/profile.json');
+    const zoneFile = makeProfileZoneFile(
+      'tester.test-registrar.id',
+      'http://gaia.com/profile.json'
+    );
+    const stxAddress = b58ToC32(identity.address, registrar.addressVersion);
     expect(JSON.parse(fetchOpts.body)).toEqual({
       name: 'tester',
-      owner_address: identity.address,
+      owner_address: stxAddress,
       zonefile: zoneFile,
     });
   });
