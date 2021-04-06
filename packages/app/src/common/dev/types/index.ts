@@ -13,6 +13,7 @@ export interface DecodedAuthRequest {
   };
   client?: string;
   connectVersion?: string;
+  registerSubdomain?: boolean;
 }
 
 export type AppManifest = JSONSchemaForWebApplicationManifestFiles;
