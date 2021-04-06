@@ -36,6 +36,7 @@ export interface AuthOptions {
     name: string;
     icon: string;
   };
+  registerSubdomain?: boolean;
 }
 
 export const isMobile = () => {
@@ -83,6 +84,7 @@ export const authenticate = async ({
   sendToSignIn = false,
   userSession: _userSession,
   appDetails,
+  registerSubdomain,
 }: AuthOptions) => {
   const userSession = getOrCreateUserSession(_userSession);
   if (userSession.isUserSignedIn()) {
@@ -100,6 +102,7 @@ export const authenticate = async ({
       sendToSignIn,
       appDetails,
       connectVersion: version,
+      registerSubdomain,
     }
   );
 

@@ -26,7 +26,7 @@ export const Routes: React.FC = () => {
   const dispatch = useDispatch();
   const { doChangeScreen } = useAnalytics();
   const { identities } = useWallet();
-  const { isOnboardingInProgress, onboardingPath } = useOnboardingState();
+  const { isOnboardingInProgress, onboardingPath, decodedAuthRequest } = useOnboardingState();
   const authRequest = authenticationInit();
   const { search } = useLocation();
 
@@ -80,7 +80,7 @@ export const Routes: React.FC = () => {
         element={
           <SaveKey
             next={() => {
-              if (USERNAMES_ENABLED) {
+              if (decodedAuthRequest?.registerSubdomain && USERNAMES_ENABLED) {
                 doChangeScreen(ScreenPaths.USERNAME);
                 return;
               }
