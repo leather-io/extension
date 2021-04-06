@@ -145,7 +145,7 @@ jobs:
           source: 'packages/app/vercel.json'
           target: 'packages/app/dist/vercel.json'
       - name: Deploy Blockstack App with Vercel
-        uses: amondnet/vercel-action@d4e0a9f
+        uses: amondnet/vercel-action@d4e0a9f55bfc7ee4d87dd69541f2c93c8e4e8ae6
         id: vercel-deployment-blockstack-app
         if: github.event_name == 'pull_request'
         with:
@@ -167,7 +167,7 @@ jobs:
           source: 'packages/test-app/vercel.json'
           target: 'packages/test-app/dist/vercel.json'
       - name: Deploy Blockstack Test App with Vercel
-        uses: amondnet/vercel-action@d4e0a9f
+        uses: amondnet/vercel-action@d4e0a9f55bfc7ee4d87dd69541f2c93c8e4e8ae6
         id: vercel-deployment-blockstack-test-app
         if: github.event_name == 'pull_request'
         with:
