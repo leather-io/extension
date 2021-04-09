@@ -4,6 +4,7 @@ import { Button, color, Stack, BoxProps, useClipboard, StackProps } from '@stack
 import { PopupContainer } from '@components/popup/container';
 import { Body, Text } from '@components/typography';
 import { Card } from '@components/card';
+import { hexToPlainTextSecretKey } from '@extension/background/vault-manager';
 
 export const SecretKeyMessage: React.FC<BoxProps> = props => {
   const { secretKey } = useWallet();
@@ -21,13 +22,13 @@ export const SecretKeyMessage: React.FC<BoxProps> = props => {
 
 export const SecretKeyCard: React.FC<BoxProps> = props => {
   const { secretKey } = useWallet();
-  return (
+  return secretKey ? (
     <Card title="Your Secret Key" {...props}>
       <Body data-test="textarea-seed-phrase" data-loaded={String(!!secretKey)}>
-        {secretKey}
+        {hexToPlainTextSecretKey(secretKey)}
       </Body>
     </Card>
-  );
+  ) : null;
 };
 
 export const SecretKeyActions: React.FC<{ handleNext?: () => void } & StackProps> = ({

@@ -13,6 +13,7 @@ import {
 } from '@stacks/wallet-sdk';
 import { DEFAULT_PASSWORD } from '@store/onboarding/types';
 import argon2, { ArgonType } from 'argon2-browser';
+import { Buffer } from 'buffer';
 
 /**
  * Manage a wallet instance, stored in memory in the background script
@@ -69,6 +70,22 @@ export async function vaultMessageHandler(message: MessageFromApp) {
   return vault;
 }
 
+export function stringToHex(value?: string): string | undefined {
+  return value && !value.startsWith('0x') ? `0x${new Buffer(value).toString('hex')}` : value;
+}
+
+export function hexToBuffer(hex: string, replace = false) {
+  return Buffer.from(replace ? hex.replace('0x', '') : hex, 'hex');
+}
+
+export function hexToString(hex: string, replace = false): string {
+  return hexToBuffer(hex, replace).toString('utf-8');
+}
+
+export function hexToPlainTextSecretKey(hex: string): string {
+  return hex && hex.startsWith('0x') ? hexToBuffer(hex, true).toString('utf-8') : hex;
+}
+
 export function generateRandomHexString() {
   const size = 16;
   const randomValues = [...crypto.getRandomValues(new Uint8Array(size))];
@@ -78,7 +95,7 @@ export function generateRandomHexString() {
 async function storeSeed(secretKey: string, password?: string): Promise<Vault> {
   const pw = password || DEFAULT_PASSWORD;
   const generatedWallet = await generateWallet({
-    secretKey,
+    secretKey: hexToPlainTextSecretKey(secretKey),
     password: pw,
   });
   const _wallet = await restoreWalletAccounts({
@@ -89,7 +106,7 @@ async function storeSeed(secretKey: string, password?: string): Promise<Vault> {
   return {
     ...vault,
     wallet: _wallet,
-    secretKey,
+    secretKey: stringToHex(secretKey),
     encryptedSecretKey: vault.encryptedSecretKey,
     currentAccountIndex: 0,
     hasSetPassword,
@@ -111,10 +128,11 @@ async function generateHash({ password, salt }: { password: string; salt: string
 async function encryptMnemonic({ secretKey, password }: { secretKey: string; password: string }) {
   const salt = generateRandomHexString();
   const argonHash = await generateHash({ password, salt });
-  const encryptedBuffer = await encrypt(secretKey, argonHash);
+  const encryptedBuffer = await encrypt(hexToPlainTextSecretKey(secretKey), argonHash);
+  const encryptedSecretKey = encryptedBuffer.toString('hex');
   return {
     salt,
-    encryptedSecretKey: encryptedBuffer.toString('hex'),
+    encryptedSecretKey,
   };
 }
 
@@ -138,15 +156,15 @@ async function decryptMnemonic({
 }> {
   if (salt) {
     const pw = await generateHash({ password, salt });
-    const secretKey = await decrypt(Buffer.from(encryptedSecretKey, 'hex'), pw);
+    const secretKey = await decrypt(hexToBuffer(encryptedSecretKey), pw);
     return {
-      secretKey,
+      secretKey: stringToHex(secretKey) as string,
       encryptedSecretKey,
       salt,
     };
   } else {
     // if there is no salt, decrypt the secret key, then re-encrypt with an argon2 hash
-    const secretKey = await decrypt(Buffer.from(encryptedSecretKey, 'hex'), password);
+    const secretKey = await decrypt(hexToBuffer(encryptedSecretKey), password);
     const newEncryptedKey = await encryptMnemonic({ secretKey, password });
     return {
       secretKey,
@@ -174,7 +192,7 @@ export const vaultReducer = async (message: MessageFromApp): Promise<Vault> => {
       const _wallet = await generateWallet({ secretKey, password: DEFAULT_PASSWORD });
       return {
         ...vault,
-        secretKey,
+        secretKey: stringToHex(secretKey),
         wallet: _wallet,
         currentAccountIndex: 0,
       };
