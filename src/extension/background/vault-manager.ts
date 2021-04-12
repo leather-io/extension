@@ -78,10 +78,6 @@ export function hexToBuffer(hex: string, replace = false) {
   return Buffer.from(replace ? hex.replace('0x', '') : hex, 'hex');
 }
 
-export function hexToString(hex: string, replace = false): string {
-  return hexToBuffer(hex, replace).toString('utf-8');
-}
-
 export function hexToPlainTextSecretKey(hex: string): string {
   return hex && hex.startsWith('0x') ? hexToBuffer(hex, true).toString('utf-8') : hex;
 }
