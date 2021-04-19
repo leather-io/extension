@@ -48,6 +48,7 @@ export enum Subdomains {
   TEST = 'test-personal.id',
   BLOCKSTACK = 'id.blockstack',
   TEST_V2 = 'test-registrar.id',
+  STACKS = 'id.stx',
 }
 
 interface Registrars {
@@ -73,6 +74,11 @@ export const registrars: Registrars = {
   [Subdomains.BLOCKSTACK]: {
     registerUrl: 'https://registrar.blockstack.org/register',
     apiUrl: 'https://registrar.blockstack.org/v1/names',
+    addressVersion: 22,
+  },
+  [Subdomains.STACKS]: {
+    registerUrl: 'https://registrar.stacks.co/register',
+    apiUrl: 'https://registrar.stacks.co/v1/names',
     addressVersion: 22,
   },
 };
