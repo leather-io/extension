@@ -67,7 +67,7 @@ export const getOrCreateUserSession = (userSession?: UserSession): UserSession =
       document.location.href,
       undefined,
       undefined,
-      'https://registrar.testnet.stacks.co'
+      'https://stacks-node-api.stacks.co'
     );
     userSession = new UserSession({ appConfig });
   }
@@ -87,6 +87,7 @@ export const authenticate = async ({
   registerSubdomain,
 }: AuthOptions) => {
   const userSession = getOrCreateUserSession(_userSession);
+  console.log('connect', userSession.appConfig.coreNode);
   if (userSession.isUserSignedIn()) {
     userSession.signUserOut();
   }

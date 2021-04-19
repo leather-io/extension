@@ -2,11 +2,12 @@ import { Subdomains } from '@stacks/keychain';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
-export let Subdomain: Subdomains = Subdomains.TEST_V2;
+export const Subdomain: Subdomains = Subdomains.STACKS;
 
-if (document?.location.origin.includes('localhost')) {
-  Subdomain = Subdomains.TEST_V2;
-}
+// Uncomment if you want to use the testnet registrar during dev
+// if (document?.location.origin.includes('localhost')) {
+//   Subdomain = Subdomains.TEST_V2;
+// }
 
 export const transition = 'all .2s cubic-bezier(.215,.61,.355,1)';
 
