@@ -51,14 +51,13 @@ export enum Subdomains {
   STACKS = 'id.stx',
 }
 
-interface Registrars {
-  [key: string]: {
-    registerUrl: string;
-    apiUrl: string;
-    apiKey?: string;
-    addressVersion: number;
-  };
+interface Registrar {
+  registerUrl: string;
+  apiUrl: string;
+  apiKey?: string;
+  addressVersion: number;
 }
+type Registrars = Record<string, Registrar>;
 
 export const registrars: Registrars = {
   [Subdomains.TEST]: {
