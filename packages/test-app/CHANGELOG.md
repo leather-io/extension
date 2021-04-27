@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.11.17 (2021-04-27)
+
+
+### Bug Fixes
+
+* correct checkout branch when publishing npm packages ([3a1b6a4](https://github.com/blockstack/ux/commit/3a1b6a46e8616400df9d05d6ad310bc2ce79e55a))
+
+
+
+
+
 ## 1.11.16 (2021-04-27)
 
 

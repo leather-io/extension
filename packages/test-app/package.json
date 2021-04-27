@@ -21,7 +21,7 @@
     "typecheck": "tsc --noEmit",
     "watch": "cross-env NODE_ENV=development EXT_ENV=watch webpack -d"
   },
-  "version": "1.11.16",
+  "version": "1.11.17",
   "author": "Blockstack PBC",
   "dependencies": {
     "@blockstack/clarity": "0.1.16",
@@ -29,9 +29,9 @@
     "@blockstack/ui": "^2.12.13",
     "@rehooks/document-title": "^1.0.1",
     "@stacks/auth": "1.3.0-beta-3",
-    "@stacks/connect": "^4.3.16",
-    "@stacks/keychain": "^0.17.16",
-    "@stacks/rpc-client": "^0.8.16",
+    "@stacks/connect": "^4.3.17",
+    "@stacks/keychain": "^0.17.17",
+    "@stacks/rpc-client": "^0.8.17",
     "blockstack": "21.0.0",
     "dayjs": "^1.8.29",
     "formik": "^2.1.4",
