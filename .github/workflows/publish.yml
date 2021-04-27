@@ -74,7 +74,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Prepare repository
-        run: git checkout master
+        run: git checkout app.blockstack.org
       - name: Set Node Version
         uses: actions/setup-node@v2-beta
         with:
