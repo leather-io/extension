@@ -57,7 +57,7 @@ export class AuthPage {
       if (attempt > 3) {
         throw new Error('Unable to get auth page popup');
       }
-      await wait(50);
+      await wait(250);
       return this.recursiveGetAuthPage(context, attempt + 1);
     }
     return page;
@@ -71,7 +71,10 @@ export class AuthPage {
     if (!$secretKeyEl) {
       throw 'Could not find secret key field';
     }
-    const secretKey = (await this.page.$eval(this.$textareaReadOnlySeedPhrase, (el: any) => el.value)) as string;
+    const secretKey = (await this.page.$eval(
+      this.$textareaReadOnlySeedPhrase,
+      (el: any) => el.value
+    )) as string;
     if (!secretKey) throw 'Unable to get secret key';
     // const secretKey = (await this.page.$eval(this.$textareaReadOnlySeedPhrase, element => element.value)) as string;
     await this.page.click(this.$buttonCopySecretKey);

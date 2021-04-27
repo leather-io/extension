@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import {
   Screen,
@@ -33,16 +33,16 @@ export const SecretKey: React.FC<SecretKeyProps> = props => {
     if (copied) {
       setTimeout(() => props.next(), 1600);
     }
-  });
+  }, [copied]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     const input: HTMLInputElement | null = document.querySelector('.hidden-secret-key');
     input?.select();
     input?.setSelectionRange(0, 99999);
     document.execCommand('copy');
     setCopiedState(true);
     document.getSelection()?.empty();
-  };
+  }, [setCopiedState]);
 
   return (
     <>
