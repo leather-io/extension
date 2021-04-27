@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.11.18 (2021-04-27)
+
+
+### Bug Fixes
+
+* remove overwritten coreNode in default connect usersession ([876a4bf](https://github.com/blockstack/ux/commit/876a4bfb26c438721ae21d4d9fb14b4f8c43795f))
+
+
+
+
+
 ## 1.11.17 (2021-04-27)
 
 
