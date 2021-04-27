@@ -67,7 +67,7 @@ export const getOrCreateUserSession = (userSession?: UserSession): UserSession =
       document.location.href,
       undefined,
       undefined,
-      'https://stacks-node-api.stacks.co'
+      'https://stacks-node-api.testnet.stacks.co'
     );
     userSession = new UserSession({ appConfig });
   }

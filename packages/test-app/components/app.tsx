@@ -15,7 +15,13 @@ export const App: React.FC = () => {
   const [appPrivateKey, setAppPrivateKey] = React.useState('');
 
   // Temporary config to use testnet registrar for lookups
-  const appConfig = new AppConfig(['store_write'], document.location.href);
+  const appConfig = new AppConfig(
+    ['store_write'],
+    document.location.href,
+    undefined,
+    undefined,
+    'https://stacks-node-api.testnet.stacks.co'
+  );
   const userSession = new UserSession({ appConfig });
 
   const signOut = () => {
