@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.17.16 (2021-04-27)
+
+
+### Bug Fixes
+
+* use testnet node api for bns validation ([8c82ade](https://github.com/blockstack/stacks-wallet-web/commit/8c82adef12202fe67dcb3b508dde821f3b56a272))
+
+
+
+
+
 ## 0.17.15 (2021-01-09)
 
 **Note:** Version bump only for package @stacks/keychain
