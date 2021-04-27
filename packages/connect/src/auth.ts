@@ -62,13 +62,7 @@ export const shouldUsePopup = () => {
 
 export const getOrCreateUserSession = (userSession?: UserSession): UserSession => {
   if (!userSession) {
-    const appConfig = new AppConfig(
-      ['store_write'],
-      document.location.href,
-      undefined,
-      undefined,
-      'https://stacks-node-api.testnet.stacks.co'
-    );
+    const appConfig = new AppConfig(['store_write'], document.location.href);
     userSession = new UserSession({ appConfig });
   }
   return userSession;
