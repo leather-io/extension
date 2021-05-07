@@ -129,6 +129,7 @@ export const generateTransaction = async ({
       txData.network?.version === TransactionVersion.Mainnet
         ? new StacksMainnet()
         : new StacksTestnet();
+    if (txData.network?.coreApiUrl) network.coreApiUrl = txData.network?.coreApiUrl;
     txData.network = network;
   }
   switch (txData.txType) {

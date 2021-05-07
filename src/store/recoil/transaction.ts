@@ -1,4 +1,5 @@
 import {
+  ChainID,
   createAddress,
   createAssetInfo,
   FungibleConditionCode,
@@ -20,6 +21,7 @@ import { selectedAssetStore } from './asset-search';
 import BN from 'bn.js';
 import { stxToMicroStx } from '@common/stacks-utils';
 import { getAssetStringParts } from '@stacks/ui-utils';
+import { StacksMainnet, StacksTestnet } from '@stacks/network';
 
 export type TransactionPayloadWithAttachment = TransactionPayload & {
   attachment?: string;
@@ -57,9 +59,15 @@ export const pendingTransactionStore = selector({
     const requestToken = get(requestTokenStore);
     const tx = getPayload(requestToken);
     if (!tx) return undefined;
-    const stacksNetwork = get(stacksNetworkStore);
+    let stacksNetwork = get(stacksNetworkStore);
     const postConditions = get(postConditionsStore);
     tx.postConditions = [...postConditions];
+    if (tx.network) {
+      stacksNetwork =
+        tx.network.chainId === ChainID.Testnet ? new StacksTestnet() : new StacksMainnet();
+      // update the network with the coreApiUrl passed by app
+      stacksNetwork.coreApiUrl = tx.network.coreApiUrl;
+    }
     tx.network = stacksNetwork;
     return tx;
   },
