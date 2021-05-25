@@ -109,6 +109,15 @@ jobs:
           filename: .github/FIREFOX_ISSUE_TEMPLATE.md
           update_existing: true
 
+      - name: Add Issue to Backlog
+        uses: peter-evans/create-or-update-project-card@v1
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          project-location: hirosystems
+          project-name: UserX Kanban
+          column-name: 📥 Backlog
+          issue-number: ${{ steps.create-firefox-issue.outputs.number }}
+
       - name: Firefox Issue Status
         run: |
           echo "Created issue number: ${{ steps.create-firefox-issue.outputs.number }}"
