@@ -113,7 +113,7 @@ export const useWallet = () => {
             name: appName as string,
           },
         });
-        const authResponse = await makeAuthResponse({
+        const authResponseToken = await makeAuthResponse({
           gaiaHubUrl: gaiaUrl,
           appDomain: appURL.origin,
           transitPublicKey: decodedAuthRequest.public_keys[0],
@@ -121,7 +121,7 @@ export const useWallet = () => {
           account,
         });
         set(currentAccountIndexStore, accountIndex);
-        finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
+        finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponseToken });
       },
     [decodedAuthRequest, authRequest, appName, appIcon]
   );

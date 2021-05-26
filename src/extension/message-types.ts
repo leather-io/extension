@@ -1,4 +1,8 @@
-import { FinishedTxPayload, SponsoredFinishedTxPayload } from '@stacks/connect';
+import {
+  FinishedAuthPayload,
+  FinishedTxPayload,
+  SponsoredFinishedTxPayload,
+} from '@stacks/connect';
 /**
  * Content Script <-> Background messaging
  */
@@ -43,7 +47,7 @@ export type AuthenticationResponseMessage = Message<
   Methods.authenticationResponse,
   {
     authenticationRequest: string;
-    authenticationResponse: string;
+    authenticationResponse: FinishedAuthPayload;
   }
 >;
 

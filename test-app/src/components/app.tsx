@@ -47,11 +47,12 @@ export const App: React.FC = () => {
     manifestPath: '/static/manifest.json',
     redirectTo: '/',
     userSession,
-    finished: ({ userSession, authResponse }) => {
+    finished: ({ authResponse, authResponseToken, userSession }) => {
       const userData = userSession.loadUserData();
       setAppPrivateKey(userSession.loadUserData().appPrivateKey);
-      setAuthResponse(authResponse);
+      setAuthResponse(authResponseToken);
       setState({ userData });
+      console.log(authResponse.profile_url);
     },
     onCancel: () => {
       console.log('popup closed!');

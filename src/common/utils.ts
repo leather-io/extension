@@ -12,6 +12,8 @@ import {
 } from '@extension/message-types';
 import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
 import { KEBAB_REGEX } from '@common/constants';
+import { decodeToken } from 'jsontokens';
+import { AuthResponsePayload } from '@stacks/connect';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -28,7 +30,7 @@ export const getEventSourceWindow = (event: MessageEvent) => {
 
 interface FinalizeAuthParams {
   decodedAuthRequest: DecodedAuthRequest;
-  authResponse: string;
+  authResponseToken: string;
   authRequest: string;
 }
 
@@ -43,19 +45,22 @@ interface FinalizeAuthParams {
 export const finalizeAuthResponse = ({
   decodedAuthRequest,
   authRequest,
-  authResponse,
+  authResponseToken,
 }: FinalizeAuthParams) => {
   const dangerousUri = decodedAuthRequest.redirect_uri;
   if (!isValidUrl(dangerousUri)) {
     throw new Error('Cannot proceed with malicious url');
   }
+  const token = decodeToken(authResponseToken);
+  const payload = token?.payload;
+  const authResponse = payload as unknown as AuthResponsePayload;
   try {
     const tabId = getTab(StorageKey.authenticationRequests, authRequest);
     const responseMessage: AuthenticationResponseMessage = {
       source: MESSAGE_SOURCE,
       payload: {
         authenticationRequest: authRequest,
-        authenticationResponse: authResponse,
+        authenticationResponse: { authResponse, authResponseToken },
       },
       method: Methods.authenticationResponse,
     };
