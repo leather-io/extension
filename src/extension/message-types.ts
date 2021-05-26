@@ -55,7 +55,7 @@ export type TransactionResponseMessage = Message<
   Methods.transactionResponse,
   {
     transactionRequest: string;
-    transactionResponse: TxResult;
+    transactionResponse: TxResult | string;
   }
 >;
 
