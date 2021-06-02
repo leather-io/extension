@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/74</span>
+                <span class='fraction'>0/82</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/49</span>
+                <span class='fraction'>0/51</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/58</span>
+                <span class='fraction'>0/64</span>
             </div>
         
             
@@ -187,7 +187,23 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,6 +265,22 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -379,14 +411,30 @@ export const <span class="cstat-no" title="statement not covered" >stacksValue =
   const stxAmount = <span class="cstat-no" title="statement not covered" >fixedDecimals</span>
     ? parseFloat(stacks.toFormat(STX_DECIMALS))
     : stacks.decimalPlaces(STX_DECIMALS).toNumber();
-<span class="cstat-no" title="statement not covered" >  return `${abbreviate &amp;&amp; stxAmount &gt; 10000 ? abbreviateNumber(stxAmount) : stxAmount}${</span>
-    withTicker ? ' STX' : ''
-  }`;
+<span class="cstat-no" title="statement not covered" >  return `${</span>
+    abbreviate &amp;&amp; stxAmount &gt; 10000
+      ? abbreviateNumber(stxAmount)
+      : stxAmount.toLocaleString('en-US', {
+          maximumFractionDigits: fixedDecimals ? STX_DECIMALS : 3,
+        })
+  }${withTicker ? ' STX' : ''}`;
 };
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >microStxToStx = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>m</span>Stx: number | string) =&gt; {</span>
   const microStacks = <span class="cstat-no" title="statement not covered" >new BigNumber(mStx);</span>
 <span class="cstat-no" title="statement not covered" >  return microStacks.shiftedBy(-STX_DECIMALS);</span>
+};
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >ftDecimals = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>v</span>alue: number | string, decimals: number) =&gt; {</span>
+  const amount = <span class="cstat-no" title="statement not covered" >new BigNumber(value);</span>
+<span class="cstat-no" title="statement not covered" >  return amount</span>
+    .shiftedBy(-decimals)
+    .toNumber()
+    .toLocaleString('en-US', { maximumFractionDigits: decimals });
+};
+export const <span class="cstat-no" title="statement not covered" >ftUnshiftDecimals = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>v</span>alue: number | string, decimals: number) =&gt; {</span>
+  const amount = <span class="cstat-no" title="statement not covered" >new BigNumber(value);</span>
+<span class="cstat-no" title="statement not covered" >  return amount.shiftedBy(decimals).toString(10);</span>
 };
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >stxToMicroStx = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>s</span>tx: number | string) =&gt; {</span>
@@ -454,7 +502,7 @@ export const <span class="cstat-no" title="statement not covered" >getTicker = <
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 27 2021 16:33:06 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 02 2021 13:45:46 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

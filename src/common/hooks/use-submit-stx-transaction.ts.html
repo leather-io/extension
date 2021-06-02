@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/39</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/39</span>
             </div>
         
             
@@ -134,7 +134,12 @@
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,6 +153,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,26 +186,30 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,6 +235,7 @@
 <span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/types';</span>
 <span class="cstat-no" title="statement not covered" >import { useRevalidateApi } from '@common/hooks/use-revalidate-api';</span>
 <span class="cstat-no" title="statement not covered" >import { toast } from 'react-hot-toast';</span>
+<span class="cstat-no" title="statement not covered" >import { useHomeTabs } from '@common/hooks/use-home-tabs';</span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >getErrorMessage(</span>
   reason: TxBroadcastResultRejected['reason'] | 'ConflictingNonceInMempool'
@@ -257,6 +268,7 @@ function <span class="fstat-no" title="function not covered" >getErrorMessage(</
   const { setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(loadingKey);</span>
   const stacksNetwork = <span class="cstat-no" title="statement not covered" >useRecoilValue(stacksNetworkStore);</span>
   const revalidate = <span class="cstat-no" title="statement not covered" >useRevalidateApi();</span>
+  const { setActiveTabActivity } = <span class="cstat-no" title="statement not covered" >useHomeTabs();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setIsLoading();</span>
@@ -276,8 +288,11 @@ function <span class="fstat-no" title="function not covered" >getErrorMessage(</
     }
 <span class="cstat-no" title="statement not covered" >    onClose();</span>
 <span class="cstat-no" title="statement not covered" >    setIsIdle();</span>
+    // switch active tab to activity
+<span class="cstat-no" title="statement not covered" >    setActiveTabActivity();</span>
 <span class="cstat-no" title="statement not covered" >    doChangeScreen(ScreenPaths.HOME);</span>
   }, [
+    setActiveTabActivity,
     revalidate,
     doChangeScreen,
     doSetLatestNonce,
@@ -295,7 +310,7 @@ function <span class="fstat-no" title="function not covered" >getErrorMessage(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 27 2021 16:33:06 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 02 2021 13:45:46 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -242,12 +242,14 @@
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,7 +259,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,6 +267,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -427,7 +429,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { Suspense, useEffect } from 'react';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// @ts-nocheck TODO: actually use this page
+<span class="cstat-no" title="statement not covered" >import React, { Suspense, useEffect } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { Box, Button, Flex, Text, Input } from '@stacks/ui';</span>
 <span class="cstat-no" title="statement not covered" >import { TxLoading } from '@pages/transaction';</span>
 <span class="cstat-no" title="statement not covered" >import { PopupContainer } from '@components/popup/container';</span>
@@ -439,7 +442,6 @@
 } from '@store/transaction';
 <span class="cstat-no" title="statement not covered" >import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';</span>
 <span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/types';</span>
-<span class="cstat-no" title="statement not covered" >import { selectedAssetStore } from '@store/asset-search';</span>
 <span class="cstat-no" title="statement not covered" >import { AssetSearch } from '@components/asset-search/asset-search';</span>
 <span class="cstat-no" title="statement not covered" >import { object, string, number } from 'yup';</span>
 <span class="cstat-no" title="statement not covered" >import {</span>
@@ -456,6 +458,7 @@
 <span class="cstat-no" title="statement not covered" >import BN from 'bn.js';</span>
 <span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { Header } from '@components/header';</span>
+<span class="cstat-no" title="statement not covered" >import { useSelectedAsset } from '@common/hooks/use-selected-asset';</span>
 &nbsp;
 type PostConditionCode = FungibleConditionCode | NonFungibleConditionCode;
 &nbsp;
@@ -487,7 +490,7 @@ export const <span class="cstat-no" title="statement not covered" >EditPostCondi
   const postConditions = <span class="cstat-no" title="statement not covered" >useRecoilValue(postConditionsStore);</span>
   const currentPostCondition = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentPostConditionStore);</span>
   const currentPostConditionIndex = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentPostConditionIndexStore);</span>
-  const selectedAsset = <span class="cstat-no" title="statement not covered" >useRecoilValue(selectedAssetStore);</span>
+  const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset();</span>
   const { currentAccountStxAddress } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const doChangeScreen = <span class="cstat-no" title="statement not covered" >useDoChangeScreen();</span>
 &nbsp;
@@ -619,7 +622,7 @@ export const <span class="cstat-no" title="statement not covered" >EditPostCondi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 27 2021 16:33:06 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 02 2021 13:45:46 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

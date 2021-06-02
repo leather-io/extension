@@ -92,13 +92,7 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -114,13 +108,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,13 +124,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// A recoil selector used for creating internal transactions
-<span class="cstat-no" title="statement not covered" >import { selector } from 'recoil';</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { selector } from 'recoil';</span>
 <span class="cstat-no" title="statement not covered" >import { selectedAssetStore } from '@store/asset-search';</span>
 <span class="cstat-no" title="statement not covered" >import { currentAccountStore, currentAccountStxAddressStore } from '@store/wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { stacksNetworkStore } from '@store/networks';</span>
-<span class="cstat-no" title="statement not covered" >import { accountBalancesStore, correctNonceStore } from '@store/api';</span>
-<span class="cstat-no" title="statement not covered" >import { getAssetStringParts } from '@stacks/ui-utils';</span>
+<span class="cstat-no" title="statement not covered" >import { accountBalancesStore, correctNonceState } from '@store/api';</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >makeFungibleTokenTransferState = selector({</span>
   key: 'transaction.internal-transaction-asset',
@@ -151,13 +141,9 @@ export const <span class="cstat-no" title="statement not covered" >makeFungibleT
     const network = <span class="cstat-no" title="statement not covered" >get(stacksNetworkStore);</span>
     const balances = <span class="cstat-no" title="statement not covered" >get(accountBalancesStore);</span>
     const stxAddress = <span class="cstat-no" title="statement not covered" >get(currentAccountStxAddressStore);</span>
-    const nonce = <span class="cstat-no" title="statement not covered" >get(correctNonceStore);</span>
+    const nonce = <span class="cstat-no" title="statement not covered" >get(correctNonceState);</span>
 <span class="cstat-no" title="statement not covered" >    if (asset &amp;&amp; currentAccount &amp;&amp; stxAddress) {</span>
-      const {
-        address: contractAddress,
-        contractName,
-        assetName,
-      } = <span class="cstat-no" title="statement not covered" >getAssetStringParts(asset.contractAddress);</span>
+      const { contractName, contractAddress, name: assetName } = <span class="cstat-no" title="statement not covered" >asset;</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
         asset,
         stxAddress,
@@ -169,6 +155,8 @@ export const <span class="cstat-no" title="statement not covered" >makeFungibleT
         contractAddress,
         contractName,
       };
+    } else {
+<span class="cstat-no" title="statement not covered" >      console.error('[makeFungibleTokenTransferState]: malformed state');</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return;</span>
@@ -181,7 +169,7 @@ export const <span class="cstat-no" title="statement not covered" >makeFungibleT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 27 2021 16:33:06 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 02 2021 13:45:46 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

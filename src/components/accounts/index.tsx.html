@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/50</span>
+                <span class='fraction'>0/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/44</span>
+                <span class='fraction'>0/56</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -221,6 +221,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -243,13 +244,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,7 +290,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -306,6 +304,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -361,17 +361,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useState, useEffect } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { Flex, FlexProps, Spinner, color, Stack } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { Caption, Text } from '@components/typography';</span>
+<span class="cstat-no" title="statement not covered" >import { Caption, Text, Title } from '@components/typography';</span>
 <span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/types';</span>
 <span class="cstat-no" title="statement not covered" >import { PlusInCircle } from '@components/icons/plus-in-circle';</span>
 <span class="cstat-no" title="statement not covered" >import { ListItem } from './list-item';</span>
-<span class="cstat-no" title="statement not covered" >import { AccountAvatar } from './account-avatar';</span>
 <span class="cstat-no" title="statement not covered" >import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';</span>
 <span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { getStxAddress, Account, getAccountDisplayName } from '@stacks/wallet-sdk';</span>
 <span class="cstat-no" title="statement not covered" >import { useOnboardingState } from '@common/hooks/use-onboarding-state';</span>
 <span class="cstat-no" title="statement not covered" >import { truncateMiddle } from '@stacks/ui-utils';</span>
-<span class="cstat-no" title="statement not covered" >import { useAccountNames } from '@common/hooks/use-account-names';</span>
+<span class="cstat-no" title="statement not covered" >import { useAccountDisplayName, useAccountNames } from '@common/hooks/use-account-names';</span>
+<span class="cstat-no" title="statement not covered" >import { AccountAvatar } from '@components/account-avatar';</span>
+<span class="cstat-no" title="statement not covered" >import { SpaceBetween } from '@components/space-between';</span>
 &nbsp;
 const loadingProps = <span class="cstat-no" title="statement not covered" >{ color: '#A1A7B3' };</span>
 const getLoadingProps = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(l</span>oading: boolean) =&gt; (<span class="cstat-no" title="statement not covered" >loading ? loadingProps : {})</span>;</span>
@@ -393,32 +394,29 @@ const AccountItem: React.FC&lt;AccountItemProps&gt; = <span class="cstat-no" tit
   ...rest
 }) =&gt; {
   const { decodedAuthRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
-  const names = <span class="cstat-no" title="statement not covered" >useAccountNames();</span>
+  const name = <span class="cstat-no" title="statement not covered" >useAccountDisplayName(account);</span>
+&nbsp;
   const loading = <span class="cstat-no" title="statement not covered" >address === selectedAddress;</span>
   const showLoadingProps = <span class="cstat-no" title="statement not covered" >!!selectedAddress || !decodedAuthRequest;</span>
-  const name = <span class="cstat-no" title="statement not covered" >names.value?.[account.index]?.names?.[0] || getAccountDisplayName(account);</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex alignItems="center" {...rest}&gt;
-      &lt;Stack textAlign="left" spacing="2px"&gt;
-        &lt;Text
-          display="block"
-          maxWidth="100%"
-          textAlign="left"
-          fontWeight={500}
-          fontSize={2}
-          style={{ wordBreak: 'break-word' }}
-          {...getLoadingProps(showLoadingProps)}
-        &gt;
-          {name}
-        &lt;/Text&gt;
-        &lt;Caption fontSize={0} {...getLoadingProps(showLoadingProps)}&gt;
-          {truncateMiddle(address as string, 6)}
-        &lt;/Caption&gt;
+    &lt;SpaceBetween width="100%" alignItems="center"&gt;
+      &lt;Stack textAlign="left" ml="base" isInline alignItems="center" spacing="base" {...rest}&gt;
+        &lt;Stack spacing="base-tight"&gt;
+          &lt;Title
+            {...getLoadingProps(showLoadingProps)}
+            fontSize={2}
+            lineHeight="1rem"
+            fontWeight="400"
+          &gt;
+            {name}
+          &lt;/Title&gt;
+          &lt;Caption fontSize={0} {...getLoadingProps(showLoadingProps)}&gt;
+            {truncateMiddle(address as string, 6)}
+          &lt;/Caption&gt;
+        &lt;/Stack&gt;
       &lt;/Stack&gt;
-      &lt;Flex width={4} flexDirection="column" mr={3}&gt;
-        {loading &amp;&amp; &lt;Spinner width={4} height={4} {...loadingProps} /&gt;}
-      &lt;/Flex&gt;
-    &lt;/Flex&gt;
+      {loading &amp;&amp; &lt;Spinner width={4} height={4} {...loadingProps} /&gt;}
+    &lt;/SpaceBetween&gt;
   );
 };
 &nbsp;
@@ -443,7 +441,7 @@ export const <span class="cstat-no" title="statement not covered" >Accounts: Rea
 <span class="cstat-no" title="statement not covered" >      setSelectedAddress(null);</span>
     }
   }, [accountIndex, setSelectedAddress, selectedAddress]);
-&nbsp;
+  const names = <span class="cstat-no" title="statement not covered" >useAccountNames();</span>
 <span class="cstat-no" title="statement not covered" >  if (!wallet) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
   const accounts = <span class="cstat-no" title="statement not covered" >wallet.accounts.map(<span class="fstat-no" title="function not covered" >account </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
@@ -458,18 +456,20 @@ export const <span class="cstat-no" title="statement not covered" >Accounts: Rea
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex flexDirection="column" {...rest}&gt;
       {accounts.map(<span class="fstat-no" title="function not covered" >(a</span>ccount, index) =&gt; {
+        const name = <span class="cstat-no" title="statement not covered" >names.value?.[index]?.names?.[0] || getAccountDisplayName(account);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        return (</span>
           &lt;ListItem
             key={account.stxAddress}
             isFirst={index === 0}
             cursor={disableSelect ? 'not-allowed' : 'pointer'}
-            iconComponent={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >&lt;AccountAvatar username={account.number.toString()} mr={3} /&gt;}</span>
+            iconComponent={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >&lt;AccountAvatar account={account} name={name} /&gt;}</span>
             hasAction={!!next &amp;&amp; selectedAddress === null}
-            data-test={`account-${(account.username || account.stxAddress).split('.')[0]}`}
+            data-test={`account-${(account?.username || account?.stxAddress).split('.')[0]}`}
             onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >              if (!next) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >              if (selectedAddress) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >              setSelectedAddress(account.stxAddress);</span>
+<span class="cstat-no" title="statement not covered" >              setSelectedAddress(account?.stxAddress);</span>
 <span class="cstat-no" title="statement not covered" >              next(index);</span>
             }}
           &gt;
@@ -517,7 +517,7 @@ export const <span class="cstat-no" title="statement not covered" >Accounts: Rea
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 27 2021 16:33:06 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 02 2021 13:45:46 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

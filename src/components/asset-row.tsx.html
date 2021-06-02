@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -101,23 +101,10 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -127,18 +114,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,52 +146,47 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, Stack, StackProps } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { Text, Caption } from '@components/typography';</span>
-<span class="cstat-no" title="statement not covered" >import { AssetAvatar } from '@components/stx-avatar';</span>
+import { StackProps } from '@stacks/ui';
+&nbsp;
+<span class="cstat-no" title="statement not covered" >import { ftDecimals, stacksValue } from '@common/stacks-utils';</span>
+import { AssetWithMeta } from '@store/tokens';
+<span class="cstat-no" title="statement not covered" >import { getAssetName } from '@stacks/ui-utils';</span>
+<span class="cstat-no" title="statement not covered" >import { AssetItem } from '@components/asset-item';</span>
+<span class="cstat-no" title="statement not covered" >import { getTicker } from '@common/utils';</span>
 &nbsp;
 interface AssetRowProps extends StackProps {
-  name: string;
-  contractAddress?: string;
-  friendlyName: string;
-  value: string;
-  subtitle: string;
+  asset: AssetWithMeta;
 }
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >AssetRow = React.forwardRef&lt;HTMLDivElement, AssetRowProps&gt;(<span class="fstat-no" title="function not covered" >(p</span>rops, ref) =&gt; {</span>
-  const { name, contractAddress, friendlyName, value, subtitle, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack
-      spacing="base"
-      isInline
-      alignItems="center"
-      flexWrap="wrap"
-      flexDirection="row"
-      cursor="pointer"
-      width="100%"
-      {...rest}
-      ref={ref}
-    &gt;
-      &lt;AssetAvatar
-        useStx={name === 'STX' || name === 'Stacks Token'}
-        gradientString={contractAddress || name}
-        mr="tight"
-        size="36px"
-        color="white"
-      &gt;
-        {friendlyName[0]}
-      &lt;/AssetAvatar&gt;
+  const { asset, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const { name, contractAddress, contractName, type, meta, subtitle, balance } = <span class="cstat-no" title="statement not covered" >asset;</span>
 &nbsp;
-      &lt;Stack spacing="tight" flexGrow={1}&gt;
-        &lt;Text&gt;{friendlyName}&lt;/Text&gt;
-        &lt;Caption variant="c2"&gt;{subtitle}&lt;/Caption&gt;
-      &lt;/Stack&gt;
-      &lt;Box textAlign="right" pt="tight"&gt;
-        &lt;Text fontWeight="400" color="ink.1000"&gt;
-          {value}
-        &lt;/Text&gt;
-      &lt;/Box&gt;
-    &lt;/Stack&gt;
+  const friendlyName =
+<span class="cstat-no" title="statement not covered" >    type === 'ft' ? meta?.name || (name.includes('::') ? getAssetName(name) : name) : name;</span>
+  const symbol = <span class="cstat-no" title="statement not covered" >type === 'ft' ? meta?.symbol || getTicker(friendlyName) : subtitle;</span>
+  const value =
+<span class="cstat-no" title="statement not covered" >    type === 'ft'</span>
+      ? ftDecimals(balance, meta?.decimals || 0)
+      : type === 'stx'
+      ? stacksValue({ value: balance, withTicker: false })
+      : balance;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;AssetItem
+      ref={ref}
+      avatar={
+        name === 'stx'
+          ? 'stx'
+          : type === 'ft'
+          ? `${contractAddress}.${contractName}::${name}`
+          : name
+      }
+      title={friendlyName}
+      caption={symbol}
+      amount={value}
+      {...rest}
+    /&gt;
   );
 });
 &nbsp;</pre></td></tr></table></pre>
@@ -211,7 +196,7 @@ export const <span class="cstat-no" title="statement not covered" >AssetRow = Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 27 2021 16:33:06 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 02 2021 13:45:46 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

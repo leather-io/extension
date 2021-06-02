@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -120,20 +120,10 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -145,6 +135,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,6 +160,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,28 +191,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useSetRecoilState } from 'recoil';</span>
 <span class="cstat-no" title="statement not covered" >import { currentPostConditionIndexStore, postConditionsStore } from '@store/transaction';</span>
-<span class="cstat-no" title="statement not covered" >import { Asset, selectedAssetStore } from '@store/asset-search';</span>
+<span class="cstat-no" title="statement not covered" >import { selectedAssetIdState } from '@store/asset-search';</span>
 <span class="cstat-no" title="statement not covered" >import { useFetchBalances } from '@common/hooks/use-account-info';</span>
 <span class="cstat-no" title="statement not covered" >import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';</span>
 <span class="cstat-no" title="statement not covered" >import { useCallback } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { addressToString, PostCondition, PostConditionType } from '@stacks/transactions';</span>
 <span class="cstat-no" title="statement not covered" >import { toHumanReadableStx, truncateMiddle } from '@stacks/ui-utils';</span>
 <span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/types';</span>
+import { AssetWithMeta } from '@store/tokens';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useEditPostConditions(</span>{ pc, index }: { pc: PostCondition; index: number }) {
   const setCurrentPostConditionIndex = <span class="cstat-no" title="statement not covered" >useSetRecoilState(currentPostConditionIndexStore);</span>
-  const setSelectedAsset = <span class="cstat-no" title="statement not covered" >useSetRecoilState(selectedAssetStore);</span>
+  const setSelectedAsset = <span class="cstat-no" title="statement not covered" >useSetRecoilState(selectedAssetIdState);</span>
   const balancesLoadable = <span class="cstat-no" title="statement not covered" >useFetchBalances();</span>
   const doChangeScreen = <span class="cstat-no" title="statement not covered" >useDoChangeScreen();</span>
   const balancesJSON = <span class="cstat-no" title="statement not covered" >JSON.stringify(balancesLoadable.value);</span>
 <span class="cstat-no" title="statement not covered" >  return useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setCurrentPostConditionIndex(index);</span>
-    let asset: Asset | undefined = <span class="cstat-no" title="statement not covered" >undefined;</span>
+    let asset: AssetWithMeta | undefined = <span class="cstat-no" title="statement not covered" >undefined;</span>
     const balances = <span class="cstat-no" title="statement not covered" >JSON.parse(balancesJSON);</span>
 <span class="cstat-no" title="statement not covered" >    if (pc.conditionType === PostConditionType.STX) {</span>
 <span class="cstat-no" title="statement not covered" >      asset = {</span>
         name: 'Stacks Token',
         contractAddress: '',
+        contractName: '',
         balance: toHumanReadableStx(balances?.stx.balance || '0'),
         subtitle: '',
         type: 'stx',
@@ -221,11 +229,12 @@ function <span class="fstat-no" title="function not covered" >useEditPostConditi
         type: 'ft',
         subtitle: `${truncateMiddle(addressToString(assetInfo.address))}.${assetInfo.contractName}`,
         contractAddress: address,
+        contractName: assetInfo.contractName.content,
         name: assetInfo.assetName.content,
         balance,
-      };
+      } as AssetWithMeta;
     }
-<span class="cstat-no" title="statement not covered" >    setSelectedAsset(asset);</span>
+<span class="cstat-no" title="statement not covered" >    setSelectedAsset(asset?.name);</span>
 <span class="cstat-no" title="statement not covered" >    doChangeScreen(ScreenPaths.EDIT_POST_CONDITIONS);</span>
   }, [balancesJSON, setCurrentPostConditionIndex, doChangeScreen, index, pc, setSelectedAsset]);
 }
@@ -253,7 +262,7 @@ function <span class="fstat-no" title="function not covered" >useEditPostConditi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 27 2021 16:33:06 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 02 2021 13:45:46 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
