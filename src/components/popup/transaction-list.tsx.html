@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/transactions/asset-item.tsx</title>
+    <title>Code coverage report for src/components/popup/transaction-list.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/transactions</a> asset-item.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/popup</a> transaction-list.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -80,22 +80,28 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,29 +109,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Stack, StackProps, Text } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { AssetAvatar } from '@components/stx-avatar';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createTxDateFormatList } from '@common/group-txs-by-date';
+<span class="cstat-no" title="statement not covered" >import { Box, Stack, Text, color } from '@stacks/ui';</span>
+<span class="cstat-no" title="statement not covered" >import React from 'react';</span>
+<span class="cstat-no" title="statement not covered" >import { TxItem } from './tx-item';</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >AssetItem: React.FC&lt;</span>
-  StackProps &amp; {
-    iconString: string;
-    amount: string | number;
-    ticker: string;
-  }
-&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> iconString, amount, ticker, ...rest }) =&gt; {</span>
+interface TransactionListProps {
+  txsByDate: ReturnType&lt;typeof createTxDateFormatList&gt;;
+}
+<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >T</span>ransactionList(</span>{ txsByDate }: TransactionListProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack isInline alignItems="center" flexGrow={1} width="100%" {...rest}&gt;
-      &lt;AssetAvatar size="32px" useStx={iconString === 'STX'} gradientString={iconString} /&gt;
-      &lt;Text fontWeight="500" fontSize={4}&gt;
-        {ticker}
-      &lt;/Text&gt;
-      &lt;Text fontWeight="500" fontSize={4} ml="auto"&gt;
-        {amount}
-      &lt;/Text&gt;
+    &lt;Stack pb="extra-loose" spacing="extra-loose"&gt;
+      {txsByDate.map(<span class="fstat-no" title="function not covered" >({</span> date, displayDate, txs }) =&gt; (
+<span class="cstat-no" title="statement not covered" >        &lt;Box key={date}&gt;</span>
+          &lt;Text textStyle="body.small" color={color('text-caption')}&gt;
+            {displayDate}
+          &lt;/Text&gt;
+          &lt;Stack mt="base-loose" spacing="loose"&gt;
+            {txs.map(<span class="fstat-no" title="function not covered" >tx </span>=&gt; (
+<span class="cstat-no" title="statement not covered" >              &lt;TxItem transaction={tx} key={tx.tx_id} /&gt;</span>
+            ))}
+          &lt;/Stack&gt;
+        &lt;/Box&gt;
+      ))}
     &lt;/Stack&gt;
   );
-};
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
