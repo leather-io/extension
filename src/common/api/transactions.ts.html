@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>8/25</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">26.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>6/23</span>
             </div>
         
             
@@ -129,40 +129,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,7 +197,7 @@
   MempoolTransaction,
   MempoolTransactionListResponse,
 } from '@blockstack/stacks-blockchain-api-types';
-<span class="cstat-no" title="statement not covered" >import { fetcher } from '@common/wrapped-fetch';</span>
+import { fetcher } from '@common/api/wrapped-fetch';
 &nbsp;
 interface GetKeyOptions {
   index: number;
@@ -208,10 +208,10 @@ interface GetKeyOptions {
   apiServer?: string;
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >constructLimitAndOffsetQueryParams = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>l</span>imit: number, offset?: number): string =&gt;</span>
+export const constructLimitAndOffsetQueryParams = <span class="fstat-no" title="function not covered" >(l</span>imit: number, offset?: number): string =&gt;
 <span class="cstat-no" title="statement not covered" >  `limit=${limit}${offset ? `&amp;offset=${offset}` : ''}`;</span>
 &nbsp;
-const generateTypesQueryString = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(t</span>ypes?: string[]) =&gt; {</span>
+const generateTypesQueryString = <span class="fstat-no" title="function not covered" >(t</span>ypes?: string[]) =&gt; {
 <span class="cstat-no" title="statement not covered" >  if (types?.length) {</span>
 <span class="cstat-no" title="statement not covered" >    return `&amp;${types</span>
       .map(<span class="fstat-no" title="function not covered" >type </span>=&gt; <span class="cstat-no" title="statement not covered" >`${encodeURIComponent('type[]')}=${encodeURIComponent(type)}`)</span>
@@ -220,7 +220,7 @@ const generateTypesQueryString = <span class="cstat-no" title="statement not cov
 <span class="cstat-no" title="statement not covered" >  return '';</span>
 };
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >makeKey = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>o</span>ptions: GetKeyOptions) =&gt; {</span>
+export const makeKey = <span class="fstat-no" title="function not covered" >(o</span>ptions: GetKeyOptions) =&gt; {
   const { index, type, limit, pending, types, apiServer } = <span class="cstat-no" title="statement not covered" >options;</span>
 <span class="cstat-no" title="statement not covered" >  return `${apiServer as string}/extended/v1/${type}${</span>
     pending ? '/mempool' : ''
@@ -229,8 +229,8 @@ export const <span class="cstat-no" title="statement not covered" >makeKey = <sp
   }`;
 };
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >fetchPendingTxs =</span>
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;</span>
+export const fetchPendingTxs =
+<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  async </span>({ query, type }: { query: string; type: 'principal' | 'tx_id' }) =&gt; {</span>
     const path = <span class="cstat-no" title="statement not covered" >makeKey({</span>
       type: 'tx',
@@ -268,7 +268,7 @@ export const <span class="cstat-no" title="statement not covered" >fetchPendingT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 14:00:52 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 09 2021 16:09:23 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

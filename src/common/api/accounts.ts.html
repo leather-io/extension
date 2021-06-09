@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">47.06% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>8/17</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">47.06% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>8/17</span>
             </div>
         
             
@@ -107,31 +107,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,18 +151,18 @@
   TransactionResults,
 } from '@blockstack/stacks-blockchain-api-types';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { fetchPendingTxs } from '@common/api/transactions';</span>
-<span class="cstat-no" title="statement not covered" >import { fetchFromSidecar } from '@common/api/fetch';</span>
+import { fetchPendingTxs } from '@common/api/transactions';
+import { fetchFromSidecar } from '@common/api/fetch';
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >fetchBalances =</span>
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;</span>
+export const fetchBalances =
+<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (p</span>rincipal: string): Promise&lt;AddressBalanceResponse&gt; =&gt; {</span>
     const path = <span class="cstat-no" title="statement not covered" >`/address/${principal}/balances`;</span>
 <span class="cstat-no" title="statement not covered" >    return fetchFromSidecar(apiServer)(path);</span>
   };
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >fetchTransactions =</span>
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;</span>
+export const fetchTransactions =
+<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (p</span>rincipal: string): Promise&lt;TransactionResults&gt; =&gt; {</span>
     const path = <span class="cstat-no" title="statement not covered" >`/address/${principal}/transactions?limit=50`;</span>
 <span class="cstat-no" title="statement not covered" >    return fetchFromSidecar(apiServer)(path);</span>
@@ -174,8 +174,8 @@ export interface AllAccountData {
   pendingTransactions: MempoolTransaction[];
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >fetchAllAccountData =</span>
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;</span>
+export const fetchAllAccountData =
+<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  async </span>(principal: string): Promise&lt;AllAccountData&gt; =&gt; {</span>
     const [balances, transactions, pendingTransactions] = <span class="cstat-no" title="statement not covered" >await Promise.all([</span>
       fetchBalances(apiServer)(principal),
@@ -196,7 +196,7 @@ export const <span class="cstat-no" title="statement not covered" >fetchAllAccou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 14:00:52 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 09 2021 16:09:23 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

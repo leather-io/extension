@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/61</span>
+                <span class='fraction'>0/65</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/58</span>
+                <span class='fraction'>0/62</span>
             </div>
         
             
@@ -208,7 +208,11 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,13 +237,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -370,44 +378,48 @@
 <span class="cstat-no" title="statement not covered" >import { useRecoilValue, useRecoilState, useRecoilCallback } from 'recoil';</span>
 <span class="cstat-no" title="statement not covered" >import { gaiaUrl } from '@common/constants';</span>
 <span class="cstat-no" title="statement not covered" >import {</span>
-  currentNetworkKeyStore,
-  currentNetworkStore,
-  networksStore,
-  currentTransactionVersion,
+  currentNetworkKeyState,
+  currentNetworkState,
+  networksState,
+  latestBlockHeightState,
 } from '@store/networks';
 <span class="cstat-no" title="statement not covered" >import {</span>
-  walletStore,
+  walletState,
   encryptedSecretKeyStore,
-  secretKeyStore,
-  hasSetPasswordStore,
-  latestNoncesStore,
-  currentAccountIndexStore,
-  currentAccountStore,
+  secretKeyState,
+  hasSetPasswordState,
   walletConfigStore,
-  currentAccountStxAddressStore,
   hasRehydratedVaultStore,
 } from '@store/wallet';
 import { StacksTransaction } from '@stacks/transactions';
 <span class="cstat-no" title="statement not covered" >import { useVaultMessenger } from '@common/hooks/use-vault-messenger';</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { useOnboardingState } from './use-onboarding-state';</span>
+<span class="cstat-no" title="statement not covered" >import { useOnboardingState } from './auth/use-onboarding-state';</span>
 <span class="cstat-no" title="statement not covered" >import { finalizeAuthResponse } from '@common/utils';</span>
-<span class="cstat-no" title="statement not covered" >import { latestBlockHeightStore, apiRevalidation } from '@store/api';</span>
+<span class="cstat-no" title="statement not covered" >import { apiRevalidation } from '@store/common/api-helpers';</span>
 <span class="cstat-no" title="statement not covered" >import { useLoadable } from '@common/hooks/use-loadable';</span>
+<span class="cstat-no" title="statement not covered" >import {</span>
+  currentAccountIndexState,
+  currentAccountState,
+  currentAccountStxAddressState,
+} from '@store/accounts';
+<span class="cstat-no" title="statement not covered" >import { localNoncesState } from '@store/accounts/nonce';</span>
+<span class="cstat-no" title="statement not covered" >import { bytesToText } from '@store/common/utils';</span>
+<span class="cstat-no" title="statement not covered" >import { transactionNetworkVersionState } from '@store/transactions';</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >useWallet = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>) =</span>&gt; {</span>
   const hasRehydratedVault = <span class="cstat-no" title="statement not covered" >useRecoilValue(hasRehydratedVaultStore);</span>
-  const [wallet, setWallet] = <span class="cstat-no" title="statement not covered" >useRecoilState(walletStore);</span>
-  const secretKey = <span class="cstat-no" title="statement not covered" >useRecoilValue(secretKeyStore);</span>
+  const [wallet, setWallet] = <span class="cstat-no" title="statement not covered" >useRecoilState(walletState);</span>
+  const secretKey = <span class="cstat-no" title="statement not covered" >useRecoilValue(secretKeyState);</span>
   const encryptedSecretKey = <span class="cstat-no" title="statement not covered" >useRecoilValue(encryptedSecretKeyStore);</span>
-  const currentAccountIndex = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentAccountIndexStore);</span>
-  const hasSetPassword = <span class="cstat-no" title="statement not covered" >useRecoilValue(hasSetPasswordStore);</span>
-  const currentAccount = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentAccountStore);</span>
-  const currentAccountStxAddress = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentAccountStxAddressStore);</span>
-  const transactionVersion = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentTransactionVersion);</span>
-  const networks = <span class="cstat-no" title="statement not covered" >useRecoilValue(networksStore);</span>
-  const currentNetwork = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentNetworkStore);</span>
-  const currentNetworkKey = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentNetworkKeyStore);</span>
+  const currentAccountIndex = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentAccountIndexState);</span>
+  const hasSetPassword = <span class="cstat-no" title="statement not covered" >useRecoilValue(hasSetPasswordState);</span>
+  const currentAccount = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentAccountState);</span>
+  const currentAccountStxAddress = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentAccountStxAddressState);</span>
+  const transactionVersion = <span class="cstat-no" title="statement not covered" >useRecoilValue(transactionNetworkVersionState);</span>
+  const networks = <span class="cstat-no" title="statement not covered" >useRecoilValue(networksState);</span>
+  const currentNetwork = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentNetworkState);</span>
+  const currentNetworkKey = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentNetworkKeyState);</span>
   const walletConfig = <span class="cstat-no" title="statement not covered" >useLoadable(walletConfigStore);</span>
   const vaultMessenger = <span class="cstat-no" title="statement not covered" >useVaultMessenger();</span>
 &nbsp;
@@ -425,10 +437,10 @@ export const <span class="cstat-no" title="statement not covered" >useWallet = <
         const newNonce = <span class="cstat-no" title="statement not covered" >tx.auth.spendingCondition?.nonce.toNumber();</span>
 <span class="cstat-no" title="statement not covered" >        if (newNonce !== undefined) {</span>
 <span class="cstat-no" title="statement not covered" >          set(apiRevalidation, <span class="fstat-no" title="function not covered" >current </span>=&gt; (<span class="cstat-no" title="statement not covered" >current as number) + 1)</span>;</span>
-          const blockHeight = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(latestBlockHeightStore);</span>
-          const network = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(currentNetworkStore);</span>
-          const address = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(currentAccountStxAddressStore);</span>
-<span class="cstat-no" title="statement not covered" >          set(latestNoncesStore([network.url, address || '']), <span class="fstat-no" title="function not covered" >() =</span>&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+          const blockHeight = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(latestBlockHeightState);</span>
+          const network = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(currentNetworkState);</span>
+          const address = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(currentAccountStxAddressState);</span>
+<span class="cstat-no" title="statement not covered" >          set(localNoncesState([network.url, address || '']), <span class="fstat-no" title="function not covered" >() =</span>&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
             blockHeight,
             nonce: newNonce,
           }));
@@ -448,7 +460,7 @@ export const <span class="cstat-no" title="statement not covered" >useWallet = <
   const doFinishSignIn = <span class="cstat-no" title="statement not covered" >useRecoilCallback(</span>
 <span class="fstat-no" title="function not covered" >    ({</span> set, snapshot }) =&gt;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      async </span>(accountIndex: number) =&gt; {</span>
-        const wallet = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(walletStore);</span>
+        const wallet = <span class="cstat-no" title="statement not covered" >await snapshot.getPromise(walletState);</span>
         const account = <span class="cstat-no" title="statement not covered" >wallet?.accounts[accountIndex];</span>
 <span class="cstat-no" title="statement not covered" >        if (!decodedAuthRequest || !authRequest || !account || !wallet) {</span>
 <span class="cstat-no" title="statement not covered" >          console.error('Uh oh! Finished onboarding without auth info.');</span>
@@ -481,7 +493,7 @@ export const <span class="cstat-no" title="statement not covered" >useWallet = <
           scopes: decodedAuthRequest.scopes,
           account,
         });
-<span class="cstat-no" title="statement not covered" >        set(currentAccountIndexStore, accountIndex);</span>
+<span class="cstat-no" title="statement not covered" >        set(currentAccountIndexState, accountIndex);</span>
 <span class="cstat-no" title="statement not covered" >        finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });</span>
       },
     [decodedAuthRequest, authRequest, appName, appIcon]
@@ -490,7 +502,7 @@ export const <span class="cstat-no" title="statement not covered" >useWallet = <
 <span class="cstat-no" title="statement not covered" >  return {</span>
     hasRehydratedVault,
     wallet,
-    secretKey,
+    secretKey: secretKey ? bytesToText(secretKey) : undefined,
     isSignedIn,
     currentAccount,
     currentAccountIndex,
@@ -517,7 +529,7 @@ export const <span class="cstat-no" title="statement not covered" >useWallet = <
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 14:00:52 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 09 2021 16:09:23 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

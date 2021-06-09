@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -122,7 +122,22 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,6 +151,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,7 +218,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { atom } from 'recoil';</span>
-<span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/types';</span>
+<span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/common/types';</span>
 import { DecodedAuthRequest } from '@common/dev/types';
 &nbsp;
 export interface OnboardingState {
@@ -205,6 +235,21 @@ export interface OnboardingState {
   onboardingPath?: ScreenPaths;
 }
 &nbsp;
+export const <span class="cstat-no" title="statement not covered" >magicRecoveryCodePasswordState = atom({</span>
+  key: 'seed.magic-recovery-code.password',
+  default: '',
+});
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >seedInputState = atom({</span>
+  key: 'seed.input',
+  default: '',
+});
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >seedInputErrorState = atom&lt;string | undefined&gt;({</span>
+  key: 'seed.input.error',
+  default: undefined,
+});
+&nbsp;
 export const <span class="cstat-no" title="statement not covered" >currentScreenState = atom&lt;ScreenPaths&gt;({</span>
   key: 'onboarding.screen',
   default: ScreenPaths.GENERATION,
@@ -215,7 +260,7 @@ export const <span class="cstat-no" title="statement not covered" >secretKeyStat
   default: null,
 });
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >magicRecoveryCodeState = atom({</span>
+export const <span class="cstat-no" title="statement not covered" >magicRecoveryCodeState = atom&lt;null | string&gt;({</span>
   key: 'onboarding.magicRecoveryCode',
   default: null,
 });
@@ -259,7 +304,7 @@ export const <span class="cstat-no" title="statement not covered" >authRequestSt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 14:00:52 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 09 2021 16:09:23 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

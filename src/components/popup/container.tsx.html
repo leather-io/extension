@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -129,25 +129,16 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,9 +148,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,6 +214,8 @@
 <span class="cstat-no" title="statement not covered" >import { hasRehydratedVaultStore } from '@store/wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { useOnCancel } from '@common/hooks/use-on-cancel';</span>
+<span class="cstat-no" title="statement not covered" >import { usePendingTransaction } from '@common/hooks/transaction/use-pending-transaction';</span>
+<span class="cstat-no" title="statement not covered" >import { useAuthRequest } from '@common/hooks/auth/use-auth-request';</span>
 &nbsp;
 interface PopupHomeProps {
   header?: any;
@@ -217,6 +225,8 @@ interface PopupHomeProps {
 export const <span class="cstat-no" title="statement not covered" >PopupContainer: React.FC&lt;PopupHomeProps&gt; = memo(</span>
 <span class="fstat-no" title="function not covered" >  ({</span> children, header, requestType }) =&gt; {
     const hasRehydratedVault = <span class="cstat-no" title="statement not covered" >useRecoilValue(hasRehydratedVaultStore);</span>
+    const pendingTx = <span class="cstat-no" title="statement not covered" >usePendingTransaction();</span>
+    const { authRequest } = <span class="cstat-no" title="statement not covered" >useAuthRequest();</span>
     const handleCancelTransaction = <span class="cstat-no" title="statement not covered" >useOnCancel();</span>
     const { handleCancelAuthentication } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
 &nbsp;
@@ -229,13 +239,12 @@ export const <span class="cstat-no" title="statement not covered" >PopupContaine
      * the request promise to fail; triggering an onCancel callback function.
      */
     const handleUnmount = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (requestType === 'auth') {</span>
+<span class="cstat-no" title="statement not covered" >      if (requestType === 'transaction' || !!pendingTx) {</span>
+<span class="cstat-no" title="statement not covered" >        await handleCancelTransaction();</span>
+      } else <span class="cstat-no" title="statement not covered" >if (requestType === 'auth' || !!authRequest) {</span>
 <span class="cstat-no" title="statement not covered" >        handleCancelAuthentication();</span>
       }
-<span class="cstat-no" title="statement not covered" >      if (requestType === 'transaction') {</span>
-<span class="cstat-no" title="statement not covered" >        await handleCancelTransaction();</span>
-      }
-    }, [requestType, handleCancelAuthentication, handleCancelTransaction]);
+    }, [requestType, handleCancelAuthentication, authRequest, pendingTx, handleCancelTransaction]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      window.addEventListener('beforeunload', handleUnmount);</span>
@@ -280,7 +289,7 @@ export const <span class="cstat-no" title="statement not covered" >PopupContaine
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 14:00:52 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 09 2021 16:09:23 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
