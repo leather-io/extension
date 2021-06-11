@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -130,7 +130,11 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -139,12 +143,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,6 +153,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,6 +177,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,8 +208,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo, useCallback, useEffect } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Flex, color, Spinner } from '@stacks/ui';</span>
+<span class="cstat-no" title="statement not covered" >import { Flex, color } from '@stacks/ui';</span>
 <span class="cstat-no" title="statement not covered" >import { SettingsPopover } from './settings-popover';</span>
+<span class="cstat-no" title="statement not covered" >import { useRecoilValue } from 'recoil';</span>
+<span class="cstat-no" title="statement not covered" >import { hasRehydratedVaultStore } from '@store/wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { useOnCancel } from '@common/hooks/use-on-cancel';</span>
 <span class="cstat-no" title="statement not covered" >import { usePendingTransaction } from '@common/hooks/transaction/use-pending-transaction';</span>
@@ -216,18 +222,17 @@ interface PopupHomeProps {
   requestType?: string;
 }
 &nbsp;
-const Loading = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >() =</span>&gt; (</span>
-<span class="cstat-no" title="statement not covered" >  &lt;Flex width="100%" alignItems="center" justifyContent="center" flexGrow={1}&gt;</span>
-    &lt;Spinner color={color('text-caption')} /&gt;
-  &lt;/Flex&gt;
-));
-&nbsp;
 export const <span class="cstat-no" title="statement not covered" >PopupContainer: React.FC&lt;PopupHomeProps&gt; = memo(</span>
 <span class="fstat-no" title="function not covered" >  ({</span> children, header, requestType }) =&gt; {
+    const hasRehydratedVault = <span class="cstat-no" title="statement not covered" >useRecoilValue(hasRehydratedVaultStore);</span>
     const pendingTx = <span class="cstat-no" title="statement not covered" >usePendingTransaction();</span>
     const { authRequest } = <span class="cstat-no" title="statement not covered" >useAuthRequest();</span>
     const handleCancelTransaction = <span class="cstat-no" title="statement not covered" >useOnCancel();</span>
-    const { handleCancelAuthentication, hasRehydratedVault } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+    const { handleCancelAuthentication } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!hasRehydratedVault) {</span>
+<span class="cstat-no" title="statement not covered" >      console.error('No hasRehydratedVault, rendered null');</span>
+    }
 &nbsp;
     /*
      * When the popup is closed, this checks the requestType and forces
@@ -270,7 +275,8 @@ export const <span class="cstat-no" title="statement not covered" >PopupContaine
           px="loose"
           pb="loose"
         &gt;
-          {hasRehydratedVault ? children : &lt;Loading /&gt;}
+          {/*TODO: this seems like a bug, I think it could cause a blank screen some time*/}
+          {hasRehydratedVault ? children : null}
         &lt;/Flex&gt;
       &lt;/Flex&gt;
     );
@@ -283,7 +289,7 @@ export const <span class="cstat-no" title="statement not covered" >PopupContaine
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 17:32:47 GMT+0000 (Coordinated Universal Time)
+                at Fri Jun 11 2021 17:32:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

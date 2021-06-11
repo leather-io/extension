@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -106,11 +106,7 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -146,9 +142,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,7 +149,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,7 +159,7 @@
 <span class="cstat-no" title="statement not covered" >import { useRecoilCallback, waitForAll } from 'recoil';</span>
 <span class="cstat-no" title="statement not covered" >import { currentAccountState } from '@store/accounts';</span>
 <span class="cstat-no" title="statement not covered" >import {</span>
-  transactionAttachmentState,
+  pendingTransactionState,
   signedTransactionState,
   transactionBroadcastErrorState,
 } from '@store/transactions';
@@ -181,35 +173,31 @@
 <span class="cstat-no" title="statement not covered" >  return useRecoilCallback(</span>
 <span class="fstat-no" title="function not covered" >    ({</span> snapshot, set }) =&gt;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      async </span>() =&gt; {</span>
-        const { account, signedTransaction, attachment, requestToken, network } =
+        const { account, signedTransaction, pendingTransaction, requestToken, network } =
 <span class="cstat-no" title="statement not covered" >          await snapshot.getPromise(</span>
             waitForAll({
               signedTransaction: signedTransactionState,
               account: currentAccountState,
-              attachment: transactionAttachmentState,
+              pendingTransaction: pendingTransactionState,
               requestToken: requestTokenState,
               network: currentNetworkState,
             })
           );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!account || !requestToken || !signedTransaction) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!pendingTransaction || !account || !requestToken || !signedTransaction) {</span>
 <span class="cstat-no" title="statement not covered" >          set(transactionBroadcastErrorState, 'No pending transaction found.');</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        try {</span>
-          const { isSponsored, serialized, txRaw, nonce } = <span class="cstat-no" title="statement not covered" >signedTransaction;</span>
-          const result = <span class="cstat-no" title="statement not covered" >await handleBroadcastTransaction({</span>
-            isSponsored,
-            serialized,
-            txRaw,
-            attachment,
-            networkUrl: network.url,
-          });
-<span class="cstat-no" title="statement not covered" >          await doSetLatestNonce(nonce);</span>
+          const result = <span class="cstat-no" title="statement not covered" >await handleBroadcastTransaction(</span>
+            signedTransaction,
+            pendingTransaction,
+            network.url
+          );
+<span class="cstat-no" title="statement not covered" >          await doSetLatestNonce(signedTransaction);</span>
 <span class="cstat-no" title="statement not covered" >          finalizeTxSignature(requestToken, result);</span>
         } catch (error) {
-<span class="cstat-no" title="statement not covered" >          console.error(error);</span>
 <span class="cstat-no" title="statement not covered" >          set(transactionBroadcastErrorState, error.message);</span>
         }
       },
@@ -223,7 +211,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 17:32:47 GMT+0000 (Coordinated Universal Time)
+                at Fri Jun 11 2021 17:32:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
