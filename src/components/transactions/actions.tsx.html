@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/39</span>
             </div>
         
             
@@ -146,10 +146,7 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -201,7 +198,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,7 +218,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -242,7 +238,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo, useCallback } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { Box, Button, color, Stack, StackProps } from '@stacks/ui';</span>
 <span class="cstat-no" title="statement not covered" >import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';</span>
-<span class="cstat-no" title="statement not covered" >import { useDrawers } from '@common/hooks/use-drawers';</span>
 <span class="cstat-no" title="statement not covered" >import { SpaceBetween } from '@components/space-between';</span>
 <span class="cstat-no" title="statement not covered" >import { Caption } from '@components/typography';</span>
 <span class="cstat-no" title="statement not covered" >import { NetworkRowItem } from '@components/network-row-item';</span>
@@ -290,7 +285,6 @@ const MinimalErrorMessage = <span class="cstat-no" title="statement not covered"
 export const <span class="cstat-no" title="statement not covered" >TransactionsActions = memo(<span class="fstat-no" title="function not covered" >(p</span>rops: StackProps) =&gt; {</span>
   const handleBroadcastTransaction = <span class="cstat-no" title="statement not covered" >useTransactionBroadcast();</span>
   const signedTransaction = <span class="cstat-no" title="statement not covered" >useSignedTransaction();</span>
-  const { setShowNetworks } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
   const error = <span class="cstat-no" title="statement not covered" >useTransactionError();</span>
   const { setIsLoading, setIsIdle, isLoading } = <span class="cstat-no" title="statement not covered" >useLoading(LOADING_KEYS.SUBMIT_TRANSACTION);</span>
 &nbsp;
@@ -313,7 +307,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionsA
         &lt;/SpaceBetween&gt;
         &lt;SpaceBetween&gt;
           &lt;Caption&gt;Network&lt;/Caption&gt;
-          &lt;NetworkRowItem onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setShowNetworks(true)}</span> /&gt;
+          &lt;NetworkRowItem /&gt;
         &lt;/SpaceBetween&gt;
       &lt;/Stack&gt;
       &lt;MinimalErrorMessage /&gt;
@@ -337,7 +331,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionsA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 13:01:10 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 15 2021 13:04:19 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
