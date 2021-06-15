@@ -22,6 +22,7 @@ export enum InternalMethods {
   unlockWallet = 'unlockWallet',
   lockWallet = 'lockWallet',
   switchAccount = 'switchAccount',
+  completeOnboarding = 'completeOnboarding',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;
@@ -61,5 +62,13 @@ export type TransactionResponseMessage = Message<
   }
 >;
 
+export type CompleteOnboardingResponseMessage = Message<
+  InternalMethods.completeOnboarding,
+  undefined
+>;
+
 export type MessageFromContentScript = AuthenticationRequestMessage | TransactionRequestMessage;
-export type MessageToContentScript = AuthenticationResponseMessage | TransactionResponseMessage;
+export type MessageToContentScript =
+  | AuthenticationResponseMessage
+  | TransactionResponseMessage
+  | CompleteOnboardingResponseMessage;

@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppState, defaultState } from '@common/context';
 import { AppConfig, UserSession } from '@stacks/auth';
 import { AuthOptions } from '@stacks/connect';
 
 export function useAuth() {
-  const [state, setState] = React.useState<AppState>(defaultState());
+  const [state, setState] = useState<AppState>(defaultState());
   const [authResponse, setAuthResponse] = React.useState('');
   const [appPrivateKey, setAppPrivateKey] = React.useState('');
 
@@ -14,15 +14,17 @@ export function useAuth() {
   );
   const userSession = useMemo(() => new UserSession({ appConfig }), [appConfig]);
 
+  const handleIsOnboarding = (isOnboarding: boolean) => setState({ ...state, isOnboarding });
+
   const handleSignOut = useCallback(() => {
     userSession.signUserOut();
-    setState({ userData: null });
+    setState({ ...state, userData: null, isOnboarding: false });
   }, [userSession]);
 
   const handleRedirectAuth = useCallback(async () => {
     if (userSession.isSignInPending()) {
       const userData = await userSession.handlePendingSignIn();
-      setState({ userData });
+      setState({ ...state, userData, isOnboarding: false });
       setAppPrivateKey(userData.appPrivateKey);
     } else if (userSession.isUserSignedIn()) {
       setAppPrivateKey(userSession.loadUserData().appPrivateKey);
@@ -33,7 +35,7 @@ export function useAuth() {
     const userData = userSession.loadUserData();
     setAppPrivateKey(userSession.loadUserData().appPrivateKey);
     setAuthResponse(authResponse);
-    setState({ userData });
+    setState({ ...state, userData, isOnboarding: false });
   }, []);
 
   const onCancel = useCallback(() => {
@@ -44,7 +46,7 @@ export function useAuth() {
     void handleRedirectAuth();
     if (userSession.isUserSignedIn() && !state.userData) {
       const userData = userSession.loadUserData();
-      setState({ userData });
+      setState({ ...state, userData, isOnboarding: false });
     }
   }, [handleRedirectAuth, userSession, state]);
 
@@ -65,5 +67,6 @@ export function useAuth() {
     authResponse,
     appPrivateKey,
     handleSignOut,
+    handleIsOnboarding,
   };
 }

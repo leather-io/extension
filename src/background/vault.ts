@@ -21,6 +21,7 @@ export interface InMemoryVault {
   wallet?: SDKWallet;
   currentAccountIndex?: number;
   hasSetPassword: boolean;
+  hasCompletedOnboarding: boolean;
 }
 
 const encryptedKeyIdentifier = 'stacks-wallet-encrypted-key' as const;
@@ -31,6 +32,7 @@ const defaultVault: InMemoryVault = {
   encryptedSecretKey: undefined,
   hasSetPassword: false,
   salt: undefined,
+  hasCompletedOnboarding: false,
 } as const;
 
 function getHasSetPassword() {
@@ -96,6 +98,11 @@ function throwUnhandledMethod(message: VaultActions) {
 // Reducer to manage the state of the vault
 export const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
   switch (message.method) {
+    case InternalMethods.completeOnboarding:
+      return {
+        ...inMemoryVault,
+        hasCompletedOnboarding: true,
+      };
     case InternalMethods.getWallet:
       return {
         ...inMemoryVault,

@@ -17,6 +17,7 @@ export type SetPassword = VaultMessage<InternalMethods.setPassword, string>;
 export type UnlockWallet = VaultMessage<InternalMethods.unlockWallet, string>;
 export type LockWallet = VaultMessage<InternalMethods.lockWallet, undefined>;
 export type SwitchAccount = VaultMessage<InternalMethods.switchAccount, number>;
+export type CompleteOnboarding = VaultMessage<InternalMethods.completeOnboarding, undefined>;
 
 export type VaultActions =
   | GetWallet
@@ -27,4 +28,5 @@ export type VaultActions =
   | SetPassword
   | UnlockWallet
   | SwitchAccount
-  | LockWallet;
+  | LockWallet
+  | CompleteOnboarding;

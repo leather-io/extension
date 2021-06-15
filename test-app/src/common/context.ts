@@ -3,6 +3,7 @@ import { UserSession, AppConfig, UserData } from '@stacks/auth';
 
 export interface AppState {
   userData: UserData | null;
+  isOnboarding: boolean;
 }
 
 export const defaultState = (): AppState => {
@@ -12,9 +13,10 @@ export const defaultState = (): AppState => {
   if (userSession.isUserSignedIn()) {
     return {
       userData: userSession.loadUserData(),
+      isOnboarding: false,
     };
   }
-  return { userData: null };
+  return { userData: null, isOnboarding: false };
 };
 
 export const AppContext = createContext<AppState>(defaultState());

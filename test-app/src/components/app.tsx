@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider, theme, Flex, ColorModeProvider } from '@stacks/ui';
 import { Connect } from '@stacks/connect-react';
 import { AppContext } from '@common/context';
@@ -9,7 +9,19 @@ import { useAuth } from '@common/use-auth';
 import { GlobalStyles } from '@components/global-styles';
 
 export const App: React.FC = () => {
-  const { authOptions, state, authResponse, appPrivateKey, handleSignOut } = useAuth();
+  const { authOptions, state, authResponse, appPrivateKey, handleSignOut, handleIsOnboarding } =
+    useAuth();
+
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data.method === 'completeOnboarding') {
+      handleIsOnboarding(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
