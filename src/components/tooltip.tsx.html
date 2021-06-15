@@ -80,17 +80,13 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,6 +94,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,24 +116,28 @@
 <span class="cstat-no" title="statement not covered" >import { Box, BoxProps } from '@stacks/ui';</span>
 <span class="cstat-no" title="statement not covered" >import { memo, useMemo } from 'react';</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >Tooltip: React.FC&lt;</span>
-  TippyProps &amp; { label?: TippyProps['content']; labelProps?: BoxProps }
-&gt; = memo(<span class="fstat-no" title="function not covered" >({</span> label, labelProps = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> children, ...rest }) =&gt; {
-<span class="cstat-no" title="statement not covered" >  if (!label) <span class="cstat-no" title="statement not covered" >return &lt;&gt;{children}&lt;/&gt;;</span></span>
-  const content = <span class="cstat-no" title="statement not covered" >useMemo(</span>
-<span class="fstat-no" title="function not covered" >    () =</span>&gt; (
-<span class="cstat-no" title="statement not covered" >      &lt;Box as="span" display="block" fontSize={0} {...labelProps}&gt;</span>
-        {label}
-      &lt;/Box&gt;
-    ),
-    [labelProps, label]
-  );
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Tippy content={content} trigger="mouseenter" hideOnClick={undefined} {...rest}&gt;
-      {children}
-    &lt;/Tippy&gt;
-  );
-});
+interface TooltipProps extends TippyProps {
+  label?: TippyProps['content'];
+  labelProps?: BoxProps;
+}
+export const <span class="cstat-no" title="statement not covered" >Tooltip: React.FC&lt;TooltipProps&gt; = memo(</span>
+<span class="fstat-no" title="function not covered" >  ({</span> label, labelProps = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> children, ...rest }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (!label) <span class="cstat-no" title="statement not covered" >return &lt;&gt;{children}&lt;/&gt;;</span></span>
+    const content = <span class="cstat-no" title="statement not covered" >useMemo(</span>
+<span class="fstat-no" title="function not covered" >      () =</span>&gt; (
+<span class="cstat-no" title="statement not covered" >        &lt;Box as="span" display="block" fontSize={0} {...labelProps}&gt;</span>
+          {label}
+        &lt;/Box&gt;
+      ),
+      [labelProps, label]
+    );
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      &lt;Tippy content={content} trigger="mouseenter" hideOnClick={undefined} {...rest}&gt;
+        {children}
+      &lt;/Tippy&gt;
+    );
+  }
+);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -133,7 +145,7 @@ export const <span class="cstat-no" title="statement not covered" >Tooltip: Reac
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 13:04:19 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 15 2021 19:18:37 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

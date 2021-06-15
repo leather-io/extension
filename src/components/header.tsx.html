@@ -129,12 +129,7 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,12 +139,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -168,19 +157,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,7 +167,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,12 +212,6 @@
 <span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/common/types';</span>
 <span class="cstat-no" title="statement not covered" >import { Title } from '@components/typography';</span>
 &nbsp;
-interface HeaderProps extends FlexProps {
-  onClose?: () =&gt; void;
-  hideActions?: boolean;
-  title?: string;
-}
-&nbsp;
 const MenuButton: React.FC&lt;BoxProps&gt; = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
   const { showSettings, setShowSettings } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -237,9 +221,7 @@ const MenuButton: React.FC&lt;BoxProps&gt; = <span class="cstat-no" title="state
       onMouseUp={showSettings ? undefined : <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setShowSettings(true)}</span>
       pointerEvents={showSettings ? 'none' : 'all'}
       color={color('text-caption')}
-      _hover={{
-        color: color('text-title'),
-      }}
+      _hover={{ color: color('text-title') }}
       data-test="menu-button"
       icon={IconDots}
       {...props}
@@ -251,41 +233,44 @@ const HeaderTitle: React.FC&lt;BoxProps&gt; = <span class="cstat-no" title="stat
 <span class="cstat-no" title="statement not covered" >  &lt;Title fontSize="20px" lineHeight="28px" fontWeight={500} {...props} /&gt;</span>
 );
 &nbsp;
+interface HeaderProps extends FlexProps {
+  onClose?: () =&gt; void;
+  hideActions?: boolean;
+  title?: string;
+}
 export const <span class="cstat-no" title="statement not covered" >Header: React.FC&lt;HeaderProps&gt; = memo(<span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
-  const { onClose, title, hideActions } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const { onClose, title, hideActions, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
   const doChangeScreen = <span class="cstat-no" title="statement not covered" >useDoChangeScreen();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;Flex
-        p="loose"
-        alignItems={hideActions ? 'center' : 'flex-start'}
-        justifyContent="space-between"
-        position="relative"
-        {...props}
-      &gt;
-        {!title ? (
-          &lt;StacksWalletLogo pt="7px" onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >doChangeScreen(ScreenPaths.HOME)}</span> /&gt;
-        ) : (
-          &lt;Box pt={onClose ? 'loose' : 'unset'} pr="tight"&gt;
-            {onClose ? (
-              &lt;IconButton
-                top="base-tight"
-                position="absolute"
-                left="base"
-                onClick={onClose}
-                icon={IconArrowLeft}
-              /&gt;
-            ) : null}
-            &lt;HeaderTitle&gt;{title}&lt;/HeaderTitle&gt;
-          &lt;/Box&gt;
-        )}
-        &lt;Stack flexShrink={0} pt={hideActions ? '7px' : 0} alignItems="center" isInline&gt;
-          &lt;NetworkModeBadge /&gt;
-          {!hideActions &amp;&amp; &lt;MenuButton /&gt;}
-        &lt;/Stack&gt;
-      &lt;/Flex&gt;
-    &lt;/&gt;
+    &lt;Flex
+      p="loose"
+      alignItems={hideActions ? 'center' : 'flex-start'}
+      justifyContent="space-between"
+      position="relative"
+      {...rest}
+    &gt;
+      {!title ? (
+        &lt;StacksWalletLogo pt="7px" onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >doChangeScreen(ScreenPaths.HOME)}</span> /&gt;
+      ) : (
+        &lt;Box pt={onClose ? 'loose' : 'unset'} pr="tight"&gt;
+          {onClose ? (
+            &lt;IconButton
+              top="base-tight"
+              position="absolute"
+              left="base"
+              onClick={onClose}
+              icon={IconArrowLeft}
+            /&gt;
+          ) : null}
+          &lt;HeaderTitle&gt;{title}&lt;/HeaderTitle&gt;
+        &lt;/Box&gt;
+      )}
+      &lt;Stack flexShrink={0} pt={hideActions ? '7px' : 0} alignItems="center" isInline&gt;
+        &lt;NetworkModeBadge /&gt;
+        {!hideActions &amp;&amp; &lt;MenuButton /&gt;}
+      &lt;/Stack&gt;
+    &lt;/Flex&gt;
   );
 });
 &nbsp;</pre></td></tr></table></pre>
@@ -295,7 +280,7 @@ export const <span class="cstat-no" title="statement not covered" >Header: React
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 13:04:19 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 15 2021 19:18:37 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
