@@ -1,9 +1,11 @@
-import React, { cloneElement, FC, isValidElement } from 'react';
+import React, { cloneElement, isValidElement } from 'react';
 import { Box, BoxProps, color, Flex, FlexProps, Stack, StackProps, Text } from '@stacks/ui';
 
-export const TxInfoList: FC<FlexProps> = props => <Flex flexDirection="column" {...props} />;
+export function TxInfoList(props: FlexProps) {
+  return <Flex flexDirection="column" {...props} />;
+}
 
-export const TxInfoListGroup: FC<BoxProps> = ({ children, ...props }) => {
+export function TxInfoListGroup({ children, ...props }: BoxProps) {
   const parsedChildren = Array.isArray(children) ? children : [children];
   const infoGroup = parsedChildren.flatMap((child, index) => {
     if (!isValidElement(child)) return null;
@@ -16,24 +18,28 @@ export const TxInfoListGroup: FC<BoxProps> = ({ children, ...props }) => {
     ];
   });
   return <Box {...props}>{infoGroup}</Box>;
-};
+}
 
-export const TxInfoListSection: FC<StackProps> = ({ children, ...props }) => (
-  <Stack {...props} spacing="base-tight">
-    {children}
-  </Stack>
-);
+export function TxInfoListSection({ children, ...props }: StackProps) {
+  return (
+    <Stack {...props} spacing="base-tight">
+      {children}
+    </Stack>
+  );
+}
 
-export const TxInfoListRow: FC<FlexProps> = props => (
-  <Flex justifyContent="space-between" {...props} />
-);
+export function TxInfoListRow(props: FlexProps) {
+  return <Flex justifyContent="space-between" {...props} />;
+}
 
-export const TxInfoListLabel: FC<FlexProps> = ({ children, ...props }) => (
-  <Flex color={color('text-caption')} alignItems="center" {...props}>
-    <Box>{children}</Box>
-  </Flex>
-);
+export function TxInfoListLabel({ children, ...props }: FlexProps) {
+  return (
+    <Flex color={color('text-caption')} alignItems="center" {...props}>
+      <Box>{children}</Box>
+    </Flex>
+  );
+}
 
-export const TxInfoListValue: FC<FlexProps> = props => (
-  <Text textStyle="body.large.medium" textAlign="right" {...props} />
-);
+export function TxInfoListValue(props: FlexProps) {
+  return <Text textStyle="body.large.medium" textAlign="right" {...props} />;
+}

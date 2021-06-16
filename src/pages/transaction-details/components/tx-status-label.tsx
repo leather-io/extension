@@ -6,7 +6,7 @@ type TxStatus = 'failed' | 'pending' | 'confirmed';
 interface TxStatusLabelProps extends FlexProps {
   status: TxStatus;
 }
-function TxStatusLabelBase({ status, ...props }: TxStatusLabelProps) {
+function _TxStatusLabel({ status, ...props }: TxStatusLabelProps) {
   return (
     <Flex
       flexDirection="row"
@@ -49,4 +49,4 @@ function getStatusText(status: TxStatus) {
   return colorMap[status];
 }
 
-export const TxStatusLabel = memo(TxStatusLabelBase);
+export const TxStatusLabel = memo(_TxStatusLabel);
