@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/45</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -135,7 +135,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -147,7 +146,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -156,10 +156,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,8 +164,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -189,7 +189,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useTransactionContractInterface } from '@pages/transaction-signing/hooks/use-transaction';</span>
 <span class="cstat-no" title="statement not covered" >import { useTransactionRequest } from '@common/hooks/use-transaction-request';</span>
-<span class="cstat-no" title="statement not covered" >import { useRecoilValue } from 'recoil';</span>
 <span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { useFetchBalances } from '@common/hooks/account/use-account-info';</span>
 <span class="cstat-no" title="statement not covered" >import { useMemo } from 'react';</span>
@@ -199,42 +198,43 @@
 <span class="cstat-no" title="statement not covered" >import { useTransactionFee } from '@pages/transaction-signing/hooks/use-transaction-fee';</span>
 <span class="cstat-no" title="statement not covered" >import { transactionBroadcastErrorState } from '@store/transactions';</span>
 <span class="cstat-no" title="statement not covered" >import { useOrigin } from '@common/hooks/use-origin';</span>
-<span class="cstat-no" title="statement not covered" >import { useLoadable } from '@common/hooks/use-loadable';</span>
 <span class="cstat-no" title="statement not covered" >import { transactionRequestValidationState } from '@store/transactions/requests';</span>
+<span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >u</span>seTransactionError(</span>) {
   const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequest();</span>
-  const fee = <span class="cstat-no" title="statement not covered" >useTransactionFee();</span>
   const contractInterface = <span class="cstat-no" title="statement not covered" >useTransactionContractInterface();</span>
-  const broadcastError = <span class="cstat-no" title="statement not covered" >useRecoilValue(transactionBroadcastErrorState);</span>
-  const isValidTransaction = <span class="cstat-no" title="statement not covered" >useLoadable(transactionRequestValidationState);</span>
+  const fee = <span class="cstat-no" title="statement not covered" >useTransactionFee();</span>
+  const broadcastError = <span class="cstat-no" title="statement not covered" >useAtomValue(transactionBroadcastErrorState);</span>
+  const isValidTransaction = <span class="cstat-no" title="statement not covered" >useAtomValue(transactionRequestValidationState);</span>
   const origin = <span class="cstat-no" title="statement not covered" >useOrigin();</span>
 &nbsp;
   const { currentAccount } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const balances = <span class="cstat-no" title="statement not covered" >useFetchBalances();</span>
+&nbsp;
+  // return null;
 <span class="cstat-no" title="statement not covered" >  return useMemo&lt;TransactionErrorReason | void&gt;(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (origin === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.ExpiredRequest;</span></span>
-<span class="cstat-no" title="statement not covered" >    if (isValidTransaction.contents === false &amp;&amp; !isValidTransaction.isLoading)</span>
-<span class="cstat-no" title="statement not covered" >      return TransactionErrorReason.Unauthorized;</span>
+<span class="cstat-no" title="statement not covered" >    if (isValidTransaction === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.Unauthorized;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!transactionRequest || balances.errorMaybe() || !currentAccount) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!transactionRequest || !balances || !currentAccount) {</span>
 <span class="cstat-no" title="statement not covered" >      return TransactionErrorReason.Generic;</span>
     }
-<span class="cstat-no" title="statement not covered" >    if (</span>
-      transactionRequest.txType === TransactionTypes.ContractCall &amp;&amp;
-      !contractInterface.isLoading &amp;&amp;
-      !contractInterface.contents
-    )
+<span class="cstat-no" title="statement not covered" >    if (transactionRequest.txType === TransactionTypes.ContractCall &amp;&amp; !contractInterface)</span>
 <span class="cstat-no" title="statement not covered" >      return TransactionErrorReason.NoContract;</span>
 <span class="cstat-no" title="statement not covered" >    if (broadcastError) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.BroadcastError;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (balances.value) {</span>
-      const stxBalance = <span class="cstat-no" title="statement not covered" >new BigNumber(balances.value.stx.balance);</span>
+<span class="cstat-no" title="statement not covered" >    if (balances) {</span>
+      const stxBalance = <span class="cstat-no" title="statement not covered" >new BigNumber(balances.stx.balance);</span>
+      const zeroBalance = <span class="cstat-no" title="statement not covered" >stxBalance.toNumber() === 0;</span>
 <span class="cstat-no" title="statement not covered" >      if (transactionRequest.txType === TransactionTypes.STXTransfer) {</span>
+<span class="cstat-no" title="statement not covered" >        if (zeroBalance) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.StxTransferInsufficientFunds;</span></span>
+&nbsp;
         const transferAmount = <span class="cstat-no" title="statement not covered" >new BigNumber(transactionRequest.amount);</span>
 <span class="cstat-no" title="statement not covered" >        if (transferAmount.gte(stxBalance))</span>
 <span class="cstat-no" title="statement not covered" >          return TransactionErrorReason.StxTransferInsufficientFunds;</span>
       }
+<span class="cstat-no" title="statement not covered" >      if (zeroBalance) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
 <span class="cstat-no" title="statement not covered" >      if (fee &amp;&amp; !fee.isSponsored &amp;&amp; fee.amount) {</span>
         const feeAmount = <span class="cstat-no" title="statement not covered" >new BigNumber(fee.amount);</span>
 <span class="cstat-no" title="statement not covered" >        if (feeAmount.gte(stxBalance)) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
@@ -259,7 +259,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

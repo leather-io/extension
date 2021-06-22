@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/73</span>
+                <span class='fraction'>0/74</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/71</span>
+                <span class='fraction'>0/72</span>
             </div>
         
             
@@ -209,16 +209,18 @@
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -361,8 +363,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useRecoilState, useSetRecoilState } from 'recoil';</span>
-<span class="cstat-no" title="statement not covered" >import { magicRecoveryCodeState, seedInputErrorState, seedInputState } from '@store/onboarding';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { magicRecoveryCodeState, seedInputErrorState, seedInputState } from '@store/onboarding';</span>
 <span class="cstat-no" title="statement not covered" >import React, { useCallback, useEffect, useRef } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';</span>
@@ -373,11 +374,13 @@
 } from '@common/utils';
 <span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/common/types';</span>
 <span class="cstat-no" title="statement not covered" >import { useLoading } from '@common/hooks/use-loading';</span>
+<span class="cstat-no" title="statement not covered" >import { useUpdateAtom } from 'jotai/utils';</span>
+<span class="cstat-no" title="statement not covered" >import { useAtom } from 'jotai';</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >u</span>seSignIn(</span>) {
-  const setMagicRecoveryCode = <span class="cstat-no" title="statement not covered" >useSetRecoilState(magicRecoveryCodeState);</span>
-  const [seed, setSeed] = <span class="cstat-no" title="statement not covered" >useRecoilState(seedInputState);</span>
-  const [error, setError] = <span class="cstat-no" title="statement not covered" >useRecoilState(seedInputErrorState);</span>
+  const setMagicRecoveryCode = <span class="cstat-no" title="statement not covered" >useUpdateAtom(magicRecoveryCodeState);</span>
+  const [seed, setSeed] = <span class="cstat-no" title="statement not covered" >useAtom(seedInputState);</span>
+  const [error, setError] = <span class="cstat-no" title="statement not covered" >useAtom(seedInputErrorState);</span>
 &nbsp;
   const { isLoading, setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading('useSignIn');</span>
   const doChangeScreen = <span class="cstat-no" title="statement not covered" >useDoChangeScreen();</span>
@@ -420,7 +423,7 @@
       }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      try {</span>
-<span class="cstat-no" title="statement not covered" >        await doStoreSeed(parsedKeyInput);</span>
+<span class="cstat-no" title="statement not covered" >        await doStoreSeed({ secretKey: parsedKeyInput });</span>
 <span class="cstat-no" title="statement not covered" >        doChangeScreen(ScreenPaths.SET_PASSWORD);</span>
 <span class="cstat-no" title="statement not covered" >        setIsIdle();</span>
       } catch (error) {
@@ -520,7 +523,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -181,10 +181,7 @@
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,11 +194,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -228,8 +225,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -265,17 +260,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -322,16 +316,16 @@
 <span class="cstat-no" title="statement not covered" >import { useAccountDisplayName } from '@common/hooks/account/use-account-names';</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >import { accountsWithAddressState, AccountWithAddress } from '@store/accounts';</span>
-<span class="cstat-no" title="statement not covered" >import { useLoadable } from '@common/hooks/use-loadable';</span>
 <span class="cstat-no" title="statement not covered" >import { AccountAvatar } from '@components/account-avatar';</span>
 <span class="cstat-no" title="statement not covered" >import { SpaceBetween } from '@components/space-between';</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >import { cleanUsername, slugify } from '@common/utils';</span>
 <span class="cstat-no" title="statement not covered" >import { usePressable } from '@components/item-hover';</span>
 <span class="cstat-no" title="statement not covered" >import { FiPlusCircle } from 'react-icons/fi';</span>
-<span class="cstat-no" title="statement not covered" >import { useSetRecoilState } from 'recoil';</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >import { accountDrawerStep, AccountStep, showAccountsStore } from '@store/ui';</span>
 <span class="cstat-no" title="statement not covered" >import { useLoading } from '@common/hooks/use-loading';</span>
+<span class="cstat-no" title="statement not covered" >import { useAtomValue, useUpdateAtom } from 'jotai/utils';</span>
 &nbsp;
 const loadingProps = <span class="cstat-no" title="statement not covered" >{ color: '#A1A7B3' };</span>
 const getLoadingProps = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(l</span>oading: boolean) =&gt; (<span class="cstat-no" title="statement not covered" >loading ? loadingProps : {})</span>;</span>
@@ -355,18 +349,16 @@ export const <span class="cstat-no" title="statement not covered" >AccountItem: 
   }, [setIsLoading, doFinishSignIn, account]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack
-      spacing="base"
+    &lt;Box
       data-test={`account-${slugify(cleanUsername(name))}-${account.index}`}
-      isInline
       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleOnClick()}</span>
       {...bind}
       {...rest}
     &gt;
-      &lt;AccountAvatar flexGrow={0} account={account} name={name} /&gt;
-      &lt;SpaceBetween width="100%" alignItems="center"&gt;
-        &lt;Stack textAlign="left" isInline alignItems="center" spacing="base"&gt;
-          &lt;Stack spacing="base-tight"&gt;
+      &lt;Stack spacing="base" isInline&gt;
+        &lt;AccountAvatar flexGrow={0} account={account} name={name} /&gt;
+        &lt;SpaceBetween width="100%" alignItems="center"&gt;
+          &lt;Stack textAlign="left" spacing="base-tight"&gt;
             &lt;Title
               {...getLoadingProps(showLoadingProps)}
               fontSize={2}
@@ -379,36 +371,35 @@ export const <span class="cstat-no" title="statement not covered" >AccountItem: 
               {truncateMiddle(account.address)}
             &lt;/Caption&gt;
           &lt;/Stack&gt;
-        &lt;/Stack&gt;
-        {isLoading &amp;&amp; &lt;Spinner width={4} height={4} {...loadingProps} /&gt;}
-      &lt;/SpaceBetween&gt;
+          {isLoading &amp;&amp; &lt;Spinner width={4} height={4} {...loadingProps} /&gt;}
+        &lt;/SpaceBetween&gt;
+      &lt;/Stack&gt;
       {component}
-    &lt;/Stack&gt;
+    &lt;/Box&gt;
   );
 };
 &nbsp;
 const AddAccountAction = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-  const setAccounts = <span class="cstat-no" title="statement not covered" >useSetRecoilState(showAccountsStore);</span>
-  const setAccountDrawerStep = <span class="cstat-no" title="statement not covered" >useSetRecoilState(accountDrawerStep);</span>
+  const setAccounts = <span class="cstat-no" title="statement not covered" >useUpdateAtom(showAccountsStore);</span>
+  const setAccountDrawerStep = <span class="cstat-no" title="statement not covered" >useUpdateAtom(accountDrawerStep);</span>
+  const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;SpaceBetween alignItems="center"&gt;
-      &lt;Stack
-        isInline
-        p="base"
-        bg={color('bg-4')}
-        borderRadius="10px"
-        alignItems="center"
-        color={color('text-body')}
-        _hover={{ cursor: 'pointer', color: color('brand') }}
-        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          setAccounts(true);</span>
-<span class="cstat-no" title="statement not covered" >          setAccountDrawerStep(AccountStep.Create);</span>
-        }}
-      &gt;
+    &lt;Box
+      px="base-tight"
+      py="tight"
+      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >        setAccounts(true);</span>
+<span class="cstat-no" title="statement not covered" >        setAccountDrawerStep(AccountStep.Create);</span>
+      }}
+      {...bind}
+    &gt;
+      &lt;Stack isInline alignItems="center" color={color('text-body')}&gt;
         &lt;Box size="16px" as={FiPlusCircle} color={color('brand')} /&gt;
-        &lt;Text color="currentColor"&gt;Add account&lt;/Text&gt;
+        &lt;Text color="currentColor"&gt;Generate new account&lt;/Text&gt;
       &lt;/Stack&gt;
-    &lt;/SpaceBetween&gt;
+      {component}
+    &lt;/Box&gt;
   );
 });
 &nbsp;
@@ -421,20 +412,20 @@ interface AccountsProps extends FlexProps {
 export const <span class="cstat-no" title="statement not covered" >Accounts: React.FC&lt;AccountsProps&gt; = memo(</span>
 <span class="fstat-no" title="function not covered" >  ({</span> showAddAccount, accountIndex, next, ...rest }) =&gt; {
     const { wallet } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
-    const { value: accounts } = <span class="cstat-no" title="statement not covered" >useLoadable(accountsWithAddressState);</span>
+    const accounts = <span class="cstat-no" title="statement not covered" >useAtomValue(accountsWithAddressState);</span>
     const { decodedAuthRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!wallet || !accounts || !decodedAuthRequest) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Stack py="extra-loose" spacing="loose" px="extra-loose" {...rest}&gt;
-        &lt;Stack spacing="loose"&gt;
+      &lt;&gt;
+        &lt;Stack py="extra-loose" spacing="loose" px="extra-loose" {...rest}&gt;
           {accounts.map(<span class="fstat-no" title="function not covered" >account </span>=&gt; (
 <span class="cstat-no" title="statement not covered" >            &lt;AccountItem key={account.address} account={account} /&gt;</span>
           ))}
+          &lt;AddAccountAction /&gt;
         &lt;/Stack&gt;
-        &lt;AddAccountAction /&gt;
-      &lt;/Stack&gt;
+      &lt;/&gt;
     );
   }
 );
@@ -445,7 +436,7 @@ export const <span class="cstat-no" title="statement not covered" >Accounts: Rea
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

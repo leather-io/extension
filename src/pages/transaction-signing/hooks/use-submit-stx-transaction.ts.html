@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -139,7 +139,8 @@
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,16 +188,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,13 +231,13 @@
 <span class="cstat-no" title="statement not covered" >import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';</span>
 <span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
 <span class="cstat-no" title="statement not covered" >import { useLoading } from '@common/hooks/use-loading';</span>
-<span class="cstat-no" title="statement not covered" >import { useRecoilValue } from 'recoil';</span>
 <span class="cstat-no" title="statement not covered" >import { currentStacksNetworkState } from '@store/networks';</span>
 <span class="cstat-no" title="statement not covered" >import { useCallback } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@store/common/types';</span>
-<span class="cstat-no" title="statement not covered" >import { useRevalidateApi } from '@common/hooks/use-revalidate-api';</span>
 <span class="cstat-no" title="statement not covered" >import { toast } from 'react-hot-toast';</span>
 <span class="cstat-no" title="statement not covered" >import { useHomeTabs } from '@common/hooks/use-home-tabs';</span>
+<span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
+<span class="cstat-no" title="statement not covered" >import { useRefreshAccountData } from '@common/hooks/account/use-refresh-account-data';</span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >getErrorMessage(</span>
   reason: TxBroadcastResultRejected['reason'] | 'ConflictingNonceInMempool'
@@ -263,24 +265,25 @@ function <span class="fstat-no" title="function not covered" >getErrorMessage(</
   onClose: () =&gt; void;
   loadingKey: string;
 }) {
+  const refreshAccountData = <span class="cstat-no" title="statement not covered" >useRefreshAccountData(350);</span> // delay to give the api time to receive the tx
   const doChangeScreen = <span class="cstat-no" title="statement not covered" >useDoChangeScreen();</span>
   const { doSetLatestNonce } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const { setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(loadingKey);</span>
-  const stacksNetwork = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentStacksNetworkState);</span>
-  const revalidate = <span class="cstat-no" title="statement not covered" >useRevalidateApi();</span>
+  const stacksNetwork = <span class="cstat-no" title="statement not covered" >useAtomValue(currentStacksNetworkState);</span>
   const { setActiveTabActivity } = <span class="cstat-no" title="statement not covered" >useHomeTabs();</span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setIsLoading();</span>
 <span class="cstat-no" title="statement not covered" >    if (transaction) {</span>
+      const nonce = <span class="cstat-no" title="statement not covered" >transaction.auth.spendingCondition?.nonce.toNumber();</span>
 <span class="cstat-no" title="statement not covered" >      try {</span>
         const response = <span class="cstat-no" title="statement not covered" >await broadcastTransaction(transaction, stacksNetwork);</span>
 <span class="cstat-no" title="statement not covered" >        if (typeof response !== 'string') {</span>
 <span class="cstat-no" title="statement not covered" >          toast.error(getErrorMessage(response.reason));</span>
         } else {
-<span class="cstat-no" title="statement not covered" >          await doSetLatestNonce(transaction.auth.spendingCondition?.nonce.toNumber());</span>
-<span class="cstat-no" title="statement not covered" >          await revalidate();</span>
+<span class="cstat-no" title="statement not covered" >          if (nonce) <span class="cstat-no" title="statement not covered" >await doSetLatestNonce(nonce);</span></span>
+          // TODO: we can do more detailed toasts using data from the TX, eg `Nice! you just sent 5 xUSD to ST23...2323`
 <span class="cstat-no" title="statement not covered" >          toast.success('Transaction submitted!');</span>
+<span class="cstat-no" title="statement not covered" >          await refreshAccountData();</span>
         }
       } catch (e) {
 <span class="cstat-no" title="statement not covered" >        toast.error('Something went wrong');</span>
@@ -292,8 +295,8 @@ function <span class="fstat-no" title="function not covered" >getErrorMessage(</
 <span class="cstat-no" title="statement not covered" >    setActiveTabActivity();</span>
 <span class="cstat-no" title="statement not covered" >    doChangeScreen(ScreenPaths.HOME);</span>
   }, [
+    refreshAccountData,
     setActiveTabActivity,
-    revalidate,
     doChangeScreen,
     doSetLatestNonce,
     setIsLoading,
@@ -310,7 +313,7 @@ function <span class="fstat-no" title="function not covered" >getErrorMessage(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

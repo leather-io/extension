@@ -244,7 +244,8 @@
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -257,6 +258,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -444,14 +446,15 @@
 <span class="cstat-no" title="statement not covered" >import { truncateMiddle } from '@stacks/ui-utils';</span>
 <span class="cstat-no" title="statement not covered" >import { ErrorMessage } from '@pages/transaction-signing/components/error';</span>
 <span class="cstat-no" title="statement not covered" >import { useDrawers } from '@common/hooks/use-drawers';</span>
-<span class="cstat-no" title="statement not covered" >import { useRecoilValue } from 'recoil';</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >import { transactionBroadcastErrorState } from '@store/transactions';</span>
 <span class="cstat-no" title="statement not covered" >import { useScrollLock } from '@common/hooks/use-scroll-lock';</span>
+<span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >FeeInsufficientFundsErrorMessage = memo(<span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
   const { setShowAccounts } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
-  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(currentAccount.address || '');</span>
+  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(currentAccount?.address || '');</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ErrorMessage
       title="Insufficient balance"
@@ -470,7 +473,7 @@ export const <span class="cstat-no" title="statement not covered" >StxTransferIn
   const balances = <span class="cstat-no" title="statement not covered" >useFetchBalances();</span>
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
   const { setShowAccounts } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
-  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(currentAccount.address || '');</span>
+  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(currentAccount?.address || '');</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ErrorMessage
       title="Insufficient balance"
@@ -485,9 +488,9 @@ export const <span class="cstat-no" title="statement not covered" >StxTransferIn
             &lt;SpaceBetween&gt;
               &lt;Caption&gt;Current balance&lt;/Caption&gt;
               &lt;Caption&gt;
-                {balances?.value?.stx?.balance
+                {balances?.stx?.balance
                   ? stacksValue({
-                      value: balances?.value?.stx?.balance,
+                      value: balances?.stx?.balance,
                       withTicker: true,
                     })
                   : '--'}
@@ -608,7 +611,7 @@ export const <span class="cstat-no" title="statement not covered" >ExpiredReques
 });
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >BroadcastErrorMessage = memo(<span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
-  const broadcastError = <span class="cstat-no" title="statement not covered" >useRecoilValue(transactionBroadcastErrorState);</span>
+  const broadcastError = <span class="cstat-no" title="statement not covered" >useAtomValue(transactionBroadcastErrorState);</span>
 <span class="cstat-no" title="statement not covered" >  if (!broadcastError) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ErrorMessage
@@ -625,7 +628,7 @@ export const <span class="cstat-no" title="statement not covered" >BroadcastErro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/44</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -230,6 +230,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -250,8 +252,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -399,11 +399,13 @@
 <span class="cstat-no" title="statement not covered" >import { Box, Fade, Text, Flex, Input, color, Stack, StackProps } from '@stacks/ui';</span>
 <span class="cstat-no" title="statement not covered" >import { useCombobox } from 'downshift';</span>
 <span class="cstat-no" title="statement not covered" >import { searchInputStore } from '@store/assets/asset-search';</span>
-<span class="cstat-no" title="statement not covered" >import { useRecoilState } from 'recoil';</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >import { SelectedAsset } from './selected-asset';</span>
 <span class="cstat-no" title="statement not covered" >import { useTransferableAssets } from '@common/hooks/use-assets';</span>
 <span class="cstat-no" title="statement not covered" >import { useSelectedAsset } from '@common/hooks/use-selected-asset';</span>
 <span class="cstat-no" title="statement not covered" >import { AssetRow } from '@components/asset-row';</span>
+<span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
+<span class="cstat-no" title="statement not covered" >import { useAtom } from 'jotai';</span>
 &nbsp;
 interface AssetSearchResultsProps extends StackProps {
   isOpen: boolean;
@@ -414,17 +416,15 @@ interface AssetSearchResultsProps extends StackProps {
 const AssetSearchResults = <span class="cstat-no" title="statement not covered" >forwardRef(</span>
 <span class="fstat-no" title="function not covered" >  ({</span> isOpen, highlightedIndex, getItemProps, ...props }: AssetSearchResultsProps, ref) =&gt; {
     const assets = <span class="cstat-no" title="statement not covered" >useTransferableAssets();</span>
-    const [searchInput] = <span class="cstat-no" title="statement not covered" >useRecoilState(searchInputStore);</span>
+    const searchInput = <span class="cstat-no" title="statement not covered" >useAtomValue(searchInputStore);</span>
 &nbsp;
     const items = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >      () =</span>&gt;
-<span class="cstat-no" title="statement not covered" >        assets.value?.filter(<span class="fstat-no" title="function not covered" >item </span>=&gt;</span>
-<span class="cstat-no" title="statement not covered" >          item.name.toLowerCase().includes(searchInput.toLowerCase() || '')</span>
-        ),
-      [assets.value, searchInput]
+<span class="cstat-no" title="statement not covered" >        assets?.filter(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.name.toLowerCase().includes(searchInput.toLowerCase() || ''))</span>,</span>
+      [assets, searchInput]
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!assets.value) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >    if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;Fade in={isOpen &amp;&amp; !!items?.length}&gt;
@@ -471,7 +471,7 @@ export const <span class="cstat-no" title="statement not covered" >AssetSearchFi
 &nbsp;
   const { selectedAsset, handleUpdateSelectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset();</span>
 &nbsp;
-  const [searchInput, setSearchInput] = <span class="cstat-no" title="statement not covered" >useRecoilState(searchInputStore);</span>
+  const [searchInput, setSearchInput] = <span class="cstat-no" title="statement not covered" >useAtom(searchInputStore);</span>
 &nbsp;
   const {
     isOpen,
@@ -483,7 +483,7 @@ export const <span class="cstat-no" title="statement not covered" >AssetSearchFi
     getItemProps,
     openMenu,
   } = <span class="cstat-no" title="statement not covered" >useCombobox({</span>
-    items: assets.value || [],
+    items: assets || [],
     initialIsOpen: true,
     inputValue: searchInput,
     defaultIsOpen: false,
@@ -500,7 +500,7 @@ export const <span class="cstat-no" title="statement not covered" >AssetSearchFi
   const labelRef = <span class="cstat-no" title="statement not covered" >React.useRef(null);</span>
   const comboRef = <span class="cstat-no" title="statement not covered" >React.useRef(null);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (assets.isLoading) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex flexDirection="column" width="100%" position="relative" overflow="visible" {...rest}&gt;
@@ -549,7 +549,7 @@ export const <span class="cstat-no" title="statement not covered" >AssetSearch: 
   const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset();</span>
   const assets = <span class="cstat-no" title="statement not covered" >useTransferableAssets();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (assets.isLoading) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!assets) {</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;Stack spacing="tight" {...rest}&gt;
         &lt;Box height="16px" width="68px" bg={color('bg-4')} borderRadius="8px" /&gt;
@@ -571,7 +571,7 @@ export const <span class="cstat-no" title="statement not covered" >AssetSearch: 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

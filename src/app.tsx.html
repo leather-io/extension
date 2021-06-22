@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -101,8 +101,6 @@
 <a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -112,12 +110,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,40 +142,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useEffect } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { ThemeProvider, ColorModeProvider } from '@stacks/ui';</span>
 <span class="cstat-no" title="statement not covered" >import { Toaster } from 'react-hot-toast';</span>
-<span class="cstat-no" title="statement not covered" >import { RecoilRoot } from 'recoil';</span>
-<span class="cstat-no" title="statement not covered" >import packageJson from '../package.json';</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >import { theme } from '@common/theme';</span>
 <span class="cstat-no" title="statement not covered" >import { HashRouter as Router } from 'react-router-dom';</span>
 <span class="cstat-no" title="statement not covered" >import { GlobalStyles } from '@components/global-styles';</span>
 <span class="cstat-no" title="statement not covered" >import { VaultLoader } from '@components/vault-loader';</span>
-<span class="cstat-no" title="statement not covered" >import { AccountsDrawer } from './components/drawer/accounts';</span>
-<span class="cstat-no" title="statement not covered" >import { NetworksDrawer } from './components/drawer/networks-drawer';</span>
-<span class="cstat-no" title="statement not covered" >import { DebugObserver } from '@components/debug-observer';</span>
+<span class="cstat-no" title="statement not covered" >import { AccountsDrawer } from '@components/drawer/accounts';</span>
+<span class="cstat-no" title="statement not covered" >import { NetworksDrawer } from '@components/drawer/networks-drawer';</span>
 <span class="cstat-no" title="statement not covered" >import { Routes } from './routes';</span>
+<span class="cstat-no" title="statement not covered" >import { Devtools } from '@components/devtools';</span>
+<span class="cstat-no" title="statement not covered" >import { SettingsPopover } from '@components/popup/settings-popover';</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >App: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>) =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-    (<span class="cstat-no" title="statement not covered" >window as any).__APP_VERSION__ = packageJson.version;</span>
+    (<span class="cstat-no" title="statement not covered" >window as any).__APP_VERSION__ = VERSION;</span>
   }, []);
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;ThemeProvider theme={theme}&gt;
-      &lt;RecoilRoot&gt;
-        &lt;DebugObserver /&gt;
+    &lt;&gt;
+      &lt;Devtools /&gt;
+      &lt;ThemeProvider theme={theme}&gt;
         &lt;ColorModeProvider defaultMode="light"&gt;
           &lt;&gt;
             &lt;GlobalStyles /&gt;
             &lt;VaultLoader /&gt;
             &lt;Router&gt;
+              &lt;Routes /&gt;
               &lt;AccountsDrawer /&gt;
               &lt;NetworksDrawer /&gt;
-              &lt;Routes /&gt;
+              &lt;SettingsPopover /&gt;
             &lt;/Router&gt;
             &lt;Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} /&gt;
           &lt;/&gt;
         &lt;/ColorModeProvider&gt;
-      &lt;/RecoilRoot&gt;
-    &lt;/ThemeProvider&gt;
+      &lt;/ThemeProvider&gt;
+    &lt;/&gt;
   );
 };
 &nbsp;
@@ -187,7 +187,7 @@ export const <span class="cstat-no" title="statement not covered" >App: React.FC
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

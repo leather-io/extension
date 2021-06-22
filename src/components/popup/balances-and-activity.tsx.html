@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/7</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -131,7 +131,12 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -159,15 +164,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,6 +179,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,9 +198,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -201,12 +205,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useMemo } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, Stack, SlideFade } from '@stacks/ui';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo, useMemo } from 'react';</span>
+<span class="cstat-no" title="statement not covered" >import { Box, Stack, SlideFade, Flex, Spinner, color } from '@stacks/ui';</span>
 import type { StackProps } from '@stacks/ui';
 <span class="cstat-no" title="statement not covered" >import { TokenAssets } from '@components/popup/token-assets';</span>
 &nbsp;
@@ -233,22 +243,24 @@ function <span class="fstat-no" title="function not covered" >EmptyActivity(</sp
   );
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >ActivityList(</span>) {
-  const { isLoading, value: transactions } = <span class="cstat-no" title="statement not covered" >useAccountActivity();</span>
-&nbsp;
+const ActivityList = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  const transactions = <span class="cstat-no" title="statement not covered" >useAccountActivity();</span>
   const groupedTxs = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =</span>&gt; (<span class="cstat-no" title="statement not covered" >transactions ? createTxDateFormatList(transactions) : [])</span>,
     [transactions]
   );
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isLoading) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  return !transactions || transactions.length === 0 ? (</span>
     &lt;EmptyActivity /&gt;
   ) : (
     &lt;TransactionList txsByDate={groupedTxs} /&gt;
   );
-}
+};
+&nbsp;
+const Loading = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >() =</span>&gt; (</span>
+<span class="cstat-no" title="statement not covered" >  &lt;Flex pb="72px" width="100%" alignItems="center" justifyContent="center" flexGrow={1}&gt;</span>
+    &lt;Spinner size="lg" opacity={0.5} color={color('text-caption')} /&gt;
+  &lt;/Flex&gt;
+));
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >B</span>alancesAndActivity(</span>props: StackProps) {
   const { activeTab, setActiveTab } = <span class="cstat-no" title="statement not covered" >useHomeTabs();</span>
@@ -262,20 +274,23 @@ function <span class="fstat-no" title="function not covered" >ActivityList(</spa
         activeTab={activeTab}
         onTabClick={setActiveTab}
       /&gt;
-      &lt;Box position="relative" flexGrow={1}&gt;
-        &lt;SlideFade in={activeTab === 0}&gt;
-          {<span class="fstat-no" title="function not covered" >styles </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;TokenAssets position="absolute" top={0} left={0} width="100%" style={styles} /&gt;</span>
-          )}
-        &lt;/SlideFade&gt;
-        &lt;SlideFade in={activeTab === 1}&gt;
-          {<span class="fstat-no" title="function not covered" >styles </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;Box position="absolute" top={0} left={0} width="100%" style={styles}&gt;</span>
-              &lt;ActivityList /&gt;
-            &lt;/Box&gt;
-          )}
-        &lt;/SlideFade&gt;
-      &lt;/Box&gt;
+&nbsp;
+      &lt;Flex position="relative" flexGrow={1}&gt;
+        &lt;React.Suspense fallback={&lt;Loading /&gt;}&gt;
+          &lt;SlideFade in={activeTab === 0}&gt;
+            {<span class="fstat-no" title="function not covered" >styles </span>=&gt; (
+<span class="cstat-no" title="statement not covered" >              &lt;TokenAssets position="absolute" top={0} left={0} width="100%" style={styles} /&gt;</span>
+            )}
+          &lt;/SlideFade&gt;
+          &lt;SlideFade in={activeTab === 1}&gt;
+            {<span class="fstat-no" title="function not covered" >styles </span>=&gt; (
+<span class="cstat-no" title="statement not covered" >              &lt;Box position="absolute" top={0} left={0} width="100%" style={styles}&gt;</span>
+                &lt;ActivityList /&gt;
+              &lt;/Box&gt;
+            )}
+          &lt;/SlideFade&gt;
+        &lt;/React.Suspense&gt;
+      &lt;/Flex&gt;
     &lt;/Stack&gt;
   );
 }
@@ -286,7 +301,7 @@ function <span class="fstat-no" title="function not covered" >ActivityList(</spa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

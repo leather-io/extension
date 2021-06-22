@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -86,18 +86,7 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -112,23 +101,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,28 +130,17 @@ export const <span class="cstat-no" title="statement not covered" >TransactionPa
   const pageTitle = <span class="cstat-no" title="statement not covered" >useTransactionPageTitle();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
 <span class="cstat-no" title="statement not covered" >  if (!transactionRequest) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-&nbsp;
   const appName = <span class="cstat-no" title="statement not covered" >transactionRequest?.appDetails?.name;</span>
-&nbsp;
-  const testnetAddition = <span class="cstat-no" title="statement not covered" >network.isTestnet ? (</span>
-    &lt;&gt;
-      {' '}
-      on &lt;br /&gt;
-      {getUrlHostname(network.url)}
-    &lt;/&gt;
-  ) : null;
+  const originAddition = <span class="cstat-no" title="statement not covered" >origin ? ` (${getUrlHostname(origin)})` : '';</span>
+  const testnetAddition = <span class="cstat-no" title="statement not covered" >network.isTestnet ? ` using ${getUrlHostname(network.url)}` : '';</span>
+  const caption = <span class="cstat-no" title="statement not covered" >appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Stack pt="extra-loose" spacing="base"&gt;
       &lt;Title fontWeight="bold" as="h1"&gt;
         {pageTitle}
       &lt;/Title&gt;
-      {appName ? (
-        &lt;Caption&gt;
-          Requested by {appName} {origin ? `(${getUrlHostname(origin)})` : null}
-          {testnetAddition}
-        &lt;/Caption&gt;
-      ) : null}
+      {caption &amp;&amp; &lt;Caption wordBreak="break-word"&gt;{caption}&lt;/Caption&gt;}
     &lt;/Stack&gt;
   );
 });
@@ -184,7 +151,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionPa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

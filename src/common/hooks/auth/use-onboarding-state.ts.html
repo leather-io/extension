@@ -95,6 +95,28 @@
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -105,34 +127,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useRecoilValue } from 'recoil';</span>
-<span class="cstat-no" title="statement not covered" >import {</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import {</span>
   authRequestState,
   currentScreenState,
   magicRecoveryCodeState,
@@ -141,18 +140,19 @@
   secretKeyState,
   usernameState,
 } from '@store/onboarding';
+<span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >useOnboardingState = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>) =</span>&gt; {</span>
-  const secretKey = <span class="cstat-no" title="statement not covered" >useRecoilValue(secretKeyState);</span>
-  const screen = <span class="cstat-no" title="statement not covered" >useRecoilValue(currentScreenState);</span>
+  const secretKey = <span class="cstat-no" title="statement not covered" >useAtomValue(secretKeyState);</span>
+  const screen = <span class="cstat-no" title="statement not covered" >useAtomValue(currentScreenState);</span>
 &nbsp;
   const { authRequest, decodedAuthRequest, appName, appIcon, appURL } =
-<span class="cstat-no" title="statement not covered" >    useRecoilValue(authRequestState);</span>
+<span class="cstat-no" title="statement not covered" >    useAtomValue(authRequestState);</span>
 &nbsp;
-  const magicRecoveryCode = <span class="cstat-no" title="statement not covered" >useRecoilValue(magicRecoveryCodeState);</span>
-  const isOnboardingInProgress = <span class="cstat-no" title="statement not covered" >useRecoilValue(onboardingProgressState);</span>
-  const username = <span class="cstat-no" title="statement not covered" >useRecoilValue(usernameState);</span>
-  const onboardingPath = <span class="cstat-no" title="statement not covered" >useRecoilValue(onboardingPathState);</span>
+  const magicRecoveryCode = <span class="cstat-no" title="statement not covered" >useAtomValue(magicRecoveryCodeState);</span>
+  const isOnboardingInProgress = <span class="cstat-no" title="statement not covered" >useAtomValue(onboardingProgressState);</span>
+  const username = <span class="cstat-no" title="statement not covered" >useAtomValue(usernameState);</span>
+  const onboardingPath = <span class="cstat-no" title="statement not covered" >useAtomValue(onboardingPathState);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
     secretKey,
@@ -175,7 +175,7 @@ export const <span class="cstat-no" title="statement not covered" >useOnboarding
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:45:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Jun 22 2021 03:35:31 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
