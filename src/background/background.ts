@@ -11,8 +11,6 @@ import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
   MessageFromContentScript,
-  InternalMethods,
-  MESSAGE_SOURCE,
 } from '@common/message-types';
 
 import type { VaultActions } from '@background/vault-types';
@@ -21,33 +19,23 @@ import { vaultMessageHandler } from '@background/vault';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
-function setAppParamOfSourceInstallingExtension() {
-  // The app url is saved for use after onboarding
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const appUrl = urlParams.get('app');
-  // Left for testing only
-  // const appUrl = 'http://localhost:3000/';
-  if (appUrl) window.localStorage.setItem('appUrl', appUrl);
-}
+const CHROME_STORE_URL =
+  'https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj/';
 
-function getAppParamOfSourceInstallingExtension() {
-  const appUrl = window.localStorage.getItem('appUrl') || undefined;
-  return appUrl;
+function removeStoreTabAfterInstall() {
+  chrome.tabs.query({ lastFocusedWindow: true }, async tabs => {
+    // Should FF be added here too?
+    const appTab = tabs?.find(tab => tab.url === CHROME_STORE_URL);
+    if (appTab?.id) {
+      await chrome.tabs.remove(appTab.id);
+    }
+  });
 }
 
 // Listen for install event
 chrome.runtime.onInstalled.addListener(async details => {
   if (details.reason === 'install' && !IS_TEST_ENV) {
-    setAppParamOfSourceInstallingExtension();
-    const appUrl = getAppParamOfSourceInstallingExtension();
-    // Reload the app tab right after install to detect the extension
-    chrome.tabs.query({ lastFocusedWindow: true }, async tabs => {
-      const appTab = tabs?.find(tab => tab.url === appUrl);
-      if (appTab?.id) {
-        await chrome.tabs.reload(appTab?.id);
-      }
-    });
+    removeStoreTabAfterInstall();
     await chrome.tabs.create({
       url: chrome.runtime.getURL(`full-page.html#${ScreenPaths.INSTALLED}`),
     });
@@ -92,34 +80,39 @@ chrome.runtime.onConnect.addListener(port => {
   }
 });
 
-function redirectToAppTab() {
-  const appUrl = getAppParamOfSourceInstallingExtension();
+function goBackToApp() {
   chrome.tabs.query({ lastFocusedWindow: true }, async tabs => {
-    const appTab = tabs?.find(tab => tab.url === appUrl);
-    if (appTab?.id) {
-      await chrome.tabs.update(appTab?.id, { active: true });
-      chrome.tabs.sendMessage(appTab?.id, {
-        source: MESSAGE_SOURCE,
-        method: InternalMethods.completeOnboarding,
-        payload: undefined,
-      });
-    } else {
-      // Only open a new tab if the user has closed the app tab
-      await chrome.tabs.create({
-        url: appUrl,
-      });
+    // Tab in last position (active tab) is the wallet extension
+    // Tab in the second to last position should be the app tab
+    // However, this is not a guarantee but w/out making changes to
+    // connect, not sure how else to accomplish finding the app tab?
+    //
+    // Option discussed to close the ext tab here, but not
+    // sure we want to make that decision for the user?
+    const appTabId = tabs[tabs.length - 2].id;
+    if (appTabId) {
+      await chrome.tabs.update(appTabId, { active: true });
+      await chrome.tabs.reload(appTabId);
     }
   });
+  return true;
 }
 
 // Listen for events triggered by the background memory vault
 chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendResponse) => {
+  let redirect;
   // Only respond to internal messages from our UI, not content scripts in other applications
   if (!sender.url?.startsWith(chrome.runtime.getURL(''))) return;
   // Go back to app tab after setting password
-  if (message.method === 'completeOnboarding') {
+  if (message.method === 'redirectAfterSetPassword') {
     // Delay redirect for a smoother transition
-    setTimeout(() => redirectToAppTab(), 500);
+    const timer = setTimeout(() => {
+      redirect = goBackToApp();
+    }, 500);
+
+    if (redirect) {
+      clearTimeout(timer);
+    }
   }
   void vaultMessageHandler(message).then(sendResponse).catch(sendResponse);
   // Return true to specify that we are responding async
