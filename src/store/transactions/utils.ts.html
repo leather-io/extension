@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.43% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/14</span>
+                <span class='fraction'>8/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.08% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/13</span>
+                <span class='fraction'>8/13</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,8 +85,8 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -94,13 +94,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -122,13 +122,13 @@ import {
 } from '@stacks/connect';
 import { TransactionPayloadWithAttachment } from '@store/transactions/index';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >getPayloadFromToken(</span>requestToken: string) {
-<span class="cstat-no" title="statement not covered" >  if (!requestToken) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
-  const token = <span class="cstat-no" title="statement not covered" >decodeToken(requestToken);</span>
-  const payload = <span class="cstat-no" title="statement not covered" >token.payload as unknown as TransactionPayloadWithAttachment;</span>
+export function getPayloadFromToken(requestToken: string) {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!requestToken) <span class="cstat-no" title="statement not covered" >return undefined;</span>
+  const token = decodeToken(requestToken);
+  const payload = token.payload as unknown as TransactionPayloadWithAttachment;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (payload.txType === TransactionTypes.ContractCall)</span>
-<span class="cstat-no" title="statement not covered" >    return payload as ContractCallPayload &amp; {</span>
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.txType === TransactionTypes.ContractCall)
+    return payload as ContractCallPayload &amp; {
       attachment?: string;
     };
 <span class="cstat-no" title="statement not covered" >  if (payload.txType === TransactionTypes.ContractDeploy)</span>
@@ -148,7 +148,7 @@ export function <span class="fstat-no" title="function not covered" >getPayloadF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 11:54:31 GMT+0000 (Coordinated Universal Time)
+                at Fri Jun 25 2021 09:56:51 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
