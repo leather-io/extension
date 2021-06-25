@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>0/36</span>
             </div>
         
             
@@ -204,7 +204,16 @@
 <a name='L145'></a><a href='#L145'>145</a>
 <a name='L146'></a><a href='#L146'>146</a>
 <a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -260,6 +269,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,6 +283,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -407,14 +425,23 @@ const c1 = <span class="cstat-no" title="statement not covered" >capsize({</span
   fontSize: 14,
   leading: 20,
 });
+&nbsp;
 const c2 = <span class="cstat-no" title="statement not covered" >capsize({</span>
   fontMetrics: interMetrics,
   fontSize: 12,
   leading: 16,
 });
 &nbsp;
-const captionStyles = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>ariant?: 'c1' | 'c2') =&gt; {</span>
+const c3 = <span class="cstat-no" title="statement not covered" >capsize({</span>
+  fontMetrics: interMetrics,
+  fontSize: 10,
+  leading: 16,
+});
+&nbsp;
+const captionStyles = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>ariant?: 'c1' | 'c2' | 'c3') =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  switch (variant) {</span>
+    case 'c3':
+<span class="cstat-no" title="statement not covered" >      return c3;</span>
     case 'c2':
 <span class="cstat-no" title="statement not covered" >      return c2;</span>
     default:
@@ -485,7 +512,7 @@ export const <span class="cstat-no" title="statement not covered" >Text = forwar
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >Body: React.FC&lt;BoxProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >p</span>rops </span>=&gt; <span class="cstat-no" title="statement not covered" >&lt;Text css={c1} {...props} /&gt;;</span></span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >Caption = forwardRefWithAs&lt;{ variant?: 'c1' | 'c2' } &amp; BoxProps, 'span'&gt;(</span>
+export const <span class="cstat-no" title="statement not covered" >Caption = forwardRefWithAs&lt;{ variant?: 'c1' | 'c2' | 'c3' } &amp; BoxProps, 'span'&gt;(</span>
 <span class="fstat-no" title="function not covered" >  ({</span> variant, ...props }, ref) =&gt; (
 <span class="cstat-no" title="statement not covered" >    &lt;BaseText</span>
       fontFeatureSettings={`'ss01' on`}
@@ -505,7 +532,7 @@ export const <span class="cstat-no" title="statement not covered" >Caption = for
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 25 2021 09:56:51 GMT+0000 (Coordinated Universal Time)
+                at Fri Jun 25 2021 12:11:49 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
