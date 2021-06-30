@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/13</span>
+                <span class='fraction'>12/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -70,31 +70,31 @@
 <a name='L11'></a><a href='#L11'>11</a>
 <a name='L12'></a><a href='#L12'>12</a>
 <a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L14'></a><a href='#L14'>14</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { fetcher } from '@common/api/wrapped-fetch';
 &nbsp;
-export const withApiServer = <span class="fstat-no" title="function not covered" >(a</span>piServer: string) =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>ath?: string) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >  path ? apiServer + path : apiServer;</span>
+export const withApiServer = (apiServer: string) =&gt; (path?: string) =&gt;
+  path ? apiServer + path : <span class="branch-1 cbranch-no" title="branch not covered" >apiServer;</span>
 &nbsp;
 export const fetchFromSidecar =
-<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  async </span>(path: string, opts = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {</span>
-    const url = <span class="cstat-no" title="statement not covered" >withApiServer(apiServer)('/extended/v1' + path);</span>
-    const response = <span class="cstat-no" title="statement not covered" >await fetcher(url, { ...opts });</span>
-<span class="cstat-no" title="statement not covered" >    if (!response.ok) <span class="cstat-no" title="statement not covered" >throw new Error(`Unable to fetch API data from ${url}`);</span></span>
-<span class="cstat-no" title="statement not covered" >    return response.json();</span>
+  (apiServer: string) =&gt;
+  async (path: string, opts = {}) =&gt; {
+    const url = withApiServer(apiServer)('/extended/v1' + path);
+    const response = await fetcher(url, { ...opts });
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!response.ok) <span class="cstat-no" title="statement not covered" >throw new Error(`Unable to fetch API data from ${url}`);</span>
+    return response.json();
   };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -103,7 +103,7 @@ export const fetchFromSidecar =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 19:05:56 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 30 2021 19:32:08 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

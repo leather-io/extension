@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">64.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>9/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -106,16 +106,14 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,9 +122,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,14 +153,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, color, IconButton, Stack, Text } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { SpaceBetween } from '@components/space-between';</span>
-<span class="cstat-no" title="statement not covered" >import { IconDots } from '@tabler/icons';</span>
-<span class="cstat-no" title="statement not covered" >import { Caption } from '@components/typography';</span>
-<span class="cstat-no" title="statement not covered" >import { AssetItem } from '@pages/transaction-signing/components/asset-item';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { Box, color, IconButton, Stack, Text } from '@stacks/ui';
+import { SpaceBetween } from '@components/space-between';
+import { IconDots } from '@tabler/icons';
+import { Caption } from '@components/typography';
+import { AssetItem } from '@pages/transaction-signing/components/asset-item';
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >TransactionEventCard: React.FC&lt;any&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span></span>
+export const TransactionEventCard: React.FC&lt;any&gt; = ({
   title,
   left,
   right,
@@ -173,29 +173,29 @@ export const <span class="cstat-no" title="statement not covered" >TransactionEv
   actions,
   isLast,
 }) =&gt; {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;&gt;
       &lt;Stack spacing="base-loose" p="base-loose"&gt;
         &lt;SpaceBetween position="relative"&gt;
           &lt;Text fontWeight={500} fontSize={2}&gt;
             {title}
           &lt;/Text&gt;
-          {actions &amp;&amp; &lt;IconButton size="24px" icon={IconDots} position="absolute" right={0} /&gt;}
+          {actions &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;IconButton size="24px" icon={IconDots} position="absolute" right={0} /&gt;}</span>
         &lt;/SpaceBetween&gt;
         &lt;AssetItem iconString={icon} amount={amount} ticker={ticker} /&gt;
-        {left || right ? (
+        {left || <span class="branch-1 cbranch-no" title="branch not covered" >right </span>? (
           &lt;SpaceBetween&gt;
-            {left ? &lt;Caption&gt;{left}&lt;/Caption&gt; : &lt;Box /&gt;}
+            {left ? &lt;Caption&gt;{left}&lt;/Caption&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Box /&gt;}</span>
             {right &amp;&amp; &lt;Caption&gt;{right}&lt;/Caption&gt;}
           &lt;/SpaceBetween&gt;
-        ) : null}
+        ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
       &lt;/Stack&gt;
       {message &amp;&amp; (
         &lt;Box
           p="base-loose"
           borderTop="1px solid"
           borderColor={color('border')}
-          borderBottom={!isLast ? '4px solid' : 'unset'}
+          borderBottom={!isLast ? <span class="branch-0 cbranch-no" title="branch not covered" >'4px solid' </span>: 'unset'}
           borderBottomColor={color('border')}
         &gt;
           &lt;Caption&gt;{message}&lt;/Caption&gt;
@@ -211,7 +211,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionEv
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 19:05:56 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 30 2021 19:32:08 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.06% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.06% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -103,39 +103,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type {
   AddressBalanceResponse,
@@ -147,17 +147,17 @@ import { fetchPendingTxs } from '@common/api/transactions';
 import { fetchFromSidecar } from '@common/api/fetch';
 &nbsp;
 export const fetchBalances =
-<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (p</span>rincipal: string): Promise&lt;AddressBalanceResponse&gt; =&gt; {</span>
-    const path = <span class="cstat-no" title="statement not covered" >`/address/${principal}/balances`;</span>
-<span class="cstat-no" title="statement not covered" >    return fetchFromSidecar(apiServer)(path);</span>
+  (apiServer: string) =&gt;
+  (principal: string): Promise&lt;AddressBalanceResponse&gt; =&gt; {
+    const path = `/address/${principal}/balances`;
+    return fetchFromSidecar(apiServer)(path);
   };
 &nbsp;
 export const fetchTransactions =
-<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  (p</span>rincipal: string): Promise&lt;TransactionResults&gt; =&gt; {</span>
-    const path = <span class="cstat-no" title="statement not covered" >`/address/${principal}/transactions?limit=50`;</span>
-<span class="cstat-no" title="statement not covered" >    return fetchFromSidecar(apiServer)(path);</span>
+  (apiServer: string) =&gt;
+  (principal: string): Promise&lt;TransactionResults&gt; =&gt; {
+    const path = `/address/${principal}/transactions?limit=50`;
+    return fetchFromSidecar(apiServer)(path);
   };
 &nbsp;
 export interface AllAccountData {
@@ -167,15 +167,15 @@ export interface AllAccountData {
 }
 &nbsp;
 export const fetchAllAccountData =
-<span class="fstat-no" title="function not covered" >  (a</span>piServer: string) =&gt;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  async </span>(principal: string): Promise&lt;AllAccountData&gt; =&gt; {</span>
-    const [balances, transactions, pendingTransactions] = <span class="cstat-no" title="statement not covered" >await Promise.all([</span>
+  (apiServer: string) =&gt;
+  async (principal: string): Promise&lt;AllAccountData&gt; =&gt; {
+    const [balances, transactions, pendingTransactions] = await Promise.all([
       fetchBalances(apiServer)(principal),
       fetchTransactions(apiServer)(principal),
       fetchPendingTxs(apiServer)({ query: principal }),
     ]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return { balances, transactions, pendingTransactions };</span>
+    return { balances, transactions, pendingTransactions };
   };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -184,7 +184,7 @@ export const fetchAllAccountData =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 19:05:56 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 30 2021 19:32:08 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
