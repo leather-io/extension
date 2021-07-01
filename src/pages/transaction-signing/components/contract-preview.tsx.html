@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -108,14 +108,12 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,9 +121,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,12 +157,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { color, DynamicColorCircle, Stack, StackProps } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { Caption, Title } from '@components/typography';</span>
-<span class="cstat-no" title="statement not covered" >import { truncateMiddle } from '@stacks/ui-utils';</span>
-<span class="cstat-no" title="statement not covered" >import React from 'react';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { color, DynamicColorCircle, Stack, StackProps } from '@stacks/ui';
+import { Caption, Title } from '@components/typography';
+import { truncateMiddle } from '@stacks/ui-utils';
+import React from 'react';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >C</span>ontractPreview(</span>{
+export function ContractPreview({
   contractAddress,
   contractName,
   functionName,
@@ -174,7 +174,7 @@
   contractName: string;
   functionName?: string;
 } &amp; StackProps) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Stack
       p="base"
       borderRadius="12px"
@@ -188,23 +188,23 @@
           ? {
               cursor: 'pointer',
             }
-          : undefined
+          : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
       }
       {...rest}
     &gt;
       &lt;DynamicColorCircle
         size="42px"
         position="relative"
-        string={`${contractAddress}.${contractName}${functionName ? `::${functionName}` : ''}`}
+        string={`${contractAddress}.${contractName}${functionName ? `::${functionName}` : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>`}
         backgroundSize="100%"
       /&gt;
       &lt;Stack spacing="base-tight"&gt;
         &lt;Title as="h3" fontWeight="500"&gt;
-          {functionName || contractName}
+          {functionName || <span class="branch-1 cbranch-no" title="branch not covered" >contractName}</span>
         &lt;/Title&gt;
         &lt;Caption&gt;
-          {truncateMiddle(contractAddress, functionName ? 4 : 6)}
-          {functionName ? `.${contractName}` : ''}
+          {truncateMiddle(contractAddress, functionName ? 4 : <span class="branch-1 cbranch-no" title="branch not covered" >6)</span>}
+          {functionName ? `.${contractName}` : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>
         &lt;/Caption&gt;
       &lt;/Stack&gt;
     &lt;/Stack&gt;
@@ -217,7 +217,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 01 2021 20:53:19 GMT+0000 (Coordinated Universal Time)
+                at Thu Jul 01 2021 20:56:00 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
