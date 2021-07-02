@@ -101,7 +101,7 @@
     "use-events": "1.4.2",
     "use-latest": "1.2.0",
     "valid-url": "1.0.9",
-    "web-ext": "6.1.0",
+    "web-ext": "6.2.0",
     "ws": "7.4.6",
     "zxcvbn": "4.4.2"
   },
@@ -189,7 +189,7 @@
     "tsconfig-paths-webpack-plugin": "3.5.1",
     "typescript": "4.2.4",
     "vm-browserify": "1.1.2",
-    "web-ext": "6.1.0",
+    "web-ext": "6.2.0",
     "web-ext-submit": "6.1.0",
     "webpack": "5.37.0",
     "webpack-bundle-analyzer": "4.4.1",
