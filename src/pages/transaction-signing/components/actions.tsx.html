@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>0/55</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/52</span>
+                <span class='fraction'>0/53</span>
             </div>
         
             
@@ -191,7 +191,17 @@
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -206,11 +216,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -220,8 +225,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -233,6 +237,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,6 +286,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,6 +360,7 @@
 <span class="cstat-no" title="statement not covered" >import { TransactionErrorReason } from './transaction-error';</span>
 <span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
 <span class="cstat-no" title="statement not covered" >import { LoadingRectangle } from '@components/loading-rectangle';</span>
+<span class="cstat-no" title="statement not covered" >import { TransactionsSelectors } from '@tests/integration/transactions.selectors';</span>
 &nbsp;
 const MinimalErrorMessageSuspense = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >(p</span>rops: StackProps) =&gt; {</span>
   const error = <span class="cstat-no" title="statement not covered" >useTransactionError();</span>
@@ -366,7 +387,15 @@ const MinimalErrorMessageSuspense = <span class="cstat-no" title="statement not 
 <span class="cstat-no" title="statement not covered" >    return null;</span>
   };
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack alignItems="center" bg="#FCEEED" p="base" borderRadius="12px" isInline {...props}&gt;
+    &lt;Stack
+      data-test={TransactionsSelectors.TransactionErrorMessage}
+      alignItems="center"
+      bg="#FCEEED"
+      p="base"
+      borderRadius="12px"
+      isInline
+      {...props}
+    &gt;
       &lt;Box color={color('feedback-error')} strokeWidth={2} as={FiAlertTriangle} /&gt;
       &lt;Caption color={color('feedback-error')}&gt;{getTitle()}&lt;/Caption&gt;
     &lt;/Stack&gt;
@@ -391,7 +420,7 @@ const SubmitActionSuspense = <span class="cstat-no" title="statement not covered
   const handleBroadcastTransaction = <span class="cstat-no" title="statement not covered" >useTransactionBroadcast();</span>
   const error = <span class="cstat-no" title="statement not covered" >useTransactionError();</span>
   const { setIsLoading, setIsIdle, isLoading } = <span class="cstat-no" title="statement not covered" >useLoading(LOADING_KEYS.SUBMIT_TRANSACTION);</span>
-  //
+&nbsp;
   const isDisabled = <span class="cstat-no" title="statement not covered" >!!error;</span>
 &nbsp;
   const handleSubmit = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
@@ -402,6 +431,7 @@ const SubmitActionSuspense = <span class="cstat-no" title="statement not covered
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;BaseConfirmButton
+      data-test={TransactionsSelectors.BtnConfirmTransaction}
       onClick={handleSubmit}
       isLoading={isLoading}
       isDisabled={isDisabled}
@@ -466,7 +496,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionsA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 06 2021 13:14:07 GMT+0000 (Coordinated Universal Time)
+                at Wed Jul 07 2021 18:31:58 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
