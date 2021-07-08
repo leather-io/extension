@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -102,10 +102,10 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -113,16 +113,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,10 +139,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { ErrorLabel } from '@components/error-label';</span>
-<span class="cstat-no" title="statement not covered" >import React, { memo } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { SendFormSelectors } from '@tests/integration/page-objects/send-form.selectors';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
+import { ErrorLabel } from '@components/error-label';
+import React, { memo } from 'react';
+import { SendFormSelectors } from '@tests/integration/page-objects/send-form.selectors';
 &nbsp;
 interface RecipientField extends StackProps {
   value: string;
@@ -158,8 +158,8 @@ interface RecipientField extends StackProps {
   error?: string;
 }
 // TODO: this should use a new "Field" component (with inline label like in figma)
-export const <span class="cstat-no" title="statement not covered" >RecipientField = memo(<span class="fstat-no" title="function not covered" >({</span> value, onChange, error, ...rest }: RecipientField) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const RecipientField = memo(({ value, onChange, error, ...rest }: RecipientField) =&gt; {
+  return (
     &lt;Stack width="100%" {...rest}&gt;
       &lt;InputGroup flexDirection="column"&gt;
         &lt;Text
@@ -181,11 +181,11 @@ export const <span class="cstat-no" title="statement not covered" >RecipientFiel
           onChange={onChange}
           placeholder="Enter an address"
           autoComplete="off"
-          data-test={SendFormSelectors.InputRecipientField}
+          data-testid={SendFormSelectors.InputRecipientField}
         /&gt;
       &lt;/InputGroup&gt;
       {error &amp;&amp; (
-        &lt;ErrorLabel data-test={SendFormSelectors.InputRecipientFieldErrorLabel}&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;ErrorLabel data-testid={SendFormSelectors.InputRecipientFieldErrorLabel}&gt;</span>
           &lt;Text textStyle="caption"&gt;{error}&lt;/Text&gt;
         &lt;/ErrorLabel&gt;
       )}
@@ -199,7 +199,7 @@ export const <span class="cstat-no" title="statement not covered" >RecipientFiel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 08 2021 14:42:12 GMT+0000 (Coordinated Universal Time)
+                at Thu Jul 08 2021 16:20:04 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
