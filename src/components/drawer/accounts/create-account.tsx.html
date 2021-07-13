@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -124,15 +124,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -140,6 +133,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,10 +155,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useCallback, useEffect, useState } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, Flex, Button, Stack } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
-<span class="cstat-no" title="statement not covered" >import { Body } from '@components/typography';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useEffect, useState } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
+import { Box, Flex, Button, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { Body } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface CreateAccountProps {
   close: () =&gt; void;
@@ -170,28 +170,28 @@ interface CreateAccountProps {
 &nbsp;
 const TIMEOUT = <span class="cstat-no" title="statement not covered" >3000;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >CreateAccount: React.FC&lt;CreateAccountProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span> close }) =&gt; {</span>
-  const { doCreateNewAccount } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
-  const [isSetting, setSetting] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-  const [hasFired, setHasFired] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+export const <span class="cstat-no" title="statement not covered" >CreateAccount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;CreateAccountProps&gt; = ({ c</span></span>lose }) =&gt; {</span>
+  const { doCreateNewAccount<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+  const [isSetting, setSetting<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
+  const [hasFired, setHasFired<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
 &nbsp;
-  const createAccount = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
+  const createAccount = useCallback(async () =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (!isSetting) {</span>
 <span class="cstat-no" title="statement not covered" >      setSetting(true);</span>
-<span class="cstat-no" title="statement not covered" >      await doCreateNewAccount();</span>
+      await <span class="cstat-no" title="statement not covered" >doCreateNewAccount();</span>
 <span class="cstat-no" title="statement not covered" >      setSetting(false);</span>
-<span class="cstat-no" title="statement not covered" >      window.setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >close(),</span> TIMEOUT);</span>
+<span class="cstat-no" title="statement not covered" >      window.setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; <span class="cstat-no" title="statement not covered" >c</span>lose(), T</span>IMEOUT);</span>
     }
   }, [doCreateNewAccount, isSetting, setSetting, close]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (!hasFired) {</span>
 <span class="cstat-no" title="statement not covered" >      setHasFired(true);</span>
-<span class="cstat-no" title="statement not covered" >      void createAccount();</span>
+      void <span class="cstat-no" title="statement not covered" >createAccount();</span>
     }
   }, [createAccount, hasFired]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Box width="100%" px="extra-loose"&gt;
       &lt;Stack spacing="base"&gt;
         &lt;Body&gt;Your new account has been created.&lt;/Body&gt;
@@ -217,7 +217,7 @@ export const <span class="cstat-no" title="statement not covered" >CreateAccount
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

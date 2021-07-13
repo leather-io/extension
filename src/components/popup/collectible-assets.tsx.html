@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -111,12 +111,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,31 +129,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo } from 'react';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
 import type { StackProps } from '@stacks/ui';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { getAssetStringParts } from '@stacks/ui-utils';</span>
-<span class="cstat-no" title="statement not covered" >import { useFetchAccountData } from '@common/hooks/account/use-account-info';</span>
-<span class="cstat-no" title="statement not covered" >import { AssetItem } from '@components/asset-item';</span>
-<span class="cstat-no" title="statement not covered" >import { Stack } from '@stacks/ui';</span>
+import { getAssetStringParts } from '@stacks/ui-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { useFetchAccountData } from '@common/hooks/account/use-account-info'<span class="cstat-no" title="statement not covered" >;</span>
+import { AssetItem } from '@components/asset-item'<span class="cstat-no" title="statement not covered" >;</span>
+import { Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >CollectibleAssets = memo(<span class="fstat-no" title="function not covered" >(p</span>rops: StackProps) =&gt; {</span>
-  const accountData = <span class="cstat-no" title="statement not covered" >useFetchAccountData();</span>
-<span class="cstat-no" title="statement not covered" >  if (!accountData) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+export const <span class="cstat-no" title="statement not covered" >CollectibleAssets<span class="cstat-no" title="statement not covered" > = memo((p</span>rops: StackProps) =&gt; {</span>
+  const accountData<span class="cstat-no" title="statement not covered" > = useFetchAccountData();</span>
+<span class="cstat-no" title="statement not covered" >  if (!accountData<span class="cstat-no" title="statement not covered" >) return null;</span></span>
 &nbsp;
   const balances = <span class="cstat-no" title="statement not covered" >accountData.balances;</span>
   const noCollectibles = <span class="cstat-no" title="statement not covered" >Object.keys(balances.non_fungible_tokens).length === 0;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (noCollectibles) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (noCollectibles<span class="cstat-no" title="statement not covered" >) return null;</span></span>
   const keys = <span class="cstat-no" title="statement not covered" >Object.keys(balances.non_fungible_tokens);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Stack {...props}&gt;
-      {keys.map(<span class="fstat-no" title="function not covered" >key </span>=&gt; {
+      {keys.map<span class="fstat-no" title="function not covered" >(k</span>ey =&gt; {
         const collectible = <span class="cstat-no" title="statement not covered" >balances.non_fungible_tokens[key];</span>
-        const { assetName, contractName } = <span class="cstat-no" title="statement not covered" >getAssetStringParts(key);</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
+        const { assetName, contractName<span class="cstat-no" title="statement not covered" > } = getAssetStringParts(key);</span>
+        return (
           &lt;AssetItem
             amount={collectible.count}
             avatar={key}
@@ -172,7 +172,7 @@ export const <span class="cstat-no" title="statement not covered" >CollectibleAs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -80,29 +80,29 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useTransactionRequest } from '@common/hooks/use-transaction-request';</span>
-<span class="cstat-no" title="statement not covered" >import { useMemo } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { TransactionTypes } from '@stacks/connect';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useTransactionRequest } from '@common/hooks/use-transaction-request'<span class="cstat-no" title="statement not covered" >;</span>
+import { useMemo } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { TransactionTypes } from '@stacks/connect'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >u</span>seTransactionPageTitle(</span>) {
-  const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequest();</span>
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useTransactionPageTitle(</span>) {</span>
+  const transactionRequest<span class="cstat-no" title="statement not covered" > = useTransactionRequest();</span>
   const txType = <span class="cstat-no" title="statement not covered" >transactionRequest?.txType;</span>
-<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!transactionRequest) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >    if (txType === TransactionTypes.STXTransfer) <span class="cstat-no" title="statement not covered" >return 'Confirm transfer';</span></span>
-<span class="cstat-no" title="statement not covered" >    if (txType === TransactionTypes.ContractDeploy) <span class="cstat-no" title="statement not covered" >return 'Deploy contract';</span></span>
-<span class="cstat-no" title="statement not covered" >    if (txType === TransactionTypes.ContractCall &amp;&amp; 'functionName' in transactionRequest)</span>
-<span class="cstat-no" title="statement not covered" >      return transactionRequest.functionName || 'Sign transaction';</span>
-<span class="cstat-no" title="statement not covered" >    return 'Sign transaction';</span>
+  return useMemo(() =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (!transactionRequest<span class="cstat-no" title="statement not covered" >) return;</span></span>
+<span class="cstat-no" title="statement not covered" >    if (txType === TransactionTypes.STXTransfer<span class="cstat-no" title="statement not covered" >) return 'Confirm transfer';</span></span>
+<span class="cstat-no" title="statement not covered" >    if (txType === TransactionTypes.ContractDeploy<span class="cstat-no" title="statement not covered" >) return 'Deploy contract';</span></span>
+<span class="cstat-no" title="statement not covered" >    if (txType === TransactionTypes.ContractCall &amp;&amp; 'functionName' in transactionRequest<span class="cstat-no" title="statement not covered" >)</span></span>
+      return transactionRequest.functionName || 'Sign transaction';
+    return <span class="cstat-no" title="statement not covered" >'Sign transaction';</span>
   }, [transactionRequest, txType]);
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -112,7 +112,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

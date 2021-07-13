@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/10</span>
+                <span class='fraction'>4/10</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/9</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,31 +87,31 @@
 <a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as React from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >React<span class="fstat-no" title="function not covered" > from 'react';</span></span></span>
 import Tippy, { TippyProps } from '@tippyjs/react';
 import { Box, BoxProps } from '@stacks/ui';
 import { memo, useMemo } from 'react';
@@ -121,17 +121,17 @@ interface TooltipProps extends TippyProps {
   labelProps?: BoxProps;
 }
 export const Tooltip: React.FC&lt;TooltipProps&gt; = memo(
-<span class="fstat-no" title="function not covered" >  ({</span> label, labelProps = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> children, ...rest }) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (!label) <span class="cstat-no" title="statement not covered" >return &lt;&gt;{children}&lt;/&gt;;</span></span>
-    const content = <span class="cstat-no" title="statement not covered" >useMemo(</span>
-<span class="fstat-no" title="function not covered" >      () =</span>&gt; (
-<span class="cstat-no" title="statement not covered" >        &lt;Box as="span" display="block" fontSize={0} {...labelProps}&gt;</span>
+  ({ label, labelProps<span class="branch-0 cbranch-no" title="branch not covered" > = {}, children<span class="cstat-no" title="statement not covered" >,</span> ...r</span>est<span class="cstat-no" title="statement not covered" > }) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!label<span class="cstat-no" title="statement not covered" >) return &lt;&gt;{children}&lt;/&gt;;</span></span>
+    const content = useMemo(
+      () =&gt; (
+        &lt;Box as="span" display="block" fontSize={0} {...labelProps}&gt;
           {label}
         &lt;/Box&gt;
       ),
       [labelProps, label]
     );
-<span class="cstat-no" title="statement not covered" >    return (</span>
+    return (
       &lt;Tippy content={content} trigger="mouseenter" hideOnClick={undefined} {...rest}&gt;
         {children}
       &lt;/Tippy&gt;
@@ -145,7 +145,7 @@ export const Tooltip: React.FC&lt;TooltipProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

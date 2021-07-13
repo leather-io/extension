@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.11% </span>
+                <span class="strong">84.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/47</span>
+                <span class='fraction'>39/46</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.11% </span>
+                <span class="strong">87.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/36</span>
+                <span class='fraction'>29/33</span>
             </div>
         
             
@@ -154,6 +154,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,7 +163,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -170,16 +170,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -187,7 +187,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -198,9 +198,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
@@ -211,7 +211,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChainID, createAssetInfo } from '@stacks/transactions';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChainID, createAssetInfo } from <span class="cstat-no" title="statement not covered" >'@stacks/transactions';</span>
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
 import { getAssetStringParts } from '@stacks/ui-utils';
@@ -267,27 +267,27 @@ export const validateStacksAddress = (stacksAddress: string): boolean =&gt; {
     c32addressDecode(stacksAddress);
     return true;
   } catch (e) {
-<span class="cstat-no" title="statement not covered" >    return false;</span>
+    return <span class="cstat-no" title="statement not covered" >false;</span>
   }
 };
 &nbsp;
-export const makeAssetInfo = <span class="fstat-no" title="function not covered" >(a</span>ssetIdentifier: string) =&gt; {
+export const makeAssetInfo<span class="fstat-no" title="function not covered" > = (a</span>ssetIdentifier: string) =&gt; {
   const {
     address: contractAddress,
     contractName,
-    assetName,
-  } = <span class="cstat-no" title="statement not covered" >getAssetStringParts(assetIdentifier);</span>
-<span class="cstat-no" title="statement not covered" >  return createAssetInfo(contractAddress, contractName, assetName);</span>
+    assetName<span class="cstat-no" title="statement not covered" >,</span>
+  } = getAssetStringParts(assetIdentifier);
+  return createAssetInfo(contractAddress, contractName, assetName);
 };
 &nbsp;
 export function validateAddressChain(address: string, currentNetwork: Network) {
   const prefix = address.substr(0, 2);
   <span class="missing-if-branch" title="else path not taken" >E</span>if (currentNetwork.chainId === ChainID.Testnet) return prefix === 'SN' || prefix === 'ST';
-<span class="cstat-no" title="statement not covered" >  if (currentNetwork.chainId === ChainID.Mainnet) <span class="cstat-no" title="statement not covered" >return prefix === 'SM' || prefix === 'SP';</span></span>
-<span class="cstat-no" title="statement not covered" >  return false;</span>
+<span class="cstat-no" title="statement not covered" >  if (currentNetwork.chainId === ChainID.Mainnet<span class="cstat-no" title="statement not covered" >) return prefix === 'SM' || prefix === 'SP';</span></span>
+  return <span class="cstat-no" title="statement not covered" >false;</span>
 }
 &nbsp;
-export const getTicker = <span class="fstat-no" title="function not covered" >(a</span>ssetName: string) =&gt; <span class="cstat-no" title="statement not covered" >assetName.slice(0, 3).toUpperCase();</span>
+export const getTicker<span class="fstat-no" title="function not covered" > = (a</span>ssetName: string) =&gt; <span class="cstat-no" title="statement not covered" >assetName.slice(0, 3).toUpperCase();</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -295,7 +295,7 @@ export const getTicker = <span class="fstat-no" title="function not covered" >(a
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

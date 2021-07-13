@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -98,8 +98,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -115,46 +115,46 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo, useState } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
-<span class="cstat-no" title="statement not covered" >import { SetPasswordPage } from '@pages/set-password';</span>
-<span class="cstat-no" title="statement not covered" >import { Unlock } from '@components/unlock';</span>
-<span class="cstat-no" title="statement not covered" >import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view';</span>
-<span class="cstat-no" title="statement not covered" >import { SignedOut } from '@pages/signed-out/signed-out-view';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useState } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span></span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { SetPasswordPage } from '@pages/set-password'<span class="cstat-no" title="statement not covered" >;</span>
+import { Unlock } from '@components/unlock'<span class="cstat-no" title="statement not covered" >;</span>
+import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view'<span class="cstat-no" title="statement not covered" >;</span>
+import { SignedOut } from '@pages/signed-out/signed-out-view'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >enum S</span>tep {</span>
-<span class="cstat-no" title="statement not covered" >  VIEW_KEY = 1,</span>
-<span class="cstat-no" title="statement not covered" >  SET_PASSWORD = 2,</span>
+enum <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >Step </span></span>{</span></span>
+  VIEW_KEY = 1,
+  SET_PASSWORD = 2,
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >AccountGate: React.FC = memo(<span class="fstat-no" title="function not covered" >({</span> children }) =&gt; {</span>
-  const [step, setStep] = <span class="cstat-no" title="statement not covered" >useState&lt;Step&gt;(Step.VIEW_KEY);</span>
-  const { hasRehydratedVault, hasSetPassword, isSignedIn, encryptedSecretKey } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+export const <span class="cstat-no" title="statement not covered" >AccountGate<span class="cstat-no" title="statement not covered" >: React.FC = memo(({ c</span>hildren }) =&gt; {</span>
+  const [step, setStep<span class="cstat-no" title="statement not covered" >] = useState&lt;Step&gt;(Step.VIEW_KEY);</span>
+  const { hasRehydratedVault, hasSetPassword, isSignedIn, encryptedSecretKey<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!hasRehydratedVault) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (isSignedIn &amp;&amp; hasSetPassword) <span class="cstat-no" title="statement not covered" >return &lt;&gt;{children}&lt;/&gt;;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!hasRehydratedVault<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (isSignedIn &amp;&amp; hasSetPassword<span class="cstat-no" title="statement not covered" >) return &lt;&gt;{children}&lt;/&gt;;</span></span>
 &nbsp;
-  const needsToSetPassword = <span class="cstat-no" title="statement not covered" >(isSignedIn || encryptedSecretKey) &amp;&amp; !hasSetPassword;</span>
+  const needsToSetPassword<span class="cstat-no" title="statement not covered" > = (isSignedIn || encryptedSecretKey) &amp;&amp; !hasSetPassword;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (needsToSetPassword) {</span>
 <span class="cstat-no" title="statement not covered" >    if (step === Step.VIEW_KEY) {</span>
-<span class="cstat-no" title="statement not covered" >      return &lt;SaveYourKeyView hideActions handleNext={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setStep(Step.SET_PASSWORD)}</span> /&gt;;</span>
+      return &lt;SaveYourKeyView hideActions handleNext<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etStep(Step.SET_PASSWORD)} /&gt;;</span>
     } else <span class="cstat-no" title="statement not covered" >if (step === Step.SET_PASSWORD) {</span>
-<span class="cstat-no" title="statement not covered" >      return &lt;SetPasswordPage /&gt;;</span>
+      return &lt;SetPasswordPage /&gt;;
     }
   }
 <span class="cstat-no" title="statement not covered" >  if (!isSignedIn &amp;&amp; encryptedSecretKey) {</span>
-<span class="cstat-no" title="statement not covered" >    return &lt;Unlock /&gt;;</span>
+    return &lt;Unlock /&gt;;
   }
-<span class="cstat-no" title="statement not covered" >  return &lt;SignedOut /&gt;;</span>
+  return &lt;SignedOut /&gt;;
 });
 &nbsp;</pre></td></tr></table></pre>
 
@@ -163,7 +163,7 @@ export const <span class="cstat-no" title="statement not covered" >AccountGate: 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/common/dev/types/vk-qr.d.ts</title>
+    <title>Code coverage report for src/features/errors/app-error-boundary.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/common/dev/types</a> vk-qr.d.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/features/errors</a> app-error-boundary.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -113,7 +113,26 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,6 +169,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,73 +183,69 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">type QrOptions = {
-  /**
-   * Size of QR code
-   * @default 128
-   */
-  qrSize?: number;
-  /**
-   * Class name of root SVG element
-   */
-  className?: string;
-  /**
-   * Show VK logo in center of QR code
-   * @default false
-   */
-  isShowLogo?: boolean;
-  /**
-   * Show QR background
-   * @default false
-   */
-  isShowBackground?: boolean;
-  /**
-   * QR code background HEX color. Works if `isShowBackground` is enabled.
-   * @default "#ffffff"
-   */
-  backgroundColor?: string;
-  /**
-   * QR code HEX color
-   */
-  foregroundColor?: string;
-  /**
-   * Color of logo
-   * @default "#000000"
-   */
-  logoColor?: string;
-  /**
-   * Reference to logo as a reference IRI
-   */
-  logoData?: string | null;
-  /**
-   * SVG elements id postfix
-   */
-  suffix?: string;
-  /**
-   * ECC Level
-   */
-  ecc?: number;
-};
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomValue } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
+import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
+import { Box, Button, CodeBlock, color, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { Prism } from '@common/clarity-prism'<span class="cstat-no" title="statement not covered" >;</span>
+import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
+import { errorStackTraceState } from '@store/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { ErrorBoundary, FallbackProps } from '@features/errors/error-boundary'<span class="cstat-no" title="statement not covered" >;</span>
+import { Title } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
+import { openGithubIssue, useErrorHandler } from '@features/errors/utils'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-declare module '@vkontakte/vk-qr' {
-  /**
-   * Generates SVG QR code by a text
-   * @param text String to encode
-   * @param options QR code options
-   */
-  export function createQR(text: string, options?: QrOptions): string;
+function <span class="fstat-no" title="function not covered" >ErrorFallback(</span>{ error, resetErrorBoundary }: FallbackProps) {
+  const value<span class="cstat-no" title="statement not covered" > = useAtomValue(errorStackTraceState);</span>
+  return (
+    &lt;PopupContainer header={&lt;Header /&gt;}&gt;
+      &lt;Stack spacing="extra-loose" flexGrow={1}&gt;
+        &lt;Title fontSize={3}&gt;Something went wrong&lt;/Title&gt;
+        &lt;Box className="error-codeblock" maxWidth="100vw" overflow="hidden"&gt;
+          {value &amp;&amp; (
+            &lt;CodeBlock
+              maxWidth="100%"
+              flexShrink={1}
+              overflow="auto"
+              maxHeight="305px"
+              border="4px solid"
+              borderColor={color('border')}
+              borderRadius="12px"
+              backgroundColor="ink.1000"
+              width="100%"
+              code={value as string}
+              language="bash"
+              Prism={Prism as any}
+            /&gt;
+          )}
+        &lt;/Box&gt;
+        &lt;Stack mt="auto" spacing="base"&gt;
+          &lt;Button onClick={resetErrorBoundary}&gt;Reload extension&lt;/Button&gt;
+          &lt;Button
+            mode="tertiary"
+            onClick={() =&gt; openGithubIssue({ message: error.message, stackTrace: value })}
+          &gt;
+            Report issue on GitHub
+          &lt;/Button&gt;
+        &lt;/Stack&gt;
+      &lt;/Stack&gt;
+    &lt;/PopupContainer&gt;
+  );
 }
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >AppErrorBoundary<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = ({ c</span></span>hildren }) =&gt; {</span>
+  const handleOnError<span class="cstat-no" title="statement not covered" > = useErrorHandler();</span>
+  return (
+    &lt;ErrorBoundary
+      onReset<span class="fstat-no" title="function not covered" >={() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        window.location.reload();</span>
+      }}
+      FallbackComponent={ErrorFallback}
+      onError={handleOnError}
+    &gt;
+      {children}
+    &lt;/ErrorBoundary&gt;
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -232,17 +253,17 @@ declare module '@vkontakte/vk-qr' {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     

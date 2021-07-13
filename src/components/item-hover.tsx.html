@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/12</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/11</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -109,12 +109,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,9 +134,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,18 +148,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, BoxProps, color, transition } from '@stacks/ui';
-import React from 'react';
+import React from <span class="cstat-no" title="statement not covered" >'react';</span>
 import { useFocus, useHover } from 'use-events';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >ItemHover(</span>{
+export function <span class="fstat-no" title="function not covered" >ItemHover(<span class="cstat-no" title="statement not covered" ></span>{</span>
   isFocused,
   isHovered,
-  ...rest
+  ...rest<span class="cstat-no" title="statement not covered" ></span>
 }: {
   isFocused: boolean;
   isHovered: boolean;
 } &amp; BoxProps) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Box
       opacity={isFocused || isHovered ? 1 : 0}
       transition={transition}
@@ -176,12 +176,12 @@ export function <span class="fstat-no" title="function not covered" >ItemHover(<
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >usePressable(</span>isPressable?: boolean) {
-  const [isHovered, bind] = <span class="cstat-no" title="statement not covered" >useHover();</span>
-  const [isFocused, focusBind] = <span class="cstat-no" title="statement not covered" >useFocus();</span>
+  const [isHovered, bind<span class="cstat-no" title="statement not covered" >] = useHover();</span>
+  const [isFocused, focusBind<span class="cstat-no" title="statement not covered" >] = useFocus();</span>
 &nbsp;
-  const component = <span class="cstat-no" title="statement not covered" >&lt;ItemHover isHovered={isHovered} isFocused={isFocused} /&gt;;</span>
-<span class="cstat-no" title="statement not covered" >  if (!isPressable) <span class="cstat-no" title="statement not covered" >return [null, {}];</span></span>
-<span class="cstat-no" title="statement not covered" >  return [</span>
+  const component = &lt;ItemHover isHovered={isHovered} isFocused={isFocused} /&gt;;
+  if (!isPressable) return [null, {}];
+  return [
     component,
     {
       ...bind,
@@ -199,7 +199,7 @@ export function <span class="fstat-no" title="function not covered" >usePressabl
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

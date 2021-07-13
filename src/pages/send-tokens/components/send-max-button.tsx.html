@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">81.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>13/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -106,13 +106,12 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,30 +134,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { FC, Suspense } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { FC, Suspense } from <span class="cstat-no" title="statement not covered" >'react';</span>
 import { Box, color, ButtonProps } from '@stacks/ui';
 import { useCurrentFee } from '@common/hooks/use-current-fee';
-import { SendFormSelectors } from '@tests/integration/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 &nbsp;
 const SendMaxButton: FC&lt;ButtonProps&gt; = props =&gt; (
   &lt;Box
@@ -185,9 +185,9 @@ interface SendMaxProps extends ButtonProps {
 }
 function SendMax({ onSetMax, ...props }: SendMaxProps) {
   const fee = useCurrentFee();
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;SendMaxButton
-      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onSetMax(fee)}</span>
+      onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSetMax(fee)}</span>
       data-testid={SendFormSelectors.BtnSendMaxBalance}
       {...props}
     /&gt;
@@ -200,7 +200,7 @@ interface SendMaxWithSuspense extends SendMaxProps {
 export function SendMaxWithSuspense({ showButton, onSetMax, ...props }: SendMaxWithSuspense) {
   return (
     &lt;Suspense fallback={&lt;SendMaxButton isDisabled /&gt;}&gt;
-      {showButton ? &lt;SendMax onSetMax={<span class="fstat-no" title="function not covered" >fee </span>=&gt; <span class="cstat-no" title="statement not covered" >onSetMax(fee)}</span> {...props} /&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+      {showButton ? &lt;SendMax onSetMax<span class="fstat-no" title="function not covered" >={f</span>ee =&gt; <span class="cstat-no" title="statement not covered" >onSetMax(fee)} {...p</span>rops} /&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
     &lt;/Suspense&gt;
   );
 }
@@ -211,7 +211,7 @@ export function SendMaxWithSuspense({ showButton, onSetMax, ...props }: SendMaxW
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

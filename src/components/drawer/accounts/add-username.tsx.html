@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -177,6 +177,22 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -193,7 +209,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -212,42 +227,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useState } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, Text, Input, Button, Flex } from '@stacks/ui';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { Box, Text, Input, Button, Flex } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 // import { ErrorLabel } from '@components/error-label';
-<span class="cstat-no" title="statement not covered" >import { buildEnterKeyEvent } from '@components/link';</span>
+import { buildEnterKeyEvent } from '@components/link'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface AddUsernameProps {
   close: () =&gt; void;
 }
-export const <span class="cstat-no" title="statement not covered" >AddUsername: React.FC&lt;AddUsernameProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span> close }) =&gt; {</span>
-  const { wallet, currentAccount, setWallet } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
-  const [username, setUsername] = <span class="cstat-no" title="statement not covered" >useState('');</span>
-  const [loading, setLoading] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+export const <span class="cstat-no" title="statement not covered" >AddUsername<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;AddUsernameProps&gt; = ({ c</span></span>lose }) =&gt; {</span>
+  const { wallet, currentAccount, setWallet<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+  const [username, setUsername<span class="cstat-no" title="statement not covered" >] = useState('');</span>
+  const [loading, setLoading<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!wallet || !currentAccount) {</span>
-<span class="cstat-no" title="statement not covered" >    return null;</span>
+    return <span class="cstat-no" title="statement not covered" >null;</span>
   }
-  const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  const onSubmit<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    setLoading(true);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    try {</span>
+    try <span class="cstat-no" title="statement not covered" >{</span>
       // TODO: implement new BNS registrar
       // await registerSubdomain({
       //   username,
@@ -262,7 +262,7 @@ export const <span class="cstat-no" title="statement not covered" >AddUsername: 
 <span class="cstat-no" title="statement not covered" >      console.error(error);</span>
     }
   };
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Box width="100%" px={6}&gt;
       &lt;Box&gt;
         &lt;Text fontSize={4} fontWeight="600"&gt;
@@ -277,7 +277,7 @@ export const <span class="cstat-no" title="statement not covered" >AddUsername: 
             autoFocus
             isDisabled={loading}
             value={username}
-            onChange={<span class="fstat-no" title="function not covered" >(e</span>vt: React.FormEvent&lt;HTMLInputElement&gt;) =&gt;
+            onChange<span class="fstat-no" title="function not covered" >={(e</span>vt: React.FormEvent&lt;HTMLInputElement&gt;) =&gt;
 <span class="cstat-no" title="statement not covered" >              setUsername(evt.currentTarget.value)</span>
             }
             onKeyPress={buildEnterKeyEvent(onSubmit)}
@@ -319,7 +319,7 @@ export const <span class="cstat-no" title="statement not covered" >AddUsername: 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

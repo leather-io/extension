@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -143,22 +143,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,27 +158,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { Box, color, Stack } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { Caption } from '@components/typography';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, color, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { Caption } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { stacksValue } from '@common/stacks-utils';</span>
-<span class="cstat-no" title="statement not covered" >import React from 'react';</span>
+import { stacksValue } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { CurrentUserAvatar } from '@features/current-user/current-user-avatar';</span>
-<span class="cstat-no" title="statement not covered" >import { CurrentUsername } from '@features/current-user/current-user-name';</span>
-<span class="cstat-no" title="statement not covered" >import { CurrentStxAddress } from '@features/current-user/current-stx-address';</span>
-<span class="cstat-no" title="statement not covered" >import { useAccountInfo } from '@common/hooks/account/use-account-balances';</span>
-<span class="cstat-no" title="statement not covered" >import { LoadingRectangle } from '@components/loading-rectangle';</span>
+import { CurrentUserAvatar } from '@features/current-user/current-user-avatar'<span class="cstat-no" title="statement not covered" >;</span>
+import { CurrentUsername } from '@features/current-user/current-user-name'<span class="cstat-no" title="statement not covered" >;</span>
+import { CurrentStxAddress } from '@features/current-user/current-stx-address'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAccountInfo } from '@common/hooks/account/use-account-balances'<span class="cstat-no" title="statement not covered" >;</span>
+import { LoadingRectangle } from '@components/loading-rectangle'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-const Balance = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-  const info = <span class="cstat-no" title="statement not covered" >useAccountInfo();</span>
-<span class="cstat-no" title="statement not covered" >  return info?.balance ? (</span>
+const Balance<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
+  const info<span class="cstat-no" title="statement not covered" > = useAccountInfo();</span>
+  return <span class="cstat-no" title="statement not covered" >info?.balance ? (</span>
     &lt;Caption&gt;
       {stacksValue({
         value: info.balance.toString(10),
@@ -203,8 +203,8 @@ const Balance = <span class="cstat-no" title="statement not covered" ><span clas
   ) : null;
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >P</span>opupHeaderFallback(</span>) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >PopupHeaderFallback(</span>) {</span>
+  return (
     &lt;Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}&gt;
       &lt;Stack isInline alignItems="center" width="100%" justifyContent="space-between"&gt;
         &lt;Stack isInline alignItems="center"&gt;
@@ -218,8 +218,8 @@ const Balance = <span class="cstat-no" title="statement not covered" ><span clas
   );
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >P</span>opupHeaderSuspense(</span>) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >PopupHeaderSuspense(</span>) {</span>
+  return (
     &lt;Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}&gt;
       &lt;Stack isInline alignItems="center" width="100%" justifyContent="space-between"&gt;
         &lt;Stack isInline alignItems="center"&gt;
@@ -233,8 +233,8 @@ const Balance = <span class="cstat-no" title="statement not covered" ><span clas
   );
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >PopupHeader = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>) =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const <span class="cstat-no" title="statement not covered" >PopupHeader<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
+  return (
     &lt;React.Suspense fallback={&lt;PopupHeaderFallback /&gt;}&gt;
       &lt;PopupHeaderSuspense /&gt;
     &lt;/React.Suspense&gt;
@@ -247,7 +247,7 @@ export const <span class="cstat-no" title="statement not covered" >PopupHeader =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

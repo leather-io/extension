@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.67% </span>
+                <span class="strong">96.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/30</span>
+                <span class='fraction'>26/27</span>
             </div>
         
             
@@ -143,27 +143,27 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">117x</span>
-<span class="cline-any cline-yes">117x</span>
-<span class="cline-any cline-yes">117x</span>
-<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-yes">122x</span>
+<span class="cline-any cline-yes">122x</span>
+<span class="cline-any cline-yes">122x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">115x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,7 +175,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,7 +215,7 @@ export const transactionContractInterfaceState = atom&lt;
   undefined | ContractInterfaceResponseWithFunctions
 &gt;(async get =&gt; {
   const payload = get(requestTokenPayloadState);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (payload<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>xType !== TransactionTypes.ContractCall) <span class="cstat-no" title="statement not covered" >return;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (payload?.txType<span class="branch-0 cbranch-no" title="branch not covered" > !== TransactionTypes.ContractCall<span class="cstat-no" title="statement not covered" >) return;</span></span>
   try {
     const data = get(
       contractInterfaceState({
@@ -223,7 +223,7 @@ export const transactionContractInterfaceState = atom&lt;
         contractAddress: payload.contractAddress,
       })
     );
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!data) <span class="cstat-no" title="statement not covered" >return undefined;</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!data<span class="cstat-no" title="statement not covered" >) return undefined;</span>
     return data as ContractInterfaceResponseWithFunctions;
   } catch (e) {
     return undefined;
@@ -232,7 +232,7 @@ export const transactionContractInterfaceState = atom&lt;
 &nbsp;
 export const transactionContractSourceState = atom(get =&gt; {
   const payload = get(requestTokenPayloadState);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (payload<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>xType !== TransactionTypes.ContractCall) <span class="cstat-no" title="statement not covered" >return;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (payload?.txType<span class="branch-0 cbranch-no" title="branch not covered" > !== TransactionTypes.ContractCall<span class="cstat-no" title="statement not covered" >) return;</span></span>
   try {
     return get(
       contractSourceState({
@@ -253,7 +253,7 @@ export const transactionFunctionsState = atom(get =&gt; {
     })
   );
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!payload || payload.txType !== 'contract_call' || !contractInterface) <span class="cstat-no" title="statement not covered" >return undefined;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!payload || payload.txType !== 'contract_call' || !contractInterface<span class="cstat-no" title="statement not covered" >) return undefined;</span>
 &nbsp;
   const selectedFunction = contractInterface.functions.find(func =&gt; {
     return func.name === payload.functionName;
@@ -277,7 +277,7 @@ transactionFunctionsState.debugLabel = 'transactionFunctionsState';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

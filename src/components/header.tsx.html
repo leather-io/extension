@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/20</span>
+                <span class='fraction'>20/22</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">88.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/20</span>
+                <span class='fraction'>15/17</span>
             </div>
         
             
@@ -142,7 +142,7 @@
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,7 +155,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,7 +171,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,10 +180,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,7 +227,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="branch-0 cbranch-no" title="branch not covered" >'react';</span>
 import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
 import { IconArrowLeft, IconDots } from '@tabler/icons';
 &nbsp;
@@ -244,8 +244,8 @@ const MenuButton: React.FC&lt;BoxProps&gt; = memo(props =&gt; {
     &lt;IconButton
       size="36px"
       iconSize="20px"
-      onMouseUp={showSettings ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setShowSettings(true)}</span>
-      pointerEvents={showSettings ? <span class="branch-0 cbranch-no" title="branch not covered" >'none' </span>: 'all'}
+      onMouseUp={showSettings ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined<span class="fstat-no" title="function not covered" > </span>: () =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowSettings(true)}</span>
+      pointerEvents={showSettings<span class="branch-0 cbranch-no" title="branch not covered" > ? 'none' : '</span>all'}
       color={color('text-caption')}
       _hover={{ color: color('text-title') }}
       data-testid="menu-button"
@@ -271,14 +271,14 @@ export const Header: React.FC&lt;HeaderProps&gt; = memo(props =&gt; {
   return (
     &lt;Flex
       p="loose"
-      alignItems={hideActions ? <span class="branch-0 cbranch-no" title="branch not covered" >'center' </span>: 'flex-start'}
+      alignItems={hideActions<span class="branch-0 cbranch-no" title="branch not covered" > ? 'center' : '</span>flex-start'}
       justifyContent="space-between"
       position="relative"
       {...rest}
     &gt;
       {!title ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Stack alignItems="center" pt="7px" isInline&gt;</span>
-          &lt;StacksWalletLogo onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >doChangeScreen(ScreenPaths.HOME)}</span> /&gt;
+        &lt;Stack alignItems="center" pt="7px" isInline&gt;
+          &lt;StacksWalletLogo onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >d</span>oChangeScreen(ScreenPaths.HOME)} /&gt;</span>
           {VERSION ? (
             &lt;Caption
               pt="extra-tight"
@@ -292,7 +292,7 @@ export const Header: React.FC&lt;HeaderProps&gt; = memo(props =&gt; {
           ) : null}
         &lt;/Stack&gt;
       ) : (
-        &lt;Box pt={onClose ? 'loose' : <span class="branch-1 cbranch-no" title="branch not covered" >'unset'}</span> pr="tight"&gt;
+        &lt;Box pt={onClose ? 'loose'<span class="branch-1 cbranch-no" title="branch not covered" > : 'unset'} p</span>r="tight"&gt;
           {onClose ? (
             &lt;IconButton
               top="base-tight"
@@ -305,7 +305,7 @@ export const Header: React.FC&lt;HeaderProps&gt; = memo(props =&gt; {
           &lt;HeaderTitle&gt;{title}&lt;/HeaderTitle&gt;
         &lt;/Box&gt;
       )}
-      &lt;Stack flexShrink={0} pt={hideActions ? <span class="branch-0 cbranch-no" title="branch not covered" >'7px' </span>: 0} alignItems="center" isInline&gt;
+      &lt;Stack flexShrink={0} pt={hideActions<span class="branch-0 cbranch-no" title="branch not covered" > ? '7px' : 0</span>} alignItems="center" isInline&gt;
         &lt;NetworkModeBadge /&gt;
         {!hideActions &amp;&amp; &lt;MenuButton /&gt;}
       &lt;/Stack&gt;
@@ -319,7 +319,7 @@ export const Header: React.FC&lt;HeaderProps&gt; = memo(props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

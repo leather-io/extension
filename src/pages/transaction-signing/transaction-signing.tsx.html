@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -103,7 +103,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,23 +116,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { PopupHeader } from '@pages/transaction-signing/components/popup-header';</span>
-<span class="cstat-no" title="statement not covered" >import { PopupContainer } from '@components/popup/container';</span>
-<span class="cstat-no" title="statement not covered" >import { TransactionsActions } from '@pages/transaction-signing/components/actions';</span>
-<span class="cstat-no" title="statement not covered" >import { TransactionError } from './components/transaction-error';</span>
-<span class="cstat-no" title="statement not covered" >import { TransactionPageTop } from '@pages/transaction-signing/components/transaction-page-top';</span>
-<span class="cstat-no" title="statement not covered" >import { ContractCallDetails } from '@pages/transaction-signing/components/contract-call-details';</span>
-<span class="cstat-no" title="statement not covered" >import { ContractDeployDetails } from '@pages/transaction-signing/components/contract-deploy-details';</span>
-<span class="cstat-no" title="statement not covered" >import { PostConditions } from '@pages/transaction-signing/components/post-conditions/list';</span>
-<span class="cstat-no" title="statement not covered" >import { StxTransferDetails } from '@pages/transaction-signing/components/stx-transfer-details';</span>
-<span class="cstat-no" title="statement not covered" >import { useTransactionRequest } from '@common/hooks/use-transaction-request';</span>
-<span class="cstat-no" title="statement not covered" >import { Stack } from '@stacks/ui';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
+import { PopupHeader } from '@pages/transaction-signing/components/popup-header'<span class="cstat-no" title="statement not covered" >;</span>
+import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
+import { TransactionsActions } from '@pages/transaction-signing/components/actions'<span class="cstat-no" title="statement not covered" >;</span>
+import { TransactionError } from './components/transaction-error'<span class="cstat-no" title="statement not covered" >;</span>
+import { TransactionPageTop } from '@pages/transaction-signing/components/transaction-page-top'<span class="cstat-no" title="statement not covered" >;</span>
+import { ContractCallDetails } from '@pages/transaction-signing/components/contract-call-details'<span class="cstat-no" title="statement not covered" >;</span>
+import { ContractDeployDetails } from '@pages/transaction-signing/components/contract-deploy-details'<span class="cstat-no" title="statement not covered" >;</span>
+import { PostConditions } from '@pages/transaction-signing/components/post-conditions/list'<span class="cstat-no" title="statement not covered" >;</span>
+import { StxTransferDetails } from '@pages/transaction-signing/components/stx-transfer-details'<span class="cstat-no" title="statement not covered" >;</span>
+import { useTransactionRequest } from '@common/hooks/use-transaction-request'<span class="cstat-no" title="statement not covered" >;</span>
+import { Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >TransactionPage = memo(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-  const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequest();</span>
-<span class="cstat-no" title="statement not covered" >  if (!transactionRequest) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const <span class="cstat-no" title="statement not covered" >TransactionPage<span class="cstat-no" title="statement not covered" > = memo(() =&gt; {</span></span>
+  const transactionRequest<span class="cstat-no" title="statement not covered" > = useTransactionRequest();</span>
+<span class="cstat-no" title="statement not covered" >  if (!transactionRequest<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+  return (
     &lt;PopupContainer header={&lt;PopupHeader /&gt;}&gt;
       &lt;Stack spacing="loose"&gt;
         &lt;TransactionPageTop /&gt;
@@ -154,7 +154,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionPa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -109,14 +109,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,10 +122,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,34 +147,25 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { Transaction } from '@stacks/stacks-blockchain-api-types';
-<span class="cstat-no" title="statement not covered" >import { createTxDateFormatList } from './group-txs-by-date';</span>
+import { createTxDateFormatList } from './group-txs-by-date'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >createFakeTx(</span>tx: Partial&lt;Transaction&gt;) {
-<span class="cstat-no" title="statement not covered" >  return { tx_status: 'success', ...tx } as Transaction;</span>
+  return { tx_status: 'success', ...tx } as Transaction;
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >describe(createTxDateFormatList.name, <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  test('grouping by date', <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-    const mockTx = <span class="cstat-no" title="statement not covered" >createFakeTx({</span>
+<span class="cstat-no" title="statement not covered" >describe(createTxDateFormatList.name<span class="fstat-no" title="function not covered" >, () =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >  test('grouping by date'<span class="fstat-no" title="function not covered" >, () =&gt; {</span></span>
+    const mockTx = createFakeTx({
       burn_block_time_iso: '1991-02-08T13:48:04.699Z',
     });
-<span class="cstat-no" title="statement not covered" >    expect(createTxDateFormatList([mockTx])).toEqual([</span>
+    expect(createTxDateFormatList([mockTx])).toEqual([
       {
         date: '1991-02-08',
         displayDate: 'Feb 8th, 1991',
@@ -174,29 +174,29 @@ function <span class="fstat-no" title="function not covered" >createFakeTx(</spa
     ]);
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  test('relative dates todays date', <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  test('relative dates todays date'<span class="fstat-no" title="function not covered" >, () =&gt; {</span></span>
     const today = <span class="cstat-no" title="statement not covered" >new Date().toISOString();</span>
-    const mockTx = <span class="cstat-no" title="statement not covered" >createFakeTx({ burn_block_time_iso: today });</span>
-    const result = <span class="cstat-no" title="statement not covered" >createTxDateFormatList([mockTx]);</span>
+    const mockTx = createFakeTx({ burn_block_time_iso: today });
+    const result = createTxDateFormatList([mockTx]);
 <span class="cstat-no" title="statement not covered" >    expect(result[0].date).toEqual(today.split('T')[0]);</span>
 <span class="cstat-no" title="statement not covered" >    expect(result[0].displayDate).toEqual('Today');</span>
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  test('relative dates yesterdays date', <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  test('relative dates yesterdays date'<span class="fstat-no" title="function not covered" >, () =&gt; {</span></span>
     const yesterday = <span class="cstat-no" title="statement not covered" >new Date();</span>
 <span class="cstat-no" title="statement not covered" >    yesterday.setDate(yesterday.getDate() - 1);</span>
-    const mockTx = <span class="cstat-no" title="statement not covered" >createFakeTx({ burn_block_time_iso: yesterday.toISOString() });</span>
-    const result = <span class="cstat-no" title="statement not covered" >createTxDateFormatList([mockTx]);</span>
+    const mockTx = createFakeTx({ burn_block_time_iso: yesterday.toISOString() });
+    const result = createTxDateFormatList([mockTx]);
 <span class="cstat-no" title="statement not covered" >    expect(result[0].date).toEqual(yesterday.toISOString().split('T')[0]);</span>
 <span class="cstat-no" title="statement not covered" >    expect(result[0].displayDate).toEqual('Yesterday');</span>
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  test('dates from this year omit year', <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  test('dates from this year omit year'<span class="fstat-no" title="function not covered" >, () =&gt; {</span></span>
     const date = <span class="cstat-no" title="statement not covered" >new Date();</span>
 <span class="cstat-no" title="statement not covered" >    date.setFullYear(date.getFullYear());</span>
 <span class="cstat-no" title="statement not covered" >    date.setMonth(6);</span>
-    const mockTx = <span class="cstat-no" title="statement not covered" >createFakeTx({ burn_block_time_iso: date.toISOString() });</span>
-    const result = <span class="cstat-no" title="statement not covered" >createTxDateFormatList([mockTx]);</span>
+    const mockTx = createFakeTx({ burn_block_time_iso: date.toISOString() });
+    const result = createTxDateFormatList([mockTx]);
 <span class="cstat-no" title="statement not covered" >    expect(result[0].date).toEqual(date.toISOString().split('T')[0]);</span>
 <span class="cstat-no" title="statement not covered" >    expect(result[0].displayDate).not.toContain(new Date().getFullYear());</span>
   });
@@ -208,7 +208,7 @@ function <span class="fstat-no" title="function not covered" >createFakeTx(</spa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

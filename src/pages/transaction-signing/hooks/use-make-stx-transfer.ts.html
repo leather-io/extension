@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">80.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/35</span>
+                <span class='fraction'>25/31</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/32</span>
+                <span class='fraction'>24/27</span>
             </div>
         
             
@@ -143,7 +143,7 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -162,7 +162,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -176,7 +176,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,27 +206,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomCallback, waitForAll } from 'jotai/utils';
@@ -260,7 +260,7 @@ export function useMakeStxTransfer() {
         true
       );
 &nbsp;
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (!account) <span class="cstat-no" title="statement not covered" >return;</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!account<span class="cstat-no" title="statement not covered" >) return;</span>
 &nbsp;
       return makeSTXTokenTransfer({
         recipient,
@@ -296,13 +296,13 @@ export function useMakeTransferEffect({
   const { selectedAsset } = useSelectedAsset();
   const handleMakeStxTransaction = useMakeStxTransfer();
   const handleMakeFtTransaction = useMakeAssetTransfer();
-  const isActive = isShowing &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!!amount </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!!recipient;</span>
+  const isActive = isShowing<span class="branch-1 cbranch-no" title="branch not covered" > &amp;&amp; !!amount<span class="branch-2 cbranch-no" title="branch not covered" > </span>&amp;&amp; !!recipient;</span>
   const notLoaded = selectedAsset &amp;&amp; !transaction &amp;&amp; !isLoading;
-  const method = selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype === 'stx' ? <span class="branch-0 cbranch-no" title="branch not covered" >handleMakeStxTransaction </span>: handleMakeFtTransaction;
+  const method = selectedAsset?.type<span class="branch-0 cbranch-no" title="branch not covered" > === 'stx' ? <span class="branch-0 cbranch-no" title="branch not covered" >handleMakeStxTransaction </span>: handleMakeFtTransaction;</span>
 &nbsp;
-  const handleGenerateTransfer = useCallback(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {
+  const handleGenerateTransfer = useCallback(async () =&gt; {
 <span class="cstat-no" title="statement not covered" >    setIsLoading();</span>
-    const tx = <span class="cstat-no" title="statement not covered" >await method({</span>
+    const tx = await method({
       amount,
       recipient,
       memo,
@@ -312,7 +312,7 @@ export function useMakeTransferEffect({
   }, [amount, recipient, memo, method, setTransaction, setIsLoading, setIsIdle]);
 &nbsp;
   useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isActive &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >notLoaded)</span> <span class="cstat-no" title="statement not covered" >void handleGenerateTransfer();</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isActive &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >notLoaded<span class="cstat-no" title="statement not covered" >)</span> void handleGenerateTransfer();</span>
   }, [isActive, notLoaded, setIsLoading, handleGenerateTransfer]);
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -322,7 +322,7 @@ export function useMakeTransferEffect({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

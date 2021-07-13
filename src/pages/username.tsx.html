@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -184,6 +184,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,7 +214,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,42 +237,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useState } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, Text, Button, Input } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { PopupContainer } from '@components/popup/container';</span>
-<span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
-<span class="cstat-no" title="statement not covered" >import { buildEnterKeyEvent } from '@components/link';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
+import { Box, Text, Button, Input } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { buildEnterKeyEvent } from '@components/link'<span class="cstat-no" title="statement not covered" >;</span>
 // import { ErrorLabel } from '@components/error-label';
-<span class="cstat-no" title="statement not covered" >import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';</span>
-<span class="cstat-no" title="statement not covered" >import { Header } from '@components/header';</span>
+import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
+import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >Username: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>) =</span>&gt; {</span>
-  const { wallet, currentAccount, setWallet, doFinishSignIn } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
-  const { decodedAuthRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
-  const [username, setUsername] = <span class="cstat-no" title="statement not covered" >useState('');</span>
-  const [loading, setLoading] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+export const <span class="cstat-no" title="statement not covered" >Username<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
+  const { wallet, currentAccount, setWallet, doFinishSignIn<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+  const { decodedAuthRequest<span class="cstat-no" title="statement not covered" > } = useOnboardingState();</span>
+  const [username, setUsername<span class="cstat-no" title="statement not covered" >] = useState('');</span>
+  const [loading, setLoading<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!wallet || !currentAccount) {</span>
-<span class="cstat-no" title="statement not covered" >    return null;</span>
+    return <span class="cstat-no" title="statement not covered" >null;</span>
   }
-  const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
+  const onSubmit<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = async () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    setLoading(true);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    try {</span>
+    try <span class="cstat-no" title="statement not covered" >{</span>
       // TODO: implement new BNS registrar
       // await registerSubdomain({
       //   username,
@@ -268,13 +268,13 @@ export const <span class="cstat-no" title="statement not covered" >Username: Rea
       // });
 <span class="cstat-no" title="statement not covered" >      setWallet(wallet);</span>
 <span class="cstat-no" title="statement not covered" >      if (decodedAuthRequest) {</span>
-<span class="cstat-no" title="statement not covered" >        await doFinishSignIn(0);</span>
+        await <span class="cstat-no" title="statement not covered" >doFinishSignIn(0);</span>
       }
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      console.error(error);</span>
     }
   };
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;PopupContainer header={&lt;Header title="Choose a username" /&gt;}&gt;
       &lt;Box my="base"&gt;
         &lt;Text fontSize={2}&gt;This is how others will see you in Stacks apps.&lt;/Text&gt;
@@ -288,7 +288,7 @@ export const <span class="cstat-no" title="statement not covered" >Username: Rea
             autoFocus
             isDisabled={loading}
             value={username}
-            onChange={<span class="fstat-no" title="function not covered" >(e</span>vt: React.FormEvent&lt;HTMLInputElement&gt;) =&gt;
+            onChange<span class="fstat-no" title="function not covered" >={(e</span>vt: React.FormEvent&lt;HTMLInputElement&gt;) =&gt;
 <span class="cstat-no" title="statement not covered" >              setUsername(evt.currentTarget.value)</span>
             }
             onKeyPress={buildEnterKeyEvent(onSubmit)}
@@ -334,7 +334,7 @@ export const <span class="cstat-no" title="statement not covered" >Username: Rea
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

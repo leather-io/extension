@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -143,7 +143,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,21 +152,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { color, Box, Stack, StackProps, useClipboard } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { Caption } from '@components/typography';</span>
-<span class="cstat-no" title="statement not covered" >import React, { memo } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { useCurrentAccount } from '@common/hooks/account/use-current-account';</span>
-<span class="cstat-no" title="statement not covered" >import { Tooltip } from '@components/tooltip';</span>
-<span class="cstat-no" title="statement not covered" >import { truncateMiddle } from '@stacks/ui-utils';</span>
-<span class="cstat-no" title="statement not covered" >import { FiCopy } from 'react-icons/fi';</span>
-<span class="cstat-no" title="statement not covered" >import { CurrentUserAvatar } from '@features/current-user/current-user-avatar';</span>
-<span class="cstat-no" title="statement not covered" >import { CurrentUsername } from '@features/current-user/current-user-name';</span>
-<span class="cstat-no" title="statement not covered" >import { UserAreaSelectors } from '@tests/integration/user-area.selectors';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { color, Box, Stack, StackProps, useClipboard } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { Caption } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
+import React, { memo } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
+import { useCurrentAccount } from '@common/hooks/account/use-current-account'<span class="cstat-no" title="statement not covered" >;</span>
+import { Tooltip } from '@components/tooltip'<span class="cstat-no" title="statement not covered" >;</span>
+import { truncateMiddle } from '@stacks/ui-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { FiCopy } from 'react-icons/fi'<span class="cstat-no" title="statement not covered" >;</span>
+import { CurrentUserAvatar } from '@features/current-user/current-user-avatar'<span class="cstat-no" title="statement not covered" >;</span>
+import { CurrentUsername } from '@features/current-user/current-user-name'<span class="cstat-no" title="statement not covered" >;</span>
+import { UserAreaSelectors } from '@tests/integration/user-area.selectors'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-const UserAddress = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >(p</span>rops: StackProps) =&gt; {</span>
-  const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
-  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(currentAccount?.address || '');</span>
-<span class="cstat-no" title="statement not covered" >  return currentAccount ? (</span>
+const UserAddress<span class="cstat-no" title="statement not covered" > = memo((props: StackProps) =&gt; {</span>
+  const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
+  const { onCopy, hasCopied<span class="cstat-no" title="statement not covered" > } = useClipboard(currentAccount?.address || '');</span>
+  return <span class="cstat-no" title="statement not covered" >currentAccount ? (</span>
     &lt;Tooltip placement="right-end" label={hasCopied ? 'Copied!' : 'Copy address'}&gt;
       &lt;Stack isInline {...props}&gt;
         &lt;Caption&gt;{truncateMiddle(currentAccount.address)}&lt;/Caption&gt;
@@ -185,13 +185,13 @@ const UserAddress = <span class="cstat-no" title="statement not covered" >memo(<
   ) : null;
 });
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >UserAccount: React.FC&lt;StackProps&gt; = memo(<span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
-  const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
+export const <span class="cstat-no" title="statement not covered" >UserAccount<span class="cstat-no" title="statement not covered" >: React.FC&lt;StackProps&gt; = memo(p</span>rops =&gt; {</span>
+  const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
 <span class="cstat-no" title="statement not covered" >  if (!currentAccount) {</span>
 <span class="cstat-no" title="statement not covered" >    console.error('Error! Homepage rendered without account state, which should never happen.');</span>
-<span class="cstat-no" title="statement not covered" >    return null;</span>
+    return <span class="cstat-no" title="statement not covered" >null;</span>
   }
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Stack spacing="base-tight" alignItems="center" isInline {...props}&gt;
       &lt;CurrentUserAvatar /&gt;
       &lt;Stack overflow="hidden" display="block" alignItems="flex-start" spacing="base-tight"&gt;
@@ -208,7 +208,7 @@ export const <span class="cstat-no" title="statement not covered" >UserAccount: 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

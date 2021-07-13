@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">54.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/30</span>
+                <span class='fraction'>12/22</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">54.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/30</span>
+                <span class='fraction'>12/22</span>
             </div>
         
             
@@ -136,39 +136,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -202,16 +202,16 @@ type Handler = (event: PossibleEvent) =&gt; void;
 &nbsp;
 const events: HandledEvents = [MOUSEDOWN, TOUCHSTART];
 &nbsp;
-const getOptions = <span class="fstat-no" title="function not covered" >(e</span>vent: HandledEventsType) =&gt; {
+const getOptions<span class="fstat-no" title="function not covered" > = (e</span>vent: HandledEventsType) =&gt; {
 <span class="cstat-no" title="statement not covered" >  if (event !== TOUCHSTART) {</span>
-<span class="cstat-no" title="statement not covered" >    return;</span>
+    return;
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (arePassiveEventsSupported()) {</span>
-<span class="cstat-no" title="statement not covered" >    return { passive: true };</span>
+    return { passive: true };
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return;</span>
+  return;
 };
 &nbsp;
 export default function useOnClickOutside(
@@ -219,7 +219,7 @@ export default function useOnClickOutside(
   handler: Handler | null
 ) {
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!isBrowser) {
-<span class="cstat-no" title="statement not covered" >    return;</span>
+    return;
   }
 &nbsp;
   const noHandler = !handler;
@@ -230,20 +230,20 @@ export default function useOnClickOutside(
       return;
     }
 &nbsp;
-    const listener = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>vent: PossibleEvent) =&gt; {</span>
+    const listener<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (e</span>vent: PossibleEvent) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (!ref.current || !handlerRef.current || ref.current.contains(event.target as Node)) {</span>
-<span class="cstat-no" title="statement not covered" >        return;</span>
+        return;
       }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      handlerRef.current(event);</span>
     };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    events.forEach(<span class="fstat-no" title="function not covered" >event </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    events.forEach<span class="fstat-no" title="function not covered" >(e</span>vent =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      document.addEventListener(event, listener, getOptions(event));</span>
     });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      events.forEach(<span class="fstat-no" title="function not covered" >event </span>=&gt; {</span>
+    return () =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >      events.forEach<span class="fstat-no" title="function not covered" >(e</span>vent =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        document.removeEventListener(event, listener, getOptions(event) as EventListenerOptions);</span>
       });
     };
@@ -256,7 +256,7 @@ export default function useOnClickOutside(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

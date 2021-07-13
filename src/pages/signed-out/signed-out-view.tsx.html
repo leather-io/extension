@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -99,6 +99,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,28 +117,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, Button } from '@stacks/ui';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
+import { Box, Button } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { PopupContainer } from '@components/popup/container';</span>
-<span class="cstat-no" title="statement not covered" >import { Text } from '@components/typography';</span>
+import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
+import { Text } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@common/types';</span>
-<span class="cstat-no" title="statement not covered" >import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';</span>
-<span class="cstat-no" title="statement not covered" >import { Header } from '@components/header';</span>
+import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
+import { useDoChangeScreen } from '@common/hooks/use-do-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >SignedOut = memo(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-  const doChangeScreen = <span class="cstat-no" title="statement not covered" >useDoChangeScreen();</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const <span class="cstat-no" title="statement not covered" >SignedOut<span class="cstat-no" title="statement not covered" > = memo(() =&gt; {</span></span>
+  const doChangeScreen<span class="cstat-no" title="statement not covered" > = useDoChangeScreen();</span>
+  return (
     &lt;PopupContainer header={&lt;Header hideActions /&gt;}&gt;
       &lt;Box width="100%" mt="extra-loose" textAlign="center"&gt;
         &lt;Text textStyle="display.large" display="block"&gt;
@@ -137,7 +137,7 @@ export const <span class="cstat-no" title="statement not covered" >SignedOut = m
         &lt;/Text&gt;
         &lt;Button
           my="extra-loose"
-          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+          onClick<span class="fstat-no" title="function not covered" >={() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            doChangeScreen(ScreenPaths.INSTALLED);</span>
           }}
         &gt;
@@ -154,7 +154,7 @@ export const <span class="cstat-no" title="statement not covered" >SignedOut = m
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

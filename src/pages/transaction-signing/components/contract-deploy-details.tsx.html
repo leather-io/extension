@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -185,7 +185,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,6 +212,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -221,14 +221,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -236,6 +228,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,31 +261,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useState } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { CodeBlock, Stack, color, BoxProps } from '@stacks/ui';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
+import { CodeBlock, Stack, color, BoxProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { Prism } from '@common/clarity-prism';</span>
-<span class="cstat-no" title="statement not covered" >import { usePendingTransaction } from '@common/hooks/use-pending-transaction';</span>
-<span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
-<span class="cstat-no" title="statement not covered" >import { Caption, Title } from '@components/typography';</span>
-<span class="cstat-no" title="statement not covered" >import { Divider } from '@components/divider';</span>
-<span class="cstat-no" title="statement not covered" >import { ContractPreview } from '@pages/transaction-signing/components/contract-preview';</span>
-<span class="cstat-no" title="statement not covered" >import { RowItem } from './row-item';</span>
-<span class="cstat-no" title="statement not covered" >import { AttachmentRow } from './attachment-row';</span>
+import { Prism } from '@common/clarity-prism'<span class="cstat-no" title="statement not covered" >;</span>
+import { usePendingTransaction } from '@common/hooks/use-pending-transaction'<span class="cstat-no" title="statement not covered" >;</span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { Caption, Title } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
+import { Divider } from '@components/divider'<span class="cstat-no" title="statement not covered" >;</span>
+import { ContractPreview } from '@pages/transaction-signing/components/contract-preview'<span class="cstat-no" title="statement not covered" >;</span>
+import { RowItem } from './row-item'<span class="cstat-no" title="statement not covered" >;</span>
+import { AttachmentRow } from './attachment-row'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >ContractCodeSection(</span>) {
-  const pendingTransaction = <span class="cstat-no" title="statement not covered" >usePendingTransaction();</span>
-  const { currentAccount, currentAccountStxAddress } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+  const pendingTransaction<span class="cstat-no" title="statement not covered" > = usePendingTransaction();</span>
+  const { currentAccount, currentAccountStxAddress<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
 <span class="cstat-no" title="statement not covered" >  if (</span>
     !pendingTransaction ||
     pendingTransaction.txType !== 'smart_contract' ||
     !currentAccount ||
     !currentAccountStxAddress
   ) {
-<span class="cstat-no" title="statement not covered" >    return null;</span>
+    return <span class="cstat-no" title="statement not covered" >null;</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;CodeBlock
       border="4px solid"
       borderColor={color('border')}
@@ -302,8 +302,8 @@ function <span class="fstat-no" title="function not covered" >ContractCodeSectio
   );
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >TabButton(</span>{ isActive, ...props }: { isActive?: boolean } &amp; BoxProps) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+function <span class="fstat-no" title="function not covered" >TabButton(<span class="cstat-no" title="statement not covered" ></span>{ i</span>sActive, ...props<span class="cstat-no" title="statement not covered" > }: { isActive?: boolean } &amp; BoxProps) {</span>
+  return (
     &lt;Caption
       as="button"
       border={0}
@@ -317,25 +317,25 @@ function <span class="fstat-no" title="function not covered" >TabButton(</span>{
   );
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >ContractDeployDetails: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>) =</span>&gt; {</span>
-  const pendingTransaction = <span class="cstat-no" title="statement not covered" >usePendingTransaction();</span>
-  const { currentAccount, currentAccountStxAddress } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
-  const [tab, setTab] = <span class="cstat-no" title="statement not covered" >useState&lt;'details' | 'code'&gt;('details');</span>
+export const <span class="cstat-no" title="statement not covered" >ContractDeployDetails<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
+  const pendingTransaction<span class="cstat-no" title="statement not covered" > = usePendingTransaction();</span>
+  const { currentAccount, currentAccountStxAddress<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+  const [tab, setTab<span class="cstat-no" title="statement not covered" >] = useState&lt;'details' | 'code'&gt;('details');</span>
 <span class="cstat-no" title="statement not covered" >  if (</span>
     !pendingTransaction ||
     pendingTransaction.txType !== 'smart_contract' ||
     !currentAccount ||
     !currentAccountStxAddress
   ) {
-<span class="cstat-no" title="statement not covered" >    return null;</span>
+    return <span class="cstat-no" title="statement not covered" >null;</span>
   }
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Stack spacing="loose"&gt;
       &lt;Stack spacing="0" isInline&gt;
-        &lt;TabButton onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setTab('details')}</span> isActive={tab === 'details'}&gt;
+        &lt;TabButton onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etTab('details')} i</span>sActive={tab === 'details'}&gt;
           Details
         &lt;/TabButton&gt;
-        &lt;TabButton onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setTab('code')}</span> isActive={tab === 'code'}&gt;
+        &lt;TabButton onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etTab('code')} i</span>sActive={tab === 'code'}&gt;
           Code
         &lt;/TabButton&gt;
       &lt;/Stack&gt;
@@ -376,7 +376,7 @@ export const <span class="cstat-no" title="statement not covered" >ContractDeplo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

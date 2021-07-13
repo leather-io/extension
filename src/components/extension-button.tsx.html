@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/35</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -198,12 +198,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,25 +205,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,24 +256,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { FC } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Box, Text, Flex, ChevronIcon, FlexProps } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { PoweredBy } from '@screen';</span>
-<span class="cstat-no" title="statement not covered" >import { buildEnterKeyEvent } from '@components/link';</span>
-<span class="cstat-no" title="statement not covered" >import { ChromeIcon } from '@components/icons/chrome-icon';</span>
-<span class="cstat-no" title="statement not covered" >import { FirefoxIcon } from '@components/icons/firefox-icon';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { FC } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
+import { Box, Text, Flex, ChevronIcon, FlexProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { PoweredBy } from '@screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { buildEnterKeyEvent } from '@components/link'<span class="cstat-no" title="statement not covered" >;</span>
+import { ChromeIcon } from '@components/icons/chrome-icon'<span class="cstat-no" title="statement not covered" >;</span>
+import { FirefoxIcon } from '@components/icons/firefox-icon'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 // https://stackoverflow.com/a/13348618
-const isChrome = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+const isChrome<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
   const isChromium = <span class="cstat-no" title="statement not covered" >window.chrome;</span>
   const winNav = <span class="cstat-no" title="statement not covered" >window.navigator;</span>
   const vendorName = <span class="cstat-no" title="statement not covered" >winNav.vendor;</span>
-  const isOpera = <span class="cstat-no" title="statement not covered" >typeof (window as any).opr !== 'undefined';</span>
+  const isOpera<span class="cstat-no" title="statement not covered" > = typeof (window as any).opr !== 'undefined';</span>
   const isIEedge = <span class="cstat-no" title="statement not covered" >winNav.userAgent.includes('Edge');</span>
-  const isIOSChrome = <span class="cstat-no" title="statement not covered" >/CriOS/.exec(winNav.userAgent);</span>
+  const isIOSChrome<span class="cstat-no" title="statement not covered" > = /CriOS/.exec(winNav.userAgent);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (isIOSChrome) {</span>
-<span class="cstat-no" title="statement not covered" >    return false;</span>
+    return <span class="cstat-no" title="statement not covered" >false;</span>
   } else <span class="cstat-no" title="statement not covered" >if (</span>
     isChromium !== null &amp;&amp;
     typeof isChromium !== 'undefined' &amp;&amp;
@@ -288,9 +288,9 @@ const isChrome = <span class="cstat-no" title="statement not covered" ><span cla
     isOpera === false &amp;&amp;
     isIEedge === false
   ) {
-<span class="cstat-no" title="statement not covered" >    return true;</span>
+    return <span class="cstat-no" title="statement not covered" >true;</span>
   } else {
-<span class="cstat-no" title="statement not covered" >    return false;</span>
+    return <span class="cstat-no" title="statement not covered" >false;</span>
   }
 };
 &nbsp;
@@ -299,30 +299,30 @@ interface Browser {
   icon: typeof FirefoxIcon | typeof ChromeIcon;
 }
 &nbsp;
-const getBrowser = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(): Browser | null =</span>&gt; {</span>
+const getBrowser<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (): Browser | null =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >  if (isChrome()) {</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
       name: 'Chrome',
       icon: ChromeIcon,
     };
   } else <span class="cstat-no" title="statement not covered" >if (window.navigator.userAgent.includes('Firefox')) {</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
       name: 'Firefox',
       icon: FirefoxIcon,
     };
   }
-<span class="cstat-no" title="statement not covered" >  return null;</span>
+  return <span class="cstat-no" title="statement not covered" >null;</span>
 };
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >ExtensionButton: FC&lt;FlexProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span> ...rest }) =&gt; {</span>
+export const ExtensionButton<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: FC&lt;FlexProps&gt; = ({ ...r</span>est }) =&gt; {</span>
   const browser = <span class="cstat-no" title="statement not covered" >getBrowser();</span>
   const isMobile = <span class="cstat-no" title="statement not covered" >window.matchMedia('(pointer: coarse) and (max-width: 760px)').matches;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (browser === null || isMobile) {</span>
-<span class="cstat-no" title="statement not covered" >    return &lt;PoweredBy /&gt;;</span>
+    return &lt;PoweredBy /&gt;;
   }
 &nbsp;
-  const onClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  const onClick<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (browser.name === 'Firefox') {</span>
 <span class="cstat-no" title="statement not covered" >      window.open('https://addons.mozilla.org/en-US/firefox/addon/blockstack/', '_blank');</span>
     } else <span class="cstat-no" title="statement not covered" >if (browser.name === 'Chrome') {</span>
@@ -333,7 +333,7 @@ export const <span class="cstat-no" title="statement not covered" >ExtensionButt
     }
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Flex
       fontSize={['12px', '14px']}
       justifyContent="center"
@@ -373,7 +373,7 @@ export const <span class="cstat-no" title="statement not covered" >ExtensionButt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

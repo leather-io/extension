@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -126,23 +126,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,40 +148,47 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { memo, useCallback, useEffect } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Caption, Screen, ScreenBody } from '@screen';</span>
-<span class="cstat-no" title="statement not covered" >import { Title } from '@components/typography';</span>
-<span class="cstat-no" title="statement not covered" >import { Accounts } from '@pages/choose-account/components/accounts';</span>
-<span class="cstat-no" title="statement not covered" >import { AppIcon } from '@components/app-icon';</span>
-<span class="cstat-no" title="statement not covered" >import { ScreenPaths } from '@common/types';</span>
-<span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
-<span class="cstat-no" title="statement not covered" >import { Navigate } from '@components/navigate';</span>
-<span class="cstat-no" title="statement not covered" >import { Header } from '@components/header';</span>
-<span class="cstat-no" title="statement not covered" >import { useAppDetails } from '@common/hooks/auth/use-app-details';</span>
-<span class="cstat-no" title="statement not covered" >import { Stack } from '@stacks/ui';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useCallback, useEffect } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { Caption, Screen, ScreenBody } from '@screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { Title } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
+import { Accounts } from '@pages/choose-account/components/accounts'<span class="cstat-no" title="statement not covered" >;</span>
+import { AppIcon } from '@components/app-icon'<span class="cstat-no" title="statement not covered" >;</span>
+import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { Navigate } from '@components/navigate'<span class="cstat-no" title="statement not covered" >;</span>
+import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAppDetails } from '@common/hooks/auth/use-app-details'<span class="cstat-no" title="statement not covered" >;</span>
+import { Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface ChooseAccountProps {
   back?: () =&gt; void;
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >ChooseAccount: React.FC&lt;ChooseAccountProps&gt; = memo(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-  const { name: appName } = <span class="cstat-no" title="statement not covered" >useAppDetails();</span>
-  const { wallet, handleCancelAuthentication } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+export const <span class="cstat-no" title="statement not covered" >ChooseAccount<span class="cstat-no" title="statement not covered" >: React.FC&lt;ChooseAccountProps&gt; = memo(() =&gt; {</span></span>
+  const { name: appName<span class="cstat-no" title="statement not covered" > } = useAppDetails();</span>
+  const { wallet, handleCancelAuthentication<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
 &nbsp;
-  const handleUnmount = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
+  const handleUnmount = useCallback(async () =&gt; {
 <span class="cstat-no" title="statement not covered" >    handleCancelAuthentication();</span>
   }, [handleCancelAuthentication]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    window.addEventListener('beforeunload', handleUnmount);</span>
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >window.removeEventListener('beforeunload', handleUnmount);</span></span>
+    return () =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >window.</span>removeEventListener('beforeunload', handleUnmount);</span>
   }, [handleUnmount]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!wallet) {</span>
-<span class="cstat-no" title="statement not covered" >    return &lt;Navigate to={{ pathname: '/', hash: 'sign-up' }} screenPath={ScreenPaths.GENERATION} /&gt;;</span>
+    return &lt;Navigate to={{ pathname: '/', hash: 'sign-up' }} screenPath={ScreenPaths.GENERATION} /&gt;;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Screen textAlign="center" flexGrow={1} position="relative"&gt;
       &lt;Header hideActions /&gt;
       &lt;AppIcon mt="extra-loose" mb="loose" size="72px" /&gt;
@@ -211,7 +211,7 @@ export const <span class="cstat-no" title="statement not covered" >ChooseAccount
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

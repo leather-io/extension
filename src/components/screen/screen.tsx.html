@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -117,8 +117,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,7 +126,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,10 +146,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { Flex, FlexProps } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { ScreenLoader } from './screen-loader';</span>
+import { Flex, FlexProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { ScreenLoader } from './screen-loader'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface ScreenBodyProps extends FlexProps {
   noMinHeight?: boolean;
@@ -158,26 +158,26 @@ interface ScreenBodyProps extends FlexProps {
   onSubmit?: () =&gt; void;
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >Screen: React.FC&lt;ScreenBodyProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span></span>
+export const Screen<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;ScreenBodyProps&gt; = ({</span></span>
   noMinHeight,
   isLoading,
   children,
-  onSubmit,
-  ...rest
+  onSubmit<span class="cstat-no" title="statement not covered" >,</span>
+  ...rest<span class="cstat-no" title="statement not covered" ></span>
 }) =&gt; {
-  const handleSubmit = <span class="cstat-no" title="statement not covered" >onSubmit</span>
-    ? <span class="fstat-no" title="function not covered" >(e</span>: React.FormEvent&lt;HTMLInputElement&gt;) =&gt; {
+  const handleSubmit = <span class="cstat-no" title="statement not covered" >onSubmit<span class="fstat-no" title="function not covered" ></span></span>
+    ? (e: React.FormEvent&lt;HTMLInputElement&gt;) =&gt; {
 <span class="cstat-no" title="statement not covered" >        e.preventDefault();</span>
 <span class="cstat-no" title="statement not covered" >        onSubmit();</span>
       }
     : undefined;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;&gt;
       &lt;ScreenLoader isLoading={isLoading} /&gt;
       &lt;Flex
         width="100%"
         flexDirection="column"
-        minHeight={noMinHeight ? undefined : ['100vh', 'unset']}
+        minHeight={noMinHeight ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: ['100vh', 'unset']}
         flex={1}
         style={{ pointerEvents: isLoading ? 'none' : 'unset' }}
         as={onSubmit ? 'form' : 'main'}
@@ -199,7 +199,7 @@ export const <span class="cstat-no" title="statement not covered" >Screen: React
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

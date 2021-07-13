@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -88,40 +88,40 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { accountNameState } from '@store/accounts/names';</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { accountNameState } from <span class="cstat-no" title="statement not covered" >'@store/accounts/names'<span class="cstat-no" title="statement not covered" >;</span></span>
 import { Account } from '@stacks/wallet-sdk';
-<span class="cstat-no" title="statement not covered" >import { useCurrentAccount } from '@common/hooks/account/use-current-account';</span>
-<span class="cstat-no" title="statement not covered" >import { cleanUsername } from '@common/utils';</span>
-<span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
-<span class="cstat-no" title="statement not covered" >import { useMemo } from 'react';</span>
+import { useCurrentAccount } from '@common/hooks/account/use-current-account'<span class="cstat-no" title="statement not covered" >;</span>
+import { cleanUsername } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAtomValue } from <span class="cstat-no" title="statement not covered" >'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span></span>
+import { useMemo } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >u</span>seAccountNames(</span>) {
-  const atom = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >accountNameState,</span> []);</span>
-<span class="cstat-no" title="statement not covered" >  return useAtomValue(atom);</span>
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useAccountNames(</span>) {</span>
+  const atom = useMemo(() =&gt; accountNameState, []);
+  return useAtomValue(atom);
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >u</span>seAccountDisplayName(</span>__account?: Account) {
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useAccountDisplayName(</span>_</span>_account?: Account) {
   const names = <span class="cstat-no" title="statement not covered" >useAccountNames();</span>
-  const _account = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
+  const _account<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
   const account = <span class="cstat-no" title="statement not covered" >__account || _account;</span>
-<span class="cstat-no" title="statement not covered" >  if (!account || typeof account?.index !== 'number') <span class="cstat-no" title="statement not covered" >return 'Account';</span></span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    names?.[account.index]?.names?.[0] ||
+<span class="cstat-no" title="statement not covered" >  if (!account || typeof account?.index !== 'number'<span class="cstat-no" title="statement not covered" >) return 'Account';</span></span>
+  return (
+<span class="cstat-no" title="statement not covered" >    names?.[account.index]?.names?.[0] ||</span>
     (account?.username &amp;&amp; cleanUsername(account.username)) ||
     `Account ${account?.index + 1}`
   );
@@ -133,7 +133,7 @@ import { Account } from '@stacks/wallet-sdk';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

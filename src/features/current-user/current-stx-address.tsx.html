@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -87,31 +87,31 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { Box, BoxProps } from '@stacks/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { truncateMiddle } from '@stacks/ui-utils';</span>
-<span class="cstat-no" title="statement not covered" >import React from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { useCurrentAccount } from '@common/hooks/account/use-current-account';</span>
-<span class="cstat-no" title="statement not covered" >import { memoWithAs } from '@stacks/ui-core';</span>
-<span class="cstat-no" title="statement not covered" >import { LoadingRectangle } from '@components/loading-rectangle';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, BoxProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { truncateMiddle } from '@stacks/ui-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
+import { useCurrentAccount } from '@common/hooks/account/use-current-account'<span class="cstat-no" title="statement not covered" >;</span>
+import { memoWithAs } from '@stacks/ui-core'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { LoadingRectangle } from '@components/loading-rectangle'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-const CurrentStxAddressSuspense = <span class="cstat-no" title="statement not covered" >memoWithAs(<span class="fstat-no" title="function not covered" >(p</span>rops: BoxProps) =&gt; {</span>
-  const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
-<span class="cstat-no" title="statement not covered" >  if (!currentAccount) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >  return &lt;Box {...props}&gt;{truncateMiddle(currentAccount.address, 4)}&lt;/Box&gt;;</span>
+const CurrentStxAddressSuspense<span class="cstat-no" title="statement not covered" > = memoWithAs((props: BoxProps) =&gt; {</span>
+  const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
+<span class="cstat-no" title="statement not covered" >  if (!currentAccount<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+  return &lt;Box {...props}&gt;{truncateMiddle(currentAccount.address, 4)}&lt;/Box&gt;;
 });
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >CurrentStxAddress = memoWithAs(<span class="fstat-no" title="function not covered" >(p</span>rops: BoxProps) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const <span class="cstat-no" title="statement not covered" >CurrentStxAddress<span class="cstat-no" title="statement not covered" > = memoWithAs((p</span>rops: BoxProps) =&gt; {</span>
+  return (
     &lt;React.Suspense fallback={&lt;LoadingRectangle height="16px" width="50px" {...props} /&gt;}&gt;
       &lt;CurrentStxAddressSuspense {...props} /&gt;
     &lt;/React.Suspense&gt;
@@ -124,7 +124,7 @@ export const <span class="cstat-no" title="statement not covered" >CurrentStxAdd
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

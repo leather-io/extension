@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.02% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/49</span>
+                <span class='fraction'>22/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">37.21% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>32/88</span>
+                <span class='fraction'>32/86</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">52.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/45</span>
+                <span class='fraction'>21/40</span>
             </div>
         
             
@@ -174,11 +174,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -196,21 +196,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -223,7 +223,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -247,13 +247,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -278,18 +278,18 @@ export function useSendAmountFieldActions({
 }: Pick&lt;FormikProps&lt;FormValues&gt;, 'setFieldValue'&gt;) {
   const balances = useFetchBalances();
   const { selectedAsset, balance } = useSelectedAsset();
-  const isStx = selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype === 'stx';
+  const isStx = selectedAsset?.type<span class="branch-0 cbranch-no" title="branch not covered" > === 'stx';</span>
 &nbsp;
   const handleSetSendMax = useCallback(
-<span class="fstat-no" title="function not covered" >    (f</span>ee: number) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!selectedAsset || !balances || !balance) <span class="cstat-no" title="statement not covered" >return;</span></span>
+    (fee: number) =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (!selectedAsset || !balances || !balance<span class="cstat-no" title="statement not covered" >) return;</span></span>
 <span class="cstat-no" title="statement not covered" >      if (isStx) {</span>
         const availableBalance = <span class="cstat-no" title="statement not covered" >new BigNumber(balances.stx.balance).minus(balances.stx.locked);</span>
-        const txFee = <span class="cstat-no" title="statement not covered" >microStxToStx(</span>
+        const txFee<span class="cstat-no" title="statement not covered" > = microStxToStx(</span>
           new BigNumber(fee ?? 1).multipliedBy(STX_TRANSFER_TX_SIZE_BYTES).toString()
         );
-        const stx = <span class="cstat-no" title="statement not covered" >microStxToStx(availableBalance.toString()).minus(txFee);</span>
-<span class="cstat-no" title="statement not covered" >        if (stx.isLessThanOrEqualTo(0)) <span class="cstat-no" title="statement not covered" >return;</span></span>
+        const stx<span class="cstat-no" title="statement not covered" > = microStxToStx(availableBalance.toString()).minus(txFee);</span>
+<span class="cstat-no" title="statement not covered" >        if (stx.isLessThanOrEqualTo(0<span class="cstat-no" title="statement not covered" >)) return;</span></span>
 <span class="cstat-no" title="statement not covered" >        setFieldValue('amount', stx.toNumber());</span>
       } else {
 <span class="cstat-no" title="statement not covered" >        if (balance) <span class="cstat-no" title="statement not covered" >setFieldValue('amount', removeCommas(balance));</span></span>
@@ -301,25 +301,25 @@ export function useSendAmountFieldActions({
   const handleOnKeyDown = useCallback(
     (event: React.KeyboardEvent&lt;HTMLInputElement&gt;) =&gt; {
       const hasDecimals =
-        typeof selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eta<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ecimals === 'number' &amp;&amp; selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eta.decimals !== 0;
+        typeof selectedAsset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.decimals === 'number' &amp;&amp; selectedAsset?.meta<span class="branch-0 cbranch-no" title="branch not covered" >.decimals !== 0;</span></span></span>
       const { key } = event;
       const value = event.currentTarget.value;
       // leading zeros
       if (
-        selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype !== 'stx' &amp;&amp;
+        selectedAsset?.type<span class="branch-0 cbranch-no" title="branch not covered" > !== 'stx' &amp;&amp;</span>
         // if no leading 0 of we don't know the status of decimals
         ((key === '0' &amp;&amp; value.length === 0 &amp;&amp; !hasDecimals) ||
           // only one leading zero allowed
-          (key === '0' &amp;&amp; <span class="branch-5 cbranch-no" title="branch not covered" >value[0] === '0' </span>&amp;&amp; <span class="branch-6 cbranch-no" title="branch not covered" >value[1] !== '.')</span>)
+          (key === '0' &amp;&amp; <span class="branch-5 cbranch-no" title="branch not covered" >value[0] === '0' &amp;&amp; <span class="branch-6 cbranch-no" title="branch not covered" >v</span>alue[1] !== '.'))</span>
       )
         return event.preventDefault();
       // decimals check
       if (key === '.') {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (!hasDecimals &amp;&amp; selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype !== 'stx') return event.preventDefault();
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (!hasDecimals &amp;&amp; selectedAsset?.type<span class="branch-0 cbranch-no" title="branch not covered" > !== 'stx') return event.preventDefault();</span>
         const hasPeriod = <span class="cstat-no" title="statement not covered" >value.includes('.');</span>
         // only one period allowed
 <span class="cstat-no" title="statement not covered" >        if (hasPeriod &amp;&amp; key === '.') {</span>
-<span class="cstat-no" title="statement not covered" >          return event.preventDefault();</span>
+          return <span class="cstat-no" title="statement not covered" >event.preventDefault();</span>
         }
       }
     },
@@ -345,17 +345,17 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
   isSubmitting,
   setSubmitting,
 }: SendFormEffectOptions) {
-  const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset();</span>
-  const previous = <span class="cstat-no" title="statement not covered" >usePrevious(selectedAsset);</span>
-  const assets = <span class="cstat-no" title="statement not covered" >useAssets();</span>
+  const { selectedAsset<span class="cstat-no" title="statement not covered" > } = useSelectedAsset();</span>
+  const previous<span class="cstat-no" title="statement not covered" > = usePrevious(selectedAsset);</span>
+  const assets<span class="cstat-no" title="statement not covered" > = useAssets();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (assets?.length === 1 &amp;&amp; amountFieldRef.current) {</span>
-<span class="cstat-no" title="statement not covered" >      amountFieldRef?.current?.focus?.();</span>
+<span class="cstat-no" title="statement not covered" >      amountFieldRef?.current?.f</span>ocus?.();
     }
   }, [amountFieldRef, assets?.length]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (previous !== selectedAsset) {</span>
 <span class="cstat-no" title="statement not covered" >      if (isSubmitting) {</span>
 <span class="cstat-no" title="statement not covered" >        setSubmitting(false);</span>
@@ -370,7 +370,7 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.19% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/27</span>
+                <span class='fraction'>19/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.88% </span>
+                <span class="strong">45.78% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>39/85</span>
+                <span class='fraction'>38/83</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.46% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/26</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
@@ -123,38 +123,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">160x</span>
 <span class="cline-any cline-yes">148x</span>
-<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">148x</span>
-<span class="cline-any cline-yes">148x</span>
-<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-yes">136x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">148x</span>
-<span class="cline-any cline-yes">33x</span>
-<span class="cline-any cline-yes">33x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">33x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">148x</span>
-<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-yes">136x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,33 +179,33 @@ export function useSelectedAsset() {
   const selectedAsset = useAtomValue(selectedAssetStore);
   const setSelectedAsset = useUpdateAtom(selectedAssetIdState);
   const handleUpdateSelectedAsset = useCallback(
-<span class="fstat-no" title="function not covered" >    (a</span>sset: AssetWithMeta | undefined) =&gt; {
+    (asset: AssetWithMeta | undefined) =&gt; {
 <span class="cstat-no" title="statement not covered" >      setSelectedAsset(getFullyQualifiedAssetName(asset) || undefined);</span>
     },
     [setSelectedAsset]
   );
-  const name = selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eta<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >selectedAsset?.name;</span>
-  const isStx = selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame === 'Stacks Token';
+  const name = selectedAsset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.name || <span class="branch-1 cbranch-no" title="branch not covered" >selectedAsset?.name;</span></span></span>
+  const isStx = selectedAsset?.name<span class="branch-0 cbranch-no" title="branch not covered" > === 'Stacks Token';</span>
   const ticker = selectedAsset
-    ? isStx
-      ? <span class="branch-0 cbranch-no" title="branch not covered" >'STX'</span>
-      : selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eta<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ymbol || <span class="branch-1 cbranch-no" title="branch not covered" >getTicker(selectedAsset.name)</span>
+    ? isStx<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+      ? 'STX'
+      : selectedAsset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.symbol<span class="branch-1 cbranch-no" title="branch not covered" > || getTicker(selectedAsset.name)</span></span></span>
     : <span class="branch-1 cbranch-no" title="branch not covered" >null;</span>
 &nbsp;
   const balance = useMemo&lt;string | undefined&gt;(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!selectedAsset) <span class="cstat-no" title="statement not covered" >return;</span>
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedAsset.type === 'stx')
-<span class="cstat-no" title="statement not covered" >      return stacksValue({ value: selectedAsset.balance, withTicker: false });</span>
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eta<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ecimals)
-<span class="cstat-no" title="statement not covered" >      return ftDecimals(selectedAsset.balance, selectedAsset.meta?.decimals);</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!selectedAsset<span class="cstat-no" title="statement not covered" >) return;</span>
+    if (selectedAsset.type === 'stx')
+      return stacksValue({ value: selectedAsset.balance, withTicker: false });
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedAsset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.decimals<span class="cstat-no" title="statement not covered" >)</span></span></span>
+      return ftDecimals(selectedAsset.balance, selectedAsset.meta?.decimals);
     return new BigNumber(selectedAsset.balance).toFormat();
   }, [selectedAsset]);
-  const hasDecimals = isStx || (selectedAsset<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eta<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ecimals &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >selectedAsset?.meta?.decimals &gt; 0)</span>;
+  const hasDecimals = isStx || (selectedAsset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.decimals<span class="branch-2 cbranch-no" title="branch not covered" > &amp;&amp; selectedAsset?.meta?.decimals &gt; 0)</span>;</span></span>
   const placeholder = selectedAsset
     ? `0${
-        hasDecimals ? <span class="branch-0 cbranch-no" title="branch not covered" >`.${'0'.repeat(isStx ? 6 : selectedAsset.meta?.decimals || 0)}` </span>: ''
-      } ${ticker}`
-    : <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
+        hasDecimals<span class="branch-0 cbranch-no" title="branch not covered" > ? `.${'0'.repeat(isStx ? 6 : selectedAsset.meta?.decimals || 0)}` : ''</span>
+      } ${ticker<span class="branch-1 cbranch-no" title="branch not covered" >}`</span>
+    : '';
 &nbsp;
   return {
     selectedAsset,
@@ -223,7 +223,7 @@ export function useSelectedAsset() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

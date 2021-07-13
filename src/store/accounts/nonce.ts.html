@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.57% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/35</span>
+                <span class='fraction'>32/36</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.94% </span>
+                <span class="strong">93.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/33</span>
+                <span class='fraction'>29/31</span>
             </div>
         
             
@@ -159,13 +159,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
@@ -214,8 +214,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,7 +254,7 @@ export const latestNonceState = atom(get =&gt; {
       address: currentAccountStxAddressState,
     })
   );
-  return get(localNoncesState([network.url, address || <span class="branch-1 cbranch-no" title="branch not covered" >'']</span>));
+  return get(localNoncesState([network.url, address<span class="branch-1 cbranch-no" title="branch not covered" > || '']));</span>
 });
 &nbsp;
 export const correctNonceState = atom(get =&gt; {
@@ -264,18 +264,18 @@ export const correctNonceState = atom(get =&gt; {
   const lastLocalNonce = get(latestNonceState);
 &nbsp;
   // most recent confirmed transactions sent by current address
-  const lastConfirmedTx = accountData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ransactions.results<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(
+  const lastConfirmedTx = accountData?.transactions<span class="branch-0 cbranch-no" title="branch not covered" >.results?.filter<span class="branch-0 cbranch-no" title="branch not covered" >(</span></span>
     tx =&gt; tx.sender_address === address
-  )<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>];
+  )?.[0]<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 &nbsp;
   // most recent pending transactions sent by current address
-  const latestPendingTx = accountData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>endingTransactions<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(
-<span class="fstat-no" title="function not covered" >    tx </span>=&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address</span>
-  )<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>];
+  const latestPendingTx = accountData?.pendingTransactions<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.filter<span class="fstat-no" title="function not covered" >(</span></span></span>
+    tx =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address</span>
+  )?.[0]<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 &nbsp;
   // oldest pending transactions sent by current address
-  const oldestPendingTx = accountData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>endingTransactions<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength
-    ? <span class="branch-0 cbranch-no" title="branch not covered" >accountData?.pendingTransactions?.filter(<span class="fstat-no" title="function not covered" >tx </span>=&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address)</span>?.[</span>
+  const oldestPendingTx = accountData?.pendingTransactions<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.length<span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+    ? accountData?.pendingTransactions?.filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address)</span>?.[
         accountData?.pendingTransactions?.length - 1
       ]
     : undefined;
@@ -283,7 +283,7 @@ export const correctNonceState = atom(get =&gt; {
   // they have any pending or confirmed transactions
   const hasTransactions = !!latestPendingTx || !!lastConfirmedTx;
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!hasTransactions || !account || (!hasTransactions &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >account.nonce === 0)</span>) <span class="cstat-no" title="statement not covered" >return 0;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!hasTransactions || !account || (!hasTransactions &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >account.nonce === 0<span class="cstat-no" title="statement not covered" >)</span>) return 0;</span>
 &nbsp;
   // if the oldest pending tx is more than 1 above the account nonce, it's likely there was
   // a race condition such that the client didn't have the most up to date pending tx
@@ -292,12 +292,12 @@ export const correctNonceState = atom(get =&gt; {
     oldestPendingTx &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastConfirmedTx </span>? <span class="branch-0 cbranch-no" title="branch not covered" >oldestPendingTx.nonce &gt; lastConfirmedTx.nonce + 1 </span>: false;
 &nbsp;
   // if they do have a miss match, let's use the account nonce
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (hasNonceMismatch) <span class="cstat-no" title="statement not covered" >return account.nonce;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (hasNonceMismatch<span class="cstat-no" title="statement not covered" >) return account.nonce;</span>
 &nbsp;
   // otherwise, without micro-blocks, the account nonce will likely be out of date compared
   // and not be incremented based on pending transactions
   const pendingNonce = <span class="branch-1 cbranch-no" title="branch not covered" >latestPendingTx?.nonce </span>|| 0;
-  const lastConfirmedTxNonce = lastConfirmedTx<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>once || 0;
+  const lastConfirmedTxNonce = lastConfirmedTx?.nonce<span class="branch-0 cbranch-no" title="branch not covered" > || 0;</span>
 &nbsp;
   // lastLocalNonce can be set when the user sends transactions
   // and can often be faster that waiting for a new response from the API
@@ -331,7 +331,7 @@ correctNonceState.debugLabel = 'correctNonceState';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

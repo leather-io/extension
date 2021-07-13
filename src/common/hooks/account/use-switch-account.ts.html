@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -114,22 +114,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,29 +130,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useWallet } from '@common/hooks/use-wallet';</span>
-<span class="cstat-no" title="statement not covered" >import { hasSwitchedAccountsState, transactionAccountIndexState } from '@store/accounts';</span>
-<span class="cstat-no" title="statement not covered" >import { useCallback } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { transactionNetworkVersionState } from '@store/transactions';</span>
-<span class="cstat-no" title="statement not covered" >import { useAtomValue } from 'jotai/utils';</span>
-<span class="cstat-no" title="statement not covered" >import { useAtom } from 'jotai';</span>
-<span class="cstat-no" title="statement not covered" >import { useCurrentAccount } from '@common/hooks/account/use-current-account';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { hasSwitchedAccountsState, transactionAccountIndexState } from '@store/accounts'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCallback } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { transactionNetworkVersionState } from '@store/transactions'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAtomValue } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAtom } from 'jotai'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCurrentAccount } from '@common/hooks/account/use-current-account'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 const TIMEOUT = <span class="cstat-no" title="statement not covered" >350;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >useSwitchAccount = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>c</span>allback?: () =&gt; void) =&gt; {</span>
-  const { doSwitchAccount } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
-  const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
-  const txIndex = <span class="cstat-no" title="statement not covered" >useAtomValue(transactionAccountIndexState);</span>
-  const transactionVersion = <span class="cstat-no" title="statement not covered" >useAtomValue(transactionNetworkVersionState);</span>
-  const [hasSwitched, setHasSwitched] = <span class="cstat-no" title="statement not covered" >useAtom(hasSwitchedAccountsState);</span>
+export const <span class="cstat-no" title="statement not covered" >useSwitchAccount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (c</span></span>allback?: () =&gt; void) =&gt; {</span>
+  const { doSwitchAccount<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+  const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
+  const txIndex<span class="cstat-no" title="statement not covered" > = useAtomValue(transactionAccountIndexState);</span>
+  const transactionVersion<span class="cstat-no" title="statement not covered" > = useAtomValue(transactionNetworkVersionState);</span>
+  const [hasSwitched, setHasSwitched<span class="cstat-no" title="statement not covered" >] = useAtom(hasSwitchedAccountsState);</span>
 &nbsp;
-  const handleSwitchAccount = <span class="cstat-no" title="statement not covered" >useCallback(</span>
-<span class="fstat-no" title="function not covered" >    async </span>index =&gt; {
+  const handleSwitchAccount = useCallback(
+    async index =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (typeof txIndex === 'number') <span class="cstat-no" title="statement not covered" >setHasSwitched(true);</span></span>
-<span class="cstat-no" title="statement not covered" >      await doSwitchAccount(index);</span>
+      await <span class="cstat-no" title="statement not covered" >doSwitchAccount(index);</span>
 <span class="cstat-no" title="statement not covered" >      if (callback) {</span>
-<span class="cstat-no" title="statement not covered" >        window.setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        window.setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >          callback();</span>
         }, TIMEOUT);
       }
@@ -167,15 +167,15 @@ export const <span class="cstat-no" title="statement not covered" >useSwitchAcco
     [txIndex, setHasSwitched, doSwitchAccount, callback]
   );
 &nbsp;
-  const getIsActive = <span class="cstat-no" title="statement not covered" >useCallback(</span>
-<span class="fstat-no" title="function not covered" >    (i</span>ndex: number) =&gt;
-<span class="cstat-no" title="statement not covered" >      typeof txIndex === 'number' &amp;&amp; !hasSwitched</span>
+  const getIsActive = useCallback(
+    (index: number<span class="cstat-no" title="statement not covered" >) =&gt;</span>
+      typeof txIndex === 'number' &amp;&amp; !hasSwitched
         ? index === txIndex
         : index === currentAccount?.index,
     [txIndex, hasSwitched, currentAccount]
   );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return { handleSwitchAccount, getIsActive, transactionVersion };</span>
+  return { handleSwitchAccount, getIsActive, transactionVersion };
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -184,7 +184,7 @@ export const <span class="cstat-no" title="statement not covered" >useSwitchAcco
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

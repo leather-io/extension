@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -127,6 +127,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,24 +155,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { Screen, ScreenBody, PoweredBy, ScreenFooter, ScreenHeader } from '@screen';</span>
-<span class="cstat-no" title="statement not covered" >import { Flex, Box, Button, Text } from '@stacks/ui';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
+import { Screen, ScreenBody, PoweredBy, ScreenFooter, ScreenHeader } from '@screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { Flex, Box, Button, Text } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export type ErrorReason = 'network' | 'rateLimited';
 &nbsp;
@@ -166,17 +166,17 @@ interface RegisterErrorProps {
   onTryAgain: () =&gt; void;
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >UsernameRegistryError: React.FC&lt;RegisterErrorProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span></span>
+export const <span class="cstat-no" title="statement not covered" >UsernameRegistryError<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;RegisterErrorProps&gt; = ({</span></span></span>
   errorReason,
   onTryAgain,
 }) =&gt; {
-  const getMessage = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  const getMessage<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (errorReason === 'rateLimited') {</span>
-<span class="cstat-no" title="statement not covered" >      return 'You’ve tried to register too many usernames on this network. Please try again on a different network.';</span>
+      return <span class="cstat-no" title="statement not covered" >'You’ve tried to register too many usernames on this network. Please try again on a different network.';</span>
     }
-<span class="cstat-no" title="statement not covered" >    return 'A network error was encountered.';</span>
+    return <span class="cstat-no" title="statement not covered" >'A network error was encountered.';</span>
   };
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Screen textAlign="center"&gt;
       &lt;ScreenHeader /&gt;
       &lt;ScreenBody
@@ -191,7 +191,7 @@ export const <span class="cstat-no" title="statement not covered" >UsernameRegis
               &lt;Text fontSize={2} display="block" mt={3}&gt;
                 {getMessage()}
               &lt;/Text&gt;
-              &lt;Button mt={6} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onTryAgain()}</span>&gt;
+              &lt;Button mt={6} onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nTryAgain()}&gt;</span>
                 Try Again
               &lt;/Button&gt;
             &lt;/Box&gt;
@@ -211,7 +211,7 @@ export const <span class="cstat-no" title="statement not covered" >UsernameRegis
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

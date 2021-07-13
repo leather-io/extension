@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -119,57 +119,57 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useCallback } from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { ControlledDrawer } from '@components/drawer/controlled';</span>
-<span class="cstat-no" title="statement not covered" >import { SwitchAccounts } from '../account-switch-drawer/switch-accounts';</span>
-<span class="cstat-no" title="statement not covered" >import { CreateAccount } from '@components/drawer/accounts/create-account';</span>
-<span class="cstat-no" title="statement not covered" >import { AddUsername } from '@components/drawer/accounts/add-username';</span>
-<span class="cstat-no" title="statement not covered" >import { useDrawers } from '@common/hooks/use-drawers';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
+import { ControlledDrawer } from '@components/drawer/controlled'<span class="cstat-no" title="statement not covered" >;</span>
+import { SwitchAccounts } from '../account-switch-drawer/switch-accounts'<span class="cstat-no" title="statement not covered" >;</span>
+import { CreateAccount } from '@components/drawer/accounts/create-account'<span class="cstat-no" title="statement not covered" >;</span>
+import { AddUsername } from '@components/drawer/accounts/add-username'<span class="cstat-no" title="statement not covered" >;</span>
+import { useDrawers } from '@common/hooks/use-drawers'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { AccountStep, showAccountsStore, accountDrawerStep } from '@store/ui';</span>
-<span class="cstat-no" title="statement not covered" >import { useAtomCallback } from 'jotai/utils';</span>
+import { AccountStep, showAccountsStore, accountDrawerStep } from '@store/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAtomCallback } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >AccountsDrawer: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>) =</span>&gt; {</span>
-  const { accountStep } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
+export const <span class="cstat-no" title="statement not covered" >AccountsDrawer<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
+  const { accountStep<span class="cstat-no" title="statement not covered" > } = useDrawers();</span>
 &nbsp;
-  const close = <span class="cstat-no" title="statement not covered" >useAtomCallback(</span>
-    useCallback(<span class="fstat-no" title="function not covered" >(_</span>get, set) =&gt; {
+  const close<span class="cstat-no" title="statement not covered" > = useAtomCallback(</span>
+    useCallback((_get, set) =&gt; {
 <span class="cstat-no" title="statement not covered" >      set(showAccountsStore, false);</span>
       const drawerAnimationTime = <span class="cstat-no" title="statement not covered" >200;</span>
-<span class="cstat-no" title="statement not covered" >      setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >set(accountDrawerStep, AccountStep.Switch),</span> drawerAnimationTime);</span>
+<span class="cstat-no" title="statement not covered" >      setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; <span class="cstat-no" title="statement not covered" >s</span>et(accountDrawerStep, AccountStep.Switch), d</span>rawerAnimationTime);</span>
     }, [])
   );
 &nbsp;
-  const getTitle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    switch (accountStep) {</span>
+  const getTitle<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
+    switch (accountStep) {
       case AccountStep.Create:
-<span class="cstat-no" title="statement not covered" >        return 'Create account';</span>
+        return <span class="cstat-no" title="statement not covered" >'Create account';</span>
       case AccountStep.Switch:
-<span class="cstat-no" title="statement not covered" >        return 'Switch account';</span>
+        return <span class="cstat-no" title="statement not covered" >'Switch account';</span>
       case AccountStep.Username:
-<span class="cstat-no" title="statement not covered" >        return 'Add a username';</span>
+        return <span class="cstat-no" title="statement not covered" >'Add a username';</span>
     }
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;ControlledDrawer title={getTitle()} state={showAccountsStore} close={close}&gt;
       {accountStep === AccountStep.Switch ? &lt;SwitchAccounts close={close} /&gt; : null}
       {accountStep === AccountStep.Create ? &lt;CreateAccount close={close} /&gt; : null}
@@ -184,7 +184,7 @@ export const <span class="cstat-no" title="statement not covered" >AccountsDrawe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

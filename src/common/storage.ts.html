@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.43% </span>
+                <span class="strong">51.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/35</span>
+                <span class='fraction'>17/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.92% </span>
+                <span class="strong">24% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/26</span>
+                <span class='fraction'>6/25</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.25% </span>
+                <span class="strong">55.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/32</span>
+                <span class='fraction'>16/29</span>
             </div>
         
             
@@ -121,8 +121,8 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,7 +148,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,12 +206,12 @@ export function <span class="fstat-no" title="function not covered" >storePayloa
   storageKey: StorageKey;
   port: chrome.runtime.Port;
 }) {
-<span class="cstat-no" title="statement not covered" >  if (!port.sender) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!port.sender<span class="cstat-no" title="statement not covered" >) return;</span></span>
   const { tab, url } = <span class="cstat-no" title="statement not covered" >port.sender;</span>
-<span class="cstat-no" title="statement not covered" >  if (!tab?.id || !url) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!tab?.id || !url<span class="cstat-no" title="statement not covered" >) return;</span></span>
   const origin = <span class="cstat-no" title="statement not covered" >new URL(url).origin;</span>
   const key = <span class="cstat-no" title="statement not covered" >getKeyForRequest(storageKey, payload);</span>
-  const requestInfo: RequestInfo = <span class="cstat-no" title="statement not covered" >{</span>
+  const requestInfo: RequestInfo = {
     tabId: tab.id,
     origin,
   };
@@ -221,7 +221,7 @@ export function <span class="fstat-no" title="function not covered" >storePayloa
 export function getRequestInfo(storageKey: StorageKey, request: string): RequestInfo | undefined {
   const key = getKeyForRequest(storageKey, request);
   const valueJSON = localStorage.getItem(key);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!valueJSON) <span class="cstat-no" title="statement not covered" >return undefined;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!valueJSON<span class="cstat-no" title="statement not covered" >) return undefined;</span>
   const existing: RequestInfo = JSON.parse(valueJSON);
   return existing;
 }
@@ -231,12 +231,12 @@ export function <span class="fstat-no" title="function not covered" >getTab(</sp
 <span class="cstat-no" title="statement not covered" >  if (!existing?.tabId) {</span>
 <span class="cstat-no" title="statement not covered" >    throw new Error(`Unable to get tab ID for request: ${request}`);</span>
   }
-<span class="cstat-no" title="statement not covered" >  return existing.tabId;</span>
+  return <span class="cstat-no" title="statement not covered" >existing.tabId;</span>
 }
 &nbsp;
 export function getRequestOrigin(storageKey: StorageKey, request: string): string {
   const existing = getRequestInfo(storageKey, request);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!existing<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>rigin) {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!existing?.origin<span class="branch-0 cbranch-no" title="branch not covered" >) {</span>
 <span class="cstat-no" title="statement not covered" >    throw new Error(`Unable to get origin for request: ${request}`);</span>
   }
   return existing.origin;
@@ -253,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >deleteTabFo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:29:21 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 13:58:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
