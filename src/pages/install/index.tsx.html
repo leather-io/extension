@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -107,7 +107,15 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -116,6 +124,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -123,12 +139,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,6 +152,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,6 +183,7 @@ import { PopupContainer } from '@components/popup/container'<span class="cstat-n
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
 import { Title, Body } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
+import { InitialPageSelectors } from '@tests/integration/initial-page.selectors'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 const Actions<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;StackProps&gt; = p</span>rops =&gt; {</span>
   const { doMakeWallet<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
@@ -184,10 +201,17 @@ const Actions<span class="cstat-no" title="statement not covered" ><span class="
 &nbsp;
   return (
     &lt;Stack justifyContent="center" spacing="loose" textAlign="center" {...props}&gt;
-      &lt;Button onClick={register} isLoading={isCreatingWallet} data-testid="sign-up"&gt;
+      &lt;Button
+        onClick={register}
+        isLoading={isCreatingWallet}
+        data-testid={InitialPageSelectors.SignUp}
+      &gt;
         I'm new to Stacks
       &lt;/Button&gt;
-      &lt;Link onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >d</span>oChangeScreen(ScreenPaths.SIGN_IN_INSTALLED)} d</span>ata-testid="sign-in"&gt;
+      &lt;Link
+        onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >d</span>oChangeScreen(ScreenPaths.SIGN_IN_INSTALLED)}</span>
+        data-testid={InitialPageSelectors.SignIn}
+      &gt;
         Sign in with Secret Key
       &lt;/Link&gt;
     &lt;/Stack&gt;
@@ -214,7 +238,7 @@ export const <span class="cstat-no" title="statement not covered" >Installed: Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 14:31:08 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 13 2021 15:32:48 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
