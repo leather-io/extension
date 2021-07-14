@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -139,23 +139,26 @@
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,6 +166,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,9 +229,10 @@
 import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
 import React, { memo, useCallback, useRef } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span>
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
-import { IconArrowUp, IconQrcode } from '@tabler/icons'<span class="cstat-no" title="statement not covered" >;</span>
+import { FiArrowUp } from 'react-icons/fi'<span class="cstat-no" title="statement not covered" >;</span>
 import { useTransferableAssets } from '@common/hooks/use-assets'<span class="cstat-no" title="statement not covered" >;</span>
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors'<span class="cstat-no" title="statement not covered" >;</span>
+import { QrCodeIcon } from '@components/qr-code-icon'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface TxButtonProps extends ButtonProps {
   kind: 'send' | 'receive';
@@ -261,9 +266,10 @@ const TxButton<span class="cstat-no" title="statement not covered" >: React.FC&l
         {...rest}
       &gt;
         &lt;Box
-          as={isSend ? IconArrowUp : IconQrcode}
+          as={isSend ? FiArrowUp : QrCodeIcon}
           transform={isSend ? 'unset' : 'scaleY(-1)'}
-          size="16px"
+          size={isSend ? '16px' : '14px'}
+          mr={isSend ? 0 : '2px'}
         /&gt;
         &lt;Box as="span" ml="extra-tight" fontSize="14px"&gt;
           {label}
@@ -310,7 +316,7 @@ export const <span class="cstat-no" title="statement not covered" >HomeActions<s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 14 2021 19:23:43 GMT+0000 (Coordinated Universal Time)
+                at Wed Jul 14 2021 20:38:39 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
