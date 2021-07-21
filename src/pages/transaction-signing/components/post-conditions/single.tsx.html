@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.56% </span>
+                <span class="strong">95.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/45</span>
+                <span class='fraction'>45/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.29% </span>
+                <span class="strong">68.18% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>56/82</span>
+                <span class='fraction'>60/88</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/39</span>
+                <span class='fraction'>41/41</span>
             </div>
         
             
@@ -186,7 +186,9 @@
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -220,16 +222,17 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,21 +270,22 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,10 +351,12 @@ export const PostConditionFallbackComponent: React.FC&lt;PostConditionProps&gt; 
   const ticker = getSymbolFromPostCondition(pc);
   const amount = getAmountFromPostCondition(pc);
   const name = getNameFromPostCondition(pc);
+  const contractName = 'contractName' in pc.principal &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pc.principal.contractName.content;</span>
   const address = addressToString(pc.principal.address);
   const isSending = address === currentAccount?.address<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 &nbsp;
   const isContractPrincipal =
+    !!contractName ||
     (pendingTransaction?.txType<span class="branch-0 cbranch-no" title="branch not covered" > == TransactionTypes.ContractCall &amp;&amp;</span>
       pendingTransaction.contractAddress === address) ||
     address.includes('.');
@@ -371,10 +377,9 @@ export const PostConditionFallbackComponent: React.FC&lt;PostConditionProps&gt; 
           isContractPrincipal<span class="branch-0 cbranch-no" title="branch not covered" > ? 'The contract ' : i</span>sSending ? 'You '<span class="branch-1 cbranch-no" title="branch not covered" > : 'Another address '</span>
         } ${title}`}
         left={name}
-        right={`${isSending ? 'From'<span class="branch-1 cbranch-no" title="branch not covered" > : 'To'} </span>${truncateMiddle(
-          addressToString(pc.principal.address),
-          4
-        )}`}
+        right={`${truncateMiddle(addressToString(pc.principal.address), 4)}${
+          contractName<span class="branch-0 cbranch-no" title="branch not covered" > ? `.${contractName}` : ''</span>
+        }`}
         amount={amount}
         ticker={ticker}
         icon={iconString}
@@ -394,6 +399,7 @@ export const PostConditionComponentSuspense: React.FC&lt;PostConditionProps&gt; 
   const _ticker = getSymbolFromPostCondition(pc);
   const _amount = getAmountFromPostCondition(pc);
   const name = getNameFromPostCondition(pc);
+  const contractName = 'contractName' in pc.principal &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pc.principal.contractName.content;</span>
   const address = addressToString(pc.principal.address);
   const isSending = address === currentAccount?.address<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 &nbsp;
@@ -403,6 +409,7 @@ export const PostConditionComponentSuspense: React.FC&lt;PostConditionProps&gt; 
   const ticker = asset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.symbol || <span class="branch-1 cbranch-no" title="branch not covered" >_ticker;</span></span></span>
 &nbsp;
   const isContractPrincipal =
+    !!contractName ||
     (pendingTransaction?.txType<span class="branch-0 cbranch-no" title="branch not covered" > == TransactionTypes.ContractCall &amp;&amp;</span>
       pendingTransaction.contractAddress === address) ||
     address.includes('.');
@@ -423,10 +430,9 @@ export const PostConditionComponentSuspense: React.FC&lt;PostConditionProps&gt; 
           isContractPrincipal<span class="branch-0 cbranch-no" title="branch not covered" > ? 'The contract ' : i</span>sSending ? 'You '<span class="branch-1 cbranch-no" title="branch not covered" > : 'Another address '</span>
         } ${title}`}
         left={asset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.name || <span class="branch-1 cbranch-no" title="branch not covered" >name}</span></span></span>
-        right={`${isSending ? 'From'<span class="branch-1 cbranch-no" title="branch not covered" > : 'To'} </span>${truncateMiddle(
-          addressToString(pc.principal.address),
-          4
-        )}`}
+        right={`${truncateMiddle(addressToString(pc.principal.address), 4)}${
+          contractName<span class="branch-0 cbranch-no" title="branch not covered" > ? `.${contractName}` : ''</span>
+        }`}
         amount={amount}
         ticker={asset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.symbol || <span class="branch-1 cbranch-no" title="branch not covered" >ticker}</span></span></span>
         icon={iconString}
@@ -451,7 +457,7 @@ export const PostConditionComponent = (props: PostConditionProps) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 13:49:25 GMT+0000 (Coordinated Universal Time)
+                at Wed Jul 21 2021 14:39:12 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
