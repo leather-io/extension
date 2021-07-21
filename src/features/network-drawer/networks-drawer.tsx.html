@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -259,7 +259,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useCallback } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span>
 &nbsp;
 import { Box, Flex, Button, Stack, color, FlexProps, BoxProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 import { ControlledDrawer } from '@components/drawer/controlled'<span class="cstat-no" title="statement not covered" >;</span>
@@ -276,7 +276,7 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils'<span class="cstat-no" 
 import { FiCloudOff as IconCloudOff } from 'react-icons/fi'<span class="cstat-no" title="statement not covered" >;</span>
 import { SettingsSelectors } from '@tests/integration/settings.selectors'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-const NetworkListItem<span class="cstat-no" title="statement not covered" >: React.FC&lt;{ item: string } &amp; BoxProps&gt; = memo(({ item<span class="cstat-no" title="statement not covered" >, ...p</span>rops<span class="cstat-no" title="statement not covered" > }) =&gt; {</span></span>
+const NetworkListItem<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;{ item: string } &amp; BoxProps&gt; = ({ i</span>tem<span class="cstat-no" title="statement not covered" >, ...p</span>rops<span class="cstat-no" title="statement not covered" > }) =&gt; {</span></span>
   const { setShowNetworks<span class="cstat-no" title="statement not covered" > } = useDrawers();</span>
   const { networks, currentNetworkKey<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
   const setCurrentNetworkKey<span class="cstat-no" title="statement not covered" > = useUpdateAtom(currentNetworkKeyState);</span>
@@ -326,24 +326,24 @@ const NetworkListItem<span class="cstat-no" title="statement not covered" >: Rea
       &lt;/Flex&gt;
     &lt;/Box&gt;
   );
-});
+};
 &nbsp;
-const NetworkList<span class="cstat-no" title="statement not covered" >: React.FC&lt;FlexProps&gt; = memo(props =&gt; {</span>
+const NetworkList<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;FlexProps&gt; = p</span>rops =&gt; {</span>
   const { networks<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
 &nbsp;
   const items = <span class="cstat-no" title="statement not covered" >Object.keys(networks);</span>
   return (
     &lt;Flex flexWrap="wrap" flexDirection="column" {...props}&gt;
       {items.map(item =&gt; (
-        &lt;React.Suspense fallback={&lt;&gt;Loading&lt;/&gt;}&gt;
-          &lt;NetworkListItem data-testid={SettingsSelectors.NetworkListItem} item={item} key={item} /&gt;
+        &lt;React.Suspense key={item} fallback={&lt;&gt;Loading&lt;/&gt;}&gt;
+          &lt;NetworkListItem data-testid={SettingsSelectors.NetworkListItem} item={item} /&gt;
         &lt;/React.Suspense&gt;
       ))}
     &lt;/Flex&gt;
   );
-});
+};
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >NetworksDrawer<span class="cstat-no" title="statement not covered" >: React.FC = memo(() =&gt; {</span></span>
+export const <span class="cstat-no" title="statement not covered" >NetworksDrawer<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
   const { setShowNetworks<span class="cstat-no" title="statement not covered" > } = useDrawers();</span>
   const doChangeScreen<span class="cstat-no" title="statement not covered" > = useDoChangeScreen();</span>
 &nbsp;
@@ -359,7 +359,7 @@ export const <span class="cstat-no" title="statement not covered" >NetworksDrawe
       &lt;/Box&gt;
     &lt;/ControlledDrawer&gt;
   );
-});
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -367,7 +367,7 @@ export const <span class="cstat-no" title="statement not covered" >NetworksDrawe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 13:39:01 GMT+0000 (Coordinated Universal Time)
+                at Wed Jul 21 2021 13:49:25 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
