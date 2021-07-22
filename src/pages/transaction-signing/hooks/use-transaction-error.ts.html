@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/47</span>
+                <span class='fraction'>0/51</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>0/34</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/41</span>
             </div>
         
             
@@ -122,20 +122,17 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -146,6 +143,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,6 +159,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,6 +208,7 @@ import { transactionBroadcastErrorState } from '@store/transactions'<span class=
 import { useOrigin } from '@common/hooks/use-origin'<span class="cstat-no" title="statement not covered" >;</span>
 import { transactionRequestValidationState } from '@store/transactions/requests'<span class="cstat-no" title="statement not covered" >;</span>
 import { useAtomValue } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { validateStacksAddress } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useTransactionError(</span>) {</span>
   const transactionRequest<span class="cstat-no" title="statement not covered" > = useTransactionRequest();</span>
@@ -220,8 +229,11 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
 <span class="cstat-no" title="statement not covered" >    if (!transactionRequest || !balances || !currentAccount) {</span>
       return TransactionErrorReason.Generic;
     }
-<span class="cstat-no" title="statement not covered" >    if (transactionRequest.txType === TransactionTypes.ContractCall &amp;&amp; !contractInterface<span class="cstat-no" title="statement not covered" >)</span></span>
-      return TransactionErrorReason.NoContract;
+<span class="cstat-no" title="statement not covered" >    if (transactionRequest.txType === TransactionTypes.ContractCall) {</span>
+<span class="cstat-no" title="statement not covered" >      if (!validateStacksAddress(transactionRequest.contractAddress<span class="cstat-no" title="statement not covered" >))</span></span>
+        return TransactionErrorReason.InvalidContractAddress;
+<span class="cstat-no" title="statement not covered" >      if (!contractInterface<span class="cstat-no" title="statement not covered" >) return TransactionErrorReason.NoContract;</span></span>
+    }
 <span class="cstat-no" title="statement not covered" >    if (broadcastError<span class="cstat-no" title="statement not covered" >) return TransactionErrorReason.BroadcastError;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (balances) {</span>
@@ -259,7 +271,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 14:42:14 GMT+0000 (Coordinated Universal Time)
+                at Thu Jul 22 2021 19:16:26 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
