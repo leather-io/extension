@@ -104,6 +104,7 @@ export const Title = forwardRefWithAs<BoxProps, Headings>((props, ref) => (
     fontFeatureSettings={`'ss01' on`}
     letterSpacing="-0.01em"
     fontFamily="'Open Sauce One'"
+    fontWeight="500"
     color={color('text-title')}
     ref={ref}
     display="block"
