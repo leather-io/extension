@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.22% </span>
+                <span class="strong">73.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/54</span>
+                <span class='fraction'>41/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.54% </span>
+                <span class="strong">10.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/52</span>
+                <span class='fraction'>6/56</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.73% </span>
+                <span class="strong">72.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/41</span>
+                <span class='fraction'>31/43</span>
             </div>
         
             
@@ -141,7 +141,8 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,7 +152,8 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,6 +173,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,17 +191,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,9 +237,10 @@ import { currentAccountState } from '@store/accounts';
 import { requestTokenPayloadState } from '@store/transactions/requests';
 &nbsp;
 import { generateSignedTransaction } from '@common/transactions/transactions';
-import { TransactionPayload } from '@stacks/connect';
+import { TransactionPayload, TransactionTypes } from '@stacks/connect';
 import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
+import { validateStacksAddress } from '@common/stacks-utils';
 &nbsp;
 export const pendingTransactionState = atom(get =&gt; {
   const payload = get(requestTokenPayloadState);
@@ -255,6 +258,12 @@ export const signedStacksTransactionState = atom(get =&gt; {
   const txData = <span class="cstat-no" title="statement not covered" >get(pendingTransactionState);</span>
   const nonce = <span class="cstat-no" title="statement not covered" >get(correctNonceState);</span>
 <span class="cstat-no" title="statement not covered" >  if (!account || !txData<span class="cstat-no" title="statement not covered" >) return;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (</span>
+    txData.txType === TransactionTypes.ContractCall &amp;&amp;
+    !validateStacksAddress(txData.contractAddress<span class="cstat-no" title="statement not covered" >)</span>
+  )
+    return;
+&nbsp;
   return generateSignedTransaction({
     senderKey: account.stxPrivateKey,
     nonce,
@@ -263,23 +272,17 @@ export const signedStacksTransactionState = atom(get =&gt; {
 });
 &nbsp;
 export const signedTransactionState = atom(get =&gt; {
-  try <span class="cstat-no" title="statement not covered" >{</span>
-    const signedTransaction = <span class="cstat-no" title="statement not covered" >get(signedStacksTransactionState);</span>
-<span class="cstat-no" title="statement not covered" >    if (!signedTransaction<span class="cstat-no" title="statement not covered" >) return;</span></span>
-    const serialized = <span class="cstat-no" title="statement not covered" >signedTransaction.serialize();</span>
-    const txRaw<span class="cstat-no" title="statement not covered" > = stacksTransactionToHex(signedTransaction);</span>
-    return {
-      serialized,
-      isSponsored: signedTransaction?.auth?.authType === AuthType.Sponsored,
-      nonce: signedTransaction?.auth.spendingCondition?.nonce.toNumber(),
-      fee: signedTransaction?.auth.spendingCondition?.fee?.toNumber(),
-      txRaw,
-    };
-  } catch (e) {
-    // can catch due to incorrect stacks address
-<span class="cstat-no" title="statement not covered" >    console.error(e);</span>
-    return;
-  }
+  const signedTransaction = <span class="cstat-no" title="statement not covered" >get(signedStacksTransactionState);</span>
+<span class="cstat-no" title="statement not covered" >  if (!signedTransaction<span class="cstat-no" title="statement not covered" >) return;</span></span>
+  const serialized = <span class="cstat-no" title="statement not covered" >signedTransaction.serialize();</span>
+  const txRaw<span class="cstat-no" title="statement not covered" > = stacksTransactionToHex(signedTransaction);</span>
+  return {
+    serialized,
+    isSponsored: signedTransaction?.auth?.authType === AuthType.Sponsored,
+    nonce: signedTransaction?.auth.spendingCondition?.nonce.toNumber(),
+    fee: signedTransaction?.auth.spendingCondition?.fee?.toNumber(),
+    txRaw,
+  };
 });
 &nbsp;
 export const transactionFeeState = atom(get =&gt; {
@@ -316,7 +319,7 @@ transactionBroadcastErrorState.debugLabel = 'transactionBroadcastErrorState';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 20:30:41 GMT+0000 (Coordinated Universal Time)
+                at Mon Jul 26 2021 22:37:29 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
