@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/pages/choose-account/components/account-item.tsx</title>
+    <title>Code coverage report for src/features/account-balance-caption.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/pages/choose-account/components</a> account-item.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/features</a> account-balance-caption.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -87,8 +87,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -105,30 +103,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
-import { Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
-import { AccountAvatar } from '@features/account-avatar/account-avatar'<span class="cstat-no" title="statement not covered" >;</span>
-import { Caption, Title } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
-import { truncateMiddle } from '@stacks/ui-utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { getAccountDisplayName } from '@stacks/wallet-sdk'<span class="cstat-no" title="statement not covered" >;</span>
-import { useAccountNames } from '@common/hooks/account/use-account-names'<span class="cstat-no" title="statement not covered" >;</span>
-import { AccountWithAddress } from '@store/accounts';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomValue } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { accountDataState } from '@store/accounts'<span class="cstat-no" title="statement not covered" >;</span>
+import { stacksValue } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { Caption, Text } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
+import { color } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import React from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
 &nbsp;
-export const AccountItem<span class="cstat-no" title="statement not covered" > = memo(({ account<span class="cstat-no" title="statement not covered" >, ...r</span>est<span class="cstat-no" title="statement not covered" > }: { account: AccountWithAddress }) =&gt; {</span></span>
-  const names<span class="cstat-no" title="statement not covered" > = useAccountNames();</span>
-  const name<span class="cstat-no" title="statement not covered" > = names?.[account.index]?.names?.[0] || getAccountDisplayName(account);</span>
+export const <span class="cstat-no" title="statement not covered" >AccountBalanceCaption<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({ a</span></span>ddress }: { address: string }) =&gt; {</span>
+  const accountData<span class="cstat-no" title="statement not covered" > = useAtomValue(accountDataState(address));</span>
+<span class="cstat-no" title="statement not covered" >  if (!accountData<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+  const balance = stacksValue({
+    value: parseInt(accountData?.balances.stx.balance),
+    withTicker: true,
+    abbreviate: true,
+  });
   return (
-    &lt;Stack isInline alignItems="center" spacing="base" {...rest}&gt;
-      &lt;AccountAvatar name={name} account={account} /&gt;
-      &lt;Stack spacing="base-tight"&gt;
-        &lt;Title fontSize={2} lineHeight="1rem" fontWeight="400"&gt;
-          {name}
-        &lt;/Title&gt;
-        &lt;Caption&gt;{truncateMiddle(account.address, 4)}&lt;/Caption&gt;
-      &lt;/Stack&gt;
-    &lt;/Stack&gt;
+    &lt;&gt;
+      &lt;Text color={color('text-caption')} fontSize="10px"&gt;
+        •
+      &lt;/Text&gt;
+      &lt;Caption&gt;{balance}&lt;/Caption&gt;
+    &lt;/&gt;
   );
-});
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -136,17 +136,17 @@ export const AccountItem<span class="cstat-no" title="statement not covered" > =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 14:32:16 GMT+0000 (Coordinated Universal Time)
+                at Mon Jul 26 2021 13:38:58 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     
