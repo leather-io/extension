@@ -174,13 +174,29 @@ export const allAccountDataRefreshState = atom(null, (get, set) => {
 // the balances of the current account's address
 export const accountBalancesState = atom<AllAccountData['balances'] | undefined>(get => {
   const balances = get(currentAccountDataState)?.balances;
-  const stxBalance = get(accountInfoState)?.balance.toString(10);
+  const stxBalance = balances ? balances.stx.balance : '';
   return balances
     ? {
         ...balances,
         stx: {
           ...balances.stx,
-          balance: stxBalance || balances.stx.balance,
+          balance: stxBalance,
+        },
+      }
+    : undefined;
+});
+
+export const accountUnanchoredBalancesState = atom<
+  AllAccountData['unanchoredBalances'] | undefined
+>(get => {
+  const balances = get(currentAccountDataState)?.unanchoredBalances;
+  const stxBalance = balances ? balances.stx.balance : '';
+  return balances
+    ? {
+        ...balances,
+        stx: {
+          ...balances.stx,
+          balance: stxBalance,
         },
       }
     : undefined;

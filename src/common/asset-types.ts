@@ -18,6 +18,7 @@ export interface Asset {
   balance: string;
   canTransfer?: boolean;
   hasMemo?: boolean;
+  subBalance?: string;
 }
 
 export interface FungibleTokenOptions {
