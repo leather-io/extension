@@ -1,19 +1,61 @@
 import { atom } from 'jotai';
 import { currentNetworkState } from '@store/networks';
+import { fetcher as fetchApi } from '@common/api/wrapped-fetch';
+
 import {
   Configuration,
   AccountsApi,
   SmartContractsApi,
   InfoApi,
+  TransactionsApi,
   BlocksApi,
+  FaucetsApi,
+  BNSApi,
+  BurnchainApi,
   FeesApi,
+  SearchApi,
+  RosettaApi,
+  MicroblocksApi,
 } from '@stacks/blockchain-api-client';
-import { fetcher } from '@common/api/wrapped-fetch';
-import { MICROBLOCKS_ENABLED } from '@common/constants';
-import type { Middleware, RequestContext } from '@stacks/blockchain-api-client';
-import { atomFamily } from 'jotai/utils';
 
-// Used to display microblock, this passes unanchored=true to the search param
+import type { Middleware, RequestContext } from '@stacks/blockchain-api-client';
+import { MICROBLOCKS_ENABLED } from '@common/constants';
+
+/**
+ * Our mega api clients function. This is a combo of all clients that the blockchain-api-client package offers.
+ * @param config - the `@stacks/blockchain-api-client` configuration object
+ */
+export function apiClients(config: Configuration) {
+  const smartContractsApi = new SmartContractsApi(config);
+  const accountsApi = new AccountsApi(config);
+  const infoApi = new InfoApi(config);
+  const transactionsApi = new TransactionsApi(config);
+  const microblocksApi = new MicroblocksApi(config);
+  const blocksApi = new BlocksApi(config);
+  const faucetsApi = new FaucetsApi(config);
+  const bnsApi = new BNSApi(config);
+  const burnchainApi = new BurnchainApi(config);
+  const feesApi = new FeesApi(config);
+  const searchApi = new SearchApi(config);
+  const rosettaApi = new RosettaApi(config);
+
+  return {
+    smartContractsApi,
+    accountsApi,
+    infoApi,
+    transactionsApi,
+    microblocksApi,
+    blocksApi,
+    faucetsApi,
+    bnsApi,
+    burnchainApi,
+    feesApi,
+    searchApi,
+    rosettaApi,
+  };
+}
+
+// this is used to enable automatic passing of `unanchored=true` to all requests
 const unanchoredMiddleware: Middleware = {
   pre: (context: RequestContext) => {
     const url = new URL(context.url);
@@ -25,44 +67,18 @@ const unanchoredMiddleware: Middleware = {
   },
 };
 
-export const apiClientConfiguration = atomFamily<string, Configuration>(basePath =>
-  atom<Configuration>(_get => {
-    const middleware: Middleware[] = [];
-    if (MICROBLOCKS_ENABLED) middleware.push(unanchoredMiddleware);
-    return new Configuration({
-      basePath,
-      fetchApi: fetcher,
-      middleware,
-    });
-  })
-);
+function createConfig(basePath: string) {
+  const middleware: Middleware[] = [];
+  if (MICROBLOCKS_ENABLED) middleware.push(unanchoredMiddleware);
+  return new Configuration({
+    basePath,
+    fetchApi,
+    middleware,
+  });
+}
 
-export const smartContractClientState = atom<SmartContractsApi>(get => {
+export const apiClientState = atom(get => {
   const network = get(currentNetworkState);
-  const config = get(apiClientConfiguration(network.url));
-  return new SmartContractsApi(config);
-});
-
-export const accountsApiClientState = atom<AccountsApi>(get => {
-  const network = get(currentNetworkState);
-  const config = get(apiClientConfiguration(network.url));
-  return new AccountsApi(config);
-});
-
-export const infoApiClientState = atom<InfoApi>(get => {
-  const network = get(currentNetworkState);
-  const config = get(apiClientConfiguration(network.url));
-  return new InfoApi(config);
-});
-
-export const blocksApiClientState = atom<BlocksApi>(get => {
-  const network = get(currentNetworkState);
-  const config = get(apiClientConfiguration(network.url));
-  return new BlocksApi(config);
-});
-
-export const feesApiClientState = atom<FeesApi>(get => {
-  const network = get(currentNetworkState);
-  const config = get(apiClientConfiguration(network.url));
-  return new FeesApi(config);
+  const config = createConfig(network.url);
+  return apiClients(config);
 });
