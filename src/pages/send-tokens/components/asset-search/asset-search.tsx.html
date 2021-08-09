@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.48% </span>
+                <span class="strong">40.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/46</span>
+                <span class='fraction'>21/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.8% </span>
+                <span class="strong">8.93% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/51</span>
+                <span class='fraction'>5/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>2/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.35% </span>
+                <span class="strong">48.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/37</span>
+                <span class='fraction'>20/41</span>
             </div>
         
             
@@ -238,7 +238,13 @@
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -250,6 +256,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
@@ -263,9 +270,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,6 +278,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,6 +297,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -419,7 +431,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useMemo, forwardRef, useEffect } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react';</span></span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useMemo, forwardRef, useEffect } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react';</span></span></span></span></span>
 import { Box, Fade, Text, Flex, Input, color, Stack, StackProps } from '@stacks/ui';
 import { useAtomValue } from 'jotai/utils';
 import { useAtom } from 'jotai';
@@ -431,6 +443,7 @@ import { useTransferableAssets } from '@common/hooks/use-assets';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { AssetRow } from '@components/asset-row';
 import { AssetWithMeta } from '@common/asset-types';
+import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
 &nbsp;
 function principalHasOnlyOneAsset(assets: AssetWithMeta[]) {
   return assets.length === 1;
@@ -444,6 +457,7 @@ const AssetSearchResults = forwardRef(
   ({ isOpen, highlightedIndex, getItemProps<span class="cstat-no" title="statement not covered" >, ...p</span>rops<span class="cstat-no" title="statement not covered" > }: AssetSearchResultsProps, ref) =&gt; {</span>
     const assets<span class="cstat-no" title="statement not covered" > = useTransferableAssets();</span>
     const searchInput<span class="cstat-no" title="statement not covered" > = useAtomValue(searchInputStore);</span>
+    const availableStxBalance<span class="cstat-no" title="statement not covered" > = useCurrentAccountAvailableStxBalance();</span>
 &nbsp;
     const items = useMemo(
       () =&gt;
@@ -455,7 +469,7 @@ const AssetSearchResults = forwardRef(
 &nbsp;
     return (
       &lt;Fade in={isOpen &amp;&amp; !!items?.length}&gt;
-        {styles =&gt; (
+        {<span class="fstat-no" title="function not covered" >styles </span>=&gt; (
           &lt;Stack
             flexDirection="column"
             boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08);"
@@ -474,16 +488,20 @@ const AssetSearchResults = forwardRef(
             ref={ref}
             {...props}
           &gt;
-            {items?.map<span class="branch-0 cbranch-no" title="branch not covered" >((asset, index) =&gt; (</span>
-              &lt;AssetRow
-                isPressable
-                asset={asset}
-                index={index}
-                key={`${asset.contractAddress || asset.name}__${index}`}
-                highlighted={highlightedIndex === index}
-                {...getItemProps({ item: asset, index })}
-              /&gt;
-            ))}
+            {items?.map<span class="fstat-no" title="function not covered" >((a</span>sset, index) =&gt; {
+              const isStx = <span class="cstat-no" title="statement not covered" >asset.type === 'stx';</span>
+<span class="cstat-no" title="statement not covered" >              if (isStx &amp;&amp; !availableStxBalance<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+              return (
+                &lt;AssetRow
+                  isPressable
+                  asset={asset}
+                  index={index}
+                  key={`${asset.contractAddress || asset.name}__${index}`}
+                  highlighted={highlightedIndex === index}
+                  {...getItemProps({ item: asset, index })}
+                /&gt;
+              );
+            })}
           &lt;/Stack&gt;
         )}
       &lt;/Fade&gt;
@@ -607,7 +625,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 09 2021 18:27:30 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 09 2021 18:48:40 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
