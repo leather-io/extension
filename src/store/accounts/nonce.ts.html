@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/38</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.94% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/33</span>
+                <span class='fraction'>30/32</span>
             </div>
         
             
@@ -146,13 +146,18 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -169,9 +174,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,26 +208,16 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,7 +229,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { atom } from 'jotai';
 import { atomFamily, atomWithStorage } from 'jotai/utils';
 &nbsp;
@@ -245,9 +253,10 @@ import {
 } from '@store/accounts';
 import { currentNetworkState } from '@store/networks';
 import deepEqual from 'fast-deep-equal';
+import { hashQueryKey } from 'react-query';
 &nbsp;
 export const localNoncesState = atomFamily&lt;[string, string], number, number&gt;(
-  _params =&gt; atomWithStorage('LOCAL_NONCE_STATE', 0),
+  params =&gt; atomWithStorage(hashQueryKey(['LOCAL_NONCE_STATE', params]), 0),
   deepEqual
 );
 &nbsp;
@@ -257,73 +266,76 @@ export const latestNonceState = atom(get =&gt; {
   return get(localNoncesState([network.url, address<span class="branch-1 cbranch-no" title="branch not covered" > || '']));</span>
 });
 &nbsp;
-export const correctNonceState = atom(get =&gt; {
-  const account = get(accountInfoState);
-  const accountData = get(currentAccountDataState);
-  const address = get(currentAccountStxAddressState);
-  const lastLocalNonce = get(latestNonceState);
+export const correctNonceState = atomFamily&lt;string, number&gt;(address =&gt;
+  atom(get =&gt; {
+    const account = get(accountInfoState);
+    const accountData = get(currentAccountDataState);
+    const lastLocalNonce = get(latestNonceState);
 &nbsp;
-  // most recent confirmed transactions sent by current address
-  const lastConfirmedTx = accountData?.transactions<span class="branch-0 cbranch-no" title="branch not covered" >.results?.filter<span class="branch-0 cbranch-no" title="branch not covered" >(</span></span>
-    tx =&gt; tx.sender_address === address
-  )?.[0]<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
+    // most recent confirmed transactions sent by current address
+    const lastConfirmedTx = accountData?.transactions<span class="branch-0 cbranch-no" title="branch not covered" >.results?.filter<span class="branch-0 cbranch-no" title="branch not covered" >(</span></span>
+      tx =&gt; tx.sender_address === address
+    )?.[0]<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 &nbsp;
-  // most recent pending transactions sent by current address
-  const latestPendingTx = accountData?.pendingTransactions<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.filter<span class="fstat-no" title="function not covered" >(</span></span></span>
-    tx =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address</span>
-  )?.[0]<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
+    // most recent pending transactions sent by current address
+    const latestPendingTx = accountData?.pendingTransactions<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.filter<span class="fstat-no" title="function not covered" >(</span></span></span>
+      tx =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address</span>
+    )?.[0]<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 &nbsp;
-  // oldest pending transactions sent by current address
-  const oldestPendingTx = accountData?.pendingTransactions<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.length<span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
-    ? accountData?.pendingTransactions?.filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address)</span>?.[
-        accountData?.pendingTransactions?.length - 1
-      ]
-    : undefined;
+    // oldest pending transactions sent by current address
+    const oldestPendingTx = accountData?.pendingTransactions<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.length<span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+      ? accountData?.pendingTransactions?.filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address)</span>?.[
+          accountData?.pendingTransactions?.length - 1
+        ]
+      : undefined;
 &nbsp;
-  // they have any pending or confirmed transactions
-  const hasTransactions = !!latestPendingTx || !!lastConfirmedTx;
+    // they have any pending or confirmed transactions
+    const hasTransactions = !!latestPendingTx || !!lastConfirmedTx;
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!hasTransactions || !account || (!hasTransactions &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >account.nonce === 0<span class="cstat-no" title="statement not covered" >)</span>) return 0;</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!hasTransactions || !account || (!hasTransactions &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >account.nonce === 0<span class="cstat-no" title="statement not covered" >)</span>) return 0;</span>
 &nbsp;
-  // if the oldest pending tx is more than 1 above the account nonce, it's likely there was
-  // a race condition such that the client didn't have the most up to date pending tx
-  // if this is true, we should rely on the account nonce
-  const hasNonceMismatch =
-    oldestPendingTx &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastConfirmedTx </span>? <span class="branch-0 cbranch-no" title="branch not covered" >oldestPendingTx.nonce &gt; lastConfirmedTx.nonce + 1 </span>: false;
+    // if the oldest pending tx is more than 1 above the account nonce, it's likely there was
+    // a race condition such that the client didn't have the most up to date pending tx
+    // if this is true, we should rely on the account nonce
+    const hasNonceMismatch =
+      oldestPendingTx &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastConfirmedTx</span>
+        ? <span class="branch-0 cbranch-no" title="branch not covered" >oldestPendingTx.nonce &gt; lastConfirmedTx.nonce + 1</span>
+        : false;
 &nbsp;
-  // if they do have a miss match, let's use the account nonce
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (hasNonceMismatch<span class="cstat-no" title="statement not covered" >) return account.nonce;</span>
+    // if they do have a miss match, let's use the account nonce
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (hasNonceMismatch<span class="cstat-no" title="statement not covered" >) return account.nonce;</span>
 &nbsp;
-  // otherwise, without micro-blocks, the account nonce will likely be out of date compared
-  // and not be incremented based on pending transactions
-  const pendingNonce = <span class="branch-1 cbranch-no" title="branch not covered" >latestPendingTx?.nonce </span>|| 0;
-  const lastConfirmedTxNonce = lastConfirmedTx?.nonce<span class="branch-0 cbranch-no" title="branch not covered" > || 0;</span>
+    // otherwise, without micro-blocks, the account nonce will likely be out of date compared
+    // and not be incremented based on pending transactions
+    const pendingNonce = <span class="branch-1 cbranch-no" title="branch not covered" >latestPendingTx?.nonce </span>|| 0;
+    const lastConfirmedTxNonce = lastConfirmedTx?.nonce<span class="branch-0 cbranch-no" title="branch not covered" > || 0;</span>
 &nbsp;
-  // lastLocalNonce can be set when the user sends transactions
-  // and can often be faster that waiting for a new response from the API
-  const useLocalNonce = lastLocalNonce &gt; pendingNonce &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastLocalNonce &gt; lastConfirmedTxNonce;</span>
+    // lastLocalNonce can be set when the user sends transactions
+    // and can often be faster that waiting for a new response from the API
+    const useLocalNonce = lastLocalNonce &gt; pendingNonce &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastLocalNonce &gt; lastConfirmedTxNonce;</span>
 &nbsp;
-  const usePendingNonce =
-    !useLocalNonce &amp;&amp;
-    ((lastConfirmedTx &amp;&amp; pendingNonce &gt; lastConfirmedTx.nonce) || pendingNonce + 1 &gt; account.nonce);
+    const usePendingNonce =
+      !useLocalNonce &amp;&amp;
+      ((lastConfirmedTx &amp;&amp; pendingNonce &gt; lastConfirmedTx.nonce) ||
+        pendingNonce + 1 &gt; account.nonce);
 &nbsp;
-  // if they have a last confirmed transaction (but no pending)
-  // and it's greater than account nonce, we should use that one
-  // else we will use the account nonce
-  const useLastTxNonce =
-    hasTransactions &amp;&amp; lastConfirmedTx &amp;&amp; lastConfirmedTx.nonce + 1 &gt; account.nonce;
-  const lastConfirmedNonce =
-    useLastTxNonce &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastConfirmedTx </span>? <span class="branch-0 cbranch-no" title="branch not covered" >lastConfirmedTx.nonce + 1 </span>: account.nonce;
+    // if they have a last confirmed transaction (but no pending)
+    // and it's greater than account nonce, we should use that one
+    // else we will use the account nonce
+    const useLastTxNonce =
+      hasTransactions &amp;&amp; lastConfirmedTx &amp;&amp; lastConfirmedTx.nonce + 1 &gt; account.nonce;
+    const lastConfirmedNonce =
+      useLastTxNonce &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastConfirmedTx </span>? <span class="branch-0 cbranch-no" title="branch not covered" >lastConfirmedTx.nonce + 1 </span>: account.nonce;
 &nbsp;
-  return useLocalNonce
-    ? <span class="branch-0 cbranch-no" title="branch not covered" >lastLocalNonce</span>
-    : usePendingNonce
-    ? // if pending nonce is greater, use that
-<span class="branch-0 cbranch-no" title="branch not covered" >      pendingNonce + 1</span>
-    : // else we use the last confirmed nonce
-      lastConfirmedNonce;
-});
-correctNonceState.debugLabel = 'correctNonceState';
+    return useLocalNonce
+      ? <span class="branch-0 cbranch-no" title="branch not covered" >lastLocalNonce</span>
+      : usePendingNonce
+      ? // if pending nonce is greater, use that
+<span class="branch-0 cbranch-no" title="branch not covered" >        pendingNonce + 1</span>
+      : // else we use the last confirmed nonce
+        lastConfirmedNonce;
+  })
+);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -331,7 +343,7 @@ correctNonceState.debugLabel = 'correctNonceState';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 09 2021 17:39:39 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 09 2021 18:27:30 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
