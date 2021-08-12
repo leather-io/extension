@@ -352,3 +352,11 @@ export function countDecimals(num: string | number | BigNumber) {
   const decimals = amount.toString(10).split('.')[1];
   return decimals ? decimals.length : 0;
 }
+
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+
+export function isString(value: unknown): value is string {
+  return typeof value === 'string';
+}
