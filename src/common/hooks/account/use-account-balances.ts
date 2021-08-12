@@ -1,10 +1,8 @@
-import { useFetchAccountData } from '@common/hooks/account/use-account-info';
 import { useAtomValue } from 'jotai/utils';
-import { currentAccountInfoState } from '@store/accounts';
+import { currentAccountBalancesState, currentAccountInfoState } from '@store/accounts';
 
 export function useAccountBalances() {
-  const accountData = useFetchAccountData();
-  return accountData?.balances;
+  return useAtomValue(currentAccountBalancesState);
 }
 
 export function useAccountInfo() {

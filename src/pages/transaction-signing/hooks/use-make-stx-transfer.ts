@@ -1,7 +1,7 @@
 import { useAtomCallback, waitForAll } from 'jotai/utils';
 import { currentStacksNetworkState } from '@store/networks';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
-import { correctNonceState } from '@store/accounts/nonce';
+import { currentAccountNonceState } from '@store/accounts/nonce';
 import { AnchorMode, makeSTXTokenTransfer, StacksTransaction } from '@stacks/transactions';
 import BN from 'bn.js';
 import { stxToMicroStx } from '@stacks/ui-utils';
@@ -26,12 +26,12 @@ export function useMakeStxTransfer() {
         waitForAll({
           network: currentStacksNetworkState,
           account: currentAccountState,
-          nonce: correctNonceState(address),
+          nonce: currentAccountNonceState,
         }),
         true
       );
 
-      if (!account) return;
+      if (!account || typeof nonce === 'undefined') return;
 
       return makeSTXTokenTransfer({
         recipient,

@@ -1,8 +1,9 @@
 import type { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
 import { Account, getStxAddress } from '@stacks/wallet-sdk';
-import { atomFamily, atomWithDefault } from 'jotai/utils';
+import { atomFamily, atomWithDefault, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import BigNumber from 'bignumber.js';
+import { makeLocalDataKey } from '@store/common/utils';
 
 import { transactionRequestStxAddressState } from '@store/transactions/requests';
 import { currentNetworkState } from '@store/networks';
@@ -10,6 +11,7 @@ import { walletState } from '@store/wallet';
 import { transactionNetworkVersionState } from '@store/transactions';
 import {
   accountBalancesAnchoredClient,
+  accountBalancesBigNumber,
   accountBalancesClient,
   accountInfoClient,
   accountMempoolTransactionsClient,
@@ -65,7 +67,10 @@ export const accountsWithAddressState = atom<AccountWithAddress[] | undefined>(g
 
 // The index of the current account
 // persists through sessions (viewings)
-export const currentAccountIndexState = atom<number>(0);
+export const currentAccountIndexState = atomWithStorage<number>(
+  makeLocalDataKey('currentAccountIndex'),
+  0
+);
 
 // This is only used when there is a pending transaction request and
 // the user switches accounts during the signing process
@@ -110,7 +115,7 @@ export const currentAccountPrivateKeyState = atom<string | undefined>(
 export const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(address =>
   atom(get => {
     const network = get(currentNetworkState);
-    const balances = get(accountBalancesClient([address, network.url]));
+    const balances = get(accountBalancesBigNumber([address, network.url]));
     if (!balances) return;
     return balances.stx.balance.minus(balances.stx.locked);
   })
@@ -127,7 +132,7 @@ export const currentAccountBalancesState = atom(get => {
   const address = get(currentAccountStxAddressState);
   const network = get(currentNetworkState);
   if (!address) return;
-  return get(accountBalancesClient([address, network.url]));
+  return get(accountBalancesBigNumber([address, network.url]));
 });
 
 // the anchored balances of the current account's address

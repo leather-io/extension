@@ -10,6 +10,8 @@ export const USERNAMES_ENABLED = process.env.USERNAMES_ENABLED === 'true';
 
 export const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
+export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
+
 export const STX_DECIMALS = 6;
 
 export const STACKS_MARKETS_URL = 'https://coinmarketcap.com/currencies/stacks/markets/';

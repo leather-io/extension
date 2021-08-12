@@ -70,7 +70,7 @@ describe(`Settings integration tests`, () => {
     );
     expect(currentNetwork).toContain('mainnet');
     await wallet.page.click(createTestSelector(SettingsSelectors.ChangeNetworkAction));
-
+    await wallet.page.waitForTimeout(850);
     const networkListItems = await wallet.page.$$(
       createTestSelector(SettingsSelectors.NetworkListItem)
     );

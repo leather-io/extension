@@ -10413,18 +10413,17 @@ joi@^17.3.0:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
-jotai-query-toolkit@0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/jotai-query-toolkit/-/jotai-query-toolkit-0.1.3.tgz#3fc3b0146a04c52fc06a967e89c9ed3ecc0c6513"
-  integrity sha512-hKRUDK9czd55zPNTlHd4LpBG0jZrUO/OoVShD3ErTefMPOk9Q4GqFE4sZwITRBcbE1Vv/hhiUKxJpWnnVwX1nA==
+jotai-query-toolkit@0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/jotai-query-toolkit/-/jotai-query-toolkit-0.1.7.tgz#488e84efc1e30822bcbaef5e1bcd9f4470638daa"
+  integrity sha512-no5QpGoFVHqCOHKHPoaSp0TQRzWwDIWyUd+J6C9JFsn6TRAlzLaZn8ES/cCLn+XIYsfNxg9hagWjqfXZR4MCrA==
   dependencies:
     fast-deep-equal "3.1.3"
     proxy-memoize "^0.3.5"
 
-jotai@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.1.3.tgz#bf80b317562024117606b0cf9841db0b4bfd5e09"
-  integrity sha512-7PZs8gHe8Y+7BkC6m32NbfeNGa8ybFMUoy2DbH542YVYrFEJPxqIE4Es/SXaII7f8r/UZGzg29XWNEDq+iCITg==
+"jotai@https://pkg.csb.dev/pmndrs/jotai/commit/6e7c2817/jotai":
+  version "1.3.0"
+  resolved "https://pkg.csb.dev/pmndrs/jotai/commit/6e7c2817/jotai#791e2b3907c48558d03033f320274446775df2e6"
 
 joycon@^3.0.1:
   version "3.0.1"
@@ -12879,10 +12878,10 @@ react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-query@3.18.1:
-  version "3.18.1"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.18.1.tgz#893b5475a7b4add099e007105317446f7a2cd310"
-  integrity sha512-17lv3pQxU9n+cB5acUv0/cxNTjo9q8G+RsedC6Ax4V9D8xEM7Q5xf9xAbCPdEhDrrnzPjTls9fQEABKRSi7OJA==
+react-query@3.19.6:
+  version "3.19.6"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.19.6.tgz#02bda891a3f0a0534934d9024350d655b268e82c"
+  integrity sha512-21WfvDgBXvPzJtG4gAxi0h6ipOUNPKZGR3vZJ17m/kHGbj9g6rPblc0lG4sY5oVLpM05LP+BdDt/IYfy0IIKmg==
   dependencies:
     "@babel/runtime" "^7.5.5"
     broadcast-channel "^3.4.1"

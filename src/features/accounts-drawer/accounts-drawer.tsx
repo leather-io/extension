@@ -6,10 +6,11 @@ import { AddUsername } from '@components/drawer/accounts/add-username';
 import { useDrawers } from '@common/hooks/use-drawers';
 
 import { AccountStep, showAccountsStore, accountDrawerStep } from '@store/ui';
-import { useAtomCallback } from 'jotai/utils';
+import { useAtomCallback, useAtomValue } from 'jotai/utils';
 
 export const AccountsDrawer: React.FC = () => {
   const { accountStep } = useDrawers();
+  const isShowing = useAtomValue(showAccountsStore);
 
   const close = useAtomCallback(
     useCallback((_get, set) => {
@@ -32,9 +33,9 @@ export const AccountsDrawer: React.FC = () => {
 
   return (
     <ControlledDrawer title={getTitle()} state={showAccountsStore} close={close}>
-      {accountStep === AccountStep.Switch ? <SwitchAccounts close={close} /> : null}
-      {accountStep === AccountStep.Create ? <CreateAccount close={close} /> : null}
-      {accountStep === AccountStep.Username ? <AddUsername close={close} /> : null}
+      {accountStep === AccountStep.Switch && isShowing ? <SwitchAccounts close={close} /> : null}
+      {accountStep === AccountStep.Create && isShowing ? <CreateAccount close={close} /> : null}
+      {accountStep === AccountStep.Username && isShowing ? <AddUsername close={close} /> : null}
     </ControlledDrawer>
   );
 };

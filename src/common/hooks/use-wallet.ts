@@ -26,7 +26,7 @@ import {
   currentAccountState,
   currentAccountStxAddressState,
 } from '@store/accounts';
-import { localNoncesState } from '@store/accounts/nonce';
+import { localNonceState } from '@store/accounts/nonce';
 import { bytesToText } from '@store/common/utils';
 import { transactionNetworkVersionState } from '@store/transactions';
 import { useAtom } from 'jotai';
@@ -60,7 +60,9 @@ export const useWallet = () => {
       if (newNonce !== undefined) {
         const network = get(currentNetworkState);
         const address = get(currentAccountStxAddressState);
-        set(localNoncesState([network.url, address || '']), newNonce);
+        if (!address) return;
+        // we increment here for next nonce
+        set(localNonceState([address, network.url]), newNonce + 1);
       }
     }, [])
   );

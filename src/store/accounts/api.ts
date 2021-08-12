@@ -10,6 +10,8 @@ import type {
 import type { AccountBalanceResponseBigNumber, AddressBalanceResponse, Keys } from './types';
 
 import BigNumber from 'bignumber.js';
+import { atomFamily } from 'jotai/utils';
+import { atom } from 'jotai';
 
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
@@ -40,14 +42,26 @@ const keys: Keys[] = [
 
 export const accountBalancesClient = atomFamilyWithQuery<
   PrincipalWithNetworkUrl,
-  AccountBalanceResponseBigNumber
+  AddressBalanceResponse
 >(
   AccountClientKeys.BalancesClient,
   async function accountBalancesClientQueryFn(get, [principal, _networkUrl]) {
     const { accountsApi } = get(apiClientState);
-    const balances = (await accountsApi.getAccountBalance({
+    return (await accountsApi.getAccountBalance({
       principal,
     })) as AddressBalanceResponse;
+  },
+  {
+    refetchInterval: QueryRefreshRates.FAST,
+    refetchOnMount: 'always',
+    refetchOnReconnect: 'always',
+    refetchOnWindowFocus: 'always',
+  }
+);
+
+export const accountBalancesBigNumber = atomFamily(([principal, _networkUrl]) =>
+  atom(get => {
+    const balances = get(accountBalancesClient([principal, _networkUrl]));
     const stx: any = balances.stx;
     keys.forEach(key => {
       stx[key] = new BigNumber(balances.stx[key]);
@@ -55,14 +69,8 @@ export const accountBalancesClient = atomFamilyWithQuery<
     return {
       ...balances,
       stx,
-    };
-  },
-  {
-    refetchInterval: QueryRefreshRates.MEDIUM,
-    refetchOnMount: 'always',
-    refetchOnReconnect: 'always',
-    refetchOnWindowFocus: 'always',
-  }
+    } as AccountBalanceResponseBigNumber;
+  })
 );
 
 export const accountBalancesAnchoredClient = atomFamilyWithQuery<
@@ -112,6 +120,12 @@ export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
       principal,
       limit,
     })) as ResultsWithLimitOffsetTotal<Transaction>;
+  },
+  {
+    refetchInterval: QueryRefreshRates.FAST,
+    refetchOnMount: 'always',
+    refetchOnReconnect: 'always',
+    refetchOnWindowFocus: 'always',
   }
 );
 
@@ -129,5 +143,11 @@ export const accountMempoolTransactionsClient = atomFamilyWithInfiniteQuery<
       address: principal,
       limit,
     })) as ResultsWithLimitOffsetTotal<MempoolTransaction>;
+  },
+  {
+    refetchInterval: QueryRefreshRates.FAST,
+    refetchOnMount: 'always',
+    refetchOnReconnect: 'always',
+    refetchOnWindowFocus: 'always',
   }
 );
