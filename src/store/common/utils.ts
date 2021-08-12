@@ -1,4 +1,5 @@
 import hash from 'object-hash';
+import { hashQueryKey, QueryKey } from 'react-query';
 
 export function textToBytes(content: string) {
   return new TextEncoder().encode(content);
@@ -17,8 +18,8 @@ export function bytesToHex(uint8a: Uint8Array): string {
   return hex;
 }
 
-export function makeLocalDataKey(params: string[]): string {
-  return hash(params);
+export function makeLocalDataKey(params: QueryKey): string {
+  return hash(hashQueryKey(params));
 }
 
 export function getLocalData<Data>(params: string[]) {

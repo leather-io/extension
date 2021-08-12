@@ -20,7 +20,7 @@ const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, ...props
   const { networks, currentNetworkKey } = useWallet();
   const setCurrentNetworkKey = useUpdateAtom(currentNetworkKeyState);
   const network = networks[item];
-  const isOnline = useAtomValue(networkOnlineStatusState(network.url));
+  const { isOnline } = useAtomValue(networkOnlineStatusState(network.url));
   const isActive = item === currentNetworkKey;
 
   const handleItemClick = useCallback(() => {
@@ -84,6 +84,7 @@ const NetworkList: React.FC<FlexProps> = props => {
 
 export const NetworksDrawer: React.FC = () => {
   const { setShowNetworks } = useDrawers();
+  const isShowing = useAtomValue(showNetworksStore);
   const doChangeScreen = useDoChangeScreen();
 
   const handleAddNetworkClick = useCallback(() => {
@@ -92,7 +93,7 @@ export const NetworksDrawer: React.FC = () => {
   }, [setShowNetworks, doChangeScreen]);
   return (
     <ControlledDrawer title="Select Network" state={showNetworksStore}>
-      <NetworkList />
+      {isShowing && <NetworkList />}
       <Box pb="loose" width="100%" px="loose" mt="base">
         <Button borderRadius="10px" onClick={handleAddNetworkClick}>
           Add a network

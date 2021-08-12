@@ -3,7 +3,7 @@ import { atom } from 'jotai';
 import { AuthType, ChainID, TransactionVersion } from '@stacks/transactions';
 
 import { currentNetworkState, currentStacksNetworkState } from '@store/networks';
-import { correctNonceState } from '@store/accounts/nonce';
+import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { requestTokenPayloadState } from '@store/transactions/requests';
 
@@ -28,8 +28,8 @@ export const signedStacksTransactionState = atom(get => {
   const account = get(currentAccountState);
   const txData = get(pendingTransactionState);
   const stxAddress = get(currentAccountStxAddressState);
-  if (!account || !txData || !stxAddress) return;
-  const nonce = get(correctNonceState(stxAddress));
+  const nonce = get(currentAccountNonceState);
+  if (!account || !txData || !stxAddress || typeof nonce === 'undefined') return;
   if (
     txData.txType === TransactionTypes.ContractCall &&
     !validateStacksAddress(txData.contractAddress)
