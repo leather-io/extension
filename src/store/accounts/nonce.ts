@@ -2,9 +2,9 @@ import { atom } from 'jotai';
 import { atomFamily, atomWithStorage } from 'jotai/utils';
 
 import {
-  currentAccountDataState,
   currentAccountStxAddressState,
-  accountInfoState,
+  currentAccountInfoState,
+  currentAccountConfirmedTransactionsState,
 } from '@store/accounts';
 import { currentNetworkState } from '@store/networks';
 import deepEqual from 'fast-deep-equal';
@@ -23,24 +23,21 @@ export const latestNonceState = atom(get => {
 
 export const correctNonceState = atomFamily<string, number>(address =>
   atom(get => {
-    const account = get(accountInfoState);
-    const accountData = get(currentAccountDataState);
+    const account = get(currentAccountInfoState);
+    const confirmedTransactions = get(currentAccountConfirmedTransactionsState);
+    const pendingTransactions = get(currentAccountConfirmedTransactionsState);
     const lastLocalNonce = get(latestNonceState);
 
     // most recent confirmed transactions sent by current address
-    const lastConfirmedTx = accountData?.transactions.results?.filter(
-      tx => tx.sender_address === address
-    )?.[0];
+    const lastConfirmedTx = confirmedTransactions?.filter(tx => tx.sender_address === address)?.[0];
 
     // most recent pending transactions sent by current address
-    const latestPendingTx = accountData?.pendingTransactions?.filter(
-      tx => tx.sender_address === address
-    )?.[0];
+    const latestPendingTx = pendingTransactions?.filter(tx => tx.sender_address === address)?.[0];
 
     // oldest pending transactions sent by current address
-    const oldestPendingTx = accountData?.pendingTransactions?.length
-      ? accountData?.pendingTransactions?.filter(tx => tx.sender_address === address)?.[
-          accountData?.pendingTransactions?.length - 1
+    const oldestPendingTx = pendingTransactions?.length
+      ? pendingTransactions?.filter(tx => tx.sender_address === address)?.[
+          pendingTransactions?.length - 1
         ]
       : undefined;
 

@@ -15,7 +15,7 @@ const Balance = () => {
   return info?.balance ? (
     <Caption>
       {stacksValue({
-        value: info.balance.toString(10),
+        value: info.balance.toString(),
         withTicker: true,
       })}
     </Caption>
