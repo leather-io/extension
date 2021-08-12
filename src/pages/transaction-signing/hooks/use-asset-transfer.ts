@@ -29,7 +29,7 @@ interface PostConditionsOptions {
   amount: string | number;
 }
 
-function makePostCondition(options: PostConditionsOptions): PostCondition {
+export function makePostCondition(options: PostConditionsOptions): PostCondition {
   const { contractAddress, contractName, assetName, stxAddress, amount } = options;
 
   const assetInfo = createAssetInfo(contractAddress, contractName, assetName);
@@ -54,6 +54,7 @@ export function useMakeAssetTransfer() {
       // unstable_async option @see https://github.com/pmndrs/jotai/blob/master/src/core/atom.ts#L8
       // allows you to await a get
       const assetTransferState = await get(makeFungibleTokenTransferState, true);
+
       const selectedAsset = get(selectedAssetStore);
       if (!assetTransferState || !selectedAsset) return;
       const {
