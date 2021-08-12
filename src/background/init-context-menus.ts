@@ -1,5 +1,5 @@
 function openNewTabWithWallet() {
-  return chrome.tabs.create({ url: 'full-page.html' });
+  return chrome.tabs.create({ url: 'index.html' });
 }
 
 export function initContextMenuActions() {

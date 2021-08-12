@@ -177,8 +177,8 @@ const config = {
       ...HTML_PROD_OPTIONS,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'full-page.html'),
-      filename: 'full-page.html',
+      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'index.html'),
+      filename: 'index.html',
       ...HTML_PROD_OPTIONS,
     }),
     new GenerateJsonPlugin(
