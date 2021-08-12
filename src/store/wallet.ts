@@ -7,12 +7,16 @@ import {
   createWalletGaiaConfig,
 } from '@stacks/wallet-sdk';
 import { gaiaUrl } from '@common/constants';
+import { makeLocalDataKey } from '@store/common/utils';
 
 export const secretKeyState = atom<Uint8Array | undefined>(undefined);
 export const hasSetPasswordState = atom<boolean>(false);
 export const walletState = atom<Wallet | undefined>(undefined);
 export const encryptedSecretKeyStore = atom<string | undefined>(undefined);
-export const lastSeenStore = atomWithStorage<number>('wallet.last-seen', new Date().getTime());
+export const lastSeenStore = atomWithStorage<number>(
+  makeLocalDataKey('wallet.last-seen'),
+  new Date().getTime()
+);
 export const walletConfigStore = atom<WalletConfig | null>(async get => {
   const wallet = get(walletState);
   if (!wallet) return null;

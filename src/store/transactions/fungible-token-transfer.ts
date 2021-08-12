@@ -6,7 +6,7 @@ import {
   currentAccountStxAddressState,
 } from '@store/accounts';
 import { currentStacksNetworkState } from '@store/networks';
-import { correctNonceState } from '@store/accounts/nonce';
+import { currentAccountNonceState } from '@store/accounts/nonce';
 
 export const makeFungibleTokenTransferState = atom(get => {
   const asset = get(selectedAssetStore);
@@ -14,8 +14,8 @@ export const makeFungibleTokenTransferState = atom(get => {
   const network = get(currentStacksNetworkState);
   const balances = get(currentAccountBalancesState);
   const stxAddress = get(currentAccountStxAddressState);
-  if (!stxAddress) return;
-  const nonce = get(correctNonceState(stxAddress));
+  const nonce = get(currentAccountNonceState);
+  if (!stxAddress || typeof nonce === 'undefined') return;
 
   if (asset && currentAccount && stxAddress) {
     const { contractName, contractAddress, name: assetName } = asset;

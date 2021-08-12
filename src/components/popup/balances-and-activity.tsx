@@ -60,27 +60,33 @@ export function BalancesAndActivity(props: StackProps) {
       />
 
       <Flex position="relative" flexGrow={1}>
-        <React.Suspense fallback={<Loading />}>
-          <SlideFade in={activeTab === 0}>
-            {styles => (
-              <TokenAssets
-                data-testid={HomePageSelectors.BalancesList}
-                position="absolute"
-                top={0}
-                left={0}
-                width="100%"
-                style={styles}
-              />
-            )}
-          </SlideFade>
-          <SlideFade in={activeTab === 1}>
-            {styles => (
-              <Box position="absolute" top={0} left={0} width="100%" style={styles}>
-                <ActivityList />
-              </Box>
-            )}
-          </SlideFade>
-        </React.Suspense>
+        {activeTab === 0 && (
+          <React.Suspense fallback={<Loading />}>
+            <SlideFade in={activeTab === 0}>
+              {styles => (
+                <TokenAssets
+                  data-testid={HomePageSelectors.BalancesList}
+                  position="absolute"
+                  top={0}
+                  left={0}
+                  width="100%"
+                  style={styles}
+                />
+              )}
+            </SlideFade>
+          </React.Suspense>
+        )}
+        {activeTab === 1 && (
+          <React.Suspense fallback={<Loading />}>
+            <SlideFade in={activeTab === 1}>
+              {styles => (
+                <Box position="absolute" top={0} left={0} width="100%" style={styles}>
+                  <ActivityList />
+                </Box>
+              )}
+            </SlideFade>
+          </React.Suspense>
+        )}
       </Flex>
     </Stack>
   );

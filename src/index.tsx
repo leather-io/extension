@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 
-const buildApp = () => {
+function renderApp() {
   ReactDOM.render(<App />, document.getElementById('actions-root'));
-};
+}
 
-buildApp();
+renderApp();
