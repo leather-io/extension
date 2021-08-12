@@ -67,9 +67,9 @@ const unanchoredMiddleware: Middleware = {
   },
 };
 
-function createConfig(basePath: string) {
+function createConfig(basePath: string, anchored?: boolean) {
   const middleware: Middleware[] = [];
-  if (MICROBLOCKS_ENABLED) middleware.push(unanchoredMiddleware);
+  if (MICROBLOCKS_ENABLED && !anchored) middleware.push(unanchoredMiddleware);
   return new Configuration({
     basePath,
     fetchApi,
@@ -77,8 +77,16 @@ function createConfig(basePath: string) {
   });
 }
 
+// unanchored by default (microblocks)
 export const apiClientState = atom(get => {
   const network = get(currentNetworkState);
   const config = createConfig(network.url);
+  return apiClients(config);
+});
+
+// anchored (NON-microblocks)
+export const apiClientAnchoredState = atom(get => {
+  const network = get(currentNetworkState);
+  const config = createConfig(network.url, true);
   return apiClients(config);
 });

@@ -3,8 +3,8 @@ import deepEqual from 'fast-deep-equal';
 import { atomFamily, waitForAll } from 'jotai/utils';
 import {
   currentAccountAvailableStxBalanceState,
-  accountUnanchoredBalancesState,
-  currentAccountDataState,
+  currentAccountBalancesState,
+  currentAnchoredAccountBalancesState,
 } from '@store/accounts';
 import { transformAssets } from '@store/assets/utils';
 import { Asset, AssetWithMeta, ContractPrincipal, NftMeta } from '@common/asset-types';
@@ -59,15 +59,11 @@ const assetItemState = atomFamily<Asset, AssetWithMeta>(asset => {
 }, deepEqual);
 
 export const assetsState = atom(get =>
-  get(waitForAll(transformAssets(get(currentAccountDataState)?.balances).map(assetItemState)))
+  get(waitForAll(transformAssets(get(currentAccountBalancesState)).map(assetItemState)))
 );
 
 export const assetsUnanchoredState = atom(get =>
-  get(
-    waitForAll(
-      transformAssets(get(currentAccountDataState)?.unanchoredBalances).map(assetItemState)
-    )
-  )
+  get(waitForAll(transformAssets(get(currentAccountBalancesState)).map(assetItemState)))
 );
 
 export const transferableAssetsState = atom(get =>
@@ -129,9 +125,9 @@ export const mergeNftBalances = (anchoredNfts: NftMetaRecord, unanchoredNfts: Nf
 };
 
 export const nonFungibleTokensState = atom(get => {
-  const balances = get(currentAccountDataState)?.balances;
-  const unanchoredBalances = get(currentAccountDataState)?.unanchoredBalances;
-  const anchoredNfts = balances?.non_fungible_tokens || {};
+  const anchoredbalances = get(currentAnchoredAccountBalancesState);
+  const unanchoredBalances = get(currentAccountBalancesState);
+  const anchoredNfts = anchoredbalances?.non_fungible_tokens || {};
   const unanchoredNfts = unanchoredBalances?.non_fungible_tokens || {};
   const noCollectibles =
     Object.keys(anchoredNfts).length === 0 && Object.keys(unanchoredNfts).length === 0;
@@ -142,7 +138,7 @@ export const nonFungibleTokensState = atom(get => {
 
 export const stxTokenState = atom(get => {
   const balance = get(currentAccountAvailableStxBalanceState);
-  const unanchoredBalances = get(accountUnanchoredBalancesState);
+  const unanchoredBalances = get(currentAccountBalancesState);
 
   return {
     type: 'stx',
