@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
 import { accountsWithAddressState } from './index';
 import { currentNetworkState } from '@store/networks';
-import { fetchNamesByAddress } from '@common/api/names';
 import { atomFamilyWithQuery } from '@store/query';
 import { makeLocalDataKey } from '@store/common/utils';
+import { apiClientState } from '@store/common/api-clients';
 
 function getLocalNames(networkUrl: string, address: string) {
   const key = makeLocalDataKey([networkUrl, address, 'BNS_NAMES']);
@@ -32,10 +32,15 @@ const STALE_TIME = 30 * 60 * 1000; // 30 min
 
 const namesResponseState = atomFamilyWithQuery<[string, string], string[]>(
   'ACCOUNT_NAMES',
-  async (_get, [address, networkUrl]) => {
+  async (get, [address, networkUrl]) => {
+    const { bnsApi } = get(apiClientState);
     let data = getLocalNames(networkUrl, address);
     if (data) return data;
-    data = await fetchNamesByAddress(networkUrl, address);
+    const results = await bnsApi.getNamesOwnedByAddress({
+      address,
+      blockchain: 'stacks',
+    });
+    data = results.names || [];
     setLocalNames(networkUrl, address, data);
     return data;
   },
