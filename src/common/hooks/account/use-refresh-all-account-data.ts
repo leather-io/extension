@@ -1,14 +1,14 @@
-import { useUpdateAtom } from 'jotai/utils';
-import { allAccountDataRefreshState } from '@store/accounts';
 import { useCallback } from 'react';
 import { delay } from '@common/utils';
+import { useUpdateAtom } from 'jotai/utils';
+import { refreshAccountDataState } from '@store/accounts';
 
 export function useRefreshAllAccountData() {
-  const update = useUpdateAtom(allAccountDataRefreshState);
+  const update = useUpdateAtom(refreshAccountDataState);
   return useCallback(
     async (ms?: number) => {
       if (typeof ms === 'number') await delay(ms);
-      await update(null);
+      update(null);
     },
     [update]
   );

@@ -2,24 +2,19 @@ import type { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-
 import { Account, getStxAddress } from '@stacks/wallet-sdk';
 import { atomFamily, atomWithDefault } from 'jotai/utils';
 import { atom } from 'jotai';
-import BN from 'bn.js';
 import BigNumber from 'bignumber.js';
-
-import type { AllAccountData } from '@common/api/accounts';
-import { fetchAllAccountData } from '@common/api/accounts';
 
 import { transactionRequestStxAddressState } from '@store/transactions/requests';
 import { currentNetworkState } from '@store/networks';
 import { walletState } from '@store/wallet';
 import { transactionNetworkVersionState } from '@store/transactions';
-import { atomFamilyWithQuery } from '@store/query';
-import { QueryRefreshRates } from '@common/constants';
-import { apiClientState } from '@store/common/api-clients';
-
-enum AccountQueryKeys {
-  ALL_ACCOUNT_DATA = 'ALL_ACCOUNT_DATA',
-  ACCOUNT_INFO_STATE = 'ACCOUNT_INFO_STATE',
-}
+import {
+  accountBalancesAnchoredClient,
+  accountBalancesClient,
+  accountInfoClient,
+  accountMempoolTransactionsClient,
+  accountTransactionsClient,
+} from '@store/accounts/api';
 
 /**
  * --------------------------------------
@@ -112,47 +107,14 @@ export const currentAccountPrivateKeyState = atom<string | undefined>(
   get => get(currentAccountState)?.stxPrivateKey
 );
 
-// this is our react-query atom, with a refresh interval set to QUICK
-const accountDataResponseState = atomFamilyWithQuery<[string, string], AllAccountData | undefined>(
-  AccountQueryKeys.ALL_ACCOUNT_DATA,
-  async function accountDataResponseQueryFn(_get, [address, networkUrl]) {
-    return fetchAllAccountData(networkUrl)(address);
-  },
-  {
-    refetchInterval: QueryRefreshRates.MEDIUM,
-    refetchOnMount: 'always',
-    refetchOnReconnect: 'always',
-    refetchOnWindowFocus: 'always',
-  }
-);
-
-export const accountDataState = atomFamily<string, AllAccountData | undefined>(address =>
-  atom(get => {
-    const network = get(currentNetworkState);
-    return get(accountDataResponseState([address, network.url]));
-  })
-);
-
 export const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(address =>
   atom(get => {
-    const accountData = get(accountDataState(address));
-    // we need to 'get' this atom to make it a dependency and cause it to mount when this atom is in use
-    get(accountInfoState);
-    if (!accountData) return;
-    const stx = new BigNumber(accountData.balances.stx.balance);
-    const lockedStx = new BigNumber(accountData.balances.stx.locked);
-    const curBalance = stx.minus(lockedStx);
-    return curBalance;
+    const network = get(currentNetworkState);
+    const balances = get(accountBalancesClient([address, network.url]));
+    if (!balances) return;
+    return balances.stx.balance.minus(balances.stx.locked);
   })
 );
-
-// external API data associated with the current account's address
-export const currentAccountDataState = atom(get => {
-  const network = get(currentNetworkState);
-  const address = get(currentAccountStxAddressState);
-  if (!address) return;
-  return get(accountDataResponseState([address, network.url]));
-});
 
 export const currentAccountAvailableStxBalanceState = atom(get => {
   const principal = get(currentAccountStxAddressState);
@@ -160,54 +122,28 @@ export const currentAccountAvailableStxBalanceState = atom(get => {
   return get(accountAvailableStxBalanceState(principal));
 });
 
-// the raw account info from the `v2/accounts` endpoint, should be most up-to-date info (compared to the extended API)
-export const accountInfoResponseState = atomFamilyWithQuery<
-  [string, string],
-  { balance: BN; nonce: number }
->(
-  AccountQueryKeys.ACCOUNT_INFO_STATE,
-  async function accountInfoResponseQueryFn(get, [principal]) {
-    const { accountsApi } = get(apiClientState);
-    const data = await accountsApi.getAccountInfo({
-      principal,
-      proof: 0,
-    });
-    return {
-      balance: new BN(data.balance.slice(2), 16),
-      nonce: data.nonce,
-    };
-  },
-  { refetchInterval: QueryRefreshRates.MEDIUM, refetchOnMount: true }
-);
-
-export const accountInfoState = atom(get => {
-  const network = get(currentNetworkState);
+// the unanchored balances of the current account's address
+export const currentAccountBalancesState = atom(get => {
   const address = get(currentAccountStxAddressState);
+  const network = get(currentNetworkState);
   if (!address) return;
-  return get(accountInfoResponseState([address, network.url]));
+  return get(accountBalancesClient([address, network.url]));
 });
 
-export const allAccountDataRefreshState = atom(null, (get, set) => {
-  const network = get(currentNetworkState);
+// the anchored balances of the current account's address
+export const currentAnchoredAccountBalancesState = atom(get => {
   const address = get(currentAccountStxAddressState);
+  const network = get(currentNetworkState);
   if (!address) return;
-  set(accountInfoResponseState([address, network.url]), { type: 'refetch' });
-  set(accountDataResponseState([address, network.url]), { type: 'refetch' });
+  return get(accountBalancesAnchoredClient([address, network.url]));
 });
 
-// the balances of the current account's address
-export const accountBalancesState = atom(get => {
-  const balances = get(currentAccountDataState)?.balances;
-  const stxBalance = balances ? balances.stx.balance : '';
-  return balances
-    ? {
-        ...balances,
-        stx: {
-          ...balances.stx,
-          balance: new BigNumber(stxBalance || balances.stx.balance),
-        },
-      }
-    : undefined;
+export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
+  const address = get(currentAccountStxAddressState);
+  const network = get(currentNetworkState);
+  if (!address) return [];
+  const confirmed = get(accountTransactionsClient([address, 30, network.url]));
+  return confirmed?.pages[0].results || [];
 });
 
 export const accountUnanchoredBalancesState = atom(get => {
@@ -224,13 +160,36 @@ export const accountUnanchoredBalancesState = atom(get => {
       }
     : undefined;
 });
+export const currentAccountMempoolTransactionsState = atom<MempoolTransaction[]>(get => {
+  const address = get(currentAccountStxAddressState);
+  const network = get(currentNetworkState);
+  if (!address) return [];
+  const mempool = get(accountMempoolTransactionsClient([address, 30, network.url]));
+  return mempool?.pages[0].results || [];
+});
 
 // combo of pending and confirmed transactions for the current address
-export const accountTransactionsState = atom<(MempoolTransaction | Transaction)[]>(get => {
-  const data = get(currentAccountDataState);
-  const transactions = data?.transactions?.results || [];
-  const pending = data?.pendingTransactions || [];
+export const currentAccountTransactionsState = atom<(MempoolTransaction | Transaction)[]>(get => {
+  const transactions = get(currentAccountConfirmedTransactionsState);
+  const pending = get(currentAccountMempoolTransactionsState);
   return [...pending, ...transactions];
+});
+
+export const currentAccountInfoState = atom(get => {
+  const address = get(currentAccountStxAddressState);
+  const network = get(currentNetworkState);
+  if (!address) return;
+  return get(accountInfoClient([address, network.url]));
+});
+
+export const refreshAccountDataState = atom(null, (get, set) => {
+  const address = get(currentAccountStxAddressState);
+  const network = get(currentNetworkState);
+  if (!address) return;
+  set(accountMempoolTransactionsClient([address, 30, network.url]), { type: 'refetch' });
+  set(accountTransactionsClient([address, 30, network.url]), { type: 'refetch' });
+  set(accountBalancesClient([address, network.url]), { type: 'refetch' });
+  set(accountInfoClient([address, network.url]), { type: 'refetch' });
 });
 
 accountsState.debugLabel = 'accountsState';
@@ -241,5 +200,5 @@ transactionAccountIndexState.debugLabel = 'transactionAccountIndexState';
 currentAccountState.debugLabel = 'currentAccountState';
 currentAccountStxAddressState.debugLabel = 'currentAccountStxAddressState';
 currentAccountPrivateKeyState.debugLabel = 'currentAccountPrivateKeyState';
-accountBalancesState.debugLabel = 'accountBalancesState';
-accountTransactionsState.debugLabel = 'accountTransactionsState';
+currentAccountBalancesState.debugLabel = 'currentAccountBalancesState';
+currentAccountTransactionsState.debugLabel = 'currentAccountTransactionsState';

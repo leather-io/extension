@@ -1,13 +1,14 @@
 import { cvToString, hexToCV } from '@stacks/transactions';
 import { Configuration, SmartContractsApi } from '@stacks/blockchain-api-client';
-import { ContractInterfaceFunction } from '@stacks/rpc-client';
+import type { ContractInterfaceFunction } from '@stacks/rpc-client';
 import { SIP_010 } from '@common/constants';
 import { fetcher } from '@common/api/wrapped-fetch';
-import type { AddressBalanceResponse } from '@stacks/stacks-blockchain-api-types';
 import { getAssetStringParts, truncateMiddle } from '@stacks/ui-utils';
-import { Asset, FtMeta, FungibleTokenOptions, MetaDataNames } from '@common/asset-types';
 import BigNumber from 'bignumber.js';
+import type { Asset, FtMeta, FungibleTokenOptions, MetaDataNames } from '@common/asset-types';
+import type { AccountBalanceResponseBigNumber } from '@store/accounts/types';
 
+// TODO: make this an atom
 async function callReadOnlyFunction({
   contractName,
   contractAddress,
@@ -135,14 +136,14 @@ export async function getSip10Status(params: {
 export const getMatchingFunction = (name: MetaDataNames) => (func: ContractInterfaceFunction) =>
   (func.name === `get-${name}` || func.name === name) && func.access === 'read_only';
 
-export function transformAssets(balances?: AddressBalanceResponse) {
+export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
   const _assets: Asset[] = [];
   if (!balances) return _assets;
   _assets.push({
     type: 'stx',
     contractAddress: '',
     contractName: '',
-    balance: new BigNumber(balances.stx.balance),
+    balance: balances.stx.balance,
     subtitle: 'STX',
     name: 'Stacks Token',
     canTransfer: true,

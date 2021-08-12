@@ -42,5 +42,11 @@
     "types": ["jest", "chrome"]
   },
   "include": ["./src/**/*", "./tests/**/*"],
-  "exclude": ["test-app"]
+  "exclude": [
+    "test-app",
+    "node_modules",
+    "./node_modules",
+    "./node_modules/*",
+    "./node_modules/@types/node/index.d.ts"
+  ]
 }
