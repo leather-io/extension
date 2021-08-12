@@ -104,7 +104,7 @@ export const SendTokensForm: React.FC = memo(() => {
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>();
   const { selectedAsset } = useSelectedAsset();
-  const onValidate = useSendFormValidation({ setAssetError });
+  const sendFormSchema = useSendFormValidation({ setAssetError });
 
   return (
     <Formik
@@ -118,7 +118,7 @@ export const SendTokensForm: React.FC = memo(() => {
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
-      validate={onValidate}
+      validationSchema={sendFormSchema}
     >
       {form => (
         <>

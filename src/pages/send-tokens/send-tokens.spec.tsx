@@ -57,7 +57,7 @@ describe('Send form tests', () => {
     const recipientField: HTMLElement = getByTestId(SendFormSelectors.InputRecipientField);
     const previewBtn: HTMLElement = getByTestId(SendFormSelectors.BtnPreviewSendTx);
 
-    userEvent.paste(amountField, '999999999');
+    userEvent.paste(amountField, '999');
     userEvent.paste(recipientField, 'ST1P72Z3704VMT3DMHPP2CB8TGQWGDBHD3RD69GE2');
     userEvent.click(previewBtn);
     await findByText(SendFormErrorMessages.InsufficientBalance, { exact: false });
