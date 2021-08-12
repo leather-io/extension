@@ -27,7 +27,7 @@ const manifest = {
     },
   },
   options_ui: {
-    page: 'full-page.html',
+    page: 'index.html',
     open_in_tab: true,
   },
   content_scripts: [

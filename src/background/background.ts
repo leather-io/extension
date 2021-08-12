@@ -26,7 +26,7 @@ initContextMenuActions();
 // https://github.com/microsoft/playwright/issues/5593
 async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
   await chrome.tabs.create({
-    url: chrome.runtime.getURL(`full-page.html#${path}?${urlParams.toString()}`),
+    url: chrome.runtime.getURL(`index.html#${path}?${urlParams.toString()}`),
   });
 }
 
@@ -34,7 +34,7 @@ async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
 chrome.runtime.onInstalled.addListener(async details => {
   if (details.reason === 'install' && !IS_TEST_ENV) {
     await chrome.tabs.create({
-      url: chrome.runtime.getURL(`full-page.html#${ScreenPaths.INSTALLED}`),
+      url: chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`),
     });
   }
 });
@@ -97,7 +97,7 @@ chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendRespons
 if (IS_TEST_ENV) {
   // Expose a helper function to open a new tab with the wallet from tests
   (window as any).openOptionsPage = function (page: string) {
-    const url = chrome.runtime.getURL(`full-page.html#${page}`);
+    const url = chrome.runtime.getURL(`index.html#${page}`);
     return url;
   };
 }
