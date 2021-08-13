@@ -91,7 +91,7 @@ export const accountBalancesAnchoredClient = atomFamilyWithQuery<
   AddressBalanceResponse
 >(
   AccountClientKeys.AnchoredBalancesClient,
-  async function accountBalancesClientQueryFn(get, [principal, _networkUrl]) {
+  async function accountBalancesClientQueryFn(get, { principal }) {
     const { accountsApi } = get(apiClientAnchoredState); // using the anchored client
     return (await accountsApi.getAccountBalance({
       principal,
@@ -103,6 +103,28 @@ export const accountBalancesAnchoredClient = atomFamilyWithQuery<
     refetchOnReconnect: 'always',
     refetchOnWindowFocus: 'always',
   }
+);
+
+export const accountBalancesAnchoredBigNumber = atomFamily<
+  PrincipalWithNetworkUrl,
+  AccountBalanceResponseBigNumber
+>(params =>
+  atom(get => {
+    const balances = get(accountBalancesAnchoredClient(params));
+
+    const stxBigNumbers = Object.fromEntries(
+      accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
+    ) as Record<AccountBalanceStxKeys, BigNumber>;
+
+    const stx: AccountStxBalanceBigNumber = {
+      ...balances.stx,
+      ...stxBigNumbers,
+    };
+    return {
+      ...balances,
+      stx,
+    };
+  })
 );
 
 export const accountInfoClient = atomFamilyWithQuery<PrincipalWithNetworkUrl, AccountDataResponse>(

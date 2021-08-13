@@ -10,6 +10,7 @@ import { currentNetworkState } from '@store/networks';
 import { walletState } from '@store/wallet';
 import { transactionNetworkVersionState } from '@store/transactions';
 import {
+  accountBalancesAnchoredBigNumber,
   accountBalancesAnchoredClient,
   accountBalancesBigNumber,
   accountBalancesClient,
@@ -145,10 +146,10 @@ export const currentAccountBalancesState = atom(get => {
 
 // the anchored balances of the current account's address
 export const currentAnchoredAccountBalancesState = atom(get => {
-  const address = get(currentAccountStxAddressState);
-  const network = get(currentNetworkState);
-  if (!address) return;
-  return get(accountBalancesAnchoredClient([address, network.url]));
+  const principal = get(currentAccountStxAddressState);
+  const networkUrl = get(currentNetworkState).url;
+  if (!principal) return;
+  return get(accountBalancesAnchoredBigNumber({ principal, networkUrl }));
 });
 
 export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {

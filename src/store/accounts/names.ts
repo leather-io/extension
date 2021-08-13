@@ -1,24 +1,9 @@
 import { atom } from 'jotai';
-import { accountsWithAddressState } from './index';
+import { accountsWithAddressState, currentAccountStxAddressState } from './index';
 import { currentNetworkState } from '@store/networks';
 import { atomFamilyWithQuery } from '@store/query';
-import { makeLocalDataKey } from '@store/common/utils';
 import { apiClientState } from '@store/common/api-clients';
-
-function getLocalNames(networkUrl: string, address: string) {
-  const key = makeLocalDataKey([networkUrl, address, 'BNS_NAMES']);
-  const value = localStorage.getItem(key);
-  if (!value) return null;
-  const [data, date] = JSON.parse(value);
-  const now = Date.now();
-  if (now - date > STALE_TIME) return null;
-  return data as string[];
-}
-
-function setLocalNames(networkUrl: string, address: string, data: string[]): void {
-  const key = makeLocalDataKey([networkUrl, address, 'BNS_NAMES']);
-  return localStorage.setItem(key, JSON.stringify([data, Date.now()]));
-}
+import { atomFamily } from 'jotai/utils';
 
 interface AccountName {
   address: string;
@@ -28,34 +13,50 @@ interface AccountName {
 
 type AccountNameState = AccountName[] | null;
 
-const STALE_TIME = 30 * 60 * 1000; // 30 min
+const STALE_TIME = 15 * 60 * 1000; // 15 min
 
 const namesResponseState = atomFamilyWithQuery<[string, string], string[]>(
   'ACCOUNT_NAMES',
-  async (get, [address, networkUrl]) => {
+  async (get, [address, _networkUrl]) => {
     const { bnsApi } = get(apiClientState);
-    let data = getLocalNames(networkUrl, address);
-    if (data) return data;
     const results = await bnsApi.getNamesOwnedByAddress({
       address,
       blockchain: 'stacks',
     });
-    data = results.names || [];
-    setLocalNames(networkUrl, address, data);
-    return data;
+    return results.names || [];
   },
-  { keepPreviousData: true }
+  {
+    keepPreviousData: true,
+    // for persistence, see common/persistence.ts
+    cacheTime: STALE_TIME,
+    refetchOnMount: false,
+    refetchInterval: false,
+    refetchOnReconnect: false,
+  }
 );
 
-export const accountNameState = atom<AccountNameState>(get => {
+const accountNameState = atomFamily<string, string[]>(principal =>
+  atom(get => {
+    const network = get(currentNetworkState);
+    return get(namesResponseState([principal, network.url]));
+  })
+);
+
+export const allAccountsNameState = atom<AccountNameState>(get => {
   const accounts = get(accountsWithAddressState);
   const network = get(currentNetworkState);
-  if (!network || !accounts) return null;
+  if (!network || !accounts) return [];
   return accounts.map(({ address, index }) => ({
     address,
     index,
-    names: get(namesResponseState([address, network.url])) || [],
+    names: get(accountNameState(address)),
   }));
 });
 
-accountNameState.debugLabel = 'accountNameState';
+export const currentAccountNameState = atom(get => {
+  const principal = get(currentAccountStxAddressState);
+  if (!principal) return [];
+  return get(accountNameState(principal));
+});
+
+allAccountsNameState.debugLabel = 'accountNameState';

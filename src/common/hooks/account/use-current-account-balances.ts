@@ -1,10 +1,10 @@
 import { useAtomValue } from 'jotai/utils';
 import { currentAccountBalancesState, currentAccountInfoState } from '@store/accounts';
 
-export function useAccountBalances() {
+export function useCurrentAccountBalances() {
   return useAtomValue(currentAccountBalancesState);
 }
 
-export function useAccountInfo() {
+export function useCurrentAccountInfo() {
   return useAtomValue(currentAccountInfoState);
 }
