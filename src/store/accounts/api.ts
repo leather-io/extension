@@ -29,7 +29,7 @@ enum AccountClientKeys {
 type PrincipalWithNetworkUrl = { principal: string; networkUrl: string };
 type PrincipalWithLimitNetworkUrl = { principal: string; limit: number; networkUrl: string };
 
-export interface ResultsWithLimitOffsetTotal<T> {
+export interface PaginatedResults<T> {
   limit: number;
   offset: number;
   total: number;
@@ -124,7 +124,7 @@ export const accountInfoClient = atomFamilyWithQuery<PrincipalWithNetworkUrl, Ac
 
 export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
   PrincipalWithLimitNetworkUrl,
-  ResultsWithLimitOffsetTotal<Transaction>
+  PaginatedResults<Transaction>
 >(
   AccountClientKeys.TransactionsClient,
   async function accountTransactionsClientQueryFn(get, { principal, limit = 30 }) {
@@ -132,7 +132,7 @@ export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
     return (await accountsApi.getAccountTransactions({
       principal,
       limit,
-    })) as ResultsWithLimitOffsetTotal<Transaction>;
+    })) as PaginatedResults<Transaction>;
   },
   {
     refetchInterval: QueryRefreshRates.FAST,
@@ -144,7 +144,7 @@ export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
 
 export const accountMempoolTransactionsClient = atomFamilyWithInfiniteQuery<
   PrincipalWithLimitNetworkUrl,
-  ResultsWithLimitOffsetTotal<MempoolTransaction>
+  PaginatedResults<MempoolTransaction>
 >(
   AccountClientKeys.MempoolTransactionsClient,
   async function accountMempoolTransactionsClientQueryFn(get, { principal, limit = 30 }) {
@@ -152,7 +152,7 @@ export const accountMempoolTransactionsClient = atomFamilyWithInfiniteQuery<
     return (await transactionsApi.getAddressMempoolTransactions({
       address: principal,
       limit,
-    })) as ResultsWithLimitOffsetTotal<MempoolTransaction>;
+    })) as PaginatedResults<MempoolTransaction>;
   },
   {
     refetchInterval: QueryRefreshRates.FAST,
