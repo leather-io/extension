@@ -9,7 +9,7 @@ type SelectedKeys =
   | 'total_miner_rewards_received'
   | 'locked';
 
-export type Keys = keyof Pick<AddressBalanceResponse['stx'], SelectedKeys>;
+export type AccountBalanceStxKeys = keyof Pick<AddressBalanceResponse['stx'], SelectedKeys>;
 
 export interface AddressBalanceResponse {
   stx: {
@@ -43,7 +43,8 @@ export interface AddressBalanceResponse {
   token_offering_locked?: AddressTokenOfferingLocked;
 }
 
-export interface AccountStxBalanceBigNumber extends Omit<AddressBalanceResponse['stx'], Keys> {
+export interface AccountStxBalanceBigNumber
+  extends Omit<AddressBalanceResponse['stx'], AccountBalanceStxKeys> {
   balance: BigNumber;
   total_sent: BigNumber;
   total_received: BigNumber;
