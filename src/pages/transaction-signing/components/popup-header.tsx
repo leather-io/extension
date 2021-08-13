@@ -7,11 +7,11 @@ import React from 'react';
 import { CurrentUserAvatar } from '@features/current-user/current-user-avatar';
 import { CurrentUsername } from '@features/current-user/current-user-name';
 import { CurrentStxAddress } from '@features/current-user/current-stx-address';
-import { useAccountInfo } from '@common/hooks/account/use-account-balances';
+import { useCurrentAccountInfo } from '@common/hooks/account/use-current-account-balances';
 import { LoadingRectangle } from '@components/loading-rectangle';
 
 const Balance = () => {
-  const info = useAccountInfo();
+  const info = useCurrentAccountInfo();
   return info?.balance ? (
     <Caption>
       {stacksValue({
