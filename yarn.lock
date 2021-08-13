@@ -10421,9 +10421,9 @@ jotai-query-toolkit@0.1.7:
     fast-deep-equal "3.1.3"
     proxy-memoize "^0.3.5"
 
-"jotai@https://pkg.csb.dev/pmndrs/jotai/commit/6e7c2817/jotai":
+"jotai@https://pkg.csb.dev/pmndrs/jotai/commit/c6868435/jotai":
   version "1.3.0"
-  resolved "https://pkg.csb.dev/pmndrs/jotai/commit/6e7c2817/jotai#791e2b3907c48558d03033f320274446775df2e6"
+  resolved "https://pkg.csb.dev/pmndrs/jotai/commit/c6868435/jotai#35037ac388b8b69835c984a5299fec774200be60"
 
 joycon@^3.0.1:
   version "3.0.1"
