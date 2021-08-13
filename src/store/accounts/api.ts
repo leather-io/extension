@@ -7,11 +7,16 @@ import type {
   Transaction,
   AccountDataResponse,
 } from '@stacks/stacks-blockchain-api-types';
-import type { AccountBalanceResponseBigNumber, AddressBalanceResponse, Keys } from './types';
+import type {
+  AccountBalanceResponseBigNumber,
+  AddressBalanceResponse,
+  AccountBalanceStxKeys,
+} from './types';
 
 import BigNumber from 'bignumber.js';
 import { atomFamily } from 'jotai/utils';
 import { atom } from 'jotai';
+import { AccountStxBalanceBigNumber } from './types';
 
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
@@ -21,8 +26,8 @@ enum AccountClientKeys {
   MempoolTransactionsClient = 'account/MempoolTransactionsClient',
 }
 
-type PrincipalWithNetworkUrl = [principal: string, networkUrl: string];
-type PrincipalWithLimitNetworkUrl = [principal: string, limit: number, networkUrl: string];
+type PrincipalWithNetworkUrl = { principal: string; networkUrl: string };
+type PrincipalWithLimitNetworkUrl = { principal: string; limit: number; networkUrl: string };
 
 export interface ResultsWithLimitOffsetTotal<T> {
   limit: number;
@@ -31,7 +36,7 @@ export interface ResultsWithLimitOffsetTotal<T> {
   results: T[];
 }
 
-const keys: Keys[] = [
+const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'balance',
   'total_sent',
   'total_received',
@@ -45,7 +50,7 @@ export const accountBalancesClient = atomFamilyWithQuery<
   AddressBalanceResponse
 >(
   AccountClientKeys.BalancesClient,
-  async function accountBalancesClientQueryFn(get, [principal, _networkUrl]) {
+  async function accountBalancesClientQueryFn(get, { principal }) {
     const { accountsApi } = get(apiClientState);
     return (await accountsApi.getAccountBalance({
       principal,
@@ -59,17 +64,25 @@ export const accountBalancesClient = atomFamilyWithQuery<
   }
 );
 
-export const accountBalancesBigNumber = atomFamily(([principal, _networkUrl]) =>
+export const accountBalancesBigNumber = atomFamily<
+  PrincipalWithNetworkUrl,
+  AccountBalanceResponseBigNumber
+>(params =>
   atom(get => {
-    const balances = get(accountBalancesClient([principal, _networkUrl]));
-    const stx: any = balances.stx;
-    keys.forEach(key => {
-      stx[key] = new BigNumber(balances.stx[key]);
-    });
+    const balances = get(accountBalancesClient(params));
+
+    const stxBigNumbers = Object.fromEntries(
+      accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
+    ) as Record<AccountBalanceStxKeys, BigNumber>;
+
+    const stx: AccountStxBalanceBigNumber = {
+      ...balances.stx,
+      ...stxBigNumbers,
+    };
     return {
       ...balances,
       stx,
-    } as AccountBalanceResponseBigNumber;
+    };
   })
 );
 
@@ -94,7 +107,7 @@ export const accountBalancesAnchoredClient = atomFamilyWithQuery<
 
 export const accountInfoClient = atomFamilyWithQuery<PrincipalWithNetworkUrl, AccountDataResponse>(
   AccountClientKeys.InfoClient,
-  async function accountInfoClientQueryFn(get, [principal, _networkUrl]) {
+  async function accountInfoClientQueryFn(get, { principal }) {
     const { accountsApi } = get(apiClientState);
     return (await accountsApi.getAccountInfo({
       principal,
@@ -114,7 +127,7 @@ export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
   ResultsWithLimitOffsetTotal<Transaction>
 >(
   AccountClientKeys.TransactionsClient,
-  async function accountTransactionsClientQueryFn(get, [principal, limit = 30, _networkUrl]) {
+  async function accountTransactionsClientQueryFn(get, { principal, limit = 30 }) {
     const { accountsApi } = get(apiClientState);
     return (await accountsApi.getAccountTransactions({
       principal,
@@ -134,10 +147,7 @@ export const accountMempoolTransactionsClient = atomFamilyWithInfiniteQuery<
   ResultsWithLimitOffsetTotal<MempoolTransaction>
 >(
   AccountClientKeys.MempoolTransactionsClient,
-  async function accountMempoolTransactionsClientQueryFn(
-    get,
-    [principal, limit = 30, _networkUrl]
-  ) {
+  async function accountMempoolTransactionsClientQueryFn(get, { principal, limit = 30 }) {
     const { transactionsApi } = get(apiClientState);
     return (await transactionsApi.getAddressMempoolTransactions({
       address: principal,
