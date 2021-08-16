@@ -10,9 +10,8 @@ import { currentNetworkState } from '@store/networks';
 import { walletState } from '@store/wallet';
 import { transactionNetworkVersionState } from '@store/transactions';
 import {
-  accountBalancesAnchoredBigNumber,
-  accountBalancesAnchoredClient,
   accountBalancesBigNumber,
+  accountBalancesAnchoredBigNumber,
   accountBalancesClient,
   accountInfoClient,
   accountMempoolTransactionsClient,
