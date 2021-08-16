@@ -3,7 +3,7 @@ const baseConfig = require('./webpack.config.base');
 
 const config = {
   ...baseConfig,
-  devtool: 'eval-cheap-module-source-map',
+  devtool: 'inline-source-map',
   mode: 'development',
   output: {
     ...baseConfig.output,
