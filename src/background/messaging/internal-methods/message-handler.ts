@@ -1,11 +1,10 @@
+// import { StacksMainnet } from '@stacks/network';
 import { generateNewAccount, generateWallet } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
 
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
-
-import { backupWalletSaltForGaia } from '../../backup-old-wallet-salt';
 
 function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
   // Only respond to internal messages from our UI, not content scripts in other applications
@@ -36,6 +35,7 @@ export async function internalBackgroundMessageHandler(
   sender: chrome.runtime.MessageSender,
   sendResponse: (response?: any) => void
 ) {
+  logger.info('Internal msg', message);
   if (!validateMessagesAreFromExtension(sender)) {
     logger.error('Error: Received background script msg from ' + sender.url);
     return;
@@ -52,7 +52,7 @@ export async function internalBackgroundMessageHandler(
     case InternalMethods.ShareInMemoryKeyToBackground: {
       const { keyId, secretKey } = message.payload;
       inMemoryKeys.set(keyId, secretKey);
-      await backupWalletSaltForGaia(secretKey);
+      // await backupWalletSaltForGaia(secretKey);
       break;
     }
 

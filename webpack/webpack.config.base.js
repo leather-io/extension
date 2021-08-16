@@ -106,6 +106,7 @@ const config = {
   },
   optimization: {
     minimize: false,
+    usedExports: true,
     splitChunks: {
       chunks: 'all',
       name: 'common',
