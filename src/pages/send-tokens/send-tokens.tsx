@@ -20,6 +20,7 @@ import { useTransferableAssets } from '@common/hooks/use-assets';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { ConfirmSendDrawer } from '@pages/transaction-signing/components/confirm-send-drawer';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormMemoWarning } from './components/memo-warning';
 
 type Amount = number | '';
 
@@ -76,6 +77,7 @@ const SendForm = (props: SendFormProps) => {
         </Suspense>
         <RecipientField error={errors.recipient} value={values.recipient} />
         {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
+        <SendFormMemoWarning symbol="TEST" />
         <Box mt="auto">
           {assetError && (
             <ErrorLabel mb="base">
