@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -97,23 +97,39 @@
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">29x</span>
@@ -126,8 +142,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,24 +162,32 @@
 } from '@stacks/stacks-blockchain-api-types';
 &nbsp;
 import { fetchPendingTxs } from '@common/api/transactions';
-import { fetchFromSidecar } from '@common/api/fetch';
+import { fetchFromBlockchainApi } from '@common/api/fetch';
 &nbsp;
 export const fetchBalances =
   (apiServer: string) =&gt;
   (principal: string): Promise&lt;AddressBalanceResponse&gt; =&gt; {
     const path = `/address/${principal}/balances`;
-    return fetchFromSidecar(apiServer)(path);
+    return fetchFromBlockchainApi(apiServer)(path, {}, false);
+  };
+&nbsp;
+export const fetchUnanchoredBalances =
+  (apiServer: string) =&gt;
+  (principal: string): Promise&lt;AddressBalanceResponse&gt; =&gt; {
+    const path = `/address/${principal}/balances`;
+    return fetchFromBlockchainApi(apiServer)(path, {}, true);
   };
 &nbsp;
 export const fetchTransactions =
   (apiServer: string) =&gt;
   (principal: string): Promise&lt;TransactionResults&gt; =&gt; {
     const path = `/address/${principal}/transactions?limit=50`;
-    return fetchFromSidecar(apiServer)(path);
+    return fetchFromBlockchainApi(apiServer)(path);
   };
 &nbsp;
 export interface AllAccountData {
   balances: AddressBalanceResponse;
+  unanchoredBalances: AddressBalanceResponse;
   transactions: TransactionResults;
   pendingTransactions: MempoolTransaction[];
 }
@@ -169,13 +195,14 @@ export interface AllAccountData {
 export const fetchAllAccountData =
   (apiServer: string) =&gt;
   async (principal: string): Promise&lt;AllAccountData&gt; =&gt; {
-    const [balances, transactions, pendingTransactions] = await Promise.all([
+    const [balances, unanchoredBalances, transactions, pendingTransactions] = await Promise.all([
       fetchBalances(apiServer)(principal),
+      fetchUnanchoredBalances(apiServer)(principal),
       fetchTransactions(apiServer)(principal),
       fetchPendingTxs(apiServer)({ query: principal }),
     ]);
 &nbsp;
-    return { balances, transactions, pendingTransactions };
+    return { balances, unanchoredBalances, transactions, pendingTransactions };
   };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -184,7 +211,7 @@ export const fetchAllAccountData =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 13:57:19 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 16 2021 16:13:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

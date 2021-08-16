@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">42.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/16</span>
+                <span class='fraction'>8/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">43.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>7/16</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,7 +101,14 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,6 +116,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,10 +130,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,24 +167,30 @@ import { getAssetName } from '@stacks/ui-utils';
 import { AssetItem } from '@components/asset-item';
 import { getTicker } from '@common/utils';
 import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
+import { BigNumber } from 'bignumber.js';
 &nbsp;
 interface AssetRowProps extends StackProps {
   asset: AssetWithMeta;
 }
 export const AssetRow = React.forwardRef<span class="fstat-no" title="function not covered" >&lt;HTMLDivElement, AssetRowProps&gt;((p</span>rops, ref) =&gt; {
   const { asset, ...rest<span class="cstat-no" title="statement not covered" > } = <span class="cstat-no" title="statement not covered" >props;</span></span>
-  const { name, contractAddress, contractName, type, meta, subtitle, balance } = <span class="cstat-no" title="statement not covered" >asset;</span>
+  const { name, contractAddress, contractName, type, meta, subtitle, balance, subBalance } = <span class="cstat-no" title="statement not covered" >asset;</span>
   const availableStxBalance<span class="cstat-no" title="statement not covered" > = useCurrentAccountAvailableStxBalance();</span>
 &nbsp;
   const friendlyName =
 <span class="cstat-no" title="statement not covered" >    type === 'ft' ? meta?.name || (name.includes('::') ? getAssetName(name) : name) : name;</span>
   const symbol = <span class="cstat-no" title="statement not covered" >type === 'ft' ? meta?.symbol || getTicker(friendlyName) : subtitle;</span>
-  const value =
+&nbsp;
+  const valueFromBalance = (balance: BigNumber) =&gt;
 <span class="cstat-no" title="statement not covered" >    type === 'ft'</span>
       ? ftDecimals(balance, meta?.decimals || 0)
       : type === 'stx'
-      ? stacksValue({ value: availableStxBalance || 0, withTicker: false })
+      ? stacksValue({ value: balance || 0, withTicker: false })
       : balance.toString();
+&nbsp;
+  const correctBalance = <span class="cstat-no" title="statement not covered" >availableStxBalance &amp;&amp; type === 'stx' ? availableStxBalance : balance;</span>
+  const amount = <span class="cstat-no" title="statement not covered" >valueFromBalance(correctBalance);</span>
+  const subAmount = <span class="cstat-no" title="statement not covered" >subBalance &amp;&amp; valueFromBalance(subBalance);</span>
 &nbsp;
   return (
     &lt;AssetItem
@@ -184,7 +204,8 @@ export const AssetRow = React.forwardRef<span class="fstat-no" title="function n
       }
       title={friendlyName}
       caption={symbol}
-      amount={value}
+      amount={amount}
+      subAmount={subAmount}
       {...rest}
     /&gt;
   );
@@ -196,7 +217,7 @@ export const AssetRow = React.forwardRef<span class="fstat-no" title="function n
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 13:57:19 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 16 2021 16:13:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

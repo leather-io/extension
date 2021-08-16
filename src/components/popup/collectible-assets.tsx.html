@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -86,25 +86,11 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -115,7 +101,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,32 +119,25 @@
 import type { StackProps } from '@stacks/ui';
 &nbsp;
 import { getAssetStringParts } from '@stacks/ui-utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { useFetchAccountData } from '@common/hooks/account/use-account-info'<span class="cstat-no" title="statement not covered" >;</span>
 import { AssetItem } from '@components/asset-item'<span class="cstat-no" title="statement not covered" >;</span>
 import { Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { useNonFungibleTokenState } from '@common/hooks/use-assets'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >CollectibleAssets<span class="cstat-no" title="statement not covered" > = memo((p</span>rops: StackProps) =&gt; {</span>
-  const accountData<span class="cstat-no" title="statement not covered" > = useFetchAccountData();</span>
-<span class="cstat-no" title="statement not covered" >  if (!accountData<span class="cstat-no" title="statement not covered" >) return null;</span></span>
-&nbsp;
-  const balances = <span class="cstat-no" title="statement not covered" >accountData.balances;</span>
-  const noCollectibles = <span class="cstat-no" title="statement not covered" >Object.keys(balances.non_fungible_tokens).length === 0;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (noCollectibles<span class="cstat-no" title="statement not covered" >) return null;</span></span>
-  const keys = <span class="cstat-no" title="statement not covered" >Object.keys(balances.non_fungible_tokens);</span>
+  const nonFungibleTokens<span class="cstat-no" title="statement not covered" > = useNonFungibleTokenState();</span>
 &nbsp;
   return (
     &lt;Stack {...props}&gt;
-      {keys.map<span class="fstat-no" title="function not covered" >(k</span>ey =&gt; {
-        const collectible = <span class="cstat-no" title="statement not covered" >balances.non_fungible_tokens[key];</span>
-        const { assetName, contractName<span class="cstat-no" title="statement not covered" > } = getAssetStringParts(key);</span>
+      {nonFungibleTokens.map<span class="fstat-no" title="function not covered" >(n</span>ft =&gt; {
+        const { assetName, contractName<span class="cstat-no" title="statement not covered" > } = getAssetStringParts(nft.key);</span>
         return (
           &lt;AssetItem
-            amount={collectible.count}
-            avatar={key}
+            amount={nft.count}
+            subAmount={nft.subCount}
+            avatar={nft.key}
             title={assetName}
             caption={contractName}
-            key={key}
+            key={nft.key}
           /&gt;
         );
       })}
@@ -172,7 +151,7 @@ export const <span class="cstat-no" title="statement not covered" >CollectibleAs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 13:57:19 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 16 2021 16:13:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
