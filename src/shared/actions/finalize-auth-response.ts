@@ -1,29 +1,8 @@
-import {
-  AuthenticationResponseMessage,
-  ExternalMethods,
-  MESSAGE_SOURCE,
-} from '@shared/message-types';
 import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import { analytics } from '@shared/utils/analytics';
 import { isValidUrl } from '@shared/utils/validate-url';
 
-interface FormatAuthResponseArgs {
-  request: string;
-  response: string;
-}
-export function formatAuthResponse({
-  request,
-  response,
-}: FormatAuthResponseArgs): AuthenticationResponseMessage {
-  return {
-    source: MESSAGE_SOURCE,
-    payload: {
-      authenticationRequest: request,
-      authenticationResponse: response,
-    },
-    method: ExternalMethods.authenticationResponse,
-  };
-}
+import { formatAuthResponse } from './finalize-auth-reaponse-format';
 
 interface FinalizeAuthParams {
   decodedAuthRequest: DecodedAuthRequest;
