@@ -1,13 +1,19 @@
-import * as Sentry from '@sentry/react';
-
+//
+// This file is the entrypoint to the extension's background script
+// https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
 import { logger } from '@shared/logger';
-import { CONTENT_SCRIPT_PORT, LegacyMessageFromContentScript } from '@shared/message-types';
+import { CONTENT_SCRIPT_PORT } from '@shared/message-types';
+import type { LegacyMessageFromContentScript } from '@shared/message-types';
 import { RouteUrls } from '@shared/route-urls';
+<<<<<<< HEAD
 import { WalletRequests } from '@shared/rpc/rpc-methods';
 import { initSentry } from '@shared/utils/analytics';
+||||||| parent of 6c42e7042 (refactor: migrate to manifest version 3)
+import { initSentry } from '@shared/utils/analytics';
+=======
+>>>>>>> 6c42e7042 (refactor: migrate to manifest version 3)
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
-import { backupOldWalletSalt } from './backup-old-wallet-salt';
 import { initContextMenuActions } from './init-context-menus';
 import {
   handleLegacyExternalMethodFormat,
@@ -18,36 +24,32 @@ import { rpcMessageHandler } from './messaging/rpc-message-handler';
 
 initSentry();
 initContextMenuActions();
-backupOldWalletSalt();
 warnUsersAboutDevToolsDangers();
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
-chrome.runtime.onInstalled.addListener(details => {
-  Sentry.wrap(async () => {
-    if (details.reason === 'install' && !IS_TEST_ENV) {
-      await chrome.tabs.create({
-        url: chrome.runtime.getURL(`index.html#${RouteUrls.Onboarding}`),
-      });
-    }
-  });
+chrome.runtime.onInstalled.addListener(async details => {
+  if (details.reason === 'install' && !IS_TEST_ENV) {
+    await chrome.tabs.create({
+      url: chrome.runtime.getURL(`index.html#${RouteUrls.Onboarding}`),
+    });
+  }
 });
 
 //
 // Listen for connection to the content-script - port for two-way communication
-chrome.runtime.onConnect.addListener(port =>
-  Sentry.wrap(() => {
-    if (port.name !== CONTENT_SCRIPT_PORT) return;
+chrome.runtime.onConnect.addListener(port => {
+  if (port.name !== CONTENT_SCRIPT_PORT) return;
 
     port.onMessage.addListener((message: LegacyMessageFromContentScript | WalletRequests, port) => {
       if (!port.sender?.tab?.id)
         return logger.error('Message reached background script without a corresponding tab');
 
-      // Chromium/Firefox discrepancy
-      const originUrl = port.sender?.origin ?? port.sender?.url;
+    // Chromium/Firefox discrepancy
+    const originUrl = port.sender?.origin ?? port.sender?.url;
 
-      if (!originUrl)
-        return logger.error('Message reached background script without a corresponding origin');
+    if (!originUrl)
+      return logger.error('Message reached background script without a corresponding origin');
 
       // Legacy JWT format messages
       if (isLegacyMessage(message)) {
@@ -65,15 +67,14 @@ chrome.runtime.onConnect.addListener(port =>
 
 //
 // Events from the extension frames script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) =>
-  Sentry.wrap(() => {
-    void internalBackgroundMessageHandler(message, sender, sendResponse);
-    // Listener fn must return `true` to indicate the response will be async
-    return true;
-  })
-);
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  void internalBackgroundMessageHandler(message, sender, sendResponse);
+  // Listener fn must return `true` to indicate the response will be async
+  return true;
+});
 
 if (IS_TEST_ENV) {
   // Expose a helper function to open a new tab with the wallet from tests
-  (window as any).openOptionsPage = (page: string) => chrome.runtime.getURL(`index.html#${page}`);
+  (globalThis as any).openOptionsPage = (page: string) =>
+    chrome.runtime.getURL(`index.html#${page}`);
 }
