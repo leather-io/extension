@@ -99,9 +99,13 @@ export const mergeAssetBalances = (
 
 const calculateBalanceByType = atomFamily((assetType: string) =>
   atom(get => {
-    const assets: AssetWithMeta[] = get(assetsState);
-    const unanchoredAssets: AssetWithMeta[] = get(assetsUnanchoredState);
-    return mergeAssetBalances(assets, unanchoredAssets, assetType);
+    try {
+      const assets: AssetWithMeta[] = get(assetsState);
+      const unanchoredAssets: AssetWithMeta[] = get(assetsUnanchoredState);
+      return mergeAssetBalances(assets, unanchoredAssets, assetType);
+    } catch (e) {
+      return undefined;
+    }
   })
 );
 
