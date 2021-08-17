@@ -39,7 +39,7 @@ const AssetCaption: React.FC<{ caption?: string; show?: boolean }> = ({ caption,
     </Flex>
   ) : null;
 
-const SubBalance: React.FC<{ amount: string }> = ({ amount }) =>
+const SubBalance: React.FC<{ amount: string | undefined }> = ({ amount }) =>
   amount ? (
     <Text
       fontVariantNumeric="tabular-nums"
@@ -66,6 +66,7 @@ export const AssetItem = memo(
         caption,
         amount,
         subAmount,
+        isDifferent,
         ...rest
       }: {
         isPressable?: boolean;
@@ -74,13 +75,13 @@ export const AssetItem = memo(
         caption?: string;
         amount: string;
         subAmount?: string;
+        isDifferent?: boolean;
       } & StackProps,
       ref
     ) => {
       const [component, bind] = usePressable(isPressable);
       const formatted = getFormattedAmount(amount.toString());
-      const subAmountFormatted = (subAmount && getFormattedAmount(subAmount)) ?? '';
-      const isDifferent = !!subAmountFormatted && formatted.value !== subAmountFormatted.value;
+
       return (
         <Box
           as={isPressable ? 'button' : 'div'}
@@ -120,9 +121,7 @@ export const AssetItem = memo(
                       {formatted.value}
                     </Text>
                   </Tooltip>
-                  {isDifferent ? (
-                    <SubBalance amount={subAmountFormatted && subAmountFormatted.value} />
-                  ) : null}
+                  {isDifferent ? <SubBalance amount={subAmount} /> : null}
                 </Box>
               </SpaceBetween>
             </Stack>
