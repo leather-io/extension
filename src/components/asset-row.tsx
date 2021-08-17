@@ -30,6 +30,7 @@ export const AssetRow = React.forwardRef<HTMLDivElement, AssetRowProps>((props, 
   const correctBalance = availableStxBalance && type === 'stx' ? availableStxBalance : balance;
   const amount = valueFromBalance(correctBalance);
   const subAmount = subBalance && valueFromBalance(subBalance);
+  const isDifferent = subBalance && !correctBalance.isEqualTo(subBalance);
 
   return (
     <AssetItem
@@ -45,6 +46,7 @@ export const AssetRow = React.forwardRef<HTMLDivElement, AssetRowProps>((props, 
       caption={symbol}
       amount={amount}
       subAmount={subAmount}
+      isDifferent={isDifferent}
       {...rest}
     />
   );
