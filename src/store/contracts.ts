@@ -35,7 +35,7 @@ export const contractInterfaceResponseState = atomFamilyWithQuery<
     return setLocalData(keyParams, data);
   } catch (e) {
     console.debug('contractInterfaceResponseState error', e);
-    return null;
+    return (() => Promise.resolve(null)) as unknown as null;
   }
 });
 
