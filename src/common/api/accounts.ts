@@ -7,19 +7,17 @@ import type {
 import { fetchPendingTxs } from '@common/api/transactions';
 import { fetchFromBlockchainApi } from '@common/api/fetch';
 
-export const fetchBalances =
-  (apiServer: string) =>
-  (principal: string): Promise<AddressBalanceResponse> => {
-    const path = `/address/${principal}/balances`;
-    return fetchFromBlockchainApi(apiServer)(path, {}, false);
-  };
+function fetchBalanceFactory({ isUnanchored }: { isUnanchored: boolean }) {
+  return (apiServer: string) =>
+    (principal: string): Promise<AddressBalanceResponse> => {
+      const path = `/address/${principal}/balances`;
+      return fetchFromBlockchainApi(apiServer)(path, {}, isUnanchored);
+    };
+}
 
-export const fetchUnanchoredBalances =
-  (apiServer: string) =>
-  (principal: string): Promise<AddressBalanceResponse> => {
-    const path = `/address/${principal}/balances`;
-    return fetchFromBlockchainApi(apiServer)(path, {}, true);
-  };
+export const fetchBalances = fetchBalanceFactory({ isUnanchored: false });
+
+export const fetchUnanchoredBalances = fetchBalanceFactory({ isUnanchored: true });
 
 export const fetchTransactions =
   (apiServer: string) =>
