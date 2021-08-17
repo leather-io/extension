@@ -213,12 +213,13 @@ export const accountBalancesState = atom(get => {
 export const accountUnanchoredBalancesState = atom(get => {
   const balances = get(currentAccountDataState)?.unanchoredBalances;
   const stxBalance = balances ? balances.stx.balance : '';
+  const lockedStxBalance = balances ? balances.stx.locked : 0;
   return balances
     ? {
         ...balances,
         stx: {
           ...balances.stx,
-          balance: new BigNumber(stxBalance),
+          balance: new BigNumber(stxBalance).minus(lockedStxBalance),
         },
       }
     : undefined;
