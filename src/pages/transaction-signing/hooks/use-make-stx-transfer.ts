@@ -22,6 +22,7 @@ export function useMakeStxTransfer() {
       const { amount, recipient, memo } = arg;
       const address = get(currentAccountStxAddressState);
       if (!address) return;
+
       const { network, account, nonce } = await get(
         waitForAll({
           network: currentStacksNetworkState,

@@ -1,5 +1,5 @@
 import React, { memo, Suspense, useCallback, useState } from 'react';
-import { Box, Text, Button, Stack } from '@stacks/ui';
+import { Box, IconButton, Text, Button, Stack } from '@stacks/ui';
 import { Formik, useFormikContext } from 'formik';
 
 import { PopupContainer } from '@components/popup/container';
@@ -21,6 +21,11 @@ import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-
 import { ConfirmSendDrawer } from '@pages/transaction-signing/components/confirm-send-drawer';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { SendFormMemoWarning } from './components/memo-warning';
+import { useUpdateAtom, useAtomValue } from 'jotai/utils';
+import { overrideNonceState, localOverrideNonceState } from '@store/accounts/nonce';
+import { FiChevronUp as IconChevronUp, FiChevronDown as IconChevronDown } from 'react-icons/fi';
+import { SpaceBetween } from '@components/space-between';
+import { TxSettings } from '@pages/send-tokens/transaction-settings';
 
 type Amount = number | '';
 
@@ -46,17 +51,30 @@ const SendForm = (props: SendFormProps) => {
 
   const doChangeScreen = useDoChangeScreen();
   const { selectedAsset } = useSelectedAsset();
+  const localOverrideNonce = useAtomValue(localOverrideNonceState);
+  const setNonceOverride = useUpdateAtom(overrideNonceState);
   const refreshAllAccountData = useRefreshAllAccountData();
   const assets = useTransferableAssets();
 
   const { handleSubmit, values, setValues, errors, setFieldError } = useFormikContext<FormValues>();
 
   const onSubmit = useCallback(async () => {
+    if (typeof localOverrideNonce === 'number') {
+      setNonceOverride(localOverrideNonce);
+    }
+
     if (values.amount && values.recipient && selectedAsset) {
       handleSubmit();
       await refreshAllAccountData(250);
     }
-  }, [refreshAllAccountData, handleSubmit, values, selectedAsset]);
+  }, [
+    refreshAllAccountData,
+    handleSubmit,
+    values,
+    selectedAsset,
+    localOverrideNonce,
+    setNonceOverride,
+  ]);
 
   const onItemSelect = useCallback(() => {
     if (assets.length === 1) return;
@@ -67,6 +85,11 @@ const SendForm = (props: SendFormProps) => {
   const hasValues = values.amount && values.recipient !== '';
 
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
+  const editTxSettings = () => {
+    setShowSettings(!showSettings);
+  };
+
+  const [showSettings, setShowSettings] = React.useState(false);
 
   return (
     <PopupContainer
@@ -80,6 +103,13 @@ const SendForm = (props: SendFormProps) => {
         <RecipientField error={errors.recipient} value={values.recipient} />
         {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
         {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
+        <SpaceBetween flexDirection="row-reverse">
+          <IconButton
+            onClick={editTxSettings}
+            icon={showSettings ? IconChevronUp : IconChevronDown}
+          />
+        </SpaceBetween>
+        {showSettings ? <TxSettings /> : null}
         <Box mt="auto">
           {assetError && (
             <ErrorLabel mb="base">

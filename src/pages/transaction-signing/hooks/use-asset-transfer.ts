@@ -29,7 +29,7 @@ interface PostConditionsOptions {
   amount: string | number;
 }
 
-export function makePostCondition(options: PostConditionsOptions): PostCondition {
+function makePostCondition(options: PostConditionsOptions): PostCondition {
   const { contractAddress, contractName, assetName, stxAddress, amount } = options;
 
   const assetInfo = createAssetInfo(contractAddress, contractName, assetName);

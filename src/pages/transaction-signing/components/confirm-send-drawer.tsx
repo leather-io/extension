@@ -1,23 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import {
-  Button,
-  color,
-  Text,
-  Input,
-  IconButton,
-  Flex,
-  Stack,
-  StackProps,
-  InputGroup,
-  Box,
-} from '@stacks/ui';
+import { Button, color, Flex, Stack, StackProps } from '@stacks/ui';
 import { Caption } from '@components/typography';
 import { BaseDrawer, BaseDrawerProps } from '@components/drawer';
-import { buildAssetTransferTx } from '@store/transactions/fungible-token-transfer';
-import { FiChevronUp as IconChevronUp, FiChevronDown as IconChevronDown } from 'react-icons/fi';
 import { stacksValue } from '@common/stacks-utils';
 import { useHandleSubmitTransaction } from '@pages/transaction-signing/hooks/use-submit-stx-transaction';
-import { stxToMicroStx, truncateMiddle } from '@stacks/ui-utils';
+import { truncateMiddle } from '@stacks/ui-utils';
 import { useLoading } from '@common/hooks/use-loading';
 
 import { useMakeTransferEffect } from '@pages/transaction-signing/hooks/use-make-stx-transfer';
@@ -26,12 +13,6 @@ import { useCurrentAccount } from '@common/hooks/account/use-current-account';
 import { SpaceBetween } from '@components/space-between';
 import { NetworkRowItem } from '@components/network-row-item';
 import { TransactionEventCard } from '@pages/transaction-signing/components/event-card';
-import { accountBalancesState, currentAccountState } from '@store/accounts';
-import { currentStacksNetworkState } from '@store/networks';
-import { useAtomValue } from 'jotai/utils';
-import { generateSTXTransferTx } from '@common/transactions/transaction-utils';
-import { TransactionTypes, STXTransferPayload } from '@stacks/connect';
-import BN from 'bn.js';
 import { StacksTransaction } from '@stacks/transactions';
 
 interface ConfirmSendDrawerProps extends BaseDrawerProps {
@@ -104,98 +85,6 @@ const Actions: React.FC<{ transaction: StacksTransaction | null; handleCancel: (
   );
 };
 
-interface TxSettingsProps {
-  transaction: StacksTransaction | null;
-  setTransaction: (transaction: StacksTransaction) => void;
-  amount: number;
-  memo: string;
-  recipient: string;
-}
-
-const TxSettings: React.FC<TxSettingsProps> = ({
-  transaction,
-  setTransaction,
-  amount,
-  memo,
-  recipient,
-}) => {
-  const MAX_LENGTH_BIG_NUMBER = 16;
-  const [nonceOverride, setNonceOverride] = React.useState(
-    transaction?.auth?.spendingCondition?.nonce || 0
-  );
-  const network = useAtomValue(currentStacksNetworkState);
-  const account = useAtomValue(currentAccountState);
-  if (!account) return <></>;
-  const senderKey = account.stxPrivateKey;
-
-  if (!senderKey) return <></>;
-  const stxAddress = account?.address;
-
-  const { selectedAsset } = useSelectedAsset();
-  const balances = useAtomValue(accountBalancesState);
-
-  const handleChange = async (e: React.ChangeEvent<any>) => {
-    if (!account || e.target.value.length >= MAX_LENGTH_BIG_NUMBER) return;
-    let nonce;
-    try {
-      nonce = new BN(e.target.value, 10).toNumber();
-    } catch (e) {
-      // BN will throw an exception if not an integer, we keep the last value in that case
-      return;
-    }
-
-    setNonceOverride(e.target.value);
-    if (!selectedAsset) return;
-    const bnAmount = stxToMicroStx(amount).toString();
-    let tx;
-
-    // Build the transaction again since the nonce has changed
-    if (selectedAsset.type === 'stx') {
-      let txData = {
-        txType: TransactionTypes.STXTransfer,
-        amount: bnAmount,
-        memo,
-        recipient,
-        network,
-      } as STXTransferPayload;
-      tx = await generateSTXTransferTx({ txData, senderKey, nonce });
-    } else {
-      let txData = {
-        amount,
-        balances,
-        memo,
-        network,
-        nonce,
-        recipient,
-        selectedAsset,
-        senderKey,
-        stxAddress,
-      };
-      tx = await buildAssetTransferTx(txData);
-    }
-
-    setTransaction(tx);
-  };
-
-  return (
-    <Box>
-      <InputGroup flexDirection="column">
-        <Text as="label" display="block" mb="tight" fontSize={1} fontWeight="500" htmlFor="nonce">
-          Nonce
-        </Text>
-        <Input
-          display="block"
-          width="100%"
-          maxLength={MAX_LENGTH_BIG_NUMBER}
-          name="nonce"
-          onChange={handleChange}
-          value={nonceOverride.toString()}
-        />
-      </InputGroup>
-    </Box>
-  );
-};
-
 export const ConfirmSendDrawer: React.FC<Omit<ConfirmSendDrawerProps, 'title'>> = ({
   isShowing,
   onClose,
@@ -221,12 +110,6 @@ export const ConfirmSendDrawer: React.FC<Omit<ConfirmSendDrawerProps, 'title'>> 
   }, [setTransaction, onClose]);
 
   const fee = transaction?.auth.spendingCondition?.fee?.toNumber();
-  const editTxSettings = () => {
-    setShowSettings(!showSettings);
-  };
-
-  const [showSettings, setShowSettings] = React.useState(false);
-
   return (
     <BaseDrawer title="Confirm transfer" isShowing={isShowing} onClose={handleCancel}>
       <Stack pb="extra-loose" px="loose" spacing="extra-loose">
@@ -247,21 +130,6 @@ export const ConfirmSendDrawer: React.FC<Omit<ConfirmSendDrawerProps, 'title'>> 
             <Caption>Network</Caption>
             <NetworkRowItem />
           </SpaceBetween>
-          <SpaceBetween flexDirection="row-reverse">
-            <IconButton
-              onClick={editTxSettings}
-              icon={showSettings ? IconChevronUp : IconChevronDown}
-            />
-          </SpaceBetween>
-          {showSettings ? (
-            <TxSettings
-              setTransaction={setTransaction}
-              transaction={transaction}
-              amount={amount}
-              memo={memo}
-              recipient={recipient}
-            />
-          ) : null}
         </Stack>
         <Actions transaction={transaction} handleCancel={handleCancel} />
       </Stack>
