@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.14.0
+
+### Minor Changes
+
+- [#1430](https://github.com/blockstack/stacks-wallet-web/pull/1430) [`371c9545`](https://github.com/blockstack/stacks-wallet-web/commit/371c95450519c9d51d7875140e40a6bd5f1d5907) Thanks [@beguene](https://github.com/beguene)! - Add microblocks support. Show both balances, anchored and unanchored, with the anchored one as primary balance. Add an indicator to signal microblock in the asset icon.
+
+### Patch Changes
+
+- [#1578](https://github.com/blockstack/stacks-wallet-web/pull/1578) [`aeb48279`](https://github.com/blockstack/stacks-wallet-web/commit/aeb4827919923bc5205d35bb9723f45db5b8fadf) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This updates the STX token icon in all places to match current designs.
+
+* [#1573](https://github.com/blockstack/stacks-wallet-web/pull/1573) [`40f49ace`](https://github.com/blockstack/stacks-wallet-web/commit/40f49ace0d8fe77f6c1ee5722269be1cbfed3ce6) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This fixes the placement of the tooltip when copying the user address in the wallet header.
+
+- [#1564](https://github.com/blockstack/stacks-wallet-web/pull/1564) [`eca0ae6f`](https://github.com/blockstack/stacks-wallet-web/commit/eca0ae6f5bbcc935ba3e40c28680b358dd096ded) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This updates the network badge by removing 'mode' from the label. It now reads 'Testnet'.
+
 ## 2.13.0
 
 ### Minor Changes
