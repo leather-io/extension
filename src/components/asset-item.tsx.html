@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.09% </span>
+                <span class="strong">65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/22</span>
+                <span class='fraction'>13/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.9% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/21</span>
+                <span class='fraction'>13/19</span>
             </div>
         
             
@@ -191,8 +191,7 @@
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -259,23 +258,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -368,7 +366,7 @@ const AssetCaption<span class="fstat-no" title="function not covered" >: React.F
     &lt;/Flex&gt;
   ) : null;
 &nbsp;
-const SubBalance<span class="fstat-no" title="function not covered" >: React.FC&lt;{ amount: string }&gt; = ({ a</span>mount }) =&gt;
+const SubBalance<span class="fstat-no" title="function not covered" >: React.FC&lt;{ amount: string | undefined }&gt; = ({ a</span>mount }) =&gt;
 <span class="cstat-no" title="statement not covered" >  amount ? (</span>
     &lt;Text
       fontVariantNumeric="tabular-nums"
@@ -394,7 +392,8 @@ export const AssetItem = memo(
         title,
         caption,
         amount,
-        subAmount<span class="cstat-no" title="statement not covered" >,</span>
+        subAmount,
+        isDifferent<span class="cstat-no" title="statement not covered" >,</span>
         ...rest<span class="cstat-no" title="statement not covered" ></span>
       }: {
         isPressable?: boolean;
@@ -403,13 +402,13 @@ export const AssetItem = memo(
         caption?: string;
         amount: string;
         subAmount?: string;
+        isDifferent?: boolean;
       } &amp; StackProps,
       ref
     ) =&gt; {
       const [component, bind<span class="cstat-no" title="statement not covered" >] = usePressable(isPressable);</span>
       const formatted<span class="cstat-no" title="statement not covered" > = getFormattedAmount(amount.toString());</span>
-      const subAmountFormatted<span class="cstat-no" title="statement not covered" > = (subAmount &amp;&amp; getFormattedAmount(subAmount)) ?? '';</span>
-      const isDifferent<span class="cstat-no" title="statement not covered" > = !!subAmountFormatted &amp;&amp; formatted.value !== subAmountFormatted.value;</span>
+&nbsp;
       return (
         &lt;Box
           as={isPressable ? 'button' : 'div'}
@@ -449,9 +448,7 @@ export const AssetItem = memo(
                       {formatted.value}
                     &lt;/Text&gt;
                   &lt;/Tooltip&gt;
-                  {isDifferent ? (
-                    &lt;SubBalance amount={subAmountFormatted &amp;&amp; subAmountFormatted.value} /&gt;
-                  ) : null}
+                  {isDifferent ? &lt;SubBalance amount={subAmount} /&gt; : null}
                 &lt;/Box&gt;
               &lt;/SpaceBetween&gt;
             &lt;/Stack&gt;
@@ -469,7 +466,7 @@ export const AssetItem = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 18 2021 07:20:11 GMT+0000 (Coordinated Universal Time)
+                at Wed Aug 18 2021 11:09:08 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
