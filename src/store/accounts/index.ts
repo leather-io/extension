@@ -166,7 +166,7 @@ export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get 
 });
 
 export const accountUnanchoredBalancesState = atom(get => {
-  const balances = get(currentAccountDataState)?.unanchoredBalances;
+  const balances = get(currentAccountBalancesState);
   const stxBalance = balances ? balances.stx.balance : '';
   const lockedStxBalance = balances ? balances.stx.locked : 0;
   return balances
