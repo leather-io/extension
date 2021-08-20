@@ -105,9 +105,11 @@ describe(mergeAssetBalances.name, () => {
         expect(tokenMerged.subBalance).toEqual(tokenUnanchored.balance);
       } else if (token && !tokenUnanchored) {
         expect(tokenMerged.balance).toEqual(token.balance);
-        expect(tokenMerged.subBalance).toEqual('0');
+        expect(tokenMerged.subBalance.toFixed()).toEqual(new BigNumber(0).toFixed());
+        expect(BigNumber.isBigNumber(tokenMerged.subBalance)).toBeTruthy();
       } else if (!token && tokenUnanchored) {
-        expect(tokenMerged.balance).toEqual('0');
+        expect(tokenMerged.balance.toFixed()).toEqual(new BigNumber(0).toFixed());
+        expect(BigNumber.isBigNumber(tokenMerged.balance)).toBeTruthy();
         // If there is a token in the unanchored balance it should be present in the merge as subBalance
         expect(tokenMerged.subBalance).toEqual(tokenUnanchored.balance);
       }
