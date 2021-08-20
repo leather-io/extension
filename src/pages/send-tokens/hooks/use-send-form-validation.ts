@@ -12,6 +12,7 @@ import { stxAmountSchema } from '@common/validation/currency-schema';
 import {
   stxAddressNetworkValidatorFactory,
   stxAddressSchema,
+  stxNonceSchema,
   stxNotCurrentAddressValidatorFactory,
 } from '@common/validation/stx-address-schema';
 import { useCallback, useMemo } from 'react';
@@ -22,6 +23,7 @@ export enum SendFormErrorMessages {
   SameAddress = 'Cannot send to yourself',
   AmountRequired = 'You must specify an amount',
   MustNotBeZero = 'Must be more than zero',
+  MustBeInteger = 'Must be an integer',
   DoesNotSupportDecimals = 'This token does not support decimal places',
   InsufficientBalance = 'Insufficient balance. Your available balance is:',
   MustSelectAsset = 'You must select a valid token to transfer',
@@ -127,6 +129,15 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
     [currentAccountStxAddress, currentNetwork]
   );
 
+  const nonceSchema = useCallback(
+    () =>
+      yup
+        .number()
+        .required()
+        .integer(SendFormErrorMessages.MustBeInteger)
+        .min(0),
+    [])
+
   return useMemo(
     () =>
       yup.object({
@@ -134,7 +145,8 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
         recipient: recipientSchema(),
         amount: amountSchema(),
         memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
+        nonce: nonceSchema(),
       }),
-    [amountSchema, recipientSchema, selectedAssetSchema]
+    [amountSchema, recipientSchema, selectedAssetSchema, nonceSchema]
   );
 };

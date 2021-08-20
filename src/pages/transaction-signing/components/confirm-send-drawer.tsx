@@ -19,6 +19,7 @@ interface ConfirmSendDrawerProps extends BaseDrawerProps {
   amount: number;
   recipient: string;
   memo: string;
+  nonce: number;
 }
 
 const LOADING_KEY = 'confirm-send-drawer';
@@ -90,6 +91,7 @@ export const ConfirmSendDrawer: React.FC<Omit<ConfirmSendDrawerProps, 'title'>> 
   onClose,
   amount,
   memo,
+  nonce,
   recipient,
 }) => {
   const [transaction, setTransaction] = useState<StacksTransaction | null>(null);
@@ -100,6 +102,7 @@ export const ConfirmSendDrawer: React.FC<Omit<ConfirmSendDrawerProps, 'title'>> 
     isShowing,
     amount,
     memo,
+    nonce,
     recipient,
     loadingKey: LOADING_KEY,
   });

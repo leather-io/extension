@@ -22,10 +22,12 @@ import { ConfirmSendDrawer } from '@pages/transaction-signing/components/confirm
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { SendFormMemoWarning } from './components/memo-warning';
 import { useUpdateAtom, useAtomValue } from 'jotai/utils';
-import { overrideNonceState, localOverrideNonceState } from '@store/accounts/nonce';
+import { overrideNonceState, localOverrideNonceState, correctNonceState } from '@store/accounts/nonce';
 import { FiChevronUp as IconChevronUp, FiChevronDown as IconChevronDown } from 'react-icons/fi';
 import { SpaceBetween } from '@components/space-between';
-import { TxSettings } from '@pages/send-tokens/transaction-settings';
+import { TxSettings, NonceField } from '@pages/send-tokens/transaction-settings';
+import { currentAccountStxAddressState } from '@store/accounts';
+import { useAtom } from 'jotai';
 
 type Amount = number | '';
 
@@ -33,13 +35,8 @@ export interface FormValues {
   amount: Amount;
   recipient: string;
   memo: string;
+  nonce?: number;
 }
-
-const initialValues: FormValues = {
-  amount: '',
-  recipient: '',
-  memo: '',
-};
 
 interface SendFormProps {
   assetError: string | undefined;
@@ -49,32 +46,27 @@ interface SendFormProps {
 const SendForm = (props: SendFormProps) => {
   const { assetError } = props;
 
+
   const doChangeScreen = useDoChangeScreen();
   const { selectedAsset } = useSelectedAsset();
   const localOverrideNonce = useAtomValue(localOverrideNonceState);
-  const setNonceOverride = useUpdateAtom(overrideNonceState);
+  const setOverrideNonce = useUpdateAtom(overrideNonceState);
   const refreshAllAccountData = useRefreshAllAccountData();
   const assets = useTransferableAssets();
 
   const { handleSubmit, values, setValues, errors, setFieldError } = useFormikContext<FormValues>();
+  console.log('values', values)
 
   const onSubmit = useCallback(async () => {
     if (typeof localOverrideNonce === 'number') {
-      setNonceOverride(localOverrideNonce);
+      setOverrideNonce(localOverrideNonce);
     }
 
     if (values.amount && values.recipient && selectedAsset) {
       handleSubmit();
       await refreshAllAccountData(250);
     }
-  }, [
-    refreshAllAccountData,
-    handleSubmit,
-    values,
-    selectedAsset,
-    localOverrideNonce,
-    setNonceOverride,
-  ]);
+  }, [refreshAllAccountData, handleSubmit, values, selectedAsset, localOverrideNonce, setOverrideNonce]);
 
   const onItemSelect = useCallback(() => {
     if (assets.length === 1) return;
@@ -89,7 +81,7 @@ const SendForm = (props: SendFormProps) => {
     setShowSettings(!showSettings);
   };
 
-  const [showSettings, setShowSettings] = React.useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   return (
     <PopupContainer
@@ -109,7 +101,9 @@ const SendForm = (props: SendFormProps) => {
             icon={showSettings ? IconChevronUp : IconChevronDown}
           />
         </SpaceBetween>
-        {showSettings ? <TxSettings /> : null}
+        {showSettings ?
+         <NonceField error={errors.nonce} value={values.nonce || 0}/>
+        : null}
         <Box mt="auto">
           {assetError && (
             <ErrorLabel mb="base">
@@ -137,6 +131,17 @@ export const SendTokensForm: React.FC = memo(() => {
   const [assetError, setAssetError] = useState<string | undefined>();
   const { selectedAsset } = useSelectedAsset();
   const sendFormSchema = useSendFormValidation({ setAssetError });
+
+  const address = useAtomValue(currentAccountStxAddressState);
+  if (!address) return null;
+  const correctNonce = useAtomValue(correctNonceState(address));
+
+  const initialValues: FormValues = {
+    amount: '',
+    recipient: '',
+    memo: '',
+    nonce: correctNonce,
+  };
 
   return (
     <Formik
