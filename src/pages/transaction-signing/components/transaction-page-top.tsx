@@ -5,7 +5,12 @@ import { useTransactionPageTitle } from '@pages/transaction-signing/hooks/use-tr
 import { Stack } from '@stacks/ui';
 import { Caption, Title } from '@components/typography';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
-import { getUrlHostname } from '@common/utils';
+import { getUrlHostname, getUrlPort } from '@common/utils';
+
+function addPortSuffix(url: string) {
+  const port = getUrlPort(url);
+  return port ? `:${port}` : '';
+}
 
 export const TransactionPageTop = memo(() => {
   const transactionRequest = useTransactionRequest();
@@ -15,7 +20,9 @@ export const TransactionPageTop = memo(() => {
   if (!transactionRequest) return null;
   const appName = transactionRequest?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = network.isTestnet ? ` using ${getUrlHostname(network.url)}` : '';
+  const testnetAddition = network.isTestnet
+    ? ` using ${getUrlHostname(network.url)}${addPortSuffix(network.url)}`
+    : '';
   const caption = appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;
 
   return (

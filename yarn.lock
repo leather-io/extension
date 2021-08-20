@@ -2742,6 +2742,16 @@
   dependencies:
     cross-fetch "^3.0.6"
 
+"@stacks/common@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@stacks/common/-/common-2.0.1.tgz#fd1a241b721ee6dc06db82855a5714af09e15f2f"
+  integrity sha512-PXU3Niimk7WK6Q2uetPZmwGhCXIc1u8RBZWvHKYe4dZxdDgT0QLX+eNAui591lsPWOH4ZkhpgSyWtJrtM9hU8g==
+  dependencies:
+    "@types/node" "^14.14.43"
+    bn.js "^5.2.0"
+    buffer "^6.0.3"
+    cross-fetch "^3.1.4"
+
 "@stacks/connect-react@11.0.0":
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-11.0.0.tgz#9cc112481f031bbd8c02520f13e948aa206c987f"
@@ -2808,12 +2818,12 @@
     ripemd160-min "^0.0.6"
     sha.js "^2.4.11"
 
-"@stacks/network@2.0.0-beta.0", "@stacks/network@^2.0.0-beta.0":
-  version "2.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@stacks/network/-/network-2.0.0-beta.0.tgz#1facdc42ef76ba57448cebf28e022385758e675a"
-  integrity sha512-ZhpHjnmgdHvy28oaUGK66IKMepopFiyhlJ6L3jbe6RJLHJFpupB5Kho6pa+Z4zXg2MsgZuHqBX6CyPaHfw9E4A==
+"@stacks/network@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@stacks/network/-/network-2.0.1.tgz#b48cf3c50793e7aff5a1fbe5ee6ed4bf86da7db5"
+  integrity sha512-eA4AHrhFcIXIurW54HxzIoR6cYqe7hg/eS6aebtgyOUBaMc5w+RwR2iqZwG4M5aO4/Bwe3xdReINUUXJgMFK3g==
   dependencies:
-    "@stacks/common" "^2.0.0-beta.0"
+    "@stacks/common" "^2.0.1"
 
 "@stacks/network@^1.2.2":
   version "1.2.2"
@@ -2821,6 +2831,13 @@
   integrity sha512-xcWwuRrLJn9qqi3PEBcP2UPZHQztTZd31C0aVlzYHttNMir/sY9SrUqSnw45z2Jo4O9pIYYPIiPRtdV91Ho3fw==
   dependencies:
     "@stacks/common" "^1.2.2"
+
+"@stacks/network@^2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@stacks/network/-/network-2.0.0-beta.0.tgz#1facdc42ef76ba57448cebf28e022385758e675a"
+  integrity sha512-ZhpHjnmgdHvy28oaUGK66IKMepopFiyhlJ6L3jbe6RJLHJFpupB5Kho6pa+Z4zXg2MsgZuHqBX6CyPaHfw9E4A==
+  dependencies:
+    "@stacks/common" "^2.0.0-beta.0"
 
 "@stacks/prettier-config@0.0.8":
   version "0.0.8"

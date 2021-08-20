@@ -13,5 +13,4 @@ export const getRPCClient = () => {
 
 export const toRelativeTime = (ts: number): string => dayjs().to(ts);
 
-export const stacksNetwork = new StacksTestnet();
-stacksNetwork.coreApiUrl = coreApiUrl;
+export const stacksNetwork = new StacksTestnet({ url: coreApiUrl });
