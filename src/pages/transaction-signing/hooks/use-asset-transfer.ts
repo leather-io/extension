@@ -112,7 +112,7 @@ export function useMakeAssetTransfer() {
         anchorMode: AnchorMode.Any,
       };
 
-      return makeContractCall(txOptions);
+      return makeContractCall(txOptions as any);
     }, [])
   );
 }
