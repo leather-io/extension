@@ -24,7 +24,7 @@ export const currentNetworkKeyState = atom<string, string>(
     // if txNetwork, default to this always, users cannot currently change networks when signing a transaction
     // @see https://github.com/blockstack/stacks-wallet-web/issues/1281
     if (txNetwork) {
-      const newKey = findMatchingNetworkKey(txNetwork, networks);
+      const newKey = findMatchingNetworkKey(txNetwork as any, networks);
       if (newKey) return newKey;
     }
     // otherwise default to the locally saved network key state
@@ -42,8 +42,9 @@ export const currentNetworkState = atom(get => get(networksState)[get(currentNet
 export const currentStacksNetworkState = atom<StacksNetwork>(get => {
   const network = get(currentNetworkState);
   const stacksNetwork =
-    network.chainId === ChainID.Testnet ? new StacksTestnet() : new StacksMainnet();
-  stacksNetwork.coreApiUrl = network.url;
+    network.chainId === ChainID.Testnet
+      ? new StacksTestnet({ url: network.url })
+      : new StacksMainnet({ url: network.url });
   stacksNetwork.bnsLookupUrl = network.url;
   return stacksNetwork;
 });

@@ -270,25 +270,42 @@ export function hexToHumanReadable(hex: string) {
   return `0x${hex}`;
 }
 
+// We need this function because the latest changes
+// to `@stacks/network` had some undesired consequence.
+// As `StacksNetwork` is a class instance, this is auto
+// serialized when being passed across `postMessage`,
+// from the developer's app, to the Hiro Wallet.
+// `coreApiUrl` now uses a getter, rather than a prop,
+// and `_coreApiUrl` is a private value.
+// To support both `@stacks/network` versions a dev may be using
+// we look for both possible networks defined
+function getCoreApiUrl(network: StacksNetwork) {
+  if ((network as any).coreApiUrl) return (network as any).coreApiUrl;
+  if ((network as any)._coreApiUrl) return (network as any)._coreApiUrl;
+}
+
 export function findMatchingNetworkKey(
   txNetwork: StacksNetwork,
   networks: Record<string, Network>
 ) {
   if (!networks || !txNetwork) return;
 
+  const developerDefinedApiUrl = getCoreApiUrl(txNetwork);
+
   const keys = Object.keys(networks);
 
   // first try to search for an _exact_ url match
   const exactUrlMatch = keys.find((key: string) => {
     const network = networks[key] as Network;
-    return network.url === txNetwork.coreApiUrl;
+    console.log('matcher', network.url, developerDefinedApiUrl);
+    return network.url === developerDefinedApiUrl;
   });
   if (exactUrlMatch) return exactUrlMatch;
 
   // else check for a matching chain id (testnet/mainnet)
   const chainIdMatch = keys.find((key: string) => {
     const network = networks[key] as Network;
-    return network.url === txNetwork?.coreApiUrl || network.chainId === txNetwork?.chainId;
+    return network.url === developerDefinedApiUrl || network.chainId === txNetwork?.chainId;
   });
   if (chainIdMatch) return chainIdMatch;
 
@@ -313,6 +330,10 @@ export const slugify = (...args: (string | number)[]): string => {
 
 export function getUrlHostname(url: string) {
   return new URL(url).hostname;
+}
+
+export function getUrlPort(url: string) {
+  return new URL(url).port;
 }
 
 export async function delay(ms: number) {
