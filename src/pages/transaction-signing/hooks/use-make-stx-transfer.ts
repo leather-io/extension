@@ -38,7 +38,7 @@ export function useMakeStxTransfer() {
         amount: new BN(stxToMicroStx(amount).toString(), 10),
         memo,
         senderKey: account.stxPrivateKey,
-        network,
+        network: network as any,
         nonce: new BN(nonce.toString(), 10),
         anchorMode: AnchorMode.Any,
       });

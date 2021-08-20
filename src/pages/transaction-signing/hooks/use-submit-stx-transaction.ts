@@ -51,7 +51,7 @@ export function useHandleSubmitTransaction({
     if (transaction) {
       const nonce = transaction.auth.spendingCondition?.nonce.toNumber();
       try {
-        const response = await broadcastTransaction(transaction, stacksNetwork);
+        const response = await broadcastTransaction(transaction, stacksNetwork as any);
         if (typeof response !== 'string') {
           toast.error(getErrorMessage(response.reason));
         } else {

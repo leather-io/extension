@@ -39,7 +39,7 @@ export const signedStacksTransactionState = atom(get => {
   return generateSignedTransaction({
     senderKey: account.stxPrivateKey,
     nonce,
-    txData,
+    txData: txData as any,
   });
 });
 
