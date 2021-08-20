@@ -1,6 +1,7 @@
 import { atom } from 'jotai';
 import deepEqual from 'fast-deep-equal';
 import { atomFamily, waitForAll } from 'jotai/utils';
+import BigNumber from 'bignumber.js';
 import {
   currentAccountAvailableStxBalanceState,
   accountUnanchoredBalancesState,
@@ -83,12 +84,16 @@ export const mergeAssetBalances = (
   // Merge both balances (unanchored and anchored)
   assets.forEach(
     asset =>
-      asset.type === assetType && assetMap.set(asset.subtitle, { ...asset, ...{ subBalance: '0' } })
+      asset.type === assetType &&
+      assetMap.set(asset.subtitle, { ...asset, ...{ subBalance: new BigNumber(0) } })
   );
   unanchoredAssets.forEach(asset => {
     if (asset.type !== assetType) return;
     if (!assetMap.has(asset.subtitle)) {
-      assetMap.set(asset.subtitle, { ...asset, ...{ subBalance: asset.balance, balance: '0' } });
+      assetMap.set(asset.subtitle, {
+        ...asset,
+        ...{ subBalance: asset.balance, balance: new BigNumber(0) },
+      });
     } else {
       assetMap.get(asset.subtitle).subBalance = asset?.balance;
     }
