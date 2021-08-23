@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Text, Button, ButtonGroup } from '@stacks/ui';
-import { stacksNetwork as network } from '@common/utils';
+import {
+  stacksRegtestNetwork,
+  stacksTestnetNetwork as network,
+  stacksTestnetNetwork,
+  stacksLocalhostNetwork,
+} from '@common/utils';
 import { demoTokenContract } from '@common/contracts';
 import { useSTXAddress } from '@common/use-stx-address';
 import { useConnect } from '@stacks/connect-react';
@@ -27,6 +32,7 @@ import {
 import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
 import { ExplorerLink } from './explorer-link';
 import BN from 'bn.js';
+import { StacksTestnet } from '@stacks/network';
 
 export const Debugger = () => {
   const { doContractCall, doSTXTransfer, doContractDeploy } = useConnect();
@@ -100,7 +106,7 @@ export const Debugger = () => {
     });
   };
 
-  const callFaker = async () => {
+  const callFaker = async (network: StacksTestnet) => {
     clearState();
     const args = [
       uintCV(1234),
@@ -316,8 +322,26 @@ export const Debugger = () => {
 
       <Box>
         <ButtonGroup spacing={4} my="base">
-          <Button data-testid={TransactionsSelectors.BtnContractCall} mt={3} onClick={callFaker}>
-            Contract call
+          <Button
+            data-testid={TransactionsSelectors.BtnContractCall}
+            mt={3}
+            onClick={() => callFaker(stacksTestnetNetwork)}
+          >
+            Contract call (Testnet)
+          </Button>
+          <Button
+            data-testid={TransactionsSelectors.BtnContractCall}
+            mt={3}
+            onClick={() => callFaker(stacksRegtestNetwork)}
+          >
+            Contract call (Regtest)
+          </Button>
+          <Button
+            data-testid={TransactionsSelectors.BtnContractCall}
+            mt={3}
+            onClick={() => callFaker(stacksLocalhostNetwork)}
+          >
+            Contract call (Localhost)
           </Button>
           <Button mt={3} onClick={() => stxTransfer('102')}>
             STX transfer

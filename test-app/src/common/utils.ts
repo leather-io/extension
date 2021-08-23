@@ -5,12 +5,18 @@ import { StacksTestnet } from '@stacks/network';
 
 dayjs.extend(relativeTime);
 
-let coreApiUrl = 'https://stacks-node-api.testnet.stacks.co';
+const testnetUrl = 'https://stacks-node-api.testnet.stacks.co';
+const regtestUrl = 'https://stacks-node-api.regtest.stacks.co';
+const localhostUrl = 'http://localhost:3999';
 
 export const getRPCClient = () => {
-  return new RPCClient(coreApiUrl);
+  return new RPCClient(testnetUrl);
 };
 
 export const toRelativeTime = (ts: number): string => dayjs().to(ts);
 
-export const stacksNetwork = new StacksTestnet({ url: coreApiUrl });
+export const stacksTestnetNetwork = new StacksTestnet({ url: testnetUrl });
+
+export const stacksLocalhostNetwork = new StacksTestnet({ url: localhostUrl });
+
+export const stacksRegtestNetwork = new StacksTestnet({ url: regtestUrl });
