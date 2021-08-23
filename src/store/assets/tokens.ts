@@ -179,7 +179,7 @@ export const stxTokenState = atom(get => {
     type: 'stx',
     contractAddress: '',
     balance: balance,
-    subBalance: unanchoredBalances?.stx?.balance || undefined,
+    subBalance: unanchoredBalances?.stx?.balance.minus(unanchoredBalances?.stx.locked) || undefined,
     subtitle: 'STX',
     name: 'Stacks Token',
   } as AssetWithMeta;
