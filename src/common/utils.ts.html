@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.2% </span>
+                <span class="strong">45.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>80/181</span>
+                <span class='fraction'>84/185</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.49% </span>
+                <span class="strong">22.31% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/121</span>
+                <span class='fraction'>27/121</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">44.74% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/36</span>
+                <span class='fraction'>17/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.37% </span>
+                <span class="strong">45.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>67/151</span>
+                <span class='fraction'>71/155</span>
             </div>
         
             
@@ -432,7 +432,15 @@
 <a name='L373'></a><a href='#L373'>373</a>
 <a name='L374'></a><a href='#L374'>374</a>
 <a name='L375'></a><a href='#L375'>375</a>
-<a name='L376'></a><a href='#L376'>376</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -449,7 +457,7 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -801,11 +809,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import { DecodedAuthRequest } from './dev/types';
@@ -1172,7 +1188,7 @@ export function with0x(value: string): string {
 }
 &nbsp;
 export function initBigNumber(num: string | number | BigNumber) {
-  return BigNumber.isBigNumber(num) ? <span class="branch-0 cbranch-no" title="branch not covered" >num </span>: new BigNumber(num);
+  return BigNumber.isBigNumber(num) ? num : new BigNumber(num);
 }
 &nbsp;
 export function countDecimals(num: string | number | BigNumber) {
@@ -1182,6 +1198,14 @@ export function countDecimals(num: string | number | BigNumber) {
   const decimals = amount.toString(10).split('.')[1];
   return decimals ? decimals.length : 0;
 }
+&nbsp;
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+&nbsp;
+export function isString(value: unknown): value is string {
+  return typeof value === 'string';
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -1189,7 +1213,7 @@ export function countDecimals(num: string | number | BigNumber) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 23 2021 15:24:19 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 23 2021 15:26:24 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
