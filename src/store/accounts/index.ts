@@ -117,8 +117,7 @@ export const currentAccountPrivateKeyState = atom<string | undefined>(
 export const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(
   principal =>
     atom(get => {
-      const networkUrl = get(currentNetworkState).url;
-      const balances = get(accountBalancesBigNumber({ principal, networkUrl }));
+      const balances = get(accountBalancesBigNumber(principal));
       if (!balances) return;
       return balances.stx.balance.minus(balances.stx.locked);
     })
@@ -133,14 +132,8 @@ export const currentAccountAvailableStxBalanceState = atom(get => {
 // the unanchored balances of the current account's address
 export const currentAccountBalancesState = atom(get => {
   const principal = get(currentAccountStxAddressState);
-  const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
-  return get(
-    accountBalancesBigNumber({
-      principal,
-      networkUrl,
-    })
-  );
+  return get(accountBalancesBigNumber(principal));
 });
 
 // the anchored balances of the current account's address

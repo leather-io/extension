@@ -6,7 +6,6 @@ import {
   transferableAssetsState,
 } from '@store/assets/tokens';
 import { useAtomValue } from 'jotai/utils';
-import { useMemo } from 'react';
 
 export const useAssets = () => {
   return useAtomValue(assetsState);
@@ -17,16 +16,13 @@ export const useTransferableAssets = () => {
 };
 
 export function useFungibleTokenState() {
-  const atom = useMemo(() => fungibleTokensState, []);
-  return useAtomValue(atom);
+  return useAtomValue(fungibleTokensState);
 }
 
 export function useNonFungibleTokenState() {
-  const atom = useMemo(() => nonFungibleTokensState, []);
-  return useAtomValue(atom);
+  return useAtomValue(nonFungibleTokensState);
 }
 
 export function useStxTokenState() {
-  const atom = useMemo(() => stxTokenState, []);
-  return useAtomValue(atom);
+  return useAtomValue(stxTokenState);
 }

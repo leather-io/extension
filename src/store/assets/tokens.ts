@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js';
 import {
   currentAccountAvailableStxBalanceState,
   currentAccountBalancesState,
+  currentAccountStxAddressState,
   currentAnchoredAccountBalancesState,
 } from '@store/accounts';
 import { transformAssets } from '@store/assets/utils';
@@ -59,9 +60,13 @@ const assetItemState = atomFamily<Asset, AssetWithMeta>(asset => {
   return anAtom;
 }, deepEqual);
 
-export const assetsState = atom(get =>
-  get(waitForAll(transformAssets(get(currentAccountBalancesState)).map(assetItemState)))
-);
+export const assetsState = atom(get => {
+  get(currentNetworkState);
+  const balances = get(currentAccountBalancesState);
+  const transformed = transformAssets(balances);
+  const arr = transformed.map(assetItemState).map(anAtom => get(anAtom));
+  return arr;
+});
 
 export const assetsUnanchoredState = atom(get =>
   get(waitForAll(transformAssets(get(currentAccountBalancesState)).map(assetItemState)))
@@ -97,15 +102,13 @@ export const mergeAssetBalances = (
   return [...assetMap.values()];
 };
 
-const calculateBalanceByType = atomFamily((assetType: string) =>
-  atom(get => {
-    const assets: AssetWithMeta[] = get(assetsState);
-    const unanchoredAssets: AssetWithMeta[] = get(assetsUnanchoredState);
-    return mergeAssetBalances(assets, unanchoredAssets, assetType);
-  })
-);
-
-export const fungibleTokensState = calculateBalanceByType('ft');
+export const fungibleTokensState = atom(get => {
+  const principal = get(currentAccountStxAddressState);
+  if (!principal) return [];
+  const assets: AssetWithMeta[] = get(assetsState);
+  const unanchoredAssets: AssetWithMeta[] = get(assetsUnanchoredState);
+  return mergeAssetBalances(assets, unanchoredAssets, 'ft');
+});
 
 export type NftMetaRecord = Record<string, NftMeta>;
 
