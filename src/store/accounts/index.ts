@@ -17,6 +17,7 @@ import {
   accountMempoolTransactionsUnanchoredClient,
   accountTransactionsUnanchoredClient,
 } from '@store/accounts/api';
+import deepEqual from 'fast-deep-equal';
 
 const DEFAULT_LIST_LIMIT = 30;
 
@@ -117,10 +118,12 @@ export const currentAccountPrivateKeyState = atom<string | undefined>(
 export const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(
   principal =>
     atom(get => {
-      const balances = get(accountBalancesAnchoredBigNumber(principal));
-      if (!balances) return;
+      const networkUrl = get(currentNetworkState).url;
+      const balances = get(accountBalancesAnchoredBigNumber({ principal, networkUrl }));
+      if (!balances) return new BigNumber(0);
       return balances.stx.balance.minus(balances.stx.locked);
-    })
+    }),
+  deepEqual
 );
 
 export const currentAccountAvailableStxBalanceState = atom(get => {
@@ -132,15 +135,17 @@ export const currentAccountAvailableStxBalanceState = atom(get => {
 // the unanchored balances of the current account's address
 export const currentAccountBalancesUnanchoredState = atom(get => {
   const principal = get(currentAccountStxAddressState);
+  const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
-  return get(accountBalancesUnanchoredBigNumberState(principal));
+  return get(accountBalancesUnanchoredBigNumberState({ principal, networkUrl }));
 });
 
 // the anchored balances of the current account's address
 export const currentAnchoredAccountBalancesState = atom(get => {
   const principal = get(currentAccountStxAddressState);
+  const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
-  return get(accountBalancesAnchoredBigNumber(principal));
+  return get(accountBalancesAnchoredBigNumber({ principal, networkUrl }));
 });
 
 export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
