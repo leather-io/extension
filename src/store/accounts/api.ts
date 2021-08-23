@@ -46,7 +46,7 @@ const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'locked',
 ];
 
-export const accountBalancesClient = atomFamilyWithQuery<
+export const accountBalancesUnanchoredClient = atomFamilyWithQuery<
   PrincipalWithNetworkUrl,
   AddressBalanceResponse
 >(
@@ -65,53 +65,14 @@ export const accountBalancesClient = atomFamilyWithQuery<
   }
 );
 
-export const accountBalancesBigNumber = atomFamily<string, AccountBalanceResponseBigNumber>(
-  principal =>
-    atom(get => {
-      const network = get(currentNetworkState);
-
-      const balances = get(accountBalancesClient({ principal, networkUrl: network.url }));
-
-      const stxBigNumbers = Object.fromEntries(
-        accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
-      ) as Record<AccountBalanceStxKeys, BigNumber>;
-
-      const stx: AccountStxBalanceBigNumber = {
-        ...balances.stx,
-        ...stxBigNumbers,
-      };
-      return {
-        ...balances,
-        stx,
-      };
-    })
-);
-
-export const accountBalancesAnchoredClient = atomFamilyWithQuery<
-  PrincipalWithNetworkUrl,
-  AddressBalanceResponse
->(
-  AccountClientKeys.AnchoredBalancesClient,
-  async function accountBalancesClientQueryFn(get, { principal }) {
-    const { accountsApi } = get(apiClientAnchoredState); // using the anchored client
-    return (await accountsApi.getAccountBalance({
-      principal,
-    })) as AddressBalanceResponse;
-  },
-  {
-    refetchInterval: QueryRefreshRates.MEDIUM,
-    refetchOnMount: 'always',
-    refetchOnReconnect: 'always',
-    refetchOnWindowFocus: 'always',
-  }
-);
-
-export const accountBalancesAnchoredBigNumber = atomFamily<
-  PrincipalWithNetworkUrl,
+export const accountBalancesUnanchoredBigNumberState = atomFamily<
+  string,
   AccountBalanceResponseBigNumber
->(params =>
+>(principal =>
   atom(get => {
-    const balances = get(accountBalancesAnchoredClient(params));
+    const network = get(currentNetworkState);
+
+    const balances = get(accountBalancesUnanchoredClient({ principal, networkUrl: network.url }));
 
     const stxBigNumbers = Object.fromEntries(
       accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
@@ -128,7 +89,46 @@ export const accountBalancesAnchoredBigNumber = atomFamily<
   })
 );
 
-export const accountInfoClient = atomFamilyWithQuery<PrincipalWithNetworkUrl, AccountDataResponse>(
+export const accountBalancesAnchoredClient = atomFamilyWithQuery<string, AddressBalanceResponse>(
+  AccountClientKeys.AnchoredBalancesClient,
+  async function accountBalancesClientQueryFn(get, principal) {
+    const { accountsApi } = get(apiClientAnchoredState); // using the anchored client
+    return (await accountsApi.getAccountBalance({
+      principal,
+    })) as AddressBalanceResponse;
+  },
+  {
+    refetchInterval: QueryRefreshRates.MEDIUM,
+    refetchOnMount: 'always',
+    refetchOnReconnect: 'always',
+    refetchOnWindowFocus: 'always',
+  }
+);
+
+export const accountBalancesAnchoredBigNumber = atomFamily<string, AccountBalanceResponseBigNumber>(
+  principal =>
+    atom(get => {
+      const balances = get(accountBalancesAnchoredClient(principal));
+
+      const stxBigNumbers = Object.fromEntries(
+        accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
+      ) as Record<AccountBalanceStxKeys, BigNumber>;
+
+      const stx: AccountStxBalanceBigNumber = {
+        ...balances.stx,
+        ...stxBigNumbers,
+      };
+      return {
+        ...balances,
+        stx,
+      };
+    })
+);
+
+export const accountInfoUnanchoredClient = atomFamilyWithQuery<
+  PrincipalWithNetworkUrl,
+  AccountDataResponse
+>(
   AccountClientKeys.InfoClient,
   async function accountInfoClientQueryFn(get, { principal }) {
     const { accountsApi } = get(apiClientState);
@@ -145,7 +145,7 @@ export const accountInfoClient = atomFamilyWithQuery<PrincipalWithNetworkUrl, Ac
   }
 );
 
-export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
+export const accountTransactionsUnanchoredClient = atomFamilyWithInfiniteQuery<
   PrincipalWithLimitNetworkUrl,
   PaginatedResults<Transaction>
 >(
@@ -165,7 +165,7 @@ export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
   }
 );
 
-export const accountMempoolTransactionsClient = atomFamilyWithInfiniteQuery<
+export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfiniteQuery<
   PrincipalWithLimitNetworkUrl,
   PaginatedResults<MempoolTransaction>
 >(

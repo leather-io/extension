@@ -1,5 +1,5 @@
 import {
-  assetsState,
+  assetsAnchoredState,
   fungibleTokensState,
   nonFungibleTokensState,
   stxTokenState,
@@ -8,7 +8,7 @@ import {
 import { useAtomValue } from 'jotai/utils';
 
 export const useAssets = () => {
-  return useAtomValue(assetsState);
+  return useAtomValue(assetsAnchoredState);
 };
 
 export const useTransferableAssets = () => {

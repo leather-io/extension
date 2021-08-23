@@ -1,12 +1,12 @@
 import {
-  currentAccountBalancesState,
+  currentAccountBalancesUnanchoredState,
   currentAccountConfirmedTransactionsState,
   currentAccountMempoolTransactionsState,
 } from '@store/accounts';
 import { useAtomValue } from 'jotai/utils';
 
 export const useFetchAccountData = () => {
-  const balances = useAtomValue(currentAccountBalancesState);
+  const balances = useAtomValue(currentAccountBalancesUnanchoredState);
   const pendingTransactions = useAtomValue(currentAccountMempoolTransactionsState);
   const transactions = useAtomValue(currentAccountConfirmedTransactionsState);
   if (!balances) throw new Error('is the user signed in?');
@@ -18,5 +18,5 @@ export const useFetchAccountData = () => {
 };
 
 export const useFetchBalances = () => {
-  return useAtomValue(currentAccountBalancesState);
+  return useAtomValue(currentAccountBalancesUnanchoredState);
 };

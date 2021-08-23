@@ -10,12 +10,12 @@ import { currentNetworkState } from '@store/networks';
 import { walletState } from '@store/wallet';
 import { transactionNetworkVersionState } from '@store/transactions';
 import {
-  accountBalancesBigNumber,
+  accountBalancesUnanchoredBigNumberState,
   accountBalancesAnchoredBigNumber,
-  accountBalancesClient,
-  accountInfoClient,
-  accountMempoolTransactionsClient,
-  accountTransactionsClient,
+  accountBalancesUnanchoredClient,
+  accountInfoUnanchoredClient,
+  accountMempoolTransactionsUnanchoredClient,
+  accountTransactionsUnanchoredClient,
 } from '@store/accounts/api';
 
 const DEFAULT_LIST_LIMIT = 30;
@@ -117,7 +117,7 @@ export const currentAccountPrivateKeyState = atom<string | undefined>(
 export const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(
   principal =>
     atom(get => {
-      const balances = get(accountBalancesBigNumber(principal));
+      const balances = get(accountBalancesAnchoredBigNumber(principal));
       if (!balances) return;
       return balances.stx.balance.minus(balances.stx.locked);
     })
@@ -130,18 +130,17 @@ export const currentAccountAvailableStxBalanceState = atom(get => {
 });
 
 // the unanchored balances of the current account's address
-export const currentAccountBalancesState = atom(get => {
+export const currentAccountBalancesUnanchoredState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   if (!principal) return;
-  return get(accountBalancesBigNumber(principal));
+  return get(accountBalancesUnanchoredBigNumberState(principal));
 });
 
 // the anchored balances of the current account's address
 export const currentAnchoredAccountBalancesState = atom(get => {
   const principal = get(currentAccountStxAddressState);
-  const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
-  return get(accountBalancesAnchoredBigNumber({ principal, networkUrl }));
+  return get(accountBalancesAnchoredBigNumber(principal));
 });
 
 export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
@@ -149,7 +148,7 @@ export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get 
   const networkUrl = get(currentNetworkState).url;
   if (!principal) return [];
   const confirmed = get(
-    accountTransactionsClient({
+    accountTransactionsUnanchoredClient({
       principal,
       limit: DEFAULT_LIST_LIMIT,
       networkUrl,
@@ -163,7 +162,7 @@ export const currentAccountMempoolTransactionsState = atom<MempoolTransaction[]>
   const networkUrl = get(currentNetworkState).url;
   if (!principal) return [];
   const mempool = get(
-    accountMempoolTransactionsClient({
+    accountMempoolTransactionsUnanchoredClient({
       principal,
       limit: DEFAULT_LIST_LIMIT,
       networkUrl,
@@ -183,21 +182,28 @@ export const currentAccountInfoState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
-  return get(accountInfoClient({ principal, networkUrl }));
+  return get(accountInfoUnanchoredClient({ principal, networkUrl }));
 });
 
 export const refreshAccountDataState = atom(null, (get, set) => {
   const principal = get(currentAccountStxAddressState);
   const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
-  set(accountMempoolTransactionsClient({ principal, limit: DEFAULT_LIST_LIMIT, networkUrl }), {
+  set(
+    accountMempoolTransactionsUnanchoredClient({
+      principal,
+      limit: DEFAULT_LIST_LIMIT,
+      networkUrl,
+    }),
+    {
+      type: 'refetch',
+    }
+  );
+  set(accountTransactionsUnanchoredClient({ principal, limit: DEFAULT_LIST_LIMIT, networkUrl }), {
     type: 'refetch',
   });
-  set(accountTransactionsClient({ principal, limit: DEFAULT_LIST_LIMIT, networkUrl }), {
-    type: 'refetch',
-  });
-  set(accountBalancesClient({ principal, networkUrl }), { type: 'refetch' });
-  set(accountInfoClient({ principal, networkUrl }), { type: 'refetch' });
+  set(accountBalancesUnanchoredClient({ principal, networkUrl }), { type: 'refetch' });
+  set(accountInfoUnanchoredClient({ principal, networkUrl }), { type: 'refetch' });
 });
 
 accountsState.debugLabel = 'accountsState';
@@ -208,5 +214,5 @@ transactionAccountIndexState.debugLabel = 'transactionAccountIndexState';
 currentAccountState.debugLabel = 'currentAccountState';
 currentAccountStxAddressState.debugLabel = 'currentAccountStxAddressState';
 currentAccountPrivateKeyState.debugLabel = 'currentAccountPrivateKeyState';
-currentAccountBalancesState.debugLabel = 'currentAccountBalancesState';
+currentAccountBalancesUnanchoredState.debugLabel = 'currentAccountBalancesState';
 currentAccountTransactionsState.debugLabel = 'currentAccountTransactionsState';
