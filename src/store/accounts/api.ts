@@ -17,6 +17,7 @@ import BigNumber from 'bignumber.js';
 import { atomFamily } from 'jotai/utils';
 import { atom } from 'jotai';
 import { AccountStxBalanceBigNumber } from './types';
+import { currentNetworkState } from '@store/networks';
 
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
@@ -64,26 +65,26 @@ export const accountBalancesClient = atomFamilyWithQuery<
   }
 );
 
-export const accountBalancesBigNumber = atomFamily<
-  PrincipalWithNetworkUrl,
-  AccountBalanceResponseBigNumber
->(params =>
-  atom(get => {
-    const balances = get(accountBalancesClient(params));
+export const accountBalancesBigNumber = atomFamily<string, AccountBalanceResponseBigNumber>(
+  principal =>
+    atom(get => {
+      const network = get(currentNetworkState);
 
-    const stxBigNumbers = Object.fromEntries(
-      accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
-    ) as Record<AccountBalanceStxKeys, BigNumber>;
+      const balances = get(accountBalancesClient({ principal, networkUrl: network.url }));
 
-    const stx: AccountStxBalanceBigNumber = {
-      ...balances.stx,
-      ...stxBigNumbers,
-    };
-    return {
-      ...balances,
-      stx,
-    };
-  })
+      const stxBigNumbers = Object.fromEntries(
+        accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
+      ) as Record<AccountBalanceStxKeys, BigNumber>;
+
+      const stx: AccountStxBalanceBigNumber = {
+        ...balances.stx,
+        ...stxBigNumbers,
+      };
+      return {
+        ...balances,
+        stx,
+      };
+    })
 );
 
 export const accountBalancesAnchoredClient = atomFamilyWithQuery<

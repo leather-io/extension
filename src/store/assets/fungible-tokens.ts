@@ -85,7 +85,7 @@ const assetMetaDataMethods = atomFamily<ContractWithNetwork, MetaDataMethodNames
 
 export const assetMetaDataState = atomFamily<ContractWithNetwork, FtMeta | null>(
   ({ contractAddress, contractName, networkUrl }) => {
-    const anAtom = atom(async get => {
+    const anAtom = atom(get => {
       const methods = get(assetMetaDataMethods({ contractName, contractAddress, networkUrl }));
       const network = get(currentNetworkState);
       if (!methods) return null;
@@ -96,14 +96,14 @@ export const assetMetaDataState = atomFamily<ContractWithNetwork, FtMeta | null>
         FungibleTokensQueryKeys.ASSET_META_DATA,
       ];
       const localData = getLocalData<FtMeta>(keyParams);
+      console.log(localData);
       if (localData) return localData;
-      const data = await fetchFungibleTokenMetaData({
+      return fetchFungibleTokenMetaData({
         contractName,
         contractAddress,
         network: network.url,
         methods,
-      });
-      return setLocalData(keyParams, data);
+      }).then(data => setLocalData(keyParams, data));
     });
     debugLabelWithContractPrincipal(anAtom, 'assetMetaDataState', {
       contractName,
