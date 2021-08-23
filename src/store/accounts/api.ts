@@ -57,7 +57,7 @@ export const accountBalancesClient = atomFamilyWithQuery<
     })) as AddressBalanceResponse;
   },
   {
-    refetchInterval: QueryRefreshRates.FAST,
+    refetchInterval: QueryRefreshRates.MEDIUM,
     refetchOnMount: 'always',
     refetchOnReconnect: 'always',
     refetchOnWindowFocus: 'always',
@@ -98,7 +98,7 @@ export const accountBalancesAnchoredClient = atomFamilyWithQuery<
     })) as AddressBalanceResponse;
   },
   {
-    refetchInterval: QueryRefreshRates.FAST,
+    refetchInterval: QueryRefreshRates.MEDIUM,
     refetchOnMount: 'always',
     refetchOnReconnect: 'always',
     refetchOnWindowFocus: 'always',
@@ -157,7 +157,7 @@ export const accountTransactionsClient = atomFamilyWithInfiniteQuery<
     })) as PaginatedResults<Transaction>;
   },
   {
-    refetchInterval: QueryRefreshRates.FAST,
+    refetchInterval: QueryRefreshRates.MEDIUM,
     refetchOnMount: 'always',
     refetchOnReconnect: 'always',
     refetchOnWindowFocus: 'always',
@@ -177,7 +177,7 @@ export const accountMempoolTransactionsClient = atomFamilyWithInfiniteQuery<
     })) as PaginatedResults<MempoolTransaction>;
   },
   {
-    refetchInterval: QueryRefreshRates.FAST,
+    refetchInterval: QueryRefreshRates.MEDIUM,
     refetchOnMount: 'always',
     refetchOnReconnect: 'always',
     refetchOnWindowFocus: 'always',
