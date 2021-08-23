@@ -66,6 +66,8 @@ const SendForm = (props: SendFormProps) => {
 
   const hasValues = values.amount && values.recipient !== '';
 
+  const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
+
   return (
     <PopupContainer
       header={<Header title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
@@ -77,11 +79,7 @@ const SendForm = (props: SendFormProps) => {
         </Suspense>
         <RecipientField error={errors.recipient} value={values.recipient} />
         {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
-        {selectedAsset?.hasMemo && (
-          <SendFormMemoWarning
-            symbol={selectedAsset.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol}
-          />
-        )}
+        {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
         <Box mt="auto">
           {assetError && (
             <ErrorLabel mb="base">
