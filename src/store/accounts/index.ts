@@ -165,20 +165,6 @@ export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get 
   return confirmed?.pages[0].results || [];
 });
 
-export const accountUnanchoredBalancesState = atom(get => {
-  const balances = get(currentAccountBalancesState);
-  const stxBalance = balances ? balances.stx.balance : '';
-  const lockedStxBalance = balances ? balances.stx.locked : 0;
-  return balances
-    ? {
-        ...balances,
-        stx: {
-          ...balances.stx,
-          balance: new BigNumber(stxBalance).minus(lockedStxBalance),
-        },
-      }
-    : undefined;
-});
 export const currentAccountMempoolTransactionsState = atom<MempoolTransaction[]>(get => {
   const principal = get(currentAccountStxAddressState);
   const networkUrl = get(currentNetworkState).url;
