@@ -1,10 +1,10 @@
 import { atom } from 'jotai';
 import deepEqual from 'fast-deep-equal';
-import { atomFamily, waitForAll } from 'jotai/utils';
+import { atomFamily } from 'jotai/utils';
 import BigNumber from 'bignumber.js';
 import {
   currentAccountAvailableStxBalanceState,
-  currentAccountBalancesState,
+  currentAccountBalancesUnanchoredState,
   currentAccountStxAddressState,
   currentAnchoredAccountBalancesState,
 } from '@store/accounts';
@@ -60,43 +60,55 @@ const assetItemState = atomFamily<Asset, AssetWithMeta>(asset => {
   return anAtom;
 }, deepEqual);
 
-export const assetsState = atom(get => {
+export const assetsAnchoredState = atom(get => {
   get(currentNetworkState);
-  const balances = get(currentAccountBalancesState);
+  const balances = get(currentAnchoredAccountBalancesState);
   const transformed = transformAssets(balances);
-  const arr = transformed.map(assetItemState).map(anAtom => get(anAtom));
-  return arr;
+  return transformed.map(assetItemState).map(anAtom => get(anAtom));
 });
 
-export const assetsUnanchoredState = atom(get =>
-  get(waitForAll(transformAssets(get(currentAccountBalancesState)).map(assetItemState)))
-);
+export const assetsUnanchoredState = atom(get => {
+  get(currentNetworkState);
+  const balances = get(currentAccountBalancesUnanchoredState);
+  const transformed = transformAssets(balances);
+  return transformed.map(assetItemState).map(anAtom => get(anAtom));
+});
 
 export const transferableAssetsState = atom(get =>
-  get(assetsState)?.filter(asset => asset.canTransfer)
+  get(assetsAnchoredState)?.filter(asset => asset.canTransfer)
 );
 
+function makeKey(address: string, name: string) {
+  return `${address}.${name}`;
+}
+
 export const mergeAssetBalances = (
-  assets: AssetWithMeta[],
+  anchoredAssets: AssetWithMeta[],
   unanchoredAssets: AssetWithMeta[],
   assetType: string
 ) => {
   const assetMap = new Map();
   // Merge both balances (unanchored and anchored)
-  assets.forEach(
+  anchoredAssets.forEach(
     asset =>
       asset.type === assetType &&
-      assetMap.set(asset.subtitle, { ...asset, ...{ subBalance: new BigNumber(0) } })
+      assetMap.set(makeKey(asset.contractAddress, asset.contractName), {
+        ...asset,
+        ...{ subBalance: new BigNumber(0) },
+      })
   );
   unanchoredAssets.forEach(asset => {
     if (asset.type !== assetType) return;
-    if (!assetMap.has(asset.subtitle)) {
-      assetMap.set(asset.subtitle, {
-        ...asset,
-        ...{ subBalance: asset.balance, balance: new BigNumber(0) },
-      });
+    const key = makeKey(asset.contractAddress, asset.contractName);
+    const match = assetMap.get(key);
+    if (match) {
+      match.subBalance = asset?.balance;
     } else {
-      assetMap.get(asset.subtitle).subBalance = asset?.balance;
+      assetMap.set(key, {
+        ...asset,
+        subBalance: asset.balance,
+        balance: new BigNumber(0),
+      });
     }
   });
   return [...assetMap.values()];
@@ -105,9 +117,9 @@ export const mergeAssetBalances = (
 export const fungibleTokensState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   if (!principal) return [];
-  const assets: AssetWithMeta[] = get(assetsState);
+  const anchoredAssets: AssetWithMeta[] = get(assetsAnchoredState);
   const unanchoredAssets: AssetWithMeta[] = get(assetsUnanchoredState);
-  return mergeAssetBalances(assets, unanchoredAssets, 'ft');
+  return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');
 });
 
 export type NftMetaRecord = Record<string, NftMeta>;
@@ -134,7 +146,8 @@ export const mergeNftBalances = (anchoredNfts: NftMetaRecord, unanchoredNfts: Nf
 
 export const nonFungibleTokensState = atom(get => {
   const anchoredbalances = get(currentAnchoredAccountBalancesState);
-  const unanchoredBalances = get(currentAccountBalancesState);
+  const unanchoredBalances = get(currentAccountBalancesUnanchoredState);
+
   const anchoredNfts = anchoredbalances?.non_fungible_tokens || {};
   const unanchoredNfts = unanchoredBalances?.non_fungible_tokens || {};
   const noCollectibles =
@@ -146,7 +159,7 @@ export const nonFungibleTokensState = atom(get => {
 
 export const stxTokenState = atom(get => {
   const balance = get(currentAccountAvailableStxBalanceState);
-  const unanchoredBalances = get(currentAccountBalancesState);
+  const unanchoredBalances = get(currentAccountBalancesUnanchoredState);
 
   return {
     type: 'stx',
@@ -158,7 +171,7 @@ export const stxTokenState = atom(get => {
   } as AssetWithMeta;
 });
 
-assetsState.debugLabel = 'assetsState';
+assetsAnchoredState.debugLabel = 'assetsState';
 transferableAssetsState.debugLabel = 'transferableAssetsState';
 fungibleTokensState.debugLabel = 'fungibleTokensState';
 nonFungibleTokensState.debugLabel = 'nonFungibleTokensState';

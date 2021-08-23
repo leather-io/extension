@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { selectedAssetStore } from '@store/assets/asset-search';
 import {
-  currentAccountBalancesState,
+  currentAccountBalancesUnanchoredState,
   currentAccountState,
   currentAccountStxAddressState,
 } from '@store/accounts';
@@ -12,7 +12,7 @@ export const makeFungibleTokenTransferState = atom(get => {
   const asset = get(selectedAssetStore);
   const currentAccount = get(currentAccountState);
   const network = get(currentStacksNetworkState);
-  const balances = get(currentAccountBalancesState);
+  const balances = get(currentAccountBalancesUnanchoredState);
   const stxAddress = get(currentAccountStxAddressState);
   const nonce = get(currentAccountNonceState);
   if (!stxAddress || typeof nonce === 'undefined') return;
