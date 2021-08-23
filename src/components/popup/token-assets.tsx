@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Stack, StackProps, color, Button, useClipboard } from '@stacks/ui';
 import { AssetRow } from '../asset-row';
-import { useFungibleTokenState, useStxTokenState } from '@common/hooks/use-assets';
+import {
+  useAssetItemState,
+  useFungibleTokenBaseState,
+  useStxTokenState,
+} from '@common/hooks/use-assets';
 import { Caption } from '@components/typography';
 import { CollectibleAssets } from '@components/popup/collectible-assets';
 import { useCurrentAccountBalances } from '@common/hooks/account/use-current-account-balances';
 import { NoAssetsEmptyIllustration } from '@components/vector/no-assets';
 import { useCurrentAccount } from '@common/hooks/account/use-current-account';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
+import { AssetWithMeta } from '@common/asset-types';
+
+function FungibleAssetRow(props: { asset: AssetWithMeta }) {
+  const asset = useAssetItemState(props.asset);
+  if (!asset) return null;
+  return <AssetRow asset={asset} />;
+}
 
 function FungibleAssets(props: StackProps) {
-  const fungibleTokens = useFungibleTokenState();
+  const fungibleTokens = useFungibleTokenBaseState();
   const balances = useCurrentAccountBalances();
   if (!balances) return null;
 
@@ -21,7 +32,9 @@ function FungibleAssets(props: StackProps) {
   return (
     <Stack spacing="loose" {...props}>
       {fungibleTokens?.map(asset => (
-        <AssetRow key={asset.name} asset={asset} />
+        <Suspense fallback={<AssetRow asset={asset} />} key={asset.name}>
+          <FungibleAssetRow asset={asset} />
+        </Suspense>
       ))}
     </Stack>
   );
