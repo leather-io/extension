@@ -99,13 +99,14 @@ describe(mergeAssetBalances.name, () => {
       let token = assets.find(asset => asset && asset.name === tokenName);
       let tokenUnanchored = unanchoredAssets.find(asset => asset && asset.name === tokenName);
       let tokenMerged = mergedAssets.find(asset => asset && asset.name === tokenName);
+      if (!tokenMerged) return;
       if (token && tokenUnanchored) {
         // if there is a token in the anchored balance it should be present in the merge as balance
         expect(tokenMerged.balance).toEqual(token.balance);
         expect(tokenMerged.subBalance).toEqual(tokenUnanchored.balance);
       } else if (token && !tokenUnanchored) {
         expect(tokenMerged.balance).toEqual(token.balance);
-        expect(tokenMerged.subBalance.toFixed()).toEqual(new BigNumber(0).toFixed());
+        expect(tokenMerged?.subBalance?.toFixed()).toEqual(new BigNumber(0).toFixed());
         expect(BigNumber.isBigNumber(tokenMerged.subBalance)).toBeTruthy();
       } else if (!token && tokenUnanchored) {
         expect(tokenMerged.balance.toFixed()).toEqual(new BigNumber(0).toFixed());
