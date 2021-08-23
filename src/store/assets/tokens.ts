@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import deepEqual from 'fast-deep-equal';
-import { atomFamily } from 'jotai/utils';
+import { atomFamily, waitForAll } from 'jotai/utils';
 import BigNumber from 'bignumber.js';
 import {
   currentAccountAvailableStxBalanceState,
@@ -14,6 +14,7 @@ import { assetMetaDataState } from '@store/assets/fungible-tokens';
 import { contractInterfaceState } from '@store/contracts';
 import { isSip10Transfer } from '@common/token-utils';
 import { currentNetworkState } from '@store/networks';
+import { accountBalancesAnchoredBigNumber } from '@store/accounts/api';
 
 const transferDataState = atomFamily<ContractPrincipal, any>(
   ({ contractAddress, contractName }) => {
@@ -33,9 +34,8 @@ const transferDataState = atomFamily<ContractPrincipal, any>(
   deepEqual
 );
 
-const assetItemState = atomFamily<Asset, AssetWithMeta>(asset => {
+const assetItemState = atomFamily<[Asset, string], AssetWithMeta>(([asset, networkUrl]) => {
   const anAtom = atom(get => {
-    const network = get(currentNetworkState);
     if (asset.type === 'ft') {
       const transferData = get(
         transferDataState({
@@ -47,7 +47,7 @@ const assetItemState = atomFamily<Asset, AssetWithMeta>(asset => {
         assetMetaDataState({
           contractAddress: asset.contractAddress,
           contractName: asset.contractName,
-          networkUrl: network.url,
+          networkUrl,
         })
       );
       const canTransfer = !(!transferData || 'error' in transferData);
@@ -61,17 +61,20 @@ const assetItemState = atomFamily<Asset, AssetWithMeta>(asset => {
 }, deepEqual);
 
 export const assetsAnchoredState = atom(get => {
-  get(currentNetworkState);
-  const balances = get(currentAnchoredAccountBalancesState);
+  const network = get(currentNetworkState);
+  const principal = get(currentAccountStxAddressState);
+  if (!principal) return [];
+  const balances = get(accountBalancesAnchoredBigNumber({ principal, networkUrl: network.url }));
+
   const transformed = transformAssets(balances);
-  return transformed.map(assetItemState).map(anAtom => get(anAtom));
+  return get(waitForAll(transformed.map(asset => assetItemState([asset, network.url]))));
 });
 
 export const assetsUnanchoredState = atom(get => {
-  get(currentNetworkState);
+  const network = get(currentNetworkState);
   const balances = get(currentAccountBalancesUnanchoredState);
   const transformed = transformAssets(balances);
-  return transformed.map(assetItemState).map(anAtom => get(anAtom));
+  return get(waitForAll(transformed.map(asset => assetItemState([asset, network.url]))));
 });
 
 export const transferableAssetsState = atom(get =>
