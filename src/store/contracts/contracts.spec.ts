@@ -7,7 +7,7 @@ import {
   contractSourceState,
 } from './contracts';
 
-import * as utils from '@store/common/utils';
+import * as utils from '@common/store-utils';
 import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
 import { setupHeystackEnv } from '@tests/mocks/heystack';
 import { HEYSTACK_HEY_TX_REQUEST_DECODED } from '@tests/mocks';

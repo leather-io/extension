@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
 import { delay } from '@common/utils';
-import { useUpdateAtom } from 'jotai/utils';
-import { refreshAccountDataState } from '@store/accounts';
+import { useRefreshAccountData } from '@store/accounts/account.hooks';
 
 export function useRefreshAllAccountData() {
-  const update = useUpdateAtom(refreshAccountDataState);
+  const update = useRefreshAccountData();
   return useCallback(
     async (ms?: number) => {
       if (typeof ms === 'number') await delay(ms);

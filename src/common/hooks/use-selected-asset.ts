@@ -1,19 +1,19 @@
 import { useCallback, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { useAtomValue, useUpdateAtom } from 'jotai/utils';
-import { selectedAssetIdState, selectedAssetStore } from '@store/assets/asset-search';
+
 import { AssetWithMeta } from '@common/asset-types';
 import { getTicker, initBigNumber } from '@common/utils';
 import { ftDecimals, stacksValue } from '@common/stacks-utils';
-import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { useSelectedAssetState, useUpdateSelectedAsset } from '@store/assets/asset.hooks';
 
 export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
   return asset ? `${asset.contractAddress}.${asset.contractName}::${asset.name}` : undefined;
 }
 
 export function useSelectedAsset() {
-  const selectedAsset = useAtomValue(selectedAssetStore);
-  const setSelectedAsset = useUpdateAtom(selectedAssetIdState);
+  const selectedAsset = useSelectedAssetState();
+  const setSelectedAsset = useUpdateSelectedAsset();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const handleUpdateSelectedAsset = useCallback(
     (asset: AssetWithMeta | undefined) => {

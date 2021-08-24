@@ -7,7 +7,7 @@ import { fetchWithTimeout, findMatchingNetworkKey } from '@common/utils';
 import { defaultNetworks, Networks, QueryRefreshRates } from '@common/constants';
 import { atomFamilyWithQuery } from '@store/query';
 import { apiClientState } from '@store/common/api-clients';
-import { makeLocalDataKey } from '@store/common/utils';
+import { makeLocalDataKey } from '@common/store-utils';
 
 // Our root networks list, users can add to this list and it will persist to localstorage
 export const networksState = atomWithStorage<Networks>(

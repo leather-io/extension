@@ -1,4 +1,3 @@
-import { magicRecoveryCodePasswordState, magicRecoveryCodeState } from '@store/onboarding';
 import { useLoading } from '@common/hooks/use-loading';
 import { useWallet } from '@common/hooks/use-wallet';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -7,11 +6,14 @@ import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { USERNAMES_ENABLED } from '@common/constants';
 import { ScreenPaths } from '@common/types';
 import { decrypt } from '@stacks/wallet-sdk';
-import { useAtom } from 'jotai';
+import {
+  useMagicRecoveryCodePasswordState,
+  useMagicRecoveryCodeState,
+} from '@store/onboarding/onboarding.hooks';
 
 export function useMagicRecoveryCode() {
-  const [magicRecoveryCode, setMagicRecoveryCode] = useAtom(magicRecoveryCodeState);
-  const [password, setPassword] = useAtom(magicRecoveryCodePasswordState);
+  const [magicRecoveryCode, setMagicRecoveryCode] = useMagicRecoveryCodeState();
+  const [password, setPassword] = useMagicRecoveryCodePasswordState();
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useMagicRecoveryCode');
   const { doStoreSeed, doSetPassword, doFinishSignIn } = useWallet();
   const [error, setPasswordError] = useState('');

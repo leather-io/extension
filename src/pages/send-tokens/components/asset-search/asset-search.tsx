@@ -1,16 +1,17 @@
 import React, { memo, useMemo, forwardRef, useEffect } from 'react';
 import { Box, Fade, Text, Flex, Input, color, Stack, StackProps } from '@stacks/ui';
-import { useAtomValue } from 'jotai/utils';
-import { useAtom } from 'jotai';
 import { useCombobox } from 'downshift';
-import { searchInputStore } from '@store/assets/asset-search';
 
-import { SelectedAsset } from './selected-asset';
-import { useTransferableAssets } from '@common/hooks/use-assets';
+import {
+  useSearchInput,
+  useTransferableAssets,
+  useUpdateSearchInput,
+} from '@store/assets/asset.hooks';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { AssetRow } from '@components/asset-row';
 import { AssetWithMeta } from '@common/asset-types';
-import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { SelectedAsset } from './selected-asset';
 
 function principalHasOnlyOneAsset(assets: AssetWithMeta[]) {
   return assets.length === 1;
@@ -23,7 +24,7 @@ interface AssetSearchResultsProps extends StackProps {
 const AssetSearchResults = forwardRef(
   ({ isOpen, highlightedIndex, getItemProps, ...props }: AssetSearchResultsProps, ref) => {
     const assets = useTransferableAssets();
-    const searchInput = useAtomValue(searchInputStore);
+    const searchInput = useSearchInput();
     const availableStxBalance = useCurrentAccountAvailableStxBalance();
 
     const items = useMemo(
@@ -64,7 +65,7 @@ const AssetSearchResults = forwardRef(
                   asset={asset}
                   index={index}
                   key={`${asset.contractAddress || asset.name}__${index}`}
-                  // highlighted={highlightedIndex === index}
+                  highlighted={highlightedIndex === index}
                   {...getItemProps({ item: asset, index })}
                 />
               );
@@ -83,7 +84,8 @@ const AssetSearchField: React.FC<{
 
   const { selectedAsset, handleUpdateSelectedAsset } = useSelectedAsset();
 
-  const [searchInput, setSearchInput] = useAtom(searchInputStore);
+  const searchInput = useSearchInput();
+  const setSearchInput = useUpdateSearchInput();
 
   useEffect(() => {
     if (principalHasOnlyOneAsset(assets ?? [])) {

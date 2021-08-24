@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { currentNetworkState } from '@store/networks';
+import { currentNetworkState } from '@store/network/networks';
 import { fetcher as fetchApi } from '@common/api/wrapped-fetch';
 
 import {
