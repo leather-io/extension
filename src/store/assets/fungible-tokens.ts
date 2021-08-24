@@ -96,7 +96,6 @@ export const assetMetaDataState = atomFamily<ContractWithNetwork, FtMeta | null>
         FungibleTokensQueryKeys.ASSET_META_DATA,
       ];
       const localData = getLocalData<FtMeta>(keyParams);
-      console.log(localData);
       if (localData) return localData;
       return fetchFungibleTokenMetaData({
         contractName,
