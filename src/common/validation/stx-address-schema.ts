@@ -23,13 +23,3 @@ export function stxAddressSchema(errorMsg: string) {
     },
   });
 }
-
-export function stxNonceSchema() {
-  return yup
-    .number()
-    .required('Is required')
-    .typeError('you must specify a number')
-    .min(0, 'Min value 0.')
-    .positive('Must be positive.')
-    .integer('Must be an integer')
-}

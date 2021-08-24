@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { PopupHeader } from '@pages/transaction-signing/components/popup-header';
 import { PopupContainer } from '@components/popup/container';
 import { TransactionsActions } from '@pages/transaction-signing/components/actions';
@@ -24,7 +24,7 @@ export const TransactionPage = memo(() => {
   const editTxSettings = () => {
     setShowSettings(!showSettings);
   };
-  const [showSettings, setShowSettings] = React.useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     return () => {

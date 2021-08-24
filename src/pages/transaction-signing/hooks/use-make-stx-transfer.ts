@@ -34,7 +34,7 @@ export function useMakeStxTransfer() {
       );
 
       if (!account || typeof correctNonce === 'undefined') return;
-      const txNonce = nonce ?? correctNonce
+      const txNonce = nonce ?? correctNonce;
 
       return makeSTXTokenTransfer({
         recipient,
@@ -64,7 +64,7 @@ export function useMakeTransferEffect({
   amount: number;
   recipient: string;
   memo: string;
-  nonce: number;
+  nonce?: number;
   setTransaction: (transaction: StacksTransaction) => void;
   loadingKey: string;
 }) {
@@ -82,7 +82,7 @@ export function useMakeTransferEffect({
       amount,
       recipient,
       memo,
-      nonce
+      nonce,
     });
     if (tx) setTransaction(tx);
     setIsIdle();

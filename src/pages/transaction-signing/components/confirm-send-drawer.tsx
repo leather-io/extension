@@ -19,7 +19,7 @@ interface ConfirmSendDrawerProps extends BaseDrawerProps {
   amount: number;
   recipient: string;
   memo: string;
-  nonce: number;
+  nonce?: number;
 }
 
 const LOADING_KEY = 'confirm-send-drawer';

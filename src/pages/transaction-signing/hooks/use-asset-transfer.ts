@@ -45,6 +45,7 @@ interface AssetTransferOptions {
   amount: number;
   recipient: string;
   memo: string;
+  nonce?: number;
 }
 
 export function useMakeAssetTransfer() {

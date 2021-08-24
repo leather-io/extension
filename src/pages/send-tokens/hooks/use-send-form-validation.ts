@@ -12,10 +12,10 @@ import { stxAmountSchema } from '@common/validation/currency-schema';
 import {
   stxAddressNetworkValidatorFactory,
   stxAddressSchema,
-  stxNonceSchema,
   stxNotCurrentAddressValidatorFactory,
 } from '@common/validation/stx-address-schema';
 import { useCallback, useMemo } from 'react';
+import { nonceSchema } from '@common/validation/nonce-schema';
 
 export enum SendFormErrorMessages {
   IncorrectAddressMode = 'The address is for the incorrect Stacks network',
@@ -23,7 +23,6 @@ export enum SendFormErrorMessages {
   SameAddress = 'Cannot send to yourself',
   AmountRequired = 'You must specify an amount',
   MustNotBeZero = 'Must be more than zero',
-  MustBeInteger = 'Must be an integer',
   DoesNotSupportDecimals = 'This token does not support decimal places',
   InsufficientBalance = 'Insufficient balance. Your available balance is:',
   MustSelectAsset = 'You must select a valid token to transfer',
@@ -129,14 +128,7 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
     [currentAccountStxAddress, currentNetwork]
   );
 
-  const nonceSchema = useCallback(
-    () =>
-      yup
-        .number()
-        .required()
-        .integer(SendFormErrorMessages.MustBeInteger)
-        .min(0),
-    [])
+  const nonceFormSchema = useCallback(nonceSchema, []);
 
   return useMemo(
     () =>
@@ -145,8 +137,8 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
         recipient: recipientSchema(),
         amount: amountSchema(),
         memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
-        nonce: nonceSchema(),
+        nonce: nonceFormSchema(),
       }),
-    [amountSchema, recipientSchema, selectedAssetSchema, nonceSchema]
+    [amountSchema, recipientSchema, selectedAssetSchema, nonceFormSchema]
   );
 };
