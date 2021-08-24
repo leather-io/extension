@@ -2,7 +2,7 @@ import { atom } from 'jotai';
 
 import { AuthType, ChainID, TransactionVersion } from '@stacks/transactions';
 
-import { currentNetworkState, currentStacksNetworkState } from '@store/networks';
+import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { requestTokenPayloadState } from '@store/transactions/requests';
@@ -57,12 +57,6 @@ export const signedTransactionState = atom(get => {
   };
 });
 
-export const transactionFeeState = atom(get => {
-  return get(signedTransactionState)?.fee;
-});
-export const transactionSponsoredState = atom(get => {
-  return get(signedTransactionState)?.isSponsored;
-});
 export const transactionNetworkVersionState = atom(get =>
   get(currentNetworkState)?.chainId === ChainID.Mainnet
     ? TransactionVersion.Mainnet

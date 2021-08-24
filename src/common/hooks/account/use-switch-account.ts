@@ -1,19 +1,20 @@
-import { useWallet } from '@common/hooks/use-wallet';
-import { hasSwitchedAccountsState, transactionAccountIndexState } from '@store/accounts';
 import { useCallback } from 'react';
-import { transactionNetworkVersionState } from '@store/transactions';
-import { useAtomValue } from 'jotai/utils';
-import { useAtom } from 'jotai';
-import { useCurrentAccount } from '@common/hooks/account/use-current-account';
+import { useWallet } from '@common/hooks/use-wallet';
+import {
+  useCurrentAccount,
+  useHasSwitchedAccounts,
+  useTransactionAccountIndex,
+  useTransactionNetworkVersion,
+} from '@store/accounts/account.hooks';
 
 const TIMEOUT = 350;
 
 export const useSwitchAccount = (callback?: () => void) => {
   const { doSwitchAccount } = useWallet();
   const currentAccount = useCurrentAccount();
-  const txIndex = useAtomValue(transactionAccountIndexState);
-  const transactionVersion = useAtomValue(transactionNetworkVersionState);
-  const [hasSwitched, setHasSwitched] = useAtom(hasSwitchedAccountsState);
+  const txIndex = useTransactionAccountIndex();
+  const transactionVersion = useTransactionNetworkVersion();
+  const [hasSwitched, setHasSwitched] = useHasSwitchedAccounts();
 
   const handleSwitchAccount = useCallback(
     async index => {

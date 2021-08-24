@@ -4,7 +4,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { microStxToStx } from '@common/stacks-utils';
 import { STX_DECIMALS, STX_TRANSFER_TX_SIZE_BYTES } from '@common/constants';
-import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 import { countDecimals, initBigNumber, isNumber } from '@common/utils';
 import { transactionMemoSchema } from '@common/validation/validate-memo';
 import { stxToMicroStx } from '@stacks/ui-utils';

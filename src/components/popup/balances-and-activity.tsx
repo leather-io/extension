@@ -7,7 +7,7 @@ import { Caption } from '@components/typography';
 import { NoActivityIllustration } from '@components/vector/no-activity';
 import { Tabs } from '@components/tabs';
 
-import { useAccountActivity } from '@common/hooks/account/use-account-activity';
+import { useAccountActivity } from '@store/accounts/account.hooks';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { createTxDateFormatList } from '@common/group-txs-by-date';
 import { TransactionList } from './transaction-list';

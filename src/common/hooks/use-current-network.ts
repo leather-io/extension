@@ -1,17 +1,12 @@
-import { currentNetworkState } from '@store/networks';
 import { useMemo } from 'react';
 import { ChainID } from '@stacks/transactions';
-import { useAtomValue } from 'jotai/utils';
+import { useCurrentNetworkState } from '@store/network/networks.hooks';
 
 type Modes = 'testnet' | 'mainnet';
 
 export function useCurrentNetwork() {
-  const network = useAtomValue(currentNetworkState);
+  const network = useCurrentNetworkState();
   const isTestnet = useMemo(() => network.chainId === ChainID.Testnet, [network.chainId]);
   const mode = (isTestnet ? 'testnet' : 'mainnet') as Modes;
-  return {
-    ...network,
-    isTestnet,
-    mode,
-  };
+  return { ...network, isTestnet, mode };
 }

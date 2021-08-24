@@ -1,12 +1,12 @@
 import { atomFamily } from 'jotai/utils';
 import { ContractPrincipal, FtMeta, MetaDataMethodNames } from '@common/asset-types';
 import { atom } from 'jotai';
-import { getLocalData, setLocalData } from '@store/common/utils';
+import { getLocalData, setLocalData } from '@common/store-utils';
 import { fetchFungibleTokenMetaData, getMatchingFunction } from '@store/assets/utils';
-import { contractInterfaceState } from '@store/contracts';
+import { contractInterfaceState } from '@store/contracts/contracts';
 import deepEqual from 'fast-deep-equal';
-import { debugLabelWithContractPrincipal } from '@common/atom-utils';
-import { currentNetworkState } from '@store/networks';
+import { debugLabelWithContractPrincipal } from '@store/utils/atom-utils';
+import { currentNetworkState } from '@store/network/networks';
 
 enum FungibleTokensQueryKeys {
   SIP_10_COMPLIANT = 'SIP_10_COMPLIANT',
