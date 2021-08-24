@@ -19,7 +19,7 @@ import {
 } from '@store/accounts/api';
 import deepEqual from 'fast-deep-equal';
 
-const DEFAULT_LIST_LIMIT = 30;
+const DEFAULT_LIST_LIMIT = 50;
 
 /**
  * --------------------------------------

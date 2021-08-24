@@ -46,7 +46,7 @@ export const currentAccountNonceState = atom(get => {
   // they have any pending or confirmed transactions
   const hasTransactions = !!latestPendingTx || !!lastConfirmedTx;
 
-  if (!hasTransactions || !account || (!hasTransactions && account.nonce === 0)) return 0;
+  if (!account) return 0;
 
   // if the oldest pending tx is more than 1 above the account nonce, it's likely there was
   // a race condition such that the client didn't have the most up to date pending tx
@@ -55,7 +55,8 @@ export const currentAccountNonceState = atom(get => {
     oldestPendingTx && lastConfirmedTx ? oldestPendingTx.nonce > lastConfirmedTx.nonce + 1 : false;
 
   // if they do have a miss match, let's use the account nonce
-  if (hasNonceMismatch) return account.nonce;
+  // or if we don't have any prior transactions, use the info api nonce
+  if (hasNonceMismatch || !hasTransactions) return account.nonce;
 
   // otherwise, without micro-blocks, the account nonce will likely be out of date compared
   // and not be incremented based on pending transactions
