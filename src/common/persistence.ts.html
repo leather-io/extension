@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/error-label.tsx</title>
+    <title>Code coverage report for src/common/persistence.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> error-label.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/common</a> persistence.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -74,40 +74,55 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { Box, color, StackProps, Stack } from '@stacks/ui';
-import { FiAlertTriangle as IconAlertTriangle } from 'react-icons/fi';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor-experimental'<span class="cstat-no" title="statement not covered" >;</span>
+import { queryClient } from 'jotai-query-toolkit'<span class="cstat-no" title="statement not covered" >;</span>
+import { IS_TEST_ENV, PERSISTENCE_CACHE_TIME } from '@common/constants'<span class="cstat-no" title="statement not covered" >;</span>
+import { persistQueryClient } from 'react-query/persistQueryClient-experimental'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const ErrorLabel: React.FC&lt;StackProps&gt; = ({ children, ...rest }) =&gt; (
-  &lt;Stack spacing="tight" color={color('feedback-error')} isInline alignItems="flex-start" {...rest}&gt;
-    &lt;Box
-      size="1rem"
-      color={color('feedback-error')}
-      as={IconAlertTriangle}
-      position="relative"
-      top="2px"
-      strokeWidth={1.5}
-    /&gt;
-    &lt;Box&gt;{children}&lt;/Box&gt;
-  &lt;/Stack&gt;
-);
+const localStoragePersistor = createWebStoragePersistor({ storage: window.localStorage });
+&nbsp;
+queryClient.setDefaultOptions({
+  queries: {
+    cacheTime: PERSISTENCE_CACHE_TIME,
+    notifyOnChangeProps: ['data', 'error'],
+  },
+});
+&nbsp;
+export async function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >persistAndRenderApp(</span>r</span>enderApp: () =&gt; void) {
+  if (!IS_TEST_ENV)
+    await persistQueryClient({
+      queryClient,
+      persistor: localStoragePersistor,
+    });
+<span class="cstat-no" title="statement not covered" >  renderApp();</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

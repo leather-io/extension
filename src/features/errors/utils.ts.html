@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -138,11 +138,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,12 +153,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -171,10 +168,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomCallback } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { useCallback } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { useCallback } from 'react'<span class="cstat-no" title="statement not covered" >;</span>
 import { errorStackTraceState } from '@store/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >makeStackTraceSection(</span>stackTrace: string | null) {
@@ -189,18 +189,18 @@ ${stackTrace}
 `;
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >openGithubIssue<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({</span></span></span>
+export const openGithubIssue<span class="cstat-no" title="statement not covered" > = ({</span>
   message,
   stackTrace,
 }: {
   message: string;
   stackTrace: string | null;
 }) =&gt; {
-  const githubUrl = <span class="cstat-no" title="statement not covered" >new URL('https://github.com/blockstack/stacks-wallet-web/issues/new');</span>
-  const issueParams = <span class="cstat-no" title="statement not covered" >githubUrl.searchParams;</span>
-  const issueTitle<span class="cstat-no" title="statement not covered" > = `[${VERSION}] Bug: &lt;describe issue&gt;`;</span>
-  const issueLabels<span class="cstat-no" title="statement not covered" > = 'bug,reported-from-ui';</span>
-  const issueBody<span class="cstat-no" title="statement not covered" > = `</span>
+  const githubUrl = new URL('https://github.com/blockstack/stacks-wallet-web/issues/new');
+  const issueParams = githubUrl.searchParams;
+  const issueTitle = `[${VERSION}] Bug: &lt;describe issue&gt;`;
+  const issueLabels = 'bug,reported-from-ui';
+  const issueBody = `
 &lt;!--
   PLEASE READ:
   Thanks for creating an issue. Please include as much detail as possible,
@@ -216,20 +216,20 @@ An error occurred while using Hiro Wallet for Web (\`${VERSION}\`).
 ${makeStackTraceSection(stackTrace)}
 `;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  issueParams.set('title', issueTitle);</span>
-<span class="cstat-no" title="statement not covered" >  issueParams.set('labels', issueLabels);</span>
-<span class="cstat-no" title="statement not covered" >  issueParams.set('body', issueBody);</span>
+  issueParams.set('title', issueTitle);
+  issueParams.set('labels', issueLabels);
+  issueParams.set(<span class="cstat-no" title="statement not covered" >'body', issueBody);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  window.open(githubUrl.toString(), '_blank');</span>
-};
+  window.open(<span class="cstat-no" title="statement not covered" >githubUrl.toString(), '_blank');</span>
+}<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useErrorHandler(</span>) {</span>
-  const handleOnError<span class="cstat-no" title="statement not covered" > = useAtomCallback&lt;void, any&gt;(</span>
+export function <span class="cstat-no" title="statement not covered" >useErrorHandler() {</span>
+  const handleOnError = useAtomCallback&lt;void, any&gt;(
     useCallback((_get, set, ...arg: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >      set(errorStackTraceState, arg?.[0]?.stack);</span>
+      set(errorStackTraceState, arg?.[0]?.stack);
     }, [])
   );
-  return <span class="cstat-no" title="statement not covered" >handleOnError;</span>
+  return handleOnError;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -238,7 +238,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 23 2021 15:26:24 GMT+0000 (Coordinated Universal Time)
+                at Tue Aug 24 2021 15:02:23 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -105,9 +105,7 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -133,8 +131,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,12 +156,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span></span></span>
 import { BoxProps } from '@stacks/ui';
 import { useCurrentAccount } from '@common/hooks/account/use-current-account'<span class="cstat-no" title="statement not covered" >;</span>
-import { useAccountNames } from '@common/hooks/account/use-account-names'<span class="cstat-no" title="statement not covered" >;</span>
 import { getAccountDisplayName } from '@stacks/wallet-sdk'<span class="cstat-no" title="statement not covered" >;</span>
 import { truncateString } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
 import { Tooltip } from '@components/tooltip'<span class="cstat-no" title="statement not covered" >;</span>
 import { Title } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 import { memoWithAs } from '@stacks/ui-core'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { useCurrentAccountDisplayName } from '@common/hooks/account/use-account-names'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 const UsernameTitle<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (p</span>rops: BoxProps) =&gt; (</span>
   &lt;Title
@@ -180,11 +176,9 @@ const UsernameTitle<span class="cstat-no" title="statement not covered" ><span c
 &nbsp;
 const UsernameSuspense<span class="cstat-no" title="statement not covered" > = memo((props: BoxProps) =&gt; {</span>
   const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
-  const names<span class="cstat-no" title="statement not covered" > = useAccountNames();</span>
+  const name<span class="cstat-no" title="statement not covered" > = useCurrentAccountDisplayName();</span>
 <span class="cstat-no" title="statement not covered" >  if (!currentAccount || typeof currentAccount.index === 'undefined'<span class="cstat-no" title="statement not covered" >) return null;</span></span>
   const nameCharLimit = <span class="cstat-no" title="statement not covered" >18;</span>
-  const name<span class="cstat-no" title="statement not covered" > =</span>
-    names?.[currentAccount.index]?.names?.[0] || getAccountDisplayName(currentAccount as any);
   const isLong = <span class="cstat-no" title="statement not covered" >name.length &gt; nameCharLimit;</span>
   const displayName<span class="cstat-no" title="statement not covered" > = truncateString(name, nameCharLimit);</span>
 &nbsp;
@@ -214,7 +208,7 @@ export const <span class="cstat-no" title="statement not covered" >CurrentUserna
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 23 2021 15:26:24 GMT+0000 (Coordinated Universal Time)
+                at Tue Aug 24 2021 15:02:23 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
