@@ -1,36 +1,31 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai/utils';
+import { RateLimiter } from 'limiter';
 
+import { contractsAtom } from '@store/contracts';
 import { apiClientState } from '@store/common/api-clients';
 import { ContractInterface } from '@stacks/rpc-client';
-import { ContractDictionary, contractsAtom } from '@store/contracts';
-import { useAtomValue } from 'jotai/utils';
+
+const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 2000 });
 
 function useFetchContractInterface(contractAddress: string, contractName: string) {
   const api = useAtomValue(apiClientState);
   const [state, setState] = useAtom(contractsAtom);
 
-  useEffect(() => {
-    console.log('usefetch', state);
-  }, [state]);
-
-  const contractInterfaceFetcher = useCallback(
-    () =>
-      api.smartContractsApi.getContractInterface({
-        contractAddress,
-        contractName,
-      }),
-    [api.smartContractsApi, contractAddress, contractName]
-  );
+  const contractInterfaceFetcher = useCallback(async () => {
+    await limiter.removeTokens(1);
+    return api.smartContractsApi.getContractInterface({ contractAddress, contractName });
+  }, [api.smartContractsApi, contractAddress, contractName]);
 
   const { data: contractInterface } = useQuery(
     ['contactId', contractAddress, contractName],
     contractInterfaceFetcher,
     {
       staleTime: Number.MAX_SAFE_INTEGER,
-      onSuccess(x) {
-        setState({ ...state, [`${contractAddress}.${contractName}`]: x } as ContractDictionary);
+      onSuccess(contract: ContractInterface) {
+        setState({ ...state, [`${contractAddress}.${contractName}`]: contract });
       },
     }
   );
