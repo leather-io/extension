@@ -1,25 +1,23 @@
 import {
-  authRequestState,
-  currentScreenState,
-  magicRecoveryCodeState,
-  onboardingPathState,
-  onboardingProgressState,
-  secretKeyState,
-  usernameState,
-} from '@store/onboarding';
-import { useAtomValue } from 'jotai/utils';
+  useAuthRequest,
+  useCurrentScreenState,
+  useMagicRecoveryCodeValue,
+  useOnboardingPathState,
+  useOnboardingProgressState,
+  useSecretKeyState,
+  useUsernameState,
+} from '@store/onboarding/onboarding.hooks';
 
 export const useOnboardingState = () => {
-  const secretKey = useAtomValue(secretKeyState);
-  const screen = useAtomValue(currentScreenState);
+  const secretKey = useSecretKeyState();
+  const screen = useCurrentScreenState();
 
-  const { authRequest, decodedAuthRequest, appName, appIcon, appURL } =
-    useAtomValue(authRequestState);
+  const { authRequest, decodedAuthRequest, appName, appIcon, appURL } = useAuthRequest();
 
-  const magicRecoveryCode = useAtomValue(magicRecoveryCodeState);
-  const isOnboardingInProgress = useAtomValue(onboardingProgressState);
-  const username = useAtomValue(usernameState);
-  const onboardingPath = useAtomValue(onboardingPathState);
+  const magicRecoveryCode = useMagicRecoveryCodeValue();
+  const isOnboardingInProgress = useOnboardingProgressState();
+  const username = useUsernameState();
+  const onboardingPath = useOnboardingPathState();
 
   return {
     secretKey,

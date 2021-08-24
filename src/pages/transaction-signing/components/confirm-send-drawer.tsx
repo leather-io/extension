@@ -8,9 +8,9 @@ import { useHandleSubmitTransaction } from '@pages/transaction-signing/hooks/use
 import { truncateMiddle } from '@stacks/ui-utils';
 import { useLoading } from '@common/hooks/use-loading';
 
-import { useMakeTransferEffect } from '@pages/transaction-signing/hooks/use-make-stx-transfer';
+import { useMakeTransferEffect } from '@pages/transaction-signing/hooks/use-make-stx-transfer-effect';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-import { useCurrentAccount } from '@common/hooks/account/use-current-account';
+import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { SpaceBetween } from '@components/space-between';
 import { NetworkRowItem } from '@components/network-row-item';
 import { TransactionEventCard } from '@pages/transaction-signing/components/event-card';

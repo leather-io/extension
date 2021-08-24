@@ -1,17 +1,14 @@
-import { AssetAvatar } from '@components/stx-avatar';
+import React, { memo, useCallback } from 'react';
 import { Box, ChevronIcon, Text, color, Stack, StackProps, BoxProps } from '@stacks/ui';
 
-import { searchInputStore } from '@store/assets/asset-search';
-
-import React, { memo, useCallback } from 'react';
-
-import { Caption } from '@components/typography';
+import { useUpdateSearchInput } from '@store/assets/asset.hooks';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-import { useUpdateAtom } from 'jotai/utils';
+import { AssetAvatar } from '@components/stx-avatar';
+import { Caption } from '@components/typography';
 
 const SelectedAssetItem = memo(({ hideArrow, ...rest }: { hideArrow?: boolean } & BoxProps) => {
   const { selectedAsset, ticker, name, handleUpdateSelectedAsset } = useSelectedAsset();
-  const setSearchInput = useUpdateAtom(searchInputStore);
+  const setSearchInput = useUpdateSearchInput();
 
   const handleClear = useCallback(() => {
     setSearchInput('');

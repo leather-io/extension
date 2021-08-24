@@ -1,12 +1,11 @@
 import React from 'react';
+import { useClientQuery } from '@store/devtool/devtool.hooks';
 
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClientProvider } from 'react-query';
-import { useAtomValue } from 'jotai/utils';
-import { queryClientAtom } from 'jotai-query-toolkit';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 export function Devtools() {
-  const client = useAtomValue(queryClientAtom);
+  const client = useClientQuery();
   return client ? (
     <QueryClientProvider client={client}>
       <ReactQueryDevtools position={'top-left'} />

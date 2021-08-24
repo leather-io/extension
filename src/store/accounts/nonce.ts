@@ -1,5 +1,6 @@
 import { atom } from 'jotai';
 import { atomFamily, atomWithStorage } from 'jotai/utils';
+import deepEqual from 'fast-deep-equal';
 
 import {
   currentAccountStxAddressState,
@@ -7,9 +8,8 @@ import {
   currentAccountConfirmedTransactionsState,
   currentAccountMempoolTransactionsState,
 } from '@store/accounts';
-import { currentNetworkState } from '@store/networks';
-import deepEqual from 'fast-deep-equal';
-import { makeLocalDataKey } from '@store/common/utils';
+import { currentNetworkState } from '@store/network/networks';
+import { makeLocalDataKey } from '@common/store-utils';
 
 export const localNonceState = atomFamily<[principal: string, networkUrl: string], number, number>(
   params => atomWithStorage(makeLocalDataKey(['LOCAL_NONCE_STATE', params]), 0),

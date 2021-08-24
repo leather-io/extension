@@ -23,10 +23,9 @@ import { useSaveAuthRequest } from '@common/hooks/auth/use-save-auth-request-cal
 import { Navigate } from '@components/navigate';
 import { AccountGate } from '@pages/account-gate';
 import { AccountGateRoute } from '@pages/account-gate-route';
-import { lastSeenStore } from '@store/wallet';
 import { Unlock } from '@components/unlock';
-import { useUpdateAtom } from 'jotai/utils';
 import { PopupHome } from '@pages/home/home';
+import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks';
 
 interface RouteProps {
   path: ScreenPaths;
@@ -41,7 +40,7 @@ export const Routes: React.FC = () => {
   const { isSignedIn: signedIn, encryptedSecretKey } = useWallet();
   const { isOnboardingInProgress } = useOnboardingState();
   const { search, pathname } = useLocation();
-  const setLastSeen = useUpdateAtom(lastSeenStore);
+  const setLastSeen = useUpdateLastSeenStore();
 
   const doChangeScreen = useDoChangeScreen();
   useSaveAuthRequest();

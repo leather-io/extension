@@ -7,7 +7,7 @@ import {
   createWalletGaiaConfig,
 } from '@stacks/wallet-sdk';
 import { gaiaUrl } from '@common/constants';
-import { makeLocalDataKey } from '@store/common/utils';
+import { makeLocalDataKey } from '@common/store-utils';
 
 export const secretKeyState = atom<Uint8Array | undefined>(undefined);
 export const hasSetPasswordState = atom<boolean>(false);

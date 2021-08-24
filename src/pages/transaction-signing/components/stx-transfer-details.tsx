@@ -3,7 +3,7 @@ import { color, Stack } from '@stacks/ui';
 import { AttachmentRow } from './attachment-row';
 import { Title } from '@components/typography';
 import { Divider } from '@components/divider';
-import { useTransactionRequest } from '@common/hooks/use-transaction-request';
+import { useTransactionRequest } from '@store/transactions/requests.hooks';
 import { RowItem } from './row-item';
 
 export const StxTransferDetails: React.FC = () => {

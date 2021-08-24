@@ -1,16 +1,10 @@
-import { allAccountsNameState, currentAccountNameState } from '@store/accounts/names';
 import { Account } from '@stacks/wallet-sdk';
-import { useCurrentAccount } from '@common/hooks/account/use-current-account';
 import { cleanUsername } from '@common/utils';
-import { useAtomValue } from 'jotai/utils';
-
-export function useAccountNames() {
-  return useAtomValue(allAccountsNameState);
-}
-
-export function useCurrentAccountNames() {
-  return useAtomValue(currentAccountNameState);
-}
+import {
+  useAccountNames,
+  useCurrentAccount,
+  useCurrentAccountNames,
+} from '@store/accounts/account.hooks';
 
 export function useCurrentAccountDisplayName() {
   const names = useCurrentAccountNames();

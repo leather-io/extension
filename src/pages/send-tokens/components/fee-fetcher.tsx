@@ -1,4 +1,4 @@
-import { useCurrentFee } from '@common/hooks/use-current-fee';
+import { useCurrentFee } from '@store/common/common.hooks';
 
 interface FeeFetcherProps {
   children(fee: number): JSX.Element;

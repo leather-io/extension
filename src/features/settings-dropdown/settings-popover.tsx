@@ -6,11 +6,11 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
-import { AccountStep } from '@store/ui';
 import { Divider } from '@components/divider';
 import { USERNAMES_ENABLED } from '@common/constants';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { AccountStep } from '@store/ui/ui.models';
 
 const MenuWrapper = forwardRefWithAs((props, ref) => (
   <Box

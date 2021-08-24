@@ -7,11 +7,10 @@ import { FiLock as IconLock } from 'react-icons/fi';
 import { Body } from '@components/typography';
 import { truncateMiddle } from '@stacks/ui-utils';
 
-import { useTransactionRequest } from '@common/hooks/use-transaction-request';
+import { useTransactionRequest } from '@store/transactions/requests.hooks';
 import { TransactionEventCard } from '../event-card';
 import { PostConditionComponent } from './single';
-import { useAtomValue } from 'jotai/utils';
-import { postConditionsState } from '@store/transactions/post-conditions';
+import { useTransactionPostConditions } from '@store/transactions/transaction.hooks';
 
 function StxPostcondition() {
   const pendingTransaction = useTransactionRequest();
@@ -50,7 +49,7 @@ function NoPostconditions() {
 }
 
 const PostConditionsList = () => {
-  const postConditions = useAtomValue(postConditionsState);
+  const postConditions = useTransactionPostConditions();
 
   return (
     <>
@@ -66,7 +65,7 @@ const PostConditionsList = () => {
 };
 
 export const PostConditionsSuspense: React.FC = () => {
-  const postConditions = useAtomValue(postConditionsState);
+  const postConditions = useTransactionPostConditions();
   const pendingTransaction = useTransactionRequest();
   const hasPostConditions = useMemo(
     () => postConditions && postConditions?.length > 0,

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { BoxProps } from '@stacks/ui';
-import { useCurrentAccount } from '@common/hooks/account/use-current-account';
+import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { truncateString } from '@common/utils';
 import { Tooltip } from '@components/tooltip';

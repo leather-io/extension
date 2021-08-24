@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
-import { useAtomValue } from 'jotai/utils';
-import { useCurrentAccount } from '@common/hooks/account/use-current-account';
+import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { color, Stack, useClipboard, Fade, Flex } from '@stacks/ui';
-import { useTransactionRequest } from '@common/hooks/use-transaction-request';
+import {
+  useTransactionBroadcastError,
+  useTransactionRequest,
+} from '@store/transactions/requests.hooks';
 import { Caption } from '@components/typography';
 import { SpaceBetween } from '@components/space-between';
 import { stacksValue } from '@common/stacks-utils';
@@ -12,9 +14,8 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { ErrorMessage } from '@pages/transaction-signing/components/error';
 import { useDrawers } from '@common/hooks/use-drawers';
 
-import { transactionBroadcastErrorState } from '@store/transactions';
 import { useScrollLock } from '@common/hooks/use-scroll-lock';
-import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 
 export const FeeInsufficientFundsErrorMessage = memo(props => {
   const currentAccount = useCurrentAccount();
@@ -191,7 +192,7 @@ export const ExpiredRequestErrorMessage = memo(props => {
 });
 
 export const BroadcastErrorMessage = memo(props => {
-  const broadcastError = useAtomValue(transactionBroadcastErrorState);
+  const broadcastError = useTransactionBroadcastError();
   if (!broadcastError) return null;
   return (
     <ErrorMessage

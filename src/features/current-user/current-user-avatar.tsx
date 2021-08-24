@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { useCurrentAccount } from '@common/hooks/account/use-current-account';
+import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { useCurrentAccountDisplayName } from '@common/hooks/account/use-account-names';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { AccountAvatar } from '@features/account-avatar/account-avatar';

@@ -1,3 +1,4 @@
+import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import {
   assetItemState,
   assetsAnchoredState,
@@ -7,9 +8,9 @@ import {
   stxTokenState,
   transferableAssetsState,
 } from '@store/assets/tokens';
-import { useAtomValue } from 'jotai/utils';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 import type { Asset } from '@common/asset-types';
+import { searchInputStore, selectedAssetIdState, selectedAssetStore } from './asset-search';
 
 export const useAssets = () => {
   return useAtomValue(assetsAnchoredState);
@@ -38,4 +39,20 @@ export function useNonFungibleTokenState() {
 
 export function useStxTokenState() {
   return useAtomValue(stxTokenState);
+}
+
+export function useSelectedAssetState() {
+  return useAtomValue(selectedAssetStore);
+}
+
+export function useUpdateSelectedAsset() {
+  return useUpdateAtom(selectedAssetIdState);
+}
+
+export function useSearchInput() {
+  return useAtomValue(searchInputStore);
+}
+
+export function useUpdateSearchInput() {
+  return useUpdateAtom(searchInputStore);
 }

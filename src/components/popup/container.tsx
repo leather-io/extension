@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
 import { Flex, color } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
-import { useOnCancel } from '@common/hooks/use-on-cancel';
-import { useAuthRequest } from '@common/hooks/auth/use-auth-request';
-import { usePendingTransaction } from '@common/hooks/use-pending-transaction';
+import { useAuthRequest } from '@store/onboarding/onboarding.hooks';
+import { usePendingTransaction } from '@store/transactions/transaction.hooks';
+import { useOnCancel } from '@store/transactions/requests.hooks';
 
 interface PopupHomeProps {
   header?: any;
