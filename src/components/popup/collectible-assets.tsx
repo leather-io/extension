@@ -4,10 +4,10 @@ import type { StackProps } from '@stacks/ui';
 import { getAssetStringParts } from '@stacks/ui-utils';
 import { AssetItem } from '@components/asset-item';
 import { Stack } from '@stacks/ui';
-import { useCurrentAccountBalances } from '@common/hooks/account/use-current-account-balances';
+import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
 
 export const CollectibleAssets = memo((props: StackProps) => {
-  const balances = useCurrentAccountBalances();
+  const balances = useCurrentAccountBalancesUnanchoredState();
   if (!balances) return null;
   const noCollectibles = Object.keys(balances.non_fungible_tokens).length === 0;
   if (noCollectibles) return null;

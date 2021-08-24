@@ -7,9 +7,9 @@ import {
 } from '@stacks/transactions';
 import { PostRequests, setupHeystackEnv } from '@tests/mocks/heystack';
 import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
-import { useMakeStxTransfer } from '@pages/transaction-signing/hooks/use-make-stx-transfer';
 import { stxToMicroStx } from '@common/stacks-utils';
 import { useHandleSubmitTransaction } from '@pages/transaction-signing/hooks/use-submit-stx-transaction';
+import { useMakeStxTransfer } from '@store/transactions/transaction.hooks';
 
 const MEMO = 'hello world';
 const AMOUNT = 25; // STX

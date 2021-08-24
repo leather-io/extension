@@ -3,11 +3,12 @@ import { Account, getStxAddress } from '@stacks/wallet-sdk';
 import { atomFamily, atomWithDefault, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import BigNumber from 'bignumber.js';
-import { makeLocalDataKey } from '@store/common/utils';
+import deepEqual from 'fast-deep-equal';
 
+import { makeLocalDataKey } from '@common/store-utils';
 import { transactionRequestStxAddressState } from '@store/transactions/requests';
-import { currentNetworkState } from '@store/networks';
-import { walletState } from '@store/wallet';
+import { currentNetworkState } from '@store/network/networks';
+import { walletState } from '@store/wallet/wallet';
 import { transactionNetworkVersionState } from '@store/transactions';
 import {
   accountBalancesUnanchoredBigNumberState,
@@ -17,7 +18,7 @@ import {
   accountMempoolTransactionsUnanchoredClient,
   accountTransactionsUnanchoredClient,
 } from '@store/accounts/api';
-import deepEqual from 'fast-deep-equal';
+import { AccountWithAddress } from './account.models';
 
 const DEFAULT_LIST_LIMIT = 50;
 
@@ -49,7 +50,6 @@ export const accountsState = atomWithDefault<Account[] | undefined>(get => {
   return wallet.accounts;
 });
 
-export type AccountWithAddress = Account & { address: string };
 // map through the accounts and get the address for the current network mode (testnet|mainnet)
 export const accountsWithAddressState = atom<AccountWithAddress[] | undefined>(get => {
   const accounts = get(accountsState);

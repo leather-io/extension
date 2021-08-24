@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { walletConfigStore } from '@store/wallet';
+import { walletConfigStore } from '@store/wallet/wallet';
 import { TEST_ACCOUNTS_WITH_ADDRESS } from '@tests/mocks';
 import { useAtomValue } from 'jotai/utils';
 import { accountsState, accountsWithAddressState } from '@store/accounts/index';

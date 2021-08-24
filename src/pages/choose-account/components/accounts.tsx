@@ -1,25 +1,25 @@
 import React, { useCallback, memo } from 'react';
+import { FiPlusCircle } from 'react-icons/fi';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { Caption, Text, Title } from '@components/typography';
 
 import { useWallet } from '@common/hooks/use-wallet';
-
 import { truncateMiddle } from '@stacks/ui-utils';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { useAccountDisplayName } from '@common/hooks/account/use-account-names';
 
-import { accountsWithAddressState, AccountWithAddress } from '@store/accounts';
+import type { AccountWithAddress } from '@store/accounts/account.models';
 import { AccountAvatarWithName } from '@features/account-avatar/account-avatar';
 import { SpaceBetween } from '@components/space-between';
 
 import { usePressable } from '@components/item-hover';
-import { FiPlusCircle } from 'react-icons/fi';
 
-import { accountDrawerStep, AccountStep, showAccountsStore } from '@store/ui';
 import { useLoading } from '@common/hooks/use-loading';
-import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { AccountBalanceCaption } from '@features/account-balance-caption';
 import { cleanUsername, slugify } from '@common/utils';
+import { useAccounts } from '@store/accounts/account.hooks';
+import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@store/ui/ui.hooks';
+import { AccountStep } from '@store/ui/ui.models';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -101,8 +101,8 @@ export const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, accou
 };
 
 const AddAccountAction = memo(() => {
-  const setAccounts = useUpdateAtom(showAccountsStore);
-  const setAccountDrawerStep = useUpdateAtom(accountDrawerStep);
+  const setAccounts = useUpdateShowAccounts();
+  const setAccountDrawerStep = useUpdateAccountDrawerStep();
   const [component, bind] = usePressable(true);
 
   return (
@@ -133,7 +133,7 @@ interface AccountsProps extends FlexProps {
 export const Accounts: React.FC<AccountsProps> = memo(
   ({ showAddAccount, accountIndex, next, ...rest }) => {
     const { wallet } = useWallet();
-    const accounts = useAtomValue(accountsWithAddressState);
+    const accounts = useAccounts();
     const { decodedAuthRequest } = useOnboardingState();
 
     if (!wallet || !accounts || !decodedAuthRequest) return null;
