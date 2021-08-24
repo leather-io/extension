@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.15.0
+
+### Minor Changes
+
+- [#1572](https://github.com/blockstack/stacks-wallet-web/pull/1572) [`46a90aab`](https://github.com/blockstack/stacks-wallet-web/commit/46a90aabd16dc2b7b403d692c5dfd73665de9401) Thanks [@aulneau](https://github.com/aulneau)! - This update improves data fetching in the wallet in a few ways: removes duplicate fetches, migrates legacy fetching methods to use the api client from `@stacks/blockchain-api-client`, and fixes a few network related bugs. Additionally, work has started on improving how quickly the UI is available, working towards progressive upgrading of components as new data is available. Lastly, the foundation has been laid to enable use of persistence of certain data, enabling faster boot times.
+
+### Patch Changes
+
+- [#1598](https://github.com/blockstack/stacks-wallet-web/pull/1598) [`7d8bbbf0`](https://github.com/blockstack/stacks-wallet-web/commit/7d8bbbf067c49fb3349775a519db043b51472fe0) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This fixes an error in the wallet by initializing the merged asset balance as a BigNumber.
+
+* [#1599](https://github.com/blockstack/stacks-wallet-web/pull/1599) [`ee45a99d`](https://github.com/blockstack/stacks-wallet-web/commit/ee45a99dcfe64128448ad71121b140da6e2333a4) Thanks [@kyranjamie](https://github.com/kyranjamie)! - Fixes bug where users are unable to set the extension to the localhost url, owing to stacks.js changes
+
 ## 2.14.0
 
 ### Minor Changes
