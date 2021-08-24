@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
 
-import { currentNetworkKeyState, networksState } from '@store/networks';
 import { PopupContainer } from '@components/popup/container';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
@@ -10,14 +9,14 @@ import { isValidUrl } from '@common/validation/validate-url';
 import { ChainID, fetchPrivate } from '@stacks/transactions';
 import { ErrorLabel } from '@components/error-label';
 import { Header } from '@components/header';
-import { useUpdateAtom } from 'jotai/utils';
+import { useUpdateCurrentNetworkKey, useUpdateNetworkState } from '@store/network/networks.hooks';
 
 export const AddNetwork: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const doChangeScreen = useDoChangeScreen();
-  const setNetworks = useUpdateAtom(networksState);
-  const setNetworkKey = useUpdateAtom(currentNetworkKeyState);
+  const setNetworks = useUpdateNetworkState();
+  const setNetworkKey = useUpdateCurrentNetworkKey();
 
   return (
     <PopupContainer

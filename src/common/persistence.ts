@@ -1,7 +1,8 @@
 import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor-experimental';
-import { queryClient } from 'jotai-query-toolkit';
+
 import { IS_TEST_ENV, PERSISTENCE_CACHE_TIME } from '@common/constants';
 import { persistQueryClient } from 'react-query/persistQueryClient-experimental';
+import { jotaiWrappedReactQueryQueryClient as queryClient } from '@store/common/common.hooks';
 
 const localStoragePersistor = createWebStoragePersistor({ storage: window.localStorage });
 

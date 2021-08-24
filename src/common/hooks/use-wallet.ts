@@ -1,71 +1,57 @@
 import { useCallback } from 'react';
-import {
-  createWalletGaiaConfig,
-  getOrCreateWalletConfig,
-  updateWalletConfigWithApp,
-  makeAuthResponse,
-  getAccountDisplayName,
-} from '@stacks/wallet-sdk';
+import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
-import { gaiaUrl } from '@common/constants';
-import { currentNetworkKeyState, currentNetworkState, networksState } from '@store/networks';
-import {
-  walletState,
-  encryptedSecretKeyStore,
-  secretKeyState,
-  hasSetPasswordState,
-  hasRehydratedVaultStore,
-} from '@store/wallet';
 import { useVaultMessenger } from '@common/hooks/use-vault-messenger';
 
 import { useOnboardingState } from './auth/use-onboarding-state';
 import { finalizeAuthResponse } from '@common/utils';
 
+import { bytesToText } from '@common/store-utils';
 import {
-  currentAccountIndexState,
-  currentAccountState,
-  currentAccountStxAddressState,
-} from '@store/accounts';
-import { localNonceState } from '@store/accounts/nonce';
-import { bytesToText } from '@store/common/utils';
-import { transactionNetworkVersionState } from '@store/transactions';
-import { useAtom } from 'jotai';
-import { useAtomValue, useAtomCallback } from 'jotai/utils';
+  useEncryptedSecretKeyStore,
+  useFinishSignInCallback,
+  useHasRehydratedVault,
+  useHasSetPasswordState,
+  useSecretKey,
+  useSetLatestNonceCallback,
+  useWalletState,
+} from '@store/wallet/wallet.hooks';
+import {
+  useCurrentAccount,
+  useCurrentAccountIndex,
+  useCurrentAccountStxAddressState,
+  useTransactionNetworkVersion,
+} from '@store/accounts/account.hooks';
+import {
+  useCurrentNetworkKey,
+  useCurrentNetworkState,
+  useNetworkState,
+} from '@store/network/networks.hooks';
 
-export const useWallet = () => {
-  const hasRehydratedVault = useAtomValue(hasRehydratedVaultStore);
-  const [wallet, setWallet] = useAtom(walletState);
-  const secretKey = useAtomValue(secretKeyState);
-  const encryptedSecretKey = useAtomValue(encryptedSecretKeyStore);
-  const currentAccountIndex = useAtomValue(currentAccountIndexState);
-  const hasSetPassword = useAtomValue(hasSetPasswordState);
-  const currentAccount = useAtomValue(currentAccountState);
-  const currentAccountStxAddress = useAtomValue(currentAccountStxAddressState);
-  const transactionVersion = useAtomValue(transactionNetworkVersionState);
-  const networks = useAtomValue(networksState);
-  const currentNetwork = useAtomValue(currentNetworkState);
-  const currentNetworkKey = useAtomValue(currentNetworkKeyState);
+export function useWallet() {
+  const hasRehydratedVault = useHasRehydratedVault();
+  const [wallet, setWallet] = useWalletState();
+  const secretKey = useSecretKey();
+  const encryptedSecretKey = useEncryptedSecretKeyStore();
+  const currentAccountIndex = useCurrentAccountIndex();
+  const hasSetPassword = useHasSetPasswordState();
+  const currentAccount = useCurrentAccount();
+  const currentAccountStxAddress = useCurrentAccountStxAddressState();
+  const transactionVersion = useTransactionNetworkVersion();
+  const networks = useNetworkState();
+  const currentNetwork = useCurrentNetworkState();
+  const currentNetworkKey = useCurrentNetworkKey();
   const vaultMessenger = useVaultMessenger();
 
   const currentAccountDisplayName = currentAccount
     ? getAccountDisplayName(currentAccount)
     : undefined;
 
-  const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
+  const { decodedAuthRequest, authRequest } = useOnboardingState();
 
   const isSignedIn = !!wallet;
 
-  const doSetLatestNonce = useAtomCallback<void, number>(
-    useCallback((get, set, newNonce) => {
-      if (newNonce !== undefined) {
-        const network = get(currentNetworkState);
-        const address = get(currentAccountStxAddressState);
-        if (!address) return;
-        // we increment here for next nonce
-        set(localNonceState([address, network.url]), newNonce + 1);
-      }
-    }, [])
-  );
+  const doSetLatestNonce = useSetLatestNonceCallback();
 
   const handleCancelAuthentication = useCallback(() => {
     if (!decodedAuthRequest || !authRequest) {
@@ -75,48 +61,7 @@ export const useWallet = () => {
     finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
   }, [decodedAuthRequest, authRequest]);
 
-  const doFinishSignIn = useAtomCallback<void, number>(
-    useCallback(
-      async (get, set, accountIndex) => {
-        const wallet = get(walletState);
-        const account = wallet?.accounts[accountIndex];
-        if (!decodedAuthRequest || !authRequest || !account || !wallet) {
-          console.error('Uh oh! Finished onboarding without auth info.');
-          return;
-        }
-        const appURL = new URL(decodedAuthRequest.redirect_uri);
-        const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
-        const walletConfig = await getOrCreateWalletConfig({
-          wallet,
-          gaiaHubConfig,
-          skipUpload: true,
-        });
-        await updateWalletConfigWithApp({
-          wallet,
-          walletConfig,
-          gaiaHubConfig,
-          account,
-          app: {
-            origin: appURL.origin,
-            lastLoginAt: new Date().getTime(),
-            scopes: decodedAuthRequest.scopes,
-            appIcon: appIcon as string,
-            name: appName as string,
-          },
-        });
-        const authResponse = await makeAuthResponse({
-          gaiaHubUrl: gaiaUrl,
-          appDomain: appURL.origin,
-          transitPublicKey: decodedAuthRequest.public_keys[0],
-          scopes: decodedAuthRequest.scopes,
-          account,
-        });
-        set(currentAccountIndexState, accountIndex);
-        finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
-      },
-      [appName, appIcon, authRequest, decodedAuthRequest]
-    )
-  );
+  const doFinishSignIn = useFinishSignInCallback();
 
   return {
     hasRehydratedVault,
@@ -140,4 +85,4 @@ export const useWallet = () => {
     handleCancelAuthentication,
     ...vaultMessenger,
   };
-};
+}

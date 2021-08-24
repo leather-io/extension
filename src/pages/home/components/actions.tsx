@@ -3,7 +3,7 @@ import { ScreenPaths } from '@common/types';
 import React, { memo, useCallback, useRef } from 'react';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { FiArrowUp } from 'react-icons/fi';
-import { useTransferableAssets } from '@common/hooks/use-assets';
+import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
 import { QrCodeIcon } from '@components/qr-code-icon';
 

@@ -5,14 +5,14 @@ import {
   useAssetItemState,
   useFungibleTokenBaseState,
   useStxTokenState,
-} from '@common/hooks/use-assets';
+} from '@store/assets/asset.hooks';
 import { Caption } from '@components/typography';
 import { CollectibleAssets } from '@components/popup/collectible-assets';
-import { useCurrentAccountBalances } from '@common/hooks/account/use-current-account-balances';
 import { NoAssetsEmptyIllustration } from '@components/vector/no-assets';
-import { useCurrentAccount } from '@common/hooks/account/use-current-account';
+import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
 import { AssetWithMeta } from '@common/asset-types';
+import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
 
 function FungibleAssetRow(props: { asset: AssetWithMeta }) {
   const asset = useAssetItemState(props.asset);
@@ -22,7 +22,7 @@ function FungibleAssetRow(props: { asset: AssetWithMeta }) {
 
 function FungibleAssets(props: StackProps) {
   const fungibleTokens = useFungibleTokenBaseState();
-  const balances = useCurrentAccountBalances();
+  const balances = useCurrentAccountBalancesUnanchoredState();
   if (!balances) return null;
 
   const ftCount = Object.keys(balances.fungible_tokens);
@@ -71,7 +71,7 @@ function NoAssets(props: StackProps) {
 
 export const TokenAssets: React.FC<StackProps> = ({ ...props }) => {
   const stxToken = useStxTokenState();
-  const balances = useCurrentAccountBalances();
+  const balances = useCurrentAccountBalancesUnanchoredState();
   if (!balances) return null;
 
   const noAssets =

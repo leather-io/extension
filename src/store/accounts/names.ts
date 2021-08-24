@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import { accountsWithAddressState, currentAccountStxAddressState } from './index';
-import { currentNetworkState } from '@store/networks';
+import { currentNetworkState } from '@store/network/networks';
 import { atomFamilyWithQuery } from '@store/query';
 import { apiClientState } from '@store/common/api-clients';
 import { atomFamily } from 'jotai/utils';
