@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/store/common/utils.ts</title>
+    <title>Code coverage report for src/store/wallet/wallet.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/common</a> utils.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/wallet</a> wallet.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.83% </span>
+                <span class="strong">96.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/24</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>28/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,79 +92,76 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">322x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">217x</span>
-<span class="cline-any cline-yes">217x</span>
-<span class="cline-any cline-yes">217x</span>
-<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import hash from 'object-hash';
-import { hashQueryKey, QueryKey } from 'react-query';
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
+import {
+  Wallet,
+  WalletConfig,
+  fetchWalletConfig,
+  createWalletGaiaConfig,
+} from '@stacks/wallet-sdk';
+import { gaiaUrl } from '@common/constants';
+import { makeLocalDataKey } from '@common/store-utils';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >textToBytes(</span>content: string) {
-  return <span class="cstat-no" title="statement not covered" >new TextEncoder().encode(content);</span>
-}
+export const secretKeyState = atom&lt;Uint8Array | undefined&gt;(undefined);
+export const hasSetPasswordState = atom&lt;boolean&gt;(false);
+export const walletState = atom&lt;Wallet | undefined&gt;(undefined);
+export const encryptedSecretKeyStore = atom&lt;string | undefined&gt;(undefined);
+export const lastSeenStore = atomWithStorage&lt;number&gt;(
+  makeLocalDataKey('wallet.last-seen'),
+  new Date().getTime()
+);
+export const walletConfigStore = atom&lt;WalletConfig | null&gt;(async get =&gt; {
+  const wallet = get(walletState);
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!wallet<span class="cstat-no" title="statement not covered" >) return null;</span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >bytesToText(</span>buffer: Uint8Array) {
-  return <span class="cstat-no" title="statement not covered" >new TextDecoder().decode(buffer);</span>
-}
+  const gaiaHubConfig = await createWalletGaiaConfig({ wallet, gaiaHubUrl: gaiaUrl });
+  return fetchWalletConfig({ wallet, gaiaHubConfig });
+});
+export const hasRehydratedVaultStore = atom(false);
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >bytesToHex(</span>uint8a: Uint8Array): string {
-  // pre-caching chars could speed this up 6x.
-  let hex<span class="cstat-no" title="statement not covered" > = '';</span>
-  for (<span class="cstat-no" title="statement not covered" >let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; uint8a.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >    hex += uint8a[i].toString(16).padStart(2, '0');</span>
-  }
-  return <span class="cstat-no" title="statement not covered" >hex;</span>
-}
-&nbsp;
-export function makeLocalDataKey(params: QueryKey): string {
-  return hash(hashQueryKey(params));
-}
-&nbsp;
-export function getLocalData&lt;Data&gt;(params: string[]) {
-  const key = makeLocalDataKey(params);
-  const value = localStorage.getItem(key);
-  if (!value) return null;
-  return JSON.parse(value) as Data;
-}
-&nbsp;
-export function setLocalData&lt;Data&gt;(params: string[], data: Data): Data {
-  const key = makeLocalDataKey(params);
-  localStorage.setItem(key, JSON.stringify(data));
-  return data;
-}
+secretKeyState.debugLabel = 'secretKeyState';
+hasSetPasswordState.debugLabel = 'hasSetPasswordState';
+walletState.debugLabel = 'walletState';
+encryptedSecretKeyStore.debugLabel = 'encryptedSecretKeyStore';
+lastSeenStore.debugLabel = 'lastSeenStore';
+walletConfigStore.debugLabel = 'walletConfigStore';
+hasRehydratedVaultStore.debugLabel = 'hasRehydratedVaultStore';
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -172,7 +169,7 @@ export function setLocalData&lt;Data&gt;(params: string[], data: Data): Data {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 12:42:27 GMT+0000 (Coordinated Universal Time)
+                at Wed Aug 25 2021 13:55:24 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

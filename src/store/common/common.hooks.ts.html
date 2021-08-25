@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/common/hooks/use-on-cancel.ts</title>
+    <title>Code coverage report for src/store/common/common.hooks.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/common/hooks</a> use-on-cancel.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/common</a> common.hooks.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/14</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>10/13</span>
             </div>
         
             
@@ -80,51 +80,66 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomCallback } from 'jotai/utils';
-import { requestTokenState } from '@store/transactions/requests';
-import { finalizeTxSignature } from <span class="cstat-no" title="statement not covered" >'@common/utils';</span>
-import { transactionBroadcastErrorState } from '@store/transactions';
-import { useCallback } from 'react'<span class="fstat-no" title="function not covered" >;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomCallback, useAtomValue } from 'jotai/utils';
 &nbsp;
-export function useOnCancel() {
-  return useAtomCallback(
-    useCallback(async (get, set) =&gt; {
-      const requestToken = <span class="cstat-no" title="statement not covered" >get(requestTokenState);</span>
-<span class="cstat-no" title="statement not covered" >      if (!requestToken) {</span>
-<span class="cstat-no" title="statement not covered" >        set(transactionBroadcastErrorState, 'No pending transaction found.');</span>
-        return;
-      }
-      try <span class="cstat-no" title="statement not covered" >{</span>
-        const result<span class="cstat-no" title="statement not covered" > = 'cancel';</span>
-        finalizeTxSignature(requestToken, result);
-      } catch (error) {
-<span class="cstat-no" title="statement not covered" >        set(transactionBroadcastErrorState, error.message);</span>
-      }
+import { feeRateState } from '@store/common/api-request';
+import { useCallback } from 'react'<span class="fstat-no" title="function not covered" >;</span>
+import { errorStackTraceState } from '@store/ui/ui';
+import { useAtom, WritableAtom } from <span class="cstat-no" title="statement not covered" >'jotai';</span>
+import { queryClient } from 'jotai-query-toolkit';
+&nbsp;
+export type { WritableAtom } from 'jotai';
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useDynamicUseAtom_UNSAFE(</span>state: WritableAtom&lt;boolean, boolean&gt;) {
+  return useAtom(state);
+}
+&nbsp;
+export const jotaiWrappedReactQueryQueryClient = queryClient;
+&nbsp;
+export function useCurrentFee() {
+  return useAtomValue(feeRateState);
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useErrorHandler(</span>) {
+  const handleOnError<span class="cstat-no" title="statement not covered" > = useAtomCallback&lt;void, any&gt;(</span>
+    useCallback((_get, set, ...arg: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >      set(errorStackTraceState, arg?.[0]?.stack);</span>
     }, [])
   );
+  return <span class="cstat-no" title="statement not covered" >handleOnError;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -133,7 +148,7 @@ export function useOnCancel() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 12:42:27 GMT+0000 (Coordinated Universal Time)
+                at Wed Aug 25 2021 13:55:24 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

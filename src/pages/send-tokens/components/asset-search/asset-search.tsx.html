@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.38% </span>
+                <span class="strong">36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/52</span>
+                <span class='fraction'>18/50</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.78% </span>
+                <span class="strong">43.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/41</span>
+                <span class='fraction'>17/39</span>
             </div>
         
             
@@ -244,18 +244,21 @@
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -329,6 +332,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -433,17 +437,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useMemo, forwardRef, useEffect } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react';</span></span></span></span></span>
 import { Box, Fade, Text, Flex, Input, color, Stack, StackProps } from '@stacks/ui';
-import { useAtomValue } from 'jotai/utils';
-import { useAtom } from 'jotai';
 import { useCombobox } from 'downshift';
-import { searchInputStore } from '@store/assets/asset-search';
 &nbsp;
-import { SelectedAsset } from './selected-asset';
-import { useTransferableAssets } from '@common/hooks/use-assets';
+import {
+  useSearchInput,
+  useTransferableAssets,
+  useUpdateSearchInput,
+} from '@store/assets/asset.hooks';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { AssetRow } from '@components/asset-row';
 import { AssetWithMeta } from '@common/asset-types';
-import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { SelectedAsset } from './selected-asset';
 &nbsp;
 function principalHasOnlyOneAsset(assets: AssetWithMeta[]) {
   return assets.length === 1;
@@ -456,7 +461,7 @@ interface AssetSearchResultsProps extends StackProps {
 const AssetSearchResults = forwardRef(
   ({ isOpen, highlightedIndex, getItemProps<span class="cstat-no" title="statement not covered" >, ...p</span>rops<span class="cstat-no" title="statement not covered" > }: AssetSearchResultsProps, ref) =&gt; {</span>
     const assets<span class="cstat-no" title="statement not covered" > = useTransferableAssets();</span>
-    const searchInput<span class="cstat-no" title="statement not covered" > = useAtomValue(searchInputStore);</span>
+    const searchInput<span class="cstat-no" title="statement not covered" > = useSearchInput();</span>
     const availableStxBalance<span class="cstat-no" title="statement not covered" > = useCurrentAccountAvailableStxBalance();</span>
 &nbsp;
     const items = useMemo(
@@ -497,7 +502,7 @@ const AssetSearchResults = forwardRef(
                   asset={asset}
                   index={index}
                   key={`${asset.contractAddress || asset.name}__${index}`}
-                  // highlighted={highlightedIndex === index}
+                  highlighted={highlightedIndex === index}
                   {...getItemProps({ item: asset, index })}
                 /&gt;
               );
@@ -516,7 +521,8 @@ const AssetSearchField: React.FC&lt;{
 &nbsp;
   const { selectedAsset, handleUpdateSelectedAsset<span class="cstat-no" title="statement not covered" > } = useSelectedAsset();</span>
 &nbsp;
-  const [searchInput, setSearchInput<span class="cstat-no" title="statement not covered" >] = useAtom(searchInputStore);</span>
+  const searchInput<span class="cstat-no" title="statement not covered" > = useSearchInput();</span>
+  const setSearchInput<span class="cstat-no" title="statement not covered" > = useUpdateSearchInput();</span>
 &nbsp;
   useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (principalHasOnlyOneAsset(assets ?? [])) {</span>
@@ -625,7 +631,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 12:42:27 GMT+0000 (Coordinated Universal Time)
+                at Wed Aug 25 2021 13:55:24 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

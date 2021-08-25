@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/61</span>
+                <span class='fraction'>0/58</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/39</span>
             </div>
         
             
@@ -260,10 +260,13 @@
 <a name='L201'></a><a href='#L201'>201</a>
 <a name='L202'></a><a href='#L202'>202</a>
 <a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -275,8 +278,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -464,10 +466,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span></span></span></span></span></span>
-import { useAtomValue } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { useCurrentAccount } from '@common/hooks/account/use-current-account'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCurrentAccount } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { color, Stack, useClipboard, Fade, Flex } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
-import { useTransactionRequest } from '@common/hooks/use-transaction-request'<span class="cstat-no" title="statement not covered" >;</span>
+import {
+  useTransactionBroadcastError,
+  useTransactionRequest,
+} from '@store/transactions/requests.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { Caption } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 import { SpaceBetween } from '@components/space-between'<span class="cstat-no" title="statement not covered" >;</span>
 import { stacksValue } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
@@ -477,9 +481,8 @@ import { truncateMiddle } from '@stacks/ui-utils'<span class="cstat-no" title="s
 import { ErrorMessage } from '@pages/transaction-signing/components/error'<span class="cstat-no" title="statement not covered" >;</span>
 import { useDrawers } from '@common/hooks/use-drawers'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import { transactionBroadcastErrorState } from '@store/transactions'<span class="cstat-no" title="statement not covered" >;</span>
 import { useScrollLock } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'@common/hooks/use-scroll-lock'<span class="cstat-no" title="statement not covered" >;</span></span></span>
-import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >FeeInsufficientFundsErrorMessage<span class="cstat-no" title="statement not covered" > = memo(p</span>rops =&gt; {</span>
   const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
@@ -656,7 +659,7 @@ export const <span class="cstat-no" title="statement not covered" >ExpiredReques
 });
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >BroadcastErrorMessage<span class="cstat-no" title="statement not covered" > = memo(p</span>rops =&gt; {</span>
-  const broadcastError<span class="cstat-no" title="statement not covered" > = useAtomValue(transactionBroadcastErrorState);</span>
+  const broadcastError<span class="cstat-no" title="statement not covered" > = useTransactionBroadcastError();</span>
 <span class="cstat-no" title="statement not covered" >  if (!broadcastError<span class="cstat-no" title="statement not covered" >) return null;</span></span>
   return (
     &lt;ErrorMessage
@@ -673,7 +676,7 @@ export const <span class="cstat-no" title="statement not covered" >BroadcastErro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 12:42:27 GMT+0000 (Coordinated Universal Time)
+                at Wed Aug 25 2021 13:55:24 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
