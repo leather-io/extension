@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import { Box, Text, Button, ButtonGroup } from '@stacks/ui';
+import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
 import {
-  stacksRegtestNetwork,
-  stacksTestnetNetwork as network,
-  stacksTestnetNetwork,
   stacksLocalhostNetwork,
+  stacksRegtestNetwork,
+  stacksTestnetNetwork,
+  stacksTestnetNetwork as network,
 } from '@common/utils';
 import { demoTokenContract } from '@common/contracts';
 import { useSTXAddress } from '@common/use-stx-address';
 import { useConnect } from '@stacks/connect-react';
 import {
-  uintCV,
-  intCV,
   bufferCV,
+  bufferCVFromString,
+  createAssetInfo,
+  createNonFungiblePostCondition,
+  FungibleConditionCode,
+  intCV,
+  makeStandardFungiblePostCondition,
+  makeStandardSTXPostCondition,
+  noneCV,
+  NonFungibleConditionCode,
+  PostConditionMode,
+  someCV,
+  standardPrincipalCV,
   stringAsciiCV,
   stringUtf8CV,
-  standardPrincipalCV,
   trueCV,
-  makeStandardSTXPostCondition,
-  makeStandardFungiblePostCondition,
-  PostConditionMode,
-  createAssetInfo,
-  FungibleConditionCode,
-  bufferCVFromString,
-  noneCV,
-  createNonFungiblePostCondition,
-  NonFungibleConditionCode,
   tupleCV,
-  someCV,
+  uintCV,
 } from '@stacks/transactions';
 import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
 import { ExplorerLink } from './explorer-link';
@@ -106,7 +106,7 @@ export const Debugger = () => {
     });
   };
 
-  const callFaker = async (network: StacksTestnet) => {
+  const callFaker = async (network: StacksTestnet, mode = PostConditionMode.Deny) => {
     clearState();
     const args = [
       uintCV(1234),
@@ -119,11 +119,12 @@ export const Debugger = () => {
     ];
     await doContractCall({
       network,
-      contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHG3NHN3',
+      contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
       contractName: 'faker',
       functionName: 'rawr',
       functionArgs: args,
       attachment: 'This is an attachment',
+      postConditionMode: mode,
       postConditions: [
         makeStandardSTXPostCondition(
           address || '',
@@ -322,6 +323,13 @@ export const Debugger = () => {
 
       <Box>
         <ButtonGroup spacing={4} my="base">
+          <Button
+            data-testid={TransactionsSelectors.BtnContractCall}
+            mt={3}
+            onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow)}
+          >
+            Contract call (ALLOW mode)
+          </Button>
           <Button
             data-testid={TransactionsSelectors.BtnContractCall}
             mt={3}
