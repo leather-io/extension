@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { selectedAssetIdState, selectedAssetStore } from '@store/assets/asset-search';
 import { AssetWithMeta } from '@common/asset-types';
-import { getTicker } from '@common/utils';
+import { getTicker, initBigNumber } from '@common/utils';
 import { ftDecimals, stacksValue } from '@common/stacks-utils';
 import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
 
@@ -37,6 +37,7 @@ export function useSelectedAsset() {
       return ftDecimals(selectedAsset.balance, selectedAsset.meta?.decimals);
     return new BigNumber(selectedAsset.balance).toFormat();
   }, [selectedAsset, availableStxBalance]);
+
   const hasDecimals = isStx || (selectedAsset?.meta?.decimals && selectedAsset?.meta?.decimals > 0);
   const placeholder = selectedAsset
     ? `0${
@@ -49,6 +50,7 @@ export function useSelectedAsset() {
     handleUpdateSelectedAsset,
     ticker,
     balance,
+    balanceBigNumber: balance ? initBigNumber(balance.replace(/,/g, '')) : undefined,
     name,
     placeholder,
   };

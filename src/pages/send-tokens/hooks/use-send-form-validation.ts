@@ -48,7 +48,7 @@ interface UseSendFormValidationArgs {
 export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const { selectedAsset, balance } = useSelectedAsset();
+  const { selectedAsset, balanceBigNumber } = useSelectedAsset();
   const isSendingStx = selectedAsset?.type === 'stx';
 
   // `selectedAsset` is in an atom's state, not the form, but we want to
@@ -94,13 +94,13 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
           return true;
         })
         .test({
-          message: formatInsufficientBalanceError(balance, selectedAsset?.meta?.symbol),
+          message: formatInsufficientBalanceError(balanceBigNumber, selectedAsset?.meta?.symbol),
           test(value: unknown) {
-            if (!isNumber(value) || !balance) return false;
-            return new BigNumber(value).isLessThanOrEqualTo(balance);
+            if (!isNumber(value) || !balanceBigNumber) return false;
+            return new BigNumber(value).isLessThanOrEqualTo(balanceBigNumber);
           },
         }),
-    [balance, selectedAsset]
+    [balanceBigNumber, selectedAsset]
   );
 
   const amountSchema = useCallback(
