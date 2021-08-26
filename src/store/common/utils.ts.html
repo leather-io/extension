@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/store/common/common.hooks.ts</title>
+    <title>Code coverage report for src/store/common/utils.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/common</a> common.hooks.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/common</a> utils.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">70.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/16</span>
+                <span class='fraction'>17/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>15/21</span>
             </div>
         
             
@@ -85,61 +85,85 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">299x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomCallback, useAtomValue } from 'jotai/utils';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import hash from 'object-hash';
+import { hashQueryKey, QueryKey } from 'react-query';
 &nbsp;
-import { feeRateState } from '@store/common/api-request';
-import { useCallback } from 'react'<span class="fstat-no" title="function not covered" >;</span>
-import { errorStackTraceState } from '@store/ui/ui';
-import { useAtom, WritableAtom } from <span class="cstat-no" title="statement not covered" >'jotai';</span>
-import { queryClient } from 'jotai-query-toolkit';
-&nbsp;
-export type { WritableAtom } from 'jotai';
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useDynamicUseAtom_UNSAFE(</span>state: WritableAtom&lt;boolean, boolean&gt;) {
-  return useAtom(state);
+export function <span class="fstat-no" title="function not covered" >textToBytes(</span>content: string) {
+  return <span class="cstat-no" title="statement not covered" >new TextEncoder().encode(content);</span>
 }
 &nbsp;
-export const jotaiWrappedReactQueryQueryClient = queryClient;
-&nbsp;
-export function useCurrentFee() {
-  return useAtomValue(feeRateState);
+export function <span class="fstat-no" title="function not covered" >bytesToText(</span>buffer: Uint8Array) {
+  return <span class="cstat-no" title="statement not covered" >new TextDecoder().decode(buffer);</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useErrorHandler(</span>) {
-  const handleOnError<span class="cstat-no" title="statement not covered" > = useAtomCallback&lt;void, any&gt;(</span>
-    useCallback((_get, set, ...arg: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >      set(errorStackTraceState, arg?.[0]?.stack);</span>
-    }, [])
-  );
-  return <span class="cstat-no" title="statement not covered" >handleOnError;</span>
+export function <span class="fstat-no" title="function not covered" >bytesToHex(</span>uint8a: Uint8Array): string {
+  // pre-caching chars could speed this up 6x.
+  let hex<span class="cstat-no" title="statement not covered" > = '';</span>
+  for (<span class="cstat-no" title="statement not covered" >let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; uint8a.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    hex += uint8a[i].toString(16).padStart(2, '0');</span>
+  }
+  return <span class="cstat-no" title="statement not covered" >hex;</span>
+}
+&nbsp;
+export function makeLocalDataKey(params: QueryKey): string {
+  return hash(hashQueryKey(params));
+}
+&nbsp;
+export function getLocalData&lt;Data&gt;(params: string[]) {
+  const key = makeLocalDataKey(params);
+  const value = localStorage.getItem(key);
+  if (!value) return null;
+  return JSON.parse(value) as Data;
+}
+&nbsp;
+export function setLocalData&lt;Data&gt;(params: string[], data: Data): Data {
+  const key = makeLocalDataKey(params);
+  localStorage.setItem(key, JSON.stringify(data));
+  return data;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -148,7 +172,7 @@ export function <span class="fstat-no" title="function not covered" >useErrorHan
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 13:55:24 GMT+0000 (Coordinated Universal Time)
+                at Thu Aug 26 2021 00:16:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

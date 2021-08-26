@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>0/41</span>
             </div>
         
             
@@ -148,9 +148,7 @@
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -158,9 +156,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -243,7 +239,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLoading } from '@common/hooks/use-loading'<span class="cstat-no" title="statement not covered" >;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { magicRecoveryCodePasswordState, magicRecoveryCodeState } from '@store/onboarding'<span class="cstat-no" title="statement not covered" >;</span>
+import { useLoading } from '@common/hooks/use-loading'<span class="cstat-no" title="statement not covered" >;</span>
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
 import React, { useCallback, useEffect, useState } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
@@ -251,14 +248,11 @@ import { useDoChangeScreen } from '@common/hooks/use-do-change-screen'<span clas
 import { USERNAMES_ENABLED } from '@common/constants'<span class="cstat-no" title="statement not covered" >;</span>
 import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
 import { decrypt } from '@stacks/wallet-sdk'<span class="cstat-no" title="statement not covered" >;</span>
-import {
-  useMagicRecoveryCodePasswordState,
-  useMagicRecoveryCodeState,
-} from '@store/onboarding/onboarding.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAtom } from 'jotai'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useMagicRecoveryCode(</span>) {</span>
-  const [magicRecoveryCode, setMagicRecoveryCode<span class="cstat-no" title="statement not covered" >] = useMagicRecoveryCodeState();</span>
-  const [password, setPassword<span class="cstat-no" title="statement not covered" >] = useMagicRecoveryCodePasswordState();</span>
+  const [magicRecoveryCode, setMagicRecoveryCode<span class="cstat-no" title="statement not covered" >] = useAtom(magicRecoveryCodeState);</span>
+  const [password, setPassword<span class="cstat-no" title="statement not covered" >] = useAtom(magicRecoveryCodePasswordState);</span>
   const { isLoading, setIsLoading, setIsIdle<span class="cstat-no" title="statement not covered" > } = useLoading('useMagicRecoveryCode');</span>
   const { doStoreSeed, doSetPassword, doFinishSignIn<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
   const [error, setPasswordError<span class="cstat-no" title="statement not covered" >] = useState('');</span>
@@ -343,7 +337,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 13:55:24 GMT+0000 (Coordinated Universal Time)
+                at Thu Aug 26 2021 00:16:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

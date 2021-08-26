@@ -120,7 +120,6 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -129,25 +128,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,16 +164,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
-import { Box, color, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, color, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 import { Caption } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import { stacksValue } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { useCurrentAccountInfo } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
 &nbsp;
 import { CurrentUserAvatar } from '@features/current-user/current-user-avatar'<span class="cstat-no" title="statement not covered" >;</span>
 import { CurrentUsername } from '@features/current-user/current-user-name'<span class="cstat-no" title="statement not covered" >;</span>
 import { CurrentStxAddress } from '@features/current-user/current-stx-address'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCurrentAccountInfo } from '@common/hooks/account/use-current-account-balances'<span class="cstat-no" title="statement not covered" >;</span>
 import { LoadingRectangle } from '@components/loading-rectangle'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 const Balance<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
@@ -247,7 +247,7 @@ export const <span class="cstat-no" title="statement not covered" >PopupHeader<s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 13:55:24 GMT+0000 (Coordinated Universal Time)
+                at Thu Aug 26 2021 00:16:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
