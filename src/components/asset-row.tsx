@@ -5,7 +5,7 @@ import type { AssetWithMeta } from '@common/asset-types';
 import { getAssetName } from '@stacks/ui-utils';
 import { AssetItem } from '@components/asset-item';
 import { getTicker } from '@common/utils';
-import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
 import { BigNumber } from 'bignumber.js';
 
 interface AssetRowProps extends StackProps {

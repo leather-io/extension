@@ -1,7 +1,7 @@
 import React, { FC, Suspense } from 'react';
 import { Box, color, ButtonProps } from '@stacks/ui';
+import { useCurrentFee } from '@common/hooks/use-current-fee';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { useCurrentFee } from '@store/common/common.hooks';
 
 const SendMaxButton: FC<ButtonProps> = props => (
   <Box

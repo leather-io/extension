@@ -1,15 +1,16 @@
+import { useAtom } from 'jotai';
 import {
-  useAccountDrawerStep,
-  useShowAccountsStore,
-  useShowNetworksStore,
-  useShowSettingsStore,
-} from '@store/ui/ui.hooks';
+  showNetworksStore,
+  accountDrawerStep,
+  showAccountsStore,
+  showSettingsStore,
+} from '@store/ui';
 
-export function useDrawers() {
-  const [accountStep, setAccountStep] = useAccountDrawerStep();
-  const [showAccounts, setShowAccounts] = useShowAccountsStore();
-  const [showNetworks, setShowNetworks] = useShowNetworksStore();
-  const [showSettings, setShowSettings] = useShowSettingsStore();
+export const useDrawers = () => {
+  const [accountStep, setAccountStep] = useAtom(accountDrawerStep);
+  const [showAccounts, setShowAccounts] = useAtom(showAccountsStore);
+  const [showNetworks, setShowNetworks] = useAtom(showNetworksStore);
+  const [showSettings, setShowSettings] = useAtom(showSettingsStore);
 
   return {
     accountStep,
@@ -21,4 +22,4 @@ export function useDrawers() {
     showSettings,
     setShowSettings,
   };
-}
+};

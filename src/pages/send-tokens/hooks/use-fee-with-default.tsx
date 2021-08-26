@@ -1,4 +1,4 @@
-import { useCurrentFee } from '@store/common/common.hooks';
+import { useCurrentFee } from '@common/hooks/use-current-fee';
 
 export function useFeeWithDefault() {
   const fee = useCurrentFee();

@@ -1,16 +1,16 @@
-import React from 'react';
+import { useAtomValue } from 'jotai/utils';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { Box, Button, CodeBlock, color, Stack } from '@stacks/ui';
 import { Prism } from '@common/clarity-prism';
-
-import { useErrorStackTraceState } from '@store/ui/ui.hooks';
+import React from 'react';
+import { errorStackTraceState } from '@store/ui';
+import { ErrorBoundary, FallbackProps } from '@features/errors/error-boundary';
 import { Title } from '@components/typography';
-import { ErrorBoundary, FallbackProps, useErrorHandler } from '@features/errors/error-boundary';
-import { openGithubIssue } from '@features/errors/utils';
+import { openGithubIssue, useErrorHandler } from '@features/errors/utils';
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-  const [value] = useErrorStackTraceState();
+  const value = useAtomValue(errorStackTraceState);
   return (
     <PopupContainer header={<Header />}>
       <Stack spacing="extra-loose" flexGrow={1}>

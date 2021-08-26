@@ -6,12 +6,12 @@ import { Divider } from '@components/divider';
 import { useExplorerLink } from '@common/hooks/use-explorer-link';
 import { Caption, Title } from '@components/typography';
 import { ContractPreview } from '@pages/transaction-signing/components/contract-preview';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
-import { LoadingRectangle } from '@components/loading-rectangle';
-import { useTransactionFunction } from '@store/transactions/transaction.hooks';
+import { useTransactionRequest } from '@common/hooks/use-transaction-request';
 
 import { AttachmentRow } from './attachment-row';
 import { RowItem } from './row-item';
+import { useTransactionFunction } from '@pages/transaction-signing/hooks/use-transaction';
+import { LoadingRectangle } from '@components/loading-rectangle';
 
 interface ArgumentProps {
   arg: string;

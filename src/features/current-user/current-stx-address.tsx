@@ -1,7 +1,7 @@
 import { Box, BoxProps } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import React from 'react';
-import { useCurrentAccount } from '@store/accounts/account.hooks';
+import { useCurrentAccount } from '@common/hooks/account/use-current-account';
 import { memoWithAs } from '@stacks/ui-core';
 import { LoadingRectangle } from '@components/loading-rectangle';
 
