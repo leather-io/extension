@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.15.1
+
+### Patch Changes
+
+- [#1619](https://github.com/blockstack/stacks-wallet-web/pull/1619) [`df283d3cc`](https://github.com/blockstack/stacks-wallet-web/commit/df283d3ccb3e164c1eb3168181c12ab8e5b36203) Thanks [@aulneau](https://github.com/aulneau)! - Fixes bug where balance contained a comma, thus preventing it from being converted to a BigNumber
+
+* [#1614](https://github.com/blockstack/stacks-wallet-web/pull/1614) [`7a0cd03a2`](https://github.com/blockstack/stacks-wallet-web/commit/7a0cd03a253ab1cd4f750ec663da8829306c0fd2) Thanks [@aulneau](https://github.com/aulneau)! - This fixes a rare bug where if an address has received more transactions than we fetch for, it would assume it was a fresh account and return the incorrect nonce.
+
 ## 2.15.0
 
 ### Minor Changes
