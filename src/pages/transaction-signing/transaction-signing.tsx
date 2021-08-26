@@ -12,6 +12,7 @@ import { useTransactionRequest } from '@common/hooks/use-transaction-request';
 import { Stack } from '@stacks/ui';
 import { useUpdateAtom } from 'jotai/utils';
 import { transactionBroadcastErrorState } from '@store/transactions';
+import { PostConditionModeWarning } from '@pages/transaction-signing/components/post-condition-mode-warning';
 
 export const TransactionPage = memo(() => {
   const transactionRequest = useTransactionRequest();
@@ -28,6 +29,7 @@ export const TransactionPage = memo(() => {
     <PopupContainer header={<PopupHeader />}>
       <Stack spacing="loose">
         <TransactionPageTop />
+        <PostConditionModeWarning />
         <TransactionError />
         <PostConditions />
         {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}

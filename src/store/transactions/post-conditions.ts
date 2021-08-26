@@ -17,3 +17,5 @@ export const postConditionsState = atom(get => {
   }
   return [];
 });
+
+export const postConditionModeState = atom(get => get(requestTokenPayloadState)?.postConditionMode);
