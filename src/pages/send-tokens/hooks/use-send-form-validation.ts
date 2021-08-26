@@ -36,9 +36,11 @@ function formatPrecisionError(symbol: string, decimals: number) {
 
 function formatInsufficientBalanceError(availableBalance?: BigNumber | string, symbol?: string) {
   if (!availableBalance || !symbol) return;
+  const isStx = symbol === 'STX';
   const amount = initBigNumber(availableBalance);
+  const formattedAmount = isStx ? microStxToStx(amount).toString() : amount.toString(10);
   return `${SendFormErrorMessages.InsufficientBalance} ${
-    amount.lt(0) ? '0' : microStxToStx(amount).toString()
+    amount.lt(0) ? '0' : formattedAmount
   } ${symbol}`;
 }
 
