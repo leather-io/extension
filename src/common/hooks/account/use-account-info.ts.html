@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/12</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -74,19 +74,13 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -95,33 +89,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
-  currentAccountBalancesUnanchoredState,
-  currentAccountConfirmedTransactionsState,
-  currentAccountMempoolTransactionsState,
-} from '@store/accounts';
-import { useAtomValue } from 'jotai/utils';
+  useCurrentAccountConfirmedTransactionsState,
+  useCurrentAccountMempoolTransactionsState,
+  useCurrentAccountBalancesUnanchoredState,
+} from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const useFetchAccountData<span class="fstat-no" title="function not covered" > = () =&gt; {</span>
-  const balances<span class="cstat-no" title="statement not covered" > = useAtomValue(currentAccountBalancesUnanchoredState);</span>
-  const pendingTransactions<span class="cstat-no" title="statement not covered" > = useAtomValue(currentAccountMempoolTransactionsState);</span>
-  const transactions<span class="cstat-no" title="statement not covered" > = useAtomValue(currentAccountConfirmedTransactionsState);</span>
+export const <span class="cstat-no" title="statement not covered" >useFetchAccountData<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
+  const balances<span class="cstat-no" title="statement not covered" > = useCurrentAccountBalancesUnanchoredState();</span>
+  const pendingTransactions<span class="cstat-no" title="statement not covered" > = useCurrentAccountMempoolTransactionsState();</span>
+  const transactions<span class="cstat-no" title="statement not covered" > = useCurrentAccountConfirmedTransactionsState();</span>
 <span class="cstat-no" title="statement not covered" >  if (!balances) <span class="cstat-no" title="statement not covered" >throw new Error('is the user signed in?');</span></span>
   return {
     balances,
     pendingTransactions,
     transactions,
   };
-};
-&nbsp;
-export const useFetchBalances = () =&gt; {
-  return useAtomValue(currentAccountBalancesUnanchoredState);
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -130,7 +115,7 @@ export const useFetchBalances = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 26 2021 00:44:06 GMT+0000 (Coordinated Universal Time)
+                at Thu Aug 26 2021 14:43:07 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
