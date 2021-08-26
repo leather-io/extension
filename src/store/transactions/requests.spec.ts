@@ -11,7 +11,7 @@ import {
 } from '@store/transactions/requests';
 import { getKeyForRequest, StorageKey } from '@common/storage';
 import { TransactionTypes } from '@stacks/connect';
-import { currentNetworkState } from '@store/network/networks';
+import { currentNetworkState } from '@store/networks';
 import { currentAccountStxAddressState } from '@store/accounts';
 
 const ORIGIN = 'https://heystack.xyz';

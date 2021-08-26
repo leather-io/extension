@@ -1,4 +1,4 @@
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequest } from '@common/hooks/use-transaction-request';
 import { useMemo } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 

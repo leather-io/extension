@@ -2,6 +2,7 @@ import React, { memo, useCallback } from 'react';
 import { Box, Fade, Button, Stack, color, BoxProps, Spinner } from '@stacks/ui';
 import { Title, Caption } from '@components/typography';
 
+import { accountDrawerStep, AccountStep } from '@store/ui';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SpaceBetween } from '@components/space-between';
@@ -9,13 +10,12 @@ import { FiCheck as IconCheck } from 'react-icons/fi';
 import { AccountAvatar } from '@features/account-avatar/account-avatar';
 import { useAccountDisplayName } from '@common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@common/hooks/account/use-switch-account';
+import { useUpdateAtom } from 'jotai/utils';
+import { useAccounts } from '@common/hooks/account/use-accounts';
+import { AccountWithAddress } from '@store/accounts';
 import { useLoading } from '@common/hooks/use-loading';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { AccountBalanceCaption } from '@features/account-balance-caption';
-import { useAccounts } from '@store/accounts/account.hooks';
-import { useUpdateAccountDrawerStep } from '@store/ui/ui.hooks';
-import { AccountStep } from '@store/ui/ui.models';
-import { AccountWithAddress } from '@store/accounts/account.models';
 
 interface SwitchAccountProps {
   close: () => void;
@@ -147,7 +147,7 @@ const AccountList: React.FC<{ handleClose: () => void }> = memo(({ handleClose }
 });
 
 export const SwitchAccounts: React.FC<SwitchAccountProps> = memo(({ close }) => {
-  const setAccountDrawerStep = useUpdateAccountDrawerStep();
+  const setAccountDrawerStep = useUpdateAtom(accountDrawerStep);
   return (
     <>
       <AccountList handleClose={close} />

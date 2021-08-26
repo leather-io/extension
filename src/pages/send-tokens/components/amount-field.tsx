@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
 import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
-import { useAssets } from '@store/assets/asset.hooks';
+import { useAssets } from '@common/hooks/use-assets';
+import { useFetchBalances } from '@common/hooks/account/use-account-info';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { ErrorLabel } from '@components/error-label';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxWithSuspense } from './send-max-button';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
 
 interface AmountFieldProps extends StackProps {
   value: number;
@@ -20,7 +20,7 @@ export const AmountField = memo((props: AmountFieldProps) => {
   const { value, error, ...rest } = props;
 
   const assets = useAssets();
-  const balances = useCurrentAccountBalancesUnanchoredState();
+  const balances = useFetchBalances();
   const { selectedAsset, placeholder } = useSelectedAsset();
   const { setFieldValue, handleChange } = useFormikContext();
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions({

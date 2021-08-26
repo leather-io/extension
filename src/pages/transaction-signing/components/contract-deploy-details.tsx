@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CodeBlock, Stack, color, BoxProps } from '@stacks/ui';
 
-import { usePendingTransaction } from '@store/transactions/transaction.hooks';
 import { Prism } from '@common/clarity-prism';
+import { usePendingTransaction } from '@common/hooks/use-pending-transaction';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Caption, Title } from '@components/typography';
 import { Divider } from '@components/divider';

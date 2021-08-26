@@ -10,18 +10,6 @@ module.exports = {
       to: {},
     },
     {
-      name: 'only-import-state-via-hooks',
-      severity: 'error',
-      from: { path: '^src/*', pathNot: ['^src/store/*'] },
-      to: { path: ['^src/store/*'], pathNot: [`src.*\.hooks\.ts`, `src.*\.models\.ts`] },
-    },
-    {
-      name: 'ban-jotai-outside-store',
-      severity: 'error',
-      from: { path: '^src/*', pathNot: ['^src/store/*'] },
-      to: { path: 'jotai*' },
-    },
-    {
       name: 'component-cannot-import-pages-or-features',
       severity: 'error',
       from: { path: 'src/components*' },
@@ -36,15 +24,12 @@ module.exports = {
       from: {},
       to: { circular: true },
     },
-    // @kyranjamie: imo components in `components/` should be dumb
-    // so would be nice to enable this rule, though following state
-    // refactor, this has been disabled to be more permissive
-    // {
-    //   name: 'components-must-not-import-store',
-    //   severity: 'error',
-    //   from: { path: '^src/components/.*' },
-    //   to: { path: '^src/store/.*' },
-    // },
+    {
+      name: 'components-must-not-import-store',
+      severity: 'error',
+      from: { path: '^src/components/.*' },
+      to: { path: '^src/store/.*' },
+    },
     {
       name: 'features-cannot-import-pages',
       severity: 'error',

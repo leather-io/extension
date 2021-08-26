@@ -2,7 +2,7 @@ import React from 'react';
 import { stacksValue } from '@common/stacks-utils';
 import { Caption, Text } from '@components/typography';
 import { color } from '@stacks/ui';
-import { useAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { useAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
 
 export const AccountBalanceCaption = ({ address }: { address: string }) => {
   const availableStxBalance = useAccountAvailableStxBalance(address);
