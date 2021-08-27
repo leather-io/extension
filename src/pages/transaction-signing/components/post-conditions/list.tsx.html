@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/30</span>
+                <span class='fraction'>30/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.72% </span>
+                <span class="strong">51.52% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/29</span>
+                <span class='fraction'>17/33</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/23</span>
+                <span class='fraction'>26/28</span>
             </div>
         
             
@@ -162,7 +162,12 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -170,9 +175,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -232,6 +240,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,6 +248,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -275,12 +285,15 @@ import { stacksValue } from '@common/stacks-utils';
 import { FiLock as IconLock } from 'react-icons/fi';
 import { Body } from '@components/typography';
 import { truncateMiddle } from '@stacks/ui-utils';
-&nbsp;
 import { useTransactionRequest } from '@common/hooks/use-transaction-request';
 import { TransactionEventCard } from '../event-card';
 import { PostConditionComponent } from './single';
 import { useAtomValue } from 'jotai/utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
+&nbsp;
+import { usePostConditionModeState } from '@store/transactions/post-conditions.hooks';
+import { PostConditionMode } from '@stacks/transactions';
+import { IS_TEST_ENV } from '@common/constants';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >StxPostcondition(</span>) {
   const pendingTransaction<span class="cstat-no" title="statement not covered" > = useTransactionRequest();</span>
@@ -336,6 +349,7 @@ const PostConditionsList = () =&gt; {
 &nbsp;
 export const PostConditionsSuspense: React.FC = () =&gt; {
   const postConditions = useAtomValue(postConditionsState);
+  const mode = usePostConditionModeState();
   const pendingTransaction = useTransactionRequest();
   const hasPostConditions = useMemo(
     () =&gt; postConditions &amp;&amp; postConditions?.length<span class="branch-0 cbranch-no" title="branch not covered" > &gt; 0,</span>
@@ -345,6 +359,7 @@ export const PostConditionsSuspense: React.FC = () =&gt; {
     pendingTransaction?.txType<span class="branch-0 cbranch-no" title="branch not covered" > === TransactionTypes.STXTransfer<span class="branch-1 cbranch-no" title="branch not covered" > &amp;&amp; !hasPostConditions;</span></span>
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!postConditions || !pendingTransaction<span class="cstat-no" title="statement not covered" >) return &lt;&gt;&lt;/&gt;;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!IS_TEST_ENV &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >mode === PostConditionMode.Allow<span class="cstat-no" title="statement not covered" >)</span> return null;</span>
 &nbsp;
   return (
     &lt;Flex
@@ -379,7 +394,7 @@ export const PostConditions = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 15:36:54 GMT+0000 (Coordinated Universal Time)
+                at Fri Aug 27 2021 16:28:26 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
