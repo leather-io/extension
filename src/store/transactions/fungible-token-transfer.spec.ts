@@ -15,7 +15,7 @@ describe(makeFungibleTokenTransferState.debugLabel || 'makeFungibleTokenTransfer
       }
     );
     expect(result.current).toEqual(undefined);
-    await waitForNextUpdate();
+    await waitForNextUpdate({ timeout: 2000 });
     expect(result.current?.stxAddress).toEqual('ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z');
     expect(result.current?.assetName).toEqual('hey-token');
   });

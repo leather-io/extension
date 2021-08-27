@@ -17,7 +17,7 @@ export const PostConditionModeWarning = () => {
         </Box>
         <Box>
           <Text textStyle="body.small.medium" fontWeight={500}>
-            Calling this function is not secure.
+            This transaction is not secure
           </Text>
           <Text
             textStyle="body.small"
@@ -25,12 +25,8 @@ export const PostConditionModeWarning = () => {
             lineHeight="22px"
             mt="extra-tight"
           >
-            This function is set to <strong>ALLOW</strong> mode. Any post conditions defined will
-            have no effect.
-            <br />
-            <Box as="span" fontWeight={500} color={color('feedback-error')}>
-              Proceed with caution.
-            </Box>
+            If you confirm, you allow it to transfer any of your tokens. Only confirm if you trust
+            and have verified the contract.
           </Text>
         </Box>
       </Flex>

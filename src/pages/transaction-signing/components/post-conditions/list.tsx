@@ -6,12 +6,15 @@ import { stacksValue } from '@common/stacks-utils';
 import { FiLock as IconLock } from 'react-icons/fi';
 import { Body } from '@components/typography';
 import { truncateMiddle } from '@stacks/ui-utils';
-
 import { useTransactionRequest } from '@common/hooks/use-transaction-request';
 import { TransactionEventCard } from '../event-card';
 import { PostConditionComponent } from './single';
 import { useAtomValue } from 'jotai/utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
+
+import { usePostConditionModeState } from '@store/transactions/post-conditions.hooks';
+import { PostConditionMode } from '@stacks/transactions';
+import { IS_TEST_ENV } from '@common/constants';
 
 function StxPostcondition() {
   const pendingTransaction = useTransactionRequest();
@@ -67,6 +70,7 @@ const PostConditionsList = () => {
 
 export const PostConditionsSuspense: React.FC = () => {
   const postConditions = useAtomValue(postConditionsState);
+  const mode = usePostConditionModeState();
   const pendingTransaction = useTransactionRequest();
   const hasPostConditions = useMemo(
     () => postConditions && postConditions?.length > 0,
@@ -76,6 +80,7 @@ export const PostConditionsSuspense: React.FC = () => {
     pendingTransaction?.txType === TransactionTypes.STXTransfer && !hasPostConditions;
 
   if (!postConditions || !pendingTransaction) return <></>;
+  if (!IS_TEST_ENV && mode === PostConditionMode.Allow) return null;
 
   return (
     <Flex
