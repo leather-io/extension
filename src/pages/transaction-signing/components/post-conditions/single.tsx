@@ -4,7 +4,7 @@ import { TransactionTypes } from '@stacks/connect';
 import { addressToString, PostCondition } from '@stacks/transactions';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { ftDecimals } from '@common/stacks-utils';
-import { useCurrentAccount } from '@store/accounts/account.hooks';
+import { useCurrentAccount } from '@common/hooks/account/use-current-account';
 import {
   getAmountFromPostCondition,
   getIconStringFromPostCondition,
@@ -14,7 +14,7 @@ import {
   getSymbolFromPostCondition,
   useAssetInfoFromPostCondition,
 } from '@common/transactions/postcondition-utils';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequest } from '@common/hooks/use-transaction-request';
 import { TransactionEventCard } from '../event-card';
 
 interface PostConditionProps {

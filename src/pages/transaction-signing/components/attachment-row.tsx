@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
 import { hexToHumanReadable } from '@common/utils';
+import { useTransactionRequest } from '../../../common/hooks/use-transaction-request';
 import { RowItem } from './row-item';
 
 export const AttachmentRow: React.FC = () => {

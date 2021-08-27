@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { useDynamicUseAtom_UNSAFE, WritableAtom } from '@store/common/common.hooks';
 
 import { BaseDrawer } from '.';
+import { useAtom, WritableAtom } from 'jotai';
 
 interface ControlledDrawerProps {
   /** The atom used to represent the visibility state of this drawer */
@@ -21,7 +21,7 @@ export const ControlledDrawer: React.FC<ControlledDrawerProps> = ({
   title,
   children,
 }) => {
-  const [isShowing, setShowing] = useDynamicUseAtom_UNSAFE(state);
+  const [isShowing, setShowing] = useAtom(state);
   const close = useCallback(() => {
     setShowing(false);
     _close?.();

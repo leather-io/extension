@@ -1,14 +1,14 @@
 // This is a wrapper component to provide default/mock data to various atoms
 import React, { StrictMode, Suspense } from 'react';
-import { HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'jotai';
-import { hasRehydratedVaultStore, walletState } from '@store/wallet/wallet';
+import { hasRehydratedVaultStore, walletState } from '@store/wallet';
 import { TEST_WALLET, HEYSTACK_HEY_TX_REQUEST } from './mocks';
 import { requestTokenState } from '@store/transactions/requests';
 import Mock = jest.Mock;
 import { selectedAssetIdState } from '@store/assets/asset-search';
+import { HashRouter as Router } from 'react-router-dom';
+import { currentNetworkKeyState } from '@store/networks';
 import { currentAccountIndexState } from '@store/accounts';
-import { currentNetworkKeyState } from '@store/network/networks';
 
 export const ProviderWithWalletAndRequestToken: React.FC = ({ children }) => (
   <Router>

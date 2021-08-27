@@ -16,7 +16,7 @@ import { Caption, Title } from '@components/typography';
 import { SpaceBetween } from '@components/space-between';
 import { TxItemIcon } from '@components/tx-icon';
 import { Tooltip } from '@components/tooltip';
-import { useCurrentAccount } from '@store/accounts/account.hooks';
+import { useCurrentAccount } from '@common/hooks/account/use-current-account';
 import { usePressable } from '@components/item-hover';
 
 type Tx = MempoolTransaction | Transaction;

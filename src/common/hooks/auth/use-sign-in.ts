@@ -1,3 +1,4 @@
+import { magicRecoveryCodeState, seedInputErrorState, seedInputState } from '@store/onboarding';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
@@ -8,16 +9,13 @@ import {
 } from '@common/utils';
 import { ScreenPaths } from '@common/types';
 import { useLoading } from '@common/hooks/use-loading';
-import {
-  useMagicRecoveryCodeState,
-  useSeedInputErrorState,
-  useSeedInputState,
-} from '@store/onboarding/onboarding.hooks';
+import { useUpdateAtom } from 'jotai/utils';
+import { useAtom } from 'jotai';
 
 export function useSignIn() {
-  const [, setMagicRecoveryCode] = useMagicRecoveryCodeState();
-  const [seed, setSeed] = useSeedInputState();
-  const [error, setError] = useSeedInputErrorState();
+  const setMagicRecoveryCode = useUpdateAtom(magicRecoveryCodeState);
+  const [seed, setSeed] = useAtom(seedInputState);
+  const [error, setError] = useAtom(seedInputErrorState);
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
   const doChangeScreen = useDoChangeScreen();

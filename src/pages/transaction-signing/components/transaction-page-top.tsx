@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequest } from '@common/hooks/use-transaction-request';
+import { useOrigin } from '@common/hooks/use-origin';
 import { useTransactionPageTitle } from '@pages/transaction-signing/hooks/use-transaction-page-title';
 import { Stack } from '@stacks/ui';
 import { Caption, Title } from '@components/typography';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 import { getUrlHostname, getUrlPort } from '@common/utils';
-import { useOrigin } from '@store/transactions/requests.hooks';
 
 function addPortSuffix(url: string) {
   const port = getUrlPort(url);

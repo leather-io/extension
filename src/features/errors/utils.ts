@@ -1,3 +1,7 @@
+import { useAtomCallback } from 'jotai/utils';
+import { useCallback } from 'react';
+import { errorStackTraceState } from '@store/ui';
+
 function makeStackTraceSection(stackTrace: string | null) {
   if (!stackTrace) return;
   return `
@@ -43,3 +47,12 @@ ${makeStackTraceSection(stackTrace)}
 
   window.open(githubUrl.toString(), '_blank');
 };
+
+export function useErrorHandler() {
+  const handleOnError = useAtomCallback<void, any>(
+    useCallback((_get, set, ...arg: any) => {
+      set(errorStackTraceState, arg?.[0]?.stack);
+    }, [])
+  );
+  return handleOnError;
+}

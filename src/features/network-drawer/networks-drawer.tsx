@@ -6,28 +6,28 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
+import { currentNetworkKeyState, networkOnlineStatusState } from '@store/networks';
+import { showNetworksStore } from '@store/ui';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { Caption, Title } from '@components/typography';
 import { getUrlHostname } from '@common/utils';
+import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { FiCloudOff as IconCloudOff } from 'react-icons/fi';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import {
-  useNetworkOnlineStatusState,
-  useUpdateCurrentNetworkKey,
-} from '@store/network/networks.hooks';
-import { showNetworksStore, useShowNetworksStore } from '@store/ui/ui.hooks';
 
 const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, ...props }) => {
   const { setShowNetworks } = useDrawers();
   const { networks, currentNetworkKey } = useWallet();
-  const setCurrentNetworkKey = useUpdateCurrentNetworkKey();
+  const setCurrentNetworkKey = useUpdateAtom(currentNetworkKeyState);
   const network = networks[item];
-  const { isOnline } = useNetworkOnlineStatusState(network.url);
+  const { isOnline } = useAtomValue(networkOnlineStatusState(network.url));
   const isActive = item === currentNetworkKey;
 
   const handleItemClick = useCallback(() => {
     setCurrentNetworkKey(item);
-    setTimeout(() => setShowNetworks(false), 25);
+    setTimeout(() => {
+      setShowNetworks(false);
+    }, 25);
   }, [setCurrentNetworkKey, item, setShowNetworks]);
 
   return (
@@ -84,14 +84,13 @@ const NetworkList: React.FC<FlexProps> = props => {
 
 export const NetworksDrawer: React.FC = () => {
   const { setShowNetworks } = useDrawers();
-  const isShowing = useShowNetworksStore();
+  const isShowing = useAtomValue(showNetworksStore);
   const doChangeScreen = useDoChangeScreen();
 
   const handleAddNetworkClick = useCallback(() => {
     setShowNetworks(false);
     doChangeScreen(ScreenPaths.ADD_NETWORK);
   }, [setShowNetworks, doChangeScreen]);
-
   return (
     <ControlledDrawer title="Select Network" state={showNetworksStore}>
       {isShowing && <NetworkList />}

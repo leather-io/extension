@@ -1,14 +1,15 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 import { ScreenPaths } from '@common/types';
-import { useCurrentScreenUpdate } from '@store/onboarding/onboarding.hooks';
+import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
+
+import { currentScreenState } from '@store/onboarding';
+import { useUpdateAtom } from 'jotai/utils';
 
 type DoChangeScreen = (path: ScreenPaths, changeRoute?: boolean) => void;
 
 export function useDoChangeScreen(): DoChangeScreen {
   const navigate = useNavigate();
-  const changeScreen = useCurrentScreenUpdate();
+  const changeScreen = useUpdateAtom(currentScreenState);
 
   const doNavigatePage = useCallback(
     (path: ScreenPaths) => {
