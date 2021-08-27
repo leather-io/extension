@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/store/accounts/account.hooks.ts</title>
+    <title>Code coverage report for src/pages/transaction-signing/hooks/use-make-stx-transfer.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/accounts</a> account.hooks.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/pages/transaction-signing/hooks</a> use-make-stx-transfer.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.29% </span>
+                <span class="strong">79.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/28</span>
+                <span class='fraction'>27/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">41.18% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>7/17</span>
+                <span class='fraction'>14/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>3/3</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">89.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>26/29</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -145,7 +145,17 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1118x</span>
+<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,173 +163,163 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomValue, useUpdateAtom } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'jotai/utils';</span></span>
-import {
-  accountAvailableStxBalanceState,
-  accountsWithAddressState,
-  currentAccountAvailableStxBalanceState,
-  currentAccountBalancesUnanchoredState,
-  currentAccountConfirmedTransactionsState,
-  currentAccountIndexState,
-  currentAccountInfoState,
-  currentAccountMempoolTransactionsState,
-  currentAccountState,
-  currentAccountStxAddressState,
-  currentAccountTransactionsState,
-  hasSwitchedAccountsState,
-  refreshAccountDataState,
-  transactionAccountIndexState,
-} from '@store/accounts';
-import { allAccountsNameState, currentAccountNameState } from './names';
-import { transactionNetworkVersionState } from '@store/transactions';
-import { useAtom } from <span class="cstat-no" title="statement not covered" >'jotai';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomCallback, waitForAll } from 'jotai/utils';
+import { currentStacksNetworkState } from '@store/networks';
+import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
+import { currentAccountNonceState } from '@store/accounts/nonce';
+import { AnchorMode, makeSTXTokenTransfer, StacksTransaction } from '@stacks/transactions';
+import BN from 'bn.js';
+import { stxToMicroStx } from '@stacks/ui-utils';
+import { useLoading } from '@common/hooks/use-loading';
+import { useCallback, useEffect } from 'react';
+import { useMakeAssetTransfer } from '@pages/transaction-signing/hooks/use-asset-transfer';
+import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 &nbsp;
-export const useAccountAvailableStxBalance<span class="fstat-no" title="function not covered" > = (a</span>ddress: string) =&gt; {
-  return useAtomValue(accountAvailableStxBalanceState(address));
-};
-&nbsp;
-export function useCurrentAccountAvailableStxBalance() {
-  return useAtomValue(currentAccountAvailableStxBalanceState);
+interface TokenTransferParams {
+  amount: number;
+  recipient: string;
+  memo: string;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useAccountActivity(</span>) {
-  return useAtomValue(currentAccountTransactionsState);
+export function useMakeStxTransfer() {
+  return useAtomCallback&lt;undefined | StacksTransaction, TokenTransferParams&gt;(
+    useCallback(async (get, _set, arg) =&gt; {
+      const { amount, recipient, memo } = arg;
+      const address = get(currentAccountStxAddressState);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!address<span class="cstat-no" title="statement not covered" >) return;</span>
+      const { network, account, nonce } = await get(
+        waitForAll({
+          network: currentStacksNetworkState,
+          account: currentAccountState,
+          nonce: currentAccountNonceState,
+        }),
+        true
+      );
+&nbsp;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!account || typeof nonce === 'undefined'<span class="cstat-no" title="statement not covered" >) return;</span>
+&nbsp;
+      return makeSTXTokenTransfer({
+        recipient,
+        amount: new BN(stxToMicroStx(amount).toString(), 10),
+        memo,
+        senderKey: account.stxPrivateKey,
+        network: network as any,
+        nonce: new BN(nonce.toString(), 10),
+        anchorMode: AnchorMode.Any,
+      });
+    }, [])
+  );
 }
 &nbsp;
-export function useCurrentAccountBalancesUnanchoredState() {
-  return useAtomValue(currentAccountBalancesUnanchoredState);
-}
+export function useMakeTransferEffect({
+  isShowing,
+  amount,
+  recipient,
+  memo,
+  transaction,
+  setTransaction,
+  loadingKey,
+}: {
+  transaction: StacksTransaction | null;
+  isShowing: boolean;
+  amount: number;
+  recipient: string;
+  memo: string;
+  setTransaction: (transaction: StacksTransaction) =&gt; void;
+  loadingKey: string;
+}) {
+  const { isLoading, setIsLoading, setIsIdle } = useLoading(loadingKey);
+  const { selectedAsset } = useSelectedAsset();
+  const handleMakeStxTransaction = useMakeStxTransfer();
+  const handleMakeFtTransaction = useMakeAssetTransfer();
+  const isActive = isShowing<span class="branch-1 cbranch-no" title="branch not covered" > &amp;&amp; !!amount<span class="branch-2 cbranch-no" title="branch not covered" > </span>&amp;&amp; !!recipient;</span>
+  const notLoaded = selectedAsset &amp;&amp; !transaction &amp;&amp; !isLoading;
+  const method = selectedAsset?.type<span class="branch-0 cbranch-no" title="branch not covered" > === 'stx' ? <span class="branch-0 cbranch-no" title="branch not covered" >handleMakeStxTransaction </span>: handleMakeFtTransaction;</span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useCurrentAccountConfirmedTransactionsState(</span>) {
-  return useAtomValue(currentAccountConfirmedTransactionsState);
-}
+  const handleGenerateTransfer = useCallback(async () =&gt; {
+<span class="cstat-no" title="statement not covered" >    setIsLoading();</span>
+    const tx = await method({
+      amount,
+      recipient,
+      memo,
+    });
+<span class="cstat-no" title="statement not covered" >    if (tx) <span class="cstat-no" title="statement not covered" >setTransaction(tx);</span></span>
+<span class="cstat-no" title="statement not covered" >    setIsIdle();</span>
+  }, [amount, recipient, memo, method, setTransaction, setIsLoading, setIsIdle]);
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useCurrentAccountMempoolTransactionsState(</span>) {
-  return useAtomValue(currentAccountMempoolTransactionsState);
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useAccountNames(</span>) {
-  return useAtomValue(allAccountsNameState);
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useCurrentAccountNames(</span>) {
-  return useAtomValue(currentAccountNameState);
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useAccounts(</span>) {
-  return useAtomValue(accountsWithAddressState);
-}
-&nbsp;
-export function useCurrentAccountStxAddressState() {
-  return useAtomValue(currentAccountStxAddressState);
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useCurrentAccountInfo(</span>) {
-  return useAtomValue(currentAccountInfoState);
-}
-&nbsp;
-export function useCurrentAccount() {
-  return useAtomValue(currentAccountState);
-}
-&nbsp;
-export function useCurrentAccountIndex() {
-  return useAtomValue(currentAccountIndexState);
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useTransactionAccountIndex(</span>) {
-  return useAtomValue(transactionAccountIndexState);
-}
-&nbsp;
-export function useTransactionNetworkVersion() {
-  return useAtomValue(transactionNetworkVersionState);
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useHasSwitchedAccounts(</span>) {
-  return useAtom(hasSwitchedAccountsState);
-}
-&nbsp;
-export function useRefreshAccountData() {
-  return useUpdateAtom(refreshAccountDataState);
+  useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isActive &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >notLoaded<span class="cstat-no" title="statement not covered" >)</span> void handleGenerateTransfer();</span>
+  }, [isActive, notLoaded, setIsLoading, handleGenerateTransfer]);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -328,17 +328,17 @@ export function useRefreshAccountData() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 26 2021 14:43:07 GMT+0000 (Coordinated Universal Time)
+                at Fri Aug 27 2021 15:36:54 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     

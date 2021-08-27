@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -89,26 +89,24 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -121,16 +119,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Account } from '@stacks/wallet-sdk';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { allAccountsNameState, currentAccountNameState } from '@store/accounts/names'<span class="cstat-no" title="statement not covered" >;</span>
+import { Account } from '@stacks/wallet-sdk';
+import { useCurrentAccount } from '@common/hooks/account/use-current-account'<span class="cstat-no" title="statement not covered" >;</span>
 import { cleanUsername } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
-import {
-  useAccountNames,
-  useCurrentAccount,
-  useCurrentAccountNames,
-} from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAtomValue } from <span class="cstat-no" title="statement not covered" >'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span></span>
+&nbsp;
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useAccountNames(</span>) {</span>
+  return useAtomValue(allAccountsNameState);
+}
+&nbsp;
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useCurrentAccountNames(</span>) {</span>
+  return useAtomValue(currentAccountNameState);
+}
 &nbsp;
 export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useCurrentAccountDisplayName(</span>) {</span>
-  const names<span class="cstat-no" title="statement not covered" > = useCurrentAccountNames();</span>
+  const names = <span class="cstat-no" title="statement not covered" >useCurrentAccountNames();</span>
   const account<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
 <span class="cstat-no" title="statement not covered" >  if (!account || typeof account?.index !== 'number'<span class="cstat-no" title="statement not covered" >) return 'Account';</span></span>
   return (
@@ -145,7 +163,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
   // as it will only fetch the single name if we need it
 <span class="cstat-no" title="statement not covered" >  if (!providedAccount<span class="cstat-no" title="statement not covered" >) return useCurrentAccountDisplayName();</span></span>
   const account = <span class="cstat-no" title="statement not covered" >providedAccount;</span>
-  const names<span class="cstat-no" title="statement not covered" > = useAccountNames();</span>
+  const names = <span class="cstat-no" title="statement not covered" >useAccountNames();</span>
 <span class="cstat-no" title="statement not covered" >  if (!account || typeof account?.index !== 'number'<span class="cstat-no" title="statement not covered" >) return 'Account';</span></span>
   return (
 <span class="cstat-no" title="statement not covered" >    names?.[account.index]?.names?.[0] ||</span>
@@ -160,7 +178,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 26 2021 14:43:07 GMT+0000 (Coordinated Universal Time)
+                at Fri Aug 27 2021 15:36:54 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
