@@ -5,17 +5,17 @@ import { useAuthRequest } from '@store/onboarding/onboarding.hooks';
 import { usePendingTransaction } from '@store/transactions/transaction.hooks';
 import { useOnCancel } from '@store/transactions/requests.hooks';
 
-interface PopupHomeProps {
+interface AppContainerProps {
   header?: any;
   // TODO: remove the need for prop drilling this
   requestType?: 'transaction' | 'auth';
-  className: string;
+  className?: string;
 }
 
 const UnmountEffectSuspense = ({
   requestType,
 }: {
-  requestType?: PopupHomeProps['requestType'];
+  requestType?: AppContainerProps['requestType'];
 }) => {
   const pendingTx = usePendingTransaction();
   const { authRequest } = useAuthRequest();
@@ -42,13 +42,13 @@ const UnmountEffectSuspense = ({
   return null;
 };
 
-const UnmountEffect = ({ requestType }: { requestType?: PopupHomeProps['requestType'] }) => (
+const UnmountEffect = ({ requestType }: { requestType?: AppContainerProps['requestType'] }) => (
   <React.Suspense fallback={<></>}>
     <UnmountEffectSuspense requestType={requestType} />
   </React.Suspense>
 );
 
-export const PopupContainer: React.FC<PopupHomeProps> = ({
+export const AppContainer: React.FC<AppContainerProps> = ({
   children,
   header,
   requestType,

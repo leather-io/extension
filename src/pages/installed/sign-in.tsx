@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, Button, Input, Stack, color } from '@stacks/ui';
 
 import { ErrorLabel } from '@components/error-label';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { Caption } from '@components/typography';
 import { useSignIn } from '@common/hooks/auth/use-sign-in';
 import { Header } from '@components/header';
@@ -12,7 +12,7 @@ export const InstalledSignIn: React.FC = () => {
     useSignIn();
 
   return (
-    <PopupContainer
+    <AppContainer
       header={<Header title="Continue with your Secret Key" onClose={onBack} hideActions />}
       key="sign-in"
       requestType="auth"
@@ -64,6 +64,6 @@ export const InstalledSignIn: React.FC = () => {
           </Button>
         </Stack>
       </Stack>
-    </PopupContainer>
+    </AppContainer>
   );
 };

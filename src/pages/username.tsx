@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Text, Button, Input } from '@stacks/ui';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { useWallet } from '@common/hooks/use-wallet';
 import { buildEnterKeyEvent } from '@components/link';
 // import { ErrorLabel } from '@components/error-label';
@@ -36,7 +36,7 @@ export const Username: React.FC = () => {
     }
   };
   return (
-    <PopupContainer header={<Header title="Choose a username" />}>
+    <AppContainer header={<Header title="Choose a username" />}>
       <Box my="base">
         <Text fontSize={2}>This is how others will see you in Stacks apps.</Text>
       </Box>
@@ -85,6 +85,6 @@ export const Username: React.FC = () => {
           </Button>
         </Box>
       </Box>
-    </PopupContainer>
+    </AppContainer>
   );
 };

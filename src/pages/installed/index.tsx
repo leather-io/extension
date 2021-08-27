@@ -4,7 +4,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { Link } from '@components/link';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { Title, Text } from '@components/typography';
 import { Header } from '@components/header';
@@ -50,7 +50,7 @@ const Actions: React.FC<StackProps> = props => {
 };
 
 export const Installed: React.FC = memo(() => (
-  <PopupContainer className="installed-page" header={<Header hideActions />} requestType="auth">
+  <AppContainer className="installed-page" header={<Header hideActions />} requestType="auth">
     <Stack className="content-image" flexGrow={1}>
       <img src={ExploreStacksLarge} className="image-large" />
       <img src={ExploreStacksSmall} className="image-small" />
@@ -67,5 +67,5 @@ export const Installed: React.FC = memo(() => (
       </Stack>
       <Actions />
     </Stack>
-  </PopupContainer>
+  </AppContainer>
 ));

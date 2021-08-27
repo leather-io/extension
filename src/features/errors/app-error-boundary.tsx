@@ -1,5 +1,5 @@
 import React from 'react';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { Header } from '@components/header';
 import { Box, Button, CodeBlock, color, Stack } from '@stacks/ui';
 import { Prism } from '@common/clarity-prism';
@@ -12,7 +12,7 @@ import { openGithubIssue } from '@features/errors/utils';
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const [value] = useErrorStackTraceState();
   return (
-    <PopupContainer header={<Header />}>
+    <AppContainer header={<Header />}>
       <Stack spacing="extra-loose" flexGrow={1}>
         <Title fontSize={3}>Something went wrong</Title>
         <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
@@ -43,7 +43,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
           </Button>
         </Stack>
       </Stack>
-    </PopupContainer>
+    </AppContainer>
   );
 }
 

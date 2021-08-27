@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Box, Button } from '@stacks/ui';
 
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { Text } from '@components/typography';
 
 import { ScreenPaths } from '@common/types';
@@ -11,7 +11,7 @@ import { Header } from '@components/header';
 export const SignedOut = memo(() => {
   const doChangeScreen = useDoChangeScreen();
   return (
-    <PopupContainer header={<Header hideActions />}>
+    <AppContainer header={<Header hideActions />}>
       <Box width="100%" mt="extra-loose" textAlign="center">
         <Text textStyle="display.large" display="block">
           You're logged out!
@@ -25,6 +25,6 @@ export const SignedOut = memo(() => {
           Get started
         </Button>
       </Box>
-    </PopupContainer>
+    </AppContainer>
   );
 });

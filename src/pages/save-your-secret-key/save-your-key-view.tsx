@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Button, color, Stack, BoxProps, useClipboard, StackProps } from '@stacks/ui';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { Body, Text } from '@components/typography';
 import { Card } from '@components/card';
 import { Header } from '@components/header';
@@ -71,7 +71,7 @@ export const SaveYourKeyView: React.FC<{
   title?: string;
   hideActions?: boolean;
 }> = memo(({ title, handleNext, hideActions, onClose }) => (
-  <PopupContainer
+  <AppContainer
     header={
       <Header onClose={onClose} hideActions={hideActions} title={title || 'Save your Secret Key'} />
     }
@@ -81,5 +81,5 @@ export const SaveYourKeyView: React.FC<{
       <SecretKeyCard />
       <SecretKeyActions handleNext={handleNext || onClose} />
     </Stack>
-  </PopupContainer>
+  </AppContainer>
 ));

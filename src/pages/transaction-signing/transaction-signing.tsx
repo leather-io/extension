@@ -6,7 +6,7 @@ import {
   useUpdateTransactionBroadcastError,
 } from '@store/transactions/requests.hooks';
 import { PopupHeader } from '@pages/transaction-signing/components/popup-header';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { TransactionsActions } from '@pages/transaction-signing/components/actions';
 import { TransactionPageTop } from '@pages/transaction-signing/components/transaction-page-top';
 import { ContractCallDetails } from '@pages/transaction-signing/components/contract-call-details';
@@ -26,7 +26,7 @@ export const TransactionPage = memo(() => {
   }, [setBroadcastError]);
 
   return (
-    <PopupContainer header={<PopupHeader />}>
+    <AppContainer header={<PopupHeader />}>
       <Stack spacing="loose">
         <TransactionPageTop />
         <PostConditionModeWarning />
@@ -37,6 +37,6 @@ export const TransactionPage = memo(() => {
         {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
         <TransactionsActions />
       </Stack>
-    </PopupContainer>
+    </AppContainer>
   );
 });

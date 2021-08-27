@@ -178,13 +178,13 @@ const config = {
       contextRegExp: /bip39\/src$/,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'extension.html'),
-      filename: 'extension.html',
+      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'popup.html'),
+      filename: 'popup.html',
       ...HTML_PROD_OPTIONS,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'popup.html'),
-      filename: 'popup.html',
+      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'modal.html'),
+      filename: 'modal.html',
       ...HTML_PROD_OPTIONS,
     }),
     new HtmlWebpackPlugin({

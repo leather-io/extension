@@ -14,7 +14,7 @@ import {
 } from '@common/message-types';
 
 import type { VaultActions } from '@background/vault-types';
-import { popupCenter } from '@background/popup';
+import { modalCenter } from '@background/modal';
 import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
 
@@ -58,7 +58,7 @@ chrome.runtime.onConnect.addListener(port => {
           if (IS_TEST_ENV) {
             await openRequestInFullPage(path, urlParams);
           } else {
-            popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+            modalCenter({ url: `/modal.html#${path}?${urlParams.toString()}` });
           }
           break;
         }
@@ -68,13 +68,13 @@ chrome.runtime.onConnect.addListener(port => {
             storageKey: StorageKey.transactionRequests,
             port,
           });
-          const path = ScreenPaths.TRANSACTION_POPUP;
+          const path = ScreenPaths.TRANSACTION_MODAL;
           const urlParams = new URLSearchParams();
           urlParams.set('request', payload);
           if (IS_TEST_ENV) {
             await openRequestInFullPage(path, urlParams);
           } else {
-            popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+            modalCenter({ url: `/modal.html#${path}?${urlParams.toString()}` });
           }
           break;
         }

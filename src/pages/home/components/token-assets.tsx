@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 import { Stack, StackProps, color, Button, useClipboard } from '@stacks/ui';
-import { AssetRow } from '../asset-row';
+import { AssetRow } from '../../../components/asset-row';
 import {
   useAssetItemState,
   useFungibleTokenBaseState,
   useStxTokenState,
 } from '@store/assets/asset.hooks';
 import { Caption } from '@components/typography';
-import { CollectibleAssets } from '@components/popup/collectible-assets';
+import { CollectibleAssets } from '@pages/home/components/collectible-assets';
 import { NoAssetsEmptyIllustration } from '@components/vector/no-assets';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';

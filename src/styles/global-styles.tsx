@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { CSSReset } from '@stacks/ui';
 import { Global, css } from '@emotion/react';
-import { extensionStyles } from './extension-styles';
-import { fullPageStyles } from './full-page-styles';
 import { popupStyles } from './popup-styles';
+import { fullPageStyles } from './full-page-styles';
+import { modalStyles } from './modal-styles';
 
 const styles = css`
   body {
@@ -15,8 +15,8 @@ const styles = css`
     }
   }
 
-  ${extensionStyles};
   ${fullPageStyles};
+  ${modalStyles};
   ${popupStyles};
 
   #actions-root {

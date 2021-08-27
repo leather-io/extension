@@ -3,7 +3,7 @@ import { debounce } from 'ts-debounce';
 import { Box, Button, Input, Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
@@ -93,7 +93,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
   });
 
   return (
-    <PopupContainer header={<Header hideActions title="Set a password" />} requestType="auth">
+    <AppContainer header={<Header hideActions title="Set a password" />} requestType="auth">
       <Formik
         initialValues={{ password: '' }}
         validationSchema={validationSchema}
@@ -139,6 +139,6 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
           </Form>
         )}
       </Formik>
-    </PopupContainer>
+    </AppContainer>
   );
 };

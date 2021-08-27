@@ -1,16 +1,18 @@
 import { css } from '@emotion/react';
 
-export const extensionStyles = css`
-  .mode__extension {
+export const modalStyles = css`
+  .mode__modal {
     &,
     body {
-      min-height: 600px !important;
-      min-width: 392px !important;
+      height: unset !important;
+      min-height: 646px !important;
+      min-width: 442px !important;
       overflow-x: hidden;
-      main.main-content {
-        flex-grow: 1;
-        max-width: 392px;
-      }
+    }
+
+    main.main-content {
+      flex-grow: 1;
+      max-width: 442px;
     }
 
     .installed-page {

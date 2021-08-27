@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Box, Button, Text, Input } from '@stacks/ui';
-import { PopupContainer } from './popup/container';
+import { AppContainer } from './app-container';
 import { buildEnterKeyEvent } from './link';
 import { ErrorLabel } from './error-label';
 import { Header } from '@components/header';
@@ -24,7 +24,7 @@ export const Unlock: React.FC = () => {
   }, [doUnlockWallet, password]);
 
   return (
-    <PopupContainer header={<Header />} requestType="auth">
+    <AppContainer header={<Header />} requestType="auth">
       <Box width="100%" mt="loose">
         <Text textStyle="body.large" display="block">
           Enter your password you used on this device to unlock your wallet.
@@ -62,6 +62,6 @@ export const Unlock: React.FC = () => {
           Unlock
         </Button>
       </Box>
-    </PopupContainer>
+    </AppContainer>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, useClipboard, Stack } from '@stacks/ui';
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
@@ -18,7 +18,7 @@ export const PopupReceive: React.FC = () => {
   const address = currentAccountStxAddress || '';
   const { onCopy, hasCopied } = useClipboard(address);
   return (
-    <PopupContainer
+    <AppContainer
       header={<ReceiveTokensHeader onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
     >
       <Toast show={hasCopied} />
@@ -42,6 +42,6 @@ export const PopupReceive: React.FC = () => {
           Copy your address
         </Button>
       </Box>
-    </PopupContainer>
+    </AppContainer>
   );
 };

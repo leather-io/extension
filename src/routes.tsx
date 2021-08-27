@@ -121,7 +121,7 @@ export const Routes: React.FC = () => {
         }
       />
       {/* Transactions */}
-      <AccountGateRoute path={ScreenPaths.TRANSACTION_POPUP}>
+      <AccountGateRoute path={ScreenPaths.TRANSACTION_MODAL}>
         <TransactionPage />
       </AccountGateRoute>
     </RoutesDom>

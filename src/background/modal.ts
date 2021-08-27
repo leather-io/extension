@@ -1,6 +1,6 @@
-import { POPUP_HEIGHT, POPUP_WIDTH } from '@common/constants';
+import { MODAL_HEIGHT, MODAL_WIDTH } from '@common/constants';
 
-interface PopupOptions {
+interface ModalOptions {
   url?: string;
   title?: string;
   w?: number;
@@ -8,8 +8,8 @@ interface PopupOptions {
   skipPopupFallback?: boolean;
 }
 
-export function popupCenter(options: PopupOptions) {
-  const { url, w = POPUP_WIDTH, h = POPUP_HEIGHT } = options;
+export function modalCenter(options: ModalOptions) {
+  const { url, w = MODAL_WIDTH, h = MODAL_HEIGHT } = options;
 
   // @see https://developer.chrome.com/docs/extensions/reference/windows/#method-getCurrent
   chrome.windows.getCurrent(async win => {

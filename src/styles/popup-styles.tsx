@@ -4,10 +4,14 @@ export const popupStyles = css`
   .mode__popup {
     &,
     body {
-      height: unset !important;
-      min-height: 552px !important;
-      min-width: 440px !important;
+      min-height: 646px !important;
+      min-width: 392px !important;
       overflow-x: hidden;
+
+      main.main-content {
+        flex-grow: 1;
+        max-width: 392px;
+      }
     }
 
     .installed-page {

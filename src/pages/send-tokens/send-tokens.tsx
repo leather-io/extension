@@ -2,7 +2,7 @@ import React, { memo, Suspense, useCallback, useEffect, useState } from 'react';
 import { Box, Text, Button, Stack } from '@stacks/ui';
 import { Formik, useFormikContext } from 'formik';
 
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 
 import { ScreenPaths } from '@common/types';
@@ -92,7 +92,7 @@ const SendForm = (props: SendFormProps) => {
   }, [amount, setAmount]);
 
   return (
-    <PopupContainer
+    <AppContainer
       header={<Header title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
     >
       <Stack spacing="loose" flexDirection="column" flexGrow={1} shouldWrapChildren>
@@ -122,7 +122,7 @@ const SendForm = (props: SendFormProps) => {
           </Button>
         </Box>
       </Stack>
-    </PopupContainer>
+    </AppContainer>
   );
 };
 

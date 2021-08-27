@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
 
-import { PopupContainer } from '@components/popup/container';
+import { AppContainer } from '@components/app-container';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { isValidUrl } from '@common/validation/validate-url';
@@ -19,7 +19,7 @@ export const AddNetwork: React.FC = () => {
   const setNetworkKey = useUpdateCurrentNetworkKey();
 
   return (
-    <PopupContainer
+    <AppContainer
       header={
         <Header title="Add a network" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />
       }
@@ -148,6 +148,6 @@ export const AddNetwork: React.FC = () => {
           </form>
         )}
       </Formik>
-    </PopupContainer>
+    </AppContainer>
   );
 };

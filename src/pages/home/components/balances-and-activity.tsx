@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react';
 import { Box, Stack, SlideFade, Flex, Spinner, color } from '@stacks/ui';
 import type { StackProps } from '@stacks/ui';
-import { TokenAssets } from '@components/popup/token-assets';
+import { TokenAssets } from '@pages/home/components/token-assets';
 
 import { Caption } from '@components/typography';
 import { NoActivityIllustration } from '@components/vector/no-activity';
