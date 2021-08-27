@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.15.2
+
+### Patch Changes
+
+- [#1625](https://github.com/blockstack/stacks-wallet-web/pull/1625) [`98fcd2548`](https://github.com/blockstack/stacks-wallet-web/commit/98fcd254851ee4846bcbc81fb1958d7e4411c26c) Thanks [@aulneau](https://github.com/aulneau)! - This update adds a warning for any contract call that is set to ALLOW mode -- if a user is signing a transaction with ALLOW mode set, any post conditions displayed will have no effect.
+
 ## 2.15.1
 
 ### Patch Changes
