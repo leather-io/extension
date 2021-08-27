@@ -5,7 +5,7 @@ import {
   currentAccountState,
   currentAccountStxAddressState,
 } from '@store/accounts';
-import { currentStacksNetworkState } from '@store/network/networks';
+import { currentStacksNetworkState } from '@store/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 
 export const makeFungibleTokenTransferState = atom(get => {

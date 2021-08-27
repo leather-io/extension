@@ -1,7 +1,12 @@
 import { atomFamily, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
-import { makeLocalDataKey } from '@common/store-utils';
-import { AccountStep } from './ui.models';
+import { makeLocalDataKey } from '@store/common/utils';
+
+export enum AccountStep {
+  Switch = 'switch',
+  Create = 'create',
+  Username = 'username',
+}
 
 export const tabState = atomFamily<string, number, number>(param => {
   const anAtom = atomWithStorage<number>(makeLocalDataKey(['HOME_TABS', param]), 0);

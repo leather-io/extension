@@ -11,9 +11,9 @@ import {
 import { transformAssets } from '@store/assets/utils';
 import { Asset, AssetWithMeta, ContractPrincipal, NftMeta } from '@common/asset-types';
 import { assetMetaDataState } from '@store/assets/fungible-tokens';
-import { contractInterfaceState } from '@store/contracts/contracts';
+import { contractInterfaceState } from '@store/contracts';
 import { isSip10Transfer } from '@common/token-utils';
-import { currentNetworkState } from '@store/network/networks';
+import { currentNetworkState } from '@store/networks';
 
 const transferDataState = atomFamily<ContractPrincipal, any>(
   ({ contractAddress, contractName }) => {

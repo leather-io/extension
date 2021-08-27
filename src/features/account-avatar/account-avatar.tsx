@@ -3,8 +3,8 @@ import React from 'react';
 import { Account, getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { useAccountGradient } from '@common/hooks/account/use-account-gradient';
+import { AccountWithAddress } from '@store/accounts';
 import { useAccountDisplayName } from '@common/hooks/account/use-account-names';
-import { AccountWithAddress } from '@store/accounts/account.models';
 
 export const AccountAvatar: React.FC<
   { account: AccountWithAddress | Account; name?: string } & BoxProps

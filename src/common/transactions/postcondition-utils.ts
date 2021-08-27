@@ -8,7 +8,7 @@ import {
 } from '@stacks/transactions';
 import { stacksValue } from '@common/stacks-utils';
 import { postConditionFromString } from '@common/utils';
-import { useTransferableAssets } from '@store/assets/asset.hooks';
+import { useTransferableAssets } from '@common/hooks/use-assets';
 
 export const getIconStringFromPostCondition = (pc: PostCondition) => {
   if (pc.conditionType === PostConditionType.Fungible)

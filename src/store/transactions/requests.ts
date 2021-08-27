@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
 import { getPayloadFromToken } from '@store/transactions/utils';
-import { walletState } from '@store/wallet/wallet';
+import { walletState } from '@store/wallet';
 import { verifyTxRequest } from '@common/transactions/requests';
 import { getRequestOrigin, StorageKey } from '@common/storage';
-import { atomWithParam } from '@store/utils/atom-with-params';
+import { atomWithParam } from '@common/atom-with-params';
 
 export const requestTokenState = atomWithParam('transaction?request', null);
 

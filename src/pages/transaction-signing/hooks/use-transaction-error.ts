@@ -1,25 +1,24 @@
-import {
-  useTransactionBroadcastError,
-  useTransactionRequest,
-  useTransactionRequestValidation,
-} from '@store/transactions/requests.hooks';
+import { useTransactionContractInterface } from '@pages/transaction-signing/hooks/use-transaction';
+import { useTransactionRequest } from '@common/hooks/use-transaction-request';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useMemo } from 'react';
 import { TransactionErrorReason } from '@pages/transaction-signing/components/transaction-error';
 import BigNumber from 'bignumber.js';
 import { TransactionTypes } from '@stacks/connect';
 import { useTransactionFee } from '@pages/transaction-signing/hooks/use-transaction-fee';
+import { transactionBroadcastErrorState } from '@store/transactions';
+import { useOrigin } from '@common/hooks/use-origin';
+import { transactionRequestValidationState } from '@store/transactions/requests';
+import { useAtomValue } from 'jotai/utils';
 import { validateStacksAddress } from '@common/stacks-utils';
-import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
-import { useOrigin } from '@store/transactions/requests.hooks';
-import { useTransactionContractInterface } from '@store/transactions/transaction.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequest();
   const contractInterface = useTransactionContractInterface();
   const fee = useTransactionFee();
-  const broadcastError = useTransactionBroadcastError();
-  const isValidTransaction = useTransactionRequestValidation();
+  const broadcastError = useAtomValue(transactionBroadcastErrorState);
+  const isValidTransaction = useAtomValue(transactionRequestValidationState);
   const origin = useOrigin();
 
   const { currentAccount } = useWallet();

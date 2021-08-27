@@ -7,8 +7,8 @@ import { microStxToStx } from '@common/stacks-utils';
 import { FormValues } from '@pages/send-tokens/send-tokens';
 import { removeCommas } from '@common/token-utils';
 import { STX_TRANSFER_TX_SIZE_BYTES } from '@common/constants';
-import { useAssets } from '@store/assets/asset.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { useAssets } from '@common/hooks/use-assets';
+import { useCurrentAccountAvailableStxBalance } from '@common/hooks/use-available-stx-balance';
 
 export function useSendAmountFieldActions({
   setFieldValue,

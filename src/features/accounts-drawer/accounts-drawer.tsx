@@ -1,27 +1,25 @@
 import React, { useCallback } from 'react';
 import { ControlledDrawer } from '@components/drawer/controlled';
+import { SwitchAccounts } from '../account-switch-drawer/switch-accounts';
 import { CreateAccount } from '@components/drawer/accounts/create-account';
 import { AddUsername } from '@components/drawer/accounts/add-username';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { SwitchAccounts } from '../account-switch-drawer/switch-accounts';
 
-import {
-  useShowAccountsStore,
-  useUpdateAccountDrawerStep,
-  showAccountsStore,
-} from '@store/ui/ui.hooks';
-import { AccountStep } from '@store/ui/ui.models';
+import { AccountStep, showAccountsStore, accountDrawerStep } from '@store/ui';
+import { useAtomCallback, useAtomValue } from 'jotai/utils';
 
 export const AccountsDrawer: React.FC = () => {
   const { accountStep } = useDrawers();
-  const [isShowing, setShowAccountStore] = useShowAccountsStore();
-  const updateAccountDrawerStep = useUpdateAccountDrawerStep();
+  const isShowing = useAtomValue(showAccountsStore);
 
-  const close = useCallback(() => {
-    setShowAccountStore(false);
-    const drawerAnimationTime = 200;
-    setTimeout(() => updateAccountDrawerStep(AccountStep.Switch), drawerAnimationTime);
-  }, [setShowAccountStore, updateAccountDrawerStep]);
+  const close = useAtomCallback(
+    useCallback((_get, set) => {
+      set(showAccountsStore, false);
+      const drawerAnimationTime = 200;
+      setTimeout(() => set(accountDrawerStep, AccountStep.Switch), drawerAnimationTime);
+    }, [])
+  );
+
   const getTitle = () => {
     switch (accountStep) {
       case AccountStep.Create:
