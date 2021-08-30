@@ -212,20 +212,20 @@
 <a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -362,27 +362,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, memo } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span></span></span></span>
+import { FiPlusCircle } from 'react-icons/fi'<span class="cstat-no" title="statement not covered" >;</span>
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 import { Caption, Text, Title } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
-&nbsp;
 import { truncateMiddle } from '@stacks/ui-utils'<span class="cstat-no" title="statement not covered" >;</span>
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
 import { useAccountDisplayName } from '@common/hooks/account/use-account-names'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import { accountsWithAddressState, AccountWithAddress } from '@store/accounts'<span class="cstat-no" title="statement not covered" >;</span>
+import type { AccountWithAddress } from '@store/accounts/account.models';
 import { AccountAvatarWithName } from '@features/account-avatar/account-avatar'<span class="cstat-no" title="statement not covered" >;</span>
 import { SpaceBetween } from '@components/space-between'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import { usePressable } from '@components/item-hover'<span class="cstat-no" title="statement not covered" >;</span>
-import { FiPlusCircle } from 'react-icons/fi'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import { accountDrawerStep, AccountStep, showAccountsStore } from '@store/ui'<span class="cstat-no" title="statement not covered" >;</span>
 import { useLoading } from '@common/hooks/use-loading'<span class="cstat-no" title="statement not covered" >;</span>
-import { useAtomValue, useUpdateAtom } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
 import { AccountBalanceCaption } from '@features/account-balance-caption'<span class="cstat-no" title="statement not covered" >;</span>
 import { cleanUsername, slugify } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAccounts } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@store/ui/ui.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { AccountStep } from '@store/ui/ui.models'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) =&gt; (loading ? <span class="branch-0 cbranch-no" title="branch not covered" >loadingProps </span>: {});
@@ -464,8 +464,8 @@ export const AccountItem<span class="cstat-no" title="statement not covered" ><s
 };
 &nbsp;
 const AddAccountAction<span class="cstat-no" title="statement not covered" > = memo(() =&gt; {</span>
-  const setAccounts<span class="cstat-no" title="statement not covered" > = useUpdateAtom(showAccountsStore);</span>
-  const setAccountDrawerStep<span class="cstat-no" title="statement not covered" > = useUpdateAtom(accountDrawerStep);</span>
+  const setAccounts<span class="cstat-no" title="statement not covered" > = useUpdateShowAccounts();</span>
+  const setAccountDrawerStep<span class="cstat-no" title="statement not covered" > = useUpdateAccountDrawerStep();</span>
   const [component, bind<span class="cstat-no" title="statement not covered" >] = usePressable(true);</span>
 &nbsp;
   return (
@@ -496,7 +496,7 @@ interface AccountsProps extends FlexProps {
 export const Accounts<span class="cstat-no" title="statement not covered" >: React.FC&lt;AccountsProps&gt; = memo(</span>
   ({ showAddAccount, accountIndex, next<span class="cstat-no" title="statement not covered" >, ...r</span>est<span class="cstat-no" title="statement not covered" > }) =&gt; {</span>
     const { wallet<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
-    const accounts<span class="cstat-no" title="statement not covered" > = useAtomValue(accountsWithAddressState);</span>
+    const accounts<span class="cstat-no" title="statement not covered" > = useAccounts();</span>
     const { decodedAuthRequest<span class="cstat-no" title="statement not covered" > } = useOnboardingState();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!wallet || !accounts || !decodedAuthRequest<span class="cstat-no" title="statement not covered" >) return null;</span></span>
@@ -520,7 +520,7 @@ export const Accounts<span class="cstat-no" title="statement not covered" >: Rea
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 16:53:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 30 2021 16:07:25 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

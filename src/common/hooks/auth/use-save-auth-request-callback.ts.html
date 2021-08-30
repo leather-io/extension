@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
@@ -110,18 +110,12 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -144,10 +138,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,21 +165,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useEffect } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
 import { useLocation } from 'react-router-dom'<span class="cstat-no" title="statement not covered" >;</span>
-&nbsp;
 import { decodeToken } from 'jsontokens'<span class="cstat-no" title="statement not covered" >;</span>
+&nbsp;
+import { useCurrentScreenUpdate, useUpdateAuthRequest } from '@store/onboarding/onboarding.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { DecodedAuthRequest } from '@common/dev/types';
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
 import { getRequestOrigin, StorageKey } from '@common/storage'<span class="cstat-no" title="statement not covered" >;</span>
 import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
 import { useOnboardingState } from './use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
-import { authRequestState, currentScreenState } from '@store/onboarding'<span class="cstat-no" title="statement not covered" >;</span>
-import { useUpdateAtom } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useSaveAuthRequest(</span>) {</span>
   const { wallet<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
   const { screen<span class="cstat-no" title="statement not covered" > } = useOnboardingState();</span>
-  const changeScreen<span class="cstat-no" title="statement not covered" > = useUpdateAtom(currentScreenState);</span>
-  const saveAuthRequest<span class="cstat-no" title="statement not covered" > = useUpdateAtom(authRequestState);</span>
+  const changeScreen<span class="cstat-no" title="statement not covered" > = useCurrentScreenUpdate();</span>
+  const saveAuthRequest<span class="cstat-no" title="statement not covered" > = useUpdateAuthRequest();</span>
   const location<span class="cstat-no" title="statement not covered" > = useLocation();</span>
   const accounts = <span class="cstat-no" title="statement not covered" >wallet?.accounts;</span>
   const saveAuthRequestParam = useCallback(
@@ -197,15 +186,11 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
       const { payload<span class="cstat-no" title="statement not covered" > } = decodeToken(authRequest);</span>
       const decodedAuthRequest = <span class="cstat-no" title="statement not covered" >payload </span>as unknown as DecodedAuthRequest;
       const origin<span class="cstat-no" title="statement not covered" > = getRequestOrigin(StorageKey.authenticationRequests, authRequest);</span>
-      let appName<span class="cstat-no" title="statement not covered" > = decodedAuthRequest.appDetails?.name;</span>
-      let appIcon<span class="cstat-no" title="statement not covered" > = decodedAuthRequest.appDetails?.icon;</span>
+      const appName<span class="cstat-no" title="statement not covered" > = decodedAuthRequest.appDetails?.name;</span>
+      const appIcon<span class="cstat-no" title="statement not covered" > = decodedAuthRequest.appDetails?.icon;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!appIcon) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new Error('Missing `appIcon` from auth request');</span>
-      }
-<span class="cstat-no" title="statement not covered" >      if (!appName) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new Error('Missing `appName` from auth request');</span>
-      }
+<span class="cstat-no" title="statement not covered" >      if (!appIcon) <span class="cstat-no" title="statement not covered" >throw new Error('Missing `appIcon` from auth request');</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!appName) <span class="cstat-no" title="statement not covered" >throw new Error('Missing `appName` from auth request');</span></span>
 &nbsp;
       saveAuthRequest({
         decodedAuthRequest,
@@ -238,7 +223,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 16:53:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 30 2021 16:07:25 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
