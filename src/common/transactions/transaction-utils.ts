@@ -15,6 +15,7 @@ import {
   ContractDeployOptions,
   TokenTransferOptions,
 } from '@common/transactions/transactions';
+import { isNumber, isString } from '@common/utils';
 
 export const generateContractCallTx = ({
   txData,
@@ -36,6 +37,7 @@ export const generateContractCallTx = ({
     postConditionMode,
     postConditions,
   } = txData;
+  const isValidFee = isNumber(txData.fee) || isString(txData.fee);
   const args = functionArgs.map(arg => {
     return deserializeCV(Buffer.from(arg, 'hex'));
   });
@@ -52,6 +54,7 @@ export const generateContractCallTx = ({
   const options = {
     contractName,
     contractAddress,
+    fee: txData.fee !== undefined && isValidFee ? new BN(txData.fee) : undefined,
     functionName,
     senderKey,
     anchorMode: AnchorMode.Any,
