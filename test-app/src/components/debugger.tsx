@@ -121,6 +121,7 @@ export const Debugger = () => {
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
       contractName: 'faker',
+      fee: '1000000',
       functionName: 'rawr',
       functionArgs: args,
       attachment: 'This is an attachment',
