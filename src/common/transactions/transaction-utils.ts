@@ -17,6 +17,13 @@ import {
 } from '@common/transactions/transactions';
 import { isNumber, isString } from '@common/utils';
 
+function safelyExtractFeeValue(fee: unknown) {
+  if (fee === '') return undefined;
+  if (!isNumber(fee) && !isString(fee)) return undefined;
+  if (!Number.isFinite(parseInt(String(fee)))) return undefined;
+  return new BN(fee, 10);
+}
+
 export const generateContractCallTx = ({
   txData,
   senderKey,
@@ -37,7 +44,6 @@ export const generateContractCallTx = ({
     postConditionMode,
     postConditions,
   } = txData;
-  const isValidFee = isNumber(txData.fee) || isString(txData.fee);
   const args = functionArgs.map(arg => {
     return deserializeCV(Buffer.from(arg, 'hex'));
   });
@@ -50,11 +56,11 @@ export const generateContractCallTx = ({
     if (txData.network?.coreApiUrl) network.coreApiUrl = txData.network?.coreApiUrl;
     if (txData.network?.bnsLookupUrl) network.bnsLookupUrl = txData.network?.bnsLookupUrl;
   }
+  const parsedFeeValue = safelyExtractFeeValue(txData.fee);
 
   const options = {
     contractName,
     contractAddress,
-    fee: txData.fee !== undefined && isValidFee ? new BN(txData.fee) : undefined,
     functionName,
     senderKey,
     anchorMode: AnchorMode.Any,
@@ -63,8 +69,8 @@ export const generateContractCallTx = ({
     postConditionMode: postConditionMode,
     postConditions: getPostConditions(postConditions),
     network,
+    ...(parsedFeeValue ? { fee: parsedFeeValue } : {}),
     sponsored,
-    fee: !fee ? new BN(0) : new BN(fee, 10),
   };
   return makeContractCall(options);
 };
