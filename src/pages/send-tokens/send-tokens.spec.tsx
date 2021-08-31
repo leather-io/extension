@@ -5,7 +5,7 @@ import { ProviderWitHeySelectedAsset } from '@tests/state-utils';
 import { render } from '@testing-library/react';
 import { SendTokensForm } from '@pages/send-tokens/send-tokens';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { SendFormErrorMessages } from '@pages/send-tokens/hooks/use-send-form-validation';
+import { SendFormErrorMessages } from '@common/error-messages';
 
 describe('Send form tests', () => {
   setupHeystackEnv();
