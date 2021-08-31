@@ -13,7 +13,7 @@ import { TransactionsSelectors } from '@tests/integration/transactions.selectors
 import { useTransactionError } from '../hooks/use-transaction-error';
 import {
   useTransactionBroadcastError,
-  useTransactionRequestCustomFee,
+  useTransactionRequest,
 } from '@store/transactions/requests.hooks';
 import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
 import {
@@ -21,6 +21,7 @@ import {
   ShowTxSettingsPlaceholder,
 } from '@features/fee-nonce-drawers/components/show-tx-settings-action';
 import { HighFeeWarningLabel } from './app-set-fee-warning';
+import { useTransactionFee } from '../hooks/use-transaction-fee';
 
 const MinimalErrorMessageSuspense = memo((props: StackProps) => {
   const error = useTransactionError();
@@ -120,13 +121,22 @@ const SubmitAction = (props: ButtonProps) => {
 };
 
 const FeeRowItemSuspense = () => {
-  const customFee = useTransactionRequestCustomFee();
+  let showWarning = false;
+  const fee = useTransactionFee();
+  const transactionRequest = useTransactionRequest();
+  const appName = transactionRequest?.appDetails?.name;
+  const customFee = transactionRequest?.fee;
+
+  if (!!customFee && fee.amount) {
+    showWarning = customFee > fee.amount * 4;
+  }
+
   return (
     <SpaceBetween>
       <Caption>
         <Flex>
           Fees
-          {!!customFee && <HighFeeWarningLabel uStxFee={1000} appName="StacksPunks" />}
+          {showWarning && <HighFeeWarningLabel appName={appName} />}
         </Flex>
       </Caption>
       <Caption>
