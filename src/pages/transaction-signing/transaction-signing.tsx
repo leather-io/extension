@@ -15,7 +15,6 @@ import { PostConditions } from '@pages/transaction-signing/components/post-condi
 import { StxTransferDetails } from '@pages/transaction-signing/components/stx-transfer-details';
 import { PostConditionModeWarning } from '@pages/transaction-signing/components/post-condition-mode-warning';
 import { TransactionError } from './components/transaction-error';
-import { AppSetFeeWarning } from './components/app-set-fee-warning';
 
 export const TransactionPage = memo(() => {
   const transactionRequest = useTransactionRequest();
@@ -36,7 +35,6 @@ export const TransactionPage = memo(() => {
         {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
         {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
         {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-        <AppSetFeeWarning />
         <TransactionsActions />
       </Stack>
     </PopupContainer>
