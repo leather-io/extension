@@ -49,7 +49,7 @@ export const generateContractCallTx = ({
     if (txData.network?.bnsLookupUrl) network.bnsLookupUrl = txData.network?.bnsLookupUrl;
   }
 
-  const baseOptions = {
+  const options = {
     contractName,
     contractAddress,
     functionName,
@@ -61,8 +61,8 @@ export const generateContractCallTx = ({
     postConditions: getPostConditions(postConditions),
     network,
     sponsored,
+    fee: !fee ? new BN(0) : new BN(fee, 10),
   };
-  const options = !!fee ? { ...baseOptions, fee: new BN(fee) } : baseOptions;
   return makeContractCall(options);
 };
 
@@ -78,17 +78,17 @@ export const generateContractDeployTx = ({
   fee?: number;
 }) => {
   const { contractName, codeBody, network, postConditions, postConditionMode } = txData;
-  const baseOptions = {
+  const options = {
     contractName,
     codeBody,
     nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
+    fee: !fee ? new BN(0) : new BN(fee, 10),
     senderKey,
     anchorMode: AnchorMode.Any,
     postConditionMode: postConditionMode,
     postConditions: getPostConditions(postConditions),
     network,
   };
-  const options = !!fee ? { ...baseOptions, fee: new BN(fee, 10) } : baseOptions;
   return makeContractDeploy(options);
 };
 
@@ -104,16 +104,16 @@ export const generateSTXTransferTx = ({
   fee?: number;
 }) => {
   const { recipient, memo, amount, network } = txData;
-  const baseOptions = {
+  const options = {
     recipient,
     memo,
     senderKey,
     anchorMode: AnchorMode.Any,
     amount: new BN(amount),
     nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
+    fee: !fee ? new BN(0) : new BN(fee, 10),
     network,
   };
-  const options = !!fee ? { ...baseOptions, fee: new BN(fee, 10) } : baseOptions;
   return makeSTXTokenTransfer(options);
 };
 
