@@ -4,8 +4,9 @@ import { stxAmountSchema } from '@common/validation/currency-schema';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@common/error-formatters';
 import { STX_DECIMALS } from '@common/constants';
 import { isNumber } from '@common/utils';
+import BigNumber from 'bignumber.js';
 
-export const useFeeSchema = () => {
+export const useFeeSchema = (amountToSend?: number) => {
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   return useCallback(
     () =>
@@ -14,9 +15,15 @@ export const useFeeSchema = () => {
         test(fee: unknown) {
           if (!availableStxBalance || !isNumber(fee)) return false;
           const availableBalanceLessFee = availableStxBalance.minus(fee);
-          return availableBalanceLessFee.isGreaterThanOrEqualTo(fee);
+          const hasEnoughStx = availableBalanceLessFee.isGreaterThanOrEqualTo(fee);
+          if (!hasEnoughStx) return false;
+          if (amountToSend) {
+            const amountWithFee = new BigNumber(amountToSend).plus(fee);
+            return amountWithFee.isGreaterThanOrEqualTo(availableStxBalance);
+          }
+          return true;
         },
       }),
-    [availableStxBalance]
+    [availableStxBalance, amountToSend]
   );
 };

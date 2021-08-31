@@ -27,6 +27,7 @@ import {
 } from '@store/transactions/transaction.hooks';
 import { useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
+import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 
 type Amount = number | '';
 
@@ -50,6 +51,7 @@ interface SendFormProps {
 const SendForm = (props: SendFormProps) => {
   const { assetError } = props;
   const { isLoading } = useLoading('send-tokens');
+  const [amount, setAmount] = useLocalStxTransactionAmount();
 
   const doChangeScreen = useDoChangeScreen();
   const { selectedAsset } = useSelectedAsset();
@@ -60,20 +62,28 @@ const SendForm = (props: SendFormProps) => {
 
   const onSubmit = useCallback(async () => {
     if (values.amount && values.recipient && selectedAsset) {
+      selectedAsset.type === 'stx' && setAmount(values.amount);
       handleSubmit();
       await refreshAllAccountData(250);
     }
-  }, [refreshAllAccountData, handleSubmit, values, selectedAsset]);
+  }, [setAmount, refreshAllAccountData, handleSubmit, values, selectedAsset]);
 
   const onItemSelect = useCallback(() => {
     if (assets.length === 1) return;
     setValues({ ...values, amount: '' });
     setFieldError('amount', undefined);
-  }, [assets, setValues, values, setFieldError]);
+    if (amount) setAmount(null);
+  }, [assets, setValues, amount, setAmount, values, setFieldError]);
 
   const hasValues = values.amount && values.recipient !== '';
 
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
+
+  useEffect(() => {
+    return () => {
+      if (amount) setAmount(null);
+    };
+  }, [amount, setAmount]);
 
   return (
     <PopupContainer
