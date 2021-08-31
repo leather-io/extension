@@ -15,6 +15,7 @@ import {
   useFeeRateMultiplierCustom,
   useFeeRateUseCustom,
 } from '@store/transactions/fees.hooks';
+import { useCustomNonce } from '@store/transactions/nonce.hooks';
 import { useLoading } from '@common/hooks/use-loading';
 import BigNumber from 'bignumber.js';
 
@@ -89,6 +90,7 @@ const SettingsForm = () => {
   const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setUseCustom] = useFeeRateUseCustom();
   const [, setFeeRate] = useFeeRate();
+  const [, setCustomNonce] = useCustomNonce();
   const { setShowTxSettings } = useDrawers();
   const [byteSize] = useTxByteSizeState();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -113,6 +115,7 @@ const SettingsForm = () => {
           nonce: values.nonce,
         });
         setFeeRate(feeRate);
+        setCustomNonce(values.nonce);
         setIsLoading();
         setTimeout(() => {
           setIsEnabled(true);

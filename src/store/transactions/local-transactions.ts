@@ -4,6 +4,7 @@ import { waitForAll } from 'jotai/utils';
 import { currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentFeeRateState } from '@store/transactions/fees';
+import { customNonceState } from '@store/transactions/nonce.hooks';
 import BN from 'bn.js';
 import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
 import {
@@ -33,6 +34,7 @@ export const localStacksTransactionInputsState = atom<{
 export const tokenTransferTransaction = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
+  const customNonce = get(customNonceState);
   if (!address || !txData) return;
   const { amount, recipient, memo } = txData;
   const { network, account, nonce, feeRate } = get(
@@ -46,10 +48,11 @@ export const tokenTransferTransaction = atom(get => {
 
   if (!account || typeof nonce === 'undefined') return;
   const senderKey = account.stxPrivateKey;
+  const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
 
   const options = {
     senderKey,
-    nonce,
+    nonce: txNonce,
     txData: {
       txType: TransactionTypes.STXTransfer,
       recipient,
@@ -71,6 +74,7 @@ export const tokenTransferTransaction = atom(get => {
 export const ftTokenTransferTransactionState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
+  const customNonce = get(customNonceState);
   if (!address || !txData) return;
   const { amount, recipient, memo } = txData;
   const assetTransferState = get(makeFungibleTokenTransferState);
@@ -89,6 +93,8 @@ export const ftTokenTransferTransactionState = atom(get => {
   } = assetTransferState;
 
   const functionName = 'transfer';
+
+  const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
 
   const tokenBalanceKey = Object.keys(balances?.fungible_tokens || {}).find(contract => {
     return contract.startsWith(contractAddress);
@@ -133,7 +139,7 @@ export const ftTokenTransferTransactionState = atom(get => {
       network: network as any,
     },
     senderKey,
-    nonce: new BN(nonce, 10),
+    nonce: new BN(txNonce, 10),
   };
 
   return generateSignedTransaction(
