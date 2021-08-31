@@ -43,6 +43,7 @@ export const transactionRequestValidationState = atom(async get => {
 export const transactionRequestStxAddressState = atom(
   get => get(requestTokenPayloadState)?.stxAddress
 );
+export const transactionRequestCustomFeeState = atom(get => get(requestTokenPayloadState)?.fee);
 
 export const transactionRequestNetwork = atom(get => get(requestTokenPayloadState)?.network);
 
