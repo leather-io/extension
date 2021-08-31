@@ -3,7 +3,6 @@ import { Stack } from '@stacks/ui';
 
 import {
   useTransactionRequest,
-  useTransactionRequestCustomFee,
   useUpdateTransactionBroadcastError,
 } from '@store/transactions/requests.hooks';
 import { PopupHeader } from '@pages/transaction-signing/components/popup-header';
@@ -16,12 +15,10 @@ import { PostConditions } from '@pages/transaction-signing/components/post-condi
 import { StxTransferDetails } from '@pages/transaction-signing/components/stx-transfer-details';
 import { PostConditionModeWarning } from '@pages/transaction-signing/components/post-condition-mode-warning';
 import { TransactionError } from './components/transaction-error';
-import { AppSetFeeWarning } from './components/app-set-fee-warning';
 
 export const TransactionPage = memo(() => {
   const transactionRequest = useTransactionRequest();
   const setBroadcastError = useUpdateTransactionBroadcastError();
-  const customFee = useTransactionRequestCustomFee();
   if (!transactionRequest) return null;
 
   useEffect(() => {
@@ -38,7 +35,6 @@ export const TransactionPage = memo(() => {
         {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
         {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
         {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-        {!!customFee && <AppSetFeeWarning uStxFee={customFee} />}
         <TransactionsActions />
       </Stack>
     </PopupContainer>
