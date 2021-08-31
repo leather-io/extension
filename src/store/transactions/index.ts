@@ -16,6 +16,7 @@ import { validateStacksAddress } from '@common/stacks-utils';
 import { getUpdatedTransactionFee } from '@store/transactions/utils';
 import { currentFeeRateState } from '@store/transactions/fees';
 import { localTransactionState } from '@store/transactions/local-transactions';
+import { customNonceState } from './nonce.hooks';
 
 export const pendingTransactionState = atom(get => {
   const payload = get(requestTokenPayloadState);
@@ -33,7 +34,9 @@ export const signedStacksTransactionState = atom(get => {
   const txData = get(pendingTransactionState);
   const stxAddress = get(currentAccountStxAddressState);
   const nonce = get(currentAccountNonceState);
+  const customNonce = get(customNonceState);
   if (!account || !txData || !stxAddress || typeof nonce === 'undefined') return;
+  const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
   if (
     txData.txType === TransactionTypes.ContractCall &&
     !validateStacksAddress(txData.contractAddress)
@@ -41,7 +44,7 @@ export const signedStacksTransactionState = atom(get => {
     return;
   const options = {
     senderKey: account.stxPrivateKey,
-    nonce,
+    nonce: txNonce,
     txData: txData as any,
   };
   return generateSignedTransaction(options).then(transaction => {
