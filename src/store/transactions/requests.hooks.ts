@@ -4,6 +4,7 @@ import {
   requestTokenOriginState,
   transactionRequestValidationState,
   transactionRequestCustomFeeState,
+  transactionRequestCustomFeeRateState,
 } from '@store/transactions/requests';
 import { finalizeTxSignature } from '@common/utils';
 import { requestTokenState } from '@store/transactions/requests';
@@ -20,6 +21,9 @@ export function useTransactionRequest() {
 
 export function useTransactionRequestCustomFee() {
   return useAtomValue(transactionRequestCustomFeeState);
+}
+export function useTransactionRequestCustomFeeRate() {
+  return useAtomValue(transactionRequestCustomFeeRateState);
 }
 
 export function useTransactionRequestValidation() {

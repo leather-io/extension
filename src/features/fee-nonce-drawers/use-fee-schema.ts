@@ -4,7 +4,6 @@ import { stxAmountSchema } from '@common/validation/currency-schema';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@common/error-formatters';
 import { STX_DECIMALS } from '@common/constants';
 import { isNumber } from '@common/utils';
-import { stxToMicroStx } from '@stacks/ui-utils';
 
 export const useFeeSchema = () => {
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
@@ -15,7 +14,7 @@ export const useFeeSchema = () => {
         test(fee: unknown) {
           if (!availableStxBalance || !isNumber(fee)) return false;
           const availableBalanceLessFee = availableStxBalance.minus(fee);
-          return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(fee));
+          return availableBalanceLessFee.isGreaterThanOrEqualTo(fee);
         },
       }),
     [availableStxBalance]
