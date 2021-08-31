@@ -26,12 +26,14 @@ export function ItemHover({
   );
 }
 
-export function usePressable(isPressable?: boolean) {
+export function usePressable(
+  isPressable?: boolean
+): [JSX.Element | null, any, { isHovered: boolean; isFocused: boolean }] {
   const [isHovered, bind] = useHover();
   const [isFocused, focusBind] = useFocus();
 
   const component = <ItemHover isHovered={isHovered} isFocused={isFocused} />;
-  if (!isPressable) return [null, {}];
+  if (!isPressable) return [null, {}, { isFocused: false, isHovered: false }];
   return [
     component,
     {
@@ -41,5 +43,6 @@ export function usePressable(isPressable?: boolean) {
       zIndex: 1,
       cursor: isPressable ? 'pointer' : 'default',
     },
+    { isHovered, isFocused },
   ];
 }

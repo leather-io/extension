@@ -12,7 +12,8 @@ import { Routes } from './routes';
 
 import { SettingsPopover } from '@features/settings-dropdown/settings-popover';
 import { AppErrorBoundary } from '@features/errors/app-error-boundary';
-import { TransactionSettingsDrawer } from '@features/transaction-settings-drawer';
+import { TransactionSettingsDrawer } from '@features/tx-settings-drawer/transaction-settings-drawer';
+import { SpeedUpTransactionDrawer } from '@features/speed-up-transaction-drawer';
 
 export const App: React.FC = () => {
   useEffect(() => {
@@ -31,6 +32,7 @@ export const App: React.FC = () => {
               <AccountsDrawer />
               <NetworksDrawer />
               <TransactionSettingsDrawer />
+              <SpeedUpTransactionDrawer />
               <SettingsPopover />
             </AppErrorBoundary>
             <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
