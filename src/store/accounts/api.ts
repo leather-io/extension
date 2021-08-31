@@ -178,10 +178,27 @@ export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfinite
   AccountClientKeys.MempoolTransactionsClient,
   async function accountMempoolTransactionsClientQueryFn(get, { principal, limit = 30 }) {
     const { transactionsApi } = get(apiClientState);
-    return (await transactionsApi.getAddressMempoolTransactions({
+    const data = (await transactionsApi.getAddressMempoolTransactions({
       address: principal,
       limit,
     })) as PaginatedResults<MempoolTransaction>;
+    // we're fetching each one directly because the response from the tx endpoint provides more data
+    // currently the tx_status from the mempool endpoint can give stale data
+    // where the status can be `pending`, but in reality is `dropped_replace_by_fee`
+    // TODO: remove these extra fetches when the api has been fixed
+    const promises = data.results
+      // only want to fetch ones of status pending
+      .filter(tx => tx.tx_status === 'pending')
+      .map(
+        async item =>
+          (await transactionsApi.getTransactionById({ txId: item.tx_id })) as MempoolTransaction
+      );
+    const results: MempoolTransaction[] = await Promise.all(promises);
+    return {
+      ...data,
+      // we don't want to display and dropped txs
+      results: results.filter(tx => tx.tx_status === 'pending'),
+    } as PaginatedResults<MempoolTransaction>;
   },
   {
     refetchInterval: QueryRefreshRates.MEDIUM,
