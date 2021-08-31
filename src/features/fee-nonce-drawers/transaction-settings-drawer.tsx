@@ -1,9 +1,9 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
-import { Button, Stack } from '@stacks/ui';
+import { Button, Stack, Text } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
-import { FeeField } from '@features/tx-settings-drawer/components/fee-field';
-import { NonceField } from '@features/tx-settings-drawer/components/nonce-field';
+import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
+import { NonceField } from '@features/fee-nonce-drawers/components/nonce-field';
 import { Formik, FormikProps } from 'formik';
 import * as yup from 'yup';
 import { Caption } from '@components/typography';
@@ -18,12 +18,14 @@ import {
 import { useCustomNonce } from '@store/transactions/nonce.hooks';
 import { useLoading } from '@common/hooks/use-loading';
 import BigNumber from 'bignumber.js';
+import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
+import { ErrorLabel } from '@components/error-label';
 
 const Messaging = () => {
   return (
     <Caption>
-      If your transaction has been pending for a long time, its fee might not be high enough. To
-      speed it up, increase the fees and send it again.
+      Apply a higher fee to help your transaction confirm quickly, especially when the network is
+      congested by other transactions.
     </Caption>
   );
 };
@@ -61,6 +63,11 @@ const SettingsFormInner = ({
     <>
       <Stack>
         <FeeField value={formikProps.values.fee} />
+        {formikProps.errors.fee && (
+          <ErrorLabel mb="base">
+            <Text textStyle="caption">{formikProps.errors.fee}</Text>
+          </ErrorLabel>
+        )}
         <NonceField value={formikProps.values.nonce} />
       </Stack>
       <Stack isInline>
@@ -96,6 +103,7 @@ const SettingsForm = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const { setIsLoading, setIsIdle } = useLoading('settings-form');
   const [values, setValues] = useState({ fee: 0, nonce: 0 });
+  const feeSchema = useFeeSchema();
 
   return (
     <Formik
@@ -125,7 +133,7 @@ const SettingsForm = () => {
       validateOnBlur={false}
       validateOnMount={false}
       validationSchema={yup.object({
-        fee: yup.number(),
+        fee: feeSchema(),
         nonce: yup.number(),
       })}
     >
@@ -172,7 +180,7 @@ export const TransactionSettingsDrawer: React.FC = () => {
   const { showTxSettings, setShowTxSettings } = useDrawers();
   return (
     <ControlledDrawer
-      title="Speed up transaction"
+      title="Advanced settings"
       isShowing={showTxSettings}
       onClose={() => setShowTxSettings(false)}
     >

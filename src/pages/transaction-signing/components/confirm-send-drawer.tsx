@@ -18,7 +18,7 @@ import {
   useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
 import { useCurrentFee } from '@store/transactions/fees.hooks';
-import { ShowTxSettingsAction } from '@features/tx-settings-drawer/components/show-tx-settings-action';
+import { ShowTxSettingsAction } from '@features/fee-nonce-drawers/components/show-tx-settings-action';
 
 const LOADING_KEY = 'confirm-send-drawer';
 

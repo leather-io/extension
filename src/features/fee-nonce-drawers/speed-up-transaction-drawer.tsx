@@ -16,7 +16,7 @@ import * as yup from 'yup';
 import { Formik, FormikProps } from 'formik';
 import { useLoading } from '@common/hooks/use-loading';
 
-import { FeeField } from '@features/tx-settings-drawer/components/fee-field';
+import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
 import { StacksTransaction } from '@stacks/transactions';
 import { stacksValue } from '@common/stacks-utils';
 import {
@@ -29,12 +29,8 @@ import {
 import BigNumber from 'bignumber.js';
 import { toast } from 'react-hot-toast';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
-import { stxAmountSchema } from '@common/validation/currency-schema';
-import { STX_DECIMALS } from '@common/constants';
-import { isNumber } from '@common/utils';
-import { stxToMicroStx } from '@stacks/ui-utils';
 import { ErrorLabel } from '@components/error-label';
-import { formatInsufficientBalanceError, formatPrecisionError } from '@common/error-formatters';
+import { useFeeSchema } from './use-fee-schema';
 
 const useSelectedTx = () => {
   const [rawTxId] = useRawTxIdState();
@@ -105,22 +101,6 @@ const getFeeNonceFromStacksTransaction = (tx?: StacksTransaction) => ({
   fee: tx?.auth.spendingCondition?.fee.toNumber() || 0,
   nonce: tx?.auth.spendingCondition?.nonce.toNumber() || 0,
 });
-
-const useFeeSchema = () => {
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  return useCallback(
-    () =>
-      stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS)).test({
-        message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
-        test(fee: unknown) {
-          if (!availableStxBalance || !isNumber(fee)) return false;
-          const availableBalanceLessFee = availableStxBalance.minus(fee);
-          return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(fee));
-        },
-      }),
-    [availableStxBalance]
-  );
-};
 
 const FeeForm = () => {
   const refreshAccountData = useRefreshAllAccountData();
