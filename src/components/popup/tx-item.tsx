@@ -53,7 +53,7 @@ const getTxCaption = (transaction: Tx) => {
     case 'smart_contract':
       return truncateMiddle(transaction.smart_contract.contract_id, 4);
     case 'contract_call':
-      return truncateMiddle(transaction.contract_call.contract_id, 4);
+      return transaction.contract_call.contract_id.split('.')[1];
     case 'token_transfer':
     case 'coinbase':
     case 'poison_microblock':
@@ -162,7 +162,7 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
             <Title as="h3" fontWeight="normal">
               {getTxTitle(transaction as any)}
             </Title>
-            <Stack isInline>
+            <Stack isInline flexWrap="wrap">
               <Status transaction={transaction} />
               {transaction.tx_type === 'token_transfer' ? (
                 isOriginator ? (
@@ -180,7 +180,11 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
                 {value}
               </Title>
             )}
-            <SpeedUpButton isEnabled={isPending} isHovered={isHovered} txid={transaction.tx_id} />
+            <SpeedUpButton
+              isEnabled={isPending && isOriginator}
+              isHovered={isHovered}
+              txid={transaction.tx_id}
+            />
           </Stack>
         </SpaceBetween>
       </Stack>
