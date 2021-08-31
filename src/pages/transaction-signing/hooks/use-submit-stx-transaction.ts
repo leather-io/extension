@@ -31,12 +31,12 @@ function getErrorMessage(
   }
 }
 
-export function useHandleSubmitTransaction({
-  transaction,
+export function useSubmitTransactionCallback({
+  replaceByFee,
   onClose,
   loadingKey,
 }: {
-  transaction: StacksTransaction | null;
+  replaceByFee?: boolean;
   onClose: () => void;
   loadingKey: string;
 }) {
@@ -46,17 +46,17 @@ export function useHandleSubmitTransaction({
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
-  return useCallback(async () => {
-    setIsLoading();
-    if (transaction) {
-      const nonce = transaction.auth.spendingCondition?.nonce.toNumber();
+
+  return useCallback<(tx: StacksTransaction) => Promise<void>>(
+    async transaction => {
+      setIsLoading();
+      const nonce = !replaceByFee && transaction.auth.spendingCondition?.nonce.toNumber();
       try {
         const response = await broadcastTransaction(transaction, stacksNetwork as any);
         if (typeof response !== 'string') {
           toast.error(getErrorMessage(response.reason));
         } else {
           if (nonce) await doSetLatestNonce(nonce);
-          // TODO: we can do more detailed toasts using data from the TX, eg `Nice! you just sent 5 xUSD to ST23...2323`
           toast.success('Transaction submitted!');
           doChangeScreen(ScreenPaths.HOME);
           onClose();
@@ -66,20 +66,42 @@ export function useHandleSubmitTransaction({
           await refreshAccountData(550); // delay to give the api time to receive the tx
         }
       } catch (e) {
+        console.error(e);
         toast.error('Something went wrong');
         onClose();
         setIsIdle();
       }
-    }
-  }, [
-    refreshAccountData,
-    setActiveTabActivity,
-    doChangeScreen,
-    doSetLatestNonce,
-    setIsLoading,
-    transaction,
-    stacksNetwork,
+    },
+    [
+      doSetLatestNonce,
+      replaceByFee,
+      onClose,
+      refreshAccountData,
+      doChangeScreen,
+      setIsLoading,
+      setIsIdle,
+      stacksNetwork,
+      setActiveTabActivity,
+    ]
+  );
+}
+
+export function useHandleSubmitTransaction({
+  transaction,
+  onClose,
+  loadingKey,
+  replaceByFee = false,
+}: {
+  transaction: StacksTransaction | null;
+  onClose: () => void;
+  loadingKey: string;
+  replaceByFee?: boolean;
+}) {
+  const callback = useSubmitTransactionCallback({
     onClose,
-    setIsIdle,
-  ]);
+    loadingKey,
+    replaceByFee,
+  });
+  if (transaction) return () => callback(transaction);
+  return;
 }
