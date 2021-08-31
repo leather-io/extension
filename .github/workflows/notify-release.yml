@@ -84,7 +84,8 @@ jobs:
           node <<EOF> chrome_version
           var webstore = require('chrome-webstore')
           ;(async () => {
-            var details = await webstore.detail({id: '${{ secrets.CHROME_APP_ID }}'})
+            var webstore_api_version = await webstore.version()
+            var details = await webstore.detail({id: '${{ secrets.CHROME_APP_ID }}', version: webstore_api_version})
             console.log(details.version)
           })()
           EOF
