@@ -30,7 +30,7 @@ export const localStacksTransactionInputsState = atom<{
   recipient: string;
 } | null>(null);
 
-export const tokenTransferTransaction = atom(async get => {
+export const tokenTransferTransaction = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   if (!address || !txData) return;
@@ -58,16 +58,17 @@ export const tokenTransferTransaction = atom(async get => {
       network: network as any,
     },
   };
-  const transaction = await generateSignedTransaction(
+  return generateSignedTransaction(
     options as any
     // @TODO: kyran pls fix types
-  );
-  if (!transaction) return;
-  const fee = getUpdatedTransactionFee(transaction, feeRate);
-  return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
+  ).then(transaction => {
+    if (!transaction) return;
+    const fee = getUpdatedTransactionFee(transaction, feeRate);
+    return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
+  });
 });
 
-export const ftTokenTransferTransactionState = atom(async get => {
+export const ftTokenTransferTransactionState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   if (!address || !txData) return;
@@ -135,13 +136,14 @@ export const ftTokenTransferTransactionState = atom(async get => {
     nonce: new BN(nonce, 10),
   };
 
-  const transaction = await generateSignedTransaction(
+  return generateSignedTransaction(
     options as any
     // @TODO: kyran pls fix types
-  );
-  if (!transaction) return;
-  const fee = getUpdatedTransactionFee(transaction, feeRate);
-  return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
+  ).then(transaction => {
+    if (!transaction) return;
+    const fee = getUpdatedTransactionFee(transaction, feeRate);
+    return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
+  });
 });
 
 export const localTransactionState = atom(get => {
