@@ -3,6 +3,7 @@ import { Stack } from '@stacks/ui';
 
 import {
   useTransactionRequest,
+  useTransactionRequestCustomFee,
   useUpdateTransactionBroadcastError,
 } from '@store/transactions/requests.hooks';
 import { PopupHeader } from '@pages/transaction-signing/components/popup-header';
@@ -20,8 +21,7 @@ import { AppSetFeeWarning } from './components/app-set-fee-warning';
 export const TransactionPage = memo(() => {
   const transactionRequest = useTransactionRequest();
   const setBroadcastError = useUpdateTransactionBroadcastError();
-  // TODO: pull from data from connect
-  const appHasSetFee = true;
+  const customFee = useTransactionRequestCustomFee();
   if (!transactionRequest) return null;
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const TransactionPage = memo(() => {
         {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
         {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
         {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-        {appHasSetFee && <AppSetFeeWarning uStxFee={1999} />}
+        {!!customFee && <AppSetFeeWarning uStxFee={customFee} />}
         <TransactionsActions />
       </Stack>
     </PopupContainer>

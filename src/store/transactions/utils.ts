@@ -18,14 +18,17 @@ export function getPayloadFromToken(requestToken: string) {
   if (payload.txType === TransactionTypes.ContractCall)
     return payload as ContractCallPayload & {
       attachment?: string;
+      fee?: string | number;
     };
   if (payload.txType === TransactionTypes.ContractDeploy)
     return payload as ContractDeployPayload & {
       attachment?: string;
+      fee?: string | number;
     };
   if (payload.txType === TransactionTypes.STXTransfer)
     return payload as STXTransferPayload & {
       attachment?: string;
+      fee?: string | number;
     };
   return payload;
 }

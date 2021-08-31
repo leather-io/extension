@@ -4,7 +4,7 @@ import { FiInfo } from 'react-icons/fi';
 import { microStxToStx } from '@stacks/ui-utils';
 
 interface AppSetFeeWarningProps {
-  uStxFee: number;
+  uStxFee: number | string;
 }
 export const AppSetFeeWarning: FC<AppSetFeeWarningProps> = ({ uStxFee }) => {
   return (
