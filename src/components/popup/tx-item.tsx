@@ -5,7 +5,7 @@ import type {
   TransactionEventFungibleAsset,
   CoinbaseTransaction,
 } from '@stacks/stacks-blockchain-api-types';
-import { Box, BoxProps, color, Stack } from '@stacks/ui';
+import { Box, BoxProps, Button, color, Stack } from '@stacks/ui';
 import { getContractName, isPendingTx, truncateMiddle } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 
@@ -18,6 +18,7 @@ import { TxItemIcon } from '@components/tx-icon';
 import { Tooltip } from '@components/tooltip';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { usePressable } from '@components/item-hover';
+import { useRawTxIdState } from '@store/transactions/raw.hooks';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -88,8 +89,27 @@ const Status: React.FC<{ transaction: Tx } & BoxProps> = ({ transaction, ...rest
   ) : null;
 };
 
+const SpeedUpButton = ({ txid, isHovered }: { txid: string; isHovered: boolean }) => {
+  const [rawTxId, setTxId] = useRawTxIdState();
+  const isSelected = rawTxId === txid;
+  return (
+    <Button
+      size="sm"
+      mode="tertiary"
+      fontSize={0}
+      onClick={() => setTxId(txid)}
+      zIndex={999}
+      ml="auto"
+      opacity={isSelected || !isHovered ? 0 : 1}
+      pointerEvents={isSelected ? 'none' : 'all'}
+    >
+      Speed up tx
+    </Button>
+  );
+};
+
 export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest }) => {
-  const [component, bind] = usePressable(true);
+  const [component, bind, { isHovered }] = usePressable(true);
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
 
@@ -114,37 +134,38 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
     }
   };
 
+  const value = getTxValue(transaction, isOriginator);
+
   return (
-    <Box
-      onClick={() => handleOpenTxLink(transaction.tx_id)}
-      position="relative"
-      cursor="pointer"
-      {...bind}
-      {...rest}
-    >
+    <Box position="relative" cursor="pointer" {...bind} {...rest}>
       <Stack alignItems="center" spacing="base-loose" isInline position="relative" zIndex={2}>
         <TxItemIcon transaction={transaction} />
-        <Stack flexGrow={1} spacing="base-tight">
-          <SpaceBetween>
+        <SpaceBetween flexGrow={1}>
+          <Stack onClick={() => handleOpenTxLink(transaction.tx_id)}>
             <Title as="h3" fontWeight="normal">
               {getTxTitle(transaction as any)}
             </Title>
-            <Title as="h3" fontWeight="normal">
-              {getTxValue(transaction, isOriginator)}
-            </Title>
-          </SpaceBetween>
-          <Stack isInline>
-            <Status transaction={transaction} />
-            {transaction.tx_type === 'token_transfer' ? (
-              isOriginator ? (
-                <Caption variant="c2">Sent</Caption>
-              ) : (
-                <Caption variant="c2">Received</Caption>
-              )
-            ) : null}
-            <Caption variant="c2">{getTxCaption(transaction)}</Caption>
+            <Stack isInline>
+              <Status transaction={transaction} />
+              {transaction.tx_type === 'token_transfer' ? (
+                isOriginator ? (
+                  <Caption variant="c2">Sent</Caption>
+                ) : (
+                  <Caption variant="c2">Received</Caption>
+                )
+              ) : null}
+              <Caption variant="c2">{getTxCaption(transaction)}</Caption>
+            </Stack>
           </Stack>
-        </Stack>
+          <Stack alignItems="flex-end" spacing="base-tight">
+            {value && (
+              <Title as="h3" fontWeight="normal">
+                {value}
+              </Title>
+            )}
+            <SpeedUpButton isHovered={isHovered} txid={transaction.tx_id} />
+          </Stack>
+        </SpaceBetween>
       </Stack>
       {component}
     </Box>

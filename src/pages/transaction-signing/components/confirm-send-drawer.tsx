@@ -74,7 +74,7 @@ const Actions: React.FC<{
         mode="primary"
         isDisabled={!transaction || isLoading}
         onClick={() => {
-          void handleSubmit();
+          void handleSubmit?.();
         }}
         isLoading={!transaction || isLoading}
       >

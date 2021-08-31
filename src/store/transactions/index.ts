@@ -80,11 +80,9 @@ export type TransactionPayloadWithAttachment = TransactionPayload & {
 export const isUnauthorizedTransactionState = atom<boolean>(false);
 export const transactionBroadcastErrorState = atom<string | null>(null);
 
-export const txForSettingsState = atom(get => {
-  const pending = get(pendingTransactionState);
-  if (pending) return get(signedStacksTransactionState);
-  return get(localTransactionState);
-});
+export const txForSettingsState = atom(get =>
+  get(pendingTransactionState) ? get(signedStacksTransactionState) : get(localTransactionState)
+);
 
 export const txByteSize = atom<number | null>(null);
 
