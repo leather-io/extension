@@ -16,7 +16,7 @@ import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
 import {
   ShowTxSettingsAction,
   ShowTxSettingsPlaceholder,
-} from '@features/tx-settings-drawer/components/show-tx-settings-action';
+} from '@features/fee-nonce-drawers/components/show-tx-settings-action';
 
 const MinimalErrorMessageSuspense = memo((props: StackProps) => {
   const error = useTransactionError();

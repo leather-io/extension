@@ -12,8 +12,8 @@ import { Routes } from './routes';
 
 import { SettingsPopover } from '@features/settings-dropdown/settings-popover';
 import { AppErrorBoundary } from '@features/errors/app-error-boundary';
-import { TransactionSettingsDrawer } from '@features/tx-settings-drawer/transaction-settings-drawer';
-import { SpeedUpTransactionDrawer } from '@features/speed-up-transaction-drawer';
+import { TransactionSettingsDrawer } from '@features/fee-nonce-drawers/transaction-settings-drawer';
+import { SpeedUpTransactionDrawer } from '@features/fee-nonce-drawers/speed-up-transaction-drawer';
 
 export const App: React.FC = () => {
   useEffect(() => {
