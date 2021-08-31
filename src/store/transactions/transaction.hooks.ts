@@ -107,6 +107,7 @@ export function useMakeStxTransfer() {
         nonce: new BN(nonce.toString(), 10),
         anchorMode: AnchorMode.Any,
       };
+
       return makeSTXTokenTransfer(txOptions).then(transaction =>
         updateTransactionFee(transaction, feeRate)
       );
