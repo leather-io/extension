@@ -325,7 +325,6 @@ export const Debugger = () => {
 
   return (
     <Box py={6}>
-      {feeInputForm.values.fee}
       <Text as="h2" textStyle="display.small">
         Debugger
       </Text>
