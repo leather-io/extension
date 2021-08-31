@@ -77,7 +77,7 @@ describe('generated transactions', () => {
       txData,
       senderKey: '8721c6a5237f5e8d361161a7855aa56885a3e19e2ea6ee268fb14eabc5e2ed9001',
       nonce: 0,
-    });
+    } as any);
     expect(tx.postConditionMode).toEqual(PostConditionMode.Allow);
     const postCondition = tx.postConditions.values[0];
     if ('amount' in postCondition) {

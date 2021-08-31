@@ -7,10 +7,11 @@ import { Title } from '@components/typography';
 export interface BaseDrawerProps {
   isShowing: boolean;
   title?: string;
+  pauseOnClickOutside?: boolean;
   onClose: () => void;
 }
 
-function useDrawer(isShowing: boolean, onClose: () => void) {
+function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
   const ref = useRef(null);
 
   const handleKeyDown = useCallback(
@@ -22,50 +23,42 @@ function useDrawer(isShowing: boolean, onClose: () => void) {
     [onClose, isShowing]
   );
 
-  useOnClickOutside(ref, isShowing ? onClose : null);
+  useOnClickOutside(ref, !pause && isShowing ? onClose : null);
   useEventListener('keydown', handleKeyDown);
 
   return ref;
 }
 
-const DrawerHeader = memo(
-  ({
-    title,
-    onClose,
-  }: {
-    title: BaseDrawerProps['title'];
-    onClose: BaseDrawerProps['onClose'];
-  }) => {
-    return (
-      <Flex
-        pb="base"
-        justifyContent="space-between"
-        alignItems="center"
-        pt="extra-loose"
-        px="extra-loose"
-      >
-        {title && (
-          <Title fontSize="20px" lineHeight="28px">
-            {title}
-          </Title>
-        )}
-        <IconButton
-          transform="translateX(8px)"
-          size="36px"
-          iconSize="20px"
-          onClick={onClose}
-          color={color('text-caption')}
-          _hover={{ color: color('text-title') }}
-          icon={IconX}
-        />
-      </Flex>
-    );
-  }
-);
+const DrawerHeader = ({
+  title,
+  onClose,
+}: {
+  title: BaseDrawerProps['title'];
+  onClose: BaseDrawerProps['onClose'];
+}) => {
+  return (
+    <Flex pb="base" justifyContent="space-between" alignItems="center" pt="extra-loose" px="loose">
+      {title && (
+        <Title fontSize="20px" lineHeight="28px">
+          {title}
+        </Title>
+      )}
+      <IconButton
+        transform="translateX(8px)"
+        size="36px"
+        iconSize="20px"
+        onClick={onClose}
+        color={color('text-caption')}
+        _hover={{ color: color('text-title') }}
+        icon={IconX}
+      />
+    </Flex>
+  );
+};
 
 export const BaseDrawer: React.FC<BaseDrawerProps> = memo(props => {
-  const { title, isShowing, onClose, children } = props;
-  const ref = useDrawer(isShowing, onClose);
+  const { title, isShowing, onClose, children, pauseOnClickOutside } = props;
+  const ref = useDrawer(isShowing, onClose, pauseOnClickOutside);
   return (
     <Flex
       bg={`rgba(0,0,0,0.${isShowing ? 4 : 0})`}

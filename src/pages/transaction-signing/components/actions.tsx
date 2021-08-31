@@ -13,6 +13,10 @@ import { TransactionsSelectors } from '@tests/integration/transactions.selectors
 import { useTransactionError } from '../hooks/use-transaction-error';
 import { useTransactionBroadcastError } from '@store/transactions/requests.hooks';
 import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
+import {
+  ShowTxSettingsAction,
+  ShowTxSettingsPlaceholder,
+} from '@features/tx-settings-drawer/components/show-tx-settings-action';
 
 const MinimalErrorMessageSuspense = memo((props: StackProps) => {
   const error = useTransactionError();
@@ -84,22 +88,30 @@ const SubmitActionSuspense = (props: ButtonProps) => {
   }, [setIsLoading, setIsIdle, handleBroadcastTransaction]);
 
   return (
-    <BaseConfirmButton
-      data-testid={TransactionsSelectors.BtnConfirmTransaction}
-      onClick={handleSubmit}
-      isLoading={isLoading}
-      isDisabled={isDisabled}
-      {...props}
-    >
-      Confirm
-    </BaseConfirmButton>
+    <>
+      <BaseConfirmButton
+        data-testid={TransactionsSelectors.BtnConfirmTransaction}
+        onClick={handleSubmit}
+        isLoading={isLoading}
+        isDisabled={isDisabled}
+        {...props}
+      >
+        Confirm
+      </BaseConfirmButton>
+    </>
   );
 };
+
 const SubmitAction = (props: ButtonProps) => {
   return (
-    <React.Suspense fallback={<BaseConfirmButton isLoading isDisabled {...props} />}>
-      <SubmitActionSuspense {...props} />
-    </React.Suspense>
+    <>
+      <React.Suspense fallback={<BaseConfirmButton isLoading isDisabled {...props} />}>
+        <SubmitActionSuspense {...props} />
+      </React.Suspense>
+      <React.Suspense fallback={<ShowTxSettingsPlaceholder />}>
+        <ShowTxSettingsAction />
+      </React.Suspense>
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ import {
   useNetworkOnlineStatusState,
   useUpdateCurrentNetworkKey,
 } from '@store/network/networks.hooks';
-import { showNetworksStore, useShowNetworksStore } from '@store/ui/ui.hooks';
+import { useShowNetworksStore } from '@store/ui/ui.hooks';
 
 const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, ...props }) => {
   const { setShowNetworks } = useDrawers();
@@ -84,7 +84,7 @@ const NetworkList: React.FC<FlexProps> = props => {
 
 export const NetworksDrawer: React.FC = () => {
   const { setShowNetworks } = useDrawers();
-  const isShowing = useShowNetworksStore();
+  const [isShowing] = useShowNetworksStore();
   const doChangeScreen = useDoChangeScreen();
 
   const handleAddNetworkClick = useCallback(() => {
@@ -93,7 +93,11 @@ export const NetworksDrawer: React.FC = () => {
   }, [setShowNetworks, doChangeScreen]);
 
   return (
-    <ControlledDrawer title="Select Network" state={showNetworksStore}>
+    <ControlledDrawer
+      title="Select Network"
+      isShowing={isShowing}
+      onClose={() => setShowNetworks(false)}
+    >
       {isShowing && <NetworkList />}
       <Box pb="loose" width="100%" px="loose" mt="base">
         <Button borderRadius="10px" onClick={handleAddNetworkClick}>

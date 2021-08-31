@@ -6,22 +6,36 @@ import {
   makeSTXTokenTransfer,
   StacksTransaction,
 } from '@stacks/transactions';
-import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
 import BN from 'bn.js';
 import { getPostConditions } from '@common/transactions/postcondition-utils';
 import { ChainID } from '@stacks/common';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
+import {
+  ContractCallOptions,
+  ContractDeployOptions,
+  TokenTransferOptions,
+} from '@common/transactions/transactions';
 
 export const generateContractCallTx = ({
   txData,
   senderKey,
   nonce,
+  fee,
 }: {
-  txData: ContractCallPayload;
+  txData: ContractCallOptions;
   senderKey: string;
   nonce?: number;
+  fee?: number;
 }) => {
-  const { contractName, contractAddress, functionName, functionArgs, sponsored } = txData;
+  const {
+    contractName,
+    contractAddress,
+    functionName,
+    functionArgs,
+    sponsored,
+    postConditionMode,
+    postConditions,
+  } = txData;
   const args = functionArgs.map(arg => {
     return deserializeCV(Buffer.from(arg, 'hex'));
   });
@@ -35,7 +49,7 @@ export const generateContractCallTx = ({
     if (txData.network?.bnsLookupUrl) network.bnsLookupUrl = txData.network?.bnsLookupUrl;
   }
 
-  return makeContractCall({
+  const baseOptions = {
     contractName,
     contractAddress,
     functionName,
@@ -43,56 +57,64 @@ export const generateContractCallTx = ({
     anchorMode: AnchorMode.Any,
     functionArgs: args,
     nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
-    postConditionMode: txData.postConditionMode,
-    postConditions: getPostConditions(txData.postConditions),
+    postConditionMode: postConditionMode,
+    postConditions: getPostConditions(postConditions),
     network,
     sponsored,
-  });
+  };
+  const options = !!fee ? { ...baseOptions, fee: new BN(fee) } : baseOptions;
+  return makeContractCall(options);
 };
 
 export const generateContractDeployTx = ({
   txData,
   senderKey,
   nonce,
+  fee,
 }: {
-  txData: ContractDeployPayload;
+  txData: ContractDeployOptions;
   senderKey: string;
   nonce?: number;
+  fee?: number;
 }) => {
-  const { contractName, codeBody } = txData;
-
-  return makeContractDeploy({
+  const { contractName, codeBody, network, postConditions, postConditionMode } = txData;
+  const baseOptions = {
     contractName,
     codeBody,
     nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
     senderKey,
     anchorMode: AnchorMode.Any,
-    postConditionMode: txData.postConditionMode,
-    postConditions: getPostConditions(txData.postConditions),
-    network: txData.network,
-  });
+    postConditionMode: postConditionMode,
+    postConditions: getPostConditions(postConditions),
+    network,
+  };
+  const options = !!fee ? { ...baseOptions, fee: new BN(fee, 10) } : baseOptions;
+  return makeContractDeploy(options);
 };
 
 export const generateSTXTransferTx = ({
   txData,
   senderKey,
   nonce,
+  fee,
 }: {
-  txData: STXTransferPayload;
+  txData: TokenTransferOptions;
   senderKey: string;
   nonce?: number;
+  fee?: number;
 }) => {
-  const { recipient, memo, amount } = txData;
-
-  return makeSTXTokenTransfer({
+  const { recipient, memo, amount, network } = txData;
+  const baseOptions = {
     recipient,
     memo,
     senderKey,
     anchorMode: AnchorMode.Any,
     amount: new BN(amount),
     nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
-    network: txData.network,
-  });
+    network,
+  };
+  const options = !!fee ? { ...baseOptions, fee: new BN(fee, 10) } : baseOptions;
+  return makeSTXTokenTransfer(options);
 };
 
 export const stacksTransactionToHex = (transaction: StacksTransaction) =>

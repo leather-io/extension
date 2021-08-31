@@ -28,6 +28,8 @@ import {
   signedTransactionState,
   transactionAttachmentState,
   transactionBroadcastErrorState,
+  txByteSize,
+  txForSettingsState,
 } from './index';
 import {
   transactionContractInterfaceState,
@@ -41,6 +43,12 @@ import { handleBroadcastTransaction } from '@common/transactions/transactions';
 import { finalizeTxSignature } from '@common/utils';
 import { makeFungibleTokenTransferState } from './fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
+import { updateTransactionFee } from '@store/transactions/utils';
+import { useAtom } from 'jotai';
+import {
+  localStacksTransactionInputsState,
+  localTransactionState,
+} from '@store/transactions/local-transactions';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -70,12 +78,13 @@ interface TokenTransferParams {
   amount: number;
   recipient: string;
   memo: string;
+  feeRate: number;
 }
 
 export function useMakeStxTransfer() {
   return useAtomCallback<undefined | StacksTransaction, TokenTransferParams>(
     useCallback(async (get, _set, arg) => {
-      const { amount, recipient, memo } = arg;
+      const { amount, recipient, memo, feeRate } = arg;
       const address = get(currentAccountStxAddressState);
       if (!address) return;
       const { network, account, nonce } = await get(
@@ -89,7 +98,7 @@ export function useMakeStxTransfer() {
 
       if (!account || typeof nonce === 'undefined') return;
 
-      return makeSTXTokenTransfer({
+      const txOptions = {
         recipient,
         amount: new BN(stxToMicroStx(amount).toString(), 10),
         memo,
@@ -97,7 +106,10 @@ export function useMakeStxTransfer() {
         network: network as any,
         nonce: new BN(nonce.toString(), 10),
         anchorMode: AnchorMode.Any,
-      });
+      };
+      return makeSTXTokenTransfer(txOptions).then(transaction =>
+        updateTransactionFee(transaction, feeRate)
+      );
     }, [])
   );
 }
@@ -152,7 +164,7 @@ interface PostConditionsOptions {
   amount: string | number;
 }
 
-function makePostCondition(options: PostConditionsOptions): PostCondition {
+export function makePostCondition(options: PostConditionsOptions): PostCondition {
   const { contractAddress, contractName, assetName, stxAddress, amount } = options;
 
   const assetInfo = createAssetInfo(contractAddress, contractName, assetName);
@@ -168,12 +180,13 @@ interface AssetTransferOptions {
   amount: number;
   recipient: string;
   memo: string;
+  feeRate: number;
 }
 
 export function useMakeAssetTransfer() {
   return useAtomCallback<StacksTransaction | undefined, AssetTransferOptions>(
     useCallback(async (get, _set, arg) => {
-      const { amount, recipient, memo } = arg;
+      const { amount, recipient, memo, feeRate } = arg;
       // unstable_async option @see https://github.com/pmndrs/jotai/blob/master/src/core/atom.ts#L8
       // allows you to await a get
       const assetTransferState = await get(makeFungibleTokenTransferState, true);
@@ -235,7 +248,14 @@ export function useMakeAssetTransfer() {
         anchorMode: AnchorMode.Any,
       };
 
-      return makeContractCall(txOptions as any);
+      return makeContractCall(txOptions as any).then(transaction =>
+        updateTransactionFee(transaction, feeRate)
+      );
     }, [])
   );
 }
+
+export const useLocalTransactionInputsState = () => useAtom(localStacksTransactionInputsState);
+export const useLocalTransactionState = () => useAtom(localTransactionState);
+export const useTxForSettingsState = () => useAtom(txForSettingsState);
+export const useTxByteSizeState = () => useAtom(txByteSize);
