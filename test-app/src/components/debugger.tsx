@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, ButtonGroup, Flex, Input, Text } from '@stacks/ui';
-import { useField, useFormik } from 'formik';
+import { useFormik } from 'formik';
 
 import {
   stacksLocalhostNetwork,
