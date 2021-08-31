@@ -152,9 +152,15 @@ export const ftTokenTransferTransactionState = atom(get => {
   });
 });
 
-export const localTransactionState = atom(get => {
+export const localStxTransactionAmountState = atom<null | number>(null);
+
+export const localTransactionIsStxTransferState = atom(get => {
   const selectedAsset = get(selectedAssetStore);
-  return selectedAsset?.type === 'stx'
+  return selectedAsset?.type === 'stx';
+});
+
+export const localTransactionState = atom(get => {
+  return get(localTransactionIsStxTransferState)
     ? get(tokenTransferTransaction)
     : get(ftTokenTransferTransactionState);
 });

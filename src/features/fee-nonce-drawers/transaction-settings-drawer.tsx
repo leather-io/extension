@@ -20,6 +20,7 @@ import { useLoading } from '@common/hooks/use-loading';
 import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
 import { ErrorLabel } from '@components/error-label';
+import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 
 const Messaging = () => {
   return (
@@ -103,7 +104,8 @@ const SettingsForm = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const { setIsLoading, setIsIdle } = useLoading('settings-form');
   const [values, setValues] = useState({ fee: 0, nonce: 0 });
-  const feeSchema = useFeeSchema();
+  const [amount] = useLocalStxTransactionAmount();
+  const feeSchema = useFeeSchema(amount || undefined);
 
   return (
     <Formik
@@ -178,11 +180,17 @@ const SettingsForm = () => {
 
 export const TransactionSettingsDrawer: React.FC = () => {
   const { showTxSettings, setShowTxSettings } = useDrawers();
+  const [, setFeeRateUseCustom] = useFeeRateUseCustom();
+  const [, setFeeRateMultiplierCustom] = useFeeRateMultiplierCustom();
   return (
     <ControlledDrawer
       title="Advanced settings"
       isShowing={showTxSettings}
-      onClose={() => setShowTxSettings(false)}
+      onClose={() => {
+        setShowTxSettings(false);
+        setFeeRateUseCustom(false);
+        setFeeRateMultiplierCustom(undefined);
+      }}
     >
       <Stack px="loose" spacing="loose" pb="extra-loose">
         <Messaging />
