@@ -6,6 +6,7 @@ import {
   feeRateMultiplierState,
   feeRateMultiplierCustomState,
   feeRateUseCustom,
+  currentDefaultFeeState,
 } from '@store/transactions/fees';
 import { useAtom } from 'jotai';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
@@ -15,6 +16,10 @@ import { rawSignedStacksTransactionState } from '@store/transactions/raw';
 
 export function useCurrentFee() {
   return useAtomValue(currentFeeState);
+}
+
+export function useCurrentDefaultFee() {
+  return useAtomValue(currentDefaultFeeState);
 }
 
 export function useFeeRateMultiplier() {
