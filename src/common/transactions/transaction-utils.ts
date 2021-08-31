@@ -15,14 +15,6 @@ import {
   ContractDeployOptions,
   TokenTransferOptions,
 } from '@common/transactions/transactions';
-import { isNumber, isString } from '@common/utils';
-
-function safelyExtractFeeValue(fee: unknown) {
-  if (fee === '') return undefined;
-  if (!isNumber(fee) && !isString(fee)) return undefined;
-  if (!Number.isFinite(parseInt(String(fee)))) return undefined;
-  return new BN(fee, 10);
-}
 
 export const generateContractCallTx = ({
   txData,
@@ -56,7 +48,6 @@ export const generateContractCallTx = ({
     if (txData.network?.coreApiUrl) network.coreApiUrl = txData.network?.coreApiUrl;
     if (txData.network?.bnsLookupUrl) network.bnsLookupUrl = txData.network?.bnsLookupUrl;
   }
-  const parsedFeeValue = safelyExtractFeeValue(txData.fee);
 
   const options = {
     contractName,
@@ -66,10 +57,10 @@ export const generateContractCallTx = ({
     anchorMode: AnchorMode.Any,
     functionArgs: args,
     nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
+    fee: !fee ? new BN(0) : new BN(fee, 10),
     postConditionMode: postConditionMode,
     postConditions: getPostConditions(postConditions),
     network,
-    ...(parsedFeeValue ? { fee: parsedFeeValue } : {}),
     sponsored,
   };
   return makeContractCall(options);
