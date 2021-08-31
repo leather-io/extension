@@ -1,12 +1,15 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Flex, Box, color, Text } from '@stacks/ui';
 import { FiInfo } from 'react-icons/fi';
 import { microStxToStx } from '@stacks/ui-utils';
+import { useTransactionRequestCustomFee } from '@store/transactions/requests.hooks';
+import { useFeeRateUseCustom } from '@store/transactions/fees.hooks';
 
-interface AppSetFeeWarningProps {
-  uStxFee: number | string;
-}
-export const AppSetFeeWarning: FC<AppSetFeeWarningProps> = ({ uStxFee }) => {
+export const AppSetFeeWarning = () => {
+  const uStxFee = useTransactionRequestCustomFee();
+  const [useCustom] = useFeeRateUseCustom();
+  if (!uStxFee || useCustom) return null;
+
   return (
     <Box background={color('bg-alt')} py="base" px="base-loose" borderRadius="10px">
       <Flex>
@@ -14,7 +17,9 @@ export const AppSetFeeWarning: FC<AppSetFeeWarningProps> = ({ uStxFee }) => {
           <FiInfo color={color('accent')} />
         </Box>
         <Box>
-          <Text textStyle="body.small.medium">App has set fee of {microStxToStx(uStxFee)} STX</Text>
+          <Text textStyle="body.small.medium">
+            App has set fee of {microStxToStx(uStxFee.toNumber())} STX
+          </Text>
           <Text
             textStyle="body.small"
             color={color('text-caption')}

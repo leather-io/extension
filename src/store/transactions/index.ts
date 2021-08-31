@@ -29,7 +29,7 @@ export const pendingTransactionState = atom(get => {
 
 export const transactionAttachmentState = atom(get => get(pendingTransactionState)?.attachment);
 
-export const signedStacksTransactionState = atom(get => {
+export const signedStacksTransactionBaseState = atom(get => {
   const account = get(currentAccountState);
   const txData = get(pendingTransactionState);
   const stxAddress = get(currentAccountStxAddressState);
@@ -41,17 +41,22 @@ export const signedStacksTransactionState = atom(get => {
     txData.txType === TransactionTypes.ContractCall &&
     !validateStacksAddress(txData.contractAddress)
   )
-    return;
+    return { transaction: undefined, options: {} };
   const options = {
     senderKey: account.stxPrivateKey,
     nonce: txNonce,
     txData: txData as any,
   };
   return generateSignedTransaction(options).then(transaction => {
-    if (!transaction) return;
-    const fee = getUpdatedTransactionFee(transaction, get(currentFeeRateState));
-    return generateSignedTransaction({ ...options, fee: fee.toNumber() });
+    return { transaction, options };
   });
+});
+
+export const signedStacksTransactionState = atom(get => {
+  const { transaction, options } = get(signedStacksTransactionBaseState);
+  if (!transaction) return;
+  const fee = getUpdatedTransactionFee(transaction, get(currentFeeRateState));
+  return generateSignedTransaction({ ...options, fee: fee.toNumber() });
 });
 
 export const signedTransactionState = atom(get => {

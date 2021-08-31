@@ -1,5 +1,10 @@
 import { broadcastRawTransaction } from '@stacks/transactions';
-import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
+import {
+  STXTransferPayload,
+  TransactionTypes,
+  ContractCallPayload,
+  ContractDeployPayload,
+} from '@stacks/connect';
 import {
   generateContractCallTx,
   generateContractDeployTx,
@@ -7,19 +12,6 @@ import {
 } from '@common/transactions/transaction-utils';
 import { Buffer } from 'buffer';
 import { validateTxId } from '@common/validation/validate-tx-id';
-import {
-  ContractCallPayload,
-  ContractDeployPayload,
-} from '@stacks/connect/dist/types/types/transactions';
-import BN from 'bn.js';
-import { isNumber, isString } from '@common/utils';
-
-function safelyExtractFeeValue(fee: unknown) {
-  if (fee === '') return undefined;
-  if (!isNumber(fee) && !isString(fee)) return undefined;
-  if (!Number.isFinite(parseInt(String(fee)))) return undefined;
-  return new BN(fee, 10);
-}
 
 interface BroadcastTransactionOptions {
   txRaw: string;
@@ -78,7 +70,7 @@ export type ContractCallOptions = Pick<
   | 'postConditionMode'
   | 'postConditions'
   | 'network'
-> & { fee?: number | string | BN };
+>;
 
 export interface TokenTransferOptions {
   txType: TransactionTypes.STXTransfer;
@@ -86,13 +78,12 @@ export interface TokenTransferOptions {
   memo: STXTransferPayload['memo'];
   amount: STXTransferPayload['amount'];
   network: STXTransferPayload['network'];
-  fee?: number | string | BN;
 }
 
 export type ContractDeployOptions = Pick<
   ContractDeployPayload,
   'txType' | 'contractName' | 'codeBody' | 'postConditions' | 'postConditionMode' | 'network'
-> & { fee?: number | string | BN };
+>;
 
 interface GenerateSignedTransactionOptions {
   txData: ContractCallOptions | TokenTransferOptions | ContractDeployOptions;
@@ -102,14 +93,10 @@ interface GenerateSignedTransactionOptions {
 }
 
 export async function generateSignedTransaction(options: GenerateSignedTransactionOptions) {
-  const { txData, senderKey, nonce } = options;
+  const { txData, senderKey, nonce, fee = 0 } = options;
   const isValid = getIsValid(txData.txType);
 
   if (!isValid) throw new Error(`Invalid Transaction Type: ${txData.txType}`);
-
-  // TODO: how to overwrite
-  const customAppFee = safelyExtractFeeValue(txData.fee);
-  const fee = customAppFee?.toNumber() || options.fee;
 
   switch (txData.txType) {
     case TransactionTypes.ContractCall:
