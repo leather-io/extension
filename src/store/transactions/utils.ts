@@ -1,3 +1,6 @@
+import { StacksTransaction } from '@stacks/transactions';
+import BigNumber from 'bignumber.js';
+import BN from 'bn.js';
 import { decodeToken } from 'jsontokens';
 import {
   ContractCallPayload,
@@ -25,4 +28,19 @@ export function getPayloadFromToken(requestToken: string) {
       attachment?: string;
     };
   return payload;
+}
+
+export function getUpdatedTransactionFee(tx: StacksTransaction, _feeRate: number) {
+  const txBytes = new BigNumber(tx.serialize().byteLength);
+  const feeRate = new BigNumber(_feeRate);
+  const newFee = feeRate.multipliedBy(txBytes);
+  return new BN(newFee.toNumber());
+}
+
+export function updateTransactionFee(transaction: StacksTransaction, _feeRate: number) {
+  const txBytes = new BigNumber(transaction.serialize().byteLength);
+  const feeRate = new BigNumber(_feeRate);
+  const newFee = feeRate.multipliedBy(txBytes);
+  transaction.setFee(new BN(newFee.toNumber()));
+  return transaction;
 }

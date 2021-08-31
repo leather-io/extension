@@ -5,11 +5,7 @@ import { AddUsername } from '@components/drawer/accounts/add-username';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { SwitchAccounts } from '../account-switch-drawer/switch-accounts';
 
-import {
-  useShowAccountsStore,
-  useUpdateAccountDrawerStep,
-  showAccountsStore,
-} from '@store/ui/ui.hooks';
+import { useShowAccountsStore, useUpdateAccountDrawerStep } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
 
 export const AccountsDrawer: React.FC = () => {
@@ -34,7 +30,7 @@ export const AccountsDrawer: React.FC = () => {
   };
 
   return (
-    <ControlledDrawer title={getTitle()} state={showAccountsStore} close={close}>
+    <ControlledDrawer title={getTitle()} isShowing={isShowing} onClose={close}>
       {accountStep === AccountStep.Switch && isShowing ? <SwitchAccounts close={close} /> : null}
       {accountStep === AccountStep.Create && isShowing ? <CreateAccount close={close} /> : null}
       {accountStep === AccountStep.Username && isShowing ? <AddUsername close={close} /> : null}

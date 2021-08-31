@@ -1,6 +1,4 @@
-import { useAtomCallback, useAtomValue } from 'jotai/utils';
-
-import { feeRateState } from '@store/common/api-request';
+import { useAtomCallback } from 'jotai/utils';
 import { useCallback } from 'react';
 import { errorStackTraceState } from '@store/ui/ui';
 import { useAtom, WritableAtom } from 'jotai';
@@ -14,15 +12,10 @@ export function useDynamicUseAtom_UNSAFE(state: WritableAtom<boolean, boolean>) 
 
 export const jotaiWrappedReactQueryQueryClient = queryClient;
 
-export function useCurrentFee() {
-  return useAtomValue(feeRateState);
-}
-
 export function useErrorHandler() {
-  const handleOnError = useAtomCallback<void, any>(
+  return useAtomCallback<void, any>(
     useCallback((_get, set, ...arg: any) => {
       set(errorStackTraceState, arg?.[0]?.stack);
     }, [])
   );
-  return handleOnError;
 }

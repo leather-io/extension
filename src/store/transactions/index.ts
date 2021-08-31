@@ -13,6 +13,10 @@ import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
 import { validateStacksAddress } from '@common/stacks-utils';
 
+import { getUpdatedTransactionFee } from '@store/transactions/utils';
+import { currentFeeRateState } from '@store/transactions/fees';
+import { localTransactionState } from '@store/transactions/local-transactions';
+
 export const pendingTransactionState = atom(get => {
   const payload = get(requestTokenPayloadState);
   const postConditions = get(postConditionsState);
@@ -35,11 +39,15 @@ export const signedStacksTransactionState = atom(get => {
     !validateStacksAddress(txData.contractAddress)
   )
     return;
-
-  return generateSignedTransaction({
+  const options = {
     senderKey: account.stxPrivateKey,
     nonce,
     txData: txData as any,
+  };
+  return generateSignedTransaction(options).then(transaction => {
+    if (!transaction) return;
+    const fee = getUpdatedTransactionFee(transaction, get(currentFeeRateState));
+    return generateSignedTransaction({ ...options, fee: fee.toNumber() });
   });
 });
 
@@ -68,6 +76,14 @@ export type TransactionPayloadWithAttachment = TransactionPayload & {
 };
 export const isUnauthorizedTransactionState = atom<boolean>(false);
 export const transactionBroadcastErrorState = atom<string | null>(null);
+
+export const txForSettingsState = atom(get => {
+  const pending = get(pendingTransactionState);
+  if (pending) return get(signedStacksTransactionState);
+  return get(localTransactionState);
+});
+
+export const txByteSize = atom<number | null>(null);
 
 // dev tooling
 postConditionsState.debugLabel = 'postConditionsState';

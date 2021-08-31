@@ -3,6 +3,8 @@ import {
   useShowAccountsStore,
   useShowNetworksStore,
   useShowSettingsStore,
+  useShowTxSettingsCallback,
+  useShowTxSettingsStore,
 } from '@store/ui/ui.hooks';
 
 export function useDrawers() {
@@ -10,6 +12,8 @@ export function useDrawers() {
   const [showAccounts, setShowAccounts] = useShowAccountsStore();
   const [showNetworks, setShowNetworks] = useShowNetworksStore();
   const [showSettings, setShowSettings] = useShowSettingsStore();
+  const [showTxSettings, setShowTxSettings] = useShowTxSettingsStore();
+  const [showTxSettingsCallback, setShowTxSettingsCallback] = useShowTxSettingsCallback();
 
   return {
     accountStep,
@@ -20,5 +24,9 @@ export function useDrawers() {
     setShowNetworks,
     showSettings,
     setShowSettings,
+    showTxSettings,
+    setShowTxSettings,
+    showTxSettingsCallback,
+    setShowTxSettingsCallback,
   };
 }
