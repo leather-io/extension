@@ -19,6 +19,7 @@ import { Tooltip } from '@components/tooltip';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { usePressable } from '@components/item-hover';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
+import { FiFastForward } from 'react-icons/all';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -89,9 +90,18 @@ const Status: React.FC<{ transaction: Tx } & BoxProps> = ({ transaction, ...rest
   ) : null;
 };
 
-const SpeedUpButton = ({ txid, isHovered }: { txid: string; isHovered: boolean }) => {
+const SpeedUpButton = ({
+  txid,
+  isHovered,
+  isEnabled,
+}: {
+  txid: string;
+  isHovered: boolean;
+  isEnabled: boolean;
+}) => {
   const [rawTxId, setTxId] = useRawTxIdState();
   const isSelected = rawTxId === txid;
+  const isActive = isEnabled && !isSelected && isHovered;
   return (
     <Button
       size="sm"
@@ -100,10 +110,15 @@ const SpeedUpButton = ({ txid, isHovered }: { txid: string; isHovered: boolean }
       onClick={() => setTxId(txid)}
       zIndex={999}
       ml="auto"
-      opacity={isSelected || !isHovered ? 0 : 1}
-      pointerEvents={isSelected ? 'none' : 'all'}
+      opacity={!isActive ? 0 : 1}
+      pointerEvents={!isActive ? 'none' : 'all'}
+      color={color('text-body')}
+      _hover={{
+        color: color('text-title'),
+      }}
     >
-      Speed up tx
+      <Box mr="3px" as={FiFastForward} color={color('accent')} />
+      Speed up
     </Button>
   );
 };
@@ -118,6 +133,8 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
   }
 
   const isOriginator = transaction.sender_address === currentAccount?.address;
+
+  const isPending = isPendingTx(transaction as MempoolTransaction);
 
   const getTxTitle = (tx: Tx) => {
     switch (tx.tx_type) {
@@ -163,7 +180,7 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
                 {value}
               </Title>
             )}
-            <SpeedUpButton isHovered={isHovered} txid={transaction.tx_id} />
+            <SpeedUpButton isEnabled={isPending} isHovered={isHovered} txid={transaction.tx_id} />
           </Stack>
         </SpaceBetween>
       </Stack>
