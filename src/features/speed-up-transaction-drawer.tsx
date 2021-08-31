@@ -24,10 +24,8 @@ import {
   useFeeRateMultiplier,
   useFeeRateMultiplierCustom,
   useFeeRateUseCustom,
+  useReplaceByFeeSubmitCallBack,
 } from '@store/transactions/fees.hooks';
-import { useSubmitTransactionCallback } from '@pages/transaction-signing/hooks/use-submit-stx-transaction';
-import { useAtomCallback } from 'jotai/utils';
-import { rawSignedStacksTransactionState } from '@store/transactions/raw';
 import BigNumber from 'bignumber.js';
 import { toast } from 'react-hot-toast';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
@@ -130,7 +128,7 @@ const useFeeSchema = () => {
 const FeeForm = () => {
   const refreshAccountData = useRefreshAllAccountData();
   const [multiplier] = useFeeRateMultiplier();
-  const [multiplierCustom, setMultiplier] = useFeeRateMultiplierCustom();
+  const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setUseCustom] = useFeeRateUseCustom();
   const [, setFeeRate] = useFeeRate();
   const tx = useSelectedTx();
@@ -139,26 +137,31 @@ const FeeForm = () => {
   const [, setTxId] = useRawTxIdState();
   const { nonce, fee } = getFeeNonceFromStacksTransaction(rawTx);
   const schema = useFeeSchema();
-  const submitTransaction = useSubmitTransactionCallback({
-    onClose: () => {
-      setTxId(null);
-      setUseCustom(false);
-      setMultiplier(undefined);
-      setFeeRate(undefined);
-    },
-    loadingKey: 'speed',
-    replaceByFee: true,
-  });
 
-  const handleSubmit = useAtomCallback<void, { fee: number; nonce: number }>(
-    useCallback(
-      async get => {
-        const signedTx = await get(rawSignedStacksTransactionState, true);
-        if (!signedTx) return;
-        await submitTransaction(signedTx);
-      },
-      [submitTransaction]
-    )
+  const handleSubmit = useReplaceByFeeSubmitCallBack();
+
+  const onSubmit = useCallback(
+    async values => {
+      if (multiplierCustom !== multiplier) {
+        setUseCustom(true);
+      }
+      if (!byteSize) return;
+      // TODO: we should do some double checks that nothing changed before submitting
+      await refreshAccountData();
+      const newFeeRate = new BigNumber(values.fee).dividedBy(byteSize);
+      const feeRate = newFeeRate.toNumber();
+      setFeeRate(feeRate);
+      await handleSubmit(values);
+    },
+    [
+      byteSize,
+      handleSubmit,
+      multiplier,
+      multiplierCustom,
+      refreshAccountData,
+      setFeeRate,
+      setUseCustom,
+    ]
   );
 
   useEffect(() => {
@@ -176,18 +179,7 @@ const FeeForm = () => {
         fee,
         nonce,
       }}
-      onSubmit={async values => {
-        if (multiplierCustom !== multiplier) {
-          setUseCustom(true);
-        }
-        if (!byteSize) return;
-        // TODO: we should do some double checks that nothing changed before submitting
-        await refreshAccountData();
-        const newFeeRate = new BigNumber(values.fee).dividedBy(byteSize);
-        const feeRate = newFeeRate.toNumber();
-        setFeeRate(feeRate);
-        await handleSubmit(values);
-      }}
+      onSubmit={onSubmit}
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
