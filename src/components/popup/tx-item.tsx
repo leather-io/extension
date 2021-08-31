@@ -57,7 +57,7 @@ const getTxCaption = (transaction: Tx) => {
     case 'token_transfer':
     case 'coinbase':
     case 'poison_microblock':
-      return truncateMiddle(transaction.tx_id);
+      return truncateMiddle(transaction.tx_id, 4);
     default:
       return null;
   }
@@ -158,19 +158,12 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
       <Stack alignItems="center" spacing="base-loose" isInline position="relative" zIndex={2}>
         <TxItemIcon transaction={transaction} />
         <SpaceBetween flexGrow={1}>
-          <Stack onClick={() => handleOpenTxLink(transaction.tx_id)}>
+          <Stack spacing="base-tight" onClick={() => handleOpenTxLink(transaction.tx_id)}>
             <Title as="h3" fontWeight="normal">
               {getTxTitle(transaction as any)}
             </Title>
             <Stack isInline flexWrap="wrap">
               <Status transaction={transaction} />
-              {transaction.tx_type === 'token_transfer' ? (
-                isOriginator ? (
-                  <Caption variant="c2">Sent</Caption>
-                ) : (
-                  <Caption variant="c2">Received</Caption>
-                )
-              ) : null}
               <Caption variant="c2">{getTxCaption(transaction)}</Caption>
             </Stack>
           </Stack>
