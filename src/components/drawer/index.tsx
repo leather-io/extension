@@ -86,7 +86,7 @@ export const BaseDrawer: React.FC<BaseDrawerProps> = memo(props => {
         transitionDuration="0.4s"
         willChange="transform, opacity"
         width="100%"
-        maxWidth="600px"
+        maxWidth="472px"
         m="auto auto 0"
         bg="white"
         borderTopLeftRadius="24px"

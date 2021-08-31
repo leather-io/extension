@@ -8,6 +8,7 @@ import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 interface FieldProps extends StackProps {
   value: number;
   error?: string;
+  autoFocus?: boolean;
 }
 
 const multipliers = [2, 5, 10];
@@ -30,6 +31,18 @@ const Multipliers = (props: StackProps) => {
 
   return (
     <Stack alignItems="center" isInline {...props}>
+      {current && (
+        <MultiplierButton
+          multiplier={1}
+          current={current}
+          onClick={() => {
+            update(undefined);
+          }}
+          key={`multiply-1`}
+        >
+          x
+        </MultiplierButton>
+      )}
       {multipliers.map(multiplier => (
         <MultiplierButton
           multiplier={multiplier}
@@ -46,7 +59,7 @@ const Multipliers = (props: StackProps) => {
   );
 };
 
-export const FeeField = memo(({ value, error, ...props }: FieldProps) => {
+export const FeeField = memo(({ value, error, autoFocus, ...props }: FieldProps) => {
   const { setFieldValue } = useFormikContext();
   const [multiplier] = useFeeRateMultiplier();
   const [multiplierCustom] = useFeeRateMultiplierCustom();
@@ -82,6 +95,7 @@ export const FeeField = memo(({ value, error, ...props }: FieldProps) => {
           }}
           placeholder="Enter a custom fee"
           autoComplete="off"
+          autoFocus={autoFocus}
         />
       </InputGroup>
       {error && (
