@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Box, Button, Spinner, Stack } from '@stacks/ui';
+import { Box, Button, Spinner, Stack, Text } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { Caption } from '@components/typography';
 import {
@@ -31,6 +31,15 @@ import { rawSignedStacksTransactionState } from '@store/transactions/raw';
 import BigNumber from 'bignumber.js';
 import { toast } from 'react-hot-toast';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
+import { stxAmountSchema } from '@common/validation/currency-schema';
+import { STX_DECIMALS } from '@common/constants';
+import { isNumber } from '@common/utils';
+import { stxToMicroStx } from '@stacks/ui-utils';
+import {
+  formatInsufficientBalanceError,
+  formatPrecisionError,
+} from '@pages/send-tokens/hooks/use-send-form-validation';
+import { ErrorLabel } from '@components/error-label';
 
 const useSelectedTx = () => {
   const [rawTxId] = useRawTxIdState();
@@ -87,6 +96,11 @@ const FormInner = ({
   return (
     <Stack spacing="base">
       <FeeField autoFocus value={formikProps.values.fee} />
+      {formikProps.errors.fee && (
+        <ErrorLabel mb="base">
+          <Text textStyle="caption">{formikProps.errors.fee}</Text>
+        </ErrorLabel>
+      )}
       <Balance />
     </Stack>
   );
@@ -96,6 +110,22 @@ const getFeeNonceFromStacksTransaction = (tx?: StacksTransaction) => ({
   fee: tx?.auth.spendingCondition?.fee.toNumber() || 0,
   nonce: tx?.auth.spendingCondition?.nonce.toNumber() || 0,
 });
+
+const useFeeSchema = () => {
+  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  return useCallback(
+    () =>
+      stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS)).test({
+        message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
+        test(fee: unknown) {
+          if (!availableStxBalance || !isNumber(fee)) return false;
+          const availableBalanceLessFee = availableStxBalance.minus(fee);
+          return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(fee));
+        },
+      }),
+    [availableStxBalance]
+  );
+};
 
 const FeeForm = () => {
   const refreshAccountData = useRefreshAllAccountData();
@@ -108,6 +138,7 @@ const FeeForm = () => {
   const byteSize = useRawStacksTransactionByteSizeState();
   const [, setTxId] = useRawTxIdState();
   const { nonce, fee } = getFeeNonceFromStacksTransaction(rawTx);
+  const schema = useFeeSchema();
   const submitTransaction = useSubmitTransactionCallback({
     onClose: () => {
       setTxId(null);
@@ -126,7 +157,7 @@ const FeeForm = () => {
         if (!signedTx) return;
         await submitTransaction(signedTx);
       },
-      [submitTransaction, setUseCustom, setMultiplier, setFeeRate]
+      [submitTransaction]
     )
   );
 
@@ -161,7 +192,7 @@ const FeeForm = () => {
       validateOnBlur={false}
       validateOnMount={false}
       validationSchema={yup.object({
-        fee: yup.number(),
+        fee: schema(),
       })}
     >
       {formikProps => (
