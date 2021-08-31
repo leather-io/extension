@@ -1,4 +1,4 @@
-import React, { memo, Suspense, useCallback, useState } from 'react';
+import React, { memo, Suspense, useCallback, useEffect, useState } from 'react';
 import { Box, Text, Button, Stack } from '@stacks/ui';
 import { Formik, useFormikContext } from 'formik';
 
@@ -21,6 +21,12 @@ import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-
 import { ConfirmSendDrawer } from '@pages/transaction-signing/components/confirm-send-drawer';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { SendFormMemoWarning } from './components/memo-warning';
+import {
+  useLocalTransactionInputsState,
+  useTxForSettingsState,
+} from '@store/transactions/transaction.hooks';
+import { useLoading } from '@common/hooks/use-loading';
+import { useDrawers } from '@common/hooks/use-drawers';
 
 type Amount = number | '';
 
@@ -43,6 +49,7 @@ interface SendFormProps {
 
 const SendForm = (props: SendFormProps) => {
   const { assetError } = props;
+  const { isLoading } = useLoading('send-tokens');
 
   const doChangeScreen = useDoChangeScreen();
   const { selectedAsset } = useSelectedAsset();
@@ -93,6 +100,7 @@ const SendForm = (props: SendFormProps) => {
             onClick={onSubmit}
             isDisabled={!hasValues}
             data-testid={SendFormSelectors.BtnPreviewSendTx}
+            isLoading={isLoading}
           >
             Preview
           </Button>
@@ -102,19 +110,49 @@ const SendForm = (props: SendFormProps) => {
   );
 };
 
+const ShowDelay = ({
+  setShowing,
+  beginShow,
+  isShowing,
+}: {
+  setShowing: (value: boolean) => void;
+  beginShow: boolean;
+  isShowing: boolean;
+}) => {
+  const [tx] = useTxForSettingsState();
+  const [txData] = useLocalTransactionInputsState();
+  useEffect(() => {
+    if (beginShow && tx && !isShowing && txData) {
+      setShowing(true);
+    }
+  }, [beginShow, tx, setShowing, txData, isShowing]);
+
+  return null;
+};
+
 export const SendTokensForm: React.FC = memo(() => {
+  const { setIsIdle, setIsLoading } = useLoading('send-tokens');
+
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>();
   const { selectedAsset } = useSelectedAsset();
   const sendFormSchema = useSendFormValidation({ setAssetError });
-
+  const [, setTxData] = useLocalTransactionInputsState();
+  const [beginShow, setBeginShow] = useState(false);
+  const { showTxSettings } = useDrawers();
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
         if (values.amount && values.recipient && values.recipient !== '' && selectedAsset)
           if (!assetError) {
-            setShowing(true);
+            setTxData({
+              memo: values.memo,
+              recipient: values.recipient,
+              amount: values.amount,
+            });
+            setIsLoading();
+            setBeginShow(true);
           }
       }}
       validateOnChange={false}
@@ -124,15 +162,20 @@ export const SendTokensForm: React.FC = memo(() => {
     >
       {form => (
         <>
+          {beginShow && (
+            <React.Suspense fallback={<></>}>
+              <ShowDelay setShowing={setShowing} beginShow={beginShow} isShowing={isShowing} />
+            </React.Suspense>
+          )}
           <React.Suspense fallback={<></>}>
             <ConfirmSendDrawer
               onClose={() => {
                 setShowing(false);
                 form.setSubmitting(false);
+                setTxData(null);
+                setIsIdle();
               }}
-              {...form.values}
-              amount={form.values.amount || 0}
-              isShowing={isShowing}
+              isShowing={isShowing && !showTxSettings}
             />
           </React.Suspense>
           <React.Suspense fallback={<></>}>

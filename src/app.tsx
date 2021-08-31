@@ -12,6 +12,7 @@ import { Routes } from './routes';
 
 import { SettingsPopover } from '@features/settings-dropdown/settings-popover';
 import { AppErrorBoundary } from '@features/errors/app-error-boundary';
+import { TransactionSettingsDrawer } from '@features/transaction-settings-drawer';
 
 export const App: React.FC = () => {
   useEffect(() => {
@@ -29,6 +30,7 @@ export const App: React.FC = () => {
               <Routes />
               <AccountsDrawer />
               <NetworksDrawer />
+              <TransactionSettingsDrawer />
               <SettingsPopover />
             </AppErrorBoundary>
             <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />

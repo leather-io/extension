@@ -8,12 +8,14 @@ import {
   showNetworksStore,
   showSettingsStore,
   tabState,
+  showTxSettingsStore,
+  showTxSettingsCallback,
 } from './ui';
 
 // HACK: `ControlledDrawer` requires the state to be passed in to the component
 // This goes against the pattern of only exposing an interface to the store
 // via hooks, and couples the implementation details of the component tree and store
-export { showNetworksStore, showAccountsStore };
+export { showNetworksStore, showAccountsStore, showTxSettingsStore };
 
 export function useAccountDrawerStep() {
   return useAtom(accountDrawerStep);
@@ -37,6 +39,12 @@ export function useShowNetworksStore() {
 
 export function useShowSettingsStore() {
   return useAtom(showSettingsStore);
+}
+export function useShowTxSettingsStore() {
+  return useAtom(showTxSettingsStore);
+}
+export function useShowTxSettingsCallback() {
+  return useAtom(showTxSettingsCallback);
 }
 
 export function useLoadingStore(key: string) {

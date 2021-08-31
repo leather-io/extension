@@ -1,5 +1,5 @@
 import { broadcastRawTransaction } from '@stacks/transactions';
-import { TransactionPayload, TransactionTypes } from '@stacks/connect';
+import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import {
   generateContractCallTx,
   generateContractDeployTx,
@@ -7,6 +7,10 @@ import {
 } from '@common/transactions/transaction-utils';
 import { Buffer } from 'buffer';
 import { validateTxId } from '@common/validation/validate-tx-id';
+import {
+  ContractCallPayload,
+  ContractDeployPayload,
+} from '@stacks/connect/dist/types/types/transactions';
 
 interface BroadcastTransactionOptions {
   txRaw: string;
@@ -54,28 +58,52 @@ function getIsValid(txType: TransactionTypes) {
   );
 }
 
-interface GenerateSignedTransactionOptions {
-  senderKey: string;
-  nonce?: number;
-  txData: TransactionPayload;
+export type ContractCallOptions = Pick<
+  ContractCallPayload,
+  | 'txType'
+  | 'contractName'
+  | 'contractAddress'
+  | 'functionName'
+  | 'functionArgs'
+  | 'sponsored'
+  | 'postConditionMode'
+  | 'postConditions'
+  | 'network'
+>;
+
+export interface TokenTransferOptions {
+  txType: TransactionTypes.STXTransfer;
+  recipient: STXTransferPayload['recipient'];
+  memo: STXTransferPayload['memo'];
+  amount: STXTransferPayload['amount'];
+  network: STXTransferPayload['network'];
 }
 
-export async function generateSignedTransaction({
-  txData,
-  senderKey,
-  nonce,
-}: GenerateSignedTransactionOptions) {
+export type ContractDeployOptions = Pick<
+  ContractDeployPayload,
+  'txType' | 'contractName' | 'codeBody' | 'postConditions' | 'postConditionMode' | 'network'
+>;
+
+interface GenerateSignedTransactionOptions {
+  txData: ContractCallOptions | TokenTransferOptions | ContractDeployOptions;
+  senderKey: string;
+  nonce?: number;
+  fee?: number;
+}
+
+export async function generateSignedTransaction(options: GenerateSignedTransactionOptions) {
+  const { txData, senderKey, nonce, fee } = options;
   const isValid = getIsValid(txData.txType);
 
   if (!isValid) throw new Error(`Invalid Transaction Type: ${txData.txType}`);
 
   switch (txData.txType) {
     case TransactionTypes.ContractCall:
-      return generateContractCallTx({ txData, senderKey, nonce });
+      return generateContractCallTx({ txData, senderKey, nonce, fee });
     case TransactionTypes.ContractDeploy:
-      return generateContractDeployTx({ txData, senderKey, nonce });
+      return generateContractDeployTx({ txData, senderKey, nonce, fee });
     case TransactionTypes.STXTransfer:
-      return generateSTXTransferTx({ txData, senderKey, nonce });
+      return generateSTXTransferTx({ txData, senderKey, nonce, fee });
     default:
       break;
   }

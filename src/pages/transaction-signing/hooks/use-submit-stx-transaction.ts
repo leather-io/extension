@@ -58,17 +58,19 @@ export function useHandleSubmitTransaction({
           if (nonce) await doSetLatestNonce(nonce);
           // TODO: we can do more detailed toasts using data from the TX, eg `Nice! you just sent 5 xUSD to ST23...2323`
           toast.success('Transaction submitted!');
+          doChangeScreen(ScreenPaths.HOME);
+          onClose();
+          setIsIdle();
+          // switch active tab to activity
+          setActiveTabActivity();
           await refreshAccountData(550); // delay to give the api time to receive the tx
         }
       } catch (e) {
         toast.error('Something went wrong');
+        onClose();
+        setIsIdle();
       }
     }
-    onClose();
-    setIsIdle();
-    // switch active tab to activity
-    setActiveTabActivity();
-    doChangeScreen(ScreenPaths.HOME);
   }, [
     refreshAccountData,
     setActiveTabActivity,

@@ -1,1 +1,3 @@
 export const DEFAULT_POLLING_INTERVAL = 30000;
+export const DEFAULT_FEE_RATE = 400;
+export const DEFAULT_FEE_RATE_MULTIPLIER = 1;

@@ -1,13 +1,11 @@
-import React, { useCallback } from 'react';
-import { useDynamicUseAtom_UNSAFE, WritableAtom } from '@store/common/common.hooks';
-
+import React from 'react';
 import { BaseDrawer } from '.';
 
 interface ControlledDrawerProps {
   /** The atom used to represent the visibility state of this drawer */
-  state: WritableAtom<boolean, boolean>;
   /** An optional callback that is fired _after_ visibility has been turned off. */
-  close?: () => void;
+  onClose: () => void;
+  isShowing: boolean;
   title: string;
 }
 
@@ -16,19 +14,13 @@ interface ControlledDrawerProps {
  * It expects an atom to be used that manages the visibility of this drawer.
  */
 export const ControlledDrawer: React.FC<ControlledDrawerProps> = ({
-  state,
-  close: _close,
+  onClose,
+  isShowing,
   title,
   children,
 }) => {
-  const [isShowing, setShowing] = useDynamicUseAtom_UNSAFE(state);
-  const close = useCallback(() => {
-    setShowing(false);
-    _close?.();
-  }, [setShowing, _close]);
-
   return (
-    <BaseDrawer title={title} isShowing={isShowing} onClose={close}>
+    <BaseDrawer title={title} isShowing={isShowing} onClose={onClose}>
       {children}
     </BaseDrawer>
   );
