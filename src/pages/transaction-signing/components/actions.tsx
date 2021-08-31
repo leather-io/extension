@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { Box, Button, ButtonProps, color, Stack, StackProps } from '@stacks/ui';
+import { Box, Button, ButtonProps, color, Flex, Stack, StackProps } from '@stacks/ui';
 import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
@@ -11,12 +11,16 @@ import { TransactionErrorReason } from './transaction-error';
 import { LoadingRectangle } from '@components/loading-rectangle';
 import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
 import { useTransactionError } from '../hooks/use-transaction-error';
-import { useTransactionBroadcastError } from '@store/transactions/requests.hooks';
+import {
+  useTransactionBroadcastError,
+  useTransactionRequestCustomFee,
+} from '@store/transactions/requests.hooks';
 import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
 import {
   ShowTxSettingsAction,
   ShowTxSettingsPlaceholder,
 } from '@features/fee-nonce-drawers/components/show-tx-settings-action';
+import { HighFeeWarningLabel } from './app-set-fee-warning';
 
 const MinimalErrorMessageSuspense = memo((props: StackProps) => {
   const error = useTransactionError();
@@ -116,15 +120,22 @@ const SubmitAction = (props: ButtonProps) => {
 };
 
 const FeeRowItemSuspense = () => {
+  const customFee = useTransactionRequestCustomFee();
   return (
     <SpaceBetween>
-      <Caption>Fees</Caption>
+      <Caption>
+        <Flex>
+          Fees
+          {!!customFee && <HighFeeWarningLabel uStxFee={1000} appName="StacksPunks" />}
+        </Flex>
+      </Caption>
       <Caption>
         <FeeComponent />
       </Caption>
     </SpaceBetween>
   );
 };
+
 const FeeRowItemFallback = () => {
   return (
     <SpaceBetween>
