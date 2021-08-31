@@ -52,7 +52,7 @@ export const AmountField = memo((props: AmountFieldProps) => {
           {balances && selectedAsset ? (
             <SendMaxWithSuspense
               showButton={Boolean(balances && selectedAsset)}
-              onSetMax={fee => handleSetSendMax(fee)}
+              onSetMax={feeRate => handleSetSendMax(feeRate)}
             />
           ) : null}
         </Box>
