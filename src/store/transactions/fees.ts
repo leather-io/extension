@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 import { DEFAULT_FEE_RATE, DEFAULT_FEE_RATE_MULTIPLIER } from '@store/common/constants';
-import { signedTransactionState } from '@store/transactions/index';
-import { localTransactionState } from '@store/transactions/local-transactions';
+import { txForSettingsState } from '@store/transactions/index';
 import { transactionRequestCustomFeeRateState } from '@store/transactions/requests';
+import { getUpdatedTransactionFee } from '@store/transactions/utils';
 
 export const feeRateMultiplierCustomState = atom<number | undefined>(undefined);
 export const feeRateUseCustom = atom<boolean>(false);
@@ -28,7 +28,12 @@ export const feeRateState = atom<number, number | undefined>(
 export const currentFeeRateState = atom(get => get(feeRateState) * get(feeRateMultiplierState));
 
 export const currentFeeState = atom(get => {
-  const localTx = get(localTransactionState);
-  const remoteTx = get(signedTransactionState);
-  return localTx?.auth.spendingCondition?.fee.toNumber() || remoteTx?.fee || 0;
+  const transaction = get(txForSettingsState);
+  return transaction?.auth.spendingCondition?.fee.toNumber() || 0;
+});
+
+export const currentDefaultFeeState = atom(get => {
+  const transaction = get(txForSettingsState);
+  if (!transaction) return;
+  return getUpdatedTransactionFee(transaction, DEFAULT_FEE_RATE);
 });
