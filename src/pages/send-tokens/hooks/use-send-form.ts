@@ -18,11 +18,11 @@ export function useSendAmountFieldActions({
   const isStx = selectedAsset?.type === 'stx';
 
   const handleSetSendMax = useCallback(
-    (fee: number) => {
+    (feeRate: number) => {
       if (!selectedAsset || !balance) return;
       if (isStx) {
         const txFee = microStxToStx(
-          new BigNumber(fee ?? 1).multipliedBy(STX_TRANSFER_TX_SIZE_BYTES).toString()
+          new BigNumber(feeRate ?? 1).multipliedBy(STX_TRANSFER_TX_SIZE_BYTES).toString()
         );
         const stx = microStxToStx(availableStxBalance || 0).minus(txFee);
         if (stx.isLessThanOrEqualTo(0)) return;
