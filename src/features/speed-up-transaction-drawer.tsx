@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Box, Button, Spinner, Stack } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { Caption } from '@components/typography';
@@ -29,6 +29,8 @@ import { useSubmitTransactionCallback } from '@pages/transaction-signing/hooks/u
 import { useAtomCallback } from 'jotai/utils';
 import { rawSignedStacksTransactionState } from '@store/transactions/raw';
 import BigNumber from 'bignumber.js';
+import { toast } from 'react-hot-toast';
+import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 
 const useSelectedTx = () => {
   const [rawTxId] = useRawTxIdState();
@@ -90,24 +92,29 @@ const FormInner = ({
   );
 };
 
-const getFeeNonceFromStacksTransaction = (tx: StacksTransaction) => ({
-  fee: tx.auth.spendingCondition?.fee.toNumber() || 0,
-  nonce: tx.auth.spendingCondition?.nonce.toNumber() || 0,
+const getFeeNonceFromStacksTransaction = (tx?: StacksTransaction) => ({
+  fee: tx?.auth.spendingCondition?.fee.toNumber() || 0,
+  nonce: tx?.auth.spendingCondition?.nonce.toNumber() || 0,
 });
 
 const FeeForm = () => {
+  const refreshAccountData = useRefreshAllAccountData();
   const [multiplier] = useFeeRateMultiplier();
-  const [multiplierCustom] = useFeeRateMultiplierCustom();
+  const [multiplierCustom, setMultiplier] = useFeeRateMultiplierCustom();
   const [, setUseCustom] = useFeeRateUseCustom();
   const [, setFeeRate] = useFeeRate();
   const tx = useSelectedTx();
   const rawTx = useRawStacksTransactionState();
   const byteSize = useRawStacksTransactionByteSizeState();
   const [, setTxId] = useRawTxIdState();
-  if (!tx || !rawTx) return null;
   const { nonce, fee } = getFeeNonceFromStacksTransaction(rawTx);
   const submitTransaction = useSubmitTransactionCallback({
-    onClose: () => setTxId(null),
+    onClose: () => {
+      setTxId(null);
+      setUseCustom(false);
+      setMultiplier(undefined);
+      setFeeRate(undefined);
+    },
     loadingKey: 'speed',
     replaceByFee: true,
   });
@@ -119,9 +126,19 @@ const FeeForm = () => {
         if (!signedTx) return;
         await submitTransaction(signedTx);
       },
-      [submitTransaction]
+      [submitTransaction, setUseCustom, setMultiplier, setFeeRate]
     )
   );
+
+  useEffect(() => {
+    if (tx?.tx_status !== 'pending' && rawTx) {
+      setTxId(null);
+      toast('Your transaction went through! No need to speed it up.');
+    }
+  }, [rawTx, tx?.tx_status, setTxId]);
+
+  if (!tx || !rawTx) return null;
+
   return (
     <Formik
       initialValues={{
@@ -133,6 +150,8 @@ const FeeForm = () => {
           setUseCustom(true);
         }
         if (!byteSize) return;
+        // TODO: we should do some double checks that nothing changed before submitting
+        await refreshAccountData();
         const newFeeRate = new BigNumber(values.fee).dividedBy(byteSize);
         const feeRate = newFeeRate.toNumber();
         setFeeRate(feeRate);

@@ -171,6 +171,8 @@ export const accountTransactionsUnanchoredClient = atomFamilyWithInfiniteQuery<
   }
 );
 
+const droppedCache = new Map();
+
 export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfiniteQuery<
   PrincipalWithLimitNetworkUrl,
   PaginatedResults<MempoolTransaction>
@@ -188,7 +190,7 @@ export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfinite
     // TODO: remove these extra fetches when the api has been fixed
     const promises = data.results
       // only want to fetch ones of status pending
-      .filter(tx => tx.tx_status === 'pending')
+      .filter(tx => tx.tx_status === 'pending' && !droppedCache.has(tx.tx_id))
       .map(
         async item =>
           (await transactionsApi.getTransactionById({ txId: item.tx_id })) as MempoolTransaction
@@ -197,7 +199,16 @@ export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfinite
     return {
       ...data,
       // we don't want to display and dropped txs
-      results: results.filter(tx => tx.tx_status === 'pending'),
+      results: results.filter(tx => {
+        if (droppedCache.has(tx.tx_id)) return false;
+        if (tx.tx_status !== 'pending') {
+          // because stale txs persist in the mempool endpoint
+          // we should cache dropped txids to prevent unneeded fetches
+          droppedCache.set(tx.tx_id, true);
+          return false;
+        }
+        return true;
+      }),
     } as PaginatedResults<MempoolTransaction>;
   },
   {
