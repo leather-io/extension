@@ -33,11 +33,8 @@ import { stxAmountSchema } from '@common/validation/currency-schema';
 import { STX_DECIMALS } from '@common/constants';
 import { isNumber } from '@common/utils';
 import { stxToMicroStx } from '@stacks/ui-utils';
-import {
-  formatInsufficientBalanceError,
-  formatPrecisionError,
-} from '@pages/send-tokens/hooks/use-send-form-validation';
 import { ErrorLabel } from '@components/error-label';
+import { formatInsufficientBalanceError, formatPrecisionError } from '@common/error-formatters';
 
 const useSelectedTx = () => {
   const [rawTxId] = useRawTxIdState();

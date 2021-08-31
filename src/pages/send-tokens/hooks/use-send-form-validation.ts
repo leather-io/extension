@@ -2,10 +2,9 @@ import * as yup from 'yup';
 import BigNumber from 'bignumber.js';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-import { microStxToStx } from '@common/stacks-utils';
 import { STX_DECIMALS, STX_TRANSFER_TX_SIZE_BYTES } from '@common/constants';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
-import { countDecimals, initBigNumber, isNumber } from '@common/utils';
+import { countDecimals, isNumber } from '@common/utils';
 import { transactionMemoSchema } from '@common/validation/validate-memo';
 import { stxToMicroStx } from '@stacks/ui-utils';
 import { stxAmountSchema } from '@common/validation/currency-schema';
@@ -15,37 +14,8 @@ import {
   stxNotCurrentAddressValidatorFactory,
 } from '@common/validation/stx-address-schema';
 import { useCallback, useMemo } from 'react';
-
-export enum SendFormErrorMessages {
-  IncorrectAddressMode = 'The address is for the incorrect Stacks network',
-  InvalidAddress = 'The address you provided is not valid',
-  SameAddress = 'Cannot send to yourself',
-  AmountRequired = 'You must specify an amount',
-  MustNotBeZero = 'Must be more than zero',
-  DoesNotSupportDecimals = 'This token does not support decimal places',
-  InsufficientBalance = 'Insufficient balance. Your available balance is:',
-  MustSelectAsset = 'You must select a valid token to transfer',
-  TooMuchPrecision = '{token} can only have {decimals} decimals',
-  MemoExceedsLimit = 'Memo must be less than 34-bytes',
-}
-
-export function formatPrecisionError(symbol: string, decimals: number) {
-  const error = SendFormErrorMessages.TooMuchPrecision;
-  return error.replace('{token}', symbol).replace('{decimals}', String(decimals));
-}
-
-export function formatInsufficientBalanceError(
-  availableBalance?: BigNumber | string,
-  symbol?: string
-) {
-  if (!availableBalance || !symbol) return;
-  const isStx = symbol === 'STX';
-  const amount = initBigNumber(availableBalance);
-  const formattedAmount = isStx ? microStxToStx(amount).toString() : amount.toString(10);
-  return `${SendFormErrorMessages.InsufficientBalance} ${
-    amount.lt(0) ? '0' : formattedAmount
-  } ${symbol}`;
-}
+import { SendFormErrorMessages } from '@common/error-messages';
+import { formatInsufficientBalanceError, formatPrecisionError } from '@common/error-formatters';
 
 interface UseSendFormValidationArgs {
   setAssetError(error: string): void;
