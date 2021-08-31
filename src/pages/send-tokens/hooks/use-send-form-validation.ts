@@ -29,12 +29,15 @@ export enum SendFormErrorMessages {
   MemoExceedsLimit = 'Memo must be less than 34-bytes',
 }
 
-function formatPrecisionError(symbol: string, decimals: number) {
+export function formatPrecisionError(symbol: string, decimals: number) {
   const error = SendFormErrorMessages.TooMuchPrecision;
   return error.replace('{token}', symbol).replace('{decimals}', String(decimals));
 }
 
-function formatInsufficientBalanceError(availableBalance?: BigNumber | string, symbol?: string) {
+export function formatInsufficientBalanceError(
+  availableBalance?: BigNumber | string,
+  symbol?: string
+) {
   if (!availableBalance || !symbol) return;
   const isStx = symbol === 'STX';
   const amount = initBigNumber(availableBalance);
