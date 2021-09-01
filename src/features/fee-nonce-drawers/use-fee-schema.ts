@@ -20,8 +20,7 @@ export const useFeeSchema = (amountToSend?: number) => {
           test(feeInput: unknown) {
             if (!availableStxBalance || !isNumber(feeInput)) return false;
             const fee = stxToMicroStx(feeInput);
-            const availableBalanceLessFee = availableStxBalance.minus(fee);
-            return availableBalanceLessFee.isGreaterThanOrEqualTo(fee);
+            return availableStxBalance.isGreaterThanOrEqualTo(fee);
           },
         })
         .test((feeInput: unknown, context) => {
