@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Box, Button, Spinner, Stack, Text } from '@stacks/ui';
+import { Box, Button, Spinner, Stack } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { Caption } from '@components/typography';
 import {
@@ -29,7 +29,6 @@ import {
 import BigNumber from 'bignumber.js';
 import { toast } from 'react-hot-toast';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
-import { ErrorLabel } from '@components/error-label';
 import { useFeeSchema } from './use-fee-schema';
 import { microStxToStx } from '@stacks/ui-utils';
 
@@ -55,13 +54,12 @@ const Balance = () => {
 
 const Actions = ({ formikProps }: { formikProps: FormikProps<{ nonce: number; fee: number }> }) => {
   const { isLoading } = useLoading(LOADING_KEYS.INCREASE_FEE_DRAWER);
-  const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setRawTxId] = useRawTxIdState();
   const rawTx = useRawStacksTransactionState();
 
   const oldFee = rawTx?.auth.spendingCondition?.fee.toNumber() || 0;
   const newFee = formikProps.values.fee;
-  const isSame = !multiplierCustom && oldFee === newFee;
+  const isSame = oldFee === stxToMicroStx(newFee).toNumber();
 
   return (
     <Stack isInline>
@@ -81,21 +79,11 @@ const Actions = ({ formikProps }: { formikProps: FormikProps<{ nonce: number; fe
     </Stack>
   );
 };
-const FormInner = ({
-  formikProps,
-}: {
-  formikProps: FormikProps<{ nonce: number; fee: number }>;
-}) => {
+const FormInner = () => {
   const byteSize = useRawStacksTransactionByteSizeState();
-
   return (
     <Stack spacing="base">
       <FeeField byteSize={byteSize} />
-      {formikProps.errors.fee && (
-        <ErrorLabel mb="base">
-          <Text textStyle="caption">{formikProps.errors.fee}</Text>
-        </ErrorLabel>
-      )}
       <Balance />
     </Stack>
   );
@@ -166,7 +154,7 @@ const FeeForm = () => {
       {formikProps => (
         <Stack spacing="extra-loose">
           {tx && <TxItem position="relative" zIndex={99} transaction={tx} />}
-          <FormInner formikProps={formikProps} />
+          <FormInner />
           <Actions formikProps={formikProps} />
         </Stack>
       )}
