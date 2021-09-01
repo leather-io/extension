@@ -23,6 +23,7 @@ import { useLocalStxTransactionAmount } from '@store/transactions/local-transact
 import { Link } from '@components/link';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 import { useShowEditNonceCleanupEffect, useShowEditNonceState } from '@store/ui/ui.hooks';
+import { isValidUrl } from '@common/validation/validate-url';
 
 const EditNonce = () => {
   const [showNonce, setShowNonce] = useShowEditNonceState();
@@ -56,7 +57,7 @@ const Messaging = () => {
         Apply a higher fee to help your transaction confirm quickly, especially when the network is
         congested by other transactions.
       </Caption>
-      <Link fontSize="14px" onClick={() => openInNewTab(url)}>
+      <Link fontSize="14px" onClick={() => isValidUrl(url) && openInNewTab(url)}>
         Learn more...
       </Link>
     </>
