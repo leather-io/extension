@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.16.0
+
+### Minor Changes
+
+- [#1639](https://github.com/blockstack/stacks-wallet-web/pull/1639) [`c051ef56c`](https://github.com/blockstack/stacks-wallet-web/commit/c051ef56c53b72903837fd05691013ebc12b7b86) Thanks [@aulneau](https://github.com/aulneau)! - This update adds the ability for users to update the fee for a given transaction. Additionally, users can now update the fee for a pending transaction (replace by fee), to increase the miner incentives for that transaction.
+
 ## 2.15.2
 
 ### Patch Changes
