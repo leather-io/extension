@@ -21,7 +21,7 @@ import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
 import { ErrorLabel } from '@components/error-label';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
-import { stxToMicroStx } from '@stacks/ui-utils';
+import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 
 const Messaging = () => {
   return (
@@ -57,20 +57,20 @@ const SettingsFormInner = ({
   const { setFieldValue } = formikProps;
 
   useEffect(() => {
-    setFieldValue('fee', fee);
+    if (fee) setFieldValue('fee', microStxToStx(fee).toString());
     setFieldValue('nonce', nonce);
   }, [setFieldValue, fee, nonce]);
 
   return (
     <>
       <Stack>
-        <FeeField value={formikProps.values.fee} />
+        <FeeField />
         {formikProps.errors.fee && (
           <ErrorLabel mb="base">
             <Text textStyle="caption">{formikProps.errors.fee}</Text>
           </ErrorLabel>
         )}
-        <NonceField value={formikProps.values.nonce} />
+        <NonceField />
       </Stack>
       <Stack isInline>
         <Button
@@ -94,19 +94,29 @@ const SettingsFormInner = ({
     </>
   );
 };
+
 const SettingsForm = () => {
   const [multiplier] = useFeeRateMultiplier();
   const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setUseCustom] = useFeeRateUseCustom();
-  const [, setFeeRate] = useFeeRate();
-  const [, setCustomNonce] = useCustomNonce();
+  const [feeRate, setFeeRate] = useFeeRate();
+  const [customNonce, setCustomNonce] = useCustomNonce();
   const { setShowTxSettings } = useDrawers();
   const [byteSize] = useTxByteSizeState();
   const [isEnabled, setIsEnabled] = useState(false);
   const { setIsLoading, setIsIdle } = useLoading('settings-form');
-  const [values, setValues] = useState({ fee: 0, nonce: 0 });
   const [amount] = useLocalStxTransactionAmount();
   const feeSchema = useFeeSchema(amount ? stxToMicroStx(amount) : undefined);
+
+  console.log({
+    multiplier,
+    multiplierCustom,
+    byteSize,
+    isEnabled,
+    amount,
+    feeRate,
+    customNonce,
+  });
 
   return (
     <Formik
@@ -116,12 +126,8 @@ const SettingsForm = () => {
           setUseCustom(true);
         }
         if (!byteSize) return;
-        const newFeeRate = new BigNumber(values.fee).dividedBy(byteSize);
+        const newFeeRate = new BigNumber(stxToMicroStx(values.fee)).dividedBy(byteSize);
         const feeRate = newFeeRate.toNumber();
-        setValues({
-          fee: values.fee,
-          nonce: values.nonce,
-        });
         setFeeRate(feeRate);
         setCustomNonce(values.nonce);
         setIsLoading();
@@ -154,8 +160,8 @@ const SettingsForm = () => {
             fallback={
               <>
                 <Stack>
-                  <FeeField value={values.fee} />
-                  <NonceField value={values.nonce} />
+                  <FeeField />
+                  <NonceField />
                 </Stack>
                 <Stack isInline>
                   <Button flexGrow={1} borderRadius="10px" mode="tertiary">

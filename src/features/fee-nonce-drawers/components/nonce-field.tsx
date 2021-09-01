@@ -1,15 +1,11 @@
 import React, { memo } from 'react';
-import { useFormikContext } from 'formik';
+import { useField } from 'formik';
 import { Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { ErrorLabel } from '@components/error-label';
 
-interface FieldProps extends StackProps {
-  value: number;
-  error?: string;
-}
 // TODO: this should use a new "Field" component (with inline label like in figma)
-export const NonceField = memo(({ value, error, ...props }: FieldProps) => {
-  const { handleChange } = useFormikContext();
+export const NonceField = memo((props: StackProps) => {
+  const [field, meta] = useField('nonce');
 
   return (
     <Stack width="100%" {...props}>
@@ -21,16 +17,14 @@ export const NonceField = memo(({ value, error, ...props }: FieldProps) => {
           display="block"
           type="number"
           width="100%"
-          name="nonce"
-          value={value}
-          onChange={handleChange}
           placeholder="Enter a custom nonce"
           autoComplete="off"
+          {...field}
         />
       </InputGroup>
-      {error && (
+      {meta.error && (
         <ErrorLabel>
-          <Text textStyle="caption">{error}</Text>
+          <Text textStyle="caption">{meta.error}</Text>
         </ErrorLabel>
       )}
     </Stack>
