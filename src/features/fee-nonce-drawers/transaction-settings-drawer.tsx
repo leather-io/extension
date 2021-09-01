@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 
 import { Button, color, Stack } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
@@ -124,16 +124,15 @@ const SettingsFormInner = ({
   );
 };
 
-const SettingsForm = () => {
+const SettingsForm = ({ onClose }: { onClose: () => void }) => {
   const [multiplier] = useFeeRateMultiplier();
   const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setUseCustom] = useFeeRateUseCustom();
   const [, setFeeRate] = useFeeRate();
   const [, setCustomNonce] = useCustomNonce();
-  const { setShowTxSettings } = useDrawers();
   const [byteSize] = useTxByteSizeState();
   const [isEnabled, setIsEnabled] = useState(false);
-  const { setIsLoading, setIsIdle } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
+  const { setIsLoading } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
   const [amount] = useLocalStxTransactionAmount();
   const feeSchema = useFeeSchema(amount ? stxToMicroStx(amount) : undefined);
 
@@ -166,13 +165,7 @@ const SettingsForm = () => {
         <>
           {isEnabled && (
             <Suspense fallback={<></>}>
-              <SuspenseOnMount
-                isEnabled={isEnabled}
-                onMountCallback={() => {
-                  setShowTxSettings(false);
-                  setIsIdle();
-                }}
-              />
+              <SuspenseOnMount isEnabled={isEnabled} onMountCallback={onClose} />
             </Suspense>
           )}
           <Suspense
@@ -209,25 +202,18 @@ export const TransactionSettingsDrawer: React.FC = () => {
 
   useShowEditNonceCleanupEffect();
 
-  useEffect(() => {
-    if (isLoading && !showTxSettings) {
-      setIsIdle();
-    }
-  }, [isLoading, showTxSettings, setIsIdle]);
+  const handleOnClose = useCallback(() => {
+    setShowTxSettings(false);
+    setFeeRateUseCustom(false);
+    setFeeRateMultiplierCustom(undefined);
+    if (isLoading) setIsIdle();
+  }, [isLoading, setFeeRateMultiplierCustom, setFeeRateUseCustom, setIsIdle, setShowTxSettings]);
 
   return (
-    <ControlledDrawer
-      title="Advanced settings"
-      isShowing={showTxSettings}
-      onClose={() => {
-        setShowTxSettings(false);
-        setFeeRateUseCustom(false);
-        setFeeRateMultiplierCustom(undefined);
-      }}
-    >
+    <ControlledDrawer title="Advanced settings" isShowing={showTxSettings} onClose={handleOnClose}>
       <Stack px="loose" spacing="loose" pb="extra-loose">
         <Messaging />
-        {showTxSettings && <SettingsForm />}
+        {showTxSettings && <SettingsForm onClose={handleOnClose} />}
       </Stack>
     </ControlledDrawer>
   );

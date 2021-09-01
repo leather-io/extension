@@ -55,6 +55,8 @@ export function useSubmitTransactionCallback({
         const response = await broadcastTransaction(transaction, stacksNetwork as any);
         if (typeof response !== 'string') {
           toast.error(getErrorMessage(response.reason));
+          onClose();
+          setIsIdle();
         } else {
           if (nonce) await doSetLatestNonce(nonce);
           toast.success('Transaction submitted!');

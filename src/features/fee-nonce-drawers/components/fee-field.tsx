@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useField } from 'formik';
 import { Button, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { ErrorLabel } from '@components/error-label';
@@ -15,8 +15,10 @@ const MultiplierButton = ({ multiplier, ...rest }: any) => (
 
 interface MultipliersProps extends StackProps {
   showReset?: boolean;
+
   onSelectMultiplier(multiplier: number): void;
 }
+
 const Multipliers = ({ onSelectMultiplier, showReset, ...props }: MultipliersProps) => {
   return (
     <Stack alignItems="center" isInline {...props}>
@@ -41,14 +43,26 @@ const Multipliers = ({ onSelectMultiplier, showReset, ...props }: MultipliersPro
 interface FeeField extends StackProps {
   byteSize: number;
 }
+
 export const FeeField = ({ byteSize, ...props }: FeeField) => {
   const [field, meta, helpers] = useField('fee');
   const [feeRate] = useFeeRate();
+  const [modified, setModified] = useState(false);
 
   const showResetMultiplier = useMemo(() => {
+    if (modified) return true;
     if (!byteSize) return false;
     return byteSize * feeRate !== stxToMicroStx(field.value);
-  }, [byteSize, feeRate, field.value]);
+  }, [modified, byteSize, feeRate, field.value]);
+
+  const onSelectMultiplier = useCallback(
+    (multiplier: number) => {
+      if (!byteSize) return;
+      setModified(multiplier !== 1);
+      helpers.setValue(microStxToStx(feeRate * byteSize * multiplier));
+    },
+    [byteSize, feeRate, helpers]
+  );
 
   return (
     <>
@@ -62,10 +76,7 @@ export const FeeField = ({ byteSize, ...props }: FeeField) => {
           zIndex={99}
           position="absolute"
           showReset={showResetMultiplier}
-          onSelectMultiplier={multiplier => {
-            if (!byteSize) return;
-            helpers.setValue(microStxToStx(feeRate * byteSize * multiplier));
-          }}
+          onSelectMultiplier={onSelectMultiplier}
         />
         <InputGroup flexDirection="column">
           <Text as="label" display="block" mb="tight" fontSize={1} fontWeight="500" htmlFor="fee">

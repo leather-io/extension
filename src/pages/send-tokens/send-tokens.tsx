@@ -25,9 +25,15 @@ import {
   useLocalTransactionInputsState,
   useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
-import { useLoading } from '@common/hooks/use-loading';
+import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
+import {
+  useFeeRate,
+  useFeeRateMultiplierCustom,
+  useFeeRateUseCustom,
+} from '@store/transactions/fees.hooks';
+import { useCustomNonce } from '@store/transactions/nonce.hooks';
 
 type Amount = number | '';
 
@@ -140,9 +146,26 @@ const ShowDelay = ({
   return null;
 };
 
+const useResetFeesCallback = () => {
+  const { showTxSettings, setShowTxSettings } = useDrawers();
+  const [, setFeeRateUseCustom] = useFeeRateUseCustom();
+  const [, setFeeRateMultiplierCustom] = useFeeRateMultiplierCustom();
+  const { isLoading, setIsIdle } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
+  const [, setFeeRate] = useFeeRate();
+  const [, setCustomNonce] = useCustomNonce();
+
+  return () => {
+    if (showTxSettings) setShowTxSettings(false);
+    setFeeRateUseCustom(false);
+    setFeeRateMultiplierCustom(undefined);
+    setFeeRate(undefined);
+    setCustomNonce(undefined);
+    if (isLoading) setIsIdle();
+  };
+};
+
 export const SendTokensForm: React.FC = memo(() => {
   const { setIsIdle, setIsLoading } = useLoading('send-tokens');
-
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>();
   const { selectedAsset } = useSelectedAsset();
@@ -150,6 +173,16 @@ export const SendTokensForm: React.FC = memo(() => {
   const [, setTxData] = useLocalTransactionInputsState();
   const [beginShow, setBeginShow] = useState(false);
   const { showTxSettings } = useDrawers();
+  const resetFeesCallback = useResetFeesCallback();
+
+  const handleConfirmDrawerOnClose = (setSubmitting: (value: boolean) => void) => {
+    setShowing(false);
+    setSubmitting(false);
+    setTxData(null);
+    setIsIdle();
+    resetFeesCallback();
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -179,12 +212,7 @@ export const SendTokensForm: React.FC = memo(() => {
           )}
           <React.Suspense fallback={<></>}>
             <ConfirmSendDrawer
-              onClose={() => {
-                setShowing(false);
-                form.setSubmitting(false);
-                setTxData(null);
-                setIsIdle();
-              }}
+              onClose={() => handleConfirmDrawerOnClose(form.setSubmitting)}
               isShowing={isShowing && !showTxSettings}
             />
           </React.Suspense>
