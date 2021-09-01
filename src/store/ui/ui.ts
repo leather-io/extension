@@ -29,6 +29,7 @@ export const showTxSettingsStore = atom(false);
 export const showTxSettingsCallback = atom<(() => Promise<void>) | undefined>(undefined);
 
 export const errorStackTraceState = atom<string | null>(null);
+export const showEditNonceState = atom(false);
 
 accountDrawerStep.debugLabel = 'accountDrawerStep';
 showAccountsStore.debugLabel = 'showAccountsStore';

@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
-import { Button, Stack } from '@stacks/ui';
+import { Button, color, Stack } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
 import { NonceField } from '@features/fee-nonce-drawers/components/nonce-field';
@@ -21,6 +21,25 @@ import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
+import { useShowEditNonceCleanupEffect, useShowEditNonceState } from '@store/ui/ui.hooks';
+
+const EditNonce = () => {
+  const [showNonce, setShowNonce] = useShowEditNonceState();
+  return !showNonce ? (
+    <Caption
+      pt="tight"
+      _hover={{
+        cursor: 'pointer',
+        color: color('accent'),
+      }}
+      onClick={() => setShowNonce(true)}
+    >
+      Edit nonce
+    </Caption>
+  ) : (
+    <NonceField />
+  );
+};
 
 const Messaging = () => {
   return (
@@ -66,7 +85,7 @@ const SettingsFormInner = ({
     <>
       <Stack>
         {byteSize && <FeeField byteSize={byteSize} />}
-        <NonceField />
+        <EditNonce />
       </Stack>
       <Stack isInline>
         <Button
@@ -147,7 +166,7 @@ const SettingsForm = () => {
               <>
                 <Stack>
                   {byteSize && <FeeField byteSize={byteSize} />}
-                  <NonceField />
+                  <EditNonce />
                 </Stack>
                 <Stack isInline>
                   <Button flexGrow={1} borderRadius="10px" mode="tertiary">
@@ -172,6 +191,9 @@ export const TransactionSettingsDrawer: React.FC = () => {
   const { showTxSettings, setShowTxSettings } = useDrawers();
   const [, setFeeRateUseCustom] = useFeeRateUseCustom();
   const [, setFeeRateMultiplierCustom] = useFeeRateMultiplierCustom();
+
+  useShowEditNonceCleanupEffect();
+
   return (
     <ControlledDrawer
       title="Advanced settings"
