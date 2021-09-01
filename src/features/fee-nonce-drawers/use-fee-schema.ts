@@ -5,6 +5,7 @@ import { formatInsufficientBalanceError, formatPrecisionError } from '@common/er
 import { STX_DECIMALS } from '@common/constants';
 import { isNumber } from '@common/utils';
 import BigNumber from 'bignumber.js';
+import { stxToMicroStx } from '@stacks/ui-utils';
 
 /**
  * @param amountToSend stx amount in µSTX
@@ -13,20 +14,38 @@ export const useFeeSchema = (amountToSend?: number) => {
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   return useCallback(
     () =>
-      stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS)).test({
-        message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
-        test(fee: unknown) {
-          if (!availableStxBalance || !isNumber(fee)) return false;
-          const availableBalanceLessFee = availableStxBalance.minus(fee);
-          const hasEnoughStx = availableBalanceLessFee.isGreaterThanOrEqualTo(fee);
-          if (!hasEnoughStx) return false;
-          if (amountToSend) {
-            const amountWithFee = new BigNumber(amountToSend).plus(fee);
-            return amountWithFee.isLessThanOrEqualTo(availableStxBalance);
+      stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS))
+        .test({
+          message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
+          test(feeInput: unknown) {
+            if (!availableStxBalance || !isNumber(feeInput)) return false;
+            const fee = stxToMicroStx(feeInput);
+            const availableBalanceLessFee = availableStxBalance.minus(fee);
+            const hasEnoughStx = availableBalanceLessFee.isGreaterThanOrEqualTo(fee);
+            if (!hasEnoughStx) return false;
+            return true;
+          },
+        })
+        .test((feeInput: unknown, context) => {
+          if (!availableStxBalance || !isNumber(feeInput)) return false;
+          // Don't test when value is undefined
+          const fee = stxToMicroStx(feeInput);
+          if (amountToSend === undefined) return true;
+          const amountWithFee = new BigNumber(amountToSend).plus(fee);
+          console.log(
+            amountWithFee.isGreaterThan(availableStxBalance),
+            amountWithFee.toString(),
+            amountToSend,
+            fee
+          );
+          if (amountWithFee.isGreaterThan(availableStxBalance)) {
+            return context.createError({
+              message:
+                'The fee added now exceeds your current STX balance. Consider lowering the amount being sent.',
+            });
           }
           return true;
-        },
-      }),
+        }),
     [availableStxBalance, amountToSend]
   );
 };
