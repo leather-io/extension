@@ -18,7 +18,7 @@ import { useLoading } from '@common/hooks/use-loading';
 
 import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
 import { StacksTransaction } from '@stacks/transactions';
-import { stacksValue } from '@common/stacks-utils';
+import { stacksValue, stxToMicroStx } from '@common/stacks-utils';
 import {
   useFeeRate,
   useFeeRateMultiplier,
@@ -86,7 +86,7 @@ const FormInner = ({
 }) => {
   return (
     <Stack spacing="base">
-      <FeeField autoFocus value={formikProps.values.fee} />
+      <FeeField />
       {formikProps.errors.fee && (
         <ErrorLabel mb="base">
           <Text textStyle="caption">{formikProps.errors.fee}</Text>
@@ -125,7 +125,7 @@ const FeeForm = () => {
       if (!byteSize) return;
       // TODO: we should do some double checks that nothing changed before submitting
       await refreshAccountData();
-      const newFeeRate = new BigNumber(values.fee).dividedBy(byteSize);
+      const newFeeRate = new BigNumber(stxToMicroStx(values.fee)).dividedBy(byteSize);
       const feeRate = newFeeRate.toNumber();
       setFeeRate(feeRate);
       await handleSubmit(values);
@@ -152,10 +152,7 @@ const FeeForm = () => {
 
   return (
     <Formik
-      initialValues={{
-        fee,
-        nonce,
-      }}
+      initialValues={{ fee, nonce }}
       onSubmit={onSubmit}
       validateOnChange={false}
       validateOnBlur={false}
