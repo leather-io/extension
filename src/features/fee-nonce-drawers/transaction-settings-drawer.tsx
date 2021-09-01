@@ -43,14 +43,22 @@ const EditNonce = () => {
 };
 
 const Messaging = () => {
-  const url = '';
+  const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
+
+  const openInNewTab = (url: string) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+    if (newWindow) newWindow.opener = null;
+  };
+
   return (
     <>
       <Caption>
         Apply a higher fee to help your transaction confirm quickly, especially when the network is
         congested by other transactions.
       </Caption>
-      <Link onClick={() => window.open(url, '_blank')}>Learn more...</Link>
+      <Link fontSize="14px" onClick={() => openInNewTab(url)}>
+        Learn more...
+      </Link>
     </>
   );
 };
