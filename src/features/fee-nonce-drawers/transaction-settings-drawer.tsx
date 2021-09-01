@@ -16,7 +16,7 @@ import {
   useFeeRateUseCustom,
 } from '@store/transactions/fees.hooks';
 import { useCustomNonce } from '@store/transactions/nonce.hooks';
-import { useLoading } from '@common/hooks/use-loading';
+import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
@@ -80,7 +80,7 @@ const SettingsFormInner = ({
 }: {
   formikProps: FormikProps<{ nonce: number; fee: number }>;
 }) => {
-  const { isLoading } = useLoading('settings-form');
+  const { isLoading } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
   const [transaction] = useTxForSettingsState();
   const fee = transaction?.auth.spendingCondition?.fee.toNumber();
   const nonce = transaction?.auth.spendingCondition?.nonce.toNumber();
@@ -133,7 +133,7 @@ const SettingsForm = () => {
   const { setShowTxSettings } = useDrawers();
   const [byteSize] = useTxByteSizeState();
   const [isEnabled, setIsEnabled] = useState(false);
-  const { setIsLoading, setIsIdle } = useLoading('settings-form');
+  const { setIsLoading, setIsIdle } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
   const [amount] = useLocalStxTransactionAmount();
   const feeSchema = useFeeSchema(amount ? stxToMicroStx(amount) : undefined);
 
@@ -205,8 +205,15 @@ export const TransactionSettingsDrawer: React.FC = () => {
   const { showTxSettings, setShowTxSettings } = useDrawers();
   const [, setFeeRateUseCustom] = useFeeRateUseCustom();
   const [, setFeeRateMultiplierCustom] = useFeeRateMultiplierCustom();
+  const { isLoading, setIsIdle } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
 
   useShowEditNonceCleanupEffect();
+
+  useEffect(() => {
+    if (isLoading && !showTxSettings) {
+      setIsIdle();
+    }
+  }, [isLoading, showTxSettings, setIsIdle]);
 
   return (
     <ControlledDrawer

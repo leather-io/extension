@@ -13,6 +13,7 @@ import { useRawTxIdState } from '@store/transactions/raw.hooks';
 import { useSubmitTransactionCallback } from '@pages/transaction-signing/hooks/use-submit-stx-transaction';
 import { useCallback } from 'react';
 import { rawSignedStacksTransactionState } from '@store/transactions/raw';
+import { LOADING_KEYS } from '@common/hooks/use-loading';
 
 export function useCurrentFee() {
   return useAtomValue(currentFeeState);
@@ -55,7 +56,7 @@ export const useReplaceByFeeSubmitCallBack = () => {
       setMultiplier(undefined);
       setFeeRate(undefined);
     },
-    loadingKey: 'speed',
+    loadingKey: LOADING_KEYS.INCREASE_FEE_DRAWER,
     replaceByFee: true,
   });
 

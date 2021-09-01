@@ -14,7 +14,7 @@ import {
 } from '@store/accounts/account.hooks';
 import * as yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { useLoading } from '@common/hooks/use-loading';
+import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 
 import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
 import { StacksTransaction } from '@stacks/transactions';
@@ -54,7 +54,7 @@ const Balance = () => {
 };
 
 const Actions = ({ formikProps }: { formikProps: FormikProps<{ nonce: number; fee: number }> }) => {
-  const { isLoading } = useLoading('speed');
+  const { isLoading } = useLoading(LOADING_KEYS.INCREASE_FEE_DRAWER);
   const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setRawTxId] = useRawTxIdState();
   const rawTx = useRawStacksTransactionState();
@@ -185,6 +185,12 @@ const Content = () => {
 
 export const SpeedUpTransactionDrawer: React.FC = () => {
   const [rawTxId, setRawTxId] = useRawTxIdState();
+  const { isLoading, setIsIdle } = useLoading(LOADING_KEYS.INCREASE_FEE_DRAWER);
+  useEffect(() => {
+    if (isLoading && !rawTxId) {
+      setIsIdle();
+    }
+  }, [isLoading, rawTxId, setIsIdle]);
   return (
     <ControlledDrawer
       title="Increase transaction fee"
