@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/47</span>
+                <span class='fraction'>0/53</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
@@ -240,32 +240,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,7 +260,26 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -289,7 +289,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -326,9 +326,9 @@ interface ExtensionResponse {
 &nbsp;
 const callAndReceive<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = async (</span></span>
   methodName: CallableMethods | 'getURL',
-  opts: any<span class="branch-0 cbranch-no" title="branch not covered" > = {}</span>
+  opts: any = <span class="branch-0 cbranch-no" title="branch not covered" >{}</span>
 ): Promise&lt;ExtensionResponse&gt; =&gt; {
-  return <span class="cstat-no" title="statement not covered" >new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  return new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    console.log(`BlockstackApp.${methodName}:`, opts);</span>
     const timeout = <span class="cstat-no" title="statement not covered" >setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >      reject('Unable to get response from Blockstack extension');</span>
@@ -359,30 +359,30 @@ const isValidEvent<span class="cstat-no" title="statement not covered" ><span cl
   const { data } = <span class="cstat-no" title="statement not covered" >event;</span>
   const correctSource = <span class="cstat-no" title="statement not covered" >data.source === MESSAGE_SOURCE;</span>
   const correctMethod = <span class="cstat-no" title="statement not covered" >data.method === method;</span>
-  return <span class="cstat-no" title="statement not covered" >correctSource &amp;&amp; correctMethod &amp;&amp; !!data.payload;</span>
+<span class="cstat-no" title="statement not covered" >  return correctSource &amp;&amp; correctMethod &amp;&amp; !!data.payload;</span>
 };
 &nbsp;
-const provider: StacksProvider = {
+const provider: StacksProvider = <span class="cstat-no" title="statement not covered" >{</span>
   getURL<span class="fstat-no" title="function not covered" >: async () =&gt; {</span>
-    const { url<span class="cstat-no" title="statement not covered" > } = await callAndReceive('getURL');</span>
-    return <span class="cstat-no" title="statement not covered" >url;</span>
+    const { url } = <span class="cstat-no" title="statement not covered" >await callAndReceive('getURL');</span>
+<span class="cstat-no" title="statement not covered" >    return url;</span>
   },
   authenticationRequest<span class="fstat-no" title="function not covered" >: async a</span>uthenticationRequest =&gt; {
-    const event = new CustomEvent&lt;AuthenticationRequestEventDetails&gt;(
+    const event = <span class="cstat-no" title="statement not covered" >new CustomEvent&lt;AuthenticationRequestEventDetails&gt;(</span>
       DomEventName.authenticationRequest,
       {
         detail: { authenticationRequest },
       }
     );
 <span class="cstat-no" title="statement not covered" >    document.dispatchEvent(event);</span>
-    return <span class="cstat-no" title="statement not covered" >new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
       const handleMessage<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (e</span>vent: MessageEvent&lt;AuthenticationResponseMessage&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (!isValidEvent(event, ExternalMethods.authenticationResponse<span class="cstat-no" title="statement not covered" >)) return;</span></span>
-<span class="cstat-no" title="statement not covered" >        if (event.data.payload?.authenticationRequest !== authenticationRequest<span class="cstat-no" title="statement not covered" >) return;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!isValidEvent(event, ExternalMethods.authenticationResponse)) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (event.data.payload?.authenticationRequest !== authenticationRequest) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >        window.removeEventListener('message', handleMessage);</span>
 <span class="cstat-no" title="statement not covered" >        if (event.data.payload.authenticationResponse === 'cancel') {</span>
 <span class="cstat-no" title="statement not covered" >          reject(event.data.payload.authenticationResponse);</span>
-          return;
+<span class="cstat-no" title="statement not covered" >          return;</span>
         }
 <span class="cstat-no" title="statement not covered" >        resolve(event.data.payload.authenticationResponse);</span>
       };
@@ -390,18 +390,18 @@ const provider: StacksProvider = {
     });
   },
   transactionRequest<span class="fstat-no" title="function not covered" >: async t</span>ransactionRequest =&gt; {
-    const event = new CustomEvent&lt;TransactionRequestEventDetails&gt;(DomEventName.transactionRequest, {
+    const event = <span class="cstat-no" title="statement not covered" >new CustomEvent&lt;TransactionRequestEventDetails&gt;(DomEventName.transactionRequest, {</span>
       detail: { transactionRequest },
     });
 <span class="cstat-no" title="statement not covered" >    document.dispatchEvent(event);</span>
-    return <span class="cstat-no" title="statement not covered" >new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
       const handleMessage<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (e</span>vent: MessageEvent&lt;TransactionResponseMessage&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (!isValidEvent(event, ExternalMethods.transactionResponse<span class="cstat-no" title="statement not covered" >)) return;</span></span>
-<span class="cstat-no" title="statement not covered" >        if (event.data.payload?.transactionRequest !== transactionRequest<span class="cstat-no" title="statement not covered" >) return;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!isValidEvent(event, ExternalMethods.transactionResponse)) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (event.data.payload?.transactionRequest !== transactionRequest) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >        window.removeEventListener('message', handleMessage);</span>
 <span class="cstat-no" title="statement not covered" >        if (event.data.payload.transactionResponse === 'cancel') {</span>
 <span class="cstat-no" title="statement not covered" >          reject(event.data.payload.transactionResponse);</span>
-          return;
+<span class="cstat-no" title="statement not covered" >          return;</span>
         }
 <span class="cstat-no" title="statement not covered" >        if (typeof event.data.payload.transactionResponse !== 'string') {</span>
 <span class="cstat-no" title="statement not covered" >          resolve(event.data.payload.transactionResponse);</span>
@@ -411,7 +411,7 @@ const provider: StacksProvider = {
     });
   },
 <span class="fstat-no" title="function not covered" >  getProductInfo(</span>) {
-    return {
+<span class="cstat-no" title="statement not covered" >    return {</span>
       version: VERSION,
       name: 'Hiro Wallet for Web',
       meta: {
@@ -430,7 +430,7 @@ const provider: StacksProvider = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

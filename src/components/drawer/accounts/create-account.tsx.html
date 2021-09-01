@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -127,16 +127,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -144,6 +137,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,15 +175,15 @@ interface CreateAccountProps {
 &nbsp;
 const TIMEOUT = <span class="cstat-no" title="statement not covered" >3000;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >CreateAccount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;CreateAccountProps&gt; = ({ c</span></span>lose }) =&gt; {</span>
-  const { doCreateNewAccount<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+export const <span class="cstat-no" title="statement not covered" >CreateAccount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;CreateAccountProps&gt; = ({</span></span> close }) =&gt; {</span>
+  const { doCreateNewAccount }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const [isSetting, setSetting<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
   const [hasFired, setHasFired<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
 &nbsp;
-  const createAccount = useCallback(async () =&gt; {
+  const createAccount<span class="cstat-no" title="statement not covered" > = useCallback(async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!isSetting) {</span>
 <span class="cstat-no" title="statement not covered" >      setSetting(true);</span>
-      await <span class="cstat-no" title="statement not covered" >doCreateNewAccount();</span>
+<span class="cstat-no" title="statement not covered" >      await doCreateNewAccount();</span>
 <span class="cstat-no" title="statement not covered" >      setSetting(false);</span>
 <span class="cstat-no" title="statement not covered" >      window.setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; <span class="cstat-no" title="statement not covered" >c</span>lose(), T</span>IMEOUT);</span>
     }
@@ -192,11 +192,11 @@ export const <span class="cstat-no" title="statement not covered" >CreateAccount
   useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (!hasFired) {</span>
 <span class="cstat-no" title="statement not covered" >      setHasFired(true);</span>
-      void <span class="cstat-no" title="statement not covered" >createAccount();</span>
+<span class="cstat-no" title="statement not covered" >      void createAccount();</span>
     }
   }, [createAccount, hasFired]);
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Box width="100%" px="extra-loose"&gt;
       &lt;Stack spacing="base"&gt;
         &lt;Body&gt;Your new account has been created.&lt;/Body&gt;
@@ -223,7 +223,7 @@ export const <span class="cstat-no" title="statement not covered" >CreateAccount
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

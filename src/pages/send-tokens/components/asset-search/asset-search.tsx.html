@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/50</span>
+                <span class='fraction'>18/54</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.59% </span>
+                <span class="strong">38.64% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/39</span>
+                <span class='fraction'>17/44</span>
             </div>
         
             
@@ -275,7 +275,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -307,7 +307,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,17 +350,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -371,6 +360,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -432,10 +432,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useMemo, forwardRef, useEffect } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react';</span></span></span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useMemo, forwardRef, useEffect } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react';</span></span></span></span>
 import { Box, Fade, Text, Flex, Input, color, Stack, StackProps } from '@stacks/ui';
 import { useCombobox } from 'downshift';
 &nbsp;
@@ -459,18 +459,18 @@ interface AssetSearchResultsProps extends StackProps {
   getItemProps: any;
 }
 const AssetSearchResults = forwardRef(
-  ({ isOpen, highlightedIndex, getItemProps<span class="cstat-no" title="statement not covered" >, ...p</span>rops<span class="cstat-no" title="statement not covered" > }: AssetSearchResultsProps, ref) =&gt; {</span>
+  ({ isOpen, highlightedIndex, getItemProps, ...props<span class="cstat-no" title="statement not covered" > }: AssetSearchResultsProps<span class="cstat-no" title="statement not covered" >, r</span>ef) =&gt; {</span>
     const assets<span class="cstat-no" title="statement not covered" > = useTransferableAssets();</span>
     const searchInput<span class="cstat-no" title="statement not covered" > = useSearchInput();</span>
     const availableStxBalance<span class="cstat-no" title="statement not covered" > = useCurrentAccountAvailableStxBalance();</span>
 &nbsp;
-    const items = useMemo(
+    const items<span class="cstat-no" title="statement not covered" > = useMemo(</span>
       () =&gt;
-        assets?.filter<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >(i</span>tem =&gt; <span class="cstat-no" title="statement not covered" >item.name.toLowerCase().includes(searchInput.toLowerCase() || '')),</span></span>
+<span class="branch-0 cbranch-no" title="branch not covered" >        asset</span>s?.filter<span class="fstat-no" title="function not covered" >(i</span>tem =&gt; <span class="cstat-no" title="statement not covered" >item.name.toLowerCase().includes(searchInput.toLowerCase() || '')),</span>
       [assets, searchInput]
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!assets<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >    if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
     return (
       &lt;Fade in={isOpen &amp;&amp; !!items?.length}&gt;
@@ -495,8 +495,8 @@ const AssetSearchResults = forwardRef(
           &gt;
             {items?.map<span class="fstat-no" title="function not covered" >((a</span>sset, index) =&gt; {
               const isStx = <span class="cstat-no" title="statement not covered" >asset.type === 'stx';</span>
-<span class="cstat-no" title="statement not covered" >              if (isStx &amp;&amp; !availableStxBalance<span class="cstat-no" title="statement not covered" >) return null;</span></span>
-              return (
+<span class="cstat-no" title="statement not covered" >              if (isStx &amp;&amp; !availableStxBalance) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >              return (</span>
                 &lt;AssetRow
                   isPressable
                   asset={asset}
@@ -516,10 +516,10 @@ const AssetSearchResults = forwardRef(
 const AssetSearchField: React.FC&lt;{
   autoFocus?: boolean;
   onItemClick: () =&gt; void;
-}&gt; = memo(({ autoFocus, onItemClick<span class="cstat-no" title="statement not covered" >, ...r</span>est<span class="cstat-no" title="statement not covered" > }) =&gt; {</span>
+}&gt; = memo(({ autoFocus, onItemClick, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
   const assets<span class="cstat-no" title="statement not covered" > = useTransferableAssets();</span>
 &nbsp;
-  const { selectedAsset, handleUpdateSelectedAsset<span class="cstat-no" title="statement not covered" > } = useSelectedAsset();</span>
+  const { selectedAsset, handleUpdateSelectedAsset }<span class="cstat-no" title="statement not covered" > = useSelectedAsset();</span>
 &nbsp;
   const searchInput<span class="cstat-no" title="statement not covered" > = useSearchInput();</span>
   const setSearchInput<span class="cstat-no" title="statement not covered" > = useUpdateSearchInput();</span>
@@ -539,16 +539,16 @@ const AssetSearchField: React.FC&lt;{
     highlightedIndex,
     getItemProps,
     openMenu,
-  } = useCombobox({
+  }<span class="cstat-no" title="statement not covered" > = useCombobox({</span>
     items: assets || [],
     initialIsOpen: true,
     inputValue: searchInput,
     defaultIsOpen: false,
     selectedItem: selectedAsset,
     itemToString<span class="fstat-no" title="function not covered" >: i</span>tem =&gt; {
-      return <span class="cstat-no" title="statement not covered" >item?.contractAddress || item?.name || '';</span>
+<span class="cstat-no" title="statement not covered" >      return item?.contractAddress || item?.name || '';</span>
     },
-    onSelectedItemChange<span class="fstat-no" title="function not covered" >: ({ s</span>electedItem }) =&gt; {
+    onSelectedItemChange<span class="fstat-no" title="function not covered" >: ({</span> selectedItem }) =&gt; {
 <span class="cstat-no" title="statement not covered" >      onItemClick();</span>
 <span class="cstat-no" title="statement not covered" >      handleUpdateSelectedAsset(selectedItem || undefined);</span>
     },
@@ -557,9 +557,9 @@ const AssetSearchField: React.FC&lt;{
   const labelRef = React.useRef(null);
   const comboRef = React.useRef(null);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!assets<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex flexDirection="column" width="100%" position="relative" overflow="visible" {...rest}&gt;
       &lt;Box width="100%"&gt;
         &lt;Text
@@ -618,10 +618,10 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = memo(
     }
 &nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedAsset) {
-      return &lt;SelectedAsset {...rest} hideArrow={principalHasOnlyOneAsset(assets<span class="branch-1 cbranch-no" title="branch not covered" > ?? [])} /&gt;;</span>
+      return &lt;SelectedAsset {...rest} hideArrow={principalHasOnlyOneAsset(assets ?? <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>} /&gt;;
     }
 &nbsp;
-    return &lt;AssetSearchField onItemClick={onItemClick} autoFocus={autoFocus} {...rest} /&gt;;
+<span class="cstat-no" title="statement not covered" >    return &lt;AssetSearchField onItemClick={onItemClick} autoFocus={autoFocus} {...rest} /&gt;;</span>
   }
 );
 &nbsp;</pre></td></tr></table></pre>
@@ -631,7 +631,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

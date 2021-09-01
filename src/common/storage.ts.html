@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.52% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/33</span>
+                <span class='fraction'>17/34</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.17% </span>
+                <span class="strong">53.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/29</span>
+                <span class='fraction'>16/30</span>
             </div>
         
             
@@ -120,7 +120,7 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,11 +130,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,14 +148,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -163,7 +163,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -171,7 +171,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -179,7 +179,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,12 +206,12 @@ export function <span class="fstat-no" title="function not covered" >storePayloa
   storageKey: StorageKey;
   port: chrome.runtime.Port;
 }) {
-<span class="cstat-no" title="statement not covered" >  if (!port.sender<span class="cstat-no" title="statement not covered" >) return;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!port.sender) <span class="cstat-no" title="statement not covered" >return;</span></span>
   const { tab, url } = <span class="cstat-no" title="statement not covered" >port.sender;</span>
-<span class="cstat-no" title="statement not covered" >  if (!tab?.id || !url<span class="cstat-no" title="statement not covered" >) return;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!tab?.id || !url) <span class="cstat-no" title="statement not covered" >return;</span></span>
   const origin = <span class="cstat-no" title="statement not covered" >new URL(url).origin;</span>
   const key = <span class="cstat-no" title="statement not covered" >getKeyForRequest(storageKey, payload);</span>
-  const requestInfo: RequestInfo = {
+  const requestInfo: RequestInfo = <span class="cstat-no" title="statement not covered" >{</span>
     tabId: tab.id,
     origin,
   };
@@ -221,7 +221,7 @@ export function <span class="fstat-no" title="function not covered" >storePayloa
 export function getRequestInfo(storageKey: StorageKey, request: string): RequestInfo | undefined {
   const key = getKeyForRequest(storageKey, request);
   const valueJSON = localStorage.getItem(key);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!valueJSON<span class="cstat-no" title="statement not covered" >) return undefined;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!valueJSON) <span class="cstat-no" title="statement not covered" >return undefined;</span>
   const existing: RequestInfo = JSON.parse(valueJSON);
   return existing;
 }
@@ -231,12 +231,12 @@ export function <span class="fstat-no" title="function not covered" >getTab(</sp
 <span class="cstat-no" title="statement not covered" >  if (!existing?.tabId) {</span>
 <span class="cstat-no" title="statement not covered" >    throw new Error(`Unable to get tab ID for request: ${request}`);</span>
   }
-  return <span class="cstat-no" title="statement not covered" >existing.tabId;</span>
+<span class="cstat-no" title="statement not covered" >  return existing.tabId;</span>
 }
 &nbsp;
 export function getRequestOrigin(storageKey: StorageKey, request: string): string {
   const existing = getRequestInfo(storageKey, request);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!existing?.origin<span class="branch-0 cbranch-no" title="branch not covered" >) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!<span class="branch-0 cbranch-no" title="branch not covered" >exist</span>ing?.origin) {
 <span class="cstat-no" title="statement not covered" >    throw new Error(`Unable to get origin for request: ${request}`);</span>
   }
   return existing.origin;
@@ -253,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >deleteTabFo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

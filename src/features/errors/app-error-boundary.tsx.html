@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -133,17 +133,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,20 +160,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
 import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
 import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
 import { Box, Button, CodeBlock, color, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
@@ -196,7 +196,7 @@ import { openGithubIssue } from '@features/errors/utils'<span class="cstat-no" t
 &nbsp;
 function <span class="fstat-no" title="function not covered" >ErrorFallback(</span>{ error, resetErrorBoundary }: FallbackProps) {
   const [value<span class="cstat-no" title="statement not covered" >] = useErrorStackTraceState();</span>
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;PopupContainer header={&lt;Header /&gt;}&gt;
       &lt;Stack spacing="extra-loose" flexGrow={1}&gt;
         &lt;Title fontSize={3}&gt;Something went wrong&lt;/Title&gt;
@@ -222,7 +222,7 @@ function <span class="fstat-no" title="function not covered" >ErrorFallback(</sp
           &lt;Button onClick={resetErrorBoundary}&gt;Reload extension&lt;/Button&gt;
           &lt;Button
             mode="tertiary"
-            onClick={() =&gt; openGithubIssue({ message: error.message, stackTrace: value })}
+            onClick<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >={() =&gt; openGithubIssue({</span> message: error.message, stackTrace: value })}</span>
           &gt;
             Report issue on GitHub
           &lt;/Button&gt;
@@ -232,9 +232,9 @@ function <span class="fstat-no" title="function not covered" >ErrorFallback(</sp
   );
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >AppErrorBoundary<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = ({ c</span></span>hildren }) =&gt; {</span>
+export const <span class="cstat-no" title="statement not covered" >AppErrorBoundary<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = ({</span></span> children }) =&gt; {</span>
   const handleOnError<span class="cstat-no" title="statement not covered" > = useErrorHandler();</span>
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ErrorBoundary
       onReset<span class="fstat-no" title="function not covered" >={() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        window.location.reload();</span>
@@ -253,7 +253,7 @@ export const <span class="cstat-no" title="statement not covered" >AppErrorBound
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

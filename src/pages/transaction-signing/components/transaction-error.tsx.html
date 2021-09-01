@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -138,32 +138,32 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
 import { useTransactionError } from '@pages/transaction-signing/hooks/use-transaction-error'<span class="cstat-no" title="statement not covered" >;</span>
 import {
   BroadcastErrorMessage,
@@ -188,29 +188,29 @@ export enum <span class="cstat-no" title="statement not covered" ><span class="c
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >TransactionErrorSuspense<span class="cstat-no" title="statement not covered" > = memo(() =&gt; {</span></span>
   const reason<span class="cstat-no" title="statement not covered" > = useTransactionError();</span>
-<span class="cstat-no" title="statement not covered" >  if (!reason<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!reason) <span class="cstat-no" title="statement not covered" >return null;</span></span>
   switch (reason) {
     case TransactionErrorReason.NoContract:
-      return &lt;NoContractErrorMessage /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;NoContractErrorMessage /&gt;;</span>
     case TransactionErrorReason.InvalidContractAddress:
-      return &lt;IncorrectContractAddressMessage /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;IncorrectContractAddressMessage /&gt;;</span>
     case TransactionErrorReason.StxTransferInsufficientFunds:
-      return &lt;StxTransferInsufficientFundsErrorMessage /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;StxTransferInsufficientFundsErrorMessage /&gt;;</span>
     case TransactionErrorReason.BroadcastError:
-      return &lt;BroadcastErrorMessage /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;BroadcastErrorMessage /&gt;;</span>
     case TransactionErrorReason.FeeInsufficientFunds:
-      return &lt;FeeInsufficientFundsErrorMessage /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;FeeInsufficientFundsErrorMessage /&gt;;</span>
     case TransactionErrorReason.Unauthorized:
-      return &lt;UnauthorizedErrorMessage /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;UnauthorizedErrorMessage /&gt;;</span>
     case TransactionErrorReason.ExpiredRequest:
-      return &lt;ExpiredRequestErrorMessage /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;ExpiredRequestErrorMessage /&gt;;</span>
     default:
-      return <span class="cstat-no" title="statement not covered" >null;</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
   }
 });
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >TransactionError<span class="cstat-no" title="statement not covered" > = memo(() =&gt; {</span></span>
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;React.Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
       &lt;TransactionErrorSuspense /&gt;
     &lt;/React.Suspense&gt;
@@ -223,7 +223,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionEr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

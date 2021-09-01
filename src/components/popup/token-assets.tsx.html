@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -193,7 +193,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,7 +239,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Suspense } from <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Suspense } from <span class="branch-0 cbranch-no" title="branch not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
 import { Stack, StackProps, color, Button, useClipboard } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 import { AssetRow } from '../asset-row'<span class="cstat-no" title="statement not covered" >;</span>
 import {
@@ -257,22 +257,22 @@ import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/accoun
 &nbsp;
 function <span class="fstat-no" title="function not covered" >FungibleAssetRow(</span>props: { asset: AssetWithMeta }) {
   const asset<span class="cstat-no" title="statement not covered" > = useAssetItemState(props.asset);</span>
-<span class="cstat-no" title="statement not covered" >  if (!asset<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!asset) <span class="cstat-no" title="statement not covered" >return null;</span></span>
   return &lt;AssetRow asset={asset} /&gt;;
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >FungibleAssets(</span>props: StackProps) {
   const fungibleTokens<span class="cstat-no" title="statement not covered" > = useFungibleTokenBaseState();</span>
   const balances<span class="cstat-no" title="statement not covered" > = useCurrentAccountBalancesUnanchoredState();</span>
-<span class="cstat-no" title="statement not covered" >  if (!balances<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!balances) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
   const ftCount = <span class="cstat-no" title="statement not covered" >Object.keys(balances.fungible_tokens);</span>
   const noTokens = <span class="cstat-no" title="statement not covered" >ftCount.length === 0;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (noTokens || !fungibleTokens<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (noTokens || !fungibleTokens) <span class="cstat-no" title="statement not covered" >return null;</span></span>
   return (
     &lt;Stack spacing="loose" {...props}&gt;
-      {fungibleTokens?.map<span class="branch-0 cbranch-no" title="branch not covered" >(asset =&gt; (</span>
+      {<span class="branch-0 cbranch-no" title="branch not covered" >fungi</span>bleTokens?.map(asset =&gt; (
         &lt;Suspense fallback={&lt;AssetRow asset={asset} /&gt;} key={asset.name}&gt;
           &lt;FungibleAssetRow asset={asset} /&gt;
         &lt;/Suspense&gt;
@@ -283,8 +283,8 @@ function <span class="fstat-no" title="function not covered" >FungibleAssets(</s
 &nbsp;
 function <span class="fstat-no" title="function not covered" >NoAssets(</span>props: StackProps) {
   const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
-  const { onCopy, hasCopied<span class="cstat-no" title="statement not covered" > } = useClipboard(currentAccount?.address || '');</span>
-  return (
+  const { onCopy, hasCopied }<span class="cstat-no" title="statement not covered" > = useClipboard(currentAccount?.address || '');</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Stack
       py="extra-loose"
       spacing="extra-loose"
@@ -313,7 +313,7 @@ function <span class="fstat-no" title="function not covered" >NoAssets(</span>pr
 export const TokenAssets<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;StackProps&gt; = ({ ...p</span>rops }) =&gt; {</span>
   const stxToken<span class="cstat-no" title="statement not covered" > = useStxTokenState();</span>
   const balances<span class="cstat-no" title="statement not covered" > = useCurrentAccountBalancesUnanchoredState();</span>
-<span class="cstat-no" title="statement not covered" >  if (!balances<span class="cstat-no" title="statement not covered" >) return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!balances) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
   const noAssets =
 <span class="cstat-no" title="statement not covered" >    stxToken.balance.isEqualTo(0) &amp;&amp;</span>
@@ -337,7 +337,7 @@ export const TokenAssets<span class="cstat-no" title="statement not covered" ><s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

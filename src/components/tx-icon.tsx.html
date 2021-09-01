@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">37.84% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/35</span>
+                <span class='fraction'>14/37</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">43.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/26</span>
+                <span class='fraction'>14/32</span>
             </div>
         
             
@@ -226,7 +226,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,7 +270,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -294,7 +294,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,11 +314,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -346,8 +342,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react';</span></span></span></span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import {
   FiArrowDown as IconArrowDown,
   FiArrowUp as IconArrowUp,
@@ -371,17 +371,17 @@ interface TypeIconWrapperProps extends BoxProps {
 type StatusColorMap = Record&lt;Status, ColorsStringLiteral&gt;;
 &nbsp;
 const colorFromTx<span class="fstat-no" title="function not covered" > = (t</span>x: Tx): ColorsStringLiteral =&gt; {
-  const colorMap: StatusColorMap = {
+  const colorMap: StatusColorMap = <span class="cstat-no" title="statement not covered" >{</span>
     pending: 'feedback-alert',
     success_microblock: 'brand',
     success_anchor_block: 'brand',
     failed: 'feedback-error',
   };
 &nbsp;
-  return <span class="cstat-no" title="statement not covered" >colorMap[statusFromTx(tx)] ?? 'feedback-error';</span>
+<span class="cstat-no" title="statement not covered" >  return colorMap[statusFromTx(tx)] ?? 'feedback-error';</span>
 };
 &nbsp;
-export const TypeIconWrapper<span class="fstat-no" title="function not covered" >: React.FC&lt;TypeIconWrapperProps&gt; = ({ b</span>g, icon: Icon<span class="cstat-no" title="statement not covered" >, ...r</span>est }) =&gt; (
+export const TypeIconWrapper<span class="fstat-no" title="function not covered" >: React.FC&lt;TypeIconWrapperProps&gt; = ({</span> bg, icon: Icon, ...rest }<span class="cstat-no" title="statement not covered" >) =&gt; (</span>
   &lt;Circle
     bottom="-2px"
     right="-9px"
@@ -401,7 +401,7 @@ const iconForTx<span class="fstat-no" title="function not covered" > = (t</span>
   const isSent = <span class="cstat-no" title="statement not covered" >tx.sender_address === currentAccountStxAddress;</span>
 &nbsp;
   const tokenTransferIcon<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (t</span>x: Tx) =&gt; {</span>
-    return <span class="cstat-no" title="statement not covered" >'is_unanchored' in tx &amp;&amp; tx.is_unanchored</span>
+<span class="cstat-no" title="statement not covered" >    return 'is_unanchored' in tx &amp;&amp; tx.is_unanchored</span>
       ? () =&gt; (
           &lt;MicroblockIcon
             size="13px"
@@ -415,22 +415,22 @@ const iconForTx<span class="fstat-no" title="function not covered" > = (t</span>
       : IconArrowDown;
   };
 &nbsp;
-  const iconMap = {
+  const iconMap = <span class="cstat-no" title="statement not covered" >{</span>
     coinbase: IconPlus,
     smart_contract: IconCode,
     token_transfer: tokenTransferIcon(tx),
     contract_call: () =&gt; &lt;FunctionIcon size="14px" /&gt;,
     poison_microblock: null,
   };
-  return <span class="cstat-no" title="statement not covered" >iconMap[tx.tx_type];</span>
+<span class="cstat-no" title="statement not covered" >  return iconMap[tx.tx_type];</span>
 };
 &nbsp;
 const TypeIcon<span class="fstat-no" title="function not covered" >: React.FC&lt;</span>
   {
     transaction: Tx;
   } &amp; BoxProps
-&gt; = ({ transaction<span class="cstat-no" title="statement not covered" >, ...r</span>est<span class="cstat-no" title="statement not covered" > }) =&gt; {</span>
-  const { currentAccountStxAddress<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+&gt; = ({ transaction, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
+  const { currentAccountStxAddress }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const icon = <span class="cstat-no" title="statement not covered" >iconForTx(transaction, currentAccountStxAddress);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (</span>
@@ -439,9 +439,9 @@ const TypeIcon<span class="fstat-no" title="function not covered" >: React.FC&lt
     ) &amp;&amp;
     icon
   ) {
-    return &lt;TypeIconWrapper icon={icon} bg={colorFromTx(transaction)} {...rest} /&gt;;
+<span class="cstat-no" title="statement not covered" >    return &lt;TypeIconWrapper icon={icon} bg={colorFromTx(transaction)} {...rest} /&gt;;</span>
   }
-  return <span class="cstat-no" title="statement not covered" >null;</span>
+<span class="cstat-no" title="statement not covered" >  return null;</span>
 };
 &nbsp;
 const ItemIconWrapper<span class="fstat-no" title="function not covered" >: React.FC&lt;</span>
@@ -449,17 +449,17 @@ const ItemIconWrapper<span class="fstat-no" title="function not covered" >: Reac
     icon: React.FC;
     transaction: Tx;
   } &amp; BoxProps
-&gt; = ({ icon: Icon, transaction<span class="cstat-no" title="statement not covered" >, ...r</span>est<span class="cstat-no" title="statement not covered" > }) =&gt; (</span>
+&gt; = ({ icon: Icon, transaction, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; (</span></span>
   &lt;Circle position="relative" size="36px" bg={color('accent')} color={color('bg')} {...rest}&gt;
     &lt;Box as={Icon} /&gt;
     &lt;TypeIcon transaction={transaction} /&gt;
   &lt;/Circle&gt;
 );
 &nbsp;
-export const TxItemIcon<span class="fstat-no" title="function not covered" >: React.FC&lt;{ transaction: Tx }&gt; = ({ t</span>ransaction<span class="cstat-no" title="statement not covered" >, ...r</span>est<span class="cstat-no" title="statement not covered" > }) =&gt; {</span>
+export const TxItemIcon<span class="fstat-no" title="function not covered" >: React.FC&lt;{ transaction: Tx }&gt; = ({</span> transaction, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
   switch (transaction.tx_type) {
     case 'coinbase':
-      return &lt;ItemIconWrapper icon={IconLayoutList} transaction={transaction} {...rest} /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;ItemIconWrapper icon={IconLayoutList} transaction={transaction} {...rest} /&gt;;</span>
     case 'smart_contract':
       return (
         &lt;DynamicColorCircle
@@ -485,11 +485,11 @@ export const TxItemIcon<span class="fstat-no" title="function not covered" >: Re
         &lt;/DynamicColorCircle&gt;
       );
     case 'token_transfer':
-      return &lt;ItemIconWrapper icon={StxIcon} transaction={transaction} {...rest} /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;ItemIconWrapper icon={StxIcon} transaction={transaction} {...rest} /&gt;;</span>
     case 'poison_microblock':
-      return &lt;ItemIconWrapper icon={IconMoodSad} transaction={transaction} {...rest} /&gt;;
+<span class="cstat-no" title="statement not covered" >      return &lt;ItemIconWrapper icon={IconMoodSad} transaction={transaction} {...rest} /&gt;;</span>
     default:
-      return <span class="cstat-no" title="statement not covered" >null;</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
   }
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -499,7 +499,7 @@ export const TxItemIcon<span class="fstat-no" title="function not covered" >: Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

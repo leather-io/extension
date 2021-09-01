@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>42/42</span>
             </div>
         
             
@@ -188,7 +188,7 @@
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -272,16 +272,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,6 +283,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -313,7 +313,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -353,15 +353,15 @@ export const PostConditionFallbackComponent: React.FC&lt;PostConditionProps&gt; 
   const name = getNameFromPostCondition(pc);
   const contractName = 'contractName' in pc.principal &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pc.principal.contractName.content;</span>
   const address = addressToString(pc.principal.address);
-  const isSending = address === currentAccount?.address<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
+  const isSending = address === <span class="branch-0 cbranch-no" title="branch not covered" >curre</span>ntAccount?.address;
 &nbsp;
   const isContractPrincipal =
     !!contractName ||
-    (pendingTransaction?.txType<span class="branch-0 cbranch-no" title="branch not covered" > == TransactionTypes.ContractCall &amp;&amp;</span>
+    (<span class="branch-0 cbranch-no" title="branch not covered" >pendi</span>ngTransaction?.txType == TransactionTypes.ContractCall &amp;&amp;
       pendingTransaction.contractAddress === address) ||
     address.includes('.');
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!pendingTransaction<span class="cstat-no" title="statement not covered" >) return null;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!pendingTransaction) <span class="cstat-no" title="statement not covered" >return null;</span>
 &nbsp;
   const message = pc.conditionCode
     ? `${getPostConditionCodeMessage(
@@ -401,20 +401,20 @@ export const PostConditionComponentSuspense: React.FC&lt;PostConditionProps&gt; 
   const name = getNameFromPostCondition(pc);
   const contractName = 'contractName' in pc.principal &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pc.principal.contractName.content;</span>
   const address = addressToString(pc.principal.address);
-  const isSending = address === currentAccount?.address<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
+  const isSending = address === <span class="branch-0 cbranch-no" title="branch not covered" >curre</span>ntAccount?.address;
 &nbsp;
   const amount =
-    typeof asset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.decimals === 'number' ? ftDecimals(_amount, asset.meta.decimals) : <span class="branch-1 cbranch-no" title="branch not covered" >_amount;</span></span></span>
+    typeof <span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >asset</span></span>?.meta?.decimals === 'number' ? ftDecimals(_amount, asset.meta.decimals) : <span class="branch-1 cbranch-no" title="branch not covered" >_amount;</span>
 &nbsp;
-  const ticker = asset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.symbol || <span class="branch-1 cbranch-no" title="branch not covered" >_ticker;</span></span></span>
+  const ticker = <span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >asset</span></span>?.meta?.symbol || <span class="branch-1 cbranch-no" title="branch not covered" >_ticker;</span>
 &nbsp;
   const isContractPrincipal =
     !!contractName ||
-    (pendingTransaction?.txType<span class="branch-0 cbranch-no" title="branch not covered" > == TransactionTypes.ContractCall &amp;&amp;</span>
+    (<span class="branch-0 cbranch-no" title="branch not covered" >pendi</span>ngTransaction?.txType == TransactionTypes.ContractCall &amp;&amp;
       pendingTransaction.contractAddress === address) ||
     address.includes('.');
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!pendingTransaction<span class="cstat-no" title="statement not covered" >) return null;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!pendingTransaction) <span class="cstat-no" title="statement not covered" >return null;</span>
 &nbsp;
   const message = pc.conditionCode
     ? `${getPostConditionCodeMessage(
@@ -429,12 +429,12 @@ export const PostConditionComponentSuspense: React.FC&lt;PostConditionProps&gt; 
         title={`${
           isContractPrincipal<span class="branch-0 cbranch-no" title="branch not covered" > ? 'The contract ' : i</span>sSending ? 'You '<span class="branch-1 cbranch-no" title="branch not covered" > : 'Another address '</span>
         } ${title}`}
-        left={asset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.name || <span class="branch-1 cbranch-no" title="branch not covered" >name}</span></span></span>
+        left={<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >asset</span></span>?.meta?.name || <span class="branch-1 cbranch-no" title="branch not covered" >name}</span>
         right={`${truncateMiddle(addressToString(pc.principal.address), 4)}${
           contractName<span class="branch-0 cbranch-no" title="branch not covered" > ? `.${contractName}` : ''</span>
         }`}
         amount={amount}
-        ticker={asset?.meta<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.symbol || <span class="branch-1 cbranch-no" title="branch not covered" >ticker}</span></span></span>
+        ticker={<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >asset</span></span>?.meta?.symbol || <span class="branch-1 cbranch-no" title="branch not covered" >ticker}</span>
         icon={iconString}
         message={message}
         isLast={isLast}
@@ -457,7 +457,7 @@ export const PostConditionComponent = (props: PostConditionProps) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

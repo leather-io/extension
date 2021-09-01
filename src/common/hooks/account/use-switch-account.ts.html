@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -116,7 +116,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -129,7 +129,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,7 +137,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
@@ -151,16 +151,16 @@ import {
 const TIMEOUT = <span class="cstat-no" title="statement not covered" >350;</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >useSwitchAccount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (c</span></span>allback?: () =&gt; void) =&gt; {</span>
-  const { doSwitchAccount<span class="cstat-no" title="statement not covered" > } = useWallet();</span>
+  const { doSwitchAccount }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
   const txIndex<span class="cstat-no" title="statement not covered" > = useTransactionAccountIndex();</span>
   const transactionVersion<span class="cstat-no" title="statement not covered" > = useTransactionNetworkVersion();</span>
   const [hasSwitched, setHasSwitched<span class="cstat-no" title="statement not covered" >] = useHasSwitchedAccounts();</span>
 &nbsp;
-  const handleSwitchAccount = useCallback(
+  const handleSwitchAccount<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     async index =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (typeof txIndex === 'number') <span class="cstat-no" title="statement not covered" >setHasSwitched(true);</span></span>
-      await <span class="cstat-no" title="statement not covered" >doSwitchAccount(index);</span>
+<span class="cstat-no" title="statement not covered" >      await doSwitchAccount(index);</span>
 <span class="cstat-no" title="statement not covered" >      if (callback) {</span>
 <span class="cstat-no" title="statement not covered" >        window.setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >          callback();</span>
@@ -170,15 +170,15 @@ export const <span class="cstat-no" title="statement not covered" >useSwitchAcco
     [txIndex, setHasSwitched, doSwitchAccount, callback]
   );
 &nbsp;
-  const getIsActive = useCallback(
+  const getIsActive<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     (index: number) =&gt;
-      typeof <span class="cstat-no" title="statement not covered" >txIndex === 'number' &amp;&amp; !hasSwitched</span>
+<span class="cstat-no" title="statement not covered" >      typeof txIndex === 'number' &amp;&amp; !hasSwitched</span>
         ? index === txIndex
         : index === currentAccount?.index,
     [txIndex, hasSwitched, currentAccount]
   );
 &nbsp;
-  return { handleSwitchAccount, getIsActive, transactionVersion };
+<span class="cstat-no" title="statement not covered" >  return { handleSwitchAccount, getIsActive, transactionVersion };</span>
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -187,7 +187,7 @@ export const <span class="cstat-no" title="statement not covered" >useSwitchAcco
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

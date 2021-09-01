@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -123,7 +123,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,7 +141,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,7 +151,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,10 +160,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,11 +177,11 @@ interface EncryptMnemonicArgs {
   secretKey: string;
   password: string;
 }
-export async function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >encryptMnemonic(</span>{ s</span>ecretKey, password }: EncryptMnemonicArgs) {
+export async function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >encryptMnemonic(</span>{</span> secretKey, password }: EncryptMnemonicArgs) {
   const salt<span class="cstat-no" title="statement not covered" > = generateRandomHexString();</span>
-  const argonHash = await generateEncryptionKey({ password, salt });
-  const encryptedBuffer<span class="cstat-no" title="statement not covered" > = await encrypt(secretKey, argonHash);</span>
-  return {
+  const argonHash = <span class="cstat-no" title="statement not covered" >await generateEncryptionKey({ password, salt });</span>
+  const encryptedBuffer = <span class="cstat-no" title="statement not covered" >await encrypt(secretKey, argonHash);</span>
+<span class="cstat-no" title="statement not covered" >  return {</span>
     salt,
     encryptedSecretKey: encryptedBuffer.toString('hex'),
   };
@@ -207,18 +207,18 @@ export async function <span class="cstat-no" title="statement not covered" ><spa
   secretKey: string;
 }&gt; {
 <span class="cstat-no" title="statement not covered" >  if (salt) {</span>
-    const pw = await generateEncryptionKey({ password, salt });
-    const secretKey<span class="cstat-no" title="statement not covered" > = await decrypt(Buffer.from(encryptedSecretKey, 'hex'), pw);</span>
-    return {
+    const pw = <span class="cstat-no" title="statement not covered" >await generateEncryptionKey({ password, salt });</span>
+    const secretKey = <span class="cstat-no" title="statement not covered" >await decrypt(Buffer.from(encryptedSecretKey, 'hex'), pw);</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
       secretKey,
       encryptedSecretKey,
       salt,
     };
   } else {
     // if there is no salt, decrypt the secret key, then re-encrypt with an argon2 hash
-    const secretKey<span class="cstat-no" title="statement not covered" > = await decrypt(Buffer.from(encryptedSecretKey, 'hex'), password);</span>
-    const newEncryptedKey = await encryptMnemonic({ secretKey, password });
-    return {
+    const secretKey = <span class="cstat-no" title="statement not covered" >await decrypt(Buffer.from(encryptedSecretKey, 'hex'), password);</span>
+    const newEncryptedKey = <span class="cstat-no" title="statement not covered" >await encryptMnemonic({ secretKey, password });</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
       secretKey,
       encryptedSecretKey: newEncryptedKey.encryptedSecretKey,
       salt: newEncryptedKey.salt,
@@ -232,7 +232,7 @@ export async function <span class="cstat-no" title="statement not covered" ><spa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 31 2021 19:45:35 GMT+0000 (Coordinated Universal Time)
+                at Wed Sep 01 2021 21:52:06 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
