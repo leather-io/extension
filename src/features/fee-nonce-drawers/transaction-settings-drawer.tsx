@@ -20,6 +20,7 @@ import { useLoading } from '@common/hooks/use-loading';
 import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
+import { Link } from '@components/link';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 import { useShowEditNonceCleanupEffect, useShowEditNonceState } from '@store/ui/ui.hooks';
 
@@ -42,11 +43,15 @@ const EditNonce = () => {
 };
 
 const Messaging = () => {
+  const url = '';
   return (
-    <Caption>
-      Apply a higher fee to help your transaction confirm quickly, especially when the network is
-      congested by other transactions.
-    </Caption>
+    <>
+      <Caption>
+        Apply a higher fee to help your transaction confirm quickly, especially when the network is
+        congested by other transactions.
+      </Caption>
+      <Link onClick={() => window.open(url, '_blank')}>Learn more...</Link>
+    </>
   );
 };
 
