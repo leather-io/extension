@@ -31,6 +31,7 @@ import { toast } from 'react-hot-toast';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { ErrorLabel } from '@components/error-label';
 import { useFeeSchema } from './use-fee-schema';
+import { microStxToStx } from '@stacks/ui-utils';
 
 const useSelectedTx = () => {
   const [rawTxId] = useRawTxIdState();
@@ -57,6 +58,7 @@ const Actions = ({ formikProps }: { formikProps: FormikProps<{ nonce: number; fe
   const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setRawTxId] = useRawTxIdState();
   const rawTx = useRawStacksTransactionState();
+
   const oldFee = rawTx?.auth.spendingCondition?.fee.toNumber() || 0;
   const newFee = formikProps.values.fee;
   const isSame = !multiplierCustom && oldFee === newFee;
@@ -84,9 +86,11 @@ const FormInner = ({
 }: {
   formikProps: FormikProps<{ nonce: number; fee: number }>;
 }) => {
+  const byteSize = useRawStacksTransactionByteSizeState();
+
   return (
     <Stack spacing="base">
-      <FeeField />
+      <FeeField byteSize={byteSize} />
       {formikProps.errors.fee && (
         <ErrorLabel mb="base">
           <Text textStyle="caption">{formikProps.errors.fee}</Text>
@@ -152,14 +156,12 @@ const FeeForm = () => {
 
   return (
     <Formik
-      initialValues={{ fee, nonce }}
+      initialValues={{ fee: new BigNumber(microStxToStx(fee)).toNumber(), nonce }}
       onSubmit={onSubmit}
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
-      validationSchema={yup.object({
-        fee: schema(),
-      })}
+      validationSchema={yup.object({ fee: schema() })}
     >
       {formikProps => (
         <Stack spacing="extra-loose">

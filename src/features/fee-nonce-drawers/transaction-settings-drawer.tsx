@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
-import { Button, Stack, Text } from '@stacks/ui';
+import { Button, Stack } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
 import { NonceField } from '@features/fee-nonce-drawers/components/nonce-field';
@@ -19,7 +19,6 @@ import { useCustomNonce } from '@store/transactions/nonce.hooks';
 import { useLoading } from '@common/hooks/use-loading';
 import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
-import { ErrorLabel } from '@components/error-label';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 
@@ -54,6 +53,8 @@ const SettingsFormInner = ({
   const nonce = transaction?.auth.spendingCondition?.nonce.toNumber();
   const { setShowTxSettings } = useDrawers();
 
+  const [byteSize] = useTxByteSizeState();
+
   const { setFieldValue } = formikProps;
 
   useEffect(() => {
@@ -64,12 +65,7 @@ const SettingsFormInner = ({
   return (
     <>
       <Stack>
-        <FeeField />
-        {formikProps.errors.fee && (
-          <ErrorLabel mb="base">
-            <Text textStyle="caption">{formikProps.errors.fee}</Text>
-          </ErrorLabel>
-        )}
+        {byteSize && <FeeField byteSize={byteSize} />}
         <NonceField />
       </Stack>
       <Stack isInline>
@@ -99,24 +95,14 @@ const SettingsForm = () => {
   const [multiplier] = useFeeRateMultiplier();
   const [multiplierCustom] = useFeeRateMultiplierCustom();
   const [, setUseCustom] = useFeeRateUseCustom();
-  const [feeRate, setFeeRate] = useFeeRate();
-  const [customNonce, setCustomNonce] = useCustomNonce();
+  const [, setFeeRate] = useFeeRate();
+  const [, setCustomNonce] = useCustomNonce();
   const { setShowTxSettings } = useDrawers();
   const [byteSize] = useTxByteSizeState();
   const [isEnabled, setIsEnabled] = useState(false);
   const { setIsLoading, setIsIdle } = useLoading('settings-form');
   const [amount] = useLocalStxTransactionAmount();
   const feeSchema = useFeeSchema(amount ? stxToMicroStx(amount) : undefined);
-
-  console.log({
-    multiplier,
-    multiplierCustom,
-    byteSize,
-    isEnabled,
-    amount,
-    feeRate,
-    customNonce,
-  });
 
   return (
     <Formik
@@ -160,7 +146,7 @@ const SettingsForm = () => {
             fallback={
               <>
                 <Stack>
-                  <FeeField />
+                  {byteSize && <FeeField byteSize={byteSize} />}
                   <NonceField />
                 </Stack>
                 <Stack isInline>
