@@ -21,6 +21,7 @@ import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
 import { ErrorLabel } from '@components/error-label';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
+import { stxToMicroStx } from '@stacks/ui-utils';
 
 const Messaging = () => {
   return (
@@ -105,14 +106,11 @@ const SettingsForm = () => {
   const { setIsLoading, setIsIdle } = useLoading('settings-form');
   const [values, setValues] = useState({ fee: 0, nonce: 0 });
   const [amount] = useLocalStxTransactionAmount();
-  const feeSchema = useFeeSchema(amount || undefined);
+  const feeSchema = useFeeSchema(amount ? stxToMicroStx(amount) : undefined);
 
   return (
     <Formik
-      initialValues={{
-        fee: 0,
-        nonce: 0,
-      }}
+      initialValues={{ fee: 0, nonce: 0 }}
       onSubmit={values => {
         if (multiplierCustom !== multiplier) {
           setUseCustom(true);
@@ -136,7 +134,7 @@ const SettingsForm = () => {
       validateOnMount={false}
       validationSchema={yup.object({
         fee: feeSchema(),
-        nonce: yup.number(),
+        nonce: yup.number().positive(),
       })}
     >
       {formikProps => (
