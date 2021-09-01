@@ -6,6 +6,9 @@ import { STX_DECIMALS } from '@common/constants';
 import { isNumber } from '@common/utils';
 import BigNumber from 'bignumber.js';
 
+/**
+ * @param amountToSend stx amount in µSTX
+ */
 export const useFeeSchema = (amountToSend?: number) => {
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   return useCallback(
@@ -19,7 +22,7 @@ export const useFeeSchema = (amountToSend?: number) => {
           if (!hasEnoughStx) return false;
           if (amountToSend) {
             const amountWithFee = new BigNumber(amountToSend).plus(fee);
-            return amountWithFee.isGreaterThanOrEqualTo(availableStxBalance);
+            return amountWithFee.isLessThanOrEqualTo(availableStxBalance);
           }
           return true;
         },
