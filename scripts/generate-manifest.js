@@ -6,7 +6,7 @@ const manifest = {
   author: 'Hiro PBC',
   description:
     'Hiro Wallet. Use the Stacks blockchain to access privacy-friendly apps, and keep data in your control.',
-  permissions: ['activeTab', 'contextMenus'],
+  permissions: ['contextMenus'],
   manifest_version: 2,
   background: {
     scripts: ['background.js'],
