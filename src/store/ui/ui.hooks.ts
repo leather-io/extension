@@ -10,7 +10,9 @@ import {
   tabState,
   showTxSettingsStore,
   showTxSettingsCallback,
+  showEditNonceState,
 } from './ui';
+import { useEffect } from 'react';
 
 // HACK: `ControlledDrawer` requires the state to be passed in to the component
 // This goes against the pattern of only exposing an interface to the store
@@ -57,4 +59,17 @@ export function useTabState(key: string) {
 
 export function useErrorStackTraceState() {
   return useAtom(errorStackTraceState);
+}
+
+export function useShowEditNonceState() {
+  return useAtom(showEditNonceState);
+}
+
+export function useShowEditNonceCleanupEffect() {
+  const [showNonce, setShowNonce] = useShowEditNonceState();
+  useEffect(() => {
+    return () => {
+      if (showNonce) setShowNonce(false);
+    };
+  }, [showNonce, setShowNonce]);
 }
