@@ -32,12 +32,6 @@ export const useFeeSchema = (amountToSend?: number) => {
           const fee = stxToMicroStx(feeInput);
           if (amountToSend === undefined) return true;
           const amountWithFee = new BigNumber(amountToSend).plus(fee);
-          console.log(
-            amountWithFee.isGreaterThan(availableStxBalance),
-            amountWithFee.toString(),
-            amountToSend,
-            fee
-          );
           if (amountWithFee.isGreaterThan(availableStxBalance)) {
             return context.createError({
               message:
