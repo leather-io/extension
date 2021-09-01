@@ -118,7 +118,7 @@ const SpeedUpButton = ({
       }}
     >
       <Box mr="3px" as={FiFastForward} color={color('accent')} />
-      Speed up
+      Increase fee
     </Button>
   );
 };

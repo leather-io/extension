@@ -42,7 +42,7 @@ const Messaging = () => {
   return (
     <Caption>
       If your transaction has been pending for a long time, its fee might not be high enough to be
-      included in a block. To speed it up, increase the fee and send it again.
+      included in a block. Increase the fee and try again.
     </Caption>
   );
 };
@@ -187,7 +187,7 @@ export const SpeedUpTransactionDrawer: React.FC = () => {
   const [rawTxId, setRawTxId] = useRawTxIdState();
   return (
     <ControlledDrawer
-      title="Speed up transaction"
+      title="Increase transaction fee"
       isShowing={!!rawTxId}
       onClose={() => setRawTxId(null)}
     >
