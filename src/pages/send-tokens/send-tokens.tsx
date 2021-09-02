@@ -12,14 +12,14 @@ import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-se
 import { Header } from '@components/header';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 
-import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
 import { AmountField } from '@pages/send-tokens/components/amount-field';
+import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { RecipientField } from '@pages/send-tokens/components/recipient-field';
 import { MemoField } from '@pages/send-tokens/components/memo-field';
-import { useTransferableAssets } from '@store/assets/asset.hooks';
+
+import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
 import { ConfirmSendDrawer } from '@pages/transaction-signing/components/confirm-send-drawer';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { SendFormMemoWarning } from './components/memo-warning';
 import {
   useLocalTransactionInputsState,
   useTxForSettingsState,
@@ -27,13 +27,10 @@ import {
 import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
-import {
-  useFeeRate,
-  useFeeRateMultiplierCustom,
-  useFeeRateUseCustom,
-} from '@store/transactions/fees.hooks';
-import { useCustomNonce } from '@store/transactions/nonce.hooks';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
+import { useCustomAbsoluteFee } from '@store/transactions/fees.hooks';
+import { SendFormMemoWarning } from './components/memo-warning';
+import { useCustomNonce } from '@store/transactions/nonce.hooks';
 
 type Amount = number | '';
 
@@ -147,18 +144,15 @@ const ShowDelay = ({
 
 const useResetFeesCallback = () => {
   const { showTxSettings, setShowTxSettings } = useDrawers();
-  const [, setFeeRateUseCustom] = useFeeRateUseCustom();
-  const [, setFeeRateMultiplierCustom] = useFeeRateMultiplierCustom();
+
   const { isLoading, setIsIdle } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
-  const [, setFeeRate] = useFeeRate();
   const [, setCustomNonce] = useCustomNonce();
+  const [, setAbsoluteCustomFee] = useCustomAbsoluteFee();
 
   return () => {
     if (showTxSettings) setShowTxSettings(false);
-    setFeeRateUseCustom(false);
-    setFeeRateMultiplierCustom(undefined);
-    setFeeRate(undefined);
     setCustomNonce(undefined);
+    setAbsoluteCustomFee(null);
     if (isLoading) setIsIdle();
   };
 };

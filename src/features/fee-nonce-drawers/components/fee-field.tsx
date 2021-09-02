@@ -1,40 +1,47 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useField } from 'formik';
-import { Button, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
+import { Button, Input, InputGroup, Stack, StackProps, ButtonProps, Text } from '@stacks/ui';
 import { ErrorLabel } from '@components/error-label';
 import { useFeeRate } from '@store/transactions/fees.hooks';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
+import { SendFormErrorMessages } from '@common/error-messages';
 
 const multipliers = [2, 5, 10];
 
-const MultiplierButton = ({ multiplier, ...rest }: any) => (
-  <Button size="sm" mode="tertiary" borderRadius="6px" key={`multiply-${multiplier}`} {...rest}>
+interface MultiplierButtonProps extends ButtonProps {
+  multiplier: number;
+}
+const MultiplierButton = ({ multiplier, ...rest }: MultiplierButtonProps) => (
+  <Button
+    type="button"
+    size="sm"
+    mode="tertiary"
+    borderRadius="6px"
+    key={`multiply-${multiplier}`}
+    {...rest}
+  >
     {multiplier}x
   </Button>
 );
 
-interface MultipliersProps extends StackProps {
+interface FeeMultiplierInputsProps extends StackProps {
   showReset?: boolean;
-
   onSelectMultiplier(multiplier: number): void;
 }
+const FeeMultiplierInputs = (props: FeeMultiplierInputsProps) => {
+  const { onSelectMultiplier, showReset, ...rest } = props;
 
-const Multipliers = ({ onSelectMultiplier, showReset, ...props }: MultipliersProps) => {
   return (
-    <Stack alignItems="center" isInline {...props}>
+    <Stack alignItems="center" isInline {...rest}>
       {showReset && (
-        <MultiplierButton multiplier={1} key={`multiply-1`} onClick={() => onSelectMultiplier(1)}>
-          x
-        </MultiplierButton>
+        <MultiplierButton multiplier={1} key={`multiply-1`} onClick={() => onSelectMultiplier(1)} />
       )}
       {multipliers.map(multiplier => (
         <MultiplierButton
           multiplier={multiplier}
           onClick={() => onSelectMultiplier(multiplier)}
           key={`multiply-${multiplier}`}
-        >
-          {multiplier}x
-        </MultiplierButton>
+        />
       ))}
     </Stack>
   );
@@ -43,31 +50,46 @@ const Multipliers = ({ onSelectMultiplier, showReset, ...props }: MultipliersPro
 interface FeeField extends StackProps {
   byteSize: number;
 }
-
 export const FeeField = ({ byteSize, ...props }: FeeField) => {
   const [field, meta, helpers] = useField('fee');
+
   const [feeRate] = useFeeRate();
+
   const [modified, setModified] = useState(false);
 
   const showResetMultiplier = useMemo(() => {
     if (modified) return true;
     if (!byteSize) return false;
-    return byteSize * feeRate !== stxToMicroStx(field.value);
-  }, [modified, byteSize, feeRate, field.value]);
+    return stxToMicroStx(field.value) !== feeRate * byteSize;
+  }, [modified, byteSize, field.value, feeRate]);
 
   const onSelectMultiplier = useCallback(
     (multiplier: number) => {
       if (!byteSize) return;
       setModified(multiplier !== 1);
-      helpers.setValue(microStxToStx(feeRate * byteSize * multiplier));
+      helpers.setValue(microStxToStx(byteSize * feeRate * multiplier));
     },
     [byteSize, feeRate, helpers]
   );
 
+  const fieldError = useMemo(() => {
+    switch (meta.error) {
+      case SendFormErrorMessages.AdjustedFeeExceedsBalance:
+        return (
+          <>
+            The fee added now exceeds your current STX balance. Consider lowering the amount being
+            sent.
+          </>
+        );
+      default:
+        return meta.error;
+    }
+  }, [meta.error]);
+
   return (
     <>
       <Stack width="100%" position="relative" {...props}>
-        <Multipliers
+        <FeeMultiplierInputs
           pt="base-loose"
           pr="base-tight"
           height="100%"
@@ -94,7 +116,9 @@ export const FeeField = ({ byteSize, ...props }: FeeField) => {
       </Stack>
       {meta.error && (
         <ErrorLabel>
-          <Text textStyle="caption">{meta.error}</Text>
+          <Text textStyle="caption" lineHeight="18px">
+            {fieldError}
+          </Text>
         </ErrorLabel>
       )}
     </>

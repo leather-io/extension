@@ -144,6 +144,7 @@ jobs:
           path: '.jest-cache'
           key: ${{ runner.os }}--jest
 
+      # https://github.com/nodejs/node/issues/40030
       - uses: actions/setup-node@v2
         with:
           node-version: 14

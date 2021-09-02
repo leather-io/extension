@@ -14,23 +14,17 @@ import {
 } from '@store/accounts/account.hooks';
 import * as yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
+import { microStxToStx } from '@stacks/ui-utils';
+import BigNumber from 'bignumber.js';
+import { toast } from 'react-hot-toast';
 
+import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
 import { StacksTransaction } from '@stacks/transactions';
 import { stacksValue, stxToMicroStx } from '@common/stacks-utils';
-import {
-  useFeeRate,
-  useFeeRateMultiplier,
-  useFeeRateMultiplierCustom,
-  useFeeRateUseCustom,
-  useReplaceByFeeSubmitCallBack,
-} from '@store/transactions/fees.hooks';
-import BigNumber from 'bignumber.js';
-import { toast } from 'react-hot-toast';
+import { useFeeRate, useReplaceByFeeSubmitCallBack } from '@store/transactions/fees.hooks';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useFeeSchema } from './use-fee-schema';
-import { microStxToStx } from '@stacks/ui-utils';
 
 const useSelectedTx = () => {
   const [rawTxId] = useRawTxIdState();
@@ -96,9 +90,7 @@ const getFeeNonceFromStacksTransaction = (tx?: StacksTransaction) => ({
 
 const FeeForm = () => {
   const refreshAccountData = useRefreshAllAccountData();
-  const [multiplier] = useFeeRateMultiplier();
-  const [multiplierCustom] = useFeeRateMultiplierCustom();
-  const [, setUseCustom] = useFeeRateUseCustom();
+
   const [, setFeeRate] = useFeeRate();
   const tx = useSelectedTx();
   const rawTx = useRawStacksTransactionState();
@@ -111,9 +103,6 @@ const FeeForm = () => {
 
   const onSubmit = useCallback(
     async values => {
-      if (multiplierCustom !== multiplier) {
-        setUseCustom(true);
-      }
       if (!byteSize) return;
       // TODO: we should do some double checks that nothing changed before submitting
       await refreshAccountData();
@@ -122,15 +111,7 @@ const FeeForm = () => {
       setFeeRate(feeRate);
       await handleSubmit(values);
     },
-    [
-      byteSize,
-      handleSubmit,
-      multiplier,
-      multiplierCustom,
-      refreshAccountData,
-      setFeeRate,
-      setUseCustom,
-    ]
+    [byteSize, handleSubmit, refreshAccountData, setFeeRate]
   );
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { STX_DECIMALS } from '@common/constants';
 import { isNumber } from '@common/utils';
 import BigNumber from 'bignumber.js';
 import { stxToMicroStx } from '@stacks/ui-utils';
+import { SendFormErrorMessages } from '@common/error-messages';
 
 /**
  * @param amountToSend stx amount in µSTX
@@ -31,8 +32,7 @@ export const useFeeSchema = (amountToSend?: number) => {
           const amountWithFee = new BigNumber(amountToSend).plus(fee);
           if (amountWithFee.isGreaterThan(availableStxBalance)) {
             return context.createError({
-              message:
-                'The fee added now exceeds your current STX balance. Consider lowering the amount being sent.',
+              message: SendFormErrorMessages.AdjustedFeeExceedsBalance,
             });
           }
           return true;

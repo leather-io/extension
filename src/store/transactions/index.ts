@@ -13,10 +13,11 @@ import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
 import { validateStacksAddress } from '@common/stacks-utils';
 
-import { getUpdatedTransactionFee } from '@store/transactions/utils';
-import { currentFeeRateState } from '@store/transactions/fees';
+import { calculateDefaultFee } from '@store/transactions/utils';
+import { customAbsoluteTxFee, feeRateState } from '@store/transactions/fees';
 import { localTransactionState } from '@store/transactions/local-transactions';
 import { customNonceState } from './nonce.hooks';
+import BigNumber from 'bignumber.js';
 
 export const pendingTransactionState = atom(get => {
   const payload = get(requestTokenPayloadState);
@@ -55,7 +56,10 @@ export const signedStacksTransactionBaseState = atom(get => {
 export const signedStacksTransactionState = atom(get => {
   const { transaction, options } = get(signedStacksTransactionBaseState);
   if (!transaction) return;
-  const fee = getUpdatedTransactionFee(transaction, get(currentFeeRateState));
+  const defaultFeeRate = get(feeRateState);
+  const defaultFee = calculateDefaultFee(transaction, defaultFeeRate);
+  const absoluteCustomFee = get(customAbsoluteTxFee);
+  const fee = absoluteCustomFee ? new BigNumber(absoluteCustomFee) : defaultFee;
   return generateSignedTransaction({ ...options, fee: fee.toNumber() });
 });
 
@@ -85,6 +89,11 @@ export type TransactionPayloadWithAttachment = TransactionPayload & {
 export const isUnauthorizedTransactionState = atom<boolean>(false);
 export const transactionBroadcastErrorState = atom<string | null>(null);
 
+// TODO: consider alternatives
+// Implicitly selecting a tx based on `pendingTransactionState`s value seems
+// like it could easily be error-prone. Say this value doesn't get reset when it should.
+// The effect could be calamitous. A user would be changing settings for a stale, cached
+// transaction they've long forgotten about.
 export const txForSettingsState = atom(get =>
   get(pendingTransactionState) ? get(signedStacksTransactionState) : get(localTransactionState)
 );
