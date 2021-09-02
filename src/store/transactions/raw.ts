@@ -7,7 +7,8 @@ import {
 } from '@stacks/transactions';
 import { currentAccountPrivateKeyState } from '@store/accounts';
 import { updateTransactionFee } from '@store/transactions/utils';
-import { currentFeeRateState } from '@store/transactions/fees';
+import { customAbsoluteTxFee, feeRateState } from '@store/transactions/fees';
+import BN from 'bn.js';
 
 export const rawTxIdState = atom<string | null>(null);
 
@@ -42,8 +43,12 @@ export const rawSignedStacksTransactionState = atom(get => {
   const transaction = get(rawStacksTransactionState);
   const privateKey = get(currentAccountPrivateKeyState);
   if (!transaction || !privateKey) return;
-  const feeRate = get(currentFeeRateState);
+  const feeRate = get(feeRateState);
+  const absoluteCustomFee = get(customAbsoluteTxFee);
   const updatedTx = updateTransactionFee(transaction, feeRate);
+  if (absoluteCustomFee) {
+    updatedTx.setFee(new BN(absoluteCustomFee));
+  }
   const signer = new TransactionSigner(updatedTx);
   signer.signOrigin(createStacksPrivateKey(privateKey));
   return transaction;

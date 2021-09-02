@@ -33,6 +33,15 @@ export function getPayloadFromToken(requestToken: string) {
   return payload;
 }
 
+export function getTxByteLength(tx: StacksTransaction) {
+  return new BigNumber(tx.serialize().byteLength);
+}
+
+export function calculateDefaultFee(tx: StacksTransaction, feeRate: number) {
+  const txBytes = new BigNumber(tx.serialize().byteLength);
+  return txBytes.multipliedBy(feeRate);
+}
+
 export function getUpdatedTransactionFee(tx: StacksTransaction, _feeRate: number) {
   const txBytes = new BigNumber(tx.serialize().byteLength);
   const feeRate = new BigNumber(_feeRate);

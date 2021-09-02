@@ -9,15 +9,9 @@ import * as yup from 'yup';
 import { Caption } from '@components/typography';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useTxByteSizeState, useTxForSettingsState } from '@store/transactions/transaction.hooks';
-import {
-  useFeeRate,
-  useFeeRateMultiplier,
-  useFeeRateMultiplierCustom,
-  useFeeRateUseCustom,
-} from '@store/transactions/fees.hooks';
+import { useCustomAbsoluteFee, useFeeRate } from '@store/transactions/fees.hooks';
 import { useCustomNonce } from '@store/transactions/nonce.hooks';
 import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
-import BigNumber from 'bignumber.js';
 import { useFeeSchema } from '@features/fee-nonce-drawers/use-fee-schema';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 import { Link } from '@components/link';
@@ -44,7 +38,7 @@ const EditNonce = () => {
   );
 };
 
-const Messaging = () => {
+const CustomFeeMessaging = () => {
   const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
 
   const openInNewTab = (url: string) => {
@@ -77,11 +71,10 @@ const SuspenseOnMount = ({ onMountCallback, isEnabled }: any) => {
   return null;
 };
 
-const SettingsFormInner = ({
-  formikProps,
-}: {
+interface SettingsFormInnerProps {
   formikProps: FormikProps<{ nonce: number; fee: number }>;
-}) => {
+}
+const SettingsFormInner = ({ formikProps }: SettingsFormInnerProps) => {
   const { isLoading } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
   const [transaction] = useTxForSettingsState();
   const fee = transaction?.auth.spendingCondition?.fee.toNumber();
@@ -127,11 +120,9 @@ const SettingsFormInner = ({
 };
 
 const SettingsForm = ({ onClose }: { onClose: () => void }) => {
-  const [multiplier] = useFeeRateMultiplier();
-  const [multiplierCustom] = useFeeRateMultiplierCustom();
-  const [, setUseCustom] = useFeeRateUseCustom();
-  const [, setFeeRate] = useFeeRate();
   const [, setCustomNonce] = useCustomNonce();
+  const [, setCustomAbsoluteFee] = useCustomAbsoluteFee();
+  const [feeRate] = useFeeRate();
   const [byteSize] = useTxByteSizeState();
   const [isEnabled, setIsEnabled] = useState(false);
   const { setIsLoading } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
@@ -142,18 +133,16 @@ const SettingsForm = ({ onClose }: { onClose: () => void }) => {
     <Formik
       initialValues={{ fee: 0, nonce: 0 }}
       onSubmit={values => {
-        if (multiplierCustom !== multiplier) {
-          setUseCustom(true);
-        }
         if (!byteSize) return;
-        const newFeeRate = new BigNumber(stxToMicroStx(values.fee)).dividedBy(byteSize);
-        const feeRate = newFeeRate.toNumber();
-        setFeeRate(feeRate);
+        // selected value is the same as default fee value, so reset to nothing
+        if (byteSize * feeRate === stxToMicroStx(values.fee)) {
+          setCustomAbsoluteFee(null);
+        } else {
+          setCustomAbsoluteFee(stxToMicroStx(values.fee));
+        }
         setCustomNonce(values.nonce);
         setIsLoading();
-        setTimeout(() => {
-          setIsEnabled(true);
-        }, 10);
+        setTimeout(() => setIsEnabled(true), 10);
       }}
       validateOnChange={false}
       validateOnBlur={false}
@@ -198,23 +187,23 @@ const SettingsForm = ({ onClose }: { onClose: () => void }) => {
 
 export const TransactionSettingsDrawer: React.FC = () => {
   const { showTxSettings, setShowTxSettings } = useDrawers();
-  const [, setFeeRateUseCustom] = useFeeRateUseCustom();
-  const [, setFeeRateMultiplierCustom] = useFeeRateMultiplierCustom();
   const { isLoading, setIsIdle } = useLoading(LOADING_KEYS.TX_FEE_NONCE_DRAWER);
 
   useShowEditNonceCleanupEffect();
 
   const handleOnClose = useCallback(() => {
     setShowTxSettings(false);
-    setFeeRateUseCustom(false);
-    setFeeRateMultiplierCustom(undefined);
     if (isLoading) setIsIdle();
-  }, [isLoading, setFeeRateMultiplierCustom, setFeeRateUseCustom, setIsIdle, setShowTxSettings]);
+  }, [isLoading, setIsIdle, setShowTxSettings]);
 
   return (
-    <ControlledDrawer title="Advanced settings" isShowing={showTxSettings} onClose={handleOnClose}>
+    <ControlledDrawer
+      title="Advanced settings"
+      isShowing={!!showTxSettings}
+      onClose={handleOnClose}
+    >
       <Stack px="loose" spacing="loose" pb="extra-loose">
-        <Messaging />
+        <CustomFeeMessaging />
         {showTxSettings && <SettingsForm onClose={handleOnClose} />}
       </Stack>
     </ControlledDrawer>

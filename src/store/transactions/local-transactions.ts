@@ -3,7 +3,7 @@ import { currentAccountState, currentAccountStxAddressState } from '@store/accou
 import { waitForAll } from 'jotai/utils';
 import { currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
-import { currentFeeRateState } from '@store/transactions/fees';
+
 import { customNonceState } from '@store/transactions/nonce.hooks';
 import BN from 'bn.js';
 import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
@@ -22,8 +22,12 @@ import { getUpdatedTransactionFee } from '@store/transactions/utils';
 import { makeFungibleTokenTransferState } from '@store/transactions/fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
 import { makePostCondition } from '@store/transactions/transaction.hooks';
-import { generateSignedTransaction } from '@common/transactions/transactions';
+import {
+  generateSignedTransaction,
+  GenerateSignedTransactionOptions,
+} from '@common/transactions/transactions';
 import { TransactionTypes } from '@stacks/connect';
+import { customAbsoluteTxFee, feeRateState } from './fees';
 
 export const localStacksTransactionInputsState = atom<{
   amount: number;
@@ -35,6 +39,8 @@ export const tokenTransferTransaction = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
+  const customAbsoluteFee = get(customAbsoluteTxFee);
+
   if (!address || !txData) return;
   const { amount, recipient, memo } = txData;
   const { network, account, nonce, feeRate } = get(
@@ -42,15 +48,14 @@ export const tokenTransferTransaction = atom(get => {
       network: currentStacksNetworkState,
       account: currentAccountState,
       nonce: currentAccountNonceState,
-      feeRate: currentFeeRateState,
+      feeRate: feeRateState,
     })
   );
 
   if (!account || typeof nonce === 'undefined') return;
   const senderKey = account.stxPrivateKey;
   const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
-
-  const options = {
+  const options: GenerateSignedTransactionOptions = {
     senderKey,
     nonce: txNonce,
     txData: {
@@ -61,13 +66,13 @@ export const tokenTransferTransaction = atom(get => {
       network: network as any,
     },
   };
-  return generateSignedTransaction(
-    options as any
-    // @TODO: kyran pls fix types
-  ).then(transaction => {
-    if (!transaction) return;
-    const fee = getUpdatedTransactionFee(transaction, feeRate);
-    return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
+
+  return generateSignedTransaction(options).then(transaction => {
+    if (!customAbsoluteFee) {
+      const fee = getUpdatedTransactionFee(transaction, feeRate);
+      return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
+    }
+    return generateSignedTransaction({ ...options, fee: customAbsoluteFee } as any);
   });
 });
 
@@ -79,7 +84,7 @@ export const ftTokenTransferTransactionState = atom(get => {
   const { amount, recipient, memo } = txData;
   const assetTransferState = get(makeFungibleTokenTransferState);
   const selectedAsset = get(selectedAssetStore);
-  const feeRate = get(currentFeeRateState);
+  const feeRate = get(feeRateState);
   if (!assetTransferState || !selectedAsset) return;
   const {
     balances,

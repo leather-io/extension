@@ -9,4 +9,5 @@ export enum SendFormErrorMessages {
   MustSelectAsset = 'You must select a valid token to transfer',
   TooMuchPrecision = '{token} can only have {decimals} decimals',
   MemoExceedsLimit = 'Memo must be less than 34-bytes',
+  AdjustedFeeExceedsBalance = 'AdjustedFeeExceedsBalance',
 }

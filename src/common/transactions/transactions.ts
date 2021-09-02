@@ -85,7 +85,7 @@ export type ContractDeployOptions = Pick<
   'txType' | 'contractName' | 'codeBody' | 'postConditions' | 'postConditionMode' | 'network'
 >;
 
-interface GenerateSignedTransactionOptions {
+export interface GenerateSignedTransactionOptions {
   txData: ContractCallOptions | TokenTransferOptions | ContractDeployOptions;
   senderKey: string;
   nonce?: number;
