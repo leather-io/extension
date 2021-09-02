@@ -55,11 +55,11 @@ const Messaging = () => {
     <>
       <Caption>
         Apply a higher fee to help your transaction confirm quickly, especially when the network is
-        congested by other transactions.
+        congested by other transactions.{' '}
+        <Link fontSize="14px" onClick={() => isValidUrl(url) && openInNewTab(url)}>
+          Learn more.
+        </Link>
       </Caption>
-      <Link fontSize="14px" onClick={() => isValidUrl(url) && openInNewTab(url)}>
-        Learn more...
-      </Link>
     </>
   );
 };
