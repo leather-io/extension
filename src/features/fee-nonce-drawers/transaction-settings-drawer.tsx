@@ -47,6 +47,7 @@ const Messaging = () => {
   const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
 
   const openInNewTab = (url: string) => {
+    if (!isValidUrl(url)) return;
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
     if (newWindow) newWindow.opener = null;
   };
@@ -56,7 +57,7 @@ const Messaging = () => {
       <Caption>
         Apply a higher fee to help your transaction confirm quickly, especially when the network is
         congested by other transactions.{' '}
-        <Link fontSize="14px" onClick={() => isValidUrl(url) && openInNewTab(url)}>
+        <Link fontSize="14px" onClick={() => openInNewTab(url)}>
           Learn more.
         </Link>
       </Caption>
