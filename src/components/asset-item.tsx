@@ -20,8 +20,7 @@ const AssetCaption: React.FC<{ caption?: string; show?: boolean }> = ({ caption,
 
           <Tooltip placement="right-end" label={'Learn more about microblocks'}>
             <Stack isInline>
-              {/* TODO UPDATE */}
-              <a href="https://hiro.so" target="_blank">
+              <a href="https://docs.stacks.co/understand-stacks/microblocks" target="_blank">
                 <Box
                   _hover={{ cursor: 'pointer' }}
                   size="12px"
