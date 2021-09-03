@@ -55,7 +55,6 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({ children, header, req
       <Flex
         flexDirection="column"
         flexGrow={1}
-        width="100%"
         background={color('bg')}
         data-testid="container-outer"
         minHeight="100vh"

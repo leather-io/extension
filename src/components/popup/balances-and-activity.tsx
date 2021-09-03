@@ -57,6 +57,7 @@ export function BalancesAndActivity(props: StackProps) {
         ]}
         activeTab={activeTab}
         onTabClick={setActiveTab}
+        maxWidth="200px"
       />
 
       <Flex position="relative" flexGrow={1}>

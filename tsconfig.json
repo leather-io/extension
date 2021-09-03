@@ -28,6 +28,7 @@
       "@containers/*": ["containers/*"],
       "@common/*": ["common/*"],
       "@screen": ["components/screen/index"],
+      "@assets/*": ["../public/assets/*"],
       "@background/*": ["background/*"],
       "@content-scripts/*": ["content-scripts/*"],
       "@inpage/*": ["inpage/*"],
@@ -39,7 +40,8 @@
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["jest", "chrome"]
+    "types": ["jest", "chrome"],
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
   },
   "include": ["./src/**/*", "./tests/**/*"],
   "exclude": ["test-app"]

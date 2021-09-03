@@ -4,6 +4,7 @@ import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { BalancesAndActivity } from '@components/popup/balances-and-activity';
 import { UserAccount } from '@pages/home/components/user-area';
+import { OnboardingIntro } from '@pages/home/components/onboarding-intro';
 import { HomeActions } from '@pages/home/components/actions';
 
 const PageTop = () => (
@@ -16,6 +17,7 @@ const PageTop = () => (
 export const PopupHome = () => (
   <PopupContainer header={<Header />} requestType="auth">
     <Stack data-testid="home-page" flexGrow={1} spacing="loose">
+      <OnboardingIntro />
       <PageTop />
       <BalancesAndActivity />
     </Stack>

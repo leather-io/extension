@@ -13,6 +13,7 @@ import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
 import { AssetWithMeta } from '@common/asset-types';
 import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
+import { Link } from '@components/link';
 
 function FungibleAssetRow(props: { asset: AssetWithMeta }) {
   const asset = useAssetItemState(props.asset);
@@ -55,16 +56,7 @@ function NoAssets(props: StackProps) {
       <Caption maxWidth="23ch" textAlign="center">
         Get started by sending some STX to your wallet.
       </Caption>
-      <Button
-        bg="#EEF2FB"
-        _hover={{ bg: '#E5EBFA' }}
-        color={color('brand')}
-        borderRadius="10px"
-        onClick={onCopy}
-        data-testid={UserAreaSelectors.AccountBalancesCopyAddress}
-      >
-        {hasCopied ? 'Copied!' : 'Copy address'}
-      </Button>
+      <Link fontSize="14px">Fund your account</Link>
     </Stack>
   );
 }

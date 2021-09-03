@@ -34,6 +34,21 @@ const SizeStyles = css`
         max-width: 392px;
       }
     }
+    .intro-card--item {
+      flex-basis: 50%;
+    }
+
+    .home--action-buttons {
+      flex-direction: row;
+    }
+
+    .margin-bottom-bigger {
+      margin-bottom: 16px !important;
+    }
+
+    .popup-invisible {
+      display: none !important;
+    }
   }
 
   .mode__full-page {
@@ -46,8 +61,8 @@ const SizeStyles = css`
       main.main-content {
         flex-grow: 1;
         justify-content: center;
-        max-width: 440px;
         margin: 0 auto;
+        max-width: 900px;
       }
 
       .onboarding-text {
@@ -63,6 +78,22 @@ const SizeStyles = css`
       min-height: 552px !important;
       min-width: 440px !important;
       overflow-x: hidden;
+    }
+
+    .intro-card--item {
+      flex-basis: 50%;
+    }
+
+    .home--action-buttons {
+      flex-direction: row;
+    }
+
+    .margin-bottom-bigger {
+      margin-bottom: 16px !important;
+    }
+
+    .popup-invisible {
+      display: none !important;
     }
   }
 
@@ -152,6 +183,18 @@ const SizeStyles = css`
     position: relative;
     padding: 5px 9px;
     z-index: 1;
+  }
+
+  .margin-bottom-bigger {
+    margin-bottom: 24px !important;
+  }
+
+  .intro-card--item {
+    flex-basis: 0;
+  }
+
+  .home--action-buttons {
+    flex-direction: row-reverse;
   }
 `;
 

@@ -1,4 +1,4 @@
-import { Box, Button, ButtonProps, Stack, StackProps } from '@stacks/ui';
+import { Box, Button, ButtonProps, Flex, Stack, StackProps } from '@stacks/ui';
 import { ScreenPaths } from '@common/types';
 import React, { memo, useCallback, useRef } from 'react';
 import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
@@ -36,6 +36,7 @@ const TxButton: React.FC<TxButtonProps> = memo(({ kind, path, ...rest }) => {
         ref={ref}
         onClick={handleClick}
         borderRadius="10px"
+        mr="12px"
         {...rest}
       >
         <Box
@@ -76,9 +77,11 @@ const SendButton = () => (
 
 export const HomeActions: React.FC<StackProps> = props => {
   return (
-    <Stack isInline spacing="base-tight" {...props}>
-      <SendButton />
-      <TxButton path={ScreenPaths.POPUP_RECEIVE} kind="receive" />
-    </Stack>
+    <Flex isInline spacing="base-tight" className="home--action-buttons" {...props}>
+      <Stack isInline spacing="base-tight">
+        <SendButton />
+        <TxButton path={ScreenPaths.POPUP_RECEIVE} kind="receive" />
+      </Stack>
+    </Flex>
   );
 };
