@@ -108,7 +108,7 @@ In general, you should not update the version of the wallet (found in `package.j
 Run the following from within this repository's root directory if you've pulled it with Git:
 
 ```bash
-sh build-ext.sh
+yarn && yarn build && sh build-ext.sh
 ```
 
 Alternatively, run the following if you've downloaded the source code as a zip file from GitHub:
