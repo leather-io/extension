@@ -7,7 +7,7 @@ import {
   useRawStacksTransactionState,
   useRawTxIdState,
 } from '@store/transactions/raw.hooks';
-import { TxItem } from '@components/popup/tx-item';
+import { TxItem } from '@components/tx-item';
 import {
   useAccountSingleTransaction,
   useCurrentAccountAvailableStxBalance,

@@ -9,7 +9,6 @@ interface AppContainerProps {
   header?: any;
   // TODO: remove the need for prop drilling this
   requestType?: 'transaction' | 'auth';
-  className?: string;
 }
 
 const UnmountEffectSuspense = ({
@@ -48,7 +47,7 @@ const UnmountEffect = ({ requestType }: { requestType?: AppContainerProps['reque
   </React.Suspense>
 );
 
-export const AppContainer: React.FC<AppContainerProps> = ({
+export const AppContainer: React.FC<AppContainerProps & React.HTMLAttributes<HTMLDivElement>> = ({
   children,
   header,
   requestType,

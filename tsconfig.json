@@ -35,7 +35,8 @@
       "@features/*": ["features/*"],
       "@tests/*": ["../tests/*"],
       "@tests": ["../tests"],
-      "@assets/*": ["../public/assets/*"]
+      "@assets/*": ["../public/assets/*"],
+      "@styles/*": ["styles/*"]
     },
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,

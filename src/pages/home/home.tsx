@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stack } from '@stacks/ui';
-import { Container } from '@components/app-container';
+import { AppContainer } from '@components/app-container';
 import { Header } from '@components/header';
 import { BalancesAndActivity } from '@pages/home/components/balances-and-activity';
 import { UserAccount } from '@pages/home/components/user-area';
@@ -14,10 +14,10 @@ const PageTop = () => (
 );
 
 export const PopupHome = () => (
-  <Container header={<Header />} requestType="auth">
+  <AppContainer header={<Header />} requestType="auth">
     <Stack data-testid="home-page" flexGrow={1} spacing="loose">
       <PageTop />
       <BalancesAndActivity />
     </Stack>
-  </Container>
+  </AppContainer>
 );

@@ -1,7 +1,7 @@
 import { createTxDateFormatList } from '@common/group-txs-by-date';
 import { Box, Stack, Text, color } from '@stacks/ui';
 import React from 'react';
-import { TxItem } from './tx-item';
+import { TxItem } from '@components/tx-item';
 
 interface TransactionListProps {
   txsByDate: ReturnType<typeof createTxDateFormatList>;

@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Stack, StackProps, color, Button, useClipboard } from '@stacks/ui';
-import { AssetRow } from '../../../components/asset-row';
+import { AssetRow } from '@components/asset-row';
 import {
   useAssetItemState,
   useFungibleTokenBaseState,
