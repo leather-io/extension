@@ -5,7 +5,7 @@ const IS_DEV = process.env.NODE_ENV === 'development';
 const manifest = {
   author: 'Hiro PBC',
   description:
-    'Hiro Wallet. Use the Stacks blockchain to access privacy-friendly apps, and keep data in your control.',
+    'Hiro Wallet is a safe way to manage your STX, sign into apps, and protect your funds while interacting with Clarity smart contracts.',
   permissions: ['contextMenus'],
   manifest_version: 2,
   background: {
