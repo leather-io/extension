@@ -103,6 +103,10 @@ In general, you should not update the version of the wallet (found in `package.j
 
 ## Production
 
+[See instructions on Hiro.so for installing from source for production usage.](https://www.hiro.so/wallet/install-web-source)
+
+Alternatively, the following steps can be taken by _technical_ users with the latest version of node installed on their machines.
+
 ### Build from source
 
 Run the following from within this repository's root directory if you've pulled it with Git:
