@@ -21,7 +21,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - uses: lucasmotta/pull-request-sticky-header@1.0.0
+      - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         # Don't run on forks
         if: github.event.pull_request.head.repo.full_name == github.repository
         with:
@@ -70,7 +70,7 @@ jobs:
       - pre_run
     env:
       MINIFY_PRODUCTION_BUILD: true
-    # only run on commits with message 'Version release' because this will often fail on PRs 
+    # only run on commits with message 'Version release' because this will often fail on PRs
     # due to reasons out of our control in the Firefox submission process
     if: github.event.pull_request.head.repo.full_name == github.repository && github.event.commits[0].message == 'Version release'
     steps:
