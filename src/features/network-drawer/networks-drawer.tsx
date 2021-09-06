@@ -4,7 +4,7 @@ import { Box, Flex, Button, Stack, color, FlexProps, BoxProps } from '@stacks/ui
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { useWallet } from '@common/hooks/use-wallet';
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { Caption, Title } from '@components/typography';

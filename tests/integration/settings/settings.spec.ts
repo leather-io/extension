@@ -49,7 +49,8 @@ describe(`Settings integration tests`, () => {
     const secretKey = await wallet.getSecretKey();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.SignOutListItem));
-
+    await wallet.page.click(wallet.$signOutConfirmHasBackupCheckbox);
+    await wallet.page.click(wallet.$signOutDeleteWalletBtn);
     await wallet.clickSignIn();
     await wallet.enterSecretKey(secretKey);
     const password = randomString(15);

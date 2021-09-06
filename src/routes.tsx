@@ -16,7 +16,7 @@ import { SendTokensForm } from '@pages/send-tokens/send-tokens';
 
 import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view';
 import { ScreenPaths } from '@common/types';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { useSaveAuthRequest } from '@common/hooks/auth/use-save-auth-request-callback';
@@ -26,6 +26,7 @@ import { AccountGateRoute } from '@pages/account-gate-route';
 import { Unlock } from '@components/unlock';
 import { PopupHome } from '@pages/home/home';
 import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks';
+import { SignOutConfirmPage } from '@pages/sign-out-confirm/sign-out-confirm';
 
 interface RouteProps {
   path: ScreenPaths;
@@ -106,6 +107,7 @@ export const Routes: React.FC = () => {
       </AccountGateRoute>
       <RouterRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
       <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
+      <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmPage />} />
       <Route path={ScreenPaths.USERNAME} element={<Username />} />
       <Route path={ScreenPaths.GENERATION} element={getSignUpElement()} />
       {/*Sign In*/}

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import {
   extractPhraseFromPasteEvent,
   validateAndCleanRecoveryInput,

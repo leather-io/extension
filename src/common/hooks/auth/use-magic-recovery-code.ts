@@ -2,7 +2,7 @@ import { useLoading } from '@common/hooks/use-loading';
 import { useWallet } from '@common/hooks/use-wallet';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { USERNAMES_ENABLED } from '@common/constants';
 import { ScreenPaths } from '@common/types';
 import { decrypt } from '@stacks/wallet-sdk';

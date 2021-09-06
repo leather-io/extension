@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useNavigate, ToOptions } from 'react-router-dom';
 

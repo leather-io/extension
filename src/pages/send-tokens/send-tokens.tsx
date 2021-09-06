@@ -3,7 +3,7 @@ import { Box, Text, Button, Stack } from '@stacks/ui';
 import { Formik, useFormikContext } from 'formik';
 
 import { PopupContainer } from '@components/popup/container';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 
 import { ScreenPaths } from '@common/types';
 import { ErrorLabel } from '@components/error-label';
