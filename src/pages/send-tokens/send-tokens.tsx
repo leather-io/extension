@@ -3,7 +3,7 @@ import { Box, Text, Button, Stack } from '@stacks/ui';
 import { Formik, useFormikContext } from 'formik';
 
 import { PopupContainer } from '@components/popup/container';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 
 import { ScreenPaths } from '@common/types';
 import { ErrorLabel } from '@components/error-label';
@@ -51,7 +51,7 @@ const initialValues: FormValues = {
 
 interface SendFormProps {
   assetError: string | undefined;
-  setAssetError: (error: string | undefined) => void;
+  setAssetError(error: string | undefined): void;
 }
 
 const SendForm = (props: SendFormProps) => {
@@ -59,7 +59,7 @@ const SendForm = (props: SendFormProps) => {
   const { isLoading } = useLoading('send-tokens');
   const [amount, setAmount] = useLocalStxTransactionAmount();
 
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   const { selectedAsset } = useSelectedAsset();
   const refreshAllAccountData = useRefreshAllAccountData();
   const assets = useTransferableAssets();

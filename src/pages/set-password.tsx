@@ -4,7 +4,7 @@ import { Box, Button, Input, Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { PopupContainer } from '@components/popup/container';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
 
@@ -31,7 +31,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
   const { doSetPassword, wallet, doFinishSignIn } = useWallet();
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   const { decodedAuthRequest } = useOnboardingState();
 
   const submit = useCallback(

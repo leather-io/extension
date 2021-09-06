@@ -5,11 +5,11 @@ import { PopupContainer } from '@components/popup/container';
 import { Text } from '@components/typography';
 
 import { ScreenPaths } from '@common/types';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { Header } from '@components/header';
 
 export const SignedOut = memo(() => {
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   return (
     <PopupContainer header={<Header hideActions />}>
       <Box width="100%" mt="extra-loose" textAlign="center">

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import {
   extractPhraseFromPasteEvent,
   validateAndCleanRecoveryInput,
@@ -20,7 +20,7 @@ export function useSignIn() {
   const [error, setError] = useSeedInputErrorState();
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   const { doStoreSeed } = useWallet();
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);

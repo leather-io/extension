@@ -4,7 +4,7 @@ import { Text, Caption } from '@components/typography';
 import useOnClickOutside from '@common/hooks/use-onclickoutside';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { Divider } from '@components/divider';
 import { USERNAMES_ENABLED } from '@common/constants';
@@ -65,7 +65,7 @@ export const SettingsPopover: React.FC = () => {
   } = useWallet();
   const { setShowNetworks, setShowAccounts, setAccountStep, setShowSettings, showSettings } =
     useDrawers();
-  const doChangeScreen = useDoChangeScreen();
+  const changeScreen = useChangeScreen();
 
   const handleClose = useCallback(() => {
     setShowSettings(false);
@@ -112,7 +112,7 @@ export const SettingsPopover: React.FC = () => {
               <MenuItem
                 data-testid="settings-view-secret-key"
                 onClick={wrappedCloseCallback(() => {
-                  doChangeScreen(ScreenPaths.SETTINGS_KEY);
+                  changeScreen(ScreenPaths.SETTINGS_KEY);
                 })}
               >
                 View Secret Key
@@ -151,7 +151,7 @@ export const SettingsPopover: React.FC = () => {
                 <MenuItem
                   onClick={wrappedCloseCallback(() => {
                     void doLockWallet();
-                    doChangeScreen(ScreenPaths.POPUP_HOME);
+                    changeScreen(ScreenPaths.POPUP_HOME);
                   })}
                   data-testid="settings-lock"
                 >
@@ -161,7 +161,7 @@ export const SettingsPopover: React.FC = () => {
               <MenuItem
                 onClick={wrappedCloseCallback(() => {
                   void doSignOut();
-                  doChangeScreen(ScreenPaths.INSTALLED);
+                  changeScreen(ScreenPaths.INSTALLED);
                 })}
                 data-testid="settings-sign-out"
               >

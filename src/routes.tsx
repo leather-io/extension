@@ -16,7 +16,7 @@ import { SendTokensForm } from '@pages/send-tokens/send-tokens';
 
 import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view';
 import { ScreenPaths } from '@common/types';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { useSaveAuthRequest } from '@common/hooks/auth/use-save-auth-request-callback';
@@ -42,7 +42,7 @@ export const Routes: React.FC = () => {
   const { search, pathname } = useLocation();
   const setLastSeen = useUpdateLastSeenStore();
 
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   useSaveAuthRequest();
 
   const isSignedIn = signedIn && !isOnboardingInProgress;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, useClipboard, Stack } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Toast } from '@components/toast';
@@ -14,7 +14,7 @@ import { ReceiveTokensHeader } from './components/recieve-tokens-header';
 
 export const PopupReceive: React.FC = () => {
   const { currentAccount, currentAccountStxAddress } = useWallet();
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   const address = currentAccountStxAddress || '';
   const { onCopy, hasCopied } = useClipboard(address);
   return (

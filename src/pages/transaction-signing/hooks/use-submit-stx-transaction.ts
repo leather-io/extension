@@ -6,7 +6,7 @@ import {
   TxBroadcastResultRejected,
 } from '@stacks/transactions';
 
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useLoading } from '@common/hooks/use-loading';
 import { ScreenPaths } from '@common/types';
@@ -41,7 +41,7 @@ export function useSubmitTransactionCallback({
   loadingKey: string;
 }) {
   const refreshAccountData = useRefreshAllAccountData();
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   const { doSetLatestNonce } = useWallet();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
