@@ -2,7 +2,7 @@ import { useLoading } from '@common/hooks/use-loading';
 import { useWallet } from '@common/hooks/use-wallet';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { USERNAMES_ENABLED } from '@common/constants';
 import { ScreenPaths } from '@common/types';
 import { decrypt } from '@stacks/wallet-sdk';
@@ -18,7 +18,7 @@ export function useMagicRecoveryCode() {
   const { doStoreSeed, doSetPassword, doFinishSignIn } = useWallet();
   const [error, setPasswordError] = useState('');
   const { decodedAuthRequest } = useOnboardingState();
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
 
   const handleNavigate = useCallback(() => {
     if (decodedAuthRequest) {

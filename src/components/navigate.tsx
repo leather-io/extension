@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useNavigate, ToOptions } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ interface NavigateProps {
 }
 
 export const Navigate: React.FC<NavigateProps> = ({ to, screenPath }) => {
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   const navigate = useNavigate();
   useEffect(() => {
     navigate(to);

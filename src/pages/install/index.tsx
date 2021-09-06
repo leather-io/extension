@@ -1,7 +1,7 @@
 import React, { useState, useCallback, memo } from 'react';
 import { Button, Stack, StackProps } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { Link } from '@components/link';
 import { PopupContainer } from '@components/popup/container';
@@ -13,7 +13,7 @@ import { InitialPageSelectors } from '@tests/integration/initial-page.selectors'
 const Actions: React.FC<StackProps> = props => {
   const { doMakeWallet } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
 
   const [isCreatingWallet, setIsCreatingWallet] = useState(false);
   const register = useCallback(async () => {

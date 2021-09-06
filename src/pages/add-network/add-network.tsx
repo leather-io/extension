@@ -3,7 +3,7 @@ import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
 
 import { PopupContainer } from '@components/popup/container';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { ScreenPaths } from '@common/types';
 import { isValidUrl } from '@common/validation/validate-url';
 import { ChainID, fetchPrivate } from '@stacks/transactions';
@@ -14,7 +14,7 @@ import { useUpdateCurrentNetworkKey, useUpdateNetworkState } from '@store/networ
 export const AddNetwork: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
   const setNetworks = useUpdateNetworkState();
   const setNetworkKey = useUpdateCurrentNetworkKey();
 

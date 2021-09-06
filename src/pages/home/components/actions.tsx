@@ -1,7 +1,7 @@
 import { Box, Button, ButtonProps, Stack, StackProps } from '@stacks/ui';
 import { ScreenPaths } from '@common/types';
 import React, { memo, useCallback, useRef } from 'react';
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-do-change-screen';
 import { FiArrowUp } from 'react-icons/fi';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
@@ -14,7 +14,7 @@ interface TxButtonProps extends ButtonProps {
 
 const TxButton: React.FC<TxButtonProps> = memo(({ kind, path, ...rest }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
-  const doChangeScreen = useDoChangeScreen();
+  const doChangeScreen = useChangeScreen();
 
   const isSend = kind === 'send';
 
