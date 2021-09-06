@@ -41,6 +41,8 @@ describe(`Authentication integration tests`, () => {
     const signoutBtn = await wallet.page.$('text=Sign Out');
     expect(signoutBtn).toBeTruthy();
     await wallet.page.click('text=Sign Out');
+    await wallet.page.click(wallet.$signOutConfirmHasBackupCheckbox);
+    await wallet.page.click(wallet.$signOutDeleteWalletBtn);
     await wallet.waitForLoginPage();
   });
 });

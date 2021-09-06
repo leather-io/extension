@@ -1,7 +1,7 @@
 import { Box, Button, ButtonProps, Stack, StackProps } from '@stacks/ui';
 import { ScreenPaths } from '@common/types';
 import React, { memo, useCallback, useRef } from 'react';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { FiArrowUp } from 'react-icons/fi';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';

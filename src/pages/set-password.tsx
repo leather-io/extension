@@ -4,7 +4,7 @@ import { Box, Button, Input, Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { PopupContainer } from '@components/popup/container';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
 

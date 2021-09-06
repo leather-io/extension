@@ -38,6 +38,12 @@ export class WalletPage {
   $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
   $createAccountButton = createTestSelector(SettingsSelectors.BtnCreateAccount);
   $createAccountDone = createTestSelector(SettingsSelectors.BtnCreateAccountDone);
+
+  $signOutConfirmHasBackupCheckbox = createTestSelector(
+    SettingsSelectors.SignOutConfirmHasBackupCheckbox
+  );
+  $signOutDeleteWalletBtn = createTestSelector(SettingsSelectors.BtnSignOutActuallyDeleteWallet);
+
   page: Page;
 
   constructor(page: Page) {

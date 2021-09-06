@@ -4,7 +4,7 @@ import { Text, Caption } from '@components/typography';
 import useOnClickOutside from '@common/hooks/use-onclickoutside';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { ScreenPaths } from '@common/types';
 import { Divider } from '@components/divider';
 import { USERNAMES_ENABLED } from '@common/constants';
@@ -55,7 +55,6 @@ const MenuItem: React.FC<BoxProps> = memo(props => {
 export const SettingsPopover: React.FC = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const {
-    doSignOut,
     currentAccount,
     doLockWallet,
     wallet,
@@ -159,10 +158,7 @@ export const SettingsPopover: React.FC = () => {
                 </MenuItem>
               )}
               <MenuItem
-                onClick={wrappedCloseCallback(() => {
-                  void doSignOut();
-                  changeScreen(ScreenPaths.INSTALLED);
-                })}
+                onClick={wrappedCloseCallback(() => changeScreen(ScreenPaths.SIGN_OUT_CONFIRM))}
                 data-testid="settings-sign-out"
               >
                 Sign Out

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, useClipboard, Stack } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
-import { useChangeScreen } from '@common/hooks/use-do-change-screen';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { ScreenPaths } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Toast } from '@components/toast';
