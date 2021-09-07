@@ -1,6 +1,6 @@
 name: Commit lint
 
-on: [ pull_request ]
+on: [pull_request]
 
 jobs:
   pre_run:
@@ -22,4 +22,4 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: wagoid/commitlint-github-action@v1
+      - uses: wagoid/commitlint-github-action@v4
