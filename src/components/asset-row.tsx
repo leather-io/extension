@@ -47,6 +47,7 @@ export const AssetRow = React.forwardRef<HTMLDivElement, AssetRowProps>((props, 
       amount={amount}
       subAmount={subAmount}
       isDifferent={isDifferent}
+      name={name}
       {...rest}
     />
   );
