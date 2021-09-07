@@ -16,6 +16,7 @@ import {
   SearchApi,
   RosettaApi,
   MicroblocksApi,
+  TokensApi,
 } from '@stacks/blockchain-api-client';
 
 import type { Middleware, RequestContext } from '@stacks/blockchain-api-client';
@@ -38,6 +39,7 @@ export function apiClients(config: Configuration) {
   const feesApi = new FeesApi(config);
   const searchApi = new SearchApi(config);
   const rosettaApi = new RosettaApi(config);
+  const tokensApi = new TokensApi(config);
 
   return {
     smartContractsApi,
@@ -52,6 +54,7 @@ export function apiClients(config: Configuration) {
     feesApi,
     searchApi,
     rosettaApi,
+    tokensApi,
   };
 }
 
