@@ -66,6 +66,7 @@ export const AssetItem = memo(
         amount,
         subAmount,
         isDifferent,
+        name,
         ...rest
       }: {
         isPressable?: boolean;
@@ -75,6 +76,7 @@ export const AssetItem = memo(
         amount: string;
         subAmount?: string;
         isDifferent?: boolean;
+        name?: string;
       } & StackProps,
       ref
     ) => {
@@ -117,7 +119,7 @@ export const AssetItem = memo(
                     label={formatted.isAbbreviated ? amount : undefined}
                   >
                     <Text fontVariantNumeric="tabular-nums" textAlign="right">
-                      {formatted.value}
+                      <span data-testid={name}>{formatted.value}</span>
                     </Text>
                   </Tooltip>
                   {isDifferent ? <SubBalance amount={subAmount} /> : null}
