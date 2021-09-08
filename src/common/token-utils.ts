@@ -1,13 +1,4 @@
-import { ContractInterface } from '@stacks/rpc-client';
 import { abbreviateNumber } from '@common/utils';
-
-function handleErrorMessage(message = 'Error') {
-  return {
-    error: `This token does not conform to the fungible token trait (SIP 10)${
-      message ? `: ${message}` : '.'
-    }`,
-  };
-}
 
 export type SIP010TransferResponse = { okay: true; hasMemo: boolean } | { error: string };
 
