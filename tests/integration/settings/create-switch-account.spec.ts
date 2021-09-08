@@ -36,7 +36,7 @@ describe(`Create and switch account`, () => {
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
     await wallet.page.click(createTestSelector('switch-account-item-0'));
-    await wallet.page.waitForSelector(createTestSelector('account-checked-1'), {state: 'hidden'})
+    await wallet.page.waitForSelector(createTestSelector('account-checked-1'), { state: 'hidden' });
     await delay(500);
     const displayName2 = await wallet.page.textContent(
       createTestSelector('home-current-display-name')
@@ -48,7 +48,7 @@ describe(`Create and switch account`, () => {
     await wallet.signUp();
     for (let i = 0; i < COUNT - 1; i++) {
       await wallet.clickSettingsButton();
-      await delay(100)
+      await delay(100);
       await wallet.page.waitForSelector(wallet.$createAccountButton);
       await wallet.page.waitForSelector(createTestSelector(SettingsSelectors.ChangeNetworkAction));
       await wallet.page.click(wallet.$createAccountButton);
@@ -60,12 +60,15 @@ describe(`Create and switch account`, () => {
       await wallet.clickSettingsButton();
       await wallet.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
       await wallet.page.click(createTestSelector(`switch-account-item-${i}`));
-      await wallet.page.waitForSelector(createTestSelector(`account-checked-${(i -1 + COUNT) % COUNT}`), {state: 'hidden'})
+      await wallet.page.waitForSelector(
+        createTestSelector(`account-checked-${(i - 1 + COUNT) % COUNT}`),
+        { state: 'hidden' }
+      );
       await delay(100);
       let displayName = await wallet.page.textContent(
         createTestSelector('home-current-display-name')
       );
-      expect(displayName).toEqual(`Account ${i+1}`);
+      expect(displayName).toEqual(`Account ${i + 1}`);
     }
   });
 });
