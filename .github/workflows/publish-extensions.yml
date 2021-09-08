@@ -34,7 +34,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 14.x
 
       - name: Install packages
         uses: ./.github/actions/provision
@@ -82,7 +82,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 14.x
 
       - name: Install packages
         uses: ./.github/actions/provision
