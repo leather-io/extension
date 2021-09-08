@@ -35,7 +35,7 @@ describe(`Wallet Balance integration tests`, () => {
     } catch (error) {}
   });
 
-  it('Check stacks token balance is greater than 0', async () => {
+  it('checks Stacks Token balance is greater than 0', async () => {
     const stxAmount = await wallet.page.textContent(
       createTestSelector(BalanceSelectors.StacksToken)
     );
