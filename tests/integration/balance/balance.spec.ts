@@ -4,10 +4,10 @@ import {
   selectTestNet,
   setupBrowser
 } from '../utils';
-import { WalletPage } from '../../page-objects/wallet.page';
-import { ScreenPaths } from '@common/types';
+import {WalletPage} from '../../page-objects/wallet.page';
+import {ScreenPaths} from '@common/types';
 import {BalanceSelectors} from "@tests/integration/balance.selectors";
-import { SECRET_KEY_2 } from "@tests/mocks";
+import {SECRET_KEY_2} from "@tests/mocks";
 
 jest.setTimeout(50_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
