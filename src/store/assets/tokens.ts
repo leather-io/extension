@@ -9,39 +9,14 @@ import {
   currentAnchoredAccountBalancesState,
 } from '@store/accounts';
 import { transformAssets } from '@store/assets/utils';
-import { Asset, AssetWithMeta, ContractPrincipal, NftMeta } from '@common/asset-types';
+import { Asset, AssetWithMeta, NftMeta } from '@common/asset-types';
 import { assetMetaDataState } from '@store/assets/fungible-tokens';
-import { contractInterfaceState } from '@store/contracts/contracts';
-import { isSip10Transfer } from '@common/token-utils';
-import { currentNetworkState } from '@store/network/networks';
 
-const transferDataState = atomFamily<ContractPrincipal, any>(
-  ({ contractAddress, contractName }) => {
-    const anAtom = atom(get => {
-      const contractInterface = get(
-        contractInterfaceState({
-          contractName,
-          contractAddress,
-        })
-      );
-      if (!contractInterface) return;
-      return isSip10Transfer(contractInterface);
-    });
-    anAtom.debugLabel = `transferDataState/${contractAddress}.${contractName}`;
-    return anAtom;
-  },
-  deepEqual
-);
+import { currentNetworkState } from '@store/network/networks';
 
 export const assetItemState = atomFamily<[Asset, string], AssetWithMeta>(([asset, networkUrl]) => {
   const anAtom = atom(get => {
     if (asset.type === 'ft') {
-      const transferData = get(
-        transferDataState({
-          contractName: asset.contractName,
-          contractAddress: asset.contractAddress,
-        })
-      );
       const meta = get(
         assetMetaDataState({
           contractAddress: asset.contractAddress,
@@ -49,9 +24,8 @@ export const assetItemState = atomFamily<[Asset, string], AssetWithMeta>(([asset
           networkUrl,
         })
       );
-      const canTransfer = !(!transferData || 'error' in transferData);
-      const hasMemo = transferData && !('error' in transferData) && transferData.hasMemo;
-      return { ...asset, meta, canTransfer, hasMemo } as AssetWithMeta;
+      const canTransfer = meta?.ftTrait;
+      return { ...asset, meta, canTransfer, hasMemo: canTransfer } as AssetWithMeta;
     }
     return asset as AssetWithMeta;
   });
