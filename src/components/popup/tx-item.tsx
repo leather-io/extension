@@ -107,7 +107,10 @@ const SpeedUpButton = ({
       size="sm"
       mode="tertiary"
       fontSize={0}
-      onClick={() => setTxId(txid)}
+      onClick={e => {
+        setTxId(txid);
+        e.stopPropagation();
+      }}
       zIndex={999}
       ml="auto"
       opacity={!isActive ? 0 : 1}
@@ -155,10 +158,17 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
 
   return (
     <Box position="relative" cursor="pointer" {...bind} {...rest}>
-      <Stack alignItems="center" spacing="base-loose" isInline position="relative" zIndex={2}>
+      <Stack
+        alignItems="center"
+        spacing="base-loose"
+        isInline
+        position="relative"
+        zIndex={2}
+        onClick={() => handleOpenTxLink(transaction.tx_id)}
+      >
         <TxItemIcon transaction={transaction} />
         <SpaceBetween flexGrow={1}>
-          <Stack spacing="base-tight" onClick={() => handleOpenTxLink(transaction.tx_id)}>
+          <Stack spacing="base-tight">
             <Title as="h3" fontWeight="normal">
               {getTxTitle(transaction as any)}
             </Title>
