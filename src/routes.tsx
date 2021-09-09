@@ -26,7 +26,7 @@ import { AccountGateRoute } from '@pages/account-gate-route';
 import { Unlock } from '@components/unlock';
 import { PopupHome } from '@pages/home/home';
 import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks';
-import { SignOutConfirmPage } from '@pages/sign-out-confirm/sign-out-confirm';
+import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 
 interface RouteProps {
   path: ScreenPaths;
@@ -89,7 +89,7 @@ export const Routes: React.FC = () => {
   return (
     <RoutesDom>
       <Route path={ScreenPaths.HOME} element={getHomeComponent()}>
-        <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmPage />} />
+        <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmDrawer />} />
       </Route>
       {/* Installation */}
       <Route path={ScreenPaths.SIGN_IN_INSTALLED} element={<InstalledSignIn />} />
