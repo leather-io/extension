@@ -62,7 +62,6 @@ const SendForm = (props: SendFormProps) => {
 
   const doChangeScreen = useChangeScreen();
   const { selectedAsset } = useSelectedAsset();
-  const refreshAllAccountData = useRefreshAllAccountData();
   const assets = useTransferableAssets();
   useNextTxNonce();
 
@@ -72,9 +71,8 @@ const SendForm = (props: SendFormProps) => {
     if (values.amount && values.recipient && selectedAsset) {
       selectedAsset.type === 'stx' && setAmount(values.amount);
       handleSubmit();
-      await refreshAllAccountData(250);
     }
-  }, [setAmount, refreshAllAccountData, handleSubmit, values, selectedAsset]);
+  }, [setAmount, handleSubmit, values, selectedAsset]);
 
   const onItemSelect = useCallback(() => {
     if (assets.length === 1) return;
