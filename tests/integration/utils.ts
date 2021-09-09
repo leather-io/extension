@@ -6,8 +6,8 @@ import { tmpdir } from 'os';
 import { promisify } from 'util';
 import { setupMocks } from '../mocks';
 import { DemoPage } from '../page-objects/demo.page';
-import {WalletPage} from "@tests/page-objects/wallet.page";
-import {SettingsSelectors} from "@tests/integration/settings.selectors";
+import { WalletPage } from '@tests/page-objects/wallet.page';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 const makeTmpDir = promisify(mkdtemp);
 

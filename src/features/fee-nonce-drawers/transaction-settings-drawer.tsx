@@ -24,6 +24,7 @@ import { Link } from '@components/link';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 import { useShowEditNonceCleanupEffect, useShowEditNonceState } from '@store/ui/ui.hooks';
 import { isValidUrl } from '@common/validation/validate-url';
+import { nonceSchema } from '@common/validation/nonce-schema';
 
 const EditNonce = () => {
   const [showNonce, setShowNonce] = useShowEditNonceState();
@@ -159,7 +160,7 @@ const SettingsForm = ({ onClose }: { onClose: () => void }) => {
       validateOnMount={false}
       validationSchema={yup.object({
         fee: feeSchema(),
-        nonce: yup.number().positive(),
+        nonce: nonceSchema,
       })}
     >
       {formikProps => (
