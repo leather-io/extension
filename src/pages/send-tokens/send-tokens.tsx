@@ -34,6 +34,7 @@ import {
   useFeeRateUseCustom,
 } from '@store/transactions/fees.hooks';
 import { useCustomNonce } from '@store/transactions/nonce.hooks';
+import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 
 type Amount = number | '';
 
@@ -63,6 +64,7 @@ const SendForm = (props: SendFormProps) => {
   const { selectedAsset } = useSelectedAsset();
   const refreshAllAccountData = useRefreshAllAccountData();
   const assets = useTransferableAssets();
+  useNextTxNonce();
 
   const { handleSubmit, values, setValues, errors, setFieldError } = useFormikContext<FormValues>();
 

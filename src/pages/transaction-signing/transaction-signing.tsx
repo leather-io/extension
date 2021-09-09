@@ -15,16 +15,18 @@ import { PostConditions } from '@pages/transaction-signing/components/post-condi
 import { StxTransferDetails } from '@pages/transaction-signing/components/stx-transfer-details';
 import { PostConditionModeWarning } from '@pages/transaction-signing/components/post-condition-mode-warning';
 import { TransactionError } from './components/transaction-error';
+import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 
 export const TransactionPage = memo(() => {
+  useNextTxNonce();
   const transactionRequest = useTransactionRequest();
   const setBroadcastError = useUpdateTransactionBroadcastError();
-  if (!transactionRequest) return null;
 
   useEffect(() => {
     return () => setBroadcastError(null);
   }, [setBroadcastError]);
 
+  if (!transactionRequest) return null;
   return (
     <PopupContainer header={<PopupHeader />}>
       <Stack spacing="loose">
