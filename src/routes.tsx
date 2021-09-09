@@ -88,7 +88,9 @@ export const Routes: React.FC = () => {
 
   return (
     <RoutesDom>
-      <Route path={ScreenPaths.HOME} element={getHomeComponent()} />
+      <Route path={ScreenPaths.HOME} element={getHomeComponent()}>
+        <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmPage />} />
+      </Route>
       {/* Installation */}
       <Route path={ScreenPaths.SIGN_IN_INSTALLED} element={<InstalledSignIn />} />
       <AccountGateRoute path={ScreenPaths.POPUP_HOME}>
@@ -107,7 +109,6 @@ export const Routes: React.FC = () => {
       </AccountGateRoute>
       <RouterRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
       <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
-      <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmPage />} />
       <Route path={ScreenPaths.USERNAME} element={<Username />} />
       <Route path={ScreenPaths.GENERATION} element={getSignUpElement()} />
       {/*Sign In*/}
