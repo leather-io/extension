@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
+import { QueryClientProvider } from 'react-query';
+import { jotaiWrappedReactQueryQueryClient as queryClient } from '@store/common/common.hooks';
 import { Toaster } from 'react-hot-toast';
 
 import { theme } from '@common/theme';
@@ -23,22 +25,24 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <ColorModeProvider defaultMode="light">
-        <>
-          <Router>
-            <AppErrorBoundary>
-              <VaultLoader />
-              <Routes />
-              <AccountsDrawer />
-              <NetworksDrawer />
-              <TransactionSettingsDrawer />
-              <SpeedUpTransactionDrawer />
-              <SettingsPopover />
-            </AppErrorBoundary>
-            <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
-          </Router>
-        </>
-      </ColorModeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ColorModeProvider defaultMode="light">
+          <>
+            <Router>
+              <AppErrorBoundary>
+                <VaultLoader />
+                <Routes />
+                <AccountsDrawer />
+                <NetworksDrawer />
+                <TransactionSettingsDrawer />
+                <SpeedUpTransactionDrawer />
+                <SettingsPopover />
+              </AppErrorBoundary>
+              <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
+            </Router>
+          </>
+        </ColorModeProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };
