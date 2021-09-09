@@ -5,7 +5,7 @@ import React from 'react';
 
 import { SignOutConfirmLayout } from './sign-out-confirm-layout';
 
-export const SignOutConfirmPage = () => {
+export const SignOutConfirmDrawer = () => {
   const { doSignOut } = useWallet();
   const changeScreen = useChangeScreen();
 

@@ -5,7 +5,7 @@ import {
   wait,
   BrowserDriver,
   randomString,
-  timeDifference
+  timeDifference,
 } from '../integration/utils';
 import { USERNAMES_ENABLED } from '@common/constants';
 import { WalletPageSelectors } from './wallet.selectors';
@@ -160,14 +160,23 @@ export class WalletPage {
     let startTime = new Date();
     await this.enterSecretKey(secretKey);
     await this.waitForSetPassword();
-    console.log(`Page load time for 12 or 24 word Secret Key: ${timeDifference(startTime, new Date())} seconds`);
+    console.log(
+      `Page load time for 12 or 24 word Secret Key: ${timeDifference(
+        startTime,
+        new Date()
+      )} seconds`
+    );
     const password = randomString(15);
     startTime = new Date();
     await this.enterPassword(password);
     await this.waitForMainHomePage();
-    console.log(`Page load time for sign in with password: ${timeDifference(startTime, new Date())} seconds`);
+    console.log(
+      `Page load time for sign in with password: ${timeDifference(startTime, new Date())} seconds`
+    );
     startTime = new Date();
     await this.waitForHomePage();
-    console.log(`Page load time for mainnet account: ${timeDifference(startTime, new Date())} seconds`);
+    console.log(
+      `Page load time for mainnet account: ${timeDifference(startTime, new Date())} seconds`
+    );
   }
 }
