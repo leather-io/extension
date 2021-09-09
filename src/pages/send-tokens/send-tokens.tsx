@@ -17,7 +17,6 @@ import { AmountField } from '@pages/send-tokens/components/amount-field';
 import { RecipientField } from '@pages/send-tokens/components/recipient-field';
 import { MemoField } from '@pages/send-tokens/components/memo-field';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
-import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { ConfirmSendDrawer } from '@pages/transaction-signing/components/confirm-send-drawer';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { SendFormMemoWarning } from './components/memo-warning';
