@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
@@ -13,11 +14,16 @@ const PageTop = () => (
   </>
 );
 
-export const PopupHome = () => (
-  <PopupContainer header={<Header />} requestType="auth">
-    <Stack data-testid="home-page" flexGrow={1} spacing="loose">
-      <PageTop />
-      <BalancesAndActivity />
-    </Stack>
-  </PopupContainer>
-);
+export const PopupHome = () => {
+  return (
+    <>
+      <PopupContainer header={<Header />} requestType="auth">
+        <Stack data-testid="home-page" flexGrow={1} spacing="loose">
+          <PageTop />
+          <BalancesAndActivity />
+        </Stack>
+      </PopupContainer>
+      <Outlet />
+    </>
+  );
+};

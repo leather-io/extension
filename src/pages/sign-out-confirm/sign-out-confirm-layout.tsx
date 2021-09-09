@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { useFormik } from 'formik';
 
-import { Header } from '@components/header';
-import { PopupContainer } from '@components/popup/container';
 import { Body, Caption } from '@components/typography';
-import { Box, Button, Flex, Stack, color } from '@stacks/ui';
+import { Box, Button, Flex, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { BaseDrawer } from '@components/drawer';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
@@ -23,20 +22,15 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
   });
 
   return (
-    <PopupContainer header={<Header title="Signing out of Hiro Wallet" />}>
-      <form onChange={form.handleChange} onSubmit={form.handleSubmit}>
-        <Stack spacing="loose">
+    <BaseDrawer title="Sign out" isShowing onClose={onUserSafelyReturnToHomepage}>
+      <Box mx="loose" mb="extra-loose">
+        <form onChange={form.handleChange} onSubmit={form.handleSubmit}>
           <Body>
-            By signing out of your Hiro Wallet, all wallet information is deleted. You'll need your
-            24-word Secret Key to access your funds.
+            When you sign out, you’ll need your 24-word Secret Key to sign back in. Only sign out if
+            you’ve backed up your Secret Key.
           </Body>
-          <Body>
-            <strong>
-              If you do not have a back up of your 24-word phrase, all wallet funds will be
-              permenently lost
-            </strong>
-          </Body>
-          <Flex as="label" alignItems="center">
+
+          <Flex as="label" alignItems="center" mt="loose">
             <Box mr="tight">
               <input
                 type="checkbox"
@@ -44,32 +38,33 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
                 data-testid={SettingsSelectors.SignOutConfirmHasBackupCheckbox}
               />
             </Box>
-            <Caption userSelect="none">I have a back up of my 24-word Secret Key</Caption>
+            <Caption userSelect="none">I've backed up my 24-word Secret Key</Caption>
           </Flex>
-          <Stack spacing="extra-loose" mt="tight">
+          <Flex mt="loose">
             <Button
+              flex={1}
               type="button"
               onClick={() => onUserSafelyReturnToHomepage()}
+              mode="tertiary"
+              mr="base-tight"
               data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
             >
-              Cancel operation, return safely to wallet
+              Cancel
             </Button>
-            <Flex justifyContent="center">
-              <Button
-                type="submit"
-                display="inline-block"
-                variant="link"
-                fontSize="12px"
-                color={form.values.confirmBackup ? color('feedback-error') : color('text-caption')}
-                isDisabled={!form.values.confirmBackup}
-                data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
-              >
-                Sign out of my Hiro Wallet
-              </Button>
-            </Flex>
-          </Stack>
-        </Stack>
-      </form>
-    </PopupContainer>
+            <Button
+              flex={1}
+              type="submit"
+              mode="primary"
+              background={color('feedback-error')}
+              _hover={{ background: color('feedback-error') }}
+              isDisabled={!form.values.confirmBackup}
+              data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
+            >
+              Sign out
+            </Button>
+          </Flex>
+        </form>
+      </Box>
+    </BaseDrawer>
   );
 };

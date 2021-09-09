@@ -16,7 +16,7 @@ export enum ScreenPaths {
   ONBOARDING_PASSWORD = '/sign-up/set-password',
   USERNAME = '/username',
   SIGN_IN = '/sign-in',
-  SIGN_OUT_CONFIRM = '/sign-out/confirm',
+  SIGN_OUT_CONFIRM = '/sign-out',
   RECOVERY_CODE = '/sign-in/recover',
   ADD_ACCOUNT = '/sign-in/add-account',
   CHOOSE_ACCOUNT = '/connect/choose-account',

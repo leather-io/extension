@@ -35,7 +35,6 @@ const MenuItem: React.FC<BoxProps> = memo(props => {
   const { onClick, children, ...rest } = props;
   return (
     <Text
-      {...rest}
       width="100%"
       px="base"
       py="base-tight"
@@ -46,6 +45,7 @@ const MenuItem: React.FC<BoxProps> = memo(props => {
         onClick?.(e);
       }}
       fontSize={1}
+      {...rest}
     >
       {children}
     </Text>
@@ -158,6 +158,7 @@ export const SettingsPopover: React.FC = () => {
                 </MenuItem>
               )}
               <MenuItem
+                color={color('feedback-error')}
                 onClick={wrappedCloseCallback(() => changeScreen(ScreenPaths.SIGN_OUT_CONFIRM))}
                 data-testid="settings-sign-out"
               >
