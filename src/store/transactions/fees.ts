@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { DEFAULT_FEE_RATE } from '@store/common/constants';
 import { txForSettingsState } from '@store/transactions/index';
-import { getUpdatedTransactionFee } from '@store/transactions/utils';
+import { calculateFeeFromFeeRate } from '@store/transactions/utils';
 
 export const feeRateState = atom(DEFAULT_FEE_RATE);
 
@@ -15,5 +15,5 @@ export const currentFeeState = atom(get => {
 export const currentDefaultFeeState = atom(get => {
   const transaction = get(txForSettingsState);
   if (!transaction) return;
-  return getUpdatedTransactionFee(transaction, DEFAULT_FEE_RATE);
+  return calculateFeeFromFeeRate(transaction, DEFAULT_FEE_RATE);
 });

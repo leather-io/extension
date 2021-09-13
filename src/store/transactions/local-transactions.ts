@@ -18,7 +18,7 @@ import {
   standardPrincipalCVFromAddress,
   uintCV,
 } from '@stacks/transactions';
-import { getUpdatedTransactionFee } from '@store/transactions/utils';
+import { calculateFeeFromFeeRate } from '@store/transactions/utils';
 import { makeFungibleTokenTransferState } from '@store/transactions/fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
 import { makePostCondition } from '@store/transactions/transaction.hooks';
@@ -68,11 +68,8 @@ export const tokenTransferTransaction = atom(get => {
   };
 
   return generateSignedTransaction(options).then(transaction => {
-    if (!customAbsoluteFee) {
-      const fee = getUpdatedTransactionFee(transaction, feeRate);
-      return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
-    }
-    return generateSignedTransaction({ ...options, fee: customAbsoluteFee } as any);
+    const fee = customAbsoluteFee || calculateFeeFromFeeRate(transaction, feeRate).toNumber();
+    return generateSignedTransaction({ ...options, fee } as any);
   });
 });
 
@@ -154,7 +151,7 @@ export const ftTokenTransferTransactionState = atom(get => {
     // @TODO: kyran pls fix types
   ).then(transaction => {
     if (!transaction) return;
-    const fee = customFee || getUpdatedTransactionFee(transaction, feeRate).toNumber();
+    const fee = customFee || calculateFeeFromFeeRate(transaction, feeRate).toNumber();
     return generateSignedTransaction({ ...options, fee } as any);
   });
 });

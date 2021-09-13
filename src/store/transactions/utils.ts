@@ -37,22 +37,13 @@ export function getTxByteLength(tx: StacksTransaction) {
   return new BigNumber(tx.serialize().byteLength);
 }
 
-export function calculateDefaultFee(tx: StacksTransaction, feeRate: number) {
+export function calculateFeeFromFeeRate(tx: StacksTransaction, feeRate: number) {
   const txBytes = new BigNumber(tx.serialize().byteLength);
   return txBytes.multipliedBy(feeRate);
 }
 
-export function getUpdatedTransactionFee(tx: StacksTransaction, _feeRate: number) {
-  const txBytes = new BigNumber(tx.serialize().byteLength);
-  const feeRate = new BigNumber(_feeRate);
-  const newFee = feeRate.multipliedBy(txBytes);
-  return new BN(newFee.toNumber());
-}
-
-export function updateTransactionFee(transaction: StacksTransaction, _feeRate: number) {
-  const txBytes = new BigNumber(transaction.serialize().byteLength);
-  const feeRate = new BigNumber(_feeRate);
-  const newFee = feeRate.multipliedBy(txBytes);
+export function updateTransactionFee(transaction: StacksTransaction, feeRate: number) {
+  const newFee = calculateFeeFromFeeRate(transaction, feeRate);
   transaction.setFee(new BN(newFee.toNumber()));
   return transaction;
 }
