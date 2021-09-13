@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/53</span>
+                <span class='fraction'>0/54</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/47</span>
+                <span class='fraction'>0/48</span>
             </div>
         
             
@@ -186,7 +186,10 @@
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +217,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,6 +278,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,7 +339,7 @@ import { SendTokensForm } from '@pages/send-tokens/send-tokens'<span class="csta
 &nbsp;
 import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view'<span class="cstat-no" title="statement not covered" >;</span>
 import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
-import { useDoChangeScreen } from '@common/hooks/use-do-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { useChangeScreen } from '@common/hooks/use-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
 import { useSaveAuthRequest } from <span class="cstat-no" title="statement not covered" >'@common/hooks/auth/use-save-auth-request-callback'<span class="cstat-no" title="statement not covered" >;</span></span>
@@ -343,6 +349,7 @@ import { AccountGateRoute } from '@pages/account-gate-route'<span class="cstat-n
 import { Unlock } from '@components/unlock'<span class="cstat-no" title="statement not covered" >;</span>
 import { PopupHome } from '@pages/home/home'<span class="cstat-no" title="statement not covered" >;</span>
 import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface RouteProps {
   path: ScreenPaths;
@@ -359,7 +366,7 @@ export const <span class="cstat-no" title="statement not covered" >Routes<span c
   const { search, pathname }<span class="cstat-no" title="statement not covered" > = useLocation();</span>
   const setLastSeen<span class="cstat-no" title="statement not covered" > = useUpdateLastSeenStore();</span>
 &nbsp;
-  const doChangeScreen<span class="cstat-no" title="statement not covered" > = useDoChangeScreen();</span>
+  const doChangeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
   useSaveAuthRequest();
 &nbsp;
   const isSignedIn = <span class="cstat-no" title="statement not covered" >signedIn &amp;&amp; !isOnboardingInProgress;</span>
@@ -404,7 +411,9 @@ export const <span class="cstat-no" title="statement not covered" >Routes<span c
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;RoutesDom&gt;
-      &lt;Route path={ScreenPaths.HOME} element={getHomeComponent()} /&gt;
+      &lt;Route path={ScreenPaths.HOME} element={getHomeComponent()}&gt;
+        &lt;Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={&lt;SignOutConfirmDrawer /&gt;} /&gt;
+      &lt;/Route&gt;
       {/* Installation */}
       &lt;Route path={ScreenPaths.SIGN_IN_INSTALLED} element={&lt;InstalledSignIn /&gt;} /&gt;
       &lt;AccountGateRoute path={ScreenPaths.POPUP_HOME}&gt;
@@ -451,7 +460,7 @@ export const <span class="cstat-no" title="statement not covered" >Routes<span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 12:05:11 GMT+0000 (Coordinated Universal Time)
+                at Mon Sep 13 2021 07:13:41 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

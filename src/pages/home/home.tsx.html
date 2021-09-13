@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -80,13 +80,20 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -96,6 +103,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,7 +111,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" >;</span></span>
+import { Outlet } from 'react-router-dom'<span class="cstat-no" title="statement not covered" >;</span>
 import { Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
 import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
@@ -118,14 +131,19 @@ const PageTop<span class="cstat-no" title="statement not covered" ><span class="
   &lt;/&gt;
 );
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >PopupHome<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; (</span></span></span>
-  &lt;PopupContainer header={&lt;Header /&gt;} requestType="auth"&gt;
-    &lt;Stack data-testid="home-page" flexGrow={1} spacing="loose"&gt;
-      &lt;PageTop /&gt;
-      &lt;BalancesAndActivity /&gt;
-    &lt;/Stack&gt;
-  &lt;/PopupContainer&gt;
-);
+export const <span class="cstat-no" title="statement not covered" >PopupHome<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;&gt;
+      &lt;PopupContainer header={&lt;Header /&gt;} requestType="auth"&gt;
+        &lt;Stack data-testid="home-page" flexGrow={1} spacing="loose"&gt;
+          &lt;PageTop /&gt;
+          &lt;BalancesAndActivity /&gt;
+        &lt;/Stack&gt;
+      &lt;/PopupContainer&gt;
+      &lt;Outlet /&gt;
+    &lt;/&gt;
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -133,7 +151,7 @@ export const <span class="cstat-no" title="statement not covered" >PopupHome<spa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 12:05:11 GMT+0000 (Coordinated Universal Time)
+                at Mon Sep 13 2021 07:13:41 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

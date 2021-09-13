@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/common/hooks/use-do-change-screen.ts</title>
+    <title>Code coverage report for src/pages/sign-out-confirm/sign-out-confirm.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/common/hooks</a> use-do-change-screen.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/pages/sign-out-confirm</a> sign-out-confirm.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>0/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
+                <span class="quiet">Functions</span>
                 <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -78,72 +78,48 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">96x</span>
-<span class="cline-any cline-yes">96x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">96x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">96x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react'<span class="fstat-no" title="function not covered" >;</span>
-import { useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useChangeScreen } from '@common/hooks/use-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
+import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import { ScreenPaths } from '@common/types';
-import { useCurrentScreenUpdate } from '@store/onboarding/onboarding.hooks';
+import { SignOutConfirmLayout } from './sign-out-confirm-layout'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-type DoChangeScreen = (path: ScreenPaths, changeRoute?: boolean) =&gt; void;
+export const <span class="cstat-no" title="statement not covered" >SignOutConfirmDrawer<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
+  const { doSignOut }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
+  const changeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
 &nbsp;
-export function useDoChangeScreen(): DoChangeScreen {
-  const navigate = useNavigate();
-  const changeScreen = useCurrentScreenUpdate();
-&nbsp;
-  const doNavigatePage = useCallback(
-    (path: ScreenPaths) =&gt; {
-<span class="cstat-no" title="statement not covered" >      navigate(path);</span>
-<span class="cstat-no" title="statement not covered" >      changeScreen(path);</span>
-    },
-    [changeScreen, navigate]
+  return (
+    &lt;SignOutConfirmLayout
+      onUserDeleteWallet<span class="fstat-no" title="function not covered" >={async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        await doSignOut();</span>
+<span class="cstat-no" title="statement not covered" >        changeScreen(ScreenPaths.INSTALLED);</span>
+      }}
+      onUserSafelyReturnToHomepage<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >c</span>hangeScreen(ScreenPaths.HOME)}</span>
+    /&gt;
   );
-&nbsp;
-  return useCallback(
-    (path: ScreenPaths, changeRoute = <span class="branch-0 cbranch-no" title="branch not covered" >true)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (changeRoute) {</span>
-<span class="cstat-no" title="statement not covered" >        return doNavigatePage(path);</span>
-      }
-    },
-    [doNavigatePage]
-  );
-}
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -151,7 +127,7 @@ export function useDoChangeScreen(): DoChangeScreen {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 12:05:11 GMT+0000 (Coordinated Universal Time)
+                at Mon Sep 13 2021 07:13:41 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

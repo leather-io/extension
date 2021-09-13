@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.1% </span>
+                <span class="strong">87.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/42</span>
+                <span class='fraction'>41/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.04% </span>
+                <span class="strong">60.76% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/77</span>
+                <span class='fraction'>48/79</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.06% </span>
+                <span class="strong">97.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/34</span>
+                <span class='fraction'>36/37</span>
             </div>
         
             
@@ -146,36 +146,48 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -260,12 +272,18 @@ export const currentAccountLocalNonceState = atom(get =&gt; {
   return get(localNonceState([address, network.url]));
 });
 &nbsp;
+export const lastApiNonceState = atom&lt;number | undefined&gt;(undefined);
+&nbsp;
 export const currentAccountNonceState = atom(get =&gt; {
   const address = get(currentAccountStxAddressState);
   const account = get(currentAccountInfoState);
   const confirmedTransactions = get(currentAccountConfirmedTransactionsState);
   const pendingTransactions = get(currentAccountMempoolTransactionsState);
   const lastLocalNonce = get(currentAccountLocalNonceState);
+&nbsp;
+  const apiNonce = get(lastApiNonceState);
+  // We try to use the api nonce first since it will be the most accurate value
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof apiNonce === 'number') <span class="cstat-no" title="statement not covered" >return apiNonce;</span>
 &nbsp;
   // most recent confirmed transactions sent by current address
   const lastConfirmedTx = <span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >confi</span></span>rmedTransactions?.filter(tx =&gt; tx.sender_address === address)?.[0];
@@ -331,7 +349,7 @@ export const currentAccountNonceState = atom(get =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 12:05:11 GMT+0000 (Coordinated Universal Time)
+                at Mon Sep 13 2021 07:13:41 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

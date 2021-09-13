@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.53% </span>
+                <span class="strong">38.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/43</span>
+                <span class='fraction'>18/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.29% </span>
+                <span class="strong">34.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/34</span>
+                <span class='fraction'>13/38</span>
             </div>
         
             
@@ -107,7 +107,12 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,32 +122,28 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,9 +151,18 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -166,7 +176,8 @@ import {
 } from '@stacks/transactions';
 import { currentAccountPrivateKeyState } from '@store/accounts';
 import { updateTransactionFee } from '@store/transactions/utils';
-import { currentFeeRateState } from '@store/transactions/fees';
+import { customAbsoluteTxFee, feeRateState } from '@store/transactions/fees';
+import BN from 'bn.js';
 &nbsp;
 export const rawTxIdState = atom&lt;string | null&gt;(null);
 &nbsp;
@@ -201,8 +212,12 @@ export const rawSignedStacksTransactionState = atom(get =&gt; {
   const transaction = <span class="cstat-no" title="statement not covered" >get(rawStacksTransactionState);</span>
   const privateKey = <span class="cstat-no" title="statement not covered" >get(currentAccountPrivateKeyState);</span>
 <span class="cstat-no" title="statement not covered" >  if (!transaction || !privateKey) <span class="cstat-no" title="statement not covered" >return;</span></span>
-  const feeRate = <span class="cstat-no" title="statement not covered" >get(currentFeeRateState);</span>
+  const feeRate = <span class="cstat-no" title="statement not covered" >get(feeRateState);</span>
+  const absoluteCustomFee = <span class="cstat-no" title="statement not covered" >get(customAbsoluteTxFee);</span>
   const updatedTx<span class="cstat-no" title="statement not covered" > = updateTransactionFee(transaction, feeRate);</span>
+<span class="cstat-no" title="statement not covered" >  if (absoluteCustomFee) {</span>
+<span class="cstat-no" title="statement not covered" >    updatedTx.setFee(new BN(absoluteCustomFee));</span>
+  }
   const signer = <span class="cstat-no" title="statement not covered" >new TransactionSigner(updatedTx);</span>
 <span class="cstat-no" title="statement not covered" >  signer.signOrigin(createStacksPrivateKey(privateKey));</span>
 <span class="cstat-no" title="statement not covered" >  return transaction;</span>
@@ -214,7 +229,7 @@ export const rawSignedStacksTransactionState = atom(get =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 12:05:11 GMT+0000 (Coordinated Universal Time)
+                at Mon Sep 13 2021 07:13:41 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
