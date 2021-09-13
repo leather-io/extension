@@ -85,6 +85,8 @@ export const ftTokenTransferTransactionState = atom(get => {
   const assetTransferState = get(makeFungibleTokenTransferState);
   const selectedAsset = get(selectedAssetStore);
   const feeRate = get(feeRateState);
+  const customFee = get(customAbsoluteTxFee);
+
   if (!assetTransferState || !selectedAsset) return;
   const {
     balances,
@@ -152,8 +154,8 @@ export const ftTokenTransferTransactionState = atom(get => {
     // @TODO: kyran pls fix types
   ).then(transaction => {
     if (!transaction) return;
-    const fee = getUpdatedTransactionFee(transaction, feeRate);
-    return generateSignedTransaction({ ...options, fee: fee.toNumber() } as any);
+    const fee = customFee || getUpdatedTransactionFee(transaction, feeRate).toNumber();
+    return generateSignedTransaction({ ...options, fee } as any);
   });
 });
 
