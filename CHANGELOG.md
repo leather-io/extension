@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.17.0
+
+### Minor Changes
+
+- [#1691](https://github.com/blockstack/stacks-wallet-web/pull/1691) [`4b685917b`](https://github.com/blockstack/stacks-wallet-web/commit/4b685917bf8e3a887e2d60593f87b4da4af60614) Thanks [@aulneau](https://github.com/aulneau)! - This update removes a lot of the code we implemented to determine if a fungible token asset can be transferred/conforms to [SIP-010](https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md), and in place we now rely on the new [token metadata endpoints]https://blockstack.github.io/stacks-blockchain-api/#tag/tokens in the stacks-blockchain-api.
+
+  **NOTICE: This update removes the ability to transfer certain fungible tokens that conformed to an older version of SIP-010 (with no memo).**
+
+* [#1686](https://github.com/blockstack/stacks-wallet-web/pull/1686) [`88682a9b3`](https://github.com/blockstack/stacks-wallet-web/commit/88682a9b39c3690d71509b2a7c3357edce6f0315) Thanks [@kyranjamie](https://github.com/kyranjamie)! - Adds a confirmation page before user is able to delete their wallet
+
+### Patch Changes
+
+- [#1530](https://github.com/blockstack/stacks-wallet-web/pull/1530) [`990bec70a`](https://github.com/blockstack/stacks-wallet-web/commit/990bec70aa797857d14f23f72accdb19f415fbd4) Thanks [@beguene](https://github.com/beguene)! - Use the api to get possible nonce and fallback to default nonce calculation if the api is not available.
+
+* [#1617](https://github.com/blockstack/stacks-wallet-web/pull/1617) [`e38fafbe6`](https://github.com/blockstack/stacks-wallet-web/commit/e38fafbe6aeb2053889e9f43f117d6dca1236d4e) Thanks [@aulneau](https://github.com/aulneau)! - This update enables some additional persistence of query data, such as transactions and balances. This makes it so the wallet can be more performant when opening it.
+
+- [#1669](https://github.com/blockstack/stacks-wallet-web/pull/1669) [`fa4b49721`](https://github.com/blockstack/stacks-wallet-web/commit/fa4b49721782eb61fd74c93d9bcce1364a311d15) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This relocates the 'Learn more' text link in the advanced settings drawer.
+
 ## 2.16.0
 
 ### Minor Changes
