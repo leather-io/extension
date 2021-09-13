@@ -1,5 +1,7 @@
 import argon2, { ArgonType } from 'argon2-browser';
 
+const context = self as unknown as Worker;
+
 interface GenerateEncryptionKeyArgs {
   password: string;
   salt: string;
@@ -16,12 +18,9 @@ export async function generateEncryptionKey({ password, salt }: GenerateEncrypti
   return argonHash.hashHex;
 }
 
-self.addEventListener(
-  'message',
-  async function (e) {
-    const hex = await generateEncryptionKey(e.data);
-    self.postMessage(hex);
-    console.log('worker', hex);
-  },
-  false
-);
+async function stretchKeyPostMessageHandler(e: MessageEvent<GenerateEncryptionKeyArgs>) {
+  const hex = await generateEncryptionKey(e.data);
+  context.postMessage(hex);
+}
+
+context.addEventListener('message', stretchKeyPostMessageHandler, false);
