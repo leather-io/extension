@@ -36,6 +36,7 @@ describe('Send form tests', () => {
     const amountField: HTMLElement = getByTestId(SendFormSelectors.InputAmountField);
     const recipientField: HTMLElement = getByTestId(SendFormSelectors.InputRecipientField);
     const previewBtn: HTMLElement = getByTestId(SendFormSelectors.BtnPreviewSendTx);
+    await findByText('HEY');
 
     userEvent.paste(amountField, '0.123');
     userEvent.paste(recipientField, 'ST1P72Z3704VMT3DMHPP2CB8TGQWGDBHD3RD69GE2');
