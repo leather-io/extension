@@ -37,6 +37,7 @@ export const Unlock: React.FC = () => {
           autoFocus
           type="password"
           value={password}
+          isDisabled={loading}
           data-testid="set-password"
           onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
           onKeyUp={buildEnterKeyEvent(submit)}

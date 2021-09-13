@@ -1,15 +1,17 @@
-const worker = new Worker('./decryption-worker.js');
+import { createWorker, WorkerScript } from '../../workers';
 
 interface GenerateEncryptionKeyArgs {
   password: string;
   salt: string;
 }
-export async function generateEncryptionKey({ password, salt }: GenerateEncryptionKeyArgs) {
+export async function generateEncryptionKey(args: GenerateEncryptionKeyArgs): Promise<string> {
+  const worker = createWorker(WorkerScript.DecryptionWorker);
+
   return new Promise(resolve => {
-    worker.postMessage({ password, salt });
-    worker.addEventListener('message', e => {
-      console.log('bg', e);
+    worker.addEventListener('message', (e: MessageEvent<string>) => {
+      worker.terminate();
       resolve(e.data);
     });
+    worker.postMessage(args);
   });
 }
