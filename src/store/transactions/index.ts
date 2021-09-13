@@ -13,7 +13,7 @@ import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
 import { validateStacksAddress } from '@common/stacks-utils';
 
-import { calculateDefaultFee } from '@store/transactions/utils';
+import { calculateFeeFromFeeRate } from '@store/transactions/utils';
 import { customAbsoluteTxFee, feeRateState } from '@store/transactions/fees';
 import { localTransactionState } from '@store/transactions/local-transactions';
 import { customNonceState } from './nonce.hooks';
@@ -57,7 +57,7 @@ export const signedStacksTransactionState = atom(get => {
   const { transaction, options } = get(signedStacksTransactionBaseState);
   if (!transaction) return;
   const defaultFeeRate = get(feeRateState);
-  const defaultFee = calculateDefaultFee(transaction, defaultFeeRate);
+  const defaultFee = calculateFeeFromFeeRate(transaction, defaultFeeRate);
   const absoluteCustomFee = get(customAbsoluteTxFee);
   const fee = absoluteCustomFee ? new BigNumber(absoluteCustomFee) : defaultFee;
   return generateSignedTransaction({ ...options, fee: fee.toNumber() });
