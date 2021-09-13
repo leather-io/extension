@@ -1,17 +1,15 @@
-import argon2, { ArgonType } from 'argon2-browser';
+const worker = new Worker('./decryption-worker.js');
 
 interface GenerateEncryptionKeyArgs {
   password: string;
   salt: string;
 }
 export async function generateEncryptionKey({ password, salt }: GenerateEncryptionKeyArgs) {
-  const argonHash = await argon2.hash({
-    pass: password,
-    salt,
-    hashLen: 48,
-    time: 44,
-    mem: 1024 * 32,
-    type: ArgonType.Argon2id,
+  return new Promise(resolve => {
+    worker.postMessage({ password, salt });
+    worker.addEventListener('message', e => {
+      console.log('bg', e);
+      resolve(e.data);
+    });
   });
-  return argonHash.hashHex;
 }
