@@ -6,6 +6,7 @@ import {
   TOKEN_CONTRACT_DATA,
   TOKEN_CONTRACT_INFO_DATA,
   TOKEN_CONTRACT_SOURCE_DATA,
+  TOKEN_FT_DATA,
   TOKEN_GET_DECIMALS_DATA,
   TOKEN_GET_NAME_DATA,
   TOKEN_GET_SYMBOL_DATA,
@@ -28,7 +29,9 @@ export enum GetRequests {
   heyContractInterface = 'https://stacks-node-api.regtest.stacks.co/v2/contracts/interface/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N/hey-final',
   heyContractSource = 'https://stacks-node-api.regtest.stacks.co/v2/contracts/source/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N/hey-final',
   heyContractInfo = 'https://stacks-node-api.regtest.stacks.co/extended/v1/contract/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N.hey-final',
+  heyFtData = 'https://stacks-node-api.regtest.stacks.co/extended/v1/tokens/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N.hey-token/ft/metadata',
   fees = 'https://stacks-node-api.regtest.stacks.co/v2/fees/transfer',
+  nonces = 'https://stacks-node-api.regtest.stacks.co/extended/v1/address/ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z/nonces',
 }
 
 export enum PostRequests {
@@ -49,6 +52,7 @@ export const getRequests: Record<string, string> = {
   [GetRequests.heyContractInfo]: HEY_CONTRACT_INFO,
   [GetRequests.heyContractSource]: HEY_CONTRACT_SOURCE_DATA,
   [GetRequests.heyContractInterface]: HEY_CONTRACT_INTERFACE,
+  [GetRequests.heyFtData]: TOKEN_FT_DATA,
   [GetRequests.fees]: '1',
 };
 

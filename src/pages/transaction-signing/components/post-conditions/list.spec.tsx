@@ -9,7 +9,7 @@ import { setupHeystackEnv } from '@tests/mocks/heystack';
 const message = 'You will transfer exactly 1 HEY or the transaction will abort.';
 const from = 'ST2P…ZE7Z';
 const firstTokenName = 'hey-token';
-const sip10Name = 'Heystack Token';
+const sip10Name = 'Heystack';
 
 describe('<PostConditions />', () => {
   setupHeystackEnv();
