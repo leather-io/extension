@@ -19,7 +19,7 @@ export function bytesToHex(uint8a: Uint8Array): string {
 }
 
 export function makeLocalDataKey(params: QueryKey): string {
-  return hash(hashQueryKey(params));
+  return hash(hashQueryKey([params, VERSION]));
 }
 
 export function getLocalData<Data>(params: string[]) {
