@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- [#1691](https://github.com/blockstack/stacks-wallet-web/pull/1691) [`4b685917b`](https://github.com/blockstack/stacks-wallet-web/commit/4b685917bf8e3a887e2d60593f87b4da4af60614) Thanks [@aulneau](https://github.com/aulneau)! - This update removes a lot of the code we implemented to determine if a fungible token asset can be transferred/conforms to [SIP-010](https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md), and in place we now rely on the new [token metadata endpoints]https://blockstack.github.io/stacks-blockchain-api/#tag/tokens in the stacks-blockchain-api.
+- [#1691](https://github.com/blockstack/stacks-wallet-web/pull/1691) [`4b685917b`](https://github.com/blockstack/stacks-wallet-web/commit/4b685917bf8e3a887e2d60593f87b4da4af60614) Thanks [@aulneau](https://github.com/aulneau)! - This update removes a lot of the code we implemented to determine if a fungible token asset can be transferred/conforms to [SIP-010](https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md), and in place we now rely on the new [token metadata endpoints](https://blockstack.github.io/stacks-blockchain-api/#tag/tokens) in the stacks-blockchain-api.
 
   **NOTICE: This update removes the ability to transfer certain fungible tokens that conformed to an older version of SIP-010 (with no memo).**
 
