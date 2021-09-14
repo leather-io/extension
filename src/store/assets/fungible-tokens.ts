@@ -9,9 +9,7 @@ import { apiClientState } from '@store/common/api-clients';
 import { FungibleTokenMetadata } from '@stacks/blockchain-api-client';
 
 enum FungibleTokensQueryKeys {
-  SIP_10_COMPLIANT = 'SIP_10_COMPLIANT',
-  META_DATA_METHODS = 'META_DATA_METHODS',
-  ASSET_META_DATA = 'ASSET_META_DATA',
+  FUNGIBLE_TOKEN_META_DATA = 'FUNGIBLE_TOKEN_META_DATA',
 }
 
 type ContractWithNetwork = Readonly<ContractPrincipal & { networkUrl: string }>;
@@ -47,7 +45,7 @@ export const assetMetaDataState = atomFamily<ContractWithNetwork, FtMeta | null>
         network.url,
         contractAddress,
         contractName,
-        FungibleTokensQueryKeys.ASSET_META_DATA,
+        FungibleTokensQueryKeys.FUNGIBLE_TOKEN_META_DATA,
       ];
       const localData = getLocalData<FtMeta | { error: string }>(keyParams);
       if (localData) {
