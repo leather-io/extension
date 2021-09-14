@@ -18,6 +18,7 @@ export async function persistAndRenderApp(renderApp: () => void) {
     await persistQueryClient({
       queryClient,
       persistor: localStoragePersistor,
+      buster: VERSION,
     });
   renderApp();
 }
