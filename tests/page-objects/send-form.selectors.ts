@@ -8,4 +8,5 @@ export enum SendFormSelectors {
   InputRecipientFieldErrorLabel = 'input-recipient-field-error-label',
 
   BtnPreviewSendTx = 'btn-preview-send-tx',
+  TransferMessage = 'transfer-message',
 }

@@ -9,6 +9,7 @@ const selectors = {
   $stxAddressField: createTestSelector(SendFormSelectors.InputRecipientField),
   $stxAddressFieldError: createTestSelector(SendFormSelectors.InputRecipientFieldErrorLabel),
   $previewBtn: createTestSelector(SendFormSelectors.BtnPreviewSendTx),
+  $transferMessage: createTestSelector(SendFormSelectors.TransferMessage),
 };
 
 export class SendPage {
@@ -41,8 +42,17 @@ export class SendPage {
     await field?.type(input);
   }
 
+  async fillToAmountField(input: string) {
+    const field = await this.page.$(this.selectors.$amountField);
+    await field?.fill(input);
+  }
+
   async inputToAddressField(input: string) {
     const field = await this.page.$(this.selectors.$stxAddressField);
     await field?.type(input);
+  }
+
+  async waitForPreview(selector: keyof typeof selectors) {
+    await this.page.waitForSelector(this.selectors[selector]);
   }
 }
