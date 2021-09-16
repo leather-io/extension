@@ -205,6 +205,11 @@ const config = {
       'process.env.USERNAMES_ENABLED': JSON.stringify(process.env.USERNAMES_ENABLED || 'false'),
       'process.env.TEST_ENV': JSON.stringify(TEST_ENV ? 'true' : 'false'),
     }),
+
+    new webpack.EnvironmentPlugin({
+      SENTRY_DSN: process.env.SENTRY_DSN ?? '',
+    }),
+
     new webpack.ProvidePlugin({
       process: 'process/browser.js',
       Buffer: ['buffer', 'Buffer'],

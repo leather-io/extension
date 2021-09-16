@@ -5,6 +5,8 @@
  needed and unloaded when it goes idle.
  https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
  */
+import * as Sentry from '@sentry/react';
+
 import { storePayload, StorageKey } from '@common/storage';
 import { ScreenPaths } from '@common/types';
 import {
@@ -17,8 +19,11 @@ import type { VaultActions } from '@background/vault-types';
 import { popupCenter } from '@background/popup';
 import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
+import { initSentry } from '@common/sentry-init';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
+
+initSentry();
 
 initContextMenuActions();
 
@@ -31,68 +36,74 @@ async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
 }
 
 // Listen for install event
-chrome.runtime.onInstalled.addListener(async details => {
-  if (details.reason === 'install' && !IS_TEST_ENV) {
-    await chrome.tabs.create({
-      url: chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`),
-    });
-  }
+chrome.runtime.onInstalled.addListener(details => {
+  Sentry.wrap(async () => {
+    if (details.reason === 'install' && !IS_TEST_ENV) {
+      await chrome.tabs.create({
+        url: chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`),
+      });
+    }
+  });
 });
 
 // Listen for connection to the content-script - port for two-way communication
-chrome.runtime.onConnect.addListener(port => {
-  // Listen for auth and transaction events
-  if (port.name === CONTENT_SCRIPT_PORT) {
-    port.onMessage.addListener(async (message: MessageFromContentScript, port) => {
-      const { payload } = message;
-      switch (message.method) {
-        case ExternalMethods.authenticationRequest: {
-          void storePayload({
-            payload,
-            storageKey: StorageKey.authenticationRequests,
-            port,
-          });
-          const path = ScreenPaths.GENERATION;
-          const urlParams = new URLSearchParams();
-          urlParams.set('authRequest', payload);
-          if (IS_TEST_ENV) {
-            await openRequestInFullPage(path, urlParams);
-          } else {
-            popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+chrome.runtime.onConnect.addListener(port =>
+  Sentry.wrap(() => {
+    // Listen for auth and transaction events
+    if (port.name === CONTENT_SCRIPT_PORT) {
+      port.onMessage.addListener(async (message: MessageFromContentScript, port) => {
+        const { payload } = message;
+        switch (message.method) {
+          case ExternalMethods.authenticationRequest: {
+            void storePayload({
+              payload,
+              storageKey: StorageKey.authenticationRequests,
+              port,
+            });
+            const path = ScreenPaths.GENERATION;
+            const urlParams = new URLSearchParams();
+            urlParams.set('authRequest', payload);
+            if (IS_TEST_ENV) {
+              await openRequestInFullPage(path, urlParams);
+            } else {
+              popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+            }
+            break;
           }
-          break;
-        }
-        case ExternalMethods.transactionRequest: {
-          void storePayload({
-            payload,
-            storageKey: StorageKey.transactionRequests,
-            port,
-          });
-          const path = ScreenPaths.TRANSACTION_POPUP;
-          const urlParams = new URLSearchParams();
-          urlParams.set('request', payload);
-          if (IS_TEST_ENV) {
-            await openRequestInFullPage(path, urlParams);
-          } else {
-            popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+          case ExternalMethods.transactionRequest: {
+            void storePayload({
+              payload,
+              storageKey: StorageKey.transactionRequests,
+              port,
+            });
+            const path = ScreenPaths.TRANSACTION_POPUP;
+            const urlParams = new URLSearchParams();
+            urlParams.set('request', payload);
+            if (IS_TEST_ENV) {
+              await openRequestInFullPage(path, urlParams);
+            } else {
+              popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+            }
+            break;
           }
-          break;
+          default:
+            break;
         }
-        default:
-          break;
-      }
-    });
-  }
-});
+      });
+    }
+  })
+);
 
 // Listen for events triggered by the background memory vault
-chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendResponse) => {
-  // Only respond to internal messages from our UI, not content scripts in other applications
-  if (!sender.url?.startsWith(chrome.runtime.getURL(''))) return;
-  void vaultMessageHandler(message).then(sendResponse).catch(sendResponse);
-  // Return true to specify that we are responding async
-  return true;
-});
+chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendResponse) =>
+  Sentry.wrap(() => {
+    // Only respond to internal messages from our UI, not content scripts in other applications
+    if (!sender.url?.startsWith(chrome.runtime.getURL(''))) return;
+    void vaultMessageHandler(message).then(sendResponse).catch(sendResponse);
+    // Return true to specify that we are responding async
+    return true;
+  })
+);
 
 if (IS_TEST_ENV) {
   // Expose a helper function to open a new tab with the wallet from tests

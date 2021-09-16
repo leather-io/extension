@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { atomWithDefault } from 'jotai/utils';
+import { atomWithDefault, atomWithStorage } from 'jotai/utils';
 
 import { ScreenPaths } from '@common/types';
 import { DecodedAuthRequest } from '@common/dev/types';
@@ -42,6 +42,10 @@ export const authRequestState = atom<AuthRequestState>({
   appIcon: undefined,
   appURL: undefined,
 });
+
+export const userHasAllowedDiagnosticsKey = 'stacks-wallet-has-allowed-diagnostics';
+
+export const hasAllowedDiagnosticsState = atomWithStorage(userHasAllowedDiagnosticsKey, false);
 
 magicRecoveryCodePasswordState.debugLabel = 'magicRecoveryCodePasswordState';
 seedInputState.debugLabel = 'seedInputState';

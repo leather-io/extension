@@ -10,7 +10,6 @@ interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
   onUserSafelyReturnToHomepage(): void;
 }
-
 export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
   const { onUserDeleteWallet, onUserSafelyReturnToHomepage } = props;
 

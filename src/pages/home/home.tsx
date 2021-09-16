@@ -8,7 +8,11 @@ import { UserAccount } from '@pages/home/components/user-area';
 import { HomeActions } from '@pages/home/components/actions';
 import { HiroMessages } from '@features/hiro-messages/hiro-messages';
 
+import { usePromptUserToSetDiagnosticPermissions } from '@common/hooks/use-diagnostic-permission-prompt';
+
 export const PopupHome = () => {
+  usePromptUserToSetDiagnosticPermissions();
+
   return (
     <>
       <PopupContainer

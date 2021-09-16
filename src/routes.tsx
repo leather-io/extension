@@ -27,6 +27,7 @@ import { Unlock } from '@pages/unlock';
 import { PopupHome } from '@pages/home/home';
 import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
+import { AllowDiagnosticsDrawer } from '@pages/allow-diagnostics/allow-diagnostics';
 
 interface RouteProps {
   path: ScreenPaths;
@@ -90,6 +91,7 @@ export const Routes: React.FC = () => {
     <RoutesDom>
       <Route path={ScreenPaths.HOME} element={getHomeComponent()}>
         <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmDrawer />} />
+        <Route path={ScreenPaths.REQUEST_DIAGNOSTICS} element={<AllowDiagnosticsDrawer />} />
       </Route>
       {/* Installation */}
       <Route path={ScreenPaths.SIGN_IN_INSTALLED} element={<InstalledSignIn />} />
