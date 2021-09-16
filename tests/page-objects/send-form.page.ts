@@ -1,6 +1,6 @@
-import { Page } from 'playwright-core';
-import { createTestSelector } from '../integration/utils';
-import { SendFormSelectors } from './send-form.selectors';
+import {Page} from 'playwright-core';
+import {createTestSelector} from '../integration/utils';
+import {SendFormSelectors} from './send-form.selectors';
 
 const selectors = {
   $btnSendMaxBalance: createTestSelector(SendFormSelectors.BtnSendMaxBalance),
@@ -9,12 +9,14 @@ const selectors = {
   $stxAddressField: createTestSelector(SendFormSelectors.InputRecipientField),
   $stxAddressFieldError: createTestSelector(SendFormSelectors.InputRecipientFieldErrorLabel),
   $previewBtn: createTestSelector(SendFormSelectors.BtnPreviewSendTx),
+  $transferMessage: createTestSelector(SendFormSelectors.TransferMessage),
 };
 
 export class SendPage {
   selectors = selectors;
 
-  constructor(public page: Page) {}
+  constructor(public page: Page) {
+  }
 
   async select(selector: keyof typeof selectors) {
     return this.page.$(selectors[selector]);
@@ -41,8 +43,17 @@ export class SendPage {
     await field?.type(input);
   }
 
+  async fillToAmountField(input: string) {
+    const field = await this.page.$(this.selectors.$amountField);
+    await field?.fill(input);
+  }
+
   async inputToAddressField(input: string) {
     const field = await this.page.$(this.selectors.$stxAddressField);
     await field?.type(input);
+  }
+
+  async waitForPreview(selector: keyof typeof selectors) {
+    await this.page.waitForSelector(this.selectors[selector]);
   }
 }
