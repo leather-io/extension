@@ -40,6 +40,7 @@ export enum ScreenPaths {
   POPUP_SEND = '/send',
   POPUP_RECEIVE = '/receive',
   ADD_NETWORK = '/add-network',
+  REQUEST_DIAGNOSTICS = '/request-diagnostics',
   EDIT_POST_CONDITIONS = '/transaction/post-conditions',
   TRANSACTION_POPUP = '/transaction',
 }

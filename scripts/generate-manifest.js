@@ -60,7 +60,7 @@ const devManifest = {
 const prodManifest = {
   name: 'Hiro Wallet',
   content_security_policy:
-    "script-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
+    "default-src 'none'; connect-src *; style-src 'unsafe-inline'; script-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
   icons: {
     128: 'assets/connect-logo/Stacks128w.png',
     256: 'assets/connect-logo/Stacks256w.png',
