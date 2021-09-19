@@ -38,7 +38,8 @@ export const currentAccountNonceState = atom(get => {
   if (typeof apiNonce === 'number') {
     if (latestLocallySumbmittedNonce) {
       // if we have a locally submitted nonce, and it's higher than the api nonce, use that
-      if (latestLocallySumbmittedNonce.toNumber() > apiNonce) return latestLocallySumbmittedNonce;
+      if (latestLocallySumbmittedNonce.toNumber() > apiNonce)
+        return latestLocallySumbmittedNonce.toNumber();
     }
     // We try to use the api nonce first since it will be the most accurate value
     return apiNonce;
