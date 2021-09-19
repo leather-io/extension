@@ -11,8 +11,8 @@ import { currentNetworkState } from '@store/network/networks';
 import { walletState } from '@store/wallet/wallet';
 import { transactionNetworkVersionState } from '@store/transactions';
 import {
-  accountBalancesUnanchoredBigNumberState,
   accountBalancesAnchoredBigNumber,
+  accountBalancesUnanchoredBigNumberState,
   accountBalancesUnanchoredClient,
   accountInfoUnanchoredClient,
   accountMempoolTransactionsUnanchoredClient,
