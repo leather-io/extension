@@ -49,6 +49,8 @@ import {
   localStacksTransactionInputsState,
   localTransactionState,
 } from '@store/transactions/local-transactions';
+import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
+import { todaysIsoDate } from '@common/date-utils';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -147,6 +149,13 @@ export function useTransactionBroadcast() {
           });
           typeof nonce !== 'undefined' && (await doSetLatestNonce(nonce));
           finalizeTxSignature(requestToken, result);
+          if (result.txId)
+            set(currentAccountLocallySubmittedTxsState, {
+              [result.txId]: {
+                rawTx: result.txRaw,
+                timestamp: todaysIsoDate(),
+              },
+            });
         } catch (error) {
           console.error(error);
           set(transactionBroadcastErrorState, error.message);
