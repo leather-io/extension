@@ -12,7 +12,9 @@ import FunctionIcon from 'mdi-react/FunctionIcon';
 import { useWallet } from '@common/hooks/use-wallet';
 import { StxIcon } from './icons/stx-icon';
 import { MicroblockIcon } from '@components/icons/microblock';
-import { Tx, Status, statusFromTx } from '@common/api/transactions';
+import { Status, statusFromTx, Tx } from '@common/api/transactions';
+import { addressToString, PayloadType, StacksTransaction } from '@stacks/transactions';
+import { getTxSenderAddress } from '@store/accounts/account-activity.utils';
 
 interface TypeIconWrapperProps extends BoxProps {
   icon: React.FC<any>;
@@ -139,6 +141,50 @@ export const TxItemIcon: React.FC<{ transaction: Tx }> = ({ transaction, ...rest
       return <ItemIconWrapper icon={StxIcon} transaction={transaction} {...rest} />;
     case 'poison_microblock':
       return <ItemIconWrapper icon={IconMoodSad} transaction={transaction} {...rest} />;
+    default:
+      return null;
+  }
+};
+
+export const StacksTransactionItemIcon: React.FC<{ transaction: StacksTransaction }> = ({
+  transaction,
+  ...rest
+}) => {
+  switch (transaction.payload.payloadType) {
+    case PayloadType.SmartContract:
+      return (
+        <DynamicColorCircle
+          position="relative"
+          string={`${getTxSenderAddress(transaction)}.${transaction.payload.contractName.content}`}
+          backgroundSize="200%"
+          size="36px"
+          {...rest}
+        >
+          <TypeIcon transaction={{ tx_type: 'smart_contract', tx_status: 'pending' } as Tx} />
+        </DynamicColorCircle>
+      );
+    case PayloadType.ContractCall:
+      return (
+        <DynamicColorCircle
+          position="relative"
+          string={`${addressToString(transaction.payload.contractAddress)}.${
+            transaction.payload.contractName.content
+          }::${transaction.payload.functionName.content}`}
+          backgroundSize="200%"
+          size="36px"
+          {...rest}
+        >
+          <TypeIcon transaction={{ tx_type: 'contract_call', tx_status: 'pending' } as Tx} />
+        </DynamicColorCircle>
+      );
+    case PayloadType.TokenTransfer:
+      return (
+        <ItemIconWrapper
+          icon={StxIcon}
+          transaction={{ tx_type: 'token_transfer', tx_status: 'pending' } as Tx}
+          {...rest}
+        />
+      );
     default:
       return null;
   }

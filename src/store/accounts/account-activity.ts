@@ -1,25 +1,36 @@
 import { atom } from 'jotai';
 import { currentNetworkState } from '@store/network/networks';
 import { deserializeTransaction, StacksTransaction } from '@stacks/transactions';
-import { atomFamily } from 'jotai/utils';
+import { atomFamily, atomWithStorage } from 'jotai/utils';
 import {
   currentAccountStxAddressState,
   currentAccountTransactionsState,
 } from '@store/accounts/index';
+import { makeLocalDataKey } from '@common/store-utils';
+import deepEqual from 'fast-deep-equal';
 
 export const currentAccountExternalTxIdsState = atom(get => [
   ...new Set([...get(currentAccountTransactionsState).map(tx => tx.tx_id)]),
 ]);
+
+type LocalTx = Record<
+  string,
+  {
+    rawTx: string;
+    timestamp: string;
+  }
+>;
 export const currentAccountLocallySubmittedTxsRootState = atomFamily<
   [string, string],
-  Record<string, string>,
-  Record<string, string>
->(([_address, _network]) => atom<Record<string, string>>({}));
-
-export const currentAccountLocallySubmittedTxsState = atom<
-  Record<string, string>,
-  Record<string, string>
+  LocalTx,
+  LocalTx
 >(
+  ([_address, _network]) =>
+    atomWithStorage<LocalTx>(makeLocalDataKey([_address, _network, 'LOCAL_TXS']), {}),
+  deepEqual
+);
+
+export const currentAccountLocallySubmittedTxsState = atom<LocalTx, LocalTx>(
   get => {
     const principal = get(currentAccountStxAddressState);
     if (!principal) return {};
@@ -30,13 +41,21 @@ export const currentAccountLocallySubmittedTxsState = atom<
     const principal = get(currentAccountStxAddressState);
     if (!principal) return;
     const networkUrl = get(currentNetworkState).url;
-    void set(currentAccountLocallySubmittedTxsRootState([principal, networkUrl]), update);
+    const anAtom = currentAccountLocallySubmittedTxsRootState([principal, networkUrl]);
+    const latestLocalTxs = get(anAtom);
+    void set(anAtom, { ...update, ...latestLocalTxs });
   }
 );
 
 export const currentAccountLocallySubmittedTxIdsState = atom(get => {
   const txs = get(currentAccountLocallySubmittedTxsState);
-  return txs ? Object.keys(txs) : [];
+  const externalTxids = get(currentAccountExternalTxIdsState);
+  return txs
+    ? Object.entries(txs)
+        .filter(([txid]) => !externalTxids.includes(txid))
+        .sort((a, b) => (a[1].timestamp > b[1].timestamp ? -1 : 1))
+        .map(([txid]) => txid)
+    : [];
 });
 
 export const currentAccountLocallySubmittedStacksTransactionsState = atom(get => {
@@ -44,9 +63,25 @@ export const currentAccountLocallySubmittedStacksTransactionsState = atom(get =>
   const txids = get(currentAccountLocallySubmittedTxIdsState);
   const result: any = {};
   txids.forEach(txid => {
-    result[txid] = deserializeTransaction(localTxs[txid]);
+    result[txid] = {
+      transaction: deserializeTransaction(localTxs[txid].rawTx),
+      timestamp: localTxs[txid].timestamp,
+    };
   });
-  return result as Record<string, StacksTransaction>;
+  return result as Record<
+    string,
+    {
+      transaction: StacksTransaction;
+      timestamp: number;
+    }
+  >;
+});
+
+export const currentAccountLocallySubmittedLatestNonceState = atom(get => {
+  const txids = get(currentAccountLocallySubmittedTxIdsState);
+  const latestTxId = txids[0];
+  const txs = get(currentAccountLocallySubmittedStacksTransactionsState);
+  return txs[latestTxId]?.transaction?.auth?.spendingCondition?.nonce;
 });
 
 export const currentAccountAllTxIds = atom(get => {
