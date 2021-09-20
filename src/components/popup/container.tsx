@@ -62,6 +62,7 @@ export const PopupContainer: React.FC<PopupHomeProps> = ({ children, header, req
         maxHeight="100vh"
         position="relative"
         overflow="auto"
+        scrollSnapType="y proximity"
       >
         {header || null}
         <Flex

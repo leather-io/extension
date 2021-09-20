@@ -22,6 +22,10 @@ export const POPUP_WIDTH = 442;
 export const POPUP_HEIGHT = 646;
 export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 
+export const GITHUB_ORG = 'blockstack';
+export const GITHUB_REPO = 'stacks-wallet-web';
+export const GITHUB_PRIMARY_BRANCH = 'main';
+
 export const SIP_010 = {
   mainnet: {
     address: 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE',
