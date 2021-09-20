@@ -159,6 +159,23 @@ jobs:
       - name: Test
         run: yarn test:unit
 
+  check-message-schema:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install ajv-cli
+        runs: yarn global add ajv-cli
+
+      - name: Validate message schema
+        runs: ajv-cli validate -s scripts/wallet-comms.schema.json -d wallet-comms.json
+
   build:
     runs-on: ubuntu-latest
 
