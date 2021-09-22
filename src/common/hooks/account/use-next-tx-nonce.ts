@@ -3,7 +3,9 @@ import { useGetAccountNonce } from '@common/hooks/account/use-get-account-nonce'
 import { UseQueryOptions } from 'react-query';
 import { useLastApiNonceState } from '@store/accounts/nonce.hooks';
 
-export function correctNextNonce(apiNonce: AddressNonces): number | undefined {
+export function correctNextNonce(
+  apiNonce: AddressNonces
+): { nonce: number; isMissing?: boolean } | undefined {
   if (!apiNonce) return;
 
   const missingNonces = apiNonce.detected_missing_nonces;
@@ -12,17 +14,23 @@ export function correctNextNonce(apiNonce: AddressNonces): number | undefined {
     missingNonces.length > 0 &&
     missingNonces[0] > (apiNonce.last_executed_tx_nonce || 0)
   ) {
-    return missingNonces.sort()[0];
+    return {
+      nonce: missingNonces.sort()[0],
+      isMissing: true,
+    };
   }
-  return apiNonce.possible_next_nonce;
+  return {
+    nonce: apiNonce.possible_next_nonce,
+    isMissing: false,
+  };
 }
 
 export function useNextTxNonce() {
-  const [nonce, setLastApiNonce] = useLastApiNonceState();
+  const [lastApiNonce, setLastApiNonce] = useLastApiNonceState();
   const onSuccess = (data: AddressNonces) => {
     const nextNonce = data && correctNextNonce(data);
-    if (typeof nextNonce === 'number') setLastApiNonce(nextNonce);
+    if (nextNonce) setLastApiNonce(nextNonce);
   };
   useGetAccountNonce({ onSuccess } as UseQueryOptions);
-  return nonce;
+  return lastApiNonce?.nonce;
 }

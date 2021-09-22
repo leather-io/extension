@@ -9,7 +9,8 @@ describe(correctNextNonce.name, () => {
       possible_next_nonce: 54,
       detected_missing_nonces: [],
     };
-    expect(correctNextNonce(response1)).toEqual(54);
+    expect(correctNextNonce(response1)?.nonce).toEqual(54);
+    expect(correctNextNonce(response1)?.isMissing).toEqual(false);
   });
 
   test('with a missing nonce', () => {
@@ -19,7 +20,8 @@ describe(correctNextNonce.name, () => {
       possible_next_nonce: 54,
       detected_missing_nonces: [49],
     };
-    expect(correctNextNonce(response1)).toEqual(49);
+    expect(correctNextNonce(response1)?.nonce).toEqual(49);
+    expect(correctNextNonce(response1)?.isMissing).toEqual(true);
   });
 
   test('possible_next_nonce is less than missing nonce', () => {
@@ -29,7 +31,8 @@ describe(correctNextNonce.name, () => {
       possible_next_nonce: 24,
       detected_missing_nonces: [49],
     };
-    expect(correctNextNonce(response1)).toEqual(49);
+    expect(correctNextNonce(response1)?.nonce).toEqual(49);
+    expect(correctNextNonce(response1)?.isMissing).toEqual(true);
   });
 
   test('invalid state: last_executed_tx_nonce is more or equal than missing nonce', () => {
@@ -39,7 +42,8 @@ describe(correctNextNonce.name, () => {
       possible_next_nonce: 50,
       detected_missing_nonces: [49],
     };
-    expect(correctNextNonce(response1)).toEqual(50); // fallback to possible_next_nonce
+    expect(correctNextNonce(response1)?.nonce).toEqual(50); // fallback to possible_next_nonce
+    expect(correctNextNonce(response1)?.isMissing).toEqual(false);
   });
 
   test('Initial state', () => {
@@ -49,7 +53,8 @@ describe(correctNextNonce.name, () => {
       possible_next_nonce: 0,
       detected_missing_nonces: [],
     };
-    expect(correctNextNonce(response1)).toEqual(0); // fallback to possible_next_nonce
+    expect(correctNextNonce(response1)?.nonce).toEqual(0); // fallback to possible_next_nonce
+    expect(correctNextNonce(response1)?.isMissing).toEqual(false);
   });
 
   test('With last_mempool_tx_nonce', () => {
@@ -59,7 +64,8 @@ describe(correctNextNonce.name, () => {
       possible_next_nonce: 73,
       detected_missing_nonces: [71],
     };
-    expect(correctNextNonce(response1)).toEqual(71);
+    expect(correctNextNonce(response1)?.nonce).toEqual(71);
+    expect(correctNextNonce(response1)?.isMissing).toEqual(true);
   });
 
   test('With many missing nonce and handling order', () => {
@@ -69,7 +75,8 @@ describe(correctNextNonce.name, () => {
       last_mempool_tx_nonce: 74,
       possible_next_nonce: 75,
     };
-    expect(correctNextNonce(response1)).toEqual(71);
+    expect(correctNextNonce(response1)?.nonce).toEqual(71);
+    expect(correctNextNonce(response1)?.isMissing).toEqual(true);
 
     const response2: AddressNonces = {
       detected_missing_nonces: [71, 73],
@@ -77,6 +84,7 @@ describe(correctNextNonce.name, () => {
       last_mempool_tx_nonce: 74,
       possible_next_nonce: 75,
     };
-    expect(correctNextNonce(response2)).toEqual(71);
+    expect(correctNextNonce(response2)?.nonce).toEqual(71);
+    expect(correctNextNonce(response2)?.isMissing).toEqual(true);
   });
 });
