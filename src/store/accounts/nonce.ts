@@ -24,7 +24,9 @@ export const currentAccountLocalNonceState = atom(get => {
   return get(localNonceState([address, network.url]));
 });
 
-export const lastApiNonceState = atom<number | undefined>(undefined);
+export const lastApiNonceState = atom<{ nonce: number; isMissing?: boolean } | undefined>(
+  undefined
+);
 
 export const currentAccountNonceState = atom(get => {
   const address = get(currentAccountStxAddressState);
@@ -32,18 +34,29 @@ export const currentAccountNonceState = atom(get => {
   const confirmedTransactions = get(currentAccountConfirmedTransactionsState);
   const pendingTransactions = get(currentAccountMempoolTransactionsState);
   const lastLocalNonce = get(currentAccountLocalNonceState);
-  const latestLocallySumbmittedNonce = get(currentAccountLocallySubmittedLatestNonceState);
+  const latestLocallySumbmittedNonce = get(
+    currentAccountLocallySubmittedLatestNonceState
+  )?.toNumber();
+  const lastApiNonce = get(lastApiNonceState);
 
-  const apiNonce = get(lastApiNonceState);
-  if (typeof apiNonce === 'number') {
-    if (latestLocallySumbmittedNonce) {
-      // if we have a locally submitted nonce, and it's higher than the api nonce, use that
-      if (latestLocallySumbmittedNonce.toNumber() > apiNonce)
-        return latestLocallySumbmittedNonce.toNumber();
-    }
-    // We try to use the api nonce first since it will be the most accurate value
-    return apiNonce;
+  if (lastApiNonce) {
+    // if there is a missing nonce, use that
+    if (lastApiNonce.isMissing) return lastApiNonce.nonce;
+
+    // if we have a locally submitted nonce, and it's higher than the api nonce, use that
+    if (
+      typeof latestLocallySumbmittedNonce === 'number' &&
+      latestLocallySumbmittedNonce > lastApiNonce.nonce
+    )
+      return latestLocallySumbmittedNonce;
+
+    // else, use the last api nonce
+    return lastApiNonce.nonce;
   }
+
+  // ----
+  // TODO: anything after this line likely is never called anymore, we should confirm that, then remove this code vv
+  // ----
 
   // most recent confirmed transactions sent by current address
   const lastConfirmedTx = confirmedTransactions?.filter(tx => tx.sender_address === address)?.[0];
