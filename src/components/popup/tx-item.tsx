@@ -175,8 +175,8 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
               {getTxTitle(transaction as any)}
             </Title>
             <Stack isInline flexWrap="wrap">
-              <Status transaction={transaction} />
               <Caption variant="c2">{getTxCaption(transaction)}</Caption>
+              <Status transaction={transaction} />
             </Stack>
           </Stack>
           <Stack alignItems="flex-end" spacing="base-tight">
@@ -289,8 +289,17 @@ export const LocalTxItem: React.FC<{ transaction: StacksTransaction; txid: strin
               {getTxTitle()}
             </Title>
             <Stack isInline flexWrap="wrap">
-              <Status transaction={{ tx_status: 'pending' } as Tx} />
               <Caption variant="c2">{txCaption()}</Caption>
+              <Tooltip
+                placement="bottom"
+                label={
+                  'This transaction has been broadcast, but is not yet visible in the mempool.'
+                }
+              >
+                <Caption variant="c2" color={color('text-caption')}>
+                  Queued
+                </Caption>
+              </Tooltip>
             </Stack>
           </Stack>
           <Stack alignItems="flex-end" spacing="base-tight">
