@@ -13,7 +13,10 @@ module.exports = {
       name: 'only-import-state-via-hooks',
       severity: 'error',
       from: { path: '^src/*', pathNot: ['^src/store/*'] },
-      to: { path: ['^src/store/*'], pathNot: [`src.*\.hooks\.ts`, `src.*\.models\.ts`] },
+      to: {
+        path: ['^src/store/*'],
+        pathNot: [`src.*\.hooks\.ts`, `src.*\.models\.ts`, `src.*\.utils\.ts`],
+      },
     },
     {
       name: 'ban-jotai-outside-store',
