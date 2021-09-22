@@ -5,7 +5,8 @@ import { useCurrentNetwork } from '@common/hooks/use-current-network';
 export function useExplorerLink() {
   const { mode } = useCurrentNetwork();
   const handleOpenTxLink = useCallback(
-    (txid: string) => window.open(makeTxExplorerLink(txid, mode), '_blank'),
+    (txid: string, suffix?: string) =>
+      window.open(makeTxExplorerLink(txid, mode, suffix), '_blank'),
     [mode]
   );
 
