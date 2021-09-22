@@ -34,9 +34,7 @@ export const currentAccountNonceState = atom(get => {
   const confirmedTransactions = get(currentAccountConfirmedTransactionsState);
   const pendingTransactions = get(currentAccountMempoolTransactionsState);
   const lastLocalNonce = get(currentAccountLocalNonceState);
-  const latestLocallySumbmittedNonce = get(
-    currentAccountLocallySubmittedLatestNonceState
-  )?.toNumber();
+  const latestLocallySubmittedNonce = get(currentAccountLocallySubmittedLatestNonceState);
   const lastApiNonce = get(lastApiNonceState);
 
   if (lastApiNonce) {
@@ -45,10 +43,10 @@ export const currentAccountNonceState = atom(get => {
 
     // if we have a locally submitted nonce, and it's higher than the api nonce, use that
     if (
-      typeof latestLocallySumbmittedNonce === 'number' &&
-      latestLocallySumbmittedNonce > lastApiNonce.nonce
+      typeof latestLocallySubmittedNonce === 'number' &&
+      latestLocallySubmittedNonce + 1 > lastApiNonce.nonce
     )
-      return latestLocallySumbmittedNonce;
+      return latestLocallySubmittedNonce + 1;
 
     // else, use the last api nonce
     return lastApiNonce.nonce;

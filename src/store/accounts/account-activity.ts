@@ -81,7 +81,9 @@ export const currentAccountLocallySubmittedLatestNonceState = atom(get => {
   const txids = get(currentAccountLocallySubmittedTxIdsState);
   const latestTxId = txids[0];
   const txs = get(currentAccountLocallySubmittedStacksTransactionsState);
-  return txs[latestTxId]?.transaction?.auth?.spendingCondition?.nonce;
+  const nonce = txs[latestTxId]?.transaction?.auth?.spendingCondition?.nonce.toNumber();
+  if (typeof nonce !== 'number') return;
+  return nonce;
 });
 
 export const currentAccountAllTxIds = atom(get => {
