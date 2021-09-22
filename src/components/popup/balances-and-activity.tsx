@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
-import { Box, Stack, SlideFade, Flex, Spinner, color, Text } from '@stacks/ui';
 import type { StackProps } from '@stacks/ui';
+import { Box, color, Flex, SlideFade, Spinner, Stack } from '@stacks/ui';
 import { TokenAssets } from '@components/popup/token-assets';
 
 import { Caption } from '@components/typography';
@@ -10,13 +10,10 @@ import { Tabs } from '@components/tabs';
 import { useAccountActivity } from '@store/accounts/account.hooks';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
-import {
-  useCurrentAccountLocalStacksTransaction,
-  useCurrentAccountLocalTxids,
-} from '@store/accounts/account-activity.hooks';
-import { LocalTxItem } from '@components/popup/tx-item';
+import { useCurrentAccountLocalTxids } from '@store/accounts/account-activity.hooks';
 import { TransactionList } from '@components/popup/transaction-list';
 import { createTxDateFormatList } from '@common/group-txs-by-date';
+import { LocalTxList } from '@features/local-transaction-activity/local-tx-list';
 
 function EmptyActivity() {
   return (
@@ -31,29 +28,6 @@ function EmptyActivity() {
     </Stack>
   );
 }
-
-const LocalTxListItem = ({ txid }: { txid: string }) => {
-  const localTx = useCurrentAccountLocalStacksTransaction(txid);
-  if (localTx) return <LocalTxItem txid={txid} transaction={localTx.transaction} />;
-  return <>Loading...</>;
-};
-
-const LocalTxList = ({ txids }: { txids: string[] }) => {
-  return (
-    <Stack pb="extra-loose" spacing="extra-loose">
-      <Box>
-        <Text textStyle="body.small" color={color('text-caption')}>
-          Queued
-        </Text>
-        <Stack mt="base-loose" spacing="loose">
-          {txids.map(txid => (
-            <LocalTxListItem txid={txid} key={txid} />
-          ))}
-        </Stack>
-      </Box>
-    </Stack>
-  );
-};
 
 const ActivityList = () => {
   const transactions = useAccountActivity();
