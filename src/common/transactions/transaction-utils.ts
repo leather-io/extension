@@ -15,6 +15,17 @@ import {
   ContractDeployOptions,
   TokenTransferOptions,
 } from '@common/transactions/transactions';
+import {
+  CoinbaseTransaction,
+  ContractCallTransaction,
+  TransactionEventFungibleAsset,
+  TransactionEventStxAsset,
+} from '@stacks/stacks-blockchain-api-types';
+import BigNumber from 'bignumber.js';
+import { assetById } from '@store/assets/asset.hooks';
+import { Tx } from '@common/api/transactions';
+import { stacksValue } from '@common/stacks-utils';
+import { getContractName, truncateMiddle } from '@stacks/ui-utils';
 
 export const generateContractCallTx = ({
   txData,
@@ -119,3 +130,89 @@ export const generateSTXTransferTx = ({
 
 export const stacksTransactionToHex = (transaction: StacksTransaction) =>
   `0x${transaction.serialize().toString('hex')}`;
+
+export const isContractFtTokenTransfer = (tx: Tx) => {
+  return tx.tx_type === 'contract_call' && tx.contract_call.function_name === 'transfer' 
+  && tx.contract_call.function_args?.[0]?.name === 'amount';
+};
+
+// calculate the real amount of the token based on the decimal number
+// specified in the corresponding token smart contract
+export const tokenRealAmount = (tx: ContractCallTransaction) => {
+  if (!tx.contract_call?.function_args) return;
+  const val = tx.contract_call.function_args[0].repr.replace('u', '');
+  const x = new BigNumber(val);
+  if (!x.isFinite()) return;
+  // Get the decimal number for this token
+  const asset = assetById(tx.contract_call.contract_id);
+  if (!asset || !asset.meta) return;
+  const y = new BigNumber(asset.meta.decimals);
+  // Exponentiation is unsafe here based on SIP-10 and clarity uint 128bits
+  // https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md
+  const decimalDivisor = new BigNumber(10).pow(y)
+  if (!decimalDivisor.isFinite()) return;
+  return x.dividedBy(decimalDivisor);
+};
+
+export const getAmountFromTokenTransfer = (tx: ContractCallTransaction) => {
+  if (!isContractFtTokenTransfer(tx)) return;
+  return tokenRealAmount(tx);
+};
+
+export const getAssetTransfer = (tx: Tx): TransactionEventFungibleAsset | null => {
+  if (tx.tx_type !== 'contract_call') return null;
+  if (tx.tx_status !== 'success') return null;
+  const transfer = tx.events.find(event => event.event_type === 'fungible_token_asset');
+  if (transfer?.event_type !== 'fungible_token_asset') return null;
+  return transfer;
+};
+
+export const getTxValue = (tx: Tx, isOriginator: boolean): number | string | null => {
+  if (tx.tx_type === 'token_transfer') {
+    return `${isOriginator ? '-' : ''}${stacksValue({
+      value: tx.token_transfer.amount,
+      withTicker: false,
+    })}`;
+  }
+
+  if (isContractFtTokenTransfer(tx)) {
+    const contractFtTokenAmount = getAmountFromTokenTransfer(tx as ContractCallTransaction) 
+    if (!contractFtTokenAmount) return null;
+    return `${isOriginator ? '-' : ''}${contractFtTokenAmount}`;
+  }
+
+  const transfer = getAssetTransfer(tx);
+  if (transfer?.asset?.amount) return new BigNumber(transfer.asset.amount).toFormat();
+  return null;
+};
+
+export const getTxCaption = (transaction: Tx) => {
+  if (!transaction) return null;
+  switch (transaction.tx_type) {
+    case 'smart_contract':
+      return truncateMiddle(transaction.smart_contract.contract_id, 4);
+    case 'contract_call':
+      return transaction.contract_call.contract_id.split('.')[1];
+    case 'token_transfer':
+    case 'coinbase':
+    case 'poison_microblock':
+      return truncateMiddle(transaction.tx_id, 4);
+    default:
+      return null;
+  }
+};
+
+export const getTxTitle = (tx: Tx) => {
+  switch (tx.tx_type) {
+    case 'token_transfer':
+      return 'Stacks Token';
+    case 'contract_call':
+      return tx.contract_call.function_name;
+    case 'smart_contract':
+      return getContractName(tx.smart_contract.contract_id);
+    case 'coinbase':
+      return `Coinbase ${(tx as CoinbaseTransaction).block_height}`;
+    case 'poison_microblock':
+      return 'Poison Microblock';
+  }
+};

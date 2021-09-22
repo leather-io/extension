@@ -1,15 +1,8 @@
 import React from 'react';
-import type {
-  Transaction,
-  MempoolTransaction,
-  TransactionEventFungibleAsset,
-  CoinbaseTransaction,
-} from '@stacks/stacks-blockchain-api-types';
+import type { Transaction, MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Box, BoxProps, Button, color, Stack } from '@stacks/ui';
-import { getContractName, isPendingTx, truncateMiddle } from '@stacks/ui-utils';
-import BigNumber from 'bignumber.js';
+import { isPendingTx } from '@stacks/ui-utils';
 
-import { stacksValue } from '@common/stacks-utils';
 import { useExplorerLink } from '@common/hooks/use-explorer-link';
 
 import { Caption, Title } from '@components/typography';
@@ -20,48 +13,13 @@ import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { usePressable } from '@components/item-hover';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
 import { FiFastForward } from 'react-icons/all';
+import { getTxCaption, getTxTitle, getTxValue } from '@common/transactions/transaction-utils';
 
 type Tx = MempoolTransaction | Transaction;
-
-const getAssetTransfer = (tx: Tx): TransactionEventFungibleAsset | null => {
-  if (tx.tx_type !== 'contract_call') return null;
-  if (tx.tx_status !== 'success') return null;
-  const transfer = tx.events.find(event => event.event_type === 'fungible_token_asset');
-  if (transfer?.event_type !== 'fungible_token_asset') return null;
-  return transfer;
-};
-
-const getTxValue = (tx: Tx, isOriginator: boolean): number | string | null => {
-  if (tx.tx_type === 'token_transfer') {
-    return `${isOriginator ? '-' : ''}${stacksValue({
-      value: tx.token_transfer.amount,
-      withTicker: false,
-    })}`;
-  }
-  const transfer = getAssetTransfer(tx);
-  if (transfer) return new BigNumber(transfer.asset.amount).toFormat();
-  return null;
-};
 
 interface TxItemProps {
   transaction: Tx;
 }
-
-const getTxCaption = (transaction: Tx) => {
-  if (!transaction) return null;
-  switch (transaction.tx_type) {
-    case 'smart_contract':
-      return truncateMiddle(transaction.smart_contract.contract_id, 4);
-    case 'contract_call':
-      return transaction.contract_call.contract_id.split('.')[1];
-    case 'token_transfer':
-    case 'coinbase':
-    case 'poison_microblock':
-      return truncateMiddle(transaction.tx_id, 4);
-    default:
-      return null;
-  }
-};
 
 const Status: React.FC<{ transaction: Tx } & BoxProps> = ({ transaction, ...rest }) => {
   const isPending = isPendingTx(transaction as any);
@@ -138,21 +96,6 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
   const isOriginator = transaction.sender_address === currentAccount?.address;
 
   const isPending = isPendingTx(transaction as MempoolTransaction);
-
-  const getTxTitle = (tx: Tx) => {
-    switch (tx.tx_type) {
-      case 'token_transfer':
-        return 'Stacks Token';
-      case 'contract_call':
-        return tx.contract_call.function_name;
-      case 'smart_contract':
-        return getContractName(tx.smart_contract.contract_id);
-      case 'coinbase':
-        return `Coinbase ${(tx as CoinbaseTransaction).block_height}`;
-      case 'poison_microblock':
-        return 'Poison Microblock';
-    }
-  };
 
   const value = getTxValue(transaction, isOriginator);
 
