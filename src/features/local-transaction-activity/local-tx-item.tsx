@@ -96,7 +96,7 @@ export const LocalTxItem: React.FC<{ transaction: StacksTransaction; txid: strin
         isInline
         position="relative"
         zIndex={2}
-        onClick={() => handleOpenTxLink(txid)}
+        onClick={() => handleOpenTxLink(txid, `&queued=true`)}
       >
         <StacksTransactionItemIcon transaction={transaction} />
         <SpaceBetween flexGrow={1}>
