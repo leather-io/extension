@@ -5,6 +5,7 @@ import { PopupContainer } from './popup/container';
 import { buildEnterKeyEvent } from './link';
 import { ErrorLabel } from './error-label';
 import { Header } from '@components/header';
+import { Outlet } from 'react-router-dom';
 
 export const Unlock: React.FC = () => {
   const { doUnlockWallet } = useWallet();
@@ -24,45 +25,48 @@ export const Unlock: React.FC = () => {
   }, [doUnlockWallet, password]);
 
   return (
-    <PopupContainer header={<Header />} requestType="auth">
-      <Box width="100%" mt="loose">
-        <Text textStyle="body.large" display="block">
-          Enter your password you used on this device to unlock your wallet.
-        </Text>
-      </Box>
-      <Box mt="loose" width="100%">
-        <Input
-          placeholder="Enter your password."
-          width="100%"
-          autoFocus
-          type="password"
-          value={password}
-          isDisabled={loading}
-          data-testid="set-password"
-          onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
-          onKeyUp={buildEnterKeyEvent(submit)}
-        />
-      </Box>
-      {error && (
-        <Box>
-          <ErrorLabel>
-            <Text textStyle="caption">{error}</Text>
-          </ErrorLabel>
+    <>
+      <PopupContainer header={<Header />} requestType="auth">
+        <Box width="100%" mt="loose">
+          <Text textStyle="body.large" display="block">
+            Enter your password you used on this device to unlock your wallet.
+          </Text>
         </Box>
-      )}
-      <Box flexGrow={1} />
-      <Box>
-        <Button
-          width="100%"
-          isLoading={loading}
-          isDisabled={loading}
-          onClick={submit}
-          data-testid="set-password-done"
-          borderRadius="10px"
-        >
-          Unlock
-        </Button>
-      </Box>
-    </PopupContainer>
+        <Box mt="loose" width="100%">
+          <Input
+            placeholder="Enter your password."
+            width="100%"
+            autoFocus
+            type="password"
+            value={password}
+            isDisabled={loading}
+            data-testid="set-password"
+            onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+            onKeyUp={buildEnterKeyEvent(submit)}
+          />
+        </Box>
+        {error && (
+          <Box>
+            <ErrorLabel>
+              <Text textStyle="caption">{error}</Text>
+            </ErrorLabel>
+          </Box>
+        )}
+        <Box flexGrow={1} />
+        <Box>
+          <Button
+            width="100%"
+            isLoading={loading}
+            isDisabled={loading}
+            onClick={submit}
+            data-testid="set-password-done"
+            borderRadius="10px"
+          >
+            Unlock
+          </Button>
+        </Box>
+      </PopupContainer>
+      <Outlet />
+    </>
   );
 };
