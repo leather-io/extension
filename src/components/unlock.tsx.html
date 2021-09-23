@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -125,20 +125,13 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -146,6 +139,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,7 +171,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,6 +208,7 @@ import { PopupContainer } from './popup/container'<span class="cstat-no" title="
 import { buildEnterKeyEvent } from './link'<span class="cstat-no" title="statement not covered" >;</span>
 import { ErrorLabel } from './error-label'<span class="cstat-no" title="statement not covered" >;</span>
 import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
+import { Outlet } from 'react-router-dom'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >Unlock<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
   const { doUnlockWallet }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
@@ -219,46 +228,49 @@ export const <span class="cstat-no" title="statement not covered" >Unlock<span c
   }, [doUnlockWallet, password]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;PopupContainer header={&lt;Header /&gt;} requestType="auth"&gt;
-      &lt;Box width="100%" mt="loose"&gt;
-        &lt;Text textStyle="body.large" display="block"&gt;
-          Enter your password you used on this device to unlock your wallet.
-        &lt;/Text&gt;
-      &lt;/Box&gt;
-      &lt;Box mt="loose" width="100%"&gt;
-        &lt;Input
-          placeholder="Enter your password."
-          width="100%"
-          autoFocus
-          type="password"
-          value={password}
-          isDisabled={loading}
-          data-testid="set-password"
-          onChange<span class="fstat-no" title="function not covered" >={(e</span>: React.FormEvent&lt;HTMLInputElement&gt;) =&gt; <span class="cstat-no" title="statement not covered" >setPassword(e.currentTarget.value)}</span>
-          onKeyUp={buildEnterKeyEvent(submit)}
-        /&gt;
-      &lt;/Box&gt;
-      {error &amp;&amp; (
-        &lt;Box&gt;
-          &lt;ErrorLabel&gt;
-            &lt;Text textStyle="caption"&gt;{error}&lt;/Text&gt;
-          &lt;/ErrorLabel&gt;
+    &lt;&gt;
+      &lt;PopupContainer header={&lt;Header /&gt;} requestType="auth"&gt;
+        &lt;Box width="100%" mt="loose"&gt;
+          &lt;Text textStyle="body.large" display="block"&gt;
+            Enter your password you used on this device to unlock your wallet.
+          &lt;/Text&gt;
         &lt;/Box&gt;
-      )}
-      &lt;Box flexGrow={1} /&gt;
-      &lt;Box&gt;
-        &lt;Button
-          width="100%"
-          isLoading={loading}
-          isDisabled={loading}
-          onClick={submit}
-          data-testid="set-password-done"
-          borderRadius="10px"
-        &gt;
-          Unlock
-        &lt;/Button&gt;
-      &lt;/Box&gt;
-    &lt;/PopupContainer&gt;
+        &lt;Box mt="loose" width="100%"&gt;
+          &lt;Input
+            placeholder="Enter your password."
+            width="100%"
+            autoFocus
+            type="password"
+            value={password}
+            isDisabled={loading}
+            data-testid="set-password"
+            onChange<span class="fstat-no" title="function not covered" >={(e</span>: React.FormEvent&lt;HTMLInputElement&gt;) =&gt; <span class="cstat-no" title="statement not covered" >setPassword(e.currentTarget.value)}</span>
+            onKeyUp={buildEnterKeyEvent(submit)}
+          /&gt;
+        &lt;/Box&gt;
+        {error &amp;&amp; (
+          &lt;Box&gt;
+            &lt;ErrorLabel&gt;
+              &lt;Text textStyle="caption"&gt;{error}&lt;/Text&gt;
+            &lt;/ErrorLabel&gt;
+          &lt;/Box&gt;
+        )}
+        &lt;Box flexGrow={1} /&gt;
+        &lt;Box&gt;
+          &lt;Button
+            width="100%"
+            isLoading={loading}
+            isDisabled={loading}
+            onClick={submit}
+            data-testid="set-password-done"
+            borderRadius="10px"
+          &gt;
+            Unlock
+          &lt;/Button&gt;
+        &lt;/Box&gt;
+      &lt;/PopupContainer&gt;
+      &lt;Outlet /&gt;
+    &lt;/&gt;
   );
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -268,7 +280,7 @@ export const <span class="cstat-no" title="statement not covered" >Unlock<span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 20 2021 09:36:32 GMT+0000 (Coordinated Universal Time)
+                at Thu Sep 23 2021 20:17:52 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
