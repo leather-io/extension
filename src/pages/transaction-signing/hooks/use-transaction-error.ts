@@ -49,7 +49,7 @@ export function useTransactionError() {
         if (transferAmount.gte(availableStxBalance))
           return TransactionErrorReason.StxTransferInsufficientFunds;
       }
-      if (zeroBalance) return TransactionErrorReason.FeeInsufficientFunds;
+      if (zeroBalance && !fee.isSponsored) return TransactionErrorReason.FeeInsufficientFunds;
       if (fee && !fee.isSponsored && fee.amount) {
         const feeAmount = new BigNumber(fee.amount);
         if (feeAmount.gte(availableStxBalance)) return TransactionErrorReason.FeeInsufficientFunds;
