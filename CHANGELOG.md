@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.18.0
+
+### Minor Changes
+
+- [#1704](https://github.com/blockstack/stacks-wallet-web/pull/1704) [`81e039c97`](https://github.com/blockstack/stacks-wallet-web/commit/81e039c97479637c93652f1a615da69339fbae39) Thanks [@kyranjamie](https://github.com/kyranjamie)! - Makes use of a WebWorker to prevent main thread from lagging during unlock operation
+
+### Patch Changes
+
+- [#1741](https://github.com/blockstack/stacks-wallet-web/pull/1741) [`2655b649c`](https://github.com/blockstack/stacks-wallet-web/commit/2655b649ceebb74bcdd57532757290dca2068579) Thanks [@kyranjamie](https://github.com/kyranjamie)! - This adds the sign out drawer to the lock screen so users can sign out.
+
+* [#1708](https://github.com/blockstack/stacks-wallet-web/pull/1708) [`5aa6498a3`](https://github.com/blockstack/stacks-wallet-web/commit/5aa6498a3dd4d6c6675e82d368bb7082b282dbee) Thanks [@aulneau](https://github.com/aulneau)! - This update adds the global variable VERSION to all cache keys for any data that is persisted in local storage. This makes it so when the wallet updates, there isn't any leaking between versions and avoids using possibily outdated/stale data.
+
 ## 2.17.0
 
 ### Minor Changes
