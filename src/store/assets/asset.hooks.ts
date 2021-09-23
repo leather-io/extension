@@ -57,8 +57,9 @@ export function useUpdateSearchInput() {
   return useUpdateAtom(searchInputStore);
 }
 
-export function assetById(contractId: string) {
+export function useAssetByContractId(contractId: string) {
   const assets = useAtomValue(assetsAnchoredState);
+  if (!contractId) return;
   const [contractAddress, contractName] = contractId.split('.');
   return assets.find(
     asset =>

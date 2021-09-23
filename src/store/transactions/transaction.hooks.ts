@@ -19,7 +19,12 @@ import {
   uintCV,
 } from '@stacks/transactions';
 
-import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
+import {
+  amountToDecimals,
+  ftUnshiftDecimals,
+  stacksValue,
+  stxToMicroStx,
+} from '@common/stacks-utils';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
@@ -40,6 +45,7 @@ import { postConditionsState } from './post-conditions';
 import { useWallet } from '@common/hooks/use-wallet';
 import { requestTokenState } from './requests';
 import { handleBroadcastTransaction } from '@common/transactions/transactions';
+import { Tx } from '@common/api/transactions';
 import { finalizeTxSignature } from '@common/utils';
 import { makeFungibleTokenTransferState } from './fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
@@ -49,6 +55,15 @@ import {
   localStacksTransactionInputsState,
   localTransactionState,
 } from '@store/transactions/local-transactions';
+import {
+  getAssetTransfer,
+  isContractCallWithTokenTransfers,
+  calculateTokenTransferAmount,
+} from '@common/transactions/transaction-utils';
+import { useAssetByContractId } from '@store/assets/asset.hooks';
+import { ContractCallTransaction } from '@stacks/stacks-blockchain-api-types';
+import { AccountWithAddress } from '@store/accounts/account.models';
+import BigNumber from 'bignumber.js';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -260,3 +275,32 @@ export const useLocalTransactionInputsState = () => useAtom(localStacksTransacti
 export const useLocalTransactionState = () => useAtom(localTransactionState);
 export const useTxForSettingsState = () => useAtom(txForSettingsState);
 export const useTxByteSizeState = () => useAtom(txByteSize);
+
+export const useTokenRealAmount = (tx: ContractCallTransaction) => {
+  const asset = useAssetByContractId(tx?.contract_call?.contract_id);
+  if (!isContractCallWithTokenTransfers(tx) || !asset) return;
+  return calculateTokenTransferAmount(asset, tx);
+};
+
+export const useTxValue = (
+  tx: Tx,
+  currentAccount: AccountWithAddress | undefined
+): number | string | null => {
+  const contractFtTokenAmount = useTokenRealAmount(tx as ContractCallTransaction);
+  const isOriginator = tx.sender_address === currentAccount?.address;
+
+  if (contractFtTokenAmount) {
+    return `${isOriginator ? '-' : ''}${amountToDecimals(contractFtTokenAmount)}`;
+  }
+
+  if (tx.tx_type === 'token_transfer') {
+    return `${isOriginator ? '-' : ''}${stacksValue({
+      value: tx.token_transfer.amount,
+      withTicker: false,
+    })}`;
+  }
+
+  const transfer = getAssetTransfer(tx);
+  if (transfer?.asset?.amount) return new BigNumber(transfer.asset.amount).toFormat();
+  return null;
+};

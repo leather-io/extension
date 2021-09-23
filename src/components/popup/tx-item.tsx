@@ -13,7 +13,8 @@ import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { usePressable } from '@components/item-hover';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
 import { FiFastForward } from 'react-icons/all';
-import { getTxCaption, getTxTitle, getTxValue } from '@common/transactions/transaction-utils';
+import { getTxCaption, getTxTitle } from '@common/transactions/transaction-utils';
+import { useTxValue } from '@store/transactions/transaction.hooks';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -88,16 +89,13 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
   const [component, bind, { isHovered }] = usePressable(true);
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
+  const value = useTxValue(transaction, currentAccount);
 
-  if (!transaction) {
-    return null;
-  }
+  if (!transaction) return null;
 
   const isOriginator = transaction.sender_address === currentAccount?.address;
 
   const isPending = isPendingTx(transaction as MempoolTransaction);
-
-  const value = getTxValue(transaction, isOriginator);
 
   return (
     <Box position="relative" cursor="pointer" {...bind} {...rest}>
