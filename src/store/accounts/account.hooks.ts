@@ -8,6 +8,7 @@ import {
   currentAccountBalancesUnanchoredState,
   currentAccountIndexState,
   currentAccountInfoState,
+  currentAccountMempoolTransactionsState,
   currentAccountState,
   currentAccountStxAddressState,
   currentAccountTransactionsState,
@@ -24,9 +25,10 @@ export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableStxBalanceState);
 }
 
-export function useAccountActivity() {
+function useAccountActivity() {
   return useAtomValue(currentAccountTransactionsState);
 }
+
 export function useAccountSingleTransaction(txid?: string) {
   const txs = useAccountActivity();
   if (!txid) return;
@@ -35,6 +37,10 @@ export function useAccountSingleTransaction(txid?: string) {
 
 export function useCurrentAccountBalancesUnanchoredState() {
   return useAtomValue(currentAccountBalancesUnanchoredState);
+}
+
+export function useCurrentAccountMempoolTransactionsState() {
+  return useAtomValue(currentAccountMempoolTransactionsState);
 }
 
 export function useAccounts() {

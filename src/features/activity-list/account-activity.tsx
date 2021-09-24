@@ -1,20 +1,19 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
-import { useAccountActivity } from '@store/accounts/account.hooks';
 import { useCurrentAccountLocalTxids } from '@store/accounts/account-activity.hooks';
 import { TransactionList } from '@components/popup/transaction-list';
-import { createTxDateFormatList } from '@common/group-txs-by-date';
 import { LocalTxList } from '@features/local-transaction-activity/local-tx-list';
 
 import { NoAccountActivity } from './components/no-account-activity';
+import { useAccountTransactionsWithTransfers } from '@common/hooks/account/use-account-transactions-with-transfers.hooks';
+import { useCurrentAccountMempoolTransactionsState } from '@store/accounts/account.hooks';
 
 export const ActivityList = () => {
-  const transactions = useAccountActivity();
-  const groupedTxs = useMemo(
-    () => (transactions ? createTxDateFormatList(transactions) : []),
-    [transactions]
-  );
+  const transactions = useAccountTransactionsWithTransfers();
+  const pendingTransactions = useCurrentAccountMempoolTransactionsState();
+
   const txids = useCurrentAccountLocalTxids();
+  const allTransactions = [...pendingTransactions, ...transactions];
   const hasTxs = txids.length > 0 || transactions.length > 0;
 
   if (!hasTxs) return <NoAccountActivity />;
@@ -22,7 +21,7 @@ export const ActivityList = () => {
   return (
     <>
       {txids.length > 0 && <LocalTxList txids={txids} />}
-      {transactions.length > 0 && <TransactionList txsByDate={groupedTxs} />}
+      {allTransactions.length > 0 && <TransactionList txs={allTransactions} />}
     </>
   );
 };
