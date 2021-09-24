@@ -1,22 +1,28 @@
-import { createTxDateFormatList } from '@common/group-txs-by-date';
+import { createTxDateFormatList } from '@common/transactions/transaction-utils';
+import {
+  AddressTransactionWithTransfers,
+  MempoolTransaction,
+} from '@stacks/stacks-blockchain-api-types';
 import { Box, Stack, Text, color } from '@stacks/ui';
-import React from 'react';
-import { TxItem } from './tx-item';
+import React, { useMemo } from 'react';
+import { TxView } from '@components/popup/tx-item';
 
 interface TransactionListProps {
-  txsByDate: ReturnType<typeof createTxDateFormatList>;
+  txs: (AddressTransactionWithTransfers | MempoolTransaction)[];
 }
-export function TransactionList({ txsByDate }: TransactionListProps) {
+
+export function TransactionList({ txs }: TransactionListProps) {
+  const txsGroupedByDate = useMemo(() => (txs ? createTxDateFormatList(txs) : []), [txs]);
   return (
     <Stack pb="extra-loose" spacing="extra-loose">
-      {txsByDate.map(({ date, displayDate, txs }) => (
+      {txsGroupedByDate.map(({ date, displayDate, txs }) => (
         <Box key={date}>
           <Text textStyle="body.small" color={color('text-caption')}>
             {displayDate}
           </Text>
           <Stack mt="base-loose" spacing="loose">
-            {txs.map(tx => (
-              <TxItem transaction={tx} key={tx.tx_id} />
+            {txs.map(atx => (
+              <TxView transaction={atx} key={'tx' in atx ? atx.tx.tx_id : atx.tx_id} />
             ))}
           </Stack>
         </Box>

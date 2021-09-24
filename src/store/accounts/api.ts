@@ -18,6 +18,7 @@ import { atomFamily } from 'jotai/utils';
 import { atom } from 'jotai';
 import { AccountStxBalanceBigNumber } from './types';
 import deepEqual from 'fast-deep-equal';
+import { PaginatedResults } from '@common/types';
 
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
@@ -29,13 +30,6 @@ enum AccountClientKeys {
 
 type PrincipalWithNetworkUrl = { principal: string; networkUrl: string };
 type PrincipalWithLimitNetworkUrl = { principal: string; limit: number; networkUrl: string };
-
-interface PaginatedResults<T> {
-  limit: number;
-  offset: number;
-  total: number;
-  results: T[];
-}
 
 const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'balance',
@@ -158,6 +152,7 @@ export const accountTransactionsUnanchoredClient = atomFamilyWithInfiniteQuery<
   AccountClientKeys.TransactionsClient,
   async function accountTransactionsClientQueryFn(get, { principal, limit = 30 }) {
     const { accountsApi } = get(apiClientState);
+
     return (await accountsApi.getAccountTransactions({
       principal,
       limit,

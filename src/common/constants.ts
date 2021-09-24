@@ -65,3 +65,5 @@ export enum QueryRefreshRates {
   MEDIUM = 10_000,
   FAST = 3_500,
 }
+
+export const DEFAULT_LIST_LIMIT = 50;

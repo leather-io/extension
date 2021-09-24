@@ -30,3 +30,11 @@ export function displayDate(txDate: string): string {
   }
   return date.format('MMM Do, YYYY');
 }
+
+export function isoDateToLocalDateSafe(isoDate: string) {
+  try {
+    return isoDateToLocalDate(isoDate);
+  } catch (e) {
+    return;
+  }
+}
