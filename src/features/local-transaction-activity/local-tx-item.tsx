@@ -9,8 +9,8 @@ import { StacksTransactionItemIcon } from '@components/tx-icon';
 import { SpaceBetween } from '@components/space-between';
 import { Caption, Title } from '@components/typography';
 import { Tooltip } from '@components/tooltip';
-import { getTxCaption } from '@components/popup/tx-item';
 import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
+import { getTxCaption } from '@common/transactions/transaction-utils';
 
 type Tx = MempoolTransaction | Transaction;
 

@@ -19,8 +19,8 @@ import {
   accountTransactionsUnanchoredClient,
 } from '@store/accounts/api';
 import { AccountWithAddress } from './account.models';
-
-const DEFAULT_LIST_LIMIT = 50;
+import { accountTransactionsWithTransfersState } from './transactions';
+import { DEFAULT_LIST_LIMIT } from '@common/constants';
 
 /**
  * --------------------------------------
@@ -149,17 +149,8 @@ export const currentAnchoredAccountBalancesState = atom(get => {
 });
 
 export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
-  const principal = get(currentAccountStxAddressState);
-  const networkUrl = get(currentNetworkState).url;
-  if (!principal) return [];
-  const confirmed = get(
-    accountTransactionsUnanchoredClient({
-      principal,
-      limit: DEFAULT_LIST_LIMIT,
-      networkUrl,
-    })
-  );
-  return confirmed?.pages[0].results || [];
+  const transactionsWithTransfers = get(accountTransactionsWithTransfersState);
+  return transactionsWithTransfers.map(atx => atx.tx);
 });
 
 export const currentAccountMempoolTransactionsState = atom<MempoolTransaction[]>(get => {
