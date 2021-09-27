@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Box, Button, Spinner, Stack } from '@stacks/ui';
+import { Button, Flex, Spinner, Stack } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { Caption } from '@components/typography';
 import {
@@ -170,9 +170,9 @@ export const SpeedUpTransactionDrawer: React.FC = () => {
         {rawTxId ? (
           <React.Suspense
             fallback={
-              <Box p="extra-loose">
+              <Flex alignItems="center" justifyContent="center" p="extra-loose">
                 <Spinner />
-              </Box>
+              </Flex>
             }
           >
             <Content />

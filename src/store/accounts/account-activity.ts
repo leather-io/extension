@@ -91,3 +91,23 @@ export const currentAccountAllTxIds = atom(get => {
   const externalTxids = get(currentAccountExternalTxIdsState);
   return [...new Set([...localTxids, ...externalTxids])];
 });
+
+export const cleanupLocalTxs = atom(null, (get, set) => {
+  const localTxs = get(currentAccountLocallySubmittedTxsState);
+  const externalTxids = get(currentAccountExternalTxIdsState);
+  const duplicateTxIds = Object.keys(localTxs).filter(txid => externalTxids.includes(txid));
+  if (duplicateTxIds.length) {
+    const principal = get(currentAccountStxAddressState);
+    if (!principal) return;
+    const networkUrl = get(currentNetworkState).url;
+
+    const newLocalTxs = {
+      ...localTxs,
+    };
+    duplicateTxIds.forEach(txid => {
+      delete newLocalTxs[txid];
+    });
+    const anAtom = currentAccountLocallySubmittedTxsRootState([principal, networkUrl]);
+    set(anAtom, newLocalTxs);
+  }
+});

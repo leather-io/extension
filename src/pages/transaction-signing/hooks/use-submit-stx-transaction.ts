@@ -13,7 +13,10 @@ import { ScreenPaths } from '@common/types';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useCurrentStacksNetworkState } from '@store/network/networks.hooks';
-import { useSetLocalTxsCallback } from '@store/accounts/account-activity.hooks';
+import {
+  useCurrentAccountTxIdsState,
+  useSetLocalTxsCallback,
+} from '@store/accounts/account-activity.hooks';
 import { todaysIsoDate } from '@common/date-utils';
 
 function getErrorMessage(
@@ -49,6 +52,7 @@ export function useSubmitTransactionCallback({
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
   const setLocalTxs = useSetLocalTxsCallback();
+  const externalTxid = useCurrentAccountTxIdsState();
 
   return useCallback<(tx: StacksTransaction) => Promise<void>>(
     async transaction => {
@@ -61,11 +65,14 @@ export function useSubmitTransactionCallback({
           onClose();
           setIsIdle();
         } else {
-          await setLocalTxs({
-            rawTx: transaction.serialize().toString('hex'),
-            timestamp: todaysIsoDate(),
-            txid: `0x${response}`,
-          });
+          const txid = `0x${response}`;
+          if (!externalTxid.includes(txid)) {
+            await setLocalTxs({
+              rawTx: transaction.serialize().toString('hex'),
+              timestamp: todaysIsoDate(),
+              txid,
+            });
+          }
           if (nonce) await doSetLatestNonce(nonce);
           toast.success('Transaction submitted!');
           doChangeScreen(ScreenPaths.HOME);
@@ -73,7 +80,7 @@ export function useSubmitTransactionCallback({
           setIsIdle();
           // switch active tab to activity
           setActiveTabActivity();
-          await refreshAccountData(550); // delay to give the api time to receive the tx
+          await refreshAccountData(250); // delay to give the api time to receive the tx
         }
       } catch (e) {
         console.error(e);

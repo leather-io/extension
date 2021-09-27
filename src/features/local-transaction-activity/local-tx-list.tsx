@@ -1,13 +1,23 @@
-import { useCurrentAccountLocalStacksTransaction } from '@store/accounts/account-activity.hooks';
+import {
+  useCleanupLocalTxsCallback,
+  useCurrentAccountLocalStacksTransaction,
+} from '@store/accounts/account-activity.hooks';
 import { LocalTxItem } from '@features/local-transaction-activity/local-tx-item';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, color, Stack, Text } from '@stacks/ui';
 
 const LocalTxListItem = ({ txid }: { txid: string }) => {
   const localTx = useCurrentAccountLocalStacksTransaction(txid);
+  const cleanup = useCleanupLocalTxsCallback();
+  useEffect(() => {
+    return () => {
+      cleanup();
+    };
+  }, [cleanup]);
   if (localTx) return <LocalTxItem txid={txid} transaction={localTx.transaction} />;
   return <>Loading...</>;
 };
+
 export const LocalTxList = ({ txids }: { txids: string[] }) => {
   return (
     <Stack pb="extra-loose" spacing="extra-loose">
