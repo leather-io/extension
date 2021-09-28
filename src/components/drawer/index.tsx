@@ -67,7 +67,8 @@ export const BaseDrawer: React.FC<BaseDrawerProps> = memo(props => {
       height="100%"
       pt="loose"
       width="100%"
-      alignItems="flex-end"
+      alignItems={['flex-end', 'center', 'center']}
+      justifyContent="center"
       flexDirection="column"
       zIndex={1000}
       style={{
@@ -87,13 +88,19 @@ export const BaseDrawer: React.FC<BaseDrawerProps> = memo(props => {
         willChange="transform, opacity"
         width="100%"
         maxWidth="472px"
-        m="auto auto 0"
         bg="white"
         borderTopLeftRadius="24px"
         borderTopRightRadius="24px"
+        borderBottomLeftRadius={[0, '24px', '24px', '24px']}
+        borderBottomRightRadius={[0, '24px', '24px', '24px']}
         position="relative"
-        mt="auto"
-        maxHeight="calc(100vh - 24px)"
+        mt={['auto', 'unset', 'unset', 'unset']}
+        maxHeight={[
+          'calc(100vh - 24px)',
+          'calc(100vh - 96px)',
+          'calc(100vh - 96px)',
+          'calc(100vh - 96px)',
+        ]}
       >
         <DrawerHeader title={title} onClose={onClose} />
         <Flex maxHeight="100%" flexGrow={1} overflowY="auto" flexDirection="column">
