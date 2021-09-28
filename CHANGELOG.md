@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.19.0
+
+### Minor Changes
+
+- [#1738](https://github.com/blockstack/stacks-wallet-web/pull/1738) [`b470c7a57`](https://github.com/blockstack/stacks-wallet-web/commit/b470c7a574b67e3dfc9547b03c13300222026ac5) Thanks [@kyranjamie](https://github.com/kyranjamie)! - Adds messages sourced from the main branch of the repository
+
+* [#1726](https://github.com/blockstack/stacks-wallet-web/pull/1726) [`9fe5b22df`](https://github.com/blockstack/stacks-wallet-web/commit/9fe5b22df156ca9d859d4147e86a87395536345c) Thanks [@aulneau](https://github.com/aulneau)! - This update improves the way in which the wallet persists user activity. When a user sends a transaction, the wallet will store a version of it locally. This improves the performance and feedback of the application.
+
+### Patch Changes
+
+- [#1737](https://github.com/blockstack/stacks-wallet-web/pull/1737) [`92aee034b`](https://github.com/blockstack/stacks-wallet-web/commit/92aee034b31c9a1a79fa2ff7ef1f9391e8acfae1) Thanks [@josecanhelp](https://github.com/josecanhelp)! - This change allows a wallet with zero STX balance to sign a sponsored transaction.
+
 ## 2.18.0
 
 ### Minor Changes
