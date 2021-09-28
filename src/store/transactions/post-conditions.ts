@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { requestTokenPayloadState } from '@store/transactions/requests';
 import { currentAccountStxAddressState } from '@store/accounts';
-import { getPostCondition, handlePostConditions } from '@common/transactions/postcondition-utils';
+import { getPostCondition, handlePostConditions } from '@common/transactions/post-condition-utils';
 
 export const postConditionsState = atom(get => {
   const payload = get(requestTokenPayloadState);

@@ -7,7 +7,7 @@ import {
   StacksTransaction,
 } from '@stacks/transactions';
 import BN from 'bn.js';
-import { getPostConditions } from '@common/transactions/postcondition-utils';
+import { getPostConditions } from '@common/transactions/post-condition-utils';
 import { ChainID } from '@stacks/common';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import {
