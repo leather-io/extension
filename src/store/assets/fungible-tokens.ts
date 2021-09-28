@@ -14,7 +14,7 @@ enum FungibleTokensQueryKeys {
 
 type ContractWithNetwork = Readonly<ContractPrincipal & { networkUrl: string }>;
 
-const fungibleTokenMetaDataState = atomFamily<
+export const fungibleTokenMetaDataState = atomFamily<
   [string, string],
   FungibleTokenMetadata | { error: string } | undefined
 >(([contractId]) => {
@@ -26,7 +26,7 @@ const fungibleTokenMetaDataState = atomFamily<
       });
       // can't return the promise directly
       return data;
-    } catch (e) {
+    } catch (e: any) {
       try {
         const error: { error: string } = await e.json();
         return error;

@@ -12,10 +12,10 @@ import {
   getPostConditionCodeMessage,
   getPostConditionTitle,
   getSymbolFromPostCondition,
-  useAssetInfoFromPostCondition,
-} from '@common/transactions/postcondition-utils';
+} from '@common/transactions/post-condition-utils';
 import { useTransactionRequest } from '@store/transactions/requests.hooks';
 import { TransactionEventCard } from '../event-card';
+import { useAssetFromPostCondition } from '@store/transactions/post-conditions.hooks';
 
 interface PostConditionProps {
   pc: PostCondition;
@@ -71,7 +71,7 @@ export const PostConditionFallbackComponent: React.FC<PostConditionProps> = ({ p
 
 export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ pc, isLast }) => {
   const currentAccount = useCurrentAccount();
-  const asset = useAssetInfoFromPostCondition(pc);
+  const asset = useAssetFromPostCondition(pc);
   const pendingTransaction = useTransactionRequest();
   const title = getPostConditionTitle(pc);
   const iconString = getIconStringFromPostCondition(pc);
@@ -82,10 +82,8 @@ export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ p
   const address = addressToString(pc.principal.address);
   const isSending = address === currentAccount?.address;
 
-  const amount =
-    typeof asset?.meta?.decimals === 'number' ? ftDecimals(_amount, asset.meta.decimals) : _amount;
-
-  const ticker = asset?.meta?.symbol || _ticker;
+  const amount = asset ? ftDecimals(_amount, asset.decimals) : _amount;
+  const ticker = asset?.symbol || _ticker;
 
   const isContractPrincipal =
     !!contractName ||
@@ -108,12 +106,12 @@ export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ p
         title={`${
           isContractPrincipal ? 'The contract ' : isSending ? 'You ' : 'Another address '
         } ${title}`}
-        left={asset?.meta?.name || name}
+        left={asset?.name || name}
         right={`${truncateMiddle(addressToString(pc.principal.address), 4)}${
           contractName ? `.${contractName}` : ''
         }`}
         amount={amount}
-        ticker={asset?.meta?.symbol || ticker}
+        ticker={ticker}
         icon={iconString}
         message={message}
         isLast={isLast}

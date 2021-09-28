@@ -8,7 +8,6 @@ import {
 } from '@stacks/transactions';
 import { stacksValue } from '@common/stacks-utils';
 import { postConditionFromString } from '@common/utils';
-import { useTransferableAssets } from '@store/assets/asset.hooks';
 
 export const getIconStringFromPostCondition = (pc: PostCondition) => {
   if (pc.conditionType === PostConditionType.Fungible)
@@ -138,23 +137,4 @@ export const getPostConditionTitle = (pc: PostCondition) => {
   if (pc.conditionCode === NonFungibleConditionCode.Owns) return 'will keep';
 
   return '';
-};
-
-// this will use data from assets we have already
-// if they exist, we can display better data for post conditions
-export const useAssetInfoFromPostCondition = (pc: PostCondition) => {
-  const assets = useTransferableAssets();
-  if (pc.conditionType !== PostConditionType.Fungible) return;
-  const assetName = pc.assetInfo.assetName.content;
-  const contractAddress = addressToString(pc.assetInfo.address);
-  const contractName = pc.assetInfo.contractName.content;
-
-  const asset = assets?.find(
-    asset =>
-      asset.contractAddress === contractAddress &&
-      asset.contractName === contractName &&
-      asset.name === assetName
-  );
-
-  return asset;
 };

@@ -1,4 +1,4 @@
-import { handlePostConditions } from '@common/transactions/postcondition-utils';
+import { handlePostConditions } from '@common/transactions/post-condition-utils';
 import {
   createAssetInfo,
   hexToCV,
