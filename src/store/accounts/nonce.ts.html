@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.23% </span>
+                <span class="strong">81.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/47</span>
+                <span class='fraction'>43/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.76% </span>
+                <span class="strong">56.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>48/79</span>
+                <span class='fraction'>48/85</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.3% </span>
+                <span class="strong">88.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/37</span>
+                <span class='fraction'>38/43</span>
             </div>
         
             
@@ -152,7 +152,27 @@
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,6 +181,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -178,6 +199,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -185,10 +208,27 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -259,6 +299,7 @@ import {
 } from '@store/accounts';
 import { currentNetworkState } from '@store/network/networks';
 import { makeLocalDataKey } from '@common/store-utils';
+import { currentAccountLocallySubmittedLatestNonceState } from '@store/accounts/account-activity';
 &nbsp;
 export const localNonceState = atomFamily&lt;[principal: string, networkUrl: string], number, number&gt;(
   params =&gt; atomWithStorage(makeLocalDataKey(['LOCAL_NONCE_STATE', params]), 0),
@@ -272,7 +313,9 @@ export const currentAccountLocalNonceState = atom(get =&gt; {
   return get(localNonceState([address, network.url]));
 });
 &nbsp;
-export const lastApiNonceState = atom&lt;number | undefined&gt;(undefined);
+export const lastApiNonceState = atom&lt;{ nonce: number; isMissing?: boolean } | undefined&gt;(
+  undefined
+);
 &nbsp;
 export const currentAccountNonceState = atom(get =&gt; {
   const address = get(currentAccountStxAddressState);
@@ -280,10 +323,27 @@ export const currentAccountNonceState = atom(get =&gt; {
   const confirmedTransactions = get(currentAccountConfirmedTransactionsState);
   const pendingTransactions = get(currentAccountMempoolTransactionsState);
   const lastLocalNonce = get(currentAccountLocalNonceState);
+  const latestLocallySubmittedNonce = get(currentAccountLocallySubmittedLatestNonceState);
+  const lastApiNonce = get(lastApiNonceState);
 &nbsp;
-  const apiNonce = get(lastApiNonceState);
-  // We try to use the api nonce first since it will be the most accurate value
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof apiNonce === 'number') <span class="cstat-no" title="statement not covered" >return apiNonce;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (lastApiNonce) {
+    // if there is a missing nonce, use that
+<span class="cstat-no" title="statement not covered" >    if (lastApiNonce.isMissing) <span class="cstat-no" title="statement not covered" >return lastApiNonce.nonce;</span></span>
+&nbsp;
+    // if we have a locally submitted nonce, and it's higher than the api nonce, use that
+<span class="cstat-no" title="statement not covered" >    if (</span>
+      typeof latestLocallySubmittedNonce === 'number' &amp;&amp;
+      latestLocallySubmittedNonce + 1 &gt; lastApiNonce.nonce
+    )
+<span class="cstat-no" title="statement not covered" >      return latestLocallySubmittedNonce + 1;</span>
+&nbsp;
+    // else, use the last api nonce
+<span class="cstat-no" title="statement not covered" >    return lastApiNonce.nonce;</span>
+  }
+&nbsp;
+  // ----
+  // TODO: anything after this line likely is never called anymore, we should confirm that, then remove this code vv
+  // ----
 &nbsp;
   // most recent confirmed transactions sent by current address
   const lastConfirmedTx = <span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >confi</span></span>rmedTransactions?.filter(tx =&gt; tx.sender_address === address)?.[0];
@@ -349,7 +409,7 @@ export const currentAccountNonceState = atom(get =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 28 2021 12:30:55 GMT+0000 (Coordinated Universal Time)
+                at Tue Sep 28 2021 21:55:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.96% </span>
+                <span class="strong">64.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/47</span>
+                <span class='fraction'>35/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.67% </span>
+                <span class="strong">41.18% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/15</span>
+                <span class='fraction'>7/17</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.44% </span>
+                <span class="strong">66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/43</span>
+                <span class='fraction'>33/50</span>
             </div>
         
             
@@ -166,7 +166,23 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,6 +195,11 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +235,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,6 +250,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -240,6 +271,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -290,6 +322,11 @@ import { ScreenPaths } from '@common/types';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useCurrentStacksNetworkState } from '@store/network/networks.hooks';
+import {
+  useCurrentAccountTxIdsState,
+  useSetLocalTxsCallback,
+} from '@store/accounts/account-activity.hooks';
+import { todaysIsoDate } from '@common/date-utils';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >getErrorMessage(</span>
   reason: TxBroadcastResultRejected['reason'] | 'ConflictingNonceInMempool'
@@ -323,6 +360,8 @@ export function useSubmitTransactionCallback({
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
+  const setLocalTxs = useSetLocalTxsCallback();
+  const externalTxid = useCurrentAccountTxIdsState();
 &nbsp;
   return useCallback&lt;(tx: StacksTransaction) =&gt; Promise&lt;void&gt;&gt;(
     async transaction =&gt; {
@@ -335,6 +374,14 @@ export function useSubmitTransactionCallback({
 <span class="cstat-no" title="statement not covered" >          onClose();</span>
 <span class="cstat-no" title="statement not covered" >          setIsIdle();</span>
         } else {
+          const txid<span class="cstat-no" title="statement not covered" > = `0x${response}`;</span>
+<span class="cstat-no" title="statement not covered" >          if (!externalTxid.includes(txid)) {</span>
+<span class="cstat-no" title="statement not covered" >            await setLocalTxs({</span>
+              rawTx: transaction.serialize().toString('hex'),
+              timestamp: todaysIsoDate(),
+              txid,
+            });
+          }
 <span class="cstat-no" title="statement not covered" >          if (nonce) <span class="cstat-no" title="statement not covered" >await doSetLatestNonce(nonce);</span></span>
           toast.success('Transaction submitted!');
 <span class="cstat-no" title="statement not covered" >          doChangeScreen(ScreenPaths.HOME);</span>
@@ -342,7 +389,7 @@ export function useSubmitTransactionCallback({
 <span class="cstat-no" title="statement not covered" >          setIsIdle();</span>
           // switch active tab to activity
 <span class="cstat-no" title="statement not covered" >          setActiveTabActivity();</span>
-<span class="cstat-no" title="statement not covered" >          await refreshAccountData(550); /</span>/ delay to give the api time to receive the tx
+<span class="cstat-no" title="statement not covered" >          await refreshAccountData(250); /</span>/ delay to give the api time to receive the tx
         }
       } catch (e) {
         console.error(e);
@@ -352,6 +399,7 @@ export function useSubmitTransactionCallback({
       }
     },
     [
+      setLocalTxs,
       doSetLatestNonce,
       replaceByFee,
       onClose,
@@ -391,7 +439,7 @@ export function useHandleSubmitTransaction({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 28 2021 12:30:55 GMT+0000 (Coordinated Universal Time)
+                at Tue Sep 28 2021 21:55:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
