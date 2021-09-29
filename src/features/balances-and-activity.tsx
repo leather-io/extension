@@ -1,6 +1,6 @@
-import React, { memo, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { Box, Stack, SlideFade, Flex } from '@stacks/ui';
 import type { StackProps } from '@stacks/ui';
-import { Box, color, Flex, SlideFade, Spinner, Stack } from '@stacks/ui';
 import { TokenAssets } from '@components/popup/token-assets';
 
 import { Caption } from '@components/typography';
@@ -14,6 +14,7 @@ import { useCurrentAccountLocalTxids } from '@store/accounts/account-activity.ho
 import { TransactionList } from '@components/popup/transaction-list';
 import { createTxDateFormatList } from '@common/group-txs-by-date';
 import { LocalTxList } from '@features/local-transaction-activity/local-tx-list';
+import { LoadingSpinner } from '@components/loading-spinner';
 
 function EmptyActivity() {
   return (
@@ -47,12 +48,6 @@ const ActivityList = () => {
   );
 };
 
-const Loading = memo(() => (
-  <Flex pb="72px" width="100%" alignItems="center" justifyContent="center" flexGrow={1}>
-    <Spinner size="lg" opacity={0.5} color={color('text-caption')} />
-  </Flex>
-));
-
 export function BalancesAndActivity(props: StackProps) {
   const { activeTab, setActiveTab } = useHomeTabs();
   return (
@@ -68,7 +63,7 @@ export function BalancesAndActivity(props: StackProps) {
 
       <Flex position="relative" flexGrow={1}>
         {activeTab === 0 && (
-          <React.Suspense fallback={<Loading />}>
+          <React.Suspense fallback={<LoadingSpinner pb="72px" />}>
             <SlideFade in={activeTab === 0}>
               {styles => (
                 <TokenAssets
@@ -84,7 +79,7 @@ export function BalancesAndActivity(props: StackProps) {
           </React.Suspense>
         )}
         {activeTab === 1 && (
-          <React.Suspense fallback={<Loading />}>
+          <React.Suspense fallback={<LoadingSpinner pb="72px" />}>
             <SlideFade in={activeTab === 1}>
               {styles => (
                 <Box position="absolute" top={0} left={0} width="100%" style={styles}>
