@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import { PostConditions } from './list';
+import { PostConditions } from './post-conditions-list';
 
 import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
 import { setupHeystackEnv } from '@tests/mocks/heystack';

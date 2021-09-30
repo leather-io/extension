@@ -11,7 +11,7 @@ import { TransactionsActions } from '@pages/transaction-signing/components/actio
 import { TransactionPageTop } from '@pages/transaction-signing/components/transaction-page-top';
 import { ContractCallDetails } from '@pages/transaction-signing/components/contract-call-details';
 import { ContractDeployDetails } from '@pages/transaction-signing/components/contract-deploy-details';
-import { PostConditions } from '@pages/transaction-signing/components/post-conditions/list';
+import { PostConditions } from '@pages/transaction-signing/components/post-conditions/post-conditions-list';
 import { StxTransferDetails } from '@pages/transaction-signing/components/stx-transfer-details';
 import { PostConditionModeWarning } from '@pages/transaction-signing/components/post-condition-mode-warning';
 import { TransactionError } from './components/transaction-error';

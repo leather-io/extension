@@ -8,8 +8,11 @@ import {
 } from '@stacks/transactions';
 import { stacksValue } from '@common/stacks-utils';
 import { postConditionFromString } from '@common/utils';
+import { FungiblePostCondition, NonFungiblePostCondition, STXPostCondition } from '@common/types';
 
-export const getIconStringFromPostCondition = (pc: PostCondition) => {
+export const getIconStringFromPostCondition = (
+  pc: STXPostCondition | FungiblePostCondition | NonFungiblePostCondition
+) => {
   if (pc.conditionType === PostConditionType.Fungible)
     return `${addressToString(pc.assetInfo.address)}.${pc.assetInfo.contractName}.${
       pc.assetInfo.assetName.content
@@ -18,21 +21,27 @@ export const getIconStringFromPostCondition = (pc: PostCondition) => {
   return pc.assetInfo.assetName.content;
 };
 
-export const getAmountFromPostCondition = (pc: PostCondition) => {
+export const getAmountFromPostCondition = (
+  pc: STXPostCondition | FungiblePostCondition | NonFungiblePostCondition
+) => {
   if (pc.conditionType === PostConditionType.Fungible) return pc.amount.toString();
   if (pc.conditionType === PostConditionType.STX)
     return stacksValue({ value: pc.amount.toString(), withTicker: false });
   return '';
 };
 
-export const getSymbolFromPostCondition = (pc: PostCondition) => {
+export const getSymbolFromPostCondition = (
+  pc: STXPostCondition | FungiblePostCondition | NonFungiblePostCondition
+) => {
   if ('assetInfo' in pc) {
     return pc.assetInfo.assetName.content.slice(0, 3).toUpperCase();
   }
   return 'STX';
 };
 
-export const getNameFromPostCondition = (pc: PostCondition) => {
+export const getNameFromPostCondition = (
+  pc: STXPostCondition | FungiblePostCondition | NonFungiblePostCondition
+) => {
   if ('assetInfo' in pc) {
     return pc.assetInfo.assetName.content;
   }
@@ -113,7 +122,9 @@ export function getPostConditions(
   return postConditions?.map(getPostCondition);
 }
 
-export const getTitleFromFungibleConditionCode = (code: FungibleConditionCode) => {
+export const getTitleFromConditionCode = (
+  code: FungibleConditionCode | NonFungibleConditionCode
+) => {
   switch (code) {
     case FungibleConditionCode.Equal:
       return 'will transfer exactly';
@@ -125,16 +136,17 @@ export const getTitleFromFungibleConditionCode = (code: FungibleConditionCode) =
       return 'will transfer less than';
     case FungibleConditionCode.LessEqual:
       return 'will transfer less than or equal to';
+    case NonFungibleConditionCode.DoesNotOwn:
+      return 'will transfer';
+    case NonFungibleConditionCode.Owns:
+      return 'will keep';
     default:
       return '';
   }
 };
-export const getPostConditionTitle = (pc: PostCondition) => {
-  if (pc.conditionType === PostConditionType.STX || pc.conditionType === PostConditionType.Fungible)
-    return getTitleFromFungibleConditionCode(pc.conditionCode);
 
-  if (pc.conditionCode === NonFungibleConditionCode.DoesNotOwn) return 'will transfer';
-  if (pc.conditionCode === NonFungibleConditionCode.Owns) return 'will keep';
-
-  return '';
+export const getPostConditionTitle = (
+  pc: STXPostCondition | FungiblePostCondition | NonFungiblePostCondition
+) => {
+  return getTitleFromConditionCode(pc.conditionCode) || '';
 };

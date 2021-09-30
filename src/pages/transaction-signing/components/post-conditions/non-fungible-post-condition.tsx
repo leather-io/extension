@@ -1,9 +1,8 @@
 import React from 'react';
 import { TransactionTypes } from '@stacks/connect';
 
-import { addressToString, PostCondition } from '@stacks/transactions';
+import { addressToString } from '@stacks/transactions';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { ftDecimals } from '@common/stacks-utils';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import {
   getAmountFromPostCondition,
@@ -15,29 +14,30 @@ import {
 } from '@common/transactions/post-condition-utils';
 import { useTransactionRequest } from '@store/transactions/requests.hooks';
 import { TransactionEventCard } from '../event-card';
-import { useAssetFromPostCondition } from '@store/transactions/post-conditions.hooks';
 import { LoadingSpinner } from '@components/loading-spinner';
+import { NonFungiblePostCondition } from '@common/types';
 
-interface PostConditionProps {
-  pc: PostCondition;
+interface NonFungiblePostConditionProps {
+  pc: NonFungiblePostCondition;
   isLast?: boolean;
 }
 
-export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ pc, isLast }) => {
+export const NonFungiblePostConditionComponentSuspense: React.FC<NonFungiblePostConditionProps> = ({
+  pc,
+  isLast,
+}) => {
   const currentAccount = useCurrentAccount();
-  const asset = useAssetFromPostCondition(pc);
   const pendingTransaction = useTransactionRequest();
+
   const title = getPostConditionTitle(pc);
   const iconString = getIconStringFromPostCondition(pc);
-  const _ticker = getSymbolFromPostCondition(pc);
-  const _amount = getAmountFromPostCondition(pc);
+  const ticker = getSymbolFromPostCondition(pc);
+  const amount = getAmountFromPostCondition(pc);
   const name = getNameFromPostCondition(pc);
+
   const contractName = 'contractName' in pc.principal && pc.principal.contractName.content;
   const address = addressToString(pc.principal.address);
   const isSending = address === currentAccount?.address;
-
-  const amount = asset ? ftDecimals(_amount, asset.decimals) : _amount;
-  const ticker = asset?.symbol || _ticker;
 
   const isContractPrincipal =
     !!contractName ||
@@ -55,29 +55,27 @@ export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ p
     : undefined;
 
   return (
-    <>
-      <TransactionEventCard
-        title={`${
-          isContractPrincipal ? 'The contract ' : isSending ? 'You ' : 'Another address '
-        } ${title}`}
-        left={asset?.name || name}
-        right={`${truncateMiddle(addressToString(pc.principal.address), 4)}${
-          contractName ? `.${contractName}` : ''
-        }`}
-        amount={amount}
-        ticker={ticker}
-        icon={iconString}
-        message={message}
-        isLast={isLast}
-      />
-    </>
+    <TransactionEventCard
+      title={`${
+        isContractPrincipal ? 'The contract ' : isSending ? 'You ' : 'Another address '
+      } ${title}`}
+      left={name}
+      right={`${truncateMiddle(addressToString(pc.principal.address), 4)}${
+        contractName ? `.${contractName}` : ''
+      }`}
+      amount={amount}
+      ticker={ticker}
+      icon={iconString}
+      message={message}
+      isLast={isLast}
+    />
   );
 };
 
-export const PostConditionComponent = (props: PostConditionProps) => {
+export const NonFungiblePostConditionComponent = (props: NonFungiblePostConditionProps) => {
   return (
     <React.Suspense fallback={<LoadingSpinner height="190px" />}>
-      <PostConditionComponentSuspense {...props} />
+      <NonFungiblePostConditionComponentSuspense {...props} />
     </React.Suspense>
   );
 };
