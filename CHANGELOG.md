@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.19.1
+
+### Patch Changes
+
+- [#1758](https://github.com/blockstack/stacks-wallet-web/pull/1758) [`3890723ae`](https://github.com/blockstack/stacks-wallet-web/commit/3890723ae2429cddb0c546017ccbbd3a15cdb7d9) Thanks [@kyranjamie](https://github.com/kyranjamie)! - Fixes bug where it auto-scrolls up
+
 ## 2.19.0
 
 ### Minor Changes
