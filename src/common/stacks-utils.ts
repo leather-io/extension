@@ -39,6 +39,7 @@ export const ftDecimals = (value: number | string | BigNumber, decimals: number)
     .toNumber()
     .toLocaleString('en-US', { maximumFractionDigits: decimals });
 };
+
 export const ftUnshiftDecimals = (value: number | string | BigNumber, decimals: number) => {
   const amount = initBigNumber(value);
   return amount.shiftedBy(decimals).toString(10);

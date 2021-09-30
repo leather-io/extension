@@ -9,12 +9,13 @@ import { truncateMiddle } from '@stacks/ui-utils';
 
 import { useTransactionRequest } from '@store/transactions/requests.hooks';
 import { TransactionEventCard } from '../event-card';
-import { PostConditionComponent } from './single';
+import { FungiblePostConditionComponent } from './fungible-post-condition';
 import { useTransactionPostConditions } from '@store/transactions/transaction.hooks';
 
 import { usePostConditionModeState } from '@store/transactions/post-conditions.hooks';
-import { PostConditionMode } from '@stacks/transactions';
+import { PostConditionMode, PostConditionType } from '@stacks/transactions';
 import { IS_TEST_ENV } from '@common/constants';
+import { NonFungiblePostConditionComponent } from './non-fungible-post-condition';
 
 function StxPostcondition() {
   const pendingTransaction = useTransactionRequest();
@@ -57,13 +58,26 @@ const PostConditionsList = () => {
 
   return (
     <>
-      {postConditions?.map((pc, index) => (
-        <PostConditionComponent
-          pc={pc}
-          isLast={index === postConditions.length - 1}
-          key={`${pc.type}-${pc.conditionCode}`}
-        />
-      ))}
+      {postConditions?.map((pc, index) => {
+        if (pc.conditionType === PostConditionType.Fungible) {
+          return (
+            <FungiblePostConditionComponent
+              pc={pc}
+              isLast={index === postConditions.length - 1}
+              key={`${pc.type}-${pc.conditionCode}`}
+            />
+          );
+        }
+        if (pc.conditionType === PostConditionType.NonFungible) {
+          return (
+            <NonFungiblePostConditionComponent
+              pc={pc}
+              isLast={index === postConditions.length - 1}
+              key={`${pc.type}-${pc.conditionCode}`}
+            />
+          );
+        }
+      })}
     </>
   );
 };

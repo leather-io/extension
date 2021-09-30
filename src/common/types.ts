@@ -1,4 +1,14 @@
 import { DecodedAuthRequest } from '@common/dev/types';
+import {
+  AssetInfo,
+  ClarityValue,
+  FungibleConditionCode,
+  NonFungibleConditionCode,
+  PostConditionPrincipal,
+  PostConditionType,
+  StacksMessageType,
+} from '@stacks/transactions';
+import BN from 'bn.js';
 
 export const ONBOARDING_PROGRESS = 'ONBOARDING/ONBOARDING_PROGRESS';
 export const CHANGE_PAGE = 'ONBOARDING/CHANGE_PAGE';
@@ -105,3 +115,28 @@ export type OnboardingActions =
   | SaveAuthRequest
   | SetOnboardingPath
   | SetUsername;
+
+// Not currently exported from @stacks/transactions
+export interface STXPostCondition {
+  readonly type: StacksMessageType.PostCondition;
+  readonly conditionType: PostConditionType.STX;
+  readonly principal: PostConditionPrincipal;
+  readonly conditionCode: FungibleConditionCode;
+  readonly amount: BN;
+}
+export interface FungiblePostCondition {
+  readonly type: StacksMessageType.PostCondition;
+  readonly conditionType: PostConditionType.Fungible;
+  readonly principal: PostConditionPrincipal;
+  readonly conditionCode: FungibleConditionCode;
+  readonly amount: BN;
+  readonly assetInfo: AssetInfo;
+}
+export interface NonFungiblePostCondition {
+  readonly type: StacksMessageType.PostCondition;
+  readonly conditionType: PostConditionType.NonFungible;
+  readonly principal: PostConditionPrincipal;
+  readonly conditionCode: NonFungibleConditionCode;
+  readonly assetInfo: AssetInfo;
+  readonly assetName: ClarityValue;
+}
