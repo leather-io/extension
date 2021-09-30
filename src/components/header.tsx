@@ -45,7 +45,6 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       alignItems={hideActions ? 'center' : 'flex-start'}
       justifyContent="space-between"
       position="relative"
-      scrollSnapAlign="start"
       {...rest}
     >
       {!title ? (

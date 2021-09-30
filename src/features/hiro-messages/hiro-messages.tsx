@@ -9,7 +9,7 @@ export const HiroMessages = (props: FlexProps) => {
   if (!messages || !messages.global || !messages.global[0]) return null;
 
   return (
-    <Box pt="tight" scrollSnapAlign="start" scrollPadding="20%">
+    <Box pt="tight">
       <Flex background="#F7F8FD" borderRadius="8px" p="base" {...props}>
         <HiroMessageItem {...messages.global[0]} />
       </Flex>
