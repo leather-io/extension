@@ -15,6 +15,12 @@ module.exports = {
   },
   plugins: ['react-hooks', '@typescript-eslint'],
   rules: {
+    'prefer-const': [
+      'error',
+      {
+        ignoreReadBeforeAssign: false,
+      },
+    ],
     '@typescript-eslint/no-floating-promises': [1],
     '@typescript-eslint/no-unnecessary-type-assertion': [0],
     '@typescript-eslint/no-unsafe-assignment': [0],

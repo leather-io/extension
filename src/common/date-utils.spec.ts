@@ -9,7 +9,7 @@ test('ISO date to local date (based on timezone)', () => {
     today,
   ];
   datesToTestOk.forEach(date => {
-    let [year, month, day] = isoDateToLocalDate(date).split('-');
+    const [year, month, day] = isoDateToLocalDate(date).split('-');
     expect(year.length).toEqual(4);
     expect(+month).toBeGreaterThanOrEqual(1);
     expect(+month).toBeLessThanOrEqual(12);
