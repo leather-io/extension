@@ -2987,12 +2987,12 @@
   dependencies:
     "@stacks/common" "^1.2.2"
 
-"@stacks/prettier-config@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@stacks/prettier-config/-/prettier-config-0.0.8.tgz#4db04dbca3982f74f4554ca522f37570125516e3"
-  integrity sha512-WpxCIB2wPk2TT0Zs9oABNQ7Y2wBx2sSqEeFtgJ1lBNY6bKT5B82l/CkbaHPmnUj0KOwauXaSv0rXnxomTNj9xA==
+"@stacks/prettier-config@0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@stacks/prettier-config/-/prettier-config-0.0.9.tgz#aa685cbb83a51e24adc7aebdc69cc5dae49aabab"
+  integrity sha512-N+KC3LUL/qSrmjGaFRNaJtBSL1ZBJn5nPEsZf4DpYXDiFhIN1WWDRi79nuuAZD1K6mq+dZWsCwJp8rhI7kLi8w==
   dependencies:
-    prettier "^2.3.0"
+    prettier "2.4.1"
 
 "@stacks/profile@^1.0.0-beta.20", "@stacks/profile@^1.2.3":
   version "1.2.3"
@@ -12713,10 +12713,10 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier@2.3.2, prettier@^2.3.0:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
-  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
+prettier@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
+  integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
 
 prettier@^1.19.1:
   version "1.19.1"
