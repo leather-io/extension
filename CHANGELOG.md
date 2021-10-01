@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.19.2
+
+### Patch Changes
+
+- [#1762](https://github.com/blockstack/stacks-wallet-web/pull/1762) [`4f4b9637b`](https://github.com/blockstack/stacks-wallet-web/commit/4f4b9637ba4d477ce0545bba3b924fe45509eaed) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This fixes deploying contracts with local transactions.
+
 ## 2.19.1
 
 ### Patch Changes
