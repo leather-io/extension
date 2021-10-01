@@ -76,7 +76,7 @@ export const LocalTxItem: React.FC<{ transaction: StacksTransaction; txid: strin
       case PayloadType.SmartContract:
         return getTxCaption({
           tx_type: 'smart_contract',
-          contract_call: {
+          smart_contract: {
             contract_id: `${getTxSenderAddress(transaction)}.${
               transaction.payload.contractName.content
             }`,
