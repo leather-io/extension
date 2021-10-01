@@ -23,7 +23,7 @@ function txHasTime(tx: Tx) {
 
 function groupTxsByDateMap(txs: Tx[]) {
   return txs.reduce((txsByDate, tx) => {
-    let time =
+    const time =
       ('burn_block_time_iso' in tx && tx.burn_block_time_iso) ||
       ('parent_burn_block_time_iso' in tx && tx.parent_burn_block_time_iso);
     const date = time ? isoDateToLocalDateSafe(time) : undefined;

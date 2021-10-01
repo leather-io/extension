@@ -95,10 +95,10 @@ describe(mergeAssetBalances.name, () => {
 
     expect(mergedAssets.length).toEqual(assets.length - 1 + 1); // remove the stx asset but add the new ft token
 
-    for (let tokenName of ['stella-token', 'alf-token', 'boxer-token']) {
-      let token = assets.find(asset => asset && asset.name === tokenName);
-      let tokenUnanchored = unanchoredAssets.find(asset => asset && asset.name === tokenName);
-      let tokenMerged = mergedAssets.find(asset => asset && asset.name === tokenName);
+    for (const tokenName of ['stella-token', 'alf-token', 'boxer-token']) {
+      const token = assets.find(asset => asset && asset.name === tokenName);
+      const tokenUnanchored = unanchoredAssets.find(asset => asset && asset.name === tokenName);
+      const tokenMerged = mergedAssets.find(asset => asset && asset.name === tokenName);
       if (!tokenMerged) return;
       if (token && tokenUnanchored) {
         // if there is a token in the anchored balance it should be present in the merge as balance
@@ -148,10 +148,10 @@ describe(mergeAssetBalances.name, () => {
 
     const mergedAssets: NftMeta[] = mergeNftBalances(anchoredNfts, unanchoredNfts);
 
-    for (let nftName of Object.keys(anchoredNfts)) {
-      let token: NftMeta = anchoredNfts[nftName];
-      let tokenUnanchored = unanchoredNfts[nftName];
-      let tokenMerged = mergedAssets.find(asset => asset && asset.key === nftName);
+    for (const nftName of Object.keys(anchoredNfts)) {
+      const token: NftMeta = anchoredNfts[nftName];
+      const tokenUnanchored = unanchoredNfts[nftName];
+      const tokenMerged = mergedAssets.find(asset => asset && asset.key === nftName);
       if (token && tokenUnanchored) {
         // if there is a token in the anchored count it should be present in the merge as count
         expect(tokenMerged?.count).toEqual(token.count);

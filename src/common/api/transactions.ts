@@ -5,7 +5,7 @@ export type Tx = MempoolTransaction | Transaction;
 export type Status = 'success_microblock' | 'success_anchor_block' | 'pending' | 'failed';
 
 export const statusFromTx = (tx: Tx): Status => {
-  let { tx_status } = tx;
+  const { tx_status } = tx;
   if (tx_status === 'pending') return 'pending';
   if (tx_status === 'success')
     return 'is_unanchored' in tx && tx.is_unanchored
