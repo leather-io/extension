@@ -5,11 +5,11 @@ import { useDrawers } from '@common/hooks/use-drawers';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 
 export const NetworkModeBadge: React.FC<FlexProps> = memo(props => {
-  const { chainId } = useCurrentNetwork();
-  const isTestnet = useMemo(() => chainId === ChainID.Testnet, [chainId]);
+  const { chainId, name } = useCurrentNetwork();
+  const isTestnetChain = useMemo(() => chainId === ChainID.Testnet, [chainId]);
   const { setShowNetworks } = useDrawers();
 
-  return isTestnet ? (
+  return isTestnetChain ? (
     <Flex
       borderWidth="1px"
       borderColor={color('border')}
@@ -27,7 +27,7 @@ export const NetworkModeBadge: React.FC<FlexProps> = memo(props => {
       {...props}
     >
       <Text fontSize="11px" fontWeight="500">
-        Testnet
+        {name}
       </Text>
     </Flex>
   ) : null;

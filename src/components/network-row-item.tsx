@@ -4,7 +4,7 @@ import React from 'react';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 
 export function NetworkRowItem(props: StackProps) {
-  const { isTestnet } = useCurrentNetwork();
+  const { isTestnet, name } = useCurrentNetwork();
   return (
     <Stack
       alignItems="center"
@@ -26,7 +26,7 @@ export function NetworkRowItem(props: StackProps) {
           ○
         </Text>
       )}
-      <Caption color="currentColor">{isTestnet ? 'Testnet' : 'Mainnet'}</Caption>
+      <Caption color="currentColor">{isTestnet ? name : 'Mainnet'}</Caption>
     </Stack>
   );
 }
