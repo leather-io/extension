@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/store/transactions/post-conditions.ts</title>
+    <title>Code coverage report for src/features/network-drawer/network-list.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/transactions</a> post-conditions.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/features/network-drawer</a> network-list.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.24% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/17</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -74,52 +74,40 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { atom } from 'jotai';
-import { requestTokenPayloadState } from '@store/transactions/requests';
-import { currentAccountStxAddressState } from '@store/accounts';
-import { getPostCondition, handlePostConditions } from '@common/transactions/post-condition-utils';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
+import { Flex, FlexProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
+import { NetworkListItem } from '@features/network-drawer/network-list-item'<span class="cstat-no" title="statement not covered" >;</span>
+import { SettingsSelectors } from '@tests/integration/settings.selectors'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const postConditionsState = atom(get =&gt; {
-  const payload = get(requestTokenPayloadState);
-  const address = get(currentAccountStxAddressState);
-&nbsp;
-  if (!payload || !address) return;
-&nbsp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.postConditions) {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.stxAddress)
-      return handlePostConditions(payload.postConditions, payload.stxAddress, address);
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    return payload.postConditions.map(getPostCondition);</span>
-  }
-<span class="cstat-no" title="statement not covered" >  return [];</span>
-});
-&nbsp;
-export const postConditionModeState = atom(get =&gt; <span class="branch-0 cbranch-no" title="branch not covered" >get(</span>requestTokenPayloadState)?.postConditionMode);
+export const <span class="cstat-no" title="statement not covered" >NetworkList<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;FlexProps&gt; = p</span></span>rops =&gt; {</span>
+  const { networks }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
+  const items = <span class="cstat-no" title="statement not covered" >Object.keys(networks);</span>
+  return (
+    &lt;Flex flexWrap="wrap" flexDirection="column" {...props}&gt;
+      {items.map(item =&gt; (
+        &lt;NetworkListItem key={item} data-testid={SettingsSelectors.NetworkListItem} item={item} /&gt;
+      ))}
+    &lt;/Flex&gt;
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
