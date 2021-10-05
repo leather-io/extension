@@ -23,7 +23,7 @@ export const LocalTxList = ({ txids }: { txids: string[] }) => {
     <Stack pb="extra-loose" spacing="extra-loose">
       <Box>
         <Text textStyle="body.small" color={color('text-caption')}>
-          Queued
+          Submitted
         </Text>
         <Stack mt="base-loose" spacing="loose">
           {txids.map(txid => (

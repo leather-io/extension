@@ -96,7 +96,7 @@ export const LocalTxItem: React.FC<{ transaction: StacksTransaction; txid: strin
         isInline
         position="relative"
         zIndex={2}
-        onClick={() => handleOpenTxLink(txid, `&queued=true`)}
+        onClick={() => handleOpenTxLink(txid, `&submitted=true`)}
       >
         <StacksTransactionItemIcon transaction={transaction} />
         <SpaceBetween flexGrow={1}>
@@ -113,7 +113,7 @@ export const LocalTxItem: React.FC<{ transaction: StacksTransaction; txid: strin
                 }
               >
                 <Caption variant="c2" color={color('text-caption')}>
-                  Queued
+                  Submitted
                 </Caption>
               </Tooltip>
             </Stack>
