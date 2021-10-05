@@ -3,7 +3,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { ScreenPaths } from '@common/types';
 import React from 'react';
 
-import { SignOutConfirmLayout } from './sign-out-confirm-layout';
+import { SignOutConfirmLayout } from './sign-out-confirm.layout';
 
 export const SignOutConfirmDrawer = () => {
   const { doSignOut } = useWallet();

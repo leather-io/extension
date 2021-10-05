@@ -13,7 +13,16 @@ module.exports = {
     browser: true,
     context: true,
   },
-  plugins: ['react-hooks', '@typescript-eslint'],
+
+  settings: {
+    react: {
+      pragma: 'React', // Pragma to use, default to "React"
+      fragment: 'Fragment', // Fragment to use (may be a property of <pragma>), default to "Fragment"
+      version: 'detect', // React version. "detect" automatically picks the version you have installed.
+    },
+  },
+
+  plugins: ['react', 'react-hooks', '@typescript-eslint'],
   rules: {
     'prefer-const': [
       'error',
@@ -37,5 +46,14 @@ module.exports = {
         additionalHooks: 'useRecoilCallback',
       },
     ],
+    'react/no-multi-comp': ['error', { ignoreStateless: false }],
   },
+  overrides: [
+    {
+      files: ['*.layout.tsx'],
+      rules: {
+        'react/no-multi-comp': 'off',
+      },
+    },
+  ],
 };

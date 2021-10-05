@@ -165,6 +165,7 @@
     "download": "8.0.0",
     "esbuild": "0.12.15",
     "esbuild-loader": "2.13.1",
+    "eslint-plugin-react": "7.26.1",
     "eslint-plugin-react-hooks": "4.2.0",
     "generate-json-webpack-plugin": "2.0.0",
     "html-webpack-plugin": "5.3.2",
