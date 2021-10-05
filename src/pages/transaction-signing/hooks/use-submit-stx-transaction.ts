@@ -100,6 +100,7 @@ export function useSubmitTransactionCallback({
       setIsIdle,
       stacksNetwork,
       setActiveTabActivity,
+      externalTxid,
     ]
   );
 }

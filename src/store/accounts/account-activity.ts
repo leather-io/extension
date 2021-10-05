@@ -8,6 +8,7 @@ import {
 } from '@store/accounts/index';
 import { makeLocalDataKey } from '@common/store-utils';
 import deepEqual from 'fast-deep-equal';
+import { safelyFormatHexTxid } from '@common/utils/safe-handle-txid';
 
 export const currentAccountExternalTxIdsState = atom(get => [
   ...new Set([...get(currentAccountTransactionsState).map(tx => tx.tx_id)]),
@@ -52,7 +53,7 @@ export const currentAccountLocallySubmittedTxIdsState = atom(get => {
   const externalTxids = get(currentAccountExternalTxIdsState);
   return txs
     ? Object.entries(txs)
-        .filter(([txid]) => !externalTxids.includes(txid))
+        .filter(([txid]) => !externalTxids.includes(safelyFormatHexTxid(txid)))
         .sort((a, b) => (a[1].timestamp > b[1].timestamp ? -1 : 1))
         .map(([txid]) => txid)
     : [];
@@ -95,7 +96,9 @@ export const currentAccountAllTxIds = atom(get => {
 export const cleanupLocalTxs = atom(null, (get, set) => {
   const localTxs = get(currentAccountLocallySubmittedTxsState);
   const externalTxids = get(currentAccountExternalTxIdsState);
-  const duplicateTxIds = Object.keys(localTxs).filter(txid => externalTxids.includes(txid));
+  const duplicateTxIds = Object.keys(localTxs).filter(txid =>
+    externalTxids.includes(safelyFormatHexTxid(txid))
+  );
   if (duplicateTxIds.length) {
     const principal = get(currentAccountStxAddressState);
     if (!principal) return;
