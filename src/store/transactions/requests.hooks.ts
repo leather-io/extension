@@ -6,10 +6,10 @@ import {
   transactionRequestCustomFeeState,
   transactionRequestCustomFeeRateState,
 } from '@store/transactions/requests';
-import { finalizeTxSignature } from '@common/utils';
 import { requestTokenState } from '@store/transactions/requests';
 import { transactionBroadcastErrorState } from '@store/transactions';
 import { useCallback } from 'react';
+import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
 
 export function useOrigin() {
   return useAtomValue(requestTokenOriginState);

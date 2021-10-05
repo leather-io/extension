@@ -40,7 +40,6 @@ import { postConditionsState } from './post-conditions';
 import { useWallet } from '@common/hooks/use-wallet';
 import { requestTokenState } from './requests';
 import { handleBroadcastTransaction } from '@common/transactions/transactions';
-import { finalizeTxSignature } from '@common/utils';
 import { makeFungibleTokenTransferState } from './fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
 import { updateTransactionFee } from '@store/transactions/utils';
@@ -51,6 +50,7 @@ import {
 } from '@store/transactions/local-transactions';
 import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
 import { todaysIsoDate } from '@common/date-utils';
+import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
