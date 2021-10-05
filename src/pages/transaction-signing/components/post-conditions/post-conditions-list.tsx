@@ -77,6 +77,7 @@ const PostConditionsList = () => {
             />
           );
         }
+        return;
       })}
     </>
   );
