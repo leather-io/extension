@@ -25,7 +25,6 @@
           },
           "publishedAt": {
             "type": "string",
-            "format": "date-time",
             "description": "Estimate date time at which the message has been published"
           },
           "learnMoreUrl": {

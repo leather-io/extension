@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Box, Stack } from '@stacks/ui';
+import { Stack } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { BalancesAndActivity } from '@features/balances-and-activity';

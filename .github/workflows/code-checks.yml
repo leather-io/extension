@@ -170,11 +170,8 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Install ajv-cli
-        runs: yarn global add ajv-cli
-
       - name: Validate message schema
-        runs: ajv-cli validate -s scripts/wallet-comms.schema.json -d wallet-comms.json
+        run: npx ajv-cli validate -s config/wallet-comms.schema.json -d config/wallet-comms.json
 
   build:
     runs-on: ubuntu-latest
