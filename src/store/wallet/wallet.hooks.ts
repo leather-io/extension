@@ -4,7 +4,6 @@ import type { VaultActions } from '@background/vault-types';
 import { gaiaUrl } from '@common/constants';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { textToBytes } from '@common/store-utils';
-import { finalizeAuthResponse } from '@common/utils';
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
@@ -24,6 +23,7 @@ import {
   secretKeyState,
   walletState,
 } from './wallet';
+import { finalizeAuthResponse } from '@common/actions/finalize-auth-response';
 
 export function useHasRehydratedVault() {
   return useAtomValue(hasRehydratedVaultStore);

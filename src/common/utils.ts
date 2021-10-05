@@ -1,17 +1,6 @@
 import React from 'react';
-import { DecodedAuthRequest } from './dev/types';
 import { wordlists } from 'bip39';
 import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
-import { isValidUrl } from './validation/validate-url';
-import { getTab, deleteTabForRequest, StorageKey } from '@common/storage';
-import {
-  AuthenticationResponseMessage,
-  ExternalMethods,
-  MESSAGE_SOURCE,
-  TransactionResponseMessage,
-  TxResult,
-} from '@common/message-types';
-
 import { KEBAB_REGEX, Network } from '@common/constants';
 import { StacksNetwork } from '@stacks/network';
 import { fetcher } from '@common/api/wrapped-fetch';
@@ -28,74 +17,6 @@ export const getEventSourceWindow = (event: MessageEvent) => {
     return event.source as Window;
   }
   return null;
-};
-
-interface FinalizeAuthParams {
-  decodedAuthRequest: DecodedAuthRequest;
-  authResponse: string;
-  authRequest: string;
-}
-
-/**
- * Call this function at the end of onboarding.
- *
- * We fetch the ID of the tab that originated this request from a data store.
- * Then, we send a message back to that tab, which is handled by the content script
- * of the extension.
- *
- */
-export const finalizeAuthResponse = ({
-  decodedAuthRequest,
-  authRequest,
-  authResponse,
-}: FinalizeAuthParams) => {
-  const dangerousUri = decodedAuthRequest.redirect_uri;
-  if (!isValidUrl(dangerousUri)) {
-    throw new Error('Cannot proceed with malicious url');
-  }
-  try {
-    const tabId = getTab(StorageKey.authenticationRequests, authRequest);
-    const responseMessage: AuthenticationResponseMessage = {
-      source: MESSAGE_SOURCE,
-      payload: {
-        authenticationRequest: authRequest,
-        authenticationResponse: authResponse,
-      },
-      method: ExternalMethods.authenticationResponse,
-    };
-    chrome.tabs.sendMessage(tabId, responseMessage);
-    deleteTabForRequest(StorageKey.authenticationRequests, authRequest);
-    window.close();
-  } catch (error) {
-    console.debug('Failed to get Tab ID for authentication request:', authRequest);
-    throw new Error(
-      'Your transaction was broadcasted, but we lost communication with the app you started with.'
-    );
-  }
-};
-
-export const finalizeTxSignature = (requestPayload: string, data: TxResult | string) => {
-  try {
-    const tabId = getTab(StorageKey.transactionRequests, requestPayload);
-    const responseMessage: TransactionResponseMessage = {
-      source: MESSAGE_SOURCE,
-      method: ExternalMethods.transactionResponse,
-      payload: {
-        transactionRequest: requestPayload,
-        transactionResponse: data,
-      },
-    };
-    chrome.tabs.sendMessage(tabId, responseMessage);
-    deleteTabForRequest(StorageKey.transactionRequests, requestPayload);
-    // If this is a string, then the transaction has been canceled
-    // and the user has closed the window
-    if (typeof data !== 'string') window.close();
-  } catch (error) {
-    console.debug('Failed to get Tab ID for transaction request:', requestPayload);
-    throw new Error(
-      'Your transaction was broadcasted, but we lost communication with the app you started with.'
-    );
-  }
 };
 
 export const getRandomWord = () => {

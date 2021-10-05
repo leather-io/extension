@@ -4,7 +4,6 @@ import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { useVaultMessenger } from '@common/hooks/use-vault-messenger';
 
 import { useOnboardingState } from './auth/use-onboarding-state';
-import { finalizeAuthResponse } from '@common/utils';
 
 import { bytesToText } from '@common/store-utils';
 import {
@@ -27,6 +26,7 @@ import {
   useCurrentNetworkState,
   useNetworkState,
 } from '@store/network/networks.hooks';
+import { finalizeAuthResponse } from '@common/actions/finalize-auth-response';
 
 export function useWallet() {
   const hasRehydratedVault = useHasRehydratedVault();
