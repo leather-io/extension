@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.72% </span>
+                <span class="strong">60.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/72</span>
+                <span class='fraction'>44/73</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.67% </span>
+                <span class="strong">57.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/60</span>
+                <span class='fraction'>35/61</span>
             </div>
         
             
@@ -170,13 +170,17 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -267,7 +271,9 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -293,6 +299,7 @@ import {
 } from '@store/accounts/index';
 import { makeLocalDataKey } from '@common/store-utils';
 import deepEqual from 'fast-deep-equal';
+import { safelyFormatHexTxid } from '@common/utils/safe-handle-txid';
 &nbsp;
 export const currentAccountExternalTxIdsState = atom(get =&gt; [
   ...new Set([...get(currentAccountTransactionsState).map(tx =&gt; tx.tx_id)]),
@@ -337,7 +344,7 @@ export const currentAccountLocallySubmittedTxIdsState = atom(get =&gt; {
   const externalTxids = get(currentAccountExternalTxIdsState);
   return txs
     ? Object.entries(txs)
-        .filter<span class="fstat-no" title="function not covered" >(([t</span>xid<span class="cstat-no" title="statement not covered" >]) =&gt; !externalTxids.includes(txid))</span>
+        .filter<span class="fstat-no" title="function not covered" >(([t</span>xid<span class="cstat-no" title="statement not covered" >]) =&gt; !externalTxids.includes(safelyFormatHexTxid(txid)))</span>
         .sort<span class="fstat-no" title="function not covered" >((a</span>, b) =&gt; (<span class="cstat-no" title="statement not covered" >a[1].timestamp &gt; b[1].timestamp ? -1 : 1)</span>)
         .map<span class="fstat-no" title="function not covered" >(([t</span>xid]) =&gt; <span class="cstat-no" title="statement not covered" >txid)</span>
     : <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
@@ -380,7 +387,9 @@ export const currentAccountAllTxIds = atom(get =&gt; {
 export const cleanupLocalTxs = atom(null<span class="fstat-no" title="function not covered" >, (g</span>et, set) =&gt; {
   const localTxs = <span class="cstat-no" title="statement not covered" >get(currentAccountLocallySubmittedTxsState);</span>
   const externalTxids = <span class="cstat-no" title="statement not covered" >get(currentAccountExternalTxIdsState);</span>
-  const duplicateTxIds = Object.keys(localTxs).filter<span class="fstat-no" title="function not covered" >(t</span>xid =&gt; <span class="cstat-no" title="statement not covered" >externalTxids.includes(txid));</span>
+  const duplicateTxIds = Object.keys(localTxs).filter<span class="fstat-no" title="function not covered" >(t</span>xid =&gt;
+<span class="cstat-no" title="statement not covered" >    externalTxids.includes(safelyFormatHexTxid(txid))</span>
+  );
 <span class="cstat-no" title="statement not covered" >  if (duplicateTxIds.length) {</span>
     const principal = <span class="cstat-no" title="statement not covered" >get(currentAccountStxAddressState);</span>
 <span class="cstat-no" title="statement not covered" >    if (!principal) <span class="cstat-no" title="statement not covered" >return;</span></span>
@@ -403,7 +412,7 @@ export const cleanupLocalTxs = atom(null<span class="fstat-no" title="function n
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 16:29:38 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 05 2021 19:33:32 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
