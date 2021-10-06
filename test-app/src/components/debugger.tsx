@@ -128,6 +128,13 @@ export const Debugger = () => {
       standardPrincipalCV('ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3'),
       trueCV(),
     ];
+    const postConditions = [
+      makeStandardSTXPostCondition(
+        address || '',
+        FungibleConditionCode.LessEqual,
+        new BN('100', 10)
+      )
+    ]
     await doContractCall({
       fee: customFee,
       network,
@@ -137,23 +144,7 @@ export const Debugger = () => {
       functionArgs: args,
       attachment: 'This is an attachment',
       postConditionMode: mode,
-      postConditions: [
-        makeStandardSTXPostCondition(
-          address || '',
-          FungibleConditionCode.LessEqual,
-          new BN('100', 10)
-        ),
-        makeStandardFungiblePostCondition(
-          'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
-          FungibleConditionCode.Equal,
-          new BN(1234),
-          createAssetInfo(
-            'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
-            'connect-token',
-            'connect-token'
-          )
-        ),
-      ],
+      postConditions,
       onFinish: data => {
         console.log('finished faker!', data);
         console.log(data.stacksTransaction.auth.spendingCondition?.nonce.toNumber());
