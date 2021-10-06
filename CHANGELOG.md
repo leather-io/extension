@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.19.3
+
+### Patch Changes
+
+- [#1753](https://github.com/blockstack/stacks-wallet-web/pull/1753) [`6eab6659b`](https://github.com/blockstack/stacks-wallet-web/commit/6eab6659b5572d166610be656020268046d84f92) Thanks [@aulneau](https://github.com/aulneau)! - This update makes it so any drawer component (network select, account select, etc) will be a modal when used in larger screens, but a drawer when used in the extension view (smaller widths).
+
+* [#1779](https://github.com/blockstack/stacks-wallet-web/pull/1779) [`b33e34834`](https://github.com/blockstack/stacks-wallet-web/commit/b33e348341bcc322b5e11cc0f3c95174c80596f9) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This adds rendering the stx post condition in the list of post conditions.
+
+- [#1767](https://github.com/blockstack/stacks-wallet-web/pull/1767) [`15d2ba6cd`](https://github.com/blockstack/stacks-wallet-web/commit/15d2ba6cd02bf2a7f1121297dea9cf58ccca6860) Thanks [@beguene](https://github.com/beguene)! - Display Regtest instead of Testnet when the network is Regtest.
+
+* [#1754](https://github.com/blockstack/stacks-wallet-web/pull/1754) [`d6493cdbc`](https://github.com/blockstack/stacks-wallet-web/commit/d6493cdbc0ecb45c36464c36d33f62d30b6014d2) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This fixes how asset metadata displays in post conditions. It should display correctly now even if a user doesn't have that token in their account.
+
+- [#1752](https://github.com/blockstack/stacks-wallet-web/pull/1752) [`91cf29e88`](https://github.com/blockstack/stacks-wallet-web/commit/91cf29e8811c46cc6ce382b42b9ed7acdc7a874b) Thanks [@aulneau](https://github.com/aulneau)! - This update fixes the loading state for when the status of a network is not yet available.
+
+* [#1780](https://github.com/blockstack/stacks-wallet-web/pull/1780) [`c90ed29f0`](https://github.com/blockstack/stacks-wallet-web/commit/c90ed29f0bf24e2d14d4eee4dee4f2cb59618bd5) Thanks [@beguene](https://github.com/beguene)! - This fixes the test-app post conditions that were causing contract call failures.
+
+- [#1777](https://github.com/blockstack/stacks-wallet-web/pull/1777) [`589a96fdc`](https://github.com/blockstack/stacks-wallet-web/commit/589a96fdcab5e937b3678be2556af82bf6457e8a) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This fixes filtering local transactions using the safely formatted hex txid.
+
 ## 2.19.2
 
 ### Patch Changes
