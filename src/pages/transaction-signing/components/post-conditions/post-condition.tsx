@@ -15,17 +15,14 @@ import {
 import { useTransactionRequest } from '@store/transactions/requests.hooks';
 import { TransactionEventCard } from '../event-card';
 import { LoadingSpinner } from '@components/loading-spinner';
-import { NonFungiblePostCondition } from '@common/types';
+import { NonFungiblePostCondition, STXPostCondition } from '@common/types';
 
-interface NonFungiblePostConditionProps {
-  pc: NonFungiblePostCondition;
+interface PostConditionProps {
+  pc: STXPostCondition | NonFungiblePostCondition;
   isLast?: boolean;
 }
 
-export const NonFungiblePostConditionComponentSuspense: React.FC<NonFungiblePostConditionProps> = ({
-  pc,
-  isLast,
-}) => {
+export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ pc, isLast }) => {
   const currentAccount = useCurrentAccount();
   const pendingTransaction = useTransactionRequest();
 
@@ -72,10 +69,10 @@ export const NonFungiblePostConditionComponentSuspense: React.FC<NonFungiblePost
   );
 };
 
-export const NonFungiblePostConditionComponent = (props: NonFungiblePostConditionProps) => {
+export const PostConditionComponent = (props: PostConditionProps) => {
   return (
     <React.Suspense fallback={<LoadingSpinner height="190px" />}>
-      <NonFungiblePostConditionComponentSuspense {...props} />
+      <PostConditionComponentSuspense {...props} />
     </React.Suspense>
   );
 };
