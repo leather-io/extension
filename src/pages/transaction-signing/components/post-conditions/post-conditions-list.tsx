@@ -15,7 +15,7 @@ import { useTransactionPostConditions } from '@store/transactions/transaction.ho
 import { usePostConditionModeState } from '@store/transactions/post-conditions.hooks';
 import { PostConditionMode, PostConditionType } from '@stacks/transactions';
 import { IS_TEST_ENV } from '@common/constants';
-import { NonFungiblePostConditionComponent } from './non-fungible-post-condition';
+import { PostConditionComponent } from './post-condition';
 
 function StxPostcondition() {
   const pendingTransaction = useTransactionRequest();
@@ -68,9 +68,12 @@ const PostConditionsList = () => {
             />
           );
         }
-        if (pc.conditionType === PostConditionType.NonFungible) {
+        if (
+          pc.conditionType === PostConditionType.STX ||
+          pc.conditionType === PostConditionType.NonFungible
+        ) {
           return (
-            <NonFungiblePostConditionComponent
+            <PostConditionComponent
               pc={pc}
               isLast={index === postConditions.length - 1}
               key={`${pc.type}-${pc.conditionCode}`}
