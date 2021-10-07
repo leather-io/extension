@@ -11,6 +11,7 @@ import {
   showTxSettingsStore,
   showTxSettingsCallback,
   showEditNonceState,
+  showSignOut,
 } from './ui';
 import { useEffect } from 'react';
 
@@ -42,9 +43,15 @@ export function useShowNetworksStore() {
 export function useShowSettingsStore() {
   return useAtom(showSettingsStore);
 }
+
 export function useShowTxSettingsStore() {
   return useAtom(showTxSettingsStore);
 }
+
+export function useShowSignOut() {
+  return useAtom(showSignOut);
+}
+
 export function useShowTxSettingsCallback() {
   return useAtom(showTxSettingsCallback);
 }

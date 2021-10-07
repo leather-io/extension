@@ -1,17 +1,19 @@
 import React, { useState, useCallback } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Box, Button, Text, Input } from '@stacks/ui';
-import { PopupContainer } from './popup/container';
-import { buildEnterKeyEvent } from './link';
-import { ErrorLabel } from './error-label';
+import { PopupContainer } from '../components/popup/container';
+import { buildEnterKeyEvent } from '../components/link';
+import { ErrorLabel } from '../components/error-label';
 import { Header } from '@components/header';
-import { Outlet } from 'react-router-dom';
+import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
+import { useDrawers } from '@common/hooks/use-drawers';
 
 export const Unlock: React.FC = () => {
   const { doUnlockWallet } = useWallet();
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { showSignOut } = useDrawers();
 
   const submit = useCallback(async () => {
     setLoading(true);
@@ -66,7 +68,7 @@ export const Unlock: React.FC = () => {
           </Button>
         </Box>
       </PopupContainer>
-      <Outlet />
+      {showSignOut && <SignOutConfirmDrawer />}
     </>
   );
 };

@@ -216,6 +216,7 @@
     "normalize-url": "4.5.1",
     "trim-newlines": "3.0.1",
     "schema-inspector": "2.0.1",
+    "set-value": "4.1.0",
     "ssri": "8.0.1",
     "ws": "7.4.6"
   },

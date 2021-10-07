@@ -23,7 +23,7 @@ import { useSaveAuthRequest } from '@common/hooks/auth/use-save-auth-request-cal
 import { Navigate } from '@components/navigate';
 import { AccountGate } from '@pages/account-gate';
 import { AccountGateRoute } from '@pages/account-gate-route';
-import { Unlock } from '@components/unlock';
+import { Unlock } from '@pages/unlock';
 import { PopupHome } from '@pages/home/home';
 import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
