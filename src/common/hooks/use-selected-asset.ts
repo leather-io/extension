@@ -6,6 +6,7 @@ import { getTicker, initBigNumber } from '@common/utils';
 import { ftDecimals, stacksValue } from '@common/stacks-utils';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 import { useSelectedAssetState, useUpdateSelectedAsset } from '@store/assets/asset.hooks';
+import { useAnalytics } from './analytics/use-analytics';
 
 export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
   return asset ? `${asset.contractAddress}.${asset.contractName}::${asset.name}` : undefined;
@@ -15,11 +16,13 @@ export function useSelectedAsset() {
   const selectedAsset = useSelectedAssetState();
   const setSelectedAsset = useUpdateSelectedAsset();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const analytics = useAnalytics();
   const handleUpdateSelectedAsset = useCallback(
     (asset: AssetWithMeta | undefined) => {
       setSelectedAsset(getFullyQualifiedAssetName(asset) || undefined);
+      void analytics.track('select_asset_for_send');
     },
-    [setSelectedAsset]
+    [analytics, setSelectedAsset]
   );
   const name = selectedAsset?.meta?.name || selectedAsset?.name;
   const isStx = selectedAsset?.name === 'Stacks Token';

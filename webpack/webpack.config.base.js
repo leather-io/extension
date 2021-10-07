@@ -202,6 +202,7 @@ const config = {
 
     new webpack.EnvironmentPlugin({
       SENTRY_DSN: process.env.SENTRY_DSN ?? '',
+      SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY ?? '',
     }),
 
     new webpack.ProvidePlugin({

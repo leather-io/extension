@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { debounce } from 'ts-debounce';
 import { Box, Button, Input, Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
@@ -14,6 +14,7 @@ import { USERNAMES_ENABLED } from '@common/constants';
 import { validatePassword, blankPasswordValidation } from '@common/validation/validate-password';
 import { Body, Caption } from '@components/typography';
 import { Header } from '@components/header';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 const HUMAN_REACTION_DEBOUNCE_TIME = 250;
 
@@ -33,6 +34,10 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
   const { doSetPassword, wallet, doFinishSignIn } = useWallet();
   const doChangeScreen = useChangeScreen();
   const { decodedAuthRequest } = useOnboardingState();
+  const analytics = useAnalytics();
+  useEffect(() => {
+    void analytics.page('view', '/set-password');
+  }, [analytics]);
 
   const submit = useCallback(
     async (password: string) => {
@@ -69,12 +74,13 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
       if (!password) return;
       setLoading(true);
       if (strengthResult.meetsAllStrengthRequirements) {
+        void analytics.track('submit_valid_password');
         await submit(password);
         return;
       }
       setLoading(false);
     },
-    [strengthResult, submit]
+    [strengthResult, submit, analytics]
   );
 
   const validationSchema = yup.object({
@@ -87,6 +93,9 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
           if (typeof value !== 'string') return false;
           const result = validatePassword(value);
           setStrengthResult(result);
+          if (!result.meetsAllStrengthRequirements) {
+            void analytics.track('submit_invalid_password');
+          }
           return result.meetsAllStrengthRequirements;
         }, HUMAN_REACTION_DEBOUNCE_TIME),
       }),

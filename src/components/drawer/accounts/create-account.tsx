@@ -3,6 +3,7 @@ import { Box, Flex, Button, Stack } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Body } from '@components/typography';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 interface CreateAccountProps {
   close: () => void;
@@ -14,15 +15,17 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ close }) => {
   const { doCreateNewAccount } = useWallet();
   const [isSetting, setSetting] = useState(false);
   const [hasFired, setHasFired] = useState(false);
+  const analytics = useAnalytics();
 
   const createAccount = useCallback(async () => {
     if (!isSetting) {
       setSetting(true);
       await doCreateNewAccount();
+      void analytics.track('create_new_account');
       setSetting(false);
       window.setTimeout(() => close(), TIMEOUT);
     }
-  }, [doCreateNewAccount, isSetting, setSetting, close]);
+  }, [isSetting, doCreateNewAccount, analytics, close]);
 
   useEffect(() => {
     if (!hasFired) {

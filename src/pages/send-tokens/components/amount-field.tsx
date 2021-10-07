@@ -9,6 +9,7 @@ import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxWithSuspense } from './send-max-button';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 interface AmountFieldProps extends StackProps {
   value: number;
@@ -19,6 +20,7 @@ interface AmountFieldProps extends StackProps {
 export const AmountField = memo((props: AmountFieldProps) => {
   const { value, error, ...rest } = props;
 
+  const analytics = useAnalytics();
   const assets = useAssets();
   const balances = useCurrentAccountBalancesUnanchoredState();
   const { selectedAsset, placeholder } = useSelectedAsset();
@@ -26,6 +28,11 @@ export const AmountField = memo((props: AmountFieldProps) => {
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions({
     setFieldValue,
   });
+
+  const handleSetSendMaxTracked = (feeRate: number) => {
+    void analytics.track('select_maximum_amount_for_send');
+    return handleSetSendMax(feeRate);
+  };
 
   return (
     <Stack {...rest}>
@@ -52,7 +59,7 @@ export const AmountField = memo((props: AmountFieldProps) => {
           {balances && selectedAsset ? (
             <SendMaxWithSuspense
               showButton={Boolean(balances && selectedAsset)}
-              onSetMax={feeRate => handleSetSendMax(feeRate)}
+              onSetMax={feeRate => handleSetSendMaxTracked(feeRate)}
             />
           ) : null}
         </Box>

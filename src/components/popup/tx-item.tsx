@@ -30,6 +30,7 @@ import {
   StxTransfer,
 } from '@common/transactions/transaction-utils';
 import { useAssetByIdentifier } from '@store/assets/asset.hooks';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -260,6 +261,11 @@ export const TxItem = ({ transaction, ...rest }: TxItemProps) => {
   const [component, bind, { isHovered }] = usePressable(true);
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
+  const analytics = useAnalytics();
+  const openTxLink = () => {
+    void analytics.track('view_transaction');
+    handleOpenTxLink(transaction.tx_id);
+  };
 
   if (!transaction) return null;
 
@@ -277,7 +283,7 @@ export const TxItem = ({ transaction, ...rest }: TxItemProps) => {
         isInline
         position="relative"
         zIndex={2}
-        onClick={() => handleOpenTxLink(transaction.tx_id)}
+        onClick={openTxLink}
       >
         <TxItemIcon transaction={transaction} />
         <SpaceBetween flexGrow={1}>

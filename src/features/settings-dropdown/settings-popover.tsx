@@ -11,6 +11,7 @@ import { USERNAMES_ENABLED } from '@common/constants';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { AccountStep } from '@store/ui/ui.models';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 const MenuWrapper = forwardRefWithAs((props, ref) => (
   <Box
@@ -71,6 +72,7 @@ export const SettingsPopover: React.FC = () => {
     setShowSignOut,
   } = useDrawers();
   const changeScreen = useChangeScreen();
+  const analytics = useAnalytics();
 
   const handleClose = useCallback(() => {
     setShowSettings(false);
@@ -141,6 +143,7 @@ export const SettingsPopover: React.FC = () => {
           <MenuItem
             data-testid={SettingsSelectors.ChangeNetworkAction}
             onClick={wrappedCloseCallback(() => {
+              void analytics.track('choose_to_change_network');
               setShowNetworks(true);
             })}
           >
@@ -155,6 +158,7 @@ export const SettingsPopover: React.FC = () => {
               {isSignedIn && (
                 <MenuItem
                   onClick={wrappedCloseCallback(() => {
+                    void analytics.track('lock_session');
                     void doLockWallet();
                     changeScreen(ScreenPaths.POPUP_HOME);
                   })}

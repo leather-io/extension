@@ -17,6 +17,7 @@ import { AppErrorBoundary } from '@features/errors/app-error-boundary';
 import { TransactionSettingsDrawer } from '@features/fee-nonce-drawers/transaction-settings-drawer';
 import { SpeedUpTransactionDrawer } from '@features/fee-nonce-drawers/speed-up-transaction-drawer';
 import { Devtools } from '@features/devtool/devtools';
+import { initSegment } from '@common/segment-init';
 
 const devToolsEnabled = false;
 
@@ -27,6 +28,7 @@ declare global {
 }
 
 window.__APP_VERSION__ = VERSION;
+void initSegment();
 
 export const App: React.FC = () => {
   return (

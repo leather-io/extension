@@ -31,7 +31,10 @@ export const authRequestState = atom<AuthRequestState>({
 
 export const userHasAllowedDiagnosticsKey = 'stacks-wallet-has-allowed-diagnostics';
 
-export const hasAllowedDiagnosticsState = atomWithStorage(userHasAllowedDiagnosticsKey, false);
+export const hasAllowedDiagnosticsState = atomWithStorage<boolean | undefined>(
+  userHasAllowedDiagnosticsKey,
+  undefined
+);
 
 magicRecoveryCodePasswordState.debugLabel = 'magicRecoveryCodePasswordState';
 seedInputState.debugLabel = 'seedInputState';

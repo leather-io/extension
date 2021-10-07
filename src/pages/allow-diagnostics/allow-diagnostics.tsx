@@ -4,26 +4,35 @@ import { ScreenPaths } from '@common/types';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
 
-import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
 import { initSentry } from '@common/sentry-init';
+import { initSegment } from '@common/segment-init';
+import { AllowDiagnosticsFullLayout } from './allow-diagnostics-layout';
+import { PopupContainer } from '@components/popup/container';
+import { Header } from '@components/header';
 
-export const AllowDiagnosticsDrawer = () => {
+export const AllowDiagnosticsFullPage = () => {
   const changeScreen = useChangeScreen();
   const [, setHasAllowedDiagnostics] = useHasAllowedDiagnostics();
 
   const goHomeAndSetDiagnosticsPermissionTo = useCallback(
-    (areDiagnosticsAllowed: boolean) => {
-      changeScreen(ScreenPaths.HOME);
+    (areDiagnosticsAllowed: boolean | undefined) => {
+      if (typeof areDiagnosticsAllowed === undefined) return;
       setHasAllowedDiagnostics(areDiagnosticsAllowed);
-      if (areDiagnosticsAllowed) initSentry();
+      if (areDiagnosticsAllowed) {
+        initSentry();
+        void initSegment();
+      }
+      changeScreen(ScreenPaths.HOME);
     },
     [changeScreen, setHasAllowedDiagnostics]
   );
 
   return (
-    <AllowDiagnosticsLayout
-      onUserDenyDiagnosticsPermissions={() => goHomeAndSetDiagnosticsPermissionTo(false)}
-      onUserAllowDiagnostics={() => goHomeAndSetDiagnosticsPermissionTo(true)}
-    />
+    <PopupContainer header={<Header hideActions />} requestType="auth">
+      <AllowDiagnosticsFullLayout
+        onUserDenyDiagnosticsPermissions={() => goHomeAndSetDiagnosticsPermissionTo(false)}
+        onUserAllowDiagnostics={() => goHomeAndSetDiagnosticsPermissionTo(true)}
+      />
+    </PopupContainer>
   );
 };

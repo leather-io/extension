@@ -3,7 +3,7 @@ import { Integrations } from '@sentry/tracing';
 
 import { userHasAllowedDiagnosticsKey } from '@store/onboarding/onboarding.hooks';
 
-function checkUserHasGrantedPermission() {
+export function checkUserHasGrantedPermission() {
   return localStorage.getItem(userHasAllowedDiagnosticsKey) === 'true';
 }
 

@@ -13,6 +13,7 @@ import {
   useSeedInputErrorState,
   useSeedInputState,
 } from '@store/onboarding/onboarding.hooks';
+import { useAnalytics } from '../analytics/use-analytics';
 
 export function useSignIn() {
   const [, setMagicRecoveryCode] = useMagicRecoveryCodeState();
@@ -22,6 +23,7 @@ export function useSignIn() {
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
   const doChangeScreen = useChangeScreen();
   const { doStoreSeed } = useWallet();
+  const analytics = useAnalytics();
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -30,9 +32,10 @@ export function useSignIn() {
       setError(message);
       setIsIdle();
       textAreaRef.current?.focus();
+      void analytics.track('submit_invalid_secret_key');
       return;
     },
-    [setError, setIsIdle, textAreaRef]
+    [analytics, setError, setIsIdle]
   );
 
   const handleSubmit = useCallback(
@@ -61,6 +64,7 @@ export function useSignIn() {
 
       try {
         await doStoreSeed({ secretKey: parsedKeyInput });
+        void analytics.track('submit_valid_secret_key');
         doChangeScreen(ScreenPaths.SET_PASSWORD);
         setIsIdle();
       } catch (error) {
@@ -68,13 +72,14 @@ export function useSignIn() {
       }
     },
     [
-      seed,
-      doStoreSeed,
-      doChangeScreen,
-      handleSetError,
-      setIsIdle,
       setIsLoading,
+      seed,
+      handleSetError,
       setMagicRecoveryCode,
+      doChangeScreen,
+      doStoreSeed,
+      analytics,
+      setIsIdle,
     ]
   );
 

@@ -17,6 +17,7 @@ export class WalletPage {
   static url = 'http://localhost:8081/index.html#';
   $signUpButton = createTestSelector(InitialPageSelectors.SignUp);
   $signInButton = createTestSelector(InitialPageSelectors.SignIn);
+  $analyticsAllowButton = createTestSelector('analytics-allow');
   homePage = createTestSelector('home-page');
   $textareaReadOnlySeedPhrase = `${createTestSelector('textarea-seed-phrase')}[data-loaded="true"]`;
   $buttonSignInKeyContinue = createTestSelector('sign-in-key-continue');
@@ -61,6 +62,9 @@ export class WalletPage {
     return new this(page);
   }
 
+  async clickAllowAnalytics() {
+    await this.page.click(this.$analyticsAllowButton);
+  }
   async clickSignUp() {
     await this.page.click(this.$signUpButton);
   }

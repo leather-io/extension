@@ -16,6 +16,7 @@ import { useAccounts } from '@store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
 import { AccountWithAddress } from '@store/accounts/account.models';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 interface SwitchAccountProps {
   close: () => void;
@@ -148,11 +149,17 @@ const AccountList: React.FC<{ handleClose: () => void }> = memo(({ handleClose }
 
 export const SwitchAccounts: React.FC<SwitchAccountProps> = memo(({ close }) => {
   const setAccountDrawerStep = useUpdateAccountDrawerStep();
+  const analytics = useAnalytics();
+  const setCreateAccountStep = () => {
+    void analytics.track('choose_to_create_account');
+    setAccountDrawerStep(AccountStep.Create);
+  };
+
   return (
     <>
       <AccountList handleClose={close} />
       <Box pt="base" pb="loose" px="loose">
-        <Button onClick={() => setAccountDrawerStep(AccountStep.Create)}>Create an account</Button>
+        <Button onClick={setCreateAccountStep}>Create an account</Button>
       </Box>
     </>
   );
