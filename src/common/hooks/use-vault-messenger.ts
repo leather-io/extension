@@ -3,9 +3,12 @@ import { useCallback } from 'react';
 import { SetPassword, StoreSeed, UnlockWallet, SwitchAccount } from '@background/vault-types';
 import { InternalMethods } from '@common/message-types';
 import { useInnerMessageWrapper } from '@store/wallet/wallet.hooks';
+import { clearSessionLocalData } from '@common/store-utils';
+import { useAnalytics } from './analytics/use-analytics';
 
 export function useVaultMessenger() {
   const innerMessageWrapper = useInnerMessageWrapper();
+  const analytics = useAnalytics();
 
   const doSetPassword = useCallback(
     (payload: string) => {
@@ -64,7 +67,8 @@ export function useVaultMessenger() {
     innerMessageWrapper({ method: InternalMethods.signOut, payload: undefined });
   const doSignOut = async () => {
     await handleSignOut();
-    localStorage.clear();
+    void analytics.track('sign_out');
+    clearSessionLocalData();
   };
   const doLockWallet = () =>
     innerMessageWrapper({ method: InternalMethods.lockWallet, payload: undefined });

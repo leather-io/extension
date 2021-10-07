@@ -20,7 +20,7 @@ export function useCurrentAccountLocalTxids() {
     : [];
 }
 
-function useCurrentAccountLocallySubmittedStacksTransactions() {
+export function useCurrentAccountLocallySubmittedStacksTransactions() {
   const localTxs = useAtomValue(currentAccountLocallySubmittedTxsState);
   const txids = useCurrentAccountLocalTxids();
   const result: any = {};

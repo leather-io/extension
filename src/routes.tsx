@@ -27,7 +27,9 @@ import { Unlock } from '@pages/unlock';
 import { Home } from '@pages/home/home';
 import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
-import { AllowDiagnosticsDrawer } from '@pages/allow-diagnostics/allow-diagnostics';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
+import { AllowDiagnosticsFullPage } from '@pages/allow-diagnostics/allow-diagnostics';
 
 interface RouteProps {
   path: ScreenPaths;
@@ -45,10 +47,12 @@ export const Routes: React.FC = () => {
   const setLastSeen = useUpdateLastSeenStore();
 
   const doChangeScreen = useChangeScreen();
+  const analytics = useAnalytics();
   useSaveAuthRequest();
 
   const isSignedIn = signedIn && !isOnboardingInProgress;
   const isLocked = !signedIn && encryptedSecretKey;
+  const [hasAllowedDiagnostics, _] = useHasAllowedDiagnostics();
 
   // Keep track of 'last seen' by updating it whenever a route is set.
   useEffect(() => {
@@ -56,7 +60,12 @@ export const Routes: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  useEffect(() => {
+    void analytics.page('view', `${pathname}`);
+  }, [analytics, pathname]);
+
   const getHomeComponent = useCallback(() => {
+    if (hasAllowedDiagnostics === undefined) return <AllowDiagnosticsFullPage />;
     if (isSignedIn || encryptedSecretKey) {
       return (
         <AccountGate>
@@ -65,7 +74,7 @@ export const Routes: React.FC = () => {
       );
     }
     return <Installed />;
-  }, [isSignedIn, encryptedSecretKey]);
+  }, [hasAllowedDiagnostics, isSignedIn, encryptedSecretKey]);
 
   const getSignInComponent = () => {
     if (isLocked) return <Unlock />;
@@ -91,7 +100,6 @@ export const Routes: React.FC = () => {
     <RoutesDom>
       <Route path={ScreenPaths.HOME} element={getHomeComponent()}>
         <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmDrawer />} />
-        <Route path={ScreenPaths.REQUEST_DIAGNOSTICS} element={<AllowDiagnosticsDrawer />} />
       </Route>
       {/* Installation */}
       <Route path={ScreenPaths.SIGN_IN_INSTALLED} element={<InstalledSignIn />} />

@@ -1,10 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
-import { Button, color, Stack, BoxProps, useClipboard, StackProps } from '@stacks/ui';
+import { Button, color, Stack, BoxProps, StackProps, useClipboard } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { Body, Text } from '@components/typography';
 import { Card } from '@components/card';
 import { Header } from '@components/header';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 const SecretKeyMessage: React.FC<BoxProps> = props => {
   const { secretKey } = useWallet();
@@ -37,6 +38,13 @@ const SecretKeyActions: React.FC<{ handleNext?: () => void } & StackProps> = ({
 }) => {
   const { secretKey } = useWallet();
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
+  const analytics = useAnalytics();
+
+  const copyToClipboard = () => {
+    void analytics.track('copy_secret_key_to_clipboard');
+    onCopy();
+  };
+
   return (
     <Stack spacing="base" {...rest}>
       <Button
@@ -47,7 +55,7 @@ const SecretKeyActions: React.FC<{ handleNext?: () => void } & StackProps> = ({
         color={color(hasCopied ? 'text-caption' : 'brand')}
         mode="tertiary"
         borderRadius="10px"
-        onClick={hasCopied ? undefined : onCopy}
+        onClick={hasCopied ? undefined : copyToClipboard}
       >
         {hasCopied ? 'Copied!' : 'Copy to clipboard'}
       </Button>
@@ -70,16 +78,26 @@ export const SaveYourKeyView: React.FC<{
   onClose?: () => void;
   title?: string;
   hideActions?: boolean;
-}> = memo(({ title, handleNext, hideActions, onClose }) => (
-  <PopupContainer
-    header={
-      <Header onClose={onClose} hideActions={hideActions} title={title || 'Save your Secret Key'} />
-    }
-  >
-    <Stack spacing="loose">
-      <SecretKeyMessage />
-      <SecretKeyCard />
-      <SecretKeyActions handleNext={handleNext || onClose} />
-    </Stack>
-  </PopupContainer>
-));
+}> = memo(({ title, handleNext, hideActions, onClose }) => {
+  const analytics = useAnalytics();
+  useEffect(() => {
+    void analytics.page('view', '/save-your-secret-key');
+  }, [analytics]);
+  return (
+    <PopupContainer
+      header={
+        <Header
+          onClose={onClose}
+          hideActions={hideActions}
+          title={title || 'Save your Secret Key'}
+        />
+      }
+    >
+      <Stack spacing="loose">
+        <SecretKeyMessage />
+        <SecretKeyCard />
+        <SecretKeyActions handleNext={handleNext || onClose} />
+      </Stack>
+    </PopupContainer>
+  );
+});

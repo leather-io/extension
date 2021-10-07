@@ -19,6 +19,7 @@ describe(`Wallet Balance integration tests`, () => {
   beforeAll(async () => {
     browser = await setupBrowser();
     wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    await wallet.clickAllowAnalytics();
     await wallet.signIn(SECRET_KEY_2);
     await selectTestNet(wallet);
     await wallet.waitForHomePage();

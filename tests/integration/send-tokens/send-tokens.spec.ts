@@ -16,6 +16,7 @@ describe(`Send tokens flow`, () => {
   beforeEach(async () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    await walletPage.clickAllowAnalytics();
     await walletPage.signUp();
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
@@ -100,6 +101,7 @@ describe('Preview for sending token', () => {
   beforeEach(async () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    await walletPage.clickAllowAnalytics();
     await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();

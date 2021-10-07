@@ -10,13 +10,9 @@ import { Header } from '@components/header';
 import { HiroMessages } from '@features/hiro-messages/hiro-messages';
 import { ActivityList } from '@features/activity-list/account-activity';
 import { BalancesList } from '@features/balances-list/balances-list';
-import { usePromptUserToSetDiagnosticPermissions } from '@common/hooks/use-diagnostic-permission-prompt';
-
 import { HomeTabs } from './components/home-tabs';
 
 export const Home = () => {
-  usePromptUserToSetDiagnosticPermissions();
-
   return (
     <>
       <PopupContainer

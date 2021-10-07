@@ -16,6 +16,7 @@ describe(`Transactions integration tests`, () => {
     browser = await setupBrowser();
     wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
     demo = browser.demo;
+    await wallet.clickAllowAnalytics();
     await wallet.signUp();
     await demo.page.reload();
     // Pattern for opening popup in new page for testing

@@ -9,20 +9,23 @@ import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { Title, Body } from '@components/typography';
 import { Header } from '@components/header';
 import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 const Actions: React.FC<StackProps> = props => {
   const { doMakeWallet } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
   const doChangeScreen = useChangeScreen();
+  const analytics = useAnalytics();
 
   const [isCreatingWallet, setIsCreatingWallet] = useState(false);
   const register = useCallback(async () => {
     setIsCreatingWallet(true);
     await doMakeWallet();
+    void analytics.track('generate_new_secret_key');
     if (decodedAuthRequest) {
       doChangeScreen(ScreenPaths.SET_PASSWORD);
     }
-  }, [doMakeWallet, doChangeScreen, decodedAuthRequest]);
+  }, [doMakeWallet, analytics, decodedAuthRequest, doChangeScreen]);
 
   return (
     <Stack justifyContent="center" spacing="loose" textAlign="center" {...props}>

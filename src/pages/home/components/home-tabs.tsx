@@ -5,15 +5,25 @@ import type { StackProps } from '@stacks/ui';
 import { Tabs } from '@components/tabs';
 import { LoadingSpinner } from '@components/loading-spinner';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 interface HomeTabsProps extends StackProps {
   balances: JSX.Element;
   activity: JSX.Element;
 }
+
+const ANALYTICS_PATH = ['/balances', '/activity'];
+
 export function HomeTabs(props: HomeTabsProps) {
   const { balances, activity, ...rest } = props;
+  const analytics = useAnalytics();
 
   const { activeTab, setActiveTab } = useHomeTabs();
+
+  const setActiveTabTracked = (index: number) => {
+    void analytics.page('view', ANALYTICS_PATH[index]);
+    setActiveTab(index);
+  };
 
   return (
     <Stack flexGrow={1} spacing="extra-loose" {...rest}>
@@ -23,7 +33,7 @@ export function HomeTabs(props: HomeTabsProps) {
           { slug: 'activity', label: 'Activity' },
         ]}
         activeTab={activeTab}
-        onTabClick={setActiveTab}
+        onTabClick={setActiveTabTracked}
       />
       <Flex position="relative" flexGrow={1}>
         {activeTab === 0 && (

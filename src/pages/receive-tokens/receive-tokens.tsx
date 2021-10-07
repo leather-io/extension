@@ -11,12 +11,19 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { Tooltip } from '@components/tooltip';
 import { QrCode } from './components/address-qr-code';
 import { ReceiveTokensHeader } from './components/recieve-tokens-header';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 export const PopupReceive: React.FC = () => {
   const { currentAccount, currentAccountStxAddress } = useWallet();
   const doChangeScreen = useChangeScreen();
   const address = currentAccountStxAddress || '';
+  const analytics = useAnalytics();
   const { onCopy, hasCopied } = useClipboard(address);
+  const copyToClipboard = () => {
+    void analytics.track('copy_address_to_clipboard');
+    onCopy();
+  };
+
   return (
     <PopupContainer
       header={<ReceiveTokensHeader onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
@@ -38,7 +45,7 @@ export const PopupReceive: React.FC = () => {
         </Box>
       </Stack>
       <Box mt="auto">
-        <Button width="100%" onClick={onCopy} borderRadius="10px">
+        <Button width="100%" onClick={copyToClipboard} borderRadius="10px">
           Copy your address
         </Button>
       </Box>

@@ -8,10 +8,17 @@ import { FiCopy } from 'react-icons/fi';
 import { CurrentUserAvatar } from '@features/current-user/current-user-avatar';
 import { CurrentUsername } from '@features/current-user/current-user-name';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 const UserAddress = memo((props: StackProps) => {
   const currentAccount = useCurrentAccount();
   const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
+  const analytics = useAnalytics();
+  const copyToClipboard = () => {
+    void analytics.track('copy_address_to_clipboard');
+    onCopy();
+  };
+
   return currentAccount ? (
     <Stack isInline {...props}>
       <Caption>{truncateMiddle(currentAccount.address, 4)}</Caption>
@@ -19,7 +26,7 @@ const UserAddress = memo((props: StackProps) => {
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
-            onClick={onCopy}
+            onClick={copyToClipboard}
             size="12px"
             color={color('text-caption')}
             data-testid={UserAreaSelectors.AccountCopyAddress}

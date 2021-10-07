@@ -15,6 +15,7 @@ describe(`Settings integration tests`, () => {
   beforeAll(async () => {
     browser = await setupBrowser();
     wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    await wallet.clickAllowAnalytics();
     await wallet.signUp();
   }, BEFORE_ALL_TIMEOUT);
 

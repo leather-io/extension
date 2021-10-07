@@ -8,6 +8,7 @@ import { Box, BoxProps, color, Flex, Stack } from '@stacks/ui';
 import { useUpdateCurrentNetworkKey } from '@store/network/networks.hooks';
 import { NetworkStatusIndicator } from './components/network-status-indicator';
 import { useNetworkStatus } from 'query/network/network.hooks';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 export const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, ...props }) => {
   const { setShowNetworks } = useDrawers();
@@ -16,11 +17,13 @@ export const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, .
   const network = networks[item];
   const isActive = item === currentNetworkKey;
   const isOnline = useNetworkStatus(network.url);
+  const analytics = useAnalytics();
 
   const handleItemClick = useCallback(() => {
+    void analytics.track('change_network');
     setCurrentNetworkKey(item);
     setTimeout(() => setShowNetworks(false), 25);
-  }, [setCurrentNetworkKey, item, setShowNetworks]);
+  }, [analytics, setCurrentNetworkKey, item, setShowNetworks]);
 
   return (
     <Box

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-import { Body } from '@components/typography';
+import { Body, Title } from '@components/typography';
 import { Box, Button, Flex, color, Stack } from '@stacks/ui';
-import { BaseDrawer } from '@components/drawer';
 import { FiCheck } from 'react-icons/fi';
+import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -23,43 +23,48 @@ interface AllowDiagnosticsLayoutProps {
   onUserAllowDiagnostics(): void;
   onUserDenyDiagnosticsPermissions(): void;
 }
-export const AllowDiagnosticsLayout: FC<AllowDiagnosticsLayoutProps> = props => {
+
+export function AllowDiagnosticsFullLayout(props: AllowDiagnosticsLayoutProps) {
   const { onUserAllowDiagnostics, onUserDenyDiagnosticsPermissions } = props;
 
-  const title = 'Help us improve';
-
   return (
-    <BaseDrawer title={title} isShowing onClose={() => onUserDenyDiagnosticsPermissions()}>
+    <Stack spacing="extra-loose" flexGrow={1} justifyContent="center">
+      <Title as="h1" fontWeight={500} textAlign="center">
+        Help us improve
+      </Title>
       <Box mx="loose" mb="extra-loose">
         <Body>
-          Hiro would like to gather anonymous data to help improve the experience of using Stacks
-          apps and the wallet.
+          We would like to gather de-identified usage data to help improve your experience with Hiro
+          Wallet.
         </Body>
         <Stack mt="loose" spacing="base-tight">
           <ReasonToAllowDiagnostics text="Send anonymous data about page views and clicks" />
-          <ReasonToAllowDiagnostics text="We'll never collect personal data such as your Stacks address, keys, balances, or IP address" />
-          <ReasonToAllowDiagnostics text="We'll never share or sell any user data" />
+          <ReasonToAllowDiagnostics text="This data is tied to randomly-generated IDs and not personal data, such as your Stacks addresses, keys, balance, or IP addresses" />
+          <ReasonToAllowDiagnostics text="This data is used to generate and send crash reports, help us fix errors, and analyze trends and statistics" />
         </Stack>
-        <Flex mt="loose" fontSize="14px">
+        <Flex mt="loose" fontSize="14px" justifyContent="center">
           <Button
             type="button"
+            size="lg"
             mode="primary"
+            data-testid={InitialPageSelectors.AnalyticsAllow}
             onClick={() => onUserAllowDiagnostics()}
             mr="base-tight"
           >
-            Yes, I'll help
+            Allow
           </Button>
           <Button
             type="button"
             mode="tertiary"
+            size="lg"
             ml="base"
             variant="link"
             onClick={() => onUserDenyDiagnosticsPermissions()}
           >
-            No thanks
+            Deny
           </Button>
         </Flex>
       </Box>
-    </BaseDrawer>
+    </Stack>
   );
-};
+}

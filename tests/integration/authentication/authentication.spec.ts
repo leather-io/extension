@@ -22,6 +22,7 @@ describe(`Authentication integration tests`, () => {
   });
 
   it('should be able to sign up from authentication page', async () => {
+    await wallet.clickAllowAnalytics();
     await wallet.clickSignUp();
     await wallet.saveKey();
     await wallet.waitForHomePage();
@@ -32,6 +33,7 @@ describe(`Authentication integration tests`, () => {
   });
 
   it('should be able to login from authentication page then logout', async () => {
+    await wallet.clickAllowAnalytics();
     await wallet.clickSignIn();
     await wallet.loginWithPreviousSecretKey(SECRET_KEY);
     await wallet.waitForHomePage();

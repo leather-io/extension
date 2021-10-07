@@ -26,6 +26,7 @@ describe(`Copy Address`, () => {
   });
 
   it('should be able to copy address', async () => {
+    await wallet.clickAllowAnalytics();
     await wallet.signUp();
     await wallet.page.click(createTestSelector(UserAreaSelectors.AccountBalancesCopyAddress));
     let copiedAddress = await readClipboard();
