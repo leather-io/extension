@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Box, Button, Text, Input } from '@stacks/ui';
-import { PopupContainer } from '../components/popup/container';
-import { buildEnterKeyEvent } from '../components/link';
-import { ErrorLabel } from '../components/error-label';
+import { PopupContainer } from '@components/popup/container';
+import { buildEnterKeyEvent } from '@components/link';
+import { ErrorLabel } from '@components/error-label';
 import { Header } from '@components/header';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { useDrawers } from '@common/hooks/use-drawers';
