@@ -62,8 +62,14 @@ export const SettingsPopover: React.FC = () => {
     isSignedIn,
     encryptedSecretKey,
   } = useWallet();
-  const { setShowNetworks, setShowAccounts, setAccountStep, setShowSettings, showSettings } =
-    useDrawers();
+  const {
+    setShowNetworks,
+    setShowAccounts,
+    setAccountStep,
+    setShowSettings,
+    showSettings,
+    setShowSignOut,
+  } = useDrawers();
   const changeScreen = useChangeScreen();
 
   const handleClose = useCallback(() => {
@@ -159,7 +165,10 @@ export const SettingsPopover: React.FC = () => {
               )}
               <MenuItem
                 color={color('feedback-error')}
-                onClick={wrappedCloseCallback(() => changeScreen(ScreenPaths.SIGN_OUT_CONFIRM))}
+                onClick={wrappedCloseCallback(() => {
+                  setShowSignOut(true);
+                  changeScreen(ScreenPaths.SIGN_OUT_CONFIRM);
+                })}
                 data-testid="settings-sign-out"
               >
                 Sign Out

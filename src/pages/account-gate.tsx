@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { SetPasswordPage } from '@pages/set-password';
-import { Unlock } from '@components/unlock';
+import { Unlock } from '@pages/unlock';
 import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view';
 import { SignedOut } from '@pages/signed-out/signed-out-view';
 
