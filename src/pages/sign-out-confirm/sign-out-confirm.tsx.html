@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -78,28 +78,41 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useChangeScreen } from '@common/hooks/use-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { useDrawers } from '@common/hooks/use-drawers'<span class="cstat-no" title="statement not covered" >;</span>
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
 import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
 import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
@@ -109,14 +122,19 @@ import { SignOutConfirmLayout } from './sign-out-confirm-layout'<span class="cst
 export const <span class="cstat-no" title="statement not covered" >SignOutConfirmDrawer<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
   const { doSignOut }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const changeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
+  const { setShowSignOut }<span class="cstat-no" title="statement not covered" > = useDrawers();</span>
 &nbsp;
   return (
     &lt;SignOutConfirmLayout
       onUserDeleteWallet<span class="fstat-no" title="function not covered" >={async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        await doSignOut();</span>
+<span class="cstat-no" title="statement not covered" >        setShowSignOut(false);</span>
 <span class="cstat-no" title="statement not covered" >        changeScreen(ScreenPaths.INSTALLED);</span>
       }}
-      onUserSafelyReturnToHomepage<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >c</span>hangeScreen(ScreenPaths.HOME)}</span>
+      onUserSafelyReturnToHomepage<span class="fstat-no" title="function not covered" >={() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setShowSignOut(false);</span>
+<span class="cstat-no" title="statement not covered" >        changeScreen(ScreenPaths.HOME);</span>
+      }}
     /&gt;
   );
 };
@@ -127,7 +145,7 @@ export const <span class="cstat-no" title="statement not covered" >SignOutConfir
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 06 2021 14:50:28 GMT+0000 (Coordinated Universal Time)
+                at Fri Oct 08 2021 00:09:55 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
