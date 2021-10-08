@@ -133,8 +133,8 @@ export const Debugger = () => {
         address || '',
         FungibleConditionCode.LessEqual,
         new BN('100', 10)
-      )
-    ]
+      ),
+    ];
     await doContractCall({
       fee: customFee,
       network,

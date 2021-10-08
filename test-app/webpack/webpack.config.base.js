@@ -169,7 +169,7 @@ const config = {
     ].filter(Boolean),
   },
   devServer: {
-    contentBase: './dist',
+    static: './dist',
     historyApiFallback: true,
   },
   devtool: 'cheap-module-source-map',
