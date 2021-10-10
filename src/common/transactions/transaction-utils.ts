@@ -24,6 +24,7 @@ import {
 } from '@stacks/stacks-blockchain-api-types';
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@common/date-utils';
 import { getContractName, truncateMiddle } from '@stacks/ui-utils';
+import { hexToBuff } from '@common/utils';
 import { stacksValue } from '@common/stacks-utils';
 import { BigNumber } from 'bignumber.js';
 import { AssetWithMeta } from '@common/asset-types';
@@ -64,7 +65,7 @@ export const generateContractCallTx = ({
     postConditions,
   } = txData;
   const args = functionArgs.map(arg => {
-    return deserializeCV(Buffer.from(arg, 'hex'));
+    return deserializeCV(hexToBuff(arg));
   });
 
   let network = txData.network;
