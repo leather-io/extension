@@ -8,12 +8,13 @@ import { cvToString, deserializeCV } from '@stacks/transactions';
 import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
 import { HEYSTACK_HEY_TX_REQUEST_DECODED } from '@tests/mocks';
 import { setupHeystackEnv } from '@tests/mocks/heystack';
+import { hexToBuff } from '@common/utils';
 
 const truncatedContractAddress = truncateMiddle(HEYSTACK_HEY_TX_REQUEST_DECODED.contractAddress, 4);
 const truncatedContractId = `${truncatedContractAddress}.${HEYSTACK_HEY_TX_REQUEST_DECODED.contractName}`;
 
 const getStringValueFromHexCv = (hex: string) => {
-  const argCV = deserializeCV(Buffer.from(hex, 'hex'));
+  const argCV = deserializeCV(hexToBuff(hex));
   return cvToString(argCV);
 };
 const message = getStringValueFromHexCv(HEYSTACK_HEY_TX_REQUEST_DECODED.functionArgs[0]);
