@@ -15,6 +15,7 @@ import {
   ContractDeployOptions,
   TokenTransferOptions,
 } from '@common/transactions/transactions';
+import { hexToBuff } from '@common/utils';
 
 export const generateContractCallTx = ({
   txData,
@@ -37,7 +38,7 @@ export const generateContractCallTx = ({
     postConditions,
   } = txData;
   const args = functionArgs.map(arg => {
-    return deserializeCV(Buffer.from(arg, 'hex'));
+    return deserializeCV(hexToBuff(arg));
   });
 
   let network = txData.network;

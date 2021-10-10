@@ -263,9 +263,19 @@ export function isHex(hex: string): boolean {
   return regexp.test(hex);
 }
 
+function cleanHex(hexWithMaybePrefix: string): string {
+  return hexWithMaybePrefix.startsWith('0x')
+    ? hexWithMaybePrefix.replace('0x', '')
+    : hexWithMaybePrefix;
+}
+
+export function hexToBuff(hex: string): Buffer {
+  return Buffer.from(cleanHex(hex), 'hex');
+}
+
 export function hexToHumanReadable(hex: string) {
   if (!isHex(hex)) return hex;
-  const buff = Buffer.from(hex, 'hex');
+  const buff = hexToBuff(hex);
   if (isUtf8(buff)) return buff.toString('utf8');
   return `0x${hex}`;
 }
