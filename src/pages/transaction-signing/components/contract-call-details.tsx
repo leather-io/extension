@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import { useContractFunction } from '@query/contract/contract.hooks';
 import { useExplorerLink } from '@common/hooks/use-explorer-link';
 import { Divider } from '@components/divider';
+import { hexToBuff } from '@common/utils';
 import { Caption, Title } from '@components/typography';
 import { ContractPreview } from '@pages/transaction-signing/components/contract-preview';
 import { Stack, color, StackProps } from '@stacks/ui';
@@ -23,7 +24,7 @@ const FunctionArgumentName = ({ index }: { index: number }) => {
 };
 
 const FunctionArgumentRow: React.FC<ArgumentProps> = ({ arg, index, ...rest }) => {
-  const argCV = deserializeCV(Buffer.from(arg, 'hex'));
+  const argCV = deserializeCV(hexToBuff(arg));
   const strValue = cvToString(argCV);
 
   return (
