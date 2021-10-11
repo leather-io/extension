@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.19.4
+
+### Patch Changes
+
+- [#1804](https://github.com/blockstack/stacks-wallet-web/pull/1804) [`8cb4909d6`](https://github.com/blockstack/stacks-wallet-web/commit/8cb4909d635081bbe2270fec137754138cee9e59) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This fixes passing in a custom fee not working for apps using the wallet.
+
+* [#1785](https://github.com/blockstack/stacks-wallet-web/pull/1785) [`55684b197`](https://github.com/blockstack/stacks-wallet-web/commit/55684b197c3b196d8a1377a1c435d16010addea7) Thanks [@fbwoolf](https://github.com/fbwoolf)! - This fixes signing out from the locked transaction popup.
+
+- [#1798](https://github.com/blockstack/stacks-wallet-web/pull/1798) [`0e4b9c7c5`](https://github.com/blockstack/stacks-wallet-web/commit/0e4b9c7c5ade4a86905f78557ff10559fce150a1) Thanks [@kyranjamie](https://github.com/kyranjamie)! - This fixes breaking changes caused by updating webpack-dev-server to pass security audit checks.
+
 ## 2.19.3
 
 ### Patch Changes
