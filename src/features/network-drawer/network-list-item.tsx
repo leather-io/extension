@@ -3,7 +3,7 @@ import {
   useUpdateCurrentNetworkKey,
 } from '@store/network/networks.hooks';
 import React, { useCallback, useEffect, useState } from 'react';
-import { FiCloudOff as IconCloudOff } from 'react-icons/all';
+import { FiCloudOff as IconCloudOff } from 'react-icons/fi';
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';
 import { Box, BoxProps, color, Flex, Spinner, Stack } from '@stacks/ui';
 import { useDrawers } from '@common/hooks/use-drawers';

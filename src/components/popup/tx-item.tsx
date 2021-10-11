@@ -19,7 +19,7 @@ import { Tooltip } from '@components/tooltip';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { usePressable } from '@components/item-hover';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
-import { FiFastForward } from 'react-icons/all';
+import { FiFastForward } from 'react-icons/fi';
 
 type Tx = MempoolTransaction | Transaction;
 
