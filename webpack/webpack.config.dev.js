@@ -3,6 +3,7 @@ const baseConfig = require('./webpack.config.base');
 
 const config = {
   ...baseConfig,
+  devtool: 'eval-source-map',
   mode: 'development',
   output: {
     ...baseConfig.output,

@@ -18,7 +18,7 @@ config.optimization = {
   minimizer: [
     new ESBuildMinifyPlugin({
       target: 'es2015',
-      tsconfigRaw: require('../tsconfig.json')
+      tsconfigRaw: require('../tsconfig.json'),
     }),
   ],
 };

@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const { version: _version } = require('../package.json');
 const generateManifest = require('../scripts/generate-manifest');
 
-const WebpackBarPlugin = require('webpackbar');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -156,13 +155,8 @@ const config = {
       },
     ].filter(Boolean),
   },
-  devServer: {
-    static: './dist',
-    historyApiFallback: true,
-  },
   watch: false,
   plugins: [
-    new WebpackBarPlugin({}),
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/wordlists\/(?!english)/,
       contextRegExp: /bip39\/src$/,
