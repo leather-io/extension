@@ -14,6 +14,7 @@ import { useTransactionError } from '../hooks/use-transaction-error';
 import {
   useTransactionBroadcastError,
   useTransactionRequest,
+  useTransactionRequestCustomFee,
 } from '@store/transactions/requests.hooks';
 import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
 import {
@@ -123,12 +124,13 @@ const SubmitAction = (props: ButtonProps) => {
 const FeeRowItemSuspense = () => {
   let showWarning = false;
   const defaultFee = useCurrentDefaultFee();
+  const customFee = useTransactionRequestCustomFee();
   const transactionRequest = useTransactionRequest();
   const appName = transactionRequest?.appDetails?.name;
-  const customFee = transactionRequest?.fee;
+  const multipleFromWhichFeeIsConsideredLarge = 4;
 
   if (!!customFee && defaultFee) {
-    showWarning = customFee > defaultFee.toNumber() * 4;
+    showWarning = customFee.isGreaterThan(defaultFee.times(multipleFromWhichFeeIsConsideredLarge));
   }
 
   return (

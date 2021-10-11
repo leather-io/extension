@@ -7,13 +7,12 @@ import { atomWithParam } from '@store/utils/atom-with-params';
 import { signedStacksTransactionBaseState } from '@store/transactions/index';
 import BigNumber from 'bignumber.js';
 import { isNumber, isString } from '@common/utils';
-import BN from 'bn.js';
 
 function safelyExtractFeeValue(fee: unknown) {
   if (fee === '') return undefined;
   if (!isNumber(fee) && !isString(fee)) return undefined;
   if (!Number.isFinite(parseInt(String(fee)))) return undefined;
-  return new BN(fee, 10);
+  return new BigNumber(fee, 10);
 }
 
 export const requestTokenState = atomWithParam('transaction?request', null);
@@ -54,6 +53,7 @@ export const transactionRequestValidationState = atom(async get => {
 export const transactionRequestStxAddressState = atom(
   get => get(requestTokenPayloadState)?.stxAddress
 );
+
 export const transactionRequestCustomFeeState = atom(get =>
   safelyExtractFeeValue(get(requestTokenPayloadState)?.fee)
 );
