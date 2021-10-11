@@ -66,6 +66,12 @@ module.exports = {
       from: { path: '^src/content-scripts/.*' },
       to: { path: '^src/background/.*' },
     },
+    {
+      name: 'only-allow-react-icons-fi',
+      severity: 'error',
+      from: { path: '^src' },
+      to: { path: 'react-icons.*', pathNot: 'react-icons/fi' },
+    },
   ],
   options: {
     doNotFollow: {
