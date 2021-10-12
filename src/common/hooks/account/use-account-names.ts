@@ -1,10 +1,7 @@
 import { Account } from '@stacks/wallet-sdk';
 import { cleanUsername } from '@common/utils';
-import {
-  useAccountNames,
-  useCurrentAccount,
-  useCurrentAccountNames,
-} from '@store/accounts/account.hooks';
+import { useCurrentAccount } from '@store/accounts/account.hooks';
+import { useAllAccountNames, useCurrentAccountNames } from '@query/bns/bns.hooks';
 
 export function useCurrentAccountDisplayName() {
   const names = useCurrentAccountNames();
@@ -21,7 +18,7 @@ export function useAccountDisplayName(providedAccount?: Account) {
   // if we don't pass an account, we should use this
   // as it will only fetch the single name if we need it
   const accountDisplayName = useCurrentAccountDisplayName();
-  const names = useAccountNames();
+  const names = useAllAccountNames();
   const account = providedAccount;
 
   if (!providedAccount) return accountDisplayName;

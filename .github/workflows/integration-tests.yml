@@ -1,6 +1,6 @@
 name: Integration tests
 
-on: [ pull_request ]
+on: [pull_request]
 
 jobs:
   pre_run:
@@ -21,11 +21,9 @@ jobs:
         working-directory: ./tests/integration
         run: echo "::set-output name=dir::$(ls -d */ | jq -R -s -c 'split("\n")[:-1]')"
 
-
-
   test-integration:
     runs-on: ubuntu-latest
-    needs: [ pre_run, directories ]
+    needs: [pre_run, directories]
     strategy:
       matrix:
         dir: ${{fromJson(needs.directories.outputs.dir)}}
