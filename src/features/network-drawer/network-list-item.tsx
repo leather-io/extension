@@ -1,40 +1,21 @@
-import {
-  useNetworkOnlineStatusState,
-  useUpdateCurrentNetworkKey,
-} from '@store/network/networks.hooks';
-import React, { useCallback, useEffect, useState } from 'react';
-import { FiCloudOff as IconCloudOff } from 'react-icons/fi';
-import { CheckmarkIcon } from '@components/icons/checkmark-icon';
-import { Box, BoxProps, color, Flex, Spinner, Stack } from '@stacks/ui';
+import React, { useCallback } from 'react';
+
+import { Caption, Title } from '@components/typography';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useWallet } from '@common/hooks/use-wallet';
-import { Caption, Title } from '@components/typography';
 import { getUrlHostname } from '@common/utils';
-
-interface OnlineIndicatorProps {
-  isOnline: boolean;
-  isActive: boolean;
-  setIsOnline: (value: boolean) => void;
-  network: {
-    url: string;
-  };
-}
-
-const OnlineIndicator = ({ isOnline, setIsOnline, network, isActive }: OnlineIndicatorProps) => {
-  const networkStatus = useNetworkOnlineStatusState(network.url);
-  useEffect(() => {
-    if (isOnline !== networkStatus.isOnline) setIsOnline(networkStatus.isOnline);
-  }, [isOnline, networkStatus.isOnline, setIsOnline]);
-  return !networkStatus?.isOnline ? <IconCloudOff /> : isActive ? <CheckmarkIcon /> : null;
-};
+import { Box, BoxProps, color, Flex, Stack } from '@stacks/ui';
+import { useUpdateCurrentNetworkKey } from '@store/network/networks.hooks';
+import { NetworkStatusIndicator } from './components/network-status-indicator';
+import { useNetworkStatus } from 'query/network/network.hooks';
 
 export const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, ...props }) => {
   const { setShowNetworks } = useDrawers();
   const { networks, currentNetworkKey } = useWallet();
   const setCurrentNetworkKey = useUpdateCurrentNetworkKey();
   const network = networks[item];
-  const [isOnline, setIsOnline] = useState(false);
   const isActive = item === currentNetworkKey;
+  const isOnline = useNetworkStatus(network.url);
 
   const handleItemClick = useCallback(() => {
     setCurrentNetworkKey(item);
@@ -72,21 +53,7 @@ export const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, .
           </Title>
           <Caption>{getUrlHostname(network.url)}</Caption>
         </Stack>
-        <React.Suspense
-          key={item}
-          fallback={
-            <Flex alignItems="center" justifyContent="center">
-              <Spinner size="sm" />
-            </Flex>
-          }
-        >
-          <OnlineIndicator
-            isActive={item === currentNetworkKey}
-            isOnline={isOnline}
-            setIsOnline={setIsOnline}
-            network={network}
-          />
-        </React.Suspense>
+        <NetworkStatusIndicator isActive={item === currentNetworkKey} isOnline={isOnline} />
       </Flex>
     </Box>
   );

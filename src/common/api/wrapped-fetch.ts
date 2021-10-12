@@ -11,3 +11,21 @@ export function fetcher(input: RequestInfo, init: RequestInit = {}) {
     headers: { ...initHeaders, ...hiroHeaders },
   });
 }
+
+export async function fetchWithTimeout(
+  input: RequestInfo,
+  init: RequestInit & { timeout?: number } = {}
+) {
+  const { timeout = 8000, ...options } = init;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  const response = await fetcher(input, {
+    ...options,
+    signal: controller.signal,
+  });
+  clearTimeout(id);
+
+  return response;
+}
