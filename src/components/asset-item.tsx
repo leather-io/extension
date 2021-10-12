@@ -3,7 +3,6 @@ import { Box, Stack, StackProps } from '@stacks/ui';
 import { AssetAvatar } from '@components/stx-avatar';
 import { Caption, Text } from '@components/typography';
 import React, { memo } from 'react';
-import { forwardRefWithAs } from '@stacks/ui-core';
 import { usePressable } from '@components/item-hover';
 import { Tooltip } from '@components/tooltip';
 import { getFormattedAmount } from '@common/token-utils';
@@ -56,7 +55,7 @@ const SubBalance: React.FC<{ amount: string | undefined }> = ({ amount }) =>
   ) : null;
 
 export const AssetItem = memo(
-  forwardRefWithAs(
+  React.forwardRef(
     (
       {
         isPressable,

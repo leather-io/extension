@@ -14,6 +14,6 @@ export function useGetAccountNonce(reactQueryOptions: UseQueryOptions = {}) {
 
   return useQuery(['accountNonce', principal, network], fetchNonce, {
     enabled: !!principal,
-    ...reactQueryOptions,
+    ...(reactQueryOptions as any),
   });
 }

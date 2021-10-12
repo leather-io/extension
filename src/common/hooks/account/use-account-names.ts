@@ -20,9 +20,11 @@ export function useCurrentAccountDisplayName() {
 export function useAccountDisplayName(providedAccount?: Account) {
   // if we don't pass an account, we should use this
   // as it will only fetch the single name if we need it
-  if (!providedAccount) return useCurrentAccountDisplayName();
-  const account = providedAccount;
+  const accountDisplayName = useCurrentAccountDisplayName();
   const names = useAccountNames();
+  const account = providedAccount;
+
+  if (!providedAccount) return accountDisplayName;
   if (!account || typeof account?.index !== 'number') return 'Account';
   return (
     names?.[account.index]?.names?.[0] ||

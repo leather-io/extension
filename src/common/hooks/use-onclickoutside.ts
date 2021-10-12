@@ -4,7 +4,6 @@ import useLatest from 'use-latest';
 
 const MOUSEDOWN = 'mousedown';
 const TOUCHSTART = 'touchstart';
-const isBrowser = typeof document !== 'undefined';
 
 type HandledEvents = [typeof MOUSEDOWN, typeof TOUCHSTART];
 type HandledEventsType = HandledEvents[number];
@@ -31,10 +30,6 @@ export default function useOnClickOutside(
   ref: React.RefObject<HTMLElement>,
   handler: Handler | null
 ) {
-  if (!isBrowser) {
-    return;
-  }
-
   const noHandler = !handler;
   const handlerRef = useLatest(handler);
 
