@@ -24,7 +24,7 @@ import { Navigate } from '@components/navigate';
 import { AccountGate } from '@pages/account-gate';
 import { AccountGateRoute } from '@pages/account-gate-route';
 import { Unlock } from '@pages/unlock';
-import { PopupHome } from '@pages/home/home';
+import { Home } from '@pages/home/home';
 import { useUpdateLastSeenStore } from '@store/wallet/wallet.hooks';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsDrawer } from '@pages/allow-diagnostics/allow-diagnostics';
@@ -60,7 +60,7 @@ export const Routes: React.FC = () => {
     if (isSignedIn || encryptedSecretKey) {
       return (
         <AccountGate>
-          <PopupHome />
+          <Home />
         </AccountGate>
       );
     }
@@ -96,7 +96,7 @@ export const Routes: React.FC = () => {
       {/* Installation */}
       <Route path={ScreenPaths.SIGN_IN_INSTALLED} element={<InstalledSignIn />} />
       <AccountGateRoute path={ScreenPaths.POPUP_HOME}>
-        <PopupHome />
+        <Home />
       </AccountGateRoute>
       <AccountGateRoute path={ScreenPaths.POPUP_SEND}>
         <React.Suspense fallback={<></>}>
