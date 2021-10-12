@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Box, Text, Input, Button, Flex } from '@stacks/ui';
-// import { ErrorLabel } from '@components/error-label';
 import { buildEnterKeyEvent } from '@components/link';
 
 interface AddUsernameProps {

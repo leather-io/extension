@@ -1,1 +1,1 @@
-export { atomFamilyWithQuery, atomWithQuery as queryAtom } from 'jotai-query-toolkit';
+export { atomFamilyWithQuery } from 'jotai-query-toolkit';
