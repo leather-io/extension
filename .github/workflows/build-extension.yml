@@ -1,4 +1,4 @@
-name: Build beta extensions
+Sjenica1 github.com: Build beta extensions
 on: [pull_request, workflow_dispatch]
 
 env:
