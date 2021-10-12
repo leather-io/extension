@@ -1,17 +1,14 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Text, BoxProps, color } from '@stacks/ui';
 
 export type LinkProps = BoxProps;
 
 export const buildEnterKeyEvent = (onClick: () => void) => {
-  return useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter' && onClick) {
-        onClick();
-      }
-    },
-    [onClick]
-  );
+  return (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && onClick) {
+      onClick();
+    }
+  };
 };
 
 export const Link: React.FC<BoxProps> = ({

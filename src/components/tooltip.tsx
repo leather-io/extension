@@ -9,7 +9,6 @@ interface TooltipProps extends TippyProps {
 }
 export const Tooltip: React.FC<TooltipProps> = memo(
   ({ label, labelProps = {}, children, ...rest }) => {
-    if (!label) return <>{children}</>;
     const content = useMemo(
       () => (
         <Box as="span" display="block" fontSize={0} {...labelProps}>
@@ -18,6 +17,7 @@ export const Tooltip: React.FC<TooltipProps> = memo(
       ),
       [labelProps, label]
     );
+    if (!label) return <>{children}</>;
     return (
       <Tippy content={content} trigger="mouseenter" hideOnClick={undefined} {...rest}>
         {children}
