@@ -1,6 +1,7 @@
-import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
-import { useGetAccountNonce } from '@common/hooks/account/use-get-account-nonce';
 import { UseQueryOptions } from 'react-query';
+import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
+
+import { useGetAccountNonce } from '@common/hooks/account/use-get-account-nonce';
 import { useLastApiNonceState } from '@store/accounts/nonce.hooks';
 
 export function correctNextNonce(
@@ -27,10 +28,12 @@ export function correctNextNonce(
 
 export function useNextTxNonce() {
   const [lastApiNonce, setLastApiNonce] = useLastApiNonceState();
-  const onSuccess = (data: AddressNonces) => {
-    const nextNonce = data && correctNextNonce(data);
-    if (nextNonce) setLastApiNonce(nextNonce);
+  const queryOptions: UseQueryOptions<AddressNonces> = {
+    onSuccess: (data: AddressNonces) => {
+      const nextNonce = data && correctNextNonce(data);
+      if (nextNonce) setLastApiNonce(nextNonce);
+    },
   };
-  useGetAccountNonce({ onSuccess } as UseQueryOptions);
+  useGetAccountNonce(queryOptions as any);
   return lastApiNonce?.nonce;
 }
