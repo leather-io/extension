@@ -6,7 +6,7 @@ interface GenerateEncryptionKeyArgs {
   password: string;
   salt: string;
 }
-export async function generateEncryptionKey({ password, salt }: GenerateEncryptionKeyArgs) {
+async function generateEncryptionKey({ password, salt }: GenerateEncryptionKeyArgs) {
   const argonHash = await argon2.hash({
     pass: password,
     salt,
