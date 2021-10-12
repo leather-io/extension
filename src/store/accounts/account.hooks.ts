@@ -15,13 +15,12 @@ import {
   refreshAccountDataState,
   transactionAccountIndexState,
 } from '@store/accounts';
-import { allAccountsNameState, currentAccountNameState } from './names';
 import { transactionNetworkVersionState } from '@store/transactions';
 import { useAtom } from 'jotai';
 
-export const useAccountAvailableStxBalance = (address: string) => {
+export function useAccountAvailableStxBalance(address: string) {
   return useAtomValue(accountAvailableStxBalanceState(address));
-};
+}
 
 export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableStxBalanceState);
@@ -46,14 +45,6 @@ export function useCurrentAccountConfirmedTransactionsState() {
 
 export function useCurrentAccountMempoolTransactionsState() {
   return useAtomValue(currentAccountMempoolTransactionsState);
-}
-
-export function useAccountNames() {
-  return useAtomValue(allAccountsNameState);
-}
-
-export function useCurrentAccountNames() {
-  return useAtomValue(currentAccountNameState);
 }
 
 export function useAccounts() {

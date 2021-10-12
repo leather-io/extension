@@ -1,12 +1,14 @@
 import { useQuery, UseQueryOptions } from 'react-query';
+
 import { useCurrentAccountStxAddressState } from '@store/accounts/account.hooks';
 import { useCurrentNetworkState } from '@store/network/networks.hooks';
-import { useAccountsApi } from '@store/common/api-clients.hooks';
+import { useApi } from '@store/common/api-clients.hooks';
 
 export function useGetAccountNonce(reactQueryOptions: UseQueryOptions = {}) {
   const principal = useCurrentAccountStxAddressState();
   const network = useCurrentNetworkState();
-  const { accountsApi } = useAccountsApi();
+  const { accountsApi } = useApi();
+
   const fetchNonce = () => {
     if (!principal) return;
     return accountsApi.getAccountNonces({ principal });
