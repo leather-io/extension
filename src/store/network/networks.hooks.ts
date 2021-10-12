@@ -3,7 +3,6 @@ import {
   currentNetworkKeyState,
   currentNetworkState,
   currentStacksNetworkState,
-  networkOnlineStatusState,
   networksState,
 } from './networks';
 
@@ -29,8 +28,4 @@ export function useCurrentNetworkKey() {
 
 export function useUpdateCurrentNetworkKey() {
   return useUpdateAtom(currentNetworkKeyState);
-}
-
-export function useNetworkOnlineStatusState(networkUrl: string) {
-  return useAtomValue(networkOnlineStatusState(networkUrl));
 }

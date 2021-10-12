@@ -1,10 +1,10 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import { wordlists } from 'bip39';
-import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
+
 import { KEBAB_REGEX, Network } from '@common/constants';
 import { StacksNetwork } from '@stacks/network';
-import { fetcher } from '@common/api/wrapped-fetch';
-import BigNumber from 'bignumber.js';
+import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -258,24 +258,6 @@ export function getUrlPort(url: string) {
 
 export async function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-export async function fetchWithTimeout(
-  input: RequestInfo,
-  init: RequestInit & { timeout?: number } = {}
-) {
-  const { timeout = 8000, ...options } = init;
-
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeout);
-
-  const response = await fetcher(input, {
-    ...options,
-    signal: controller.signal,
-  });
-  clearTimeout(id);
-
-  return response;
 }
 
 export function with0x(value: string): string {
