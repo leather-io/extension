@@ -1,12 +1,12 @@
-import { atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
-import { ChainID } from '@stacks/transactions';
+import { atomWithStorage } from 'jotai/utils';
+
+import { defaultNetworks, Networks } from '@common/constants';
+import { findMatchingNetworkKey } from '@common/utils';
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
-import { transactionRequestNetwork } from '@store/transactions/requests';
-import { fetchWithTimeout, findMatchingNetworkKey } from '@common/utils';
-import { defaultNetworks, Networks, QueryRefreshRates } from '@common/constants';
-import { atomFamilyWithQuery } from '@store/query';
+import { ChainID } from '@stacks/transactions';
 import { apiClientState } from '@store/common/api-clients';
+import { transactionRequestNetwork } from '@store/transactions/requests';
 import { makeLocalDataKey } from '@common/store-utils';
 
 // Our root networks list, users can add to this list and it will persist to localstorage
@@ -18,7 +18,6 @@ export const networksState = atomWithStorage<Networks>(
 // the current key selected
 // if there is a pending transaction request, it will default to the network passed (if included)
 // else it will default to the persisted key or default (mainnet)
-
 const localCurrentNetworkKeyState = atomWithStorage(makeLocalDataKey('networkKey'), 'mainnet');
 export const currentNetworkKeyState = atom<string, string>(
   get => {
@@ -61,21 +60,6 @@ export const latestBlockHeightState = atom(async get => {
 
 // external data, `v2/info` endpoint of the selected network
 export const networkInfoState = atom(get => get(apiClientState).infoApi.getCoreApiInfo());
-
-export const networkOnlineStatusState = atomFamilyWithQuery<string, { isOnline: boolean }>(
-  'NETWORK_ONLINE',
-  async (_get, networkUrl) => {
-    let isOnline = false;
-    try {
-      const res = await fetchWithTimeout(networkUrl, { timeout: 4500 });
-      isOnline = res?.status === 200;
-    } catch (e) {}
-    return {
-      isOnline,
-    };
-  },
-  { refetchInterval: QueryRefreshRates.VERY_SLOW }
-);
 
 networksState.debugLabel = 'networksState';
 localCurrentNetworkKeyState.debugLabel = 'localCurrentNetworkKeyState';
