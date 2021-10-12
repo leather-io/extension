@@ -25,8 +25,8 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
       <Box mx="loose" mb="extra-loose">
         <form onChange={form.handleChange} onSubmit={form.handleSubmit}>
           <Body>
-            When you sign out, you’ll need your 24-word Secret Key to sign back in. Only sign out if
-            you’ve backed up your Secret Key.
+            When you sign out, you’ll need your Secret Key to sign back in. Only sign out if you’ve
+            backed up your Secret Key.
           </Body>
 
           <Flex as="label" alignItems="center" mt="loose">
@@ -37,7 +37,7 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
                 data-testid={SettingsSelectors.SignOutConfirmHasBackupCheckbox}
               />
             </Box>
-            <Caption userSelect="none">I've backed up my 24-word Secret Key</Caption>
+            <Caption userSelect="none">I've backed up my Secret Key</Caption>
           </Flex>
           <Flex mt="loose">
             <Button
