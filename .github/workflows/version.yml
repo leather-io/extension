@@ -24,6 +24,9 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
 
       - uses: actions/cache@v2
         id: cache-node-modules
@@ -45,4 +48,4 @@ jobs:
           title: "[RELEASE] Version extension"
           commit: 'Version release'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
