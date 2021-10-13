@@ -122,9 +122,7 @@ export function getPostConditions(
   return postConditions?.map(getPostCondition);
 }
 
-export const getTitleFromConditionCode = (
-  code: FungibleConditionCode | NonFungibleConditionCode
-) => {
+const getTitleFromConditionCode = (code: FungibleConditionCode | NonFungibleConditionCode) => {
   switch (code) {
     case FungibleConditionCode.Equal:
       return 'will transfer exactly';

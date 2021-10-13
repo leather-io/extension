@@ -30,7 +30,7 @@ export const pendingTransactionState = atom(get => {
 
 export const transactionAttachmentState = atom(get => get(pendingTransactionState)?.attachment);
 
-export const signedStacksTransactionBaseState = atom(get => {
+const signedStacksTransactionBaseState = atom(get => {
   const account = get(currentAccountState);
   const txData = get(pendingTransactionState);
   const stxAddress = get(currentAccountStxAddressState);
@@ -53,7 +53,7 @@ export const signedStacksTransactionBaseState = atom(get => {
   });
 });
 
-export const signedStacksTransactionState = atom(get => {
+const signedStacksTransactionState = atom(get => {
   const { transaction, options } = get(signedStacksTransactionBaseState);
   if (!transaction) return;
   const defaultFeeRate = get(feeRateState);
@@ -83,7 +83,6 @@ export const transactionNetworkVersionState = atom(get =>
     : TransactionVersion.Testnet
 );
 
-export const isUnauthorizedTransactionState = atom<boolean>(false);
 export const transactionBroadcastErrorState = atom<string | null>(null);
 
 // TODO: consider alternatives
@@ -98,11 +97,10 @@ export const txForSettingsState = atom(get =>
 export const txByteSize = atom<number | null>(null);
 
 // dev tooling
-postConditionsState.debugLabel = 'postConditionsState';
-pendingTransactionState.debugLabel = 'pendingTransactionState';
-transactionAttachmentState.debugLabel = 'transactionAttachmentState';
-signedStacksTransactionState.debugLabel = 'signedStacksTransactionState';
-signedTransactionState.debugLabel = 'signedTransactionState';
-transactionNetworkVersionState.debugLabel = 'transactionNetworkVersionState';
-isUnauthorizedTransactionState.debugLabel = 'isUnauthorizedTransactionState';
-transactionBroadcastErrorState.debugLabel = 'transactionBroadcastErrorState';
+// postConditionsState.debugLabel = 'postConditionsState';
+// pendingTransactionState.debugLabel = 'pendingTransactionState';
+// transactionAttachmentState.debugLabel = 'transactionAttachmentState';
+// signedStacksTransactionState.debugLabel = 'signedStacksTransactionState';
+// signedTransactionState.debugLabel = 'signedTransactionState';
+// transactionNetworkVersionState.debugLabel = 'transactionNetworkVersionState';
+// transactionBroadcastErrorState.debugLabel = 'transactionBroadcastErrorState';

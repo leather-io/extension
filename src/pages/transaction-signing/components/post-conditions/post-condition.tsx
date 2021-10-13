@@ -22,7 +22,7 @@ interface PostConditionProps {
   isLast?: boolean;
 }
 
-export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ pc, isLast }) => {
+const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ pc, isLast }) => {
   const currentAccount = useCurrentAccount();
   const pendingTransaction = useTransactionRequestState();
 

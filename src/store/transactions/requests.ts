@@ -4,7 +4,7 @@ import { walletState } from '@store/wallet/wallet';
 import { verifyTxRequest } from '@common/transactions/requests';
 import { getRequestOrigin, StorageKey } from '@common/storage';
 import { atomWithParam } from '@store/utils/atom-with-params';
-import { signedStacksTransactionBaseState } from '@store/transactions/index';
+
 import BigNumber from 'bignumber.js';
 import { isNumber, isString } from '@common/utils';
 
@@ -58,16 +58,6 @@ export const transactionRequestStxAddressState = atom(
 export const transactionRequestCustomFeeState = atom(get =>
   safelyExtractFeeValue(get(requestTokenPayloadState)?.fee)
 );
-
-export const transactionRequestCustomFeeRateState = atom(get => {
-  const appFee = get(transactionRequestCustomFeeState);
-  if (!appFee) return;
-  const { transaction } = get(signedStacksTransactionBaseState);
-  if (!transaction) return;
-  const byteSize = transaction?.serialize().byteLength || 0;
-  const newFeeRate = new BigNumber(appFee.toNumber()).dividedBy(byteSize);
-  return newFeeRate.toNumber();
-});
 
 export const transactionRequestNetwork = atom(get => get(requestTokenPayloadState)?.network);
 

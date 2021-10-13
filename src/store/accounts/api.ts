@@ -30,7 +30,7 @@ enum AccountClientKeys {
 type PrincipalWithNetworkUrl = { principal: string; networkUrl: string };
 type PrincipalWithLimitNetworkUrl = { principal: string; limit: number; networkUrl: string };
 
-export interface PaginatedResults<T> {
+interface PaginatedResults<T> {
   limit: number;
   offset: number;
   total: number;
@@ -89,7 +89,7 @@ export const accountBalancesUnanchoredBigNumberState = atomFamily<
   deepEqual
 );
 
-export const accountBalancesAnchoredClient = atomFamilyWithQuery<
+const accountBalancesAnchoredClient = atomFamilyWithQuery<
   PrincipalWithNetworkUrl,
   AddressBalanceResponse
 >(

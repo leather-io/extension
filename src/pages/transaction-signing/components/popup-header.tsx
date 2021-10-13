@@ -22,7 +22,7 @@ const Balance = () => {
   ) : null;
 };
 
-export function PopupHeaderFallback() {
+function PopupHeaderFallback() {
   return (
     <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
       <Stack isInline alignItems="center" width="100%" justifyContent="space-between">
@@ -37,7 +37,7 @@ export function PopupHeaderFallback() {
   );
 }
 
-export function PopupHeaderSuspense() {
+function PopupHeaderSuspense() {
   return (
     <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
       <Stack isInline alignItems="center" width="100%" justifyContent="space-between">

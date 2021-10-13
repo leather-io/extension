@@ -3,35 +3,6 @@ import BigNumber from 'bignumber.js';
 import type { Asset } from '@common/asset-types';
 import type { AccountBalanceResponseBigNumber } from '@store/accounts/types';
 
-function makeKey(networkUrl: string, address: string, name: string, key: string): string {
-  return `${networkUrl}__${address}__${name}__${key}`;
-}
-
-export function getLocalData(options: {
-  networkUrl: string;
-  address: string;
-  name: string;
-  key: string;
-}) {
-  const { networkUrl, address, name, key } = options;
-  const _key = makeKey(networkUrl, address, name, key);
-  const value = localStorage.getItem(_key);
-  if (!value) return null;
-  return JSON.parse(value);
-}
-
-export function setLocalData(options: {
-  networkUrl: string;
-  address: string;
-  name: string;
-  key: string;
-  data: any;
-}): void {
-  const { networkUrl, address, name, data, key } = options;
-  const _key = makeKey(networkUrl, address, name, key);
-  return localStorage.setItem(_key, JSON.stringify(data));
-}
-
 export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
   const _assets: Asset[] = [];
   if (!balances) return _assets;

@@ -14,7 +14,7 @@ function hasSufficientLength(input: string) {
   return input.length >= requiredPasswordLength;
 }
 
-export interface ValidatedPassword extends ZXCVBNResult {
+interface ValidatedPassword extends ZXCVBNResult {
   meetsLengthRequirement: boolean;
   meetsScoreRequirement: boolean;
   meetsAllStrengthRequirements: boolean;

@@ -20,12 +20,11 @@ export const AccountAvatar: React.FC<
   );
 };
 
-export const AccountAvatarWithNameInner: React.FC<
-  { account: AccountWithAddress | Account } & BoxProps
-> = ({ account, ...props }) => {
-  const name = useAccountDisplayName(account);
-  return <AccountAvatar account={account} name={name} {...props} />;
-};
+const AccountAvatarWithNameInner: React.FC<{ account: AccountWithAddress | Account } & BoxProps> =
+  ({ account, ...props }) => {
+    const name = useAccountDisplayName(account);
+    return <AccountAvatar account={account} name={name} {...props} />;
+  };
 
 export const AccountAvatarWithName: React.FC<{ account: AccountWithAddress | Account } & BoxProps> =
   ({ account, ...props }) => {

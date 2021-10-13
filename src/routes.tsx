@@ -34,7 +34,7 @@ interface RouteProps {
   element: React.ReactNode;
 }
 
-export const Route: React.FC<RouteProps> = ({ path, element }) => {
+const Route: React.FC<RouteProps> = ({ path, element }) => {
   return <RouterRoute path={path} element={<>{element}</>} />;
 };
 

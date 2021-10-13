@@ -173,6 +173,23 @@ jobs:
       - name: Validate message schema
         run: npx ajv-cli validate -s config/wallet-comms.schema.json -d config/wallet-comms.json
 
+  check-unused-exports:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install packages
+        uses: ./.github/actions/provision
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+
+      - name: Check unused TypeScript exports
+        run: yarn check:unused-exports
+
   build:
     runs-on: ubuntu-latest
 

@@ -10,10 +10,6 @@ export function getPayloadFromToken(requestToken: string) {
   return token.payload as unknown as TransactionPayload;
 }
 
-export function getTxByteLength(tx: StacksTransaction) {
-  return new BigNumber(tx.serialize().byteLength);
-}
-
 export function calculateFeeFromFeeRate(tx: StacksTransaction, feeRate: number) {
   const txBytes = new BigNumber(tx.serialize().byteLength);
   return txBytes.multipliedBy(feeRate);

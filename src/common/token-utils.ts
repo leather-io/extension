@@ -1,7 +1,5 @@
 import { abbreviateNumber } from '@common/utils';
 
-export type SIP010TransferResponse = { okay: true; hasMemo: boolean } | { error: string };
-
 export function removeCommas(amountWithCommas: string) {
   return amountWithCommas.replace(/,/g, '');
 }
