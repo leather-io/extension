@@ -16,6 +16,9 @@ import { SettingsPopover } from '@features/settings-dropdown/settings-popover';
 import { AppErrorBoundary } from '@features/errors/app-error-boundary';
 import { TransactionSettingsDrawer } from '@features/fee-nonce-drawers/transaction-settings-drawer';
 import { SpeedUpTransactionDrawer } from '@features/fee-nonce-drawers/speed-up-transaction-drawer';
+import { Devtools } from '@features/devtool/devtools';
+
+const devToolsEnabled = false;
 
 export const App: React.FC = () => {
   useEffect(() => {
@@ -40,6 +43,7 @@ export const App: React.FC = () => {
               </AppErrorBoundary>
               <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
             </Router>
+            {devToolsEnabled && <Devtools />}
           </>
         </ColorModeProvider>
       </QueryClientProvider>

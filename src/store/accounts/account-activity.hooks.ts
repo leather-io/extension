@@ -1,25 +1,16 @@
 import { useAtomCallback, useAtomValue, useUpdateAtom } from 'jotai/utils';
 import {
   cleanupLocalTxs,
-  currentAccountAllTxIds,
   currentAccountExternalTxIdsState,
   currentAccountLocallySubmittedStacksTransactionsState,
   currentAccountLocallySubmittedTxIdsState,
   currentAccountLocallySubmittedTxsState,
 } from '@store/accounts/account-activity';
-import { useAtom } from 'jotai';
-import { useCallback } from 'react';
 
-export const useCurrentAccountTxids = () => {
-  return useAtomValue(currentAccountAllTxIds);
-};
+import { useCallback } from 'react';
 
 export const useCurrentAccountLocalTxids = () => {
   return useAtomValue(currentAccountLocallySubmittedTxIdsState);
-};
-
-export const useCurrentAccountLocalTxs = () => {
-  return useAtom(currentAccountLocallySubmittedTxsState);
 };
 
 export const useSetLocalTxsCallback = () =>

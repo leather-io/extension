@@ -48,8 +48,6 @@ let inMemoryVault: InMemoryVault = {
   salt: localStorage.getItem(saltIdentifier) || undefined,
 };
 
-export const getVault = () => inMemoryVault;
-
 function persistOptional(storageKey: string, value?: string) {
   if (value) {
     localStorage.setItem(storageKey, value);
@@ -94,7 +92,7 @@ function throwUnhandledMethod(message: VaultActions) {
 }
 
 // Reducer to manage the state of the vault
-export const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
+const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
   switch (message.method) {
     case InternalMethods.getWallet:
       return {

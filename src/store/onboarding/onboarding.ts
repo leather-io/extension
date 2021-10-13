@@ -4,20 +4,6 @@ import { atomWithDefault, atomWithStorage } from 'jotai/utils';
 import { ScreenPaths } from '@common/types';
 import { DecodedAuthRequest } from '@common/dev/types';
 
-export interface OnboardingState {
-  screen: ScreenPaths;
-  secretKey?: string;
-  authRequest?: string;
-  decodedAuthRequest?: DecodedAuthRequest;
-  appName?: string;
-  appIcon?: string;
-  appURL?: URL;
-  magicRecoveryCode?: string;
-  username?: string;
-  onboardingInProgress?: boolean;
-  onboardingPath?: ScreenPaths;
-}
-
 interface AuthRequestState {
   authRequest?: string;
   decodedAuthRequest?: DecodedAuthRequest;

@@ -17,7 +17,7 @@ selectedAssetStore.debugLabel = 'selectedAssetStore';
 export const searchInputStore = atom<string>('');
 searchInputStore.debugLabel = 'searchInputStore';
 
-export const searchResultState = atomWithDefault<AssetWithMeta[] | undefined>(get =>
+const searchResultState = atomWithDefault<AssetWithMeta[] | undefined>(get =>
   get(assetsAnchoredState)
 );
 searchResultState.debugLabel = 'searchResultState';

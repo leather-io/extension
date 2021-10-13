@@ -95,6 +95,7 @@ type Await<T> = T extends PromiseLike<infer U> ? U : T;
 
 export type BrowserDriver = Await<ReturnType<typeof setupBrowser>>;
 
+// ts-unused-exports:disable-next-line
 export const debug = async (page: Page) => {
   jest.setTimeout(345600000);
   // Run a debugger (in case Playwright has been launched with `{ devtools: true }`)

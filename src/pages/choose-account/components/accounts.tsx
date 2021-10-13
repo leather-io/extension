@@ -51,7 +51,7 @@ const AccountTitle = ({ account, ...rest }: { account: AccountWithAddress } & Bo
   );
 };
 
-export const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...rest }) => {
+const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...rest }) => {
   const [component, bind] = usePressable(true);
   const { isLoading, setIsLoading } = useLoading(`CHOOSE_ACCOUNT__${account.address}`);
   const { doFinishSignIn } = useWallet();

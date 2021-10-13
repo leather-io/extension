@@ -1,6 +1,5 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { wordlists } from 'bip39';
 
 import { KEBAB_REGEX, Network } from '@common/constants';
 import { StacksNetwork } from '@stacks/network';
@@ -18,21 +17,6 @@ export const getEventSourceWindow = (event: MessageEvent) => {
   }
   return null;
 };
-
-export const getRandomWord = () => {
-  const list = wordlists.EN;
-  return list[Math.floor(Math.random() * list.length)];
-};
-
-export function stringToHslColor(str: string, saturation: number, lightness: number): string {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  const hue = hash % 360;
-  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-}
 
 export function extractPhraseFromString(value: string) {
   const clean = value.trim();
@@ -108,7 +92,7 @@ export function postConditionFromString(postCondition: string): PostCondition {
   return deserializePostCondition(reader);
 }
 
-export function isUtf8(buf?: Buffer | Uint8Array): boolean {
+function isUtf8(buf?: Buffer | Uint8Array): boolean {
   if (!buf) {
     return false;
   }
@@ -179,7 +163,7 @@ export const abbreviateNumber = (n: number) => {
   return n.toString();
 };
 
-export function isHex(hex: string): boolean {
+function isHex(hex: string): boolean {
   const regexp = /^[0-9a-fA-F]+$/;
   return regexp.test(hex);
 }

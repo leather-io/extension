@@ -24,7 +24,7 @@ interface FungiblePostConditionProps {
   isLast?: boolean;
 }
 
-export const FungiblePostConditionComponentSuspense: React.FC<FungiblePostConditionProps> = ({
+const FungiblePostConditionComponentSuspense: React.FC<FungiblePostConditionProps> = ({
   pc,
   isLast,
 }) => {

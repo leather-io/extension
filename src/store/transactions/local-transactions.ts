@@ -35,7 +35,7 @@ export const localStacksTransactionInputsState = atom<{
   recipient: string;
 } | null>(null);
 
-export const tokenTransferTransaction = atom(get => {
+const tokenTransferTransaction = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
@@ -73,7 +73,7 @@ export const tokenTransferTransaction = atom(get => {
   });
 });
 
-export const ftTokenTransferTransactionState = atom(get => {
+const ftTokenTransferTransactionState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
@@ -158,7 +158,7 @@ export const ftTokenTransferTransactionState = atom(get => {
 
 export const localStxTransactionAmountState = atom<null | number>(null);
 
-export const localTransactionIsStxTransferState = atom(get => {
+const localTransactionIsStxTransferState = atom(get => {
   const selectedAsset = get(selectedAssetStore);
   return selectedAsset?.type === 'stx';
 });

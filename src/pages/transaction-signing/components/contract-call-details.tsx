@@ -63,7 +63,7 @@ const FunctionArgumentsList = memo((props: StackProps) => {
   );
 });
 
-export const ContractCallDetailsSuspense = () => {
+const ContractCallDetailsSuspense = () => {
   const transactionRequest = useTransactionRequestState();
   const { handleOpenTxLink } = useExplorerLink();
   if (!transactionRequest || transactionRequest.txType !== 'contract_call') return null;

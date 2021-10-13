@@ -6,34 +6,24 @@ import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
 import { todaysIsoDate } from '@common/date-utils';
 import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
 import { useWallet } from '@common/hooks/use-wallet';
-import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
+import { stxToMicroStx } from '@common/stacks-utils';
 import { handleBroadcastTransaction } from '@common/transactions/transactions';
 import {
   AnchorMode,
-  bufferCVFromString,
-  ClarityValue,
-  createAddress,
   createAssetInfo,
   FungibleConditionCode,
-  makeContractCall,
   makeStandardFungiblePostCondition,
   makeSTXTokenTransfer,
-  noneCV,
   PostCondition,
-  someCV,
   StacksTransaction,
-  standardPrincipalCVFromAddress,
-  uintCV,
 } from '@stacks/transactions';
+
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
-import {
-  localStacksTransactionInputsState,
-  localTransactionState,
-} from '@store/transactions/local-transactions';
+import { localStacksTransactionInputsState } from '@store/transactions/local-transactions';
 import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
-import { selectedAssetStore } from '@store/assets/asset-search';
+
 import { updateTransactionFee } from '@store/transactions/utils';
 
 import {
@@ -44,7 +34,6 @@ import {
   txByteSize,
   txForSettingsState,
 } from './index';
-import { makeFungibleTokenTransferState } from './fungible-token-transfer';
 import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
 
@@ -170,86 +159,6 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
   );
 }
 
-interface AssetTransferOptions {
-  amount: number;
-  recipient: string;
-  memo: string;
-  feeRate: number;
-}
-
-export function useMakeAssetTransfer() {
-  return useAtomCallback<StacksTransaction | undefined, AssetTransferOptions>(
-    useCallback(async (get, _set, arg) => {
-      const { amount, recipient, memo, feeRate } = arg;
-      // unstable_async option @see https://github.com/pmndrs/jotai/blob/master/src/core/atom.ts#L8
-      // allows you to await a get
-      const assetTransferState = await get(makeFungibleTokenTransferState, true);
-      const selectedAsset = get(selectedAssetStore);
-      if (!assetTransferState || !selectedAsset) return;
-      const {
-        balances,
-        network,
-        senderKey,
-        assetName,
-        contractAddress,
-        contractName,
-        nonce,
-        stxAddress,
-      } = assetTransferState;
-
-      const functionName = 'transfer';
-
-      const tokenBalanceKey = Object.keys(balances?.fungible_tokens || {}).find(contract => {
-        return contract.startsWith(contractAddress);
-      });
-
-      const realAmount =
-        selectedAsset.type === 'ft'
-          ? ftUnshiftDecimals(amount, selectedAsset?.meta?.decimals || 0)
-          : amount;
-
-      const postConditionOptions = tokenBalanceKey
-        ? {
-            contractAddress,
-            contractName,
-            assetName,
-            stxAddress,
-            amount: realAmount,
-          }
-        : undefined;
-
-      const postConditions = postConditionOptions ? [makePostCondition(postConditionOptions)] : [];
-
-      // (transfer (uint principal principal) (response bool uint))
-      const functionArgs: ClarityValue[] = [
-        uintCV(realAmount),
-        standardPrincipalCVFromAddress(createAddress(stxAddress)),
-        standardPrincipalCVFromAddress(createAddress(recipient)),
-      ];
-
-      if (selectedAsset.hasMemo) {
-        functionArgs.push(memo !== '' ? someCV(bufferCVFromString(memo)) : noneCV());
-      }
-      const txOptions = {
-        network,
-        functionName,
-        functionArgs,
-        senderKey,
-        contractAddress,
-        contractName,
-        postConditions,
-        nonce: new BN(nonce, 10),
-        anchorMode: AnchorMode.Any,
-      };
-
-      return makeContractCall(txOptions as any).then(transaction =>
-        updateTransactionFee(transaction, feeRate)
-      );
-    }, [])
-  );
-}
-
 export const useLocalTransactionInputsState = () => useAtom(localStacksTransactionInputsState);
-export const useLocalTransactionState = () => useAtom(localTransactionState);
 export const useTxForSettingsState = () => useAtom(txForSettingsState);
 export const useTxByteSizeState = () => useAtom(txByteSize);

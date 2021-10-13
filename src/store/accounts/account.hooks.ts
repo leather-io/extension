@@ -1,13 +1,13 @@
+import { useAtom } from 'jotai';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
+import { transactionNetworkVersionState } from '@store/transactions';
 import {
   accountAvailableStxBalanceState,
   accountsWithAddressState,
   currentAccountAvailableStxBalanceState,
   currentAccountBalancesUnanchoredState,
-  currentAccountConfirmedTransactionsState,
   currentAccountIndexState,
   currentAccountInfoState,
-  currentAccountMempoolTransactionsState,
   currentAccountState,
   currentAccountStxAddressState,
   currentAccountTransactionsState,
@@ -15,8 +15,6 @@ import {
   refreshAccountDataState,
   transactionAccountIndexState,
 } from '@store/accounts';
-import { transactionNetworkVersionState } from '@store/transactions';
-import { useAtom } from 'jotai';
 
 export function useAccountAvailableStxBalance(address: string) {
   return useAtomValue(accountAvailableStxBalanceState(address));
@@ -37,14 +35,6 @@ export function useAccountSingleTransaction(txid?: string) {
 
 export function useCurrentAccountBalancesUnanchoredState() {
   return useAtomValue(currentAccountBalancesUnanchoredState);
-}
-
-export function useCurrentAccountConfirmedTransactionsState() {
-  return useAtomValue(currentAccountConfirmedTransactionsState);
-}
-
-export function useCurrentAccountMempoolTransactionsState() {
-  return useAtomValue(currentAccountMempoolTransactionsState);
 }
 
 export function useAccounts() {

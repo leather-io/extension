@@ -26,7 +26,7 @@ import { MICROBLOCKS_ENABLED } from '@common/constants';
  * Our mega api clients function. This is a combo of all clients that the blockchain-api-client package offers.
  * @param config - the `@stacks/blockchain-api-client` configuration object
  */
-export function apiClients(config: Configuration) {
+function apiClients(config: Configuration) {
   const smartContractsApi = new SmartContractsApi(config);
   const accountsApi = new AccountsApi(config);
   const infoApi = new InfoApi(config);
