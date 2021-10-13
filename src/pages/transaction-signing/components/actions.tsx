@@ -68,7 +68,7 @@ const MinimalErrorMessageSuspense = memo((props: StackProps) => {
   );
 });
 
-export const MinimalErrorMessage = memo((props: StackProps) => {
+const MinimalErrorMessage = memo((props: StackProps) => {
   return (
     <React.Suspense fallback={<></>}>
       <MinimalErrorMessageSuspense {...props} />

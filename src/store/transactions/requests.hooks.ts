@@ -4,7 +4,6 @@ import {
   requestTokenOriginState,
   transactionRequestValidationState,
   transactionRequestCustomFeeState,
-  transactionRequestCustomFeeRateState,
 } from '@store/transactions/requests';
 import { requestTokenState } from '@store/transactions/requests';
 import { transactionBroadcastErrorState } from '@store/transactions';
@@ -21,9 +20,6 @@ export function useTransactionRequestState() {
 
 export function useTransactionRequestCustomFee() {
   return useAtomValue(transactionRequestCustomFeeState);
-}
-export function useTransactionRequestCustomFeeRate() {
-  return useAtomValue(transactionRequestCustomFeeRateState);
 }
 
 export function useTransactionRequestValidation() {

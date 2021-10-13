@@ -86,7 +86,7 @@ const PostConditionsList = () => {
   );
 };
 
-export const PostConditionsSuspense: React.FC = () => {
+const PostConditionsSuspense: React.FC = () => {
   const postConditions = useTransactionPostConditions();
   const mode = usePostConditionModeState();
   const pendingTransaction = useTransactionRequestState();

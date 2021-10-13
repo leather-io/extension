@@ -33,7 +33,7 @@ export function storePayload({
   localStorage.setItem(key, JSON.stringify(requestInfo));
 }
 
-export function getRequestInfo(storageKey: StorageKey, request: string): RequestInfo | undefined {
+function getRequestInfo(storageKey: StorageKey, request: string): RequestInfo | undefined {
   const key = getKeyForRequest(storageKey, request);
   const valueJSON = localStorage.getItem(key);
   if (!valueJSON) return undefined;

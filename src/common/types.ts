@@ -1,4 +1,3 @@
-import { DecodedAuthRequest } from '@common/dev/types';
 import {
   AssetInfo,
   ClarityValue,
@@ -9,14 +8,6 @@ import {
   StacksMessageType,
 } from '@stacks/transactions';
 import BN from 'bn.js';
-
-export const ONBOARDING_PROGRESS = 'ONBOARDING/ONBOARDING_PROGRESS';
-export const CHANGE_PAGE = 'ONBOARDING/CHANGE_PAGE';
-export const SAVE_KEY = 'ONBOARDING/SAVE_KEY';
-export const SAVE_AUTH_REQUEST = 'ONBOARDING/SAVE_AUTH_REQUEST';
-export const SET_MAGIC_RECOVERY_CODE = 'ONBOARDING/SET_MAGIC_RECOVERY_CODE';
-export const SET_USERNAME = 'ONBOARDING/SET_USERNAME';
-export const SET_ONBOARDING_PATH = 'ONBOARDING/SET_ONBOARDING_PATH';
 
 export enum ScreenPaths {
   GENERATION = '/sign-up',
@@ -45,77 +36,8 @@ export enum ScreenPaths {
   TRANSACTION_POPUP = '/transaction',
 }
 
-export const persistedScreens = [
-  ScreenPaths.SECRET_KEY,
-  ScreenPaths.SAVE_KEY,
-  ScreenPaths.ONBOARDING_PASSWORD,
-  ScreenPaths.USERNAME,
-];
-
 // TODO: clarify usage of password for local key encryption
 export const DEFAULT_PASSWORD = 'password';
-
-export interface OnboardingState {
-  screen: ScreenPaths;
-  secretKey?: string;
-  authRequest?: string;
-  decodedAuthRequest?: DecodedAuthRequest;
-  appName?: string;
-  appIcon?: string;
-  appURL?: URL;
-  magicRecoveryCode?: string;
-  username?: string;
-  onboardingInProgress?: boolean;
-  onboardingPath?: ScreenPaths;
-}
-
-interface OnboardingProgressAction {
-  type: typeof ONBOARDING_PROGRESS;
-  payload: boolean;
-}
-
-interface ChangePageAction {
-  type: typeof CHANGE_PAGE;
-  screen: ScreenPaths;
-}
-
-interface StoreSecretKey {
-  type: typeof SAVE_KEY;
-  secretKey: string;
-}
-
-interface SaveAuthRequest {
-  type: typeof SAVE_AUTH_REQUEST;
-  appName: string;
-  appIcon: string;
-  appURL: URL;
-  decodedAuthRequest: DecodedAuthRequest;
-  authRequest: string;
-}
-
-interface SetMagicRecoveryCode {
-  type: typeof SET_MAGIC_RECOVERY_CODE;
-  magicRecoveryCode: string;
-}
-
-interface SetUsername {
-  type: typeof SET_USERNAME;
-  username: string;
-}
-
-interface SetOnboardingPath {
-  type: typeof SET_ONBOARDING_PATH;
-  onboardingPath?: ScreenPaths;
-}
-
-export type OnboardingActions =
-  | OnboardingProgressAction
-  | ChangePageAction
-  | StoreSecretKey
-  | SetMagicRecoveryCode
-  | SaveAuthRequest
-  | SetOnboardingPath
-  | SetUsername;
 
 // Not currently exported from @stacks/transactions
 export interface STXPostCondition {

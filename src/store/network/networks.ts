@@ -5,7 +5,6 @@ import { defaultNetworks, Networks } from '@common/constants';
 import { findMatchingNetworkKey } from '@common/utils';
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
-import { apiClientState } from '@store/common/api-clients';
 import { transactionRequestNetwork } from '@store/transactions/requests';
 import { makeLocalDataKey } from '@common/store-utils';
 
@@ -52,19 +51,8 @@ export const currentStacksNetworkState = atom<StacksNetwork>(get => {
   return stacksNetwork;
 });
 
-// external data, the most recent block height of the selected network
-export const latestBlockHeightState = atom(async get => {
-  const { blocksApi } = get(apiClientState);
-  return (await blocksApi.getBlockList({}))?.results?.[0]?.height;
-});
-
-// external data, `v2/info` endpoint of the selected network
-export const networkInfoState = atom(get => get(apiClientState).infoApi.getCoreApiInfo());
-
 networksState.debugLabel = 'networksState';
 localCurrentNetworkKeyState.debugLabel = 'localCurrentNetworkKeyState';
 currentNetworkKeyState.debugLabel = 'currentNetworkKeyState';
 currentNetworkState.debugLabel = 'currentNetworkState';
 currentStacksNetworkState.debugLabel = 'currentStacksNetworkState';
-latestBlockHeightState.debugLabel = 'latestBlockHeightState';
-networkInfoState.debugLabel = 'networkInfoState';

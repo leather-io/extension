@@ -33,7 +33,7 @@ export const assetItemState = atomFamily<[Asset, string], AssetWithMeta>(([asset
   return anAtom;
 }, deepEqual);
 
-export const baseAssetsAnchoredState = atom(get => {
+const baseAssetsAnchoredState = atom(get => {
   const balances = get(currentAnchoredAccountBalancesState);
   return transformAssets(balances);
 });
@@ -44,11 +44,12 @@ export const assetsAnchoredState = atom(get => {
   return get(waitForAll(transformed.map(asset => assetItemState([asset, network.url]))));
 });
 
-export const baseAssetsUnanchoredState = atom(get => {
+const baseAssetsUnanchoredState = atom(get => {
   const balances = get(currentAccountBalancesUnanchoredState);
   return transformAssets(balances);
 });
-export const assetsUnanchoredState = atom(get => {
+
+const assetsUnanchoredState = atom(get => {
   const network = get(currentNetworkState);
   const transformed = get(baseAssetsUnanchoredState);
   return get(waitForAll(transformed.map(asset => assetItemState([asset, network.url]))));
@@ -102,7 +103,7 @@ export const fungibleTokensBaseState = atom(get => {
   return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');
 });
 
-export const fungibleTokensState = atom(get => {
+const fungibleTokensState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   if (!principal) return [];
   const anchoredAssets: AssetWithMeta[] = get(assetsAnchoredState);
@@ -132,7 +133,7 @@ export const mergeNftBalances = (anchoredNfts: NftMetaRecord, unanchoredNfts: Nf
   return [...assetMap.values()];
 };
 
-export const nonFungibleTokensState = atom(get => {
+const nonFungibleTokensState = atom(get => {
   const anchoredbalances = get(currentAnchoredAccountBalancesState);
   const unanchoredBalances = get(currentAccountBalancesUnanchoredState);
 

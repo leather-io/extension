@@ -39,7 +39,7 @@ export interface Message<M extends ExtensionMethods, P> extends BaseMessage {
   payload: P;
 }
 
-export type AuthenticationRequestMessage = Message<ExternalMethods.authenticationRequest, string>;
+type AuthenticationRequestMessage = Message<ExternalMethods.authenticationRequest, string>;
 
 export type AuthenticationResponseMessage = Message<
   ExternalMethods.authenticationResponse,
@@ -49,7 +49,7 @@ export type AuthenticationResponseMessage = Message<
   }
 >;
 
-export type TransactionRequestMessage = Message<ExternalMethods.transactionRequest, string>;
+type TransactionRequestMessage = Message<ExternalMethods.transactionRequest, string>;
 
 export type TxResult = SponsoredFinishedTxPayload | FinishedTxPayload;
 

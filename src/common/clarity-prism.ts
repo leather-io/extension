@@ -7,7 +7,7 @@ interface PrismType {
   [key: string]: any;
 }
 
-export const clarity = (Prism: PrismType) => {
+const clarity = (Prism: PrismType) => {
   // Functions to construct regular expressions
   // simple form
   // e.g. (interactive ... or (interactive)

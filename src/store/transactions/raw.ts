@@ -14,7 +14,7 @@ export const rawTxIdState = atom<string | null>(null);
 
 const rawTxCache = new Map();
 
-export const rawTxState = atom(get => {
+const rawTxState = atom(get => {
   const txId = get(rawTxIdState);
   if (!txId) return;
   const match = rawTxCache.get(txId);

@@ -1,7 +1,7 @@
-import { ChainID, createAssetInfo } from '@stacks/transactions';
+import { ChainID } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
-import { getAssetStringParts } from '@stacks/ui-utils';
+
 import { Network, STX_DECIMALS } from './constants';
 import { abbreviateNumber, initBigNumber } from '@common/utils';
 
@@ -59,20 +59,9 @@ export const validateStacksAddress = (stacksAddress: string): boolean => {
   }
 };
 
-export const makeAssetInfo = (assetIdentifier: string) => {
-  const {
-    address: contractAddress,
-    contractName,
-    assetName,
-  } = getAssetStringParts(assetIdentifier);
-  return createAssetInfo(contractAddress, contractName, assetName);
-};
-
 export function validateAddressChain(address: string, currentNetwork: Network) {
   const prefix = address.substr(0, 2);
   if (currentNetwork.chainId === ChainID.Testnet) return prefix === 'SN' || prefix === 'ST';
   if (currentNetwork.chainId === ChainID.Mainnet) return prefix === 'SM' || prefix === 'SP';
   return false;
 }
-
-export const getTicker = (assetName: string) => assetName.slice(0, 3).toUpperCase();

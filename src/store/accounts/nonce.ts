@@ -17,7 +17,7 @@ export const localNonceState = atomFamily<[principal: string, networkUrl: string
   deepEqual
 );
 
-export const currentAccountLocalNonceState = atom(get => {
+const currentAccountLocalNonceState = atom(get => {
   const network = get(currentNetworkState);
   const address = get(currentAccountStxAddressState);
   if (!address) return 0;

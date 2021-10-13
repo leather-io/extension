@@ -15,11 +15,6 @@ import {
 } from './ui';
 import { useEffect } from 'react';
 
-// HACK: `ControlledDrawer` requires the state to be passed in to the component
-// This goes against the pattern of only exposing an interface to the store
-// via hooks, and couples the implementation details of the component tree and store
-export { showNetworksStore, showAccountsStore, showTxSettingsStore };
-
 export function useAccountDrawerStep() {
   return useAtom(accountDrawerStep);
 }

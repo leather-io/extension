@@ -2,7 +2,7 @@ import { STX_DECIMALS } from '@common/constants';
 import { countDecimals, isNumber } from '@common/utils';
 import * as yup from 'yup';
 
-export function curencyAmountSchema() {
+function curencyAmountSchema() {
   return yup.number().positive('Amount must be positive').typeError('Currency be a number');
 }
 

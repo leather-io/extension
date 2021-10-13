@@ -21,11 +21,7 @@ type LocalTx = Record<
     timestamp: string;
   }
 >;
-export const currentAccountLocallySubmittedTxsRootState = atomFamily<
-  [string, string],
-  LocalTx,
-  LocalTx
->(
+const currentAccountLocallySubmittedTxsRootState = atomFamily<[string, string], LocalTx, LocalTx>(
   ([_address, _network]) =>
     atomWithStorage<LocalTx>(makeLocalDataKey([_address, _network, 'LOCAL_TXS']), {}),
   deepEqual
@@ -85,12 +81,6 @@ export const currentAccountLocallySubmittedLatestNonceState = atom(get => {
   const nonce = txs[latestTxId]?.transaction?.auth?.spendingCondition?.nonce.toNumber();
   if (typeof nonce !== 'number') return;
   return nonce;
-});
-
-export const currentAccountAllTxIds = atom(get => {
-  const localTxids = get(currentAccountLocallySubmittedTxIdsState);
-  const externalTxids = get(currentAccountExternalTxIdsState);
-  return [...new Set([...localTxids, ...externalTxids])];
 });
 
 export const cleanupLocalTxs = atom(null, (get, set) => {

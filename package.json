@@ -29,7 +29,8 @@
     "test:watch": "NODE_ENV=test jest --watch",
     "test:serve": "yarn http-server ./test-app/dist -p 3001 -s",
     "typecheck": "tsc --noEmit",
-    "check:deps": "dependency-cruise  --config .dependency-cruiser.js \"src/**/*.{ts,tsx}\""
+    "check:deps": "dependency-cruise  --config .dependency-cruiser.js \"src/**/*.{ts,tsx}\"",
+    "check:unused-exports": "ts-unused-exports tsconfig.json"
   },
   "version": "2.19.4",
   "author": "Blockstack PBC",
@@ -188,6 +189,7 @@
     "ts-jest": "26.5.6",
     "ts-loader": "9.2.6",
     "ts-node": "10.1.0",
+    "ts-unused-exports": "7.0.3",
     "tsconfig-paths-webpack-plugin": "3.5.1",
     "typescript": "4.3.5",
     "vm-browserify": "1.1.2",

@@ -18,7 +18,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { delay } from '@common/utils';
 
-export enum GetRequests {
+enum GetRequests {
   v1Address = 'https://stacks-node-api.regtest.stacks.co/extended/v1/address/ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z/balances',
   v2Accounts = 'https://stacks-node-api.regtest.stacks.co/v2/accounts/ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z',
   addressTxs = 'https://stacks-node-api.regtest.stacks.co/extended/v1/address/ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z/transactions',
@@ -41,7 +41,7 @@ export enum PostRequests {
   broadcastTransaction = 'https://stacks-node-api.regtest.stacks.co/v2/transactions',
 }
 
-export const getRequests: Record<string, string> = {
+const getRequests: Record<string, string> = {
   [GetRequests.v1Address]: V1_ADDRESS_DATA,
   [GetRequests.v2Accounts]: V2_ACCOUNTS_DATA,
   [GetRequests.addressTxs]: ADDRESS_TXS_DATA,
@@ -56,7 +56,7 @@ export const getRequests: Record<string, string> = {
   [GetRequests.fees]: '1',
 };
 
-export const postRequests: Record<string, string> = {
+const postRequests: Record<string, string> = {
   [PostRequests.heyTokenGetName]: TOKEN_GET_NAME_DATA,
   [PostRequests.heyTokenGetSymbol]: TOKEN_GET_SYMBOL_DATA,
   [PostRequests.heyTokenGetDecimals]: TOKEN_GET_DECIMALS_DATA,

@@ -1,13 +1,12 @@
 import { FormikProps } from 'formik';
 import BigNumber from 'bignumber.js';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-import { usePrevious } from '@stacks/ui';
-import React, { useCallback, useEffect } from 'react';
+
+import React, { useCallback } from 'react';
 import { microStxToStx } from '@common/stacks-utils';
 import { FormValues } from '@pages/send-tokens/send-tokens';
 import { removeCommas } from '@common/token-utils';
 import { STX_TRANSFER_TX_SIZE_BYTES } from '@common/constants';
-import { useAssets } from '@store/assets/asset.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 
 export function useSendAmountFieldActions({
@@ -65,37 +64,4 @@ export function useSendAmountFieldActions({
     handleSetSendMax,
     handleOnKeyDown,
   };
-}
-
-interface SendFormEffectOptions
-  extends Pick<FormikProps<FormValues>, 'isSubmitting' | 'setSubmitting' | 'setFieldValue'> {
-  amountFieldRef: any;
-  setAssetError: (error: string | undefined) => void;
-  assetError?: string;
-}
-
-export function useSendForm({
-  amountFieldRef,
-  assetError,
-  setAssetError,
-  isSubmitting,
-  setSubmitting,
-}: SendFormEffectOptions) {
-  const { selectedAsset } = useSelectedAsset();
-  const previous = usePrevious(selectedAsset);
-  const assets = useAssets();
-
-  useEffect(() => {
-    if (assets?.length === 1 && amountFieldRef.current) {
-      amountFieldRef?.current?.focus?.();
-    }
-  }, [amountFieldRef, assets?.length]);
-
-  useEffect(() => {
-    if (previous !== selectedAsset) {
-      if (isSubmitting) {
-        setSubmitting(false);
-      }
-    }
-  }, [setAssetError, assetError, isSubmitting, setSubmitting, previous, selectedAsset]);
 }
