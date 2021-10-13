@@ -6,7 +6,7 @@ import { Body, Text } from '@components/typography';
 import { Card } from '@components/card';
 import { Header } from '@components/header';
 
-export const SecretKeyMessage: React.FC<BoxProps> = props => {
+const SecretKeyMessage: React.FC<BoxProps> = props => {
   const { secretKey } = useWallet();
   const wordCount = (secretKey || '').split(' ').length;
   return (
@@ -20,7 +20,7 @@ export const SecretKeyMessage: React.FC<BoxProps> = props => {
   );
 };
 
-export const SecretKeyCard: React.FC<BoxProps> = props => {
+const SecretKeyCard: React.FC<BoxProps> = props => {
   const { secretKey } = useWallet();
   return (
     <Card title="Your Secret Key" {...props}>
@@ -31,7 +31,7 @@ export const SecretKeyCard: React.FC<BoxProps> = props => {
   );
 };
 
-export const SecretKeyActions: React.FC<{ handleNext?: () => void } & StackProps> = ({
+const SecretKeyActions: React.FC<{ handleNext?: () => void } & StackProps> = ({
   handleNext,
   ...rest
 }) => {

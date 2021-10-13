@@ -80,7 +80,7 @@ const captionStyles = (variant?: 'c1' | 'c2' | 'c3') => {
 
 type Headings = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span';
 
-export const titleStyles = (as: Headings) => {
+const titleStyles = (as: Headings) => {
   switch (as) {
     case 'h1':
       return h1;
@@ -111,21 +111,6 @@ export const Title = forwardRefWithAs<BoxProps, Headings>((props, ref) => (
     {...props}
   />
 ));
-
-export const Pretitle = (props: BoxProps) => (
-  <Text
-    pt="loose"
-    width="100%"
-    fontWeight="medium"
-    fontSize={['11px']}
-    lineHeight={['20px']}
-    color="ink.600"
-    style={{
-      textTransform: 'uppercase',
-    }}
-    {...props}
-  />
-);
 
 export const Text = forwardRefWithAs<BoxProps, 'span'>((props, ref) => (
   <BaseText

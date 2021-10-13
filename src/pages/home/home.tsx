@@ -8,7 +8,7 @@ import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { HiroMessages } from '@features/hiro-messages/hiro-messages';
-import { ActivityList } from '@features/account-activity/account-activity';
+import { ActivityList } from '@features/activity-list/account-activity';
 import { BalancesList } from '@features/balances-list/balances-list';
 import { usePromptUserToSetDiagnosticPermissions } from '@common/hooks/use-diagnostic-permission-prompt';
 
