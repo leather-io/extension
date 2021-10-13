@@ -16,7 +16,10 @@ const microIcon = () => (
 const iconItem = (isUnanchored = false) =>
   isUnanchored ? <TypeIconWrapper icon={microIcon} bg="invert" /> : null;
 
-export const StxAvatar: React.FC<StxAvatarProps> = props => {
+interface StxAvatarProps extends BoxProps {
+  isUnanchored?: boolean;
+}
+const StxAvatar: React.FC<StxAvatarProps> = props => {
   return (
     <Circle position="relative" size="36px" bg={color('accent')} color={color('bg')} {...props}>
       <StxIcon />
@@ -28,10 +31,6 @@ export const StxAvatar: React.FC<StxAvatarProps> = props => {
 interface AssetProps extends BoxProps {
   gradientString: string;
   useStx: boolean;
-  isUnanchored?: boolean;
-}
-
-interface StxAvatarProps extends BoxProps {
   isUnanchored?: boolean;
 }
 
