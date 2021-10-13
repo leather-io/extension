@@ -1,5 +1,3 @@
-import { JSONSchemaForWebApplicationManifestFiles } from '@schemastore/web-manifest';
-
 export interface DecodedAuthRequest {
   public_keys: string;
   domain_name: string;
@@ -14,5 +12,3 @@ export interface DecodedAuthRequest {
   client?: string;
   connectVersion?: string;
 }
-
-export type AppManifest = JSONSchemaForWebApplicationManifestFiles;

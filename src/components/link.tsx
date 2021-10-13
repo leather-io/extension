@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, BoxProps, color } from '@stacks/ui';
 
-export type LinkProps = BoxProps;
-
 export const buildEnterKeyEvent = (onClick: () => void) => {
   return (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && onClick) {
