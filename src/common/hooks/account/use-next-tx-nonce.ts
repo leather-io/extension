@@ -1,7 +1,7 @@
 import { UseQueryOptions } from 'react-query';
 import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 
-import { useGetAccountNonce } from '@common/hooks/account/use-get-account-nonce';
+import { useGetAccountNonce } from '@query/nonce/use-get-account-nonce';
 import { useLastApiNonceState } from '@store/accounts/nonce.hooks';
 
 export function correctNextNonce(
