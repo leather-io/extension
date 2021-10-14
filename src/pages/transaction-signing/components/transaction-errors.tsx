@@ -3,7 +3,7 @@ import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { color, Stack, useClipboard, Fade, Flex } from '@stacks/ui';
 import {
   useTransactionBroadcastError,
-  useTransactionRequest,
+  useTransactionRequestState,
 } from '@store/transactions/requests.hooks';
 import { Caption } from '@components/typography';
 import { SpaceBetween } from '@components/space-between';
@@ -35,7 +35,7 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 });
 
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
-  const pendingTransaction = useTransactionRequest();
+  const pendingTransaction = useTransactionRequestState();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const currentAccount = useCurrentAccount();
   const { setShowAccounts } = useDrawers();
@@ -85,7 +85,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
 
 export const NoContractErrorMessage = memo(props => {
   const network = useCurrentNetwork();
-  const pendingTransaction = useTransactionRequest();
+  const pendingTransaction = useTransactionRequestState();
 
   if (!pendingTransaction || pendingTransaction.txType !== TransactionTypes.ContractCall)
     return null;
@@ -100,7 +100,7 @@ export const NoContractErrorMessage = memo(props => {
   );
 });
 export const IncorrectContractAddressMessage = memo(props => {
-  const pendingTransaction = useTransactionRequest();
+  const pendingTransaction = useTransactionRequestState();
 
   if (!pendingTransaction || pendingTransaction.txType !== TransactionTypes.ContractCall)
     return null;

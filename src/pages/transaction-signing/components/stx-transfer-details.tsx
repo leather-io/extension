@@ -3,11 +3,11 @@ import { color, Stack } from '@stacks/ui';
 import { AttachmentRow } from './attachment-row';
 import { Title } from '@components/typography';
 import { Divider } from '@components/divider';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { RowItem } from './row-item';
 
 export const StxTransferDetails: React.FC = () => {
-  const pendingTransaction = useTransactionRequest();
+  const pendingTransaction = useTransactionRequestState();
   if (!pendingTransaction || pendingTransaction.txType !== 'token_transfer') {
     return null;
   }

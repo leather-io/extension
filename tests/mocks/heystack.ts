@@ -93,13 +93,13 @@ export function setupHeystackEnv(
     global.Storage.prototype.getItem = jest.fn(key => mockLocalStorage[key]);
   });
 
+  beforeEach(() => {
+    mockLocalStorage = {};
+  });
+
   afterEach(() => {
     server.resetHandlers();
     jest.clearAllMocks();
-  });
-
-  beforeEach(() => {
-    mockLocalStorage = {};
   });
 
   afterAll(() => {

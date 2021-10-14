@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { useTransactionPageTitle } from '@pages/transaction-signing/hooks/use-transaction-page-title';
 import { Stack } from '@stacks/ui';
 import { Caption, Title } from '@components/typography';
@@ -13,7 +13,7 @@ function addPortSuffix(url: string) {
 }
 
 export const TransactionPageTop = memo(() => {
-  const transactionRequest = useTransactionRequest();
+  const transactionRequest = useTransactionRequestState();
   const origin = useOrigin();
   const pageTitle = useTransactionPageTitle();
   const network = useCurrentNetwork();

@@ -1,28 +1,29 @@
 import React, { memo, useCallback } from 'react';
-import { Box, Button, ButtonProps, color, Flex, Stack, StackProps } from '@stacks/ui';
+import { FiAlertTriangle } from 'react-icons/fi';
+
 import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
 import { NetworkRowItem } from '@components/network-row-item';
-import { FeeComponent } from '@pages/transaction-signing/components/fee';
-import { FiAlertTriangle } from 'react-icons/fi';
-
-import { TransactionErrorReason } from './transaction-error';
-import { LoadingRectangle } from '@components/loading-rectangle';
-import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
-import { useTransactionError } from '../hooks/use-transaction-error';
-import {
-  useTransactionBroadcastError,
-  useTransactionRequest,
-  useTransactionRequestCustomFee,
-} from '@store/transactions/requests.hooks';
-import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
 import {
   ShowTxSettingsAction,
   ShowTxSettingsPlaceholder,
 } from '@features/fee-nonce-drawers/components/show-tx-settings-action';
-import { HighFeeWarningLabel } from './app-set-fee-warning';
+import { FeeComponent } from '@pages/transaction-signing/components/fee';
+import { LoadingRectangle } from '@components/loading-rectangle';
+import { Box, Button, ButtonProps, color, Flex, Stack, StackProps } from '@stacks/ui';
+import {
+  useTransactionBroadcastError,
+  useTransactionRequestState,
+  useTransactionRequestCustomFee,
+} from '@store/transactions/requests.hooks';
+import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
 import { useCurrentDefaultFee } from '@store/transactions/fees.hooks';
+import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
+
+import { HighFeeWarningLabel } from './app-set-fee-warning';
+import { TransactionErrorReason } from './transaction-error';
+import { useTransactionError } from '../hooks/use-transaction-error';
 
 const MinimalErrorMessageSuspense = memo((props: StackProps) => {
   const error = useTransactionError();
@@ -50,6 +51,7 @@ const MinimalErrorMessageSuspense = memo((props: StackProps) => {
     }
     return null;
   };
+
   return (
     <Stack
       data-testid={TransactionsSelectors.TransactionErrorMessage}
@@ -125,7 +127,7 @@ const FeeRowItemSuspense = () => {
   let showWarning = false;
   const defaultFee = useCurrentDefaultFee();
   const customFee = useTransactionRequestCustomFee();
-  const transactionRequest = useTransactionRequest();
+  const transactionRequest = useTransactionRequestState();
   const appName = transactionRequest?.appDetails?.name;
   const multipleFromWhichFeeIsConsideredLarge = 4;
 
