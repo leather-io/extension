@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, FlexProps } from '@stacks/ui';
 
-import { useHiroMessages } from '@common/hooks/use-hiro-messages';
+import { useHiroMessages } from '@query/messages/hiro-messages.query';
 import { HiroMessageItem } from './components/hiro-message-item';
 
 export const HiroMessages = (props: FlexProps) => {
