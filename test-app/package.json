@@ -1,0 +1,14 @@
+{
+  "name": "test-app",
+  "version": "1.0.0",
+  "description": "An application used to test the extension",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@stacks/auth": "^2.0.1",
+    "@stacks/connect-react": "^13.0.0"
+  },
+  "scripts": {
+    "dev:test-app": "webpack serve --config webpack/webpack.config.dev.js"
+  }
+}
