@@ -15,7 +15,7 @@ export function useOrigin() {
   return useAtomValue(requestTokenOriginState);
 }
 
-export function useTransactionRequest() {
+export function useTransactionRequestState() {
   return useAtomValue(requestTokenPayloadState);
 }
 

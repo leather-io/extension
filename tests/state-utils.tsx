@@ -9,29 +9,41 @@ import Mock = jest.Mock;
 import { selectedAssetIdState } from '@store/assets/asset-search';
 import { currentAccountIndexState } from '@store/accounts';
 import { currentNetworkKeyState } from '@store/network/networks';
-import { QueryClientProvider } from 'react-query';
-import { queryClient } from 'jotai-query-toolkit';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+
+const testQueryClient = createTestQueryClient();
 
 export const ProviderWithWalletAndRequestToken: React.FC = ({ children }) => (
   <Router>
-    <Provider
-      initialValues={[
-        [walletState, TEST_WALLET] as const,
-        [requestTokenState, HEYSTACK_HEY_TX_REQUEST] as const,
-        [
-          selectedAssetIdState,
-          'ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N.hey-token::hey-token',
-        ] as const,
-      ]}
-    >
-      {children}
-    </Provider>
+    <QueryClientProvider client={testQueryClient}>
+      <Provider
+        initialValues={[
+          [walletState, TEST_WALLET] as const,
+          [requestTokenState, HEYSTACK_HEY_TX_REQUEST] as const,
+          [
+            selectedAssetIdState,
+            'ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N.hey-token::hey-token',
+          ] as const,
+        ]}
+      >
+        {children}
+      </Provider>
+    </QueryClientProvider>
   </Router>
 );
 
 export const ProviderWitHeySelectedAsset: React.FC = ({ children }) => (
   <Router>
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={testQueryClient}>
       <Provider
         initialValues={[
           [walletState, TEST_WALLET] as const,

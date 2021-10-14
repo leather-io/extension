@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+
 import { useTransactionError } from '@pages/transaction-signing/hooks/use-transaction-error';
 import {
   BroadcastErrorMessage,
@@ -24,6 +25,7 @@ export enum TransactionErrorReason {
 export const TransactionErrorSuspense = memo(() => {
   const reason = useTransactionError();
   if (!reason) return null;
+
   switch (reason) {
     case TransactionErrorReason.NoContract:
       return <NoContractErrorMessage />;

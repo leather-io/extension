@@ -8,7 +8,7 @@ import { currentAccountState, currentAccountStxAddressState } from '@store/accou
 import { requestTokenPayloadState } from '@store/transactions/requests';
 
 import { generateSignedTransaction } from '@common/transactions/transactions';
-import { TransactionPayload, TransactionTypes } from '@stacks/connect';
+import { TransactionTypes } from '@stacks/connect';
 import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
 import { validateStacksAddress } from '@common/stacks-utils';
@@ -83,9 +83,6 @@ export const transactionNetworkVersionState = atom(get =>
     : TransactionVersion.Testnet
 );
 
-export type TransactionPayloadWithAttachment = TransactionPayload & {
-  attachment?: string;
-};
 export const isUnauthorizedTransactionState = atom<boolean>(false);
 export const transactionBroadcastErrorState = atom<string | null>(null);
 

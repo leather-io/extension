@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
-import { Stack, color, StackProps } from '@stacks/ui';
-import { deserializeCV, cvToString, getCVTypeString } from '@stacks/transactions';
 
-import { Divider } from '@components/divider';
+import { useContractFunction } from '@common/hooks/contracts/use-contract-function';
 import { useExplorerLink } from '@common/hooks/use-explorer-link';
+import { Divider } from '@components/divider';
+import { LoadingRectangle } from '@components/loading-rectangle';
 import { Caption, Title } from '@components/typography';
 import { ContractPreview } from '@pages/transaction-signing/components/contract-preview';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
-import { LoadingRectangle } from '@components/loading-rectangle';
-import { useTransactionFunction } from '@store/transactions/transaction.hooks';
+import { Stack, color, StackProps } from '@stacks/ui';
+import { deserializeCV, cvToString, getCVTypeString } from '@stacks/transactions';
+import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 
 import { AttachmentRow } from './attachment-row';
 import { RowItem } from './row-item';
@@ -18,24 +18,10 @@ interface ArgumentProps {
   index: number;
 }
 
-const useFuctionArgumentName = (index: number) => {
-  const txFunction = useTransactionFunction();
-  return txFunction?.args[index].name || null;
-};
-const FunctionArgumentNameSuspense = ({ index }: { index: number }) => {
-  const name = useFuctionArgumentName(index);
-  return <>{name}</>;
-};
-const FunctionArgumentNameFallback = () => {
-  return <LoadingRectangle width="42px" height="14px" />;
-};
-
 const FunctionArgumentName = ({ index }: { index: number }) => {
-  return (
-    <React.Suspense fallback={<FunctionArgumentNameFallback />}>
-      <FunctionArgumentNameSuspense index={index} />
-    </React.Suspense>
-  );
+  const contractFunction = useContractFunction();
+  if (!contractFunction) return <LoadingRectangle width="42px" height="14px" />;
+  return <>{contractFunction?.args[index].name}</>;
 };
 
 const FunctionArgumentRow: React.FC<ArgumentProps> = ({ arg, index, ...rest }) => {
@@ -53,12 +39,13 @@ const FunctionArgumentRow: React.FC<ArgumentProps> = ({ arg, index, ...rest }) =
 };
 
 const FunctionArgumentsList = memo((props: StackProps) => {
-  const transactionRequest = useTransactionRequest();
+  const transactionRequest = useTransactionRequestState();
 
   if (!transactionRequest || transactionRequest.txType !== 'contract_call') {
     return null;
   }
   const hasArgs = transactionRequest.functionArgs.length > 0;
+
   return (
     <>
       {hasArgs ? (
@@ -79,7 +66,7 @@ const FunctionArgumentsList = memo((props: StackProps) => {
 });
 
 export const ContractCallDetailsSuspense = () => {
-  const transactionRequest = useTransactionRequest();
+  const transactionRequest = useTransactionRequestState();
   const { handleOpenTxLink } = useExplorerLink();
   if (!transactionRequest || transactionRequest.txType !== 'contract_call') return null;
   const { contractAddress, contractName, functionName, attachment } = transactionRequest;

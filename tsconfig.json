@@ -35,7 +35,8 @@
       "@pages/*": ["pages/*"],
       "@features/*": ["features/*"],
       "@tests/*": ["../tests/*"],
-      "@tests": ["../tests"]
+      "@tests": ["../tests"],
+      "@models/*": ["models/*"]
     },
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,

@@ -1,6 +1,13 @@
 import { useCallback } from 'react';
 import BN from 'bn.js';
+import { useAtom } from 'jotai';
 import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
+
+import { todaysIsoDate } from '@common/date-utils';
+import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
+import { useWallet } from '@common/hooks/use-wallet';
+import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
+import { handleBroadcastTransaction } from '@common/transactions/transactions';
 import {
   AnchorMode,
   bufferCVFromString,
@@ -18,11 +25,17 @@ import {
   standardPrincipalCVFromAddress,
   uintCV,
 } from '@stacks/transactions';
-
-import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
+import {
+  localStacksTransactionInputsState,
+  localTransactionState,
+} from '@store/transactions/local-transactions';
+import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
+import { selectedAssetStore } from '@store/assets/asset-search';
+import { updateTransactionFee } from '@store/transactions/utils';
+
 import {
   pendingTransactionState,
   signedTransactionState,
@@ -31,41 +44,12 @@ import {
   txByteSize,
   txForSettingsState,
 } from './index';
-import {
-  transactionContractInterfaceState,
-  transactionContractSourceState,
-  transactionFunctionsState,
-} from './contract-call';
-import { postConditionsState } from './post-conditions';
-import { useWallet } from '@common/hooks/use-wallet';
-import { requestTokenState } from './requests';
-import { handleBroadcastTransaction } from '@common/transactions/transactions';
 import { makeFungibleTokenTransferState } from './fungible-token-transfer';
-import { selectedAssetStore } from '@store/assets/asset-search';
-import { updateTransactionFee } from '@store/transactions/utils';
-import { useAtom } from 'jotai';
-import {
-  localStacksTransactionInputsState,
-  localTransactionState,
-} from '@store/transactions/local-transactions';
-import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
-import { todaysIsoDate } from '@common/date-utils';
-import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
+import { postConditionsState } from './post-conditions';
+import { requestTokenState } from './requests';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
-}
-
-export function useTransactionContractInterface() {
-  return useAtomValue(transactionContractInterfaceState);
-}
-
-export function useTransactionContractSource() {
-  return useAtomValue(transactionContractSourceState);
-}
-
-export function useTransactionFunction() {
-  return useAtomValue(transactionFunctionsState);
 }
 
 export function useTransactionPostConditions() {

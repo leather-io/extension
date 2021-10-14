@@ -13,7 +13,7 @@ import {
   getPostConditionTitle,
   getSymbolFromPostCondition,
 } from '@common/transactions/post-condition-utils';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { TransactionEventCard } from '../event-card';
 import { useAssetFromFungiblePostCondition } from '@store/transactions/post-conditions.hooks';
 import { LoadingSpinner } from '@components/loading-spinner';
@@ -29,7 +29,7 @@ export const FungiblePostConditionComponentSuspense: React.FC<FungiblePostCondit
   isLast,
 }) => {
   const currentAccount = useCurrentAccount();
-  const pendingTransaction = useTransactionRequest();
+  const pendingTransaction = useTransactionRequestState();
   // Use token meta data if available
   const asset = useAssetFromFungiblePostCondition(pc);
 

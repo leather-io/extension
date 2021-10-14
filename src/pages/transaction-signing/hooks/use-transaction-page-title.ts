@@ -1,9 +1,9 @@
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { useMemo } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 
 export function useTransactionPageTitle() {
-  const transactionRequest = useTransactionRequest();
+  const transactionRequest = useTransactionRequestState();
   const txType = transactionRequest?.txType;
   return useMemo(() => {
     if (!transactionRequest) return;
