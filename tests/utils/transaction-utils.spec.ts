@@ -1,4 +1,3 @@
-import '../setup';
 import { generateSignedTransaction } from '@common/transactions/transactions';
 import {
   PostConditionMode,

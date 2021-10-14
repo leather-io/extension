@@ -19,7 +19,8 @@ export const requestTokenState = atomWithParam('transaction?request', null);
 
 export const requestTokenPayloadState = atom(get => {
   const token = get(requestTokenState);
-  return token ? getPayloadFromToken(token) : null;
+  if (!token) return;
+  return getPayloadFromToken(token);
 });
 
 export const requestTokenOriginState = atom(get => {

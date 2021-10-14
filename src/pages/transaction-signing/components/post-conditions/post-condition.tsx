@@ -12,7 +12,7 @@ import {
   getPostConditionTitle,
   getSymbolFromPostCondition,
 } from '@common/transactions/post-condition-utils';
-import { useTransactionRequest } from '@store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { TransactionEventCard } from '../event-card';
 import { LoadingSpinner } from '@components/loading-spinner';
 import { NonFungiblePostCondition, STXPostCondition } from '@common/types';
@@ -24,7 +24,7 @@ interface PostConditionProps {
 
 export const PostConditionComponentSuspense: React.FC<PostConditionProps> = ({ pc, isLast }) => {
   const currentAccount = useCurrentAccount();
-  const pendingTransaction = useTransactionRequest();
+  const pendingTransaction = useTransactionRequestState();
 
   const title = getPostConditionTitle(pc);
   const iconString = getIconStringFromPostCondition(pc);
