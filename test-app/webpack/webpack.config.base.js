@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const webpack = require('webpack');
-const { version: _version } = require('../../package.json');
+const { version: _version } = require('../package.json');
 const { execSync } = require('child_process');
 
 // plugins
@@ -94,7 +94,7 @@ const config = {
     extensions: ['.js', '.ts', '.tsx', '.json', '.d.ts'],
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: path.resolve('./test-app/tsconfig.json'),
+        configFile: path.resolve('./tsconfig.json'),
       }),
     ],
     alias: aliases,

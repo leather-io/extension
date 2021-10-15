@@ -62,6 +62,9 @@ jobs:
         uses: ./.github/actions/provision
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
 
+      - name: Install test-app packages
+        run: cd test-app && yarn install
+
       - name: Install browser binaries
         uses: nick-invision/retry@v2
         if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'

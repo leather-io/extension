@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "esnext",
     "module": "commonjs",
-    "lib": ["es2017", "dom"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react",
     "sourceMap": true,
     "removeComments": true,
@@ -11,10 +11,6 @@
     "downlevelIteration": true,
     "strict": true,
     "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
     "skipLibCheck": true,
@@ -22,21 +18,28 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "paths": {
-      "@store/*": ["./store/*"],
-      "@store": ["./store/index"],
-      "@dev/*": ["./dev/*"],
-      "@components/*": ["./components/*"],
-      "@containers/*": ["./containers/*"],
-      "@common/*": ["./common/*"],
-      "@cards/*": ["./components/cards/*"],
-      "@tests/*": ["../../tests/*"]
+      "@store/*": ["../src/store/*"],
+      "@store": ["../src/store/index"],
+      "@components/*": ["../src/components/*"],
+      "@containers/*": ["../src/containers/*"],
+      "@common/*": ["../src/common/*"],
+      "@screen": ["../src/components/screen/index"],
+      "@background/*": ["../src/background/*"],
+      "@content-scripts/*": ["../src/content-scripts/*"],
+      "@inpage/*": ["../src/inpage/*"],
+      "@pages/*": ["../src/pages/*"],
+      "@features/*": ["../src/features/*"],
+      "@tests/*": ["../../tests/*"],
+      "@tests": ["../../tests"]
     },
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["jest", "chrome"]
   },
-  "include": ["./src/**/*", "./tests/**/*", "./components/**/*", "./common/**/*"]
+  "include": ["./src/**/*", "./tests/**/*"],
+  "exclude": ["test-app"]
 }
