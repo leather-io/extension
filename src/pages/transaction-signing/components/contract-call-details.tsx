@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { useContractFunction } from '@common/hooks/contracts/use-contract-function';
+import { useContractFunction } from '@query/contract/contract.hooks';
 import { useExplorerLink } from '@common/hooks/use-explorer-link';
 import { Divider } from '@components/divider';
 import { LoadingRectangle } from '@components/loading-rectangle';
