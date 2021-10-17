@@ -5,7 +5,7 @@ import { TransactionPayload, TransactionTypes } from '@stacks/connect';
 import { useApi } from '@store/common/api-clients.hooks';
 
 export function useGetContractInterface(
-  transactionRequest: TransactionPayload | undefined,
+  transactionRequest: TransactionPayload | null,
   reactQueryOptions: UseQueryOptions = {}
 ) {
   const { smartContractsApi } = useApi();
@@ -21,8 +21,9 @@ export function useGetContractInterface(
     }) as unknown as Promise<ContractInterfaceResponseWithFunctions>;
   };
 
-  return useQuery(['contract-interface', transactionRequest?.publicKey], fetchContractInterface, {
-    enabled: !!transactionRequest,
-    ...(reactQueryOptions as any),
+  return useQuery({
+    queryKey: ['contract-interface', transactionRequest?.publicKey],
+    queryFn: fetchContractInterface,
+    ...reactQueryOptions,
   });
 }
