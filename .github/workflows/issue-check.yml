@@ -4,7 +4,7 @@ on:
     types: [opened]
 
 jobs:
-  checkIssueTitle:
+  check-empty-issues:
     name: Check Issue Title
     runs-on: ubuntu-latest
     steps:

@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "🛠  Packaging Browser Extension"
+echo "🛠  Packaging Hiro Wallet Web Extension"
 if [ -d ./dist ]; then
   cd dist
 else
@@ -14,7 +14,7 @@ find -print | while read file; do
       exit 2
     fi
 done
-DEFAULT_DEST="../stacks-wallet-chromium.zip"
+DEFAULT_DEST="../hiro-wallet.zip"
 DEST=${1:-$DEFAULT_DEST}
 zip -Xro $DEST *
 if [ ! -f $DEST ]; then
