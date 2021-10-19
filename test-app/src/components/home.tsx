@@ -6,8 +6,9 @@ import { Tab } from './tab';
 import { Status } from './status';
 import { Counter } from './counter';
 import { Debugger } from './debugger';
+import { Bns } from './bns';
 
-type Tabs = 'status' | 'counter' | 'debug';
+type Tabs = 'status' | 'counter' | 'debug' | 'bns';
 
 const Container: React.FC<BoxProps> = ({ children, ...props }) => {
   return (
@@ -33,12 +34,16 @@ const Page: React.FC<{ tab: Tabs; setTab: (value: Tabs) => void }> = ({ tab, set
           <Tab active={tab === 'counter'}>
             <Text onClick={() => setTab('counter')}>Counter smart contract</Text>
           </Tab>
+          <Tab active={tab === 'bns'}>
+            <Text onClick={() => setTab('bns')}>BNS</Text>
+          </Tab>
         </Flex>
       </Container>
       <Container>
         {tab === 'status' && <Status />}
         {tab === 'counter' && <Counter />}
         {tab === 'debug' && <Debugger />}
+        {tab === 'bns' && <Bns />}
       </Container>
     </>
   );
