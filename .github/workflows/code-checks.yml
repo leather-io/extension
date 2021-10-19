@@ -6,152 +6,67 @@ on:
       - '**'
 
 jobs:
-  lint:
+  lint-prettier:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
 
       - name: Lint
-        run: yarn lint
+        run: yarn lint:prettier
+
+  lint-eslint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
+
+      - name: Lint
+        run: yarn lint:eslint
 
   audit:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
 
       - name: Audit
         run: yarn audit-ci --high
 
   typecheck:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
 
       - name: Typecheck
         run: yarn typecheck
 
   check-deps:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
 
       - name: Check dependency rules
         run: yarn check:deps
 
   locked-versions:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: ./.github/actions/provision
 
       - name: Check exact versions
         uses: ./.github/actions/check-version-lock
 
   test-unit:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/cache@v1
-        name: Cache Jest cache
-        id: cache-jest-cache
-        with:
-          path: '.jest-cache'
-          key: ${{ runner.os }}--jest
-
-      # https://github.com/nodejs/node/issues/40030
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
 
       - name: Build
         run: yarn build
@@ -161,55 +76,27 @@ jobs:
 
   check-message-schema:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
 
       - name: Validate message schema
         run: npx ajv-cli validate -s config/wallet-comms.schema.json -d config/wallet-comms.json
 
   check-unused-exports:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: ./.github/actions/provision
 
       - name: Check unused TypeScript exports
         run: yarn check:unused-exports
 
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
 
       - name: Build
         run: yarn build
