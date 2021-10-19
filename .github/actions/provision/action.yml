@@ -3,7 +3,18 @@ description: Set up job with tasks needed to run a code check
 runs:
   using: 'composite'
   steps:
-    - name: Install yarn dependencies
+    - name: Set up node
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - uses: actions/cache@v2
+      id: cache-node-modules
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
+
+    - name: Install dependencies
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       run: yarn --frozen-lockfile
