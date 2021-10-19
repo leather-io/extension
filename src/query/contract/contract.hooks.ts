@@ -8,14 +8,14 @@ import { useContractInterfaceState } from '@store/contracts/contract.hooks';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 
 export function useContractInterface(transactionRequest: TransactionPayload | null) {
-  const [contractInterface, setContractInterface] = useContractInterfaceState();
+  const [, setContractInterface] = useContractInterfaceState();
   const queryOptions: UseQueryOptions<ContractInterfaceResponseWithFunctions> = {
     onSuccess: (data: ContractInterfaceResponseWithFunctions) => {
       if (data) setContractInterface(data);
     },
   };
-  useGetContractInterface(transactionRequest, queryOptions as any);
-  return contractInterface || {};
+  const result = useGetContractInterface(transactionRequest, queryOptions as any);
+  return result;
 }
 
 export const useContractFunction = () => {
