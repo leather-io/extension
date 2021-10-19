@@ -13,10 +13,10 @@ import {
   getSymbolFromPostCondition,
 } from '@common/transactions/post-condition-utils';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
-import { TransactionEventCard } from '../event-card';
 import { LoadingSpinner } from '@components/loading-spinner';
 import { NonFungiblePostCondition, STXPostCondition } from '@common/types';
 
+import { TransactionEventCard } from '../transaction-event-card';
 interface PostConditionProps {
   pc: STXPostCondition | NonFungiblePostCondition;
   isLast?: boolean;

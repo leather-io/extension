@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
 
-import { ContractCallDetails } from './contract-call-details';
+import { ContractCallDetails } from '@pages/transaction-signing/components/details/contract-call-details';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { cvToString, deserializeCV } from '@stacks/transactions';
-
+import { render, waitFor } from '@testing-library/react';
 import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
 import { HEYSTACK_HEY_TX_REQUEST_DECODED } from '@tests/mocks';
 import { setupHeystackEnv } from '@tests/mocks/heystack';

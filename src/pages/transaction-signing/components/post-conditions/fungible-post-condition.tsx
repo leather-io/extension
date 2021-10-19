@@ -1,6 +1,7 @@
 import React from 'react';
-import { TransactionTypes } from '@stacks/connect';
 
+import { TransactionEventCard } from '@pages/transaction-signing/components/transaction-event-card';
+import { TransactionTypes } from '@stacks/connect';
 import { addressToString } from '@stacks/transactions';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { ftDecimals } from '@common/stacks-utils';
@@ -14,7 +15,6 @@ import {
   getSymbolFromPostCondition,
 } from '@common/transactions/post-condition-utils';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
-import { TransactionEventCard } from '../event-card';
 import { useAssetFromFungiblePostCondition } from '@store/transactions/post-conditions.hooks';
 import { LoadingSpinner } from '@components/loading-spinner';
 import { FungiblePostCondition } from '@common/types';

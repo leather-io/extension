@@ -10,8 +10,8 @@ import { useLoading } from '@common/hooks/use-loading';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { SpaceBetween } from '@components/space-between';
-import { NetworkRowItem } from '@components/network-row-item';
-import { TransactionEventCard } from '@pages/transaction-signing/components/event-card';
+import { NetworkRow } from '@components/network-row';
+import { TransactionTransactionEventCard } from '@pages/transaction-signing/components/transaction-event-card';
 import { useDrawers } from '@common/hooks/use-drawers';
 import {
   useLocalTransactionInputsState,
@@ -22,14 +22,12 @@ import { ShowTxSettingsAction } from '@features/fee-nonce-drawers/components/sho
 
 const LOADING_KEY = 'confirm-send-drawer';
 
-const TransactionDetails: React.FC<
-  {
-    amount: number;
-    nonce?: number;
-    fee?: number;
-    recipient: string;
-  } & StackProps
-> = ({ amount, nonce, fee, recipient, ...rest }) => {
+const TransactionDetails: React.FC<{
+  amount: number;
+  nonce?: number;
+  fee?: number;
+  recipient: string;
+} & StackProps> = ({ amount, nonce, fee, recipient, ...rest }) => {
   const { ticker } = useSelectedAsset();
   const currentAccount = useCurrentAccount();
   const { selectedAsset } = useSelectedAsset();
@@ -119,7 +117,7 @@ export const ConfirmSendDrawer: React.FC<Omit<BaseDrawerProps, 'title'>> = ({
           </SpaceBetween>
           <SpaceBetween>
             <Caption>Network</Caption>
-            <NetworkRowItem />
+            <NetworkRow />
           </SpaceBetween>
         </Stack>
         <Actions transaction={transaction} handleCancel={handleCancel} />

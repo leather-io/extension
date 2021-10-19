@@ -2,11 +2,12 @@ import React, { FC } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { Flex, Text, Box, color, Stack } from '@stacks/ui';
 import { Tooltip } from '@components/tooltip';
-interface HighFeeWarningLabelProps {
+
+interface HighFeeWarningProps {
   appName: string | undefined;
 }
 
-export const HighFeeWarningLabel: FC<HighFeeWarningLabelProps> = ({ appName }) => {
+export const HighFeeWarning: FC<HighFeeWarningProps> = ({ appName }) => {
   const warningLabel = `${appName} suggests a higher fee to speed up your transaction. You can edit the fee in the
         settings below.`;
 

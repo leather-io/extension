@@ -1,10 +1,10 @@
 import React from 'react';
 import { color, Stack } from '@stacks/ui';
-import { AttachmentRow } from './attachment-row';
+import { AttachmentRow } from '../attachment-row';
 import { Title } from '@components/typography';
 import { Divider } from '@components/divider';
+import { RowItem } from '@pages/transaction-signing/components/row-item';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
-import { RowItem } from './row-item';
 
 export const StxTransferDetails: React.FC = () => {
   const pendingTransaction = useTransactionRequestState();

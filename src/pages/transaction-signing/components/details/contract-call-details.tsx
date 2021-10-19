@@ -6,12 +6,11 @@ import { Divider } from '@components/divider';
 import { hexToBuff } from '@common/utils';
 import { Caption, Title } from '@components/typography';
 import { ContractPreview } from '@pages/transaction-signing/components/contract-preview';
+import { AttachmentRow } from '@pages/transaction-signing/components/attachment-row';
+import { RowItem } from '@pages/transaction-signing/components/row-item';
 import { Stack, color, StackProps } from '@stacks/ui';
 import { deserializeCV, cvToString, getCVTypeString } from '@stacks/transactions';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
-
-import { AttachmentRow } from './attachment-row';
-import { RowItem } from './row-item';
 
 interface ArgumentProps {
   arg: string;

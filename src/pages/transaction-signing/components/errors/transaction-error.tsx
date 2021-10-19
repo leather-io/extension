@@ -9,7 +9,7 @@ import {
   NoContractErrorMessage,
   StxTransferInsufficientFundsErrorMessage,
   UnauthorizedErrorMessage,
-} from '@pages/transaction-signing/components/transaction-errors';
+} from '@pages/transaction-signing/components/errors/error-messages';
 
 export enum TransactionErrorReason {
   StxTransferInsufficientFunds = 1,

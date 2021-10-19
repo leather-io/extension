@@ -8,7 +8,7 @@ import { Body } from '@components/typography';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
-import { TransactionEventCard } from '../event-card';
+import { TransactionTransactionEventCard } from '../transaction-event-card';
 import { FungiblePostConditionComponent } from './fungible-post-condition';
 import { useTransactionPostConditions } from '@store/transactions/transaction.hooks';
 
@@ -90,10 +90,9 @@ const PostConditionsSuspense: React.FC = () => {
   const postConditions = useTransactionPostConditions();
   const mode = usePostConditionModeState();
   const pendingTransaction = useTransactionRequestState();
-  const hasPostConditions = useMemo(
-    () => postConditions && postConditions?.length > 0,
-    [postConditions]
-  );
+  const hasPostConditions = useMemo(() => postConditions && postConditions?.length > 0, [
+    postConditions,
+  ]);
   const isStxTransfer =
     pendingTransaction?.txType === TransactionTypes.STXTransfer && !hasPostConditions;
 
