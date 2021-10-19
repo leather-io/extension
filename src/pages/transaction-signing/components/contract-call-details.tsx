@@ -3,7 +3,6 @@ import React, { memo } from 'react';
 import { useContractFunction } from '@query/contract/contract.hooks';
 import { useExplorerLink } from '@common/hooks/use-explorer-link';
 import { Divider } from '@components/divider';
-import { LoadingRectangle } from '@components/loading-rectangle';
 import { Caption, Title } from '@components/typography';
 import { ContractPreview } from '@pages/transaction-signing/components/contract-preview';
 import { Stack, color, StackProps } from '@stacks/ui';
@@ -20,8 +19,7 @@ interface ArgumentProps {
 
 const FunctionArgumentName = ({ index }: { index: number }) => {
   const contractFunction = useContractFunction();
-  if (!contractFunction) return <LoadingRectangle width="42px" height="14px" />;
-  return <>{contractFunction?.args[index].name}</>;
+  return <>{contractFunction?.args[index].name || 'unknown'}</>;
 };
 
 const FunctionArgumentRow: React.FC<ArgumentProps> = ({ arg, index, ...rest }) => {
