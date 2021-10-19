@@ -28,6 +28,7 @@ interface ErrorMessageProps extends StackProps {
     variant?: 'secondary';
   }[];
 }
+
 export const ErrorMessage = memo(({ title, body, actions, ...rest }: ErrorMessageProps) => {
   return (
     <Stack

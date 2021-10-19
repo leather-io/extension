@@ -11,7 +11,7 @@ import { stacksValue } from '@common/stacks-utils';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { ErrorMessage } from '@pages/transaction-signing/components/error';
+import { ErrorMessage } from '@pages/transaction-signing/components/errors/error-message';
 import { useDrawers } from '@common/hooks/use-drawers';
 
 import { useScrollLock } from '@common/hooks/use-scroll-lock';

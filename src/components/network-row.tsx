@@ -3,7 +3,7 @@ import { Caption, Text } from '@components/typography';
 import React from 'react';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 
-export function NetworkRowItem(props: StackProps) {
+export function NetworkRow(props: StackProps) {
   const { isTestnet, name } = useCurrentNetwork();
   return (
     <Stack

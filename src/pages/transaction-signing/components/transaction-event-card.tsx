@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, color, IconButton, Stack, Text } from '@stacks/ui';
-import { SpaceBetween } from '@components/space-between';
 import { FiMoreHorizontal as IconDots } from 'react-icons/fi';
+
 import { Caption } from '@components/typography';
+import { SpaceBetween } from '@components/space-between';
 import { AssetItem } from '@pages/transaction-signing/components/asset-item';
+import { Box, color, IconButton, Stack, Text } from '@stacks/ui';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 export const TransactionEventCard: React.FC<any> = ({

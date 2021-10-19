@@ -7,8 +7,8 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { Caption, Title } from '@components/typography';
 import { Divider } from '@components/divider';
 import { ContractPreview } from '@pages/transaction-signing/components/contract-preview';
-import { RowItem } from './row-item';
-import { AttachmentRow } from './attachment-row';
+import { RowItem } from '@pages/transaction-signing/components/row-item';
+import { AttachmentRow } from '@pages/transaction-signing/components/attachment-row';
 
 function ContractCodeSection() {
   const pendingTransaction = usePendingTransaction();

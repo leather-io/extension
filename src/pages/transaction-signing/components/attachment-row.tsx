@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { hexToHumanReadable } from '@common/utils';
-import { RowItem } from './row-item';
+import { RowItem } from '@pages/transaction-signing/components/row-item';
+import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 
 export const AttachmentRow: React.FC = () => {
   const pendingTransaction = useTransactionRequestState();

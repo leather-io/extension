@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { validateStacksAddress } from '@common/stacks-utils';
 import { useWallet } from '@common/hooks/use-wallet';
-import { TransactionErrorReason } from '@pages/transaction-signing/components/transaction-error';
+import { TransactionErrorReason } from '@pages/transaction-signing/components/errors/transaction-error';
 import { useTransactionFee } from '@pages/transaction-signing/hooks/use-transaction-fee';
 import { useContractInterface } from '@query/contract/contract.hooks';
 import { TransactionTypes } from '@stacks/connect';
