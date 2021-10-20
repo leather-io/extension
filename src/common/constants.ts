@@ -2,6 +2,8 @@ import { ChainID } from '@stacks/transactions';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
+export const HUMAN_REACTION_DEBOUNCE_TIME = 250;
+
 export const STX_TRANSFER_TX_SIZE_BYTES = 180;
 
 export const USERNAMES_ENABLED = process.env.USERNAMES_ENABLED === 'true';

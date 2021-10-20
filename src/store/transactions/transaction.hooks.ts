@@ -27,7 +27,11 @@ import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-
 import { updateTransactionFee } from '@store/transactions/utils';
 
 import {
+  estimatedSignedTransactionByteLengthState,
+  estimatedTransactionByteLengthState,
   pendingTransactionState,
+  serializedSignedTransactionPayloadState,
+  serializedTransactionPayloadState,
   signedTransactionState,
   transactionAttachmentState,
   transactionBroadcastErrorState,
@@ -48,6 +52,26 @@ export function useTransactionPostConditions() {
 
 export function useSignedTransaction() {
   return useAtomValue(signedTransactionState);
+}
+
+// See notes by atoms for these duplicated hooks using
+// different transaction states. This should be looked at
+// with the new transaction signing flow. These are used
+// for getting the fee estimates.
+export function useSerializedSignedTransactionPayloadState() {
+  return useAtomValue(serializedSignedTransactionPayloadState);
+}
+
+export function useEstimatedSignedTransactionByteLengthState() {
+  return useAtomValue(estimatedSignedTransactionByteLengthState);
+}
+
+export function useSerializedTransactionPayloadState() {
+  return useAtomValue(serializedTransactionPayloadState);
+}
+
+export function useEstimatedTransactionByteLengthState() {
+  return useAtomValue(estimatedTransactionByteLengthState);
 }
 
 interface TokenTransferParams {

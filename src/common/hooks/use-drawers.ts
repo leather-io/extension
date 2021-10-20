@@ -5,7 +5,7 @@ import {
   useShowSettingsStore,
   useShowSignOut,
   useShowTxSettingsCallback,
-  useShowTxSettingsStore,
+  useShowEditNonceState,
 } from '@store/ui/ui.hooks';
 
 export function useDrawers() {
@@ -13,7 +13,7 @@ export function useDrawers() {
   const [showAccounts, setShowAccounts] = useShowAccountsStore();
   const [showNetworks, setShowNetworks] = useShowNetworksStore();
   const [showSettings, setShowSettings] = useShowSettingsStore();
-  const [showTxSettings, setShowTxSettings] = useShowTxSettingsStore();
+  const [showEditNonce, setShowEditNonce] = useShowEditNonceState();
   const [showTxSettingsCallback, setShowTxSettingsCallback] = useShowTxSettingsCallback();
   const [showSignOut, setShowSignOut] = useShowSignOut();
 
@@ -26,8 +26,8 @@ export function useDrawers() {
     setShowNetworks,
     showSettings,
     setShowSettings,
-    showTxSettings,
-    setShowTxSettings,
+    showEditNonce,
+    setShowEditNonce,
     showTxSettingsCallback,
     setShowTxSettingsCallback,
     showSignOut,

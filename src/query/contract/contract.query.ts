@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from 'react-query';
+import { TransactionPayload, TransactionTypes } from '@stacks/connect';
 
 import { ContractInterfaceResponseWithFunctions } from '@models/contract-types';
-import { TransactionPayload, TransactionTypes } from '@stacks/connect';
 import { useApi } from '@store/common/api-clients.hooks';
 
 export function useGetContractInterface(

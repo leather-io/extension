@@ -1,24 +1,30 @@
 import React, { memo } from 'react';
 import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
+
 import { useAssets } from '@store/assets/asset.hooks';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { ErrorLabel } from '@components/error-label';
+import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useFeeState } from '@store/transactions/fees.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxWithSuspense } from './send-max-button';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { SendMaxButton } from './send-max-button';
 
 interface AmountFieldProps extends StackProps {
-  value: number;
   error?: string;
+  feeQueryError: boolean;
+  value: number;
 }
 
 // TODO: this should use a new "Field" component (with inline label like in figma)
-export const AmountField = memo((props: AmountFieldProps) => {
-  const { value, error, ...rest } = props;
+function AmountFieldBase(props: AmountFieldProps) {
+  const { error, feeQueryError, value, ...rest } = props;
 
   const analytics = useAnalytics();
   const assets = useAssets();
@@ -28,6 +34,7 @@ export const AmountField = memo((props: AmountFieldProps) => {
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions({
     setFieldValue,
   });
+  const [fee] = useFeeState();
 
   const handleSetSendMaxTracked = (feeRate: number) => {
     void analytics.track('select_maximum_amount_for_send');
@@ -57,9 +64,10 @@ export const AmountField = memo((props: AmountFieldProps) => {
             data-testid={SendFormSelectors.InputAmountField}
           />
           {balances && selectedAsset ? (
-            <SendMaxWithSuspense
-              showButton={Boolean(balances && selectedAsset)}
-              onSetMax={feeRate => handleSetSendMaxTracked(feeRate)}
+            <SendMaxButton
+              data-testid={SendFormSelectors.BtnSendMaxBalance}
+              isLoading={!fee}
+              onClick={() => handleSetSendMaxTracked(fee)}
             />
           ) : null}
         </Box>
@@ -71,4 +79,6 @@ export const AmountField = memo((props: AmountFieldProps) => {
       )}
     </Stack>
   );
-});
+}
+
+export const AmountField = memo(AmountFieldBase);

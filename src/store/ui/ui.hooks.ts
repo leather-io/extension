@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { useUpdateAtom } from 'jotai/utils';
+
 import {
   accountDrawerStep,
   errorStackTraceState,
@@ -8,12 +10,10 @@ import {
   showNetworksStore,
   showSettingsStore,
   tabState,
-  showTxSettingsStore,
-  showTxSettingsCallback,
   showEditNonceState,
+  showTxSettingsCallback,
   showSignOut,
 } from './ui';
-import { useEffect } from 'react';
 
 export function useAccountDrawerStep() {
   return useAtom(accountDrawerStep);
@@ -39,8 +39,8 @@ export function useShowSettingsStore() {
   return useAtom(showSettingsStore);
 }
 
-export function useShowTxSettingsStore() {
-  return useAtom(showTxSettingsStore);
+export function useShowEditNonceState() {
+  return useAtom(showEditNonceState);
 }
 
 export function useShowSignOut() {
@@ -51,7 +51,7 @@ export function useShowTxSettingsCallback() {
   return useAtom(showTxSettingsCallback);
 }
 
-export function useLoadingStore(key: string) {
+export function useLoadingState(key: string) {
   return useAtom(loadingState(key));
 }
 
@@ -61,10 +61,6 @@ export function useTabState(key: string) {
 
 export function useErrorStackTraceState() {
   return useAtom(errorStackTraceState);
-}
-
-export function useShowEditNonceState() {
-  return useAtom(showEditNonceState);
 }
 
 export function useShowEditNonceCleanupEffect() {

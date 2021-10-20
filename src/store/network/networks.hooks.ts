@@ -1,4 +1,5 @@
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
+
 import {
   currentNetworkKeyState,
   currentNetworkState,

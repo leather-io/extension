@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 import BigNumber from 'bignumber.js';
+import { stxToMicroStx } from '@stacks/ui-utils';
+
 import { useWallet } from '@common/hooks/use-wallet';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { STX_DECIMALS, STX_TRANSFER_TX_SIZE_BYTES } from '@common/constants';
-import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 import { countDecimals, isNumber } from '@common/utils';
 import { transactionMemoSchema } from '@common/validation/validate-memo';
-import { stxToMicroStx } from '@stacks/ui-utils';
 import { stxAmountSchema } from '@common/validation/currency-schema';
 import {
   stxAddressNetworkValidatorFactory,
@@ -16,14 +16,18 @@ import {
 import { useCallback, useMemo } from 'react';
 import { SendFormErrorMessages } from '@common/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@common/error-formatters';
+import { useFeeSchema } from '@common/validation/use-fee-schema';
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 
 interface UseSendFormValidationArgs {
-  setAssetError(error: string): void;
+  setAssetError(error: string | undefined): void;
 }
+
 export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const { selectedAsset, balanceBigNumber } = useSelectedAsset();
+  const txFeeSchema = useFeeSchema();
   const isSendingStx = selectedAsset?.type === 'stx';
 
   // `selectedAsset` is in an atom's state, not the form, but we want to
@@ -33,7 +37,11 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
   const selectedAssetSchema = useCallback(
     () =>
       yup.mixed().test(() => {
-        if (!selectedAsset) setAssetError(SendFormErrorMessages.MustSelectAsset);
+        if (!selectedAsset) {
+          setAssetError(SendFormErrorMessages.MustSelectAsset);
+        } else {
+          setAssetError(undefined);
+        }
         return !!selectedAsset;
       }),
     [selectedAsset, setAssetError]
@@ -109,7 +117,8 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
         recipient: recipientSchema(),
         amount: amountSchema(),
         memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
+        txFee: txFeeSchema(),
       }),
-    [amountSchema, recipientSchema, selectedAssetSchema]
+    [amountSchema, txFeeSchema, recipientSchema, selectedAssetSchema]
   );
 };

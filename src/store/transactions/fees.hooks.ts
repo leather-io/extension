@@ -1,50 +1,44 @@
 import { useCallback } from 'react';
-import { useAtomCallback, useAtomValue } from 'jotai/utils';
-import {
-  currentFeeState,
-  currentDefaultFeeState,
-  feeRateState,
-  customAbsoluteTxFee,
-} from '@store/transactions/fees';
 import { useAtom } from 'jotai';
+import { useAtomCallback } from 'jotai/utils';
+
+import { LoadingKeys } from '@common/hooks/use-loading';
+import { useSubmitTransactionCallback } from '@pages/sign-transaction/hooks/use-submit-stx-transaction';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
-import { useSubmitTransactionCallback } from '@pages/transaction-signing/hooks/use-submit-stx-transaction';
-import { rawSignedStacksTransactionState } from '@store/transactions/raw';
-import { LOADING_KEYS } from '@common/hooks/use-loading';
+import { rawSignedTxState } from '@store/transactions/raw';
+import { feeState, feeRateState, feeEstimationsState } from '@store/transactions/fees';
 
-export function useCurrentFee() {
-  return useAtomValue(currentFeeState);
+export function useFeeEstimationsState() {
+  return useAtom(feeEstimationsState);
 }
 
-export function useCurrentDefaultFee() {
-  return useAtomValue(currentDefaultFeeState);
+export function useFeeState() {
+  return useAtom(feeState);
 }
 
-export function useCustomAbsoluteFee() {
-  return useAtom(customAbsoluteTxFee);
-}
-
-export function useFeeRate() {
+export function useFeeRateState() {
   return useAtom(feeRateState);
 }
 
 export const useReplaceByFeeSubmitCallBack = () => {
   const [, setTxId] = useRawTxIdState();
-  const [, setCustomAbsoluteFee] = useCustomAbsoluteFee();
+  const [, setFee] = useFeeState();
+  const [, setFeeRate] = useFeeRateState();
 
   const submitTransaction = useSubmitTransactionCallback({
     onClose: () => {
       setTxId(null);
-      setCustomAbsoluteFee(null);
+      setFee(null);
+      setFeeRate(null);
     },
-    loadingKey: LOADING_KEYS.INCREASE_FEE_DRAWER,
+    loadingKey: LoadingKeys.INCREASE_FEE_DRAWER,
     replaceByFee: true,
   });
 
   return useAtomCallback<void, { fee: number; nonce: number }>(
     useCallback(
       async get => {
-        const signedTx = await get(rawSignedStacksTransactionState, true);
+        const signedTx = await get(rawSignedTxState, true);
         if (!signedTx) return;
         await submitTransaction(signedTx);
       },

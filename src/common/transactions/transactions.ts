@@ -62,7 +62,7 @@ export interface GenerateSignedTransactionOptions {
   txData: ContractCallPayload | STXTransferPayload | ContractDeployPayload;
   senderKey: string;
   nonce?: number;
-  fee?: number;
+  fee?: number | null;
 }
 
 export async function generateSignedTransaction(options: GenerateSignedTransactionOptions) {

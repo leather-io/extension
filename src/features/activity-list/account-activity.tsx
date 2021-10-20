@@ -16,17 +16,17 @@ export const ActivityList = () => {
   const transactions = useAccountTransactionsWithTransfers();
   const pendingTransactions = useCurrentAccountFilteredMempoolTransactionsState();
 
-  const txids = useCurrentAccountLocalTxids();
   const localTxs = useCurrentAccountLocallySubmittedStacksTransactions();
+  const localTxids = useCurrentAccountLocalTxids();
   const allTransactions = [...pendingTransactions, ...transactions];
+  const hasTxs = localTxids.length > 0 || transactions.length > 0;
   useTrackChangedTransactions(allTransactions, localTxs);
-  const hasTxs = txids.length > 0 || transactions.length > 0;
 
   if (!hasTxs) return <NoAccountActivity />;
 
   return (
     <>
-      {txids.length > 0 && <LocalTxList txids={txids} />}
+      {localTxids.length > 0 && <LocalTxList txids={localTxids} />}
       {allTransactions.length > 0 && <TransactionList txs={allTransactions} />}
     </>
   );

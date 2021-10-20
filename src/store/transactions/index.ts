@@ -1,28 +1,26 @@
 import { atom } from 'jotai';
 
-import { AuthType, ChainID, TransactionVersion } from '@stacks/transactions';
-
-import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
-import { currentAccountNonceState } from '@store/accounts/nonce';
-import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
-import { requestTokenPayloadState } from '@store/transactions/requests';
-
-import { generateSignedTransaction } from '@common/transactions/transactions';
 import {
   ContractCallPayload,
   ContractDeployPayload,
   STXTransferPayload,
   TransactionTypes,
 } from '@stacks/connect';
-import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
-import { postConditionsState } from '@store/transactions/post-conditions';
-import { validateStacksAddress } from '@common/stacks-utils';
+import { AuthType, ChainID, StacksTransaction, TransactionVersion } from '@stacks/transactions';
+import { serializePayload } from '@stacks/transactions/dist/payload';
 
-import { calculateFeeFromFeeRate } from '@store/transactions/utils';
-import { customAbsoluteTxFee, feeRateState } from '@store/transactions/fees';
+import { validateStacksAddress } from '@common/stacks-utils';
+import { generateSignedTransaction } from '@common/transactions/transactions';
+import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
+import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
+import { currentAccountNonceState } from '@store/accounts/nonce';
+import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
+import { requestTokenPayloadState } from '@store/transactions/requests';
+import { postConditionsState } from '@store/transactions/post-conditions';
+import { feeState } from '@store/transactions/fees';
 import { localTransactionState } from '@store/transactions/local-transactions';
+
 import { customNonceState } from './nonce.hooks';
-import BigNumber from 'bignumber.js';
 
 export const pendingTransactionState = atom<
   ContractCallPayload | ContractDeployPayload | STXTransferPayload | undefined
@@ -68,11 +66,9 @@ const signedStacksTransactionBaseState = atom(get => {
 const signedStacksTransactionState = atom(get => {
   const { transaction, options } = get(signedStacksTransactionBaseState);
   if (!transaction) return;
-  const defaultFeeRate = get(feeRateState);
-  const defaultFee = calculateFeeFromFeeRate(transaction, defaultFeeRate);
-  const absoluteCustomFee = get(customAbsoluteTxFee);
-  const fee = absoluteCustomFee ? new BigNumber(absoluteCustomFee) : defaultFee;
-  return generateSignedTransaction({ ...options, fee: fee.toNumber() });
+  const fee = get(feeState);
+  if (!fee) return;
+  return generateSignedTransaction({ ...options, fee });
 });
 
 export const signedTransactionState = atom(get => {
@@ -87,6 +83,26 @@ export const signedTransactionState = atom(get => {
     fee: signedTransaction?.auth.spendingCondition?.fee?.toNumber(),
     txRaw,
   };
+});
+
+// The only way to get the StacksTransaction payload for the
+// fee estimates is to use the generated signed transaction here.
+// We could also add methods for `makeUnsigned...` transactions
+// which are available in Stacks.js but that should be done with
+// refactoring the new transaction signing flow.
+export const serializedSignedTransactionPayloadState = atom<string>(get => {
+  const { transaction } = get(signedStacksTransactionBaseState);
+  if (!transaction) return '';
+  const serializedTxPayload = serializePayload((transaction as StacksTransaction).payload);
+  return serializedTxPayload.toString('hex');
+});
+
+// Same note as serializedSignedTransactionPayloadState
+export const estimatedSignedTransactionByteLengthState = atom<number | null>(get => {
+  const { transaction } = get(signedStacksTransactionBaseState);
+  if (!transaction) return null;
+  const serializedTx = (transaction as StacksTransaction).serialize();
+  return serializedTx.byteLength;
 });
 
 export const transactionNetworkVersionState = atom(get =>
@@ -105,6 +121,24 @@ export const transactionBroadcastErrorState = atom<string | null>(null);
 export const txForSettingsState = atom(get =>
   get(pendingTransactionState) ? get(signedStacksTransactionState) : get(localTransactionState)
 );
+
+// Using txForSettingsState which should be refactored
+// with new transaction signing flow.
+export const serializedTransactionPayloadState = atom<string>(get => {
+  const transaction = get(txForSettingsState);
+  if (!transaction) return '';
+  const serializedTxPayload = serializePayload(transaction.payload);
+  return serializedTxPayload.toString('hex');
+});
+
+// Using txForSettingsState which should be refactored
+// with new transaction signing flow.
+export const estimatedTransactionByteLengthState = atom<number | null>(get => {
+  const transaction = get(txForSettingsState);
+  if (!transaction) return null;
+  const serializedTx = transaction.serialize();
+  return serializedTx.byteLength;
+});
 
 export const txByteSize = atom<number | null>(null);
 

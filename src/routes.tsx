@@ -5,14 +5,14 @@ import { Route as RouterRoute, Routes as RoutesDom, useLocation } from 'react-ro
 import { MagicRecoveryCode } from '@pages/install/magic-recovery-code';
 import { Username } from '@pages/username';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
-import { TransactionPage } from '@pages/transaction-signing/transaction-signing';
+import { SignTransaction } from '@pages/sign-transaction/sign-transaction';
 import { Installed } from '@pages/install';
 import { InstalledSignIn } from '@pages/install/sign-in';
 
 import { PopupReceive } from '@pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@pages/add-network/add-network';
 import { SetPasswordPage } from '@pages/set-password';
-import { SendTokensForm } from '@pages/send-tokens/send-tokens';
+import { SendTokensForm } from '@pages/send-tokens/send-tokens-form';
 
 import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view';
 import { ScreenPaths } from '@common/types';
@@ -135,7 +135,7 @@ export const Routes: React.FC = () => {
       />
       {/* Transactions */}
       <AccountGateRoute path={ScreenPaths.TRANSACTION_POPUP}>
-        <TransactionPage />
+        <SignTransaction />
       </AccountGateRoute>
     </RoutesDom>
   );

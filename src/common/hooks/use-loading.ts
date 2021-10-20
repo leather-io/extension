@@ -1,13 +1,15 @@
-import { useLoadingStore } from '@store/ui/ui.hooks';
+import { useLoadingState } from '@store/ui/ui.hooks';
 
-export enum LOADING_KEYS {
+export enum LoadingKeys {
   SUBMIT_TRANSACTION = 'loading/SUBMIT_TRANSACTION',
-  TX_FEE_NONCE_DRAWER = 'loading/TX_FEE_NONCE_DRAWER',
+  EDIT_NONCE_DRAWER = 'loading/EDIT_NONCE_DRAWER',
   INCREASE_FEE_DRAWER = 'loading/INCREASE_FEE_DRAWER',
+  SEND_TOKENS_FORM = 'loading/SEND_TOKENS_FORM',
+  CONFIRM_DRAWER = 'loading/CONFIRM_DRAWER',
 }
 
 export function useLoading(key: string) {
-  const [state, setState] = useLoadingStore(key);
+  const [state, setState] = useLoadingState(key);
 
   const setIsLoading = () => setState('loading');
   const setIsIdle = () => setState('idle');

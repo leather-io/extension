@@ -1,31 +1,29 @@
-import { FormikProps } from 'formik';
-import BigNumber from 'bignumber.js';
-import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-
 import React, { useCallback } from 'react';
+import { FormikProps } from 'formik';
+
+import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { microStxToStx } from '@common/stacks-utils';
-import { FormValues } from '@pages/send-tokens/send-tokens';
 import { removeCommas } from '@common/token-utils';
-import { STX_TRANSFER_TX_SIZE_BYTES } from '@common/constants';
+import { TransactionFormValues } from '@common/types';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 
 export function useSendAmountFieldActions({
   setFieldValue,
-}: Pick<FormikProps<FormValues>, 'setFieldValue'>) {
+}: Pick<FormikProps<TransactionFormValues>, 'setFieldValue'>) {
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const { selectedAsset, balance } = useSelectedAsset();
   const isStx = selectedAsset?.type === 'stx';
 
   const handleSetSendMax = useCallback(
-    (feeRate: number) => {
+    (fee: number | null) => {
       if (!selectedAsset || !balance) return;
       if (isStx) {
-        const txFee = microStxToStx(
-          new BigNumber(feeRate ?? 1).multipliedBy(STX_TRANSFER_TX_SIZE_BYTES).toString()
-        );
-        const stx = microStxToStx(availableStxBalance || 0).minus(txFee);
-        if (stx.isLessThanOrEqualTo(0)) return;
-        setFieldValue('amount', stx.toNumber());
+        if (fee) {
+          const stx = microStxToStx(availableStxBalance || 0).minus(microStxToStx(fee));
+          if (stx.isLessThanOrEqualTo(0)) return;
+          return setFieldValue('amount', stx.toNumber());
+        }
+        return setFieldValue('amount', removeCommas(balance));
       } else {
         if (balance) setFieldValue('amount', removeCommas(balance));
       }

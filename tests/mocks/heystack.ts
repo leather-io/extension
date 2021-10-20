@@ -1,5 +1,6 @@
 import {
   ADDRESS_TXS_DATA,
+  FEE_ESTIMATIONS_DATA,
   HEY_CONTRACT_INFO,
   HEY_CONTRACT_INTERFACE,
   HEY_CONTRACT_SOURCE_DATA,
@@ -39,6 +40,7 @@ export enum PostRequests {
   heyTokenGetSymbol = 'https://stacks-node-api.regtest.stacks.co/v2/contracts/call-read/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N/hey-token/get-symbol',
   heyTokenGetDecimals = 'https://stacks-node-api.regtest.stacks.co/v2/contracts/call-read/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N/hey-token/get-decimals',
   broadcastTransaction = 'https://stacks-node-api.regtest.stacks.co/v2/transactions',
+  feeEstimations = 'https://stacks-node-api.testnet.stacks.co/v2/fees/transaction',
 }
 
 const getRequests: Record<string, string> = {
@@ -61,6 +63,7 @@ const postRequests: Record<string, string> = {
   [PostRequests.heyTokenGetSymbol]: TOKEN_GET_SYMBOL_DATA,
   [PostRequests.heyTokenGetDecimals]: TOKEN_GET_DECIMALS_DATA,
   [PostRequests.broadcastTransaction]: 'null',
+  [PostRequests.feeEstimations]: FEE_ESTIMATIONS_DATA,
 };
 
 export function setupHeystackEnv(

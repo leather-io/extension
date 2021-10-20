@@ -40,12 +40,6 @@ export const Debugger = () => {
   const { doContractCall, doSTXTransfer, doContractDeploy } = useConnect();
   const address = useSTXAddress();
 
-  const feeInputForm = useFormik({
-    initialValues: { fee: '' },
-    onSubmit() {},
-  });
-  const customFee = feeInputForm.values.fee;
-
   const [txId, setTxId] = useState<string>('');
   const [txType, setTxType] = useState<string>('');
 
@@ -75,7 +69,6 @@ export const Debugger = () => {
       functionName: 'name-transfer',
       functionArgs: args,
       attachment: 'This is an attachment',
-      fee: customFee,
       postConditions: [
         createNonFungiblePostCondition(
           address || '', // the sender
@@ -102,7 +95,6 @@ export const Debugger = () => {
       standardPrincipalCV('ST9VQ21ZEGG54JDFE39B99ZBTSFSWMEC323MENFG'), // recipient
     ];
     await doContractCall({
-      fee: customFee,
       network,
       contractAddress: 'ST9VQ21ZEGG54JDFE39B99ZBTSFSWMEC323MENFG',
       contractName: 'animal',
@@ -136,7 +128,6 @@ export const Debugger = () => {
       ),
     ];
     await doContractCall({
-      fee: customFee,
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
       contractName: 'faker',
@@ -159,7 +150,6 @@ export const Debugger = () => {
   const stxTransfer = async (amount: string) => {
     clearState();
     await doSTXTransfer({
-      fee: customFee,
       network,
       amount,
       memo: 'From demo app',
@@ -177,7 +167,6 @@ export const Debugger = () => {
   const deployContract = async () => {
     clearState();
     await doContractDeploy({
-      fee: customFee,
       network,
       contractName: `demo-deploy-${new Date().getTime().toString()}`,
       codeBody: demoTokenContract,
@@ -194,7 +183,6 @@ export const Debugger = () => {
   const callNullContract = async () => {
     clearState();
     await doContractCall({
-      fee: customFee,
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
       contractName: `connect-token-${new Date().getTime()}`,
@@ -206,7 +194,6 @@ export const Debugger = () => {
   const getRocketTokens = async () => {
     clearState();
     await doContractCall({
-      fee: customFee,
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
       contractName: 'dull-sapphire-bird',
@@ -228,7 +215,6 @@ export const Debugger = () => {
   const getStellaFaucetTokens = async () => {
     clearState();
     await doContractCall({
-      fee: customFee,
       network,
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK7',
       contractName: 'stella-the-cat',
@@ -247,7 +233,6 @@ export const Debugger = () => {
   const sendStellaTokens = async () => {
     clearState();
     await doContractCall({
-      fee: customFee,
       network,
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK7',
       contractName: 'stella-the-cat',
@@ -282,7 +267,6 @@ export const Debugger = () => {
   const sendRocketTokens = async () => {
     clearState();
     await doContractCall({
-      fee: customFee,
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
       contractName: 'dull-sapphire-bird',
@@ -390,18 +374,6 @@ export const Debugger = () => {
           </Button>
         </ButtonGroup>
       </Box>
-      <Flex>
-        <Input
-          id="fee"
-          name="fee"
-          value={feeInputForm.values.fee}
-          onChange={feeInputForm.handleChange}
-          placeholder="Set a custom fee in µSTX"
-          width="360px"
-          mr="base-tight"
-        />
-        <Button onClick={() => feeInputForm.setFieldValue('fee', '')}>Reset fee</Button>
-      </Flex>
     </Box>
   );
 };

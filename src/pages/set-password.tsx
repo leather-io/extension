@@ -10,13 +10,11 @@ import { useWallet } from '@common/hooks/use-wallet';
 
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 
-import { USERNAMES_ENABLED } from '@common/constants';
+import { HUMAN_REACTION_DEBOUNCE_TIME, USERNAMES_ENABLED } from '@common/constants';
 import { validatePassword, blankPasswordValidation } from '@common/validation/validate-password';
 import { Body, Caption } from '@components/typography';
 import { Header } from '@components/header';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
-
-const HUMAN_REACTION_DEBOUNCE_TIME = 250;
 
 interface SetPasswordProps {
   redirect?: boolean;
