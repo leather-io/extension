@@ -5,12 +5,15 @@ import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
 interface RecipientField extends StackProps {
-  value: string;
   error?: string;
+  value: string;
 }
+
 // TODO: this should use a new "Field" component (with inline label like in figma)
-export const RecipientField = memo(({ value, error, ...rest }: RecipientField) => {
+function RecipientFieldBase(props: RecipientField) {
+  const { error, value, ...rest } = props;
   const { handleChange } = useFormikContext();
+
   return (
     <Stack width="100%" {...rest}>
       <InputGroup flexDirection="column">
@@ -43,4 +46,6 @@ export const RecipientField = memo(({ value, error, ...rest }: RecipientField) =
       )}
     </Stack>
   );
-});
+}
+
+export const RecipientField = memo(RecipientFieldBase);

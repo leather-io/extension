@@ -1,20 +1,21 @@
 import { atom } from 'jotai';
-import { apiClientState } from '@store/common/api-clients';
+import BN from 'bn.js';
+
 import {
   deserializeTransaction,
   createStacksPrivateKey,
   TransactionSigner,
 } from '@stacks/transactions';
 import { currentAccountPrivateKeyState } from '@store/accounts';
+import { apiClientState } from '@store/common/api-clients';
 import { updateTransactionFee } from '@store/transactions/utils';
-import { customAbsoluteTxFee, feeRateState } from '@store/transactions/fees';
-import BN from 'bn.js';
+import { feeRateState, feeState } from '@store/transactions/fees';
 
 export const rawTxIdState = atom<string | null>(null);
 
 const rawTxCache = new Map();
 
-const rawTxState = atom(get => {
+const rawTxState = atom<string>(get => {
   const txId = get(rawTxIdState);
   if (!txId) return;
   const match = rawTxCache.get(txId);
@@ -28,26 +29,26 @@ const rawTxState = atom(get => {
   });
 });
 
-export const rawStacksTransactionState = atom(get => {
+export const rawTxByteLengthState = atom(get => {
+  const transaction = get(rawDeserializedTxState);
+  return transaction?.serialize().byteLength || 0;
+});
+
+export const rawDeserializedTxState = atom(get => {
   const rawTx = get(rawTxState);
   if (!rawTx) return;
   return deserializeTransaction(rawTx);
 });
 
-export const rawStacksTransactionByteSizeState = atom(get => {
-  const transaction = get(rawStacksTransactionState);
-  return transaction?.serialize().byteLength || 0;
-});
-
-export const rawSignedStacksTransactionState = atom(get => {
-  const transaction = get(rawStacksTransactionState);
+export const rawSignedTxState = atom(get => {
+  const transaction = get(rawDeserializedTxState);
   const privateKey = get(currentAccountPrivateKeyState);
-  if (!transaction || !privateKey) return;
   const feeRate = get(feeRateState);
-  const absoluteCustomFee = get(customAbsoluteTxFee);
+  if (!transaction || !privateKey || !feeRate) return;
+  const fee = get(feeState);
   const updatedTx = updateTransactionFee(transaction, feeRate);
-  if (absoluteCustomFee) {
-    updatedTx.setFee(new BN(absoluteCustomFee));
+  if (fee) {
+    updatedTx.setFee(new BN(fee));
   }
   const signer = new TransactionSigner(updatedTx);
   signer.signOrigin(createStacksPrivateKey(privateKey));

@@ -26,10 +26,7 @@ const getOptions = (event: HandledEventsType) => {
   return;
 };
 
-export default function useOnClickOutside(
-  ref: React.RefObject<HTMLElement>,
-  handler: Handler | null
-) {
+export function useOnClickOutside(ref: React.RefObject<HTMLElement>, handler: Handler | null) {
   const noHandler = !handler;
   const handlerRef = useLatest(handler);
 

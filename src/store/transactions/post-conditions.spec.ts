@@ -7,7 +7,7 @@ import { postConditionsState } from '@store/transactions/post-conditions';
 import { FungibleConditionCode, parsePrincipalString } from '@stacks/transactions';
 import { HEYSTACK_HEY_TX_REQUEST_DECODED } from '@tests/mocks';
 
-describe('Post conditions', () => {
+describe('transaction post conditions state', () => {
   setupHeystackEnv();
   it('postConditionsState', async () => {
     const { result } = renderHook(() => useAtomValue(postConditionsState), {

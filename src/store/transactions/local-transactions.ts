@@ -1,15 +1,11 @@
 import { atom } from 'jotai';
-import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { waitForAll } from 'jotai/utils';
-import { currentStacksNetworkState } from '@store/network/networks';
-import { currentAccountNonceState } from '@store/accounts/nonce';
-
-import { customNonceState } from '@store/transactions/nonce.hooks';
-import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
+import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import {
   bufferCVFromString,
   ClarityValue,
   createAddress,
+  createEmptyAddress,
   noneCV,
   PostConditionMode,
   serializeCV,
@@ -17,37 +13,41 @@ import {
   standardPrincipalCVFromAddress,
   uintCV,
 } from '@stacks/transactions';
-import { calculateFeeFromFeeRate } from '@store/transactions/utils';
-import { makeFungibleTokenTransferState } from '@store/transactions/fungible-token-transfer';
-import { selectedAssetStore } from '@store/assets/asset-search';
-import { makePostCondition } from '@store/transactions/transaction.hooks';
+import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
+
 import {
   generateSignedTransaction,
   GenerateSignedTransactionOptions,
 } from '@common/transactions/transactions';
-import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
-import { customAbsoluteTxFee, feeRateState } from './fees';
+import { makeFungibleTokenTransferState } from '@store/transactions/fungible-token-transfer';
+import { selectedAssetStore } from '@store/assets/asset-search';
+import { makePostCondition } from '@store/transactions/transaction.hooks';
+import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
+import { currentStacksNetworkState } from '@store/network/networks';
+import { currentAccountNonceState } from '@store/accounts/nonce';
+import { customNonceState } from '@store/transactions/nonce.hooks';
 
+import { feeState } from './fees';
+
+// TODO: Revisit use of naming 'local' in global state (or make local state)
 export const localStacksTransactionInputsState = atom<{
   amount: number;
   memo: string;
   recipient: string;
 } | null>(null);
 
-const tokenTransferTransaction = atom(get => {
+const stxTokenTransferTransactionState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
-  const customAbsoluteFee = get(customAbsoluteTxFee);
+  const fee = get(feeState);
 
-  if (!address || !txData) return;
-  const { amount, recipient, memo } = txData;
-  const { network, account, nonce, feeRate } = get(
+  if (!address) return;
+  const { network, account, nonce } = get(
     waitForAll({
       network: currentStacksNetworkState,
       account: currentAccountState,
       nonce: currentAccountNonceState,
-      feeRate: feeRateState,
     })
   );
 
@@ -59,9 +59,10 @@ const tokenTransferTransaction = atom(get => {
     nonce: txNonce,
     txData: {
       txType: TransactionTypes.STXTransfer,
-      recipient,
-      amount: stxToMicroStx(amount).toString(10),
-      memo,
+      // Using account address here as a fallback for a fee estimation
+      recipient: txData?.recipient || account.address,
+      amount: txData?.amount ? stxToMicroStx(txData.amount).toString(10) : '0',
+      memo: txData?.memo || undefined,
       network,
       // Coercing type here as we don't have the public key
       // as expected by STXTransferPayload type.
@@ -71,7 +72,7 @@ const tokenTransferTransaction = atom(get => {
   };
 
   return generateSignedTransaction(options).then(transaction => {
-    const fee = customAbsoluteFee || calculateFeeFromFeeRate(transaction, feeRate).toNumber();
+    if (!transaction) return;
     return generateSignedTransaction({ ...options, fee });
   });
 });
@@ -80,14 +81,15 @@ const ftTokenTransferTransactionState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
-  if (!address || !txData) return;
-  const { amount, recipient, memo } = txData;
+  const fee = get(feeState);
+
+  if (!address) return;
+
+  const account = get(currentAccountState);
   const assetTransferState = get(makeFungibleTokenTransferState);
   const selectedAsset = get(selectedAssetStore);
-  const feeRate = get(feeRateState);
-  const customFee = get(customAbsoluteTxFee);
 
-  if (!assetTransferState || !selectedAsset) return;
+  if (!assetTransferState || !selectedAsset || !account) return;
   const {
     balances,
     network,
@@ -109,8 +111,8 @@ const ftTokenTransferTransactionState = atom(get => {
 
   const realAmount =
     selectedAsset.type === 'ft'
-      ? ftUnshiftDecimals(amount, selectedAsset?.meta?.decimals || 0)
-      : amount;
+      ? ftUnshiftDecimals(txData?.amount || 0, selectedAsset?.meta?.decimals || 0)
+      : txData?.amount || 0;
 
   const postConditionOptions = tokenBalanceKey
     ? {
@@ -128,12 +130,17 @@ const ftTokenTransferTransactionState = atom(get => {
   const functionArgs: ClarityValue[] = [
     uintCV(realAmount),
     standardPrincipalCVFromAddress(createAddress(stxAddress)),
-    standardPrincipalCVFromAddress(createAddress(recipient)),
+    standardPrincipalCVFromAddress(
+      txData ? createAddress(txData?.recipient) : createEmptyAddress()
+    ),
   ];
 
   if (selectedAsset.hasMemo) {
-    functionArgs.push(memo !== '' ? someCV(bufferCVFromString(memo)) : noneCV());
+    functionArgs.push(
+      txData?.memo !== '' ? someCV(bufferCVFromString(txData?.memo || '')) : noneCV()
+    );
   }
+
   const options = {
     txData: {
       txType: TransactionTypes.ContractCall,
@@ -145,7 +152,7 @@ const ftTokenTransferTransactionState = atom(get => {
       postConditionMode: PostConditionMode.Deny,
       network,
       // Dummy public key to satisfy types
-      // This isn't a good partern to follow, but much of this
+      // This isn't a good parttern to follow, but much of this
       // code will have to change with Ledger code anyway
       publicKey: '',
     },
@@ -155,7 +162,6 @@ const ftTokenTransferTransactionState = atom(get => {
 
   return generateSignedTransaction(options).then(transaction => {
     if (!transaction) return;
-    const fee = customFee || calculateFeeFromFeeRate(transaction, feeRate).toNumber();
     return generateSignedTransaction({ ...options, fee });
   });
 });
@@ -169,6 +175,6 @@ const localTransactionIsStxTransferState = atom(get => {
 
 export const localTransactionState = atom(get => {
   return get(localTransactionIsStxTransferState)
-    ? get(tokenTransferTransaction)
+    ? get(stxTokenTransferTransactionState)
     : get(ftTokenTransferTransactionState);
 });

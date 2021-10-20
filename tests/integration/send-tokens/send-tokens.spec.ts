@@ -21,6 +21,7 @@ describe(`Send tokens flow`, () => {
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
+    await sendForm.waitForSendMaxButton();
   }, 30_000);
 
   afterEach(async () => {
@@ -106,6 +107,7 @@ describe('Preview for sending token', () => {
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
+    await sendForm.waitForSendMaxButton();
   }, 30_000);
 
   afterEach(async () => {

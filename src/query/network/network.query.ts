@@ -12,14 +12,14 @@ const networkStatusQueryOptions = {
   refetchOnReconnect: false,
 } as const;
 
-function getNetworkStatusFetcher() {
-  return (url: string) => () => fetchWithTimeout(url, { timeout: 4500 });
+function getNetworkStatusFetcher(url: string) {
+  return fetchWithTimeout(url, { timeout: 4500 });
 }
 
 export function useGetNetworkStatus(url: string) {
   return useQuery({
     queryKey: ['network-status', url],
-    queryFn: getNetworkStatusFetcher()(url),
+    queryFn: () => getNetworkStatusFetcher(url),
     ...networkStatusQueryOptions,
   });
 }

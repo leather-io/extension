@@ -9,22 +9,19 @@ export const buildEnterKeyEvent = (onClick: () => void) => {
   };
 };
 
-export const Link: React.FC<BoxProps> = ({
-  _hover = {},
-  children,
-  fontSize = '12px',
-  onClick,
-  ...rest
-}) => (
-  <Text
-    _hover={{ textDecoration: 'underline', cursor: 'pointer', ..._hover }}
-    fontSize={fontSize}
-    color={color('brand')}
-    onKeyPress={buildEnterKeyEvent(onClick as any)}
-    onClick={onClick}
-    tabIndex={0}
-    {...rest}
-  >
-    {children}
-  </Text>
-);
+export function Link(props: BoxProps): JSX.Element {
+  const { _hover = {}, children, fontSize = '12px', onClick, ...rest } = props;
+  return (
+    <Text
+      _hover={{ textDecoration: 'underline', cursor: 'pointer', ..._hover }}
+      fontSize={fontSize}
+      color={color('brand')}
+      onKeyPress={buildEnterKeyEvent(onClick as any)}
+      onClick={onClick}
+      tabIndex={0}
+      {...rest}
+    >
+      {children}
+    </Text>
+  );
+}

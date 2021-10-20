@@ -54,7 +54,7 @@ export const generateContractCallTx = ({
   txData: ContractCallPayload;
   senderKey: string;
   nonce?: number;
-  fee?: number;
+  fee?: number | null;
 }) => {
   const {
     contractName,
@@ -105,7 +105,7 @@ export const generateContractDeployTx = ({
   txData: ContractDeployPayload;
   senderKey: string;
   nonce?: number;
-  fee?: number;
+  fee?: number | null;
 }) => {
   const { contractName, codeBody, network, postConditions, postConditionMode } = txData;
   const options = {
@@ -131,7 +131,7 @@ export const generateSTXTransferTx = ({
   txData: STXTransferPayload;
   senderKey: string;
   nonce?: number;
-  fee?: number;
+  fee?: number | null;
 }) => {
   const { recipient, memo, amount, network } = txData;
   const options = {

@@ -55,4 +55,8 @@ export class SendPage {
   async waitForPreview(selector: keyof typeof selectors) {
     await this.page.waitForSelector(this.selectors[selector]);
   }
+
+  async waitForSendMaxButton() {
+    await this.page.waitForSelector(this.selectors.$btnSendMaxBalance);
+  }
 }

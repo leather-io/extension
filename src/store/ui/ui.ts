@@ -25,13 +25,12 @@ export const showAccountsStore = atom(false);
 export const showNetworksStore = atom(false);
 
 export const showSettingsStore = atom(false);
-export const showTxSettingsStore = atom(false);
+export const showEditNonceState = atom(false);
 export const showTxSettingsCallback = atom<(() => Promise<void>) | undefined>(undefined);
 
 export const showSignOut = atom(false);
 
 export const errorStackTraceState = atom<string | null>(null);
-export const showEditNonceState = atom(false);
 
 accountDrawerStep.debugLabel = 'accountDrawerStep';
 showAccountsStore.debugLabel = 'showAccountsStore';

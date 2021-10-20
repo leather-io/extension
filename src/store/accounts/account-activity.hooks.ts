@@ -7,11 +7,11 @@ import { deserializeTransaction, StacksTransaction } from '@stacks/transactions'
 
 import { useCallback } from 'react';
 import { safelyFormatHexTxid } from '@common/utils/safe-handle-txid';
-import { useAccountConfirmedTransactions } from './account.hooks';
+import { useCurrentAccountTxIds } from '@query/transactions/transaction.hooks';
 
 export function useCurrentAccountLocalTxids() {
   const txs = useAtomValue(currentAccountLocallySubmittedTxsState);
-  const externalTxids = useAccountConfirmedTransactions().map(tx => tx.tx_id);
+  const externalTxids = useCurrentAccountTxIds();
   return txs
     ? Object.entries(txs)
         .filter(([txid]) => !externalTxids.includes(safelyFormatHexTxid(txid)))
