@@ -72,6 +72,12 @@ module.exports = {
       from: { path: '^src' },
       to: { path: 'react-icons.*', pathNot: 'react-icons/fi' },
     },
+    {
+      name: 'no-using-pino-directly',
+      severity: 'error',
+      from: { path: '^src', pathNot: ['^src/common/logger.ts$'] },
+      to: { path: 'pino' },
+    },
   ],
   options: {
     doNotFollow: {

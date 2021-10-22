@@ -15,6 +15,7 @@ module.exports = {
   },
   plugins: ['react-hooks', '@typescript-eslint'],
   rules: {
+    'no-console': ['error'],
     'prefer-const': [
       'error',
       {
@@ -39,4 +40,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: 'src/**/*.spec.ts',
+      rules: {
+        'no-console': [0],
+      },
+    },
+  ],
 };

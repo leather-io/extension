@@ -10,6 +10,7 @@ import {
   generateContractDeployTx,
   generateSTXTransferTx,
 } from '@common/transactions/transaction-utils';
+import { logger } from '@common/logger';
 import { Buffer } from 'buffer';
 import { validateTxId } from '@common/validation/validate-tx-id';
 
@@ -41,12 +42,12 @@ export async function handleBroadcastTransaction(options: BroadcastTransactionOp
         txId: response,
         txRaw,
       };
-    console.error(`Error broadcasting raw transaction -- ${response}`);
+    logger.error(`Error broadcasting raw transaction -- ${response}`);
     throw new Error(response);
   } else {
-    console.error('Error broadcasting raw transaction');
+    logger.error('Error broadcasting raw transaction');
     const error = `${response.error} - ${response.reason}`;
-    console.error(error);
+    logger.error(error);
     throw new Error(error);
   }
 }

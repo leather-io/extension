@@ -36,6 +36,7 @@ import {
 } from './index';
 import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
+import { logger } from '@common/logger';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -130,7 +131,7 @@ export function useTransactionBroadcast() {
               },
             });
         } catch (error) {
-          console.error(error);
+          logger.error(error);
           set(transactionBroadcastErrorState, error.message);
         }
       },

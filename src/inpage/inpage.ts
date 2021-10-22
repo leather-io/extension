@@ -11,6 +11,7 @@ import {
   MESSAGE_SOURCE,
   TransactionResponseMessage,
 } from '@common/message-types';
+import { logger } from '@common/logger';
 
 type CallableMethods = keyof typeof ExternalMethods;
 
@@ -26,7 +27,7 @@ const callAndReceive = async (
   opts: any = {}
 ): Promise<ExtensionResponse> => {
   return new Promise((resolve, reject) => {
-    console.log(`BlockstackApp.${methodName}:`, opts);
+    logger.info(`BlockstackApp.${methodName}:`, opts);
     const timeout = setTimeout(() => {
       reject('Unable to get response from Blockstack extension');
     }, 1000);
