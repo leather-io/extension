@@ -24,6 +24,7 @@ import {
   walletState,
 } from './wallet';
 import { finalizeAuthResponse } from '@common/actions/finalize-auth-response';
+import { logger } from '@common/logger';
 
 export function useHasRehydratedVault() {
   return useAtomValue(hasRehydratedVaultStore);
@@ -71,7 +72,7 @@ export function useFinishSignInCallback() {
         const wallet = get(walletState);
         const account = wallet?.accounts[accountIndex];
         if (!decodedAuthRequest || !authRequest || !account || !wallet) {
-          console.error('Uh oh! Finished onboarding without auth info.');
+          logger.error('Uh oh! Finished onboarding without auth info.');
           return;
         }
         const appURL = new URL(decodedAuthRequest.redirect_uri);
@@ -129,7 +130,7 @@ export function useInnerMessageWrapper() {
               reject(vaultOrError);
             }
           } catch (e) {
-            console.error(e);
+            logger.error(e);
           }
         });
       });

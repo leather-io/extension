@@ -6,6 +6,7 @@ import {
 } from '@common/message-types';
 import { deleteTabForRequest, getTab, StorageKey } from '@common/storage';
 import { isValidUrl } from '@common/validation/validate-url';
+import { logger } from '@common/logger';
 
 interface FinalizeAuthParams {
   decodedAuthRequest: DecodedAuthRequest;
@@ -43,7 +44,7 @@ export const finalizeAuthResponse = ({
     deleteTabForRequest(StorageKey.authenticationRequests, authRequest);
     window.close();
   } catch (error) {
-    console.debug('Failed to get Tab ID for authentication request:', authRequest);
+    logger.debug('Failed to get Tab ID for authentication request:', authRequest);
     throw new Error(
       'Your transaction was broadcasted, but we lost communication with the app you started with.'
     );

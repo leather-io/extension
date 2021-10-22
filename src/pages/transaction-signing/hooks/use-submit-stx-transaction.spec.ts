@@ -54,7 +54,7 @@ describe(useHandleSubmitTransaction.name, () => {
 
     if (!transaction) throw Error('no transaction');
 
-    const onClose = jest.fn(() => console.log('closed'));
+    const onClose = jest.fn(() => console.info('closed'));
 
     const { result } = renderHook(
       () =>

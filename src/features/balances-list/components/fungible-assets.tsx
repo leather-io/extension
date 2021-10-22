@@ -17,7 +17,6 @@ function FungibleAssetRow(props: FungibleAssetRowProps) {
 
 export function FungibleAssets(props: StackProps) {
   const fungibleTokens = useFungibleTokenBaseState();
-  console.log(fungibleTokens);
   const balances = useCurrentAccountBalancesUnanchoredState();
   if (!balances) return null;
 

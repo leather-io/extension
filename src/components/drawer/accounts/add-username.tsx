@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Box, Text, Input, Button, Flex } from '@stacks/ui';
 import { buildEnterKeyEvent } from '@components/link';
+import { logger } from '@common/logger';
 
 interface AddUsernameProps {
   close: () => void;
@@ -29,7 +30,7 @@ export const AddUsername: React.FC<AddUsernameProps> = ({ close }) => {
       setLoading(false);
       close();
     } catch (error) {
-      console.error(error);
+      logger.error(error);
     }
   };
   return (

@@ -5,6 +5,7 @@ import {
   TxResult,
 } from '@common/message-types';
 import { deleteTabForRequest, getTab, StorageKey } from '@common/storage';
+import { logger } from '@common/logger';
 
 export const finalizeTxSignature = (requestPayload: string, data: TxResult | string) => {
   try {
@@ -23,7 +24,7 @@ export const finalizeTxSignature = (requestPayload: string, data: TxResult | str
     // and the user has closed the window
     if (typeof data !== 'string') window.close();
   } catch (error) {
-    console.debug('Failed to get Tab ID for transaction request:', requestPayload);
+    logger.debug('Failed to get Tab ID for transaction request:', requestPayload);
     throw new Error(
       'Your transaction was broadcasted, but we lost communication with the app you started with.'
     );

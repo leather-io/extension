@@ -6,6 +6,7 @@ import { buildEnterKeyEvent } from '@components/link';
 // import { ErrorLabel } from '@components/error-label';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { Header } from '@components/header';
+import { logger } from '@common/logger';
 
 export const Username: React.FC = () => {
   const { wallet, currentAccount, setWallet, doFinishSignIn } = useWallet();
@@ -32,7 +33,7 @@ export const Username: React.FC = () => {
         await doFinishSignIn(0);
       }
     } catch (error) {
-      console.error(error);
+      logger.error(error);
     }
   };
   return (

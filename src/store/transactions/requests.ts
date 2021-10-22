@@ -7,6 +7,7 @@ import { atomWithParam } from '@store/utils/atom-with-params';
 
 import BigNumber from 'bignumber.js';
 import { isNumber, isString } from '@common/utils';
+import { logger } from '@common/logger';
 
 function safelyExtractFeeValue(fee: unknown) {
   if (fee === '') return undefined;
@@ -29,7 +30,7 @@ export const requestTokenOriginState = atom(get => {
   try {
     return getRequestOrigin(StorageKey.transactionRequests, token);
   } catch (e) {
-    console.error(e);
+    logger.error(e);
     return false;
   }
 });

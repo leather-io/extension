@@ -1,5 +1,6 @@
 import type { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
 import { todaysIsoDate, isoDateToLocalDate, displayDate } from '@common/date-utils';
+import { logger } from '@common/logger';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -8,8 +9,7 @@ function isoDateToLocalDateSafe(isoDate: string) {
   try {
     result = isoDateToLocalDate(isoDate);
   } catch (e) {
-    console.log(isoDate);
-    console.log(e);
+    logger.info(isoDate, e);
   }
   return result;
 }
