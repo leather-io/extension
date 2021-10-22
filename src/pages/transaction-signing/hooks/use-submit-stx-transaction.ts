@@ -18,6 +18,7 @@ import {
   useSetLocalTxsCallback,
 } from '@store/accounts/account-activity.hooks';
 import { todaysIsoDate } from '@common/date-utils';
+import { logger } from '@common/logger';
 
 function getErrorMessage(
   reason: TxBroadcastResultRejected['reason'] | 'ConflictingNonceInMempool'
@@ -83,7 +84,7 @@ export function useSubmitTransactionCallback({
           await refreshAccountData(250); // delay to give the api time to receive the tx
         }
       } catch (e) {
-        console.error(e);
+        logger.error(e);
         toast.error('Something went wrong');
         onClose();
         setIsIdle();
