@@ -46,7 +46,7 @@ export function useOnCancel() {
         const result = 'cancel';
         finalizeTxSignature(requestToken, result);
       } catch (error) {
-        set(transactionBroadcastErrorState, error.message);
+        if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
       }
     }, [])
   );
