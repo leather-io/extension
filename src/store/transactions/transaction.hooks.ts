@@ -123,16 +123,17 @@ export function useTransactionBroadcast() {
           });
           typeof nonce !== 'undefined' && (await doSetLatestNonce(nonce));
           finalizeTxSignature(requestToken, result);
-          if (result.txId)
+          if (result.txId) {
             set(currentAccountLocallySubmittedTxsState, {
               [result.txId]: {
                 rawTx: result.txRaw,
                 timestamp: todaysIsoDate(),
               },
             });
+          }
         } catch (error) {
           logger.error(error);
-          set(transactionBroadcastErrorState, error.message);
+          if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
       [doSetLatestNonce]
