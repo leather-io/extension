@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.83% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/24</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>15/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">60% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>3/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">82.35% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/22</span>
+                <span class='fraction'>14/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -84,16 +84,7 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
@@ -105,29 +96,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">90x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">167x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">98x</span>
-<span class="cline-any cline-yes">98x</span>
-<span class="cline-any cline-yes">98x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import hash from 'object-hash';
 import { hashQueryKey, QueryKey } from 'react-query';
@@ -140,15 +122,6 @@ export function <span class="fstat-no" title="function not covered" >bytesToText
 <span class="cstat-no" title="statement not covered" >  return new TextDecoder().decode(buffer);</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >bytesToHex(</span>uint8a: Uint8Array): string {
-  // pre-caching chars could speed this up 6x.
-  let hex = <span class="cstat-no" title="statement not covered" >'';</span>
-<span class="cstat-no" title="statement not covered" >  for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; uint8a.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >    hex += uint8a[i].toString(16).padStart(2, '0');</span>
-  }
-<span class="cstat-no" title="statement not covered" >  return hex;</span>
-}
-&nbsp;
 export function makeLocalDataKey(params: QueryKey): string {
   return hash(hashQueryKey([params, VERSION]));
 }
@@ -156,8 +129,8 @@ export function makeLocalDataKey(params: QueryKey): string {
 export function getLocalData&lt;Data&gt;(params: string[]) {
   const key = makeLocalDataKey(params);
   const value = localStorage.getItem(key);
-  if (!value) return null;
-  return JSON.parse(value) as Data;
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (!value) return null;
+<span class="cstat-no" title="statement not covered" >  return JSON.parse(value) as Data;</span>
 }
 &nbsp;
 export function setLocalData&lt;Data&gt;(params: string[], data: Data): Data {
@@ -172,7 +145,7 @@ export function setLocalData&lt;Data&gt;(params: string[], data: Data): Data {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 13:46:10 GMT+0000 (Coordinated Universal Time)
+                at Mon Oct 25 2021 11:29:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

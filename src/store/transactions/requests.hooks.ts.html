@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.72% </span>
+                <span class="strong">51.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/29</span>
+                <span class='fraction'>14/27</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.22% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/9</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.57% </span>
+                <span class="strong">53.85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/28</span>
+                <span class='fraction'>14/26</span>
             </div>
         
             
@@ -110,52 +110,44 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -177,7 +169,6 @@ import {
   requestTokenOriginState,
   transactionRequestValidationState,
   transactionRequestCustomFeeState,
-  transactionRequestCustomFeeRateState,
 } from '@store/transactions/requests';
 import { requestTokenState } from '@store/transactions/requests';
 import { transactionBroadcastErrorState } from '@store/transactions';
@@ -188,15 +179,12 @@ export function <span class="fstat-no" title="function not covered" >useOrigin(<
 <span class="cstat-no" title="statement not covered" >  return useAtomValue(requestTokenOriginState);</span>
 }
 &nbsp;
-export function useTransactionRequest() {
+export function useTransactionRequestState() {
   return useAtomValue(requestTokenPayloadState);
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useTransactionRequestCustomFee(</span>) {
 <span class="cstat-no" title="statement not covered" >  return useAtomValue(transactionRequestCustomFeeState);</span>
-}
-export function <span class="fstat-no" title="function not covered" >useTransactionRequestCustomFeeRate(</span>) {
-<span class="cstat-no" title="statement not covered" >  return useAtomValue(transactionRequestCustomFeeRateState);</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useTransactionRequestValidation(</span>) {
@@ -235,7 +223,7 @@ export function useOnCancel() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 13:46:10 GMT+0000 (Coordinated Universal Time)
+                at Mon Oct 25 2021 11:29:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

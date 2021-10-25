@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/accounts/account-avatar.tsx</title>
+    <title>Code coverage report for src/query/bns/bns.hooks.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/accounts</a> account-avatar.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/query/bns</a> bns.hooks.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -76,19 +76,11 @@
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -100,56 +92,28 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
-import { Flex, Box, Text, FlexProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
-import { Image } from '@components/image'<span class="cstat-no" title="statement not covered" >;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAccounts, useCurrentAccountStxAddressState } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useGetBnsNamesOwnedByAddress, useGetBnsNamesOwnedByAddressList } from './bns.query'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-interface AccountAvatarProps extends FlexProps {
-  username: string;
-  avatar?: string;
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useAllAccountNames(</span>) {</span>
+  const accounts<span class="cstat-no" title="statement not covered" > = useAccounts() ?? [];</span>
+  const result = useGetBnsNamesOwnedByAddressList(accounts.map<span class="fstat-no" title="function not covered" >(a</span> =&gt; <span class="cstat-no" title="statement not covered" >a.address)</span>);
+  return accounts.map(({ address, index }) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+    address,
+    index,
+    names: result[index].data?.names ?? [],
+  }));
 }
 &nbsp;
-export const AccountAvatar<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({</span> username, avatar, ...rest<span class="cstat-no" title="statement not covered" > }: AccountAvatarProps<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span></span>
-  const firstLetter = <span class="cstat-no" title="statement not covered" >username[0];</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex
-      overflow="hidden"
-      flexShrink={0}
-      bg="#007AFF"
-      size="36px"
-      borderRadius="100%"
-      alignItems="center"
-      justifyContent="center"
-      {...rest}
-    &gt;
-      {avatar &amp;&amp; &lt;Image src={avatar} alt={username} /&gt;}
-      &lt;Box&gt;
-        &lt;Text color="white" textTransform="uppercase" display="block"&gt;
-          {firstLetter}
-        &lt;/Text&gt;
-      &lt;/Box&gt;
-    &lt;/Flex&gt;
-  );
-};
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useCurrentAccountNames(</span>) {</span>
+  const principal<span class="cstat-no" title="statement not covered" > = useCurrentAccountStxAddressState();</span>
+<span class="cstat-no" title="statement not covered" >  if (!principal) <span class="cstat-no" title="statement not covered" >throw new Error();</span></span>
+  const namesResponse<span class="cstat-no" title="statement not covered" > = useGetBnsNamesOwnedByAddress(principal);</span>
+<span class="cstat-no" title="statement not covered" >  return namesResponse.data?.names ?? [];</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -157,7 +121,7 @@ export const AccountAvatar<span class="cstat-no" title="statement not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 13:46:10 GMT+0000 (Coordinated Universal Time)
+                at Mon Oct 25 2021 11:29:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

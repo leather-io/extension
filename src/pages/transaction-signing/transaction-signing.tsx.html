@@ -101,35 +101,39 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,12 +152,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useEffect } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
 import { Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import {
-  useTransactionRequest,
-  useUpdateTransactionBroadcastError,
-} from '@store/transactions/requests.hooks'<span class="cstat-no" title="statement not covered" >;</span>
-import { PopupHeader } from '@pages/transaction-signing/components/popup-header'<span class="cstat-no" title="statement not covered" >;</span>
+import { useNextTxNonce } from <span class="cstat-no" title="statement not covered" >'@common/hooks/account/use-next-tx-nonce'<span class="cstat-no" title="statement not covered" >;</span></span>
 import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
+import { PopupHeader } from '@pages/transaction-signing/components/popup-header'<span class="cstat-no" title="statement not covered" >;</span>
 import { TransactionsActions } from '@pages/transaction-signing/components/actions'<span class="cstat-no" title="statement not covered" >;</span>
 import { TransactionPageTop } from '@pages/transaction-signing/components/transaction-page-top'<span class="cstat-no" title="statement not covered" >;</span>
 import { ContractCallDetails } from '@pages/transaction-signing/components/contract-call-details'<span class="cstat-no" title="statement not covered" >;</span>
@@ -161,12 +162,16 @@ import { ContractDeployDetails } from '@pages/transaction-signing/components/con
 import { PostConditions } from '@pages/transaction-signing/components/post-conditions/post-conditions-list'<span class="cstat-no" title="statement not covered" >;</span>
 import { StxTransferDetails } from '@pages/transaction-signing/components/stx-transfer-details'<span class="cstat-no" title="statement not covered" >;</span>
 import { PostConditionModeWarning } from '@pages/transaction-signing/components/post-condition-mode-warning'<span class="cstat-no" title="statement not covered" >;</span>
+import {
+  useTransactionRequestState,
+  useUpdateTransactionBroadcastError,
+} from '@store/transactions/requests.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+&nbsp;
 import { TransactionError } from './components/transaction-error'<span class="cstat-no" title="statement not covered" >;</span>
-import { useNextTxNonce } from <span class="cstat-no" title="statement not covered" >'@common/hooks/account/use-next-tx-nonce'<span class="cstat-no" title="statement not covered" >;</span></span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >TransactionPage<span class="cstat-no" title="statement not covered" > = memo(() =&gt; {</span></span>
   useNextTxNonce();
-  const transactionRequest<span class="cstat-no" title="statement not covered" > = useTransactionRequest();</span>
+  const transactionRequest<span class="cstat-no" title="statement not covered" > = useTransactionRequestState();</span>
   const setBroadcastError<span class="cstat-no" title="statement not covered" > = useUpdateTransactionBroadcastError();</span>
 &nbsp;
   useEffect(() =&gt; {
@@ -174,6 +179,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionPa
   }, [setBroadcastError]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!transactionRequest) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;PopupContainer header={&lt;PopupHeader /&gt;}&gt;
       &lt;Stack spacing="loose"&gt;
@@ -196,7 +202,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionPa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 13:46:10 GMT+0000 (Coordinated Universal Time)
+                at Mon Oct 25 2021 11:29:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

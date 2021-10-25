@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>0/3</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -60,66 +60,12 @@
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
 <a name='L3'></a><a href='#L3'>3</a>
-<a name='L4'></a><a href='#L4'>4</a>
-<a name='L5'></a><a href='#L5'>5</a>
-<a name='L6'></a><a href='#L6'>6</a>
-<a name='L7'></a><a href='#L7'>7</a>
-<a name='L8'></a><a href='#L8'>8</a>
-<a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a>
-<a name='L11'></a><a href='#L11'>11</a>
-<a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L4'></a><a href='#L4'>4</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomCallback } from 'jotai/utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { useCallback } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
-import { errorStackTraceState } from '@store/ui/ui'<span class="cstat-no" title="statement not covered" >;</span>
-import { useAtom, WritableAtom } from 'jotai'<span class="cstat-no" title="statement not covered" >;</span>
-import { queryClient } from <span class="cstat-no" title="statement not covered" >'jotai-query-toolkit'<span class="cstat-no" title="statement not covered" >;</span></span>
-&nbsp;
-export type { WritableAtom } from 'jotai';
-&nbsp;
-export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useDynamicUseAtom_UNSAFE(</span>s</span>tate: WritableAtom&lt;boolean, boolean&gt;) {
-<span class="cstat-no" title="statement not covered" >  return useAtom(state);</span>
-}
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { queryClient } from <span class="cstat-no" title="statement not covered" >'jotai-query-toolkit'<span class="cstat-no" title="statement not covered" >;</span></span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >jotaiWrappedReactQueryQueryClient = queryClient;</span>
-&nbsp;
-export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useErrorHandler(</span>) {</span>
-<span class="cstat-no" title="statement not covered" >  return useAtomCallback&lt;void, any&gt;(</span>
-    useCallback((_get, set, ...arg: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >      set(errorStackTraceState, arg?.[0]?.stack);</span>
-    }, [])
-  );
-}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -127,7 +73,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 13:46:10 GMT+0000 (Coordinated Universal Time)
+                at Mon Oct 25 2021 11:29:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

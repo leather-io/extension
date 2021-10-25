@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/65</span>
+                <span class='fraction'>0/64</span>
             </div>
         
             
@@ -237,13 +237,9 @@
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -253,16 +249,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -270,13 +273,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -288,6 +284,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -418,30 +422,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useCallback } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
-import { Box, Button, ButtonProps, color, Flex, Stack, StackProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { FiAlertTriangle } from 'react-icons/fi'<span class="cstat-no" title="statement not covered" >;</span>
+&nbsp;
 import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading'<span class="cstat-no" title="statement not covered" >;</span>
 import { SpaceBetween } from '@components/space-between'<span class="cstat-no" title="statement not covered" >;</span>
 import { Caption } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 import { NetworkRowItem } from '@components/network-row-item'<span class="cstat-no" title="statement not covered" >;</span>
-import { FeeComponent } from '@pages/transaction-signing/components/fee'<span class="cstat-no" title="statement not covered" >;</span>
-import { FiAlertTriangle } from 'react-icons/fi'<span class="cstat-no" title="statement not covered" >;</span>
-&nbsp;
-import { TransactionErrorReason } from './transaction-error'<span class="cstat-no" title="statement not covered" >;</span>
-import { LoadingRectangle } from '@components/loading-rectangle'<span class="cstat-no" title="statement not covered" >;</span>
-import { TransactionsSelectors } from '@tests/integration/transactions.selectors'<span class="cstat-no" title="statement not covered" >;</span>
-import { useTransactionError } from '../hooks/use-transaction-error'<span class="cstat-no" title="statement not covered" >;</span>
-import {
-  useTransactionBroadcastError,
-  useTransactionRequest,
-  useTransactionRequestCustomFee,
-} from '@store/transactions/requests.hooks'<span class="cstat-no" title="statement not covered" >;</span>
-import { useTransactionBroadcast } from '@store/transactions/transaction.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import {
   ShowTxSettingsAction,
   ShowTxSettingsPlaceholder,
 } from '@features/fee-nonce-drawers/components/show-tx-settings-action'<span class="cstat-no" title="statement not covered" >;</span>
-import { HighFeeWarningLabel } from './app-set-fee-warning'<span class="cstat-no" title="statement not covered" >;</span>
+import { FeeComponent } from '@pages/transaction-signing/components/fee'<span class="cstat-no" title="statement not covered" >;</span>
+import { LoadingRectangle } from '@components/loading-rectangle'<span class="cstat-no" title="statement not covered" >;</span>
+import { Box, Button, ButtonProps, color, Flex, Stack, StackProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import {
+  useTransactionBroadcastError,
+  useTransactionRequestState,
+  useTransactionRequestCustomFee,
+} from '@store/transactions/requests.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useTransactionBroadcast } from '@store/transactions/transaction.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { useCurrentDefaultFee } from '@store/transactions/fees.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { TransactionsSelectors } from '@tests/integration/transactions.selectors'<span class="cstat-no" title="statement not covered" >;</span>
+&nbsp;
+import { HighFeeWarningLabel } from './app-set-fee-warning'<span class="cstat-no" title="statement not covered" >;</span>
+import { TransactionErrorReason } from './transaction-error'<span class="cstat-no" title="statement not covered" >;</span>
+import { useTransactionError } from '../hooks/use-transaction-error'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 const MinimalErrorMessageSuspense<span class="cstat-no" title="statement not covered" > = memo((props: StackProps) =&gt; {</span>
   const error<span class="cstat-no" title="statement not covered" > = useTransactionError();</span>
@@ -469,6 +474,7 @@ const MinimalErrorMessageSuspense<span class="cstat-no" title="statement not cov
     }
 <span class="cstat-no" title="statement not covered" >    return null;</span>
   };
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Stack
       data-testid={TransactionsSelectors.TransactionErrorMessage}
@@ -485,7 +491,7 @@ const MinimalErrorMessageSuspense<span class="cstat-no" title="statement not cov
   );
 });
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >MinimalErrorMessage<span class="cstat-no" title="statement not covered" > = memo((p</span>rops: StackProps) =&gt; {</span>
+const MinimalErrorMessage<span class="cstat-no" title="statement not covered" > = memo((props: StackProps) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;React.Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
       &lt;MinimalErrorMessageSuspense {...props} /&gt;
@@ -544,7 +550,7 @@ const FeeRowItemSuspense<span class="cstat-no" title="statement not covered" ><s
   let showWarning = <span class="cstat-no" title="statement not covered" >false;</span>
   const defaultFee<span class="cstat-no" title="statement not covered" > = useCurrentDefaultFee();</span>
   const customFee<span class="cstat-no" title="statement not covered" > = useTransactionRequestCustomFee();</span>
-  const transactionRequest<span class="cstat-no" title="statement not covered" > = useTransactionRequest();</span>
+  const transactionRequest<span class="cstat-no" title="statement not covered" > = useTransactionRequestState();</span>
   const appName = <span class="cstat-no" title="statement not covered" >transactionRequest?.appDetails?.name;</span>
   const multipleFromWhichFeeIsConsideredLarge = <span class="cstat-no" title="statement not covered" >4;</span>
 &nbsp;
@@ -604,7 +610,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionsA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 13:46:10 GMT+0000 (Coordinated Universal Time)
+                at Mon Oct 25 2021 11:29:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/pages/send-tokens/components/asset-search/asset-search-result.tsx</title>
+    <title>Code coverage report for src/features/activity-list/components/no-account-activity.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">src/pages/send-tokens/components/asset-search</a> asset-search-result.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/features/activity-list/components</a> no-account-activity.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -76,26 +76,13 @@
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -107,31 +94,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { forwardRef } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
-import { AssetRow } from '@components/asset-row'<span class="cstat-no" title="statement not covered" >;</span>
-import type { StackProps } from '@stacks/ui';
-import type { AssetWithMeta } from '@common/asset-types';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
+import { Box, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-interface AssetResultProps extends StackProps {
-  asset: AssetWithMeta;
-  highlighted: boolean;
-  index: number;
-}
+import { Caption } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
+import { NoActivityIllustration } from '@components/vector/no-activity'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >AssetResult<span class="cstat-no" title="statement not covered" > = forwardRef&lt;HTMLDivElement, AssetResultProps&gt;((p</span>rops, ref) =&gt; {</span>
-  const { asset, highlighted, ...rest<span class="cstat-no" title="statement not covered" > } = <span class="cstat-no" title="statement not covered" >props;</span></span>
-&nbsp;
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >NoAccountActivity(</span>) {</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;AssetRow
-      ref={ref}
-      key={`${asset.contractAddress}.${asset.type}`}
-      asset={asset}
-      backgroundColor={highlighted ? 'ink.150' : 'white'}
-      p="base-tight"
-      {...rest}
-    /&gt;
+    &lt;Stack py="extra-loose" spacing="extra-loose" justifyContent="center" alignItems="center"&gt;
+      &lt;Box mx="auto"&gt;
+        &lt;NoActivityIllustration /&gt;
+      &lt;/Box&gt;
+&nbsp;
+      &lt;Caption maxWidth="23ch" textAlign="center"&gt;
+        No activity yet.
+      &lt;/Caption&gt;
+    &lt;/Stack&gt;
   );
-});
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -139,17 +121,17 @@ export const <span class="cstat-no" title="statement not covered" >AssetResult<s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 13:46:10 GMT+0000 (Coordinated Universal Time)
+                at Mon Oct 25 2021 11:29:35 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
-        <script src="../../../../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../sorter.js"></script>
-        <script src="../../../../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     
