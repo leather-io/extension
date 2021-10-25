@@ -32,7 +32,7 @@
     "check:deps": "dependency-cruise  --config .dependency-cruiser.js \"src/**/*.{ts,tsx}\"",
     "check:unused-exports": "ts-unused-exports tsconfig.json"
   },
-  "version": "2.19.4",
+  "version": "2.20.0",
   "author": "Blockstack PBC",
   "dependencies": {
     "@emotion/core": "11.0.0",
