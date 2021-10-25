@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.20.0
+
+### Minor Changes
+
+- [#1720](https://github.com/blockstack/stacks-wallet-web/pull/1720) [`dad028e8d`](https://github.com/blockstack/stacks-wallet-web/commit/dad028e8d8a417dadfb75ad8b02e08712aa07595) Thanks [@kyranjamie](https://github.com/kyranjamie)! - Add a new state that asks users for permission to record application diagnostics
+
 ## 2.19.4
 
 ### Patch Changes
