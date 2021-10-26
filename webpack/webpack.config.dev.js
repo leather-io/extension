@@ -10,6 +10,7 @@ const config = {
     pathinfo: false,
     chunkFilename: '[name].chunk.js',
     filename: '[name].js',
+    publicPath: '/',
   },
   optimization: {
     minimize: false,
