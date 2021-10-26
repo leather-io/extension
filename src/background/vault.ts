@@ -12,6 +12,7 @@ import type { VaultActions } from '@background/vault-types';
 import { decryptMnemonic, encryptMnemonic } from '@background/crypto/mnemonic-encryption';
 import { DEFAULT_PASSWORD } from '@common/types';
 import { InternalMethods } from '@common/message-types';
+import { logger } from '@common/logger';
 
 // In-memory (background) wallet instance
 export interface InMemoryVault {
@@ -70,19 +71,26 @@ async function storeSeed(secretKey: string, password?: string): Promise<InMemory
     secretKey,
     password: pw,
   });
-  const _wallet = await restoreWalletAccounts({
-    wallet: generatedWallet,
-    gaiaHubUrl: gaiaUrl,
-  });
   const hasSetPassword = password !== undefined;
-  return {
-    ...inMemoryVault,
-    wallet: _wallet,
+  const keyInfo = {
     secretKey,
     encryptedSecretKey: inMemoryVault.encryptedSecretKey,
     currentAccountIndex: 0,
     hasSetPassword,
   };
+  // This method is called on `unlockWallet`.
+  // `restoreWalletAccounts` is reliant on external resources.
+  // If this method fails, we return a single wallet instance,
+  // the root wallet.
+  try {
+    const _wallet = await restoreWalletAccounts({
+      wallet: generatedWallet,
+      gaiaHubUrl: gaiaUrl,
+    });
+    return { ...inMemoryVault, ...keyInfo, wallet: _wallet };
+  } catch (error) {
+    return { ...inMemoryVault, ...keyInfo, wallet: generatedWallet };
+  }
 }
 
 // Ensure that TS will flag unhandled messages and will throw at runtime
@@ -118,14 +126,20 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
         throw 'Unable to create a new account - not logged in.';
       }
       const newWallet = generateNewAccount(wallet);
-      const updateConfig = async () => {
-        const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
-        await updateWalletConfig({
-          wallet: newWallet,
-          gaiaHubConfig,
-        });
-      };
-      await updateConfig();
+      // Attempt to update gaia config with new account information
+      // If Gaia fails, return new account information anyway
+      try {
+        const updateConfig = async () => {
+          const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
+          await updateWalletConfig({
+            wallet: newWallet,
+            gaiaHubConfig,
+          });
+        };
+        await updateConfig();
+      } catch (e) {
+        logger.error('Unable to update Gaia profile', e);
+      }
       return {
         ...inMemoryVault,
         wallet: newWallet,
