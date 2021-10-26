@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.48% </span>
+                <span class="strong">46.47% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>33/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.07% </span>
+                <span class="strong">13.46% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/58</span>
+                <span class='fraction'>7/52</span>
             </div>
         
             
@@ -440,7 +440,7 @@ const tokenTransferTransaction = atom(get =&gt; {
   const customNonce = <span class="cstat-no" title="statement not covered" >get(customNonceState);</span>
   const customAbsoluteFee = <span class="cstat-no" title="statement not covered" >get(customAbsoluteTxFee);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!address || !txData) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!address || !txData) <span class="cstat-no" title="statement not covered" >return;</span></span>
   const { amount, recipient, memo } = <span class="cstat-no" title="statement not covered" >txData;</span>
   const { network, account, nonce, feeRate } = <span class="cstat-no" title="statement not covered" >get(</span>
     waitForAll({
@@ -451,7 +451,7 @@ const tokenTransferTransaction = atom(get =&gt; {
     })
   );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!account || typeof nonce === 'undefined') <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!account || typeof nonce === 'undefined') <span class="cstat-no" title="statement not covered" >return;</span></span>
   const senderKey = <span class="cstat-no" title="statement not covered" >account.stxPrivateKey;</span>
   const txNonce = <span class="cstat-no" title="statement not covered" >typeof customNonce === 'number' ? customNonce : nonce;</span>
   const options: GenerateSignedTransactionOptions = <span class="cstat-no" title="statement not covered" >{</span>
@@ -476,14 +476,14 @@ const ftTokenTransferTransactionState = atom(get =&gt; {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (!address || !txData) return;
+  if (!address || !txData) return;
   const { amount, recipient, memo } = <span class="cstat-no" title="statement not covered" >txData;</span>
   const assetTransferState = <span class="cstat-no" title="statement not covered" >get(makeFungibleTokenTransferState);</span>
   const selectedAsset = <span class="cstat-no" title="statement not covered" >get(selectedAssetStore);</span>
   const feeRate = <span class="cstat-no" title="statement not covered" >get(feeRateState);</span>
   const customFee = <span class="cstat-no" title="statement not covered" >get(customAbsoluteTxFee);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!assetTransferState || !selectedAsset) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!assetTransferState || !selectedAsset) <span class="cstat-no" title="statement not covered" >return;</span></span>
   const {
     balances,
     network,
@@ -527,7 +527,7 @@ const ftTokenTransferTransactionState = atom(get =&gt; {
     standardPrincipalCVFromAddress(createAddress(recipient)),
   ];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (selectedAsset.hasMemo) {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedAsset.hasMemo) {</span>
 <span class="cstat-no" title="statement not covered" >    functionArgs.push(memo !== '' ? someCV(bufferCVFromString(memo)) : noneCV());</span>
   }
   const options = <span class="cstat-no" title="statement not covered" >{</span>
@@ -549,7 +549,7 @@ const ftTokenTransferTransactionState = atom(get =&gt; {
     options as any
     // @TODO: kyran pls fix types
   ).then<span class="fstat-no" title="function not covered" >(t</span>ransaction =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (!transaction) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!transaction) <span class="cstat-no" title="statement not covered" >return;</span></span>
     const fee = <span class="cstat-no" title="statement not covered" >customFee || calculateFeeFromFeeRate(transaction, feeRate).toNumber();</span>
     return generateSignedTransaction({ ...options, fee } as any);
   });
@@ -574,7 +574,7 @@ export const localTransactionState = atom(get =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

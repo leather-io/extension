@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/54</span>
+                <span class='fraction'>17/51</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.62% </span>
+                <span class="strong">7.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/58</span>
+                <span class='fraction'>4/52</span>
             </div>
         
             
@@ -44,7 +44,7 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.64% </span>
+                <span class="strong">38.63% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>17/44</span>
             </div>
@@ -459,7 +459,7 @@ interface AssetSearchResultsProps extends StackProps {
   getItemProps: any;
 }
 const AssetSearchResults = forwardRef(
-  ({ isOpen, highlightedIndex, getItemProps, ...props<span class="cstat-no" title="statement not covered" > }: AssetSearchResultsProps<span class="cstat-no" title="statement not covered" >, r</span>ef) =&gt; {</span>
+  ({ isOpen, highlightedIndex, getItemProps, ...props }: AssetSearchResultsProps<span class="cstat-no" title="statement not covered" >, r</span>ef) =&gt; {
     const assets<span class="cstat-no" title="statement not covered" > = useTransferableAssets();</span>
     const searchInput<span class="cstat-no" title="statement not covered" > = useSearchInput();</span>
     const availableStxBalance<span class="cstat-no" title="statement not covered" > = useCurrentAccountAvailableStxBalance();</span>
@@ -470,7 +470,7 @@ const AssetSearchResults = forwardRef(
       [assets, searchInput]
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
     return (
       &lt;Fade in={isOpen &amp;&amp; !!items?.length}&gt;
@@ -495,7 +495,7 @@ const AssetSearchResults = forwardRef(
           &gt;
             {items?.map<span class="fstat-no" title="function not covered" >((a</span>sset, index) =&gt; {
               const isStx = <span class="cstat-no" title="statement not covered" >asset.type === 'stx';</span>
-<span class="cstat-no" title="statement not covered" >              if (isStx &amp;&amp; !availableStxBalance) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >              <span class="missing-if-branch" title="if path not taken" >I</span>if (isStx &amp;&amp; !availableStxBalance) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 <span class="cstat-no" title="statement not covered" >              return (</span>
                 &lt;AssetRow
                   isPressable
@@ -516,7 +516,7 @@ const AssetSearchResults = forwardRef(
 const AssetSearchField: React.FC&lt;{
   autoFocus?: boolean;
   onItemClick: () =&gt; void;
-}&gt; = memo(({ autoFocus, onItemClick, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
+}&gt; = memo(({ autoFocus, onItemClick, ...rest }<span class="cstat-no" title="statement not covered" >) =&gt; {</span>
   const assets<span class="cstat-no" title="statement not covered" > = useTransferableAssets();</span>
 &nbsp;
   const { selectedAsset, handleUpdateSelectedAsset }<span class="cstat-no" title="statement not covered" > = useSelectedAsset();</span>
@@ -525,7 +525,7 @@ const AssetSearchField: React.FC&lt;{
   const setSearchInput<span class="cstat-no" title="statement not covered" > = useUpdateSearchInput();</span>
 &nbsp;
   useEffect(() =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (principalHasOnlyOneAsset(assets ?? [])) {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (principalHasOnlyOneAsset(assets ?? [])) {</span>
 <span class="cstat-no" title="statement not covered" >      handleUpdateSelectedAsset(assets[0]);</span>
     }
   }, [assets, handleUpdateSelectedAsset]);
@@ -557,7 +557,7 @@ const AssetSearchField: React.FC&lt;{
   const labelRef = React.useRef(null);
   const comboRef = React.useRef(null);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex flexDirection="column" width="100%" position="relative" overflow="visible" {...rest}&gt;
@@ -617,7 +617,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = memo(
       );
     }
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedAsset) {
+    if (selectedAsset) {
       return &lt;SelectedAsset {...rest} hideArrow={principalHasOnlyOneAsset(assets ?? <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>} /&gt;;
     }
 &nbsp;
@@ -631,7 +631,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

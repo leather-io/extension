@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">55.93% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>34/68</span>
+                <span class='fraction'>33/59</span>
             </div>
         
             
@@ -276,7 +276,7 @@
 <a name='L217'></a><a href='#L217'>217</a>
 <a name='L218'></a><a href='#L218'>218</a>
 <a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">48x</span>
+<a name='L220'></a><a href='#L220'>220</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,7 +305,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -330,34 +330,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -365,7 +365,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -561,17 +561,17 @@ const SendForm = (props: SendFormProps) =&gt; {
   const { handleSubmit, values, setValues, errors, setFieldError } = useFormikContext&lt;FormValues&gt;();
 &nbsp;
   const onSubmit = useCallback(async () =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (values.amount &amp;&amp; values.recipient &amp;&amp; selectedAsset) {
+    if (values.amount &amp;&amp; values.recipient &amp;&amp; selectedAsset) {
       selectedAsset.type === 'stx' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >setAmount(values.amount);</span>
       handleSubmit();
     }
   }, [setAmount, handleSubmit, values, selectedAsset]);
 &nbsp;
   const onItemSelect = useCallback(() =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (assets.length === 1) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (assets.length === 1) <span class="cstat-no" title="statement not covered" >return;</span></span>
     setValues({ ...values, amount: '' });
 <span class="cstat-no" title="statement not covered" >    setFieldError('amount', undefined);</span>
-<span class="cstat-no" title="statement not covered" >    if (amount) <span class="cstat-no" title="statement not covered" >setAmount(null);</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (amount) <span class="cstat-no" title="statement not covered" >setAmount(null);</span></span>
   }, [assets, setValues, amount, setAmount, values, setFieldError]);
 &nbsp;
   const hasValues = values.amount &amp;&amp; values.recipient !== '';
@@ -631,7 +631,7 @@ const ShowDelay<span class="fstat-no" title="function not covered" > = ({</span>
   const [tx<span class="cstat-no" title="statement not covered" >] = useTxForSettingsState();</span>
   const [txData<span class="cstat-no" title="statement not covered" >] = useLocalTransactionInputsState();</span>
   useEffect(() =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (beginShow &amp;&amp; tx &amp;&amp; !isShowing &amp;&amp; txData) {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (beginShow &amp;&amp; tx &amp;&amp; !isShowing &amp;&amp; txData) {</span>
 <span class="cstat-no" title="statement not covered" >      setShowing(true);</span>
     }
   }, [beginShow, tx, setShowing, txData, isShowing]);
@@ -647,10 +647,10 @@ const useResetFeesCallback = () =&gt; {
   const [, setAbsoluteCustomFee] = useCustomAbsoluteFee();
 &nbsp;
   return<span class="fstat-no" title="function not covered" > () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (showTxSettings) <span class="cstat-no" title="statement not covered" >setShowTxSettings(false);</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (showTxSettings) <span class="cstat-no" title="statement not covered" >setShowTxSettings(false);</span></span>
 <span class="cstat-no" title="statement not covered" >    setCustomNonce(undefined);</span>
 <span class="cstat-no" title="statement not covered" >    setAbsoluteCustomFee(null);</span>
-<span class="cstat-no" title="statement not covered" >    if (isLoading) <span class="cstat-no" title="statement not covered" >setIsIdle();</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (isLoading) <span class="cstat-no" title="statement not covered" >setIsIdle();</span></span>
   };
 };
 &nbsp;
@@ -677,8 +677,8 @@ export const SendTokensForm: React.FC = memo(() =&gt; {
     &lt;Formik
       initialValues={initialValues}
       onSubmit<span class="fstat-no" title="function not covered" >={v</span>alues =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (values.amount &amp;&amp; values.recipient &amp;&amp; values.recipient !== '' &amp;&amp; selectedAsset)</span>
-<span class="cstat-no" title="statement not covered" >          if (!assetError) {</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (values.amount &amp;&amp; values.recipient &amp;&amp; values.recipient !== '' &amp;&amp; selectedAsset)</span>
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>if (!assetError) {</span>
 <span class="cstat-no" title="statement not covered" >            setTxData({</span>
               memo: values.memo,
               recipient: values.recipient,
@@ -721,7 +721,7 @@ export const SendTokensForm: React.FC = memo(() =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

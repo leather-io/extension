@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -337,7 +337,7 @@ const callAndReceive<span class="cstat-no" title="statement not covered" ><span 
 <span class="cstat-no" title="statement not covered" >      reject('Unable to get response from Blockstack extension');</span>
     }, 1000);
     const waitForResponse<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (e</span>vent: MessageEvent) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
         event.data.source === 'blockstack-extension' &amp;&amp;
         event.data.method === `${methodName}Response`
       ) {
@@ -380,10 +380,10 @@ const provider: StacksProvider = <span class="cstat-no" title="statement not cov
 <span class="cstat-no" title="statement not covered" >    document.dispatchEvent(event);</span>
 <span class="cstat-no" title="statement not covered" >    return new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
       const handleMessage<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (e</span>vent: MessageEvent&lt;AuthenticationResponseMessage&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (!isValidEvent(event, ExternalMethods.authenticationResponse)) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >        if (event.data.payload?.authenticationRequest !== authenticationRequest) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!isValidEvent(event, ExternalMethods.authenticationResponse)) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (event.data.payload?.authenticationRequest !== authenticationRequest) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >        window.removeEventListener('message', handleMessage);</span>
-<span class="cstat-no" title="statement not covered" >        if (event.data.payload.authenticationResponse === 'cancel') {</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (event.data.payload.authenticationResponse === 'cancel') {</span>
 <span class="cstat-no" title="statement not covered" >          reject(event.data.payload.authenticationResponse);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
@@ -399,14 +399,14 @@ const provider: StacksProvider = <span class="cstat-no" title="statement not cov
 <span class="cstat-no" title="statement not covered" >    document.dispatchEvent(event);</span>
 <span class="cstat-no" title="statement not covered" >    return new Promise<span class="fstat-no" title="function not covered" >((r</span>esolve, reject) =&gt; {</span>
       const handleMessage<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (e</span>vent: MessageEvent&lt;TransactionResponseMessage&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (!isValidEvent(event, ExternalMethods.transactionResponse)) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >        if (event.data.payload?.transactionRequest !== transactionRequest) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!isValidEvent(event, ExternalMethods.transactionResponse)) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (event.data.payload?.transactionRequest !== transactionRequest) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >        window.removeEventListener('message', handleMessage);</span>
-<span class="cstat-no" title="statement not covered" >        if (event.data.payload.transactionResponse === 'cancel') {</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (event.data.payload.transactionResponse === 'cancel') {</span>
 <span class="cstat-no" title="statement not covered" >          reject(event.data.payload.transactionResponse);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
-<span class="cstat-no" title="statement not covered" >        if (typeof event.data.payload.transactionResponse !== 'string') {</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof event.data.payload.transactionResponse !== 'string') {</span>
 <span class="cstat-no" title="statement not covered" >          resolve(event.data.payload.transactionResponse);</span>
         }
       };
@@ -433,7 +433,7 @@ const provider: StacksProvider = <span class="cstat-no" title="statement not cov
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

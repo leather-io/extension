@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/60</span>
+                <span class='fraction'>0/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/53</span>
+                <span class='fraction'>0/52</span>
             </div>
         
             
@@ -242,7 +242,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -394,7 +394,7 @@ interface AccountItemProps extends FlexProps {
 &nbsp;
 const AccountTitlePlaceholder<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({</span></span>
   account,
-  ...rest<span class="cstat-no" title="statement not covered" ></span>
+  ...rest
 }: { account: AccountWithAddress } &amp; BoxProps<span class="cstat-no" title="statement not covered" >) =&gt; {</span>
   const name<span class="cstat-no" title="statement not covered" > =</span>
     (account?.username &amp;&amp; cleanUsername(account.username)) || `Account ${account?.index + 1}`;
@@ -405,7 +405,7 @@ const AccountTitlePlaceholder<span class="cstat-no" title="statement not covered
   );
 };
 &nbsp;
-const AccountTitle<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({</span> account, ...rest<span class="cstat-no" title="statement not covered" > }: { account: AccountWithAddress } &amp; BoxProps<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span></span>
+const AccountTitle<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({</span> account, ...rest }: { account: AccountWithAddress } &amp; BoxProps<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
   const name<span class="cstat-no" title="statement not covered" > = useAccountDisplayName(account);</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}&gt;
@@ -414,7 +414,7 @@ const AccountTitle<span class="cstat-no" title="statement not covered" ><span cl
   );
 };
 &nbsp;
-const AccountItem<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;AccountItemProps&gt; = ({</span> selectedAddress, account, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span></span>
+const AccountItem<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;AccountItemProps&gt; = ({</span> selectedAddress, account, ...rest }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
   const [component, bind<span class="cstat-no" title="statement not covered" >] = usePressable(true);</span>
   const { isLoading, setIsLoading }<span class="cstat-no" title="statement not covered" > = useLoading(`CHOOSE_ACCOUNT__${account.address}`);</span>
   const { doFinishSignIn }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
@@ -494,12 +494,12 @@ interface AccountsProps extends FlexProps {
 }
 &nbsp;
 export const Accounts<span class="cstat-no" title="statement not covered" >: React.FC&lt;AccountsProps&gt; = memo(</span>
-  ({ showAddAccount, accountIndex, next, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
+  ({ showAddAccount, accountIndex, next, ...rest }<span class="cstat-no" title="statement not covered" >) =&gt; {</span>
     const { wallet }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
     const accounts<span class="cstat-no" title="statement not covered" > = useAccounts();</span>
     const { decodedAuthRequest }<span class="cstat-no" title="statement not covered" > = useOnboardingState();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!wallet || !accounts || !decodedAuthRequest) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!wallet || !accounts || !decodedAuthRequest) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;&gt;
@@ -520,7 +520,7 @@ export const Accounts<span class="cstat-no" title="statement not covered" >: Rea
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

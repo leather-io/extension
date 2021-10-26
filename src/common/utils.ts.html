@@ -23,21 +23,21 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.28% </span>
+                <span class="strong">48.27% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>70/145</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.28% </span>
+                <span class="strong">26.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>27/116</span>
+                <span class='fraction'>25/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.13% </span>
+                <span class="strong">53.12% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>17/32</span>
             </div>
@@ -577,7 +577,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">241x</span>
+<span class="cline-any cline-yes">239x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
@@ -609,7 +609,7 @@ function kebabCase(str: string) {
 export const getEventSourceWindow<span class="fstat-no" title="function not covered" > = (e</span>vent: MessageEvent) =&gt; {
   const isWindow<span class="cstat-no" title="statement not covered" > =</span>
     !(event.source instanceof MessagePort) &amp;&amp; !(event.source instanceof ServiceWorker);
-<span class="cstat-no" title="statement not covered" >  if (isWindow) {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (isWindow) {</span>
 <span class="cstat-no" title="statement not covered" >    return event.source as Window;</span>
   }
 <span class="cstat-no" title="statement not covered" >  return null;</span>
@@ -618,12 +618,12 @@ export const getEventSourceWindow<span class="fstat-no" title="function not cove
 export function extractPhraseFromString(value: string) {
   const clean = value.trim();
   const words = clean.match(/\S+/g);
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (<span class="branch-0 cbranch-no" title="branch not covered" >words</span>?.length) {
+  if (<span class="branch-0 cbranch-no" title="branch not covered" >words</span>?.length) {
     return words
       .map(word =&gt; (word.match(/[^0-9]+/g) ? word : null))
       .filter(Boolean)
       .join(' ');
-  } else {
+  } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >    return clean;</span>
   }
 }
@@ -639,11 +639,11 @@ export function <span class="fstat-no" title="function not covered" >validateAnd
   let cleanedEncrypted = <span class="cstat-no" title="statement not covered" >cleaned.replace(/\s/gm, '');</span>
   const isPossibleRecoveryKey<span class="cstat-no" title="statement not covered" > = /^[a-zA-Z0-9\+\/]+=?$/.test(cleanedEncrypted);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isPossibleRecoveryKey &amp;&amp; cleanedEncrypted.slice(-1) !== '=') {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (isPossibleRecoveryKey &amp;&amp; cleanedEncrypted.slice(-1) !== '=') {</span>
     // Append possibly missing equals sign padding
 <span class="cstat-no" title="statement not covered" >    cleanedEncrypted = `${cleanedEncrypted}=`;</span>
   }
-<span class="cstat-no" title="statement not covered" >  if (cleanedEncrypted.length &gt;= 108) {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (cleanedEncrypted.length &gt;= 108) {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
       isValid: true,
       value: cleanedEncrypted,
@@ -659,7 +659,7 @@ export function <span class="fstat-no" title="function not covered" >makeTxExplo
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >truncateString(</span>str: string, maxLength: number) {
-<span class="cstat-no" title="statement not covered" >  if (str.length &lt;= maxLength) {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (str.length &lt;= maxLength) {</span>
 <span class="cstat-no" title="statement not covered" >    return str;</span>
   }
 <span class="cstat-no" title="statement not covered" >  return str.slice(0, maxLength) + '...';</span>
@@ -678,7 +678,7 @@ export function getTicker(value: string) {
     } else {
       name = `${getLetters(words[0])}${getLetters(words[1], 2)}`;
     }
-  } else <span class="missing-if-branch" title="else path not taken" >E</span>if (name.length &gt;= 3) {
+  } else if (name.length &gt;= 3) {
     name = `${getLetters(name, 3)}`;
   }
   return name.toUpperCase();
@@ -690,19 +690,19 @@ export function postConditionFromString(postCondition: string): PostCondition {
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >isUtf8(</span>buf?: Buffer | Uint8Array): boolean {
-<span class="cstat-no" title="statement not covered" >  if (!buf) {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!buf) {</span>
 <span class="cstat-no" title="statement not covered" >    return false;</span>
   }
   let i = <span class="cstat-no" title="statement not covered" >0;</span>
   const len = <span class="cstat-no" title="statement not covered" >buf.length;</span>
   while (<span class="cstat-no" title="statement not covered" >i &lt; len) {</span>
     // UTF8-1 = %x00-7F
-<span class="cstat-no" title="statement not covered" >    if (buf[i] &lt;= 0x7f) {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (buf[i] &lt;= 0x7f) {</span>
 <span class="cstat-no" title="statement not covered" >      i++;</span>
 <span class="cstat-no" title="statement not covered" >      continue;</span>
     }
     // UTF8-2 = %xC2-DF UTF8-tail
-<span class="cstat-no" title="statement not covered" >    if (buf[i] &gt;= 0xc2 &amp;&amp; buf[i] &lt;= 0xdf) {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (buf[i] &gt;= 0xc2 &amp;&amp; buf[i] &lt;= 0xdf) {</span>
       // if(buf[i + 1] &gt;= 0x80 &amp;&amp; buf[i + 1] &lt;= 0xBF) {
 <span class="cstat-no" title="statement not covered" >      if (buf[i + 1] &gt;&gt; 6 === 2) {</span>
 <span class="cstat-no" title="statement not covered" >        i += 2;</span>
@@ -714,7 +714,7 @@ function <span class="fstat-no" title="function not covered" >isUtf8(</span>buf?
     }
     // UTF8-3 = %xE0 %xA0-BF UTF8-tail
     // UTF8-3 = %xED %x80-9F UTF8-tail
-<span class="cstat-no" title="statement not covered" >    if (</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
       ((buf[i] === 0xe0 &amp;&amp; buf[i + 1] &gt;= 0xa0 &amp;&amp; buf[i + 1] &lt;= 0xbf) ||
         (buf[i] === 0xed &amp;&amp; buf[i + 1] &gt;= 0x80 &amp;&amp; buf[i + 1] &lt;= 0x9f)) &amp;&amp;
       buf[i + 2] &gt;&gt; 6 === 2
@@ -724,7 +724,7 @@ function <span class="fstat-no" title="function not covered" >isUtf8(</span>buf?
     }
     // UTF8-3 = %xE1-EC 2( UTF8-tail )
     // UTF8-3 = %xEE-EF 2( UTF8-tail )
-<span class="cstat-no" title="statement not covered" >    if (</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
       ((buf[i] &gt;= 0xe1 &amp;&amp; buf[i] &lt;= 0xec) || (buf[i] &gt;= 0xee &amp;&amp; buf[i] &lt;= 0xef)) &amp;&amp;
       buf[i + 1] &gt;&gt; 6 === 2 &amp;&amp;
       buf[i + 2] &gt;&gt; 6 === 2
@@ -736,7 +736,7 @@ function <span class="fstat-no" title="function not covered" >isUtf8(</span>buf?
     // UTF8-4 = %xF0 %x90-BF 2( UTF8-tail )
     //          %xF1-F3 3( UTF8-tail )
     //          %xF4 %x80-8F 2( UTF8-tail )
-<span class="cstat-no" title="statement not covered" >    if (</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
       ((buf[i] === 0xf0 &amp;&amp; buf[i + 1] &gt;= 0x90 &amp;&amp; buf[i + 1] &lt;= 0xbf) ||
         (buf[i] &gt;= 0xf1 &amp;&amp; buf[i] &lt;= 0xf3 &amp;&amp; buf[i + 1] &gt;&gt; 6 === 2) ||
         (buf[i] === 0xf4 &amp;&amp; buf[i + 1] &gt;= 0x80 &amp;&amp; buf[i + 1] &lt;= 0x8f)) &amp;&amp;
@@ -753,10 +753,10 @@ function <span class="fstat-no" title="function not covered" >isUtf8(</span>buf?
 &nbsp;
 export const abbreviateNumber = (n: number) =&gt; {
   <span class="missing-if-branch" title="if path not taken" >I</span>if (n &lt; 1e3) <span class="cstat-no" title="statement not covered" >return n.toString();</span>
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (n &gt;= 1e3 &amp;&amp; n &lt; 1e6) return +(n / 1e3).toFixed(2) + 'K';
-<span class="cstat-no" title="statement not covered" >  if (n &gt;= 1e6 &amp;&amp; n &lt; 1e9) <span class="cstat-no" title="statement not covered" >return +(n / 1e6).toFixed(2) + 'M';</span></span>
-<span class="cstat-no" title="statement not covered" >  if (n &gt;= 1e9 &amp;&amp; n &lt; 1e12) <span class="cstat-no" title="statement not covered" >return +(n / 1e9).toFixed(2) + 'B';</span></span>
-<span class="cstat-no" title="statement not covered" >  if (n &gt;= 1e12) <span class="cstat-no" title="statement not covered" >return +(n / 1e12).toFixed(2) + 'T';</span></span>
+  if (n &gt;= 1e3 &amp;&amp; n &lt; 1e6) return +(n / 1e3).toFixed(2) + 'K';
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (n &gt;= 1e6 &amp;&amp; n &lt; 1e9) <span class="cstat-no" title="statement not covered" >return +(n / 1e6).toFixed(2) + 'M';</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (n &gt;= 1e9 &amp;&amp; n &lt; 1e12) <span class="cstat-no" title="statement not covered" >return +(n / 1e9).toFixed(2) + 'B';</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (n &gt;= 1e12) <span class="cstat-no" title="statement not covered" >return +(n / 1e12).toFixed(2) + 'T';</span></span>
 <span class="cstat-no" title="statement not covered" >  return n.toString();</span>
 };
 &nbsp;
@@ -766,9 +766,9 @@ function <span class="fstat-no" title="function not covered" >isHex(</span>hex: 
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >hexToHumanReadable(</span>hex: string) {
-<span class="cstat-no" title="statement not covered" >  if (!isHex(hex)) <span class="cstat-no" title="statement not covered" >return hex;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!isHex(hex)) <span class="cstat-no" title="statement not covered" >return hex;</span></span>
   const buff = <span class="cstat-no" title="statement not covered" >Buffer.from(hex, 'hex');</span>
-<span class="cstat-no" title="statement not covered" >  if (isUtf8(buff)) <span class="cstat-no" title="statement not covered" >return buff.toString('utf8');</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (isUtf8(buff)) <span class="cstat-no" title="statement not covered" >return buff.toString('utf8');</span></span>
 <span class="cstat-no" title="statement not covered" >  return `0x${hex}`;</span>
 }
 &nbsp;
@@ -782,8 +782,8 @@ export function <span class="fstat-no" title="function not covered" >hexToHumanR
 // To support both `@stacks/network` versions a dev may be using
 // we look for both possible networks defined
 function getCoreApiUrl(network: StacksNetwork) {
-  <span class="missing-if-branch" title="else path not taken" >E</span>if ((network as any).coreApiUrl) return (network as any).coreApiUrl;
-<span class="cstat-no" title="statement not covered" >  if ((network as any)._coreApiUrl) <span class="cstat-no" title="statement not covered" >return (network as any)._coreApiUrl;</span></span>
+  if ((network as any).coreApiUrl) return (network as any).coreApiUrl;
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if ((network as any)._coreApiUrl) <span class="cstat-no" title="statement not covered" >return (network as any)._coreApiUrl;</span></span>
 }
 &nbsp;
 export function findMatchingNetworkKey(
@@ -801,14 +801,14 @@ export function findMatchingNetworkKey(
     const network = networks[key] as Network;
     return network.url === developerDefinedApiUrl;
   });
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (exactUrlMatch) return exactUrlMatch;
+  if (exactUrlMatch) return exactUrlMatch;
 &nbsp;
   // else check for a matching chain id (testnet/mainnet)
   const chainIdMatch = <span class="cstat-no" title="statement not covered" >keys.find<span class="fstat-no" title="function not covered" >((k</span>ey: string) =&gt; {</span>
     const network = <span class="cstat-no" title="statement not covered" >networks[key] as Network;</span>
 <span class="cstat-no" title="statement not covered" >    return network.url === developerDefinedApiUrl || network.chainId === txNetwork?.chainId;</span>
   });
-<span class="cstat-no" title="statement not covered" >  if (chainIdMatch) <span class="cstat-no" title="statement not covered" >return chainIdMatch;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (chainIdMatch) <span class="cstat-no" title="statement not covered" >return chainIdMatch;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return null;</span>
 }
@@ -871,7 +871,7 @@ export function isString(value: unknown): value is string {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

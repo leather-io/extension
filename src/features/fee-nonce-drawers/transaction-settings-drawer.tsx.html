@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
@@ -523,9 +523,9 @@ const CustomFeeMessaging<span class="cstat-no" title="statement not covered" ><s
   const url = <span class="cstat-no" title="statement not covered" >'https://www.hiro.so/questions/transactions-advanced-settings';</span>
 &nbsp;
   const openInNewTab<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (u</span>rl: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!isValidUrl(url)) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isValidUrl(url)) <span class="cstat-no" title="statement not covered" >return;</span></span>
     const newWindow = <span class="cstat-no" title="statement not covered" >window.open(url, '_blank', 'noopener,noreferrer');</span>
-<span class="cstat-no" title="statement not covered" >    if (newWindow) <span class="cstat-no" title="statement not covered" >newWindow.opener = null;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (newWindow) <span class="cstat-no" title="statement not covered" >newWindow.opener = null;</span></span>
   };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -544,7 +544,7 @@ const CustomFeeMessaging<span class="cstat-no" title="statement not covered" ><s
 const SuspenseOnMount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({</span> onMountCallback, isEnabled }: any) =&gt; {</span>
   const [tx<span class="cstat-no" title="statement not covered" >] = useTxForSettingsState();</span>
   useEffect(() =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (tx &amp;&amp; isEnabled) {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (tx &amp;&amp; isEnabled) {</span>
 <span class="cstat-no" title="statement not covered" >      onMountCallback();</span>
     }
   }, [onMountCallback, isEnabled, tx]);
@@ -567,7 +567,7 @@ const SettingsFormInner<span class="cstat-no" title="statement not covered" ><sp
   const { setFieldValue } = <span class="cstat-no" title="statement not covered" >formikProps;</span>
 &nbsp;
   useEffect(() =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (fee) <span class="cstat-no" title="statement not covered" >setFieldValue('fee', microStxToStx(fee).toString());</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (fee) <span class="cstat-no" title="statement not covered" >setFieldValue('fee', microStxToStx(fee).toString());</span></span>
 <span class="cstat-no" title="statement not covered" >    setFieldValue('nonce', nonce);</span>
   }, [setFieldValue, fee, nonce]);
 &nbsp;
@@ -614,7 +614,7 @@ const SettingsForm<span class="cstat-no" title="statement not covered" ><span cl
     &lt;Formik
       initialValues={{ fee: 0, nonce: 0 }}
       onSubmit<span class="fstat-no" title="function not covered" >={v</span>alues =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (!byteSize) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!byteSize) <span class="cstat-no" title="statement not covered" >return;</span></span>
         // selected value is the same as default fee value, so reset to nothing
 <span class="cstat-no" title="statement not covered" >        if (byteSize * feeRate === stxToMicroStx(values.fee)) {</span>
 <span class="cstat-no" title="statement not covered" >          setCustomAbsoluteFee(null);</span>
@@ -674,7 +674,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionSe
 &nbsp;
   const handleOnClose<span class="cstat-no" title="statement not covered" > = useCallback(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setShowTxSettings(false);</span>
-<span class="cstat-no" title="statement not covered" >    if (isLoading) <span class="cstat-no" title="statement not covered" >setIsIdle();</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (isLoading) <span class="cstat-no" title="statement not covered" >setIsIdle();</span></span>
   }, [isLoading, setIsIdle, setShowTxSettings]);
 &nbsp;
   return (
@@ -697,7 +697,7 @@ export const <span class="cstat-no" title="statement not covered" >TransactionSe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

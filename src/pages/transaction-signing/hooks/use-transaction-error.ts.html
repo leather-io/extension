@@ -23,7 +23,7 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.17% </span>
+                <span class="strong">29.16% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>14/48</span>
             </div>
@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -44,7 +44,7 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.15% </span>
+                <span class="strong">34.14% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>14/41</span>
             </div>
@@ -234,37 +234,37 @@ export function useTransactionError() {
   const availableStxBalance<span class="cstat-no" title="statement not covered" > = useCurrentAccountAvailableStxBalance();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo&lt;TransactionErrorReason | void&gt;(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (origin === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.ExpiredRequest;</span></span>
-<span class="cstat-no" title="statement not covered" >    if (isValidTransaction === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.Unauthorized;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (origin === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.ExpiredRequest;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (isValidTransaction === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.Unauthorized;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!transactionRequest || !availableStxBalance || !currentAccount) {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!transactionRequest || !availableStxBalance || !currentAccount) {</span>
 <span class="cstat-no" title="statement not covered" >      return TransactionErrorReason.Generic;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (transactionRequest.txType === TransactionTypes.ContractCall) {</span>
-<span class="cstat-no" title="statement not covered" >      if (!validateStacksAddress(transactionRequest.contractAddress))</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (transactionRequest.txType === TransactionTypes.ContractCall) {</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (!validateStacksAddress(transactionRequest.contractAddress))</span>
 <span class="cstat-no" title="statement not covered" >        return TransactionErrorReason.InvalidContractAddress;</span>
-<span class="cstat-no" title="statement not covered" >      if (contractInterface.isError) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.NoContract;</span></span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (contractInterface.isError) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.NoContract;</span></span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (broadcastError) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.BroadcastError;</span></span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (broadcastError) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.BroadcastError;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (availableStxBalance) {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (availableStxBalance) {</span>
       const zeroBalance = <span class="cstat-no" title="statement not covered" >availableStxBalance.toNumber() === 0;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (transactionRequest.txType === TransactionTypes.STXTransfer) {</span>
-<span class="cstat-no" title="statement not covered" >        if (zeroBalance) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.StxTransferInsufficientFunds;</span></span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (transactionRequest.txType === TransactionTypes.STXTransfer) {</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (zeroBalance) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.StxTransferInsufficientFunds;</span></span>
 &nbsp;
         const transferAmount = <span class="cstat-no" title="statement not covered" >new BigNumber(transactionRequest.amount);</span>
-<span class="cstat-no" title="statement not covered" >        if (transferAmount.gte(availableStxBalance))</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (transferAmount.gte(availableStxBalance))</span>
 <span class="cstat-no" title="statement not covered" >          return TransactionErrorReason.StxTransferInsufficientFunds;</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (zeroBalance &amp;&amp; !fee.isSponsored) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (zeroBalance &amp;&amp; !fee.isSponsored) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (fee &amp;&amp; !fee.isSponsored &amp;&amp; fee.amount) {</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (fee &amp;&amp; !fee.isSponsored &amp;&amp; fee.amount) {</span>
         const feeAmount = <span class="cstat-no" title="statement not covered" >new BigNumber(fee.amount);</span>
-<span class="cstat-no" title="statement not covered" >        if (feeAmount.gte(availableStxBalance)) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (feeAmount.gte(availableStxBalance)) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
       }
     }
 <span class="cstat-no" title="statement not covered" >    return;</span>
@@ -286,7 +286,7 @@ export function useTransactionError() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

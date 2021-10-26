@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/70</span>
+                <span class='fraction'>0/68</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/55</span>
+                <span class='fraction'>0/48</span>
             </div>
         
             
@@ -477,22 +477,22 @@ import { FiFastForward } from 'react-icons/fi'<span class="cstat-no" title="stat
 type Tx = MempoolTransaction | Transaction;
 &nbsp;
 const getAssetTransfer<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (t</span>x: Tx): TransactionEventFungibleAsset | null =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  if (tx.tx_type !== 'contract_call') <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (tx.tx_status !== 'success') <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (tx.tx_type !== 'contract_call') <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (tx.tx_status !== 'success') <span class="cstat-no" title="statement not covered" >return null;</span></span>
   const transfer = tx.events.find<span class="fstat-no" title="function not covered" >(e</span>vent =&gt; <span class="cstat-no" title="statement not covered" >event.event_type === 'fungible_token_asset');</span>
-<span class="cstat-no" title="statement not covered" >  if (transfer?.event_type !== 'fungible_token_asset') <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (transfer?.event_type !== 'fungible_token_asset') <span class="cstat-no" title="statement not covered" >return null;</span></span>
 <span class="cstat-no" title="statement not covered" >  return transfer;</span>
 };
 &nbsp;
 const getTxValue<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (t</span>x: Tx, isOriginator: boolean): number | string | null =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  if (tx.tx_type === 'token_transfer') {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (tx.tx_type === 'token_transfer') {</span>
 <span class="cstat-no" title="statement not covered" >    return `${isOriginator ? '-' : ''}${stacksValue({</span>
       value: tx.token_transfer.amount,
       withTicker: false,
     })}`;
   }
   const transfer = <span class="cstat-no" title="statement not covered" >getAssetTransfer(tx);</span>
-<span class="cstat-no" title="statement not covered" >  if (transfer) <span class="cstat-no" title="statement not covered" >return new BigNumber(transfer.asset.amount).toFormat();</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (transfer) <span class="cstat-no" title="statement not covered" >return new BigNumber(transfer.asset.amount).toFormat();</span></span>
 <span class="cstat-no" title="statement not covered" >  return null;</span>
 };
 &nbsp;
@@ -501,7 +501,7 @@ interface TxItemProps {
 }
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >getTxCaption<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (t</span></span>ransaction: Tx) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  if (!transaction) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!transaction) <span class="cstat-no" title="statement not covered" >return null;</span></span>
   switch (transaction.tx_type) {
     case 'smart_contract':
 <span class="cstat-no" title="statement not covered" >      return truncateMiddle(transaction.smart_contract.contract_id, 4);</span>
@@ -516,7 +516,7 @@ export const <span class="cstat-no" title="statement not covered" >getTxCaption<
   }
 };
 &nbsp;
-const Status<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;{ transaction: Tx } &amp; BoxProps&gt; = ({</span> transaction, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span></span>
+const Status<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;{ transaction: Tx } &amp; BoxProps&gt; = ({</span> transaction, ...rest }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
   const isPending<span class="cstat-no" title="statement not covered" > = isPendingTx(transaction as any);</span>
   const isFailed<span class="cstat-no" title="statement not covered" > = !isPending &amp;&amp; transaction.tx_status !== 'success';</span>
 <span class="cstat-no" title="statement not covered" >  return isFailed || isPending ? (</span>
@@ -579,12 +579,12 @@ const SpeedUpButton<span class="cstat-no" title="statement not covered" ><span c
   );
 };
 &nbsp;
-export const TxItem<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;TxItemProps &amp; BoxProps&gt; = ({</span> transaction, ...rest<span class="cstat-no" title="statement not covered" > }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span></span>
+export const TxItem<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC&lt;TxItemProps &amp; BoxProps&gt; = ({</span> transaction, ...rest }<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
   const [component, bind, { isHovered }<span class="cstat-no" title="statement not covered" >] = usePressable(true);</span>
   const { handleOpenTxLink }<span class="cstat-no" title="statement not covered" > = useExplorerLink();</span>
   const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!transaction) {</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!transaction) {</span>
 <span class="cstat-no" title="statement not covered" >    return null;</span>
   }
 &nbsp;
@@ -655,7 +655,7 @@ export const TxItem<span class="cstat-no" title="statement not covered" ><span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 17:07:25 GMT+0000 (Coordinated Universal Time)
+                at Tue Oct 26 2021 13:12:16 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
