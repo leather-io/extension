@@ -102,6 +102,9 @@ jobs:
       - name: Build project
         env:
           IS_PUBLISHING: true
+          SENTRY_ORG: hirosystems
+          SENTRY_PROJECT: hiro-wallet-web
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: yarn build
 
       - name: Build extension
