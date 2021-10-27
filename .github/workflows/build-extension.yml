@@ -28,7 +28,7 @@ jobs:
         # Don't run on forks
         if: github.event.pull_request.head.repo.full_name == github.repository
         with:
-          header: '> Try out this version of the Hiro Wallet - download [extension builds](https://github.com/blockstack/ux/actions/runs/${{ github.run_id }}).'
+          header: '> Try out this version of the Hiro Wallet - download [extension builds](https://github.com/hirosystems/ux/actions/runs/${{ github.run_id }}).'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_chrome_extension:
