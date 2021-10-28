@@ -19,6 +19,7 @@ import {
 } from '@store/transactions/transaction.hooks';
 import { useCurrentFee } from '@store/transactions/fees.hooks';
 import { ShowTxSettingsAction } from '@features/fee-nonce-drawers/components/show-tx-settings-action';
+import { ConfirmTransferSelectors } from '@tests/page-objects/confirm-transfer-selectors';
 
 const LOADING_KEY = 'confirm-send-drawer';
 
@@ -77,6 +78,7 @@ const Actions: React.FC<{
           void handleSubmit?.();
         }}
         isLoading={!transaction || isLoading}
+        data-testid={ConfirmTransferSelectors.BtnSendTokens}
       >
         Send
       </Button>
@@ -112,8 +114,8 @@ export const ConfirmSendDrawer: React.FC<Omit<BaseDrawerProps, 'title'>> = ({
         />
         <Stack spacing="base">
           <SpaceBetween>
-            <Caption>Fees</Caption>
-            <Caption>
+            <Caption>Fees1</Caption>
+            <Caption data-testid={ConfirmTransferSelectors.ConfirmTransferFee}>
               {(fee && stacksValue({ value: fee, fixedDecimals: true, withTicker: true })) || '--'}
             </Caption>
           </SpaceBetween>

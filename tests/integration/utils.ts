@@ -140,7 +140,7 @@ export const debug = async (page: Page) => {
 export const selectTestNet = async (wallet: WalletPage) => {
   await wallet.clickSettingsButton();
   await wallet.page.click(createTestSelector(SettingsSelectors.ChangeNetworkAction));
-  await wallet.page.waitForTimeout(1200);
+  await wallet.page.waitForTimeout(1500);
 
   const networkListItems = await wallet.page.$$(
     createTestSelector(SettingsSelectors.NetworkListItem)

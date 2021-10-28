@@ -9,4 +9,5 @@ export enum SendFormSelectors {
 
   BtnPreviewSendTx = 'btn-preview-send-tx',
   TransferMessage = 'transfer-message',
+  TokenTitle = 'token-title',
 }

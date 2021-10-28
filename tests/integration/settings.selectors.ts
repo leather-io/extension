@@ -13,5 +13,6 @@ export enum SettingsSelectors {
   BtnSignOutReturnToHomeScreen = 'btn-sign-out-return-to-home-screen',
   BtnSignOutActuallyDeleteWallet = 'btn-sign-out-actually-delete-wallet',
   LockListItem = 'settings-lock',
+  SetPassword = 'set-password',
   AccountIndex = 'switch-account-item-[index]',
 }

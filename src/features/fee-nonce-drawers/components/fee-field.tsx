@@ -5,6 +5,7 @@ import { ErrorLabel } from '@components/error-label';
 import { useFeeRate } from '@store/transactions/fees.hooks';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 import { SendFormErrorMessages } from '@common/error-messages';
+import { ConfirmTransferSelectors } from '@tests/page-objects/confirm-transfer-selectors';
 
 const multipliers = [2, 5, 10];
 
@@ -19,6 +20,7 @@ const MultiplierButton = ({ multiplier, ...rest }: MultiplierButtonProps) => (
     borderRadius="6px"
     key={`multiply-${multiplier}`}
     {...rest}
+    data-testid={(ConfirmTransferSelectors as any)[`BtnMultiplier${multiplier}x`]}
   >
     {multiplier}x
   </Button>
@@ -110,12 +112,13 @@ export const FeeField = ({ byteSize, ...props }: FeeField) => {
             width="100%"
             placeholder="Enter a custom fee"
             autoComplete="off"
+            data-testid={ConfirmTransferSelectors.InputCustomFee}
             {...field}
           />
         </InputGroup>
       </Stack>
       {meta.error && (
-        <ErrorLabel>
+        <ErrorLabel data-testid={ConfirmTransferSelectors.InputCustomFeeError}>
           <Text textStyle="caption" lineHeight="18px">
             {fieldError}
           </Text>

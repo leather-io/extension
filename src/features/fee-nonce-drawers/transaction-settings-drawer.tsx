@@ -19,6 +19,7 @@ import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 import { useShowEditNonceCleanupEffect, useShowEditNonceState } from '@store/ui/ui.hooks';
 import { isValidUrl } from '@common/validation/validate-url';
 import { nonceSchema } from '@common/validation/nonce-schema';
+import { ConfirmTransferSelectors } from '@tests/page-objects/confirm-transfer-selectors';
 
 const EditNonce = () => {
   const [showNonce, setShowNonce] = useShowEditNonceState();
@@ -102,6 +103,7 @@ const SettingsFormInner = ({ formikProps }: SettingsFormInnerProps) => {
           flexGrow={1}
           borderRadius="10px"
           mode="tertiary"
+          data-testid={ConfirmTransferSelectors.BtnCancelSettings}
         >
           Cancel
         </Button>
@@ -111,6 +113,7 @@ const SettingsFormInner = ({ formikProps }: SettingsFormInnerProps) => {
           onClick={formikProps.handleSubmit}
           isLoading={isLoading}
           borderRadius="10px"
+          data-testid={ConfirmTransferSelectors.BtnApplySettings}
         >
           Apply
         </Button>

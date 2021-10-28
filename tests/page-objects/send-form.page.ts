@@ -1,6 +1,7 @@
 import { Page } from 'playwright-core';
 import { createTestSelector } from '../integration/utils';
 import { SendFormSelectors } from './send-form.selectors';
+import { ConfirmTransferSelectors } from '@tests/page-objects/confirm-transfer-selectors';
 
 const selectors = {
   $btnSendMaxBalance: createTestSelector(SendFormSelectors.BtnSendMaxBalance),
@@ -10,6 +11,19 @@ const selectors = {
   $stxAddressFieldError: createTestSelector(SendFormSelectors.InputRecipientFieldErrorLabel),
   $previewBtn: createTestSelector(SendFormSelectors.BtnPreviewSendTx),
   $transferMessage: createTestSelector(SendFormSelectors.TransferMessage),
+  $settingsBtn: createTestSelector(ConfirmTransferSelectors.BtnSettings),
+  $btnMultiplier1x: createTestSelector(ConfirmTransferSelectors.BtnMultiplier1x),
+  $btnMultiplier2x: createTestSelector(ConfirmTransferSelectors.BtnMultiplier2x),
+  $btnMultiplier5x: createTestSelector(ConfirmTransferSelectors.BtnMultiplier5x),
+  $btnMultiplier10x: createTestSelector(ConfirmTransferSelectors.BtnMultiplier10x),
+  $btnSendTokens: createTestSelector(ConfirmTransferSelectors.BtnSendTokens),
+  $btnFeeIncrease: createTestSelector(ConfirmTransferSelectors.BtnFeeIncrease),
+  $inputCustomFee: createTestSelector(ConfirmTransferSelectors.InputCustomFee),
+  $btnApplySettings: createTestSelector(ConfirmTransferSelectors.BtnApplySettings),
+  $confirmTransferFee: createTestSelector(ConfirmTransferSelectors.ConfirmTransferFee),
+  $inputCustomFeeError: createTestSelector(ConfirmTransferSelectors.InputCustomFeeError),
+  $btnSubmitFeeIncrease: createTestSelector(ConfirmTransferSelectors.BtnSubmitFeeIncrease),
+  $tokenTitle: createTestSelector(SendFormSelectors.TokenTitle),
 };
 
 export class SendPage {
@@ -33,6 +47,48 @@ export class SendPage {
     await this.page.click(this.selectors.$previewBtn);
   }
 
+  async clickSettingsBtn() {
+    await this.page.click(this.selectors.$settingsBtn);
+  }
+
+  async click1xBtn() {
+    await this.page.click(this.selectors.$btnMultiplier1x);
+  }
+
+  async click2xBtn() {
+    await this.page.click(this.selectors.$btnMultiplier2x);
+  }
+
+  async click5xBtn() {
+    await this.page.click(this.selectors.$btnMultiplier5x);
+  }
+
+  async click10xBtn() {
+    await this.page.click(this.selectors.$btnMultiplier10x);
+  }
+
+  async clickFeeApplyBtn() {
+    await this.page.click(this.selectors.$btnApplySettings);
+  }
+
+  async clickSendTokenBtn() {
+    await this.page.click(this.selectors.$btnSendTokens);
+  }
+
+  async clickSubmitIncreaseFee() {
+    await this.page.click(this.selectors.$btnSubmitFeeIncrease);
+  }
+
+  async clickIncreaseFeeBtn() {
+    await this.page.click(this.selectors.$btnFeeIncrease);
+  }
+
+  async getCustomFee() {
+    return this.page.$eval(this.selectors.$inputCustomFee, (el: HTMLInputElement) =>
+      parseFloat(el.value)
+    );
+  }
+
   async getAmountFieldValue() {
     return this.page.$eval(this.selectors.$amountField, (el: HTMLInputElement) => el.value);
   }
@@ -54,5 +110,10 @@ export class SendPage {
 
   async waitForPreview(selector: keyof typeof selectors) {
     await this.page.waitForSelector(this.selectors[selector]);
+  }
+
+  async fillToTransferFeeField(input: string) {
+    const field = await this.page.$(this.selectors.$inputCustomFee);
+    await field?.fill(input);
   }
 }

@@ -25,6 +25,7 @@ import { stacksValue, stxToMicroStx } from '@common/stacks-utils';
 import { useFeeRate, useReplaceByFeeSubmitCallBack } from '@store/transactions/fees.hooks';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useFeeSchema } from './use-fee-schema';
+import { ConfirmTransferSelectors } from '@tests/page-objects/confirm-transfer-selectors';
 
 const useSelectedTx = () => {
   const [rawTxId] = useRawTxIdState();
@@ -67,6 +68,7 @@ const Actions = ({ formikProps }: { formikProps: FormikProps<{ nonce: number; fe
         isLoading={isLoading}
         borderRadius="10px"
         isDisabled={isSame}
+        data-testid={ConfirmTransferSelectors.BtnSubmitFeeIncrease}
       >
         Submit
       </Button>

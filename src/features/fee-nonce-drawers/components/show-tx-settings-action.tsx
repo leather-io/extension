@@ -3,6 +3,7 @@ import { useTxByteSizeState, useTxForSettingsState } from '@store/transactions/t
 import { Caption } from '@components/typography';
 import { color } from '@stacks/ui';
 import React from 'react';
+import { ConfirmTransferSelectors } from '@tests/page-objects/confirm-transfer-selectors';
 
 export const ShowTxSettingsAction = () => {
   const { showTxSettings, setShowTxSettings } = useDrawers();
@@ -16,6 +17,7 @@ export const ShowTxSettingsAction = () => {
         setShowTxSettings(!showTxSettings);
         setTxBytes(tx?.serialize().byteLength || null);
       }}
+      data-testid={ConfirmTransferSelectors.BtnSettings}
     >
       Settings
     </Caption>

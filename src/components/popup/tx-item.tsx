@@ -20,6 +20,8 @@ import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { usePressable } from '@components/item-hover';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
 import { FiFastForward } from 'react-icons/fi';
+import { ConfirmTransferSelectors } from '@tests/page-objects/confirm-transfer-selectors';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -119,6 +121,7 @@ const SpeedUpButton = ({
       _hover={{
         color: color('text-title'),
       }}
+      data-testid={ConfirmTransferSelectors.BtnFeeIncrease}
     >
       <Box mr="3px" as={FiFastForward} color={color('accent')} />
       Increase fee
@@ -180,7 +183,7 @@ export const TxItem: React.FC<TxItemProps & BoxProps> = ({ transaction, ...rest 
           <Stack alignItems="flex-end" spacing="base-tight">
             {value && (
               <Title as="h3" fontWeight="normal">
-                {value}
+                <span data-testid={SendFormSelectors.TokenTitle}>{value}</span>
               </Title>
             )}
             <SpeedUpButton
