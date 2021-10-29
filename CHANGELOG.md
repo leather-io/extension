@@ -1,3 +1,10 @@
+## [2.20.1-dev.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.4...v2.20.1-dev.5) (2021-10-29)
+
+
+### Bug Fixes
+
+* manifest app version doesn't include -dev ([83fd238](https://github.com/hirosystems/stacks-wallet-web/commit/83fd2389a4b387c19d047bf501abc015a46dd680))
+
 ## [2.20.1-dev.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.3...v2.20.1-dev.4) (2021-10-29)
 
 
