@@ -12,6 +12,7 @@ on:
       - '**/package.json'
       - '**/yarn.lock'
       - './config/**'
+      - 'README.md'
 
 jobs:
   semantic-release:
@@ -37,10 +38,11 @@ jobs:
             @semantic-release/git
 
       - name: Create file with release notes
-        if: steps.semantic.outputs.new_release_version
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: echo "${{ steps.semantic.outputs.new_release_notes }}" > release-notes.txt
 
       - run: cat release-notes.txt
+        if: steps.semantic.outputs.new_release_published == 'true'
 
       - name: Log details
         if: steps.semantic.outputs.new_release_published == 'true'
@@ -52,6 +54,7 @@ jobs:
 
       - name: Upload release notes
         uses: actions/upload-artifact@v2
+        if: steps.semantic.outputs.new_release_published == 'true'
         with:
           name: release-notes
           path: release-notes.txt
