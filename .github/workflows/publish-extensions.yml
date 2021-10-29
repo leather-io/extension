@@ -3,6 +3,8 @@ on:
   push:
     tags:
       - 'v*'
+    tags-ignore:
+      - 'v*dev*'
   workflow_dispatch:
 
 env:
