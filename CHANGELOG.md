@@ -1,3 +1,10 @@
+## [2.20.1-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.1...v2.20.1-dev.2) (2021-10-29)
+
+
+### Bug Fixes
+
+* upload release assets ([0fc66ea](https://github.com/hirosystems/stacks-wallet-web/commit/0fc66ea4dd7751a8d50fea0a2336af6dc029aac5))
+
 ## [2.20.1-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.0...v2.20.1-dev.1) (2021-10-29)
 
 
