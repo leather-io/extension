@@ -1,4 +1,4 @@
-name: Build beta extensions
+name: PR Extensions builds
 on: [pull_request, workflow_dispatch]
 
 env:

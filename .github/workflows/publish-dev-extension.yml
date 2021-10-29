@@ -16,24 +16,11 @@ jobs:
       new_version: ${{ steps.extract_version.outputs.version }}
     steps:
       - uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
+      - uses: ./.github/actions/provision
 
       - name: Extract version
         id: extract_version
         uses: Saionaro/extract-package-version@v1.1.1
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
 
       - name: Build project
         env:
@@ -51,8 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build-extension
-    outputs:
-      publish_status: ${{ steps.publish-chrome.outputs.publish_status }}
     steps:
       - name: Download extension build
         uses: actions/download-artifact@v2
