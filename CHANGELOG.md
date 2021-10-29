@@ -1,3 +1,10 @@
+## [2.20.1-dev.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.3...v2.20.1-dev.4) (2021-10-29)
+
+
+### Bug Fixes
+
+* tidy CI jobs, update readme ([3c55a11](https://github.com/hirosystems/stacks-wallet-web/commit/3c55a11b497e68ba210444c1b3faab55ea73f5e8))
+
 ## [2.20.1-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.2...v2.20.1-dev.3) (2021-10-29)
 
 
