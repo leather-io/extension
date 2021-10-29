@@ -1,3 +1,12 @@
+## [2.20.1-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.0...v2.20.1-dev.1) (2021-10-29)
+
+
+### Bug Fixes
+
+* local dev not injecting provider, closes [#1795](https://github.com/hirosystems/stacks-wallet-web/issues/1795) ([d95b413](https://github.com/hirosystems/stacks-wallet-web/commit/d95b413f38fc3a706a169aa70bbf8573a17284cd))
+* use semantic release ([24b752c](https://github.com/hirosystems/stacks-wallet-web/commit/24b752c952bc2b1628cbedfbe163482964fd5f0c))
+* wallet dependence on gaia, closes [#1732](https://github.com/hirosystems/stacks-wallet-web/issues/1732) ([c5b86dd](https://github.com/hirosystems/stacks-wallet-web/commit/c5b86dd5bcd1b7c93fd6dd7a66a2d30803a2f0b7))
+
 # Changelog
 
 ## 2.20.0
