@@ -4,6 +4,14 @@ const IS_DEV = process.env.NODE_ENV === 'development';
 
 const PREVIEW_RELEASE = process.env.PREVIEW_RELEASE;
 
+function generateImageAssetUrlsWithSuffix(suffix) {
+  return {
+    128: `assets/connect-logo/Stacks128w${suffix}.png`,
+    256: `assets/connect-logo/Stacks256w${suffix}.png`,
+    512: `assets/connect-logo/Stacks512w${suffix}.png`,
+  };
+}
+
 const manifest = {
   author: 'Hiro PBC',
   description:
@@ -49,11 +57,7 @@ const devManifest = {
   name: 'Hiro Wallet Dev',
   content_security_policy:
     "script-src 'self' 'unsafe-eval'; object-src 'self'; frame-src 'none'; frame-ancestors 'none';",
-  icons: {
-    128: 'assets/connect-logo/Stacks128w-dev.png',
-    256: 'assets/connect-logo/Stacks256w-dev.png',
-    512: 'assets/connect-logo/Stacks512w-dev.png',
-  },
+  icons: generateImageAssetUrlsWithSuffix('-dev'),
   browser_action: {
     default_icon: 'assets/connect-logo/Stacks128w-dev.png',
   },
@@ -65,13 +69,9 @@ const prodManifest = {
   name,
   content_security_policy:
     "default-src 'none'; connect-src *; style-src 'unsafe-inline'; script-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
-  icons: {
-    128: 'assets/connect-logo/Stacks128w.png',
-    256: 'assets/connect-logo/Stacks256w.png',
-    512: 'assets/connect-logo/Stacks512w.png',
-  },
+  icons: generateImageAssetUrlsWithSuffix(PREVIEW_RELEASE ? '-preview' : ''),
   browser_action: {
-    default_icon: 'assets/connect-logo/Stacks128w.png',
+    default_icon: `assets/connect-logo/Stacks128w${PREVIEW_RELEASE ? '-preview' : ''}.png`,
   },
 };
 
