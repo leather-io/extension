@@ -71,6 +71,9 @@ const prodManifest = {
   },
 };
 
-module.exports = version => {
+module.exports = packageVersion => {
+  if (!packageVersion)
+    throw new Error('Version number must be passed to `generateManifest` function');
+  const version = packageVersion.includes('-') ? packageVersion.split('-')[0] : packageVersion;
   return deepMerge.all([{ version }, manifest, IS_DEV ? devManifest : prodManifest]);
 };
