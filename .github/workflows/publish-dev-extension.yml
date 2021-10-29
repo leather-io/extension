@@ -73,5 +73,4 @@ jobs:
           prerelease: true
           tag_name: v${{ needs.build-extension.outputs.new_version }}
           body_path: release-notes.txt
-          files: |
-            hiro-wallet
+          files: hiro-wallet/**
