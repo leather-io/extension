@@ -1,3 +1,10 @@
+## [2.20.1-dev.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.5...v2.20.1-dev.6) (2021-10-29)
+
+
+### Bug Fixes
+
+* generate release with preview name ([bdaa8bf](https://github.com/hirosystems/stacks-wallet-web/commit/bdaa8bfde95d04bb7aa355be217a20b28389b139))
+
 ## [2.20.1-dev.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.4...v2.20.1-dev.5) (2021-10-29)
 
 
