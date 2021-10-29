@@ -8,6 +8,7 @@ on:
 env:
   # To use another sentry DSN
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+  PREVIEW_RELEASE: true
 
 jobs:
   build-extension:

@@ -2,6 +2,8 @@ const deepMerge = require('deepmerge');
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
+const PREVIEW_RELEASE = process.env.PREVIEW_RELEASE;
+
 const manifest = {
   author: 'Hiro PBC',
   description:
@@ -57,8 +59,10 @@ const devManifest = {
   },
 };
 
+const name = PREVIEW_RELEASE ? 'Hiro Wallet Preview' : 'Hiro Wallet';
+
 const prodManifest = {
-  name: 'Hiro Wallet',
+  name,
   content_security_policy:
     "default-src 'none'; connect-src *; style-src 'unsafe-inline'; script-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
   icons: {
