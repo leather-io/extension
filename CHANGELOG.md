@@ -1,3 +1,10 @@
+## [2.20.1-dev.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.6...v2.20.1-dev.7) (2021-10-29)
+
+
+### Bug Fixes
+
+* add preview release images, delete unused assets ([01c3121](https://github.com/hirosystems/stacks-wallet-web/commit/01c31218f3771e2434fc95a5b95ee20c68746632))
+
 ## [2.20.1-dev.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.5...v2.20.1-dev.6) (2021-10-29)
 
 
