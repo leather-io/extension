@@ -1,3 +1,5 @@
+name: Create version
+
 on:
   push:
     branches:

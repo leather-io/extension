@@ -1,4 +1,4 @@
-name: Publish Beta Extensions
+name: Publish Dev Extensions
 on:
   push:
     tags:
@@ -67,10 +67,13 @@ jobs:
 
       - run: ls -R
 
+      - name: Zip release build
+        run: zip -r hiro-wallet.v${{ needs.build-extension.outputs.new_version }}.zip hiro-wallet/
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
           tag_name: v${{ needs.build-extension.outputs.new_version }}
           body_path: release-notes.txt
-          files: hiro-wallet/**
+          files: hiro-wallet.v${{ needs.build-extension.outputs.new_version }}.zip
