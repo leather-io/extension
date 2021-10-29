@@ -1,12 +1,13 @@
-# Hiro Wallet for Web
+# Hiro Wallet—Web
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/ldinpeekobnhjjdofggfgjlcehhmanlj?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj)
 [![Mozilla Add-on](https://img.shields.io/amo/stars/hiro-wallet?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/)
 [![coverage](https://raw.githubusercontent.com/blockstack/stacks-wallet-web/gh-pages/badge.svg)](https://blockstack.github.io/stacks-wallet-web/)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/blockstack/stacks-wallet-web)
 
-Hiro Wallet is a browser extension for managing your digital assets and connecting to apps built with the Stacks blockchain.
+Hiro Wallet is a browser extension for managing your digital assets, and connecting to apps built on the Stacks blockchain.
 
 Source code is available on GitHub at https://github.com/blockstack/stacks-wallet-web/tree/main
 
