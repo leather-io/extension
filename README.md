@@ -2,16 +2,16 @@
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/ldinpeekobnhjjdofggfgjlcehhmanlj?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj)
 [![Mozilla Add-on](https://img.shields.io/amo/stars/hiro-wallet?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/)
-[![coverage](https://raw.githubusercontent.com/blockstack/stacks-wallet-web/gh-pages/badge.svg)](https://blockstack.github.io/stacks-wallet-web/)
+[![coverage](https://raw.githubusercontent.com/hirosystems/stacks-wallet-web/gh-pages/badge.svg)](https://hirosystems.github.io/stacks-wallet-web/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/blockstack/stacks-wallet-web)
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/hirosystems/stacks-wallet-web)
 
 Hiro Wallet is a browser extension for managing your digital assets, and connecting to apps built on the Stacks blockchain.
 
-Source code is available on GitHub at https://github.com/blockstack/stacks-wallet-web/tree/main
+Source code is available on GitHub at https://github.com/hirosystems/stacks-wallet-web/tree/main
 
-To use this extension with your own Stacks App, we recommend using [Connect](https://github.com/blockstack/connect).
+To use this extension with your own Stacks App, we recommend using [Connect](https://github.com/hirosystems/connect).
 
 Table of Contents:
 
@@ -24,7 +24,6 @@ Table of Contents:
   - [Add extension to your browser](#add-extension-to-your-browser)
     - [Chromium](#chromium)
     - [Firefox](#firefox)
-  - [Adding a Changeset](#adding-a-changeset)
 - [Production](#production)
   - [Building browser extensions](#building-browser-extensions)
     - [Optional: use Docker](#optional-use-docker)
@@ -46,7 +45,7 @@ run it as a standalone web application.
 Clone this repository and install dependencies:
 
 ```bash
-git clone https://github.com/blockstack/stacks-wallet-web
+git clone https://github.com/hirosystems/stacks-wallet-web
 cd stacks-wallet-web
 yarn
 ```
@@ -93,14 +92,6 @@ within the project.
 3. Click on: **"Load Temporary Add-on…"**
 4. Navigate to the `stacks-wallet-web` project directory
 5. Select the `manifest.json` file from the `stacks-wallet-web/dist` directory.
-
-### Adding a Changeset
-
-This repository utilizes [Changesets](https://github.com/atlassian/changesets) in order to create a `CHANGELOG.md` file and update the version of the wallet. Each pull request should include a changeset, which includes a description of the changes made in your PR. Most information can be found in the [changesets repository](https://github.com/atlassian/changesets), but the quickest way to add a changeset is to run `yarn changeset add`. You'll be prompted to enter a summary of your changes.
-
-Once your PR is merged into the `main` branch, a new pull request will automatically be created. This is a "release" pull request. The PR will merge your changesets into the [`CHANGELOG.md`](https://github.com/blockstack/ux/blob/main/CHANGELOG.md) file, and will update the version of the wallet appropriately, depending on the type of change you've made.
-
-In general, you should not update the version of the wallet (found in `package.json`). Each commit in a PR will generate a "beta" version, which can be used for testing.
 
 ## Production
 
@@ -163,4 +154,4 @@ Please note this email is strictly for reporting security vulnerabilities. For s
 
 In Q1 2021, Hiro partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Hiro Wallet for Web. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
 
-[Download and read the full report here](https://github.com/blockstack/stacks-wallet-web/blob/main/public/docs/least-authority-security-audit-report.pdf)
+[Download and read the full report here](https://github.com/hirosystems/stacks-wallet-web/blob/main/public/docs/least-authority-security-audit-report.pdf)
