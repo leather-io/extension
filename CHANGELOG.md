@@ -1,3 +1,10 @@
+## [2.20.1-dev.8](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.7...v2.20.1-dev.8) (2021-10-30)
+
+
+### Bug Fixes
+
+* **csp:** external images broken ([29ca0f3](https://github.com/hirosystems/stacks-wallet-web/commit/29ca0f30eab3ccd78a4613fb59a57da2373c515f))
+
 ## [2.20.1-dev.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.6...v2.20.1-dev.7) (2021-10-29)
 
 
