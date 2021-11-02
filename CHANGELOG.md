@@ -1,3 +1,10 @@
+## [2.20.1-dev.9](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.8...v2.20.1-dev.9) (2021-11-02)
+
+
+### Bug Fixes
+
+* qa build url ([cfa5abe](https://github.com/hirosystems/stacks-wallet-web/commit/cfa5abe1d6290dd0774be4a99bcbe68ad620cb10))
+
 ## [2.20.1-dev.8](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.7...v2.20.1-dev.8) (2021-10-30)
 
 
