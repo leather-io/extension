@@ -36,7 +36,7 @@ export function useSaveAuthRequest() {
       });
 
       const hasIdentities = accounts && accounts.length;
-      if ((screen === RouteUrls.SignUp || screen === RouteUrls.SignIn) && hasIdentities) {
+      if (screen === RouteUrls.Installed && hasIdentities) {
         changeScreen(RouteUrls.ChooseAccount);
       }
     },

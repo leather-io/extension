@@ -7,7 +7,7 @@ import { RouteUrls } from '@common/types';
 
 interface TxButtonProps extends ButtonProps {
   kind: 'send' | 'receive';
-  path: RouteUrls.PopUpSend | RouteUrls.PopUpReceive;
+  path: RouteUrls.SendTokens | RouteUrls.ReceiveTokens;
 }
 export const TxButton: React.FC<TxButtonProps> = memo(({ kind, path, ...rest }) => {
   const ref = useRef<HTMLButtonElement | null>(null);

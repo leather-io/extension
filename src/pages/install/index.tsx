@@ -13,16 +13,20 @@ import { InitialPageSelectors } from '@tests/integration/initial-page.selectors'
 const Actions: React.FC<StackProps> = props => {
   const { doMakeWallet } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
 
   const [isCreatingWallet, setIsCreatingWallet] = useState(false);
+
   const register = useCallback(async () => {
     setIsCreatingWallet(true);
     await doMakeWallet();
+    console.log('register', decodedAuthRequest);
     if (decodedAuthRequest) {
-      doChangeScreen(RouteUrls.SetPassword);
+      changeScreen(RouteUrls.SetPassword);
+      return;
     }
-  }, [doMakeWallet, doChangeScreen, decodedAuthRequest]);
+    changeScreen(RouteUrls.InstalledSaveKey);
+  }, [doMakeWallet, changeScreen, decodedAuthRequest]);
 
   return (
     <Stack justifyContent="center" spacing="loose" textAlign="center" {...props}>
@@ -35,7 +39,7 @@ const Actions: React.FC<StackProps> = props => {
         I'm new to Stacks
       </Button>
       <Link
-        onClick={() => doChangeScreen(RouteUrls.SignInInstalled)}
+        onClick={() => changeScreen(RouteUrls.InstalledRestoreKey)}
         data-testid={InitialPageSelectors.SignIn}
       >
         Sign in with Secret Key

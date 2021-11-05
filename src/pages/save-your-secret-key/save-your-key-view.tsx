@@ -5,6 +5,8 @@ import { PopupContainer } from '@components/popup/container';
 import { Body, Text } from '@components/typography';
 import { Card } from '@components/card';
 import { Header } from '@components/header';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
+import { RouteUrls } from '@common/types';
 
 const SecretKeyMessage: React.FC<BoxProps> = props => {
   const { secretKey } = useWallet();
@@ -65,21 +67,33 @@ const SecretKeyActions: React.FC<{ handleNext?: () => void } & StackProps> = ({
   );
 };
 
+// `handleNext` and the design of this component
+// built on top of legacy from the earlier hosted version
+// of connect. To be refactored.
 export const SaveYourKeyView: React.FC<{
   handleNext?: () => void;
   onClose?: () => void;
   title?: string;
   hideActions?: boolean;
-}> = memo(({ title, handleNext, hideActions, onClose }) => (
-  <PopupContainer
-    header={
-      <Header onClose={onClose} hideActions={hideActions} title={title || 'Save your Secret Key'} />
-    }
-  >
-    <Stack spacing="loose">
-      <SecretKeyMessage />
-      <SecretKeyCard />
-      <SecretKeyActions handleNext={handleNext || onClose} />
-    </Stack>
-  </PopupContainer>
-));
+}> = memo(({ title, handleNext, hideActions, onClose }) => {
+  const changeScreen = useChangeScreen();
+  return (
+    <PopupContainer
+      header={
+        <Header
+          onClose={onClose}
+          hideActions={hideActions}
+          title={title || 'Save your Secret Key'}
+        />
+      }
+    >
+      <Stack spacing="loose">
+        <SecretKeyMessage />
+        <SecretKeyCard />
+        <SecretKeyActions
+          handleNext={handleNext || onClose || (() => changeScreen(RouteUrls.SetPassword))}
+        />
+      </Stack>
+    </PopupContainer>
+  );
+});

@@ -8,7 +8,7 @@ export const HomeActions: React.FC<StackProps> = props => {
   return (
     <Stack isInline spacing="base-tight" {...props}>
       <SendButton />
-      <TxButton path={RouteUrls.PopUpReceive} kind="receive" />
+      <TxButton path={RouteUrls.ReceiveTokens} kind="receive" />
     </Stack>
   );
 };

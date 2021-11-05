@@ -17,21 +17,11 @@ import { Header } from '@components/header';
 
 const HUMAN_REACTION_DEBOUNCE_TIME = 250;
 
-interface SetPasswordProps {
-  redirect?: boolean;
-  accountGate?: boolean;
-  placeholder?: string;
-}
-
-export const SetPasswordPage: React.FC<SetPasswordProps> = ({
-  redirect,
-  accountGate,
-  placeholder,
-}) => {
+export const SetPasswordPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
   const { doSetPassword, wallet, doFinishSignIn } = useWallet();
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const { decodedAuthRequest } = useOnboardingState();
 
   const submit = useCallback(
@@ -39,29 +29,22 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
       if (!wallet) throw 'Please log in before setting a password.';
       setLoading(true);
       await doSetPassword(password);
-      if (accountGate) return;
+
       if (decodedAuthRequest) {
         const { accounts } = wallet;
         if (accounts && (accounts.length > 1 || accounts[0].username)) {
-          doChangeScreen(RouteUrls.ChooseAccount);
+          changeScreen(RouteUrls.ChooseAccount);
+          return;
         } else if (!USERNAMES_ENABLED) {
           await doFinishSignIn(0);
         } else {
-          doChangeScreen(RouteUrls.Username);
+          changeScreen(RouteUrls.Username);
+          return;
         }
-      } else if (redirect) {
-        doChangeScreen(RouteUrls.Installed);
       }
+      changeScreen(RouteUrls.Home);
     },
-    [
-      doSetPassword,
-      doChangeScreen,
-      redirect,
-      decodedAuthRequest,
-      wallet,
-      doFinishSignIn,
-      accountGate,
-    ]
+    [doSetPassword, changeScreen, decodedAuthRequest, wallet, doFinishSignIn]
   );
 
   const handleSubmit = useCallback(
@@ -115,7 +98,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
               <Stack spacing="loose" width="100%">
                 <Input
                   name="password"
-                  placeholder={placeholder || 'Set a password'}
+                  placeholder="Set a password"
                   key="password-input"
                   width="100%"
                   type="password"

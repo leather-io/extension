@@ -4,15 +4,14 @@ import { Accounts } from '@pages/choose-account/components/accounts';
 import { AppIcon } from '@components/app-icon';
 import { RouteUrls } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
-import { Navigate } from '@components/navigate';
 import { Header } from '@components/header';
 import { useAppDetails } from '@common/hooks/auth/use-app-details';
 import { Box, Stack, Text } from '@stacks/ui';
+import { Navigate } from 'react-router-dom';
 
 interface ChooseAccountProps {
   back?: () => void;
 }
-
 export const ChooseAccount: React.FC<ChooseAccountProps> = memo(() => {
   const { name: appName } = useAppDetails();
   const { wallet, handleCancelAuthentication } = useWallet();
@@ -27,7 +26,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = memo(() => {
   }, [handleUnmount]);
 
   if (!wallet) {
-    return <Navigate to={{ pathname: '/', hash: 'sign-up' }} screenPath={RouteUrls.SignUp} />;
+    return <Navigate to={RouteUrls.Installed} />;
   }
 
   return (

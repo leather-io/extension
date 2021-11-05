@@ -16,7 +16,7 @@ export const magicRecoveryCodePasswordState = atom('');
 export const seedInputState = atom('');
 export const seedInputErrorState = atom<string | undefined>(undefined);
 export const secretKeyState = atomWithDefault(() => null);
-export const currentScreenState = atom<RouteUrls>(RouteUrls.SignUp);
+export const currentScreenState = atom<RouteUrls>(RouteUrls.Installed);
 export const magicRecoveryCodeState = atomWithDefault<null | string>(() => null);
 export const onboardingProgressState = atom(false);
 export const usernameState = atomWithDefault(() => null);

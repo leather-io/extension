@@ -60,7 +60,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.authenticationRequests,
               port,
             });
-            const path = RouteUrls.SignUp;
+            const path = RouteUrls.ChooseAccount;
             const urlParams = new URLSearchParams();
             urlParams.set('authRequest', payload);
             if (IS_TEST_ENV) {
@@ -76,7 +76,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.transactionRequests,
               port,
             });
-            const path = RouteUrls.TransactionPopUp;
+            const path = RouteUrls.SignTransaction;
             const urlParams = new URLSearchParams();
             urlParams.set('request', payload);
             if (IS_TEST_ENV) {

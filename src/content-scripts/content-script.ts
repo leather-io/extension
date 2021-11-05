@@ -77,7 +77,7 @@ document.addEventListener(DomEventName.authenticationRequest, ((
   event: AuthenticationRequestEvent
 ) => {
   forwardDomEventToBackground({
-    path: RouteUrls.SignUp,
+    path: RouteUrls.ChooseAccount,
     payload: event.detail.authenticationRequest,
     urlParam: 'authRequest',
     method: ExternalMethods.authenticationRequest,
@@ -87,7 +87,7 @@ document.addEventListener(DomEventName.authenticationRequest, ((
 // Listen for a CustomEvent (transaction request) coming from the web app
 document.addEventListener(DomEventName.transactionRequest, ((event: TransactionRequestEvent) => {
   forwardDomEventToBackground({
-    path: RouteUrls.TransactionPopUp,
+    path: RouteUrls.SignTransaction,
     payload: event.detail.transactionRequest,
     urlParam: 'request',
     method: ExternalMethods.transactionRequest,

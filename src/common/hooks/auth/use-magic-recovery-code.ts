@@ -65,7 +65,7 @@ export function useMagicRecoveryCode() {
     [setPassword]
   );
 
-  const handleBack = () => doChangeScreen(RouteUrls.SignIn);
+  const handleBack = () => doChangeScreen(RouteUrls.Installed);
 
   const onSubmit = useCallback(
     async (event: React.FormEvent) => {

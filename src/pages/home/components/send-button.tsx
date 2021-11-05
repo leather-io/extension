@@ -10,14 +10,14 @@ const SendButtonSuspense = () => {
   return (
     <TxButton
       isDisabled={isDisabled}
-      path={RouteUrls.PopUpSend}
+      path={RouteUrls.SendTokens}
       data-testid={WalletPageSelectors.BtnSendTokens}
       kind="send"
     />
   );
 };
 const SendButtonFallback = memo(() => (
-  <TxButton isDisabled path={RouteUrls.PopUpSend} kind="send" />
+  <TxButton isDisabled path={RouteUrls.SendTokens} kind="send" />
 ));
 export const SendButton = () => (
   <React.Suspense fallback={<SendButtonFallback />}>

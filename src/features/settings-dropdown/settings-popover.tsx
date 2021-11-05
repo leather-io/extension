@@ -117,7 +117,7 @@ export const SettingsPopover: React.FC = () => {
               <MenuItem
                 data-testid="settings-view-secret-key"
                 onClick={wrappedCloseCallback(() => {
-                  changeScreen(RouteUrls.SettingsKey);
+                  changeScreen(RouteUrls.InstalledSaveKey);
                 })}
               >
                 View Secret Key

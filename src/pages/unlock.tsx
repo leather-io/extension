@@ -8,6 +8,8 @@ import { Header } from '@components/header';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { useDrawers } from '@common/hooks/use-drawers';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 export const Unlock: React.FC = () => {
   const { doUnlockWallet } = useWallet();
   const [loading, setLoading] = useState(false);
@@ -15,16 +17,21 @@ export const Unlock: React.FC = () => {
   const [error, setError] = useState('');
   const { showSignOut } = useDrawers();
 
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
   const submit = useCallback(async () => {
     setLoading(true);
     setError('');
     try {
       await doUnlockWallet(password);
+      console.log('in unlock', state?.path);
+      navigate(state?.path || '/');
     } catch (error) {
       setError('The password you entered is invalid.');
     }
     setLoading(false);
-  }, [doUnlockWallet, password]);
+  }, [doUnlockWallet, password, navigate, state.path]);
 
   return (
     <>

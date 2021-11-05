@@ -10,23 +10,24 @@ import {
 import BN from 'bn.js';
 
 export enum RouteUrls {
-  SignUp = '/sign-up',
-  SettingsKey = '/settings/secret-key',
+  Home = '/',
+  RequestDiagnostics = '/request-diagnostics',
+  // SignUp = '/sign-up',
   Username = '/username',
-  SignIn = '/sign-in',
   SignOutConfirm = '/sign-out',
   RecoveryCode = '/sign-in/recover',
   AddAccount = '/sign-in/add-account',
-  ChooseAccount = '/connect/choose-account',
-  Home = '/',
+  ChooseAccount = '/choose-account',
   Installed = '/installed',
-  SignInInstalled = '/installed/sign-in',
-  SetPassword = '/set-password',
-  PopUpSend = '/send',
-  PopUpReceive = '/receive',
+  SetPassword = '/installed/set-password',
+  InstalledSaveKey = '/installed/save-secret-key',
+  InstalledRestoreKey = '/installed/restore-key',
+  SendTokens = '/send',
+  ReceiveTokens = '/receive',
   AddNetwork = '/add-network',
-  RequestDiagnostics = '/request-diagnostics',
-  TransactionPopUp = '/transaction',
+  SignTransaction = '/transaction',
+  Unlock = '/unlock',
+  SignedOut = '/signed-out',
 }
 
 // TODO: clarify usage of password for local key encryption
