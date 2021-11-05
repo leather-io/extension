@@ -1,6 +1,6 @@
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { delay } from '@common/utils';
 
@@ -13,7 +13,7 @@ describe(`Create and switch account`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
   }, 10000);
 
   afterEach(async () => {

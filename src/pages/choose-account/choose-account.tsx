@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect } from 'react';
 import { Title } from '@components/typography';
 import { Accounts } from '@pages/choose-account/components/accounts';
 import { AppIcon } from '@components/app-icon';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Navigate } from '@components/navigate';
 import { Header } from '@components/header';
@@ -27,7 +27,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = memo(() => {
   }, [handleUnmount]);
 
   if (!wallet) {
-    return <Navigate to={{ pathname: '/', hash: 'sign-up' }} screenPath={ScreenPaths.GENERATION} />;
+    return <Navigate to={{ pathname: '/', hash: 'sign-up' }} screenPath={RouteUrls.SignUp} />;
   }
 
   return (

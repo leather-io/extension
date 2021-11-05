@@ -6,7 +6,7 @@ import {
   validateAndCleanRecoveryInput,
   hasLineReturn,
 } from '@common/utils';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { useLoading } from '@common/hooks/use-loading';
 import {
   useMagicRecoveryCodeState,
@@ -51,7 +51,7 @@ export function useSignIn() {
         const result = validateAndCleanRecoveryInput(parsedKeyInput);
         if (result.isValid) {
           setMagicRecoveryCode(parsedKeyInput);
-          doChangeScreen(ScreenPaths.RECOVERY_CODE);
+          doChangeScreen(RouteUrls.RecoveryCode);
           return;
         } else {
           // single word and not a valid recovery key
@@ -61,7 +61,7 @@ export function useSignIn() {
 
       try {
         await doStoreSeed({ secretKey: parsedKeyInput });
-        doChangeScreen(ScreenPaths.SET_PASSWORD);
+        doChangeScreen(RouteUrls.SetPassword);
         setIsIdle();
       } catch (error) {
         handleSetError();
@@ -122,7 +122,7 @@ export function useSignIn() {
     [handleSubmit]
   );
 
-  const onBack = useCallback(() => doChangeScreen(ScreenPaths.HOME), [doChangeScreen]);
+  const onBack = useCallback(() => doChangeScreen(RouteUrls.Home), [doChangeScreen]);
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {

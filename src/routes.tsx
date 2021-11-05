@@ -15,7 +15,7 @@ import { SetPasswordPage } from '@pages/set-password';
 import { SendTokensForm } from '@pages/send-tokens/send-tokens';
 
 import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
@@ -30,7 +30,7 @@ import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsDrawer } from '@pages/allow-diagnostics/allow-diagnostics';
 
 interface RouteProps {
-  path: ScreenPaths;
+  path: RouteUrls;
   element: React.ReactNode;
 }
 
@@ -70,7 +70,7 @@ export const Routes: React.FC = () => {
   const getSignInComponent = () => {
     if (isLocked) return <Unlock />;
     if (isSignedIn)
-      return <Navigate to={ScreenPaths.CHOOSE_ACCOUNT} screenPath={ScreenPaths.CHOOSE_ACCOUNT} />;
+      return <Navigate to={RouteUrls.ChooseAccount} screenPath={RouteUrls.ChooseAccount} />;
     return <InstalledSignIn />;
   };
 
@@ -78,10 +78,7 @@ export const Routes: React.FC = () => {
     if (isLocked) return <Unlock />;
     if (isSignedIn) {
       return (
-        <Navigate
-          to={`${ScreenPaths.CHOOSE_ACCOUNT}${search}`}
-          screenPath={ScreenPaths.CHOOSE_ACCOUNT}
-        />
+        <Navigate to={`${RouteUrls.ChooseAccount}${search}`} screenPath={RouteUrls.ChooseAccount} />
       );
     }
     return <Installed />;
@@ -89,36 +86,36 @@ export const Routes: React.FC = () => {
 
   return (
     <RoutesDom>
-      <Route path={ScreenPaths.HOME} element={getHomeComponent()}>
-        <Route path={ScreenPaths.SIGN_OUT_CONFIRM} element={<SignOutConfirmDrawer />} />
-        <Route path={ScreenPaths.REQUEST_DIAGNOSTICS} element={<AllowDiagnosticsDrawer />} />
+      <Route path={RouteUrls.Home} element={getHomeComponent()}>
+        <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsDrawer />} />
       </Route>
       {/* Installation */}
-      <Route path={ScreenPaths.SIGN_IN_INSTALLED} element={<InstalledSignIn />} />
-      <AccountGateRoute path={ScreenPaths.POPUP_HOME}>
+      <Route path={RouteUrls.SignInInstalled} element={<InstalledSignIn />} />
+      <AccountGateRoute path={RouteUrls.PopUpHome}>
         <Home />
       </AccountGateRoute>
-      <AccountGateRoute path={ScreenPaths.POPUP_SEND}>
+      <AccountGateRoute path={RouteUrls.PopUpSend}>
         <React.Suspense fallback={<></>}>
           <SendTokensForm />
         </React.Suspense>
       </AccountGateRoute>
-      <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE}>
+      <AccountGateRoute path={RouteUrls.PopUpReceive}>
         <PopupReceive />
       </AccountGateRoute>
-      <AccountGateRoute path={ScreenPaths.SETTINGS_KEY}>
-        <SaveYourKeyView onClose={() => doChangeScreen(ScreenPaths.HOME)} title="Your Secret Key" />
+      <AccountGateRoute path={RouteUrls.SettingsKey}>
+        <SaveYourKeyView onClose={() => doChangeScreen(RouteUrls.Home)} title="Your Secret Key" />
       </AccountGateRoute>
-      <RouterRoute path={ScreenPaths.ADD_NETWORK} element={<AddNetwork />} />
-      <Route path={ScreenPaths.SET_PASSWORD} element={<SetPasswordPage redirect />} />
-      <Route path={ScreenPaths.USERNAME} element={<Username />} />
-      <Route path={ScreenPaths.GENERATION} element={getSignUpElement()} />
+      <RouterRoute path={RouteUrls.AddNetwork} element={<AddNetwork />} />
+      <Route path={RouteUrls.SetPassword} element={<SetPasswordPage redirect />} />
+      <Route path={RouteUrls.Username} element={<Username />} />
+      <Route path={RouteUrls.SignUp} element={getSignUpElement()} />
       {/*Sign In*/}
-      <Route path={ScreenPaths.SIGN_IN} element={getSignInComponent()} />
-      <Route path={ScreenPaths.RECOVERY_CODE} element={<MagicRecoveryCode />} />
-      <Route path={ScreenPaths.ADD_ACCOUNT} element={<Username />} />;
+      <Route path={RouteUrls.SignIn} element={getSignInComponent()} />
+      <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
+      <Route path={RouteUrls.AddAccount} element={<Username />} />;
       <Route
-        path={ScreenPaths.CHOOSE_ACCOUNT}
+        path={RouteUrls.ChooseAccount}
         element={
           <React.Suspense fallback={<></>}>
             <ChooseAccount />
@@ -126,7 +123,7 @@ export const Routes: React.FC = () => {
         }
       />
       {/* Transactions */}
-      <AccountGateRoute path={ScreenPaths.TRANSACTION_POPUP}>
+      <AccountGateRoute path={RouteUrls.TransactionPopUp}>
         <TransactionPage />
       </AccountGateRoute>
     </RoutesDom>

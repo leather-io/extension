@@ -1,4 +1,4 @@
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
@@ -15,7 +15,7 @@ describe(`Send tokens flow`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    walletPage = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    walletPage = await WalletPage.init(browser, RouteUrls.Installed);
     await walletPage.signUp();
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
@@ -99,7 +99,7 @@ describe('Preview for sending token', () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    walletPage = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    walletPage = await WalletPage.init(browser, RouteUrls.Installed);
     await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();

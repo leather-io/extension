@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, useClipboard, Stack } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Toast } from '@components/toast';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
@@ -19,7 +19,7 @@ export const PopupReceive: React.FC = () => {
   const { onCopy, hasCopied } = useClipboard(address);
   return (
     <PopupContainer
-      header={<ReceiveTokensHeader onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
+      header={<ReceiveTokensHeader onClose={() => doChangeScreen(RouteUrls.PopUpHome)} />}
     >
       <Toast show={hasCopied} />
       <Box mt="extra-loose" textAlign="center" mx="auto">

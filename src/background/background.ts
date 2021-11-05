@@ -8,7 +8,7 @@
 import * as Sentry from '@sentry/react';
 
 import { storePayload, StorageKey } from '@common/storage';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
@@ -40,7 +40,7 @@ chrome.runtime.onInstalled.addListener(details => {
   Sentry.wrap(async () => {
     if (details.reason === 'install' && !IS_TEST_ENV) {
       await chrome.tabs.create({
-        url: chrome.runtime.getURL(`index.html#${ScreenPaths.INSTALLED}`),
+        url: chrome.runtime.getURL(`index.html#${RouteUrls.Installed}`),
       });
     }
   });
@@ -60,7 +60,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.authenticationRequests,
               port,
             });
-            const path = ScreenPaths.GENERATION;
+            const path = RouteUrls.SignUp;
             const urlParams = new URLSearchParams();
             urlParams.set('authRequest', payload);
             if (IS_TEST_ENV) {
@@ -76,7 +76,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.transactionRequests,
               port,
             });
-            const path = ScreenPaths.TRANSACTION_POPUP;
+            const path = RouteUrls.TransactionPopUp;
             const urlParams = new URLSearchParams();
             urlParams.set('request', payload);
             if (IS_TEST_ENV) {

@@ -6,7 +6,7 @@ import { useCurrentScreenUpdate, useUpdateAuthRequest } from '@store/onboarding/
 import { DecodedAuthRequest } from '@common/dev/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { getRequestOrigin, StorageKey } from '@common/storage';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { useOnboardingState } from './use-onboarding-state';
 
 export function useSaveAuthRequest() {
@@ -19,7 +19,7 @@ export function useSaveAuthRequest() {
   const saveAuthRequestParam = useCallback(
     (authRequest: string) => {
       const { payload } = decodeToken(authRequest);
-      const decodedAuthRequest = payload as unknown as DecodedAuthRequest;
+      const decodedAuthRequest = (payload as unknown) as DecodedAuthRequest;
       const origin = getRequestOrigin(StorageKey.authenticationRequests, authRequest);
       const appName = decodedAuthRequest.appDetails?.name;
       const appIcon = decodedAuthRequest.appDetails?.icon;
@@ -36,8 +36,8 @@ export function useSaveAuthRequest() {
       });
 
       const hasIdentities = accounts && accounts.length;
-      if ((screen === ScreenPaths.GENERATION || screen === ScreenPaths.SIGN_IN) && hasIdentities) {
-        changeScreen(ScreenPaths.CHOOSE_ACCOUNT);
+      if ((screen === RouteUrls.SignUp || screen === RouteUrls.SignIn) && hasIdentities) {
+        changeScreen(RouteUrls.ChooseAccount);
       }
     },
     [changeScreen, saveAuthRequest, screen, accounts]

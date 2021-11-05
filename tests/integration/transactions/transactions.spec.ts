@@ -2,7 +2,7 @@ import { TransactionsSelectors } from '@tests/integration/transactions.selectors
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 import { WalletPage } from '@tests/page-objects/wallet.page';
 import { DemoPage } from '@tests/page-objects/demo.page';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 
 jest.setTimeout(30_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -14,7 +14,7 @@ describe(`Transactions integration tests`, () => {
 
   beforeAll(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
     demo = browser.demo;
     await wallet.signUp();
     await demo.page.reload();

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
 
@@ -13,7 +13,7 @@ export const AllowDiagnosticsDrawer = () => {
 
   const goHomeAndSetDiagnosticsPermissionTo = useCallback(
     (areDiagnosticsAllowed: boolean) => {
-      changeScreen(ScreenPaths.HOME);
+      changeScreen(RouteUrls.Home);
       setHasAllowedDiagnostics(areDiagnosticsAllowed);
       if (areDiagnosticsAllowed) initSentry();
     },

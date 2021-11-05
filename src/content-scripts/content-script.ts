@@ -17,7 +17,7 @@ import {
   DomEventName,
   TransactionRequestEvent,
 } from '@inpage/inpage-types';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 
 // Legacy messaging to work with older versions of Connect
 window.addEventListener('message', event => {
@@ -61,7 +61,7 @@ interface ForwardDomEventToBackgroundArgs {
   payload: string;
   method: MessageFromContentScript['method'];
   urlParam: string;
-  path: ScreenPaths;
+  path: RouteUrls;
 }
 
 function forwardDomEventToBackground({ payload, method }: ForwardDomEventToBackgroundArgs) {
@@ -77,7 +77,7 @@ document.addEventListener(DomEventName.authenticationRequest, ((
   event: AuthenticationRequestEvent
 ) => {
   forwardDomEventToBackground({
-    path: ScreenPaths.GENERATION,
+    path: RouteUrls.SignUp,
     payload: event.detail.authenticationRequest,
     urlParam: 'authRequest',
     method: ExternalMethods.authenticationRequest,
@@ -87,7 +87,7 @@ document.addEventListener(DomEventName.authenticationRequest, ((
 // Listen for a CustomEvent (transaction request) coming from the web app
 document.addEventListener(DomEventName.transactionRequest, ((event: TransactionRequestEvent) => {
   forwardDomEventToBackground({
-    path: ScreenPaths.TRANSACTION_POPUP,
+    path: RouteUrls.TransactionPopUp,
     payload: event.detail.transactionRequest,
     urlParam: 'request',
     method: ExternalMethods.transactionRequest,

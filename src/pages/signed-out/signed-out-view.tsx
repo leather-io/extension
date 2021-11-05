@@ -4,7 +4,7 @@ import { Box, Button } from '@stacks/ui';
 import { PopupContainer } from '@components/popup/container';
 import { Text } from '@components/typography';
 
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { Header } from '@components/header';
 
@@ -19,7 +19,7 @@ export const SignedOut = memo(() => {
         <Button
           my="extra-loose"
           onClick={() => {
-            doChangeScreen(ScreenPaths.INSTALLED);
+            doChangeScreen(RouteUrls.Installed);
           }}
         >
           Get started

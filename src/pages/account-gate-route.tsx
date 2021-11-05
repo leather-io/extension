@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import { Route } from 'react-router-dom';
 import { AccountGate } from '@pages/account-gate';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 
 interface AccountGateRouteProps {
-  path: ScreenPaths;
+  path: RouteUrls;
 }
 
 export const AccountGateRoute: React.FC<AccountGateRouteProps> = memo(props => {

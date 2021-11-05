@@ -2,7 +2,7 @@ import React, { useState, useCallback, memo } from 'react';
 import { Button, Stack, StackProps } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { Link } from '@components/link';
 import { PopupContainer } from '@components/popup/container';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
@@ -20,7 +20,7 @@ const Actions: React.FC<StackProps> = props => {
     setIsCreatingWallet(true);
     await doMakeWallet();
     if (decodedAuthRequest) {
-      doChangeScreen(ScreenPaths.SET_PASSWORD);
+      doChangeScreen(RouteUrls.SetPassword);
     }
   }, [doMakeWallet, doChangeScreen, decodedAuthRequest]);
 
@@ -35,7 +35,7 @@ const Actions: React.FC<StackProps> = props => {
         I'm new to Stacks
       </Button>
       <Link
-        onClick={() => doChangeScreen(ScreenPaths.SIGN_IN_INSTALLED)}
+        onClick={() => doChangeScreen(RouteUrls.SignInInstalled)}
         data-testid={InitialPageSelectors.SignIn}
       >
         Sign in with Secret Key

@@ -1,4 +1,4 @@
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import React, { memo } from 'react';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
@@ -10,14 +10,14 @@ const SendButtonSuspense = () => {
   return (
     <TxButton
       isDisabled={isDisabled}
-      path={ScreenPaths.POPUP_SEND}
+      path={RouteUrls.PopUpSend}
       data-testid={WalletPageSelectors.BtnSendTokens}
       kind="send"
     />
   );
 };
 const SendButtonFallback = memo(() => (
-  <TxButton isDisabled path={ScreenPaths.POPUP_SEND} kind="send" />
+  <TxButton isDisabled path={RouteUrls.PopUpSend} kind="send" />
 ));
 export const SendButton = () => (
   <React.Suspense fallback={<SendButtonFallback />}>

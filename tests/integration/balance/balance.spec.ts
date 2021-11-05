@@ -1,6 +1,6 @@
 import { BrowserDriver, createTestSelector, selectTestNet, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { BalanceSelectors } from '@tests/integration/balance.selectors';
 import { SECRET_KEY_2 } from '@tests/mocks';
 
@@ -18,7 +18,7 @@ describe(`Wallet Balance integration tests`, () => {
 
   beforeAll(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
     await wallet.signIn(SECRET_KEY_2);
     await selectTestNet(wallet);
     await wallet.waitForHomePage();

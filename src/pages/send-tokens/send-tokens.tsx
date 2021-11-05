@@ -5,7 +5,7 @@ import { Formik, useFormikContext } from 'formik';
 import { PopupContainer } from '@components/popup/container';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { ErrorLabel } from '@components/error-label';
 import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-search';
 
@@ -89,7 +89,7 @@ const SendForm = (props: SendFormProps) => {
 
   return (
     <PopupContainer
-      header={<Header title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
+      header={<Header title="Send" onClose={() => doChangeScreen(RouteUrls.PopUpHome)} />}
     >
       <Stack spacing="loose" flexDirection="column" flexGrow={1} shouldWrapChildren>
         <AssetSearch onItemClick={onItemSelect} />

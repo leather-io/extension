@@ -1,4 +1,4 @@
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 import { Page } from 'playwright-core';
 import {
   createTestSelector,
@@ -50,7 +50,7 @@ export class WalletPage {
     this.page = page;
   }
 
-  static async init(browser: BrowserDriver, path?: ScreenPaths) {
+  static async init(browser: BrowserDriver, path?: RouteUrls) {
     const background = browser.context.backgroundPages()[0];
     const pageUrl: string = await background.evaluate(`openOptionsPage("${path || ''}")`);
     const page = await browser.context.newPage();
@@ -118,7 +118,7 @@ export class WalletPage {
     await wait(1000);
   }
 
-  async goTo(path: ScreenPaths) {
+  async goTo(path: RouteUrls) {
     await this.page.evaluate(`location.hash = '${path}'`);
   }
 

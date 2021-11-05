@@ -3,11 +3,11 @@ import React, { memo, useCallback, useRef } from 'react';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { FiArrowUp } from 'react-icons/fi';
 import { QrCodeIcon } from '@components/qr-code-icon';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@common/types';
 
 interface TxButtonProps extends ButtonProps {
   kind: 'send' | 'receive';
-  path: ScreenPaths.POPUP_SEND | ScreenPaths.POPUP_RECEIVE;
+  path: RouteUrls.PopUpSend | RouteUrls.PopUpReceive;
 }
 export const TxButton: React.FC<TxButtonProps> = memo(({ kind, path, ...rest }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
