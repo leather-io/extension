@@ -88,9 +88,7 @@ const SendForm = (props: SendFormProps) => {
   }, [amount, setAmount]);
 
   return (
-    <PopupContainer
-      header={<Header title="Send" onClose={() => doChangeScreen(RouteUrls.PopUpHome)} />}
-    >
+    <PopupContainer header={<Header title="Send" onClose={() => doChangeScreen(RouteUrls.Home)} />}>
       <Stack spacing="loose" flexDirection="column" flexGrow={1} shouldWrapChildren>
         <AssetSearch onItemClick={onItemSelect} />
         <Suspense fallback={<></>}>

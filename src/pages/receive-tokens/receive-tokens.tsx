@@ -18,9 +18,7 @@ export const PopupReceive: React.FC = () => {
   const address = currentAccountStxAddress || '';
   const { onCopy, hasCopied } = useClipboard(address);
   return (
-    <PopupContainer
-      header={<ReceiveTokensHeader onClose={() => doChangeScreen(RouteUrls.PopUpHome)} />}
-    >
+    <PopupContainer header={<ReceiveTokensHeader onClose={() => doChangeScreen(RouteUrls.Home)} />}>
       <Toast show={hasCopied} />
       <Box mt="extra-loose" textAlign="center" mx="auto">
         <QrCode principal={address} />

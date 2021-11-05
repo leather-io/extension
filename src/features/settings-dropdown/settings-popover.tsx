@@ -156,7 +156,7 @@ export const SettingsPopover: React.FC = () => {
                 <MenuItem
                   onClick={wrappedCloseCallback(() => {
                     void doLockWallet();
-                    changeScreen(RouteUrls.PopUpHome);
+                    changeScreen(RouteUrls.Home);
                   })}
                   data-testid="settings-lock"
                 >

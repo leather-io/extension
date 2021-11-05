@@ -85,47 +85,51 @@ export const Routes: React.FC = () => {
   };
 
   return (
-    <RoutesDom>
-      <Route path={RouteUrls.Home} element={getHomeComponent()}>
-        <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
-        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsDrawer />} />
-      </Route>
-      {/* Installation */}
-      <Route path={RouteUrls.SignInInstalled} element={<InstalledSignIn />} />
-      <AccountGateRoute path={RouteUrls.PopUpHome}>
-        <Home />
-      </AccountGateRoute>
-      <AccountGateRoute path={RouteUrls.PopUpSend}>
-        <React.Suspense fallback={<></>}>
-          <SendTokensForm />
-        </React.Suspense>
-      </AccountGateRoute>
-      <AccountGateRoute path={RouteUrls.PopUpReceive}>
-        <PopupReceive />
-      </AccountGateRoute>
-      <AccountGateRoute path={RouteUrls.SettingsKey}>
-        <SaveYourKeyView onClose={() => doChangeScreen(RouteUrls.Home)} title="Your Secret Key" />
-      </AccountGateRoute>
-      <RouterRoute path={RouteUrls.AddNetwork} element={<AddNetwork />} />
-      <Route path={RouteUrls.SetPassword} element={<SetPasswordPage redirect />} />
-      <Route path={RouteUrls.Username} element={<Username />} />
-      <Route path={RouteUrls.SignUp} element={getSignUpElement()} />
-      {/*Sign In*/}
-      <Route path={RouteUrls.SignIn} element={getSignInComponent()} />
-      <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
-      <Route path={RouteUrls.AddAccount} element={<Username />} />;
-      <Route
-        path={RouteUrls.ChooseAccount}
-        element={
+    <>
+      <div>
+        <br />
+        {pathname}
+        <br />
+      </div>
+      <RoutesDom>
+        <Route path={RouteUrls.Home} element={getHomeComponent()}>
+          <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsDrawer />} />
+        </Route>
+        {/* Installation */}
+        <Route path={RouteUrls.SignInInstalled} element={<InstalledSignIn />} />
+        <AccountGateRoute path={RouteUrls.PopUpSend}>
           <React.Suspense fallback={<></>}>
-            <ChooseAccount />
+            <SendTokensForm />
           </React.Suspense>
-        }
-      />
-      {/* Transactions */}
-      <AccountGateRoute path={RouteUrls.TransactionPopUp}>
-        <TransactionPage />
-      </AccountGateRoute>
-    </RoutesDom>
+        </AccountGateRoute>
+        <AccountGateRoute path={RouteUrls.PopUpReceive}>
+          <PopupReceive />
+        </AccountGateRoute>
+        <AccountGateRoute path={RouteUrls.SettingsKey}>
+          <SaveYourKeyView onClose={() => doChangeScreen(RouteUrls.Home)} title="Your Secret Key" />
+        </AccountGateRoute>
+        <RouterRoute path={RouteUrls.AddNetwork} element={<AddNetwork />} />
+        <Route path={RouteUrls.SetPassword} element={<SetPasswordPage redirect />} />
+        <Route path={RouteUrls.Username} element={<Username />} />
+        <Route path={RouteUrls.SignUp} element={getSignUpElement()} />
+        {/*Sign In*/}
+        <Route path={RouteUrls.SignIn} element={getSignInComponent()} />
+        <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
+        <Route path={RouteUrls.AddAccount} element={<Username />} />;
+        <Route
+          path={RouteUrls.ChooseAccount}
+          element={
+            <React.Suspense fallback={<></>}>
+              <ChooseAccount />
+            </React.Suspense>
+          }
+        />
+        {/* Transactions */}
+        <AccountGateRoute path={RouteUrls.TransactionPopUp}>
+          <TransactionPage />
+        </AccountGateRoute>
+      </RoutesDom>
+    </>
   );
 };
