@@ -1,3 +1,4 @@
+import { logger } from '@common/logger';
 import { useAccounts, useCurrentAccountStxAddressState } from '@store/accounts/account.hooks';
 import { useGetBnsNamesOwnedByAddress, useGetBnsNamesOwnedByAddressList } from './bns.query';
 
@@ -13,7 +14,7 @@ export function useAllAccountNames() {
 
 export function useCurrentAccountNames() {
   const principal = useCurrentAccountStxAddressState();
-  if (!principal) throw new Error();
-  const namesResponse = useGetBnsNamesOwnedByAddress(principal);
+  if (!principal) logger.error('No principal defined');
+  const namesResponse = useGetBnsNamesOwnedByAddress(principal ?? '');
   return namesResponse.data?.names ?? [];
 }
