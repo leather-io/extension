@@ -38,7 +38,7 @@ const UsernameSuspense = memo((props: BoxProps) => {
 
 export const CurrentUsername = memoWithAs((props: BoxProps) => {
   const currentAccount = useCurrentAccount();
-  const defaultName = getAccountDisplayName(currentAccount as any);
+  const defaultName = currentAccount ? getAccountDisplayName(currentAccount) : '';
   const fallback = <UsernameTitle {...props}>{defaultName}</UsernameTitle>;
   return (
     <React.Suspense fallback={fallback}>

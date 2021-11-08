@@ -49,9 +49,7 @@ const server = new WebpackDevServer(
     static: {
       directory: path.join(__dirname, '../build'),
     },
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
+    headers: { 'Access-Control-Allow-Origin': '*' },
     allowedHosts: 'all',
     devMiddleware: {
       publicPath: `http://localhost:${process.env.PORT}`,
