@@ -51,6 +51,7 @@ export async function setupBrowser(verbose?: boolean) {
   const context = (await chromium.launchPersistentContext(tmpDir, {
     args: launchArgs,
     headless: false,
+    slowMo: 100,
   })) as ChromiumBrowserContext;
 
   await context.grantPermissions(['clipboard-read']);

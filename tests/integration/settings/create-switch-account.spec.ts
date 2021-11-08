@@ -5,9 +5,11 @@ import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { delay } from '@common/utils';
 
 jest.setTimeout(40_000);
+
 jest.retryTimes(process.env.CI ? 2 : 0);
+
 describe(`Create and switch account`, () => {
-  const COUNT = 3;
+  const numOfAccountsToTest = 3;
   let browser: BrowserDriver;
   let wallet: WalletPage;
 
@@ -44,9 +46,9 @@ describe(`Create and switch account`, () => {
     expect(displayName2).toEqual('Account 1');
   });
 
-  it(`should be able to create ${COUNT} new accounts then switch between them`, async () => {
+  it(`should be able to create ${numOfAccountsToTest} new accounts then switch between them`, async () => {
     await wallet.signUp();
-    for (let i = 0; i < COUNT - 1; i++) {
+    for (let i = 0; i < numOfAccountsToTest - 1; i++) {
       await wallet.clickSettingsButton();
       await delay(100);
       await wallet.page.waitForSelector(wallet.$createAccountButton);
@@ -56,16 +58,16 @@ describe(`Create and switch account`, () => {
       await wallet.page.click(wallet.$createAccountDone);
     }
 
-    for (let i = 0; i < COUNT; i++) {
+    for (let i = 0; i < numOfAccountsToTest; i++) {
       await wallet.clickSettingsButton();
       await wallet.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
       await wallet.page.click(createTestSelector(`switch-account-item-${i}`));
       await wallet.page.waitForSelector(
-        createTestSelector(`account-checked-${(i - 1 + COUNT) % COUNT}`),
+        createTestSelector(`account-checked-${i - 1 + numOfAccountsToTest}`),
         { state: 'hidden' }
       );
       await delay(100);
-      let displayName = await wallet.page.textContent(
+      const displayName = await wallet.page.textContent(
         createTestSelector('home-current-display-name')
       );
       expect(displayName).toEqual(`Account ${i + 1}`);
