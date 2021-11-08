@@ -84,7 +84,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Serve and run tests
-        run: xvfb-run --auto-servernum -- yarn jest --config=./jest.integration.config.js --testPathPattern=./tests/integration/${{ matrix.dir }}* --detectOpenHandles
+        run: xvfb-run --auto-servernum -- yarn jest --config=./jest.integration.config.js --runInBand --testPathPattern=./tests/integration/${{ matrix.dir }}* --detectOpenHandles
 
       - uses: actions/upload-artifact@v2
         if: always()
