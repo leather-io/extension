@@ -1,3 +1,10 @@
+## [2.20.1-dev.11](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.10...v2.20.1-dev.11) (2021-11-09)
+
+
+### Bug Fixes
+
+* clean hex value for deserializeCV ([4d98347](https://github.com/hirosystems/stacks-wallet-web/commit/4d98347ba61b1a48dbf5950782d2e70b1650a17d))
+
 ## [2.20.1-dev.10](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.9...v2.20.1-dev.10) (2021-11-09)
 
 
