@@ -1,3 +1,10 @@
+## [2.20.1-dev.10](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.9...v2.20.1-dev.10) (2021-11-09)
+
+
+### Bug Fixes
+
+* show stx transfers from contract call ([9bd7d10](https://github.com/hirosystems/stacks-wallet-web/commit/9bd7d10f8b58f3735153f0b924a91742aeae1654)), closes [#1713](https://github.com/hirosystems/stacks-wallet-web/issues/1713)
+
 ## [2.20.1-dev.9](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.8...v2.20.1-dev.9) (2021-11-02)
 
 
