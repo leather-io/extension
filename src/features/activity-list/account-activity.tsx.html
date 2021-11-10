@@ -32,14 +32,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -84,23 +84,21 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -113,23 +111,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import { useAccountActivity } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { useCurrentAccountLocalTxids } from '@store/accounts/account-activity.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { TransactionList } from '@components/popup/transaction-list'<span class="cstat-no" title="statement not covered" >;</span>
-import { createTxDateFormatList } from '@common/group-txs-by-date'<span class="cstat-no" title="statement not covered" >;</span>
 import { LocalTxList } from '@features/local-transaction-activity/local-tx-list'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import { NoAccountActivity } from './components/no-account-activity'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAccountTransactionsWithTransfers } from '@common/hooks/account/use-account-transactions-with-transfers.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCurrentAccountMempoolTransactionsState } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >ActivityList<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
-  const transactions<span class="cstat-no" title="statement not covered" > = useAccountActivity();</span>
-  const groupedTxs<span class="cstat-no" title="statement not covered" > = useMemo(</span>
-    () =&gt; (<span class="cstat-no" title="statement not covered" >transactions ? createTxDateFormatList(transactions) : [])</span>,
-    [transactions]
-  );
+  const transactions<span class="cstat-no" title="statement not covered" > = useAccountTransactionsWithTransfers();</span>
+  const pendingTransactions<span class="cstat-no" title="statement not covered" > = useCurrentAccountMempoolTransactionsState();</span>
+&nbsp;
   const txids<span class="cstat-no" title="statement not covered" > = useCurrentAccountLocalTxids();</span>
+  const allTransactions = <span class="cstat-no" title="statement not covered" >[...pendingTransactions, ...transactions];</span>
   const hasTxs = <span class="cstat-no" title="statement not covered" >txids.length &gt; 0 || transactions.length &gt; 0;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!hasTxs) <span class="cstat-no" title="statement not covered" >return &lt;NoAccountActivity /&gt;;</span></span>
@@ -137,7 +134,7 @@ export const <span class="cstat-no" title="statement not covered" >ActivityList<
   return (
     &lt;&gt;
       {txids.length &gt; 0 &amp;&amp; &lt;LocalTxList txids={txids} /&gt;}
-      {<span class="branch-0 cbranch-no" title="branch not covered" >transactions.length &gt; 0 </span>&amp;&amp; &lt;TransactionList txsByDate={groupedTxs} /&gt;}
+      {<span class="branch-0 cbranch-no" title="branch not covered" >allTransactions.length &gt; 0 </span>&amp;&amp; &lt;TransactionList txs={allTransactions} /&gt;}
     &lt;/&gt;
   );
 };
@@ -148,7 +145,7 @@ export const <span class="cstat-no" title="statement not covered" >ActivityList<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 12:05:40 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 10 2021 15:02:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

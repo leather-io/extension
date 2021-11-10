@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.45% </span>
+                <span class="strong">81.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/55</span>
+                <span class='fraction'>45/55</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>9/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.09% </span>
+                <span class="strong">79.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/44</span>
+                <span class='fraction'>35/44</span>
             </div>
         
             
@@ -272,12 +272,7 @@
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
 <a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a>
-<a name='L221'></a><a href='#L221'>221</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L216'></a><a href='#L216'>216</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -298,14 +293,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,7 +340,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -436,8 +425,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -458,8 +448,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -474,7 +464,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -517,6 +507,7 @@ import { atomFamily } from 'jotai/utils';
 import { atom } from 'jotai';
 import { AccountStxBalanceBigNumber } from './types';
 import deepEqual from 'fast-deep-equal';
+import { PaginatedResults } from '@common/types';
 &nbsp;
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
@@ -528,13 +519,6 @@ enum AccountClientKeys {
 &nbsp;
 type PrincipalWithNetworkUrl = { principal: string; networkUrl: string };
 type PrincipalWithLimitNetworkUrl = { principal: string; limit: number; networkUrl: string };
-&nbsp;
-interface PaginatedResults&lt;T&gt; {
-  limit: number;
-  offset: number;
-  total: number;
-  results: T[];
-}
 &nbsp;
 const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'balance',
@@ -655,9 +639,10 @@ export const accountTransactionsUnanchoredClient = atomFamilyWithInfiniteQuery&l
   PaginatedResults&lt;Transaction&gt;
 &gt;(
   AccountClientKeys.TransactionsClient,
-  async function accountTransactionsClientQueryFn(get, { principal, limit = <span class="branch-0 cbranch-no" title="branch not covered" >30 </span>}) {
-    const { accountsApi } = get(apiClientState);
-    return (await accountsApi.getAccountTransactions({
+  async function <span class="fstat-no" title="function not covered" >accountTransactionsClientQueryFn(</span>get, { principal, limit = <span class="branch-0 cbranch-no" title="branch not covered" >30 </span>}) {
+    const { accountsApi } = <span class="cstat-no" title="statement not covered" >get(apiClientState);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return (await accountsApi.getAccountTransactions({</span>
       principal,
       limit,
     })) as PaginatedResults&lt;Transaction&gt;;
@@ -724,7 +709,7 @@ export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfinite
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 12:05:40 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 10 2021 15:02:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

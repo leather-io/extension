@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.27% </span>
+                <span class="strong">84.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>110/129</span>
+                <span class='fraction'>107/126</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.94% </span>
+                <span class="strong">43.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/37</span>
+                <span class='fraction'>13/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.07% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>93/101</span>
+                <span class='fraction'>90/99</span>
             </div>
         
             
@@ -271,16 +271,7 @@
 <a name='L212'></a><a href='#L212'>212</a>
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a>
-<a name='L221'></a><a href='#L221'>221</a>
-<a name='L222'></a><a href='#L222'>222</a>
-<a name='L223'></a><a href='#L223'>223</a>
-<a name='L224'></a><a href='#L224'>224</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L215'></a><a href='#L215'>215</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -301,7 +292,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,10 +407,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -431,24 +422,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -524,8 +506,8 @@ import {
   accountTransactionsUnanchoredClient,
 } from '@store/accounts/api';
 import { AccountWithAddress } from './account.models';
-&nbsp;
-const DEFAULT_LIST_LIMIT = 50;
+import { accountTransactionsWithTransfersState } from './transactions';
+import { DEFAULT_LIST_LIMIT } from '@common/constants';
 &nbsp;
 /**
  * --------------------------------------
@@ -654,17 +636,8 @@ export const currentAnchoredAccountBalancesState = atom(get =&gt; {
 });
 &nbsp;
 export const currentAccountConfirmedTransactionsState = atom&lt;Transaction[]&gt;(get =&gt; {
-  const principal = get(currentAccountStxAddressState);
-  const networkUrl = get(currentNetworkState).url;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!principal) <span class="cstat-no" title="statement not covered" >return [];</span>
-  const confirmed = get(
-    accountTransactionsUnanchoredClient({
-      principal,
-      limit: DEFAULT_LIST_LIMIT,
-      networkUrl,
-    })
-  );
-  return <span class="branch-0 cbranch-no" title="branch not covered" >confi</span>rmed?.pages[0].results || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+  const transactionsWithTransfers = get(accountTransactionsWithTransfersState);
+  return transactionsWithTransfers.map<span class="fstat-no" title="function not covered" >(a</span>tx =&gt; <span class="cstat-no" title="statement not covered" >atx.tx)</span>;
 });
 &nbsp;
 export const currentAccountMempoolTransactionsState = atom&lt;MempoolTransaction[]&gt;(get =&gt; {
@@ -733,7 +706,7 @@ currentAccountTransactionsState.debugLabel = 'currentAccountTransactionsState';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 12:05:40 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 10 2021 15:02:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.76% </span>
+                <span class="strong">67.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/52</span>
+                <span class='fraction'>35/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.69% </span>
+                <span class="strong">29.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>44/79</span>
+                <span class='fraction'>23/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.37% </span>
+                <span class="strong">72.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/43</span>
+                <span class='fraction'>31/43</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -203,10 +203,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -231,7 +231,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -260,26 +260,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -346,7 +346,7 @@ export const currentAccountNonceState = atom(get =&gt; {
   // ----
 &nbsp;
   // most recent confirmed transactions sent by current address
-  const lastConfirmedTx = <span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >confi</span></span>rmedTransactions?.filter(tx =&gt; tx.sender_address === address)?.[0];
+  const lastConfirmedTx = <span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >confi</span></span>rmedTransactions?.filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address)</span>?.[0];
 &nbsp;
   // most recent pending transactions sent by current address
   const latestPendingTx = <span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >pendi</span></span>ngTransactions?.filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; <span class="cstat-no" title="statement not covered" >tx.sender_address === address)</span>?.[0];
@@ -371,18 +371,18 @@ export const currentAccountNonceState = atom(get =&gt; {
 &nbsp;
   // if they do have a miss match, let's use the account nonce
   // or if we don't have any prior transactions, use the info api nonce
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (hasNonceMismatch || !hasTransactions) <span class="cstat-no" title="statement not covered" >return account.nonce;</span>
+  if (hasNonceMismatch || !hasTransactions) return account.nonce;
 &nbsp;
   // otherwise, without micro-blocks, the account nonce will likely be out of date compared
   // and not be incremented based on pending transactions
-  const pendingNonce = <span class="branch-1 cbranch-no" title="branch not covered" >latestPendingTx?.nonce </span>|| 0;
-  const lastConfirmedTxNonce = <span class="branch-0 cbranch-no" title="branch not covered" >lastC</span>onfirmedTx?.nonce || 0;
+  const pendingNonce<span class="cstat-no" title="statement not covered" > = latestPendingTx?.nonce || 0;</span>
+  const lastConfirmedTxNonce<span class="cstat-no" title="statement not covered" > = lastConfirmedTx?.nonce || 0;</span>
 &nbsp;
   // lastLocalNonce can be set when the user sends transactions
   // and can often be faster that waiting for a new response from the API
-  const useLocalNonce = lastLocalNonce &gt; pendingNonce &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastLocalNonce &gt; lastConfirmedTxNonce;</span>
+  const useLocalNonce = <span class="cstat-no" title="statement not covered" >lastLocalNonce &gt; pendingNonce &amp;&amp; lastLocalNonce &gt; lastConfirmedTxNonce;</span>
 &nbsp;
-  const usePendingNonce =
+  const usePendingNonce<span class="cstat-no" title="statement not covered" > =</span>
     !useLocalNonce &amp;&amp;
     ((lastConfirmedTx &amp;&amp; pendingNonce &gt; lastConfirmedTx.nonce) || pendingNonce + 1 &gt; account.nonce);
 &nbsp;
@@ -390,15 +390,15 @@ export const currentAccountNonceState = atom(get =&gt; {
   // and it's greater than account nonce, we should use that one
   // else we will use the account nonce
   const useLastTxNonce =
-    hasTransactions &amp;&amp; lastConfirmedTx &amp;&amp; lastConfirmedTx.nonce + 1 &gt; account.nonce;
+<span class="cstat-no" title="statement not covered" >    hasTransactions &amp;&amp; lastConfirmedTx &amp;&amp; lastConfirmedTx.nonce + 1 &gt; account.nonce;</span>
   const lastConfirmedNonce =
-    useLastTxNonce &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastConfirmedTx </span>? <span class="branch-0 cbranch-no" title="branch not covered" >lastConfirmedTx.nonce + 1 </span>: account.nonce;
+<span class="cstat-no" title="statement not covered" >    useLastTxNonce &amp;&amp; lastConfirmedTx ? lastConfirmedTx.nonce + 1 : account.nonce;</span>
 &nbsp;
-  return useLocalNonce
-    ? <span class="branch-0 cbranch-no" title="branch not covered" >lastLocalNonce</span>
+<span class="cstat-no" title="statement not covered" >  return useLocalNonce</span>
+    ? lastLocalNonce
     : usePendingNonce
     ? // if pending nonce is greater, use that
-<span class="branch-0 cbranch-no" title="branch not covered" >      pendingNonce + 1</span>
+      pendingNonce + 1
     : // else we use the last confirmed nonce
       lastConfirmedNonce;
 });
@@ -409,7 +409,7 @@ export const currentAccountNonceState = atom(get =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 12:05:40 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 10 2021 15:02:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

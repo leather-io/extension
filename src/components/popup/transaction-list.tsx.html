@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -83,15 +83,27 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,25 +121,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createTxDateFormatList } from '@common/group-txs-by-date';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createTxDateFormatList } from '@common/transactions/transaction-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import {
+  AddressTransactionWithTransfers,
+  MempoolTransaction,
+} from '@stacks/stacks-blockchain-api-types';
 import { Box, Stack, Text, color } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
-import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
-import { TxItem } from './tx-item'<span class="cstat-no" title="statement not covered" >;</span>
+import React, { useMemo } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { TxView } from '@components/popup/tx-item'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface TransactionListProps {
-  txsByDate: ReturnType&lt;typeof createTxDateFormatList&gt;;
+  txs: (AddressTransactionWithTransfers | MempoolTransaction)[];
 }
-export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >TransactionList(</span>{</span> txsByDate }: TransactionListProps) {
+&nbsp;
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >TransactionList(</span>{</span> txs }: TransactionListProps) {
+  const txsGroupedByDate<span class="cstat-no" title="statement not covered" > = useMemo(() =&gt; (<span class="cstat-no" title="statement not covered" >txs ? createTxDateFormatList(txs) : [])</span>, [txs]);</span>
   return (
     &lt;Stack pb="extra-loose" spacing="extra-loose"&gt;
-      {txsByDate.map(({ date, displayDate, txs }) =&gt; (
+      {txsGroupedByDate.map(({ date, displayDate, txs }) =&gt; (
         &lt;Box key={date}&gt;
           &lt;Text textStyle="body.small" color={color('text-caption')}&gt;
             {displayDate}
           &lt;/Text&gt;
           &lt;Stack mt="base-loose" spacing="loose"&gt;
-            {txs.map(tx =&gt; (
-              &lt;TxItem transaction={tx} key={tx.tx_id} /&gt;
+            {txs.map(atx =&gt; (
+              &lt;TxView transaction={atx} key={'tx' in atx ? atx.tx.tx_id : atx.tx_id} /&gt;
             ))}
           &lt;/Stack&gt;
         &lt;/Box&gt;
@@ -142,7 +160,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 12:05:40 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 10 2021 15:02:50 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
