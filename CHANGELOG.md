@@ -1,3 +1,10 @@
+## [2.20.1-dev.12](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.11...v2.20.1-dev.12) (2021-11-10)
+
+
+### Bug Fixes
+
+* **csp:** chrome 96 regression breaks argon2 ([f5b064c](https://github.com/hirosystems/stacks-wallet-web/commit/f5b064cb2d2293d79292768b3e3a3391e543134e))
+
 ## [2.20.1-dev.11](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.10...v2.20.1-dev.11) (2021-11-09)
 
 
