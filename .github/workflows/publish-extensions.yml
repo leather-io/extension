@@ -1,8 +1,6 @@
 name: Publish Extensions
 on:
   push:
-    tags:
-      - 'v*'
     tags-ignore:
       - 'v*dev*'
   workflow_dispatch:
