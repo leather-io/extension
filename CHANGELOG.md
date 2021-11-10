@@ -1,3 +1,23 @@
+## [2.20.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.0...v2.20.1) (2021-11-10)
+
+
+### Bug Fixes
+
+* add preview release images, delete unused assets ([89a49fd](https://github.com/hirosystems/stacks-wallet-web/commit/89a49fd09e8d882383c41b29ca6859348dba86fc))
+* clean hex value for deserializeCV ([377031d](https://github.com/hirosystems/stacks-wallet-web/commit/377031d003632116bf3fd639fcdc278bb06392b5))
+* **csp:** chrome 96 regression breaks argon2 ([4492ed2](https://github.com/hirosystems/stacks-wallet-web/commit/4492ed229eb65ad39e0903ee131011cbc82bedfa))
+* **csp:** external images broken ([91331d9](https://github.com/hirosystems/stacks-wallet-web/commit/91331d9133a31e36a66368ef61ca2b09e8532e5d))
+* generate release with preview name ([0baaced](https://github.com/hirosystems/stacks-wallet-web/commit/0baaced4189e59419bfdc27f6ea7c054752aa195))
+* local dev not injecting provider, closes [#1795](https://github.com/hirosystems/stacks-wallet-web/issues/1795) ([d95b413](https://github.com/hirosystems/stacks-wallet-web/commit/d95b413f38fc3a706a169aa70bbf8573a17284cd))
+* manifest app version doesn't include -dev ([8660262](https://github.com/hirosystems/stacks-wallet-web/commit/8660262fe56e267df517efc31e4f249adc1feda5))
+* qa build url ([eae4633](https://github.com/hirosystems/stacks-wallet-web/commit/eae4633d5f4a5124c46d5f97920e1f3853e56fb8))
+* show stx transfers from contract call ([514cc61](https://github.com/hirosystems/stacks-wallet-web/commit/514cc617a9fcf1f5dae19ba31ebb231496587dec)), closes [#1713](https://github.com/hirosystems/stacks-wallet-web/issues/1713)
+* tidy CI jobs, update readme ([1496af9](https://github.com/hirosystems/stacks-wallet-web/commit/1496af9c12f64113eb351ea2af57aa4765abd1c2))
+* upload release as zip ([d244bfa](https://github.com/hirosystems/stacks-wallet-web/commit/d244bfaa65b00cafa0c8ad8b899cad5427b7e359))
+* upload release assets ([efd278a](https://github.com/hirosystems/stacks-wallet-web/commit/efd278a972af847a83c3bbbfb552db1fba11a676))
+* use semantic release ([7eba15a](https://github.com/hirosystems/stacks-wallet-web/commit/7eba15a7ae45273dea13fec6f01f9c745d166dfb))
+* wallet dependence on gaia, closes [#1732](https://github.com/hirosystems/stacks-wallet-web/issues/1732) ([c5b86dd](https://github.com/hirosystems/stacks-wallet-web/commit/c5b86dd5bcd1b7c93fd6dd7a66a2d30803a2f0b7))
+
 ## [2.20.1-dev.12](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.11...v2.20.1-dev.12) (2021-11-10)
 
 
