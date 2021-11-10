@@ -67,8 +67,10 @@ const name = PREVIEW_RELEASE ? 'Hiro Wallet Preview' : 'Hiro Wallet';
 
 const prodManifest = {
   name,
+  // CSP loosened to allow `wasm-eval` per
+  // https://bugs.chromium.org/p/chromium/issues/detail?id=1268576
   content_security_policy:
-    "default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' https:; script-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
+    "default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' https:; script-src 'self' 'wasm-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
   icons: generateImageAssetUrlsWithSuffix(PREVIEW_RELEASE ? '-preview' : ''),
   browser_action: {
     default_icon: `assets/connect-logo/Stacks128w${PREVIEW_RELEASE ? '-preview' : ''}.png`,
