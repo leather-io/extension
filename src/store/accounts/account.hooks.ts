@@ -6,12 +6,12 @@ import {
   accountsWithAddressState,
   currentAccountAvailableStxBalanceState,
   currentAccountBalancesUnanchoredState,
+  currentAccountConfirmedTransactionsState,
   currentAccountIndexState,
   currentAccountInfoState,
   currentAccountMempoolTransactionsState,
   currentAccountState,
   currentAccountStxAddressState,
-  currentAccountTransactionsState,
   hasSwitchedAccountsState,
   refreshAccountDataState,
   transactionAccountIndexState,
@@ -25,22 +25,16 @@ export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableStxBalanceState);
 }
 
-function useAccountActivity() {
-  return useAtomValue(currentAccountTransactionsState);
+export function useAccountConfirmedTransactions() {
+  return useAtomValue(currentAccountConfirmedTransactionsState);
 }
 
-export function useAccountSingleTransaction(txid?: string) {
-  const txs = useAccountActivity();
-  if (!txid) return;
-  return txs.find(tx => tx.tx_id === txid);
+export function useSetMempoolTransactions() {
+  return useUpdateAtom(currentAccountMempoolTransactionsState);
 }
 
 export function useCurrentAccountBalancesUnanchoredState() {
   return useAtomValue(currentAccountBalancesUnanchoredState);
-}
-
-export function useCurrentAccountMempoolTransactionsState() {
-  return useAtomValue(currentAccountMempoolTransactionsState);
 }
 
 export function useAccounts() {

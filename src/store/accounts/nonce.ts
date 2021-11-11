@@ -3,10 +3,10 @@ import { atomFamily, atomWithStorage } from 'jotai/utils';
 import deepEqual from 'fast-deep-equal';
 
 import {
-  currentAccountStxAddressState,
-  currentAccountInfoState,
   currentAccountConfirmedTransactionsState,
+  currentAccountInfoState,
   currentAccountMempoolTransactionsState,
+  currentAccountStxAddressState,
 } from '@store/accounts';
 import { currentNetworkState } from '@store/network/networks';
 import { makeLocalDataKey } from '@common/store-utils';
