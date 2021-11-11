@@ -169,7 +169,7 @@ function isHex(hex: string): boolean {
 }
 
 function cleanHex(hexWithMaybePrefix: string): string {
-  return hexWithMaybePrefix.startsWith('0x')
+  return typeof hexWithMaybePrefix === 'string' && hexWithMaybePrefix.startsWith('0x')
     ? hexWithMaybePrefix.replace('0x', '')
     : hexWithMaybePrefix;
 }
