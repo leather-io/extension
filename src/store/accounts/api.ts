@@ -19,6 +19,7 @@ import { atom } from 'jotai';
 import { AccountStxBalanceBigNumber } from './types';
 import deepEqual from 'fast-deep-equal';
 import { PaginatedResults } from '@common/types';
+import { logger } from '@common/logger';
 
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
@@ -175,36 +176,43 @@ export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfinite
   AccountClientKeys.MempoolTransactionsClient,
   async function accountMempoolTransactionsClientQueryFn(get, { principal, limit = 30 }) {
     const { transactionsApi } = get(apiClientState);
-    const data = (await transactionsApi.getAddressMempoolTransactions({
-      address: principal,
-      limit,
-    })) as PaginatedResults<MempoolTransaction>;
-    // we're fetching each one directly because the response from the tx endpoint provides more data
-    // currently the tx_status from the mempool endpoint can give stale data
-    // where the status can be `pending`, but in reality is `dropped_replace_by_fee`
-    // TODO: remove these extra fetches when the api has been fixed
-    const promises = data.results
-      // only want to fetch ones of status pending
-      .filter(tx => tx.tx_status === 'pending' && !droppedCache.has(tx.tx_id))
-      .map(
-        async item =>
-          (await transactionsApi.getTransactionById({ txId: item.tx_id })) as MempoolTransaction
-      );
-    const results: MempoolTransaction[] = await Promise.all(promises);
-    return {
-      ...data,
-      // we don't want to display and dropped txs
-      results: results.filter(tx => {
-        if (droppedCache.has(tx.tx_id)) return false;
-        if (tx.tx_status !== 'pending') {
-          // because stale txs persist in the mempool endpoint
-          // we should cache dropped txids to prevent unneeded fetches
-          droppedCache.set(tx.tx_id, true);
-          return false;
-        }
-        return true;
-      }),
-    } as PaginatedResults<MempoolTransaction>;
+    try {
+      const data = (await transactionsApi.getAddressMempoolTransactions({
+        address: principal,
+        limit,
+      })) as PaginatedResults<MempoolTransaction>;
+      // we're fetching each one directly because the response from the tx endpoint provides more data
+      // currently the tx_status from the mempool endpoint can give stale data
+      // where the status can be `pending`, but in reality is `dropped_replace_by_fee`
+      // TODO: remove these extra fetches when the api has been fixed
+      const promises = data.results
+        // only want to fetch ones of status pending
+        .filter(
+          (tx: MempoolTransaction) => tx.tx_status === 'pending' && !droppedCache.has(tx.tx_id)
+        )
+        .map(
+          async (item: MempoolTransaction) =>
+            (await transactionsApi.getTransactionById({ txId: item.tx_id })) as MempoolTransaction
+        );
+      const results: MempoolTransaction[] = await Promise.all(promises);
+      return {
+        ...data,
+        // we don't want to display and dropped txs
+        results: results.filter(tx => {
+          if (droppedCache.has(tx.tx_id)) return false;
+          if (tx.tx_status !== 'pending') {
+            // because stale txs persist in the mempool endpoint
+            // we should cache dropped txids to prevent unneeded fetches
+            droppedCache.set(tx.tx_id, true);
+            return false;
+          }
+          return true;
+        }),
+      } as PaginatedResults<MempoolTransaction>;
+    } catch (error) {
+      logger.debug('Failed to load mempool transactions:', principal);
+      return { limit: 0, offset: 0, total: 0, results: [] } as PaginatedResults<MempoolTransaction>;
+    }
   },
   {
     refetchInterval: QueryRefreshRates.MEDIUM,
