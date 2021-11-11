@@ -1,3 +1,10 @@
+## [2.20.3-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.2...v2.20.3-dev.1) (2021-11-11)
+
+
+### Bug Fixes
+
+* mempool txs query atom ([73f5b01](https://github.com/hirosystems/stacks-wallet-web/commit/73f5b016fb996015c67adb55f774754d52675a33))
+
 ## [2.20.2-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.2-dev.1...v2.20.2-dev.2) (2021-11-11)
 
 
