@@ -13,12 +13,10 @@ import { ScreenPaths } from '@common/types';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useCurrentStacksNetworkState } from '@store/network/networks.hooks';
-import {
-  useCurrentAccountTxIdsState,
-  useSetLocalTxsCallback,
-} from '@store/accounts/account-activity.hooks';
+import { useSetLocalTxsCallback } from '@store/accounts/account-activity.hooks';
 import { todaysIsoDate } from '@common/date-utils';
 import { logger } from '@common/logger';
+import { useCurrentAccountTxIds } from '@query/transactions/transaction.hooks';
 
 function getErrorMessage(
   reason: TxBroadcastResultRejected['reason'] | 'ConflictingNonceInMempool'
@@ -53,7 +51,7 @@ export function useSubmitTransactionCallback({
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
   const setLocalTxs = useSetLocalTxsCallback();
-  const externalTxid = useCurrentAccountTxIdsState();
+  const externalTxid = useCurrentAccountTxIds();
 
   return useCallback<(tx: StacksTransaction) => Promise<void>>(
     async transaction => {

@@ -1,6 +1,5 @@
 import { atom } from 'jotai';
 import { currentNetworkState } from '@store/network/networks';
-import { deserializeTransaction, StacksTransaction } from '@stacks/transactions';
 import { atomFamily, atomWithStorage } from 'jotai/utils';
 import {
   currentAccountStxAddressState,
@@ -9,10 +8,7 @@ import {
 import { makeLocalDataKey } from '@common/store-utils';
 import deepEqual from 'fast-deep-equal';
 import { safelyFormatHexTxid } from '@common/utils/safe-handle-txid';
-
-export const currentAccountExternalTxIdsState = atom(get => [
-  ...new Set([...get(currentAccountTransactionsState).map(tx => tx.tx_id)]),
-]);
+import { deserializeTransaction, StacksTransaction } from '@stacks/transactions';
 
 type LocalTx = Record<
   string,
@@ -26,6 +22,14 @@ const currentAccountLocallySubmittedTxsRootState = atomFamily<[string, string], 
     atomWithStorage<LocalTx>(makeLocalDataKey([_address, _network, 'LOCAL_TXS']), {}),
   deepEqual
 );
+
+/**
+ * @deprecated
+ * Use `useCurrentAccountTxIds`
+ */
+const currentAccountExternalTxIdsState = atom(get => [
+  ...new Set([...get(currentAccountTransactionsState).map(tx => tx.tx_id)]),
+]);
 
 export const currentAccountLocallySubmittedTxsState = atom<LocalTx, LocalTx>(
   get => {
@@ -44,7 +48,7 @@ export const currentAccountLocallySubmittedTxsState = atom<LocalTx, LocalTx>(
   }
 );
 
-export const currentAccountLocallySubmittedTxIdsState = atom(get => {
+const currentAccountLocallySubmittedTxIdsState = atom(get => {
   const txs = get(currentAccountLocallySubmittedTxsState);
   const externalTxids = get(currentAccountExternalTxIdsState);
   return txs
@@ -55,7 +59,8 @@ export const currentAccountLocallySubmittedTxIdsState = atom(get => {
     : [];
 });
 
-export const currentAccountLocallySubmittedStacksTransactionsState = atom(get => {
+/** @deprecated */
+const currentAccountLocallySubmittedStacksTransactionsState = atom(get => {
   const localTxs = get(currentAccountLocallySubmittedTxsState);
   const txids = get(currentAccountLocallySubmittedTxIdsState);
   const result: any = {};
@@ -74,6 +79,7 @@ export const currentAccountLocallySubmittedStacksTransactionsState = atom(get =>
   >;
 });
 
+/** @deprecated */
 export const currentAccountLocallySubmittedLatestNonceState = atom(get => {
   const txids = get(currentAccountLocallySubmittedTxIdsState);
   const latestTxId = txids[0];

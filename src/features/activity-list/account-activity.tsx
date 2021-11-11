@@ -6,11 +6,11 @@ import { LocalTxList } from '@features/local-transaction-activity/local-tx-list'
 
 import { NoAccountActivity } from './components/no-account-activity';
 import { useAccountTransactionsWithTransfers } from '@common/hooks/account/use-account-transactions-with-transfers.hooks';
-import { useCurrentAccountMempoolTransactionsState } from '@store/accounts/account.hooks';
+import { useCurrentAccountFilteredMempoolTransactionsState } from '@query/mempool/mempool.hooks';
 
 export const ActivityList = () => {
   const transactions = useAccountTransactionsWithTransfers();
-  const pendingTransactions = useCurrentAccountMempoolTransactionsState();
+  const pendingTransactions = useCurrentAccountFilteredMempoolTransactionsState();
 
   const txids = useCurrentAccountLocalTxids();
   const allTransactions = [...pendingTransactions, ...transactions];

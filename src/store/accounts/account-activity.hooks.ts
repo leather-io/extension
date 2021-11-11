@@ -1,20 +1,46 @@
 import { useAtomCallback, useAtomValue, useUpdateAtom } from 'jotai/utils';
 import {
   cleanupLocalTxs,
-  currentAccountExternalTxIdsState,
-  currentAccountLocallySubmittedStacksTransactionsState,
-  currentAccountLocallySubmittedTxIdsState,
   currentAccountLocallySubmittedTxsState,
 } from '@store/accounts/account-activity';
+import { deserializeTransaction, StacksTransaction } from '@stacks/transactions';
 
 import { useCallback } from 'react';
+import { safelyFormatHexTxid } from '@common/utils/safe-handle-txid';
+import { useAccountConfirmedTransactions } from './account.hooks';
 
-export const useCurrentAccountLocalTxids = () => {
-  return useAtomValue(currentAccountLocallySubmittedTxIdsState);
-};
+export function useCurrentAccountLocalTxids() {
+  const txs = useAtomValue(currentAccountLocallySubmittedTxsState);
+  const externalTxids = useAccountConfirmedTransactions().map(tx => tx.tx_id);
+  return txs
+    ? Object.entries(txs)
+        .filter(([txid]) => !externalTxids.includes(safelyFormatHexTxid(txid)))
+        .sort((a, b) => (a[1].timestamp > b[1].timestamp ? -1 : 1))
+        .map(([txid]) => txid)
+    : [];
+}
 
-export const useSetLocalTxsCallback = () =>
-  useAtomCallback<
+function useCurrentAccountLocallySubmittedStacksTransactions() {
+  const localTxs = useAtomValue(currentAccountLocallySubmittedTxsState);
+  const txids = useCurrentAccountLocalTxids();
+  const result: any = {};
+  txids.forEach(txid => {
+    result[txid] = {
+      transaction: deserializeTransaction(localTxs[txid].rawTx),
+      timestamp: localTxs[txid].timestamp,
+    };
+  });
+  return result as Record<
+    string,
+    {
+      transaction: StacksTransaction;
+      timestamp: number;
+    }
+  >;
+}
+
+export function useSetLocalTxsCallback() {
+  return useAtomCallback<
     void,
     {
       txid: string;
@@ -31,12 +57,13 @@ export const useSetLocalTxsCallback = () =>
       });
     }, [])
   );
+}
 
-export const useCurrentAccountLocalStacksTransaction = (tx_id: string) => {
-  const txs = useAtomValue(currentAccountLocallySubmittedStacksTransactionsState);
+export function useCurrentAccountLocalStacksTransaction(tx_id: string) {
+  const txs = useCurrentAccountLocallySubmittedStacksTransactions();
   return txs[tx_id];
-};
+}
 
-export const useCleanupLocalTxsCallback = () => useUpdateAtom(cleanupLocalTxs);
-
-export const useCurrentAccountTxIdsState = () => useAtomValue(currentAccountExternalTxIdsState);
+export function useCleanupLocalTxsCallback() {
+  return useUpdateAtom(cleanupLocalTxs);
+}

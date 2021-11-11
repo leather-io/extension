@@ -8,16 +8,14 @@ import {
   useRawTxIdState,
 } from '@store/transactions/raw.hooks';
 import { TxItem } from '@components/popup/tx-item';
-import {
-  useAccountSingleTransaction,
-  useCurrentAccountAvailableStxBalance,
-} from '@store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 import * as yup from 'yup';
 import { Formik, FormikProps } from 'formik';
 import { microStxToStx } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 import { toast } from 'react-hot-toast';
 
+import { useTransactionById } from '@query/transactions/transactions-by-id.query';
 import { LOADING_KEYS, useLoading } from '@common/hooks/use-loading';
 import { FeeField } from '@features/fee-nonce-drawers/components/fee-field';
 import { StacksTransaction } from '@stacks/transactions';
@@ -26,10 +24,10 @@ import { useFeeRate, useReplaceByFeeSubmitCallBack } from '@store/transactions/f
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useFeeSchema } from './use-fee-schema';
 
-const useSelectedTx = () => {
+function useSelectedTx() {
   const [rawTxId] = useRawTxIdState();
-  return useAccountSingleTransaction(rawTxId || undefined);
-};
+  return useTransactionById(rawTxId || '').data;
+}
 
 const Messaging = () => {
   return (

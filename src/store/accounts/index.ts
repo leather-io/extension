@@ -15,7 +15,6 @@ import {
   accountBalancesUnanchoredBigNumberState,
   accountBalancesUnanchoredClient,
   accountInfoUnanchoredClient,
-  accountMempoolTransactionsUnanchoredClient,
   accountTransactionsUnanchoredClient,
 } from '@store/accounts/api';
 import { AccountWithAddress } from './account.models';
@@ -153,21 +152,13 @@ export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get 
   return transactionsWithTransfers.map(atx => atx.tx);
 });
 
-export const currentAccountMempoolTransactionsState = atom<MempoolTransaction[]>(get => {
-  const principal = get(currentAccountStxAddressState);
-  const networkUrl = get(currentNetworkState).url;
-  if (!principal) return [];
-  const mempool = get(
-    accountMempoolTransactionsUnanchoredClient({
-      principal,
-      limit: DEFAULT_LIST_LIMIT,
-      networkUrl,
-    })
-  );
-  return mempool?.pages[0].results || [];
-});
+/**
+ * @deprecated
+ * Populated by mempool `useQuery`
+ */
+export const currentAccountMempoolTransactionsState = atom<MempoolTransaction[]>([]);
 
-// combo of pending and confirmed transactions for the current address
+/** @deprecated */
 export const currentAccountTransactionsState = atom<(MempoolTransaction | Transaction)[]>(get => {
   const transactions = get(currentAccountConfirmedTransactionsState);
   const pending = get(currentAccountMempoolTransactionsState);
@@ -185,16 +176,6 @@ export const refreshAccountDataState = atom(null, (get, set) => {
   const principal = get(currentAccountStxAddressState);
   const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
-  set(
-    accountMempoolTransactionsUnanchoredClient({
-      principal,
-      limit: DEFAULT_LIST_LIMIT,
-      networkUrl,
-    }),
-    {
-      type: 'refetch',
-    }
-  );
   set(accountTransactionsUnanchoredClient({ principal, limit: DEFAULT_LIST_LIMIT, networkUrl }), {
     type: 'refetch',
   });
@@ -211,4 +192,3 @@ currentAccountState.debugLabel = 'currentAccountState';
 currentAccountStxAddressState.debugLabel = 'currentAccountStxAddressState';
 currentAccountPrivateKeyState.debugLabel = 'currentAccountPrivateKeyState';
 currentAccountBalancesUnanchoredState.debugLabel = 'currentAccountBalancesState';
-currentAccountTransactionsState.debugLabel = 'currentAccountTransactionsState';
