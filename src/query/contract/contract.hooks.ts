@@ -14,8 +14,7 @@ export function useContractInterface(transactionRequest: TransactionPayload | nu
       if (data) setContractInterface(data);
     },
   };
-  const result = useGetContractInterface(transactionRequest, queryOptions as any);
-  return result;
+  return useGetContractInterface(transactionRequest, queryOptions);
 }
 
 export const useContractFunction = () => {

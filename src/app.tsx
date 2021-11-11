@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 import { QueryClientProvider } from 'react-query';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@store/common/common.hooks';
@@ -20,11 +20,15 @@ import { Devtools } from '@features/devtool/devtools';
 
 const devToolsEnabled = false;
 
-export const App: React.FC = () => {
-  useEffect(() => {
-    (window as any).__APP_VERSION__ = VERSION;
-  }, []);
+declare global {
+  interface Window {
+    __APP_VERSION__: string;
+  }
+}
 
+window.__APP_VERSION__ = VERSION;
+
+export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />

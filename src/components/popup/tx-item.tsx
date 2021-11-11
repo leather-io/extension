@@ -34,7 +34,7 @@ import { useAssetByIdentifier } from '@store/assets/asset.hooks';
 type Tx = MempoolTransaction | Transaction;
 
 const Status = ({ transaction, ...rest }: { transaction: Tx } & BoxProps) => {
-  const isPending = isPendingTx(transaction as any);
+  const isPending = isPendingTx(transaction as MempoolTransaction);
   const isFailed = !isPending && transaction.tx_status !== 'success';
   return isFailed || isPending ? (
     <Box {...rest}>
@@ -261,9 +261,7 @@ export const TxItem = ({ transaction, ...rest }: TxItemProps) => {
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
 
-  if (!transaction) {
-    return null;
-  }
+  if (!transaction) return null;
 
   const isOriginator = transaction.sender_address === currentAccount?.address;
 
@@ -285,7 +283,7 @@ export const TxItem = ({ transaction, ...rest }: TxItemProps) => {
         <SpaceBetween flexGrow={1}>
           <Stack spacing="base-tight">
             <Title as="h3" fontWeight="normal">
-              {getTxTitle(transaction as any)}
+              {getTxTitle(transaction)}
             </Title>
             <Stack isInline flexWrap="wrap">
               <Caption variant="c2">{getTxCaption(transaction)}</Caption>

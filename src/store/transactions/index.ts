@@ -8,7 +8,12 @@ import { currentAccountState, currentAccountStxAddressState } from '@store/accou
 import { requestTokenPayloadState } from '@store/transactions/requests';
 
 import { generateSignedTransaction } from '@common/transactions/transactions';
-import { TransactionTypes } from '@stacks/connect';
+import {
+  ContractCallPayload,
+  ContractDeployPayload,
+  STXTransferPayload,
+  TransactionTypes,
+} from '@stacks/connect';
 import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
 import { postConditionsState } from '@store/transactions/post-conditions';
 import { validateStacksAddress } from '@common/stacks-utils';
@@ -19,7 +24,9 @@ import { localTransactionState } from '@store/transactions/local-transactions';
 import { customNonceState } from './nonce.hooks';
 import BigNumber from 'bignumber.js';
 
-export const pendingTransactionState = atom(get => {
+export const pendingTransactionState = atom<
+  ContractCallPayload | ContractDeployPayload | STXTransferPayload | undefined
+>(get => {
   const payload = get(requestTokenPayloadState);
   const postConditions = get(postConditionsState);
   const network = get(currentStacksNetworkState);
@@ -41,14 +48,19 @@ const signedStacksTransactionBaseState = atom(get => {
   if (
     txData.txType === TransactionTypes.ContractCall &&
     !validateStacksAddress(txData.contractAddress)
-  )
+  ) {
     return { transaction: undefined, options: {} };
+  }
   const options = {
     senderKey: account.stxPrivateKey,
     nonce: txNonce,
-    txData: txData as any,
+    txData,
   };
-  return generateSignedTransaction(options).then(transaction => {
+  return generateSignedTransaction({
+    senderKey: account.stxPrivateKey,
+    nonce: txNonce,
+    txData,
+  }).then(transaction => {
     return { transaction, options };
   });
 });

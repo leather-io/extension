@@ -108,7 +108,6 @@ chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendRespons
 if (IS_TEST_ENV) {
   // Expose a helper function to open a new tab with the wallet from tests
   (window as any).openOptionsPage = function (page: string) {
-    const url = chrome.runtime.getURL(`index.html#${page}`);
-    return url;
+    return chrome.runtime.getURL(`index.html#${page}`);
   };
 }

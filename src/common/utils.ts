@@ -195,7 +195,7 @@ export function hexToHumanReadable(hex: string) {
 // To support both `@stacks/network` versions a dev may be using
 // we look for both possible networks defined
 function getCoreApiUrl(network: StacksNetwork) {
-  if ((network as any).coreApiUrl) return (network as any).coreApiUrl;
+  if (network.coreApiUrl) return network.coreApiUrl;
   if ((network as any)._coreApiUrl) return (network as any)._coreApiUrl;
 }
 

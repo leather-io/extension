@@ -89,7 +89,7 @@ export const AssetItem = memo(
           textAlign="left"
           outline={0}
           position="relative"
-          ref={ref as any}
+          ref={ref}
           flexGrow={1}
           spacing="base"
           {...rest}
