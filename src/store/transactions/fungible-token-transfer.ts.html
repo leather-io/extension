@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/20</span>
+                <span class='fraction'>8/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.44% </span>
+                <span class="strong">38.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/18</span>
+                <span class='fraction'>7/18</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -105,17 +105,17 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,7 +131,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { atom } from 'jotai';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { atom } from 'jotai'<span class="fstat-no" title="function not covered" >;</span>
 import { selectedAssetStore } from '@store/assets/asset-search';
 import {
   currentAccountBalancesUnanchoredState,
@@ -142,17 +142,17 @@ import { currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 &nbsp;
 export const makeFungibleTokenTransferState = atom(get =&gt; {
-  const asset = get(selectedAssetStore);
-  const currentAccount = get(currentAccountState);
-  const network = get(currentStacksNetworkState);
-  const balances = get(currentAccountBalancesUnanchoredState);
-  const stxAddress = get(currentAccountStxAddressState);
-  const nonce = get(currentAccountNonceState);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!stxAddress || typeof nonce === 'undefined') <span class="cstat-no" title="statement not covered" >return;</span>
+  const asset = <span class="cstat-no" title="statement not covered" >get(selectedAssetStore);</span>
+  const currentAccount = <span class="cstat-no" title="statement not covered" >get(currentAccountState);</span>
+  const network = <span class="cstat-no" title="statement not covered" >get(currentStacksNetworkState);</span>
+  const balances = <span class="cstat-no" title="statement not covered" >get(currentAccountBalancesUnanchoredState);</span>
+  const stxAddress = <span class="cstat-no" title="statement not covered" >get(currentAccountStxAddressState);</span>
+  const nonce = <span class="cstat-no" title="statement not covered" >get(currentAccountNonceState);</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!stxAddress || typeof nonce === 'undefined') <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-  if (asset &amp;&amp; currentAccount &amp;&amp; stxAddress) {
-    const { contractName, contractAddress, name: assetName } = asset;
-    return {
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (asset &amp;&amp; currentAccount &amp;&amp; stxAddress) {</span>
+    const { contractName, contractAddress, name: assetName } = <span class="cstat-no" title="statement not covered" >asset;</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
       asset,
       stxAddress,
       nonce,
@@ -175,7 +175,7 @@ makeFungibleTokenTransferState.debugLabel = 'makeFungibleTokenTransferState';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 16:20:39 GMT+0000 (Coordinated Universal Time)
+                at Thu Nov 11 2021 09:43:24 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
