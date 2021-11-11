@@ -64,8 +64,14 @@ export const generateContractCallTx = ({
     postConditionMode,
     postConditions,
   } = txData;
-  const args = functionArgs.map(arg => {
-    return deserializeCV(hexToBuff(arg));
+
+  // `functionArgs` is typed as only being a string, owing to
+  // to some type casting going on upstream.
+  // We must fix all `as any`s in:
+  // - src/store/transactions/index.ts
+  // - src/store/transactions/local-transactions.ts
+  const args = functionArgs.map((arg: string | Uint8Array) => {
+    return deserializeCV(typeof arg === 'string' ? hexToBuff(arg) : Buffer.from(arg));
   });
 
   let network = txData.network;
