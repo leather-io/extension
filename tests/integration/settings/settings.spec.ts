@@ -76,11 +76,5 @@ describe(`Settings integration tests`, () => {
       createTestSelector(SettingsSelectors.NetworkListItem)
     );
     expect(networkListItems).toHaveLength(4);
-    await networkListItems[2].click(); // TODO: replace with testnet when regtest shuts down
-    await wallet.clickSettingsButton();
-    const newCurrentNetwork = await wallet.page.textContent(
-      createTestSelector(SettingsSelectors.CurrentNetwork)
-    );
-    expect(newCurrentNetwork).toContain('regtest');
   });
 });
