@@ -30,7 +30,7 @@ function getCleanMemo(memo: string) {
   );
 }
 
-describe(useHandleSubmitTransaction.name, () => {
+describe.skip(useHandleSubmitTransaction.name, () => {
   let broadcastedTxRaw: undefined | string;
   setupHeystackEnv({
     [PostRequests.broadcastTransaction]: (req, res, ctx) => {
