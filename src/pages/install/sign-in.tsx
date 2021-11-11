@@ -45,7 +45,7 @@ export const InstalledSignIn: React.FC = () => {
               width="100%"
               style={{ resize: 'none' }}
               minHeight="140px"
-              ref={ref as any} // need to fix type in UI lib
+              ref={ref as any}
               onKeyDown={onKeyDown as any} // need to fix type in UI lib
               onPaste={onPaste}
               onChange={onChange}

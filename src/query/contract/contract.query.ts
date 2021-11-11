@@ -6,7 +6,7 @@ import { useApi } from '@store/common/api-clients.hooks';
 
 export function useGetContractInterface(
   transactionRequest: TransactionPayload | null,
-  reactQueryOptions: UseQueryOptions = {}
+  reactQueryOptions: UseQueryOptions<any> = {}
 ) {
   const { smartContractsApi } = useApi();
 

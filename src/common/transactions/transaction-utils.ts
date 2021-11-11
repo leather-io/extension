@@ -7,14 +7,15 @@ import {
   StacksTransaction,
 } from '@stacks/transactions';
 import BN from 'bn.js';
+import { STXTransferPayload, ContractCallPayload, ContractDeployPayload } from '@stacks/connect';
 import { getPostConditions } from '@common/transactions/post-condition-utils';
 import { ChainID } from '@stacks/common';
-import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import {
-  ContractCallOptions,
-  ContractDeployOptions,
-  TokenTransferOptions,
-} from '@common/transactions/transactions';
+  StacksMainnet,
+  StacksTestnet,
+  HIRO_MAINNET_DEFAULT,
+  HIRO_TESTNET_DEFAULT,
+} from '@stacks/network';
 import {
   AddressTransactionWithTransfers,
   CoinbaseTransaction,
@@ -50,7 +51,7 @@ export const generateContractCallTx = ({
   nonce,
   fee,
 }: {
-  txData: ContractCallOptions;
+  txData: ContractCallPayload;
   senderKey: string;
   nonce?: number;
   fee?: number;
@@ -65,21 +66,16 @@ export const generateContractCallTx = ({
     postConditions,
   } = txData;
 
-  // `functionArgs` is typed as only being a string, owing to
-  // to some type casting going on upstream.
-  // We must fix all `as any`s in:
-  // - src/store/transactions/index.ts
-  // - src/store/transactions/local-transactions.ts
-  const args = functionArgs.map((arg: string | Uint8Array) => {
-    return deserializeCV(typeof arg === 'string' ? hexToBuff(arg) : Buffer.from(arg));
-  });
+  const args = functionArgs.map(arg => deserializeCV(hexToBuff(arg)));
 
   let network = txData.network;
 
   if (typeof txData.network?.getTransferFeeEstimateApiUrl !== 'function') {
-    const Builder = txData.network?.chainId === ChainID.Testnet ? StacksTestnet : StacksMainnet;
-    network = new Builder();
-    if (txData.network?.coreApiUrl) network.coreApiUrl = txData.network?.coreApiUrl;
+    const networkBuilder =
+      txData.network?.chainId === ChainID.Testnet ? StacksTestnet : StacksMainnet;
+    const defaultNetworkUrl =
+      txData.network?.chainId === ChainID.Testnet ? HIRO_TESTNET_DEFAULT : HIRO_MAINNET_DEFAULT;
+    network = new networkBuilder({ url: txData.network?.coreApiUrl || defaultNetworkUrl });
     if (txData.network?.bnsLookupUrl) network.bnsLookupUrl = txData.network?.bnsLookupUrl;
   }
 
@@ -106,7 +102,7 @@ export const generateContractDeployTx = ({
   nonce,
   fee,
 }: {
-  txData: ContractDeployOptions;
+  txData: ContractDeployPayload;
   senderKey: string;
   nonce?: number;
   fee?: number;
@@ -132,7 +128,7 @@ export const generateSTXTransferTx = ({
   nonce,
   fee,
 }: {
-  txData: TokenTransferOptions;
+  txData: STXTransferPayload;
   senderKey: string;
   nonce?: number;
   fee?: number;

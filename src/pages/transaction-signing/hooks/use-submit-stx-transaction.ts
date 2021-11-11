@@ -60,7 +60,7 @@ export function useSubmitTransactionCallback({
       setIsLoading();
       const nonce = !replaceByFee && transaction.auth.spendingCondition?.nonce.toNumber();
       try {
-        const response = await broadcastTransaction(transaction, stacksNetwork as any);
+        const response = await broadcastTransaction(transaction, stacksNetwork);
         if (typeof response !== 'string') {
           toast.error(getErrorMessage(response.reason));
           onClose();

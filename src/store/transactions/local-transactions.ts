@@ -5,7 +5,6 @@ import { currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 
 import { customNonceState } from '@store/transactions/nonce.hooks';
-import BN from 'bn.js';
 import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
 import {
   bufferCVFromString,
@@ -26,7 +25,7 @@ import {
   generateSignedTransaction,
   GenerateSignedTransactionOptions,
 } from '@common/transactions/transactions';
-import { TransactionTypes } from '@stacks/connect';
+import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { customAbsoluteTxFee, feeRateState } from './fees';
 
 export const localStacksTransactionInputsState = atom<{
@@ -63,13 +62,17 @@ const tokenTransferTransaction = atom(get => {
       recipient,
       amount: stxToMicroStx(amount).toString(10),
       memo,
-      network: network as any,
-    },
+      network,
+      // Coercing type here as we don't have the public key
+      // as expected by STXTransferPayload type.
+      // This code will likely need to change soon with Ledger
+      // work, and concersion allows us to remove lots of type mangling
+    } as STXTransferPayload,
   };
 
   return generateSignedTransaction(options).then(transaction => {
     const fee = customAbsoluteFee || calculateFeeFromFeeRate(transaction, feeRate).toNumber();
-    return generateSignedTransaction({ ...options, fee } as any);
+    return generateSignedTransaction({ ...options, fee });
   });
 });
 
@@ -137,22 +140,23 @@ const ftTokenTransferTransactionState = atom(get => {
       contractAddress,
       contractName,
       functionName,
-      functionArgs: functionArgs.map(serializeCV),
+      functionArgs: functionArgs.map(serializeCV).map(arg => arg.toString('hex')),
       postConditions,
       postConditionMode: PostConditionMode.Deny,
-      network: network as any,
+      network,
+      // Dummy public key to satisfy types
+      // This isn't a good partern to follow, but much of this
+      // code will have to change with Ledger code anyway
+      publicKey: '',
     },
     senderKey,
-    nonce: new BN(txNonce, 10),
-  };
+    nonce: txNonce,
+  } as const;
 
-  return generateSignedTransaction(
-    options as any
-    // @TODO: kyran pls fix types
-  ).then(transaction => {
+  return generateSignedTransaction(options).then(transaction => {
     if (!transaction) return;
     const fee = customFee || calculateFeeFromFeeRate(transaction, feeRate).toNumber();
-    return generateSignedTransaction({ ...options, fee } as any);
+    return generateSignedTransaction({ ...options, fee });
   });
 });
 

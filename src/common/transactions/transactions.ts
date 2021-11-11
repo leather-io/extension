@@ -24,7 +24,6 @@ interface BroadcastTransactionOptions {
 
 export async function handleBroadcastTransaction(options: BroadcastTransactionOptions) {
   const { txRaw, serialized, isSponsored, attachment, networkUrl } = options;
-  // if sponsored, return raw tx
   if (isSponsored)
     return {
       txRaw,
@@ -52,42 +51,15 @@ export async function handleBroadcastTransaction(options: BroadcastTransactionOp
   }
 }
 
-function getIsValid(txType: TransactionTypes) {
+function isTransactionTypeSupported(txType: TransactionTypes) {
   return (
     txType === TransactionTypes.STXTransfer ||
     txType === TransactionTypes.ContractCall ||
     txType === TransactionTypes.ContractDeploy
   );
 }
-
-export type ContractCallOptions = Pick<
-  ContractCallPayload,
-  | 'txType'
-  | 'contractName'
-  | 'contractAddress'
-  | 'functionName'
-  | 'functionArgs'
-  | 'sponsored'
-  | 'postConditionMode'
-  | 'postConditions'
-  | 'network'
->;
-
-export interface TokenTransferOptions {
-  txType: TransactionTypes.STXTransfer;
-  recipient: STXTransferPayload['recipient'];
-  memo: STXTransferPayload['memo'];
-  amount: STXTransferPayload['amount'];
-  network: STXTransferPayload['network'];
-}
-
-export type ContractDeployOptions = Pick<
-  ContractDeployPayload,
-  'txType' | 'contractName' | 'codeBody' | 'postConditions' | 'postConditionMode' | 'network'
->;
-
 export interface GenerateSignedTransactionOptions {
-  txData: ContractCallOptions | TokenTransferOptions | ContractDeployOptions;
+  txData: ContractCallPayload | STXTransferPayload | ContractDeployPayload;
   senderKey: string;
   nonce?: number;
   fee?: number;
@@ -95,7 +67,7 @@ export interface GenerateSignedTransactionOptions {
 
 export async function generateSignedTransaction(options: GenerateSignedTransactionOptions) {
   const { txData, senderKey, nonce, fee = 0 } = options;
-  const isValid = getIsValid(txData.txType);
+  const isValid = isTransactionTypeSupported(txData.txType);
 
   if (!isValid) throw new Error(`Invalid Transaction Type: ${txData.txType}`);
 
