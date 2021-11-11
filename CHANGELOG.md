@@ -1,3 +1,10 @@
+## [2.20.2-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1...v2.20.2-dev.1) (2021-11-11)
+
+
+### Bug Fixes
+
+* sip010 token transfer not going through ([7da7d51](https://github.com/hirosystems/stacks-wallet-web/commit/7da7d5149574c855f490d0ec162f0ca11704700e)), closes [#1915](https://github.com/hirosystems/stacks-wallet-web/issues/1915)
+
 ## [2.20.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.0...v2.20.1) (2021-11-10)
 
 
