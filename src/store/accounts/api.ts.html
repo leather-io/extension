@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.36% </span>
+                <span class="strong">72.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/55</span>
+                <span class='fraction'>43/59</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.72% </span>
+                <span class="strong">70.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/44</span>
+                <span class='fraction'>33/47</span>
             </div>
         
             
@@ -272,7 +272,15 @@
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
 <a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -293,6 +301,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,7 +349,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -450,6 +459,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -462,6 +473,19 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -470,14 +494,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -508,6 +524,7 @@ import { atom } from 'jotai';
 import { AccountStxBalanceBigNumber } from './types';
 import deepEqual from 'fast-deep-equal';
 import { PaginatedResults } from '@common/types';
+import { logger } from <span class="cstat-no" title="statement not covered" >'@common/logger';</span>
 &nbsp;
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
@@ -664,36 +681,43 @@ export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfinite
   AccountClientKeys.MempoolTransactionsClient,
   async function <span class="fstat-no" title="function not covered" >accountMempoolTransactionsClientQueryFn(</span>get, { principal, limit = <span class="branch-0 cbranch-no" title="branch not covered" >30 </span>}) {
     const { transactionsApi } = <span class="cstat-no" title="statement not covered" >get(apiClientState);</span>
-    const data = (<span class="cstat-no" title="statement not covered" >await transactionsApi.getAddressMempoolTransactions({</span>
-      address: principal,
-      limit,
-    })) as PaginatedResults&lt;MempoolTransaction&gt;;
-    // we're fetching each one directly because the response from the tx endpoint provides more data
-    // currently the tx_status from the mempool endpoint can give stale data
-    // where the status can be `pending`, but in reality is `dropped_replace_by_fee`
-    // TODO: remove these extra fetches when the api has been fixed
-    const promises = data.results
-      // only want to fetch ones of status pending
-      .filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; <span class="cstat-no" title="statement not covered" >tx.tx_status === 'pending' &amp;&amp; !droppedCache.has(tx.tx_id))</span>
-      .map<span class="fstat-no" title="function not covered" >(</span>
-        async item =&gt;
-          (<span class="cstat-no" title="statement not covered" >await transactionsApi.getTransactionById({ txId: item.tx_id })) as MempoolTransaction</span>
-      );
-    const results: MempoolTransaction[] = <span class="cstat-no" title="statement not covered" >await Promise.all(promises);</span>
-    return {
-      ...data,
-      // we don't want to display and dropped txs
-      results: results.filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; {
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (droppedCache.has(tx.tx_id)) <span class="cstat-no" title="statement not covered" >return false;</span></span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (tx.tx_status !== 'pending') {</span>
-          // because stale txs persist in the mempool endpoint
-          // we should cache dropped txids to prevent unneeded fetches
-<span class="cstat-no" title="statement not covered" >          droppedCache.set(tx.tx_id, true);</span>
-<span class="cstat-no" title="statement not covered" >          return false;</span>
-        }
-<span class="cstat-no" title="statement not covered" >        return true;</span>
-      }),
-    } as PaginatedResults&lt;MempoolTransaction&gt;;
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const data = (<span class="cstat-no" title="statement not covered" >await transactionsApi.getAddressMempoolTransactions({</span>
+        address: principal,
+        limit,
+      })) as PaginatedResults&lt;MempoolTransaction&gt;;
+      // we're fetching each one directly because the response from the tx endpoint provides more data
+      // currently the tx_status from the mempool endpoint can give stale data
+      // where the status can be `pending`, but in reality is `dropped_replace_by_fee`
+      // TODO: remove these extra fetches when the api has been fixed
+      const promises = data.results
+        // only want to fetch ones of status pending
+        .filter<span class="fstat-no" title="function not covered" >(</span>
+          (tx: MempoolTransaction) =&gt; <span class="cstat-no" title="statement not covered" >tx.tx_status === 'pending' &amp;&amp; !droppedCache.has(tx.tx_id)</span>
+        )
+        .map<span class="fstat-no" title="function not covered" >(</span>
+          async (item: MempoolTransaction) =&gt;
+            (<span class="cstat-no" title="statement not covered" >await transactionsApi.getTransactionById({ txId: item.tx_id })) as MempoolTransaction</span>
+        );
+      const results: MempoolTransaction[] = <span class="cstat-no" title="statement not covered" >await Promise.all(promises);</span>
+      return {
+        ...data,
+        // we don't want to display and dropped txs
+        results: results.filter<span class="fstat-no" title="function not covered" >(t</span>x =&gt; {
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>if (droppedCache.has(tx.tx_id)) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>if (tx.tx_status !== 'pending') {</span>
+            // because stale txs persist in the mempool endpoint
+            // we should cache dropped txids to prevent unneeded fetches
+<span class="cstat-no" title="statement not covered" >            droppedCache.set(tx.tx_id, true);</span>
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return true;</span>
+        }),
+      } as PaginatedResults&lt;MempoolTransaction&gt;;
+    } catch (error) {
+      logger.debug('Failed to load mempool transactions:', principal);
+<span class="cstat-no" title="statement not covered" >      return { limit: 0, offset: 0, total: 0, results: [] } as PaginatedResults&lt;MempoolTransaction&gt;;</span>
+    }
   },
   {
     refetchInterval: QueryRefreshRates.MEDIUM,
@@ -709,7 +733,7 @@ export const accountMempoolTransactionsUnanchoredClient = atomFamilyWithInfinite
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 09:44:02 GMT+0000 (Coordinated Universal Time)
+                at Fri Nov 12 2021 07:35:00 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
