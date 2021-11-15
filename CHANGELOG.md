@@ -1,3 +1,10 @@
+## [2.20.3-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.1...v2.20.3-dev.2) (2021-11-15)
+
+
+### Bug Fixes
+
+* **types:** loose tx type results in stable release bugs ([3b17de0](https://github.com/hirosystems/stacks-wallet-web/commit/3b17de0a243f95f0acf82af733ee779d6f40efda))
+
 ## [2.20.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.2...v2.20.3) (2021-11-12)
 
 
