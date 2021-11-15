@@ -2,7 +2,7 @@
   "name": "@stacks/wallet-web",
   "description": "The Hiro Wallet is browser extension for interacting with Stacks apps.",
   "private": true,
-  "version": "2.20.3-dev.2",
+  "version": "2.20.3-dev.3",
   "author": "Hiro Systems PBC",
   "scripts": {
     "dev": "node webpack/dev-server.js",

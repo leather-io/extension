@@ -1,3 +1,10 @@
+## [2.20.3-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.2...v2.20.3-dev.3) (2021-11-15)
+
+
+### Bug Fixes
+
+* use react-query for mempool calls ([f45edff](https://github.com/hirosystems/stacks-wallet-web/commit/f45edff2ec777faf7d555ed8b0500441fbb1757e))
+
 ## [2.20.3-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.1...v2.20.3-dev.2) (2021-11-15)
 
 
