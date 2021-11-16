@@ -1,3 +1,10 @@
+# [2.21.0-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.1...v2.21.0-dev.2) (2021-11-16)
+
+
+### Features
+
+* use fee estimation endpoint ([78fd652](https://github.com/hirosystems/stacks-wallet-web/commit/78fd65269eb9d2a38670676cf82a09492f1f01a0))
+
 # [2.21.0-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.3...v2.21.0-dev.1) (2021-11-16)
 
 
