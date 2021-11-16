@@ -36,7 +36,7 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
   });
 
-  const handleSubmit = useCallback(async () => {
+  const broadcastTransaction = useCallback(async () => {
     await handleBroadcastTransaction();
     setFeeEstimations([]);
     setFee(null);
@@ -66,7 +66,7 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
             <TransactionFee />
           </Caption>
         </SpaceBetween>
-        <SendTokensConfirmActions handleSubmit={handleSubmit} transaction={transaction} />
+        <SendTokensConfirmActions onSubmit={broadcastTransaction} transaction={transaction} />
       </Stack>
     </BaseDrawer>
   );

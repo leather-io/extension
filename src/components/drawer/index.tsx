@@ -64,6 +64,8 @@ export const BaseDrawer: React.FC<BaseDrawerProps> = memo(props => {
       bg={`rgba(0,0,0,0.${isShowing ? 4 : 0})`}
       transition={transition}
       position="fixed"
+      top={0}
+      left={0}
       height="100%"
       pt="loose"
       width="100%"

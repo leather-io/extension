@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 
 import { Route as RouterRoute, Routes as RoutesDom, useLocation } from 'react-router-dom';
 
@@ -107,9 +107,9 @@ export const Routes: React.FC = () => {
         <Home />
       </AccountGateRoute>
       <AccountGateRoute path={ScreenPaths.POPUP_SEND}>
-        <React.Suspense fallback={<></>}>
+        <Suspense fallback={<></>}>
           <SendTokensForm />
-        </React.Suspense>
+        </Suspense>
       </AccountGateRoute>
       <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE}>
         <PopupReceive />
@@ -128,14 +128,16 @@ export const Routes: React.FC = () => {
       <Route
         path={ScreenPaths.CHOOSE_ACCOUNT}
         element={
-          <React.Suspense fallback={<></>}>
+          <Suspense fallback={<></>}>
             <ChooseAccount />
-          </React.Suspense>
+          </Suspense>
         }
       />
       {/* Transactions */}
       <AccountGateRoute path={ScreenPaths.TRANSACTION_POPUP}>
-        <SignTransaction />
+        <Suspense fallback={<></>}>
+          <SignTransaction />
+        </Suspense>
       </AccountGateRoute>
     </RoutesDom>
   );

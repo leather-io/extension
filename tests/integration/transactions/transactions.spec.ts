@@ -4,7 +4,7 @@ import { WalletPage } from '@tests/page-objects/wallet.page';
 import { DemoPage } from '@tests/page-objects/demo.page';
 import { ScreenPaths } from '@common/types';
 
-jest.setTimeout(30_000);
+jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
 describe(`Transactions integration tests`, () => {
@@ -12,7 +12,7 @@ describe(`Transactions integration tests`, () => {
   let wallet: WalletPage;
   let demo: DemoPage;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     browser = await setupBrowser();
     wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
     demo = browser.demo;
@@ -35,7 +35,7 @@ describe(`Transactions integration tests`, () => {
     await demo.page.bringToFront();
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     try {
       await browser.context.close();
     } catch (error) {}

@@ -15,7 +15,7 @@ interface CustomFeeFieldProps extends StackProps {
 }
 
 export function CustomFeeField(props: CustomFeeFieldProps) {
-  const { setFieldWarning } = props;
+  const { setFieldWarning, ...rest } = props;
   const { errors, setFieldValue, values } = useFormikContext<TransactionFormValues>();
   const [feeEstimations] = useFeeEstimationsState();
 
@@ -31,7 +31,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
   );
 
   return (
-    <Stack width="100%" position="relative" {...props}>
+    <Stack width="100%" position="relative" {...rest}>
       <InputGroup
         alignSelf="flex-end"
         flexDirection="column"

@@ -5,7 +5,10 @@ import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { stxToMicroStx } from '@common/stacks-utils';
-import { TransactionFormValues } from '@common/types';
+import { ScreenPaths, TransactionFormValues } from '@common/types';
+import { PopupContainer } from '@components/popup/container';
+import { Header } from '@components/header';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
 import { useLocalTransactionInputsState } from '@store/transactions/transaction.hooks';
 import { useFeeState } from '@store/transactions/fees.hooks';
@@ -33,6 +36,7 @@ function SendTokensFormBase() {
   const { showEditNonce } = useDrawers();
   const resetNonceCallback = useResetNonceCallback();
   const [, setFee] = useFeeState();
+  const doChangeScreen = useChangeScreen();
 
   const handleConfirmDrawerOnClose = (setSubmitting: (value: boolean) => void) => {
     setShowing(false);
@@ -43,52 +47,57 @@ function SendTokensFormBase() {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      initialErrors={{}}
-      onSubmit={values => {
-        if (
-          values.amount &&
-          values.recipient &&
-          values.recipient !== '' &&
-          values.txFee &&
-          selectedAsset
-        )
-          if (!assetError) {
-            setTxData({
-              amount: values.amount,
-              memo: values.memo,
-              recipient: values.recipient,
-            });
-            setFee(stxToMicroStx(values.txFee).toNumber());
-            setIsLoading();
-            setBeginShow(true);
-          }
-      }}
-      validateOnChange={false}
-      validateOnBlur={false}
-      validateOnMount={false}
-      validationSchema={sendFormSchema}
+    <PopupContainer
+      header={<Header title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
     >
-      {form => (
-        <>
-          {beginShow && (
+      <Formik
+        initialValues={initialValues}
+        initialErrors={{}}
+        onSubmit={values => {
+          if (
+            values.amount &&
+            values.recipient &&
+            values.recipient !== '' &&
+            values.txFee &&
+            selectedAsset
+          ) {
+            if (!assetError) {
+              setTxData({
+                amount: values.amount,
+                memo: values.memo,
+                recipient: values.recipient,
+              });
+              setFee(stxToMicroStx(values.txFee).toNumber());
+              setIsLoading();
+              setBeginShow(true);
+            }
+          }
+        }}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validateOnMount={false}
+        validationSchema={sendFormSchema}
+      >
+        {formik => (
+          <>
+            {beginShow && (
+              <Suspense fallback={<></>}>
+                <ShowDelay setShowing={setShowing} beginShow={beginShow} isShowing={isShowing} />
+              </Suspense>
+            )}
             <Suspense fallback={<></>}>
-              <ShowDelay setShowing={setShowing} beginShow={beginShow} isShowing={isShowing} />
+              <SendTokensConfirmDrawer
+                isShowing={isShowing && !showEditNonce}
+                onClose={() => handleConfirmDrawerOnClose(formik.setSubmitting)}
+              />
             </Suspense>
-          )}
-          <Suspense fallback={<></>}>
-            <SendTokensConfirmDrawer
-              isShowing={isShowing && !showEditNonce}
-              onClose={() => handleConfirmDrawerOnClose(form.setSubmitting)}
-            />
-          </Suspense>
-          <Suspense fallback={<></>}>
-            <SendFormInner assetError={assetError} />
-          </Suspense>
-        </>
-      )}
-    </Formik>
+            <Suspense fallback={<></>}>
+              <SendFormInner assetError={assetError} />
+            </Suspense>
+          </>
+        )}
+      </Formik>
+    </PopupContainer>
   );
 }
 

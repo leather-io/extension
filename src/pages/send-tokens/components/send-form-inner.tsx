@@ -2,15 +2,12 @@ import React, { Suspense, useCallback, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import { Box, Text, Button, Stack } from '@stacks/ui';
 
-import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 import { microStxToStx } from '@common/stacks-utils';
-import { ScreenPaths, TransactionFormValues } from '@common/types';
+import { TransactionFormValues } from '@common/types';
 import { ErrorLabel } from '@components/error-label';
-import { PopupContainer } from '@components/popup/container';
 import { FeeRow } from '@features/fee-row/fee-row';
 import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-search';
-import { Header } from '@components/header';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { AmountField } from '@pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
@@ -44,12 +41,14 @@ export function SendFormInner(props: SendFormProps) {
   const { isLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   const serializedTxPayload = useSerializedTransactionPayloadState();
   const estimatedTxByteLength = useEstimatedTransactionByteLengthState();
-  const { data, isError } = useFeeEstimationsQuery(serializedTxPayload, estimatedTxByteLength);
+  const { data: feeEstimationsResp, isError } = useFeeEstimationsQuery(
+    serializedTxPayload,
+    estimatedTxByteLength
+  );
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [fee, setFee] = useFeeState();
   const [, setFeeRate] = useFeeRateState();
   const [amount, setAmount] = useLocalStxTransactionAmount();
-  const doChangeScreen = useChangeScreen();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
 
@@ -57,13 +56,13 @@ export function SendFormInner(props: SendFormProps) {
     useFormikContext<TransactionFormValues>();
 
   useEffect(() => {
-    if (!fee && data && data.estimations) {
-      setFeeEstimations(data.estimations);
-      setFee(data.estimations[Estimations.Middle].fee);
-      setFeeRate(data.estimations[Estimations.Middle].fee_rate);
-      setFieldValue('txFee', microStxToStx(data.estimations[Estimations.Middle].fee));
+    if (!fee && feeEstimationsResp && feeEstimationsResp.estimations) {
+      setFeeEstimations(feeEstimationsResp.estimations);
+      setFee(feeEstimationsResp.estimations[Estimations.Middle].fee);
+      setFeeRate(feeEstimationsResp.estimations[Estimations.Middle].fee_rate);
+      setFieldValue('txFee', microStxToStx(feeEstimationsResp.estimations[Estimations.Middle].fee));
     }
-  }, [data, fee, setFee, setFeeEstimations, setFeeRate, setFieldValue]);
+  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFeeRate, setFieldValue]);
 
   useEffect(() => {
     return () => {
@@ -103,42 +102,40 @@ export function SendFormInner(props: SendFormProps) {
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
   return (
-    <PopupContainer
-      header={<Header title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
-    >
-      <Stack spacing="loose" flexDirection="column" flexGrow={1} shouldWrapChildren>
-        <AssetSearch onItemClick={onItemSelect} />
-        <Suspense fallback={<></>}>
-          <AmountField
-            error={errors.amount}
-            feeQueryError={!!data?.error}
-            value={values.amount || 0}
-          />
-        </Suspense>
-        <RecipientField error={errors.recipient} value={values.recipient} />
-        {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
-        {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
-        {data && <FeeRow isError={isError || data?.error} />}
-        <Box mt="auto">
-          {assetError && (
-            <ErrorLabel mb="base">
-              <Text textStyle="caption">{assetError}</Text>
-            </ErrorLabel>
-          )}
-          <Button
-            type="submit"
-            borderRadius="12px"
-            width="100%"
-            onClick={onSubmit}
-            isDisabled={!hasValues}
-            data-testid={SendFormSelectors.BtnPreviewSendTx}
-            isLoading={isLoading}
-          >
-            Preview
-          </Button>
-        </Box>
-        <ShowEditNonceAction />
-      </Stack>
-    </PopupContainer>
+    <Stack spacing="loose" flexDirection="column" flexGrow={1} shouldWrapChildren>
+      <AssetSearch onItemClick={onItemSelect} />
+      <Suspense fallback={<></>}>
+        <AmountField
+          error={errors.amount}
+          feeQueryError={!!feeEstimationsResp?.error}
+          value={values.amount || 0}
+        />
+      </Suspense>
+      <RecipientField error={errors.recipient} value={values.recipient} />
+      {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
+      {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
+      {feeEstimationsResp && (
+        <FeeRow feeEstimationsQueryError={isError || feeEstimationsResp?.error} />
+      )}
+      <Box mt="auto">
+        {assetError && (
+          <ErrorLabel mb="base">
+            <Text textStyle="caption">{assetError}</Text>
+          </ErrorLabel>
+        )}
+        <Button
+          type="submit"
+          borderRadius="12px"
+          width="100%"
+          isDisabled={!hasValues}
+          onClick={onSubmit}
+          data-testid={SendFormSelectors.BtnPreviewSendTx}
+          isLoading={isLoading}
+        >
+          Preview
+        </Button>
+      </Box>
+      <ShowEditNonceAction />
+    </Stack>
   );
 }
