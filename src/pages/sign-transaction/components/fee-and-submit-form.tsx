@@ -22,7 +22,7 @@ export function FeeAndSubmitForm(): JSX.Element | null {
   const { setFieldValue } = useFormikContext();
   const serializedSignedTransactionPayloadState = useSerializedSignedTransactionPayloadState();
   const estimatedSignedTxByteLength = useEstimatedSignedTransactionByteLengthState();
-  const { data, isError } = useFeeEstimationsQuery(
+  const { data: feeEstimationsResp, isError } = useFeeEstimationsQuery(
     serializedSignedTransactionPayloadState,
     estimatedSignedTxByteLength
   );
@@ -31,18 +31,18 @@ export function FeeAndSubmitForm(): JSX.Element | null {
   const [, setFeeRate] = useFeeRateState();
 
   useEffect(() => {
-    if (!fee && data && data.estimations) {
-      setFeeEstimations(data.estimations);
-      setFee(data.estimations[Estimations.Middle].fee);
-      setFeeRate(data.estimations[Estimations.Middle].fee_rate);
-      setFieldValue('txFee', microStxToStx(data.estimations[Estimations.Middle].fee));
+    if (!fee && feeEstimationsResp && feeEstimationsResp.estimations) {
+      setFeeEstimations(feeEstimationsResp.estimations);
+      setFee(feeEstimationsResp.estimations[Estimations.Middle].fee);
+      setFeeRate(feeEstimationsResp.estimations[Estimations.Middle].fee_rate);
+      setFieldValue('txFee', microStxToStx(feeEstimationsResp.estimations[Estimations.Middle].fee));
     }
-  }, [data, fee, setFee, setFeeEstimations, setFeeRate, setFieldValue]);
+  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFeeRate, setFieldValue]);
 
   return (
     <>
-      {data ? (
-        <FeeRow isError={isError || data?.error} />
+      {feeEstimationsResp ? (
+        <FeeRow feeEstimationsQueryError={isError || feeEstimationsResp?.error} />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}

@@ -36,15 +36,16 @@ function getErrorMessage(
   }
 }
 
+interface UseSubmitTransactionCallbackArgs {
+  replaceByFee?: boolean;
+  onClose: () => void;
+  loadingKey: string;
+}
 export function useSubmitTransactionCallback({
   replaceByFee,
   onClose,
   loadingKey,
-}: {
-  replaceByFee?: boolean;
-  onClose: () => void;
-  loadingKey: string;
-}) {
+}: UseSubmitTransactionCallbackArgs) {
   const refreshAccountData = useRefreshAllAccountData();
   const doChangeScreen = useChangeScreen();
   const { doSetLatestNonce } = useWallet();
@@ -80,6 +81,7 @@ export function useSubmitTransactionCallback({
           doChangeScreen(ScreenPaths.HOME);
           onClose();
           setIsIdle();
+          doChangeScreen(ScreenPaths.HOME);
           // switch active tab to activity
           setActiveTabActivity();
           await refreshAccountData(250); // delay to give the api time to receive the tx
@@ -108,17 +110,18 @@ export function useSubmitTransactionCallback({
   );
 }
 
+interface UseHandleSubmitTransactionArgs {
+  transaction: StacksTransaction | null;
+  onClose: () => void;
+  loadingKey: string;
+  replaceByFee?: boolean;
+}
 export function useHandleSubmitTransaction({
   transaction,
   onClose,
   loadingKey,
   replaceByFee = false,
-}: {
-  transaction: StacksTransaction | null;
-  onClose: () => void;
-  loadingKey: string;
-  replaceByFee?: boolean;
-}) {
+}: UseHandleSubmitTransactionArgs) {
   const callback = useSubmitTransactionCallback({
     onClose,
     loadingKey,

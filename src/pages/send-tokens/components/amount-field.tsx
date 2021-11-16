@@ -4,16 +4,13 @@ import { useFormikContext } from 'formik';
 
 import { useAssets } from '@store/assets/asset.hooks';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@components/error-label';
 import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useFeeState } from '@store/transactions/fees.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
-import { SendMaxWithSuspense } from './send-max-button';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
-import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { SendMaxButton } from './send-max-button';
 
 interface AmountFieldProps extends StackProps {
@@ -36,9 +33,10 @@ function AmountFieldBase(props: AmountFieldProps) {
   });
   const [fee] = useFeeState();
 
-  const handleSetSendMaxTracked = (feeRate: number) => {
+  const handleSetSendMaxTracked = (fee: number | null) => {
+    if (!fee) return;
     void analytics.track('select_maximum_amount_for_send');
-    return handleSetSendMax(feeRate);
+    return handleSetSendMax(fee);
   };
 
   return (
@@ -64,11 +62,7 @@ function AmountFieldBase(props: AmountFieldProps) {
             data-testid={SendFormSelectors.InputAmountField}
           />
           {balances && selectedAsset ? (
-            <SendMaxButton
-              data-testid={SendFormSelectors.BtnSendMaxBalance}
-              isLoading={!fee}
-              onClick={() => handleSetSendMaxTracked(fee)}
-            />
+            <SendMaxButton isLoadingFee={!fee} onClick={() => handleSetSendMaxTracked(fee)} />
           ) : null}
         </Box>
       </InputGroup>

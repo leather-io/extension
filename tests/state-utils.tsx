@@ -2,13 +2,12 @@
 import React, { StrictMode, Suspense } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'jotai';
-import { hasRehydratedVaultStore, walletState } from '@store/wallet/wallet';
+import { walletState } from '@store/wallet/wallet';
 import { TEST_WALLET, HEYSTACK_HEY_TX_REQUEST, STX_TRANSFER_TX_REQUEST } from './mocks';
 import { requestTokenState } from '@store/transactions/requests';
 import Mock = jest.Mock;
 import { selectedAssetIdState } from '@store/assets/asset-search';
-import { currentAccountIndexState } from '@store/accounts';
-import { currentNetworkKeyState } from '@store/network/networks';
+
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { feeRateState, feeState } from '@store/transactions/fees';
 
@@ -51,29 +50,6 @@ export const ProviderWithWalletAndStxTransferRequestToken: React.FC = ({ childre
         initialValues={[
           [walletState, TEST_WALLET] as const,
           [requestTokenState, STX_TRANSFER_TX_REQUEST] as const,
-          [feeState, 100000] as const,
-          [feeRateState, 500] as const,
-        ]}
-      >
-        {children}
-      </Provider>
-    </QueryClientProvider>
-  </Router>
-);
-
-export const ProviderWitHeySelectedAsset: React.FC = ({ children }) => (
-  <Router>
-    <QueryClientProvider client={testQueryClient}>
-      <Provider
-        initialValues={[
-          [walletState, TEST_WALLET] as const,
-          [currentNetworkKeyState, 'regtest'] as const,
-          [currentAccountIndexState, 1] as const,
-          [hasRehydratedVaultStore, true] as const,
-          [
-            selectedAssetIdState,
-            'ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N.hey-token::hey-token',
-          ] as const,
           [feeState, 100000] as const,
           [feeRateState, 500] as const,
         ]}

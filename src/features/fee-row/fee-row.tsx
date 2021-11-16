@@ -1,13 +1,14 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { useFormikContext } from 'formik';
-import { Box, color, Flex, Stack, Text, Tooltip } from '@stacks/ui';
+import { Box, color, Flex, Stack, Text } from '@stacks/ui';
 
 import { SendFormErrorMessages } from '@common/error-messages';
 import { stacksValue } from '@common/stacks-utils';
 import { TransactionFormValues } from '@common/types';
 import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { ErrorLabel } from '@components/error-label';
+import { Tooltip } from '@components/tooltip';
 import { WarningLabel } from '@components/warning-label';
 import { LoadingRectangle } from '@components/loading-rectangle';
 import { SpaceBetween } from '@components/space-between';
@@ -30,11 +31,11 @@ const FEES_INFO =
 const URL = 'https://hiro.so/questions/fee-estimates';
 
 interface FeeRowProps {
-  isError: boolean | string | undefined;
+  feeEstimationsQueryError: boolean | string | undefined;
 }
 
 export function FeeRow(props: FeeRowProps): JSX.Element {
-  const { isError } = props;
+  const { feeEstimationsQueryError } = props;
   const [fieldWarning, setFieldWarning] = useState<string | undefined>(undefined);
   const { errors, setFieldValue } = useFormikContext<TransactionFormValues>();
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +48,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   useEffect(() => {
     // Check for query error on mount and fallback
     // to the custom input if needed
-    if (isError) {
+    if (feeEstimationsQueryError) {
       setSelected(Estimations.Custom);
       setIsCustom(true);
     }
@@ -107,15 +108,11 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
           <Caption>
             <Flex>Fees</Flex>
           </Caption>
-          <Stack
-            _hover={{
-              cursor: 'pointer',
-            }}
-          >
+          <Stack _hover={{ cursor: 'pointer' }}>
             <FeeEstimateItem
-              hasFeeEstimations={!isError}
+              hasFeeEstimations={!feeEstimationsQueryError}
               index={selected}
-              onClick={!isError ? () => setIsOpen(true) : undefined}
+              onClick={!feeEstimationsQueryError ? () => setIsOpen(true) : undefined}
             />
             <FeeEstimateSelect
               items={feeEstimations}
@@ -126,9 +123,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
           <Tooltip label={FEES_INFO} placement="bottom">
             <Stack>
               <Box
-                _hover={{
-                  cursor: 'pointer',
-                }}
+                _hover={{ cursor: 'pointer' }}
                 as={FiInfo}
                 color={color('text-caption')}
                 onClick={() => openInNewTab(URL)}

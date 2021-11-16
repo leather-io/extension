@@ -1,20 +1,14 @@
 import React from 'react';
-import { Box, color } from '@stacks/ui';
+import { Box, ButtonProps, color } from '@stacks/ui';
+import { toast } from 'react-hot-toast';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
-import { LoadingRectangle } from '@components/loading-rectangle';
-
-interface SendMaxProps {
-  isLoadingFee: boolean | undefined;
-  onClick: () => void;
-}
-
-export function SendMaxButton(props: SendMaxProps): JSX.Element | null {
-  const { isLoadingFee, onClick } = props;
-
-  return !isLoadingFee ? (
+function SendMaxButtonAction(props: ButtonProps) {
+  return (
     <Box
       as="button"
       color={color('text-caption')}
+      data-testid={SendFormSelectors.BtnSendMaxBalance}
       textStyle="caption"
       position="absolute"
       right="base"
@@ -25,11 +19,24 @@ export function SendMaxButton(props: SendMaxProps): JSX.Element | null {
       px="tight"
       borderRadius="8px"
       _hover={{ color: color('text-title') }}
-      onClick={onClick}
+      {...props}
     >
       Max
     </Box>
+  );
+}
+
+interface SendMaxProps {
+  isLoadingFee: boolean | undefined;
+  onClick: () => void;
+}
+
+export function SendMaxButton(props: SendMaxProps): JSX.Element | null {
+  const { isLoadingFee, onClick } = props;
+
+  return !isLoadingFee ? (
+    <SendMaxButtonAction onClick={onClick} />
   ) : (
-    <LoadingRectangle height="10px" position="absolute" right="base" top="19px" width="40px" />
+    <SendMaxButtonAction onClick={() => toast.error('Unable to calculate max spend')} />
   );
 }

@@ -5,12 +5,12 @@ import { Button, Stack } from '@stacks/ui';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 
 interface SendTokensConfirmActionsProps {
-  handleSubmit: () => void;
+  onSubmit: () => void;
   transaction: StacksTransaction | undefined;
 }
 
 export function SendTokensConfirmActions(props: SendTokensConfirmActionsProps): JSX.Element {
-  const { handleSubmit, transaction } = props;
+  const { onSubmit: handleSubmit, transaction } = props;
   const { isLoading } = useLoading(LoadingKeys.CONFIRM_DRAWER);
 
   return (
