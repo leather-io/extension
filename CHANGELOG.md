@@ -1,3 +1,10 @@
+# [2.21.0-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.3...v2.21.0-dev.1) (2021-11-16)
+
+
+### Features
+
+* add segment integration ([0999431](https://github.com/hirosystems/stacks-wallet-web/commit/0999431bf05bf03328b5a4c5e8d75c341a7f8539)), closes [#1748](https://github.com/hirosystems/stacks-wallet-web/issues/1748)
+
 ## [2.20.3-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.2...v2.20.3-dev.3) (2021-11-15)
 
 
