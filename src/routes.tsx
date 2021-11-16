@@ -30,6 +30,7 @@ import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
 import { AllowDiagnosticsFullPage } from '@pages/allow-diagnostics/allow-diagnostics';
+import { BuyPage } from '@pages/buy';
 
 interface RouteProps {
   path: ScreenPaths;
@@ -110,6 +111,11 @@ export const Routes: React.FC = () => {
         <Suspense fallback={<></>}>
           <SendTokensForm />
         </Suspense>
+      </AccountGateRoute>
+      <AccountGateRoute path={ScreenPaths.POPUP_BUY}>
+        <React.Suspense fallback={<></>}>
+          <BuyPage />
+        </React.Suspense>
       </AccountGateRoute>
       <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE}>
         <PopupReceive />

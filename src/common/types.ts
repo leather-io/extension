@@ -29,6 +29,7 @@ export enum ScreenPaths {
   SET_PASSWORD = '/set-password',
   POPUP_HOME = '/',
   POPUP_SEND = '/send',
+  POPUP_BUY = '/buy',
   POPUP_RECEIVE = '/receive',
   ADD_NETWORK = '/add-network',
   REQUEST_DIAGNOSTICS = '/request-diagnostics',

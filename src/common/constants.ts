@@ -69,3 +69,6 @@ export enum QueryRefreshRates {
 }
 
 export const DEFAULT_LIST_LIMIT = 50;
+
+export const TRANSAK_API_KEY_PRODUCTION = '';
+export const TRANSAK_API_KEY_STAGING = '4055d318-9d41-4b74-9253-e73e3ca13602';

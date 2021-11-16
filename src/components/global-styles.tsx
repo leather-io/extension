@@ -153,6 +153,14 @@ const SizeStyles = css`
     padding: 5px 9px;
     z-index: 1;
   }
+
+  .buy-box {
+    position: relative;
+    background-color: #f5f5f7;
+    border-radius: 12px;
+    outline: 0;
+    transition-property: transform, visibility, opacity;
+  }
 `;
 
 export const GlobalStyles = memo(() => {
