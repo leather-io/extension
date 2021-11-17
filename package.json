@@ -202,7 +202,7 @@
     "generate-json-webpack-plugin": "2.0.0",
     "glob-parent": "6.0.2",
     "html-webpack-plugin": "5.5.0",
-    "jest": "27.3.1",
+    "jest": "26.6.3",
     "jest-circus": "27.3.1",
     "jest-dev-server": "6.0.0",
     "jest-junit": "13.0.0",
@@ -235,8 +235,7 @@
     "yup": "0.32.9"
   },
   "resolutions": {
-    "**/**/dns-packet": "5.2.2",
-    "**/**/prismjs": "1.24.0",
+    "**/**/prismjs": "1.25.0",
     "**/**/xmldom": "github:xmldom/xmldom#0.7.0",
     "**/**/@stacks/network": "2.0.2",
     "@tabler/icons": "1.41.2",

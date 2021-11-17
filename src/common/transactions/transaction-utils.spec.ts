@@ -45,6 +45,6 @@ describe(createTxDateFormatList.name, () => {
     const mockTx = createFakeTx({ burn_block_time_iso: date.toISOString() });
     const result = createTxDateFormatList([mockTx]);
     expect(result[0].date).toEqual(date.toISOString().split('T')[0]);
-    expect(result[0].displayDate).not.toContain(new Date().getFullYear());
+    expect(result[0].displayDate).not.toContain(new Date().getFullYear().toString());
   });
 });
