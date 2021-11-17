@@ -117,6 +117,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
             <FeeEstimateSelect
               items={feeEstimations}
               onClick={handleSelectedItem}
+              setIsOpen={setIsOpen}
               visible={isOpen}
             />
           </Stack>
