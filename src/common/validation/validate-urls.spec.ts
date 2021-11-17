@@ -1,7 +1,6 @@
-import { isValidUrl } from '@common/validation/validate-url';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import bigListOfNaughtyStrings from 'blns';
+import { isValidUrl } from './validate-url';
 
 describe('isValidUrl', () => {
   test('accepts normal URLs', () => {

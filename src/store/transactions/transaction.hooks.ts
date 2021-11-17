@@ -7,7 +7,7 @@ import { todaysIsoDate } from '@common/date-utils';
 import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
 import { useWallet } from '@common/hooks/use-wallet';
 import { stxToMicroStx } from '@common/stacks-utils';
-import { handleBroadcastTransaction } from '@common/transactions/transactions';
+import { broadcastTransaction } from '@common/transactions/broadcast-transaction';
 import {
   AnchorMode,
   createAssetInfo,
@@ -50,6 +50,7 @@ export function useTransactionPostConditions() {
   return useAtomValue(postConditionsState);
 }
 
+/** @deprecated */
 export function useSignedTransaction() {
   return useAtomValue(signedTransactionState);
 }
@@ -58,6 +59,7 @@ export function useSignedTransaction() {
 // different transaction states. This should be looked at
 // with the new transaction signing flow. These are used
 // for getting the fee estimates.
+/** @deprecated */
 export function useSerializedSignedTransactionPayloadState() {
   return useAtomValue(serializedSignedTransactionPayloadState);
 }
@@ -138,7 +140,7 @@ export function useTransactionBroadcast() {
 
         try {
           const { isSponsored, serialized, txRaw, nonce } = signedTransaction;
-          const result = await handleBroadcastTransaction({
+          const result = await broadcastTransaction({
             isSponsored,
             serialized,
             txRaw,

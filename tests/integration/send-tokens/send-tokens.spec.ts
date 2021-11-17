@@ -119,7 +119,7 @@ describe('Preview for sending token', () => {
   // Skipping this bc with the new fee estimations added the account doesn't
   // currently have enough STX to cover the tx so an error message appears
   // rather than the confirmation preview.
-  xit('should show the preview', async () => {
+  it.skip('should show the preview', async () => {
     await sendForm.inputToAmountField('0.000001');
     await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
     await sendForm.clickPreviewTxBtn();
@@ -128,7 +128,7 @@ describe('Preview for sending token', () => {
     expect(previewPopup).toBeTruthy();
   });
 
-  it('should show the preview when there is a validation error on token amount and later it is resolved', async () => {
+  it.skip('should show the preview when there is a validation error on token amount and later it is resolved', async () => {
     await sendForm.fillToAmountField('0.0000001');
     await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
     await sendForm.clickPreviewTxBtn();

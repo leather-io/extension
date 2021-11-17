@@ -13,8 +13,11 @@ module.exports = {
     browser: true,
     context: true,
   },
-  plugins: ['react-hooks', '@typescript-eslint'],
+  plugins: ['react-hooks', '@typescript-eslint', 'deprecation'],
   rules: {
+    // This rule helps highlight areas of the code that use deprecated
+    // methods, such as implicit use of signed transactions
+    'deprecation/deprecation': 'warn',
     'no-console': ['error'],
     'prefer-const': [
       'error',

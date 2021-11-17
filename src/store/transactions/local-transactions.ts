@@ -15,10 +15,6 @@ import {
 } from '@stacks/transactions';
 import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
 
-import {
-  generateSignedTransaction,
-  GenerateSignedTransactionOptions,
-} from '@common/transactions/transactions';
 import { makeFungibleTokenTransferState } from '@store/transactions/fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
 import { makePostCondition } from '@store/transactions/transaction.hooks';
@@ -28,6 +24,10 @@ import { currentAccountNonceState } from '@store/accounts/nonce';
 import { customNonceState } from '@store/transactions/nonce.hooks';
 
 import { feeState } from './fees';
+import {
+  generateSignedTransaction,
+  GenerateSignedTransactionOptions,
+} from '@common/transactions/generate-signed-txs';
 
 // TODO: Revisit use of naming 'local' in global state (or make local state)
 export const localStacksTransactionInputsState = atom<{
