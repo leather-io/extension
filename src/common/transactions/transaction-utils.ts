@@ -1,21 +1,5 @@
-import {
-  AnchorMode,
-  deserializeCV,
-  makeContractCall,
-  makeContractDeploy,
-  makeSTXTokenTransfer,
-  StacksTransaction,
-} from '@stacks/transactions';
-import BN from 'bn.js';
-import { STXTransferPayload, ContractCallPayload, ContractDeployPayload } from '@stacks/connect';
-import { getPostConditions } from '@common/transactions/post-condition-utils';
-import { ChainID } from '@stacks/common';
-import {
-  StacksMainnet,
-  StacksTestnet,
-  HIRO_MAINNET_DEFAULT,
-  HIRO_TESTNET_DEFAULT,
-} from '@stacks/network';
+import { StacksTransaction } from '@stacks/transactions';
+
 import {
   AddressTransactionWithTransfers,
   CoinbaseTransaction,
@@ -25,7 +9,6 @@ import {
 } from '@stacks/stacks-blockchain-api-types';
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@common/date-utils';
 import { getContractName, truncateMiddle } from '@stacks/ui-utils';
-import { hexToBuff } from '@common/utils';
 import { stacksValue } from '@common/stacks-utils';
 import { BigNumber } from 'bignumber.js';
 import { AssetWithMeta } from '@common/asset-types';
@@ -44,108 +27,6 @@ export interface FtTransfer {
   sender?: string;
   recipient?: string;
 }
-
-export const generateContractCallTx = ({
-  txData,
-  senderKey,
-  nonce,
-  fee,
-}: {
-  txData: ContractCallPayload;
-  senderKey: string;
-  nonce?: number;
-  fee?: number | null;
-}) => {
-  const {
-    contractName,
-    contractAddress,
-    functionName,
-    functionArgs,
-    sponsored,
-    postConditionMode,
-    postConditions,
-  } = txData;
-
-  const args = functionArgs.map(arg => deserializeCV(hexToBuff(arg)));
-
-  let network = txData.network;
-
-  if (typeof txData.network?.getTransferFeeEstimateApiUrl !== 'function') {
-    const networkBuilder =
-      txData.network?.chainId === ChainID.Testnet ? StacksTestnet : StacksMainnet;
-    const defaultNetworkUrl =
-      txData.network?.chainId === ChainID.Testnet ? HIRO_TESTNET_DEFAULT : HIRO_MAINNET_DEFAULT;
-    network = new networkBuilder({ url: txData.network?.coreApiUrl || defaultNetworkUrl });
-    if (txData.network?.bnsLookupUrl) network.bnsLookupUrl = txData.network?.bnsLookupUrl;
-  }
-
-  const options = {
-    contractName,
-    contractAddress,
-    functionName,
-    senderKey,
-    anchorMode: AnchorMode.Any,
-    functionArgs: args,
-    nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
-    fee: !fee ? new BN(0) : new BN(fee, 10),
-    postConditionMode: postConditionMode,
-    postConditions: getPostConditions(postConditions),
-    network,
-    sponsored,
-  };
-  return makeContractCall(options);
-};
-
-export const generateContractDeployTx = ({
-  txData,
-  senderKey,
-  nonce,
-  fee,
-}: {
-  txData: ContractDeployPayload;
-  senderKey: string;
-  nonce?: number;
-  fee?: number | null;
-}) => {
-  const { contractName, codeBody, network, postConditions, postConditionMode } = txData;
-  const options = {
-    contractName,
-    codeBody,
-    nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
-    fee: !fee ? new BN(0) : new BN(fee, 10),
-    senderKey,
-    anchorMode: AnchorMode.Any,
-    postConditionMode: postConditionMode,
-    postConditions: getPostConditions(postConditions),
-    network,
-  };
-  return makeContractDeploy(options);
-};
-
-export const generateSTXTransferTx = ({
-  txData,
-  senderKey,
-  nonce,
-  fee,
-}: {
-  txData: STXTransferPayload;
-  senderKey: string;
-  nonce?: number;
-  fee?: number | null;
-}) => {
-  const { recipient, memo, amount, network } = txData;
-  const options = {
-    recipient,
-    memo,
-    senderKey,
-    anchorMode: AnchorMode.Any,
-    amount: new BN(amount),
-    nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
-    fee: !fee ? new BN(0) : new BN(fee, 10),
-    network,
-  };
-  return makeSTXTokenTransfer(options);
-};
 
 export const stacksTransactionToHex = (transaction: StacksTransaction) =>
   `0x${transaction.serialize().toString('hex')}`;

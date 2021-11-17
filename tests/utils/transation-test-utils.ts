@@ -1,0 +1,59 @@
+import {
+  PostConditionMode,
+  makeStandardFungiblePostCondition,
+  FungibleConditionCode,
+  createAssetInfo,
+} from '@stacks/transactions';
+import { ContractCallOptions, makeContractCallToken, UserData } from '@stacks/connect';
+import BN from 'bn.js';
+
+import { StacksTestnet } from '@stacks/network';
+
+(window as any).fetch = jest.fn(() => ({
+  text: () => Promise.resolve(1),
+  ok: true,
+}));
+
+const defaultUserSession: Partial<UserData> = {
+  appPrivateKey: 'e494f188c2d35887531ba474c433b1e41fadd8eb824aca983447fd4bb8b277a801',
+};
+
+export async function generateContractCallToken({
+  userData,
+  txOptions,
+}: {
+  userData?: Partial<UserData>;
+  txOptions?: Partial<ContractCallOptions>;
+} = {}) {
+  const address = 'ST1EXHZSN8MJSJ9DSG994G1V8CNKYXGMK7Z4SA6DH';
+  const assetAddress = 'ST34RKEJKQES7MXQFBT29KSJZD73QK3YNT5N56C6X';
+  const assetContractName = 'test-asset-contract';
+  const assetName = 'test-asset-name';
+  const info = createAssetInfo(assetAddress, assetContractName, assetName);
+  localStorage.setItem(
+    'blockstack-session',
+    JSON.stringify({
+      userData: userData || defaultUserSession,
+      version: '1.0.0',
+    })
+  );
+  const network = new StacksTestnet();
+  const txDataToken = await makeContractCallToken({
+    contractAddress: 'ST1EXHZSN8MJSJ9DSG994G1V8CNKYXGMK7Z4SA6DH',
+    contractName: 'hello-world',
+    functionArgs: [],
+    functionName: 'print',
+    postConditionMode: PostConditionMode.Allow,
+    network,
+    postConditions: [
+      makeStandardFungiblePostCondition(
+        address,
+        FungibleConditionCode.GreaterEqual,
+        new BN(100),
+        info
+      ),
+    ],
+    ...txOptions,
+  });
+  return txDataToken;
+}

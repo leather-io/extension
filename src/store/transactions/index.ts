@@ -10,7 +10,7 @@ import { AuthType, ChainID, StacksTransaction, TransactionVersion } from '@stack
 import { serializePayload } from '@stacks/transactions/dist/payload';
 
 import { validateStacksAddress } from '@common/stacks-utils';
-import { generateSignedTransaction } from '@common/transactions/transactions';
+
 import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
 import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
@@ -19,6 +19,7 @@ import { requestTokenPayloadState } from '@store/transactions/requests';
 import { postConditionsState } from '@store/transactions/post-conditions';
 import { feeState } from '@store/transactions/fees';
 import { localTransactionState } from '@store/transactions/local-transactions';
+import { generateSignedTransaction } from '@common/transactions/generate-signed-txs';
 
 import { customNonceState } from './nonce.hooks';
 
@@ -35,6 +36,7 @@ export const pendingTransactionState = atom<
 
 export const transactionAttachmentState = atom(get => get(pendingTransactionState)?.attachment);
 
+/** @deprecated */
 const signedStacksTransactionBaseState = atom(get => {
   const account = get(currentAccountState);
   const txData = get(pendingTransactionState);
@@ -63,6 +65,7 @@ const signedStacksTransactionBaseState = atom(get => {
   });
 });
 
+/** @deprecated */
 const signedStacksTransactionState = atom(get => {
   const { transaction, options } = get(signedStacksTransactionBaseState);
   if (!transaction) return;
@@ -71,6 +74,7 @@ const signedStacksTransactionState = atom(get => {
   return generateSignedTransaction({ ...options, fee });
 });
 
+/** @deprecated */
 export const signedTransactionState = atom(get => {
   const signedTransaction = get(signedStacksTransactionState);
   if (!signedTransaction) return;
@@ -90,6 +94,7 @@ export const signedTransactionState = atom(get => {
 // We could also add methods for `makeUnsigned...` transactions
 // which are available in Stacks.js but that should be done with
 // refactoring the new transaction signing flow.
+/** @deprecated */
 export const serializedSignedTransactionPayloadState = atom<string>(get => {
   const { transaction } = get(signedStacksTransactionBaseState);
   if (!transaction) return '';
@@ -143,10 +148,10 @@ export const estimatedTransactionByteLengthState = atom<number | null>(get => {
 export const txByteSize = atom<number | null>(null);
 
 // dev tooling
-// postConditionsState.debugLabel = 'postConditionsState';
-// pendingTransactionState.debugLabel = 'pendingTransactionState';
-// transactionAttachmentState.debugLabel = 'transactionAttachmentState';
-// signedStacksTransactionState.debugLabel = 'signedStacksTransactionState';
-// signedTransactionState.debugLabel = 'signedTransactionState';
-// transactionNetworkVersionState.debugLabel = 'transactionNetworkVersionState';
-// transactionBroadcastErrorState.debugLabel = 'transactionBroadcastErrorState';
+postConditionsState.debugLabel = 'postConditionsState';
+pendingTransactionState.debugLabel = 'pendingTransactionState';
+transactionAttachmentState.debugLabel = 'transactionAttachmentState';
+signedStacksTransactionState.debugLabel = 'signedStacksTransactionState';
+signedTransactionState.debugLabel = 'signedTransactionState';
+transactionNetworkVersionState.debugLabel = 'transactionNetworkVersionState';
+transactionBroadcastErrorState.debugLabel = 'transactionBroadcastErrorState';
