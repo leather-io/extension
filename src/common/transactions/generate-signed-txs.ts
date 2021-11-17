@@ -24,21 +24,17 @@ import {
   HIRO_MAINNET_DEFAULT,
   HIRO_TESTNET_DEFAULT,
 } from '@stacks/network';
+import { isTransactionTypeSupported } from './transaction-utils';
 
-function isTransactionTypeSupported(txType: TransactionTypes) {
-  return (
-    txType === TransactionTypes.STXTransfer ||
-    txType === TransactionTypes.ContractCall ||
-    txType === TransactionTypes.ContractDeploy
-  );
-}
-
-interface GenerateSignedContractCallTxArgs {
-  txData: ContractCallPayload;
+interface GenerateSignedTxArgs<TxPayload> {
+  txData: TxPayload;
   senderKey: string;
   nonce?: number;
   fee?: number | null;
 }
+
+type GenerateSignedContractCallTxArgs = GenerateSignedTxArgs<ContractCallPayload>;
+
 function generateSignedContractCallTx(args: GenerateSignedContractCallTxArgs) {
   const { txData, senderKey, nonce, fee } = args;
   const {
@@ -81,12 +77,8 @@ function generateSignedContractCallTx(args: GenerateSignedContractCallTxArgs) {
   return makeContractCall(options);
 }
 
-interface GenerateSignedContractDeployTxArgs {
-  txData: ContractDeployPayload;
-  senderKey: string;
-  nonce?: number;
-  fee?: number | null;
-}
+type GenerateSignedContractDeployTxArgs = GenerateSignedTxArgs<ContractDeployPayload>;
+
 function generateSignedContractDeployTx(args: GenerateSignedContractDeployTxArgs) {
   const { txData, senderKey, nonce, fee } = args;
   const { contractName, codeBody, network, postConditions, postConditionMode } = txData;
@@ -104,12 +96,8 @@ function generateSignedContractDeployTx(args: GenerateSignedContractDeployTxArgs
   return makeContractDeploy(options);
 }
 
-interface GenerateSignedStxTransferTxArgs {
-  txData: STXTransferPayload;
-  senderKey: string;
-  nonce?: number;
-  fee?: number | null;
-}
+type GenerateSignedStxTransferTxArgs = GenerateSignedTxArgs<STXTransferPayload>;
+
 function generateSignedStxTransferTx(args: GenerateSignedStxTransferTxArgs) {
   const { txData, senderKey, nonce, fee } = args;
   const { recipient, memo, amount, network } = txData;
@@ -126,12 +114,9 @@ function generateSignedStxTransferTx(args: GenerateSignedStxTransferTxArgs) {
   return makeSTXTokenTransfer(options);
 }
 
-export interface GenerateSignedTransactionOptions {
-  txData: ContractCallPayload | STXTransferPayload | ContractDeployPayload;
-  senderKey: string;
-  nonce?: number;
-  fee?: number | null;
-}
+export type GenerateSignedTransactionOptions = GenerateSignedTxArgs<
+  ContractCallPayload | STXTransferPayload | ContractDeployPayload
+>;
 export async function generateSignedTransaction(options: GenerateSignedTransactionOptions) {
   const { txData, senderKey, nonce, fee = 0 } = options;
   const isValid = isTransactionTypeSupported(txData.txType);

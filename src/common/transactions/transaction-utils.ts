@@ -12,6 +12,7 @@ import { getContractName, truncateMiddle } from '@stacks/ui-utils';
 import { stacksValue } from '@common/stacks-utils';
 import { BigNumber } from 'bignumber.js';
 import { AssetWithMeta } from '@common/asset-types';
+import { TransactionTypes } from '@stacks/connect';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -158,3 +159,11 @@ export const calculateTokenTransferAmount = (
   if (!asset || !asset.meta) return;
   return new BigNumber(amount).shiftedBy(-asset.meta.decimals);
 };
+
+export function isTransactionTypeSupported(txType: TransactionTypes) {
+  return (
+    txType === TransactionTypes.STXTransfer ||
+    txType === TransactionTypes.ContractCall ||
+    txType === TransactionTypes.ContractDeploy
+  );
+}
