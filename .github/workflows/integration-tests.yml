@@ -6,14 +6,6 @@ env:
   CI: true
 
 jobs:
-  pre_run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@ad6cb1b847ffb509a69b745b6ee2f1d14dfe14b8
-        with:
-          access_token: ${{ github.token }}
-
   directories:
     runs-on: ubuntu-latest
     outputs:
@@ -26,7 +18,7 @@ jobs:
 
   test-integration:
     runs-on: ubuntu-latest
-    needs: [pre_run, directories]
+    needs: [directories]
     strategy:
       matrix:
         dir: ${{ fromJson(needs.directories.outputs.dir) }}
