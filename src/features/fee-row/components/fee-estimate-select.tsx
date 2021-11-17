@@ -1,26 +1,36 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import { color, Fade, Stack } from '@stacks/ui';
 
 import { useOnClickOutside } from '@common/hooks/use-onclickoutside';
-import { Estimations, FeeEstimation } from '@models/fees-types';
+import { FeeEstimation } from '@models/fees-types';
 
 import { FeeEstimateItem } from './fee-estimate-item';
 
 interface FeeEstimateSelectProps {
-  items: FeeEstimation[];
+  isOpen: boolean;
+  feeEstimations: FeeEstimation[];
   onClick: (index: number) => void;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  visible: boolean;
 }
 
 export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
-  const { items, onClick, setIsOpen, visible } = props;
+  const { feeEstimations, isOpen, onClick, setIsOpen } = props;
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(ref, () => setIsOpen(false));
 
+  const feeEstimationsListItems = useMemo(() => {
+    return [
+      { label: '' },
+      { label: 'Low', ...feeEstimations[0] },
+      { label: 'Standard', ...feeEstimations[1] },
+      { label: 'High', ...feeEstimations[2] },
+      { label: 'Custom' },
+    ];
+  }, [feeEstimations]);
+
   return (
-    <Fade in={visible}>
+    <Fade in={isOpen}>
       {styles => (
         <Stack
           bg={color('bg')}
@@ -34,13 +44,18 @@ export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
           position="absolute"
           ref={ref}
           style={styles}
-          top="-32px"
+          top="-64px"
           zIndex={9999}
         >
-          {items.map((item, index) => (
-            <FeeEstimateItem index={index} key={item.fee} onClick={onClick} visible />
+          {feeEstimationsListItems.map((item, index) => (
+            <FeeEstimateItem
+              index={index}
+              isSelectActive={isOpen}
+              key={item.label}
+              label={item.label}
+              onClick={onClick}
+            />
           ))}
-          <FeeEstimateItem index={Estimations.Custom} onClick={onClick} visible />
         </Stack>
       )}
     </Fade>

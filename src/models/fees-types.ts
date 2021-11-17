@@ -1,6 +1,7 @@
 export enum Estimations {
+  Default,
   Low,
-  Middle,
+  Standard,
   High,
   Custom,
 }

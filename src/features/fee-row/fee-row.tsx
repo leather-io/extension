@@ -10,7 +10,6 @@ import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { ErrorLabel } from '@components/error-label';
 import { Tooltip } from '@components/tooltip';
 import { WarningLabel } from '@components/warning-label';
-import { LoadingRectangle } from '@components/loading-rectangle';
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
 import { Estimations } from '@models/fees-types';
@@ -42,7 +41,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [feeEstimations] = useFeeEstimationsState();
   const [fee, setFee] = useFeeState();
   const [, setFeeRate] = useFeeRateState();
-  const [selected, setSelected] = useState(Estimations.Middle);
+  const [selected, setSelected] = useState(Estimations.Default);
   const [isCustom, setIsCustom] = useState(false);
 
   useEffect(() => {
@@ -60,7 +59,12 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
     (index: number) => {
       if (!feeEstimations) return;
       if (selected !== index) setSelected(index);
-      if (index === Estimations.Custom) {
+      if (index === Estimations.Default) {
+        // Reset to empty state
+        setFee(0);
+        setFeeRate(0);
+        setFieldValue('txFee', '');
+      } else if (index === Estimations.Custom) {
         // Set the value to the last selected estimation fee
         if (fee)
           setFieldValue(
@@ -73,13 +77,13 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
         setIsCustom(true);
       } else {
         // Use selector estimation values
-        setFee(feeEstimations[index].fee);
-        setFeeRate(feeEstimations[index].fee_rate);
+        setFee(feeEstimations[index - 1].fee);
+        setFeeRate(feeEstimations[index - 1].fee_rate);
         // Keep custom input in sync
         setFieldValue(
           'txFee',
           stacksValue({
-            value: feeEstimations[index].fee,
+            value: feeEstimations[index - 1].fee,
             withTicker: false,
           }),
           true
@@ -112,13 +116,14 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
             <FeeEstimateItem
               hasFeeEstimations={!feeEstimationsQueryError}
               index={selected}
+              label={selected === Estimations.Default ? '' : Estimations[selected]}
               onClick={!feeEstimationsQueryError ? () => setIsOpen(true) : undefined}
             />
             <FeeEstimateSelect
-              items={feeEstimations}
+              isOpen={isOpen}
+              feeEstimations={feeEstimations}
               onClick={handleSelectedItem}
               setIsOpen={setIsOpen}
-              visible={isOpen}
             />
           </Stack>
           <Tooltip label={FEES_INFO} placement="bottom">
@@ -135,10 +140,17 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
         </Stack>
         {isCustom ? (
           <CustomFeeField setFieldWarning={setFieldWarning} />
-        ) : !fee ? (
-          <LoadingRectangle width="50px" height="10px" />
         ) : (
-          <Suspense fallback={<>0.00</>}>
+          <Suspense
+            fallback={
+              <Caption>
+                {stacksValue({
+                  value: 0,
+                  fixedDecimals: true,
+                })}
+              </Caption>
+            }
+          >
             <Caption>
               <TransactionFee />
             </Caption>

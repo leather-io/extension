@@ -4,26 +4,25 @@ import { color, Stack } from '@stacks/ui';
 
 import { Caption } from '@components/typography';
 
-const LABELS = ['Low', 'Standard', 'High', 'Custom'];
-
 interface FeeEstimateItemProps {
   hasFeeEstimations?: boolean | null;
   index: number;
+  isSelectActive?: boolean | null;
+  label: string;
   onClick?: (index: number) => void | undefined;
   selected?: number;
-  visible?: boolean;
 }
 
 export function FeeEstimateItem(props: FeeEstimateItemProps) {
-  const { hasFeeEstimations, index, onClick, visible } = props;
+  const { hasFeeEstimations, index, isSelectActive, label, onClick } = props;
 
   return (
     <Stack
       alignItems="center"
-      border={visible ? 'none' : '1px solid #EFEFF2'}
-      borderRadius={visible ? '0px' : '10px'}
+      border={isSelectActive ? 'none' : '1px solid #EFEFF2'}
+      borderRadius={isSelectActive ? '0px' : '10px'}
       bg={color('bg')}
-      _hover={{ bg: visible ? color('bg-alt') : 'none', borderRadius: '8px' }}
+      _hover={{ bg: isSelectActive ? color('bg-alt') : 'none', borderRadius: '8px' }}
       height="32px"
       isInline
       minWidth="100px"
@@ -32,9 +31,11 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
       onClick={() => onClick?.(index)}
     >
       <Stack alignItems="center" isInline flexGrow={1}>
-        <Caption ml="2px">{LABELS[index]}</Caption>
+        <Caption ml="2px">{label}</Caption>
       </Stack>
-      <Stack textAlign="right">{visible || !hasFeeEstimations ? <></> : <FiChevronDown />}</Stack>
+      <Stack textAlign="right">
+        {isSelectActive || !hasFeeEstimations ? <></> : <FiChevronDown />}
+      </Stack>
     </Stack>
   );
 }

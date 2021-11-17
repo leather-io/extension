@@ -3,7 +3,6 @@ import { useFormikContext } from 'formik';
 import { Box, Text, Button, Stack } from '@stacks/ui';
 
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
-import { microStxToStx } from '@common/stacks-utils';
 import { TransactionFormValues } from '@common/types';
 import { ErrorLabel } from '@components/error-label';
 import { FeeRow } from '@features/fee-row/fee-row';
@@ -27,7 +26,6 @@ import {
 } from '@store/transactions/transaction.hooks';
 import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
 import { ShowEditNonceAction } from '@pages/sign-transaction/components/show-edit-nonce';
-import { Estimations } from '@models/fees-types';
 
 import { SendFormMemoWarning } from './memo-warning';
 
@@ -52,17 +50,14 @@ export function SendFormInner(props: SendFormProps) {
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
 
-  const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue } =
+  const { handleSubmit, values, setValues, errors, setFieldError } =
     useFormikContext<TransactionFormValues>();
 
   useEffect(() => {
     if (!fee && feeEstimationsResp && feeEstimationsResp.estimations) {
       setFeeEstimations(feeEstimationsResp.estimations);
-      setFee(feeEstimationsResp.estimations[Estimations.Middle].fee);
-      setFeeRate(feeEstimationsResp.estimations[Estimations.Middle].fee_rate);
-      setFieldValue('txFee', microStxToStx(feeEstimationsResp.estimations[Estimations.Middle].fee));
     }
-  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFeeRate, setFieldValue]);
+  }, [fee, feeEstimationsResp, setFeeEstimations]);
 
   useEffect(() => {
     return () => {

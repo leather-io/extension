@@ -17,13 +17,10 @@ export function useSendAmountFieldActions({
   const handleSetSendMax = useCallback(
     (fee: number | null) => {
       if (!selectedAsset || !balance) return;
-      if (isStx) {
-        if (fee) {
-          const stx = microStxToStx(availableStxBalance || 0).minus(microStxToStx(fee));
-          if (stx.isLessThanOrEqualTo(0)) return;
-          return setFieldValue('amount', stx.toNumber());
-        }
-        return setFieldValue('amount', removeCommas(balance));
+      if (isStx && fee) {
+        const stx = microStxToStx(availableStxBalance || 0).minus(microStxToStx(fee));
+        if (stx.isLessThanOrEqualTo(0)) return;
+        return setFieldValue('amount', stx.toNumber());
       } else {
         if (balance) setFieldValue('amount', removeCommas(balance));
       }

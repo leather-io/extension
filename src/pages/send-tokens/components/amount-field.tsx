@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
+import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 
 import { useAssets } from '@store/assets/asset.hooks';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
@@ -33,8 +33,9 @@ function AmountFieldBase(props: AmountFieldProps) {
   });
   const [fee] = useFeeState();
 
+  const isStx = selectedAsset?.type === 'stx';
+
   const handleSetSendMaxTracked = (fee: number | null) => {
-    if (!fee) return;
     void analytics.track('select_maximum_amount_for_send');
     return handleSetSendMax(fee);
   };
@@ -61,9 +62,9 @@ function AmountFieldBase(props: AmountFieldProps) {
             name="amount"
             data-testid={SendFormSelectors.InputAmountField}
           />
-          {balances && selectedAsset ? (
-            <SendMaxButton isLoadingFee={!fee} onClick={() => handleSetSendMaxTracked(fee)} />
-          ) : null}
+          {balances &&
+            selectedAsset &&
+            (isStx && !fee ? null : <SendMaxButton onClick={() => handleSetSendMaxTracked(fee)} />)}
         </Box>
       </InputGroup>
       {error && (
