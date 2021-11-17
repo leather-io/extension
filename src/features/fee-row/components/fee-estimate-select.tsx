@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
 import { color, Fade, Stack } from '@stacks/ui';
 
+import { useOnClickOutside } from '@common/hooks/use-onclickoutside';
 import { Estimations, FeeEstimation } from '@models/fees-types';
 
 import { FeeEstimateItem } from './fee-estimate-item';
@@ -8,11 +9,15 @@ import { FeeEstimateItem } from './fee-estimate-item';
 interface FeeEstimateSelectProps {
   items: FeeEstimation[];
   onClick: (index: number) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   visible: boolean;
 }
 
 export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
-  const { items, onClick, visible } = props;
+  const { items, onClick, setIsOpen, visible } = props;
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useOnClickOutside(ref, () => setIsOpen(false));
 
   return (
     <Fade in={visible}>
@@ -27,6 +32,7 @@ export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
           overflow="hidden"
           p="extra-tight"
           position="absolute"
+          ref={ref}
           style={styles}
           top="-32px"
           zIndex={9999}
