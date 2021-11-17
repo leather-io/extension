@@ -1,3 +1,10 @@
+# [2.21.0-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.2...v2.21.0-dev.3) (2021-11-17)
+
+
+### Bug Fixes
+
+* close estimations on click outside ([45bec9a](https://github.com/hirosystems/stacks-wallet-web/commit/45bec9a90329e70b98c64b4490b6e52869bdd5fd))
+
 # [2.21.0-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.1...v2.21.0-dev.2) (2021-11-16)
 
 
