@@ -1,11 +1,10 @@
-import { useSignedTransaction } from '@store/transactions/transaction.hooks';
+import { useUnsignedTransaction } from '@store/transactions/transaction.hooks';
 
-/** @deprecated */
-export function useSignedTransactionFee() {
-  const signedTx = useSignedTransaction();
+export function useUnsignedTransactionFee() {
+  const unsignedTx = useUnsignedTransaction();
 
-  const value = signedTx?.fee;
-  const isSponsored = signedTx?.isSponsored;
+  const value = unsignedTx?.fee;
+  const isSponsored = unsignedTx?.isSponsored;
 
   return { value, isSponsored };
 }

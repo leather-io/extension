@@ -28,6 +28,6 @@ config.optimization = {
     : {}),
 };
 
-config.devtool = 'source-map';
+config.devtool = 'inline-source-map';
 
 module.exports = config;

@@ -33,11 +33,10 @@ import {
 
 import { SendFormMemoWarning } from './memo-warning';
 
-interface SendFormProps {
+interface SendFormInnerProps {
   assetError: string | undefined;
 }
-
-export function SendFormInner(props: SendFormProps) {
+export function SendFormInner(props: SendFormInnerProps) {
   const { assetError } = props;
   const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue, validateForm } =
     useFormikContext<TransactionFormValues>();
