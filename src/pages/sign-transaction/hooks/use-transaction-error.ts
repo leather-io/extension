@@ -14,12 +14,12 @@ import {
   useTransactionRequestValidation,
 } from '@store/transactions/requests.hooks';
 
-import { useSignedTransactionFee } from './use-signed-transaction-fee';
+import { useUnsignedTransactionFee } from './use-signed-transaction-fee';
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
   const contractInterface = useContractInterface(transactionRequest);
-  const fee = useSignedTransactionFee();
+  const fee = useUnsignedTransactionFee();
   const broadcastError = useTransactionBroadcastError();
   const isValidTransaction = useTransactionRequestValidation();
   const origin = useOrigin();

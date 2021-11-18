@@ -26,16 +26,16 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const [, setFeeEstimations] = useFeeEstimationsState();
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
-  const handleBroadcastTransaction = useHandleSubmitTransaction({
+  const broadcastTransaction = useHandleSubmitTransaction({
     transaction: transaction || null,
     onClose,
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
   });
 
-  const broadcastTransaction = useCallback(async () => {
-    await handleBroadcastTransaction();
+  const broadcastTransactionAction = useCallback(async () => {
+    await broadcastTransaction();
     setFeeEstimations([]);
-  }, [handleBroadcastTransaction, setFeeEstimations]);
+  }, [broadcastTransaction, setFeeEstimations]);
 
   if (!isShowing || !transaction || !txData) return null;
 
@@ -60,7 +60,10 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
             <TransactionFee isSponsored={isSponsored} fee={txData.fee} />
           </Caption>
         </SpaceBetween>
-        <SendTokensConfirmActions onSubmit={broadcastTransaction} transaction={transaction} />
+        <SendTokensConfirmActions
+          onSubmit={() => broadcastTransactionAction()}
+          transaction={transaction}
+        />
       </Stack>
     </BaseDrawer>
   );
