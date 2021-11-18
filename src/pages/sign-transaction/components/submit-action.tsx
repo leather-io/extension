@@ -10,6 +10,14 @@ import {
 import { useTransactionError } from '@pages/sign-transaction/hooks/use-transaction-error';
 import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
 
+function BaseConfirmButton(props: ButtonProps): JSX.Element {
+  return (
+    <Button borderRadius="10px" py="base" type="submit" width="100%" {...props}>
+      Confirm
+    </Button>
+  );
+}
+
 function SubmitActionSuspense(): JSX.Element {
   const { handleSubmit } = useFormikContext();
   const error = useTransactionError();
@@ -26,14 +34,6 @@ function SubmitActionSuspense(): JSX.Element {
     >
       Confirm
     </BaseConfirmButton>
-  );
-}
-
-function BaseConfirmButton(props: ButtonProps): JSX.Element {
-  return (
-    <Button borderRadius="10px" py="base" type="submit" width="100%" {...props}>
-      Confirm
-    </Button>
   );
 }
 

@@ -26,7 +26,8 @@ import {
   useFeeState,
 } from '@store/transactions/fees.hooks';
 
-import { FeeAndSubmitForm } from './components/fee-and-submit-form';
+import { FeeForm } from './components/fee-form';
+import { SubmitAction } from './components/submit-action';
 
 function SignTransactionBase(): JSX.Element | null {
   useNextTxNonce();
@@ -37,7 +38,7 @@ function SignTransactionBase(): JSX.Element | null {
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [, setFee] = useFeeState();
   const [, setFeeRate] = useFeeRateState();
-  const schema = useFeeSchema();
+  const feeSchema = useFeeSchema();
 
   const onSubmit = useCallback(async () => {
     setIsLoading();
@@ -77,10 +78,15 @@ function SignTransactionBase(): JSX.Element | null {
             validateOnBlur={false}
             validateOnMount={false}
             validationSchema={yup.object({
-              txFee: schema(),
+              txFee: feeSchema(),
             })}
           >
-            {() => <FeeAndSubmitForm />}
+            {() => (
+              <>
+                <FeeForm />
+                <SubmitAction />
+              </>
+            )}
           </Formik>
         </Suspense>
       </Stack>
