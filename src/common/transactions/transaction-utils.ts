@@ -13,6 +13,7 @@ import { stacksValue } from '@common/stacks-utils';
 import { BigNumber } from 'bignumber.js';
 import { AssetWithMeta } from '@common/asset-types';
 import { TransactionTypes } from '@stacks/connect';
+import { ChainID } from '@stacks/transactions';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -166,4 +167,12 @@ export function isTransactionTypeSupported(txType: TransactionTypes) {
     txType === TransactionTypes.ContractCall ||
     txType === TransactionTypes.ContractDeploy
   );
+}
+
+interface WhenChainIdMap<T> {
+  [ChainID.Mainnet]: T;
+  [ChainID.Testnet]: T;
+}
+export function whenChainId(chainId: ChainID) {
+  return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
 }

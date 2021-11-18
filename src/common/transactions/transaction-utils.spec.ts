@@ -1,5 +1,6 @@
+import { ChainID } from '@stacks/transactions';
 import { AddressTransactionWithTransfers, Transaction } from '@stacks/stacks-blockchain-api-types';
-import { createTxDateFormatList } from './transaction-utils';
+import { createTxDateFormatList, whenChainId } from './transaction-utils';
 
 function createFakeTx(tx: Partial<Transaction>) {
   return {
@@ -46,5 +47,26 @@ describe(createTxDateFormatList.name, () => {
     const result = createTxDateFormatList([mockTx]);
     expect(result[0].date).toEqual(date.toISOString().split('T')[0]);
     expect(result[0].displayDate).not.toContain(new Date().getFullYear().toString());
+  });
+});
+
+describe(whenChainId.name, () => {
+  const expectedResult = 'should be this value';
+  test('that it returns testnet when given a testnet chain id', () => {
+    expect(
+      whenChainId(ChainID.Testnet)({
+        [ChainID.Testnet]: expectedResult,
+        [ChainID.Mainnet]: 'One plus one equals two.',
+      })
+    ).toEqual(expectedResult);
+  });
+  test('that it returns mainnet when given a mainnet chain id', () => {
+    const expectedResult = 'should be this value';
+    expect(
+      whenChainId(ChainID.Mainnet)({
+        [ChainID.Testnet]: 'The capital city of Mongolia is Ulaanbaatar.',
+        [ChainID.Mainnet]: expectedResult,
+      })
+    ).toEqual(expectedResult);
   });
 });

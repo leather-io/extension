@@ -11,7 +11,7 @@ import { serializePayload } from '@stacks/transactions/dist/payload';
 
 import { validateStacksAddress } from '@common/stacks-utils';
 
-import { stacksTransactionToHex } from '@common/transactions/transaction-utils';
+import { stacksTransactionToHex, whenChainId } from '@common/transactions/transaction-utils';
 import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
@@ -110,11 +110,17 @@ export const estimatedSignedTransactionByteLengthState = atom<number | null>(get
   return serializedTx.byteLength;
 });
 
-export const transactionNetworkVersionState = atom(get =>
-  get(currentNetworkState)?.chainId === ChainID.Mainnet
-    ? TransactionVersion.Mainnet
-    : TransactionVersion.Testnet
-);
+export const transactionNetworkVersionState = atom(get => {
+  const chainId = get(currentNetworkState)?.chainId;
+
+  const defaultChainId = TransactionVersion.Testnet;
+  if (!chainId) return defaultChainId;
+
+  return whenChainId(chainId)({
+    [ChainID.Mainnet]: TransactionVersion.Mainnet,
+    [ChainID.Testnet]: TransactionVersion.Testnet,
+  });
+});
 
 export const transactionBroadcastErrorState = atom<string | null>(null);
 
