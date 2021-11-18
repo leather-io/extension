@@ -7,6 +7,7 @@ import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
 import { transactionRequestNetwork } from '@store/transactions/requests';
 import { makeLocalDataKey } from '@common/store-utils';
+import { whenChainId } from '@common/transactions/transaction-utils';
 
 // Our root networks list, users can add to this list and it will persist to localstorage
 export const networksState = atomWithStorage<Networks>(
@@ -43,10 +44,12 @@ export const currentNetworkState = atom(get => get(networksState)[get(currentNet
 // a `StacksNetwork` instance using the current network
 export const currentStacksNetworkState = atom<StacksNetwork>(get => {
   const network = get(currentNetworkState);
-  const stacksNetwork =
-    network.chainId === ChainID.Testnet
-      ? new StacksTestnet({ url: network.url })
-      : new StacksMainnet({ url: network.url });
+
+  const stacksNetwork = whenChainId(network.chainId)({
+    [ChainID.Mainnet]: new StacksMainnet({ url: network.url }),
+    [ChainID.Testnet]: new StacksTestnet({ url: network.url }),
+  });
+
   stacksNetwork.bnsLookupUrl = network.url;
   return stacksNetwork;
 });
