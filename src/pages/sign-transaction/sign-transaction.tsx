@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Stack } from '@stacks/ui';
 
+import { stxToMicroStx } from '@common/stacks-utils';
 import { useFeeSchema } from '@common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
@@ -40,23 +41,27 @@ function SignTransactionBase(): JSX.Element | null {
   const [, setFeeRate] = useFeeRateState();
   const feeSchema = useFeeSchema();
 
-  const onSubmit = useCallback(async () => {
-    setIsLoading();
-    await handleBroadcastTransaction();
-    setIsIdle();
-    setFeeEstimations([]);
-    setFee(null);
-    setFeeRate(null);
-    return () => setBroadcastError(null);
-  }, [
-    handleBroadcastTransaction,
-    setBroadcastError,
-    setFee,
-    setFeeEstimations,
-    setFeeRate,
-    setIsIdle,
-    setIsLoading,
-  ]);
+  const onSubmit = useCallback(
+    async values => {
+      setFee(stxToMicroStx(values.txFee).toNumber());
+      setIsLoading();
+      await handleBroadcastTransaction();
+      setIsIdle();
+      setFeeEstimations([]);
+      setFee(null);
+      setFeeRate(null);
+      return () => setBroadcastError(null);
+    },
+    [
+      handleBroadcastTransaction,
+      setBroadcastError,
+      setFee,
+      setFeeEstimations,
+      setFeeRate,
+      setIsIdle,
+      setIsLoading,
+    ]
+  );
 
   if (!transactionRequest) return null;
 
