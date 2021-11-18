@@ -6,7 +6,14 @@ import {
   STXTransferPayload,
   TransactionTypes,
 } from '@stacks/connect';
-import { AuthType, ChainID, StacksTransaction, TransactionVersion } from '@stacks/transactions';
+import {
+  AuthType,
+  ChainID,
+  pubKeyfromPrivKey,
+  StacksTransaction,
+  TransactionVersion,
+  publicKeyToString,
+} from '@stacks/transactions';
 import { serializePayload } from '@stacks/transactions/dist/payload';
 
 import { stxToMicroStx, validateStacksAddress } from '@common/stacks-utils';
@@ -17,10 +24,9 @@ import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { requestTokenPayloadState } from '@store/transactions/requests';
 import { postConditionsState } from '@store/transactions/post-conditions';
-import {
-  localStacksTransactionInputsState,
-  localTransactionState,
-} from '@store/transactions/local-transactions';
+import { localStacksTransactionInputsState } from '@store/transactions/local-transactions';
+import { localTransactionState } from '@store/transactions/local-transactions';
+import { generateUnsignedTransaction } from '@common/transactions/generate-unsigned-txs';
 
 import { customNonceState } from './nonce.hooks';
 
@@ -60,14 +66,31 @@ const signedStacksTransactionBaseState = atom(get => {
     nonce: txNonce,
     txData,
   };
-  return generateSignedTransaction({
+  return generateSignedTransaction(options).then(transaction => ({ transaction, options }));
+});
+
+const unsignedStacksTransactionBaseState = atom(get => {
+  const account = get(currentAccountState);
+  const txData = get(pendingTransactionState);
+  const stxAddress = get(currentAccountStxAddressState);
+  const nonce = get(currentAccountNonceState);
+  const customNonce = get(customNonceState);
+  if (!account || !txData || !stxAddress || typeof nonce === 'undefined') return;
+  const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
+  if (
+    txData.txType === TransactionTypes.ContractCall &&
+    !validateStacksAddress(txData.contractAddress)
+  ) {
+    return { transaction: undefined, options: {} };
+  }
+  const publicKey = publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey));
+  const options = {
     fee: txData.fee,
-    senderKey: account.stxPrivateKey,
+    publicKey,
     nonce: txNonce,
     txData,
-  }).then(transaction => {
-    return { transaction, options };
-  });
+  };
+  return generateUnsignedTransaction(options).then(transaction => ({ transaction, options }));
 });
 
 /** @deprecated */
@@ -75,6 +98,12 @@ const signedStacksTransactionState = atom(get => {
   const { transaction, options } = get(signedStacksTransactionBaseState);
   if (!transaction) return;
   return generateSignedTransaction({ ...options });
+});
+
+const unsignedStacksTransactionState = atom(get => {
+  const { transaction, options } = get(unsignedStacksTransactionBaseState);
+  if (!transaction) return;
+  return generateUnsignedTransaction({ ...options });
 });
 
 /** @deprecated */
@@ -92,22 +121,29 @@ export const signedTransactionState = atom(get => {
   };
 });
 
-// The only way to get the StacksTransaction payload for the
-// fee estimates is to use the generated signed transaction here.
-// We could also add methods for `makeUnsigned...` transactions
-// which are available in Stacks.js but that should be done with
-// refactoring the new transaction signing flow.
-/** @deprecated */
-export const serializedSignedTransactionPayloadState = atom<string>(get => {
-  const { transaction } = get(signedStacksTransactionBaseState);
+export const unsignedTransactionState = atom(get => {
+  const unsignedTransaction = get(unsignedStacksTransactionState);
+  if (!unsignedTransaction) return;
+  const serialized = unsignedTransaction.serialize();
+  const txRaw = stacksTransactionToHex(unsignedTransaction);
+  return {
+    serialized,
+    isSponsored: unsignedTransaction?.auth?.authType === AuthType.Sponsored,
+    nonce: unsignedTransaction?.auth.spendingCondition?.nonce.toNumber(),
+    fee: unsignedTransaction?.auth.spendingCondition?.fee?.toNumber(),
+    txRaw,
+  };
+});
+
+export const serializedUnsignedTransactionPayloadState = atom<string>(get => {
+  const { transaction } = get(unsignedStacksTransactionBaseState);
   if (!transaction) return '';
   const serializedTxPayload = serializePayload((transaction as StacksTransaction).payload);
   return serializedTxPayload.toString('hex');
 });
 
-// Same note as serializedSignedTransactionPayloadState
-export const estimatedSignedTransactionByteLengthState = atom<number | null>(get => {
-  const { transaction } = get(signedStacksTransactionBaseState);
+export const estimatedUnsignedTransactionByteLengthState = atom<number | null>(get => {
+  const { transaction } = get(unsignedStacksTransactionBaseState);
   if (!transaction) return null;
   const serializedTx = (transaction as StacksTransaction).serialize();
   return serializedTx.byteLength;
