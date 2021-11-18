@@ -2,6 +2,8 @@ import { ChainID } from '@stacks/transactions';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
+export const HIGH_FEE_AMOUNT_STX = 5;
+
 export const HUMAN_REACTION_DEBOUNCE_TIME = 250;
 
 export const STX_TRANSFER_TX_SIZE_BYTES = 180;

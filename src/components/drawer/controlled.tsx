@@ -6,7 +6,7 @@ interface ControlledDrawerProps {
   /** An optional callback that is fired _after_ visibility has been turned off. */
   onClose: () => void;
   isShowing: boolean;
-  title: string;
+  title: string | JSX.Element;
 }
 
 /**

@@ -3,11 +3,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Stack } from '@stacks/ui';
 
-import { stxToMicroStx } from '@common/stacks-utils';
 import { useFeeSchema } from '@common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
+import { stxToMicroStx } from '@common/stacks-utils';
 import { PopupContainer } from '@components/popup/container';
+import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { PopupHeader } from '@pages/sign-transaction/components/popup-header';
 import { PageTop } from '@pages/sign-transaction/components/page-top';
 import { ContractCallDetails } from '@pages/sign-transaction/components/contract-call-details/contract-call-details';
@@ -90,6 +91,7 @@ function SignTransactionBase(): JSX.Element | null {
               <>
                 <FeeForm />
                 <SubmitAction />
+                <HighFeeDrawer />
               </>
             )}
           </Formik>

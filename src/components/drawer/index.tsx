@@ -1,12 +1,14 @@
 import React, { useRef, useCallback, memo } from 'react';
 import { Flex, useEventListener, IconButton, color, transition } from '@stacks/ui';
 import { FiX as IconX } from 'react-icons/fi';
+
 import { useOnClickOutside } from '@common/hooks/use-onclickoutside';
+import { isString } from '@common/utils';
 import { Title } from '@components/typography';
 
 export interface BaseDrawerProps {
   isShowing: boolean;
-  title?: string;
+  title?: string | JSX.Element;
   pauseOnClickOutside?: boolean;
   onClose: () => void;
 }
@@ -38,10 +40,12 @@ const DrawerHeader = ({
 }) => {
   return (
     <Flex pb="base" justifyContent="space-between" alignItems="center" pt="extra-loose" px="loose">
-      {title && (
+      {title && isString(title) ? (
         <Title fontSize="20px" lineHeight="28px">
           {title}
         </Title>
+      ) : (
+        title
       )}
       <IconButton
         transform="translateX(8px)"

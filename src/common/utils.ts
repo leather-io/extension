@@ -278,3 +278,7 @@ export function isNumber(value: unknown): value is number {
 export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
+
+export function isEmpty(value: Object) {
+  return Object.keys(value).length === 0;
+}

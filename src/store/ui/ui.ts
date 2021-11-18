@@ -22,6 +22,8 @@ export const accountDrawerStep = atom<AccountStep>(AccountStep.Switch);
 // TODO: refactor into atom family
 export const showAccountsStore = atom(false);
 
+export const showHighFeeConfirmationState = atom(false);
+
 export const showNetworksStore = atom(false);
 
 export const showSettingsStore = atom(false);

@@ -1,7 +1,7 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { useFormikContext } from 'formik';
-import { Box, color, Flex, Stack, Text } from '@stacks/ui';
+import { Box, color, Stack, Text } from '@stacks/ui';
 
 import { SendFormErrorMessages } from '@common/error-messages';
 import { stacksValue } from '@common/stacks-utils';
@@ -102,57 +102,66 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   }, [errors.txFee]);
 
   return (
-    <Stack spacing="base">
-      <SpaceBetween position="relative">
-        <Stack alignItems="center" isInline>
-          <Caption>
-            <Flex>Fees</Flex>
-          </Caption>
-          <Stack _hover={{ cursor: 'pointer' }}>
-            <FeeEstimateItem
-              hasFeeEstimations={!feeEstimationsQueryError}
-              index={selected}
-              onClick={!feeEstimationsQueryError ? () => setIsOpen(true) : undefined}
-            />
-            <FeeEstimateSelect
-              items={feeEstimations}
-              onClick={handleSelectedItem}
-              setIsOpen={setIsOpen}
-              visible={isOpen}
-            />
-          </Stack>
-          <Tooltip label={FEES_INFO} placement="bottom">
-            <Stack>
-              <Box
-                _hover={{ cursor: 'pointer' }}
-                as={FiInfo}
-                color={color('text-caption')}
-                onClick={() => openInNewTab(URL)}
-                size="14px"
+    <>
+      <Stack spacing="base">
+        <SpaceBetween position="relative">
+          <Stack alignItems="center" isInline>
+            <Caption>Fees</Caption>
+            <Stack _hover={{ cursor: 'pointer' }}>
+              <FeeEstimateItem
+                hasFeeEstimations={!feeEstimationsQueryError}
+                index={selected}
+                onClick={!feeEstimationsQueryError ? () => setIsOpen(true) : undefined}
+              />
+              <FeeEstimateSelect
+                items={feeEstimations}
+                onClick={handleSelectedItem}
+                setIsOpen={setIsOpen}
+                visible={isOpen}
               />
             </Stack>
-          </Tooltip>
-        </Stack>
-        {isCustom ? (
-          <CustomFeeField setFieldWarning={setFieldWarning} />
-        ) : !fee ? (
-          <LoadingRectangle width="50px" height="10px" />
-        ) : (
-          <Suspense fallback={<>0.00</>}>
-            <Caption>
-              <TransactionFee />
-            </Caption>
-          </Suspense>
+            <Tooltip label={FEES_INFO} placement="bottom">
+              <Stack>
+                <Box
+                  _hover={{ cursor: 'pointer' }}
+                  as={FiInfo}
+                  color={color('text-caption')}
+                  onClick={() => openInNewTab(URL)}
+                  size="14px"
+                />
+              </Stack>
+            </Tooltip>
+          </Stack>
+          {isCustom ? (
+            <CustomFeeField setFieldWarning={setFieldWarning} />
+          ) : !fee ? (
+            <LoadingRectangle width="50px" height="10px" />
+          ) : (
+            <Suspense
+              fallback={
+                <>
+                  {stacksValue({
+                    value: 0,
+                    fixedDecimals: true,
+                  })}
+                </>
+              }
+            >
+              <Caption>
+                <TransactionFee />
+              </Caption>
+            </Suspense>
+          )}
+        </SpaceBetween>
+        {errors.txFee && (
+          <ErrorLabel data-testid={SendFormSelectors.InputCustomFeeFieldErrorLabel}>
+            <Text lineHeight="18px" textStyle="caption">
+              {fieldError}
+            </Text>
+          </ErrorLabel>
         )}
-      </SpaceBetween>
-      {errors.txFee && (
-        <ErrorLabel data-testid={SendFormSelectors.InputCustomFeeFieldErrorLabel}>
-          <Text lineHeight="18px" textStyle="caption">
-            {fieldError}
-          </Text>
-        </ErrorLabel>
-      )}
-      {!errors.txFee && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
-    </Stack>
+        {!errors.txFee && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
+      </Stack>
+    </>
   );
 }

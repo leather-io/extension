@@ -9,6 +9,7 @@ import { ScreenPaths, TransactionFormValues } from '@common/types';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
+import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
 import { useLocalTransactionInputsState } from '@store/transactions/transaction.hooks';
 import { useFeeState } from '@store/transactions/fees.hooks';
@@ -27,13 +28,13 @@ const initialValues: TransactionFormValues = {
 
 function SendTokensFormBase() {
   const { setIsIdle, setIsLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
+  const { showEditNonce, showHighFeeConfirmation } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const { selectedAsset } = useSelectedAsset();
   const sendFormSchema = useSendFormValidation({ setAssetError });
   const [, setTxData] = useLocalTransactionInputsState();
   const [beginShow, setBeginShow] = useState(false);
-  const { showEditNonce } = useDrawers();
   const resetNonceCallback = useResetNonceCallback();
   const [, setFee] = useFeeState();
   const doChangeScreen = useChangeScreen();
@@ -80,7 +81,7 @@ function SendTokensFormBase() {
       >
         {formik => (
           <>
-            {beginShow && (
+            {!showHighFeeConfirmation && beginShow && (
               <Suspense fallback={<></>}>
                 <ShowDelay setShowing={setShowing} beginShow={beginShow} isShowing={isShowing} />
               </Suspense>
@@ -94,6 +95,7 @@ function SendTokensFormBase() {
             <Suspense fallback={<></>}>
               <SendFormInner assetError={assetError} />
             </Suspense>
+            <HighFeeDrawer />
           </>
         )}
       </Formik>

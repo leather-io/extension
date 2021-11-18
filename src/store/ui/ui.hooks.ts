@@ -7,6 +7,7 @@ import {
   errorStackTraceState,
   loadingState,
   showAccountsStore,
+  showHighFeeConfirmationState,
   showNetworksStore,
   showSettingsStore,
   tabState,
@@ -21,6 +22,10 @@ export function useAccountDrawerStep() {
 
 export function useUpdateAccountDrawerStep() {
   return useUpdateAtom(accountDrawerStep);
+}
+
+export function useShowHighFeeConfirmationState() {
+  return useAtom(showHighFeeConfirmationState);
 }
 
 export function useShowAccountsStore() {
