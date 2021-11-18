@@ -2,32 +2,35 @@ import React, { Suspense, useCallback, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import { Box, Text, Button, Stack } from '@stacks/ui';
 
+import { HIGH_FEE_AMOUNT_STX } from '@common/constants';
+import { useDrawers } from '@common/hooks/use-drawers';
+import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
+import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { microStxToStx } from '@common/stacks-utils';
 import { TransactionFormValues } from '@common/types';
+import { isEmpty } from '@common/utils';
 import { ErrorLabel } from '@components/error-label';
+import { ShowEditNonceAction } from '@components/show-edit-nonce';
 import { FeeRow } from '@features/fee-row/fee-row';
+import { Estimations } from '@models/fees-types';
 import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-search';
-import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { AmountField } from '@pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { RecipientField } from '@pages/send-tokens/components/recipient-field';
 import { MemoField } from '@pages/send-tokens/components/memo-field';
+import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
 import {
   useFeeEstimationsState,
   useFeeRateState,
   useFeeState,
 } from '@store/transactions/fees.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 import {
   useEstimatedTransactionByteLengthState,
   useSerializedTransactionPayloadState,
 } from '@store/transactions/transaction.hooks';
-import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
-import { ShowEditNonceAction } from '@components/show-edit-nonce';
-import { Estimations } from '@models/fees-types';
 
 import { SendFormMemoWarning } from './memo-warning';
 
@@ -39,6 +42,7 @@ export function SendFormInner(props: SendFormProps) {
   const { assetError } = props;
   useNextTxNonce();
   const { isLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
+  const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const serializedTxPayload = useSerializedTransactionPayloadState();
   const estimatedTxByteLength = useEstimatedTransactionByteLengthState();
   const { data: feeEstimationsResp, isError } = useFeeEstimationsQuery(
@@ -52,7 +56,7 @@ export function SendFormInner(props: SendFormProps) {
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
 
-  const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue } =
+  const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue, validateForm } =
     useFormikContext<TransactionFormValues>();
 
   useEffect(() => {
@@ -73,9 +77,24 @@ export function SendFormInner(props: SendFormProps) {
   const onSubmit = useCallback(async () => {
     if (values.amount && values.recipient && values.txFee && selectedAsset) {
       selectedAsset.type === 'stx' && setAmount(values.amount);
+      // We need to check for errors here before we show the high fee confirmation
+      const formErrors = await validateForm();
+      if (isEmpty(formErrors) && values.txFee > HIGH_FEE_AMOUNT_STX) {
+        return setShowHighFeeConfirmation(!showHighFeeConfirmation);
+      }
       handleSubmit();
     }
-  }, [values.amount, values.recipient, values.txFee, selectedAsset, setAmount, handleSubmit]);
+  }, [
+    handleSubmit,
+    selectedAsset,
+    setAmount,
+    setShowHighFeeConfirmation,
+    showHighFeeConfirmation,
+    validateForm,
+    values.amount,
+    values.recipient,
+    values.txFee,
+  ]);
 
   const onItemSelect = useCallback(() => {
     if (assets.length === 1) return;

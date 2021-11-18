@@ -1,6 +1,7 @@
 import {
   useAccountDrawerStep,
   useShowAccountsStore,
+  useShowHighFeeConfirmationState,
   useShowNetworksStore,
   useShowSettingsStore,
   useShowSignOut,
@@ -11,6 +12,7 @@ import {
 export function useDrawers() {
   const [accountStep, setAccountStep] = useAccountDrawerStep();
   const [showAccounts, setShowAccounts] = useShowAccountsStore();
+  const [showHighFeeConfirmation, setShowHighFeeConfirmation] = useShowHighFeeConfirmationState();
   const [showNetworks, setShowNetworks] = useShowNetworksStore();
   const [showSettings, setShowSettings] = useShowSettingsStore();
   const [showEditNonce, setShowEditNonce] = useShowEditNonceState();
@@ -22,6 +24,8 @@ export function useDrawers() {
     setAccountStep,
     showAccounts,
     setShowAccounts,
+    showHighFeeConfirmation,
+    setShowHighFeeConfirmation,
     showNetworks,
     setShowNetworks,
     showSettings,
