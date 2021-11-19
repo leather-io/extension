@@ -34,7 +34,6 @@ function AmountFieldBase(props: AmountFieldProps) {
   const [fee] = useFeeState();
 
   const handleSetSendMaxTracked = (fee: number | null) => {
-    if (!fee) return;
     void analytics.track('select_maximum_amount_for_send');
     return handleSetSendMax(fee);
   };
@@ -62,7 +61,11 @@ function AmountFieldBase(props: AmountFieldProps) {
             data-testid={SendFormSelectors.InputAmountField}
           />
           {balances && selectedAsset ? (
-            <SendMaxButton isLoadingFee={!fee} onClick={() => handleSetSendMaxTracked(fee)} />
+            <SendMaxButton
+              isLoadingFee={!fee}
+              onClick={() => handleSetSendMaxTracked(fee)}
+              selectedAsset={selectedAsset}
+            />
           ) : null}
         </Box>
       </InputGroup>

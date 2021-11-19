@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, ButtonProps, color } from '@stacks/ui';
 import { toast } from 'react-hot-toast';
+import { Box, ButtonProps, color } from '@stacks/ui';
+
+import { AssetWithMeta } from '@common/asset-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 function SendMaxButtonAction(props: ButtonProps) {
@@ -29,14 +31,16 @@ function SendMaxButtonAction(props: ButtonProps) {
 interface SendMaxProps {
   isLoadingFee: boolean | undefined;
   onClick: () => void;
+  selectedAsset: AssetWithMeta | undefined;
 }
 
 export function SendMaxButton(props: SendMaxProps): JSX.Element | null {
-  const { isLoadingFee, onClick } = props;
+  const { isLoadingFee, onClick, selectedAsset } = props;
+  const isStx = selectedAsset?.type === 'stx';
 
-  return !isLoadingFee ? (
-    <SendMaxButtonAction onClick={onClick} />
+  return isLoadingFee && isStx ? (
+    <SendMaxButtonAction onClick={() => toast.error('Unable to calculate max. Try Again.')} />
   ) : (
-    <SendMaxButtonAction onClick={() => toast.error('Unable to calculate max spend')} />
+    <SendMaxButtonAction onClick={onClick} />
   );
 }
