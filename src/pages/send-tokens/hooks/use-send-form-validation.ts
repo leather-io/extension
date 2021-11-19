@@ -27,7 +27,7 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
   const { currentNetwork, currentAccountStxAddress } = useWallet();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const { selectedAsset, balanceBigNumber } = useSelectedAsset();
-  const txFeeSchema = useFeeSchema();
+  const feeSchema = useFeeSchema();
   const isSendingStx = selectedAsset?.type === 'stx';
 
   // `selectedAsset` is in an atom's state, not the form, but we want to
@@ -117,8 +117,8 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
         recipient: recipientSchema(),
         amount: amountSchema(),
         memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
-        txFee: txFeeSchema(),
+        fee: feeSchema(),
       }),
-    [amountSchema, txFeeSchema, recipientSchema, selectedAssetSchema]
+    [amountSchema, feeSchema, recipientSchema, selectedAssetSchema]
   );
 };

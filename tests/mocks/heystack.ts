@@ -35,7 +35,7 @@ enum GetRequests {
   nonces = 'https://stacks-node-api.regtest.stacks.co/extended/v1/address/ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z/nonces',
 }
 
-export enum PostRequests {
+enum PostRequests {
   heyTokenGetName = 'https://stacks-node-api.regtest.stacks.co/v2/contracts/call-read/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N/hey-token/get-name',
   heyTokenGetSymbol = 'https://stacks-node-api.regtest.stacks.co/v2/contracts/call-read/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N/hey-token/get-symbol',
   heyTokenGetDecimals = 'https://stacks-node-api.regtest.stacks.co/v2/contracts/call-read/ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N/hey-token/get-decimals',

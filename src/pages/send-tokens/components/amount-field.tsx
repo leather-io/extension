@@ -2,13 +2,13 @@ import React, { memo } from 'react';
 import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
-import { useAssets } from '@store/assets/asset.hooks';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { ErrorLabel } from '@components/error-label';
 import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { useFeeState } from '@store/transactions/fees.hooks';
+import { useAssets } from '@store/assets/asset.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxButton } from './send-max-button';
@@ -16,26 +16,24 @@ import { SendMaxButton } from './send-max-button';
 interface AmountFieldProps extends StackProps {
   error?: string;
   feeQueryError: boolean;
-  value: number;
+  value: number | string;
 }
 
 // TODO: this should use a new "Field" component (with inline label like in figma)
 function AmountFieldBase(props: AmountFieldProps) {
   const { error, feeQueryError, value, ...rest } = props;
-
+  const { setFieldValue, handleChange, values } = useFormikContext<TransactionFormValues>();
   const analytics = useAnalytics();
   const assets = useAssets();
   const balances = useCurrentAccountBalancesUnanchoredState();
   const { selectedAsset, placeholder } = useSelectedAsset();
-  const { setFieldValue, handleChange } = useFormikContext();
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions({
     setFieldValue,
   });
-  const [fee] = useFeeState();
 
-  const handleSetSendMaxTracked = (fee: number | null) => {
+  const handleSetSendMaxTracked = () => {
     void analytics.track('select_maximum_amount_for_send');
-    return handleSetSendMax(fee);
+    return handleSetSendMax(values.fee);
   };
 
   return (
@@ -62,8 +60,8 @@ function AmountFieldBase(props: AmountFieldProps) {
           />
           {balances && selectedAsset ? (
             <SendMaxButton
-              isLoadingFee={!fee}
-              onClick={() => handleSetSendMaxTracked(fee)}
+              isLoadingFee={!values.fee}
+              onClick={() => handleSetSendMaxTracked()}
               selectedAsset={selectedAsset}
             />
           ) : null}

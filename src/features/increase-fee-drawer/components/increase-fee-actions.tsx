@@ -4,18 +4,20 @@ import { Button, Stack } from '@stacks/ui';
 
 import { stxToMicroStx } from '@common/stacks-utils';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
-import { useRawDeserializedTxState, useRawTxIdState } from '@store/transactions/raw.hooks';
+import { useRawTxIdState } from '@store/transactions/raw.hooks';
 
-export function IncreaseFeeActions() {
-  const [field] = useField('txFee');
+interface IncreaseFeeActionsProps {
+  currentFee: number;
+}
+export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
+  const { currentFee } = props;
+  const [field] = useField('fee');
   const { handleSubmit } = useFormikContext();
   const { isLoading } = useLoading(LoadingKeys.INCREASE_FEE_DRAWER);
   const [, setRawTxId] = useRawTxIdState();
-  const rawTx = useRawDeserializedTxState();
 
-  const oldFee = rawTx?.auth.spendingCondition?.fee.toNumber() || 0;
   const newFee = field.value;
-  const isSame = oldFee === stxToMicroStx(newFee).toNumber();
+  const isSame = currentFee === stxToMicroStx(newFee).toNumber();
 
   return (
     <Stack isInline>

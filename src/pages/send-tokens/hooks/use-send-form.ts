@@ -4,7 +4,7 @@ import { FormikProps } from 'formik';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { microStxToStx } from '@common/stacks-utils';
 import { removeCommas } from '@common/token-utils';
-import { TransactionFormValues } from '@common/types';
+import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 
 export function useSendAmountFieldActions({
@@ -15,7 +15,7 @@ export function useSendAmountFieldActions({
   const isStx = selectedAsset?.type === 'stx';
 
   const handleSetSendMax = useCallback(
-    (fee: number | null) => {
+    (fee: number | string) => {
       if (!selectedAsset || !balance) return;
       if (isStx && fee) {
         const stx = microStxToStx(availableStxBalance || 0).minus(microStxToStx(fee));

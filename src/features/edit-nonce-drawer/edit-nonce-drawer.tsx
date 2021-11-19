@@ -11,13 +11,13 @@ import { useShowEditNonceCleanupEffect } from '@store/ui/ui.hooks';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 
-const URL = 'https://www.hiro.so/questions/transactions-advanced-settings';
+const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
 
 const CustomFeeMessaging = () => {
   return (
     <Caption>
       If your transaction has been pending for a long time, its nonce might not be correct.{' '}
-      <Link fontSize="14px" onClick={() => openInNewTab(URL)}>
+      <Link fontSize="14px" onClick={() => openInNewTab(url)}>
         Learn more.
       </Link>
     </Caption>

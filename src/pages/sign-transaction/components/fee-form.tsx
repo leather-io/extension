@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useFormikContext } from 'formik';
 
-import { microStxToStx } from '@common/stacks-utils';
+import { stacksValue } from '@common/stacks-utils';
 import { LoadingRectangle } from '@components/loading-rectangle';
+import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { FeeRow } from '@features/fee-row/fee-row';
 import { Estimations } from '@models/fees-types';
 import { MinimalErrorMessage } from '@pages/sign-transaction/components/minimal-error-message';
@@ -11,10 +12,10 @@ import {
   useEstimatedSignedTransactionByteLengthState,
   useSerializedSignedTransactionPayloadState,
 } from '@store/transactions/transaction.hooks';
-import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
+import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
 export function FeeForm(): JSX.Element | null {
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue } = useFormikContext<TransactionFormValues>();
   const serializedSignedTransactionPayloadState = useSerializedSignedTransactionPayloadState();
   const estimatedSignedTxByteLength = useEstimatedSignedTransactionByteLengthState();
   const { data: feeEstimationsResp, isError } = useFeeEstimationsQuery(
@@ -22,20 +23,25 @@ export function FeeForm(): JSX.Element | null {
     estimatedSignedTxByteLength
   );
   const [, setFeeEstimations] = useFeeEstimationsState();
-  const [fee, setFee] = useFeeState();
 
   useEffect(() => {
-    if (!fee && feeEstimationsResp && feeEstimationsResp.estimations) {
+    if (feeEstimationsResp && feeEstimationsResp.estimations) {
       setFeeEstimations(feeEstimationsResp.estimations);
-      setFee(feeEstimationsResp.estimations[Estimations.Middle].fee);
-      setFieldValue('txFee', microStxToStx(feeEstimationsResp.estimations[Estimations.Middle].fee));
+      setFieldValue(
+        'fee',
+        stacksValue({
+          fixedDecimals: true,
+          value: feeEstimationsResp.estimations[Estimations.Middle].fee,
+          withTicker: false,
+        })
+      );
     }
-  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFieldValue]);
+  }, [feeEstimationsResp, setFeeEstimations, setFieldValue]);
 
   return (
     <>
       {feeEstimationsResp ? (
-        <FeeRow feeEstimationsQueryError={isError || feeEstimationsResp?.error} />
+        <FeeRow feeEstimationsError={isError || !!feeEstimationsResp?.error} />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}

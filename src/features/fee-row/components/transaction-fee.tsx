@@ -1,26 +1,16 @@
 import React from 'react';
 import { AuthType } from '@stacks/transactions';
 
-import { stacksValue } from '@common/stacks-utils';
 import { useTxForSettingsState } from '@store/transactions/transaction.hooks';
-import { useFeeState } from '@store/transactions/fees.hooks';
 
-export function TransactionFee(): JSX.Element | null {
+interface TransactionFeeProps {
+  fee: number | string;
+}
+export function TransactionFee(props: TransactionFeeProps): JSX.Element | null {
+  const { fee } = props;
   /** @deprecated */
   const [transaction] = useTxForSettingsState();
-  const [fee] = useFeeState();
   const isSponsored = transaction?.auth?.authType === AuthType.Sponsored;
 
-  if (!fee) return null;
-
-  return (
-    <>
-      {isSponsored
-        ? '🎉 sponsored'
-        : stacksValue({
-            value: fee,
-            fixedDecimals: true,
-          })}
-    </>
-  );
+  return <>{isSponsored ? '🎉 sponsored' : fee} STX</>;
 }

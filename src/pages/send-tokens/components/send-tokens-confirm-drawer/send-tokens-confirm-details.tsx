@@ -7,7 +7,7 @@ import { EventCard } from '@components/event-card';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 
 interface SendTokensConfirmDetailsProps extends StackProps {
-  amount: number;
+  amount: number | string;
   nonce?: number;
   recipient: string;
 }

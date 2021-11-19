@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import BigNumber from 'bignumber.js';
+import BN from 'bn.js';
 import { toast } from 'react-hot-toast';
 import { Stack } from '@stacks/ui';
 
@@ -11,7 +12,7 @@ import { microStxToStx, stacksValue, stxToMicroStx } from '@common/stacks-utils'
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { TxItem } from '@components/popup/tx-item';
 import { useRawDeserializedTxState, useRawTxIdState } from '@store/transactions/raw.hooks';
-import { useFeeState, useReplaceByFeeSubmitCallBack } from '@store/transactions/fees.hooks';
+import { useReplaceByFeeSubmitCallBack } from '@store/transactions/fees.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
@@ -21,22 +22,15 @@ import { useRemoveLocalSubmittedTxById } from '@store/accounts/account-activity.
 
 export function IncreaseFeeForm(): JSX.Element | null {
   const refreshAccountData = useRefreshAllAccountData();
-  const [, setFee] = useFeeState();
   const tx = useSelectedTx();
-  const rawTx = useRawDeserializedTxState();
-  const fee = rawTx?.auth.spendingCondition?.fee.toNumber() || 0;
-  const byteSize = useRawTxByteLengthState();
   const [, setTxId] = useRawTxIdState();
-  const schema = useFeeSchema();
   const replaceByFee = useReplaceByFeeSubmitCallBack();
   const stxBalance = useCurrentAccountAvailableStxBalance();
   const removeLocallySubmittedTx = useRemoveLocalSubmittedTxById();
+  const feeSchema = useFeeSchema();
+  const rawTx = useRawDeserializedTxState();
 
-  useEffect(() => {
-    // Set fee on mount
-    setFee(fee);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const fee = rawTx?.auth.spendingCondition?.fee.toNumber() || 0;
 
   useEffect(() => {
     if (tx?.tx_status !== 'pending' && rawTx) {
@@ -47,39 +41,39 @@ export function IncreaseFeeForm(): JSX.Element | null {
 
   const onSubmit = useCallback(
     async values => {
-      if (!byteSize) return;
+      if (!rawTx) return;
+      rawTx.setFee(new BN(stxToMicroStx(values.fee).toNumber()));
       // TODO: Revisit the need for this account refresh?
       await refreshAccountData();
-      setFee(stxToMicroStx(values.txFee).toNumber());
       await replaceByFee(values);
       if (tx?.tx_id) {
         removeLocallySubmittedTx(tx.tx_id);
       }
     },
-    [byteSize, refreshAccountData, removeLocallySubmittedTx, replaceByFee, setFee, tx]
+    [rawTx, refreshAccountData, removeLocallySubmittedTx, replaceByFee, tx]
   );
 
-  if (!tx || !rawTx) return null;
+  if (!tx) return null;
 
   return (
     <Formik
-      initialValues={{ txFee: new BigNumber(microStxToStx(fee)).toNumber() }}
+      initialValues={{ fee: new BigNumber(microStxToStx(fee)).toNumber() }}
       onSubmit={onSubmit}
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
-      validationSchema={yup.object({ txFee: schema() })}
+      validationSchema={yup.object({ fee: feeSchema() })}
     >
       {() => (
         <Stack spacing="extra-loose">
           {tx && <TxItem position="relative" zIndex={99} transaction={tx} />}
           <Stack spacing="base">
-            <IncreaseFeeField />
+            <IncreaseFeeField currentFee={fee} />
             {stxBalance && (
               <Caption>Balance: {stacksValue({ value: stxBalance, fixedDecimals: true })}</Caption>
             )}
           </Stack>
-          <IncreaseFeeActions />
+          <IncreaseFeeActions currentFee={fee} />
         </Stack>
       )}
     </Formik>

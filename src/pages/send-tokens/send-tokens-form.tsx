@@ -4,29 +4,21 @@ import { Formik } from 'formik';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { stxToMicroStx } from '@common/stacks-utils';
-import { ScreenPaths, TransactionFormValues } from '@common/types';
+import { ScreenPaths } from '@common/types';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
 import { useLocalTransactionInputsState } from '@store/transactions/transaction.hooks';
-import { useFeeState } from '@store/transactions/fees.hooks';
 
 import { SendTokensConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
 import { ShowDelay } from './components/show-delay';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
 
-const initialValues: TransactionFormValues = {
-  amount: '',
-  recipient: '',
-  txFee: '',
-  memo: '',
-};
-
 function SendTokensFormBase() {
+  const doChangeScreen = useChangeScreen();
   const { setIsIdle, setIsLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   const { showEditNonce, showHighFeeConfirmation } = useDrawers();
   const [isShowing, setShowing] = useState(false);
@@ -36,8 +28,6 @@ function SendTokensFormBase() {
   const [, setTxData] = useLocalTransactionInputsState();
   const [beginShow, setBeginShow] = useState(false);
   const resetNonceCallback = useResetNonceCallback();
-  const [, setFee] = useFeeState();
-  const doChangeScreen = useChangeScreen();
 
   const handleConfirmDrawerOnClose = (setSubmitting: (value: boolean) => void) => {
     setShowing(false);
@@ -52,23 +42,28 @@ function SendTokensFormBase() {
       header={<Header title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
     >
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          amount: '',
+          recipient: '',
+          fee: '',
+          memo: '',
+        }}
         initialErrors={{}}
         onSubmit={values => {
           if (
+            selectedAsset &&
             values.amount &&
             values.recipient &&
             values.recipient !== '' &&
-            values.txFee &&
-            selectedAsset
+            values.fee
           ) {
             if (!assetError) {
               setTxData({
                 amount: values.amount,
+                fee: values.fee,
                 memo: values.memo,
                 recipient: values.recipient,
               });
-              setFee(stxToMicroStx(values.txFee).toNumber());
               setIsLoading();
               setBeginShow(true);
             }
@@ -87,13 +82,13 @@ function SendTokensFormBase() {
               </Suspense>
             )}
             <Suspense fallback={<></>}>
+              <SendFormInner assetError={assetError} />
+            </Suspense>
+            <Suspense fallback={<></>}>
               <SendTokensConfirmDrawer
                 isShowing={isShowing && !showEditNonce}
                 onClose={() => handleConfirmDrawerOnClose(formik.setSubmitting)}
               />
-            </Suspense>
-            <Suspense fallback={<></>}>
-              <SendFormInner assetError={assetError} />
             </Suspense>
             <HighFeeDrawer />
           </>

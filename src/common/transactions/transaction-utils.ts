@@ -17,6 +17,13 @@ import { ChainID } from '@stacks/transactions';
 
 type Tx = MempoolTransaction | Transaction;
 
+export interface TransactionFormValues {
+  amount: number | string;
+  fee: number | string;
+  recipient: string;
+  memo: string;
+}
+
 export interface StxTransfer {
   amount: string;
   sender?: string;

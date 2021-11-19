@@ -13,8 +13,13 @@ import {
   standardPrincipalCVFromAddress,
   uintCV,
 } from '@stacks/transactions';
-import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
 
+import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
+import { TransactionFormValues } from '@common/transactions/transaction-utils';
+import {
+  generateSignedTransaction,
+  GenerateSignedTransactionOptions,
+} from '@common/transactions/generate-signed-txs';
 import { makeFungibleTokenTransferState } from '@store/transactions/fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
 import { makePostCondition } from '@store/transactions/transaction.hooks';
@@ -23,24 +28,15 @@ import { currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { customNonceState } from '@store/transactions/nonce.hooks';
 
-import { feeState } from './fees';
-import {
-  generateSignedTransaction,
-  GenerateSignedTransactionOptions,
-} from '@common/transactions/generate-signed-txs';
-
-// TODO: Revisit use of naming 'local' in global state (or make local state)
-export const localStacksTransactionInputsState = atom<{
-  amount: number;
-  memo: string;
-  recipient: string;
-} | null>(null);
+// This is the form state so can likely be removed from global store when we
+// refactor transaction signing. Leaving for now to avoid conflicts but deprecating.
+/** @deprecated */
+export const localStacksTransactionInputsState = atom<TransactionFormValues | null>(null);
 
 const stxTokenTransferTransactionState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
-  const fee = get(feeState);
 
   if (!address) return;
   const { network, account, nonce } = get(
@@ -73,7 +69,10 @@ const stxTokenTransferTransactionState = atom(get => {
 
   return generateSignedTransaction(options).then(transaction => {
     if (!transaction) return;
-    return generateSignedTransaction({ ...options, fee });
+    return generateSignedTransaction({
+      ...options,
+      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
+    });
   });
 });
 
@@ -81,7 +80,6 @@ const ftTokenTransferTransactionState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
-  const fee = get(feeState);
 
   if (!address) return;
 
@@ -131,7 +129,7 @@ const ftTokenTransferTransactionState = atom(get => {
     uintCV(realAmount),
     standardPrincipalCVFromAddress(createAddress(stxAddress)),
     standardPrincipalCVFromAddress(
-      txData ? createAddress(txData?.recipient) : createEmptyAddress()
+      txData ? createAddress(txData?.recipient || '') : createEmptyAddress()
     ),
   ];
 
@@ -162,11 +160,12 @@ const ftTokenTransferTransactionState = atom(get => {
 
   return generateSignedTransaction(options).then(transaction => {
     if (!transaction) return;
-    return generateSignedTransaction({ ...options, fee });
+    return generateSignedTransaction({
+      ...options,
+      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
+    });
   });
 });
-
-export const localStxTransactionAmountState = atom<null | number>(null);
 
 const localTransactionIsStxTransferState = atom(get => {
   const selectedAsset = get(selectedAssetStore);

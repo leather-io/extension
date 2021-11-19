@@ -30,7 +30,7 @@ interface GenerateSignedTxArgs<TxPayload> {
   txData: TxPayload;
   senderKey: string;
   nonce?: number;
-  fee?: number | null;
+  fee?: number | string;
 }
 
 type GenerateSignedContractCallTxArgs = GenerateSignedTxArgs<ContractCallPayload>;
