@@ -1,3 +1,10 @@
+# [2.21.0-dev.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.3...v2.21.0-dev.4) (2021-11-19)
+
+
+### Bug Fixes
+
+* custom fee state after fallback ([6d2a02e](https://github.com/hirosystems/stacks-wallet-web/commit/6d2a02e32e45015f98b5cc9c1c0de6f8692c65ee))
+
 # [2.21.0-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.2...v2.21.0-dev.3) (2021-11-17)
 
 
