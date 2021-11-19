@@ -19,12 +19,7 @@ import { AmountField } from '@pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { RecipientField } from '@pages/send-tokens/components/recipient-field';
 import { MemoField } from '@pages/send-tokens/components/memo-field';
-import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
-import {
-  useFeeEstimationsState,
-  useFeeRateState,
-  useFeeState,
-} from '@store/transactions/fees.hooks';
+import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 import {
@@ -51,7 +46,6 @@ export function SendFormInner(props: SendFormProps) {
   );
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [fee, setFee] = useFeeState();
-  const [, setFeeRate] = useFeeRateState();
   const [amount, setAmount] = useLocalStxTransactionAmount();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
@@ -63,10 +57,9 @@ export function SendFormInner(props: SendFormProps) {
     if (!fee && feeEstimationsResp && feeEstimationsResp.estimations) {
       setFeeEstimations(feeEstimationsResp.estimations);
       setFee(feeEstimationsResp.estimations[Estimations.Middle].fee);
-      setFeeRate(feeEstimationsResp.estimations[Estimations.Middle].fee_rate);
       setFieldValue('txFee', microStxToStx(feeEstimationsResp.estimations[Estimations.Middle].fee));
     }
-  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFeeRate, setFieldValue]);
+  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFieldValue]);
 
   useEffect(() => {
     return () => {
@@ -102,7 +95,6 @@ export function SendFormInner(props: SendFormProps) {
     setFieldError('amount', undefined);
     setFeeEstimations([]);
     setFee(null);
-    setFeeRate(null);
     if (amount) setAmount(null);
   }, [
     assets.length,
@@ -111,7 +103,6 @@ export function SendFormInner(props: SendFormProps) {
     setFieldError,
     setFeeEstimations,
     setFee,
-    setFeeRate,
     amount,
     setAmount,
   ]);

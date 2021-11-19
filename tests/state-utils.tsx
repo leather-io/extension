@@ -9,7 +9,7 @@ import Mock = jest.Mock;
 import { selectedAssetIdState } from '@store/assets/asset-search';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { feeRateState, feeState } from '@store/transactions/fees';
+import { feeState } from '@store/transactions/fees';
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -34,7 +34,6 @@ export const ProviderWithWalletAndRequestToken: React.FC = ({ children }) => (
             'ST21FTC82CCKE0YH9SK5SJ1D4XEMRA069FKV0VJ8N.hey-token::hey-token',
           ] as const,
           [feeState, 100000] as const,
-          [feeRateState, 500] as const,
         ]}
       >
         {children}
@@ -51,7 +50,6 @@ export const ProviderWithWalletAndStxTransferRequestToken: React.FC = ({ childre
           [walletState, TEST_WALLET] as const,
           [requestTokenState, STX_TRANSFER_TX_REQUEST] as const,
           [feeState, 100000] as const,
-          [feeRateState, 500] as const,
         ]}
       >
         {children}

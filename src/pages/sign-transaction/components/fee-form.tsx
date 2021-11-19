@@ -11,11 +11,7 @@ import {
   useEstimatedSignedTransactionByteLengthState,
   useSerializedSignedTransactionPayloadState,
 } from '@store/transactions/transaction.hooks';
-import {
-  useFeeEstimationsState,
-  useFeeRateState,
-  useFeeState,
-} from '@store/transactions/fees.hooks';
+import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
 
 export function FeeForm(): JSX.Element | null {
   const { setFieldValue } = useFormikContext();
@@ -27,16 +23,14 @@ export function FeeForm(): JSX.Element | null {
   );
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [fee, setFee] = useFeeState();
-  const [, setFeeRate] = useFeeRateState();
 
   useEffect(() => {
     if (!fee && feeEstimationsResp && feeEstimationsResp.estimations) {
       setFeeEstimations(feeEstimationsResp.estimations);
       setFee(feeEstimationsResp.estimations[Estimations.Middle].fee);
-      setFeeRate(feeEstimationsResp.estimations[Estimations.Middle].fee_rate);
       setFieldValue('txFee', microStxToStx(feeEstimationsResp.estimations[Estimations.Middle].fee));
     }
-  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFeeRate, setFieldValue]);
+  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFieldValue]);
 
   return (
     <>

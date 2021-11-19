@@ -10,16 +10,8 @@ import { Caption } from '@components/typography';
 import { microStxToStx, stacksValue, stxToMicroStx } from '@common/stacks-utils';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { TxItem } from '@components/popup/tx-item';
-import {
-  useRawTxByteLengthState,
-  useRawDeserializedTxState,
-  useRawTxIdState,
-} from '@store/transactions/raw.hooks';
-import {
-  useFeeRateState,
-  useFeeState,
-  useReplaceByFeeSubmitCallBack,
-} from '@store/transactions/fees.hooks';
+import { useRawDeserializedTxState, useRawTxIdState } from '@store/transactions/raw.hooks';
+import { useFeeState, useReplaceByFeeSubmitCallBack } from '@store/transactions/fees.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
@@ -29,7 +21,6 @@ import { useRemoveLocalSubmittedTxById } from '@store/accounts/account-activity.
 
 export function IncreaseFeeForm(): JSX.Element | null {
   const refreshAccountData = useRefreshAllAccountData();
-  const [, setFeeRate] = useFeeRateState();
   const [, setFee] = useFeeState();
   const tx = useSelectedTx();
   const rawTx = useRawDeserializedTxState();
@@ -59,16 +50,13 @@ export function IncreaseFeeForm(): JSX.Element | null {
       if (!byteSize) return;
       // TODO: Revisit the need for this account refresh?
       await refreshAccountData();
-      const newFeeRate = new BigNumber(stxToMicroStx(values.txFee)).dividedBy(byteSize);
-      const feeRate = newFeeRate.toNumber();
-      setFeeRate(feeRate);
       setFee(stxToMicroStx(values.txFee).toNumber());
       await replaceByFee(values);
       if (tx?.tx_id) {
         removeLocallySubmittedTx(tx.tx_id);
       }
     },
-    [byteSize, refreshAccountData, setFeeRate, setFee, tx, replaceByFee, removeLocallySubmittedTx]
+    [byteSize, refreshAccountData, removeLocallySubmittedTx, replaceByFee, setFee, tx]
   );
 
   if (!tx || !rawTx) return null;

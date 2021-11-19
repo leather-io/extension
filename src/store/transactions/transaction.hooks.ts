@@ -2,29 +2,22 @@ import { useCallback } from 'react';
 import BN from 'bn.js';
 import { useAtom } from 'jotai';
 import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
+import {
+  createAssetInfo,
+  FungibleConditionCode,
+  makeStandardFungiblePostCondition,
+  PostCondition,
+} from '@stacks/transactions';
 
 import { todaysIsoDate } from '@common/date-utils';
 import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
 import { useWallet } from '@common/hooks/use-wallet';
-import { stxToMicroStx } from '@common/stacks-utils';
 import { broadcastTransaction } from '@common/transactions/broadcast-transaction';
-import {
-  AnchorMode,
-  createAssetInfo,
-  FungibleConditionCode,
-  makeStandardFungiblePostCondition,
-  makeSTXTokenTransfer,
-  PostCondition,
-  StacksTransaction,
-} from '@stacks/transactions';
-
-import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
-import { currentAccountNonceState } from '@store/accounts/nonce';
-import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
+import { logger } from '@common/logger';
+import { currentAccountState } from '@store/accounts';
+import { currentNetworkState } from '@store/network/networks';
 import { localStacksTransactionInputsState } from '@store/transactions/local-transactions';
 import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
-
-import { updateTransactionFee } from '@store/transactions/utils';
 
 import {
   estimatedSignedTransactionByteLengthState,
@@ -40,7 +33,6 @@ import {
 } from './index';
 import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
-import { logger } from '@common/logger';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -74,47 +66,6 @@ export function useSerializedTransactionPayloadState() {
 
 export function useEstimatedTransactionByteLengthState() {
   return useAtomValue(estimatedTransactionByteLengthState);
-}
-
-interface TokenTransferParams {
-  amount: number;
-  recipient: string;
-  memo: string;
-  feeRate: number;
-}
-
-export function useMakeStxTransfer() {
-  return useAtomCallback<undefined | StacksTransaction, TokenTransferParams>(
-    useCallback(async (get, _set, arg) => {
-      const { amount, recipient, memo, feeRate } = arg;
-      const address = get(currentAccountStxAddressState);
-      if (!address) return;
-      const { network, account, nonce } = await get(
-        waitForAll({
-          network: currentStacksNetworkState,
-          account: currentAccountState,
-          nonce: currentAccountNonceState,
-        }),
-        true
-      );
-
-      if (!account || typeof nonce === 'undefined') return;
-
-      const txOptions = {
-        recipient,
-        amount: new BN(stxToMicroStx(amount).toString(), 10),
-        memo,
-        senderKey: account.stxPrivateKey,
-        network: network,
-        nonce: new BN(nonce.toString(), 10),
-        anchorMode: AnchorMode.Any,
-      };
-
-      return makeSTXTokenTransfer(txOptions).then(transaction =>
-        updateTransactionFee(transaction, feeRate)
-      );
-    }, [])
-  );
 }
 
 export function useTransactionBroadcast() {
@@ -174,7 +125,6 @@ interface PostConditionsOptions {
   stxAddress: string;
   amount: string | number;
 }
-
 export function makePostCondition(options: PostConditionsOptions): PostCondition {
   const { contractAddress, contractName, assetName, stxAddress, amount } = options;
 
@@ -188,5 +138,7 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
 }
 
 export const useLocalTransactionInputsState = () => useAtom(localStacksTransactionInputsState);
+
 export const useTxForSettingsState = () => useAtom(txForSettingsState);
+
 export const useTxByteSizeState = () => useAtom(txByteSize);

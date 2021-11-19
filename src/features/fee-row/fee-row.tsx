@@ -14,11 +14,7 @@ import { LoadingRectangle } from '@components/loading-rectangle';
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
 import { Estimations } from '@models/fees-types';
-import {
-  useFeeEstimationsState,
-  useFeeRateState,
-  useFeeState,
-} from '@store/transactions/fees.hooks';
+import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { TransactionFee } from './components/transaction-fee';
@@ -41,7 +37,6 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [feeEstimations] = useFeeEstimationsState();
   const [fee, setFee] = useFeeState();
-  const [, setFeeRate] = useFeeRateState();
   const [selected, setSelected] = useState(Estimations.Middle);
   const [isCustom, setIsCustom] = useState(false);
 
@@ -74,7 +69,6 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       } else {
         // Use selector estimation values
         setFee(feeEstimations[index].fee);
-        setFeeRate(feeEstimations[index].fee_rate);
         // Keep custom input in sync
         setFieldValue(
           'txFee',
@@ -89,7 +83,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       }
       setIsOpen(false);
     },
-    [fee, feeEstimations, selected, setFee, setFeeRate, setFieldValue]
+    [fee, feeEstimations, selected, setFee, setFieldValue]
   );
 
   const fieldError = useMemo(() => {

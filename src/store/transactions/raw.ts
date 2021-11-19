@@ -8,8 +8,7 @@ import {
 } from '@stacks/transactions';
 import { currentAccountPrivateKeyState } from '@store/accounts';
 import { apiClientState } from '@store/common/api-clients';
-import { updateTransactionFee } from '@store/transactions/utils';
-import { feeRateState, feeState } from '@store/transactions/fees';
+import { feeState } from '@store/transactions/fees';
 
 export const rawTxIdState = atom<string | null>(null);
 
@@ -43,14 +42,12 @@ export const rawDeserializedTxState = atom(get => {
 export const rawSignedTxState = atom(get => {
   const transaction = get(rawDeserializedTxState);
   const privateKey = get(currentAccountPrivateKeyState);
-  const feeRate = get(feeRateState);
-  if (!transaction || !privateKey || !feeRate) return;
+  if (!transaction || !privateKey) return;
   const fee = get(feeState);
-  const updatedTx = updateTransactionFee(transaction, feeRate);
   if (fee) {
-    updatedTx.setFee(new BN(fee));
+    transaction.setFee(new BN(fee));
   }
-  const signer = new TransactionSigner(updatedTx);
+  const signer = new TransactionSigner(transaction);
   signer.signOrigin(createStacksPrivateKey(privateKey));
   return transaction;
 });

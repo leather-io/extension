@@ -12,11 +12,7 @@ import {
   useLocalTransactionInputsState,
   useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
-import {
-  useFeeEstimationsState,
-  useFeeRateState,
-  useFeeState,
-} from '@store/transactions/fees.hooks';
+import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
@@ -28,7 +24,6 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const { showEditNonce } = useDrawers();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [, setFee] = useFeeState();
-  const [, setFeeRate] = useFeeRateState();
 
   const handleBroadcastTransaction = useHandleSubmitTransaction({
     transaction: transaction || null,
@@ -40,8 +35,7 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
     await handleBroadcastTransaction();
     setFeeEstimations([]);
     setFee(null);
-    setFeeRate(null);
-  }, [handleBroadcastTransaction, setFee, setFeeEstimations, setFeeRate]);
+  }, [handleBroadcastTransaction, setFee, setFeeEstimations]);
 
   if (!transaction || !txData || !isShowing) return null;
 
