@@ -1,3 +1,10 @@
+# [2.21.0-dev.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.4...v2.21.0-dev.5) (2021-11-19)
+
+
+### Bug Fixes
+
+* send max toast ([a66c62d](https://github.com/hirosystems/stacks-wallet-web/commit/a66c62dc8689a67c784b0b25ae710d8ab9e8422e))
+
 # [2.21.0-dev.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.3...v2.21.0-dev.4) (2021-11-19)
 
 
