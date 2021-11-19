@@ -22,11 +22,7 @@ import {
   useUpdateTransactionBroadcastError,
 } from '@store/transactions/requests.hooks';
 import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
-import {
-  useFeeEstimationsState,
-  useFeeRateState,
-  useFeeState,
-} from '@store/transactions/fees.hooks';
+import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
 
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
@@ -39,30 +35,23 @@ function SignTransactionBase(): JSX.Element | null {
   const setBroadcastError = useUpdateTransactionBroadcastError();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [, setFee] = useFeeState();
-  const [, setFeeRate] = useFeeRateState();
   const feeSchema = useFeeSchema();
 
-  const onSubmit = useCallback(
-    async values => {
-      setFee(stxToMicroStx(values.txFee).toNumber());
-      setIsLoading();
-      await handleBroadcastTransaction();
-      setIsIdle();
-      setFeeEstimations([]);
-      setFee(null);
-      setFeeRate(null);
-      return () => setBroadcastError(null);
-    },
-    [
-      handleBroadcastTransaction,
-      setBroadcastError,
-      setFee,
-      setFeeEstimations,
-      setFeeRate,
-      setIsIdle,
-      setIsLoading,
-    ]
-  );
+  const onSubmit = useCallback(async () => {
+    setIsLoading();
+    await handleBroadcastTransaction();
+    setIsIdle();
+    setFeeEstimations([]);
+    setFee(null);
+    return () => setBroadcastError(null);
+  }, [
+    handleBroadcastTransaction,
+    setBroadcastError,
+    setFee,
+    setFeeEstimations,
+    setIsIdle,
+    setIsLoading,
+  ]);
 
   if (!transactionRequest) return null;
 
