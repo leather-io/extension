@@ -9,17 +9,18 @@ import {
 import { AuthType, ChainID, StacksTransaction, TransactionVersion } from '@stacks/transactions';
 import { serializePayload } from '@stacks/transactions/dist/payload';
 
-import { validateStacksAddress } from '@common/stacks-utils';
-
+import { stxToMicroStx, validateStacksAddress } from '@common/stacks-utils';
+import { generateSignedTransaction } from '@common/transactions/generate-signed-txs';
 import { stacksTransactionToHex, whenChainId } from '@common/transactions/transaction-utils';
 import { currentNetworkState, currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { currentAccountState, currentAccountStxAddressState } from '@store/accounts';
 import { requestTokenPayloadState } from '@store/transactions/requests';
 import { postConditionsState } from '@store/transactions/post-conditions';
-import { feeState } from '@store/transactions/fees';
-import { localTransactionState } from '@store/transactions/local-transactions';
-import { generateSignedTransaction } from '@common/transactions/generate-signed-txs';
+import {
+  localStacksTransactionInputsState,
+  localTransactionState,
+} from '@store/transactions/local-transactions';
 
 import { customNonceState } from './nonce.hooks';
 
@@ -29,8 +30,10 @@ export const pendingTransactionState = atom<
   const payload = get(requestTokenPayloadState);
   const postConditions = get(postConditionsState);
   const network = get(currentStacksNetworkState);
-
+  const txData = get(localStacksTransactionInputsState);
   if (!payload) return;
+  payload.fee = stxToMicroStx(txData?.fee || 0).toNumber();
+
   return { ...payload, postConditions, network };
 });
 
@@ -52,11 +55,13 @@ const signedStacksTransactionBaseState = atom(get => {
     return { transaction: undefined, options: {} };
   }
   const options = {
+    fee: txData.fee,
     senderKey: account.stxPrivateKey,
     nonce: txNonce,
     txData,
   };
   return generateSignedTransaction({
+    fee: txData.fee,
     senderKey: account.stxPrivateKey,
     nonce: txNonce,
     txData,
@@ -69,9 +74,7 @@ const signedStacksTransactionBaseState = atom(get => {
 const signedStacksTransactionState = atom(get => {
   const { transaction, options } = get(signedStacksTransactionBaseState);
   if (!transaction) return;
-  const fee = get(feeState);
-  if (!fee) return;
-  return generateSignedTransaction({ ...options, fee });
+  return generateSignedTransaction({ ...options });
 });
 
 /** @deprecated */

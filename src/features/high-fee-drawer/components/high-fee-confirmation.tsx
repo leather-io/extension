@@ -3,12 +3,12 @@ import { useFormikContext } from 'formik';
 import { Button, Stack } from '@stacks/ui';
 
 import { useDrawers } from '@common/hooks/use-drawers';
-import { TransactionFormValues } from '@common/types';
+import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { Link } from '@components/link';
 import { Caption, Title } from '@components/typography';
 
-const URL = 'https://hiro.so/questions/fee-estimates';
+const url = 'https://hiro.so/questions/fee-estimates';
 
 export function HighFeeConfirmation(): JSX.Element | null {
   const { handleSubmit, values } = useFormikContext<TransactionFormValues>();
@@ -17,11 +17,11 @@ export function HighFeeConfirmation(): JSX.Element | null {
   return (
     <Stack px="loose" spacing="loose" pb="extra-loose">
       <Title fontSize="20px" fontWeight={400} lineHeight="28px">
-        Are you sure you want to pay {values.txFee} STX in fees for this transaction?
+        Are you sure you want to pay {values.fee} STX in fees for this transaction?
       </Title>
       <Caption>
         This action cannot be undone and the fees won't be returned, even if the transaction fails.{' '}
-        <Link fontSize="14px" onClick={() => openInNewTab(URL)}>
+        <Link fontSize="14px" onClick={() => openInNewTab(url)}>
           Learn more
         </Link>
       </Caption>

@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { STX_DECIMALS } from '@common/constants';
 import { stxAmountSchema } from '@common/validation/currency-schema';
@@ -8,6 +7,7 @@ import { formatInsufficientBalanceError, formatPrecisionError } from '@common/er
 import { SendFormErrorMessages } from '@common/error-messages';
 import { isNumber } from '@common/utils';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { stxToMicroStx } from '@common/stacks-utils';
 
 /**
  * @param amountToSend stx amount in µSTX
@@ -20,18 +20,16 @@ export const useFeeSchema = (amountToSend?: number) => {
       stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS))
         .test({
           message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
-          test(txFeeInput: unknown) {
-            if (!availableStxBalance || !isNumber(txFeeInput)) return false;
-            const fee = stxToMicroStx(txFeeInput);
-            return availableStxBalance.isGreaterThanOrEqualTo(fee);
+          test(fee: unknown) {
+            if (!availableStxBalance || !isNumber(fee)) return false;
+            return availableStxBalance.isGreaterThanOrEqualTo(stxToMicroStx(fee));
           },
         })
-        .test((txFeeInput: unknown, context) => {
-          if (!availableStxBalance || !isNumber(txFeeInput)) return false;
+        .test((fee: unknown, context) => {
+          if (!availableStxBalance || !isNumber(fee)) return false;
           // Don't test when value is undefined
-          const fee = stxToMicroStx(txFeeInput);
           if (amountToSend === undefined) return true;
-          const amountWithFee = new BigNumber(amountToSend).plus(fee);
+          const amountWithFee = new BigNumber(amountToSend).plus(stxToMicroStx(fee));
           if (amountWithFee.isGreaterThan(availableStxBalance)) {
             return context.createError({
               message: SendFormErrorMessages.AdjustedFeeExceedsBalance,

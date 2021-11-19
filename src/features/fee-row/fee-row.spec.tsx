@@ -21,7 +21,7 @@ describe('<FeeRow />', () => {
           validateOnBlur={false}
           validateOnMount={false}
         >
-          {() => <FeeRow feeEstimationsQueryError={false} />}
+          {() => <FeeRow feeEstimationsError={false} />}
         </Formik>
       </ProviderWithWalletAndRequestToken>
     );

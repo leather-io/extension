@@ -4,44 +4,31 @@ import { Input, InputGroup, Stack, Text } from '@stacks/ui';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 
 import { ErrorLabel } from '@components/error-label';
-import { SendFormErrorMessages } from '@common/error-messages';
-import { useFeeState } from '@store/transactions/fees.hooks';
 
 import { FeeMultiplier } from './fee-multiplier';
 
-export function IncreaseFeeField(): JSX.Element {
-  const [field, meta, helpers] = useField('txFee');
+interface IncreaseFeeFieldProps {
+  currentFee: number;
+}
+export function IncreaseFeeField(props: IncreaseFeeFieldProps): JSX.Element {
+  const { currentFee } = props;
+  const [field, meta, helpers] = useField('fee');
   const [modified, setModified] = useState(false);
-  const [fee] = useFeeState();
 
   const showResetMultiplier = useMemo(() => {
     if (modified) return true;
-    if (!fee) return false;
-    return stxToMicroStx(field.value) !== fee;
-  }, [modified, fee, field.value]);
+    if (!currentFee) return false;
+    return stxToMicroStx(field.value) !== currentFee;
+  }, [currentFee, modified, field.value]);
 
   const onSelectMultiplier = useCallback(
     (multiplier: number) => {
-      if (!fee) return;
+      if (!currentFee) return;
       setModified(multiplier !== 1);
-      helpers.setValue(microStxToStx(fee * multiplier));
+      helpers.setValue(microStxToStx(currentFee * multiplier));
     },
-    [fee, helpers]
+    [currentFee, helpers]
   );
-
-  const fieldError = useMemo(() => {
-    switch (meta.error) {
-      case SendFormErrorMessages.AdjustedFeeExceedsBalance:
-        return (
-          <>
-            The fee added now exceeds your current STX balance. Consider lowering the amount being
-            sent.
-          </>
-        );
-      default:
-        return meta.error;
-    }
-  }, [meta.error]);
 
   return (
     <>
@@ -75,7 +62,7 @@ export function IncreaseFeeField(): JSX.Element {
       {meta.error && (
         <ErrorLabel>
           <Text textStyle="caption" lineHeight="18px">
-            {fieldError}
+            {meta.error}
           </Text>
         </ErrorLabel>
       )}

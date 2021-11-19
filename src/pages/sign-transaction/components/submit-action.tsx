@@ -5,7 +5,7 @@ import { Button, ButtonProps } from '@stacks/ui';
 import { HIGH_FEE_AMOUNT_STX } from '@common/constants';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
-import { TransactionFormValues } from '@common/types';
+import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { isEmpty } from '@common/utils';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@components/show-edit-nonce';
 import { useTransactionError } from '@pages/sign-transaction/hooks/use-transaction-error';
@@ -33,7 +33,7 @@ function SubmitActionSuspense(): JSX.Element {
       onClick={async () => {
         // We need to check for errors here before we show the high fee confirmation
         const formErrors = await validateForm();
-        if (isEmpty(formErrors) && values.txFee > HIGH_FEE_AMOUNT_STX) {
+        if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
           return setShowHighFeeConfirmation(!showHighFeeConfirmation);
         }
         handleSubmit();

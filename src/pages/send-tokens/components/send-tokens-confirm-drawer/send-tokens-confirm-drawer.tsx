@@ -12,7 +12,7 @@ import {
   useLocalTransactionInputsState,
   useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
-import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
+import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
@@ -23,7 +23,6 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const [transaction] = useTxForSettingsState();
   const { showEditNonce } = useDrawers();
   const [, setFeeEstimations] = useFeeEstimationsState();
-  const [, setFee] = useFeeState();
 
   const handleBroadcastTransaction = useHandleSubmitTransaction({
     transaction: transaction || null,
@@ -34,10 +33,9 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const broadcastTransaction = useCallback(async () => {
     await handleBroadcastTransaction();
     setFeeEstimations([]);
-    setFee(null);
-  }, [handleBroadcastTransaction, setFee, setFeeEstimations]);
+  }, [handleBroadcastTransaction, setFeeEstimations]);
 
-  if (!transaction || !txData || !isShowing) return null;
+  if (!isShowing || !transaction || !txData) return null;
 
   return (
     <BaseDrawer
@@ -57,7 +55,7 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
             <Flex>Fees</Flex>
           </Caption>
           <Caption>
-            <TransactionFee />
+            <TransactionFee fee={txData.fee} />
           </Caption>
         </SpaceBetween>
         <SendTokensConfirmActions onSubmit={broadcastTransaction} transaction={transaction} />

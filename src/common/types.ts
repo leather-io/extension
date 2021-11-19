@@ -70,12 +70,3 @@ export interface PaginatedResults<T> {
   total: number;
   results: T[];
 }
-
-type Amount = number | '';
-
-export interface TransactionFormValues {
-  amount: Amount;
-  recipient: string;
-  txFee: number | string;
-  memo: string;
-}

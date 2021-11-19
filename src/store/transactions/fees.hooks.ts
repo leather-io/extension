@@ -6,24 +6,18 @@ import { LoadingKeys } from '@common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@common/hooks/use-submit-stx-transaction';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
 import { rawSignedTxState } from '@store/transactions/raw';
-import { feeState, feeEstimationsState } from '@store/transactions/fees';
+import { feeEstimationsState } from '@store/transactions/fees';
 
 export function useFeeEstimationsState() {
   return useAtom(feeEstimationsState);
 }
 
-export function useFeeState() {
-  return useAtom(feeState);
-}
-
 export const useReplaceByFeeSubmitCallBack = () => {
   const [, setTxId] = useRawTxIdState();
-  const [, setFee] = useFeeState();
 
   const submitTransaction = useSubmitTransactionCallback({
     onClose: () => {
       setTxId(null);
-      setFee(null);
     },
     loadingKey: LoadingKeys.INCREASE_FEE_DRAWER,
     replaceByFee: true,

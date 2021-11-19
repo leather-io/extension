@@ -7,9 +7,9 @@ import { useDrawers } from '@common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-import { microStxToStx } from '@common/stacks-utils';
-import { TransactionFormValues } from '@common/types';
 import { isEmpty } from '@common/utils';
+import { stacksValue } from '@common/stacks-utils';
+import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { ErrorLabel } from '@components/error-label';
 import { ShowEditNonceAction } from '@components/show-edit-nonce';
 import { FeeRow } from '@features/fee-row/fee-row';
@@ -19,9 +19,9 @@ import { AmountField } from '@pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { RecipientField } from '@pages/send-tokens/components/recipient-field';
 import { MemoField } from '@pages/send-tokens/components/memo-field';
-import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
+import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
+import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { useLocalStxTransactionAmount } from '@store/transactions/local-transactions.hooks';
 import {
   useEstimatedTransactionByteLengthState,
   useSerializedTransactionPayloadState,
@@ -35,7 +35,8 @@ interface SendFormProps {
 
 export function SendFormInner(props: SendFormProps) {
   const { assetError } = props;
-  useNextTxNonce();
+  const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue, validateForm } =
+    useFormikContext<TransactionFormValues>();
   const { isLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const serializedTxPayload = useSerializedTransactionPayloadState();
@@ -45,34 +46,30 @@ export function SendFormInner(props: SendFormProps) {
     estimatedTxByteLength
   );
   const [, setFeeEstimations] = useFeeEstimationsState();
-  const [fee, setFee] = useFeeState();
-  const [amount, setAmount] = useLocalStxTransactionAmount();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
-
-  const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue, validateForm } =
-    useFormikContext<TransactionFormValues>();
+  useNextTxNonce();
 
   useEffect(() => {
-    if (!fee && feeEstimationsResp && feeEstimationsResp.estimations) {
+    if (!values.fee && feeEstimationsResp && feeEstimationsResp.estimations) {
       setFeeEstimations(feeEstimationsResp.estimations);
-      setFee(feeEstimationsResp.estimations[Estimations.Middle].fee);
-      setFieldValue('txFee', microStxToStx(feeEstimationsResp.estimations[Estimations.Middle].fee));
+      setFieldValue(
+        'fee',
+        stacksValue({
+          fixedDecimals: true,
+          value: feeEstimationsResp.estimations[Estimations.Middle].fee,
+          withTicker: false,
+        })
+      );
     }
-  }, [fee, feeEstimationsResp, setFee, setFeeEstimations, setFieldValue]);
-
-  useEffect(() => {
-    return () => {
-      if (amount) setAmount(null);
-    };
-  }, [amount, setAmount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feeEstimationsResp, setFeeEstimations, setFieldValue]);
 
   const onSubmit = useCallback(async () => {
-    if (values.amount && values.recipient && values.txFee && selectedAsset) {
-      selectedAsset.type === 'stx' && setAmount(values.amount);
+    if (selectedAsset && values.amount && values.recipient && values.fee) {
       // We need to check for errors here before we show the high fee confirmation
       const formErrors = await validateForm();
-      if (isEmpty(formErrors) && values.txFee > HIGH_FEE_AMOUNT_STX) {
+      if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
         return setShowHighFeeConfirmation(!showHighFeeConfirmation);
       }
       handleSubmit();
@@ -80,34 +77,21 @@ export function SendFormInner(props: SendFormProps) {
   }, [
     handleSubmit,
     selectedAsset,
-    setAmount,
     setShowHighFeeConfirmation,
     showHighFeeConfirmation,
     validateForm,
     values.amount,
+    values.fee,
     values.recipient,
-    values.txFee,
   ]);
 
   const onItemSelect = useCallback(() => {
     if (assets.length === 1) return;
-    setValues({ ...values, amount: '', txFee: '' });
+    setValues({ ...values, amount: '', fee: '' });
     setFieldError('amount', undefined);
-    setFeeEstimations([]);
-    setFee(null);
-    if (amount) setAmount(null);
-  }, [
-    assets.length,
-    setValues,
-    values,
-    setFieldError,
-    setFeeEstimations,
-    setFee,
-    amount,
-    setAmount,
-  ]);
+  }, [assets.length, setValues, values, setFieldError]);
 
-  const hasValues = values.amount && values.recipient !== '' && (values.txFee || fee);
+  const hasValues = values.amount && values.recipient !== '' && values.fee;
 
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
@@ -125,7 +109,7 @@ export function SendFormInner(props: SendFormProps) {
       {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
       {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
       {feeEstimationsResp && (
-        <FeeRow feeEstimationsQueryError={isError || feeEstimationsResp?.error} />
+        <FeeRow feeEstimationsError={isError || !!feeEstimationsResp?.error} />
       )}
       <Box mt="auto">
         {assetError && (

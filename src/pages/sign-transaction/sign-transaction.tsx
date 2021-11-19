@@ -6,7 +6,6 @@ import { Stack } from '@stacks/ui';
 import { useFeeSchema } from '@common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
-import { stxToMicroStx } from '@common/stacks-utils';
 import { PopupContainer } from '@components/popup/container';
 import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { PopupHeader } from '@pages/sign-transaction/components/popup-header';
@@ -21,8 +20,11 @@ import {
   useTransactionRequestState,
   useUpdateTransactionBroadcastError,
 } from '@store/transactions/requests.hooks';
-import { useTransactionBroadcast } from '@store/transactions/transaction.hooks';
-import { useFeeEstimationsState, useFeeState } from '@store/transactions/fees.hooks';
+import {
+  useLocalTransactionInputsState,
+  useTransactionBroadcast,
+} from '@store/transactions/transaction.hooks';
+import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
@@ -34,24 +36,38 @@ function SignTransactionBase(): JSX.Element | null {
   const handleBroadcastTransaction = useTransactionBroadcast();
   const setBroadcastError = useUpdateTransactionBroadcastError();
   const [, setFeeEstimations] = useFeeEstimationsState();
-  const [, setFee] = useFeeState();
+  const [, setTxData] = useLocalTransactionInputsState();
   const feeSchema = useFeeSchema();
 
-  const onSubmit = useCallback(async () => {
-    setIsLoading();
-    await handleBroadcastTransaction();
-    setIsIdle();
-    setFeeEstimations([]);
-    setFee(null);
-    return () => setBroadcastError(null);
-  }, [
-    handleBroadcastTransaction,
-    setBroadcastError,
-    setFee,
-    setFeeEstimations,
-    setIsIdle,
-    setIsLoading,
-  ]);
+  const onSubmit = useCallback(
+    async values => {
+      // Using the same pattern here as is used in the send tokens
+      // form, but maybe we can get rid of global form state when
+      // we refactor transaction signing?
+      setTxData({
+        amount: '',
+        fee: values.fee,
+        memo: '',
+        recipient: '',
+      });
+      setIsLoading();
+      await handleBroadcastTransaction();
+      setIsIdle();
+      setFeeEstimations([]);
+      return () => {
+        setBroadcastError(null);
+        setTxData(null);
+      };
+    },
+    [
+      handleBroadcastTransaction,
+      setBroadcastError,
+      setFeeEstimations,
+      setIsIdle,
+      setIsLoading,
+      setTxData,
+    ]
+  );
 
   if (!transactionRequest) return null;
 
@@ -67,13 +83,13 @@ function SignTransactionBase(): JSX.Element | null {
         {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
         <Suspense fallback={<></>}>
           <Formik
-            initialValues={{ txFee: '' }}
+            initialValues={{ fee: '' }}
             onSubmit={onSubmit}
             validateOnChange={false}
             validateOnBlur={false}
             validateOnMount={false}
             validationSchema={yup.object({
-              txFee: feeSchema(),
+              fee: feeSchema(),
             })}
           >
             {() => (

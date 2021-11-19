@@ -83,7 +83,6 @@ export function useTransactionBroadcast() {
           }),
           true
         );
-
         if (!account || !requestToken || !signedTransaction) {
           set(transactionBroadcastErrorState, 'No pending transaction found.');
           return;
