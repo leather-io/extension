@@ -55,7 +55,7 @@ export const ReceiveTxButton = memo(({ ...rest }) => {
         borderRadius="10px"
         {...rest}
       >
-        <Box as={QrCodeIcon} transform={'scaleY(-1)'} size={'14px'} mr={'2px'} />
+        <Box as={QrCodeIcon} transform="scaleY(-1)" size="14px" mr="2px" />
         <Box as="span" ml="extra-tight" fontSize="14px">
           Receive
         </Box>
