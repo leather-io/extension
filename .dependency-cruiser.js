@@ -68,15 +68,27 @@ module.exports = {
     },
     {
       name: 'only-allow-react-icons-fi',
+      comment: 'Ensure only icons from `fi` group are allowed',
       severity: 'error',
       from: { path: '^src' },
       to: { path: 'react-icons.*', pathNot: 'react-icons/fi' },
     },
     {
       name: 'no-using-pino-directly',
+      comment: 'Enforce use of Pino logging library via @logger wrapper',
       severity: 'error',
       from: { path: '^src', pathNot: ['^src/common/logger.ts$'] },
       to: { path: 'pino' },
+    },
+    {
+      name: 'no-inter-pages-deps',
+      comment: 'Prohibit dependencies between pages',
+      severity: 'error',
+      from: { path: '^src/pages/([^/]+)/.+' },
+      to: {
+        path: '^src/pages/([^/]+)/.+',
+        pathNot: '^src/pages/$1/.+',
+      },
     },
   ],
   options: {

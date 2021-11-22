@@ -7,7 +7,7 @@ import { LoadingKeys } from '@common/hooks/use-loading';
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
 import { TransactionFee } from '@features/fee-row/components/transaction-fee';
-import { useHandleSubmitTransaction } from '@pages/sign-transaction/hooks/use-submit-stx-transaction';
+import { useHandleSubmitTransaction } from '@common/hooks/use-submit-stx-transaction';
 import {
   useLocalTransactionInputsState,
   useTxForSettingsState,

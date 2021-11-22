@@ -3,10 +3,7 @@ import { useFormikContext } from 'formik';
 import { Button, ButtonProps } from '@stacks/ui';
 
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
-import {
-  ShowEditNonceAction,
-  ShowEditNoncePlaceholder,
-} from '@pages/sign-transaction/components/show-edit-nonce';
+import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@components/show-edit-nonce';
 import { useTransactionError } from '@pages/sign-transaction/hooks/use-transaction-error';
 import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
 
