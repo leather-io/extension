@@ -12,26 +12,24 @@ export const SendTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
   const handleClick = useCallback(() => changeScreen(ScreenPaths.POPUP_SEND), [changeScreen]);
 
   return (
-    <>
-      <Button
-        size="sm"
-        pl="base-tight"
-        pr={'base'}
-        py="tight"
-        fontSize={2}
-        mode="primary"
-        position="relative"
-        ref={ref}
-        onClick={handleClick}
-        borderRadius="10px"
-        {...rest}
-      >
-        <Box as={FiArrowUp} transform={'unset'} size={'16px'} mr={0} />
-        <Box as="span" ml="extra-tight" fontSize="14px">
-          Send
-        </Box>
-      </Button>
-    </>
+    <Button
+      size="sm"
+      pl="base-tight"
+      pr={'base'}
+      py="tight"
+      fontSize={2}
+      mode="primary"
+      position="relative"
+      ref={ref}
+      onClick={handleClick}
+      borderRadius="10px"
+      {...rest}
+    >
+      <Box as={FiArrowUp} transform={'unset'} size={'16px'} mr={0} />
+      <Box as="span" ml="extra-tight" fontSize="14px">
+        Send
+      </Box>
+    </Button>
   );
 });
 
