@@ -3,7 +3,7 @@ import { TransactionTypes } from '@stacks/connect';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { stacksValue } from '@common/stacks-utils';
-import { EventCard } from '@pages/sign-transaction/components/event-card';
+import { EventCard } from '@components/event-card';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 
 export function StxPostCondition(): JSX.Element | null {

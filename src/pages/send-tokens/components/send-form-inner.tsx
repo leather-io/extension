@@ -26,7 +26,7 @@ import {
   useSerializedTransactionPayloadState,
 } from '@store/transactions/transaction.hooks';
 import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
-import { ShowEditNonceAction } from '@pages/sign-transaction/components/show-edit-nonce';
+import { ShowEditNonceAction } from '@components/show-edit-nonce';
 import { Estimations } from '@models/fees-types';
 
 import { SendFormMemoWarning } from './memo-warning';

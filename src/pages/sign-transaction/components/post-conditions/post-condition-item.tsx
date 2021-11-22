@@ -13,7 +13,7 @@ import {
 } from '@common/transactions/post-condition-utils';
 import { LoadingSpinner } from '@components/loading-spinner';
 import { NonFungiblePostCondition, STXPostCondition } from '@common/types';
-import { EventCard } from '@pages/sign-transaction/components/event-card';
+import { EventCard } from '@components/event-card';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 

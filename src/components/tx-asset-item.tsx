@@ -10,7 +10,7 @@ interface AssetItemProps extends StackProps {
   ticker: string;
 }
 
-export function AssetItem(props: AssetItemProps): JSX.Element {
+export function TxAssetItem(props: AssetItemProps): JSX.Element {
   const { iconString, amount, ticker, ...rest } = props;
 
   return (

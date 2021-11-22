@@ -15,7 +15,7 @@ import {
   getPostConditionTitle,
   getSymbolFromPostCondition,
 } from '@common/transactions/post-condition-utils';
-import { EventCard } from '@pages/sign-transaction/components/event-card';
+import { EventCard } from '@components/event-card';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { useAssetFromFungiblePostCondition } from '@store/transactions/post-conditions.hooks';
 

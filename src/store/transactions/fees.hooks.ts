@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import { useAtomCallback } from 'jotai/utils';
 
 import { LoadingKeys } from '@common/hooks/use-loading';
-import { useSubmitTransactionCallback } from '@pages/sign-transaction/hooks/use-submit-stx-transaction';
+import { useSubmitTransactionCallback } from '@common/hooks/use-submit-stx-transaction';
 import { useRawTxIdState } from '@store/transactions/raw.hooks';
 import { rawSignedTxState } from '@store/transactions/raw';
 import { feeState, feeRateState, feeEstimationsState } from '@store/transactions/fees';

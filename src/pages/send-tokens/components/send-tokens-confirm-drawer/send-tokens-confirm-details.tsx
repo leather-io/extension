@@ -3,7 +3,7 @@ import { Flex, StackProps } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
 
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-import { EventCard } from '@pages/sign-transaction/components/event-card';
+import { EventCard } from '@components/event-card';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 
 interface SendTokensConfirmDetailsProps extends StackProps {

@@ -6,7 +6,7 @@ import { Caption } from '@components/typography';
 import { SpaceBetween } from '@components/space-between';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
-import { AssetItem } from './asset-item';
+import { TxAssetItem } from './tx-asset-item';
 
 interface EventCardProps {
   actions?: string;
@@ -19,7 +19,6 @@ interface EventCardProps {
   ticker: string;
   title: string;
 }
-
 export function EventCard(props: EventCardProps): JSX.Element {
   const { actions, amount, icon, isLast, left, message, right, ticker, title } = props;
 
@@ -34,7 +33,7 @@ export function EventCard(props: EventCardProps): JSX.Element {
             <IconButton size="24px" icon={FiMoreHorizontal} position="absolute" right={0} />
           )}
         </SpaceBetween>
-        <AssetItem iconString={icon} amount={amount} ticker={ticker} />
+        <TxAssetItem iconString={icon} amount={amount} ticker={ticker} />
         {left || right ? (
           <SpaceBetween>
             {left ? <Caption>{left}</Caption> : <Box />}
