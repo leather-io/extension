@@ -4,7 +4,6 @@ import { Box, color, IconButton, Stack, Text } from '@stacks/ui';
 
 import { Caption } from '@components/typography';
 import { SpaceBetween } from '@components/space-between';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { TxAssetItem } from './tx-asset-item';
 
@@ -24,10 +23,10 @@ export function EventCard(props: EventCardProps): JSX.Element {
 
   return (
     <>
-      <Stack spacing="base-loose" p="base-loose">
+      <Stack p="base-loose" spacing="base-loose">
         <SpaceBetween position="relative">
-          <Text fontWeight={500} fontSize={2}>
-            <span data-testid={SendFormSelectors.TransferMessage}>{title}</span>
+          <Text fontSize={2} fontWeight={500}>
+            {title}
           </Text>
           {actions && (
             <IconButton size="24px" icon={FiMoreHorizontal} position="absolute" right={0} />

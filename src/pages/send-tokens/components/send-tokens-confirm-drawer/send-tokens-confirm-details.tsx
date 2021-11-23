@@ -5,6 +5,7 @@ import { color, truncateMiddle } from '@stacks/ui-utils';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { EventCard } from '@components/event-card';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface SendTokensConfirmDetailsProps extends StackProps {
   amount: number | string;
@@ -23,8 +24,9 @@ export function SendTokensConfirmDetails(props: SendTokensConfirmDetailsProps): 
       border="4px solid"
       borderColor={color('border')}
       borderRadius="12px"
-      width="100%"
       flexDirection="column"
+      data-testid={SendFormSelectors.ConfirmDetails}
+      width="100%"
       {...rest}
     >
       <EventCard

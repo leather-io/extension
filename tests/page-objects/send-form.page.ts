@@ -8,8 +8,11 @@ const selectors = {
   $amountFieldError: createTestSelector(SendFormSelectors.InputAmountFieldErrorLabel),
   $stxAddressField: createTestSelector(SendFormSelectors.InputRecipientField),
   $stxAddressFieldError: createTestSelector(SendFormSelectors.InputRecipientFieldErrorLabel),
+  $feeEstimateItem: createTestSelector(SendFormSelectors.FeeEstimateItem),
+  $feeEstimateSelect: createTestSelector(SendFormSelectors.FeeEstimateSelect),
+  $customFeeField: createTestSelector(SendFormSelectors.InputCustomFeeField),
   $previewBtn: createTestSelector(SendFormSelectors.BtnPreviewSendTx),
-  $transferMessage: createTestSelector(SendFormSelectors.TransferMessage),
+  $confirmDetails: createTestSelector(SendFormSelectors.ConfirmDetails),
 };
 
 export class SendPage {
@@ -52,8 +55,36 @@ export class SendPage {
     await field?.type(input);
   }
 
-  async waitForPreview(selector: keyof typeof selectors) {
-    await this.page.waitForSelector(this.selectors[selector]);
+  async waitForFeeEstimateItem() {
+    await this.page.waitForSelector(this.selectors.$feeEstimateItem);
+  }
+
+  async clickFeeEstimateItem() {
+    await this.waitForFeeEstimateItem();
+    await this.page.click(this.selectors.$feeEstimateItem);
+  }
+
+  async waitForFeeEstimateSelect() {
+    await this.page.waitForSelector(this.selectors.$feeEstimateSelect);
+  }
+
+  async selectFirstFeeEstimate() {
+    await this.clickFeeEstimateItem();
+    await this.waitForFeeEstimateSelect();
+    await this.page.locator(this.getSelector('$feeEstimateItem')).nth(1).click();
+  }
+
+  async inputToCustomFeeField(input: string) {
+    await this.clickFeeEstimateItem();
+    await this.waitForFeeEstimateSelect();
+    await this.page.locator(this.getSelector('$feeEstimateItem')).last().click();
+
+    const field = await this.page.$(this.selectors.$customFeeField);
+    await field?.type(input);
+  }
+
+  async waitForConfirmDetails() {
+    await this.page.waitForSelector(this.selectors.$confirmDetails);
   }
 
   async waitForSendMaxButton() {
