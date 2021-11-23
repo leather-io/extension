@@ -9,11 +9,7 @@ import { Box, color, Stack, Text } from '@stacks/ui';
 const LocalTxListItem = ({ txid }: { txid: string }) => {
   const localTx = useCurrentAccountLocalStacksTransaction(txid);
   const cleanup = useCleanupLocalTxsCallback();
-  useEffect(() => {
-    return () => {
-      cleanup();
-    };
-  }, [cleanup]);
+  useEffect(() => () => cleanup(), [cleanup]);
   if (localTx) return <LocalTxItem txid={txid} transaction={localTx.transaction} />;
   return <>Loading...</>;
 };

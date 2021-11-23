@@ -9,6 +9,7 @@ import { makeLocalDataKey } from '@common/store-utils';
 import deepEqual from 'fast-deep-equal';
 import { safelyFormatHexTxid } from '@common/utils/safe-handle-txid';
 import { deserializeTransaction, StacksTransaction } from '@stacks/transactions';
+import { logger } from '@common/logger';
 
 type LocalTx = Record<
   string,
@@ -42,9 +43,9 @@ export const currentAccountLocallySubmittedTxsState = atom<LocalTx, LocalTx>(
     const principal = get(currentAccountStxAddressState);
     if (!principal) return;
     const networkUrl = get(currentNetworkState).url;
-    const anAtom = currentAccountLocallySubmittedTxsRootState([principal, networkUrl]);
-    const latestLocalTxs = get(anAtom);
-    void set(anAtom, { ...update, ...latestLocalTxs });
+    const submittedTxsState = currentAccountLocallySubmittedTxsRootState([principal, networkUrl]);
+    const latestLocalTxs = get(submittedTxsState);
+    void set(submittedTxsState, { ...update, ...latestLocalTxs });
   }
 );
 
@@ -109,4 +110,21 @@ export const cleanupLocalTxs = atom(null, (get, set) => {
     const anAtom = currentAccountLocallySubmittedTxsRootState([principal, networkUrl]);
     set(anAtom, newLocalTxs);
   }
+});
+
+export const removeLocalSubmittedTxById = atom(null, (get, set, txIdToRemove: string) => {
+  const principal = get(currentAccountStxAddressState);
+  if (!principal) {
+    logger.error(
+      `Cannot remove locally cached submitted tx with no principal. Txid: ${txIdToRemove}`
+    );
+    return;
+  }
+  const networkUrl = get(currentNetworkState).url;
+  const submittedTxsState = currentAccountLocallySubmittedTxsRootState([principal, networkUrl]);
+  const submittedTxMap = get(submittedTxsState);
+  const newSubmittedTxState = Object.fromEntries(
+    Object.entries(submittedTxMap).filter(([txid]) => txid !== txIdToRemove)
+  );
+  set(submittedTxsState, newSubmittedTxState);
 });

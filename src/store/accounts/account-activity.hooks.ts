@@ -2,6 +2,7 @@ import { useAtomCallback, useAtomValue, useUpdateAtom } from 'jotai/utils';
 import {
   cleanupLocalTxs,
   currentAccountLocallySubmittedTxsState,
+  removeLocalSubmittedTxById,
 } from '@store/accounts/account-activity';
 import { deserializeTransaction, StacksTransaction } from '@stacks/transactions';
 
@@ -66,4 +67,8 @@ export function useCurrentAccountLocalStacksTransaction(tx_id: string) {
 
 export function useCleanupLocalTxsCallback() {
   return useUpdateAtom(cleanupLocalTxs);
+}
+
+export function useRemoveLocalSubmittedTxById() {
+  return useUpdateAtom(removeLocalSubmittedTxById);
 }
