@@ -1,3 +1,10 @@
+# [2.21.0-dev.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.5...v2.21.0-dev.6) (2021-11-23)
+
+
+### Bug Fixes
+
+* replace by fee cache bug, closes [#1975](https://github.com/hirosystems/stacks-wallet-web/issues/1975) ([a99a14e](https://github.com/hirosystems/stacks-wallet-web/commit/a99a14e7c49dc5f8171bf62588298807a62327c8))
+
 # [2.21.0-dev.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.4...v2.21.0-dev.5) (2021-11-19)
 
 
