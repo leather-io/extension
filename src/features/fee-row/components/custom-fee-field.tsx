@@ -33,7 +33,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
   );
 
   return (
-    <Stack width="100%" position="relative" {...rest}>
+    <Stack position="relative" {...rest}>
       <InputGroup
         alignSelf="flex-end"
         flexDirection="column"

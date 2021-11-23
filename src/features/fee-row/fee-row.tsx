@@ -77,20 +77,18 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
     <Stack spacing="base">
       <SpaceBetween position="relative">
         <Stack alignItems="center" isInline>
-          <Caption>Fees</Caption>
-          <Stack _hover={{ cursor: 'pointer' }}>
-            <FeeEstimateItem
-              hasFeeEstimations={!feeEstimationsError}
-              index={selected}
-              onClick={!feeEstimationsError ? () => setIsOpen(true) : undefined}
-            />
-            <FeeEstimateSelect
-              items={feeEstimations}
-              onClick={handleSelectedItem}
-              setIsOpen={setIsOpen}
-              visible={isOpen}
-            />
-          </Stack>
+          {!feeEstimationsError ? <Caption>Fees</Caption> : <Caption>Enter a custom fee</Caption>}
+          {!feeEstimationsError ? (
+            <Stack _hover={{ cursor: 'pointer' }}>
+              <FeeEstimateItem index={selected} onClick={() => setIsOpen(true)} />
+              <FeeEstimateSelect
+                items={feeEstimations}
+                onClick={handleSelectedItem}
+                setIsOpen={setIsOpen}
+                visible={isOpen}
+              />
+            </Stack>
+          ) : null}
           <Tooltip label={feesInfo} placement="bottom">
             <Stack>
               <Box
