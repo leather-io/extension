@@ -1,3 +1,10 @@
+# [2.21.0-dev.8](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.7...v2.21.0-dev.8) (2021-11-23)
+
+
+### Bug Fixes
+
+* send max calc ([9e05290](https://github.com/hirosystems/stacks-wallet-web/commit/9e052909a098f60e4bbbd7b564fb90903e0dab6a))
+
 # [2.21.0-dev.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.6...v2.21.0-dev.7) (2021-11-23)
 
 
