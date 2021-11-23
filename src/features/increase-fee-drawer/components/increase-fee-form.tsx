@@ -25,6 +25,7 @@ import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.ho
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
 import { useSelectedTx } from '../hooks/use-selected-tx';
+import { useRemoveLocalSubmittedTxById } from '@store/accounts/account-activity.hooks';
 
 export function IncreaseFeeForm(): JSX.Element | null {
   const refreshAccountData = useRefreshAllAccountData();
@@ -36,8 +37,9 @@ export function IncreaseFeeForm(): JSX.Element | null {
   const byteSize = useRawTxByteLengthState();
   const [, setTxId] = useRawTxIdState();
   const schema = useFeeSchema();
-  const handleSubmit = useReplaceByFeeSubmitCallBack();
+  const replaceByFee = useReplaceByFeeSubmitCallBack();
   const stxBalance = useCurrentAccountAvailableStxBalance();
+  const removeLocallySubmittedTx = useRemoveLocalSubmittedTxById();
 
   useEffect(() => {
     // Set fee on mount
@@ -61,9 +63,12 @@ export function IncreaseFeeForm(): JSX.Element | null {
       const feeRate = newFeeRate.toNumber();
       setFeeRate(feeRate);
       setFee(stxToMicroStx(values.txFee).toNumber());
-      await handleSubmit(values);
+      await replaceByFee(values);
+      if (tx?.tx_id) {
+        removeLocallySubmittedTx(tx.tx_id);
+      }
     },
-    [byteSize, handleSubmit, refreshAccountData, setFeeRate, setFee]
+    [byteSize, refreshAccountData, setFeeRate, setFee, tx, replaceByFee, removeLocallySubmittedTx]
   );
 
   if (!tx || !rawTx) return null;
