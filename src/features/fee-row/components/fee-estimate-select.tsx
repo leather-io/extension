@@ -5,6 +5,7 @@ import { useOnClickOutside } from '@common/hooks/use-onclickoutside';
 import { Estimations, FeeEstimation } from '@models/fees-types';
 
 import { FeeEstimateItem } from './fee-estimate-item';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface FeeEstimateSelectProps {
   items: FeeEstimation[];
@@ -26,6 +27,7 @@ export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
           bg={color('bg')}
           borderRadius="8px"
           boxShadow="high"
+          data-testid={SendFormSelectors.FeeEstimateSelect}
           flexDirection="column"
           minHeight="96px"
           minWidth="100px"

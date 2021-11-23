@@ -4,6 +4,7 @@ import { color, Stack } from '@stacks/ui';
 
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 const LABELS = ['Low', 'Standard', 'High', 'Custom'];
 
@@ -23,6 +24,7 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
       border={visible ? 'none' : '1px solid #EFEFF2'}
       borderRadius={visible ? '0px' : '10px'}
       bg={color('bg')}
+      data-testid={SendFormSelectors.FeeEstimateItem}
       _hover={{ bg: visible ? color('bg-alt') : 'none', borderRadius: '8px' }}
       height="32px"
       isInline
