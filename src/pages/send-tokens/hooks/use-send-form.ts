@@ -6,6 +6,7 @@ import { microStxToStx } from '@common/stacks-utils';
 import { removeCommas } from '@common/token-utils';
 import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { STX_DECIMALS } from '@common/constants';
 
 export function useSendAmountFieldActions({
   setFieldValue,
@@ -20,7 +21,7 @@ export function useSendAmountFieldActions({
       if (isStx && fee) {
         const stx = microStxToStx(availableStxBalance || 0).minus(microStxToStx(fee));
         if (stx.isLessThanOrEqualTo(0)) return;
-        return setFieldValue('amount', stx.toNumber());
+        return setFieldValue('amount', stx.toNumber().toFixed(STX_DECIMALS));
       } else {
         if (balance) setFieldValue('amount', removeCommas(balance));
       }

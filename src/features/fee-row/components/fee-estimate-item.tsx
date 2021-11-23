@@ -2,20 +2,20 @@ import React from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { color, Stack } from '@stacks/ui';
 
+import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
 
 const LABELS = ['Low', 'Standard', 'High', 'Custom'];
 
 interface FeeEstimateItemProps {
-  hasFeeEstimations?: boolean | null;
   index: number;
-  onClick?: (index: number) => void | undefined;
+  onClick: (index: number) => void;
   selected?: number;
   visible?: boolean;
 }
 
 export function FeeEstimateItem(props: FeeEstimateItemProps) {
-  const { hasFeeEstimations, index, onClick, visible } = props;
+  const { index, onClick, visible } = props;
 
   return (
     <Stack
@@ -29,12 +29,12 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
       minWidth="100px"
       p="tight"
       mb="0px !important"
-      onClick={() => onClick?.(index)}
+      onClick={() => onClick(index)}
     >
-      <Stack alignItems="center" isInline flexGrow={1}>
+      <SpaceBetween flexGrow={1}>
         <Caption ml="2px">{LABELS[index]}</Caption>
-      </Stack>
-      <Stack textAlign="right">{visible || !hasFeeEstimations ? <></> : <FiChevronDown />}</Stack>
+        {visible ? <></> : <FiChevronDown />}
+      </SpaceBetween>
     </Stack>
   );
 }
