@@ -1,3 +1,10 @@
+# [2.21.0-dev.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.6...v2.21.0-dev.7) (2021-11-23)
+
+
+### Bug Fixes
+
+* fee estimations fail default ([72b25cb](https://github.com/hirosystems/stacks-wallet-web/commit/72b25cbaafa863b76e486d7050d3f4c7224c9625))
+
 # [2.21.0-dev.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.5...v2.21.0-dev.6) (2021-11-23)
 
 
