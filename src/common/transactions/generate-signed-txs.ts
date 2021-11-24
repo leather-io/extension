@@ -98,7 +98,7 @@ function generateSignedStxTransferTx(args: GenerateSignedStxTransferTxArgs) {
   return makeSTXTokenTransfer(options);
 }
 
-export type GenerateSignedTransactionOptions = GenerateSignedTxArgs<
+type GenerateSignedTransactionOptions = GenerateSignedTxArgs<
   ContractCallPayload | STXTransferPayload | ContractDeployPayload
 >;
 export async function generateSignedTransaction(options: GenerateSignedTransactionOptions) {
