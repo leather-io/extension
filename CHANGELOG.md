@@ -1,3 +1,24 @@
+# [2.21.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3...v2.21.0) (2021-11-24)
+
+
+### Bug Fixes
+
+* close estimations on click outside ([45bec9a](https://github.com/hirosystems/stacks-wallet-web/commit/45bec9a90329e70b98c64b4490b6e52869bdd5fd))
+* custom fee state after fallback ([6d2a02e](https://github.com/hirosystems/stacks-wallet-web/commit/6d2a02e32e45015f98b5cc9c1c0de6f8692c65ee))
+* fee estimations fail default ([72b25cb](https://github.com/hirosystems/stacks-wallet-web/commit/72b25cbaafa863b76e486d7050d3f4c7224c9625))
+* mempool txs query atom ([73f5b01](https://github.com/hirosystems/stacks-wallet-web/commit/73f5b016fb996015c67adb55f774754d52675a33))
+* replace by fee cache bug, closes [#1975](https://github.com/hirosystems/stacks-wallet-web/issues/1975) ([a99a14e](https://github.com/hirosystems/stacks-wallet-web/commit/a99a14e7c49dc5f8171bf62588298807a62327c8))
+* send max calc ([9e05290](https://github.com/hirosystems/stacks-wallet-web/commit/9e052909a098f60e4bbbd7b564fb90903e0dab6a))
+* send max toast ([a66c62d](https://github.com/hirosystems/stacks-wallet-web/commit/a66c62dc8689a67c784b0b25ae710d8ab9e8422e))
+* **types:** loose tx type results in stable release bugs ([3b17de0](https://github.com/hirosystems/stacks-wallet-web/commit/3b17de0a243f95f0acf82af733ee779d6f40efda))
+* use react-query for mempool calls ([f45edff](https://github.com/hirosystems/stacks-wallet-web/commit/f45edff2ec777faf7d555ed8b0500441fbb1757e))
+
+
+### Features
+
+* add segment integration ([0999431](https://github.com/hirosystems/stacks-wallet-web/commit/0999431bf05bf03328b5a4c5e8d75c341a7f8539)), closes [#1748](https://github.com/hirosystems/stacks-wallet-web/issues/1748)
+* use fee estimation endpoint ([78fd652](https://github.com/hirosystems/stacks-wallet-web/commit/78fd65269eb9d2a38670676cf82a09492f1f01a0))
+
 # [2.21.0-dev.9](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.8...v2.21.0-dev.9) (2021-11-24)
 
 
