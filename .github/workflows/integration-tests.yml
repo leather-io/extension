@@ -4,6 +4,7 @@ on: [pull_request]
 
 env:
   CI: true
+  WALLET_ENVIRONMENT: testing
 
 jobs:
   directories:
