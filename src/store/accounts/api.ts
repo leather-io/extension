@@ -15,7 +15,6 @@ import { atom } from 'jotai';
 import { AccountStxBalanceBigNumber } from './types';
 import deepEqual from 'fast-deep-equal';
 import { PaginatedResults } from '@common/types';
-import { logger } from '@common/logger';
 
 enum AccountClientKeys {
   InfoClient = 'account/InfoClient',
