@@ -4,15 +4,17 @@ import { useFormikContext } from 'formik';
 import { stacksValue } from '@common/stacks-utils';
 import { LoadingRectangle } from '@components/loading-rectangle';
 import { TransactionFormValues } from '@common/transactions/transaction-utils';
-import { FeeRow } from '@features/fee-row/fee-row';
+import { FeeRow } from '@components/fee-row/fee-row';
 import { Estimations } from '@models/fees-types';
 import { MinimalErrorMessage } from '@pages/sign-transaction/components/minimal-error-message';
 import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
 import {
   useEstimatedSignedTransactionByteLengthState,
   useSerializedSignedTransactionPayloadState,
+  useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
+import { AuthType } from '@stacks/transactions';
 
 export function FeeForm(): JSX.Element | null {
   const { setFieldValue } = useFormikContext<TransactionFormValues>();
@@ -22,6 +24,8 @@ export function FeeForm(): JSX.Element | null {
     serializedSignedTransactionPayloadState,
     estimatedSignedTxByteLength
   );
+  const [transaction] = useTxForSettingsState();
+  const isSponsored = transaction?.auth?.authType === AuthType.Sponsored;
   const [, setFeeEstimations] = useFeeEstimationsState();
 
   useEffect(() => {
@@ -41,7 +45,11 @@ export function FeeForm(): JSX.Element | null {
   return (
     <>
       {feeEstimationsResp ? (
-        <FeeRow feeEstimationsError={isError || !!feeEstimationsResp?.error} />
+        <FeeRow
+          fieldName="fee"
+          isSponsored={isSponsored}
+          feeEstimationsError={isError || !!feeEstimationsResp?.error}
+        />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}
@@ -49,3 +57,4 @@ export function FeeForm(): JSX.Element | null {
     </>
   );
 }
+//  transaction?.auth?.authType === AuthType.Sponsored;

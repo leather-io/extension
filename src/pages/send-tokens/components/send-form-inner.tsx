@@ -12,7 +12,7 @@ import { stacksValue } from '@common/stacks-utils';
 import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { ErrorLabel } from '@components/error-label';
 import { ShowEditNonceAction } from '@components/show-edit-nonce';
-import { FeeRow } from '@features/fee-row/fee-row';
+import { FeeRow } from '@components/fee-row/fee-row';
 import { Estimations } from '@models/fees-types';
 import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-search';
 import { AmountField } from '@pages/send-tokens/components/amount-field';
@@ -25,9 +25,11 @@ import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import {
   useEstimatedTransactionByteLengthState,
   useSerializedTransactionPayloadState,
+  useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
 
 import { SendFormMemoWarning } from './memo-warning';
+import { AuthType } from '@stacks/transactions';
 
 interface SendFormProps {
   assetError: string | undefined;
@@ -48,6 +50,9 @@ export function SendFormInner(props: SendFormProps) {
   const [, setFeeEstimations] = useFeeEstimationsState();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
+  const [transaction] = useTxForSettingsState();
+  const isSponsored = transaction?.auth?.authType === AuthType.Sponsored;
+
   useNextTxNonce();
 
   useEffect(() => {
@@ -109,7 +114,11 @@ export function SendFormInner(props: SendFormProps) {
       {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
       {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
       {feeEstimationsResp && (
-        <FeeRow feeEstimationsError={isError || !!feeEstimationsResp?.error} />
+        <FeeRow
+          fieldName="fee"
+          isSponsored={isSponsored}
+          feeEstimationsError={isError || !!feeEstimationsResp?.error}
+        />
       )}
       <Box mt="auto">
         {assetError && (

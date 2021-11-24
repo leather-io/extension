@@ -6,7 +6,7 @@ import { BaseDrawer, BaseDrawerProps } from '@components/drawer';
 import { LoadingKeys } from '@common/hooks/use-loading';
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
-import { TransactionFee } from '@features/fee-row/components/transaction-fee';
+import { TransactionFee } from '@components/fee-row/components/transaction-fee';
 import { useHandleSubmitTransaction } from '@common/hooks/use-submit-stx-transaction';
 import {
   useLocalTransactionInputsState,
@@ -16,6 +16,7 @@ import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
+import { AuthType } from '@stacks/transactions';
 
 export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const { isShowing, onClose } = props;
@@ -23,6 +24,7 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const [transaction] = useTxForSettingsState();
   const { showEditNonce } = useDrawers();
   const [, setFeeEstimations] = useFeeEstimationsState();
+  const isSponsored = transaction?.auth?.authType === AuthType.Sponsored;
 
   const handleBroadcastTransaction = useHandleSubmitTransaction({
     transaction: transaction || null,
@@ -55,7 +57,7 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
             <Flex>Fees</Flex>
           </Caption>
           <Caption>
-            <TransactionFee fee={txData.fee} />
+            <TransactionFee isSponsored={isSponsored} fee={txData.fee} />
           </Caption>
         </SpaceBetween>
         <SendTokensConfirmActions onSubmit={broadcastTransaction} transaction={transaction} />

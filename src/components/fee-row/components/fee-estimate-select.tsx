@@ -13,7 +13,6 @@ interface FeeEstimateSelectProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   visible: boolean;
 }
-
 export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
   const { items, onClick, setIsOpen, visible } = props;
   const ref = useRef<HTMLDivElement | null>(null);

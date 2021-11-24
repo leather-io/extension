@@ -1,10 +1,10 @@
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
-import { useFormikContext } from 'formik';
+import { useField } from 'formik';
 import { Box, color, Stack, Text } from '@stacks/ui';
 
 import { stacksValue } from '@common/stacks-utils';
-import { TransactionFormValues } from '@common/transactions/transaction-utils';
+
 import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { ErrorLabel } from '@components/error-label';
 import { Tooltip } from '@components/tooltip';
@@ -26,12 +26,14 @@ const feesInfo =
 const url = 'https://hiro.so/questions/fee-estimates';
 
 interface FeeRowProps {
+  fieldName: string;
+  isSponsored: boolean;
   feeEstimationsError: boolean;
 }
-
 export function FeeRow(props: FeeRowProps): JSX.Element {
-  const { feeEstimationsError } = props;
-  const { errors, setFieldValue, values } = useFormikContext<TransactionFormValues>();
+  const { feeEstimationsError, fieldName, isSponsored } = props;
+
+  const [input, meta, helpers] = useField(fieldName);
   const [fieldWarning, setFieldWarning] = useState<string | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(false);
   const [feeEstimations] = useFeeEstimationsState();
@@ -54,11 +56,10 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       if (!feeEstimations) return;
       if (selected !== index) setSelected(index);
       if (index === Estimations.Custom) {
-        setFieldValue('fee', '');
+        helpers.setValue('');
         setIsCustom(true);
       } else {
-        setFieldValue(
-          'fee',
+        helpers.setValue(
           stacksValue({
             fixedDecimals: true,
             value: feeEstimations[index].fee,
@@ -70,7 +71,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       }
       setIsOpen(false);
     },
-    [feeEstimations, selected, setFieldValue]
+    [feeEstimations, helpers, selected]
   );
 
   return (
@@ -102,25 +103,25 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
           </Tooltip>
         </Stack>
         {isCustom ? (
-          <CustomFeeField setFieldWarning={setFieldWarning} />
-        ) : !values.fee ? (
+          <CustomFeeField fieldName={fieldName} setFieldWarning={setFieldWarning} />
+        ) : !input.value ? (
           <LoadingRectangle width="50px" height="10px" />
         ) : (
           <Suspense fallback={<></>}>
             <Caption>
-              <TransactionFee fee={values.fee} />
+              <TransactionFee isSponsored={isSponsored} fee={input.value} />
             </Caption>
           </Suspense>
         )}
       </SpaceBetween>
-      {errors.fee && (
+      {meta.error && (
         <ErrorLabel data-testid={SendFormSelectors.InputCustomFeeFieldErrorLabel}>
           <Text lineHeight="18px" textStyle="caption">
-            {errors.fee}
+            {meta.error}
           </Text>
         </ErrorLabel>
       )}
-      {!errors.fee && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
+      {!meta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
     </Stack>
   );
 }
