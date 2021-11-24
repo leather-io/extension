@@ -3,21 +3,21 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { Caption, Text, Title } from '@components/typography';
 
+import { useAccountDisplayName } from '@common/hooks/account/use-account-names';
 import { useWallet } from '@common/hooks/use-wallet';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
-import { useAccountDisplayName } from '@common/hooks/account/use-account-names';
 
 import type { AccountWithAddress } from '@store/accounts/account.models';
-import { AccountAvatarWithName } from '@features/account-avatar/account-avatar';
+import { AccountAvatarWithName } from '@components/account-avatar/account-avatar';
 import { SpaceBetween } from '@components/space-between';
 
 import { usePressable } from '@components/item-hover';
 
 import { useLoading } from '@common/hooks/use-loading';
-import { AccountBalanceCaption } from '@features/account-balance-caption';
+import { AccountBalanceCaption } from '@components/account-balance-caption';
 import { cleanUsername, slugify } from '@common/utils';
-import { useAccounts } from '@store/accounts/account.hooks';
+import { useAccountAvailableStxBalance, useAccounts } from '@store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
 
@@ -56,7 +56,8 @@ const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...
   const { isLoading, setIsLoading } = useLoading(`CHOOSE_ACCOUNT__${account.address}`);
   const { doFinishSignIn } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
-
+  const name = useAccountDisplayName(account);
+  const availableStxBalance = useAccountAvailableStxBalance(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
   const handleOnClick = useCallback(async () => {
     setIsLoading();
@@ -73,7 +74,7 @@ const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...
       {...rest}
     >
       <Stack spacing="base" isInline>
-        <AccountAvatarWithName flexGrow={0} account={account} />
+        <AccountAvatarWithName name={name} flexGrow={0} account={account} />
         <SpaceBetween width="100%" alignItems="center">
           <Stack textAlign="left" spacing="base-tight">
             <React.Suspense
@@ -88,7 +89,7 @@ const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...
                 {truncateMiddle(account.address, 4)}
               </Caption>
               <React.Suspense fallback={<></>}>
-                <AccountBalanceCaption address={account.address} />
+                <AccountBalanceCaption availableBalance={availableStxBalance} />
               </React.Suspense>
             </Stack>
           </Stack>

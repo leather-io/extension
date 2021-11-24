@@ -6,13 +6,13 @@ import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SpaceBetween } from '@components/space-between';
 import { FiCheck as IconCheck } from 'react-icons/fi';
-import { AccountAvatar } from '@features/account-avatar/account-avatar';
+import { AccountAvatar } from '@components/account-avatar/account-avatar';
 import { useAccountDisplayName } from '@common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@common/hooks/account/use-switch-account';
 import { useLoading } from '@common/hooks/use-loading';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { AccountBalanceCaption } from '@features/account-balance-caption';
-import { useAccounts } from '@store/accounts/account.hooks';
+import { AccountBalanceCaption } from '@components/account-balance-caption';
+import { useAccountAvailableStxBalance, useAccounts } from '@store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
 import { AccountWithAddress } from '@store/accounts/account.models';
@@ -72,6 +72,7 @@ const AccountAvatarItem = memo(({ account, ...rest }: BoxProps & WithAccount) =>
 const AccountListItem = memo(
   ({ account, handleClose }: { account: AccountWithAddress; handleClose: () => void }) => {
     const { isLoading, setIsLoading, setIsIdle } = useLoading('SWITCH_ACCOUNTS' + account.address);
+    const availableStxBalance = useAccountAvailableStxBalance(account.address);
     const { handleSwitchAccount, getIsActive } = useSwitchAccount(handleClose);
     const handleClick = useCallback(async () => {
       setIsLoading();
@@ -101,7 +102,7 @@ const AccountListItem = memo(
             <Stack alignItems="center" spacing="6px" isInline>
               <Caption>{truncateMiddle(account.address, 4)}</Caption>
               <React.Suspense fallback={<></>}>
-                <AccountBalanceCaption address={account.address} />
+                <AccountBalanceCaption availableBalance={availableStxBalance} />
               </React.Suspense>
             </Stack>
           </Stack>
