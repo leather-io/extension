@@ -1,3 +1,10 @@
+## [2.21.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0...v2.21.1) (2021-11-24)
+
+
+### Bug Fixes
+
+* logger import ([828aa50](https://github.com/hirosystems/stacks-wallet-web/commit/828aa50f65a09e3980ea0e6db64a01c6b0c335a3))
+
 # [2.21.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3...v2.21.0) (2021-11-24)
 
 
