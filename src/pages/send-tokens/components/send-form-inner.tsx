@@ -9,7 +9,7 @@ import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { isEmpty } from '@common/utils';
 import { stacksValue } from '@common/stacks-utils';
-import { TransactionFormValues } from '@common/transactions/transaction-utils';
+import { isTxSponsored, TransactionFormValues } from '@common/transactions/transaction-utils';
 import { ErrorLabel } from '@components/error-label';
 import { ShowEditNonceAction } from '@components/show-edit-nonce';
 import { FeeRow } from '@components/fee-row/fee-row';
@@ -29,7 +29,6 @@ import {
 } from '@store/transactions/transaction.hooks';
 
 import { SendFormMemoWarning } from './memo-warning';
-import { AuthType } from '@stacks/transactions';
 
 interface SendFormProps {
   assetError: string | undefined;
@@ -51,7 +50,7 @@ export function SendFormInner(props: SendFormProps) {
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
   const [transaction] = useTxForSettingsState();
-  const isSponsored = transaction?.auth?.authType === AuthType.Sponsored;
+  const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
   useNextTxNonce();
 

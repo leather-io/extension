@@ -16,7 +16,7 @@ import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
-import { AuthType } from '@stacks/transactions';
+import { isTxSponsored } from '@common/transactions/transaction-utils';
 
 export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const { isShowing, onClose } = props;
@@ -24,7 +24,7 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
   const [transaction] = useTxForSettingsState();
   const { showEditNonce } = useDrawers();
   const [, setFeeEstimations] = useFeeEstimationsState();
-  const isSponsored = transaction?.auth?.authType === AuthType.Sponsored;
+  const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
   const handleBroadcastTransaction = useHandleSubmitTransaction({
     transaction: transaction || null,

@@ -1,4 +1,4 @@
-import { StacksTransaction } from '@stacks/transactions';
+import { AuthType, StacksTransaction } from '@stacks/transactions';
 
 import {
   AddressTransactionWithTransfers,
@@ -174,6 +174,10 @@ export function isTransactionTypeSupported(txType: TransactionTypes) {
     txType === TransactionTypes.ContractCall ||
     txType === TransactionTypes.ContractDeploy
   );
+}
+
+export function isTxSponsored(tx: StacksTransaction) {
+  return tx.auth.authType === AuthType.Sponsored;
 }
 
 interface WhenChainIdMap<T> {
