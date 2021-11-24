@@ -94,10 +94,10 @@ module.exports = {
       name: 'no-feature-component-external-use',
       comment: `Only a given feature may import its child 'src/feature/xxx/components'`,
       severity: 'error',
-      from: { path: '(^src/features/)([^/]+)/' },
+      from: { path: '(^src/features/)([^/]+)' },
       to: {
-        path: '^src/features',
-        pathNot: '$1$2',
+        path: '^src/features/[^/]+/components',
+        pathNot: '$1$2/',
       },
     },
     {
