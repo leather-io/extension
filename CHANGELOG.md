@@ -1,213 +1,125 @@
-# [2.21.0-dev.8](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.7...v2.21.0-dev.8) (2021-11-23)
-
-
-### Bug Fixes
-
-* send max calc ([9e05290](https://github.com/hirosystems/stacks-wallet-web/commit/9e052909a098f60e4bbbd7b564fb90903e0dab6a))
-
-# [2.21.0-dev.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.6...v2.21.0-dev.7) (2021-11-23)
-
-
-### Bug Fixes
-
-* fee estimations fail default ([72b25cb](https://github.com/hirosystems/stacks-wallet-web/commit/72b25cbaafa863b76e486d7050d3f4c7224c9625))
-
-# [2.21.0-dev.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.5...v2.21.0-dev.6) (2021-11-23)
-
-
-### Bug Fixes
-
-* replace by fee cache bug, closes [#1975](https://github.com/hirosystems/stacks-wallet-web/issues/1975) ([a99a14e](https://github.com/hirosystems/stacks-wallet-web/commit/a99a14e7c49dc5f8171bf62588298807a62327c8))
-
-# [2.21.0-dev.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.4...v2.21.0-dev.5) (2021-11-19)
-
-
-### Bug Fixes
-
-* send max toast ([a66c62d](https://github.com/hirosystems/stacks-wallet-web/commit/a66c62dc8689a67c784b0b25ae710d8ab9e8422e))
-
-# [2.21.0-dev.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.3...v2.21.0-dev.4) (2021-11-19)
-
-
-### Bug Fixes
-
-* custom fee state after fallback ([6d2a02e](https://github.com/hirosystems/stacks-wallet-web/commit/6d2a02e32e45015f98b5cc9c1c0de6f8692c65ee))
-
-# [2.21.0-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.2...v2.21.0-dev.3) (2021-11-17)
-
-
-### Bug Fixes
-
-* close estimations on click outside ([45bec9a](https://github.com/hirosystems/stacks-wallet-web/commit/45bec9a90329e70b98c64b4490b6e52869bdd5fd))
-
-# [2.21.0-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.1...v2.21.0-dev.2) (2021-11-16)
-
-
-### Features
-
-* use fee estimation endpoint ([78fd652](https://github.com/hirosystems/stacks-wallet-web/commit/78fd65269eb9d2a38670676cf82a09492f1f01a0))
-
-# [2.21.0-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.3...v2.21.0-dev.1) (2021-11-16)
-
-
-### Features
-
-* add segment integration ([0999431](https://github.com/hirosystems/stacks-wallet-web/commit/0999431bf05bf03328b5a4c5e8d75c341a7f8539)), closes [#1748](https://github.com/hirosystems/stacks-wallet-web/issues/1748)
-
-## [2.20.3-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.2...v2.20.3-dev.3) (2021-11-15)
-
-
-### Bug Fixes
-
-* use react-query for mempool calls ([f45edff](https://github.com/hirosystems/stacks-wallet-web/commit/f45edff2ec777faf7d555ed8b0500441fbb1757e))
-
-## [2.20.3-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.3-dev.1...v2.20.3-dev.2) (2021-11-15)
-
-
-### Bug Fixes
-
-* **types:** loose tx type results in stable release bugs ([3b17de0](https://github.com/hirosystems/stacks-wallet-web/commit/3b17de0a243f95f0acf82af733ee779d6f40efda))
-
 ## [2.20.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.2...v2.20.3) (2021-11-12)
 
-
 ### Bug Fixes
 
-* mempool txs query atom ([605e1e7](https://github.com/hirosystems/stacks-wallet-web/commit/605e1e74b2aaa11d5832737bdb09ff7f59404353))
+- mempool txs query atom ([605e1e7](https://github.com/hirosystems/stacks-wallet-web/commit/605e1e74b2aaa11d5832737bdb09ff7f59404353))
 
 ## [2.20.3-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.2...v2.20.3-dev.1) (2021-11-11)
 
-
 ### Bug Fixes
 
-* mempool txs query atom ([73f5b01](https://github.com/hirosystems/stacks-wallet-web/commit/73f5b016fb996015c67adb55f774754d52675a33))
+- mempool txs query atom ([73f5b01](https://github.com/hirosystems/stacks-wallet-web/commit/73f5b016fb996015c67adb55f774754d52675a33))
 
 ## [2.20.2-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.2-dev.1...v2.20.2-dev.2) (2021-11-11)
 
-
 ### Bug Fixes
 
-* mempool txs query atom ([b707d87](https://github.com/hirosystems/stacks-wallet-web/commit/b707d87c490fb08c63cb14fa96b28c49ded0b8ff))
+- mempool txs query atom ([b707d87](https://github.com/hirosystems/stacks-wallet-web/commit/b707d87c490fb08c63cb14fa96b28c49ded0b8ff))
 
 ## [2.20.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1...v2.20.2) (2021-11-11)
 
-
 ### Bug Fixes
 
-* sip010 token transfer not going through ([e9258ae](https://github.com/hirosystems/stacks-wallet-web/commit/e9258ae27769ed2328dc68fce4e5dd953b34c7d5)), closes [#1915](https://github.com/hirosystems/stacks-wallet-web/issues/1915)
+- sip010 token transfer not going through ([e9258ae](https://github.com/hirosystems/stacks-wallet-web/commit/e9258ae27769ed2328dc68fce4e5dd953b34c7d5)), closes [#1915](https://github.com/hirosystems/stacks-wallet-web/issues/1915)
 
 ## [2.20.2-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1...v2.20.2-dev.1) (2021-11-11)
 
-
 ### Bug Fixes
 
-* sip010 token transfer not going through ([7da7d51](https://github.com/hirosystems/stacks-wallet-web/commit/7da7d5149574c855f490d0ec162f0ca11704700e)), closes [#1915](https://github.com/hirosystems/stacks-wallet-web/issues/1915)
+- sip010 token transfer not going through ([7da7d51](https://github.com/hirosystems/stacks-wallet-web/commit/7da7d5149574c855f490d0ec162f0ca11704700e)), closes [#1915](https://github.com/hirosystems/stacks-wallet-web/issues/1915)
 
 ## [2.20.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.0...v2.20.1) (2021-11-10)
 
-
 ### Bug Fixes
 
-* add preview release images, delete unused assets ([89a49fd](https://github.com/hirosystems/stacks-wallet-web/commit/89a49fd09e8d882383c41b29ca6859348dba86fc))
-* clean hex value for deserializeCV ([377031d](https://github.com/hirosystems/stacks-wallet-web/commit/377031d003632116bf3fd639fcdc278bb06392b5))
-* **csp:** chrome 96 regression breaks argon2 ([4492ed2](https://github.com/hirosystems/stacks-wallet-web/commit/4492ed229eb65ad39e0903ee131011cbc82bedfa))
-* **csp:** external images broken ([91331d9](https://github.com/hirosystems/stacks-wallet-web/commit/91331d9133a31e36a66368ef61ca2b09e8532e5d))
-* generate release with preview name ([0baaced](https://github.com/hirosystems/stacks-wallet-web/commit/0baaced4189e59419bfdc27f6ea7c054752aa195))
-* local dev not injecting provider, closes [#1795](https://github.com/hirosystems/stacks-wallet-web/issues/1795) ([d95b413](https://github.com/hirosystems/stacks-wallet-web/commit/d95b413f38fc3a706a169aa70bbf8573a17284cd))
-* manifest app version doesn't include -dev ([8660262](https://github.com/hirosystems/stacks-wallet-web/commit/8660262fe56e267df517efc31e4f249adc1feda5))
-* qa build url ([eae4633](https://github.com/hirosystems/stacks-wallet-web/commit/eae4633d5f4a5124c46d5f97920e1f3853e56fb8))
-* show stx transfers from contract call ([514cc61](https://github.com/hirosystems/stacks-wallet-web/commit/514cc617a9fcf1f5dae19ba31ebb231496587dec)), closes [#1713](https://github.com/hirosystems/stacks-wallet-web/issues/1713)
-* tidy CI jobs, update readme ([1496af9](https://github.com/hirosystems/stacks-wallet-web/commit/1496af9c12f64113eb351ea2af57aa4765abd1c2))
-* upload release as zip ([d244bfa](https://github.com/hirosystems/stacks-wallet-web/commit/d244bfaa65b00cafa0c8ad8b899cad5427b7e359))
-* upload release assets ([efd278a](https://github.com/hirosystems/stacks-wallet-web/commit/efd278a972af847a83c3bbbfb552db1fba11a676))
-* use semantic release ([7eba15a](https://github.com/hirosystems/stacks-wallet-web/commit/7eba15a7ae45273dea13fec6f01f9c745d166dfb))
-* wallet dependence on gaia, closes [#1732](https://github.com/hirosystems/stacks-wallet-web/issues/1732) ([c5b86dd](https://github.com/hirosystems/stacks-wallet-web/commit/c5b86dd5bcd1b7c93fd6dd7a66a2d30803a2f0b7))
+- add preview release images, delete unused assets ([89a49fd](https://github.com/hirosystems/stacks-wallet-web/commit/89a49fd09e8d882383c41b29ca6859348dba86fc))
+- clean hex value for deserializeCV ([377031d](https://github.com/hirosystems/stacks-wallet-web/commit/377031d003632116bf3fd639fcdc278bb06392b5))
+- **csp:** chrome 96 regression breaks argon2 ([4492ed2](https://github.com/hirosystems/stacks-wallet-web/commit/4492ed229eb65ad39e0903ee131011cbc82bedfa))
+- **csp:** external images broken ([91331d9](https://github.com/hirosystems/stacks-wallet-web/commit/91331d9133a31e36a66368ef61ca2b09e8532e5d))
+- generate release with preview name ([0baaced](https://github.com/hirosystems/stacks-wallet-web/commit/0baaced4189e59419bfdc27f6ea7c054752aa195))
+- local dev not injecting provider, closes [#1795](https://github.com/hirosystems/stacks-wallet-web/issues/1795) ([d95b413](https://github.com/hirosystems/stacks-wallet-web/commit/d95b413f38fc3a706a169aa70bbf8573a17284cd))
+- manifest app version doesn't include -dev ([8660262](https://github.com/hirosystems/stacks-wallet-web/commit/8660262fe56e267df517efc31e4f249adc1feda5))
+- qa build url ([eae4633](https://github.com/hirosystems/stacks-wallet-web/commit/eae4633d5f4a5124c46d5f97920e1f3853e56fb8))
+- show stx transfers from contract call ([514cc61](https://github.com/hirosystems/stacks-wallet-web/commit/514cc617a9fcf1f5dae19ba31ebb231496587dec)), closes [#1713](https://github.com/hirosystems/stacks-wallet-web/issues/1713)
+- tidy CI jobs, update readme ([1496af9](https://github.com/hirosystems/stacks-wallet-web/commit/1496af9c12f64113eb351ea2af57aa4765abd1c2))
+- upload release as zip ([d244bfa](https://github.com/hirosystems/stacks-wallet-web/commit/d244bfaa65b00cafa0c8ad8b899cad5427b7e359))
+- upload release assets ([efd278a](https://github.com/hirosystems/stacks-wallet-web/commit/efd278a972af847a83c3bbbfb552db1fba11a676))
+- use semantic release ([7eba15a](https://github.com/hirosystems/stacks-wallet-web/commit/7eba15a7ae45273dea13fec6f01f9c745d166dfb))
+- wallet dependence on gaia, closes [#1732](https://github.com/hirosystems/stacks-wallet-web/issues/1732) ([c5b86dd](https://github.com/hirosystems/stacks-wallet-web/commit/c5b86dd5bcd1b7c93fd6dd7a66a2d30803a2f0b7))
 
 ## [2.20.1-dev.12](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.11...v2.20.1-dev.12) (2021-11-10)
 
-
 ### Bug Fixes
 
-* **csp:** chrome 96 regression breaks argon2 ([f5b064c](https://github.com/hirosystems/stacks-wallet-web/commit/f5b064cb2d2293d79292768b3e3a3391e543134e))
+- **csp:** chrome 96 regression breaks argon2 ([f5b064c](https://github.com/hirosystems/stacks-wallet-web/commit/f5b064cb2d2293d79292768b3e3a3391e543134e))
 
 ## [2.20.1-dev.11](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.10...v2.20.1-dev.11) (2021-11-09)
 
-
 ### Bug Fixes
 
-* clean hex value for deserializeCV ([4d98347](https://github.com/hirosystems/stacks-wallet-web/commit/4d98347ba61b1a48dbf5950782d2e70b1650a17d))
+- clean hex value for deserializeCV ([4d98347](https://github.com/hirosystems/stacks-wallet-web/commit/4d98347ba61b1a48dbf5950782d2e70b1650a17d))
 
 ## [2.20.1-dev.10](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.9...v2.20.1-dev.10) (2021-11-09)
 
-
 ### Bug Fixes
 
-* show stx transfers from contract call ([9bd7d10](https://github.com/hirosystems/stacks-wallet-web/commit/9bd7d10f8b58f3735153f0b924a91742aeae1654)), closes [#1713](https://github.com/hirosystems/stacks-wallet-web/issues/1713)
+- show stx transfers from contract call ([9bd7d10](https://github.com/hirosystems/stacks-wallet-web/commit/9bd7d10f8b58f3735153f0b924a91742aeae1654)), closes [#1713](https://github.com/hirosystems/stacks-wallet-web/issues/1713)
 
 ## [2.20.1-dev.9](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.8...v2.20.1-dev.9) (2021-11-02)
 
-
 ### Bug Fixes
 
-* qa build url ([cfa5abe](https://github.com/hirosystems/stacks-wallet-web/commit/cfa5abe1d6290dd0774be4a99bcbe68ad620cb10))
+- qa build url ([cfa5abe](https://github.com/hirosystems/stacks-wallet-web/commit/cfa5abe1d6290dd0774be4a99bcbe68ad620cb10))
 
 ## [2.20.1-dev.8](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.7...v2.20.1-dev.8) (2021-10-30)
 
-
 ### Bug Fixes
 
-* **csp:** external images broken ([29ca0f3](https://github.com/hirosystems/stacks-wallet-web/commit/29ca0f30eab3ccd78a4613fb59a57da2373c515f))
+- **csp:** external images broken ([29ca0f3](https://github.com/hirosystems/stacks-wallet-web/commit/29ca0f30eab3ccd78a4613fb59a57da2373c515f))
 
 ## [2.20.1-dev.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.6...v2.20.1-dev.7) (2021-10-29)
 
-
 ### Bug Fixes
 
-* add preview release images, delete unused assets ([01c3121](https://github.com/hirosystems/stacks-wallet-web/commit/01c31218f3771e2434fc95a5b95ee20c68746632))
+- add preview release images, delete unused assets ([01c3121](https://github.com/hirosystems/stacks-wallet-web/commit/01c31218f3771e2434fc95a5b95ee20c68746632))
 
 ## [2.20.1-dev.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.5...v2.20.1-dev.6) (2021-10-29)
 
-
 ### Bug Fixes
 
-* generate release with preview name ([bdaa8bf](https://github.com/hirosystems/stacks-wallet-web/commit/bdaa8bfde95d04bb7aa355be217a20b28389b139))
+- generate release with preview name ([bdaa8bf](https://github.com/hirosystems/stacks-wallet-web/commit/bdaa8bfde95d04bb7aa355be217a20b28389b139))
 
 ## [2.20.1-dev.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.4...v2.20.1-dev.5) (2021-10-29)
 
-
 ### Bug Fixes
 
-* manifest app version doesn't include -dev ([83fd238](https://github.com/hirosystems/stacks-wallet-web/commit/83fd2389a4b387c19d047bf501abc015a46dd680))
+- manifest app version doesn't include -dev ([83fd238](https://github.com/hirosystems/stacks-wallet-web/commit/83fd2389a4b387c19d047bf501abc015a46dd680))
 
 ## [2.20.1-dev.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.3...v2.20.1-dev.4) (2021-10-29)
 
-
 ### Bug Fixes
 
-* tidy CI jobs, update readme ([3c55a11](https://github.com/hirosystems/stacks-wallet-web/commit/3c55a11b497e68ba210444c1b3faab55ea73f5e8))
+- tidy CI jobs, update readme ([3c55a11](https://github.com/hirosystems/stacks-wallet-web/commit/3c55a11b497e68ba210444c1b3faab55ea73f5e8))
 
 ## [2.20.1-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.2...v2.20.1-dev.3) (2021-10-29)
 
-
 ### Bug Fixes
 
-* upload release as zip ([0b9d471](https://github.com/hirosystems/stacks-wallet-web/commit/0b9d47157ab457870c7d848f4c2a3794d5749caf))
+- upload release as zip ([0b9d471](https://github.com/hirosystems/stacks-wallet-web/commit/0b9d47157ab457870c7d848f4c2a3794d5749caf))
 
 ## [2.20.1-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.1-dev.1...v2.20.1-dev.2) (2021-10-29)
 
-
 ### Bug Fixes
 
-* upload release assets ([0fc66ea](https://github.com/hirosystems/stacks-wallet-web/commit/0fc66ea4dd7751a8d50fea0a2336af6dc029aac5))
+- upload release assets ([0fc66ea](https://github.com/hirosystems/stacks-wallet-web/commit/0fc66ea4dd7751a8d50fea0a2336af6dc029aac5))
 
 ## [2.20.1-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.20.0...v2.20.1-dev.1) (2021-10-29)
 
-
 ### Bug Fixes
 
-* local dev not injecting provider, closes [#1795](https://github.com/hirosystems/stacks-wallet-web/issues/1795) ([d95b413](https://github.com/hirosystems/stacks-wallet-web/commit/d95b413f38fc3a706a169aa70bbf8573a17284cd))
-* use semantic release ([24b752c](https://github.com/hirosystems/stacks-wallet-web/commit/24b752c952bc2b1628cbedfbe163482964fd5f0c))
-* wallet dependence on gaia, closes [#1732](https://github.com/hirosystems/stacks-wallet-web/issues/1732) ([c5b86dd](https://github.com/hirosystems/stacks-wallet-web/commit/c5b86dd5bcd1b7c93fd6dd7a66a2d30803a2f0b7))
+- local dev not injecting provider, closes [#1795](https://github.com/hirosystems/stacks-wallet-web/issues/1795) ([d95b413](https://github.com/hirosystems/stacks-wallet-web/commit/d95b413f38fc3a706a169aa70bbf8573a17284cd))
+- use semantic release ([24b752c](https://github.com/hirosystems/stacks-wallet-web/commit/24b752c952bc2b1628cbedfbe163482964fd5f0c))
+- wallet dependence on gaia, closes [#1732](https://github.com/hirosystems/stacks-wallet-web/issues/1732) ([c5b86dd](https://github.com/hirosystems/stacks-wallet-web/commit/c5b86dd5bcd1b7c93fd6dd7a66a2d30803a2f0b7))
 
 # Changelog
 
