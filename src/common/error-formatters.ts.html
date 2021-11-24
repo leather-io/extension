@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -80,47 +80,47 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BigNumber from 'bignumber.js';
-import { initBigNumber } from '@common/utils';
-import { microStxToStx } from '@common/stacks-utils';
-import { SendFormErrorMessages } from <span class="cstat-no" title="statement not covered" >'@common/error-messages';</span>
+import { initBigNumber } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { microStxToStx } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { SendFormErrorMessages } from <span class="cstat-no" title="statement not covered" >'@common/error-messages'<span class="cstat-no" title="statement not covered" >;</span></span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >formatPrecisionError(</span>symbol: string, decimals: number) {
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >formatPrecisionError(</span>s</span>ymbol: string, decimals: number) {
   const error = SendFormErrorMessages.TooMuchPrecision;
 <span class="cstat-no" title="statement not covered" >  return error.replace('{token}', symbol).replace('{decimals}', String(decimals));</span>
 }
 &nbsp;
-export function formatInsufficientBalanceError(
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >formatInsufficientBalanceError(</span></span>
   availableBalance?: BigNumber | string,
   symbol?: string
 ) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!availableBalance || !symbol) <span class="cstat-no" title="statement not covered" >return;</span>
-  const isStx = symbol === 'STX';
-  const amount = initBigNumber(availableBalance);
-  const formattedAmount = isStx<span class="branch-0 cbranch-no" title="branch not covered" > ? microStxToStx(amount).toString() : a</span>mount.toString(10);
-  return `${SendFormErrorMessages.InsufficientBalance} ${
-    amount.lt(0) ? <span class="branch-0 cbranch-no" title="branch not covered" >'0' : f</span>ormattedAmount
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!availableBalance || !symbol) <span class="cstat-no" title="statement not covered" >return;</span></span>
+  const isStx = <span class="cstat-no" title="statement not covered" >symbol === 'STX';</span>
+  const amount<span class="cstat-no" title="statement not covered" > = initBigNumber(availableBalance);</span>
+  const formattedAmount = <span class="cstat-no" title="statement not covered" >isStx ? microStxToStx(amount).toString() : amount.toString(10);</span>
+<span class="cstat-no" title="statement not covered" >  return `${SendFormErrorMessages.InsufficientBalance} ${</span>
+    amount.lt(0) ? '0' : formattedAmount
   } ${symbol}`;
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -130,7 +130,7 @@ export function formatInsufficientBalanceError(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

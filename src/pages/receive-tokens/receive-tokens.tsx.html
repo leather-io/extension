@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -104,7 +104,15 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -123,6 +131,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -164,12 +178,19 @@ import { truncateMiddle } from '@stacks/ui-utils'<span class="cstat-no" title="s
 import { Tooltip } from '@components/tooltip'<span class="cstat-no" title="statement not covered" >;</span>
 import { QrCode } from './components/address-qr-code'<span class="cstat-no" title="statement not covered" >;</span>
 import { ReceiveTokensHeader } from './components/recieve-tokens-header'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAnalytics } from '@common/hooks/analytics/use-analytics'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >PopupReceive<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
   const { currentAccount, currentAccountStxAddress }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const doChangeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
   const address = <span class="cstat-no" title="statement not covered" >currentAccountStxAddress || '';</span>
+  const analytics<span class="cstat-no" title="statement not covered" > = useAnalytics();</span>
   const { onCopy, hasCopied }<span class="cstat-no" title="statement not covered" > = useClipboard(address);</span>
+  const copyToClipboard<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('copy_address_to_clipboard');</span>
+<span class="cstat-no" title="statement not covered" >    onCopy();</span>
+  };
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;PopupContainer
       header={&lt;ReceiveTokensHeader onClose<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >d</span>oChangeScreen(ScreenPaths.POPUP_HOME)} /&gt;}</span>
@@ -191,7 +212,7 @@ export const <span class="cstat-no" title="statement not covered" >PopupReceive<
         &lt;/Box&gt;
       &lt;/Stack&gt;
       &lt;Box mt="auto"&gt;
-        &lt;Button width="100%" onClick={onCopy} borderRadius="10px"&gt;
+        &lt;Button width="100%" onClick={copyToClipboard} borderRadius="10px"&gt;
           Copy your address
         &lt;/Button&gt;
       &lt;/Box&gt;
@@ -205,7 +226,7 @@ export const <span class="cstat-no" title="statement not covered" >PopupReceive<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

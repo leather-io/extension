@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">52.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/17</span>
+                <span class='fraction'>9/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/14</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>1/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">64.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>9/14</span>
             </div>
         
             
@@ -99,10 +99,10 @@
 <a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
@@ -124,21 +124,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { UseQueryOptions } from 'react-query';
 import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 &nbsp;
-import { useGetAccountNonce } from '@query/nonce/use-get-account-nonce';
+import { useGetAccountNonce } from <span class="cstat-no" title="statement not covered" >'@query/nonce/use-get-account-nonce';</span>
 import { useLastApiNonceState } from '@store/accounts/nonce.hooks';
 &nbsp;
 export function correctNextNonce(
@@ -163,16 +163,16 @@ export function correctNextNonce(
   };
 }
 &nbsp;
-export function useNextTxNonce() {
-  const [lastApiNonce, setLastApiNonce] = useLastApiNonceState();
-  const queryOptions: UseQueryOptions&lt;AddressNonces&gt; = {
+export function <span class="fstat-no" title="function not covered" >useNextTxNonce(</span>) {
+  const [lastApiNonce, setLastApiNonce<span class="cstat-no" title="statement not covered" >] = useLastApiNonceState();</span>
+  const queryOptions: UseQueryOptions&lt;AddressNonces&gt; = <span class="cstat-no" title="statement not covered" >{</span>
     onSuccess<span class="fstat-no" title="function not covered" >: (d</span>ata: AddressNonces) =&gt; {
       const nextNonce = <span class="cstat-no" title="statement not covered" >data &amp;&amp; correctNextNonce(data);</span>
 <span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (nextNonce) <span class="cstat-no" title="statement not covered" >setLastApiNonce(nextNonce);</span></span>
     },
   };
   useGetAccountNonce(queryOptions as any);
-  return <span class="branch-1 cbranch-no" title="branch not covered" >lastApiNonce?.nonce;</span>
+<span class="cstat-no" title="statement not covered" >  return lastApiNonce?.nonce;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -181,7 +181,7 @@ export function useNextTxNonce() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

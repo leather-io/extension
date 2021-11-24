@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -111,22 +111,42 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,15 +192,25 @@ import type { StackProps } from '@stacks/ui';
 import { Tabs } from '@components/tabs'<span class="cstat-no" title="statement not covered" >;</span>
 import { LoadingSpinner } from '@components/loading-spinner'<span class="cstat-no" title="statement not covered" >;</span>
 import { useHomeTabs } from '@common/hooks/use-home-tabs'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAnalytics } from '@common/hooks/analytics/use-analytics'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface HomeTabsProps extends StackProps {
   balances: JSX.Element;
   activity: JSX.Element;
 }
+&nbsp;
+const ANALYTICS_PATH = <span class="cstat-no" title="statement not covered" >['/balances', '/activity'];</span>
+&nbsp;
 export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >HomeTabs(</span>p</span>rops: HomeTabsProps) {
   const { balances, activity, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const analytics<span class="cstat-no" title="statement not covered" > = useAnalytics();</span>
 &nbsp;
   const { activeTab, setActiveTab }<span class="cstat-no" title="statement not covered" > = useHomeTabs();</span>
+&nbsp;
+  const setActiveTabTracked<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = (i</span>ndex: number) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.page('view', ANALYTICS_PATH[index]);</span>
+<span class="cstat-no" title="statement not covered" >    setActiveTab(index);</span>
+  };
 &nbsp;
   return (
     &lt;Stack flexGrow={1} spacing="extra-loose" {...rest}&gt;
@@ -190,7 +220,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
           { slug: 'activity', label: 'Activity' },
         ]}
         activeTab={activeTab}
-        onTabClick={setActiveTab}
+        onTabClick={setActiveTabTracked}
       /&gt;
       &lt;Flex position="relative" flexGrow={1}&gt;
         {activeTab === 0 &amp;&amp; (
@@ -226,7 +256,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

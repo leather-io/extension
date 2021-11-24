@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>7/14</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>3/8</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -78,43 +78,49 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">95x</span>
-<span class="cline-any cline-yes">95x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLoadingStore } from '@store/ui/ui.hooks';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLoadingState } from '@store/ui/ui.hooks';
 &nbsp;
-export enum LOADING_KEYS {
-  SUBMIT_TRANSACTION = 'loading/SUBMIT_TRANSACTION',
-  TX_FEE_NONCE_DRAWER = 'loading/TX_FEE_NONCE_DRAWER',
+export enum LoadingKeys {
+  CONFIRM_DRAWER = 'loading/CONFIRM_DRAWER',
+  EDIT_NONCE_DRAWER = 'loading/EDIT_NONCE_DRAWER',
   INCREASE_FEE_DRAWER = 'loading/INCREASE_FEE_DRAWER',
+  SEND_TOKENS_FORM = 'loading/SEND_TOKENS_FORM',
+  SUBMIT_TRANSACTION = 'loading/SUBMIT_TRANSACTION',
 }
 &nbsp;
-export function useLoading(key: string) {
-  const [state, setState] = useLoadingStore(key);
+export function <span class="fstat-no" title="function not covered" >useLoading(</span>key: string) {
+  const [state, setState<span class="cstat-no" title="statement not covered" >] = useLoadingState(key);</span>
 &nbsp;
-  const setIsLoading<span class="fstat-no" title="function not covered" > = () =&gt; <span class="cstat-no" title="statement not covered" >s</span>etState('loading');</span>
-  const setIsIdle<span class="fstat-no" title="function not covered" > = () =&gt; <span class="cstat-no" title="statement not covered" >s</span>etState('idle');</span>
+  const setIsLoading<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; <span class="cstat-no" title="statement not covered" >s</span>etState('loading');</span></span>
+  const setIsIdle<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; <span class="cstat-no" title="statement not covered" >s</span>etState('idle');</span></span>
 &nbsp;
-  const isLoading = state === 'loading';
-  return {
+  const isLoading = <span class="cstat-no" title="statement not covered" >state === 'loading';</span>
+<span class="cstat-no" title="statement not covered" >  return {</span>
     isLoading,
     setIsLoading,
     setIsIdle,
@@ -127,7 +133,7 @@ export function useLoading(key: string) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

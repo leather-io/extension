@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -86,7 +86,16 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -94,6 +103,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -102,16 +120,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,27 +139,36 @@ import { ScreenPaths } from '@common/types'<span class="cstat-no" title="stateme
 import { useChangeScreen } from '@common/hooks/use-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import { AllowDiagnosticsLayout } from './allow-diagnostics-layout'<span class="cstat-no" title="statement not covered" >;</span>
-import { initSentry } from '@common/sentry-init'<span class="cstat-no" title="statement not covered" >;</span>
+import { initSentry } from <span class="cstat-no" title="statement not covered" >'@common/sentry-init'<span class="cstat-no" title="statement not covered" >;</span></span>
+import { initSegment } from '@common/segment-init'<span class="cstat-no" title="statement not covered" >;</span>
+import { AllowDiagnosticsFullLayout } from './allow-diagnostics-layout'<span class="cstat-no" title="statement not covered" >;</span>
+import { PopupContainer } from '@components/popup/container'<span class="cstat-no" title="statement not covered" >;</span>
+import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >AllowDiagnosticsDrawer<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
+export const <span class="cstat-no" title="statement not covered" >AllowDiagnosticsFullPage<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
   const changeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
   const [, setHasAllowedDiagnostics<span class="cstat-no" title="statement not covered" >] = useHasAllowedDiagnostics();</span>
 &nbsp;
   const goHomeAndSetDiagnosticsPermissionTo<span class="cstat-no" title="statement not covered" > = useCallback(</span>
-    (areDiagnosticsAllowed: boolean) =&gt; {
-<span class="cstat-no" title="statement not covered" >      changeScreen(ScreenPaths.HOME);</span>
+    (areDiagnosticsAllowed: boolean | undefined) =&gt; {
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof areDiagnosticsAllowed === undefined) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >      setHasAllowedDiagnostics(areDiagnosticsAllowed);</span>
-<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (areDiagnosticsAllowed<span class="cstat-no" title="statement not covered" >) initSentry();</span></span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (areDiagnosticsAllowed) {</span>
+        initSentry();
+<span class="cstat-no" title="statement not covered" >        void initSegment();</span>
+      }
+<span class="cstat-no" title="statement not covered" >      changeScreen(ScreenPaths.HOME);</span>
     },
     [changeScreen, setHasAllowedDiagnostics]
   );
 &nbsp;
   return (
-    &lt;AllowDiagnosticsLayout
-      onUserDenyDiagnosticsPermissions<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >g</span>oHomeAndSetDiagnosticsPermissionTo(false)}</span>
-      onUserAllowDiagnostics<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >g</span>oHomeAndSetDiagnosticsPermissionTo(true)}</span>
-    /&gt;
+    &lt;PopupContainer header={&lt;Header hideActions /&gt;} requestType="auth"&gt;
+      &lt;AllowDiagnosticsFullLayout
+        onUserDenyDiagnosticsPermissions<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >g</span>oHomeAndSetDiagnosticsPermissionTo(false)}</span>
+        onUserAllowDiagnostics<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >g</span>oHomeAndSetDiagnosticsPermissionTo(true)}</span>
+      /&gt;
+    &lt;/PopupContainer&gt;
   );
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -151,7 +178,7 @@ export const <span class="cstat-no" title="statement not covered" >AllowDiagnost
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.3% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,18 +91,18 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,18 +125,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useMemo } from 'react';
-import { color, Flex, FlexProps, Text } from '@stacks/ui';
-import { ChainID } from '@stacks/transactions';
-import { useDrawers } from '@common/hooks/use-drawers';
-import { useCurrentNetwork } from '@common/hooks/use-current-network';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { memo, useMemo } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import { color, Flex, FlexProps, Text } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { ChainID } from '@stacks/transactions'<span class="cstat-no" title="statement not covered" >;</span>
+import { useDrawers } from '@common/hooks/use-drawers'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCurrentNetwork } from '@common/hooks/use-current-network'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export const NetworkModeBadge: React.FC&lt;FlexProps&gt; = memo(props =&gt; {
-  const { chainId, name } = useCurrentNetwork();
-  const isTestnetChain = useMemo(() =&gt; chainId === ChainID.Testnet, [chainId]);
-  const { setShowNetworks } = useDrawers();
+export const <span class="cstat-no" title="statement not covered" >NetworkModeBadge<span class="cstat-no" title="statement not covered" >: React.FC&lt;FlexProps&gt; = memo(p</span>rops =&gt; {</span>
+  const { chainId, name }<span class="cstat-no" title="statement not covered" > = useCurrentNetwork();</span>
+  const isTestnetChain<span class="cstat-no" title="statement not covered" > = useMemo(() =&gt; <span class="cstat-no" title="statement not covered" >chainId === ChainID.Testnet,</span> [chainId]);</span>
+  const { setShowNetworks }<span class="cstat-no" title="statement not covered" > = useDrawers();</span>
 &nbsp;
-  return isTestnetChain ? (
+<span class="cstat-no" title="statement not covered" >  return isTestnetChain ? (</span>
     &lt;Flex
       borderWidth="1px"
       borderColor={color('border')}
@@ -157,7 +157,7 @@ export const NetworkModeBadge: React.FC&lt;FlexProps&gt; = memo(props =&gt; {
         {name}
       &lt;/Text&gt;
     &lt;/Flex&gt;
-  ) : <span class="branch-1 cbranch-no" title="branch not covered" >null;</span>
+  ) : null;
 });
 &nbsp;</pre></td></tr></table></pre>
 
@@ -166,7 +166,7 @@ export const NetworkModeBadge: React.FC&lt;FlexProps&gt; = memo(props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

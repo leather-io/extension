@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">21.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>3/14</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>3/12</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -90,29 +90,15 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,17 +107,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getAssetStringParts, truncateMiddle } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 import type { Asset } from '@common/asset-types';
 import type { AccountBalanceResponseBigNumber } from '@store/accounts/types';
 &nbsp;
-export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
-  const _assets: Asset[] = [];
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!balances) <span class="cstat-no" title="statement not covered" >return _assets;</span>
-  _assets.push({
+export function <span class="fstat-no" title="function not covered" >transformAssets(</span>balances?: AccountBalanceResponseBigNumber) {
+  const _assets: Asset[] = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!balances) <span class="cstat-no" title="statement not covered" >return _assets;</span></span>
+<span class="cstat-no" title="statement not covered" >  _assets.push({</span>
     type: 'stx',
     contractAddress: '',
     contractName: '',
@@ -141,11 +141,11 @@ export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
     canTransfer: true,
     hasMemo: true,
   });
-  Object.keys(balances.fungible_tokens).forEach(key =&gt; {
-    const balance = new BigNumber(balances.fungible_tokens[key].balance);
-    const { address, contractName, assetName } = getAssetStringParts(key);
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (balance.isEqualTo(0)) <span class="cstat-no" title="statement not covered" >return; /</span>/ tokens users have traded will persist in the api response even if they don't have a balance
-    _assets.push({
+<span class="cstat-no" title="statement not covered" >  Object.keys(balances.fungible_tokens).forEach<span class="fstat-no" title="function not covered" >(k</span>ey =&gt; {</span>
+    const balance = <span class="cstat-no" title="statement not covered" >new BigNumber(balances.fungible_tokens[key].balance);</span>
+    const { address, contractName, assetName }<span class="cstat-no" title="statement not covered" > = getAssetStringParts(key);</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (balance.isEqualTo(0)) <span class="cstat-no" title="statement not covered" >return; /</span></span>/ tokens users have traded will persist in the api response even if they don't have a balance
+<span class="cstat-no" title="statement not covered" >    _assets.push({</span>
       type: 'ft',
       subtitle: `${truncateMiddle(address)}.${contractName}`,
       contractAddress: address,
@@ -154,7 +154,7 @@ export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
       balance: balance,
     });
   });
-  return _assets;
+<span class="cstat-no" title="statement not covered" >  return _assets;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -163,7 +163,7 @@ export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

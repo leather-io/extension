@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -110,23 +110,29 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -168,6 +174,7 @@ import { Box, Flex, Button, Stack } from '@stacks/ui'<span class="cstat-no" titl
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
 import { Body } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 import { SettingsSelectors } from '@tests/integration/settings.selectors'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAnalytics } from '@common/hooks/analytics/use-analytics'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface CreateAccountProps {
   close: () =&gt; void;
@@ -179,15 +186,17 @@ export const <span class="cstat-no" title="statement not covered" >CreateAccount
   const { doCreateNewAccount }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const [isSetting, setSetting<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
   const [hasFired, setHasFired<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
+  const analytics<span class="cstat-no" title="statement not covered" > = useAnalytics();</span>
 &nbsp;
   const createAccount<span class="cstat-no" title="statement not covered" > = useCallback(async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isSetting) {</span>
 <span class="cstat-no" title="statement not covered" >      setSetting(true);</span>
 <span class="cstat-no" title="statement not covered" >      await doCreateNewAccount();</span>
+<span class="cstat-no" title="statement not covered" >      void analytics.track('create_new_account');</span>
 <span class="cstat-no" title="statement not covered" >      setSetting(false);</span>
 <span class="cstat-no" title="statement not covered" >      window.setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; <span class="cstat-no" title="statement not covered" >c</span>lose(), T</span>IMEOUT);</span>
     }
-  }, [doCreateNewAccount, isSetting, setSetting, close]);
+  }, [isSetting, doCreateNewAccount, analytics, close]);
 &nbsp;
   useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!hasFired) {</span>
@@ -223,7 +232,7 @@ export const <span class="cstat-no" title="statement not covered" >CreateAccount
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/15</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -82,53 +82,53 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as yup from 'yup';
-import { validateAddressChain, validateStacksAddress } from '@common/stacks-utils';
-import { isString } from '@common/utils';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as yup<span class="cstat-no" title="statement not covered" > from 'yup';</span>
+import { validateAddressChain, validateStacksAddress } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { isString } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
 import { Network } from '@common/constants';
 &nbsp;
-export function stxAddressNetworkValidatorFactory(currentNetwork: Network) {
-  return (value: unknown) =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isString(value)) <span class="cstat-no" title="statement not covered" >return false;</span>
-    return validateAddressChain(value, currentNetwork);
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >stxAddressNetworkValidatorFactory(</span>c</span>urrentNetwork: Network) {
+<span class="cstat-no" title="statement not covered" >  return<span class="fstat-no" title="function not covered" > (v</span>alue: unknown) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isString(value)) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+<span class="cstat-no" title="statement not covered" >    return validateAddressChain(value, currentNetwork);</span>
   };
 }
 &nbsp;
-export function stxNotCurrentAddressValidatorFactory(currentAddress: string) {
-  return (value: unknown) =&gt; value !== currentAddress;
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >stxNotCurrentAddressValidatorFactory(</span>c</span>urrentAddress: string) {
+  return<span class="fstat-no" title="function not covered" > (v</span>alue: unknown) =&gt; <span class="cstat-no" title="statement not covered" >value !== currentAddress;</span>
 }
 &nbsp;
-export function stxAddressSchema(errorMsg: string) {
-  return yup.string().test({
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >stxAddressSchema(</span>e</span>rrorMsg: string) {
+<span class="cstat-no" title="statement not covered" >  return yup.string().test({</span>
     message: errorMsg,
-    test(value: unknown) {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (!isString(value)) <span class="cstat-no" title="statement not covered" >return false;</span>
-      return validateStacksAddress(value);
+<span class="fstat-no" title="function not covered" >    test(</span>value: unknown) {
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (!isString(value)) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+<span class="cstat-no" title="statement not covered" >      return validateStacksAddress(value);</span>
     },
   });
 }
@@ -139,7 +139,7 @@ export function stxAddressSchema(errorMsg: string) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

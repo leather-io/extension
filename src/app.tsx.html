@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -109,7 +109,13 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -122,7 +128,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -133,10 +138,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,35 +173,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect } from <span class="cstat-no" title="statement not covered" >'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
+import { HashRouter as Router } from 'react-router-dom'<span class="cstat-no" title="statement not covered" >;</span>
 import { QueryClientProvider } from 'react-query'<span class="cstat-no" title="statement not covered" >;</span>
-import { jotaiWrappedReactQueryQueryClient as queryClient } from '@store/common/common.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { Toaster } from 'react-hot-toast'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import { theme } from '@common/theme'<span class="cstat-no" title="statement not covered" >;</span>
-import { HashRouter as Router } from 'react-router-dom'<span class="cstat-no" title="statement not covered" >;</span>
 import { GlobalStyles } from '@components/global-styles'<span class="cstat-no" title="statement not covered" >;</span>
 import { VaultLoader } from '@components/vault-loader'<span class="cstat-no" title="statement not covered" >;</span>
 import { AccountsDrawer } from '@features/accounts-drawer/accounts-drawer'<span class="cstat-no" title="statement not covered" >;</span>
 import { NetworksDrawer } from '@features/network-drawer/networks-drawer'<span class="cstat-no" title="statement not covered" >;</span>
-import { Routes } from './routes'<span class="cstat-no" title="statement not covered" >;</span>
-&nbsp;
 import { SettingsPopover } from '@features/settings-dropdown/settings-popover'<span class="cstat-no" title="statement not covered" >;</span>
 import { AppErrorBoundary } from '@features/errors/app-error-boundary'<span class="cstat-no" title="statement not covered" >;</span>
-import { TransactionSettingsDrawer } from '@features/fee-nonce-drawers/transaction-settings-drawer'<span class="cstat-no" title="statement not covered" >;</span>
-import { SpeedUpTransactionDrawer } from '@features/fee-nonce-drawers/speed-up-transaction-drawer'<span class="cstat-no" title="statement not covered" >;</span>
+import { EditNonceDrawer } from '@features/edit-nonce-drawer/edit-nonce-drawer'<span class="cstat-no" title="statement not covered" >;</span>
+import { IncreaseFeeDrawer } from '@features/increase-fee-drawer/increase-fee-drawer'<span class="cstat-no" title="statement not covered" >;</span>
 import { Devtools } from '@features/devtool/devtools'<span class="cstat-no" title="statement not covered" >;</span>
+import { initSegment } from '@common/segment-init'<span class="cstat-no" title="statement not covered" >;</span>
+import { jotaiWrappedReactQueryQueryClient as queryClient } from '@store/common/common.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+&nbsp;
+import { Routes } from './routes'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 const devToolsEnabled = <span class="cstat-no" title="statement not covered" >false;</span>
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >App<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
-  useEffect(() =&gt; {
-    (<span class="cstat-no" title="statement not covered" >window as any).__APP_VERSION__ = VERSION;</span>
-  }, []);
+declare global {
+  interface Window {
+    __APP_VERSION__: string;
+  }
+}
 &nbsp;
+<span class="cstat-no" title="statement not covered" >window.__APP_VERSION__ = VERSION;</span>
+<span class="cstat-no" title="statement not covered" >void initSegment();</span>
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >App<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ThemeProvider theme={theme}&gt;
       &lt;GlobalStyles /&gt;
@@ -200,8 +218,8 @@ export const <span class="cstat-no" title="statement not covered" >App<span clas
                 &lt;Routes /&gt;
                 &lt;AccountsDrawer /&gt;
                 &lt;NetworksDrawer /&gt;
-                &lt;TransactionSettingsDrawer /&gt;
-                &lt;SpeedUpTransactionDrawer /&gt;
+                &lt;EditNonceDrawer /&gt;
+                &lt;IncreaseFeeDrawer /&gt;
                 &lt;SettingsPopover /&gt;
               &lt;/AppErrorBoundary&gt;
               &lt;Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} /&gt;
@@ -220,7 +238,7 @@ export const <span class="cstat-no" title="statement not covered" >App<span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

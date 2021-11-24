@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/76</span>
+                <span class='fraction'>0/80</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/70</span>
+                <span class='fraction'>0/73</span>
             </div>
         
             
@@ -369,7 +369,11 @@
 <a name='L310'></a><a href='#L310'>310</a>
 <a name='L311'></a><a href='#L311'>311</a>
 <a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -401,6 +405,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -631,7 +636,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -644,13 +650,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -713,11 +721,12 @@ import {
   StxTransfer,
 } from '@common/transactions/transaction-utils'<span class="cstat-no" title="statement not covered" >;</span>
 import { useAssetByIdentifier } from '@store/assets/asset.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAnalytics } from '@common/hooks/analytics/use-analytics'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 type Tx = MempoolTransaction | Transaction;
 &nbsp;
 const Status<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = ({</span> transaction, ...rest }: { transaction: Tx } &amp; BoxProps<span class="cstat-no" title="statement not covered" >) =&gt; {</span></span>
-  const isPending<span class="cstat-no" title="statement not covered" > = isPendingTx(transaction as any);</span>
+  const isPending<span class="cstat-no" title="statement not covered" > = isPendingTx(transaction as MempoolTransaction);</span>
   const isFailed<span class="cstat-no" title="statement not covered" > = !isPending &amp;&amp; transaction.tx_status !== 'success';</span>
 <span class="cstat-no" title="statement not covered" >  return isFailed || isPending ? (</span>
     &lt;Box {...rest}&gt;
@@ -943,10 +952,13 @@ export const TxItem<span class="cstat-no" title="statement not covered" ><span c
   const [component, bind, { isHovered }<span class="cstat-no" title="statement not covered" >] = usePressable(true);</span>
   const { handleOpenTxLink }<span class="cstat-no" title="statement not covered" > = useExplorerLink();</span>
   const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
+  const analytics<span class="cstat-no" title="statement not covered" > = useAnalytics();</span>
+  const openTxLink<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction');</span>
+<span class="cstat-no" title="statement not covered" >    handleOpenTxLink(transaction.tx_id);</span>
+  };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!transaction) {</span>
-<span class="cstat-no" title="statement not covered" >    return null;</span>
-  }
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!transaction) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
   const isOriginator = <span class="cstat-no" title="statement not covered" >transaction.sender_address === currentAccount?.address;</span>
 &nbsp;
@@ -962,13 +974,13 @@ export const TxItem<span class="cstat-no" title="statement not covered" ><span c
         isInline
         position="relative"
         zIndex={2}
-        onClick<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >h</span>andleOpenTxLink(transaction.tx_id)}</span>
+        onClick={openTxLink}
       &gt;
         &lt;TxItemIcon transaction={transaction} /&gt;
         &lt;SpaceBetween flexGrow={1}&gt;
           &lt;Stack spacing="base-tight"&gt;
             &lt;Title as="h3" fontWeight="normal"&gt;
-              {getTxTitle(transaction as any)}
+              {getTxTitle(transaction)}
             &lt;/Title&gt;
             &lt;Stack isInline flexWrap="wrap"&gt;
               &lt;Caption variant="c2"&gt;{getTxCaption(transaction)}&lt;/Caption&gt;
@@ -1000,7 +1012,7 @@ export const TxItem<span class="cstat-no" title="statement not covered" ><span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 07:35:37 GMT+0000 (Coordinated Universal Time)
+                at Wed Nov 24 2021 16:01:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
