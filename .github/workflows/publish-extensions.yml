@@ -8,6 +8,7 @@ on:
 env:
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY }}
+  WALLET_ENVIRONMENT: production
 
 jobs:
   pre-run:
