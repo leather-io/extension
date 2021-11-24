@@ -5,12 +5,15 @@ import { useCurrentNetwork } from '@common/hooks/use-current-network';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
-import { useTxByteSizeState, useTxForSettingsState } from '@store/transactions/transaction.hooks';
+import {
+  useTxByteSizeState,
+  useUnsignedTxForSettingsState,
+} from '@store/transactions/transaction.hooks';
 
 export function ShowEditNonceAction(): JSX.Element {
   const { isTestnet, name } = useCurrentNetwork();
   const { showEditNonce, setShowEditNonce } = useDrawers();
-  const [tx] = useTxForSettingsState();
+  const [tx] = useUnsignedTxForSettingsState();
   const [, setTxBytes] = useTxByteSizeState();
 
   return (
