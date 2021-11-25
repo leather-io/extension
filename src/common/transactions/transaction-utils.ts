@@ -53,12 +53,14 @@ function calculateFeeFromFeeRate(txBytes: number, feeRate: number) {
   return new BigNumber(txBytes).multipliedBy(feeRate);
 }
 
-export function getDefaultFeeEstimations(estimatedByteLength: number): FeeEstimation[] {
+const marginFromDefaultFeeDecimalPercent = 0.1;
+
+export function getDefaultSimulatedFeeEstimations(estimatedByteLength: number): FeeEstimation[] {
   const fee = calculateFeeFromFeeRate(estimatedByteLength, DEFAULT_FEE_RATE);
   return [
-    { fee: fee.multipliedBy(0.9).toNumber(), fee_rate: 0 },
+    { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
     { fee: fee.toNumber(), fee_rate: 0 },
-    { fee: fee.multipliedBy(1.1).toNumber(), fee_rate: 0 },
+    { fee: fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
   ];
 }
 
