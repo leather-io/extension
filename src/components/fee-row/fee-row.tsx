@@ -3,8 +3,7 @@ import { FiInfo } from 'react-icons/fi';
 import { useField } from 'formik';
 import { Box, color, Stack, Text } from '@stacks/ui';
 
-import { stacksValue } from '@common/stacks-utils';
-
+import { microStxToStx, stacksValue } from '@common/stacks-utils';
 import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { ErrorLabel } from '@components/error-label';
 import { Tooltip } from '@components/tooltip';
@@ -28,10 +27,9 @@ const url = 'https://hiro.so/questions/fee-estimates';
 interface FeeRowProps {
   fieldName: string;
   isSponsored: boolean;
-  feeEstimationsError: boolean;
 }
 export function FeeRow(props: FeeRowProps): JSX.Element {
-  const { feeEstimationsError, fieldName, isSponsored } = props;
+  const { fieldName, isSponsored } = props;
 
   const [input, meta, helpers] = useField(fieldName);
   const [fieldWarning, setFieldWarning] = useState<string | undefined>(undefined);
@@ -41,14 +39,12 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [isCustom, setIsCustom] = useState(false);
 
   useEffect(() => {
-    // Check for query error on mount and fallback
-    // to the custom input if needed
-    if (feeEstimationsError) {
-      setSelected(Estimations.Custom);
-      setIsCustom(true);
+    // Set it to the middle estimation on mount
+    if (!input.value && !isCustom && feeEstimations.length) {
+      helpers.setValue(microStxToStx(feeEstimations[1].fee).toNumber());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [feeEstimations, helpers, isCustom]);
 
   // Handles using the fee estimations selector or custom input
   const handleSelectedItem = useCallback(
@@ -78,18 +74,16 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
     <Stack spacing="base">
       <SpaceBetween position="relative">
         <Stack alignItems="center" isInline>
-          {!feeEstimationsError ? <Caption>Fees</Caption> : <Caption>Enter a custom fee</Caption>}
-          {!feeEstimationsError ? (
-            <Stack _hover={{ cursor: 'pointer' }}>
-              <FeeEstimateItem index={selected} onClick={() => setIsOpen(true)} />
-              <FeeEstimateSelect
-                items={feeEstimations}
-                onClick={handleSelectedItem}
-                setIsOpen={setIsOpen}
-                visible={isOpen}
-              />
-            </Stack>
-          ) : null}
+          <Caption>Fees</Caption>
+          <Stack _hover={{ cursor: 'pointer' }}>
+            <FeeEstimateItem index={selected} onClick={() => setIsOpen(true)} />
+            <FeeEstimateSelect
+              items={feeEstimations}
+              onClick={handleSelectedItem}
+              setIsOpen={setIsOpen}
+              visible={isOpen}
+            />
+          </Stack>
           <Tooltip label={feesInfo} placement="bottom">
             <Stack>
               <Box
