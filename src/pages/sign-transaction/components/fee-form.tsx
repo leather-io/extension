@@ -3,7 +3,11 @@ import { useFormikContext } from 'formik';
 
 import { stacksValue } from '@common/stacks-utils';
 import { LoadingRectangle } from '@components/loading-rectangle';
-import { isTxSponsored, TransactionFormValues } from '@common/transactions/transaction-utils';
+import {
+  getDefaultFeeEstimations,
+  isTxSponsored,
+  TransactionFormValues,
+} from '@common/transactions/transaction-utils';
 import { FeeRow } from '@components/fee-row/fee-row';
 import { Estimations } from '@models/fees-types';
 import { MinimalErrorMessage } from '@pages/sign-transaction/components/minimal-error-message';
@@ -30,27 +34,31 @@ export function FeeForm(): JSX.Element | null {
   const [, setFeeEstimations] = useFeeEstimationsState();
 
   useEffect(() => {
-    if (feeEstimationsResp && feeEstimationsResp.estimations) {
-      setFeeEstimations(feeEstimationsResp.estimations);
-      setFieldValue(
-        'fee',
-        stacksValue({
-          fixedDecimals: true,
-          value: feeEstimationsResp.estimations[Estimations.Middle].fee,
-          withTicker: false,
-        })
-      );
+    if (feeEstimationsResp) {
+      if (
+        (isError || !!feeEstimationsResp?.error || !feeEstimationsResp.estimations.length) &&
+        estimatedSignedTxByteLength
+      ) {
+        setFeeEstimations(getDefaultFeeEstimations(estimatedSignedTxByteLength));
+      }
+      if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
+        setFeeEstimations(feeEstimationsResp.estimations);
+        setFieldValue(
+          'fee',
+          stacksValue({
+            fixedDecimals: true,
+            value: feeEstimationsResp.estimations[Estimations.Middle].fee,
+            withTicker: false,
+          })
+        );
+      }
     }
-  }, [feeEstimationsResp, setFeeEstimations, setFieldValue]);
+  }, [estimatedSignedTxByteLength, feeEstimationsResp, isError, setFeeEstimations, setFieldValue]);
 
   return (
     <>
       {feeEstimationsResp ? (
-        <FeeRow
-          fieldName="fee"
-          isSponsored={isSponsored}
-          feeEstimationsError={isError || !!feeEstimationsResp?.error}
-        />
+        <FeeRow fieldName="fee" isSponsored={isSponsored} />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}
@@ -58,4 +66,3 @@ export function FeeForm(): JSX.Element | null {
     </>
   );
 }
-//  transaction?.auth?.authType === AuthType.Sponsored;
