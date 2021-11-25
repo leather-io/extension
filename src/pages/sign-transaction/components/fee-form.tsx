@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 import { stacksValue } from '@common/stacks-utils';
 import { LoadingRectangle } from '@components/loading-rectangle';
 import {
-  getDefaultFeeEstimations,
+  getDefaultSimulatedFeeEstimations,
   isTxSponsored,
   TransactionFormValues,
 } from '@common/transactions/transaction-utils';
@@ -39,7 +39,7 @@ export function FeeForm(): JSX.Element | null {
         (isError || !!feeEstimationsResp?.error || !feeEstimationsResp.estimations.length) &&
         estimatedSignedTxByteLength
       ) {
-        setFeeEstimations(getDefaultFeeEstimations(estimatedSignedTxByteLength));
+        setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedSignedTxByteLength));
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
         setFeeEstimations(feeEstimationsResp.estimations);

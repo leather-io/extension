@@ -10,7 +10,7 @@ import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { isEmpty } from '@common/utils';
 import { stacksValue } from '@common/stacks-utils';
 import {
-  getDefaultFeeEstimations,
+  getDefaultSimulatedFeeEstimations,
   isTxSponsored,
   TransactionFormValues,
 } from '@common/transactions/transaction-utils';
@@ -64,7 +64,7 @@ export function SendFormInner(props: SendFormProps) {
         (isError || !!feeEstimationsResp?.error || !feeEstimationsResp.estimations.length) &&
         estimatedTxByteLength
       ) {
-        setFeeEstimations(getDefaultFeeEstimations(estimatedTxByteLength));
+        setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedTxByteLength));
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
         setFeeEstimations(feeEstimationsResp.estimations);
