@@ -1,8 +1,8 @@
 import { useQuery, UseQueryResult } from 'react-query';
 
 import { fetcher } from '@common/api/wrapped-fetch';
-import { defaultNetworks } from '@common/constants';
 import { TransactionFeeEstimation } from '@models/fees-types';
+import { useCurrentNetworkState } from '@store/network/networks.hooks';
 
 const STALE_TIME = 15 * 60 * 1000; // 15 min
 
@@ -15,9 +15,11 @@ const feeEstimationsQueryOptions = {
 } as const;
 
 export function useGetFeeEstimations(transactionPayload: string, estimatedLen: number | null) {
+  const currentNetwork = useCurrentNetworkState();
+
   const fetchFeeEstimations = async () => {
     if (!transactionPayload) return;
-    const response = await fetcher(defaultNetworks.testnet.url + '/v2/fees/transaction', {
+    const response = await fetcher(currentNetwork.url + '/v2/fees/transaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
