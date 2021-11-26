@@ -8,16 +8,15 @@ import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { isEmpty } from '@common/utils';
-import { stacksValue } from '@common/stacks-utils';
 import {
   getDefaultSimulatedFeeEstimations,
+  getFeeEstimationsWithMaxValues,
   isTxSponsored,
   TransactionFormValues,
 } from '@common/transactions/transaction-utils';
 import { ErrorLabel } from '@components/error-label';
 import { ShowEditNonceAction } from '@components/show-edit-nonce';
 import { FeeRow } from '@components/fee-row/fee-row';
-import { Estimations } from '@models/fees-types';
 import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-search';
 import { AmountField } from '@pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
@@ -67,15 +66,10 @@ export function SendFormInner(props: SendFormProps) {
         setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedTxByteLength));
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
-        setFeeEstimations(feeEstimationsResp.estimations);
-        setFieldValue(
-          'fee',
-          stacksValue({
-            fixedDecimals: true,
-            value: feeEstimationsResp.estimations[Estimations.Middle].fee,
-            withTicker: false,
-          })
+        const feeEstimationsWithMaxValues = getFeeEstimationsWithMaxValues(
+          feeEstimationsResp.estimations
         );
+        setFeeEstimations(feeEstimationsWithMaxValues);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
