@@ -21,7 +21,7 @@ module.exports = {
     {
       name: 'ban-jotai-outside-store',
       severity: 'error',
-      from: { path: '^src/*', pathNot: ['^src/store/*'] },
+      from: { path: '^src', pathNot: ['^src/store/*'] },
       to: { path: 'jotai*' },
     },
     {
@@ -89,6 +89,23 @@ module.exports = {
         path: '^src/pages/([^/]+)/.+',
         pathNot: '^src/pages/$1/.+',
       },
+    },
+    {
+      name: 'no-feature-component-external-use',
+      comment: `Only a given feature may import its child 'src/feature/xxx/components'`,
+      severity: 'error',
+      from: { path: '(^src/features/)([^/]+)' },
+      to: {
+        path: '^src/features/[^/]+/components',
+        pathNot: '$1$2/',
+      },
+    },
+    {
+      name: 'no-feature-component-sibling-use',
+      comment: `Features cannot depend on a sibling feature's components`,
+      severity: 'error',
+      from: { pathNot: ['^src/features'] },
+      to: { path: '^src/features/([^/]+)/components' },
     },
   ],
   options: {

@@ -2,13 +2,14 @@ import React from 'react';
 import { stacksValue } from '@common/stacks-utils';
 import { Caption, Text } from '@components/typography';
 import { color } from '@stacks/ui';
-import { useAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import BigNumber from 'bignumber.js';
 
-export const AccountBalanceCaption = ({ address }: { address: string }) => {
-  const availableStxBalance = useAccountAvailableStxBalance(address);
-
+interface AccountBalanceCaptionProps {
+  availableBalance?: BigNumber;
+}
+export function AccountBalanceCaption({ availableBalance }: AccountBalanceCaptionProps) {
   const balance = stacksValue({
-    value: availableStxBalance || 0,
+    value: availableBalance || 0,
     withTicker: true,
     abbreviate: true,
   });
@@ -21,4 +22,4 @@ export const AccountBalanceCaption = ({ address }: { address: string }) => {
       <Caption>{balance}</Caption>
     </>
   );
-};
+}

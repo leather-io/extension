@@ -1,27 +1,26 @@
 import React, { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import { useFormikContext } from 'formik';
+import { useField } from 'formik';
 import { color, Input, InputGroup, Stack, StackProps } from '@stacks/ui';
 
 import { stxToMicroStx } from '@common/stacks-utils';
-import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { SendFormWarningMessages } from '@common/warning-messages';
 import { Caption } from '@components/typography';
 import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface CustomFeeFieldProps extends StackProps {
+  fieldName: string;
   setFieldWarning: Dispatch<SetStateAction<string | undefined>>;
 }
-
 export function CustomFeeField(props: CustomFeeFieldProps) {
-  const { setFieldWarning, ...rest } = props;
-  const { errors, setFieldValue, values } = useFormikContext<TransactionFormValues>();
+  const { setFieldWarning, fieldName, ...rest } = props;
+  const [input, meta, helpers] = useField(fieldName);
   const [feeEstimations] = useFeeEstimationsState();
 
   const checkFieldWarning = useCallback(
     (value: string) => {
-      if (errors.fee) return setFieldWarning('');
+      if (meta.error) return setFieldWarning('');
       const fee = stxToMicroStx(value);
       const lowEstimate = new BigNumber(feeEstimations[0]?.fee);
       if (lowEstimate.isGreaterThan(fee)) {
@@ -29,7 +28,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
       }
       return setFieldWarning('');
     },
-    [errors.fee, feeEstimations, setFieldWarning]
+    [feeEstimations, meta.error, setFieldWarning]
   );
 
   return (
@@ -53,7 +52,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           height="32px"
           name="fee"
           onChange={(evt: FormEvent<HTMLInputElement>) => {
-            setFieldValue('fee', evt.currentTarget.value);
+            helpers.setValue(evt.currentTarget.value);
             // Separating warning check from field validations
             // bc we want the user to be able to submit the form
             // with the low fee warning present.
@@ -63,7 +62,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           placeholder="0.000000"
           textAlign="right"
           type="number"
-          value={values.fee}
+          value={input.value}
         />
       </InputGroup>
     </Stack>

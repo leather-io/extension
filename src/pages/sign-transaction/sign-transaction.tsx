@@ -1,4 +1,4 @@
-import React, { memo, Suspense, useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Stack } from '@stacks/ui';
@@ -81,26 +81,24 @@ function SignTransactionBase(): JSX.Element | null {
         {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
         {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
         {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-        <Suspense fallback={<></>}>
-          <Formik
-            initialValues={{ fee: '' }}
-            onSubmit={onSubmit}
-            validateOnChange={false}
-            validateOnBlur={false}
-            validateOnMount={false}
-            validationSchema={yup.object({
-              fee: feeSchema(),
-            })}
-          >
-            {() => (
-              <>
-                <FeeForm />
-                <SubmitAction />
-                <HighFeeDrawer />
-              </>
-            )}
-          </Formik>
-        </Suspense>
+        <Formik
+          initialValues={{ fee: '' }}
+          onSubmit={onSubmit}
+          validateOnChange={false}
+          validateOnBlur={false}
+          validateOnMount={false}
+          validationSchema={yup.object({
+            fee: feeSchema(),
+          })}
+        >
+          {() => (
+            <>
+              <FeeForm />
+              <SubmitAction />
+              <HighFeeDrawer />
+            </>
+          )}
+        </Formik>
       </Stack>
     </PopupContainer>
   );

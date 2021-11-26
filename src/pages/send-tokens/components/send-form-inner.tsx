@@ -9,10 +9,14 @@ import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { isEmpty } from '@common/utils';
 import { stacksValue } from '@common/stacks-utils';
-import { TransactionFormValues } from '@common/transactions/transaction-utils';
+import {
+  getDefaultSimulatedFeeEstimations,
+  isTxSponsored,
+  TransactionFormValues,
+} from '@common/transactions/transaction-utils';
 import { ErrorLabel } from '@components/error-label';
 import { ShowEditNonceAction } from '@components/show-edit-nonce';
-import { FeeRow } from '@features/fee-row/fee-row';
+import { FeeRow } from '@components/fee-row/fee-row';
 import { Estimations } from '@models/fees-types';
 import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-search';
 import { AmountField } from '@pages/send-tokens/components/amount-field';
@@ -25,6 +29,7 @@ import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import {
   useEstimatedTransactionByteLengthState,
   useSerializedTransactionPayloadState,
+  useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
 
 import { SendFormMemoWarning } from './memo-warning';
@@ -48,22 +53,33 @@ export function SendFormInner(props: SendFormProps) {
   const [, setFeeEstimations] = useFeeEstimationsState();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
+  const [transaction] = useTxForSettingsState();
+  const isSponsored = transaction ? isTxSponsored(transaction) : false;
+
   useNextTxNonce();
 
   useEffect(() => {
-    if (!values.fee && feeEstimationsResp && feeEstimationsResp.estimations) {
-      setFeeEstimations(feeEstimationsResp.estimations);
-      setFieldValue(
-        'fee',
-        stacksValue({
-          fixedDecimals: true,
-          value: feeEstimationsResp.estimations[Estimations.Middle].fee,
-          withTicker: false,
-        })
-      );
+    if (!values.fee && feeEstimationsResp) {
+      if (
+        (isError || !!feeEstimationsResp?.error || !feeEstimationsResp.estimations.length) &&
+        estimatedTxByteLength
+      ) {
+        setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedTxByteLength));
+      }
+      if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
+        setFeeEstimations(feeEstimationsResp.estimations);
+        setFieldValue(
+          'fee',
+          stacksValue({
+            fixedDecimals: true,
+            value: feeEstimationsResp.estimations[Estimations.Middle].fee,
+            withTicker: false,
+          })
+        );
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeEstimationsResp, setFeeEstimations, setFieldValue]);
+  }, [estimatedTxByteLength, feeEstimationsResp, isError, setFeeEstimations, setFieldValue]);
 
   const onSubmit = useCallback(async () => {
     if (selectedAsset && values.amount && values.recipient && values.fee) {
@@ -108,9 +124,7 @@ export function SendFormInner(props: SendFormProps) {
       <RecipientField error={errors.recipient} value={values.recipient} />
       {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
       {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
-      {feeEstimationsResp && (
-        <FeeRow feeEstimationsError={isError || !!feeEstimationsResp?.error} />
-      )}
+      {feeEstimationsResp && <FeeRow fieldName="fee" isSponsored={isSponsored} />}
       <Box mt="auto">
         {assetError && (
           <ErrorLabel mb="base">

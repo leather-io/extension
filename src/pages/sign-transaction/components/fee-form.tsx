@@ -3,14 +3,19 @@ import { useFormikContext } from 'formik';
 
 import { stacksValue } from '@common/stacks-utils';
 import { LoadingRectangle } from '@components/loading-rectangle';
-import { TransactionFormValues } from '@common/transactions/transaction-utils';
-import { FeeRow } from '@features/fee-row/fee-row';
+import {
+  getDefaultSimulatedFeeEstimations,
+  isTxSponsored,
+  TransactionFormValues,
+} from '@common/transactions/transaction-utils';
+import { FeeRow } from '@components/fee-row/fee-row';
 import { Estimations } from '@models/fees-types';
 import { MinimalErrorMessage } from '@pages/sign-transaction/components/minimal-error-message';
 import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
 import {
   useEstimatedSignedTransactionByteLengthState,
   useSerializedSignedTransactionPayloadState,
+  useTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
@@ -22,26 +27,38 @@ export function FeeForm(): JSX.Element | null {
     serializedSignedTransactionPayloadState,
     estimatedSignedTxByteLength
   );
+  const [transaction] = useTxForSettingsState();
+
+  const isSponsored = transaction ? isTxSponsored(transaction) : false;
+
   const [, setFeeEstimations] = useFeeEstimationsState();
 
   useEffect(() => {
-    if (feeEstimationsResp && feeEstimationsResp.estimations) {
-      setFeeEstimations(feeEstimationsResp.estimations);
-      setFieldValue(
-        'fee',
-        stacksValue({
-          fixedDecimals: true,
-          value: feeEstimationsResp.estimations[Estimations.Middle].fee,
-          withTicker: false,
-        })
-      );
+    if (feeEstimationsResp) {
+      if (
+        (isError || !!feeEstimationsResp?.error || !feeEstimationsResp.estimations.length) &&
+        estimatedSignedTxByteLength
+      ) {
+        setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedSignedTxByteLength));
+      }
+      if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
+        setFeeEstimations(feeEstimationsResp.estimations);
+        setFieldValue(
+          'fee',
+          stacksValue({
+            fixedDecimals: true,
+            value: feeEstimationsResp.estimations[Estimations.Middle].fee,
+            withTicker: false,
+          })
+        );
+      }
     }
-  }, [feeEstimationsResp, setFeeEstimations, setFieldValue]);
+  }, [estimatedSignedTxByteLength, feeEstimationsResp, isError, setFeeEstimations, setFieldValue]);
 
   return (
     <>
       {feeEstimationsResp ? (
-        <FeeRow feeEstimationsError={isError || !!feeEstimationsResp?.error} />
+        <FeeRow fieldName="fee" isSponsored={isSponsored} />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}

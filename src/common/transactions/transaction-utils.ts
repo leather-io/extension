@@ -1,5 +1,7 @@
-import { StacksTransaction } from '@stacks/transactions';
+import { BigNumber } from 'bignumber.js';
 
+import { TransactionTypes } from '@stacks/connect';
+import { AuthType, ChainID, StacksTransaction } from '@stacks/transactions';
 import {
   AddressTransactionWithTransfers,
   CoinbaseTransaction,
@@ -7,13 +9,13 @@ import {
   Transaction,
   TransactionEventFungibleAsset,
 } from '@stacks/stacks-blockchain-api-types';
-import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@common/date-utils';
 import { getContractName, truncateMiddle } from '@stacks/ui-utils';
-import { stacksValue } from '@common/stacks-utils';
-import { BigNumber } from 'bignumber.js';
+
 import { AssetWithMeta } from '@common/asset-types';
-import { TransactionTypes } from '@stacks/connect';
-import { ChainID } from '@stacks/transactions';
+import { DEFAULT_FEE_RATE } from '@common/constants';
+import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@common/date-utils';
+import { stacksValue } from '@common/stacks-utils';
+import { FeeEstimation } from '@models/fees-types';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -45,6 +47,21 @@ function txHasTime(tx: Tx) {
     ('burn_block_time_iso' in tx && tx.burn_block_time_iso) ||
     ('parent_burn_block_time_iso' in tx && tx.parent_burn_block_time_iso)
   );
+}
+
+function calculateFeeFromFeeRate(txBytes: number, feeRate: number) {
+  return new BigNumber(txBytes).multipliedBy(feeRate);
+}
+
+const marginFromDefaultFeeDecimalPercent = 0.1;
+
+export function getDefaultSimulatedFeeEstimations(estimatedByteLength: number): FeeEstimation[] {
+  const fee = calculateFeeFromFeeRate(estimatedByteLength, DEFAULT_FEE_RATE);
+  return [
+    { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
+    { fee: fee.toNumber(), fee_rate: 0 },
+    { fee: fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
+  ];
 }
 
 export function isAddressTransactionWithTransfers(
@@ -174,6 +191,10 @@ export function isTransactionTypeSupported(txType: TransactionTypes) {
     txType === TransactionTypes.ContractCall ||
     txType === TransactionTypes.ContractDeploy
   );
+}
+
+export function isTxSponsored(tx: StacksTransaction) {
+  return tx.auth.authType === AuthType.Sponsored;
 }
 
 interface WhenChainIdMap<T> {

@@ -40,10 +40,30 @@ describe(`Send tokens flow`, () => {
     });
   });
 
+  describe('Fee row', () => {
+    it('defaults to the middle fee estimate', async () => {
+      await sendForm.inputToAmountField('100000000');
+      await sendForm.inputToAddressField('slkfjsdlkfjs');
+      const defaultFeeEstimate = await sendForm.page.$(sendForm.getSelector('$feeEstimateItem'));
+      const label = await defaultFeeEstimate?.innerText();
+      expect(label).toEqual('Standard');
+    });
+
+    it('can select the low fee estimate', async () => {
+      await sendForm.inputToAmountField('100000000');
+      await sendForm.inputToAddressField('slkfjsdlkfjs');
+      await sendForm.selectFirstFeeEstimate();
+      const lowFeeEstimate = await sendForm.page.$(sendForm.getSelector('$feeEstimateItem'));
+      const label = await lowFeeEstimate?.innerText();
+      expect(label).toEqual('Low');
+    });
+  });
+
   describe('Form validation', () => {
     it('validates against an invalid address', async () => {
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
+      await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
       const errorMsg = await sendForm.page.isVisible(sendForm.getSelector('$stxAddressFieldError'));
       expect(errorMsg).toBeTruthy();
@@ -52,6 +72,7 @@ describe(`Send tokens flow`, () => {
     it('does not prohibit valid addresses', async () => {
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
+      await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
       const errorMsg = await sendForm.page.isVisible(sendForm.getSelector('$stxAddressFieldError'));
       expect(errorMsg).toBeFalsy();
@@ -60,6 +81,7 @@ describe(`Send tokens flow`, () => {
     it('validates that the address used is from different network', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField('STRE7HABZGQ204G3VQAKMDMVBBD8A8CYKET9M0T');
+      await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
@@ -69,6 +91,7 @@ describe(`Send tokens flow`, () => {
     it('validates against a negative amount of tokens', async () => {
       await sendForm.inputToAmountField('-9999');
       await sendForm.inputToAddressField('ess-pee');
+      await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
       const errorMsg = await sendForm.page.isVisible(sendForm.getSelector('$amountFieldError'));
       expect(errorMsg).toBeTruthy();
@@ -77,6 +100,7 @@ describe(`Send tokens flow`, () => {
     it('validates that token amount has more than 6 decimal places', async () => {
       await sendForm.inputToAmountField('0.0000001');
       await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
+      await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
@@ -86,6 +110,7 @@ describe(`Send tokens flow`, () => {
     it('validates that token amount is greater than the available balance', async () => {
       await sendForm.inputToAmountField('999999999');
       await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
+      await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
@@ -116,21 +141,20 @@ describe('Preview for sending token', () => {
     } catch (error) {}
   });
 
-  // Skipping this bc with the new fee estimations added the account doesn't
-  // currently have enough STX to cover the tx so an error message appears
-  // rather than the confirmation preview.
-  it.skip('should show the preview', async () => {
+  it('should show the preview', async () => {
     await sendForm.inputToAmountField('0.000001');
     await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
+    await sendForm.inputToCustomFeeField('0.00001');
     await sendForm.clickPreviewTxBtn();
-    await sendForm.waitForPreview('$transferMessage');
-    const previewPopup = await sendForm.page.isVisible(sendForm.getSelector('$transferMessage'));
+    await sendForm.waitForConfirmDetails();
+    const previewPopup = await sendForm.page.isVisible(sendForm.getSelector('$confirmDetails'));
     expect(previewPopup).toBeTruthy();
   });
 
-  it.skip('should show the preview when there is a validation error on token amount and later it is resolved', async () => {
+  it('should show preview after validation error is resolved', async () => {
     await sendForm.fillToAmountField('0.0000001');
     await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
+    await sendForm.inputToCustomFeeField('0.00001');
     await sendForm.clickPreviewTxBtn();
     const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
     const errorMessage = await errorMsgElement[0].innerText();
@@ -138,8 +162,8 @@ describe('Preview for sending token', () => {
 
     await sendForm.fillToAmountField('0.000001');
     await sendForm.clickPreviewTxBtn();
-    await sendForm.waitForPreview('$transferMessage');
-    const previewPopup = await sendForm.page.isVisible(sendForm.getSelector('$transferMessage'));
+    await sendForm.waitForConfirmDetails();
+    const previewPopup = await sendForm.page.isVisible(sendForm.getSelector('$confirmDetails'));
     expect(previewPopup).toBeTruthy();
   });
 });
