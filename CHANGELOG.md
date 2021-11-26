@@ -1,3 +1,10 @@
+# [2.21.0-dev.12](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.11...v2.21.0-dev.12) (2021-11-26)
+
+
+### Bug Fixes
+
+* fees query network ([ccb3182](https://github.com/hirosystems/stacks-wallet-web/commit/ccb3182774fdd7a30763629502406d407d629547))
+
 # [2.21.0-dev.11](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.0-dev.10...v2.21.0-dev.11) (2021-11-25)
 
 
