@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/56</span>
+                <span class='fraction'>0/58</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/52</span>
+                <span class='fraction'>0/54</span>
             </div>
         
             
@@ -209,7 +209,8 @@
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -267,7 +268,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -366,21 +368,21 @@ import { FiPlusCircle } from 'react-icons/fi'<span class="cstat-no" title="state
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 import { Caption, Text, Title } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
+import { useAccountDisplayName } from '@common/hooks/account/use-account-names'<span class="cstat-no" title="statement not covered" >;</span>
 import { useWallet } from '@common/hooks/use-wallet'<span class="cstat-no" title="statement not covered" >;</span>
 import { truncateMiddle } from '@stacks/ui-utils'<span class="cstat-no" title="statement not covered" >;</span>
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
-import { useAccountDisplayName } from '@common/hooks/account/use-account-names'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import type { AccountWithAddress } from '@store/accounts/account.models';
-import { AccountAvatarWithName } from '@features/account-avatar/account-avatar'<span class="cstat-no" title="statement not covered" >;</span>
+import { AccountAvatarWithName } from '@components/account-avatar/account-avatar'<span class="cstat-no" title="statement not covered" >;</span>
 import { SpaceBetween } from '@components/space-between'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import { usePressable } from '@components/item-hover'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 import { useLoading } from '@common/hooks/use-loading'<span class="cstat-no" title="statement not covered" >;</span>
-import { AccountBalanceCaption } from '@features/account-balance-caption'<span class="cstat-no" title="statement not covered" >;</span>
+import { AccountBalanceCaption } from '@components/account-balance-caption'<span class="cstat-no" title="statement not covered" >;</span>
 import { cleanUsername, slugify } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { useAccounts } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAccountAvailableStxBalance, useAccounts } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@store/ui/ui.hooks'<span class="cstat-no" title="statement not covered" >;</span>
 import { AccountStep } from '@store/ui/ui.models'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
@@ -419,7 +421,8 @@ const AccountItem<span class="cstat-no" title="statement not covered" ><span cla
   const { isLoading, setIsLoading }<span class="cstat-no" title="statement not covered" > = useLoading(`CHOOSE_ACCOUNT__${account.address}`);</span>
   const { doFinishSignIn }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const { decodedAuthRequest }<span class="cstat-no" title="statement not covered" > = useOnboardingState();</span>
-&nbsp;
+  const name<span class="cstat-no" title="statement not covered" > = useAccountDisplayName(account);</span>
+  const availableStxBalance<span class="cstat-no" title="statement not covered" > = useAccountAvailableStxBalance(account.address);</span>
   const showLoadingProps<span class="cstat-no" title="statement not covered" > = !!selectedAddress || !decodedAuthRequest;</span>
   const handleOnClick<span class="cstat-no" title="statement not covered" > = useCallback(async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setIsLoading();</span>
@@ -436,7 +439,7 @@ const AccountItem<span class="cstat-no" title="statement not covered" ><span cla
       {...rest}
     &gt;
       &lt;Stack spacing="base" isInline&gt;
-        &lt;AccountAvatarWithName flexGrow={0} account={account} /&gt;
+        &lt;AccountAvatarWithName name={name} flexGrow={0} account={account} /&gt;
         &lt;SpaceBetween width="100%" alignItems="center"&gt;
           &lt;Stack textAlign="left" spacing="base-tight"&gt;
             &lt;React.Suspense
@@ -451,7 +454,7 @@ const AccountItem<span class="cstat-no" title="statement not covered" ><span cla
                 {truncateMiddle(account.address, 4)}
               &lt;/Caption&gt;
               &lt;React.Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
-                &lt;AccountBalanceCaption address={account.address} /&gt;
+                &lt;AccountBalanceCaption availableBalance={availableStxBalance} /&gt;
               &lt;/React.Suspense&gt;
             &lt;/Stack&gt;
           &lt;/Stack&gt;
@@ -520,7 +523,7 @@ export const Accounts<span class="cstat-no" title="statement not covered" >: Rea
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 24 2021 16:03:32 GMT+0000 (Coordinated Universal Time)
+                at Fri Nov 26 2021 15:29:56 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/features/fee-row/components/custom-fee-field.tsx</title>
+    <title>Code coverage report for src/components/fee-row/components/custom-fee-field.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/features/fee-row/components</a> custom-fee-field.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/fee-row/components</a> custom-fee-field.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.47% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/23</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/22</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -127,24 +127,22 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -199,30 +197,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Dispatch, FormEvent, SetStateAction, useCallback } from 'react'<span class="fstat-no" title="function not covered" >;</span>
-import BigNumber from 'bignumber.js';
-import { useFormikContext } from 'formik';
-import { color, Input, InputGroup, Stack, StackProps } from '@stacks/ui';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Dispatch, FormEvent, SetStateAction, useCallback } from 'react'<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >;</span></span>
+import BigNumber from 'bignumber.js'<span class="cstat-no" title="statement not covered" >;</span>
+import { useField } from 'formik'<span class="cstat-no" title="statement not covered" >;</span>
+import { color, Input, InputGroup, Stack, StackProps } from '@stacks/ui'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-import { stxToMicroStx } from '@common/stacks-utils';
-import { TransactionFormValues } from '@common/transactions/transaction-utils';
-import { SendFormWarningMessages } from '@common/warning-messages';
-import { Caption } from '@components/typography';
-import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { stxToMicroStx } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
+import { SendFormWarningMessages } from '@common/warning-messages'<span class="cstat-no" title="statement not covered" >;</span>
+import { Caption } from '@components/typography'<span class="cstat-no" title="statement not covered" >;</span>
+import { useFeeEstimationsState } from '@store/transactions/fees.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 interface CustomFeeFieldProps extends StackProps {
+  fieldName: string;
   setFieldWarning: Dispatch&lt;SetStateAction&lt;string | undefined&gt;&gt;;
 }
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >CustomFeeField(</span>props: CustomFeeFieldProps) {
-  const { setFieldWarning, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-  const { errors, setFieldValue, values }<span class="cstat-no" title="statement not covered" > = useFormikContext&lt;TransactionFormValues&gt;();</span>
+export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >CustomFeeField(</span>p</span>rops: CustomFeeFieldProps) {
+  const { setFieldWarning, fieldName, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const [input, meta, helpers<span class="cstat-no" title="statement not covered" >] = useField(fieldName);</span>
   const [feeEstimations<span class="cstat-no" title="statement not covered" >] = useFeeEstimationsState();</span>
 &nbsp;
   const checkFieldWarning<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     (value: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (errors.fee) <span class="cstat-no" title="statement not covered" >return setFieldWarning('');</span></span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (meta.error) <span class="cstat-no" title="statement not covered" >return setFieldWarning('');</span></span>
       const fee<span class="cstat-no" title="statement not covered" > = stxToMicroStx(value);</span>
       const lowEstimate = <span class="cstat-no" title="statement not covered" >new BigNumber(feeEstimations[0]?.fee);</span>
 <span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (lowEstimate.isGreaterThan(fee)) {</span>
@@ -230,7 +227,7 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeFi
       }
 <span class="cstat-no" title="statement not covered" >      return setFieldWarning('');</span>
     },
-    [errors.fee, feeEstimations, setFieldWarning]
+    [feeEstimations, meta.error, setFieldWarning]
   );
 &nbsp;
   return (
@@ -254,7 +251,7 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeFi
           height="32px"
           name="fee"
           onChange<span class="fstat-no" title="function not covered" >={(e</span>vt: FormEvent&lt;HTMLInputElement&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >            setFieldValue('fee', evt.currentTarget.value);</span>
+<span class="cstat-no" title="statement not covered" >            helpers.setValue(evt.currentTarget.value);</span>
             // Separating warning check from field validations
             // bc we want the user to be able to submit the form
             // with the low fee warning present.
@@ -264,7 +261,7 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeFi
           placeholder="0.000000"
           textAlign="right"
           type="number"
-          value={values.fee}
+          value={input.value}
         /&gt;
       &lt;/InputGroup&gt;
     &lt;/Stack&gt;
@@ -277,7 +274,7 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeFi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 24 2021 16:03:32 GMT+0000 (Coordinated Universal Time)
+                at Fri Nov 26 2021 15:29:56 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
