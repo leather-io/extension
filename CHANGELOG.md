@@ -1,16 +1,8 @@
-## [2.21.2-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2-dev.1...v2.21.2-dev.2) (2021-11-29)
+## [2.21.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.1...v2.21.2) (2021-11-26)
 
 
 ### Bug Fixes
 
-* update max fee estimation ([98f2186](https://github.com/hirosystems/stacks-wallet-web/commit/98f21861aac0ca98982912638e48fa286a62f968))
-
-## [2.21.2-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.1...v2.21.2-dev.1) (2021-11-26)
-
-
-### Bug Fixes
-
-* add max values for fee estimations ([06bda04](https://github.com/hirosystems/stacks-wallet-web/commit/06bda04414cddae596b5d17612ba433e21f1d461))
 * fallback to default estimations ([c3044ff](https://github.com/hirosystems/stacks-wallet-web/commit/c3044ffcbd3628a1d90f79d26e4b985b1d4a31ad))
 * fees query network ([ccb3182](https://github.com/hirosystems/stacks-wallet-web/commit/ccb3182774fdd7a30763629502406d407d629547))
 * logger import ([2ccae06](https://github.com/hirosystems/stacks-wallet-web/commit/2ccae06bf718ab8a814b6d03deedb4e0f1059455))
