@@ -12,7 +12,11 @@ import { ActivityList } from '@features/activity-list/account-activity';
 import { BalancesList } from '@features/balances-list/balances-list';
 import { HomeTabs } from './components/home-tabs';
 
+import { useStxMarketPrice } from '@query/market-data/market-data.hooks';
+
 export const Home = () => {
+  const y = useStxMarketPrice();
+  console.log(y);
   return (
     <>
       <PopupContainer
