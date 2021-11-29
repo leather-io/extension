@@ -1,3 +1,10 @@
+## [2.21.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.4...v2.21.5) (2021-11-29)
+
+
+### Bug Fixes
+
+* inconsequential comment change to trigger release, part 2 ([fc4d922](https://github.com/hirosystems/stacks-wallet-web/commit/fc4d9229e86dd08772973197f65c170a70879192))
+
 ## [2.21.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.3...v2.21.4) (2021-11-29)
 
 
