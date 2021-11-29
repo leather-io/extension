@@ -1,8 +1,8 @@
-name: Publish Dev Extensions
+name: Publish Beta Extensions
 on:
   push:
     tags:
-      - 'v*dev*'
+      - 'v*beta*'
   workflow_dispatch:
 
 env:
