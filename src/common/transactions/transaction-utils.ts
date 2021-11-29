@@ -49,9 +49,9 @@ function txHasTime(tx: Tx) {
   );
 }
 
-const maxValueForLowFeeEstimation = 5000000;
-const maxValueForMiddleFeeEstimation = 15000000;
-const maxValueForHighFeeEstimation = 25000000;
+const maxValueForLowFeeEstimation = 500000;
+const maxValueForMiddleFeeEstimation = 750000;
+const maxValueForHighFeeEstimation = 2000000;
 
 export function getFeeEstimationsWithMaxValues(feeEstimations: FeeEstimation[]) {
   const feeEstimationsWithMaxValues = [];
