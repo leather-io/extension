@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/59</span>
+                <span class='fraction'>0/57</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/56</span>
+                <span class='fraction'>0/54</span>
             </div>
         
             
@@ -200,17 +200,10 @@
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -221,7 +214,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -276,14 +269,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -365,16 +353,15 @@ import { LoadingKeys, useLoading } from '@common/hooks/use-loading'<span class="
 import { useNextTxNonce } from <span class="cstat-no" title="statement not covered" >'@common/hooks/account/use-next-tx-nonce'<span class="cstat-no" title="statement not covered" >;</span></span>
 import { useSelectedAsset } from '@common/hooks/use-selected-asset'<span class="cstat-no" title="statement not covered" >;</span>
 import { isEmpty } from '@common/utils'<span class="cstat-no" title="statement not covered" >;</span>
-import { stacksValue } from '@common/stacks-utils'<span class="cstat-no" title="statement not covered" >;</span>
 import {
   getDefaultSimulatedFeeEstimations,
+  getFeeEstimationsWithMaxValues,
   isTxSponsored,
   TransactionFormValues,
 } from '@common/transactions/transaction-utils'<span class="cstat-no" title="statement not covered" >;</span>
 import { ErrorLabel } from '@components/error-label'<span class="cstat-no" title="statement not covered" >;</span>
 import { ShowEditNonceAction } from '@components/show-edit-nonce'<span class="cstat-no" title="statement not covered" >;</span>
 import { FeeRow } from '@components/fee-row/fee-row'<span class="cstat-no" title="statement not covered" >;</span>
-import { Estimations } from '@models/fees-types'<span class="cstat-no" title="statement not covered" >;</span>
 import { AssetSearch } from '@pages/send-tokens/components/asset-search/asset-search'<span class="cstat-no" title="statement not covered" >;</span>
 import { AmountField } from '@pages/send-tokens/components/amount-field'<span class="cstat-no" title="statement not covered" >;</span>
 import { useTransferableAssets } from '@store/assets/asset.hooks'<span class="cstat-no" title="statement not covered" >;</span>
@@ -424,15 +411,10 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
 <span class="cstat-no" title="statement not covered" >        setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedTxByteLength));</span>
       }
 <span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (feeEstimationsResp.estimations &amp;&amp; feeEstimationsResp.estimations.length) {</span>
-<span class="cstat-no" title="statement not covered" >        setFeeEstimations(feeEstimationsResp.estimations);</span>
-<span class="cstat-no" title="statement not covered" >        setFieldValue(</span>
-          'fee',
-          stacksValue({
-            fixedDecimals: true,
-            value: feeEstimationsResp.estimations[Estimations.Middle].fee,
-            withTicker: false,
-          })
+        const feeEstimationsWithMaxValues<span class="cstat-no" title="statement not covered" > = getFeeEstimationsWithMaxValues(</span>
+          feeEstimationsResp.estimations
         );
+<span class="cstat-no" title="statement not covered" >        setFeeEstimations(feeEstimationsWithMaxValues);</span>
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -511,7 +493,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 26 2021 15:31:04 GMT+0000 (Coordinated Universal Time)
+                at Mon Nov 29 2021 09:02:55 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
