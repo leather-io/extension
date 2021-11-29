@@ -1,3 +1,11 @@
+## [2.21.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.3...v2.21.4) (2021-11-29)
+
+
+### Bug Fixes
+
+* empty commit, trigger new release ([99578bd](https://github.com/hirosystems/stacks-wallet-web/commit/99578bdd1eabbba16c667cf477c6c5de0ce28e1b))
+* inconsequential comment change to trigger release ([a3c6b2b](https://github.com/hirosystems/stacks-wallet-web/commit/a3c6b2ba12ed562354d31342580a10f83bc970be))
+
 ## [2.21.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2...v2.21.3) (2021-11-29)
 
 
