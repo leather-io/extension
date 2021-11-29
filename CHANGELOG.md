@@ -1,3 +1,10 @@
+## [2.21.2-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2-dev.2...v2.21.2-dev.3) (2021-11-29)
+
+
+### Bug Fixes
+
+* send form white screen ([a8c7e74](https://github.com/hirosystems/stacks-wallet-web/commit/a8c7e74d672f90c71378eb63a1c1a454661df568))
+
 ## [2.21.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.1...v2.21.2) (2021-11-26)
 
 
