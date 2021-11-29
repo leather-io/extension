@@ -2,7 +2,7 @@ name: Publish Extensions
 on:
   push:
     tags-ignore:
-      - 'v*dev*'
+      - 'v*beta*'
   workflow_dispatch:
 
 env:
