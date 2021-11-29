@@ -1,3 +1,10 @@
+## [2.21.2-dev.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2-dev.1...v2.21.2-dev.2) (2021-11-29)
+
+
+### Bug Fixes
+
+* update max fee estimation ([98f2186](https://github.com/hirosystems/stacks-wallet-web/commit/98f21861aac0ca98982912638e48fa286a62f968))
+
 ## [2.21.2-dev.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.1...v2.21.2-dev.1) (2021-11-26)
 
 
