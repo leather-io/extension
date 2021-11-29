@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { useFormikContext } from 'formik';
 
-import { stacksValue } from '@common/stacks-utils';
 import { LoadingRectangle } from '@components/loading-rectangle';
 import {
   getDefaultSimulatedFeeEstimations,
+  getFeeEstimationsWithMaxValues,
   isTxSponsored,
   TransactionFormValues,
 } from '@common/transactions/transaction-utils';
 import { FeeRow } from '@components/fee-row/fee-row';
-import { Estimations } from '@models/fees-types';
 import { MinimalErrorMessage } from '@pages/sign-transaction/components/minimal-error-message';
 import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
 import {
@@ -42,15 +41,10 @@ export function FeeForm(): JSX.Element | null {
         setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedSignedTxByteLength));
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
-        setFeeEstimations(feeEstimationsResp.estimations);
-        setFieldValue(
-          'fee',
-          stacksValue({
-            fixedDecimals: true,
-            value: feeEstimationsResp.estimations[Estimations.Middle].fee,
-            withTicker: false,
-          })
+        const feeEstimationsWithMaxValues = getFeeEstimationsWithMaxValues(
+          feeEstimationsResp.estimations
         );
+        setFeeEstimations(feeEstimationsWithMaxValues);
       }
     }
   }, [estimatedSignedTxByteLength, feeEstimationsResp, isError, setFeeEstimations, setFieldValue]);

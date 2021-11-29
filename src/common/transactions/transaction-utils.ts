@@ -49,6 +49,32 @@ function txHasTime(tx: Tx) {
   );
 }
 
+const maxValueForLowFeeEstimation = 500000;
+const maxValueForMiddleFeeEstimation = 750000;
+const maxValueForHighFeeEstimation = 2000000;
+
+export function getFeeEstimationsWithMaxValues(feeEstimations: FeeEstimation[]) {
+  const feeEstimationsWithMaxValues = [];
+
+  if (new BigNumber(feeEstimations[0].fee).isGreaterThan(maxValueForLowFeeEstimation)) {
+    feeEstimationsWithMaxValues.push({ fee: maxValueForLowFeeEstimation, fee_rate: 0 });
+  } else {
+    feeEstimationsWithMaxValues.push(feeEstimations[0]);
+  }
+  if (new BigNumber(feeEstimations[1].fee).isGreaterThan(maxValueForMiddleFeeEstimation)) {
+    feeEstimationsWithMaxValues.push({ fee: maxValueForMiddleFeeEstimation, fee_rate: 0 });
+  } else {
+    feeEstimationsWithMaxValues.push(feeEstimations[1]);
+  }
+  if (new BigNumber(feeEstimations[2].fee).isGreaterThan(maxValueForHighFeeEstimation)) {
+    feeEstimationsWithMaxValues.push({ fee: maxValueForHighFeeEstimation, fee_rate: 0 });
+  } else {
+    feeEstimationsWithMaxValues.push(feeEstimations[2]);
+  }
+
+  return feeEstimationsWithMaxValues;
+}
+
 function calculateFeeFromFeeRate(txBytes: number, feeRate: number) {
   return new BigNumber(txBytes).multipliedBy(feeRate);
 }
