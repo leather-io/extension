@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { CreateAccount } from '@components/drawer/accounts/create-account';
-import { AddUsername } from '@components/drawer/accounts/add-username';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { SwitchAccounts } from '../account-switch-drawer/switch-accounts';
 
@@ -24,8 +23,6 @@ export const AccountsDrawer: React.FC = () => {
         return 'Create account';
       case AccountStep.Switch:
         return 'Switch account';
-      case AccountStep.Username:
-        return 'Add a username';
     }
   };
 
@@ -33,7 +30,6 @@ export const AccountsDrawer: React.FC = () => {
     <ControlledDrawer title={getTitle()} isShowing={isShowing} onClose={close}>
       {accountStep === AccountStep.Switch && isShowing ? <SwitchAccounts close={close} /> : null}
       {accountStep === AccountStep.Create && isShowing ? <CreateAccount close={close} /> : null}
-      {accountStep === AccountStep.Username && isShowing ? <AddUsername close={close} /> : null}
     </ControlledDrawer>
   );
 };

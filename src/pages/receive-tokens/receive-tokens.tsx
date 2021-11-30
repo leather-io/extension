@@ -1,19 +1,21 @@
 import React from 'react';
-import { Box, Button, useClipboard, Stack } from '@stacks/ui';
-import { PopupContainer } from '@components/popup/container';
-import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { RouteUrls } from '@routes/route-urls';
-import { useWallet } from '@common/hooks/use-wallet';
-import { Toast } from '@components/toast';
-import { getAccountDisplayName } from '@stacks/wallet-sdk';
-import { Caption, Title } from '@components/typography';
+import { Box, Button, useClipboard, Stack, Text, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { Tooltip } from '@components/tooltip';
-import { QrCode } from './components/address-qr-code';
-import { ReceiveTokensHeader } from './components/recieve-tokens-header';
-import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
-export const PopupReceive: React.FC = () => {
+import { useChangeScreen } from '@common/hooks/use-change-screen';
+import { useWallet } from '@common/hooks/use-wallet';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { Header } from '@components/header';
+import { Toast } from '@components/toast';
+import { PopupContainer } from '@components/popup/container';
+import { Caption, Title } from '@components/typography';
+import { Tooltip } from '@components/tooltip';
+import { RouteUrls } from '@routes/route-urls';
+
+import { QrCode } from './components/address-qr-code';
+
+export const ReceiveTokens: React.FC = () => {
   const { currentAccount, currentAccountStxAddress } = useWallet();
   const changeScreen = useChangeScreen();
   const address = currentAccountStxAddress || '';
@@ -26,13 +28,21 @@ export const PopupReceive: React.FC = () => {
 
   return (
     <PopupContainer
-      header={<ReceiveTokensHeader onClose={() => changeScreen(RouteUrls.PopupHome)} />}
+      header={<Header title="Receive" onClose={() => changeScreen(RouteUrls.Home)} />}
     >
-      <Toast show={hasCopied} />
-      <Box mt="extra-loose" textAlign="center" mx="auto">
-        <QrCode principal={address} />
-      </Box>
-      <Stack spacing="base-loose" width="100%" mt="extra-loose" textAlign="center">
+      <Stack spacing="loose" textAlign="center">
+        <Text
+          textStyle="body.small"
+          color={color('text-caption')}
+          textAlign={['left', 'left', 'center']}
+        >
+          Share your unique address to receive any token or collectible. Including a memo is not
+          required.
+        </Text>
+        <Toast show={hasCopied} />
+        <Box mx="auto">
+          <QrCode principal={address} />
+        </Box>
         {currentAccount && (
           <Title fontSize={3} lineHeight="1rem">
             {getAccountDisplayName(currentAccount)}
@@ -43,12 +53,10 @@ export const PopupReceive: React.FC = () => {
             <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
           </Tooltip>
         </Box>
-      </Stack>
-      <Box mt="auto">
         <Button width="100%" onClick={copyToClipboard} borderRadius="10px">
           Copy your address
         </Button>
-      </Box>
+      </Stack>
     </PopupContainer>
   );
 };

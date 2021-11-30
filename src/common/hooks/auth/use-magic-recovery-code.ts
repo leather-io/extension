@@ -3,7 +3,6 @@ import { useWallet } from '@common/hooks/use-wallet';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { USERNAMES_ENABLED } from '@common/constants';
 import { RouteUrls } from '@routes/route-urls';
 import { decrypt } from '@stacks/wallet-sdk';
 import {
@@ -23,13 +22,9 @@ export function useMagicRecoveryCode() {
 
   const handleNavigate = useCallback(() => {
     if (decodedAuthRequest) {
-      if (!USERNAMES_ENABLED) {
-        setTimeout(() => {
-          void finishSignIn(0);
-        }, 1000);
-      } else {
-        changeScreen(RouteUrls.Username);
-      }
+      setTimeout(() => {
+        void finishSignIn(0);
+      }, 1000);
     } else {
       changeScreen(RouteUrls.Home);
     }

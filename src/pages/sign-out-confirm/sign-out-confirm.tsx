@@ -16,7 +16,7 @@ export const SignOutConfirmDrawer = () => {
       onUserDeleteWallet={async () => {
         await signOut();
         setShowSignOut(false);
-        changeScreen(RouteUrls.Installed);
+        changeScreen(RouteUrls.Onboarding);
       }}
       onUserSafelyReturnToHomepage={() => {
         setShowSignOut(false);

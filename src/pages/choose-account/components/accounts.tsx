@@ -16,7 +16,7 @@ import { usePressable } from '@components/item-hover';
 
 import { useLoading } from '@common/hooks/use-loading';
 import { AccountBalanceCaption } from '@components/account-balance-caption';
-import { cleanUsername, slugify } from '@common/utils';
+import { slugify } from '@common/utils';
 import { useAccountAvailableStxBalance, useAccounts } from '@store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
@@ -33,8 +33,7 @@ const AccountTitlePlaceholder = ({
   account,
   ...rest
 }: { account: AccountWithAddress } & BoxProps) => {
-  const name =
-    (account?.username && cleanUsername(account.username)) || `Account ${account?.index + 1}`;
+  const name = `Account ${account?.index + 1}`;
   return (
     <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
       {name}
@@ -59,6 +58,7 @@ const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...
   const name = useAccountDisplayName(account);
   const availableStxBalance = useAccountAvailableStxBalance(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
+
   const handleOnClick = useCallback(async () => {
     setIsLoading();
     await finishSignIn(account.index);

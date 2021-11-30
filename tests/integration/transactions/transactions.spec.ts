@@ -20,7 +20,7 @@ describe(`Transaction signing`, () => {
   beforeEach(async () => {
     browser = await setupBrowser();
     await browser.context.tracing.start({ screenshots: true, snapshots: true });
-    wallet = await WalletPage.init(browser, RouteUrls.Installed);
+    wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
     demo = browser.demo;
     await wallet.clickAllowAnalytics();
   });
