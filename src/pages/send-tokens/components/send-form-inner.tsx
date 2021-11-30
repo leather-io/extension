@@ -28,7 +28,7 @@ import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import {
   useEstimatedTransactionByteLengthState,
   useSerializedTransactionPayloadState,
-  useTxForSettingsState,
+  useUnsignedTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
 
 import { SendFormMemoWarning } from './memo-warning';
@@ -51,7 +51,7 @@ export function SendFormInner(props: SendFormInnerProps) {
   const [, setFeeEstimations] = useFeeEstimationsState();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
-  const [transaction] = useTxForSettingsState();
+  const [transaction] = useUnsignedTxForSettingsState();
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
   useNextTxNonce();

@@ -80,8 +80,8 @@ export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
   return {
     serialized,
     isSponsored: tx.auth?.authType === AuthType.Sponsored,
-    nonce: tx.auth.spendingCondition?.nonce.toNumber(),
-    fee: tx.auth.spendingCondition?.fee?.toNumber(),
+    nonce: Number(tx.auth.spendingCondition?.nonce),
+    fee: Number(tx.auth.spendingCondition?.fee),
     txRaw,
   };
 }

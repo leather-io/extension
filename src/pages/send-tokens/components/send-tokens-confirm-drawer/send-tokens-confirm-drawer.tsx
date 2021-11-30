@@ -40,7 +40,7 @@ export function SendTokensConfirmDrawer(props: SendTokensConfirmDrawerProps) {
         <SendTokensConfirmDetails
           amount={txData.amount}
           recipient={txData.recipient}
-          nonce={transaction?.auth.spendingCondition?.nonce.toNumber()}
+          nonce={Number(transaction?.auth.spendingCondition?.nonce)}
         />
         <SpaceBetween>
           <Caption>Fees</Caption>
