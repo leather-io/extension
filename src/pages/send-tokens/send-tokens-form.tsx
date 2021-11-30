@@ -18,7 +18,7 @@ import { ShowDelay } from './components/show-delay';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
 
 function SendTokensFormBase() {
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const { setIsIdle, setIsLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   const { showEditNonce, showHighFeeConfirmation } = useDrawers();
   const [isShowing, setShowing] = useState(false);
@@ -39,7 +39,7 @@ function SendTokensFormBase() {
 
   return (
     <PopupContainer
-      header={<Header title="Send" onClose={() => doChangeScreen(RouteUrls.PopupHome)} />}
+      header={<Header title="Send" onClose={() => changeScreen(RouteUrls.PopupHome)} />}
     >
       <Formik
         initialValues={{

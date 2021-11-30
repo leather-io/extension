@@ -15,7 +15,7 @@ import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 export const PopupReceive: React.FC = () => {
   const { currentAccount, currentAccountStxAddress } = useWallet();
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const address = currentAccountStxAddress || '';
   const analytics = useAnalytics();
   const { onCopy, hasCopied } = useClipboard(address);
@@ -26,7 +26,7 @@ export const PopupReceive: React.FC = () => {
 
   return (
     <PopupContainer
-      header={<ReceiveTokensHeader onClose={() => doChangeScreen(RouteUrls.PopupHome)} />}
+      header={<ReceiveTokensHeader onClose={() => changeScreen(RouteUrls.PopupHome)} />}
     >
       <Toast show={hasCopied} />
       <Box mt="extra-loose" textAlign="center" mx="auto">

@@ -9,7 +9,8 @@ import { useMountEffect } from '@common/hooks/use-mount-effect';
 import { Header } from '@components/header';
 
 const Form: React.FC<StackProps> = memo(props => {
-  const { onBack, onSubmit, onChange, password, error, isLoading } = useMagicRecoveryCode();
+  const { onBack, onSubmit, onChange, magicRecoveryCodePassword, error, isLoading } =
+    useMagicRecoveryCode();
 
   // weird fix for preventing the input from using a value of the last input
   // i think this is related to the routing and should be resolved with
@@ -29,7 +30,7 @@ const Form: React.FC<StackProps> = memo(props => {
             spellCheck={false}
             width="100%"
             onChange={onChange}
-            value={password}
+            value={magicRecoveryCodePassword}
           />
         )}
         {error && (

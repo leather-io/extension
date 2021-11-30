@@ -12,20 +12,20 @@ import { InitialPageSelectors } from '@tests/integration/initial-page.selectors'
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 const Actions: React.FC<StackProps> = props => {
-  const { doMakeWallet } = useWallet();
+  const { makeWallet } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const analytics = useAnalytics();
 
   const [isCreatingWallet, setIsCreatingWallet] = useState(false);
   const register = useCallback(async () => {
     setIsCreatingWallet(true);
-    await doMakeWallet();
+    await makeWallet();
     void analytics.track('generate_new_secret_key');
     if (decodedAuthRequest) {
-      doChangeScreen(RouteUrls.SetPassword);
+      changeScreen(RouteUrls.SetPassword);
     }
-  }, [doMakeWallet, analytics, decodedAuthRequest, doChangeScreen]);
+  }, [makeWallet, analytics, decodedAuthRequest, changeScreen]);
 
   return (
     <Stack justifyContent="center" spacing="loose" textAlign="center" {...props}>
@@ -38,7 +38,7 @@ const Actions: React.FC<StackProps> = props => {
         I'm new to Stacks
       </Button>
       <Link
-        onClick={() => doChangeScreen(RouteUrls.SignInInstalled)}
+        onClick={() => changeScreen(RouteUrls.SignInInstalled)}
         data-testid={InitialPageSelectors.SignIn}
       >
         Sign in with Secret Key

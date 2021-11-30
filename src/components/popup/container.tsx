@@ -19,7 +19,7 @@ const UnmountEffectSuspense = ({
   const pendingTx = usePendingTransaction();
   const { authRequest } = useAuthRequest();
   const handleCancelTransaction = useOnCancel();
-  const { handleCancelAuthentication } = useWallet();
+  const { cancelAuthentication } = useWallet();
 
   /*
    * When the popup is closed, this checks the requestType and forces
@@ -29,9 +29,9 @@ const UnmountEffectSuspense = ({
     if (requestType === 'transaction' || !!pendingTx) {
       await handleCancelTransaction();
     } else if (requestType === 'auth' || !!authRequest) {
-      handleCancelAuthentication();
+      cancelAuthentication();
     }
-  }, [requestType, handleCancelAuthentication, authRequest, pendingTx, handleCancelTransaction]);
+  }, [requestType, cancelAuthentication, authRequest, pendingTx, handleCancelTransaction]);
 
   useEffect(() => {
     window.addEventListener('beforeunload', handleUnmount);

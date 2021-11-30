@@ -47,8 +47,8 @@ export function useSubmitTransactionCallback({
   loadingKey,
 }: UseSubmitTransactionCallbackArgs) {
   const refreshAccountData = useRefreshAllAccountData();
-  const doChangeScreen = useChangeScreen();
-  const { doSetLatestNonce } = useWallet();
+  const changeScreen = useChangeScreen();
+  const { setLatestNonce } = useWallet();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
@@ -75,13 +75,13 @@ export function useSubmitTransactionCallback({
               txid,
             });
           }
-          if (nonce) await doSetLatestNonce(nonce);
+          if (nonce) await setLatestNonce(nonce);
           toast.success('Transaction submitted!');
           void analytics.track('broadcast_transaction');
-          doChangeScreen(RouteUrls.Home);
+          changeScreen(RouteUrls.Home);
           onClose();
           setIsIdle();
-          doChangeScreen(RouteUrls.Home);
+          changeScreen(RouteUrls.Home);
           // switch active tab to activity
           setActiveTabActivity();
           await refreshAccountData(250); // delay to give the api time to receive the tx
@@ -100,9 +100,9 @@ export function useSubmitTransactionCallback({
       onClose,
       setIsIdle,
       externalTxid,
-      doSetLatestNonce,
+      setLatestNonce,
       analytics,
-      doChangeScreen,
+      changeScreen,
       setActiveTabActivity,
       refreshAccountData,
       setLocalTxs,

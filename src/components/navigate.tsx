@@ -9,12 +9,12 @@ interface NavigateProps {
 }
 
 export const Navigate: React.FC<NavigateProps> = ({ to, screenPath }) => {
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const navigate = useNavigate();
   useEffect(() => {
     navigate(to);
-    doChangeScreen(screenPath, false);
-  }, [screenPath, doChangeScreen, to, navigate]);
+    changeScreen(screenPath, false);
+  }, [screenPath, changeScreen, to, navigate]);
 
   return null;
 };

@@ -7,14 +7,14 @@ import React from 'react';
 import { SignOutConfirmLayout } from './sign-out-confirm-layout';
 
 export const SignOutConfirmDrawer = () => {
-  const { doSignOut } = useWallet();
+  const { signOut } = useWallet();
   const changeScreen = useChangeScreen();
   const { setShowSignOut } = useDrawers();
 
   return (
     <SignOutConfirmLayout
       onUserDeleteWallet={async () => {
-        await doSignOut();
+        await signOut();
         setShowSignOut(false);
         changeScreen(RouteUrls.Installed);
       }}

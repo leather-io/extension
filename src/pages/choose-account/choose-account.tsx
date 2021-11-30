@@ -15,11 +15,11 @@ interface ChooseAccountProps {
 
 export const ChooseAccount: React.FC<ChooseAccountProps> = memo(() => {
   const { name: appName } = useAppDetails();
-  const { wallet, handleCancelAuthentication } = useWallet();
+  const { wallet, cancelAuthentication } = useWallet();
 
   const handleUnmount = useCallback(async () => {
-    handleCancelAuthentication();
-  }, [handleCancelAuthentication]);
+    cancelAuthentication();
+  }, [cancelAuthentication]);
 
   useEffect(() => {
     window.addEventListener('beforeunload', handleUnmount);

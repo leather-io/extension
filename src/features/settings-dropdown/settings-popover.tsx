@@ -55,14 +55,8 @@ const MenuItem: React.FC<BoxProps> = memo(props => {
 
 export const SettingsPopover: React.FC = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
-  const {
-    currentAccount,
-    doLockWallet,
-    wallet,
-    currentNetworkKey,
-    isSignedIn,
-    encryptedSecretKey,
-  } = useWallet();
+  const { currentAccount, lockWallet, wallet, currentNetworkKey, isSignedIn, encryptedSecretKey } =
+    useWallet();
   const {
     setShowNetworks,
     setShowAccounts,
@@ -159,7 +153,7 @@ export const SettingsPopover: React.FC = () => {
                 <MenuItem
                   onClick={wrappedCloseCallback(() => {
                     void analytics.track('lock_session');
-                    void doLockWallet();
+                    void lockWallet();
                     changeScreen(RouteUrls.PopupHome);
                   })}
                   data-testid="settings-lock"
