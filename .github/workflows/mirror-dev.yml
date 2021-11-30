@@ -11,3 +11,4 @@ jobs:
       - uses: zofrex/mirror-branch@v1
         with:
           target-branch: beta
+          token: ${{ secrets.GH_TOKEN }}
