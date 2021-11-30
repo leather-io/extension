@@ -1,33 +1,21 @@
-import React, { memo, useState } from 'react';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+
 import { useWallet } from '@common/hooks/use-wallet';
-import { SetPasswordPage } from '@pages/set-password';
-import { Unlock } from '@pages/unlock';
-import { SaveYourKeyView } from '@pages/save-your-secret-key/save-your-key-view';
-import { SignedOut } from '@pages/signed-out/signed-out-view';
-
-enum Step {
-  VIEW_KEY = 1,
-  SET_PASSWORD = 2,
+import { RouteUrls } from './route-urls';
+interface AccountGateProps {
+  children?: React.ReactNode;
 }
+export const AccountGate = ({ children }: AccountGateProps) => {
+  const { encryptedSecretKey, hasGeneratedWallet, hasRehydratedVault, hasSetPassword } =
+    useWallet();
 
-export const AccountGate: React.FC = memo(({ children }) => {
-  const [step, setStep] = useState<Step>(Step.VIEW_KEY);
-  const { hasRehydratedVault, hasSetPassword, isSignedIn, encryptedSecretKey } = useWallet();
+  const isWalletActive = hasGeneratedWallet && hasSetPassword;
+  const isWalletLocked = !hasGeneratedWallet && encryptedSecretKey;
 
   if (!hasRehydratedVault) return null;
-  if (isSignedIn && hasSetPassword) return <>{children}</>;
+  if (isWalletActive) return <>{children}</>;
+  if (isWalletLocked) return <Navigate to={RouteUrls.Unlock} />;
 
-  const needsToSetPassword = (isSignedIn || encryptedSecretKey) && !hasSetPassword;
-
-  if (needsToSetPassword) {
-    if (step === Step.VIEW_KEY) {
-      return <SaveYourKeyView hideActions handleNext={() => setStep(Step.SET_PASSWORD)} />;
-    } else if (step === Step.SET_PASSWORD) {
-      return <SetPasswordPage />;
-    }
-  }
-  if (!isSignedIn && encryptedSecretKey) {
-    return <Unlock />;
-  }
-  return <SignedOut />;
-});
+  return null;
+};

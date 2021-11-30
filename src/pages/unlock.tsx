@@ -1,21 +1,28 @@
 import React, { useState, useCallback } from 'react';
+import { Box, Button, Input, Stack, Text } from '@stacks/ui';
+
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
-import { Box, Button, Text, Input } from '@stacks/ui';
+import { useDrawers } from '@common/hooks/use-drawers';
 import { PopupContainer } from '@components/popup/container';
 import { buildEnterKeyEvent } from '@components/link';
 import { ErrorLabel } from '@components/error-label';
 import { Header } from '@components/header';
+import { Body } from '@components/typography';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
-import { useDrawers } from '@common/hooks/use-drawers';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { RouteUrls } from '@routes/route-urls';
+import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 
-export const Unlock: React.FC = () => {
-  const { unlockWallet } = useWallet();
+export function Unlock(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { unlockWallet } = useWallet();
+  const { decodedAuthRequest } = useOnboardingState();
   const { showSignOut } = useDrawers();
   const analytics = useAnalytics();
+  const changeScreen = useChangeScreen();
 
   const submit = useCallback(async () => {
     const startUnlockTimeMs = performance.now();
@@ -24,6 +31,12 @@ export const Unlock: React.FC = () => {
     setError('');
     try {
       await unlockWallet(password);
+
+      if (decodedAuthRequest) {
+        changeScreen(RouteUrls.ChooseAccount);
+      } else {
+        changeScreen(RouteUrls.Home);
+      }
     } catch (error) {
       setError('The password you entered is invalid.');
     }
@@ -32,51 +45,52 @@ export const Unlock: React.FC = () => {
     void analytics.track('complete_unlock', {
       durationMs: unlockSuccessTimeMs - startUnlockTimeMs,
     });
-  }, [analytics, unlockWallet, password]);
+  }, [analytics, unlockWallet, password, decodedAuthRequest, changeScreen]);
 
   return (
     <>
       <PopupContainer header={<Header />} requestType="auth">
-        <Box width="100%" mt="loose">
-          <Text textStyle="body.large" display="block">
-            Enter your password you used on this device to unlock your wallet.
-          </Text>
-        </Box>
-        <Box mt="loose" width="100%">
-          <Input
-            placeholder="Enter your password"
-            width="100%"
-            autoFocus
-            type="password"
-            value={password}
-            isDisabled={loading}
-            data-testid="set-password"
-            onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
-            onKeyUp={buildEnterKeyEvent(submit)}
-          />
-        </Box>
-        {error && (
-          <Box>
-            <ErrorLabel>
-              <Text textStyle="caption">{error}</Text>
-            </ErrorLabel>
-          </Box>
-        )}
-        <Box flexGrow={1} />
-        <Box>
-          <Button
-            width="100%"
-            isLoading={loading}
-            isDisabled={loading}
-            onClick={submit}
-            data-testid="set-password-done"
-            borderRadius="10px"
-          >
-            Unlock
-          </Button>
+        <Box mt="loose">
+          <Stack spacing="loose" width="100%">
+            <Body className="unlock-text">Enter the password you used on this device.</Body>
+            <Box width="100%">
+              <Input
+                placeholder="Enter your password"
+                width="100%"
+                autoFocus
+                type="password"
+                value={password}
+                isDisabled={loading}
+                data-testid="set-password"
+                onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                  setPassword(e.currentTarget.value)
+                }
+                onKeyUp={buildEnterKeyEvent(submit)}
+              />
+            </Box>
+            {error && (
+              <Box>
+                <ErrorLabel>
+                  <Text textStyle="caption">{error}</Text>
+                </ErrorLabel>
+              </Box>
+            )}
+            <Box>
+              <Button
+                width="100%"
+                isLoading={loading}
+                isDisabled={loading}
+                onClick={submit}
+                data-testid="set-password-done"
+                borderRadius="10px"
+              >
+                Unlock
+              </Button>
+            </Box>
+          </Stack>
         </Box>
       </PopupContainer>
       {showSignOut && <SignOutConfirmDrawer />}
     </>
   );
-};
+}

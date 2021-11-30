@@ -15,7 +15,7 @@ describe(`Create and switch account`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, RouteUrls.Installed);
+    wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
   }, 10000);
 
   afterEach(async () => {

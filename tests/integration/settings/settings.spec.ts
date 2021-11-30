@@ -13,7 +13,7 @@ describe(`Settings integration tests`, () => {
 
   beforeAll(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, RouteUrls.Installed);
+    wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
     await wallet.clickAllowAnalytics();
     await wallet.signUp();
   });
