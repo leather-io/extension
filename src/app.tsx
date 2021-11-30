@@ -15,9 +15,8 @@ import { EditNonceDrawer } from '@features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@features/increase-fee-drawer/increase-fee-drawer';
 import { Devtools } from '@features/devtool/devtools';
 import { initSegment } from '@common/segment-init';
+import { AppRoutes } from '@routes/app-routes';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@store/common/common.hooks';
-
-import { Routes } from './routes';
 
 const devToolsEnabled = false;
 
@@ -40,7 +39,7 @@ export const App: React.FC = () => {
             <Router>
               <AppErrorBoundary>
                 <VaultLoader />
-                <Routes />
+                <AppRoutes />
                 <AccountsDrawer />
                 <NetworksDrawer />
                 <EditNonceDrawer />

@@ -5,7 +5,7 @@ import { useOnClickOutside } from '@common/hooks/use-onclickoutside';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { Divider } from '@components/divider';
 import { USERNAMES_ENABLED } from '@common/constants';
 import { forwardRefWithAs } from '@stacks/ui-core';
@@ -119,7 +119,7 @@ export const SettingsPopover: React.FC = () => {
               <MenuItem
                 data-testid="settings-view-secret-key"
                 onClick={wrappedCloseCallback(() => {
-                  changeScreen(ScreenPaths.SETTINGS_KEY);
+                  changeScreen(RouteUrls.SettingsKey);
                 })}
               >
                 View Secret Key
@@ -160,7 +160,7 @@ export const SettingsPopover: React.FC = () => {
                   onClick={wrappedCloseCallback(() => {
                     void analytics.track('lock_session');
                     void doLockWallet();
-                    changeScreen(ScreenPaths.POPUP_HOME);
+                    changeScreen(RouteUrls.PopupHome);
                   })}
                   data-testid="settings-lock"
                 >
@@ -171,7 +171,7 @@ export const SettingsPopover: React.FC = () => {
                 color={color('feedback-error')}
                 onClick={wrappedCloseCallback(() => {
                   setShowSignOut(true);
-                  changeScreen(ScreenPaths.SIGN_OUT_CONFIRM);
+                  changeScreen(RouteUrls.SignOutConfirm);
                 })}
                 data-testid="settings-sign-out"
               >

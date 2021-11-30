@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { PopupContainer } from '@components/popup/container';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { useWallet } from '@common/hooks/use-wallet';
 
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
@@ -46,14 +46,14 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
       if (decodedAuthRequest) {
         const { accounts } = wallet;
         if (accounts && (accounts.length > 1 || accounts[0].username)) {
-          doChangeScreen(ScreenPaths.CHOOSE_ACCOUNT);
+          doChangeScreen(RouteUrls.ChooseAccount);
         } else if (!USERNAMES_ENABLED) {
           await doFinishSignIn(0);
         } else {
-          doChangeScreen(ScreenPaths.USERNAME);
+          doChangeScreen(RouteUrls.Username);
         }
       } else if (redirect) {
-        doChangeScreen(ScreenPaths.INSTALLED);
+        doChangeScreen(RouteUrls.Installed);
       }
     },
     [

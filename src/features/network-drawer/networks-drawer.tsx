@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Box, Button } from '@stacks/ui';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useShowNetworksStore } from '@store/ui/ui.hooks';
 import { NetworkList } from '@features/network-drawer/network-list';
@@ -17,7 +17,7 @@ export const NetworksDrawer: React.FC = () => {
   const handleAddNetworkClick = useCallback(() => {
     void analytics.track('add_network');
     setShowNetworks(false);
-    doChangeScreen(ScreenPaths.ADD_NETWORK);
+    doChangeScreen(RouteUrls.AddNetwork);
   }, [analytics, setShowNetworks, doChangeScreen]);
 
   return (

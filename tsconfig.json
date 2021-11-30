@@ -34,6 +34,7 @@
       "@inpage/*": ["inpage/*"],
       "@pages/*": ["pages/*"],
       "@features/*": ["features/*"],
+      "@routes/*": ["routes/*"],
       "@tests/*": ["../tests/*"],
       "@tests": ["../tests"],
       "@models/*": ["models/*"]

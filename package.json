@@ -126,7 +126,7 @@
     "react-hot-toast": "2.0.0",
     "react-icons": "4.2.0",
     "react-query": "3.33.4",
-    "react-router-dom": "6.0.0-beta.0",
+    "react-router-dom": "6.0.0",
     "ts-debounce": "3.0.0",
     "use-events": "1.4.2",
     "use-latest": "1.2.0",

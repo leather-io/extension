@@ -1,17 +1,17 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { useCurrentScreenUpdate } from '@store/onboarding/onboarding.hooks';
 
-type ChangeScreenAction = (path: ScreenPaths, changeRoute?: boolean) => void;
+type ChangeScreenAction = (path: RouteUrls, changeRoute?: boolean) => void;
 
 export function useChangeScreen(): ChangeScreenAction {
   const navigate = useNavigate();
   const changeScreen = useCurrentScreenUpdate();
 
   const navigatePage = useCallback(
-    (path: ScreenPaths) => {
+    (path: RouteUrls) => {
       navigate(path);
       changeScreen(path);
     },
@@ -19,7 +19,7 @@ export function useChangeScreen(): ChangeScreenAction {
   );
 
   return useCallback(
-    (path: ScreenPaths, changeRoute = true) => {
+    (path: RouteUrls, changeRoute = true) => {
       if (changeRoute) {
         return navigatePage(path);
       }

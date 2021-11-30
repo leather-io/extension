@@ -1,7 +1,7 @@
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useWallet } from '@common/hooks/use-wallet';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import React from 'react';
 
 import { SignOutConfirmLayout } from './sign-out-confirm-layout';
@@ -16,11 +16,11 @@ export const SignOutConfirmDrawer = () => {
       onUserDeleteWallet={async () => {
         await doSignOut();
         setShowSignOut(false);
-        changeScreen(ScreenPaths.INSTALLED);
+        changeScreen(RouteUrls.Installed);
       }}
       onUserSafelyReturnToHomepage={() => {
         setShowSignOut(false);
-        changeScreen(ScreenPaths.HOME);
+        changeScreen(RouteUrls.Home);
       }}
     />
   );

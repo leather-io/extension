@@ -1,6 +1,6 @@
 import { BrowserDriver, createTestSelector, randomString, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { SettingsSelectors } from '../settings.selectors';
 import { delay } from '@common/utils';
 
@@ -14,7 +14,7 @@ describe(`Settings integration tests`, () => {
 
   beforeAll(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
     await wallet.clickAllowAnalytics();
     await wallet.signUp();
   }, BEFORE_ALL_TIMEOUT);
