@@ -9,7 +9,7 @@ import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { Header } from '@components/header';
 
 export const SignedOut = memo(() => {
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   return (
     <PopupContainer header={<Header hideActions />}>
       <Box width="100%" mt="extra-loose" textAlign="center">
@@ -19,7 +19,7 @@ export const SignedOut = memo(() => {
         <Button
           my="extra-loose"
           onClick={() => {
-            doChangeScreen(RouteUrls.Installed);
+            changeScreen(RouteUrls.Installed);
           }}
         >
           Get started

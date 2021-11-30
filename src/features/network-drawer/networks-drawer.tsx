@@ -11,14 +11,14 @@ import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 export const NetworksDrawer: React.FC = () => {
   const { setShowNetworks } = useDrawers();
   const [isShowing] = useShowNetworksStore();
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const analytics = useAnalytics();
 
   const handleAddNetworkClick = useCallback(() => {
     void analytics.track('add_network');
     setShowNetworks(false);
-    doChangeScreen(RouteUrls.AddNetwork);
-  }, [analytics, setShowNetworks, doChangeScreen]);
+    changeScreen(RouteUrls.AddNetwork);
+  }, [analytics, setShowNetworks, changeScreen]);
 
   return (
     <ControlledDrawer

@@ -9,7 +9,7 @@ import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { useDrawers } from '@common/hooks/use-drawers';
 
 export const Unlock: React.FC = () => {
-  const { doUnlockWallet } = useWallet();
+  const { unlockWallet } = useWallet();
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -19,12 +19,12 @@ export const Unlock: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      await doUnlockWallet(password);
+      await unlockWallet(password);
     } catch (error) {
       setError('The password you entered is invalid.');
     }
     setLoading(false);
-  }, [doUnlockWallet, password]);
+  }, [unlockWallet, password]);
 
   return (
     <>

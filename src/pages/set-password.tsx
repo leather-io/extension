@@ -29,8 +29,8 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
-  const { doSetPassword, wallet, doFinishSignIn } = useWallet();
-  const doChangeScreen = useChangeScreen();
+  const { setPassword, wallet, finishSignIn } = useWallet();
+  const changeScreen = useChangeScreen();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
   useEffect(() => {
@@ -41,30 +41,22 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({
     async (password: string) => {
       if (!wallet) throw 'Please log in before setting a password.';
       setLoading(true);
-      await doSetPassword(password);
+      await setPassword(password);
       if (accountGate) return;
       if (decodedAuthRequest) {
         const { accounts } = wallet;
         if (accounts && (accounts.length > 1 || accounts[0].username)) {
-          doChangeScreen(RouteUrls.ChooseAccount);
+          changeScreen(RouteUrls.ChooseAccount);
         } else if (!USERNAMES_ENABLED) {
-          await doFinishSignIn(0);
+          await finishSignIn(0);
         } else {
-          doChangeScreen(RouteUrls.Username);
+          changeScreen(RouteUrls.Username);
         }
       } else if (redirect) {
-        doChangeScreen(RouteUrls.Installed);
+        changeScreen(RouteUrls.Installed);
       }
     },
-    [
-      doSetPassword,
-      doChangeScreen,
-      redirect,
-      decodedAuthRequest,
-      wallet,
-      doFinishSignIn,
-      accountGate,
-    ]
+    [setPassword, changeScreen, redirect, decodedAuthRequest, wallet, finishSignIn, accountGate]
   );
 
   const handleSubmit = useCallback(

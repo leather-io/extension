@@ -36,7 +36,7 @@ export function AppRoutes(): JSX.Element {
   const { search, pathname } = useLocation();
   const setLastSeen = useUpdateLastSeenStore();
 
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const analytics = useAnalytics();
   useSaveAuthRequest();
 
@@ -120,10 +120,7 @@ export function AppRoutes(): JSX.Element {
         path={RouteUrls.SettingsKey}
         element={
           <AccountGate>
-            <SaveYourKeyView
-              onClose={() => doChangeScreen(RouteUrls.Home)}
-              title="Your Secret Key"
-            />
+            <SaveYourKeyView onClose={() => changeScreen(RouteUrls.Home)} title="Your Secret Key" />
           </AccountGate>
         }
       />

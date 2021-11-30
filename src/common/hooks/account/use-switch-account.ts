@@ -10,7 +10,7 @@ import {
 const TIMEOUT = 350;
 
 export const useSwitchAccount = (callback?: () => void) => {
-  const { doSwitchAccount } = useWallet();
+  const { switchAccount } = useWallet();
   const currentAccount = useCurrentAccount();
   const txIndex = useTransactionAccountIndex();
   const transactionVersion = useTransactionNetworkVersion();
@@ -19,14 +19,14 @@ export const useSwitchAccount = (callback?: () => void) => {
   const handleSwitchAccount = useCallback(
     async index => {
       if (typeof txIndex === 'number') setHasSwitched(true);
-      await doSwitchAccount(index);
+      await switchAccount(index);
       if (callback) {
         window.setTimeout(() => {
           callback();
         }, TIMEOUT);
       }
     },
-    [txIndex, setHasSwitched, doSwitchAccount, callback]
+    [txIndex, setHasSwitched, switchAccount, callback]
   );
 
   const getIsActive = useCallback(

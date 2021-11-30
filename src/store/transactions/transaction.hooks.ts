@@ -69,7 +69,7 @@ export function useEstimatedTransactionByteLengthState() {
 }
 
 export function useTransactionBroadcast() {
-  const { doSetLatestNonce } = useWallet();
+  const { setLatestNonce } = useWallet();
   return useAtomCallback(
     useCallback(
       async (get, set) => {
@@ -97,7 +97,7 @@ export function useTransactionBroadcast() {
             attachment,
             networkUrl: network.url,
           });
-          typeof nonce !== 'undefined' && (await doSetLatestNonce(nonce));
+          typeof nonce !== 'undefined' && (await setLatestNonce(nonce));
           finalizeTxSignature(requestToken, result);
           if (result.txId) {
             set(currentAccountLocallySubmittedTxsState, {
@@ -112,7 +112,7 @@ export function useTransactionBroadcast() {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [doSetLatestNonce]
+      [setLatestNonce]
     )
   );
 }

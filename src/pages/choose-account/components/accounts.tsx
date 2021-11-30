@@ -54,15 +54,15 @@ const AccountTitle = ({ account, ...rest }: { account: AccountWithAddress } & Bo
 const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...rest }) => {
   const [component, bind] = usePressable(true);
   const { isLoading, setIsLoading } = useLoading(`CHOOSE_ACCOUNT__${account.address}`);
-  const { doFinishSignIn } = useWallet();
+  const { finishSignIn } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
   const availableStxBalance = useAccountAvailableStxBalance(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
   const handleOnClick = useCallback(async () => {
     setIsLoading();
-    await doFinishSignIn(account.index);
-  }, [setIsLoading, doFinishSignIn, account]);
+    await finishSignIn(account.index);
+  }, [setIsLoading, finishSignIn, account]);
 
   const accountSlug = slugify(`Account ${account?.index + 1}`);
 
