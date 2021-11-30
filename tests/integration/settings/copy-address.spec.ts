@@ -1,6 +1,6 @@
 import { createTestSelector, BrowserDriver, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { validateStacksAddress } from '@common/stacks-utils';
 import { UserAreaSelectors } from '../user-area.selectors';
 
@@ -16,7 +16,7 @@ describe(`Copy Address`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
   }, 10000);
 
   afterEach(async () => {

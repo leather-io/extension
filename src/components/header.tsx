@@ -7,7 +7,7 @@ import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { NetworkModeBadge } from '@components/network-mode-badge';
 import { Caption, Title } from '@components/typography';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 
 const MenuButton: React.FC<BoxProps> = memo(props => {
   const { showSettings, setShowSettings } = useDrawers();
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
     >
       {!title ? (
         <Stack alignItems="center" pt="7px" isInline>
-          <StacksWalletLogo onClick={() => changeScreen(ScreenPaths.HOME)} />
+          <StacksWalletLogo onClick={() => changeScreen(RouteUrls.Home)} />
           {version ? (
             <Caption
               pt="extra-tight"

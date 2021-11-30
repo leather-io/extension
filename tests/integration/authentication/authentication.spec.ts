@@ -1,7 +1,7 @@
 import { BrowserDriver, setupBrowser } from '../utils';
 import { SECRET_KEY } from '../../mocks';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 
 jest.setTimeout(30_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -12,7 +12,7 @@ describe(`Authentication integration tests`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
   }, 10000);
 
   afterEach(async () => {

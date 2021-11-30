@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { USERNAMES_ENABLED } from '@common/constants';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { decrypt } from '@stacks/wallet-sdk';
 import {
   useMagicRecoveryCodePasswordState,
@@ -27,10 +27,10 @@ export function useMagicRecoveryCode() {
           void doFinishSignIn(0);
         }, 1000);
       } else {
-        doChangeScreen(ScreenPaths.USERNAME);
+        doChangeScreen(RouteUrls.Username);
       }
     } else {
-      doChangeScreen(ScreenPaths.HOME);
+      doChangeScreen(RouteUrls.Home);
     }
   }, [doChangeScreen, decodedAuthRequest, doFinishSignIn]);
 
@@ -65,7 +65,7 @@ export function useMagicRecoveryCode() {
     [setPassword]
   );
 
-  const handleBack = () => doChangeScreen(ScreenPaths.SIGN_IN);
+  const handleBack = () => doChangeScreen(RouteUrls.SignIn);
 
   const onSubmit = useCallback(
     async (event: React.FormEvent) => {

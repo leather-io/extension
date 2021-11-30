@@ -11,7 +11,7 @@ import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useLoading } from '@common/hooks/use-loading';
 import { logger } from '@common/logger';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useCurrentStacksNetworkState } from '@store/network/networks.hooks';
@@ -78,10 +78,10 @@ export function useSubmitTransactionCallback({
           if (nonce) await doSetLatestNonce(nonce);
           toast.success('Transaction submitted!');
           void analytics.track('broadcast_transaction');
-          doChangeScreen(ScreenPaths.HOME);
+          doChangeScreen(RouteUrls.Home);
           onClose();
           setIsIdle();
-          doChangeScreen(ScreenPaths.HOME);
+          doChangeScreen(RouteUrls.Home);
           // switch active tab to activity
           setActiveTabActivity();
           await refreshAccountData(250); // delay to give the api time to receive the tx

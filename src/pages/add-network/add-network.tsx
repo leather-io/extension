@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 
 import { PopupContainer } from '@components/popup/container';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { isValidUrl } from '@common/validation/validate-url';
 import { ChainID, fetchPrivate } from '@stacks/transactions';
 import { ErrorLabel } from '@components/error-label';
@@ -20,9 +20,7 @@ export const AddNetwork: React.FC = () => {
 
   return (
     <PopupContainer
-      header={
-        <Header title="Add a network" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />
-      }
+      header={<Header title="Add a network" onClose={() => doChangeScreen(RouteUrls.PopupHome)} />}
     >
       <Box mt="base">
         <Text fontSize={2}>
@@ -60,7 +58,7 @@ export const AddNetwork: React.FC = () => {
                 };
               });
               setNetworkKey(key);
-              doChangeScreen(ScreenPaths.POPUP_HOME);
+              doChangeScreen(RouteUrls.PopupHome);
               return;
             }
             setError('Unable to determine chainID from node.');

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
 
@@ -22,7 +22,7 @@ export const AllowDiagnosticsFullPage = () => {
         initSentry();
         void initSegment();
       }
-      changeScreen(ScreenPaths.HOME);
+      changeScreen(RouteUrls.Home);
     },
     [changeScreen, setHasAllowedDiagnostics]
   );
