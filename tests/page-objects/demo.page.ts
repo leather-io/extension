@@ -2,7 +2,7 @@ import { Page, BrowserContext } from 'playwright-core';
 import { createTestSelector } from '../integration/utils';
 
 export class DemoPage {
-  static url = 'http://localhost:3001';
+  static url = 'http://localhost:3000';
   openConnectBtn = createTestSelector('sign-up');
 
   page: Page;

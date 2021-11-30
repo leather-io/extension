@@ -29,7 +29,6 @@
     "test": "NODE_ENV=test jest --verbose=true",
     "test:coverage": "NODE_ENV=test jest --collect-coverage",
     "test:watch": "NODE_ENV=test jest --watch",
-    "test:serve": "yarn http-server ./test-app/dist -p 3001 -s",
     "typecheck": "tsc --noEmit",
     "check:deps": "dependency-cruise  --config .dependency-cruiser.js \"src/**/*.{ts,tsx}\"",
     "check:unused-exports": "ts-unused-exports tsconfig.json"
