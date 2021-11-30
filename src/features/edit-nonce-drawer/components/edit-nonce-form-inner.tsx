@@ -12,7 +12,7 @@ export function EditNonceFormInner(): JSX.Element {
   const { setFieldValue, handleSubmit } = useFormikContext();
   const { isLoading } = useLoading(LoadingKeys.EDIT_NONCE_DRAWER);
   const [transaction] = useUnsignedTxForSettingsState();
-  const nonce = transaction?.auth.spendingCondition?.nonce.toNumber();
+  const nonce = Number(transaction?.auth.spendingCondition?.nonce);
   const { setShowEditNonce } = useDrawers();
 
   useEffect(() => {
