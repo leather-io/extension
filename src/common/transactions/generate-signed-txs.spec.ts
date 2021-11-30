@@ -18,9 +18,9 @@ describe('generated signed transactions', () => {
     expect(tx.postConditionMode).toEqual(PostConditionMode.Allow);
     const postCondition = tx.postConditions.values[0];
     if ('amount' in postCondition) {
-      expect(postCondition.amount.toNumber()).toEqual(100);
+      expect(postCondition.amount).toEqual(100n);
     } else {
       throw new Error('Deserialized TX does not have post condition');
     }
-  }, 5000);
+  });
 });

@@ -1,10 +1,11 @@
+import { ContractCallOptions, makeContractCallToken, UserData } from '@stacks/connect';
 import {
   PostConditionMode,
   makeStandardFungiblePostCondition,
   FungibleConditionCode,
   createAssetInfo,
+  serializePostCondition,
 } from '@stacks/transactions';
-import { ContractCallOptions, makeContractCallToken, UserData } from '@stacks/connect';
 import BN from 'bn.js';
 
 import { StacksTestnet } from '@stacks/network';
@@ -30,6 +31,14 @@ export async function generateContractCallToken({
   const assetContractName = 'test-asset-contract';
   const assetName = 'test-asset-name';
   const info = createAssetInfo(assetAddress, assetContractName, assetName);
+  serializePostCondition(
+    makeStandardFungiblePostCondition(
+      address,
+      FungibleConditionCode.GreaterEqual,
+      new BN(100),
+      info
+    )
+  );
   localStorage.setItem(
     'blockstack-session',
     JSON.stringify({
