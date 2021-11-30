@@ -186,7 +186,6 @@ const config = {
       VERSION: JSON.stringify(VERSION),
       COMMIT_SHA: JSON.stringify(COMMIT_SHA),
       BRANCH: JSON.stringify(BRANCH),
-      'process.env.USERNAMES_ENABLED': JSON.stringify(process.env.USERNAMES_ENABLED || 'false'),
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',

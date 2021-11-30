@@ -7,7 +7,7 @@ import { useOnboardingState } from './auth/use-onboarding-state';
 
 import { bytesToText } from '@common/store-utils';
 import {
-  useEncryptedSecretKeyStore,
+  useEncryptedSecretKeyState,
   useFinishSignInCallback,
   useHasRehydratedVault,
   useHasSetPasswordState,
@@ -32,7 +32,7 @@ export function useWallet() {
   const hasRehydratedVault = useHasRehydratedVault();
   const [wallet, setWallet] = useWalletState();
   const secretKey = useSecretKey();
-  const encryptedSecretKey = useEncryptedSecretKeyStore();
+  const encryptedSecretKey = useEncryptedSecretKeyState();
   const currentAccountIndex = useCurrentAccountIndex();
   const hasSetPassword = useHasSetPasswordState();
   const currentAccount = useCurrentAccount();
@@ -49,7 +49,7 @@ export function useWallet() {
 
   const { decodedAuthRequest, authRequest } = useOnboardingState();
 
-  const isSignedIn = !!wallet;
+  const hasGeneratedWallet = !!wallet;
 
   const setLatestNonce = useSetLatestNonceCallback();
 
@@ -67,7 +67,7 @@ export function useWallet() {
     hasRehydratedVault,
     wallet,
     secretKey: secretKey ? bytesToText(secretKey) : undefined,
-    isSignedIn,
+    hasGeneratedWallet,
     currentAccount,
     currentAccountIndex,
     currentAccountStxAddress,

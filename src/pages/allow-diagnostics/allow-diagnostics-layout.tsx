@@ -23,8 +23,7 @@ interface AllowDiagnosticsLayoutProps {
   onUserAllowDiagnostics(): void;
   onUserDenyDiagnosticsPermissions(): void;
 }
-
-export function AllowDiagnosticsFullLayout(props: AllowDiagnosticsLayoutProps) {
+export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
   const { onUserAllowDiagnostics, onUserDenyDiagnosticsPermissions } = props;
 
   return (

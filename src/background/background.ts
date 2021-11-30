@@ -40,7 +40,7 @@ chrome.runtime.onInstalled.addListener(details => {
   Sentry.wrap(async () => {
     if (details.reason === 'install' && !IS_TEST_ENV) {
       await chrome.tabs.create({
-        url: chrome.runtime.getURL(`index.html#${RouteUrls.Installed}`),
+        url: chrome.runtime.getURL(`index.html#${RouteUrls.Onboarding}`),
       });
     }
   });
@@ -60,7 +60,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.authenticationRequests,
               port,
             });
-            const path = RouteUrls.SignUp;
+            const path = RouteUrls.Onboarding;
             const urlParams = new URLSearchParams();
             urlParams.set('authRequest', payload);
             if (IS_TEST_ENV) {

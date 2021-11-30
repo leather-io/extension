@@ -227,10 +227,6 @@ export function findMatchingNetworkKey(
   return null;
 }
 
-export function cleanUsername(username: string) {
-  return username?.split('.')[0];
-}
-
 export const slugify = (...args: (string | number)[]): string => {
   const value = args.join(' ');
 
