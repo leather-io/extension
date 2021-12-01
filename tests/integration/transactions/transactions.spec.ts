@@ -121,8 +121,8 @@ describe(`Transaction signing`, () => {
       ]);
       const deserialisedTx = deserializeTransaction(requestBody);
       const payload = deserialisedTx.payload as TokenTransferPayload;
-      const amount = payload.amount.toNumber();
-      const fee = deserialisedTx.auth.spendingCondition?.fee.toNumber();
+      const amount = Number(payload.amount);
+      const fee = Number(deserialisedTx.auth.spendingCondition?.fee);
 
       const parsedDisplayedFee = parseFloat(displayedFee.replace(' STX', ''));
       expect(fee).toEqual(stxToMicroStx(parsedDisplayedFee).toNumber());
