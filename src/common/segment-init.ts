@@ -14,7 +14,8 @@ export function initSegment() {
   }
   if (IS_TEST_ENV) return;
   if (!writeKey) {
-    logger.info('segment init aborted: No WRITE_KEY setup.');
+    if (process.env.WALLET_ENVIRONMENT === 'production')
+      logger.error('segment init aborted: No WRITE_KEY setup.');
     return;
   }
 
