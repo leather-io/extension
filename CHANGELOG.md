@@ -1,3 +1,10 @@
+## [2.21.2-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2-beta.1...v2.21.2-beta.2) (2021-12-01)
+
+
+### Bug Fixes
+
+* don't warn of no writekey in dev by default ([d6f4d2b](https://github.com/hirosystems/stacks-wallet-web/commit/d6f4d2b5dc171c06b0555afa8475539cdb7582eb))
+
 ## [2.21.2-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.1...v2.21.2-beta.1) (2021-12-01)
 
 
