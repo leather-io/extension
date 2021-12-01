@@ -11,6 +11,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const SRC_ROOT_PATH = path.join(__dirname, '../', 'src');
 const DIST_ROOT_PATH = path.join(__dirname, '../', 'dist');
@@ -211,6 +212,8 @@ const config = {
       Buffer: ['buffer', 'Buffer'],
       fetch: 'cross-fetch',
     }),
+
+    new ProgressBarPlugin(),
   ],
 };
 
