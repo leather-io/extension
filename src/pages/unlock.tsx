@@ -7,6 +7,7 @@ import { ErrorLabel } from '@components/error-label';
 import { Header } from '@components/header';
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { useDrawers } from '@common/hooks/use-drawers';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 export const Unlock: React.FC = () => {
   const { unlockWallet } = useWallet();
@@ -14,8 +15,11 @@ export const Unlock: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { showSignOut } = useDrawers();
+  const analytics = useAnalytics();
 
   const submit = useCallback(async () => {
+    const startUnlockTimeMs = performance.now();
+    void analytics.track('start_unlock');
     setLoading(true);
     setError('');
     try {
@@ -24,7 +28,11 @@ export const Unlock: React.FC = () => {
       setError('The password you entered is invalid.');
     }
     setLoading(false);
-  }, [unlockWallet, password]);
+    const unlockSuccessTimeMs = performance.now();
+    void analytics.track('complete_unlock', {
+      durationMs: unlockSuccessTimeMs - startUnlockTimeMs,
+    });
+  }, [analytics, unlockWallet, password]);
 
   return (
     <>
