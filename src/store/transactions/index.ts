@@ -59,7 +59,7 @@ const unsignedStacksTransactionBaseState = atom(get => {
   }
   const publicKey = publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey));
   const options = {
-    fee: txData.fee,
+    fee: txData.fee ?? 0,
     publicKey,
     nonce: txNonce,
     txData,

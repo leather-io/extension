@@ -54,6 +54,7 @@ const stxTokenTransferUnsignedTxState = atom(get => {
   const options: GenerateUnsignedTransactionOptions = {
     publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
     nonce: txNonce,
+    fee: stxToMicroStx(txData?.fee || 0).toNumber(),
     txData: {
       txType: TransactionTypes.STXTransfer,
       // Using account address here as a fallback for a fee estimation
@@ -68,13 +69,7 @@ const stxTokenTransferUnsignedTxState = atom(get => {
     } as STXTransferPayload,
   };
 
-  return generateUnsignedTransaction(options).then(transaction => {
-    if (!transaction) return;
-    return generateUnsignedTransaction({
-      ...options,
-      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
-    });
-  });
+  return generateUnsignedTransaction(options);
 });
 
 const ftTokenTransferUnsignedTxState = atom(get => {
@@ -144,17 +139,12 @@ const ftTokenTransferUnsignedTxState = atom(get => {
       network,
       publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
     },
+    fee: stxToMicroStx(txData?.fee || 0).toNumber(),
     publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
     nonce: txNonce,
   } as const;
 
-  return generateUnsignedTransaction(options).then(transaction => {
-    if (!transaction) return;
-    return generateUnsignedTransaction({
-      ...options,
-      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
-    });
-  });
+  return generateUnsignedTransaction(options);
 });
 
 const isSendFormSendingStx = atom(get => {
