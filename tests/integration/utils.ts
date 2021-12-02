@@ -11,7 +11,7 @@ import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 const makeTmpDir = promisify(mkdtemp);
 
-export function createTestSelector(name: string) {
+export function createTestSelector<T extends string>(name: T): `[data-testid="${T}"]` {
   return `[data-testid="${name}"]`;
 }
 

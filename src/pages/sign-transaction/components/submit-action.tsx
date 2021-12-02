@@ -9,7 +9,7 @@ import { TransactionFormValues } from '@common/transactions/transaction-utils';
 import { isEmpty } from '@common/utils';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@components/show-edit-nonce';
 import { useTransactionError } from '@pages/sign-transaction/hooks/use-transaction-error';
-import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
+import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 function BaseConfirmButton(props: ButtonProps): JSX.Element {
   return (
@@ -29,7 +29,7 @@ function SubmitActionSuspense(): JSX.Element {
 
   return (
     <BaseConfirmButton
-      data-testid={TransactionsSelectors.BtnConfirmTransaction}
+      data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
       onClick={async () => {
         // We need to check for errors here before we show the high fee confirmation
         const formErrors = await validateForm();
