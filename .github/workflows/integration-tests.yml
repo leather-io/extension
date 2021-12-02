@@ -61,7 +61,7 @@ jobs:
         if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
         with:
           timeout_seconds: 600
-          max_attempts: 5
+          max_attempts: 3
           retry_on: error
           command: node node_modules/playwright/install.js
 
@@ -76,11 +76,15 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-      - name: Serve and run tests
-        run: xvfb-run --auto-servernum -- yarn jest --config=./jest.integration.config.js --runInBand --testPathPattern=./tests/integration/${{ matrix.dir }}* --detectOpenHandles
+      - name: Run tests
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 6
+          max_attempts: 3
+          command: xvfb-run --auto-servernum -- yarn jest --config=./jest.integration.config.js --runInBand --testPathPattern=./tests/integration/${{ matrix.dir }}* --detectOpenHandles
 
       - uses: actions/upload-artifact@v2
         if: always()
         with:
           name: test-screenshots-${{ steps.date.outputs.date }}
-          path: tests/screenshots/
+          path: tests/screenshots

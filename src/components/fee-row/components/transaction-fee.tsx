@@ -1,3 +1,4 @@
+import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 import React from 'react';
 
 interface TransactionFeeProps {
@@ -6,5 +7,9 @@ interface TransactionFeeProps {
 }
 export function TransactionFee(props: TransactionFeeProps): JSX.Element | null {
   const { fee, isSponsored } = props;
-  return <>{isSponsored ? '🎉 sponsored' : fee} STX</>;
+  return (
+    <span data-testid={TransactionSigningSelectors.FeeToBePaidLabel}>
+      {isSponsored ? '🎉 sponsored' : fee} STX
+    </span>
+  );
 }

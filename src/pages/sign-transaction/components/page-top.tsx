@@ -7,6 +7,7 @@ import { Caption, Title } from '@components/typography';
 import { usePageTitle } from '@pages/sign-transaction/hooks/use-page-title';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 import { useOrigin } from '@store/transactions/requests.hooks';
+import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 function addPortSuffix(url: string) {
   const port = getUrlPort(url);
@@ -28,7 +29,11 @@ function PageTopBase(): JSX.Element | null {
   const caption = appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;
 
   return (
-    <Stack pt="extra-loose" spacing="base">
+    <Stack
+      pt="extra-loose"
+      spacing="base"
+      data-testid={TransactionSigningSelectors.TxSigningPageContainer}
+    >
       <Title fontWeight="bold" as="h1">
         {pageTitle}
       </Title>

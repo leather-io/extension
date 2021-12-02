@@ -31,7 +31,7 @@ import {
   tupleCV,
   uintCV,
 } from '@stacks/transactions';
-import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
+import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 import { ExplorerLink } from './explorer-link';
 import BN from 'bn.js';
 import { StacksTestnet } from '@stacks/network';
@@ -318,28 +318,28 @@ export const Debugger = () => {
       <Box>
         <ButtonGroup spacing={4} my="base">
           <Button
-            data-testid={TransactionsSelectors.BtnContractCall}
+            data-testid={TransactionSigningSelectors.BtnContractCall}
             mt={3}
             onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow)}
           >
             Contract call (ALLOW mode)
           </Button>
           <Button
-            data-testid={TransactionsSelectors.BtnContractCall}
+            data-testid={TransactionSigningSelectors.BtnContractCall}
             mt={3}
             onClick={() => callFaker(stacksTestnetNetwork)}
           >
             Contract call (Testnet)
           </Button>
           <Button
-            data-testid={TransactionsSelectors.BtnContractCall}
+            data-testid={TransactionSigningSelectors.BtnContractCall}
             mt={3}
             onClick={() => callFaker(stacksRegtestNetwork)}
           >
             Contract call (Regtest)
           </Button>
           <Button
-            data-testid={TransactionsSelectors.BtnContractCall}
+            data-testid={TransactionSigningSelectors.BtnContractCall}
             mt={3}
             onClick={() => callFaker(stacksLocalhostNetwork)}
           >

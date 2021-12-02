@@ -6,7 +6,7 @@ import { Caption } from '@components/typography';
 import { useTransactionError } from '@pages/sign-transaction/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@pages/sign-transaction/components/transaction-error/transaction-error';
 import { useTransactionBroadcastError } from '@store/transactions/requests.hooks';
-import { TransactionsSelectors } from '@tests/integration/transactions.selectors';
+import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 function MinimalErrorMessageSuspense(props: StackProps): JSX.Element | null {
   const error = useTransactionError();
@@ -37,7 +37,7 @@ function MinimalErrorMessageSuspense(props: StackProps): JSX.Element | null {
 
   return (
     <Stack
-      data-testid={TransactionsSelectors.TransactionErrorMessage}
+      data-testid={TransactionSigningSelectors.TransactionErrorMessage}
       alignItems="center"
       bg="#FCEEED"
       p="base"
