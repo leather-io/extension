@@ -52,6 +52,8 @@ jobs:
         with:
           node-version: 14.x
 
+      - run: npx playwright install
+
       - name: Install packages
         uses: ./.github/actions/provision
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
