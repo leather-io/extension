@@ -1,4 +1,4 @@
-import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
+import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
 import { WalletPage } from '@tests/page-objects/wallet.page';
 import { DemoPage } from '@tests/page-objects/demo.page';
 import { RouteUrls } from '@routes/route-urls';
@@ -19,6 +19,7 @@ describe(`Transaction signing`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
+    await browser.context.tracing.start({ screenshots: true, snapshots: true });
     wallet = await WalletPage.init(browser, RouteUrls.Installed);
     demo = browser.demo;
     await wallet.clickAllowAnalytics();
@@ -26,8 +27,13 @@ describe(`Transaction signing`, () => {
 
   afterEach(async () => {
     try {
+      await browser.context.tracing.stop({
+        path: `trace-${getCurrentTestName()}.trace.zip`,
+      });
       await browser.context.close();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   describe('New created wallet scenarios', () => {
@@ -66,7 +72,7 @@ describe(`Transaction signing`, () => {
     });
   });
 
-  describe.only('App initiated STX transfer', () => {
+  describe('App initiated STX transfer', () => {
     let txSigningPage: TransactionSigningPage;
 
     function interceptTransactionBroadcast(page: Page): Promise<Buffer> {
