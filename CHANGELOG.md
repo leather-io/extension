@@ -1,3 +1,10 @@
+# [2.22.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.22.0-beta.1...v2.22.0-beta.2) (2021-12-06)
+
+
+### Bug Fixes
+
+* use transak production env for preview build ([3e9e432](https://github.com/hirosystems/stacks-wallet-web/commit/3e9e43223dce6c7bb4d0fd915abb80617f8c6ecc))
+
 # [2.22.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2-beta.2...v2.22.0-beta.1) (2021-12-06)
 
 
