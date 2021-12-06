@@ -12,10 +12,12 @@ export const AccountGate = ({ children }: AccountGateProps) => {
 
   const isWalletActive = hasGeneratedWallet && hasSetPassword;
   const isWalletLocked = !hasGeneratedWallet && encryptedSecretKey;
+  const needsToCompleteOnboarding = (hasGeneratedWallet || encryptedSecretKey) && !hasSetPassword;
 
   if (!hasRehydratedVault) return null;
   if (isWalletActive) return <>{children}</>;
   if (isWalletLocked) return <Navigate to={RouteUrls.Unlock} />;
+  if (needsToCompleteOnboarding) return <Navigate to={RouteUrls.SaveSecretKey} />;
 
   return null;
 };

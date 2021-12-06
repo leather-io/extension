@@ -2,7 +2,6 @@ import React, { memo, useEffect } from 'react';
 import { Stack } from '@stacks/ui';
 
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { useWallet } from '@common/hooks/use-wallet';
 import { PopupContainer } from '@components/popup/container';
 import { Title, Body } from '@components/typography';
 import { Header } from '@components/header';
@@ -13,12 +12,10 @@ import { OnboardingActions } from './onboarding-actions';
 
 export const Onboarding = memo(() => {
   const [hasAllowedDiagnostics, _] = useHasAllowedDiagnostics();
-  const { hasGeneratedWallet, hasSetPassword } = useWallet();
   const changeScreen = useChangeScreen();
 
   useEffect(() => {
     if (hasAllowedDiagnostics === undefined) changeScreen(RouteUrls.RequestDiagnostics);
-    if (hasGeneratedWallet && hasSetPassword) changeScreen(RouteUrls.ChooseAccount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
