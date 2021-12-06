@@ -24,9 +24,8 @@ export const POPUP_WIDTH = 442;
 export const POPUP_HEIGHT = 646;
 export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 
-export const GITHUB_ORG = 'blockstack';
+export const GITHUB_ORG = 'hirosystems';
 export const GITHUB_REPO = 'stacks-wallet-web';
-export const GITHUB_PRIMARY_BRANCH = 'main';
 
 export interface Network {
   url: string;
@@ -73,3 +72,6 @@ export enum QueryRefreshRates {
 }
 
 export const DEFAULT_LIST_LIMIT = 50;
+
+export const TRANSAK_API_KEY_PRODUCTION = '7300ebf7-c657-46b1-9c72-c0d91bbed0a8';
+export const TRANSAK_API_KEY_STAGING = '4055d318-9d41-4b74-9253-e73e3ca13602';

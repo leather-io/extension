@@ -29,6 +29,7 @@ import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
 import { AllowDiagnosticsFullPage } from '@pages/allow-diagnostics/allow-diagnostics';
+import { BuyPage } from '@pages/buy/buy';
 
 export function AppRoutes(): JSX.Element {
   const { isSignedIn: signedIn, encryptedSecretKey } = useWallet();
@@ -104,6 +105,16 @@ export function AppRoutes(): JSX.Element {
           <AccountGate>
             <Suspense fallback={<></>}>
               <SendTokensForm />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.Buy}
+        element={
+          <AccountGate>
+            <Suspense fallback={<></>}>
+              <BuyPage />
             </Suspense>
           </AccountGate>
         }
