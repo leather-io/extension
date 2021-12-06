@@ -7,6 +7,7 @@ export enum RouteUrls {
   PopupHome = '/',
   Receive = '/receive',
   Send = '/send',
+  Buy = '/buy',
   RecoveryCode = '/sign-in/recover',
   SetPassword = '/set-password',
   SettingsKey = '/settings/secret-key',

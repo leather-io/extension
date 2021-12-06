@@ -1,0 +1,6 @@
+{
+  "activeFiatProviders": {
+    "transak": { "name": "transak", "enabled": true },
+    "okcoin": { "name": "okcoin", "enabled": false }
+  }
+}

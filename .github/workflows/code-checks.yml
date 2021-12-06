@@ -81,7 +81,7 @@ jobs:
       - uses: ./.github/actions/provision
 
       - name: Validate message schema
-        run: npx ajv-cli validate -s config/wallet-comms.schema.json -d config/wallet-comms.json
+        run: npx ajv-cli validate -s config/wallet-config.schema.json -d config/wallet-config.json
 
   check-unused-exports:
     runs-on: ubuntu-latest
