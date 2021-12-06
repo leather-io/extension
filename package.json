@@ -32,7 +32,8 @@
     "test:serve": "yarn http-server ./test-app/dist -p 3001 -s",
     "typecheck": "tsc --noEmit",
     "check:deps": "dependency-cruise  --config .dependency-cruiser.js \"src/**/*.{ts,tsx}\"",
-    "check:unused-exports": "ts-unused-exports tsconfig.json"
+    "check:unused-exports": "ts-unused-exports tsconfig.json",
+    "check:remote-wallet-config": "npx ajv-cli validate -s config/wallet-config.schema.json -d config/wallet-config.json"
   },
   "license": "MIT",
   "main": "index.js",
@@ -127,6 +128,7 @@
     "react-icons": "4.2.0",
     "react-query": "3.33.4",
     "react-router-dom": "6.0.0",
+    "svg-url-loader": "7.1.1",
     "ts-debounce": "3.0.0",
     "use-events": "1.4.2",
     "use-latest": "1.2.0",

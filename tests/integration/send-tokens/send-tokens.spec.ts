@@ -17,7 +17,7 @@ describe(`Send tokens flow`, () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Installed);
     await walletPage.clickAllowAnalytics();
-    await walletPage.signUp();
+    await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
