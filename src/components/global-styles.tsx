@@ -53,12 +53,6 @@ const SizeStyles = css`
       .onboarding-text {
         text-align: center;
       }
-
-      .unlock-text {
-        padding-left: 16px;
-        padding-right: 16px;
-        text-align: center;
-      }
     }
   }
 

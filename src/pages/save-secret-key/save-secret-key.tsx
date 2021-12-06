@@ -25,7 +25,11 @@ export const SaveSecretKey: React.FC = memo(() => {
     <PopupContainer
       header={
         <Header
-          onClose={() => changeScreen(RouteUrls.Home)}
+          onClose={
+            hasSetPassword
+              ? () => changeScreen(RouteUrls.Home)
+              : () => changeScreen(RouteUrls.Onboarding)
+          }
           hideActions={!hasSetPassword}
           title={hasSetPassword ? 'Your Secret Key' : 'Save your Secret Key'}
         />
