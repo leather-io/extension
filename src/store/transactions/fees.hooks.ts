@@ -16,11 +16,7 @@ export const useReplaceByFeeSubmitCallBack = () => {
   const [, setTxId] = useRawTxIdState();
 
   const submitTransaction = useSubmitTransactionCallback({
-    onClose: () => {
-      setTxId(null);
-    },
     loadingKey: LoadingKeys.INCREASE_FEE_DRAWER,
-    replaceByFee: true,
   });
 
   return useAtomCallback<void, { fee: number; nonce: number }>(
@@ -28,9 +24,14 @@ export const useReplaceByFeeSubmitCallBack = () => {
       async get => {
         const signedTx = await get(rawSignedTxState, true);
         if (!signedTx) return;
-        await submitTransaction(signedTx);
+        await submitTransaction({
+          onClose: () => {
+            setTxId(null);
+          },
+          replaceByFee: true,
+        })(signedTx);
       },
-      [submitTransaction]
+      [setTxId, submitTransaction]
     )
   );
 };

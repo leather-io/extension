@@ -2,20 +2,17 @@ import { useEffect } from 'react';
 
 import {
   useLocalTransactionInputsState,
-  useTxForSettingsState,
+  useUnsignedTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 
-export const ShowDelay = ({
-  setShowing,
-  beginShow,
-  isShowing,
-}: {
+interface ShowDelayProps {
   setShowing: (value: boolean) => void;
   beginShow: boolean;
   isShowing: boolean;
-}) => {
-  const [tx] = useTxForSettingsState();
+}
+export const ShowDelay = ({ setShowing, beginShow, isShowing }: ShowDelayProps) => {
+  const [tx] = useUnsignedTxForSettingsState();
   const [txData] = useLocalTransactionInputsState();
   const { setIsIdle } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   useEffect(() => {

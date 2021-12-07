@@ -4,35 +4,43 @@ import { useAtom } from 'jotai';
 import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
 import {
   createAssetInfo,
+  createStacksPrivateKey,
   FungibleConditionCode,
   makeStandardFungiblePostCondition,
   PostCondition,
+  StacksTransaction,
+  TransactionSigner,
 } from '@stacks/transactions';
 
 import { todaysIsoDate } from '@common/date-utils';
 import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
 import { useWallet } from '@common/hooks/use-wallet';
 import { broadcastTransaction } from '@common/transactions/broadcast-transaction';
-import { logger } from '@common/logger';
 import { currentAccountState } from '@store/accounts';
 import { currentNetworkState } from '@store/network/networks';
-import { localStacksTransactionInputsState } from '@store/transactions/local-transactions';
+import {
+  localStacksTransactionInputsState,
+  sendFormUnsignedTxState,
+} from '@store/transactions/local-transactions';
 import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
 
+import { postConditionsState } from './post-conditions';
+import { requestTokenState } from './requests';
+import { useCurrentAccount } from '@store/accounts/account.hooks';
 import {
-  estimatedSignedTransactionByteLengthState,
   estimatedTransactionByteLengthState,
+  estimatedUnsignedTransactionByteLengthState,
+  prepareTxDetailsForBroadcast,
   pendingTransactionState,
-  serializedSignedTransactionPayloadState,
   serializedTransactionPayloadState,
-  signedTransactionState,
+  serializedUnsignedTransactionPayloadState,
   transactionAttachmentState,
   transactionBroadcastErrorState,
   txByteSize,
   txForSettingsState,
+  unsignedStacksTransactionState,
+  unsignedTransactionState,
 } from './index';
-import { postConditionsState } from './post-conditions';
-import { requestTokenState } from './requests';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -42,22 +50,16 @@ export function useTransactionPostConditions() {
   return useAtomValue(postConditionsState);
 }
 
-/** @deprecated */
-export function useSignedTransaction() {
-  return useAtomValue(signedTransactionState);
+export function useUnsignedTransaction() {
+  return useAtomValue(unsignedTransactionState);
 }
 
-// See notes by atoms for these duplicated hooks using
-// different transaction states. This should be looked at
-// with the new transaction signing flow. These are used
-// for getting the fee estimates.
-/** @deprecated */
-export function useSerializedSignedTransactionPayloadState() {
-  return useAtomValue(serializedSignedTransactionPayloadState);
+export function useUnserializedSignedTransactionPayloadState() {
+  return useAtomValue(serializedUnsignedTransactionPayloadState);
 }
 
-export function useEstimatedSignedTransactionByteLengthState() {
-  return useAtomValue(estimatedSignedTransactionByteLengthState);
+export function useEstimatedUnsignedTransactionByteLengthState() {
+  return useAtomValue(estimatedUnsignedTransactionByteLengthState);
 }
 
 export function useSerializedTransactionPayloadState() {
@@ -68,28 +70,45 @@ export function useEstimatedTransactionByteLengthState() {
   return useAtomValue(estimatedTransactionByteLengthState);
 }
 
+export function useSignTransactionSoftwareWallet() {
+  const account = useCurrentAccount();
+  if (!account) throw new Error('Cannot sign a transaction without an account');
+  return useCallback(
+    (tx: StacksTransaction) => {
+      const signer = new TransactionSigner(tx);
+      signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
+      return tx;
+    },
+    [account.stxPrivateKey]
+  );
+}
+
 export function useTransactionBroadcast() {
   const { setLatestNonce } = useWallet();
+  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+
   return useAtomCallback(
     useCallback(
       async (get, set) => {
-        const { account, signedTransaction, attachment, requestToken, network } = await get(
+        const { account, unsignedStacksTransaction, attachment, requestToken, network } = await get(
           waitForAll({
-            signedTransaction: signedTransactionState,
             account: currentAccountState,
             attachment: transactionAttachmentState,
             requestToken: requestTokenState,
             network: currentNetworkState,
+            unsignedStacksTransaction: unsignedStacksTransactionState,
           }),
           true
         );
-        if (!account || !requestToken || !signedTransaction) {
+
+        if (!account || !requestToken || !unsignedStacksTransaction) {
           set(transactionBroadcastErrorState, 'No pending transaction found.');
           return;
         }
 
         try {
-          const { isSponsored, serialized, txRaw, nonce } = signedTransaction;
+          const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
+          const { isSponsored, serialized, txRaw, nonce } = prepareTxDetailsForBroadcast(signedTx);
           const result = await broadcastTransaction({
             isSponsored,
             serialized,
@@ -97,9 +116,9 @@ export function useTransactionBroadcast() {
             attachment,
             networkUrl: network.url,
           });
-          typeof nonce !== 'undefined' && (await setLatestNonce(nonce));
+          if (typeof nonce !== 'undefined') await setLatestNonce(nonce);
           finalizeTxSignature(requestToken, result);
-          if (result.txId) {
+          if (typeof result.txId === 'string') {
             set(currentAccountLocallySubmittedTxsState, {
               [result.txId]: {
                 rawTx: result.txRaw,
@@ -108,11 +127,10 @@ export function useTransactionBroadcast() {
             });
           }
         } catch (error) {
-          logger.error(error);
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [setLatestNonce]
+      [setLatestNonce, signSoftwareWalletTx]
     )
   );
 }
@@ -136,8 +154,26 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
   );
 }
 
-export const useLocalTransactionInputsState = () => useAtom(localStacksTransactionInputsState);
+export function useLocalTransactionInputsState() {
+  return useAtom(localStacksTransactionInputsState);
+}
 
-export const useTxForSettingsState = () => useAtom(txForSettingsState);
+export function useSendFormUnsignedTxState() {
+  return useAtomValue(sendFormUnsignedTxState);
+}
 
-export const useTxByteSizeState = () => useAtom(txByteSize);
+/**
+ * @deprecated
+ * Do not use implicit state-driven atom to get a "active" `StacksTransaction`
+ * This atom uses the presence of `pendingTransaction` to determine whether the
+ * "current" tx is either from a dApp, or the send form.
+ *
+ * Instead, be explicit when dealing with transaction broadcasts.
+ */
+export function useUnsignedTxForSettingsState() {
+  return useAtom(txForSettingsState);
+}
+
+export function useTxByteSizeState() {
+  return useAtom(txByteSize);
+}

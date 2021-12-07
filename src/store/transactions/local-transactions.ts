@@ -8,6 +8,8 @@ import {
   createEmptyAddress,
   noneCV,
   PostConditionMode,
+  pubKeyfromPrivKey,
+  publicKeyToString,
   serializeCV,
   someCV,
   standardPrincipalCVFromAddress,
@@ -16,10 +18,6 @@ import {
 
 import { ftUnshiftDecimals, stxToMicroStx } from '@common/stacks-utils';
 import { TransactionFormValues } from '@common/transactions/transaction-utils';
-import {
-  generateSignedTransaction,
-  GenerateSignedTransactionOptions,
-} from '@common/transactions/generate-signed-txs';
 import { makeFungibleTokenTransferState } from '@store/transactions/fungible-token-transfer';
 import { selectedAssetStore } from '@store/assets/asset-search';
 import { makePostCondition } from '@store/transactions/transaction.hooks';
@@ -27,13 +25,17 @@ import { currentAccountState, currentAccountStxAddressState } from '@store/accou
 import { currentStacksNetworkState } from '@store/network/networks';
 import { currentAccountNonceState } from '@store/accounts/nonce';
 import { customNonceState } from '@store/transactions/nonce.hooks';
+import {
+  generateUnsignedTransaction,
+  GenerateUnsignedTransactionOptions,
+} from '@common/transactions/generate-unsigned-txs';
 
 // This is the form state so can likely be removed from global store when we
 // refactor transaction signing. Leaving for now to avoid conflicts but deprecating.
 /** @deprecated */
 export const localStacksTransactionInputsState = atom<TransactionFormValues | null>(null);
 
-const stxTokenTransferTransactionState = atom(get => {
+const stxTokenTransferUnsignedTxState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
@@ -48,11 +50,11 @@ const stxTokenTransferTransactionState = atom(get => {
   );
 
   if (!account || typeof nonce === 'undefined') return;
-  const senderKey = account.stxPrivateKey;
   const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
-  const options: GenerateSignedTransactionOptions = {
-    senderKey,
+  const options: GenerateUnsignedTransactionOptions = {
+    publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
     nonce: txNonce,
+    fee: stxToMicroStx(txData?.fee || 0).toNumber(),
     txData: {
       txType: TransactionTypes.STXTransfer,
       // Using account address here as a fallback for a fee estimation
@@ -67,16 +69,10 @@ const stxTokenTransferTransactionState = atom(get => {
     } as STXTransferPayload,
   };
 
-  return generateSignedTransaction(options).then(transaction => {
-    if (!transaction) return;
-    return generateSignedTransaction({
-      ...options,
-      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
-    });
-  });
+  return generateUnsignedTransaction(options);
 });
 
-const ftTokenTransferTransactionState = atom(get => {
+const ftTokenTransferUnsignedTxState = atom(get => {
   const txData = get(localStacksTransactionInputsState);
   const address = get(currentAccountStxAddressState);
   const customNonce = get(customNonceState);
@@ -88,16 +84,8 @@ const ftTokenTransferTransactionState = atom(get => {
   const selectedAsset = get(selectedAssetStore);
 
   if (!assetTransferState || !selectedAsset || !account) return;
-  const {
-    balances,
-    network,
-    senderKey,
-    assetName,
-    contractAddress,
-    contractName,
-    nonce,
-    stxAddress,
-  } = assetTransferState;
+  const { balances, network, assetName, contractAddress, contractName, nonce, stxAddress } =
+    assetTransferState;
 
   const functionName = 'transfer';
 
@@ -149,31 +137,23 @@ const ftTokenTransferTransactionState = atom(get => {
       postConditions,
       postConditionMode: PostConditionMode.Deny,
       network,
-      // Dummy public key to satisfy types
-      // This isn't a good parttern to follow, but much of this
-      // code will have to change with Ledger code anyway
-      publicKey: '',
+      publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
     },
-    senderKey,
+    fee: stxToMicroStx(txData?.fee || 0).toNumber(),
+    publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
     nonce: txNonce,
   } as const;
 
-  return generateSignedTransaction(options).then(transaction => {
-    if (!transaction) return;
-    return generateSignedTransaction({
-      ...options,
-      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
-    });
-  });
+  return generateUnsignedTransaction(options);
 });
 
-const localTransactionIsStxTransferState = atom(get => {
+const isSendFormSendingStx = atom(get => {
   const selectedAsset = get(selectedAssetStore);
   return selectedAsset?.type === 'stx';
 });
 
-export const localTransactionState = atom(get => {
-  return get(localTransactionIsStxTransferState)
-    ? get(stxTokenTransferTransactionState)
-    : get(ftTokenTransferTransactionState);
+export const sendFormUnsignedTxState = atom(get => {
+  return get(isSendFormSendingStx)
+    ? get(stxTokenTransferUnsignedTxState)
+    : get(ftTokenTransferUnsignedTxState);
 });

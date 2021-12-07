@@ -30,7 +30,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
   const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();
 
-  const fee = rawTx?.auth.spendingCondition?.fee.toNumber() || 0;
+  const fee = Number(rawTx?.auth.spendingCondition?.fee) || 0;
 
   useEffect(() => {
     if (tx?.tx_status !== 'pending' && rawTx) {

@@ -12,26 +12,27 @@ interface BroadcastTransactionOptions {
 }
 export async function broadcastTransaction(options: BroadcastTransactionOptions) {
   const { txRaw, serialized, isSponsored, attachment, networkUrl } = options;
-  if (isSponsored) return { txRaw };
-  const response = await broadcastRawTransaction(
-    serialized,
-    `${networkUrl}/v2/transactions`,
-    attachment ? Buffer.from(attachment, 'hex') : undefined
-  );
 
-  if (typeof response === 'string') {
-    const isValidTxId = validateTxId(response);
+  if (isSponsored) return { txRaw };
+
+  try {
+    const response = await broadcastRawTransaction(
+      serialized,
+      `${networkUrl}/v2/transactions`,
+      attachment ? Buffer.from(attachment, 'hex') : undefined
+    );
+
+    const isValidTxId = validateTxId(response.txid);
     if (isValidTxId)
       return {
         txId: response,
         txRaw,
       };
     logger.error(`Error broadcasting raw transaction -- ${response}`);
-    throw new Error(response);
-  } else {
+    throw new Error((response as any).error);
+  } catch (e) {
     logger.error('Error broadcasting raw transaction');
-    const error = `${response.error} - ${response.reason}`;
-    logger.error(error);
-    throw new Error(error);
+    logger.error(e);
+    throw new Error(e as any);
   }
 }

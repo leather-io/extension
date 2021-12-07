@@ -1,41 +1,31 @@
-import React, { useCallback } from 'react';
-import { Flex, Stack } from '@stacks/ui';
+import React from 'react';
+import { Stack } from '@stacks/ui';
 
 import { useDrawers } from '@common/hooks/use-drawers';
 import { BaseDrawer, BaseDrawerProps } from '@components/drawer';
-import { LoadingKeys } from '@common/hooks/use-loading';
+
 import { SpaceBetween } from '@components/space-between';
 import { Caption } from '@components/typography';
 import { TransactionFee } from '@components/fee-row/components/transaction-fee';
-import { useHandleSubmitTransaction } from '@common/hooks/use-submit-stx-transaction';
 import {
   useLocalTransactionInputsState,
-  useTxForSettingsState,
+  useUnsignedTxForSettingsState,
 } from '@store/transactions/transaction.hooks';
-import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 import { isTxSponsored } from '@common/transactions/transaction-utils';
 
-export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
-  const { isShowing, onClose } = props;
+interface SendTokensConfirmDrawerProps extends BaseDrawerProps {
+  onUserSelectBroadcastTransaction(): void;
+}
+export function SendTokensConfirmDrawer(props: SendTokensConfirmDrawerProps) {
+  const { isShowing, onClose, onUserSelectBroadcastTransaction } = props;
+
   const [txData] = useLocalTransactionInputsState();
-  const [transaction] = useTxForSettingsState();
+  const [transaction] = useUnsignedTxForSettingsState();
   const { showEditNonce } = useDrawers();
-  const [, setFeeEstimations] = useFeeEstimationsState();
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
-
-  const handleBroadcastTransaction = useHandleSubmitTransaction({
-    transaction: transaction || null,
-    onClose,
-    loadingKey: LoadingKeys.CONFIRM_DRAWER,
-  });
-
-  const broadcastTransaction = useCallback(async () => {
-    await handleBroadcastTransaction();
-    setFeeEstimations([]);
-  }, [handleBroadcastTransaction, setFeeEstimations]);
 
   if (!isShowing || !transaction || !txData) return null;
 
@@ -50,17 +40,18 @@ export function SendTokensConfirmDrawer(props: BaseDrawerProps) {
         <SendTokensConfirmDetails
           amount={txData.amount}
           recipient={txData.recipient}
-          nonce={transaction?.auth.spendingCondition?.nonce.toNumber()}
+          nonce={Number(transaction?.auth.spendingCondition?.nonce)}
         />
         <SpaceBetween>
-          <Caption>
-            <Flex>Fees</Flex>
-          </Caption>
+          <Caption>Fees</Caption>
           <Caption>
             <TransactionFee isSponsored={isSponsored} fee={txData.fee} />
           </Caption>
         </SpaceBetween>
-        <SendTokensConfirmActions onSubmit={broadcastTransaction} transaction={transaction} />
+        <SendTokensConfirmActions
+          transaction={transaction}
+          onUserConfirmBroadcast={() => onUserSelectBroadcastTransaction()}
+        />
       </Stack>
     </BaseDrawer>
   );
