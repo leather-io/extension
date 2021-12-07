@@ -1,10 +1,11 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { decrypt } from '@stacks/wallet-sdk';
+
 import { useLoading } from '@common/hooks/use-loading';
 import { useWallet } from '@common/hooks/use-wallet';
-import React, { useCallback, useEffect, useState } from 'react';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
-import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
-import { decrypt } from '@stacks/wallet-sdk';
 import {
   useMagicRecoveryCodePasswordState,
   useMagicRecoveryCodeState,
@@ -18,7 +19,7 @@ export function useMagicRecoveryCode() {
   const { storeSeed, setPassword, finishSignIn } = useWallet();
   const [error, setPasswordError] = useState('');
   const { decodedAuthRequest } = useOnboardingState();
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
 
   const handleNavigate = useCallback(() => {
     if (decodedAuthRequest) {
@@ -26,9 +27,9 @@ export function useMagicRecoveryCode() {
         void finishSignIn(0);
       }, 1000);
     } else {
-      changeScreen(RouteUrls.Home);
+      navigate(RouteUrls.Home);
     }
-  }, [changeScreen, decodedAuthRequest, finishSignIn]);
+  }, [navigate, decodedAuthRequest, finishSignIn]);
 
   const handleSubmit = useCallback(async () => {
     if (!magicRecoveryCode) throw Error('No magic recovery seed');
@@ -61,7 +62,7 @@ export function useMagicRecoveryCode() {
     [setMagicRecoveryCodePassword]
   );
 
-  const handleBack = () => changeScreen(RouteUrls.SignIn);
+  const handleBack = () => navigate(RouteUrls.SignIn);
 
   const onSubmit = useCallback(
     async (event: React.FormEvent) => {

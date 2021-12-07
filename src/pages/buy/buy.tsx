@@ -1,14 +1,16 @@
 import React from 'react';
-import { useChangeScreen } from '@common/hooks/use-change-screen';
+import { useNavigate } from 'react-router-dom';
+
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { makeTransakUrl } from '@features/fiat-onramp-providers/transak-helper';
-import { BuyLayout } from './buy.layout';
 import { makeOkcoinUrl } from '@features/fiat-onramp-providers/okcoin-helper';
 import { useActiveFiatProviders, useHasFiatProviders } from '@query/hiro-config/hiro-config.query';
 import { RouteUrls } from '@routes/route-urls';
 
+import { BuyLayout } from './buy.layout';
+
 export const BuyPage = () => {
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const currentAccount = useCurrentAccount();
   const activeProviders = useActiveFiatProviders();
   const hasProviders = useHasFiatProviders();
@@ -21,7 +23,7 @@ export const BuyPage = () => {
 
   return (
     <BuyLayout
-      onCloseAction={() => changeScreen(RouteUrls.PopupHome)}
+      onCloseAction={() => navigate(RouteUrls.Home)}
       providersUrl={providersUrl}
       activeProviders={activeProviders}
     />
