@@ -1,23 +1,22 @@
 import { BrowserDriver, createTestSelector, randomString, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { SettingsSelectors } from '../settings.selectors';
 import { delay } from '@common/utils';
 
-jest.setTimeout(30_000);
+jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
 describe(`Settings integration tests`, () => {
-  const BEFORE_ALL_TIMEOUT = 20000;
   let browser: BrowserDriver;
   let wallet: WalletPage;
 
   beforeAll(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, ScreenPaths.INSTALLED);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
     await wallet.clickAllowAnalytics();
     await wallet.signUp();
-  }, BEFORE_ALL_TIMEOUT);
+  });
 
   afterAll(async () => {
     try {

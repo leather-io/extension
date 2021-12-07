@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { atomWithDefault, atomWithStorage } from 'jotai/utils';
 
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { DecodedAuthRequest } from '@common/dev/types';
 
 interface AuthRequestState {
@@ -16,7 +16,7 @@ export const magicRecoveryCodePasswordState = atom('');
 export const seedInputState = atom('');
 export const seedInputErrorState = atom<string | undefined>(undefined);
 export const secretKeyState = atomWithDefault(() => null);
-export const currentScreenState = atom<ScreenPaths>(ScreenPaths.GENERATION);
+export const currentScreenState = atom<RouteUrls>(RouteUrls.SignUp);
 export const magicRecoveryCodeState = atomWithDefault<null | string>(() => null);
 export const onboardingProgressState = atom(false);
 export const usernameState = atomWithDefault(() => null);

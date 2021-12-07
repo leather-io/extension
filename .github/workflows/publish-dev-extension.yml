@@ -1,14 +1,15 @@
-name: Publish Dev Extensions
+name: Publish Beta Extensions
 on:
   push:
     tags:
-      - 'v*dev*'
+      - 'v*beta*'
   workflow_dispatch:
 
 env:
   # To use another sentry DSN
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   PREVIEW_RELEASE: true
+  WALLET_ENVIRONMENT: preview
 
 jobs:
   build-extension:

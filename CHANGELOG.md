@@ -25,6 +25,7 @@
 
 ### Bug Fixes
 
+* send form white screen ([a8c7e74](https://github.com/hirosystems/stacks-wallet-web/commit/a8c7e74d672f90c71378eb63a1c1a454661df568))
 * add max values for fee estimations ([06bda04](https://github.com/hirosystems/stacks-wallet-web/commit/06bda04414cddae596b5d17612ba433e21f1d461))
 * update max fee estimation ([98f2186](https://github.com/hirosystems/stacks-wallet-web/commit/98f21861aac0ca98982912638e48fa286a62f968))
 

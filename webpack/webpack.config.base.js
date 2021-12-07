@@ -11,6 +11,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const SRC_ROOT_PATH = path.join(__dirname, '../', 'src');
 const DIST_ROOT_PATH = path.join(__dirname, '../', 'dist');
@@ -27,14 +28,14 @@ const GITHUB_SHA = process.env.GITHUB_SHA;
 /**
  * For non main branch builds, we add a random number after the patch version.
  */
-const getVersion = ref => {
+const getVersionWithRandomSuffix = ref => {
   if (ref === MAIN_BRANCH || !ref || IS_PUBLISHING) return _version;
   return `${_version}.${Math.floor(Math.floor(Math.random() * 1000))}`;
 };
 
 const BRANCH = GITHUB_REF;
 const COMMIT_SHA = GITHUB_SHA;
-const VERSION = getVersion(BRANCH);
+const VERSION = getVersionWithRandomSuffix(BRANCH);
 
 // to measure speed :~)
 const smp = new SpeedMeasurePlugin({
@@ -143,6 +144,17 @@ const config = {
         ],
       },
       {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
+      },
+      {
         test: /\.wasm$/,
         // Tells WebPack that this module should be included as
         // base64-encoded binary file and not as code
@@ -203,6 +215,7 @@ const config = {
     new webpack.EnvironmentPlugin({
       SENTRY_DSN: process.env.SENTRY_DSN ?? '',
       SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY ?? '',
+      WALLET_ENVIRONMENT: process.env.WALLET_ENVIRONMENT ?? 'development',
     }),
 
     new webpack.ProvidePlugin({
@@ -210,6 +223,8 @@ const config = {
       Buffer: ['buffer', 'Buffer'],
       fetch: 'cross-fetch',
     }),
+
+    new ProgressBarPlugin(),
   ],
 };
 

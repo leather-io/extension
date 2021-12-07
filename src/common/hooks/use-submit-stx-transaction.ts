@@ -11,7 +11,7 @@ import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useLoading } from '@common/hooks/use-loading';
 import { logger } from '@common/logger';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
 import { useCurrentStacksNetworkState } from '@store/network/networks.hooks';
@@ -47,8 +47,8 @@ export function useSubmitTransactionCallback({
   loadingKey,
 }: UseSubmitTransactionCallbackArgs) {
   const refreshAccountData = useRefreshAllAccountData();
-  const doChangeScreen = useChangeScreen();
-  const { doSetLatestNonce } = useWallet();
+  const changeScreen = useChangeScreen();
+  const { setLatestNonce } = useWallet();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
@@ -75,13 +75,13 @@ export function useSubmitTransactionCallback({
               txid,
             });
           }
-          if (nonce) await doSetLatestNonce(nonce);
+          if (nonce) await setLatestNonce(nonce);
           toast.success('Transaction submitted!');
           void analytics.track('broadcast_transaction');
-          doChangeScreen(ScreenPaths.HOME);
+          changeScreen(RouteUrls.Home);
           onClose();
           setIsIdle();
-          doChangeScreen(ScreenPaths.HOME);
+          changeScreen(RouteUrls.Home);
           // switch active tab to activity
           setActiveTabActivity();
           await refreshAccountData(250); // delay to give the api time to receive the tx
@@ -100,9 +100,9 @@ export function useSubmitTransactionCallback({
       onClose,
       setIsIdle,
       externalTxid,
-      doSetLatestNonce,
+      setLatestNonce,
       analytics,
-      doChangeScreen,
+      changeScreen,
       setActiveTabActivity,
       refreshAccountData,
       setLocalTxs,

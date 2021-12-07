@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
@@ -18,7 +18,7 @@ import { ShowDelay } from './components/show-delay';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
 
 function SendTokensFormBase() {
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
   const { setIsIdle, setIsLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   const { showEditNonce, showHighFeeConfirmation } = useDrawers();
   const [isShowing, setShowing] = useState(false);
@@ -39,7 +39,7 @@ function SendTokensFormBase() {
 
   return (
     <PopupContainer
-      header={<Header title="Send" onClose={() => doChangeScreen(ScreenPaths.POPUP_HOME)} />}
+      header={<Header title="Send" onClose={() => changeScreen(RouteUrls.PopupHome)} />}
     >
       <Formik
         initialValues={{

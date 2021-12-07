@@ -6,7 +6,7 @@ import {
   validateAndCleanRecoveryInput,
   hasLineReturn,
 } from '@common/utils';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 import { useLoading } from '@common/hooks/use-loading';
 import {
   useMagicRecoveryCodeState,
@@ -21,8 +21,8 @@ export function useSignIn() {
   const [error, setError] = useSeedInputErrorState();
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
-  const doChangeScreen = useChangeScreen();
-  const { doStoreSeed } = useWallet();
+  const changeScreen = useChangeScreen();
+  const { storeSeed } = useWallet();
   const analytics = useAnalytics();
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -54,7 +54,7 @@ export function useSignIn() {
         const result = validateAndCleanRecoveryInput(parsedKeyInput);
         if (result.isValid) {
           setMagicRecoveryCode(parsedKeyInput);
-          doChangeScreen(ScreenPaths.RECOVERY_CODE);
+          changeScreen(RouteUrls.RecoveryCode);
           return;
         } else {
           // single word and not a valid recovery key
@@ -63,9 +63,9 @@ export function useSignIn() {
       }
 
       try {
-        await doStoreSeed({ secretKey: parsedKeyInput });
+        await storeSeed({ secretKey: parsedKeyInput });
         void analytics.track('submit_valid_secret_key');
-        doChangeScreen(ScreenPaths.SET_PASSWORD);
+        changeScreen(RouteUrls.SetPassword);
         setIsIdle();
       } catch (error) {
         handleSetError();
@@ -76,8 +76,8 @@ export function useSignIn() {
       seed,
       handleSetError,
       setMagicRecoveryCode,
-      doChangeScreen,
-      doStoreSeed,
+      changeScreen,
+      storeSeed,
       analytics,
       setIsIdle,
     ]
@@ -127,7 +127,7 @@ export function useSignIn() {
     [handleSubmit]
   );
 
-  const onBack = useCallback(() => doChangeScreen(ScreenPaths.HOME), [doChangeScreen]);
+  const onBack = useCallback(() => changeScreen(RouteUrls.Home), [changeScreen]);
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {

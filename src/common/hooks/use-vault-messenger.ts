@@ -10,7 +10,7 @@ export function useVaultMessenger() {
   const innerMessageWrapper = useInnerMessageWrapper();
   const analytics = useAnalytics();
 
-  const doSetPassword = useCallback(
+  const setPassword = useCallback(
     (payload: string) => {
       const message: SetPassword = {
         method: InternalMethods.setPassword,
@@ -21,7 +21,7 @@ export function useVaultMessenger() {
     [innerMessageWrapper]
   );
 
-  const doStoreSeed = useCallback(
+  const storeSeed = useCallback(
     (payload: { secretKey: string; password?: string }) => {
       const message: StoreSeed = {
         method: InternalMethods.storeSeed,
@@ -32,7 +32,7 @@ export function useVaultMessenger() {
     [innerMessageWrapper]
   );
 
-  const doUnlockWallet = useCallback(
+  const unlockWallet = useCallback(
     payload => {
       const message: UnlockWallet = {
         method: InternalMethods.unlockWallet,
@@ -43,7 +43,7 @@ export function useVaultMessenger() {
     [innerMessageWrapper]
   );
 
-  const doSwitchAccount = useCallback(
+  const switchAccount = useCallback(
     payload => {
       const message: SwitchAccount = {
         method: InternalMethods.switchAccount,
@@ -56,32 +56,32 @@ export function useVaultMessenger() {
 
   const getWallet = () =>
     innerMessageWrapper({ method: InternalMethods.getWallet, payload: undefined });
-  const doMakeWallet = () =>
+  const makeWallet = () =>
     innerMessageWrapper({ method: InternalMethods.makeWallet, payload: undefined });
-  const doCreateNewAccount = () =>
+  const createNewAccount = () =>
     innerMessageWrapper({
       method: InternalMethods.createNewAccount,
       payload: undefined,
     });
   const handleSignOut = () =>
     innerMessageWrapper({ method: InternalMethods.signOut, payload: undefined });
-  const doSignOut = async () => {
+  const signOut = async () => {
     await handleSignOut();
     void analytics.track('sign_out');
     clearSessionLocalData();
   };
-  const doLockWallet = () =>
+  const lockWallet = () =>
     innerMessageWrapper({ method: InternalMethods.lockWallet, payload: undefined });
 
   return {
     getWallet,
-    doMakeWallet,
-    doCreateNewAccount,
-    doSignOut,
-    doLockWallet,
-    doSetPassword,
-    doStoreSeed,
-    doUnlockWallet,
-    doSwitchAccount,
+    makeWallet,
+    createNewAccount,
+    signOut,
+    lockWallet,
+    setPassword,
+    storeSeed,
+    unlockWallet,
+    switchAccount,
   };
 }

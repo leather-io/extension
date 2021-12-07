@@ -4,6 +4,7 @@ on: [pull_request, workflow_dispatch]
 env:
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY }}
+  WALLET_ENVIRONMENT: feature
 
 jobs:
   pre_run:

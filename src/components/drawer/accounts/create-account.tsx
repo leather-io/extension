@@ -12,7 +12,7 @@ interface CreateAccountProps {
 const TIMEOUT = 3000;
 
 export const CreateAccount: React.FC<CreateAccountProps> = ({ close }) => {
-  const { doCreateNewAccount } = useWallet();
+  const { createNewAccount } = useWallet();
   const [isSetting, setSetting] = useState(false);
   const [hasFired, setHasFired] = useState(false);
   const analytics = useAnalytics();
@@ -20,12 +20,12 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ close }) => {
   const createAccount = useCallback(async () => {
     if (!isSetting) {
       setSetting(true);
-      await doCreateNewAccount();
+      await createNewAccount();
       void analytics.track('create_new_account');
       setSetting(false);
       window.setTimeout(() => close(), TIMEOUT);
     }
-  }, [isSetting, doCreateNewAccount, analytics, close]);
+  }, [isSetting, createNewAccount, analytics, close]);
 
   useEffect(() => {
     if (!hasFired) {

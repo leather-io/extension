@@ -51,9 +51,9 @@ export function useWallet() {
 
   const isSignedIn = !!wallet;
 
-  const doSetLatestNonce = useSetLatestNonceCallback();
+  const setLatestNonce = useSetLatestNonceCallback();
 
-  const handleCancelAuthentication = useCallback(() => {
+  const cancelAuthentication = useCallback(() => {
     if (!decodedAuthRequest || !authRequest) {
       return;
     }
@@ -61,7 +61,7 @@ export function useWallet() {
     finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
   }, [decodedAuthRequest, authRequest]);
 
-  const doFinishSignIn = useFinishSignInCallback();
+  const finishSignIn = useFinishSignInCallback();
 
   return {
     hasRehydratedVault,
@@ -73,16 +73,15 @@ export function useWallet() {
     currentAccountStxAddress,
     currentAccountDisplayName,
     transactionVersion,
-
     networks,
     currentNetwork,
     currentNetworkKey,
     encryptedSecretKey,
     hasSetPassword,
-    doFinishSignIn,
-    doSetLatestNonce,
+    finishSignIn,
+    setLatestNonce,
     setWallet,
-    handleCancelAuthentication,
+    cancelAuthentication,
     ...vaultMessenger,
   };
 }

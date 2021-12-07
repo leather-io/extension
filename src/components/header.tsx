@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
 import { FiMoreHorizontal as IconDots, FiArrowLeft as IconArrowLeft } from 'react-icons/fi';
 
@@ -7,7 +7,7 @@ import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { NetworkModeBadge } from '@components/network-mode-badge';
 import { Caption, Title } from '@components/typography';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 
 const MenuButton: React.FC<BoxProps> = memo(props => {
   const { showSettings, setShowSettings } = useDrawers();
@@ -37,7 +37,21 @@ interface HeaderProps extends FlexProps {
 }
 export const Header: React.FC<HeaderProps> = memo(props => {
   const { onClose, title, hideActions, ...rest } = props;
-  const doChangeScreen = useChangeScreen();
+  const changeScreen = useChangeScreen();
+
+  const version = useMemo(() => {
+    switch (process.env.WALLET_ENVIRONMENT) {
+      case 'production':
+      case 'preview':
+        return `v${VERSION}`;
+      case 'feature':
+        return BRANCH;
+      case 'development':
+        return 'dev';
+      default:
+        return null;
+    }
+  }, []);
 
   return (
     <Flex
@@ -49,16 +63,17 @@ export const Header: React.FC<HeaderProps> = memo(props => {
     >
       {!title ? (
         <Stack alignItems="center" pt="7px" isInline>
-          <StacksWalletLogo onClick={() => doChangeScreen(ScreenPaths.HOME)} />
-          {VERSION ? (
+          <StacksWalletLogo onClick={() => changeScreen(RouteUrls.Home)} />
+          {version ? (
             <Caption
               pt="extra-tight"
+              mt="2px"
               color="#8D929A"
               variant="c3"
               marginRight="10px"
               fontFamily="mono"
             >
-              v{VERSION}
+              {version}
             </Caption>
           ) : null}
         </Stack>

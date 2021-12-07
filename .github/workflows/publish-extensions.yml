@@ -2,12 +2,13 @@ name: Publish Extensions
 on:
   push:
     tags-ignore:
-      - 'v*dev*'
+      - 'v*beta*'
   workflow_dispatch:
 
 env:
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY }}
+  WALLET_ENVIRONMENT: production
 
 jobs:
   pre-run:

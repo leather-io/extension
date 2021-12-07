@@ -1,48 +1,89 @@
 import { Box, Button, ButtonProps } from '@stacks/ui';
 import React, { memo, useCallback, useRef } from 'react';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { FiArrowUp } from 'react-icons/fi';
+import { FiArrowUp, FiPlus } from 'react-icons/fi';
 import { QrCodeIcon } from '@components/qr-code-icon';
-import { ScreenPaths } from '@common/types';
+import { RouteUrls } from '@routes/route-urls';
 
-interface TxButtonProps extends ButtonProps {
-  kind: 'send' | 'receive';
-  path: ScreenPaths.POPUP_SEND | ScreenPaths.POPUP_RECEIVE;
-}
-export const TxButton: React.FC<TxButtonProps> = memo(({ kind, path, ...rest }) => {
+export const SendTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
   const changeScreen = useChangeScreen();
 
-  const isSend = kind === 'send';
+  const handleClick = useCallback(() => changeScreen(RouteUrls.Send), [changeScreen]);
 
-  const handleClick = useCallback(() => changeScreen(path), [path, changeScreen]);
-
-  const label = isSend ? 'Send' : 'Receive';
   return (
-    <>
-      <Button
-        size="sm"
-        pl="base-tight"
-        pr={'base'}
-        py="tight"
-        fontSize={2}
-        mode="primary"
-        position="relative"
-        ref={ref}
-        onClick={handleClick}
-        borderRadius="10px"
-        {...rest}
-      >
-        <Box
-          as={isSend ? FiArrowUp : QrCodeIcon}
-          transform={isSend ? 'unset' : 'scaleY(-1)'}
-          size={isSend ? '16px' : '14px'}
-          mr={isSend ? 0 : '2px'}
-        />
-        <Box as="span" ml="extra-tight" fontSize="14px">
-          {label}
-        </Box>
-      </Button>
-    </>
+    <Button
+      size="sm"
+      pl="base-tight"
+      pr={'base'}
+      py="tight"
+      fontSize={2}
+      mode="primary"
+      position="relative"
+      ref={ref}
+      onClick={handleClick}
+      borderRadius="10px"
+      {...rest}
+    >
+      <Box as={FiArrowUp} transform={'unset'} size={'16px'} mr={0} />
+      <Box as="span" ml="extra-tight" fontSize="14px">
+        Send
+      </Box>
+    </Button>
+  );
+});
+
+export const ReceiveTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
+  const ref = useRef<HTMLButtonElement | null>(null);
+  const changeScreen = useChangeScreen();
+
+  const handleClick = useCallback(() => changeScreen(RouteUrls.Receive), [changeScreen]);
+  return (
+    <Button
+      size="sm"
+      pl="base-tight"
+      pr={'base'}
+      py="tight"
+      fontSize={2}
+      mode="primary"
+      position="relative"
+      ref={ref}
+      onClick={handleClick}
+      borderRadius="10px"
+      {...rest}
+    >
+      <Box as={QrCodeIcon} transform="scaleY(-1)" size="14px" mr="2px" />
+      <Box as="span" ml="extra-tight" fontSize="14px">
+        Receive
+      </Box>
+    </Button>
+  );
+});
+
+export const BuyTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
+  const ref = useRef<HTMLButtonElement | null>(null);
+  const changeScreen = useChangeScreen();
+
+  const handleClick = useCallback(() => changeScreen(RouteUrls.Buy), [changeScreen]);
+
+  return (
+    <Button
+      size="sm"
+      pl="base-tight"
+      pr={'base'}
+      py="tight"
+      fontSize={2}
+      mode="primary"
+      position="relative"
+      ref={ref}
+      onClick={handleClick}
+      borderRadius="10px"
+      {...rest}
+    >
+      <Box as={FiPlus} transform={'scaleY(-1)'} size={'14px'} mr={'2px'} />
+      <Box as="span" ml="extra-tight" fontSize="14px">
+        Buy
+      </Box>
+    </Button>
   );
 });

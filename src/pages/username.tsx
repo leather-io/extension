@@ -9,7 +9,7 @@ import { Header } from '@components/header';
 import { logger } from '@common/logger';
 
 export const Username: React.FC = () => {
-  const { wallet, currentAccount, setWallet, doFinishSignIn } = useWallet();
+  const { wallet, currentAccount, setWallet, finishSignIn } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ export const Username: React.FC = () => {
       // });
       setWallet(wallet);
       if (decodedAuthRequest) {
-        await doFinishSignIn(0);
+        await finishSignIn(0);
       }
     } catch (error) {
       logger.error(error);
