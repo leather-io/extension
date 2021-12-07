@@ -1,9 +1,33 @@
-## [2.21.2-dev.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2-dev.2...v2.21.2-dev.3) (2021-11-29)
+# [2.22.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.5...v2.22.0) (2021-11-29)
+
+
+### Features
+
+* inconsequential comment change to trigger release, part 3 ([f766b5d](https://github.com/hirosystems/stacks-wallet-web/commit/f766b5d5a6c360a21b6a34c10de95571937e8b01))
+
+## [2.21.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.4...v2.21.5) (2021-11-29)
+
+
+### Bug Fixes
+
+* inconsequential comment change to trigger release, part 2 ([fc4d922](https://github.com/hirosystems/stacks-wallet-web/commit/fc4d9229e86dd08772973197f65c170a70879192))
+
+## [2.21.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.3...v2.21.4) (2021-11-29)
+
+
+### Bug Fixes
+
+* empty commit, trigger new release ([99578bd](https://github.com/hirosystems/stacks-wallet-web/commit/99578bdd1eabbba16c667cf477c6c5de0ce28e1b))
+* inconsequential comment change to trigger release ([a3c6b2b](https://github.com/hirosystems/stacks-wallet-web/commit/a3c6b2ba12ed562354d31342580a10f83bc970be))
+
+## [2.21.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.2...v2.21.3) (2021-11-29)
 
 
 ### Bug Fixes
 
 * send form white screen ([a8c7e74](https://github.com/hirosystems/stacks-wallet-web/commit/a8c7e74d672f90c71378eb63a1c1a454661df568))
+* add max values for fee estimations ([06bda04](https://github.com/hirosystems/stacks-wallet-web/commit/06bda04414cddae596b5d17612ba433e21f1d461))
+* update max fee estimation ([98f2186](https://github.com/hirosystems/stacks-wallet-web/commit/98f21861aac0ca98982912638e48fa286a62f968))
 
 ## [2.21.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.1...v2.21.2) (2021-11-26)
 

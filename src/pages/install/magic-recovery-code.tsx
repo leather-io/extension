@@ -12,8 +12,8 @@ const Form: React.FC<StackProps> = memo(props => {
   const { onBack, onSubmit, onChange, magicRecoveryCodePassword, error, isLoading } =
     useMagicRecoveryCode();
 
-  // weird fix for preventing the input from using a value of the last input
-  // i think this is related to the routing and should be resolved with
+  // Weird fix for preventing the input from using a value of the last input
+  // I think this is related to the routing and should be resolved with.
   // https://github.com/blockstack/stacks-wallet-web/issues/1048
   const mounted = useMountEffect();
 
