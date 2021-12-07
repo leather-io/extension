@@ -1,6 +1,7 @@
 import { TRANSAK_API_KEY_PRODUCTION, TRANSAK_API_KEY_STAGING } from '@common/constants';
 
-const isProduction = process.env.WALLET_ENVIRONMENT === 'production' || process.env.WALLET_ENVIRONMENT === 'preview';
+const isProduction =
+  process.env.WALLET_ENVIRONMENT === 'production' || process.env.WALLET_ENVIRONMENT === 'preview';
 
 const transakApiKey = isProduction ? TRANSAK_API_KEY_PRODUCTION : TRANSAK_API_KEY_STAGING;
 const subdomain = isProduction ? 'global' : 'staging-global';
