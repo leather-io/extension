@@ -1,3 +1,18 @@
+# [2.23.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.22.0...v2.23.0-beta.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* don't warn of no writekey in dev by default ([d6f4d2b](https://github.com/hirosystems/stacks-wallet-web/commit/d6f4d2b5dc171c06b0555afa8475539cdb7582eb))
+* lint issue on transak-helper ([46a95e5](https://github.com/hirosystems/stacks-wallet-web/commit/46a95e5f6c0a9edbd8336e3e326f00b17d2c6af5))
+* send form white screen ([a8c7e74](https://github.com/hirosystems/stacks-wallet-web/commit/a8c7e74d672f90c71378eb63a1c1a454661df568))
+* use transak production env for preview build ([3e9e432](https://github.com/hirosystems/stacks-wallet-web/commit/3e9e43223dce6c7bb4d0fd915abb80617f8c6ecc))
+
+
+### Features
+
+* add fiat onramp UI + providers ([14f6cba](https://github.com/hirosystems/stacks-wallet-web/commit/14f6cbab8eaed16f5eb93871ec0dbb84a2c08daa))
+
 # [2.22.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.21.5...v2.22.0) (2021-11-29)
 
 
