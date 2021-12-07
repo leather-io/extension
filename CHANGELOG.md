@@ -1,3 +1,10 @@
+## [2.23.2-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.1...v2.23.2-beta.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* breaking change from stacks.js ([d09244c](https://github.com/hirosystems/stacks-wallet-web/commit/d09244c32fe27701074f1700a41bef0e8c4e31d1))
+
 ## [2.23.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.0...v2.23.1) (2021-12-07)
 
 
