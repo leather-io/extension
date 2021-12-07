@@ -1,3 +1,10 @@
+## [2.23.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.0...v2.23.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* remove a fullstop from the password placeholder ([e6f865a](https://github.com/hirosystems/stacks-wallet-web/commit/e6f865a6e377208aab7f930a7eb09129b6c70368))
+
 # [2.23.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.22.0...v2.23.0) (2021-12-07)
 
 
