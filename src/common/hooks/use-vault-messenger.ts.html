@@ -243,7 +243,7 @@ export function <span class="fstat-no" title="function not covered" >useVaultMes
   const innerMessageWrapper<span class="cstat-no" title="statement not covered" > = useInnerMessageWrapper();</span>
   const analytics<span class="cstat-no" title="statement not covered" > = useAnalytics();</span>
 &nbsp;
-  const doSetPassword<span class="cstat-no" title="statement not covered" > = useCallback(</span>
+  const setPassword<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     (payload: string) =&gt; {
       const message: SetPassword = <span class="cstat-no" title="statement not covered" >{</span>
         method: InternalMethods.setPassword,
@@ -254,7 +254,7 @@ export function <span class="fstat-no" title="function not covered" >useVaultMes
     [innerMessageWrapper]
   );
 &nbsp;
-  const doStoreSeed<span class="cstat-no" title="statement not covered" > = useCallback(</span>
+  const storeSeed<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     (payload: { secretKey: string; password?: string }) =&gt; {
       const message: StoreSeed = <span class="cstat-no" title="statement not covered" >{</span>
         method: InternalMethods.storeSeed,
@@ -265,7 +265,7 @@ export function <span class="fstat-no" title="function not covered" >useVaultMes
     [innerMessageWrapper]
   );
 &nbsp;
-  const doUnlockWallet<span class="cstat-no" title="statement not covered" > = useCallback(</span>
+  const unlockWallet<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     payload =&gt; {
       const message: UnlockWallet = <span class="cstat-no" title="statement not covered" >{</span>
         method: InternalMethods.unlockWallet,
@@ -276,7 +276,7 @@ export function <span class="fstat-no" title="function not covered" >useVaultMes
     [innerMessageWrapper]
   );
 &nbsp;
-  const doSwitchAccount<span class="cstat-no" title="statement not covered" > = useCallback(</span>
+  const switchAccount<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     payload =&gt; {
       const message: SwitchAccount = <span class="cstat-no" title="statement not covered" >{</span>
         method: InternalMethods.switchAccount,
@@ -289,33 +289,33 @@ export function <span class="fstat-no" title="function not covered" >useVaultMes
 &nbsp;
   const getWallet<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >    innerMessageWrapper({ method: InternalMethods.getWallet, payload: undefined });</span>
-  const doMakeWallet<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
+  const makeWallet<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >    innerMessageWrapper({ method: InternalMethods.makeWallet, payload: undefined });</span>
-  const doCreateNewAccount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
+  const createNewAccount<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >    innerMessageWrapper({</span>
       method: InternalMethods.createNewAccount,
       payload: undefined,
     });
   const handleSignOut<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >    innerMessageWrapper({ method: InternalMethods.signOut, payload: undefined });</span>
-  const doSignOut<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = async () =&gt; {</span></span>
+  const signOut<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = async () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    await handleSignOut();</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('sign_out');</span>
     clearSessionLocalData();
   };
-  const doLockWallet<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
+  const lockWallet<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >    innerMessageWrapper({ method: InternalMethods.lockWallet, payload: undefined });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
     getWallet,
-    doMakeWallet,
-    doCreateNewAccount,
-    doSignOut,
-    doLockWallet,
-    doSetPassword,
-    doStoreSeed,
-    doUnlockWallet,
-    doSwitchAccount,
+    makeWallet,
+    createNewAccount,
+    signOut,
+    lockWallet,
+    setPassword,
+    storeSeed,
+    unlockWallet,
+    switchAccount,
   };
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -325,7 +325,7 @@ export function <span class="fstat-no" title="function not covered" >useVaultMes
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 12:55:17 GMT+0000 (Coordinated Universal Time)
+                at Tue Dec 07 2021 10:19:01 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

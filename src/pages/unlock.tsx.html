@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
@@ -131,8 +131,25 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -147,16 +164,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -214,24 +230,32 @@ import { ErrorLabel } from '@components/error-label'<span class="cstat-no" title
 import { Header } from '@components/header'<span class="cstat-no" title="statement not covered" >;</span>
 import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm'<span class="cstat-no" title="statement not covered" >;</span>
 import { useDrawers } from '@common/hooks/use-drawers'<span class="cstat-no" title="statement not covered" >;</span>
+import { useAnalytics } from '@common/hooks/analytics/use-analytics'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
 export const <span class="cstat-no" title="statement not covered" >Unlock<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >: React.FC = () =&gt; {</span></span></span>
-  const { doUnlockWallet }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
+  const { unlockWallet }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const [loading, setLoading<span class="cstat-no" title="statement not covered" >] = useState(false);</span>
   const [password, setPassword<span class="cstat-no" title="statement not covered" >] = useState('');</span>
   const [error, setError<span class="cstat-no" title="statement not covered" >] = useState('');</span>
   const { showSignOut }<span class="cstat-no" title="statement not covered" > = useDrawers();</span>
+  const analytics<span class="cstat-no" title="statement not covered" > = useAnalytics();</span>
 &nbsp;
   const submit<span class="cstat-no" title="statement not covered" > = useCallback(async () =&gt; {</span>
+    const startUnlockTimeMs = <span class="cstat-no" title="statement not covered" >performance.now();</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('start_unlock');</span>
 <span class="cstat-no" title="statement not covered" >    setLoading(true);</span>
 <span class="cstat-no" title="statement not covered" >    setError('');</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      await doUnlockWallet(password);</span>
+<span class="cstat-no" title="statement not covered" >      await unlockWallet(password);</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      setError('The password you entered is invalid.');</span>
     }
 <span class="cstat-no" title="statement not covered" >    setLoading(false);</span>
-  }, [doUnlockWallet, password]);
+    const unlockSuccessTimeMs = <span class="cstat-no" title="statement not covered" >performance.now();</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('complete_unlock', {</span>
+      durationMs: unlockSuccessTimeMs - startUnlockTimeMs,
+    });
+  }, [analytics, unlockWallet, password]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
@@ -286,7 +310,7 @@ export const <span class="cstat-no" title="statement not covered" >Unlock<span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 12:55:17 GMT+0000 (Coordinated Universal Time)
+                at Tue Dec 07 2021 10:19:01 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

@@ -150,7 +150,8 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -166,6 +167,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -249,7 +251,7 @@ import React, { useCallback, useEffect, useState } from <span class="cstat-no" t
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state'<span class="cstat-no" title="statement not covered" >;</span>
 import { useChangeScreen } from '@common/hooks/use-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
 import { USERNAMES_ENABLED } from '@common/constants'<span class="cstat-no" title="statement not covered" >;</span>
-import { ScreenPaths } from '@common/types'<span class="cstat-no" title="statement not covered" >;</span>
+import { RouteUrls } from '@routes/route-urls'<span class="cstat-no" title="statement not covered" >;</span>
 import { decrypt } from '@stacks/wallet-sdk'<span class="cstat-no" title="statement not covered" >;</span>
 import {
   useMagicRecoveryCodePasswordState,
@@ -258,59 +260,60 @@ import {
 &nbsp;
 export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useMagicRecoveryCode(</span>) {</span>
   const [magicRecoveryCode, setMagicRecoveryCode<span class="cstat-no" title="statement not covered" >] = useMagicRecoveryCodeState();</span>
-  const [password, setPassword<span class="cstat-no" title="statement not covered" >] = useMagicRecoveryCodePasswordState();</span>
+  const [magicRecoveryCodePassword, setMagicRecoveryCodePassword<span class="cstat-no" title="statement not covered" >] =</span>
+    useMagicRecoveryCodePasswordState();
   const { isLoading, setIsLoading, setIsIdle }<span class="cstat-no" title="statement not covered" > = useLoading('useMagicRecoveryCode');</span>
-  const { doStoreSeed, doSetPassword, doFinishSignIn }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
+  const { storeSeed, setPassword, finishSignIn }<span class="cstat-no" title="statement not covered" > = useWallet();</span>
   const [error, setPasswordError<span class="cstat-no" title="statement not covered" >] = useState('');</span>
   const { decodedAuthRequest }<span class="cstat-no" title="statement not covered" > = useOnboardingState();</span>
-  const doChangeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
+  const changeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
 &nbsp;
   const handleNavigate<span class="cstat-no" title="statement not covered" > = useCallback(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (decodedAuthRequest) {</span>
 <span class="cstat-no" title="statement not covered" >      if (!USERNAMES_ENABLED) {</span>
 <span class="cstat-no" title="statement not covered" >        setTimeout<span class="fstat-no" title="function not covered" >(() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >          void doFinishSignIn(0);</span>
+<span class="cstat-no" title="statement not covered" >          void finishSignIn(0);</span>
         }, 1000);
       } else {
-<span class="cstat-no" title="statement not covered" >        doChangeScreen(ScreenPaths.USERNAME);</span>
+<span class="cstat-no" title="statement not covered" >        changeScreen(RouteUrls.Username);</span>
       }
     } else {
-<span class="cstat-no" title="statement not covered" >      doChangeScreen(ScreenPaths.HOME);</span>
+<span class="cstat-no" title="statement not covered" >      changeScreen(RouteUrls.Home);</span>
     }
-  }, [doChangeScreen, decodedAuthRequest, doFinishSignIn]);
+  }, [changeScreen, decodedAuthRequest, finishSignIn]);
 &nbsp;
   const handleSubmit<span class="cstat-no" title="statement not covered" > = useCallback(async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!magicRecoveryCode) <span class="cstat-no" title="statement not covered" >throw Error('No magic recovery seed');</span></span>
 <span class="cstat-no" title="statement not covered" >    setIsLoading();</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const codeBuffer = <span class="cstat-no" title="statement not covered" >Buffer.from(magicRecoveryCode, 'base64');</span>
-      const secretKey = <span class="cstat-no" title="statement not covered" >await decrypt(codeBuffer, password);</span>
-<span class="cstat-no" title="statement not covered" >      await doStoreSeed({ secretKey });</span>
-<span class="cstat-no" title="statement not covered" >      await doSetPassword(password);</span>
+      const secretKey = <span class="cstat-no" title="statement not covered" >await decrypt(codeBuffer, magicRecoveryCodePassword);</span>
+<span class="cstat-no" title="statement not covered" >      await storeSeed({ secretKey });</span>
+<span class="cstat-no" title="statement not covered" >      await setPassword(magicRecoveryCodePassword);</span>
 <span class="cstat-no" title="statement not covered" >      handleNavigate();</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      setPasswordError(`Incorrect password, try again.`);</span>
 <span class="cstat-no" title="statement not covered" >      setIsIdle();</span>
     }
   }, [
-    doSetPassword,
+    setPassword,
     setIsIdle,
     setIsLoading,
     magicRecoveryCode,
-    password,
-    doStoreSeed,
+    magicRecoveryCodePassword,
+    storeSeed,
     handleNavigate,
   ]);
 &nbsp;
   const onChange<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     (event: React.FormEvent&lt;HTMLInputElement&gt;) =&gt; {
 <span class="cstat-no" title="statement not covered" >      event.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >      setPassword(event.currentTarget.value);</span>
+<span class="cstat-no" title="statement not covered" >      setMagicRecoveryCodePassword(event.currentTarget.value);</span>
     },
-    [setPassword]
+    [setMagicRecoveryCodePassword]
   );
 &nbsp;
-  const handleBack<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; <span class="cstat-no" title="statement not covered" >d</span>oChangeScreen(ScreenPaths.SIGN_IN);</span></span>
+  const handleBack<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; <span class="cstat-no" title="statement not covered" >c</span>hangeScreen(RouteUrls.SignIn);</span></span>
 &nbsp;
   const onSubmit<span class="cstat-no" title="statement not covered" > = useCallback(</span>
     async (event: React.FormEvent) =&gt; {
@@ -323,17 +326,17 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
   useEffect(() =&gt; {
 <span class="cstat-no" title="statement not covered" >    return<span class="fstat-no" title="function not covered" > () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >      setMagicRecoveryCode('');</span>
-<span class="cstat-no" title="statement not covered" >      setPassword('');</span>
+<span class="cstat-no" title="statement not covered" >      setMagicRecoveryCodePassword('');</span>
     };
-  }, [setMagicRecoveryCode, setPassword]);
+  }, [setMagicRecoveryCode, setMagicRecoveryCodePassword]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
+    error,
     isLoading,
+    magicRecoveryCodePassword,
     onBack: handleBack,
     onSubmit,
     onChange,
-    password,
-    error,
   };
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -343,7 +346,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 12:55:17 GMT+0000 (Coordinated Universal Time)
+                at Tue Dec 07 2021 10:19:01 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/query/messages/hiro-messages.query.ts</title>
+    <title>Code coverage report for src/pages/buy/buy.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/query/messages</a> hiro-messages.query.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/pages/buy</a> buy.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
+                <span class="quiet">Branches</span>
                 <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -86,8 +86,22 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -95,58 +109,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { GITHUB_ORG, GITHUB_PRIMARY_BRANCH, GITHUB_REPO } from '@common/constants'<span class="cstat-no" title="statement not covered" >;</span>
-import { useQuery } from 'react-query'<span class="cstat-no" title="statement not covered" >;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'<span class="cstat-no" title="statement not covered" >;</span>
+import { useChangeScreen } from '@common/hooks/use-change-screen'<span class="cstat-no" title="statement not covered" >;</span>
+import { useCurrentAccount } from '@store/accounts/account.hooks'<span class="cstat-no" title="statement not covered" >;</span>
+import { makeTransakUrl } from '@features/fiat-onramp-providers/transak-helper'<span class="cstat-no" title="statement not covered" >;</span>
+import { BuyLayout } from './buy.layout'<span class="cstat-no" title="statement not covered" >;</span>
+import { makeOkcoinUrl } from '@features/fiat-onramp-providers/okcoin-helper'<span class="cstat-no" title="statement not covered" >;</span>
+import { useActiveFiatProviders, useHasFiatProviders } from '@query/hiro-config/hiro-config.query'<span class="cstat-no" title="statement not covered" >;</span>
+import { RouteUrls } from '@routes/route-urls'<span class="cstat-no" title="statement not covered" >;</span>
 &nbsp;
-export interface HiroMessage {
-  title: string;
-  text: string;
-  purpose: 'error' | 'info' | 'warning';
-  publishedAt: string;
-  dismissible: boolean;
-  learnMoreUrl?: string;
-}
+export const <span class="cstat-no" title="statement not covered" >BuyPage<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > = () =&gt; {</span></span></span>
+  const changeScreen<span class="cstat-no" title="statement not covered" > = useChangeScreen();</span>
+  const currentAccount<span class="cstat-no" title="statement not covered" > = useCurrentAccount();</span>
+  const activeProviders<span class="cstat-no" title="statement not covered" > = useActiveFiatProviders();</span>
+  const hasProviders<span class="cstat-no" title="statement not covered" > = useHasFiatProviders();</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!hasProviders || !currentAccount) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
-type HiroMessagesResponse = Record&lt;string, HiroMessage[]&gt;;
+  const providersUrl = <span class="cstat-no" title="statement not covered" >{</span>
+    transak: makeTransakUrl(currentAccount.address),
+    okcoin: makeOkcoinUrl(currentAccount.address),
+  };
 &nbsp;
-const githubCommsConfigRawUrl<span class="cstat-no" title="statement not covered" > = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-comms.json`;</span>
-&nbsp;
-async function <span class="fstat-no" title="function not covered" >fetchHiroMessages(</span>): Promise&lt;HiroMessagesResponse&gt; {
-  return fetch(githubCommsConfigRawUrl).then<span class="fstat-no" title="function not covered" >(m</span>sg =&gt; <span class="cstat-no" title="statement not covered" >msg.json());</span>
-}
-&nbsp;
-export function <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >useHiroMessages(</span>) {</span>
-  const { data }<span class="cstat-no" title="statement not covered" > = useQuery(['walletComms'], fetchHiroMessages, {</span>
-    // As we're fetching from Github, a third-party, we want
-    // to avoid any unnecessary stress on their services, so
-    // we use quite slow stale/retry times
-    staleTime: 1000 * 60 * 10,
-    retryDelay: 1000 * 60,
-  });
-<span class="cstat-no" title="statement not covered" >  return data;</span>
-}
+  return (
+    &lt;BuyLayout
+      onCloseAction<span class="fstat-no" title="function not covered" >={() =&gt; <span class="cstat-no" title="statement not covered" >c</span>hangeScreen(RouteUrls.PopupHome)}</span>
+      providersUrl={providersUrl}
+      activeProviders={activeProviders}
+    /&gt;
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -154,7 +151,7 @@ export function <span class="cstat-no" title="statement not covered" ><span clas
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 12:55:17 GMT+0000 (Coordinated Universal Time)
+                at Tue Dec 07 2021 10:19:01 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
