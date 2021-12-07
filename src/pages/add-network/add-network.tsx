@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
 
 import { PopupContainer } from '@components/popup/container';
-import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
 import { isValidUrl } from '@common/validation/validate-url';
 import { ChainID, fetchPrivate } from '@stacks/transactions';
@@ -14,13 +14,13 @@ import { useUpdateCurrentNetworkKey, useUpdateNetworkState } from '@store/networ
 export const AddNetwork: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const setNetworks = useUpdateNetworkState();
   const setNetworkKey = useUpdateCurrentNetworkKey();
 
   return (
     <PopupContainer
-      header={<Header title="Add a network" onClose={() => changeScreen(RouteUrls.Home)} />}
+      header={<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />}
     >
       <Box mt="base">
         <Text fontSize={2}>
@@ -58,7 +58,7 @@ export const AddNetwork: React.FC = () => {
                 };
               });
               setNetworkKey(key);
-              changeScreen(RouteUrls.Home);
+              navigate(RouteUrls.Home);
               return;
             }
             setError('Unable to determine chainID from node.');

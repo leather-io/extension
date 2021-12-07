@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/css';
 import { Box, Button, Input, Stack, Text } from '@stacks/ui';
 
-import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { PopupContainer } from '@components/popup/container';
@@ -24,7 +24,7 @@ export function Unlock(): JSX.Element {
   const { decodedAuthRequest } = useOnboardingState();
   const { showSignOut } = useDrawers();
   const analytics = useAnalytics();
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
 
   const mode = getViewMode();
   const isFullPage = mode === 'full';
@@ -38,9 +38,9 @@ export function Unlock(): JSX.Element {
       await unlockWallet(password);
 
       if (decodedAuthRequest) {
-        changeScreen(RouteUrls.ChooseAccount);
+        navigate(RouteUrls.ChooseAccount);
       } else {
-        changeScreen(RouteUrls.Home);
+        navigate(RouteUrls.Home);
       }
     } catch (error) {
       setError('The password you entered is invalid.');
@@ -50,7 +50,7 @@ export function Unlock(): JSX.Element {
     void analytics.track('complete_unlock', {
       durationMs: unlockSuccessTimeMs - startUnlockTimeMs,
     });
-  }, [analytics, unlockWallet, password, decodedAuthRequest, changeScreen]);
+  }, [analytics, unlockWallet, password, decodedAuthRequest, navigate]);
 
   return (
     <>

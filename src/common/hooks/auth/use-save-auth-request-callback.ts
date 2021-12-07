@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 
 import { useUpdateAuthRequest } from '@store/onboarding/onboarding.hooks';
@@ -7,11 +7,10 @@ import { DecodedAuthRequest } from '@common/dev/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { getRequestOrigin, StorageKey } from '@common/storage';
 import { RouteUrls } from '@routes/route-urls';
-import { useChangeScreen } from '../use-change-screen';
 
 export function useSaveAuthRequest() {
   const { wallet } = useWallet();
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const saveAuthRequest = useUpdateAuthRequest();
   const location = useLocation();
   const accounts = wallet?.accounts;
@@ -39,10 +38,10 @@ export function useSaveAuthRequest() {
         (location.pathname === RouteUrls.Onboarding || location.pathname === RouteUrls.SignIn) &&
         hasIdentities
       ) {
-        changeScreen(RouteUrls.ChooseAccount);
+        navigate(RouteUrls.ChooseAccount);
       }
     },
-    [saveAuthRequest, location, accounts, changeScreen]
+    [saveAuthRequest, location, accounts, navigate]
   );
 
   useEffect(() => {

@@ -1,17 +1,17 @@
 import React, { useCallback } from 'react';
-
-import { RouteUrls } from '@routes/route-urls';
-import { useChangeScreen } from '@common/hooks/use-change-screen';
-import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
+import { useNavigate } from 'react-router-dom';
 
 import { initSentry } from '@common/sentry-init';
 import { initSegment } from '@common/segment-init';
-import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
+import { RouteUrls } from '@routes/route-urls';
+import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
+
+import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
 
 export const AllowDiagnosticsPage = () => {
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const [, setHasAllowedDiagnostics] = useHasAllowedDiagnostics();
 
   const goToOnboardingAndSetDiagnosticsPermissionTo = useCallback(
@@ -22,9 +22,9 @@ export const AllowDiagnosticsPage = () => {
         initSentry();
         void initSegment();
       }
-      changeScreen(RouteUrls.Onboarding);
+      navigate(RouteUrls.Onboarding);
     },
-    [changeScreen, setHasAllowedDiagnostics]
+    [navigate, setHasAllowedDiagnostics]
   );
 
   return (

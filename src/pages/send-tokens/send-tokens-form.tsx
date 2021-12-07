@@ -1,4 +1,5 @@
 import React, { memo, Suspense, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import toast from 'react-hot-toast';
 
@@ -8,7 +9,6 @@ import { useDrawers } from '@common/hooks/use-drawers';
 import { RouteUrls } from '@routes/route-urls';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
-import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
 import {
@@ -26,7 +26,7 @@ import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 import { logger } from '@common/logger';
 
 function SendTokensFormBase() {
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const { setIsIdle, setIsLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   const { showEditNonce, showHighFeeConfirmation } = useDrawers();
   const [isShowing, setShowing] = useState(false);
@@ -82,7 +82,7 @@ function SendTokensFormBase() {
   };
 
   return (
-    <PopupContainer header={<Header title="Send" onClose={() => changeScreen(RouteUrls.Home)} />}>
+    <PopupContainer header={<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />}>
       <Formik
         initialValues={initalValues}
         validateOnChange={false}
