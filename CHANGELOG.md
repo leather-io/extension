@@ -1,3 +1,10 @@
+# [2.22.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.22.0-beta.2...v2.22.0-beta.3) (2021-12-07)
+
+
+### Bug Fixes
+
+* lint issue on transak-helper ([46a95e5](https://github.com/hirosystems/stacks-wallet-web/commit/46a95e5f6c0a9edbd8336e3e326f00b17d2c6af5))
+
 # [2.22.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.22.0-beta.1...v2.22.0-beta.2) (2021-12-06)
 
 
