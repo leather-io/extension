@@ -1,14 +1,15 @@
-import { useChangeScreen } from '@common/hooks/use-change-screen';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useWallet } from '@common/hooks/use-wallet';
 import { RouteUrls } from '@routes/route-urls';
-import React from 'react';
 
 import { SignOutConfirmLayout } from './sign-out-confirm-layout';
 
 export const SignOutConfirmDrawer = () => {
   const { signOut } = useWallet();
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const { setShowSignOut } = useDrawers();
 
   return (
@@ -16,11 +17,11 @@ export const SignOutConfirmDrawer = () => {
       onUserDeleteWallet={async () => {
         await signOut();
         setShowSignOut(false);
-        changeScreen(RouteUrls.Onboarding);
+        navigate(RouteUrls.Onboarding);
       }}
       onUserSafelyReturnToHomepage={() => {
         setShowSignOut(false);
-        changeScreen(RouteUrls.Home);
+        navigate(RouteUrls.Home);
       }}
     />
   );

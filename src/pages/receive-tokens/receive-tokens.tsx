@@ -1,9 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, useClipboard, Stack, Text, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
-import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { Header } from '@components/header';
@@ -17,7 +17,7 @@ import { QrCode } from './components/address-qr-code';
 
 export const ReceiveTokens: React.FC = () => {
   const { currentAccount, currentAccountStxAddress } = useWallet();
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const address = currentAccountStxAddress || '';
   const analytics = useAnalytics();
   const { onCopy, hasCopied } = useClipboard(address);
@@ -27,9 +27,7 @@ export const ReceiveTokens: React.FC = () => {
   };
 
   return (
-    <PopupContainer
-      header={<Header title="Receive" onClose={() => changeScreen(RouteUrls.Home)} />}
-    >
+    <PopupContainer header={<Header title="Receive" onClose={() => navigate(RouteUrls.Home)} />}>
       <Stack spacing="loose" textAlign="center">
         <Text
           textStyle="body.small"

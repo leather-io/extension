@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@stacks/ui';
+
 import { ControlledDrawer } from '@components/drawer/controlled';
-import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useShowNetworksStore } from '@store/ui/ui.hooks';
@@ -11,14 +12,14 @@ import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 export const NetworksDrawer: React.FC = () => {
   const { setShowNetworks } = useDrawers();
   const [isShowing] = useShowNetworksStore();
-  const changeScreen = useChangeScreen();
+  const navigate = useNavigate();
   const analytics = useAnalytics();
 
   const handleAddNetworkClick = useCallback(() => {
     void analytics.track('add_network');
     setShowNetworks(false);
-    changeScreen(RouteUrls.AddNetwork);
-  }, [analytics, setShowNetworks, changeScreen]);
+    navigate(RouteUrls.AddNetwork);
+  }, [analytics, setShowNetworks, navigate]);
 
   return (
     <ControlledDrawer
