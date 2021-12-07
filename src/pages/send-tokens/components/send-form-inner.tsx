@@ -32,6 +32,7 @@ import {
 } from '@store/transactions/transaction.hooks';
 
 import { SendFormMemoWarning } from './memo-warning';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
@@ -51,6 +52,7 @@ export function SendFormInner(props: SendFormInnerProps) {
   const [, setFeeEstimations] = useFeeEstimationsState();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
+  const analytics = useAnalytics();
   const [transaction] = useUnsignedTxForSettingsState();
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
@@ -63,12 +65,17 @@ export function SendFormInner(props: SendFormInnerProps) {
         estimatedTxByteLength
       ) {
         setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedTxByteLength));
+        void analytics.track('use_fee_estimation_default_simulated');
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
         const feeEstimationsWithMaxValues = getFeeEstimationsWithMaxValues(
           feeEstimationsResp.estimations
         );
         setFeeEstimations(feeEstimationsWithMaxValues);
+        void analytics.track('use_fee_estimation', {
+          maxValues: feeEstimationsWithMaxValues,
+          estimations: feeEstimationsResp.estimations,
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
