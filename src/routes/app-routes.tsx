@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
@@ -23,12 +23,17 @@ import { RouteUrls } from '@routes/route-urls';
 import { WelcomePage } from '@pages/onboarding/welcome/welcome';
 
 export function AppRoutes(): JSX.Element {
-  const { encryptedSecretKey, hasGeneratedWallet, hasSetPassword } = useWallet();
+  const { hasGeneratedWallet } = useWallet();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const analytics = useAnalytics();
   useSaveAuthRequest();
 
-  const hasOnboarded = (hasGeneratedWallet || encryptedSecretKey) && hasSetPassword;
+  useEffect(() => {
+    // This ensures the ext popup hits the right route on load
+    if (pathname === RouteUrls.Home && !hasGeneratedWallet) navigate(RouteUrls.Onboarding);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     void analytics.page('view', `${pathname}`);
@@ -38,20 +43,17 @@ export function AppRoutes(): JSX.Element {
     <Routes>
       {/* TODO: Use a layout container route at highest level - remove PopupContainer */}
       {/* <Route element={<Layout />}> */}
-      {hasOnboarded ? (
-        <Route
-          path={RouteUrls.Home}
-          element={
-            <AccountGate>
-              <Home />
-            </AccountGate>
-          }
-        >
-          <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
-        </Route>
-      ) : (
-        <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
-      )}
+      <Route
+        path={RouteUrls.Home}
+        element={
+          <AccountGate>
+            <Home />
+          </AccountGate>
+        }
+      >
+        <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+      </Route>
+      <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
       <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
       <Route path={RouteUrls.SaveSecretKey} element={<SaveSecretKey />} />
       <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
@@ -123,7 +125,7 @@ export function AppRoutes(): JSX.Element {
       />
       <Route path={RouteUrls.Unlock} element={<Unlock />} />
       {/* Catch-all route redirects to onboarding */}
-      <Route path="*" element={<WelcomePage />} />
+      <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
     </Routes>
   );
 }

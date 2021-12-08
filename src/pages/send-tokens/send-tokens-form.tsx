@@ -46,7 +46,8 @@ function SendTokensFormBase() {
     setTxData(null);
     setIsIdle();
     resetNonceCallback();
-  }, [resetNonceCallback, setIsIdle, setTxData]);
+    navigate(RouteUrls.Home);
+  }, [navigate, resetNonceCallback, setIsIdle, setTxData]);
 
   const broadcastTransactionFn = useHandleSubmitTransaction({
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
