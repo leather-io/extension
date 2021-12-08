@@ -12,7 +12,7 @@ import { ActiveFiatProviderType } from '@query/hiro-config/hiro-config.query';
 const providersInfo = {
   transak: {
     title: 'Transak',
-    body: 'International users can purchase STX quickly with EUR, KRW and many more.',
+    body: 'Non-US residents can purchase STX with credit card, debit card, or bank transfer via Transak.',
     cta: 'Buy on Transak',
   },
   okcoin: {
