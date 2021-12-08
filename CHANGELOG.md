@@ -1,3 +1,10 @@
+## [2.23.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.1...v2.23.2) (2021-12-08)
+
+
+### Bug Fixes
+
+* change transak copy for US citizens ([3353fa3](https://github.com/hirosystems/stacks-wallet-web/commit/3353fa331afd0babd2c37999175fa8f2db34a9c8)), closes [#2051](https://github.com/hirosystems/stacks-wallet-web/issues/2051)
+
 ## [2.23.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.0...v2.23.1) (2021-12-07)
 
 
