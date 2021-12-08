@@ -14,8 +14,7 @@ import {
   useSeedInputErrorState,
   useSeedInputState,
 } from '@store/onboarding/onboarding.hooks';
-
-import { useAnalytics } from '../analytics/use-analytics';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 export function useSignIn() {
   const [, setMagicRecoveryCode] = useMagicRecoveryCodeState();
