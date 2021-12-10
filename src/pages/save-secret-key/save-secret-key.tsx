@@ -4,7 +4,7 @@ import { Stack } from '@stacks/ui';
 
 import { useWallet } from '@common/hooks/use-wallet';
 import { RouteUrls } from '@routes/route-urls';
-import { PopupContainer } from '@components/popup/container';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Header } from '@components/header';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
@@ -26,7 +26,7 @@ export const SaveSecretKey: React.FC = memo(() => {
   }, [analytics]);
 
   return (
-    <PopupContainer
+    <ContainerLayout
       header={
         <Header
           onClose={
@@ -42,6 +42,6 @@ export const SaveSecretKey: React.FC = memo(() => {
         <SecretKeyCard />
         <SecretKeyActions />
       </Stack>
-    </PopupContainer>
+    </ContainerLayout>
   );
 });

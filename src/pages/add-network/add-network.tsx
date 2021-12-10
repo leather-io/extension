@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
 
-import { PopupContainer } from '@components/popup/container';
+import { ContainerLayout } from '@components/container/container.layout';
 import { RouteUrls } from '@routes/route-urls';
 import { isValidUrl } from '@common/validation/validate-url';
 import { ChainID, fetchPrivate } from '@stacks/transactions';
@@ -19,7 +19,7 @@ export const AddNetwork: React.FC = () => {
   const setNetworkKey = useUpdateCurrentNetworkKey();
 
   return (
-    <PopupContainer
+    <ContainerLayout
       header={<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />}
     >
       <Box mt="base">
@@ -146,6 +146,6 @@ export const AddNetwork: React.FC = () => {
           </form>
         )}
       </Formik>
-    </PopupContainer>
+    </ContainerLayout>
   );
 };
