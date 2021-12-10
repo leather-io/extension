@@ -6,7 +6,7 @@ import { Stack } from '@stacks/ui';
 import { useFeeSchema } from '@common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
-import { PopupContainer } from '@components/popup/container';
+import { ContainerLayout } from '@components/container/container.layout';
 import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { PopupHeader } from '@pages/sign-transaction/components/popup-header';
 import { PageTop } from '@pages/sign-transaction/components/page-top';
@@ -72,7 +72,7 @@ function SignTransactionBase(): JSX.Element | null {
   if (!transactionRequest) return null;
 
   return (
-    <PopupContainer header={<PopupHeader />}>
+    <ContainerLayout header={<PopupHeader />}>
       <Stack spacing="loose">
         <PageTop />
         <PostConditionModeWarning />
@@ -100,7 +100,7 @@ function SignTransactionBase(): JSX.Element | null {
           )}
         </Formik>
       </Stack>
-    </PopupContainer>
+    </ContainerLayout>
   );
 }
 

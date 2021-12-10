@@ -1,10 +1,12 @@
 import React from 'react';
-import { AssetRow } from '@components/asset-row';
-import { CollectibleAssets } from '@components/popup/collectible-assets';
 import { Stack, StackProps } from '@stacks/ui';
+
+import { AssetRow } from '@components/asset-row';
+import { CollectibleAssets } from '@features/balances-list/components/collectible-assets';
 import { useCurrentAccountBalancesUnanchoredState } from '@store/accounts/account.hooks';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { useStxTokenState } from '@store/assets/asset.hooks';
+
 import { FungibleAssets } from './components/fungible-assets';
 import { NoAssets } from './components/no-assets';
 

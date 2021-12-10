@@ -6,19 +6,19 @@ import BN from 'bn.js';
 import { toast } from 'react-hot-toast';
 import { Stack } from '@stacks/ui';
 
-import { useFeeSchema } from '@common/validation/use-fee-schema';
-import { Caption } from '@components/typography';
 import { microStxToStx, stacksValue, stxToMicroStx } from '@common/stacks-utils';
 import { useRefreshAllAccountData } from '@common/hooks/account/use-refresh-all-account-data';
-import { TxItem } from '@components/popup/tx-item';
+import { useFeeSchema } from '@common/validation/use-fee-schema';
+import { Caption } from '@components/typography';
+import { TxItem } from '@components/tx-item';
 import { useRawDeserializedTxState, useRawTxIdState } from '@store/transactions/raw.hooks';
 import { useReplaceByFeeSubmitCallBack } from '@store/transactions/fees.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.hooks';
+import { useRemoveLocalSubmittedTxById } from '@store/accounts/account-activity.hooks';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
 import { useSelectedTx } from '../hooks/use-selected-tx';
-import { useRemoveLocalSubmittedTxById } from '@store/accounts/account-activity.hooks';
 
 export function IncreaseFeeForm(): JSX.Element | null {
   const refreshAccountData = useRefreshAllAccountData();

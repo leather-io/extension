@@ -7,7 +7,7 @@ import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { RouteUrls } from '@routes/route-urls';
-import { PopupContainer } from '@components/popup/container';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Header } from '@components/header';
 import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
@@ -83,7 +83,7 @@ function SendTokensFormBase() {
   };
 
   return (
-    <PopupContainer header={<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />}>
+    <ContainerLayout header={<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />}>
       <Formik
         initialValues={initalValues}
         validateOnChange={false}
@@ -125,7 +125,7 @@ function SendTokensFormBase() {
           </>
         )}
       </Formik>
-    </PopupContainer>
+    </ContainerLayout>
   );
 }
 

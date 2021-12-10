@@ -4,7 +4,7 @@ import { Stack } from '@stacks/ui';
 
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
-import { PopupContainer } from '@components/popup/container';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Header } from '@components/header';
 import { HiroMessages } from '@features/hiro-messages/hiro-messages';
 import { ActivityList } from '@features/activity-list/account-activity';
@@ -31,8 +31,7 @@ export const Home = () => {
 
   return (
     <>
-      <PopupContainer
-        requestType="auth"
+      <ContainerLayout
         header={
           <>
             <HiroMessages mx="tight" />
@@ -48,7 +47,7 @@ export const Home = () => {
             activity={<ActivityList />}
           />
         </Stack>
-      </PopupContainer>
+      </ContainerLayout>
       <Outlet />
     </>
   );
