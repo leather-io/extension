@@ -1,11 +1,12 @@
+import React, { useMemo } from 'react';
+import { Box, Stack, Text, color } from '@stacks/ui';
+
 import { createTxDateFormatList } from '@common/transactions/transaction-utils';
+import { TxView } from '@components/tx-item';
 import {
   AddressTransactionWithTransfers,
   MempoolTransaction,
 } from '@stacks/stacks-blockchain-api-types';
-import { Box, Stack, Text, color } from '@stacks/ui';
-import React, { useMemo } from 'react';
-import { TxView } from '@components/popup/tx-item';
 
 interface TransactionListProps {
   txs: (AddressTransactionWithTransfers | MempoolTransaction)[];

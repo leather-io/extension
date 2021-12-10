@@ -8,7 +8,7 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { Header } from '@components/header';
 import { Toast } from '@components/toast';
-import { PopupContainer } from '@components/popup/container';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Caption, Title } from '@components/typography';
 import { Tooltip } from '@components/tooltip';
 import { RouteUrls } from '@routes/route-urls';
@@ -27,7 +27,7 @@ export const ReceiveTokens: React.FC = () => {
   };
 
   return (
-    <PopupContainer header={<Header title="Receive" onClose={() => navigate(RouteUrls.Home)} />}>
+    <ContainerLayout header={<Header title="Receive" onClose={() => navigate(RouteUrls.Home)} />}>
       <Stack spacing="loose" textAlign="center">
         <Text
           textStyle="body.small"
@@ -55,6 +55,6 @@ export const ReceiveTokens: React.FC = () => {
           Copy your address
         </Button>
       </Stack>
-    </PopupContainer>
+    </ContainerLayout>
   );
 };

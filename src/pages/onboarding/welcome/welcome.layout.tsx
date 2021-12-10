@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Stack } from '@stacks/ui';
 
 import { Header } from '@components/header';
-import { PopupContainer } from '@components/popup/container';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Body, Title } from '@components/typography';
 import { Link } from '@components/link';
 import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
@@ -12,10 +12,10 @@ interface WelcomeLayoutProps {
   onStartOnboarding(): void;
   onRestoreWallet(): void;
 }
-export function WelcomeLayout(props: WelcomeLayoutProps) {
+export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
   const { isGeneratingWallet, onStartOnboarding, onRestoreWallet } = props;
   return (
-    <PopupContainer header={<Header hideActions />} requestType="auth">
+    <ContainerLayout header={<Header hideActions />}>
       <Stack spacing="extra-loose" flexGrow={1} justifyContent="center">
         <Stack width="100%" spacing="loose" textAlign="center" alignItems="center">
           <Title as="h1" fontWeight={500}>
@@ -37,6 +37,6 @@ export function WelcomeLayout(props: WelcomeLayoutProps) {
           </Link>
         </Stack>
       </Stack>
-    </PopupContainer>
+    </ContainerLayout>
   );
 }
