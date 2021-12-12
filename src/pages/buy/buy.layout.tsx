@@ -1,12 +1,13 @@
 import React from 'react';
-import { ContainerLayout } from '@components/container/container.layout';
+import { Button, Flex, Stack } from '@stacks/ui';
+
+import AddFunds from '@assets/images/add-funds.svg';
+import { useRouteHeader } from '@common/hooks/use-route-header';
+import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { Header } from '@components/header';
 import { Caption, Text, Title } from '@components/typography';
-import { Button, Flex, Stack } from '@stacks/ui';
 import { Link } from '@components/link';
-import AddFunds from '@assets/images/add-funds.svg';
 import { SpaceBetween } from '@components/space-between';
-import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { ActiveFiatProviderType } from '@query/hiro-config/hiro-config.query';
 
 const providersInfo = {
@@ -65,36 +66,36 @@ interface BuyLayoutProps {
 export const BuyLayout = (props: BuyLayoutProps) => {
   const { providersUrl, activeProviders, onCloseAction } = props;
 
+  useRouteHeader(<Header hideActions title=" " onClose={onCloseAction} />);
+
   return (
-    <ContainerLayout header={<Header hideActions title=" " onClose={onCloseAction} />}>
-      <Flex flexDirection="column" flex={1}>
-        <Stack overflow="hidden" alignItems="flex-start" spacing="base-tight">
-          <img src={AddFunds} />
-          <Title>Fund your account</Title>
-          <Text fontSize="16px" mt="base-tight">
-            You'll need STX to pay for transaction fees and other interactions with the Stacks
-            blockchain. account by buying some STX on an exchange.
-          </Text>
-          <Text fontSize="16px" mt="none">
-            Choose an option below to purchase and deposit STX directly into your account.
-          </Text>
-          <Link
-            onClick={() => openInNewTab('https://hiro.so/questions/wallet-stx-purchases')}
-            color="blue"
-            fontSize="16px"
-            display="flex"
-          >
-            Learn more ↗
-          </Link>
-        </Stack>
-        {Object.keys(activeProviders).map(provider => (
-          <ProviderLayout
-            key={provider}
-            provider={provider}
-            providerUrl={providersUrl[provider as keyof ProvidersUrl]}
-          />
-        ))}
-      </Flex>
-    </ContainerLayout>
+    <Flex flexDirection="column" flex={1}>
+      <Stack overflow="hidden" alignItems="flex-start" spacing="base-tight">
+        <img src={AddFunds} />
+        <Title>Fund your account</Title>
+        <Text fontSize="16px" mt="base-tight">
+          You'll need STX to pay for transaction fees and other interactions with the Stacks
+          blockchain. account by buying some STX on an exchange.
+        </Text>
+        <Text fontSize="16px" mt="none">
+          Choose an option below to purchase and deposit STX directly into your account.
+        </Text>
+        <Link
+          onClick={() => openInNewTab('https://hiro.so/questions/wallet-stx-purchases')}
+          color="blue"
+          fontSize="16px"
+          display="flex"
+        >
+          Learn more ↗
+        </Link>
+      </Stack>
+      {Object.keys(activeProviders).map(provider => (
+        <ProviderLayout
+          key={provider}
+          provider={provider}
+          providerUrl={providersUrl[provider as keyof ProvidersUrl]}
+        />
+      ))}
+    </Flex>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useRouteHeader } from '@common/hooks/use-route-header';
 import { initSentry } from '@common/sentry-init';
 import { initSegment } from '@common/segment-init';
-import { ContainerLayout } from '@components/container/container.layout';
 import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
@@ -13,6 +13,8 @@ import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
 export const AllowDiagnosticsPage = () => {
   const navigate = useNavigate();
   const [, setHasAllowedDiagnostics] = useHasAllowedDiagnostics();
+
+  useRouteHeader(<Header hideActions />);
 
   const goToOnboardingAndSetDiagnosticsPermissionTo = useCallback(
     (areDiagnosticsAllowed: boolean | undefined) => {
@@ -28,11 +30,9 @@ export const AllowDiagnosticsPage = () => {
   );
 
   return (
-    <ContainerLayout header={<Header hideActions />}>
-      <AllowDiagnosticsLayout
-        onUserDenyDiagnosticsPermissions={() => goToOnboardingAndSetDiagnosticsPermissionTo(false)}
-        onUserAllowDiagnostics={() => goToOnboardingAndSetDiagnosticsPermissionTo(true)}
-      />
-    </ContainerLayout>
+    <AllowDiagnosticsLayout
+      onUserDenyDiagnosticsPermissions={() => goToOnboardingAndSetDiagnosticsPermissionTo(false)}
+      onUserAllowDiagnostics={() => goToOnboardingAndSetDiagnosticsPermissionTo(true)}
+    />
   );
 };

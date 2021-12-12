@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
 
-import { ContainerLayout } from '@components/container/container.layout';
-import { RouteUrls } from '@routes/route-urls';
+import { useRouteHeader } from '@common/hooks/use-route-header';
 import { isValidUrl } from '@common/validation/validate-url';
 import { ChainID, fetchPrivate } from '@stacks/transactions';
 import { ErrorLabel } from '@components/error-label';
 import { Header } from '@components/header';
+import { RouteUrls } from '@routes/route-urls';
 import { useUpdateCurrentNetworkKey, useUpdateNetworkState } from '@store/network/networks.hooks';
 
 export const AddNetwork: React.FC = () => {
@@ -18,10 +18,10 @@ export const AddNetwork: React.FC = () => {
   const setNetworks = useUpdateNetworkState();
   const setNetworkKey = useUpdateCurrentNetworkKey();
 
+  useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
+
   return (
-    <ContainerLayout
-      header={<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />}
-    >
+    <>
       <Box mt="base">
         <Text fontSize={2}>
           Use this form to add a new instance of the{' '}
@@ -146,6 +146,6 @@ export const AddNetwork: React.FC = () => {
           </form>
         )}
       </Formik>
-    </ContainerLayout>
+    </>
   );
 };
