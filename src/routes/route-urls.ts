@@ -8,13 +8,13 @@ export enum RouteUrls {
   SignIn = '/sign-in',
   RecoveryCode = '/recovery-code',
   // Active wallet routes
-  Home = '/home',
+  Home = '/',
   AddNetwork = '/add-network',
   Buy = '/buy',
   ChooseAccount = '/choose-account',
   Receive = '/receive',
   Send = '/send',
-  SignOutConfirm = '/home/sign-out',
+  SignOutConfirm = '/sign-out',
   Transaction = '/transaction',
   ViewSecretKey = '/view-secret-key',
   // Locked wallet route

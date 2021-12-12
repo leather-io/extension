@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/css';
 import { Box, Button, Input, Stack, Text } from '@stacks/ui';
 
+import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { ContainerLayout } from '@components/container/container.layout';
 import { buildEnterKeyEvent } from '@components/link';
 import { ErrorLabel } from '@components/error-label';
 import { Header } from '@components/header';
@@ -25,6 +25,8 @@ export function Unlock(): JSX.Element {
   const { showSignOut } = useDrawers();
   const analytics = useAnalytics();
   const navigate = useNavigate();
+
+  useRouteHeader(<Header />);
 
   const mode = getViewMode();
   const isFullPage = mode === 'full';
@@ -54,55 +56,53 @@ export function Unlock(): JSX.Element {
 
   return (
     <>
-      <ContainerLayout header={<Header />}>
-        <Box mt="loose">
-          <Stack spacing="loose" width="100%">
-            <Body
-              className={
-                isFullPage
-                  ? css({ paddingLeft: '16px', paddingRight: '16px', textAlign: 'center' })
-                  : undefined
+      <Box mt="loose">
+        <Stack spacing="loose" width="100%">
+          <Body
+            className={
+              isFullPage
+                ? css({ paddingLeft: '16px', paddingRight: '16px', textAlign: 'center' })
+                : undefined
+            }
+          >
+            Enter the password you used on this device.
+          </Body>
+          <Box width="100%">
+            <Input
+              placeholder="Enter your password"
+              width="100%"
+              autoFocus
+              type="password"
+              value={password}
+              isDisabled={loading}
+              data-testid="set-password"
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setPassword(e.currentTarget.value)
               }
-            >
-              Enter the password you used on this device.
-            </Body>
-            <Box width="100%">
-              <Input
-                placeholder="Enter your password"
-                width="100%"
-                autoFocus
-                type="password"
-                value={password}
-                isDisabled={loading}
-                data-testid="set-password"
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setPassword(e.currentTarget.value)
-                }
-                onKeyUp={buildEnterKeyEvent(submit)}
-              />
-            </Box>
-            {error && (
-              <Box>
-                <ErrorLabel>
-                  <Text textStyle="caption">{error}</Text>
-                </ErrorLabel>
-              </Box>
-            )}
+              onKeyUp={buildEnterKeyEvent(submit)}
+            />
+          </Box>
+          {error && (
             <Box>
-              <Button
-                width="100%"
-                isLoading={loading}
-                isDisabled={loading}
-                onClick={submit}
-                data-testid="set-password-done"
-                borderRadius="10px"
-              >
-                Unlock
-              </Button>
+              <ErrorLabel>
+                <Text textStyle="caption">{error}</Text>
+              </ErrorLabel>
             </Box>
-          </Stack>
-        </Box>
-      </ContainerLayout>
+          )}
+          <Box>
+            <Button
+              width="100%"
+              isLoading={loading}
+              isDisabled={loading}
+              onClick={submit}
+              data-testid="set-password-done"
+              borderRadius="10px"
+            >
+              Unlock
+            </Button>
+          </Box>
+        </Stack>
+      </Box>
       {showSignOut && <SignOutConfirmDrawer />}
     </>
   );

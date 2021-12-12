@@ -3,10 +3,10 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Stack } from '@stacks/ui';
 
+import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useFeeSchema } from '@common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
-import { ContainerLayout } from '@components/container/container.layout';
 import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { PopupHeader } from '@pages/sign-transaction/components/popup-header';
 import { PageTop } from '@pages/sign-transaction/components/page-top';
@@ -38,6 +38,8 @@ function SignTransactionBase(): JSX.Element | null {
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [, setTxData] = useLocalTransactionInputsState();
   const feeSchema = useFeeSchema();
+
+  useRouteHeader(<PopupHeader />);
 
   const onSubmit = useCallback(
     async values => {
@@ -72,35 +74,33 @@ function SignTransactionBase(): JSX.Element | null {
   if (!transactionRequest) return null;
 
   return (
-    <ContainerLayout header={<PopupHeader />}>
-      <Stack spacing="loose">
-        <PageTop />
-        <PostConditionModeWarning />
-        <TransactionError />
-        <PostConditions />
-        {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
-        {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
-        {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-        <Formik
-          initialValues={{ fee: '' }}
-          onSubmit={onSubmit}
-          validateOnChange={false}
-          validateOnBlur={false}
-          validateOnMount={false}
-          validationSchema={yup.object({
-            fee: feeSchema(),
-          })}
-        >
-          {() => (
-            <>
-              <FeeForm />
-              <SubmitAction />
-              <HighFeeDrawer />
-            </>
-          )}
-        </Formik>
-      </Stack>
-    </ContainerLayout>
+    <Stack spacing="loose">
+      <PageTop />
+      <PostConditionModeWarning />
+      <TransactionError />
+      <PostConditions />
+      {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
+      {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
+      {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
+      <Formik
+        initialValues={{ fee: '' }}
+        onSubmit={onSubmit}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validateOnMount={false}
+        validationSchema={yup.object({
+          fee: feeSchema(),
+        })}
+      >
+        {() => (
+          <>
+            <FeeForm />
+            <SubmitAction />
+            <HighFeeDrawer />
+          </>
+        )}
+      </Formik>
+    </Stack>
   );
 }
 
