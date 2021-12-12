@@ -1,8 +1,8 @@
 import React, { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { useWallet } from '@common/hooks/use-wallet';
 import { Container } from '@components/container/container';
 import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
@@ -23,8 +23,8 @@ import { BuyPage } from '@pages/buy/buy';
 import { RouteUrls } from '@routes/route-urls';
 import { WelcomePage } from '@pages/onboarding/welcome/welcome';
 
-export function AppRoutes(): JSX.Element {
-  const { hasGeneratedWallet } = useWallet();
+export function AppRoutes(): JSX.Element | null {
+  const { hasGeneratedWallet, hasRehydratedVault } = useWallet();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
@@ -32,13 +32,15 @@ export function AppRoutes(): JSX.Element {
 
   useEffect(() => {
     // This ensures the ext popup hits the right route on load
-    if (pathname === RouteUrls.Container && !hasGeneratedWallet) navigate(RouteUrls.Onboarding);
+    if (pathname === RouteUrls.Home && !hasGeneratedWallet) navigate(RouteUrls.Onboarding);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     void analytics.page('view', `${pathname}`);
   }, [analytics, pathname]);
+
+  if (!hasRehydratedVault) return null;
 
   return (
     <Routes>

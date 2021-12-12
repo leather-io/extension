@@ -3,10 +3,11 @@ import { Flex, color } from '@stacks/ui';
 
 interface ContainerLayoutProps {
   children: JSX.Element | JSX.Element[];
-  header?: any;
+  header: JSX.Element | null;
 }
 export function ContainerLayout(props: ContainerLayoutProps) {
   const { children, header } = props;
+
   return (
     <Flex
       flexDirection="column"
