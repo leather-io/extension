@@ -15,6 +15,9 @@ import { DEFAULT_PASSWORD } from '@common/types';
 import { InternalMethods } from '@common/message-types';
 import { logger } from '@common/logger';
 import { getHasSetPassword, hasSetPasswordIdentifier } from '@common/storage';
+import { getDecryptedWalletDetails } from '@background/wallet/unlock-wallet';
+import { saveWalletConfigLocally } from '@common/wallet/wallet-config-helper';
+import { setToLocalstorageIfDefined } from '@common/storage';
 
 // In-memory (background) wallet instance
 export interface InMemoryVault {
@@ -42,18 +45,10 @@ let inMemoryVault: InMemoryVault = {
   salt: localStorage.getItem(saltIdentifier) || undefined,
 };
 
-function persistOptional(storageKey: string, value?: string) {
-  if (value) {
-    localStorage.setItem(storageKey, value);
-  } else {
-    localStorage.removeItem(storageKey);
-  }
-}
-
 export async function vaultMessageHandler(message: VaultActions) {
   inMemoryVault = await vaultReducer(message);
-  persistOptional(encryptedKeyIdentifier, inMemoryVault.encryptedSecretKey);
-  persistOptional(saltIdentifier, inMemoryVault.salt);
+  setToLocalstorageIfDefined(encryptedKeyIdentifier, inMemoryVault.encryptedSecretKey);
+  setToLocalstorageIfDefined(saltIdentifier, inMemoryVault.salt);
   localStorage.setItem(hasSetPasswordIdentifier, JSON.stringify(inMemoryVault.hasSetPassword));
   return inMemoryVault;
 }
@@ -71,7 +66,8 @@ async function storeSeed(secretKey: string, password?: string): Promise<InMemory
     currentAccountIndex: 0,
     hasSetPassword,
   };
-  // This method is called on `unlockWallet`.
+
+  // This method is sometimes called on `unlockWallet` (see unlockWallet below)
   // `restoreWalletAccounts` is reliant on external resources.
   // If this method fails, we return a single wallet instance,
   // the root wallet.
@@ -80,8 +76,10 @@ async function storeSeed(secretKey: string, password?: string): Promise<InMemory
       wallet: generatedWallet,
       gaiaHubUrl: gaiaUrl,
     });
+
     return { ...inMemoryVault, ...keyInfo, wallet: _wallet };
   } catch (error) {
+    logger.error('Failed to restore accounts', error);
     return { ...inMemoryVault, ...keyInfo, wallet: generatedWallet };
   }
 }
@@ -124,10 +122,13 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
       try {
         const updateConfig = async () => {
           const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
-          await updateWalletConfig({
+          const walletConfig = await updateWalletConfig({
             wallet: newWallet,
             gaiaHubConfig,
           });
+          // The gaia wallet config is saved locally so we don't have
+          // to fetch it again from gaia on wallet unlock
+          saveWalletConfigLocally(walletConfig);
         };
         await updateConfig();
       } catch (e) {
@@ -164,6 +165,17 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
       if (!encryptedSecretKey) {
         throw new Error('Unable to unlock - logged out.');
       }
+      const vault = await getDecryptedWalletDetails(encryptedSecretKey, password, salt);
+      if (vault) {
+        return {
+          ...inMemoryVault,
+          ...vault,
+        };
+      }
+      // Since the user does not have the gaia wallet config saved locally, we use the legacy way
+      // i.e fetching it vis storeSeed. This can only happen when users have their wallet locked
+      // and then got the wallet upgraded. They won't have the config saved yet (this is done on account creation and login)
+      // This code path can be deleted after some months
       const decryptedData = await decryptMnemonic({
         encryptedSecretKey,
         password,

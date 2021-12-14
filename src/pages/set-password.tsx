@@ -15,6 +15,7 @@ import { Body, Caption } from '@components/typography';
 import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { getWalletConfig } from '@common/wallet/wallet-config-helper';
 
 interface SetPasswordProps {
   placeholder?: string;
@@ -34,6 +35,12 @@ export const SetPasswordPage = ({ placeholder }: SetPasswordProps) => {
   useEffect(() => {
     void analytics.page('view', '/set-password');
   }, [analytics]);
+
+  useEffect(() => {
+    // Proactively fetch the gaia wallet config
+    if (!wallet) return;
+    void getWalletConfig(wallet);
+  });
 
   const submit = useCallback(
     async (password: string) => {
