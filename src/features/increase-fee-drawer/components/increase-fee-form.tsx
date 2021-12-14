@@ -30,7 +30,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
   const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();
 
-  const fee = Number(rawTx?.auth.spendingCondition?.fee) || 0;
+  const fee = Number(rawTx?.auth.spendingCondition?.fee);
 
   useEffect(() => {
     if (tx?.tx_status !== 'pending' && rawTx) {
@@ -53,7 +53,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
     [rawTx, refreshAccountData, removeLocallySubmittedTx, replaceByFee, tx]
   );
 
-  if (!tx) return null;
+  if (!tx || !fee) return null;
 
   return (
     <Formik
