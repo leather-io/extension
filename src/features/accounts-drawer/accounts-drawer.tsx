@@ -7,6 +7,15 @@ import { SwitchAccounts } from '../account-switch-drawer/switch-accounts';
 import { useShowAccountsStore, useUpdateAccountDrawerStep } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
 
+function getTitle(accountStep: AccountStep) {
+  switch (accountStep) {
+    case AccountStep.Create:
+      return 'Create account';
+    case AccountStep.Switch:
+      return 'Switch account';
+  }
+}
+
 export const AccountsDrawer: React.FC = () => {
   const { accountStep } = useDrawers();
   const [isShowing, setShowAccountStore] = useShowAccountsStore();
@@ -17,17 +26,9 @@ export const AccountsDrawer: React.FC = () => {
     const drawerAnimationTime = 200;
     setTimeout(() => updateAccountDrawerStep(AccountStep.Switch), drawerAnimationTime);
   }, [setShowAccountStore, updateAccountDrawerStep]);
-  const getTitle = () => {
-    switch (accountStep) {
-      case AccountStep.Create:
-        return 'Create account';
-      case AccountStep.Switch:
-        return 'Switch account';
-    }
-  };
 
   return (
-    <ControlledDrawer title={getTitle()} isShowing={isShowing} onClose={close}>
+    <ControlledDrawer title={getTitle(accountStep)} isShowing={isShowing} onClose={close}>
       {accountStep === AccountStep.Switch && isShowing ? <SwitchAccounts close={close} /> : null}
       {accountStep === AccountStep.Create && isShowing ? <CreateAccount close={close} /> : null}
     </ControlledDrawer>
