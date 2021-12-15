@@ -5,6 +5,7 @@ import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { useWallet } from '@common/hooks/use-wallet';
 import { getHasSetPassword } from '@common/storage';
 import { Container } from '@components/container/container';
+import { LoadingSpinner } from '@components/loading-spinner';
 import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
 import { SignTransaction } from '@pages/sign-transaction/sign-transaction';
@@ -103,7 +104,7 @@ export function AppRoutes(): JSX.Element | null {
           path={RouteUrls.Send}
           element={
             <AccountGate>
-              <Suspense fallback={<></>}>
+              <Suspense fallback={<LoadingSpinner />}>
                 <SendTokensForm />
               </Suspense>
             </AccountGate>
@@ -113,7 +114,7 @@ export function AppRoutes(): JSX.Element | null {
           path={RouteUrls.Transaction}
           element={
             <AccountGate>
-              <Suspense fallback={<></>}>
+              <Suspense fallback={<LoadingSpinner />}>
                 <SignTransaction />
               </Suspense>
             </AccountGate>
