@@ -8,6 +8,7 @@ const STALE_TIME = 15 * 60 * 1000; // 15 min
 const bnsQueryOptions = {
   keepPreviousData: true,
   cacheTime: STALE_TIME,
+  staleTime: STALE_TIME,
   refetchOnMount: false,
   refetchInterval: false,
   refetchOnReconnect: false,
