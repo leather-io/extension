@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import toast from 'react-hot-toast';
 
+import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
@@ -24,7 +25,6 @@ import { SendTokensConfirmDrawer } from './components/send-tokens-confirm-drawer
 import { SendFormInner } from './components/send-form-inner';
 import { ShowDelay } from './components/show-delay';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
-import { useHomeTabs } from '@common/hooks/use-home-tabs';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -116,7 +116,6 @@ function SendTokensFormBase() {
           <Suspense fallback={<></>}>
             <SendFormInner assetError={assetError} />
           </Suspense>
-
           <SendTokensConfirmDrawer
             isShowing={isShowing && !showEditNonce}
             onClose={() => handleConfirmDrawerOnClose()}
