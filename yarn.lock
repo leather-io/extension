@@ -3079,12 +3079,12 @@
     readable-stream "^3.6.0"
     url "^0.11.0"
 
-"@stacks/encryption@2.0.1", "@stacks/encryption@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-2.0.1.tgz#da960e6054245fe25020ee0ac8b5872f433a557f"
-  integrity sha512-EoEhVJDf6JUGa0mEJO8aLl0tdAVbhoyMDWqsNkJu3dZS3IyHbg9ahY+uU0Po4j5IPTIXKLTt4AOePFdUj0d8hg==
+"@stacks/encryption@3.0.0", "@stacks/encryption@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-3.0.0.tgz#91a766c559f164fe22efc507e18d5091f0136895"
+  integrity sha512-KGVBDWG/hYkjLQNSQL6btIuVvi07ImrLmYS1tKWlC9W6S1si+xHMl5o6WujdpTmvReiqlnw8oJPHWPhkUFFulg==
   dependencies:
-    "@stacks/common" "^2.0.1"
+    "@stacks/common" "^3.0.0"
     "@types/bn.js" "^4.11.6"
     "@types/node" "^14.14.43"
     bip39 "^3.0.2"
@@ -3109,12 +3109,12 @@
     ripemd160-min "^0.0.6"
     sha.js "^2.4.11"
 
-"@stacks/encryption@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-3.0.0.tgz#91a766c559f164fe22efc507e18d5091f0136895"
-  integrity sha512-KGVBDWG/hYkjLQNSQL6btIuVvi07ImrLmYS1tKWlC9W6S1si+xHMl5o6WujdpTmvReiqlnw8oJPHWPhkUFFulg==
+"@stacks/encryption@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-2.0.1.tgz#da960e6054245fe25020ee0ac8b5872f433a557f"
+  integrity sha512-EoEhVJDf6JUGa0mEJO8aLl0tdAVbhoyMDWqsNkJu3dZS3IyHbg9ahY+uU0Po4j5IPTIXKLTt4AOePFdUj0d8hg==
   dependencies:
-    "@stacks/common" "^3.0.0"
+    "@stacks/common" "^2.0.1"
     "@types/bn.js" "^4.11.6"
     "@types/node" "^14.14.43"
     bip39 "^3.0.2"
@@ -3139,14 +3139,7 @@
     eslint-plugin-import ">=2.23.3"
     eslint-plugin-prettier "4.0.0"
 
-"@stacks/network@2.0.1", "@stacks/network@2.0.2", "@stacks/network@^1.2.2", "@stacks/network@^2.0.1", "@stacks/network@^3.0.0":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@stacks/network/-/network-2.0.2.tgz#a03dc34ff9fc7f8eaf7a2896d1412019c41b601f"
-  integrity sha512-DX6yFP8NgrxZ1bMwTbIoYzcCcjo979Mao1YsyClFr0Bv6JBF7+jh091A9hJ62jPLZDGbZA/PNWn6QGR+t3VY/w==
-  dependencies:
-    "@stacks/common" "^2.0.1"
-
-"@stacks/network@3.0.0":
+"@stacks/network@2.0.1", "@stacks/network@2.0.2", "@stacks/network@3.0.0", "@stacks/network@^1.2.2", "@stacks/network@^2.0.1", "@stacks/network@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@stacks/network/-/network-3.0.0.tgz#b4a7f3de8e4651d5426fc715a90f20b7123b166c"
   integrity sha512-JJbQqCN8JlJz8bZu7enW9OBkMG5vEfHnp0rdY6AEp3Gzq9JsFD1C0BbbhMv/IqmCcLuAGmMwo+2C1NKCDJBUdQ==
@@ -3277,7 +3270,7 @@
     sha.js "^2.4.11"
     smart-buffer "^4.1.0"
 
-"@stacks/transactions@^3.0.0":
+"@stacks/transactions@3.0.0", "@stacks/transactions@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-3.0.0.tgz#0c76f8832bc102e46fc165d5d6f29664640e639c"
   integrity sha512-icweWBhiuYLOE/kkhBrsVrpydJEBE9dtDAxX6kBkZ2oAn9BTnW/Tozpxr6Zp0kJEx1ZTndINW7xtrJUsdHw7jg==
