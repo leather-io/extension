@@ -112,7 +112,7 @@ export const currentAccountPrivateKeyState = atom<string | undefined>(
   get => get(currentAccountState)?.stxPrivateKey
 );
 
-export const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(
+const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(
   principal =>
     atom(get => {
       const networkUrl = get(currentNetworkState).url;
@@ -180,13 +180,3 @@ export const refreshAccountDataState = atom(null, (get, set) => {
   set(accountBalancesUnanchoredClient({ principal, networkUrl }), { type: 'refetch' });
   set(accountInfoUnanchoredClient({ principal, networkUrl }), { type: 'refetch' });
 });
-
-accountsState.debugLabel = 'accountsState';
-accountsWithAddressState.debugLabel = 'accountsWithAddressState';
-currentAccountIndexState.debugLabel = 'currentAccountIndexState';
-hasSwitchedAccountsState.debugLabel = 'hasSwitchedAccountsState';
-transactionAccountIndexState.debugLabel = 'transactionAccountIndexState';
-currentAccountState.debugLabel = 'currentAccountState';
-currentAccountStxAddressState.debugLabel = 'currentAccountStxAddressState';
-currentAccountPrivateKeyState.debugLabel = 'currentAccountPrivateKeyState';
-currentAccountBalancesUnanchoredState.debugLabel = 'currentAccountBalancesState';

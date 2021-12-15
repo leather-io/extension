@@ -17,9 +17,10 @@ import { usePressable } from '@components/item-hover';
 import { useLoading } from '@common/hooks/use-loading';
 import { AccountBalanceCaption } from '@components/account-balance-caption';
 import { slugify } from '@common/utils';
-import { useAccountAvailableStxBalance, useAccounts } from '@store/accounts/account.hooks';
+import { useAccounts } from '@store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
+import { useAddressAvailableStxBalance } from '@query/balance/balance.hooks';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -56,7 +57,7 @@ const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...
   const { finishSignIn } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
-  const availableStxBalance = useAccountAvailableStxBalance(account.address);
+  const availableStxBalance = useAddressAvailableStxBalance(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
   const handleOnClick = useCallback(async () => {

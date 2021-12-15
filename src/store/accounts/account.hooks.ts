@@ -2,7 +2,6 @@ import { useAtom } from 'jotai';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { transactionNetworkVersionState } from '@store/transactions';
 import {
-  accountAvailableStxBalanceState,
   accountsWithAddressState,
   currentAccountAvailableStxBalanceState,
   currentAccountBalancesUnanchoredState,
@@ -16,10 +15,6 @@ import {
   refreshAccountDataState,
   transactionAccountIndexState,
 } from '@store/accounts';
-
-export function useAccountAvailableStxBalance(address: string) {
-  return useAtomValue(accountAvailableStxBalanceState(address));
-}
 
 export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableStxBalanceState);

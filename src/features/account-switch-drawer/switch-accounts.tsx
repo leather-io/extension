@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import { useUpdateAccountDrawerStep } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';
-import { useAccounts } from '@store/accounts/account.hooks';
+import { useAccounts, useCurrentAccountIndex } from '@store/accounts/account.hooks';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 import { AccountList } from './components/account-list';
@@ -15,6 +15,7 @@ interface SwitchAccountProps {
 export const SwitchAccounts = memo(({ close }: SwitchAccountProps) => {
   const setAccountDrawerStep = useUpdateAccountDrawerStep();
   const accounts = useAccounts();
+  const currentAccountIndex = useCurrentAccountIndex();
   const analytics = useAnalytics();
 
   const setCreateAccountStep = () => {
@@ -29,7 +30,11 @@ export const SwitchAccounts = memo(({ close }: SwitchAccountProps) => {
 
   return (
     <>
-      <AccountList accounts={accounts} handleClose={close} />
+      <AccountList
+        accounts={accounts}
+        currentAccountIndex={currentAccountIndex}
+        handleClose={close}
+      />
       <CreateAccountAction onCreateAccount={() => setCreateAccountStep()} />
     </>
   );

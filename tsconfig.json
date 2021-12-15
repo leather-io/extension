@@ -43,8 +43,7 @@
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["jest", "chrome"],
-    "typeRoots": ["./src/@types", "./node_modules/@types"]
+    "types": ["jest", "chrome"]
   },
   "include": ["./src/**/*", "./tests/**/*"],
   "exclude": ["test-app"]
