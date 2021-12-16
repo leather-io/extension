@@ -1,37 +1,33 @@
 import React, { memo } from 'react';
 import { AccountWithAddress } from '@store/accounts/account.models';
-import { Box, BoxProps } from '@stacks/ui';
+import { BoxProps } from '@stacks/ui';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { Title } from '@components/typography';
-import { useAccountDisplayName } from '@common/hooks/account/use-account-names';
+import { useGetAccountNamesByAddressQuery } from '@query/bns/bns.hooks';
 
 interface AccountNameProps extends BoxProps {
   account: AccountWithAddress;
 }
-const AccountNameSuspense = memo(({ account }: AccountNameProps) => {
-  const name = useAccountDisplayName(account);
+export const AccountName = memo(({ account }: AccountNameProps) => {
+  const name = useGetAccountNamesByAddressQuery(account.address);
 
   return (
-    <Title fontSize={2} lineHeight="1rem" fontWeight="400" fontFamily="'Inter'">
-      {name}
+    <Title fontSize={2} lineHeight="1rem" fontWeight="400">
+      {name[0] ?? getAccountDisplayName(account)}
     </Title>
   );
 });
 
-export const AccountName = memo(({ account, ...rest }: AccountNameProps) => {
+interface AccountNameFallbackProps {
+  account: AccountWithAddress;
+}
+export const AccountNameFallback = memo(({ account }: AccountNameFallbackProps) => {
   const defaultName = getAccountDisplayName(account);
+
   return (
-    <Box {...rest}>
-      <React.Suspense
-        fallback={
-          <Title fontSize={2} lineHeight="1rem" fontWeight="400">
-            {defaultName}
-          </Title>
-        }
-      >
-        <AccountNameSuspense account={account} />
-      </React.Suspense>
-    </Box>
+    <Title fontSize={2} lineHeight="1rem" fontWeight="400">
+      {defaultName}
+    </Title>
   );
 });

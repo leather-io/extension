@@ -18,3 +18,8 @@ export function useCurrentAccountNames() {
   const namesResponse = useGetBnsNamesOwnedByAddress(principal ?? '');
   return namesResponse.data?.names ?? [];
 }
+
+export function useGetAccountNamesByAddressQuery(address: string) {
+  const namesResponse = useGetBnsNamesOwnedByAddress(address);
+  return namesResponse.data?.names ?? [];
+}
