@@ -3129,15 +3129,15 @@
     jsontokens "^3.0.0"
     query-string "^6.13.1"
 
-"@stacks/auth@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.0.0.tgz#816987d8062a16a776e14766cb537929d3a9ded1"
-  integrity sha512-b/9OaH5x6fHspP569XGui7++Kv3eIX7rJDv1hNmOcEZoa2Q5huMw7qUXlnqiryH7Ucb/hbaVE+uxEJ6JvpvSBQ==
+"@stacks/auth@3.1.0", "@stacks/auth@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.1.0.tgz#c4e65757c6265b2ca7087a84db8d4a8601132796"
+  integrity sha512-VmG+CO2bMnegKr3yg2C/Qdw1CLPBq098wlsOe1WayfNUoPvVwmsvLZpTQKrQLgdav2yrgGn5EsHA+QrwkYFQGw==
   dependencies:
     "@stacks/common" "^3.0.0"
     "@stacks/encryption" "^3.0.0"
     "@stacks/network" "^3.0.0"
-    "@stacks/profile" "^3.0.0"
+    "@stacks/profile" "^3.1.0"
     c32check "^1.1.3"
     cross-fetch "^3.1.4"
     jsontokens "^3.0.0"
@@ -3154,20 +3154,6 @@
     "@stacks/profile" "^1.2.3"
     codecov "^3.7.2"
     cross-fetch "^3.0.5"
-    jsontokens "^3.0.0"
-    query-string "^6.13.1"
-
-"@stacks/auth@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.1.0.tgz#c4e65757c6265b2ca7087a84db8d4a8601132796"
-  integrity sha512-VmG+CO2bMnegKr3yg2C/Qdw1CLPBq098wlsOe1WayfNUoPvVwmsvLZpTQKrQLgdav2yrgGn5EsHA+QrwkYFQGw==
-  dependencies:
-    "@stacks/common" "^3.0.0"
-    "@stacks/encryption" "^3.0.0"
-    "@stacks/network" "^3.0.0"
-    "@stacks/profile" "^3.1.0"
-    c32check "^1.1.3"
-    cross-fetch "^3.1.4"
     jsontokens "^3.0.0"
     query-string "^6.13.1"
 
@@ -3374,7 +3360,7 @@
     schema-inspector "^2.0.1"
     zone-file "^1.0.0"
 
-"@stacks/profile@^3.0.0", "@stacks/profile@^3.1.0":
+"@stacks/profile@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-3.1.0.tgz#b2d016dec1cb156df265cdf867863e5411cb303b"
   integrity sha512-XkuuzRVLXn45+4o8JHJ9RsWQn9Vahm2vBnbFHY/f0FAywK+D06VBpse9qj9ZbtsYtolB1pjdy+6kLsewPiBNIw==
@@ -3537,10 +3523,10 @@
     use-events "^1.4.1"
     use-onclickoutside "npm:use-onclickoutside-peer-deps@0.3.1"
 
-"@stacks/wallet-sdk@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-3.1.0.tgz#867a7501c6fd20604d08793edac13bec370fa542"
-  integrity sha512-Hbm4iLXOJxkpqVzr39Do8/fypc/Yueh0GRgQYIo/TWcD1ojc1ZtkcPcuNxQp0KYpkkbOXM/1P17VlahbR/L4Jg==
+"@stacks/wallet-sdk@3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-3.1.1.tgz#e71b02684c4db291d466ed04572ffd48a502c529"
+  integrity sha512-/sdAz8O2TkY+1z9+Vm2RQgVCGx6lPQor85qboSgALLsnmU9ZhMr5kErMGw0i76128KmVoIBxLmzX18j3e/sCTA==
   dependencies:
     "@stacks/auth" "^3.1.0"
     "@stacks/common" "^3.0.0"
