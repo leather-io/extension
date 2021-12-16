@@ -1,3 +1,11 @@
+# [2.24.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.1...v2.24.0-beta.2) (2021-12-16)
+
+
+### Bug Fixes
+
+* switch account failing test ([7efd8c9](https://github.com/hirosystems/stacks-wallet-web/commit/7efd8c989cf87181a01faf14a18ea60ab7dd4225))
+* use saved hasSetPassword from storage ([f3cfbff](https://github.com/hirosystems/stacks-wallet-web/commit/f3cfbffc9686a4c76c8f3a21b4463b3f90140cc1))
+
 # [2.24.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.2...v2.24.0-beta.1) (2021-12-16)
 
 
