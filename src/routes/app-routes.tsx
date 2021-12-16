@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { useWallet } from '@common/hooks/use-wallet';
-import { getViewMode } from '@common/utils';
+import { getHasSetPassword } from '@common/storage';
 import { Container } from '@components/container/container';
 import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
@@ -25,18 +25,16 @@ import { RouteUrls } from '@routes/route-urls';
 import { WelcomePage } from '@pages/onboarding/welcome/welcome';
 
 export function AppRoutes(): JSX.Element | null {
-  const { hasGeneratedWallet, hasRehydratedVault } = useWallet();
+  const { hasRehydratedVault } = useWallet();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
   useSaveAuthRequest();
 
-  const mode = getViewMode();
-
   useEffect(() => {
-    // This ensures the ext popup hits the right route on load
-    if (mode === 'popup' && pathname === RouteUrls.Home && !hasGeneratedWallet)
-      navigate(RouteUrls.Onboarding);
+    const hasSetPassword = getHasSetPassword();
+    // This ensures the route is correct bc the VaultLoader is slow to set wallet state
+    if (pathname === RouteUrls.Home && !hasSetPassword) navigate(RouteUrls.Onboarding);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

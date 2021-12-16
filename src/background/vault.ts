@@ -7,12 +7,14 @@ import {
   updateWalletConfig,
   Wallet as SDKWallet,
 } from '@stacks/wallet-sdk';
-import { gaiaUrl } from '@common/constants';
+
 import type { VaultActions } from '@background/vault-types';
 import { decryptMnemonic, encryptMnemonic } from '@background/crypto/mnemonic-encryption';
+import { gaiaUrl } from '@common/constants';
 import { DEFAULT_PASSWORD } from '@common/types';
 import { InternalMethods } from '@common/message-types';
 import { logger } from '@common/logger';
+import { getHasSetPassword, hasSetPasswordIdentifier } from '@common/storage';
 
 // In-memory (background) wallet instance
 export interface InMemoryVault {
@@ -25,7 +27,6 @@ export interface InMemoryVault {
 }
 
 const encryptedKeyIdentifier = 'stacks-wallet-encrypted-key' as const;
-const hasSetPasswordIdentifier = 'stacks-wallet-has-set-password' as const;
 const saltIdentifier = 'stacks-wallet-salt' as const;
 
 const defaultVault: InMemoryVault = {
@@ -33,14 +34,6 @@ const defaultVault: InMemoryVault = {
   hasSetPassword: false,
   salt: undefined,
 } as const;
-
-function getHasSetPassword() {
-  const persisted = localStorage.getItem(hasSetPasswordIdentifier);
-  if (persisted !== null) {
-    return JSON.parse(persisted);
-  }
-  return false;
-}
 
 let inMemoryVault: InMemoryVault = {
   ...defaultVault,
