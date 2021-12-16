@@ -3041,15 +3041,15 @@
     jsontokens "^3.0.0"
     query-string "^6.13.1"
 
-"@stacks/auth@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.0.0.tgz#816987d8062a16a776e14766cb537929d3a9ded1"
-  integrity sha512-b/9OaH5x6fHspP569XGui7++Kv3eIX7rJDv1hNmOcEZoa2Q5huMw7qUXlnqiryH7Ucb/hbaVE+uxEJ6JvpvSBQ==
+"@stacks/auth@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.1.0.tgz#c4e65757c6265b2ca7087a84db8d4a8601132796"
+  integrity sha512-VmG+CO2bMnegKr3yg2C/Qdw1CLPBq098wlsOe1WayfNUoPvVwmsvLZpTQKrQLgdav2yrgGn5EsHA+QrwkYFQGw==
   dependencies:
     "@stacks/common" "^3.0.0"
     "@stacks/encryption" "^3.0.0"
     "@stacks/network" "^3.0.0"
-    "@stacks/profile" "^3.0.0"
+    "@stacks/profile" "^3.1.0"
     c32check "^1.1.3"
     cross-fetch "^3.1.4"
     jsontokens "^3.0.0"
@@ -3066,20 +3066,6 @@
     "@stacks/profile" "^1.2.3"
     codecov "^3.7.2"
     cross-fetch "^3.0.5"
-    jsontokens "^3.0.0"
-    query-string "^6.13.1"
-
-"@stacks/auth@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.1.0.tgz#c4e65757c6265b2ca7087a84db8d4a8601132796"
-  integrity sha512-VmG+CO2bMnegKr3yg2C/Qdw1CLPBq098wlsOe1WayfNUoPvVwmsvLZpTQKrQLgdav2yrgGn5EsHA+QrwkYFQGw==
-  dependencies:
-    "@stacks/common" "^3.0.0"
-    "@stacks/encryption" "^3.0.0"
-    "@stacks/network" "^3.0.0"
-    "@stacks/profile" "^3.1.0"
-    c32check "^1.1.3"
-    cross-fetch "^3.1.4"
     jsontokens "^3.0.0"
     query-string "^6.13.1"
 
@@ -3270,7 +3256,7 @@
     schema-inspector "^2.0.1"
     zone-file "^1.0.0"
 
-"@stacks/profile@^3.0.0", "@stacks/profile@^3.1.0":
+"@stacks/profile@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-3.1.0.tgz#b2d016dec1cb156df265cdf867863e5411cb303b"
   integrity sha512-XkuuzRVLXn45+4o8JHJ9RsWQn9Vahm2vBnbFHY/f0FAywK+D06VBpse9qj9ZbtsYtolB1pjdy+6kLsewPiBNIw==
@@ -3300,17 +3286,6 @@
   resolved "https://registry.yarnpkg.com/@stacks/stacks-blockchain-api-types/-/stacks-blockchain-api-types-0.65.0.tgz#38cd10571e38f314dbcd6f6244d6042f7d6a8e0a"
   integrity sha512-V0ko6Cge+IP/XV352rHDDPYYz84gSCRbeklyor3FaUdSZFZIXjVM1upIbo5FDQ6Enygbcpve+vpbbajiWMB16A==
 
-"@stacks/storage@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-3.1.0.tgz#75174a6f0918a67973fa021619bb7fe162ecbb67"
-  integrity sha512-2xmd3oYsTJxM4QsYos5amkJPRabC365tyv/2m+arwSqC4lSmVKrs1pPCL6omm9Qz61KdENtn/JG1vDQmqXzKXQ==
-  dependencies:
-    "@stacks/auth" "^3.1.0"
-    "@stacks/common" "^3.0.0"
-    "@stacks/encryption" "^3.0.0"
-    bitcoinjs-lib "^5.2.0"
-    jsontokens "^3.0.0"
-
 "@stacks/transactions@2.1.0-beta.2":
   version "2.1.0-beta.2"
   resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-2.1.0-beta.2.tgz#d5a0ad36a2f40a244b4d06656d48e90757a8a513"
@@ -3333,7 +3308,7 @@
     sha.js "^2.4.11"
     smart-buffer "^4.1.0"
 
-"@stacks/transactions@3.1.0", "@stacks/transactions@^3.1.0":
+"@stacks/transactions@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-3.1.0.tgz#1d78e730696a07ed6365e2d9643c14a6146e607f"
   integrity sha512-K+E7Ip4AUVqV9cluZ3IMPueBodgfkM7JG4y/cQsvj04+BypD81eYIQKGdDte3XDe+MbVBnXJJRySu7bMFrjIiA==
@@ -3433,10 +3408,10 @@
     use-events "^1.4.1"
     use-onclickoutside "npm:use-onclickoutside-peer-deps@0.3.1"
 
-"@stacks/wallet-sdk@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-3.1.0.tgz#867a7501c6fd20604d08793edac13bec370fa542"
-  integrity sha512-Hbm4iLXOJxkpqVzr39Do8/fypc/Yueh0GRgQYIo/TWcD1ojc1ZtkcPcuNxQp0KYpkkbOXM/1P17VlahbR/L4Jg==
+"@stacks/wallet-sdk@3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-3.1.1.tgz#e71b02684c4db291d466ed04572ffd48a502c529"
+  integrity sha512-/sdAz8O2TkY+1z9+Vm2RQgVCGx6lPQor85qboSgALLsnmU9ZhMr5kErMGw0i76128KmVoIBxLmzX18j3e/sCTA==
   dependencies:
     "@stacks/auth" "^3.1.0"
     "@stacks/common" "^3.0.0"
@@ -6341,7 +6316,7 @@ bitcoin-ops@^1.3.0, bitcoin-ops@^1.4.0:
   resolved "https://registry.yarnpkg.com/bitcoin-ops/-/bitcoin-ops-1.4.1.tgz#e45de620398e22fd4ca6023de43974ff42240278"
   integrity sha512-pef6gxZFztEhaE9RY9HmWVmiIHqCb2OyS4HPKkpc6CIiiOa3Qmuoylxc5P2EkU3w+5eTSifI9SEZC88idAIGow==
 
-bitcoinjs-lib@5.2.0, bitcoinjs-lib@^5.1.10, bitcoinjs-lib@^5.1.6, bitcoinjs-lib@^5.2.0:
+bitcoinjs-lib@5.2.0, bitcoinjs-lib@^5.1.10, bitcoinjs-lib@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-5.2.0.tgz#caf8b5efb04274ded1b67e0706960b93afb9d332"
   integrity sha512-5DcLxGUDejgNBYcieMIUfjORtUeNWl828VWLHJGVKZCb4zIS1oOySTUr0LGmcqJBQgTBz3bGbRQla4FgrdQEIQ==
@@ -10695,23 +10670,6 @@ human-signals@^2.1.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
-iced-error@>=0.0.9:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/iced-error/-/iced-error-0.0.13.tgz#a4a8a4f1461a59c7a2a380b4f745ffd80718f08b"
-  integrity sha512-yEEaG8QfyyRL0SsbNNDw3rVgTyqwHFMCuV6jDvD43f/2shmdaFXkqvFLGhDlsYNSolzYHwVLM/CrXt9GygYopA==
-
-iced-lock@^1.0.1:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/iced-lock/-/iced-lock-1.1.0.tgz#6116ef1cab3acd6e6b10893bb27ba622fd3fde72"
-  integrity sha1-YRbvHKs6zW5rEIk7snumIv0/3nI=
-  dependencies:
-    iced-runtime "^1.0.0"
-
-iced-runtime@>=0.0.1, iced-runtime@^1.0.0, iced-runtime@^1.0.2:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/iced-runtime/-/iced-runtime-1.0.4.tgz#e9de26dfe98cd8621201f7f3dfb9f7f09c550990"
-  integrity sha512-rgiJXNF6ZgF2Clh/TKUlBDW3q51YPDJUXmxGQXx1b8tbZpVpTn+1RX9q1sjNkujXIIaVxZByQzPHHORg7KV51g==
-
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
@@ -12982,13 +12940,6 @@ moment@^2.19.3:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
-more-entropy@>=0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/more-entropy/-/more-entropy-0.0.7.tgz#67bfc6f7a86f26fbc37aac83fd46d88c61d109b5"
-  integrity sha1-Z7/G96hvJvvDeqyD/UbYjGHRCbU=
-  dependencies:
-    iced-runtime ">=0.0.1"
-
 mrmime@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/mrmime/-/mrmime-1.0.0.tgz#14d387f0585a5233d291baba339b063752a2398b"
@@ -14128,11 +14079,6 @@ progress@^2.0.0, progress@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
-
-progress@~1.1.2:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
-  integrity sha1-4mDHj2Fhzdmw5WzD4Khd4Xx6V74=
 
 prompts@^2.0.1, prompts@^2.4.1, prompts@^2.4.2:
   version "2.4.2"
@@ -16437,18 +16383,6 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-triplesec@^3.0.27:
-  version "3.0.27"
-  resolved "https://registry.yarnpkg.com/triplesec/-/triplesec-3.0.27.tgz#43ba5a9f0e11ebba20c7563ecca947b2f94e82c5"
-  integrity sha512-FDhkxa3JYnPOerOd+8k+SBmm7cb7KkyX+xXwNFV3XV6dsQgHuRvjtbnzWfPJ2kimeR8ErjZfPd/6r7RH6epHDw==
-  dependencies:
-    iced-error ">=0.0.9"
-    iced-lock "^1.0.1"
-    iced-runtime "^1.0.2"
-    more-entropy ">=0.0.7"
-    progress "~1.1.2"
-    uglify-js "^3.1.9"
-
 ts-debounce@4:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ts-debounce/-/ts-debounce-4.0.0.tgz#33440ef64fab53793c3d546a8ca6ae539ec15841"
@@ -16641,7 +16575,7 @@ typescript@^4.1.2:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
   integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
 
-uglify-js@^3.1.4, uglify-js@^3.1.9:
+uglify-js@^3.1.4:
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.15.0.tgz#2d6a689d94783cab43975721977a13c2afec28f1"
   integrity sha512-x+xdeDWq7FiORDvyIJ0q/waWd4PhjBNOm5dQUOq2AKC0IEjxOS66Ha9tctiVDGcRQuh69K7fgU5oRuTK4cysSg==
@@ -17668,11 +17602,6 @@ zone-file@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/zone-file/-/zone-file-1.0.0.tgz#93f4ae26d1a13974f8178f6dfff14b41466c6029"
   integrity sha512-dJynTf/5XCobE6diQBpNWQQRBzXE8d1QhHKemzrkffrZ36F9uKlbBVyIXXbG2CJoaTGZGh8zt2AHX/mG4txtqA==
-
-zone-file@^2.0.0-beta.3:
-  version "2.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/zone-file/-/zone-file-2.0.0-beta.3.tgz#fad3eb8c624ad8ae746b4547e9947804283048a1"
-  integrity sha512-6tE3PSRcpN5lbTTLlkLez40WkNPc9vw/u1J2j6DBiy0jcVX48nCkWrx2EC+bWHqC2SLp069Xw4AdnYn/qp/W5g==
 
 zxcvbn@4.4.2:
   version "4.4.2"
