@@ -1,3 +1,21 @@
+# [2.24.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.2...v2.24.0-beta.1) (2021-12-16)
+
+
+### Bug Fixes
+
+* breaking change from stacks.js ([d09244c](https://github.com/hirosystems/stacks-wallet-web/commit/d09244c32fe27701074f1700a41bef0e8c4e31d1))
+* change wallet config default branch to main ([400a55a](https://github.com/hirosystems/stacks-wallet-web/commit/400a55a2aa5034d21329150e2a09c57a8b62e2d8))
+* improve list render performance ([fd0154e](https://github.com/hirosystems/stacks-wallet-web/commit/fd0154ea3628a939f839ec8cfd829d84ea86a9bd))
+* increase fee showing zero ([297afa8](https://github.com/hirosystems/stacks-wallet-web/commit/297afa891de11543bd482ca33551f88aac3bbbb9))
+* null rendering when accounts are undefined, closes [#2000](https://github.com/hirosystems/stacks-wallet-web/issues/2000) ([973dcc4](https://github.com/hirosystems/stacks-wallet-web/commit/973dcc447d6e8fc1cb71f1cb77e4601306766a97))
+* onboarding route flashing ([b2e478b](https://github.com/hirosystems/stacks-wallet-web/commit/b2e478bb32088b8caf5cd259875e51d4db915a41))
+* show fiat onramp buy button only on mainnet ([6d1df94](https://github.com/hirosystems/stacks-wallet-web/commit/6d1df94d07bbc7af4d58543b2dcf411b25b469b4)), closes [#2049](https://github.com/hirosystems/stacks-wallet-web/issues/2049)
+
+
+### Features
+
+* add metrics for fee estimation ([2788a9b](https://github.com/hirosystems/stacks-wallet-web/commit/2788a9b75d3ff09bee29b4af9b7556b313a1da01)), closes [#2041](https://github.com/hirosystems/stacks-wallet-web/issues/2041)
+
 ## [2.23.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.1...v2.23.2) (2021-12-08)
 
 
