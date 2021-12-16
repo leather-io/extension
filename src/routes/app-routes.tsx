@@ -1,9 +1,9 @@
 import React, { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import { getHasSetPassword } from '@background/vault';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { useWallet } from '@common/hooks/use-wallet';
+import { getHasSetPassword } from '@common/storage';
 import { Container } from '@components/container/container';
 import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
