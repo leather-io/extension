@@ -77,3 +77,11 @@ export function setToLocalstorageIfDefined(storageKey: string, value?: string) {
     localStorage.setItem(storageKey, value);
   }
 }
+
+export function getHasSetPassword() {
+  const persisted = localStorage.getItem(hasSetPasswordIdentifier);
+  if (persisted !== null) {
+    return JSON.parse(persisted);
+  }
+  return false;
+}
