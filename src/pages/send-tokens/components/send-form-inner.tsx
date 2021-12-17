@@ -4,7 +4,6 @@ import { Box, Text, Button, Stack } from '@stacks/ui';
 
 import { HIGH_FEE_AMOUNT_STX } from '@common/constants';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useNextTxNonce } from '@common/hooks/account/use-next-tx-nonce';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { isEmpty } from '@common/utils';
@@ -41,7 +40,6 @@ export function SendFormInner(props: SendFormInnerProps) {
   const { assetError } = props;
   const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue, validateForm } =
     useFormikContext<TransactionFormValues>();
-  const { isLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const serializedTxPayload = useSerializedTransactionPayloadState();
   const estimatedTxByteLength = useEstimatedTransactionByteLengthState();
@@ -138,7 +136,6 @@ export function SendFormInner(props: SendFormInnerProps) {
           isDisabled={!hasValues}
           onClick={onSubmit}
           data-testid={SendFormSelectors.BtnPreviewSendTx}
-          isLoading={isLoading}
         >
           Preview
         </Button>
