@@ -1,3 +1,10 @@
+# [2.24.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.2...v2.24.0-beta.3) (2021-12-17)
+
+
+### Bug Fixes
+
+* long white screens ([ad41051](https://github.com/hirosystems/stacks-wallet-web/commit/ad4105155b6fd77bd13f9a118501784f4f247902))
+
 # [2.24.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.1...v2.24.0-beta.2) (2021-12-16)
 
 
