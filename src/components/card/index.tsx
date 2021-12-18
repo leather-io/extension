@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import * as React from 'react';
 import { Box, BoxProps, color, Flex } from '@stacks/ui';
 import { Caption } from '@components/typography';
 
@@ -7,7 +6,7 @@ interface CardProps extends BoxProps {
   title: string;
 }
 
-export const Card: React.FC<CardProps> = memo(({ title, children, ...rest }) => {
+export const Card = memo(({ title, children, ...rest }: CardProps) => {
   return (
     <Box
       borderRadius="6px"

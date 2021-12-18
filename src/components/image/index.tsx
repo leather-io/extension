@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 interface ImageProps {
   src?: string;
   alt?: string;
@@ -7,7 +5,7 @@ interface ImageProps {
   id?: string;
 }
 
-const Image: React.FC<ImageProps> = ({ ...props }) => {
+export const Image = (props: ImageProps) => {
   return (
     <img
       style={{
@@ -18,5 +16,3 @@ const Image: React.FC<ImageProps> = ({ ...props }) => {
     />
   );
 };
-
-export { Image };

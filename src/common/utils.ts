@@ -1,4 +1,4 @@
-import { type ClipboardEvent } from 'react';
+import type { ClipboardEvent } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { KEBAB_REGEX, Network } from '@common/constants';

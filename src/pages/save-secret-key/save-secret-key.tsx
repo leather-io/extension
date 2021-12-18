@@ -1,5 +1,4 @@
 import { memo, useEffect } from 'react';
-import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
@@ -13,7 +12,7 @@ import { SecretKeyActions } from './components/secret-key-actions';
 import { SecretKeyMessage } from './components/secret-key-message';
 import { SecretKeyCard } from './components/secret-key-card';
 
-export const SaveSecretKey: React.FC = memo(() => {
+export const SaveSecretKey = memo(() => {
   const { hasSetPassword, secretKey } = useWallet();
   const analytics = useAnalytics();
   const navigate = useNavigate();
