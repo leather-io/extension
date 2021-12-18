@@ -1,5 +1,4 @@
 import { Box, BoxProps, color, transition } from '@stacks/ui';
-import React from 'react';
 import { useFocus, useHover } from 'use-events';
 
 function ItemHover({

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { useFormikContext } from 'formik';
 import { Button, ButtonProps } from '@stacks/ui';
 

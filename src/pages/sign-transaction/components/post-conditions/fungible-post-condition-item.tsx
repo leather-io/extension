@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 import { addressToString, FungiblePostCondition } from '@stacks/transactions';
 import { truncateMiddle } from '@stacks/ui-utils';

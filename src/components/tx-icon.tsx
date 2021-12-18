@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   FiArrowDown as IconArrowDown,
   FiArrowUp as IconArrowUp,

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Box, Button, CodeBlock, color, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@common/hooks/use-route-header';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { StackProps } from '@stacks/ui';
 import { ftDecimals, stacksValue } from '@common/stacks-utils';
 import type { AssetWithMeta } from '@common/asset-types';
@@ -11,7 +11,7 @@ import { BigNumber } from 'bignumber.js';
 interface AssetRowProps extends StackProps {
   asset: AssetWithMeta;
 }
-export const AssetRow = React.forwardRef<HTMLDivElement, AssetRowProps>((props, ref) => {
+export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) => {
   const { asset, ...rest } = props;
   const { name, contractAddress, contractName, type, meta, subtitle, balance, subBalance } = asset;
   const availableStxBalance = useCurrentAccountAvailableStxBalance();

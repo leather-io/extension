@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
+import * as React from 'react';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { CreateAccount } from '@components/drawer/accounts/create-account';
 import { useDrawers } from '@common/hooks/use-drawers';

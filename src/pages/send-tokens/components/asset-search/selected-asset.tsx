@@ -1,4 +1,5 @@
-import React, { memo, useCallback } from 'react';
+import { memo, useCallback } from 'react';
+import * as React from 'react';
 import { Box, ChevronIcon, Text, color, Stack, StackProps, BoxProps } from '@stacks/ui';
 
 import { useUpdateSearchInput } from '@store/assets/asset.hooks';

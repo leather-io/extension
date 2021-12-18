@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import * as React from 'react';
 import { useVaultMessenger } from '@common/hooks/use-vault-messenger';
 
 export const VaultLoader: React.FC = () => {

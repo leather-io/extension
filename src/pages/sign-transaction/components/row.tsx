@@ -1,4 +1,3 @@
-import React from 'react';
 import { Stack, StackProps, Text } from '@stacks/ui';
 
 import { SpaceBetween } from '@components/space-between';

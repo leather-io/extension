@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
+import * as React from 'react';
 import { Box, BoxProps, color, Flex } from '@stacks/ui';
 import { Caption } from '@components/typography';
 

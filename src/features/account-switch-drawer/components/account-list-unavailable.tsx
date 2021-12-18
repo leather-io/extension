@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Box, Flex } from '@stacks/ui';
 import { Body, Title } from '@components/typography';
 

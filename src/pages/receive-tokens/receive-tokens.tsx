@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, useClipboard, Stack, Text, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useField } from 'formik';
 import { Input, InputGroup, Stack, Text } from '@stacks/ui';
 import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import { AccountWithAddress } from '@store/accounts/account.models';

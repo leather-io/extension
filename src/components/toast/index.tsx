@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flex, Box, Text } from '@stacks/ui';
 import { SuccessCheckmark } from '../success-checkmark';
 

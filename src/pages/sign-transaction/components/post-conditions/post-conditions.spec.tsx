@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 
 import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Stack, StackProps } from '@stacks/ui';
 import { AssetRow } from '@components/asset-row';
 import { useAssetItemState, useFungibleTokenBaseState } from '@store/assets/asset.hooks';
