@@ -14,6 +14,7 @@ import { validatePassword, blankPasswordValidation } from '@common/validation/va
 import { Body, Caption } from '@components/typography';
 import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 interface SetPasswordProps {
   placeholder?: string;
@@ -113,7 +114,7 @@ export const SetPasswordPage = ({ placeholder }: SetPasswordProps) => {
                 key="password-input"
                 width="100%"
                 type="password"
-                data-testid="set-password"
+                data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
                 autoFocus
                 value={formik.values.password}
                 onChange={formik.handleChange}
