@@ -1,5 +1,4 @@
 import { BoxProps, color, Text as BaseText } from '@stacks/ui';
-import * as React from 'react';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import capsize from 'capsize';
 
@@ -123,7 +122,7 @@ export const Text = forwardRefWithAs<BoxProps, 'span'>((props, ref) => (
   />
 ));
 
-export const Body: React.FC<BoxProps> = props => <Text css={c1} {...props} />;
+export const Body = (props: BoxProps) => <Text css={c1} {...props} />;
 
 export const Caption = forwardRefWithAs<{ variant?: 'c1' | 'c2' | 'c3' } & BoxProps, 'span'>(
   ({ variant, ...props }, ref) => (

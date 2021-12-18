@@ -1,5 +1,4 @@
-import { useRef, useCallback, memo } from 'react';
-import * as React from 'react';
+import { useRef, useCallback, memo, ReactNode, Suspense } from 'react';
 import { Flex, useEventListener, IconButton, color, transition } from '@stacks/ui';
 import { FiX as IconX } from 'react-icons/fi';
 
@@ -12,6 +11,7 @@ export interface BaseDrawerProps {
   title?: string | JSX.Element;
   pauseOnClickOutside?: boolean;
   onClose: () => void;
+  children?: ReactNode;
 }
 
 function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
@@ -61,7 +61,7 @@ const DrawerHeader = ({
   );
 };
 
-export const BaseDrawer: React.FC<BaseDrawerProps> = memo(props => {
+export const BaseDrawer = memo((props: BaseDrawerProps) => {
   const { title, isShowing, onClose, children, pauseOnClickOutside } = props;
   const ref = useDrawer(isShowing, onClose, pauseOnClickOutside);
   return (
@@ -111,7 +111,7 @@ export const BaseDrawer: React.FC<BaseDrawerProps> = memo(props => {
       >
         <DrawerHeader title={title} onClose={onClose} />
         <Flex maxHeight="100%" flexGrow={1} overflowY="auto" flexDirection="column">
-          <React.Suspense fallback={<></>}>{children}</React.Suspense>
+          <Suspense fallback={<></>}>{children}</Suspense>
         </Flex>
       </Flex>
     </Flex>

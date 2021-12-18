@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@stacks/ui';
 
@@ -10,7 +9,7 @@ import { useShowNetworksStore } from '@store/ui/ui.hooks';
 import { NetworkList } from '@features/network-drawer/network-list';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
-export const NetworksDrawer: React.FC = () => {
+export const NetworksDrawer = () => {
   const { setShowNetworks } = useDrawers();
   const [isShowing] = useShowNetworksStore();
   const navigate = useNavigate();

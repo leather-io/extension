@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import * as React from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { decrypt } from '@stacks/wallet-sdk';
 
@@ -56,7 +55,7 @@ export function useMagicRecoveryCode() {
   ]);
 
   const onChange = useCallback(
-    (event: React.FormEvent<HTMLInputElement>) => {
+    (event: FormEvent<HTMLInputElement>) => {
       event.preventDefault();
       setMagicRecoveryCodePassword(event.currentTarget.value);
     },
@@ -66,7 +65,7 @@ export function useMagicRecoveryCode() {
   const onBack = () => navigate(RouteUrls.SignIn);
 
   const onSubmit = useCallback(
-    async (event: React.FormEvent) => {
+    async (event: FormEvent) => {
       event.preventDefault();
       await handleSubmit();
     },

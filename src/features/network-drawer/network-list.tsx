@@ -1,10 +1,9 @@
-import * as React from 'react';
 import { Flex, FlexProps } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
 import { NetworkListItem } from '@features/network-drawer/network-list-item';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
-export const NetworkList: React.FC<FlexProps> = props => {
+export const NetworkList = (props: FlexProps) => {
   const { networks } = useWallet();
   const items = Object.keys(networks);
   return (
