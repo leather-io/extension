@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { stacksValue } from '@common/stacks-utils';
 import { Caption } from '@components/typography';
 import { useCurrentAccountInfo } from '@store/accounts/account.hooks';

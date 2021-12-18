@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Box, color, Stack } from '@stacks/ui';
 
 import { LoadingRectangle } from '@components/loading-rectangle';

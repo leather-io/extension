@@ -1,4 +1,5 @@
-import React, { memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
 import { FiMoreHorizontal as IconDots, FiArrowLeft as IconArrowLeft } from 'react-icons/fi';

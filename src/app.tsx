@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 import { HashRouter as Router } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { PostConditionType } from '@stacks/transactions';
 
 import { useTransactionPostConditions } from '@store/transactions/transaction.hooks';

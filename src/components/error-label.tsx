@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Box, color, StackProps, Stack } from '@stacks/ui';
 import { FiAlertCircle } from 'react-icons/fi';
 

@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useWallet } from '@common/hooks/use-wallet';

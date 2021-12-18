@@ -1,4 +1,5 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
+import * as React from 'react';
 import { Navigate } from 'react-router-dom';
 import { Stack, Text } from '@stacks/ui';
 

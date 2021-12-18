@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flex, StackProps } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
 

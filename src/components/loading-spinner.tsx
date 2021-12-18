@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { color, Flex, FlexProps, Spinner } from '@stacks/ui';
 
 export const LoadingSpinner: React.FC<FlexProps> = props => {

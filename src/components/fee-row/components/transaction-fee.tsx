@@ -1,5 +1,4 @@
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
-import React from 'react';
 
 interface TransactionFeeProps {
   fee: number | string;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 import { openInNewTab } from '@common/utils/open-in-new-tab';
 import { Link } from '@components/link';

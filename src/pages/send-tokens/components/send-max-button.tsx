@@ -1,4 +1,3 @@
-import React from 'react';
 import { toast } from 'react-hot-toast';
 import { Box, ButtonProps, color } from '@stacks/ui';
 

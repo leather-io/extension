@@ -1,4 +1,3 @@
-import React from 'react';
 import { stacksValue } from '@common/stacks-utils';
 import { Caption, Text } from '@components/typography';
 import { color } from '@stacks/ui';

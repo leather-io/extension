@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { hexToHumanReadable } from '@common/utils';
 import { useTransactionRequestState } from '@store/transactions/requests.hooks';
 

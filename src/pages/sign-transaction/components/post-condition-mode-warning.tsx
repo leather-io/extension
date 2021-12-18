@@ -1,4 +1,3 @@
-import React from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 import { PostConditionMode } from '@stacks/transactions';
 import { Box, color, Flex, Text } from '@stacks/ui';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Box, BoxProps, color } from '@stacks/ui';
 
 export const Divider: React.FC<BoxProps> = props => (
