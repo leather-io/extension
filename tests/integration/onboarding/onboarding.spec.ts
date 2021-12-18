@@ -1,12 +1,14 @@
-import { BrowserDriver, setupBrowser } from '../utils';
+import { RouteUrls } from '@routes/route-urls';
+
+import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 import { SECRET_KEY } from '../../mocks';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { RouteUrls } from '@routes/route-urls';
+import { SettingsSelectors } from '../settings.selectors';
 
 jest.setTimeout(30_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
-describe(`Authentication integration tests`, () => {
+describe(`Onboarding integration tests`, () => {
   let browser: BrowserDriver;
   let wallet: WalletPage;
 
@@ -21,7 +23,7 @@ describe(`Authentication integration tests`, () => {
     } catch (error) {}
   });
 
-  it('should be able to sign up from authentication page', async () => {
+  it('should be able to sign up from welcome page', async () => {
     await wallet.clickAllowAnalytics();
     await wallet.clickSignUp();
     await wallet.saveKey();
@@ -32,7 +34,7 @@ describe(`Authentication integration tests`, () => {
     expect(secretKey.split(' ').length).toEqual(24);
   });
 
-  it('should be able to login from authentication page then logout', async () => {
+  it('should be able to login from welcome page then logout', async () => {
     await wallet.clickAllowAnalytics();
     await wallet.clickSignIn();
     await wallet.loginWithPreviousSecretKey(SECRET_KEY);
@@ -46,5 +48,17 @@ describe(`Authentication integration tests`, () => {
     await wallet.page.click(wallet.$signOutConfirmHasBackupCheckbox);
     await wallet.page.click(wallet.$signOutDeleteWalletBtn);
     await wallet.waitForLoginPage();
+  });
+
+  it('should route to unlock page if the wallet is locked', async () => {
+    await wallet.clickAllowAnalytics();
+    await wallet.clickSignUp();
+    await wallet.saveKey();
+    await wallet.waitForHomePage();
+    await wallet.clickSettingsButton();
+    await wallet.page.click(createTestSelector(SettingsSelectors.LockListItem));
+    await wallet.waitForHiroWalletLogo();
+    await wallet.page.click(wallet.$hiroWalletLogo);
+    await wallet.waitForSetOrEnterPasswordInput();
   });
 });
