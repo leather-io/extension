@@ -1,5 +1,4 @@
-import { useCallback, memo } from 'react';
-import * as React from 'react';
+import { useCallback, Suspense, memo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { Caption, Text, Title } from '@components/typography';
@@ -52,7 +51,7 @@ const AccountTitle = ({ account, ...rest }: { account: AccountWithAddress } & Bo
   );
 };
 
-const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...rest }) => {
+const AccountItem = ({ selectedAddress, account, ...rest }: AccountItemProps) => {
   const [component, bind] = usePressable(true);
   const { isLoading, setIsLoading } = useLoading(`CHOOSE_ACCOUNT__${account.address}`);
   const { finishSignIn } = useWallet();
@@ -79,20 +78,20 @@ const AccountItem: React.FC<AccountItemProps> = ({ selectedAddress, account, ...
         <AccountAvatarWithName name={name} flexGrow={0} account={account} />
         <SpaceBetween width="100%" alignItems="center">
           <Stack textAlign="left" spacing="base-tight">
-            <React.Suspense
+            <Suspense
               fallback={
                 <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
               }
             >
               <AccountTitle {...getLoadingProps(showLoadingProps)} account={account} />
-            </React.Suspense>
+            </Suspense>
             <Stack alignItems="center" spacing="6px" isInline>
               <Caption fontSize={0} {...getLoadingProps(showLoadingProps)}>
                 {truncateMiddle(account.address, 4)}
               </Caption>
-              <React.Suspense fallback={<></>}>
+              <Suspense fallback={<></>}>
                 <AccountBalanceCaption availableBalance={availableStxBalance} />
-              </React.Suspense>
+              </Suspense>
             </Stack>
           </Stack>
           {isLoading && <Spinner width={4} height={4} {...loadingProps} />}
@@ -133,23 +132,21 @@ interface AccountsProps extends FlexProps {
   next?: (accountIndex: number) => void;
 }
 
-export const Accounts: React.FC<AccountsProps> = memo(
-  ({ showAddAccount, accountIndex, next, ...rest }) => {
-    const { wallet } = useWallet();
-    const accounts = useAccounts();
-    const { decodedAuthRequest } = useOnboardingState();
+export const Accounts = memo(({ showAddAccount, accountIndex, next, ...rest }: AccountsProps) => {
+  const { wallet } = useWallet();
+  const accounts = useAccounts();
+  const { decodedAuthRequest } = useOnboardingState();
 
-    if (!wallet || !accounts || !decodedAuthRequest) return null;
+  if (!wallet || !accounts || !decodedAuthRequest) return null;
 
-    return (
-      <>
-        <Stack spacing="loose" {...rest}>
-          {accounts.map(account => (
-            <AccountItem key={account.address} account={account} />
-          ))}
-          <AddAccountAction />
-        </Stack>
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <Stack spacing="loose" {...rest}>
+        {accounts.map(account => (
+          <AccountItem key={account.address} account={account} />
+        ))}
+        <AddAccountAction />
+      </Stack>
+    </>
+  );
+});

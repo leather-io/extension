@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import * as React from 'react';
 
 import { Caption, Title } from '@components/typography';
 import { useDrawers } from '@common/hooks/use-drawers';
@@ -11,7 +10,10 @@ import { NetworkStatusIndicator } from './components/network-status-indicator';
 import { useNetworkStatus } from 'query/network/network.hooks';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
-export const NetworkListItem: React.FC<{ item: string } & BoxProps> = ({ item, ...props }) => {
+interface NetworkListItemProps extends BoxProps {
+  item: string;
+}
+export const NetworkListItem = ({ item, ...props }: NetworkListItemProps) => {
   const { setShowNetworks } = useDrawers();
   const { networks, currentNetworkKey } = useWallet();
   const setCurrentNetworkKey = useUpdateCurrentNetworkKey();
