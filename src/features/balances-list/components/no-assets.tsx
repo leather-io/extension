@@ -2,7 +2,6 @@ import { Caption } from '@components/typography';
 import { NoAssetsEmptyIllustration } from '@components/vector/no-assets';
 import { Button, color, Stack, StackProps, useClipboard } from '@stacks/ui';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
-import React from 'react';
 
 interface NoAssetProps extends StackProps {
   address: string;

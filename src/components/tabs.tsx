@@ -1,5 +1,4 @@
 import { Box, BoxProps, color, Stack } from '@stacks/ui';
-import React from 'react';
 
 const TabButton = ({
   isActive,

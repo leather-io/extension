@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import type { StackProps } from '@stacks/ui';
 
 import { getAssetStringParts } from '@stacks/ui-utils';

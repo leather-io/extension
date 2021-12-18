@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Stack } from '@stacks/ui';
 
 import { useCurrentNetwork } from '@common/hooks/use-current-network';

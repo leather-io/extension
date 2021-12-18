@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { CSSReset } from '@stacks/ui';
 import { Global, css } from '@emotion/react';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TransactionTypes } from '@stacks/connect';
 import { truncateMiddle } from '@stacks/ui-utils';
 

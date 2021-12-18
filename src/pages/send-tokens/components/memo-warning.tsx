@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Flex, Box, color, Text } from '@stacks/ui';
 import { FiInfo } from 'react-icons/fi';
 

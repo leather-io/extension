@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Text, Button, Input, Stack, color } from '@stacks/ui';
 

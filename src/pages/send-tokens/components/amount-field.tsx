@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 

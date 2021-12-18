@@ -1,4 +1,4 @@
-import React, { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
+import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 import { color, Input, InputGroup, Stack, StackProps } from '@stacks/ui';

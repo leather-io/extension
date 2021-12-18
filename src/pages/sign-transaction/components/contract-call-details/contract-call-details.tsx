@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Stack, color } from '@stacks/ui';
 
 import { useExplorerLink } from '@common/hooks/use-explorer-link';

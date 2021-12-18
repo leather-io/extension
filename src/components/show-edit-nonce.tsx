@@ -1,4 +1,3 @@
-import React from 'react';
 import { color } from '@stacks/ui';
 
 import { useCurrentNetwork } from '@common/hooks/use-current-network';

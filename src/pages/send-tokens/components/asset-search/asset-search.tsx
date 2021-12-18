@@ -1,4 +1,5 @@
-import React, { memo, useMemo, forwardRef, useEffect } from 'react';
+import { memo, useMemo, forwardRef, useEffect } from 'react';
+import * as React from 'react';
 import { Box, Fade, Text, Flex, Input, color, Stack, StackProps } from '@stacks/ui';
 import { useCombobox } from 'downshift';
 

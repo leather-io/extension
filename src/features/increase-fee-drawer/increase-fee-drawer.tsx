@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Flex, Spinner, Stack } from '@stacks/ui';
 
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';

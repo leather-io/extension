@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/css';
 import { Box, Button, Input, Stack, Text } from '@stacks/ui';
