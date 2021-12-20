@@ -4,20 +4,20 @@
  the browser. Content scripts read and modify the DOM of web pages the browser visits.
  https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#contentScripts
  */
-import { getEventSourceWindow } from '@common/utils';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
   MessageFromContentScript,
   MessageToContentScript,
   MESSAGE_SOURCE,
-} from '@common/message-types';
+} from '@shared/message-types';
 import {
   AuthenticationRequestEvent,
   DomEventName,
   TransactionRequestEvent,
-} from '@inpage/inpage-types';
-import { RouteUrls } from '@routes/route-urls';
+} from '@shared/inpage-types';
+import { RouteUrls } from '@shared/route-urls';
+import { getEventSourceWindow } from '@shared/utils/get-event-source-window';
 
 // Legacy messaging to work with older versions of Connect
 window.addEventListener('message', event => {
