@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Flex, Stack } from '@stacks/ui';
 
 import AddFunds from '@assets/images/add-funds.svg';

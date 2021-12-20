@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import { FiArrowUp, FiPlus } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, ButtonProps } from '@stacks/ui';
@@ -6,7 +6,7 @@ import { Box, Button, ButtonProps } from '@stacks/ui';
 import { QrCodeIcon } from '@components/qr-code-icon';
 import { RouteUrls } from '@routes/route-urls';
 
-export const SendTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
+export const SendTxButton = memo((props: ButtonProps) => {
   const ref = useRef<HTMLButtonElement | null>(null);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export const SendTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
       ref={ref}
       onClick={handleClick}
       borderRadius="10px"
-      {...rest}
+      {...props}
     >
       <Box as={FiArrowUp} transform={'unset'} size={'16px'} mr={0} />
       <Box as="span" ml="extra-tight" fontSize="14px">

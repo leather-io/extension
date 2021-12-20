@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Text, Input, InputGroup, Button } from '@stacks/ui';
 import { Formik } from 'formik';
@@ -11,7 +11,7 @@ import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
 import { useUpdateCurrentNetworkKey, useUpdateNetworkState } from '@store/network/networks.hooks';
 
-export const AddNetwork: React.FC = () => {
+export const AddNetwork = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();

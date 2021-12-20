@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Stack } from '@stacks/ui';
 
 import { useDrawers } from '@common/hooks/use-drawers';

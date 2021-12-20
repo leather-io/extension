@@ -1,4 +1,3 @@
-import React from 'react';
 import { Stack, Circle, Box } from '@stacks/ui';
 import { color } from '@stacks/ui-utils';
 import { FiLock } from 'react-icons/fi';

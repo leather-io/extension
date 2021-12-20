@@ -1,7 +1,7 @@
-import React, { memo, Suspense, useCallback, useState } from 'react';
+import { memo, Suspense, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Formik } from 'formik';
 import toast from 'react-hot-toast';
+import { Formik } from 'formik';
 
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRouteHeader } from '@common/hooks/use-route-header';

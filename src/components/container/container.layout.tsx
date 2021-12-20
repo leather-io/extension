@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flex, color } from '@stacks/ui';
 
 interface ContainerLayoutProps {

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Text, Button, Input, Stack, StackProps } from '@stacks/ui';
 
 import { useRouteHeader } from '@common/hooks/use-route-header';

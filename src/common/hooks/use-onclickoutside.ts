@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 import arePassiveEventsSupported from 'are-passive-events-supported';
 import useLatest from 'use-latest';
 
@@ -26,7 +26,7 @@ const getOptions = (event: HandledEventsType) => {
   return;
 };
 
-export function useOnClickOutside(ref: React.RefObject<HTMLElement>, handler: Handler | null) {
+export function useOnClickOutside(ref: RefObject<HTMLElement>, handler: Handler | null) {
   const noHandler = !handler;
   const handlerRef = useLatest(handler);
 

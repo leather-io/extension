@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 import { useUpdateAccountDrawerStep } from '@store/ui/ui.hooks';
 import { AccountStep } from '@store/ui/ui.models';

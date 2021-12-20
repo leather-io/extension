@@ -1,4 +1,3 @@
-import React from 'react';
 import { StxIcon } from '@components/icons/stx-icon';
 import { MicroblockIcon } from '@components/icons/microblock';
 import { BoxProps, Circle, color, DynamicColorCircle } from '@stacks/ui';
@@ -19,7 +18,7 @@ const iconItem = (isUnanchored = false) =>
 interface StxAvatarProps extends BoxProps {
   isUnanchored?: boolean;
 }
-const StxAvatar: React.FC<StxAvatarProps> = props => {
+const StxAvatar = (props: StxAvatarProps) => {
   return (
     <Circle position="relative" size="36px" bg={color('accent')} color={color('bg')} {...props}>
       <StxIcon />
@@ -33,14 +32,13 @@ interface AssetProps extends BoxProps {
   useStx: boolean;
   isUnanchored?: boolean;
 }
-
-export const AssetAvatar: React.FC<AssetProps> = ({
+export const AssetAvatar = ({
   useStx,
   isUnanchored,
   gradientString,
   children,
   ...props
-}) => {
+}: AssetProps) => {
   if (useStx) {
     return <StxAvatar {...props} />;
   }

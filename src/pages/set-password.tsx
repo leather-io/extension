@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'ts-debounce';
 import { Box, Button, Input, Stack } from '@stacks/ui';
@@ -18,7 +18,7 @@ import { RouteUrls } from '@routes/route-urls';
 interface SetPasswordProps {
   placeholder?: string;
 }
-export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => {
+export const SetPasswordPage = ({ placeholder }: SetPasswordProps) => {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
   const { finishSignIn, setPassword, wallet } = useWallet();

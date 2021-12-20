@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 import { color, Flex } from '@stacks/ui';
 import { PostConditionMode } from '@stacks/transactions';

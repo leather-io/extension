@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react';
+import { memo, Suspense } from 'react';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { useCurrentAccountDisplayName } from '@common/hooks/account/use-account-names';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CodeBlock, Stack, color, BoxProps } from '@stacks/ui';
 
 import { usePendingTransaction } from '@store/transactions/transaction.hooks';

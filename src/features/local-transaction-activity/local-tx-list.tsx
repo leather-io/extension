@@ -3,7 +3,7 @@ import {
   useCurrentAccountLocalStacksTransaction,
 } from '@store/accounts/account-activity.hooks';
 import { LocalTxItem } from '@features/local-transaction-activity/local-tx-item';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Box, color, Stack, Text } from '@stacks/ui';
 
 const LocalTxListItem = ({ txid }: { txid: string }) => {

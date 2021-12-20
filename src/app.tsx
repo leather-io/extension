@@ -1,4 +1,3 @@
-import React from 'react';
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 import { HashRouter as Router } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
@@ -29,7 +28,7 @@ declare global {
 window.__APP_VERSION__ = VERSION;
 void initSegment();
 
-export const App: React.FC = () => {
+export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />

@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { BaseDrawer } from '.';
 
 interface ControlledDrawerProps {
@@ -7,18 +7,19 @@ interface ControlledDrawerProps {
   onClose: () => void;
   isShowing: boolean;
   title: string | JSX.Element;
+  children?: ReactNode;
 }
 
 /**
  * `ControlledDrawer` is a wrapper around our `BaseDrawer` component.
  * It expects an atom to be used that manages the visibility of this drawer.
  */
-export const ControlledDrawer: React.FC<ControlledDrawerProps> = ({
+export const ControlledDrawer = ({
   onClose,
   isShowing,
   title,
   children,
-}) => {
+}: ControlledDrawerProps) => {
   return (
     <BaseDrawer title={title} isShowing={isShowing} onClose={onClose}>
       {children}

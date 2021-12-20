@@ -1,11 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useWallet } from '@common/hooks/use-wallet';
 
 import { RouteUrls } from './route-urls';
 interface AccountGateProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 export const AccountGate = ({ children }: AccountGateProps) => {
   const { encryptedSecretKey, hasGeneratedWallet, hasRehydratedVault, hasSetPassword } =

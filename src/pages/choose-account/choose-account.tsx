@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Stack, Text } from '@stacks/ui';
 
@@ -11,10 +11,7 @@ import { Header } from '@components/header';
 import { Accounts } from '@pages/choose-account/components/accounts';
 import { RouteUrls } from '@routes/route-urls';
 
-interface ChooseAccountProps {
-  back?: () => void;
-}
-export const ChooseAccount: React.FC<ChooseAccountProps> = memo(() => {
+export const ChooseAccount = memo(() => {
   const { name: appName } = useAppDetails();
   const { wallet, cancelAuthentication } = useWallet();
 

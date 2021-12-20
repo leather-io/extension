@@ -108,38 +108,18 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)?$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
-              babelrc: false,
-              presets: [
-                [
-                  '@babel/preset-env',
-                  { targets: { browsers: 'last 2 versions' } }, // or whatever your project requires
-                ],
-                '@babel/preset-typescript',
-                '@babel/preset-react',
-              ],
-              plugins: [
-                '@emotion',
-                ['@babel/plugin-proposal-class-properties', { loose: false }],
-                '@babel/plugin-transform-runtime',
-                '@babel/plugin-proposal-nullish-coalescing-operator',
-                '@babel/plugin-proposal-optional-chaining',
-                IS_DEV && require.resolve('react-refresh/babel'),
-              ].filter(Boolean),
-            },
-          },
           {
             loader: 'esbuild-loader',
             options: {
               loader: 'tsx',
               target: 'esnext',
             },
+          },
+          {
+            loader: 'babel-loader',
           },
         ],
       },

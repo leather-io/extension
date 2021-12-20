@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Box, Stack, Text, color } from '@stacks/ui';
 
 import { createTxDateFormatList } from '@common/transactions/transaction-utils';

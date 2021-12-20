@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { ControlledDrawer } from '@components/drawer/controlled';
 import { CreateAccount } from '@components/drawer/accounts/create-account';
 import { useDrawers } from '@common/hooks/use-drawers';
@@ -16,7 +16,7 @@ function getTitle(accountStep: AccountStep) {
   }
 }
 
-export const AccountsDrawer: React.FC = () => {
+export const AccountsDrawer = () => {
   const { accountStep } = useDrawers();
   const [isShowing, setShowAccountStore] = useShowAccountsStore();
   const updateAccountDrawerStep = useUpdateAccountDrawerStep();

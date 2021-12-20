@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Flex, FlexProps } from '@stacks/ui';
 
 import { useRemoteHiroConfig } from '@query/hiro-config/hiro-config.query';
