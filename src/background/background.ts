@@ -7,19 +7,19 @@
  */
 import * as Sentry from '@sentry/react';
 
-import { storePayload, StorageKey } from '@common/storage';
-import { RouteUrls } from '@routes/route-urls';
+import { storePayload, StorageKey } from '@shared/utils/storage';
+import { RouteUrls } from '@shared/route-urls';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
   MessageFromContentScript,
-} from '@common/message-types';
+} from '@shared/message-types';
 
-import type { VaultActions } from '@background/vault-types';
+import type { VaultActions } from '@shared/vault/vault-types';
 import { popupCenter } from '@background/popup';
 import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
-import { initSentry } from '@common/sentry-init';
+import { initSentry } from '@shared/utils/sentry-init';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
