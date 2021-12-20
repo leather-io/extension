@@ -1,3 +1,11 @@
+# [2.24.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.3...v2.24.0-beta.4) (2021-12-20)
+
+
+### Bug Fixes
+
+* remove gaia call when unlocking wallet ([837cef7](https://github.com/hirosystems/stacks-wallet-web/commit/837cef72d508a61b0b5c3e17c709a42204a59a0d)), closes [#1877](https://github.com/hirosystems/stacks-wallet-web/issues/1877)
+* remove gaia call when unlocking wallet ([b717b03](https://github.com/hirosystems/stacks-wallet-web/commit/b717b03d125a6df88a2c0cb51402b6c3b3a6bcbf)), closes [#1877](https://github.com/hirosystems/stacks-wallet-web/issues/1877)
+
 # [2.24.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.2...v2.24.0-beta.3) (2021-12-17)
 
 
