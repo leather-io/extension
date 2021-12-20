@@ -15,6 +15,7 @@ import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { RouteUrls } from '@routes/route-urls';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { getViewMode } from '@common/utils';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export function Unlock(): JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -75,7 +76,7 @@ export function Unlock(): JSX.Element {
               type="password"
               value={password}
               isDisabled={loading}
-              data-testid="set-password"
+              data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
               onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
               onKeyUp={buildEnterKeyEvent(submit)}
             />

@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
 import { FiMoreHorizontal as IconDots, FiArrowLeft as IconArrowLeft } from 'react-icons/fi';
 
-import { StacksWalletLogo } from '@components/stacks-wallet-logo';
+import { HiroWalletLogo } from '@components/hiro-wallet-logo';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { NetworkModeBadge } from '@components/network-mode-badge';
 import { Caption, Title } from '@components/typography';
 import { RouteUrls } from '@routes/route-urls';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 const MenuButton = memo((props: BoxProps) => {
   const { showSettings, setShowSettings } = useDrawers();
@@ -63,7 +64,10 @@ export const Header: React.FC<HeaderProps> = memo(props => {
     >
       {!title ? (
         <Stack alignItems="center" pt="7px" isInline>
-          <StacksWalletLogo onClick={() => navigate(RouteUrls.Home)} />
+          <HiroWalletLogo
+            data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
+            onClick={() => navigate(RouteUrls.Home)}
+          />
           {version ? (
             <Caption
               pt="extra-tight"
