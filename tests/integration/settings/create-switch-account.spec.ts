@@ -1,8 +1,8 @@
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { RouteUrls } from '@routes/route-urls';
+import { RouteUrls } from 'shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { delay } from '@common/utils';
+import { delay } from 'app/common/utils';
 
 jest.setTimeout(60_000);
 
