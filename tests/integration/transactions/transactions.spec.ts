@@ -1,13 +1,13 @@
 import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
 import { WalletPage } from '@tests/page-objects/wallet.page';
 import { DemoPage } from '@tests/page-objects/demo.page';
-import { RouteUrls } from 'shared/route-urls';
+import { RouteUrls } from '@shared/route-urls';
 import { SECRET_KEY_2 } from '@tests/mocks';
 import { TransactionSigningPage } from '@tests/page-objects/transaction-signing.page';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 import { Page } from 'playwright';
 import { deserializeTransaction, TokenTransferPayload } from '@stacks/transactions';
-import { stxToMicroStx } from 'app/common/stacks-utils';
+import { stxToMicroStx } from '@app/common/stacks-utils';
 
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -72,7 +72,7 @@ describe(`Transaction signing`, () => {
     });
   });
 
-  describe('App initiated STX transfer', () => {
+  describe('app initiated STX transfer', () => {
     let txSigningPage: TransactionSigningPage;
 
     function interceptTransactionBroadcast(page: Page): Promise<Buffer> {
