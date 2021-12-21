@@ -5,29 +5,18 @@ import {
   generateWallet,
   restoreWalletAccounts,
   updateWalletConfig,
-  Wallet as SDKWallet,
 } from '@stacks/wallet-sdk';
 
-import type { VaultActions } from '@background/vault-types';
+import type { InMemoryVault, VaultActions } from '@shared/vault/vault-types';
 import { decryptMnemonic, encryptMnemonic } from '@background/crypto/mnemonic-encryption';
-import { gaiaUrl } from '@common/constants';
-import { DEFAULT_PASSWORD } from '@common/types';
-import { InternalMethods } from '@common/message-types';
-import { logger } from '@common/logger';
-import { getHasSetPassword, hasSetPasswordIdentifier } from '@common/storage';
+import { gaiaUrl } from '@shared/constants';
+import { DEFAULT_PASSWORD } from '@shared/models/types';
+import { InternalMethods } from '@shared/message-types';
+import { logger } from '@shared/logger';
+import { getHasSetPassword, hasSetPasswordIdentifier } from '@shared/utils/storage';
 import { getDecryptedWalletDetails } from '@background/wallet/unlock-wallet';
-import { saveWalletConfigLocally } from '@common/wallet/wallet-config-helper';
-import { setToLocalstorageIfDefined } from '@common/storage';
-
-// In-memory (background) wallet instance
-export interface InMemoryVault {
-  encryptedSecretKey?: string;
-  salt?: string;
-  secretKey?: string;
-  wallet?: SDKWallet;
-  currentAccountIndex?: number;
-  hasSetPassword: boolean;
-}
+import { saveWalletConfigLocally } from '@shared/utils/wallet-config-helper';
+import { setToLocalstorageIfDefined } from '@shared/utils/storage';
 
 const encryptedKeyIdentifier = 'stacks-wallet-encrypted-key' as const;
 const saltIdentifier = 'stacks-wallet-salt' as const;

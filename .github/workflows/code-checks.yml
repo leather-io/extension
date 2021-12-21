@@ -44,14 +44,14 @@ jobs:
       - name: Typecheck
         run: yarn typecheck
 
-  check-deps:
+  lint-deps:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/provision
 
-      - name: Check dependency rules
-        run: yarn check:deps
+      - name: Lint dependency rules
+        run: yarn lint:deps
 
   locked-versions:
     runs-on: ubuntu-latest
@@ -74,23 +74,23 @@ jobs:
       - name: Test
         run: yarn test:unit
 
-  check-message-schema:
+  lint-message-schema:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/provision
 
       - name: Validate message schema
-        run: npx ajv-cli validate -s config/wallet-config.schema.json -d config/wallet-config.json
+        run: yarn lint:remote-wallet-config
 
-  check-unused-exports:
+  lint-unused-exports:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/provision
 
-      - name: Check unused TypeScript exports
-        run: yarn check:unused-exports
+      - name: Lint unused TypeScript exports
+        run: yarn lint:unused-exports
 
   build:
     runs-on: ubuntu-latest
