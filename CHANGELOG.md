@@ -1,3 +1,10 @@
+# [2.24.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.4...v2.24.0-beta.5) (2021-12-21)
+
+
+### Features
+
+* add unlock waiting message ([e2cf9f1](https://github.com/hirosystems/stacks-wallet-web/commit/e2cf9f13df5a6b74a5c34a22ec841d83c41535c2)), closes [#2062](https://github.com/hirosystems/stacks-wallet-web/issues/2062)
+
 # [2.24.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.3...v2.24.0-beta.4) (2021-12-20)
 
 
