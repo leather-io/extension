@@ -2,11 +2,11 @@
 import React, { StrictMode, Suspense } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'jotai';
-import { walletState } from 'app/store/wallet/wallet';
+import { walletState } from '@app/store/wallet/wallet';
 import { TEST_WALLET, HEYSTACK_HEY_TX_REQUEST, STX_TRANSFER_TX_REQUEST } from './mocks';
-import { requestTokenState } from 'app/store/transactions/requests';
+import { requestTokenState } from '@app/store/transactions/requests';
 import Mock = jest.Mock;
-import { selectedAssetIdState } from 'app/store/assets/asset-search';
+import { selectedAssetIdState } from '@app/store/assets/asset-search';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 

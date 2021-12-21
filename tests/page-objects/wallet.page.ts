@@ -1,4 +1,4 @@
-import { RouteUrls } from 'shared/route-urls';
+import { RouteUrls } from '@shared/route-urls';
 
 import { Page } from 'playwright-core';
 import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';

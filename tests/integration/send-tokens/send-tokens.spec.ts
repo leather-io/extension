@@ -1,5 +1,5 @@
-import { delay } from 'app/common/utils';
-import { RouteUrls } from 'shared/route-urls';
+import { delay } from '@app/common/utils';
+import { RouteUrls } from '@shared/route-urls';
 import { SECRET_KEY_2 } from '@tests/mocks';
 
 import { SendPage } from '../../page-objects/send-form.page';
