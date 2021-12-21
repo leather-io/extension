@@ -1,6 +1,6 @@
 import { BrowserDriver, createTestSelector, selectTestNet, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { RouteUrls } from 'shared/route-urls';
+import { RouteUrls } from '@shared/route-urls';
 import { BalanceSelectors } from '@tests/integration/balance.selectors';
 import { SECRET_KEY_2 } from '@tests/mocks';
 

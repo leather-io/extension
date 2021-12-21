@@ -76,7 +76,7 @@ const config = {
     background: path.join(SRC_ROOT_PATH, 'background', 'background.ts'),
     inpage: path.join(SRC_ROOT_PATH, 'inpage', 'inpage.ts'),
     'content-script': path.join(SRC_ROOT_PATH, 'content-scripts', 'content-script.ts'),
-    index: path.join(SRC_ROOT_PATH, 'popup', 'index.tsx'),
+    index: path.join(SRC_ROOT_PATH, 'app', 'index.tsx'),
     'decryption-worker': path.join(SRC_ROOT_PATH, 'background/workers/decryption-worker.ts'),
   },
   output: {

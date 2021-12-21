@@ -1,7 +1,7 @@
 import { createTestSelector, BrowserDriver, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { RouteUrls } from 'shared/route-urls';
-import { validateStacksAddress } from 'app/common/stacks-utils';
+import { RouteUrls } from '@shared/route-urls';
+import { validateStacksAddress } from '@app/common/stacks-utils';
 import { UserAreaSelectors } from '../user-area.selectors';
 
 jest.setTimeout(30_000);
