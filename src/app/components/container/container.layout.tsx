@@ -13,7 +13,6 @@ export function ContainerLayout(props: ContainerLayoutProps) {
       flexGrow={1}
       width="100%"
       background={color('bg')}
-      data-testid="container-outer"
       minHeight="100vh"
       maxHeight="100vh"
       position="relative"
@@ -24,7 +23,6 @@ export function ContainerLayout(props: ContainerLayoutProps) {
         flexDirection="column"
         flexGrow={1}
         className="main-content"
-        id="main-content"
         as="main"
         position="relative"
         width="100%"
