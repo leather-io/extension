@@ -31,7 +31,7 @@ export const WelcomePage = memo(() => {
     if (decodedAuthRequest) {
       navigate(RouteUrls.SetPassword);
     }
-    navigate(RouteUrls.SaveSecretKey);
+    navigate(RouteUrls.BackUpSecretKey);
   }, [makeWallet, analytics, decodedAuthRequest, navigate]);
 
   useEffect(() => {

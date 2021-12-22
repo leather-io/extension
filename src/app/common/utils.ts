@@ -270,8 +270,12 @@ export function isEmpty(value: Object) {
   return Object.keys(value).length === 0;
 }
 
-type ViewMode = 'full' | 'popup';
+type ViewMode = 'full' | 'popup' | 'popup-center';
 
 export function getViewMode(): ViewMode {
-  return document.location.pathname.startsWith('/index.html') ? 'full' : 'popup';
+  return document.location.pathname.startsWith('/index.html')
+    ? 'full'
+    : document.location.pathname.startsWith('/popup.html')
+    ? 'popup'
+    : 'popup-center';
 }

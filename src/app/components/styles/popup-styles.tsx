@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const extensionStyles = css`
-  .mode__extension {
+  .mode__popup {
     &,
     body {
       min-height: 600px !important;
@@ -10,22 +10,6 @@ export const extensionStyles = css`
       main.main-content {
         flex-grow: 1;
         max-width: 392px;
-      }
-    }
-    .welcome-page {
-      .content-image .image-large {
-        display: none;
-      }
-      .content-text {
-        .title {
-          width: 264px;
-          font-size: 32px;
-          line-height: 44px;
-          margin-top: 24px;
-        }
-        .text {
-          margin-bottom: 16px;
-        }
       }
     }
   }
