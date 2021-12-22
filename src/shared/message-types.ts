@@ -34,9 +34,9 @@ interface BaseMessage {
 /**
  * Content Script <-> Background Script
  */
-export interface Message<M extends ExtensionMethods, P> extends BaseMessage {
-  method: M;
-  payload: P;
+export interface Message<Methods extends ExtensionMethods, Payload> extends BaseMessage {
+  method: Methods;
+  payload: Payload;
 }
 
 type AuthenticationRequestMessage = Message<ExternalMethods.authenticationRequest, string>;

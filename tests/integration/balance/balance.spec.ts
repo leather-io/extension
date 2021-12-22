@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { BalanceSelectors } from '@tests/integration/balance.selectors';
 import { SECRET_KEY_2 } from '@tests/mocks';
 
-jest.setTimeout(50_000);
+jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
 const getAmount = (stxAmount: string) => {
@@ -20,8 +20,8 @@ describe(`Wallet Balance integration tests`, () => {
     browser = await setupBrowser();
     wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
     await wallet.signIn(SECRET_KEY_2);
-    await selectTestNet(wallet);
     await wallet.waitForHomePage();
+    await selectTestNet(wallet);
   }, BEFORE_ALL_TIMEOUT);
 
   afterAll(async () => {

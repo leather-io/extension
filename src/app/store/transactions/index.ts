@@ -13,6 +13,7 @@ import {
   StacksTransaction,
   TransactionVersion,
   publicKeyToString,
+  AddressVersion,
 } from '@stacks/transactions';
 import { serializePayload } from '@stacks/transactions/dist/payload';
 
@@ -115,6 +116,13 @@ export const transactionNetworkVersionState = atom(get => {
   return whenChainId(chainId)({
     [ChainID.Mainnet]: TransactionVersion.Mainnet,
     [ChainID.Testnet]: TransactionVersion.Testnet,
+  });
+});
+export const addressNetworkVersionState = atom(get => {
+  const chainId = get(currentNetworkState)?.chainId;
+  return whenChainId(chainId)({
+    [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
+    [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
   });
 });
 
