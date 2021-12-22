@@ -17,7 +17,7 @@ import {
   MessageFromContentScript,
 } from '@shared/message-types';
 
-import { popupCenter } from '@background/popup';
+import { popupCenter } from '@background/popup-center';
 import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
 
@@ -66,7 +66,7 @@ chrome.runtime.onConnect.addListener(port =>
             if (IS_TEST_ENV) {
               await openRequestInFullPage(path, urlParams);
             } else {
-              popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+              popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
             }
             break;
           }
@@ -82,7 +82,7 @@ chrome.runtime.onConnect.addListener(port =>
             if (IS_TEST_ENV) {
               await openRequestInFullPage(path, urlParams);
             } else {
-              popupCenter({ url: `/popup.html#${path}?${urlParams.toString()}` });
+              popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
             }
             break;
           }
