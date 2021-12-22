@@ -1,11 +1,6 @@
 import { atom } from 'jotai';
 
-import {
-  deserializeTransaction,
-  createStacksPrivateKey,
-  TransactionSigner,
-} from '@stacks/transactions';
-import { currentAccountPrivateKeyState } from '@app/store/accounts';
+import { deserializeTransaction } from '@stacks/transactions';
 import { apiClientState } from '@app/store/common/api-clients';
 
 export const rawTxIdState = atom<string | null>(null);
@@ -30,13 +25,4 @@ export const rawDeserializedTxState = atom(get => {
   const rawTx = get(rawTxState);
   if (!rawTx) return;
   return deserializeTransaction(rawTx);
-});
-
-export const rawSignedTxState = atom(get => {
-  const transaction = get(rawDeserializedTxState);
-  const privateKey = get(currentAccountPrivateKeyState);
-  if (!transaction || !privateKey) return;
-  const signer = new TransactionSigner(transaction);
-  signer.signOrigin(createStacksPrivateKey(privateKey));
-  return transaction;
 });

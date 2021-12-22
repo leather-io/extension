@@ -19,10 +19,3 @@ export const walletConfigState = atom<WalletConfig | null>(async get => {
   return fetchWalletConfig({ wallet, gaiaHubConfig });
 });
 export const hasRehydratedVaultStore = atom(false);
-
-secretKeyState.debugLabel = 'secretKeyState';
-hasSetPasswordState.debugLabel = 'hasSetPasswordState';
-walletState.debugLabel = 'walletState';
-encryptedSecretKeyState.debugLabel = 'encryptedSecretKeyState';
-walletConfigState.debugLabel = 'walletConfigState';
-hasRehydratedVaultStore.debugLabel = 'hasRehydratedVaultStore';

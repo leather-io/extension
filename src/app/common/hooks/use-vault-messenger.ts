@@ -55,22 +55,29 @@ export function useVaultMessenger() {
     [innerMessageWrapper]
   );
 
-  const getWallet = () =>
-    innerMessageWrapper({ method: InternalMethods.getWallet, payload: undefined });
+  const getWallet = useCallback(
+    () => innerMessageWrapper({ method: InternalMethods.getWallet, payload: undefined }),
+    [innerMessageWrapper]
+  );
+
   const makeWallet = () =>
     innerMessageWrapper({ method: InternalMethods.makeWallet, payload: undefined });
+
   const createNewAccount = () =>
     innerMessageWrapper({
       method: InternalMethods.createNewAccount,
       payload: undefined,
     });
+
   const handleSignOut = () =>
     innerMessageWrapper({ method: InternalMethods.signOut, payload: undefined });
+
   const signOut = async () => {
     await handleSignOut();
     void analytics.track('sign_out');
     clearSessionLocalData();
   };
+
   const lockWallet = () =>
     innerMessageWrapper({ method: InternalMethods.lockWallet, payload: undefined });
 

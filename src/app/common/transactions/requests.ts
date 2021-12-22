@@ -36,15 +36,16 @@ export const UNAUTHORIZED_TX_REQUEST =
  * @returns The decoded and validated `TransactionPayload`
  * @throws if the transaction request is invalid
  */
-export const verifyTxRequest = async ({
-  requestToken,
-  wallet,
-  appDomain,
-}: {
+interface VerifyTxRequestArgs {
   requestToken: string;
   wallet: Wallet;
   appDomain: string;
-}): Promise<TransactionPayload> => {
+}
+export async function verifyTxRequest({
+  requestToken,
+  wallet,
+  appDomain,
+}: VerifyTxRequestArgs): Promise<TransactionPayload> {
   const token = decodeToken(requestToken);
   const tx = token.payload as unknown as TransactionPayload;
   const { publicKey, stxAddress } = tx;
@@ -70,4 +71,4 @@ export const verifyTxRequest = async ({
     throw new Error(UNAUTHORIZED_TX_REQUEST);
   }
   return tx;
-};
+}

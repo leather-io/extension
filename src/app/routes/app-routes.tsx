@@ -24,12 +24,14 @@ import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnos
 import { BuyPage } from '@app/pages/buy/buy';
 import { RouteUrls } from '@shared/route-urls';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
 
 export function AppRoutes(): JSX.Element | null {
   const { hasRehydratedVault } = useWallet();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
+  const { getWallet } = useVaultMessenger();
   useSaveAuthRequest();
 
   useEffect(() => {
@@ -42,6 +44,10 @@ export function AppRoutes(): JSX.Element | null {
   useEffect(() => {
     void analytics.page('view', `${pathname}`);
   }, [analytics, pathname]);
+
+  useEffect(() => {
+    void getWallet();
+  }, [getWallet]);
 
   if (!hasRehydratedVault) return null;
 

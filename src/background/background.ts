@@ -9,17 +9,17 @@ import * as Sentry from '@sentry/react';
 
 import { storePayload, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
+import type { VaultActions } from '@shared/vault/vault-types';
+import { initSentry } from '@shared/utils/sentry-init';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
   MessageFromContentScript,
 } from '@shared/message-types';
 
-import type { VaultActions } from '@shared/vault/vault-types';
 import { popupCenter } from '@background/popup';
 import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
-import { initSentry } from '@shared/utils/sentry-init';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
@@ -107,7 +107,5 @@ chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendRespons
 
 if (IS_TEST_ENV) {
   // Expose a helper function to open a new tab with the wallet from tests
-  (window as any).openOptionsPage = function (page: string) {
-    return chrome.runtime.getURL(`index.html#${page}`);
-  };
+  (window as any).openOptionsPage = (page: string) => chrome.runtime.getURL(`index.html#${page}`);
 }

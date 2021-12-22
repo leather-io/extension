@@ -3,7 +3,7 @@ import { Wallet } from '@stacks/wallet-sdk';
 import { ExtensionMethods, InternalMethods, Message } from '@shared/message-types';
 
 // In-memory (background) wallet instance
-export interface InMemoryVault {
+export interface InMemorySoftwareWalletVault {
   encryptedSecretKey?: string;
   salt?: string;
   secretKey?: string;

@@ -3,7 +3,6 @@ import { HashRouter as Router } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
 
-import { VaultLoader } from '@app/components/vault-loader';
 import { AccountsDrawer } from '@app/features/accounts-drawer/accounts-drawer';
 import { NetworksDrawer } from '@app/features/network-drawer/networks-drawer';
 import { SettingsDropdown } from '@app/features/settings-dropdown/settings-dropdown';
@@ -38,7 +37,6 @@ export const App = () => {
           <>
             <Router>
               <AppErrorBoundary>
-                <VaultLoader />
                 <AppRoutes />
                 <AccountsDrawer />
                 <NetworksDrawer />

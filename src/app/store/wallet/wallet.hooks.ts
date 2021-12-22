@@ -1,5 +1,5 @@
 import { useAtomCallback, useAtomValue } from 'jotai/utils';
-import type { InMemoryVault, VaultActions } from '@shared/vault/vault-types';
+import type { InMemorySoftwareWalletVault, VaultActions } from '@shared/vault/vault-types';
 import { gaiaUrl } from '@shared/constants';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { textToBytes } from '@app/common/store-utils';
@@ -107,8 +107,8 @@ export function useFinishSignInCallback() {
 export function useInnerMessageWrapper() {
   return useAtomCallback<void, VaultActions>(
     useCallback(async (_get, set, message) => {
-      return new Promise<InMemoryVault>((resolve, reject) => {
-        chrome.runtime.sendMessage(message, (vaultOrError: InMemoryVault | Error) => {
+      return new Promise<InMemorySoftwareWalletVault>((resolve, reject) => {
+        chrome.runtime.sendMessage(message, (vaultOrError: InMemorySoftwareWalletVault | Error) => {
           try {
             if ('hasSetPassword' in vaultOrError) {
               const vault = vaultOrError;
