@@ -22,8 +22,9 @@ import { Home } from '@app/pages/home/home';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
 import { BuyPage } from '@app/pages/buy/buy';
-import { RouteUrls } from '@shared/route-urls';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
+import { RouteUrls } from '@shared/route-urls';
 
 export function AppRoutes(): JSX.Element | null {
   const { hasRehydratedVault } = useWallet();
@@ -59,6 +60,7 @@ export function AppRoutes(): JSX.Element | null {
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
         <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
+        <Route path={RouteUrls.BackUpSecretKey} element={<BackUpSecretKeyPage />} />
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
         <Route path={RouteUrls.SaveSecretKey} element={<SaveSecretKey />} />
         <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />

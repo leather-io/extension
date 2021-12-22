@@ -9,21 +9,5 @@ export const popupCenterStyles = css`
       min-width: 440px !important;
       overflow-x: hidden;
     }
-    .welcome-page {
-      .content-image .image-large {
-        display: none;
-      }
-      .content-text {
-        .title {
-          width: 264px;
-          font-size: 32px;
-          line-height: 44px;
-          margin-top: 24px;
-        }
-        .text {
-          margin-bottom: 16px;
-        }
-      }
-    }
   }
 `;
