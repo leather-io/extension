@@ -1,3 +1,10 @@
+# [2.24.0-beta.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.6...v2.24.0-beta.7) (2021-12-23)
+
+
+### Bug Fixes
+
+* gaia config being fetched on every key press, closes [#2101](https://github.com/hirosystems/stacks-wallet-web/issues/2101) ([013ec9e](https://github.com/hirosystems/stacks-wallet-web/commit/013ec9e88d049559bff2f0eab79c35bb80e5d277))
+
 # [2.24.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.5...v2.24.0-beta.6) (2021-12-23)
 
 
