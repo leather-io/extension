@@ -43,7 +43,7 @@ export const SetPasswordPage = ({ placeholder }: SetPasswordProps) => {
     // Proactively fetch the gaia wallet config
     if (!wallet) return;
     void getWalletConfig(wallet);
-  });
+  }, [wallet]);
 
   const submit = useCallback(
     async (password: string) => {
