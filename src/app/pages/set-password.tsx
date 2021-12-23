@@ -94,7 +94,8 @@ export const SetPasswordPage = ({ placeholder }: SetPasswordProps) => {
             void analytics.track('submit_invalid_password');
           }
           return result.meetsAllStrengthRequirements;
-        }, HUMAN_REACTION_DEBOUNCE_TIME),
+          // Cocersion to fix type error introduced in latest `ts-debounce`
+        }, HUMAN_REACTION_DEBOUNCE_TIME) as unknown as yup.TestFunction<any, any>,
       }),
   });
 
