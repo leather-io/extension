@@ -5,7 +5,8 @@ export const fullPageContentText = css`
 `;
 
 export const fullPageTitle = css`
-  font-size: 64px;
+  font-size: 48px;
+  line-height: 60px;
 `;
 
 export const popupContentText = css`

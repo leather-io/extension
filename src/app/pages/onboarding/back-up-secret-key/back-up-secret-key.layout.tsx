@@ -1,46 +1,108 @@
-import { Button, Stack } from '@stacks/ui';
+import { cx } from '@emotion/css';
+import { FiEyeOff, FiLock, FiRotateCcw } from 'react-icons/fi';
+import { Box, Button, color, Flex, Stack } from '@stacks/ui';
 
-import { Text, Title } from '@app/components/typography';
+import { Caption, Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
-import { getViewMode } from '@app/common/utils';
+import { isFullPage, isPopup } from '@app/common/utils';
+import KeyIllustrationFull from '@assets/images/onboarding/key-illustration-full.svg';
+import KeyIllustrationPopup from '@assets/images/onboarding/key-illustration-popup.svg';
+import SecretKey from '@assets/images/onboarding/secret-key.svg';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { Header } from '@app/components/header';
 
-interface BackUpSecretKeyLayoutProps {}
+import {
+  fullPageContentText,
+  fullPageTitle,
+  popupContentText,
+  popupTitle,
+} from './back-up-secret-key.styles';
+
+interface BackUpSecretKeyLayoutProps {
+  hasCopied: boolean;
+  onBackedUpSecretKey(): void;
+  onCopyToClipboard(): void;
+  secretKey: string | undefined;
+}
 export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.Element {
-  const mode = getViewMode();
+  const { hasCopied, onBackedUpSecretKey, onCopyToClipboard, secretKey } = props;
+  useRouteHeader(<Header hideActions />);
 
   return (
-    <>Placeholder</>
-    // <Stack className="welcome-page" isInline={mode === 'full'} width="100%">
-    //   <Stack className="content-image" flexGrow={1}>
-    //     <img src={ExploreStacksLarge} className="image-large" />
-    //     <img src={ExploreStacksSmall} className="image-small" />
-    //   </Stack>
-    //   <Stack className="content-text" flexGrow={1} justifyContent="center">
-    //     <Stack width="100%" textAlign="left" alignItems="start">
-    //       <Title className="title" fontWeight={500}>
-    //         Explore the world of Stacks
-    //       </Title>
-    //       <Text className="text">
-    //         Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
-    //         secure. Create your Stacks account to get started.
-    //       </Text>
-    //     </Stack>
-    //     <Stack spacing="loose" textAlign="left" {...props}>
-    //       <Button
-    //         borderRadius="10px"
-    //         data-testid={InitialPageSelectors.SignUp}
-    //         height="48px"
-    //         isLoading={isGeneratingWallet}
-    //         onClick={onStartOnboarding}
-    //         width="198px"
-    //       >
-    //         Create Stacks Account
-    //       </Button>
-    //       <Link data-testid={InitialPageSelectors.SignIn} fontSize="14px" onClick={onRestoreWallet}>
-    //         I already have an account
-    //       </Link>
-    //     </Stack>
-    //   </Stack>
-    // </Stack>
+    <Stack isInline={isFullPage} width="100%">
+      <Flex
+        className={cx({ [fullPageContentText]: isFullPage }, { [popupContentText]: isPopup })}
+        flexGrow={1}
+        justifyContent="center"
+      >
+        <Stack maxWidth="440px" spacing="loose">
+          <img src={SecretKey} width="135px" />
+          <Title
+            className={cx({ [fullPageTitle]: isFullPage }, { [popupTitle]: isPopup })}
+            fontWeight={500}
+          >
+            Back up your Secret Key
+          </Title>
+          <Text>
+            Here’s your Secret Key: 24 words that generated your Stacks account. You’ll need it to
+            access your account on a new device, in a different wallet, or in case you lose your
+            password — so back it up somewhere safe.
+          </Text>
+          <Stack alignItems="center" isInline>
+            <Box as={FiRotateCcw} color={color('text-caption')} size="12px" />
+            <Caption>Your Secret Key gives access to your account</Caption>
+          </Stack>
+          <Stack alignItems="center" isInline>
+            <Box as={FiEyeOff} color={color('text-caption')} size="12px" />
+            <Caption>Never share your Secret Key</Caption>
+          </Stack>
+          <Stack alignItems="center" isInline>
+            <Box as={FiLock} color={color('text-caption')} size="12px" />
+            <Caption>Put it somewhere private and secure</Caption>
+          </Stack>
+          <Stack alignItems={isFullPage ? 'center' : 'start'} isInline={isFullPage} spacing="loose">
+            <Button
+              borderRadius="10px"
+              height="48px"
+              mr="24px !important"
+              onClick={onBackedUpSecretKey}
+              width="198px"
+            >
+              I've backed it up
+            </Button>
+            <Stack isInline alignItems="center">
+              <Caption mr="4px !important">Or</Caption>
+              <Link fontSize="14px" onClick={() => {}}>
+                back it up later
+              </Link>
+            </Stack>
+          </Stack>
+        </Stack>
+      </Flex>
+      <Flex
+        className={cx({ [fullPageContentText]: isFullPage }, { [popupContentText]: isPopup })}
+        flexGrow={1}
+        justifyContent="center"
+      >
+        <Box
+          border="1px solid"
+          borderColor={color('border')}
+          borderRadius="16px"
+          height="484px"
+          width="432px"
+        >
+          <Stack alignItems="center" pt="80px" spacing="loose">
+            {isFullPage ? <img src={KeyIllustrationFull} /> : <img src={KeyIllustrationPopup} />}
+            <Title fontSize="20px">Your Secret Key</Title>
+            <Text px="loose" textAlign="center">
+              {secretKey}
+            </Text>
+            <Link fontSize="14px" onClick={!hasCopied ? onCopyToClipboard : undefined}>
+              {!hasCopied ? 'Copy to clipboard' : 'Copied!'}
+            </Link>
+          </Stack>
+        </Box>
+      </Flex>
+    </Stack>
   );
 }

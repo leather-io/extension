@@ -278,16 +278,15 @@ export function isEmpty(value: Object) {
   return Object.keys(value).length === 0;
 }
 
-type ViewMode = 'full' | 'popup' | 'popup-center';
+type ViewMode = 'full' | 'popup';
 
 export function getViewMode(): ViewMode {
-  return document.location.pathname.startsWith('/index.html')
-    ? 'full'
-    : document.location.pathname.startsWith('/popup.html')
-    ? 'popup'
-    : 'popup-center';
+  return document.location.pathname.startsWith('/index.html') ? 'full' : 'popup';
 }
 
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }
+
+export const isFullPage = document.location.pathname.startsWith('/index.html');
+export const isPopup = !isFullPage;
