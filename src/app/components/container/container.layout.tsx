@@ -20,14 +20,14 @@ export function ContainerLayout(props: ContainerLayoutProps) {
     >
       {header || null}
       <Flex
+        as="main"
+        className="main-content"
         flexDirection="column"
         flexGrow={1}
-        className="main-content"
-        as="main"
-        position="relative"
-        width="100%"
-        px="loose"
         pb="loose"
+        position="relative"
+        px="loose"
+        width="100%"
       >
         {children}
       </Flex>

@@ -10,7 +10,7 @@ interface SecreteKeyActionsProps extends StackProps {
 }
 export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
   const { onClose, ...rest } = props;
-  const { hasSetPassword, secretKey } = useWallet();
+  const { secretKey } = useWallet();
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
   const navigate = useNavigate();
 
@@ -22,11 +22,7 @@ export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
   };
 
   const handleOnClick = () => {
-    if (hasSetPassword) {
-      navigate(RouteUrls.Home);
-    } else {
-      navigate(RouteUrls.SetPassword);
-    }
+    navigate(RouteUrls.SetPassword);
   };
 
   return (
