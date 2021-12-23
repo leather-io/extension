@@ -1,7 +1,31 @@
 import { memo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useClipboard } from '@stacks/ui';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useWallet } from '@app/common/hooks/use-wallet';
+import { RouteUrls } from '@shared/route-urls';
 
 import { BackUpSecretKeyLayout } from './back-up-secret-key.layout';
 
 export const BackUpSecretKeyPage = memo(() => {
-  return <BackUpSecretKeyLayout />;
+  const { secretKey } = useWallet();
+  const { onCopy, hasCopied } = useClipboard(secretKey || '');
+  const navigate = useNavigate();
+
+  const analytics = useAnalytics();
+
+  const copyToClipboard = () => {
+    void analytics.track('copy_secret_key_to_clipboard');
+    onCopy();
+  };
+
+  return (
+    <BackUpSecretKeyLayout
+      hasCopied={hasCopied}
+      onBackedUpSecretKey={() => navigate(RouteUrls.SetPassword)}
+      onCopyToClipboard={copyToClipboard}
+      secretKey={secretKey}
+    />
+  );
 });
