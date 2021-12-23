@@ -1,3 +1,10 @@
+# [2.24.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.5...v2.24.0-beta.6) (2021-12-23)
+
+
+### Bug Fixes
+
+* render whole account list when fewer than 10 accounts ([abe1597](https://github.com/hirosystems/stacks-wallet-web/commit/abe1597c3b44a475500181d314156a434c02a52e))
+
 # [2.24.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.4...v2.24.0-beta.5) (2021-12-21)
 
 
