@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 
-export const fullPageContentText = css`
+export const fullPageContent = css`
   align-items: center;
 `;
 
@@ -8,7 +8,7 @@ export const fullPageTitle = css`
   font-size: 64px;
 `;
 
-export const popupContentText = css`
+export const popupContent = css`
   margin-top: 16px;
 `;
 

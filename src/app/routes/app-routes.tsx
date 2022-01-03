@@ -12,7 +12,7 @@ import { SignTransaction } from '@app/pages/sign-transaction/sign-transaction';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
-import { SetPasswordPage } from '@app/pages/set-password';
+import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens-form';
 import { SaveSecretKey } from '@app/pages/save-secret-key/save-secret-key';
 import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
