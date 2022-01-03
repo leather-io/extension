@@ -8,7 +8,7 @@ import WelcomeStacksPopup from '@assets/images/onboarding/welcome-popup.svg';
 import { isFullPage, isPopup } from '@app/common/utils';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
-import { fullPageContentText, fullPageTitle, popupContentText, popupTitle } from './welcome.styles';
+import { fullPageContent, fullPageTitle, popupContent, popupTitle } from './welcome.styles';
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
   onStartOnboarding(): void;
@@ -27,7 +27,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
         )}
       </Flex>
       <Flex
-        className={cx({ [fullPageContentText]: isFullPage }, { [popupContentText]: isPopup })}
+        className={cx({ [fullPageContent]: isFullPage }, { [popupContent]: isPopup })}
         flexGrow={1}
         justifyContent="center"
       >

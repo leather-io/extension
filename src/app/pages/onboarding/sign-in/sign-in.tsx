@@ -4,7 +4,7 @@ import { Text, Button, Input, Stack, color } from '@stacks/ui';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ErrorLabel } from '@app/components/error-label';
 import { Caption } from '@app/components/typography';
-import { useSignIn } from '@app/pages/onboarding/sign-in/use-sign-in';
+import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 import { Header } from '@app/components/header';
 import { RouteUrls } from '@shared/route-urls';
 
