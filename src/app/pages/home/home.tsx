@@ -4,6 +4,7 @@ import { Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { isFullPage } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
@@ -13,8 +14,10 @@ import { HomeActions } from '@app/pages/home/components/home-actions';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+
 import { HomeTabs } from './components/home-tabs';
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
+import { fullPageContent } from './home.styles';
 
 export const Home = () => {
   const { decodedAuthRequest } = useOnboardingState();
@@ -40,7 +43,12 @@ export const Home = () => {
         {account?.address && <BalanceFetcher address={account.address} />}
         {account?.address && <AccountInfoFetcher address={account.address} />}
       </Suspense>
-      <Stack data-testid="home-page" flexGrow={1} spacing="loose">
+      <Stack
+        className={isFullPage ? fullPageContent : undefined}
+        data-testid="home-page"
+        flexGrow={1}
+        spacing="loose"
+      >
         <CurrentAccount />
         <HomeActions />
         {account && (
