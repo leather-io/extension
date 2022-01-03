@@ -5,6 +5,7 @@ import { Stack } from '@stacks/ui';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { isFullPage } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
@@ -15,6 +16,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 
 import { HomeTabs } from './components/home-tabs';
+import { fullPageContent } from './home.styles';
 
 export const Home = () => {
   const { decodedAuthRequest } = useOnboardingState();
@@ -38,7 +40,12 @@ export const Home = () => {
 
   return (
     <>
-      <Stack data-testid="home-page" flexGrow={1} spacing="loose">
+      <Stack
+        className={isFullPage ? fullPageContent : undefined}
+        data-testid="home-page"
+        flexGrow={1}
+        spacing="loose"
+      >
         <CurrentAccount />
         <HomeActions />
         <HomeTabs
