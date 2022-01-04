@@ -6,10 +6,12 @@ import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { isFullPage } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { Toast } from '@app/components/toast';
 import { Caption, Title } from '@app/components/typography';
 import { Tooltip } from '@app/components/tooltip';
+import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
 
 import { QrCode } from './components/address-qr-code';
@@ -29,7 +31,7 @@ export const ReceiveTokens = () => {
   };
 
   return (
-    <Stack spacing="loose" textAlign="center">
+    <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose" textAlign="center">
       <Text
         textStyle="body.small"
         color={color('text-caption')}
@@ -52,7 +54,7 @@ export const ReceiveTokens = () => {
           <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
         </Tooltip>
       </Box>
-      <Button width="100%" onClick={copyToClipboard} borderRadius="10px">
+      <Button borderRadius="10px" height="48px" width="100%" onClick={copyToClipboard}>
         Copy your address
       </Button>
     </Stack>

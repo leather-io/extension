@@ -1,12 +1,14 @@
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { Body } from '@app/components/typography';
 import { Card } from '@app/components/card';
 
-export function SecretKeyCard(): JSX.Element {
-  const { secretKey } = useWallet();
+interface SecretKeyCardProps {
+  secretKey?: string;
+}
+export function SecretKeyCard(props: SecretKeyCardProps): JSX.Element {
+  const { secretKey } = props;
 
   return (
-    <Card title="Your Secret Key">
+    <Card boxShadow="none" title="Your Secret Key">
       <Body data-testid="textarea-seed-phrase" data-loaded={String(!!secretKey)}>
         {secretKey}
       </Body>
