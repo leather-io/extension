@@ -8,14 +8,13 @@ interface AccountGateProps {
   children?: ReactNode;
 }
 export const AccountGate = ({ children }: AccountGateProps) => {
-  const { encryptedSecretKey, hasGeneratedWallet, hasRehydratedVault, hasSetPassword } =
-    useWallet();
+  const { encryptedSecretKey, hasGeneratedWallet, hasSetPassword } = useWallet();
 
   const isWalletActive = (hasGeneratedWallet || encryptedSecretKey) && hasSetPassword;
   const isWalletLocked = !hasGeneratedWallet && encryptedSecretKey;
   const needsToCompleteOnboarding = (hasGeneratedWallet || encryptedSecretKey) && !hasSetPassword;
 
-  if (!hasRehydratedVault) return null;
+  if (isWalletActive) return <>{children}</>;
   if (isWalletLocked) return <Navigate to={RouteUrls.Unlock} />;
   if (needsToCompleteOnboarding) return <Navigate to={RouteUrls.BackUpSecretKey} />;
   if (isWalletActive) return <>{children}</>;

@@ -41,7 +41,8 @@ const AccountAddress = memo((props: StackProps) => {
 export const CurrentAccount = memo((props: StackProps) => {
   const currentAccount = useCurrentAccount();
   if (!currentAccount) {
-    throw new Error('Homepage rendered without account state. This should never happen.');
+    return null;
+    // throw new Error('Homepage rendered without account state. This should never happen.');
   }
   return (
     <Stack spacing="base-tight" alignItems="center" isInline {...props}>

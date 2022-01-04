@@ -47,6 +47,7 @@ export function Unlock(): JSX.Element {
     setLoading(true);
     startWaitingMessage();
     setError('');
+
     try {
       await unlockWallet(password);
 

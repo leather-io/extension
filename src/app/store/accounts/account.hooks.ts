@@ -6,7 +6,6 @@ import {
   currentAccountAvailableAnchoredStxBalanceState,
   currentAccountBalancesUnanchoredState,
   currentAccountConfirmedTransactionsState,
-  currentAccountIndexState,
   currentAccountInfoState,
   currentAccountMempoolTransactionsState,
   currentAccountState,
@@ -15,6 +14,7 @@ import {
   refreshAccountDataState,
   transactionAccountIndexState,
 } from '@app/store/accounts';
+import { currentAccountIndexState } from '../wallet/wallet';
 
 export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableAnchoredStxBalanceState);

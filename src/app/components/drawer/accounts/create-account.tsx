@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Box, Flex, Button, Stack } from '@stacks/ui';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { Body } from '@app/components/typography';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useGeneratedCurrentWallet } from '@app/store/chains/stx-chain.actions';
+import { Wallet } from '@stacks/wallet-sdk';
 
 interface CreateAccountProps {
   close: () => void;
@@ -12,27 +14,31 @@ interface CreateAccountProps {
 const TIMEOUT = 3000;
 
 export const CreateAccount: React.FC<CreateAccountProps> = ({ close }) => {
-  const { createNewAccount } = useWallet();
+  const { createNewAccount } = useKeyActions();
+  const wallet = useGeneratedCurrentWallet();
   const [isSetting, setSetting] = useState(false);
   const [hasFired, setHasFired] = useState(false);
   const analytics = useAnalytics();
 
-  const createAccount = useCallback(async () => {
-    if (!isSetting) {
-      setSetting(true);
-      await createNewAccount();
-      void analytics.track('create_new_account');
-      setSetting(false);
-      window.setTimeout(() => close(), TIMEOUT);
-    }
-  }, [isSetting, createNewAccount, analytics, close]);
+  const createAccount = useCallback(
+    async (wallet: Wallet) => {
+      if (!isSetting) {
+        setSetting(true);
+        await createNewAccount(wallet);
+        void analytics.track('create_new_account');
+        setSetting(false);
+        window.setTimeout(() => close(), TIMEOUT);
+      }
+    },
+    [isSetting, createNewAccount, analytics, close]
+  );
 
   useEffect(() => {
-    if (!hasFired) {
+    if (!hasFired && wallet) {
       setHasFired(true);
-      void createAccount();
+      void createAccount(wallet);
     }
-  }, [createAccount, hasFired]);
+  }, [createAccount, hasFired, wallet]);
 
   return (
     <Box width="100%" px="extra-loose">
