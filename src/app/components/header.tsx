@@ -37,60 +37,61 @@ export const Header: React.FC<HeaderProps> = memo(props => {
 
   return (
     <Flex
-      p="loose"
       alignItems={hideActions ? 'center' : 'flex-start'}
       justifyContent="space-between"
+      p="base"
       position="relative"
       {...rest}
     >
+      {onClose ? (
+        <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} />
+      ) : null}
+      {!title && (!onClose || isFullPage) ? (
+        <Stack
+          alignItems="center"
+          flexGrow={1}
+          height="36px"
+          isInline
+          justifyContent={onClose ? 'center' : 'unset'}
+        >
+          <HiroWalletLogo
+            data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
+            onClick={() => navigate(RouteUrls.Home)}
+          />
+          <Caption
+            color={color('text-caption')}
+            display={!version ? 'none' : 'unset'}
+            fontFamily="mono"
+            marginRight="10px"
+            pt="2px"
+            variant="c3"
+          >
+            {version}
+          </Caption>
+        </Stack>
+      ) : (
+        <Title
+          alignSelf="center"
+          fontSize="16px"
+          fontWeight={500}
+          lineHeight="24px"
+          pr={hideActions ? '36px' : 'unset'}
+          {...props}
+        >
+          {title}
+        </Title>
+      )}
       <Stack alignItems="center" isInline>
-        {onClose ? <IconButton icon={FiArrowLeft} onClick={onClose} /> : null}
-        {title ? (
-          <Title fontSize="20px" fontWeight={500} lineHeight="28px" {...props}>
-            {title}
-          </Title>
-        ) : null}
-      </Stack>
-      <Stack
-        alignItems="center"
-        flexGrow={1}
-        isInline
-        justifyContent={onClose ? 'center' : 'unset'}
-        pt="7px"
-      >
-        {!onClose || isFullPage ? (
-          <>
-            <HiroWalletLogo
-              data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
-              onClick={() => navigate(RouteUrls.Home)}
-            />
-            <Caption
-              display={!version ? 'none' : 'unset'}
-              pt="extra-tight"
-              mt="2px"
-              color="#8D929A"
-              variant="c3"
-              marginRight="10px"
-              fontFamily="mono"
-            >
-              {version}
-            </Caption>
-          </>
-        ) : null}
-      </Stack>
-      <Stack alignItems="center" flexShrink={0} isInline pt={hideActions ? '7px' : 0}>
         <NetworkModeBadge />
         {!hideActions && (
           <IconButton
             _hover={{ color: color('text-title') }}
             color={color('text-caption')}
             data-testid="menu-button"
-            iconSize="20px"
+            iconSize="16px"
             icon={FiMoreHorizontal}
             onMouseUp={showSettings ? undefined : () => setShowSettings(true)}
             pointerEvents={showSettings ? 'none' : 'all'}
-            size="36px"
-            {...props}
           />
         )}
       </Stack>

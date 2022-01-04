@@ -11,7 +11,6 @@ export const HiroWalletLogo = memo((props: StackProps) => {
       alignItems="center"
       color={color('text-title')}
       cursor="pointer"
-      flexDirection="row"
       isInline
       {...props}
     >

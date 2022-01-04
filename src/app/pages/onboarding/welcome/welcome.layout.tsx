@@ -6,9 +6,14 @@ import { Link } from '@app/components/link';
 import WelcomeStacksFull from '@assets/images/onboarding/welcome-full.svg';
 import WelcomeStacksPopup from '@assets/images/onboarding/welcome-popup.svg';
 import { isFullPage, isPopup } from '@app/common/utils';
+import {
+  fullPageOnboardingContent,
+  fullPageOnboardingTitle,
+  popupPageContent,
+  popupPageTitle,
+} from '@app/pages/pages.styles';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
-import { fullPageContent, fullPageTitle, popupContent, popupTitle } from './welcome.styles';
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
   onStartOnboarding(): void;
@@ -27,13 +32,13 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
         )}
       </Flex>
       <Flex
-        className={cx({ [fullPageContent]: isFullPage }, { [popupContent]: isPopup })}
+        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
         flexGrow={1}
         justifyContent="center"
       >
         <Stack maxWidth="500px" spacing="loose">
           <Title
-            className={cx({ [fullPageTitle]: isFullPage }, { [popupTitle]: isPopup })}
+            className={cx({ [fullPageOnboardingTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
             fontWeight={500}
           >
             Explore the world of Stacks
