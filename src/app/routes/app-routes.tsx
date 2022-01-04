@@ -2,8 +2,6 @@ import { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useWallet } from '@app/common/hooks/use-wallet';
-import { getHasSetPassword } from '@shared/utils/storage';
 import { Container } from '@app/components/container/container';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
@@ -24,57 +22,54 @@ import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnos
 import { BuyPage } from '@app/pages/buy/buy';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
 import { RouteUrls } from '@shared/route-urls';
+import { useHasStateRehydrated } from '@app/store/root-reducer';
+
+import { useCurrentKey } from '@app/store/keys/key.slice';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 
 export function AppRoutes(): JSX.Element | null {
-  const { hasRehydratedVault } = useWallet();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
-  const { getWallet } = useVaultMessenger();
+
   useSaveAuthRequest();
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => navigate(RouteUrls.Onboarding));
 
   useEffect(() => {
-    const hasSetPassword = getHasSetPassword();
-    const shouldRedirectToOnboarding =
-      pathname === RouteUrls.Home ||
-      (pathname === RouteUrls.ChooseAccount || pathname) === RouteUrls.Transaction;
-    const shouldRedirectToHome = pathname === RouteUrls.Onboarding;
-    // This ensures the route is correct bc the vault is slow to set wallet state
-    if (shouldRedirectToOnboarding && !hasSetPassword) navigate(RouteUrls.Onboarding);
-    if (shouldRedirectToHome && hasSetPassword) navigate(RouteUrls.Home);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     void analytics.page('view', `${pathname}`);
   }, [analytics, pathname]);
 
-  useEffect(() => {
-    void getWallet();
-  }, [getWallet]);
+  const hasStateRehydrated = useHasStateRehydrated();
+  const currentWallet = useCurrentKey();
 
-  if (!hasRehydratedVault) return null;
+  useEffect(() => {
+    // This ensures the route is correct bc the VaultLoader is slow to set wallet state
+    if (pathname === RouteUrls.Home && !currentWallet?.hasSetPassword)
+      navigate(RouteUrls.Onboarding);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentWallet?.hasSetPassword]);
+  // check to prevent renders before the state has rehydrated
+  if (!hasStateRehydrated) return <>rehdryating state</>;
 
   return (
-    <Routes>
-      <Route path={RouteUrls.Container} element={<Container />}>
-        <Route
-          path={RouteUrls.Home}
-          element={
-            <AccountGate>
-              <Home />
-            </AccountGate>
-          }
-        >
-          <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+    <Suspense fallback="loading from app route">
+      <Routes>
+        <Route path={RouteUrls.Container} element={<Container />}>
+          <Route
+            path={RouteUrls.Home}
+            element={
+              <AccountGate>
+                <Home />
+              </AccountGate>
+            }
+          >
+            <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+          </Route>
         </Route>
         <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
         <Route path={RouteUrls.BackUpSecretKey} element={<BackUpSecretKeyPage />} />
@@ -149,7 +144,7 @@ export function AppRoutes(): JSX.Element | null {
         <Route path={RouteUrls.Unlock} element={<Unlock />} />
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 }

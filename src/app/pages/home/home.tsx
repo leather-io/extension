@@ -56,7 +56,7 @@ export const Home = () => {
           <HomeTabs
             balances={
               <BalancesList
-                address={account.address}
+                address={account?.address}
                 data-testid={HomePageSelectors.BalancesList}
               />
             }

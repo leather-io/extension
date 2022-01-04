@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { decrypt } from '@stacks/wallet-sdk';
+// import { decrypt } from '@stacks/wallet-sdk';
 
 import { useLoading } from '@app/common/hooks/use-loading';
 import { useWallet } from '@app/common/hooks/use-wallet';
@@ -16,7 +16,7 @@ export function useMagicRecoveryCode() {
   const [magicRecoveryCodePassword, setMagicRecoveryCodePassword] =
     useMagicRecoveryCodePasswordState();
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useMagicRecoveryCode');
-  const { storeSeed, setPassword, finishSignIn } = useWallet();
+  const { setPassword, finishSignIn } = useWallet();
   const [error, setPasswordError] = useState('');
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
@@ -35,9 +35,9 @@ export function useMagicRecoveryCode() {
     if (!magicRecoveryCode) throw Error('No magic recovery seed');
     setIsLoading();
     try {
-      const codeBuffer = Buffer.from(magicRecoveryCode, 'base64');
-      const secretKey = await decrypt(codeBuffer, magicRecoveryCodePassword);
-      await storeSeed({ secretKey });
+      // const codeBuffer = Buffer.from(magicRecoveryCode, 'base64');
+      // const secretKey = await decrypt(codeBuffer, magicRecoveryCodePassword);
+      // await storeSeed({ secretKey });
       await setPassword(magicRecoveryCodePassword);
       handleNavigate();
     } catch (error) {
@@ -50,7 +50,7 @@ export function useMagicRecoveryCode() {
     setIsLoading,
     magicRecoveryCode,
     magicRecoveryCodePassword,
-    storeSeed,
+    // storeSeed,
     handleNavigate,
   ]);
 

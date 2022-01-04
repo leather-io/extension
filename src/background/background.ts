@@ -9,17 +9,20 @@ import * as Sentry from '@sentry/react';
 
 import { storePayload, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
-import type { VaultActions } from '@shared/vault/vault-types';
 import { initSentry } from '@shared/utils/sentry-init';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
+  InternalMethods,
   MessageFromContentScript,
 } from '@shared/message-types';
 
 import { popupCenter } from '@background/popup-center';
-import { vaultMessageHandler } from '@background/vault';
+import type { BackgroundActions } from '@shared/vault/vault-types';
+
+// import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
+import { logger } from '@shared/logger';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
@@ -94,13 +97,25 @@ chrome.runtime.onConnect.addListener(port =>
   })
 );
 
+function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
+  // Only respond to internal messages from our UI, not content scripts in other applications
+  return sender.url?.startsWith(chrome.runtime.getURL(''));
+}
+
 // Listen for events triggered by the background memory vault
-chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendResponse) =>
+chrome.runtime.onMessage.addListener((message: BackgroundActions, sender, sendResponse) =>
   Sentry.wrap(() => {
-    // Only respond to internal messages from our UI, not content scripts in other applications
-    if (!sender.url?.startsWith(chrome.runtime.getURL(''))) return;
-    void vaultMessageHandler(message).then(sendResponse).catch(sendResponse);
-    // Return true to specify that we are responding async
+    if (!validateMessagesAreFromExtension(sender)) {
+      logger.error('Received background script messagr from ' + sender.url);
+      return;
+    }
+
+    switch (message.method) {
+      case InternalMethods.TestAction: {
+        sendResponse();
+      }
+    }
+
     return true;
   })
 );
