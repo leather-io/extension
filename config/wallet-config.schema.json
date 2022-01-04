@@ -51,6 +51,27 @@
         "transak": { "$ref": "#/$defs/provider" },
         "okcoin": { "$ref": "#/$defs/provider" }
       }
+    },
+    "feeEstimations": {
+      "type": "object",
+      "description": "All the active fiat onramp providers that will be displayed in the wallet",
+      "additionalProperties": false,
+      "properties": {
+        "maxValuesEnabled": {
+          "type": "boolean",
+          "description": "Whether or not the maximum values are enabled"
+        },
+        "maxValues": {
+          "type": "array",
+          "description": "Low, middle and high max values for fee estimations",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number",
+            "description": "Fee estimation max value"
+          }
+        }
+      }
     }
   },
   "$defs": {

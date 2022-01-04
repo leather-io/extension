@@ -1,3 +1,4 @@
+import { isUndefined } from '@app/common/utils';
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { useQuery } from 'react-query';
 
@@ -15,9 +16,15 @@ interface ActiveFiatProviderType {
   enabled: boolean;
 }
 
+interface FeeEstimationsConfig {
+  maxValuesEnabled?: boolean;
+  maxValues?: number[];
+}
+
 interface HiroConfig {
   messages: any;
-  activeFiatProviders: Record<string, ActiveFiatProviderType>;
+  activeFiatProviders?: Record<string, ActiveFiatProviderType>;
+  feeEstimations?: FeeEstimationsConfig;
 }
 
 const GITHUB_PRIMARY_BRANCH = 'dev';
@@ -53,4 +60,18 @@ export function useHasFiatProviders() {
     activeProviders &&
     Object.keys(activeProviders).reduce((acc, key) => activeProviders[key].enabled || acc, false)
   );
+}
+
+export function useConfigFeeEstimationsEnabled() {
+  const config = useRemoteHiroConfig();
+  if (isUndefined(config) || isUndefined(config?.feeEstimations)) return;
+  return config.feeEstimations.maxValuesEnabled;
+}
+
+export function useConfigFeeEstimationsMaxValues() {
+  const config = useRemoteHiroConfig();
+  if (typeof config?.feeEstimations === 'undefined') return;
+  if (!config.feeEstimations.maxValues) return;
+  if (!Array.isArray(config.feeEstimations.maxValues)) return;
+  return config.feeEstimations.maxValues;
 }
