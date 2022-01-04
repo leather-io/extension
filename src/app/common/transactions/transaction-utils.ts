@@ -11,10 +11,8 @@ import {
 } from '@stacks/stacks-blockchain-api-types';
 import { getContractName, truncateMiddle } from '@stacks/ui-utils';
 
-import { DEFAULT_FEE_RATE } from '@shared/constants';
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@app/common/date-utils';
 import { stacksValue } from '@app/common/stacks-utils';
-import { FeeEstimation } from '@shared/models/fees-types';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -46,47 +44,6 @@ function txHasTime(tx: Tx) {
     ('burn_block_time_iso' in tx && tx.burn_block_time_iso) ||
     ('parent_burn_block_time_iso' in tx && tx.parent_burn_block_time_iso)
   );
-}
-
-const maxValueForLowFeeEstimation = 500000;
-const maxValueForMiddleFeeEstimation = 750000;
-const maxValueForHighFeeEstimation = 2000000;
-
-export function getFeeEstimationsWithMaxValues(feeEstimations: FeeEstimation[]) {
-  const feeEstimationsWithMaxValues = [];
-
-  if (new BigNumber(feeEstimations[0].fee).isGreaterThan(maxValueForLowFeeEstimation)) {
-    feeEstimationsWithMaxValues.push({ fee: maxValueForLowFeeEstimation, fee_rate: 0 });
-  } else {
-    feeEstimationsWithMaxValues.push(feeEstimations[0]);
-  }
-  if (new BigNumber(feeEstimations[1].fee).isGreaterThan(maxValueForMiddleFeeEstimation)) {
-    feeEstimationsWithMaxValues.push({ fee: maxValueForMiddleFeeEstimation, fee_rate: 0 });
-  } else {
-    feeEstimationsWithMaxValues.push(feeEstimations[1]);
-  }
-  if (new BigNumber(feeEstimations[2].fee).isGreaterThan(maxValueForHighFeeEstimation)) {
-    feeEstimationsWithMaxValues.push({ fee: maxValueForHighFeeEstimation, fee_rate: 0 });
-  } else {
-    feeEstimationsWithMaxValues.push(feeEstimations[2]);
-  }
-
-  return feeEstimationsWithMaxValues;
-}
-
-function calculateFeeFromFeeRate(txBytes: number, feeRate: number) {
-  return new BigNumber(txBytes).multipliedBy(feeRate);
-}
-
-const marginFromDefaultFeeDecimalPercent = 0.1;
-
-export function getDefaultSimulatedFeeEstimations(estimatedByteLength: number): FeeEstimation[] {
-  const fee = calculateFeeFromFeeRate(estimatedByteLength, DEFAULT_FEE_RATE);
-  return [
-    { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
-    { fee: fee.toNumber(), fee_rate: 0 },
-    { fee: fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
-  ];
 }
 
 export function isAddressTransactionWithTransfers(
