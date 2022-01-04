@@ -66,14 +66,6 @@ export function deleteTabForRequest(storageKey: StorageKey, request: string) {
   localStorage.removeItem(key);
 }
 
-export function getHasSetPassword() {
-  const persisted = localStorage.getItem(hasSetPasswordIdentifier);
-  if (persisted !== null) {
-    return JSON.parse(persisted);
-  }
-  return false;
-}
-
 export function setToLocalstorageIfDefined(storageKey: string, value?: string) {
   if (value) {
     localStorage.setItem(storageKey, value);

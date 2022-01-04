@@ -6,8 +6,8 @@ import { initSentry } from '@shared/utils/sentry-init';
 
 initSentry();
 
-function renderApp() {
-  ReactDOM.render(<App />, document.getElementById('app'));
+async function renderApp() {
+  return ReactDOM.render(<App />, document.getElementById('app'));
 }
 
 void persistAndRenderApp(renderApp);
