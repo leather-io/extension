@@ -13,7 +13,7 @@ import { Devtools } from '@app/features/devtool/devtools';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
 import { initSegment } from './common/segment-init';
 import { theme } from './common/theme';
-import { GlobalStyles } from './components/styles/global-styles';
+import { GlobalStyles } from './components/global-styles/global-styles';
 import { AppRoutes } from './routes/app-routes';
 
 const devToolsEnabled = false;
