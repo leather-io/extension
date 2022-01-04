@@ -16,7 +16,7 @@ import { Text, Title } from '@app/components/typography';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
 export const SignIn = () => {
-  const { onKeyDown, onChange, onPaste, onSubmit, value, error, isLoading, ref } = useSignIn();
+  const { onKeyDown, onChange, onPaste, onSubmit, error, isLoading, ref } = useSignIn();
   const navigate = useNavigate();
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.Onboarding)} hideActions />);

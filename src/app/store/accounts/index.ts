@@ -1,20 +1,22 @@
+import { Account } from '@stacks/wallet-sdk';
+
+import { atomFamily } from 'jotai/utils';
 import type {
   AccountDataResponse,
   MempoolTransaction,
   Transaction,
 } from '@stacks/stacks-blockchain-api-types';
-import { Account } from '@stacks/wallet-sdk';
 
-import { atomFamily, atomWithDefault, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import BigNumber from 'bignumber.js';
 import deepEqual from 'fast-deep-equal';
 
-import { makeLocalDataKey } from '@app/common/store-utils';
 import { transactionRequestStxAddressState } from '@app/store/transactions/requests';
 import { currentNetworkState } from '@app/store/network/networks';
-import { walletState } from '@app/store/wallet/wallet';
+
 import { addressNetworkVersionState } from '@app/store/transactions';
+import { currentAccountIndexState, walletState } from '@app/store/wallet/wallet';
+
 import {
   accountBalancesAnchoredBigNumber,
   accountBalancesUnanchoredClient,
@@ -48,7 +50,7 @@ import { AccountBalanceResponseBigNumber } from '@shared/models/account-types';
 //--------------------------------------
 // All accounts
 //--------------------------------------
-export const accountsState = atomWithDefault<Account[] | undefined>(get => {
+export const accountsState = atom<Account[] | undefined>(get => {
   const wallet = get(walletState);
   if (!wallet) return undefined;
   return wallet.accounts;
@@ -69,13 +71,6 @@ export const accountsWithAddressState = atom<AccountWithAddress[] | undefined>(g
 //--------------------------------------
 // Current account
 //--------------------------------------
-
-// The index of the current account
-// persists through sessions (viewings)
-export const currentAccountIndexState = atomWithStorage<number>(
-  makeLocalDataKey('currentAccountIndex'),
-  0
-);
 
 // This is only used when there is a pending transaction request and
 // the user switches accounts during the signing process

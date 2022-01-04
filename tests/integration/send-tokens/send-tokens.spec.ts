@@ -45,8 +45,8 @@ describe(`Send tokens flow`, () => {
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
       const defaultFeeEstimate = await sendForm.page.$(sendForm.getSelector('$feeEstimateItem'));
-      const label = await defaultFeeEstimate?.innerText();
       await delay(500);
+      const label = await defaultFeeEstimate?.innerText();
       expect(label).toEqual('Standard');
     });
 

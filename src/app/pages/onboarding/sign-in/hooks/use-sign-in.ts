@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useWallet } from '@app/common/hooks/use-wallet';
 import {
   extractPhraseFromPasteEvent,
   validateAndCleanRecoveryInput,
@@ -13,21 +12,24 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import {
   useMagicRecoveryCodeState,
   useSeedInputErrorState,
-  useSeedInputState,
 } from '@app/store/onboarding/onboarding.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDispatch } from 'react-redux';
+import { keySlice } from '@app/store/keys/key.slice';
+import { validateMnemonic } from 'bip39';
 
 export function useSignIn() {
   const [, setMagicRecoveryCode] = useMagicRecoveryCodeState();
-  const [seed, setSeed] = useSeedInputState();
+  const [seed, setSeed] = useState('');
   const [error, setError] = useSeedInputErrorState();
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
   const navigate = useNavigate();
-  const { storeSeed } = useWallet();
   const analytics = useAnalytics();
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const dispatch = useDispatch();
 
   const handleSetError = useCallback(
     (
@@ -66,8 +68,13 @@ export function useSignIn() {
         }
       }
 
+      if (!validateMnemonic(seed)) {
+        handleSetError();
+        return;
+      }
+
       try {
-        await storeSeed({ secretKey: parsedKeyInput });
+        dispatch(keySlice.actions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
         void analytics.track('submit_valid_secret_key');
         navigate(RouteUrls.SetPassword);
         setIsIdle();
@@ -78,10 +85,11 @@ export function useSignIn() {
     [
       setIsLoading,
       seed,
+
       handleSetError,
       setMagicRecoveryCode,
       navigate,
-      storeSeed,
+      dispatch,
       analytics,
       setIsIdle,
     ]
