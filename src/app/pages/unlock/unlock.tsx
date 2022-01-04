@@ -1,6 +1,6 @@
 import { useState, useCallback, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { css } from '@emotion/css';
+import { cx } from '@emotion/css';
 import { Box, Button, Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
@@ -9,15 +9,16 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { buildEnterKeyEvent } from '@app/components/link';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
-import { Body } from '@app/components/typography';
+import { Title } from '@app/components/typography';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { RouteUrls } from '@shared/route-urls';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { getViewMode } from '@app/common/utils';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { isFullPage, isPopup } from '@app/common/utils';
 import { Caption } from '@app/components/typography';
 import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
+import { fullPageContent, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
+import { RouteUrls } from '@shared/route-urls';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 const waitingMessages: WaitingMessages = {
   '2': 'Please wait a few seconds…',
@@ -38,9 +39,6 @@ export function Unlock(): JSX.Element {
     useWaitingMessage(waitingMessages);
 
   useRouteHeader(<Header />);
-
-  const mode = getViewMode();
-  const isFullPage = mode === 'full';
 
   const submit = useCallback(async () => {
     const startUnlockTimeMs = performance.now();
@@ -76,55 +74,48 @@ export function Unlock(): JSX.Element {
   ]);
 
   return (
-    <>
-      <Box mt="loose">
-        <Stack spacing="loose" width="100%">
-          <Body
-            className={
-              isFullPage
-                ? css({ paddingLeft: '16px', paddingRight: '16px', textAlign: 'center' })
-                : undefined
-            }
-          >
-            <Caption fontSize={0} mt="base-loose" textAlign={'center'}>
-              {waitingMessage || 'Enter the password you used on this device.'}
-            </Caption>
-          </Body>
-          <Box width="100%">
-            <Input
-              placeholder="Enter your password"
-              width="100%"
-              autoFocus
-              type="password"
-              value={password}
-              isDisabled={loading}
-              data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
-              onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
-              onKeyUp={buildEnterKeyEvent(submit)}
-            />
-          </Box>
-          {error && (
-            <Box>
-              <ErrorLabel>
-                <Text textStyle="caption">{error}</Text>
-              </ErrorLabel>
-            </Box>
-          )}
-          <Box>
-            <Button
-              width="100%"
-              isLoading={loading}
-              isDisabled={loading}
-              onClick={submit}
-              data-testid="set-password-done"
-              borderRadius="10px"
-            >
-              Unlock
-            </Button>
-          </Box>
-        </Stack>
-      </Box>
+    <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose" width="100%">
+      <Title
+        className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+        fontWeight={500}
+      >
+        Unlock
+      </Title>
+      <Caption textAlign={isFullPage ? 'center' : 'left'}>
+        {waitingMessage || 'Enter the password you used on this device.'}
+      </Caption>
+      <Input
+        autoFocus
+        borderRadius="10px"
+        data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
+        height="64px"
+        isDisabled={loading}
+        onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+        onKeyUp={buildEnterKeyEvent(submit)}
+        placeholder="Enter your password"
+        type="password"
+        value={password}
+        width="100%"
+      />
+      {error && (
+        <Box>
+          <ErrorLabel>
+            <Text textStyle="caption">{error}</Text>
+          </ErrorLabel>
+        </Box>
+      )}
+      <Button
+        borderRadius="10px"
+        data-testid="set-password-done"
+        height="48px"
+        isLoading={loading}
+        isDisabled={loading}
+        onClick={submit}
+        width="100%"
+      >
+        Unlock
+      </Button>
       {showSignOut && <SignOutConfirmDrawer />}
-    </>
+    </Stack>
   );
 }

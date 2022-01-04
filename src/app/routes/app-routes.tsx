@@ -13,11 +13,11 @@ import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
-import { SendTokensForm } from '@app/pages/send-tokens/send-tokens-form';
+import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { SaveSecretKey } from '@app/pages/save-secret-key/save-secret-key';
 import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
-import { Unlock } from '@app/pages/unlock';
+import { Unlock } from '@app/pages/unlock/unlock';
 import { Home } from '@app/pages/home/home';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
@@ -79,7 +79,6 @@ export function AppRoutes(): JSX.Element | null {
         <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
         <Route path={RouteUrls.BackUpSecretKey} element={<BackUpSecretKeyPage />} />
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-        <Route path={RouteUrls.SaveSecretKey} element={<SaveSecretKey />} />
         <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
         <Route path={RouteUrls.SignIn} element={<SignIn />} />
         <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
@@ -88,16 +87,6 @@ export function AppRoutes(): JSX.Element | null {
           element={
             <AccountGate>
               <AddNetwork />
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.ChooseAccount}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <ChooseAccount />
-              </Suspense>
             </AccountGate>
           }
         />
@@ -112,10 +101,28 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
+          path={RouteUrls.ChooseAccount}
+          element={
+            <AccountGate>
+              <Suspense fallback={<></>}>
+                <ChooseAccount />
+              </Suspense>
+            </AccountGate>
+          }
+        />
+        <Route
           path={RouteUrls.Receive}
           element={
             <AccountGate>
               <ReceiveTokens />
+            </AccountGate>
+          }
+        />
+        <Route
+          path={RouteUrls.SaveSecretKey}
+          element={
+            <AccountGate>
+              <SaveSecretKey />
             </AccountGate>
           }
         />
