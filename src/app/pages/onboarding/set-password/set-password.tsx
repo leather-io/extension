@@ -55,9 +55,11 @@ export const SetPasswordPage = () => {
       if (!wallet) throw 'Please sign in before setting a password.';
 
       setLoading(true);
+
       await setPassword(password);
 
       if (decodedAuthRequest) {
+        if (!wallet) return;
         const { accounts } = wallet;
         if (accounts && accounts.length > 1) {
           navigate(RouteUrls.ChooseAccount);
@@ -68,7 +70,7 @@ export const SetPasswordPage = () => {
         navigate(RouteUrls.Home);
       }
     },
-    [navigate, decodedAuthRequest, finishSignIn, setPassword, wallet]
+    [wallet, setPassword, decodedAuthRequest, navigate, finishSignIn]
   );
 
   const handleSubmit = useCallback(

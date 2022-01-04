@@ -13,7 +13,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export const SignIn = () => {
-  const { onKeyDown, onChange, onPaste, onSubmit, value, error, isLoading, ref } = useSignIn();
+  const { onKeyDown, onChange, onPaste, onSubmit, error, isLoading, ref } = useSignIn();
   const navigate = useNavigate();
 
   useRouteHeader(
@@ -61,7 +61,6 @@ export const SignIn = () => {
         ref={ref as any}
         spellCheck={false}
         style={{ resize: 'none' }}
-        value={value}
         width="100%"
       />
       <PrimaryButton

@@ -7,6 +7,7 @@ export async function getDecryptedWalletDetails(
   salt: string | undefined
 ) {
   const hasSetPassword = password !== undefined;
+
   const decryptedData = await decryptMnemonic({
     encryptedSecretKey,
     password,
@@ -25,7 +26,8 @@ export async function getDecryptedWalletDetails(
     salt: decryptedData.salt,
     password,
   });
-  if (!wallet) return;
+
+  // if (!wallet) return;
 
   const result = {
     ...keyInfo,

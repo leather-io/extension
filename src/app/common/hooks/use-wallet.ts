@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
-import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 import { useOnboardingState } from './auth/use-onboarding-state';
 
@@ -9,7 +9,6 @@ import { bytesToText } from '@app/common/store-utils';
 import {
   useEncryptedSecretKeyState,
   useFinishSignInCallback,
-  useHasRehydratedVault,
   useHasSetPasswordState,
   useSecretKey,
   useSetLatestNonceCallback,
@@ -29,7 +28,6 @@ import {
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 
 export function useWallet() {
-  const hasRehydratedVault = useHasRehydratedVault();
   const [wallet, setWallet] = useWalletState();
   const secretKey = useSecretKey();
   const encryptedSecretKey = useEncryptedSecretKeyState();
@@ -41,7 +39,7 @@ export function useWallet() {
   const networks = useNetworkState();
   const currentNetwork = useCurrentNetworkState();
   const currentNetworkKey = useCurrentNetworkKey();
-  const vaultMessenger = useVaultMessenger();
+  const vaultMessenger = useKeyActions();
 
   const currentAccountDisplayName = currentAccount
     ? getAccountDisplayName(currentAccount)
@@ -64,7 +62,6 @@ export function useWallet() {
   const finishSignIn = useFinishSignInCallback();
 
   return {
-    hasRehydratedVault,
     wallet,
     secretKey: secretKey ? bytesToText(secretKey) : undefined,
     hasGeneratedWallet,
