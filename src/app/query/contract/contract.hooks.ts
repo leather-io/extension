@@ -6,6 +6,7 @@ import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-
 import { useGetContractInterface } from '@app/query/contract/contract.query';
 import { useContractInterfaceState } from '@app/store/contracts/contract.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { formatContractId } from '@app/common/utils';
 
 export function useContractInterface(transactionRequest: TransactionPayload | null) {
   const [, setContractInterface] = useContractInterfaceState();
@@ -31,7 +32,10 @@ export const useContractFunction = () => {
   if (!selectedFunction) {
     throw new Error(
       `Attempting to call a function (\`${transactionRequest.functionName}\`) that ` +
-        `does not exist on contract ${transactionRequest.contractAddress}.${transactionRequest.contractName}`
+        `does not exist on contract ${formatContractId(
+          transactionRequest.contractAddress,
+          transactionRequest.contractName
+        )}`
     );
   }
   return selectedFunction;

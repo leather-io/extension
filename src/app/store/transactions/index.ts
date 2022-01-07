@@ -25,7 +25,6 @@ import { currentAccountState, currentAccountStxAddressState } from '@app/store/a
 import { requestTokenPayloadState } from '@app/store/transactions/requests';
 import { postConditionsState } from '@app/store/transactions/post-conditions';
 import { localStacksTransactionInputsState } from '@app/store/transactions/local-transactions';
-import { sendFormUnsignedTxState } from '@app/store/transactions/local-transactions';
 import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
 import { customNonceState } from './nonce.hooks';
 
@@ -44,13 +43,14 @@ export const pendingTransactionState = atom<
 
 export const transactionAttachmentState = atom(get => get(pendingTransactionState)?.attachment);
 
-const unsignedStacksTransactionBaseState = atom(get => {
+export const unsignedStacksTransactionBaseState = atom(get => {
   const account = get(currentAccountState);
   const txData = get(pendingTransactionState);
   const stxAddress = get(currentAccountStxAddressState);
   const nonce = get(currentAccountNonceState);
   const customNonce = get(customNonceState);
-  if (!account || !txData || !stxAddress || typeof nonce === 'undefined') return;
+  if (!account || !txData || !stxAddress || typeof nonce === 'undefined')
+    return { transaction: undefined, options: {} };
   const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
   if (
     txData.txType === TransactionTypes.ContractCall &&
@@ -65,6 +65,7 @@ const unsignedStacksTransactionBaseState = atom(get => {
     nonce: txNonce,
     txData,
   };
+
   return generateUnsignedTransaction(options).then(transaction => ({ transaction, options }));
 });
 
@@ -127,29 +128,5 @@ export const addressNetworkVersionState = atom(get => {
 });
 
 export const transactionBroadcastErrorState = atom<string | null>(null);
-
-// TODO: consider alternatives
-// Implicitly selecting a tx based on `pendingTransactionState`s value seems
-// like it could easily be error-prone. Say this value doesn't get reset when it should.
-// The effect could be calamitous. A user would be changing settings for a stale, cached
-// transaction they've long forgotten about.
-/** @deprecated */
-export const txForSettingsState = atom(get =>
-  get(pendingTransactionState) ? get(unsignedStacksTransactionState) : get(sendFormUnsignedTxState)
-);
-
-export const serializedTransactionPayloadState = atom<string>(get => {
-  const transaction = get(sendFormUnsignedTxState);
-  if (!transaction) return '';
-  const serializedTxPayload = serializePayload(transaction.payload);
-  return serializedTxPayload.toString('hex');
-});
-
-export const estimatedTransactionByteLengthState = atom<number | null>(get => {
-  const transaction = get(sendFormUnsignedTxState);
-  if (!transaction) return null;
-  const serializedTx = transaction.serialize();
-  return serializedTx.byteLength;
-});
 
 export const txByteSize = atom<number | null>(null);

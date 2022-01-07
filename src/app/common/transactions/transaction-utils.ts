@@ -11,7 +11,6 @@ import {
 } from '@stacks/stacks-blockchain-api-types';
 import { getContractName, truncateMiddle } from '@stacks/ui-utils';
 
-import { AssetWithMeta } from '@app/common/asset-types';
 import { DEFAULT_FEE_RATE } from '@shared/constants';
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@app/common/date-utils';
 import { stacksValue } from '@app/common/stacks-utils';
@@ -204,11 +203,10 @@ export const getTxTitle = (tx: Tx) => {
 // calculate the real amount of the token based on the decimal number
 // specified in the corresponding token smart contract
 export const calculateTokenTransferAmount = (
-  asset: AssetWithMeta | undefined,
+  decimals: number,
   amount: number | string | BigNumber
 ) => {
-  if (!asset || !asset.meta) return;
-  return new BigNumber(amount).shiftedBy(-asset.meta.decimals);
+  return new BigNumber(amount).shiftedBy(-decimals);
 };
 
 export function isTransactionTypeSupported(txType: TransactionTypes) {

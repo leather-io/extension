@@ -2,18 +2,20 @@ import { useCallback, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { AssetWithMeta } from '@app/common/asset-types';
-import { getTicker, initBigNumber } from '@app/common/utils';
+import { formatContractId, getTicker, initBigNumber } from '@app/common/utils';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
-import { useSelectedAssetState, useUpdateSelectedAsset } from '@app/store/assets/asset.hooks';
+import { useSelectedAssetItem, useUpdateSelectedAsset } from '@app/store/assets/asset.hooks';
 import { useAnalytics } from './analytics/use-analytics';
 
 export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
-  return asset ? `${asset.contractAddress}.${asset.contractName}::${asset.name}` : undefined;
+  return asset
+    ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
+    : undefined;
 }
 
 export function useSelectedAsset() {
-  const selectedAsset = useSelectedAssetState();
+  const selectedAsset = useSelectedAssetItem();
   const setSelectedAsset = useUpdateSelectedAsset();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const analytics = useAnalytics();

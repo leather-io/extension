@@ -65,6 +65,7 @@ const AssetSearchResults = forwardRef(
                   asset={asset}
                   index={index}
                   key={`${asset.contractAddress || asset.name}__${index}`}
+                  data-asset={isStx ? 'stx' : asset.meta?.symbol}
                   highlighted={highlightedIndex === index ? 'ink.150' : 'white'}
                   {...getItemProps({ item: asset, index })}
                 />
@@ -105,7 +106,7 @@ const AssetSearchField = memo(
       initialIsOpen: true,
       inputValue: searchInput,
       defaultIsOpen: false,
-      selectedItem: selectedAsset,
+      selectedItem: selectedAsset as any,
       itemToString: item => {
         return item?.contractAddress || item?.name || '';
       },

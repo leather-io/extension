@@ -258,6 +258,10 @@ export function countDecimals(num: string | number | BigNumber) {
   return decimals ? decimals.length : 0;
 }
 
+export function pullContractIdFromIdentity(identifier: string) {
+  return identifier.split('::')[0];
+}
+
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
 }
@@ -274,4 +278,8 @@ type ViewMode = 'full' | 'popup';
 
 export function getViewMode(): ViewMode {
   return document.location.pathname.startsWith('/index.html') ? 'full' : 'popup';
+}
+
+export function formatContractId(address: string, name: string) {
+  return `${address}.${name}`;
 }

@@ -1,5 +1,10 @@
-import type { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
+import type {
+  AccountDataResponse,
+  MempoolTransaction,
+  Transaction,
+} from '@stacks/stacks-blockchain-api-types';
 import { Account } from '@stacks/wallet-sdk';
+
 import { atomFamily, atomWithDefault, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import BigNumber from 'bignumber.js';
@@ -12,15 +17,14 @@ import { walletState } from '@app/store/wallet/wallet';
 import { addressNetworkVersionState } from '@app/store/transactions';
 import {
   accountBalancesAnchoredBigNumber,
-  accountBalancesUnanchoredBigNumberState,
   accountBalancesUnanchoredClient,
-  accountInfoUnanchoredClient,
   accountTransactionsUnanchoredClient,
 } from '@app/store/accounts/api';
 import { AccountWithAddress } from './account.models';
 import { accountTransactionsWithTransfersState } from './transactions';
 import { DEFAULT_LIST_LIMIT } from '@shared/constants';
 import { pubKeyfromPrivKey, publicKeyToAddress } from '@stacks/transactions';
+import { AccountBalanceResponseBigNumber } from '@shared/models/account-types';
 
 /**
  * --------------------------------------
@@ -108,7 +112,7 @@ export const currentAccountStxAddressState = atom<string | undefined>(
   get => get(currentAccountState)?.address
 );
 
-const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined>(
+const accountAvailableAnchoredStxBalanceState = atomFamily<string, BigNumber | undefined>(
   principal =>
     atom(get => {
       const networkUrl = get(currentNetworkState).url;
@@ -119,27 +123,32 @@ const accountAvailableStxBalanceState = atomFamily<string, BigNumber | undefined
   deepEqual
 );
 
-export const currentAccountAvailableStxBalanceState = atom(get => {
+export const currentAccountAvailableAnchoredStxBalanceState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   if (!principal) return;
-  return get(accountAvailableStxBalanceState(principal));
+  return get(accountAvailableAnchoredStxBalanceState(principal));
 });
 
-// the unanchored balances of the current account's address
-export const currentAccountBalancesUnanchoredState = atom(get => {
-  const principal = get(currentAccountStxAddressState);
-  const networkUrl = get(currentNetworkState).url;
-  if (!principal) return;
-  return get(accountBalancesUnanchoredBigNumberState({ principal, networkUrl }));
-});
+/**
+ * @deprecated
+ * Use `useAddressBalances`
+ */
+export const currentAccountBalancesUnanchoredState = atom<
+  AccountBalanceResponseBigNumber | undefined
+>(undefined);
 
-// the anchored balances of the current account's address
+/**
+ * @deprecated
+ * Use `useAddressBalances`
+ */
 export const currentAnchoredAccountBalancesState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   const networkUrl = get(currentNetworkState).url;
   if (!principal) return;
   return get(accountBalancesAnchoredBigNumber({ principal, networkUrl }));
 });
+
+// export const currentAnchoredAccountBalancesState = atom<AccountBalanceResponseBigNumber | undefined>(undefined);
 
 export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
   const transactionsWithTransfers = get(accountTransactionsWithTransfersState);
@@ -159,12 +168,7 @@ export const currentAccountTransactionsState = atom<(MempoolTransaction | Transa
   return [...pending, ...transactions];
 });
 
-export const currentAccountInfoState = atom(get => {
-  const principal = get(currentAccountStxAddressState);
-  const networkUrl = get(currentNetworkState).url;
-  if (!principal) return;
-  return get(accountInfoUnanchoredClient({ principal, networkUrl }));
-});
+export const currentAccountInfoState = atom<AccountDataResponse | undefined>(undefined);
 
 export const refreshAccountDataState = atom(null, (get, set) => {
   const principal = get(currentAccountStxAddressState);
@@ -174,5 +178,4 @@ export const refreshAccountDataState = atom(null, (get, set) => {
     type: 'refetch',
   });
   set(accountBalancesUnanchoredClient({ principal, networkUrl }), { type: 'refetch' });
-  set(accountInfoUnanchoredClient({ principal, networkUrl }), { type: 'refetch' });
 });

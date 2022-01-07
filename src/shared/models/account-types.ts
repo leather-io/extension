@@ -11,6 +11,10 @@ type SelectedKeys =
 
 export type AccountBalanceStxKeys = keyof Pick<AddressBalanceResponse['stx'], SelectedKeys>;
 
+/**
+ * This is a duplicated type from the types lib/generated API client
+ * We define it client side, as the library-returned types are not accurate
+ */
 export interface AddressBalanceResponse {
   stx: {
     balance: string;

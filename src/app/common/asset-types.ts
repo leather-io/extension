@@ -1,10 +1,5 @@
 import type BigNumber from 'bignumber.js';
 
-export interface ContractPrincipal {
-  contractName: string;
-  contractAddress: string;
-}
-
 export interface Asset {
   name: string;
   contractAddress: string;
@@ -17,7 +12,7 @@ export interface Asset {
   subBalance?: BigNumber;
 }
 
-export interface FtMeta {
+interface FtMeta {
   name: string;
   symbol: string;
   decimals: number;

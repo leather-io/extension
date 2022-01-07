@@ -3,7 +3,7 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { transactionNetworkVersionState } from '@app/store/transactions';
 import {
   accountsWithAddressState,
-  currentAccountAvailableStxBalanceState,
+  currentAccountAvailableAnchoredStxBalanceState,
   currentAccountBalancesUnanchoredState,
   currentAccountConfirmedTransactionsState,
   currentAccountIndexState,
@@ -17,7 +17,7 @@ import {
 } from '@app/store/accounts';
 
 export function useCurrentAccountAvailableStxBalance() {
-  return useAtomValue(currentAccountAvailableStxBalanceState);
+  return useAtomValue(currentAccountAvailableAnchoredStxBalanceState);
 }
 
 export function useAccountConfirmedTransactions() {
@@ -26,10 +26,6 @@ export function useAccountConfirmedTransactions() {
 
 export function useSetMempoolTransactions() {
   return useUpdateAtom(currentAccountMempoolTransactionsState);
-}
-
-export function useCurrentAccountBalancesUnanchoredState() {
-  return useAtomValue(currentAccountBalancesUnanchoredState);
 }
 
 export function useAccounts() {
@@ -66,4 +62,12 @@ export function useHasSwitchedAccounts() {
 
 export function useRefreshAccountData() {
   return useUpdateAtom(refreshAccountDataState);
+}
+
+export function useSetAccountBalancesUnanchoredState() {
+  return useUpdateAtom(currentAccountBalancesUnanchoredState);
+}
+
+export function useSetAccountInfo() {
+  return useUpdateAtom(currentAccountInfoState);
 }
