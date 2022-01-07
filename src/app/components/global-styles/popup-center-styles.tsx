@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { POPUP_WIDTH } from '@shared/constants';
+import { POPUP_WIDTH } from '@shared/styles-constants';
 
 export const popupCenterStyles = css`
   .mode__popup-center {
