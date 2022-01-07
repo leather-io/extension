@@ -17,7 +17,7 @@ import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { SaveSecretKey } from '@app/pages/save-secret-key/save-secret-key';
 import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
-import { Unlock } from '@app/pages/unlock/unlock';
+import { Unlock } from '@app/pages/unlock';
 import { Home } from '@app/pages/home/home';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';

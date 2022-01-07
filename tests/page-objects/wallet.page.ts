@@ -21,12 +21,12 @@ export class WalletPage {
   $analyticsAllowButton = createTestSelector(OnboardingSelectors.AnalyticsAllow);
   homePage = createTestSelector('home-page');
   $textareaReadOnlySeedPhrase = `${createTestSelector('textarea-seed-phrase')}[data-loaded="true"]`;
-  $buttonSignInKeyContinue = createTestSelector('sign-in-key-continue');
-  setPasswordDone = createTestSelector('set-password-done');
+  $buttonSignInKeyContinue = createTestSelector(OnboardingSelectors.SignInBtn);
+  setPasswordDone = createTestSelector(OnboardingSelectors.SetPasswordBtn);
   passwordInput = createTestSelector(OnboardingSelectors.SetOrEnterPasswordInput);
   saveKeyButton = createTestSelector('save-key');
   sendTokenBtnSelector = createTestSelector(WalletPageSelectors.BtnSendTokens);
-  confirmSavedKey = createTestSelector('confirm-saved-key');
+  confirmSavedKey = createTestSelector(SettingsSelectors.SaveSecretKey);
   lowerCharactersErrMsg =
     'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
   signInKeyError = createTestSelector('sign-in-seed-error');
