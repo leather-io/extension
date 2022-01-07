@@ -14,7 +14,7 @@ import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
-import { SaveSecretKey } from '@app/pages/save-secret-key/save-secret-key';
+import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
 import { Unlock } from '@app/pages/unlock';
@@ -102,14 +102,6 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
-          path={RouteUrls.SaveSecretKey}
-          element={
-            <AccountGate>
-              <SaveSecretKey />
-            </AccountGate>
-          }
-        />
-        <Route
           path={RouteUrls.Send}
           element={
             <AccountGate>
@@ -133,7 +125,7 @@ export function AppRoutes(): JSX.Element | null {
           path={RouteUrls.ViewSecretKey}
           element={
             <AccountGate>
-              <SaveSecretKey />
+              <ViewSecretKey />
             </AccountGate>
           }
         />

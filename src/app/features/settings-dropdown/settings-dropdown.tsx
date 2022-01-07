@@ -111,7 +111,7 @@ export const SettingsDropdown = () => {
                 Create an Account
               </MenuItem>
               <MenuItem
-                data-testid="settings-view-secret-key"
+                data-testid={SettingsSelectors.ViewSecretKeyListItem}
                 onClick={wrappedCloseCallback(() => {
                   navigate(RouteUrls.ViewSecretKey);
                 })}

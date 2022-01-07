@@ -1,4 +1,4 @@
-import { BrowserDriver, createTestSelector, selectTestNet, setupBrowser } from '../utils';
+import { BrowserDriver, createTestSelector, selectTestnet, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { RouteUrls } from '@shared/route-urls';
 import { BalanceSelectors } from '@tests/integration/balance.selectors';
@@ -21,7 +21,7 @@ describe(`Wallet Balance integration tests`, () => {
     wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
     await wallet.clickAllowAnalytics();
     await wallet.signIn(SECRET_KEY_2);
-    await selectTestNet(wallet);
+    await selectTestnet(wallet);
     await wallet.waitForHomePage();
   }, BEFORE_ALL_TIMEOUT);
 
