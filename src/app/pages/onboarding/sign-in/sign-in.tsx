@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { Text, Button, Input, Stack, color } from '@stacks/ui';
+import { Text, Input, Stack, color } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPage } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
+import { Header } from '@app/components/header';
+import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
-import { Header } from '@app/components/header';
-import { fullPageContent } from '@app/pages/pages.styles';
+import { fullPageContent, fullPageText } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export const SignIn = () => {
   const { onKeyDown, onChange, onPaste, onSubmit, value, error, isLoading, ref } = useSignIn();
@@ -28,8 +30,11 @@ export const SignIn = () => {
       className={isFullPage ? fullPageContent : undefined}
       onSubmit={onSubmit}
       spacing="loose"
+      width="100%"
     >
-      <Caption>Enter your 12 or 24 word Secret Key to continue.</Caption>
+      <Caption className={isFullPage ? fullPageText : undefined}>
+        Enter your 12 or 24 word Secret Key to continue.
+      </Caption>
       {error && (
         <ErrorLabel lineHeight="16px">
           <Text
@@ -59,17 +64,13 @@ export const SignIn = () => {
         value={value}
         width="100%"
       />
-      <Button
-        data-testid="sign-in-key-continue"
-        borderRadius="10px"
-        height="48px"
+      <PrimaryButton
+        dataTestId={OnboardingSelectors.SignInBtn}
         isDisabled={isLoading}
         isLoading={isLoading}
-        type="submit"
-        width="100%"
       >
         Continue
-      </Button>
+      </PrimaryButton>
     </Stack>
   );
 };

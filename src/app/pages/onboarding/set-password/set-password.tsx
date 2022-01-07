@@ -4,7 +4,7 @@ import { debounce } from 'ts-debounce';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { cx } from '@emotion/css';
-import { Button, Input, Stack, Text } from '@stacks/ui';
+import { Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -16,6 +16,7 @@ import {
   blankPasswordValidation,
 } from '@app/common/validation/validate-password';
 import { ErrorLabel } from '@app/components/error-label';
+import { PrimaryButton } from '@app/components/primary-button';
 import { Body, Caption, Title } from '@app/components/typography';
 import { Header } from '@app/components/header';
 import {
@@ -127,7 +128,7 @@ export const SetPasswordPage = () => {
             >
               Set a password
             </Title>
-            <Body className={isFullPage ? fullPageText : undefined} mb="32px !important">
+            <Body className={isFullPage ? fullPageText : undefined}>
               Your password protects your Secret Key and is for this device only. To access your
               Stacks account on another device or wallet you’ll need just your Secret Key.
               {formik.submitCount && !strengthResult.meetsAllStrengthRequirements ? (
@@ -137,49 +138,46 @@ export const SetPasswordPage = () => {
                 </Caption>
               ) : null}
             </Body>
-            <Input
-              autoFocus
-              data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
-              height="64px"
-              key="password-input"
-              mb="16px !important"
-              name="password"
-              onChange={formik.handleChange}
-              placeholder="Set a password"
-              type="password"
-              value={formik.values.password}
-            />
-            {formik.submitCount && formik.errors.password ? (
-              <ErrorLabel>
-                <Text textStyle="caption">{formik.errors.password}</Text>
-              </ErrorLabel>
-            ) : null}
-            <Input
-              height="64px"
-              key="confirm-password-input"
-              name="confirmPassword"
-              onChange={formik.handleChange}
-              placeholder="Confirm password"
-              type="password"
-              value={formik.values.confirmPassword}
-              width="100%"
-            />
-            {formik.submitCount && formik.errors.confirmPassword ? (
-              <ErrorLabel>
-                <Text textStyle="caption">{formik.errors.confirmPassword}</Text>
-              </ErrorLabel>
-            ) : null}
-            <Button
-              data-testid="set-password-done"
-              borderRadius="10px"
-              height="48px"
+            <Stack spacing="base">
+              <Input
+                autoFocus
+                data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
+                height="64px"
+                key="password-input"
+                name="password"
+                onChange={formik.handleChange}
+                placeholder="Set a password"
+                type="password"
+                value={formik.values.password}
+              />
+              {formik.submitCount && formik.errors.password ? (
+                <ErrorLabel>
+                  <Text textStyle="caption">{formik.errors.password}</Text>
+                </ErrorLabel>
+              ) : null}
+              <Input
+                height="64px"
+                key="confirm-password-input"
+                name="confirmPassword"
+                onChange={formik.handleChange}
+                placeholder="Confirm password"
+                type="password"
+                value={formik.values.confirmPassword}
+                width="100%"
+              />
+              {formik.submitCount && formik.errors.confirmPassword ? (
+                <ErrorLabel>
+                  <Text textStyle="caption">{formik.errors.confirmPassword}</Text>
+                </ErrorLabel>
+              ) : null}
+            </Stack>
+            <PrimaryButton
+              dataTestId={OnboardingSelectors.SetPasswordBtn}
               isDisabled={loading}
               isLoading={loading || formik.isSubmitting}
-              type="submit"
-              width="100%"
             >
               Done
-            </Button>
+            </PrimaryButton>
           </Stack>
         </Form>
       )}

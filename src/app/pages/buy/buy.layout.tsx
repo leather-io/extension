@@ -1,11 +1,12 @@
 import { cx } from '@emotion/css';
-import { Button, color, Stack } from '@stacks/ui';
+import { color, Stack } from '@stacks/ui';
 
 import AddFunds from '@assets/images/add-funds.svg';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPage, isPopup } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Header } from '@app/components/header';
+import { PrimaryButton } from '@app/components/primary-button';
 import { Caption, Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { ActiveFiatProviderType } from '@app/query/hiro-config/hiro-config.query';
@@ -41,14 +42,7 @@ const ProviderLayout = ({ provider, providerUrl }: ProviderLayoutProps) => {
         <Title marginBottom="10">{title}</Title>
         <Caption>{body}</Caption>
       </Stack>
-      <Button
-        borderRadius="10px"
-        height="48px"
-        onClick={() => openInNewTab(providerUrl)}
-        width="100%"
-      >
-        {cta}
-      </Button>
+      <PrimaryButton onClick={() => openInNewTab(providerUrl)}>{cta}</PrimaryButton>
     </Stack>
   );
 };
