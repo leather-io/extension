@@ -48,7 +48,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
             secure. Create your Stacks account to get started.
           </Text>
           <PrimaryButton
-            dataTestId={OnboardingSelectors.SignUpBtn}
+            data-testid={OnboardingSelectors.SignUpBtn}
             isLoading={isGeneratingWallet}
             onClick={onStartOnboarding}
             width="198px"
