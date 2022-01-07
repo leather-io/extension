@@ -4,9 +4,9 @@ import { useFormikContext } from 'formik';
 
 import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
-import { useCurrentAccountBalancesUnanchoredState } from '@app/store/accounts/account.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useAssets } from '@app/store/assets/asset.hooks';
 
@@ -25,7 +25,7 @@ function AmountFieldBase(props: AmountFieldProps) {
   const { setFieldValue, handleChange, values } = useFormikContext<TransactionFormValues>();
   const analytics = useAnalytics();
   const assets = useAssets();
-  const balances = useCurrentAccountBalancesUnanchoredState();
+  const balances = useCurrentAccountUnanchoredBalances();
   const { selectedAsset, placeholder } = useSelectedAsset();
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions({
     setFieldValue,

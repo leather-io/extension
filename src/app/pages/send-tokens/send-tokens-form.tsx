@@ -45,7 +45,7 @@ function SendTokensFormBase() {
     setShowing(false);
     setTxData(null);
     resetNonceCallback();
-    setActiveTabActivity();
+    void setActiveTabActivity();
   }, [resetNonceCallback, setActiveTabActivity, setTxData]);
 
   const broadcastTransactionFn = useHandleSubmitTransaction({

@@ -22,7 +22,7 @@ export function SendTokensConfirmDrawer(props: SendTokensConfirmDrawerProps) {
   const { isShowing, onClose, onUserSelectBroadcastTransaction } = props;
 
   const [txData] = useLocalTransactionInputsState();
-  const [transaction] = useUnsignedTxForSettingsState();
+  const transaction = useUnsignedTxForSettingsState();
   const { showEditNonce } = useDrawers();
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 

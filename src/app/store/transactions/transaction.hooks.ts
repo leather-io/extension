@@ -1,7 +1,8 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import BN from 'bn.js';
 import { useAtom } from 'jotai';
 import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
+import { useAsync } from 'react-async-hook';
 import {
   createAssetInfo,
   createStacksPrivateKey,
@@ -20,7 +21,8 @@ import { currentAccountState } from '@app/store/accounts';
 import { currentNetworkState } from '@app/store/network/networks';
 import {
   localStacksTransactionInputsState,
-  sendFormUnsignedTxState,
+  useStxTokenTransferUnsignedTxState,
+  useFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/local-transactions';
 import { currentAccountLocallySubmittedTxsState } from '@app/store/accounts/account-activity';
 
@@ -28,19 +30,20 @@ import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import {
-  estimatedTransactionByteLengthState,
   estimatedUnsignedTransactionByteLengthState,
   prepareTxDetailsForBroadcast,
   pendingTransactionState,
-  serializedTransactionPayloadState,
   serializedUnsignedTransactionPayloadState,
   transactionAttachmentState,
   transactionBroadcastErrorState,
   txByteSize,
-  txForSettingsState,
   unsignedStacksTransactionState,
   unsignedTransactionState,
+  unsignedStacksTransactionBaseState,
 } from './index';
+import { serializePayload } from '@stacks/transactions/dist/payload';
+import { selectedAssetIdState } from '../assets/asset-search';
+import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -63,11 +66,17 @@ export function useEstimatedUnsignedTransactionByteLengthState() {
 }
 
 export function useSerializedTransactionPayloadState() {
-  return useAtomValue(serializedTransactionPayloadState);
+  const transaction = useSendFormUnsignedTxState();
+  if (!transaction) return '';
+  const serializedTxPayload = serializePayload(transaction.payload);
+  return serializedTxPayload.toString('hex');
 }
 
-export function useEstimatedTransactionByteLengthState() {
-  return useAtomValue(estimatedTransactionByteLengthState);
+export function useEstimatedTransactionByteLength() {
+  const transaction = useSendFormUnsignedTxState();
+  if (!transaction) return null;
+  const serializedTx = transaction.serialize();
+  return serializedTx.byteLength;
 }
 
 export function useSignTransactionSoftwareWallet() {
@@ -153,13 +162,32 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
     assetInfo
   );
 }
+function useUnsignedStacksTransaction() {
+  const stacksTxBaseState = useAtomValue(unsignedStacksTransactionBaseState);
+  return useAsync(async () => {
+    if (!stacksTxBaseState) return undefined;
+    const { options } = stacksTxBaseState as any;
+    return generateUnsignedTransaction({ ...options });
+  }, [stacksTxBaseState]).result;
+}
 
 export function useLocalTransactionInputsState() {
   return useAtom(localStacksTransactionInputsState);
 }
 
 export function useSendFormUnsignedTxState() {
-  return useAtomValue(sendFormUnsignedTxState);
+  const isSendingStx = useIsSendingFormSendingStx();
+  const stxTokenTransferUnsignedTx = useStxTokenTransferUnsignedTxState();
+  const ftTokenTransferUnsignedTx = useFtTokenTransferUnsignedTx();
+  return useMemo(
+    () => (isSendingStx ? stxTokenTransferUnsignedTx : ftTokenTransferUnsignedTx),
+    [isSendingStx, stxTokenTransferUnsignedTx, ftTokenTransferUnsignedTx]
+  );
+}
+
+function useIsSendingFormSendingStx() {
+  const selectedAssetId = useAtomValue(selectedAssetIdState);
+  return selectedAssetId === '.::Stacks Token';
 }
 
 /**
@@ -171,7 +199,13 @@ export function useSendFormUnsignedTxState() {
  * Instead, be explicit when dealing with transaction broadcasts.
  */
 export function useUnsignedTxForSettingsState() {
-  return useAtom(txForSettingsState);
+  const pendingTxState = useAtomValue(pendingTransactionState);
+  const unsignedStacksTransaction = useUnsignedStacksTransaction();
+  const sendFormUnsignedTx = useSendFormUnsignedTxState();
+  return useMemo(
+    () => (pendingTxState ? unsignedStacksTransaction : sendFormUnsignedTx),
+    [pendingTxState, sendFormUnsignedTx, unsignedStacksTransaction]
+  );
 }
 
 export function useTxByteSizeState() {

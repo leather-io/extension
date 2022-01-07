@@ -25,7 +25,7 @@ import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import {
-  useEstimatedTransactionByteLengthState,
+  useEstimatedTransactionByteLength,
   useSerializedTransactionPayloadState,
   useUnsignedTxForSettingsState,
 } from '@app/store/transactions/transaction.hooks';
@@ -42,7 +42,7 @@ export function SendFormInner(props: SendFormInnerProps) {
     useFormikContext<TransactionFormValues>();
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const serializedTxPayload = useSerializedTransactionPayloadState();
-  const estimatedTxByteLength = useEstimatedTransactionByteLengthState();
+  const estimatedTxByteLength = useEstimatedTransactionByteLength();
   const { data: feeEstimationsResp, isError } = useFeeEstimationsQuery(
     serializedTxPayload,
     estimatedTxByteLength
@@ -51,7 +51,7 @@ export function SendFormInner(props: SendFormInnerProps) {
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
   const analytics = useAnalytics();
-  const [transaction] = useUnsignedTxForSettingsState();
+  const transaction = useUnsignedTxForSettingsState();
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
   useNextTxNonce();

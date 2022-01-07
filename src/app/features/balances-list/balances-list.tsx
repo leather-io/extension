@@ -2,17 +2,20 @@ import { Stack, StackProps } from '@stacks/ui';
 
 import { AssetRow } from '@app/components/asset-row';
 import { CollectibleAssets } from '@app/features/balances-list/components/collectible-assets';
-import { useCurrentAccountBalancesUnanchoredState } from '@app/store/accounts/account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useStxTokenState } from '@app/store/assets/asset.hooks';
 
+import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
+import { useStxTokenState } from '@app/store/assets/asset.hooks';
 import { FungibleAssets } from './components/fungible-assets';
 import { NoAssets } from './components/no-assets';
 
-export const BalancesList = (props: StackProps) => {
-  const stxToken = useStxTokenState();
+interface BalancesListProps extends StackProps {
+  address: string;
+}
+export const BalancesList = ({ address, ...props }: BalancesListProps) => {
+  const stxToken = useStxTokenState(address);
   const currentAccount = useCurrentAccount();
-  const balances = useCurrentAccountBalancesUnanchoredState();
+  const balances = useCurrentAccountUnanchoredBalances();
 
   if (!balances) return null;
 

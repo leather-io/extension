@@ -28,7 +28,7 @@ export function FeeForm(): JSX.Element | null {
     serializedUnsignedTransactionPayloadState,
     estimatedUnsignedTxByteLength
   );
-  const [transaction] = useUnsignedTxForSettingsState();
+  const transaction = useUnsignedTxForSettingsState();
 
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 

@@ -6,7 +6,7 @@ import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { BrowserDriver, setupBrowser } from '../utils';
 
-jest.setTimeout(60_000);
+jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
 describe(`Send tokens flow`, () => {
@@ -21,6 +21,7 @@ describe(`Send tokens flow`, () => {
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
+    await sendForm.selectStxFromDropdown();
     await sendForm.waitForSendMaxButton();
   }, 30_000);
 
@@ -132,6 +133,7 @@ describe('Preview for sending token', () => {
     await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
+    await sendForm.selectStxFromDropdown();
     await sendForm.waitForSendMaxButton();
   }, 30_000);
 

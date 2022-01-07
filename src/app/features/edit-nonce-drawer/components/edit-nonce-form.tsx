@@ -13,7 +13,7 @@ import { EditNonceField } from './edit-nonce-field';
 
 // Not sure what this is doing?
 const SuspenseOnMount = ({ onMountCallback, isEnabled }: any) => {
-  const [tx] = useUnsignedTxForSettingsState();
+  const tx = useUnsignedTxForSettingsState();
 
   useEffect(() => {
     if (tx && isEnabled) {
