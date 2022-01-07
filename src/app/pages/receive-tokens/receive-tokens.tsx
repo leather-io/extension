@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, useClipboard, Stack, Text, color } from '@stacks/ui';
+import { Box, useClipboard, Stack, Text, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { PrimaryButton } from '@app/components/primary-button';
 import { isFullPage } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { Toast } from '@app/components/toast';
@@ -54,9 +55,7 @@ export const ReceiveTokens = () => {
           <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
         </Tooltip>
       </Box>
-      <Button borderRadius="10px" height="48px" width="100%" onClick={copyToClipboard}>
-        Copy your address
-      </Button>
+      <PrimaryButton onClick={copyToClipboard}>Copy your address</PrimaryButton>
     </Stack>
   );
 };

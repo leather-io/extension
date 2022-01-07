@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Input, Text, Stack } from '@stacks/ui';
+import { Input, Text, Stack } from '@stacks/ui';
+import { ChainID, fetchPrivate } from '@stacks/transactions';
 import { Formik } from 'formik';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { isFullPage } from '@app/common/utils';
 import { isValidUrl } from '@app/common/validation/validate-url';
-import { ChainID, fetchPrivate } from '@stacks/transactions';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
+import { PrimaryButton } from '@app/components/primary-button';
+import { Body } from '@app/components/typography';
+import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
 import {
   useUpdateCurrentNetworkKey,
   useUpdateNetworkState,
 } from '@app/store/network/networks.hooks';
-import { isFullPage } from '@app/common/utils';
-import { Body } from '@app/components/typography';
-import { fullPageContent } from '@app/pages/pages.styles';
 
 export const AddNetwork = () => {
   const [loading, setLoading] = useState(false);
@@ -107,15 +108,9 @@ export const AddNetwork = () => {
                 <Text textStyle="caption">{error}</Text>
               </ErrorLabel>
             ) : null}
-            <Button
-              borderRadius="10px"
-              height="48px"
-              isDisabled={loading}
-              isLoading={loading}
-              width="100%"
-            >
+            <PrimaryButton isDisabled={loading} isLoading={loading}>
               Add network
-            </Button>
+            </PrimaryButton>
           </Stack>
         </form>
       )}

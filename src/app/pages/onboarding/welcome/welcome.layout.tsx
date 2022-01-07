@@ -1,11 +1,12 @@
 import { cx } from '@emotion/css';
-import { Flex, Button, Stack } from '@stacks/ui';
+import { Flex, Stack } from '@stacks/ui';
 
+import { isFullPage, isPopup } from '@app/common/utils';
 import { Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
+import { PrimaryButton } from '@app/components/primary-button';
 import WelcomeStacksFull from '@assets/images/onboarding/welcome-full.svg';
 import WelcomeStacksPopup from '@assets/images/onboarding/welcome-popup.svg';
-import { isFullPage, isPopup } from '@app/common/utils';
 import {
   fullPageOnboardingContent,
   fullPageOnboardingTitle,
@@ -13,6 +14,9 @@ import {
   popupPageTitle,
 } from '@app/pages/pages.styles';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+
+const WelcomeIllustration = () =>
+  isFullPage ? <img src={WelcomeStacksFull} /> : <img src={WelcomeStacksPopup} width="394px" />;
 
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
@@ -25,11 +29,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
   return (
     <Stack isInline={isFullPage} width="100%">
       <Flex flexGrow={1} justifyContent="center" order={isFullPage ? 1 : 0}>
-        {isFullPage ? (
-          <img src={WelcomeStacksFull} />
-        ) : (
-          <img src={WelcomeStacksPopup} width="394px" />
-        )}
+        <WelcomeIllustration />
       </Flex>
       <Flex
         className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
@@ -47,16 +47,14 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
             Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
             secure. Create your Stacks account to get started.
           </Text>
-          <Button
-            borderRadius="10px"
-            data-testid={OnboardingSelectors.SignUpBtn}
-            height="48px"
+          <PrimaryButton
+            dataTestId={OnboardingSelectors.SignUpBtn}
             isLoading={isGeneratingWallet}
             onClick={onStartOnboarding}
             width="198px"
           >
             Create Stacks Account
-          </Button>
+          </PrimaryButton>
           <Link
             data-testid={OnboardingSelectors.SignInLink}
             fontSize="14px"
