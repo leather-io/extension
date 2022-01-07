@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       ) : null}
       {!title && (!onClose || isFullPage) ? (
         <Stack
-          alignItems="center"
+          alignItems="flex-end"
           flexGrow={1}
           height="36px"
           isInline
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
             display={!version ? 'none' : 'unset'}
             fontFamily="mono"
             marginRight="10px"
-            pt="2px"
+            mb="2px"
             variant="c3"
           >
             {version}
