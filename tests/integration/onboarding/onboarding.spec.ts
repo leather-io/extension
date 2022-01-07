@@ -25,7 +25,7 @@ describe(`Onboarding integration tests`, () => {
   it('should be able to sign up from welcome page', async () => {
     await wallet.clickAllowAnalytics();
     await wallet.clickSignUp();
-    await wallet.saveKey();
+    await wallet.backUpKeyAndSetPassword();
     await wallet.waitForHomePage();
     await wallet.goToSecretKey();
     const secretKey = await wallet.getSecretKey();
@@ -52,12 +52,12 @@ describe(`Onboarding integration tests`, () => {
   it('should route to unlock page if the wallet is locked', async () => {
     await wallet.clickAllowAnalytics();
     await wallet.clickSignUp();
-    await wallet.saveKey();
+    await wallet.backUpKeyAndSetPassword();
     await wallet.waitForHomePage();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.LockListItem));
     await wallet.waitForHiroWalletLogo();
     await wallet.page.click(wallet.$hiroWalletLogo);
-    await wallet.waitForSetOrEnterPasswordInput();
+    await wallet.waitForEnterPasswordInput();
   });
 });
