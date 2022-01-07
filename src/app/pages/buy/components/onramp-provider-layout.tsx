@@ -1,8 +1,8 @@
-import { Button, Stack } from '@stacks/ui';
+import { Stack } from '@stacks/ui';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Caption, Title } from '@app/components/typography';
-import { SpaceBetween } from '@app/components/space-between';
+import { PrimaryButton } from '@app/components/primary-button';
 
 const providersInfo = {
   transak: {
@@ -30,23 +30,12 @@ interface OnrampProviderLayoutProps {
 export const OnrampProviderLayout = ({ provider, providerUrl }: OnrampProviderLayoutProps) => {
   const { title, cta, body } = providersInfo[provider as keyof ProvidersUrl];
   return (
-    <Stack
-      overflow="hidden"
-      alignItems="flex-start"
-      spacing="base-tight"
-      padding="24px"
-      mt={5}
-      className="buy-box"
-    >
-      <SpaceBetween flexGrow={1}>
-        <Stack spacing="base-tight">
-          <Title marginBottom="10">{title}</Title>
-          <Caption>{body}</Caption>
-        </Stack>
-      </SpaceBetween>
-      <Button width="100%" mt={5} onClick={() => openInNewTab(providerUrl)} borderRadius="10px">
-        {cta}
-      </Button>
+    <Stack overflow="hidden" alignItems="flex-start" spacing="base" mt={5} className="buy-box">
+      <Stack spacing="base-tight">
+        <Title marginBottom="10">{title}</Title>
+        <Caption>{body}</Caption>
+      </Stack>
+      <PrimaryButton onClick={() => openInNewTab(providerUrl)}>{cta}</PrimaryButton>
     </Stack>
   );
 };
