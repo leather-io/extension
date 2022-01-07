@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 
-import { FULL_PAGE_MAX_WIDTH } from '@shared/constants';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 export const fullPageContent = css`
   height: 100%;
