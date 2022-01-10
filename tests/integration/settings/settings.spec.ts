@@ -75,6 +75,6 @@ describe(`Settings integration tests`, () => {
     const networkListItems = await wallet.page.$$(
       createTestSelector(SettingsSelectors.NetworkListItem)
     );
-    expect(networkListItems).toHaveLength(4);
+    expect(networkListItems).toHaveLength(3);
   });
 });

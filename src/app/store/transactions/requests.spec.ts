@@ -13,10 +13,10 @@ import { getKeyForRequest, StorageKey } from '@shared/utils/storage';
 import { TransactionTypes } from '@stacks/connect';
 import { currentNetworkState } from '@app/store/network/networks';
 import { currentAccountStxAddressState } from '@app/store/accounts';
+import { DEFAULT_TESTNET_SERVER } from '@shared/constants';
 
 const ORIGIN = 'https://heystack.xyz';
 const TESTNET_ADDRESS = 'ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z';
-const REGTEST_URL = 'https://stacks-node-api.regtest.stacks.co';
 const TABID = 'this_is_fake';
 mockLocalStorage();
 
@@ -88,13 +88,13 @@ describe('transaction request state', () => {
     const { result } = renderHook(() => useAtomValue(transactionRequestNetwork), {
       wrapper: ProviderWithWalletAndRequestToken,
     });
-    expect(result.current?.coreApiUrl).toEqual(REGTEST_URL);
+    expect(result.current?.coreApiUrl).toEqual(DEFAULT_TESTNET_SERVER);
   });
 
   it('currentNetworkState: current network is tx network', () => {
     const { result } = renderHook(() => useAtomValue(currentNetworkState), {
       wrapper: ProviderWithWalletAndRequestToken,
     });
-    expect(result.current?.url).toEqual(REGTEST_URL);
+    expect(result.current?.url).toEqual(DEFAULT_TESTNET_SERVER);
   });
 });

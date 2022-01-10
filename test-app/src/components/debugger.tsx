@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Button, ButtonGroup, Flex, Input, Text } from '@stacks/ui';
-import { useFormik } from 'formik';
+import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
 
 import {
   stacksLocalhostNetwork,
-  stacksRegtestNetwork,
   stacksTestnetNetwork,
   stacksTestnetNetwork as network,
 } from '@common/utils';
@@ -330,13 +328,6 @@ export const Debugger = () => {
             onClick={() => callFaker(stacksTestnetNetwork)}
           >
             Contract call (Testnet)
-          </Button>
-          <Button
-            data-testid={TransactionSigningSelectors.BtnContractCall}
-            mt={3}
-            onClick={() => callFaker(stacksRegtestNetwork)}
-          >
-            Contract call (Regtest)
           </Button>
           <Button
             data-testid={TransactionSigningSelectors.BtnContractCall}
