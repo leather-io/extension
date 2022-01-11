@@ -1,35 +1,16 @@
 import { memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
-import { FiMoreHorizontal as IconDots, FiArrowLeft as IconArrowLeft } from 'react-icons/fi';
+import { color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
+import { FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi';
 
 import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { isFullPage } from '@app/common/utils';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Caption, Title } from '@app/components/typography';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
-
-const MenuButton = memo((props: BoxProps) => {
-  const { showSettings, setShowSettings } = useDrawers();
-  return (
-    <IconButton
-      size="36px"
-      iconSize="20px"
-      onMouseUp={showSettings ? undefined : () => setShowSettings(true)}
-      pointerEvents={showSettings ? 'none' : 'all'}
-      color={color('text-caption')}
-      _hover={{ color: color('text-title') }}
-      data-testid="menu-button"
-      icon={IconDots}
-      {...props}
-    />
-  );
-});
-
-const HeaderTitle: React.FC<BoxProps> = props => (
-  <Title fontSize="20px" lineHeight="28px" fontWeight={500} {...props} />
-);
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 interface HeaderProps extends FlexProps {
   onClose?: () => void;
@@ -38,6 +19,7 @@ interface HeaderProps extends FlexProps {
 }
 export const Header: React.FC<HeaderProps> = memo(props => {
   const { onClose, title, hideActions, ...rest } = props;
+  const { showSettings, setShowSettings } = useDrawers();
   const navigate = useNavigate();
 
   const version = useMemo(() => {
@@ -56,48 +38,63 @@ export const Header: React.FC<HeaderProps> = memo(props => {
 
   return (
     <Flex
-      p="loose"
       alignItems={hideActions ? 'center' : 'flex-start'}
       justifyContent="space-between"
+      p="base"
       position="relative"
       {...rest}
     >
-      {!title ? (
-        <Stack alignItems="center" pt="7px" isInline>
+      {onClose ? (
+        <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} />
+      ) : null}
+      {!title && (!onClose || isFullPage) ? (
+        <Stack
+          alignItems="flex-end"
+          flexGrow={1}
+          height="36px"
+          isInline
+          justifyContent={onClose ? 'center' : 'unset'}
+        >
           <HiroWalletLogo
             data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
             onClick={() => navigate(RouteUrls.Home)}
           />
-          {version ? (
-            <Caption
-              pt="extra-tight"
-              mt="2px"
-              color="#8D929A"
-              variant="c3"
-              marginRight="10px"
-              fontFamily="mono"
-            >
-              {version}
-            </Caption>
-          ) : null}
+          <Caption
+            color={color('text-caption')}
+            display={!version ? 'none' : 'unset'}
+            fontFamily="mono"
+            marginRight="10px"
+            mb="2px"
+            variant="c3"
+          >
+            {version}
+          </Caption>
         </Stack>
       ) : (
-        <Box pt={onClose ? 'loose' : 'unset'} pr="tight">
-          {onClose ? (
-            <IconButton
-              top="base-tight"
-              position="absolute"
-              left="base"
-              onClick={onClose}
-              icon={IconArrowLeft}
-            />
-          ) : null}
-          <HeaderTitle>{title}</HeaderTitle>
-        </Box>
+        <Title
+          alignSelf="center"
+          fontSize="16px"
+          fontWeight={500}
+          lineHeight="24px"
+          pr={hideActions ? '36px' : 'unset'}
+          {...props}
+        >
+          {title}
+        </Title>
       )}
-      <Stack flexShrink={0} pt={hideActions ? '7px' : 0} alignItems="center" isInline>
+      <Stack alignItems="center" isInline>
         <NetworkModeBadge />
-        {!hideActions && <MenuButton />}
+        {!hideActions && (
+          <IconButton
+            _hover={{ color: color('text-title') }}
+            color={color('text-caption')}
+            data-testid={SettingsSelectors.MenuBtn}
+            iconSize="16px"
+            icon={FiMoreHorizontal}
+            onMouseUp={showSettings ? undefined : () => setShowSettings(true)}
+            pointerEvents={showSettings ? 'none' : 'all'}
+          />
+        )}
       </Stack>
     </Flex>
   );

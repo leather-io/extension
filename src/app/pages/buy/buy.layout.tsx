@@ -1,13 +1,16 @@
-import { Button, Flex, Stack } from '@stacks/ui';
+import { cx } from '@emotion/css';
+import { color, Stack } from '@stacks/ui';
 
 import AddFunds from '@assets/images/add-funds.svg';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { isFullPage, isPopup } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Header } from '@app/components/header';
+import { PrimaryButton } from '@app/components/primary-button';
 import { Caption, Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
-import { SpaceBetween } from '@app/components/space-between';
 import { ActiveFiatProviderType } from '@app/query/hiro-config/hiro-config.query';
+import { fullPageContent, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
 
 const providersInfo = {
   transak: {
@@ -31,27 +34,15 @@ interface ProviderLayoutProps {
   provider: string;
   providerUrl: string;
 }
-
 const ProviderLayout = ({ provider, providerUrl }: ProviderLayoutProps) => {
   const { title, cta, body } = providersInfo[provider as keyof ProvidersUrl];
   return (
-    <Stack
-      overflow="hidden"
-      alignItems="flex-start"
-      spacing="base-tight"
-      padding="24px"
-      mt={5}
-      className="buy-box"
-    >
-      <SpaceBetween flexGrow={1}>
-        <Stack spacing="base-tight">
-          <Title marginBottom="10">{title}</Title>
-          <Caption>{body}</Caption>
-        </Stack>
-      </SpaceBetween>
-      <Button width="100%" mt={5} onClick={() => openInNewTab(providerUrl)} borderRadius="10px">
-        {cta}
-      </Button>
+    <Stack overflow="hidden" alignItems="flex-start" spacing="base" mt={5} className="buy-box">
+      <Stack spacing="base-tight">
+        <Title marginBottom="10">{title}</Title>
+        <Caption>{body}</Caption>
+      </Stack>
+      <PrimaryButton onClick={() => openInNewTab(providerUrl)}>{cta}</PrimaryButton>
     </Stack>
   );
 };
@@ -61,33 +52,38 @@ interface BuyLayoutProps {
   providersUrl: ProvidersUrl;
   activeProviders: Record<string, ActiveFiatProviderType>;
 }
-
 export const BuyLayout = (props: BuyLayoutProps) => {
   const { providersUrl, activeProviders, onCloseAction } = props;
 
   useRouteHeader(<Header hideActions title=" " onClose={onCloseAction} />);
 
   return (
-    <Flex flexDirection="column" flex={1}>
-      <Stack overflow="hidden" alignItems="flex-start" spacing="base-tight">
-        <img src={AddFunds} />
-        <Title>Fund your account</Title>
-        <Text fontSize="16px" mt="base-tight">
-          You'll need STX to pay for transaction fees and other interactions with the Stacks
-          blockchain. account by buying some STX on an exchange.
-        </Text>
-        <Text fontSize="16px" mt="none">
-          Choose an option below to purchase and deposit STX directly into your account.
-        </Text>
-        <Link
-          onClick={() => openInNewTab('https://hiro.so/questions/wallet-stx-purchases')}
-          color="blue"
-          fontSize="16px"
-          display="flex"
-        >
-          Learn more ↗
-        </Link>
-      </Stack>
+    <Stack
+      alignItems="flex-start"
+      className={isFullPage ? fullPageContent : undefined}
+      overflow="hidden"
+      spacing="base"
+    >
+      <img src={AddFunds} />
+      <Title
+        className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+        mt="base-tight"
+        textAlign="left"
+        width="100%"
+      >
+        Fund your account
+      </Title>
+      <Text>
+        You'll need STX to pay for transaction fees and other interactions with the Stacks
+        blockchain. Choose an option below to purchase and deposit STX directly into your account.
+      </Text>
+      <Link
+        color={color('accent')}
+        fontSize="16px"
+        onClick={() => openInNewTab('https://hiro.so/questions/wallet-stx-purchases')}
+      >
+        Learn more ↗
+      </Link>
       {Object.keys(activeProviders).map(provider => (
         <ProviderLayout
           key={provider}
@@ -95,6 +91,6 @@ export const BuyLayout = (props: BuyLayoutProps) => {
           providerUrl={providersUrl[provider as keyof ProvidersUrl]}
         />
       ))}
-    </Flex>
+    </Stack>
   );
 };
