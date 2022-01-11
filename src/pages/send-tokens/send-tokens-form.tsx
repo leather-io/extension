@@ -82,7 +82,9 @@ function SendTokensFormBase() {
   };
 
   return (
-    <PopupContainer header={<Header title="Send" onClose={() => changeScreen(RouteUrls.Home)} />}>
+    <PopupContainer
+      header={<Header title="Send" onClose={() => changeScreen(RouteUrls.PopupHome)} />}
+    >
       <Formik
         initialValues={initalValues}
         validateOnChange={false}

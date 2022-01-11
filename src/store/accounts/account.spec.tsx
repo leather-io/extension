@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
+import { walletConfigStore } from '@store/wallet/wallet';
 import { TEST_ACCOUNTS_WITH_ADDRESS } from '@tests/mocks';
 import { useAtomValue } from 'jotai/utils';
 import { accountsState, accountsWithAddressState } from '@store/accounts/index';
@@ -19,5 +20,16 @@ describe('account state', () => {
     });
     expect(result.current).toEqual(TEST_ACCOUNTS_WITH_ADDRESS);
     await act(() => promise);
+  });
+
+  it('wallet config state', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useAtomValue(walletConfigStore), {
+      wrapper: ProviderWithTestWallet,
+    });
+    await waitForNextUpdate({ timeout: 10000 }); // 10 secs?
+    const foundAccount = result.current?.accounts.find(
+      account => account.username === 'fdsfdsfdf.id.blockstack'
+    );
+    expect(!!foundAccount).toBe(true);
   });
 });

@@ -1,4 +1,4 @@
-import { useAtomCallback, useAtomValue } from 'jotai/utils';
+import { useAtomCallback, useAtomValue, useUpdateAtom } from 'jotai/utils';
 import type { InMemoryVault } from '@background/vault';
 import type { VaultActions } from '@background/vault-types';
 import { gaiaUrl } from '@common/constants';
@@ -16,9 +16,10 @@ import { currentNetworkState } from '@store/network/networks';
 import { useAtom } from 'jotai';
 import { useCallback } from 'react';
 import {
-  encryptedSecretKeyState,
+  encryptedSecretKeyStore,
   hasRehydratedVaultStore,
   hasSetPasswordState,
+  lastSeenStore,
   secretKeyState,
   walletState,
 } from './wallet';
@@ -37,12 +38,16 @@ export function useSecretKey() {
   return useAtomValue(secretKeyState);
 }
 
-export function useEncryptedSecretKeyState() {
-  return useAtomValue(encryptedSecretKeyState);
+export function useEncryptedSecretKeyStore() {
+  return useAtomValue(encryptedSecretKeyStore);
 }
 
 export function useHasSetPasswordState() {
   return useAtomValue(hasSetPasswordState);
+}
+
+export function useUpdateLastSeenStore() {
+  return useUpdateAtom(lastSeenStore);
 }
 
 export function useSetLatestNonceCallback() {
@@ -119,7 +124,7 @@ export function useInnerMessageWrapper() {
               set(secretKeyState, vault.secretKey ? textToBytes(vault.secretKey) : undefined);
               typeof vault.currentAccountIndex !== 'undefined' &&
                 set(currentAccountIndexState, vault.currentAccountIndex);
-              set(encryptedSecretKeyState, vault.encryptedSecretKey);
+              set(encryptedSecretKeyStore, vault.encryptedSecretKey);
               resolve(vault);
             } else {
               reject(vaultOrError);

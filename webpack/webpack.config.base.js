@@ -208,6 +208,7 @@ const config = {
       VERSION: JSON.stringify(VERSION),
       COMMIT_SHA: JSON.stringify(COMMIT_SHA),
       BRANCH: JSON.stringify(BRANCH),
+      'process.env.USERNAMES_ENABLED': JSON.stringify(process.env.USERNAMES_ENABLED || 'false'),
       'process.env.TEST_ENV': JSON.stringify(TEST_ENV ? 'true' : 'false'),
     }),
 

@@ -1,18 +1,18 @@
 import React, { memo, useCallback, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { Box, Stack, Text } from '@stacks/ui';
-
 import { Title } from '@components/typography';
 import { Accounts } from '@pages/choose-account/components/accounts';
 import { AppIcon } from '@components/app-icon';
 import { RouteUrls } from '@routes/route-urls';
 import { useWallet } from '@common/hooks/use-wallet';
+import { Navigate } from '@components/navigate';
 import { Header } from '@components/header';
 import { useAppDetails } from '@common/hooks/auth/use-app-details';
+import { Box, Stack, Text } from '@stacks/ui';
 
 interface ChooseAccountProps {
   back?: () => void;
 }
+
 export const ChooseAccount: React.FC<ChooseAccountProps> = memo(() => {
   const { name: appName } = useAppDetails();
   const { wallet, cancelAuthentication } = useWallet();
@@ -27,7 +27,7 @@ export const ChooseAccount: React.FC<ChooseAccountProps> = memo(() => {
   }, [handleUnmount]);
 
   if (!wallet) {
-    return <Navigate to={RouteUrls.Onboarding} />;
+    return <Navigate to={{ pathname: '/', hash: 'sign-up' }} screenPath={RouteUrls.SignUp} />;
   }
 
   return (

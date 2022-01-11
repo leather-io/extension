@@ -5,12 +5,12 @@ import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { Tooltip } from '@components/tooltip';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { FiCopy } from 'react-icons/fi';
-import { CurrentAccountAvatar } from '@features/current-account/current-account-avatar';
-import { CurrentAccountName } from '@features/current-account/current-account-name';
+import { CurrentUserAvatar } from '@features/current-user/current-user-avatar';
+import { CurrentUsername } from '@features/current-user/current-user-name';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
-const AccountAddress = memo((props: StackProps) => {
+const UserAddress = memo((props: StackProps) => {
   const currentAccount = useCurrentAccount();
   const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
   const analytics = useAnalytics();
@@ -38,17 +38,17 @@ const AccountAddress = memo((props: StackProps) => {
   ) : null;
 });
 
-export const CurrentAccount: React.FC<StackProps> = memo(props => {
+export const UserAccount: React.FC<StackProps> = memo(props => {
   const currentAccount = useCurrentAccount();
   if (!currentAccount) {
     throw new Error('Homepage rendered without account state. This should never happen.');
   }
   return (
     <Stack spacing="base-tight" alignItems="center" isInline {...props}>
-      <CurrentAccountAvatar />
+      <CurrentUserAvatar />
       <Stack overflow="hidden" display="block" alignItems="flex-start" spacing="base-tight">
-        <CurrentAccountName />
-        <AccountAddress />
+        <CurrentUsername />
+        <UserAddress />
       </Stack>
     </Stack>
   );

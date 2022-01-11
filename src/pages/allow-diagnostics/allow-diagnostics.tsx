@@ -6,15 +6,15 @@ import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
 
 import { initSentry } from '@common/sentry-init';
 import { initSegment } from '@common/segment-init';
-import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
+import { AllowDiagnosticsFullLayout } from './allow-diagnostics-layout';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 
-export const AllowDiagnosticsPage = () => {
+export const AllowDiagnosticsFullPage = () => {
   const changeScreen = useChangeScreen();
   const [, setHasAllowedDiagnostics] = useHasAllowedDiagnostics();
 
-  const goToOnboardingAndSetDiagnosticsPermissionTo = useCallback(
+  const goHomeAndSetDiagnosticsPermissionTo = useCallback(
     (areDiagnosticsAllowed: boolean | undefined) => {
       if (typeof areDiagnosticsAllowed === undefined) return;
       setHasAllowedDiagnostics(areDiagnosticsAllowed);
@@ -22,16 +22,16 @@ export const AllowDiagnosticsPage = () => {
         initSentry();
         void initSegment();
       }
-      changeScreen(RouteUrls.Onboarding);
+      changeScreen(RouteUrls.Home);
     },
     [changeScreen, setHasAllowedDiagnostics]
   );
 
   return (
     <PopupContainer header={<Header hideActions />} requestType="auth">
-      <AllowDiagnosticsLayout
-        onUserDenyDiagnosticsPermissions={() => goToOnboardingAndSetDiagnosticsPermissionTo(false)}
-        onUserAllowDiagnostics={() => goToOnboardingAndSetDiagnosticsPermissionTo(true)}
+      <AllowDiagnosticsFullLayout
+        onUserDenyDiagnosticsPermissions={() => goHomeAndSetDiagnosticsPermissionTo(false)}
+        onUserAllowDiagnostics={() => goHomeAndSetDiagnosticsPermissionTo(true)}
       />
     </PopupContainer>
   );

@@ -10,23 +10,29 @@ import { useWallet } from '@common/hooks/use-wallet';
 
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 
-import { HUMAN_REACTION_DEBOUNCE_TIME } from '@common/constants';
+import { HUMAN_REACTION_DEBOUNCE_TIME, USERNAMES_ENABLED } from '@common/constants';
 import { validatePassword, blankPasswordValidation } from '@common/validation/validate-password';
 import { Body, Caption } from '@components/typography';
 import { Header } from '@components/header';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 interface SetPasswordProps {
+  redirect?: boolean;
+  accountGate?: boolean;
   placeholder?: string;
 }
-export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => {
+
+export const SetPasswordPage: React.FC<SetPasswordProps> = ({
+  redirect,
+  accountGate,
+  placeholder,
+}) => {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
-  const { finishSignIn, setPassword, wallet } = useWallet();
+  const { setPassword, wallet, finishSignIn } = useWallet();
   const changeScreen = useChangeScreen();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
-
   useEffect(() => {
     void analytics.page('view', '/set-password');
   }, [analytics]);
@@ -34,22 +40,23 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
   const submit = useCallback(
     async (password: string) => {
       if (!wallet) throw 'Please log in before setting a password.';
-
       setLoading(true);
       await setPassword(password);
-
+      if (accountGate) return;
       if (decodedAuthRequest) {
         const { accounts } = wallet;
-        if (accounts && accounts.length > 1) {
+        if (accounts && (accounts.length > 1 || accounts[0].username)) {
           changeScreen(RouteUrls.ChooseAccount);
-        } else {
+        } else if (!USERNAMES_ENABLED) {
           await finishSignIn(0);
+        } else {
+          changeScreen(RouteUrls.Username);
         }
-      } else {
-        changeScreen(RouteUrls.Home);
+      } else if (redirect) {
+        changeScreen(RouteUrls.Installed);
       }
     },
-    [changeScreen, decodedAuthRequest, finishSignIn, setPassword, wallet]
+    [setPassword, changeScreen, redirect, decodedAuthRequest, wallet, finishSignIn, accountGate]
   );
 
   const handleSubmit = useCallback(
@@ -85,16 +92,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
   });
 
   return (
-    <PopupContainer
-      header={
-        <Header
-          hideActions
-          onClose={() => changeScreen(RouteUrls.SaveSecretKey)}
-          title="Set a password"
-        />
-      }
-      requestType="auth"
-    >
+    <PopupContainer header={<Header hideActions title="Set a password" />} requestType="auth">
       <Formik
         initialValues={{ password: '' }}
         validationSchema={validationSchema}
@@ -107,7 +105,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
               use your Secret Key.
             </Body>
             {formik.submitCount && !strengthResult.meetsAllStrengthRequirements ? (
-              <Caption className="onboarding-text" fontSize={0} mt="base-loose">
+              <Caption fontSize={0} mt="base-loose">
                 Please use a stronger password before continuing. Longer than 12 characters, with
                 symbols, numbers, and words.
               </Caption>
