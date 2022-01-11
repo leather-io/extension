@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { useHomeTabs } from '@common/hooks/use-home-tabs';
 import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
-import { LoadingKeys } from '@common/hooks/use-loading';
+import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useHandleSubmitTransaction } from '@common/hooks/use-submit-stx-transaction';
 import { logger } from '@common/logger';
@@ -23,17 +23,20 @@ import {
 
 import { SendTokensConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
+import { ShowDelay } from './components/show-delay';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
-  const { showEditNonce } = useDrawers();
+  const { setIsIdle, setIsLoading } = useLoading(LoadingKeys.SEND_TOKENS_FORM);
+  const { showEditNonce, showHighFeeConfirmation } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const { setActiveTabActivity } = useHomeTabs();
   const { selectedAsset } = useSelectedAsset();
   const sendFormSchema = useSendFormValidation({ setAssetError });
   const [_txData, setTxData] = useLocalTransactionInputsState();
+  const [beginShow, setBeginShow] = useState(false);
   const resetNonceCallback = useResetNonceCallback();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const transaction = useSendFormUnsignedTxState();
@@ -44,9 +47,11 @@ function SendTokensFormBase() {
   const handleConfirmDrawerOnClose = useCallback(() => {
     setShowing(false);
     setTxData(null);
+    setIsIdle();
     resetNonceCallback();
     setActiveTabActivity();
-  }, [resetNonceCallback, setActiveTabActivity, setTxData]);
+    navigate(RouteUrls.Home);
+  }, [navigate, resetNonceCallback, setActiveTabActivity, setIsIdle, setTxData]);
 
   const broadcastTransactionFn = useHandleSubmitTransaction({
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
@@ -63,14 +68,12 @@ function SendTokensFormBase() {
       transaction: signedTx,
       onClose() {
         handleConfirmDrawerOnClose();
-        navigate(RouteUrls.Home);
       },
     });
     setFeeEstimations([]);
   }, [
     broadcastTransactionFn,
     handleConfirmDrawerOnClose,
-    navigate,
     setFeeEstimations,
     signSoftwareWalletTx,
     transaction,
@@ -98,12 +101,18 @@ function SendTokensFormBase() {
             memo: values.memo,
             recipient: values.recipient,
           });
-          setShowing(true);
+          setIsLoading();
+          setBeginShow(true);
         }
       }}
     >
       {() => (
         <>
+          {!showHighFeeConfirmation && beginShow && (
+            <Suspense fallback={<></>}>
+              <ShowDelay setShowing={setShowing} beginShow={beginShow} isShowing={isShowing} />
+            </Suspense>
+          )}
           <Suspense fallback={<></>}>
             <SendFormInner assetError={assetError} />
           </Suspense>
