@@ -1,7 +1,8 @@
+import * as React from 'react';
 import { Box, color, StackProps, Stack } from '@stacks/ui';
 import { FiAlertCircle } from 'react-icons/fi';
 
-export const ErrorLabel = ({ children, ...rest }: StackProps) => (
+export const ErrorLabel: React.FC<StackProps> = ({ children, ...rest }) => (
   <Stack spacing="tight" color={color('feedback-error')} isInline alignItems="flex-start" {...rest}>
     <Box
       size="1rem"

@@ -1,7 +1,8 @@
+import * as React from 'react';
 import { Box, BoxProps } from '@stacks/ui';
 import { keyframes } from '@emotion/react';
 
-export const LoadingRectangle = (props: BoxProps) => {
+export const LoadingRectangle: React.FC<BoxProps> = props => {
   const shine = keyframes`
     0% {
       background-position: -50px;

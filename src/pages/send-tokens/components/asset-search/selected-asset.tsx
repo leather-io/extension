@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react';
+import * as React from 'react';
 import { Box, ChevronIcon, Text, color, Stack, StackProps, BoxProps } from '@stacks/ui';
 
 import { useUpdateSearchInput } from '@store/assets/asset.hooks';
@@ -75,8 +76,8 @@ const SelectedAssetItem = memo(({ hideArrow, ...rest }: { hideArrow?: boolean } 
   );
 });
 
-export const SelectedAsset = memo(
-  ({ hideArrow, ...rest }: { hideArrow?: boolean } & StackProps) => {
+export const SelectedAsset: React.FC<{ hideArrow?: boolean } & StackProps> = memo(
+  ({ hideArrow, ...rest }) => {
     const { selectedAsset, balance, ticker } = useSelectedAsset();
 
     if (!selectedAsset) {

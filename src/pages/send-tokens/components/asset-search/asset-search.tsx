@@ -1,4 +1,5 @@
-import { memo, useMemo, forwardRef, useEffect, useRef, FormEvent } from 'react';
+import { memo, useMemo, forwardRef, useEffect } from 'react';
+import * as React from 'react';
 import { Box, Fade, Text, Flex, Input, color, Stack, StackProps } from '@stacks/ui';
 import { useCombobox } from 'downshift';
 
@@ -76,90 +77,91 @@ const AssetSearchResults = forwardRef(
     );
   }
 );
-const AssetSearchField = memo(
-  ({ autoFocus, onItemClick, ...rest }: { autoFocus?: boolean; onItemClick: () => void }) => {
-    const assets = useTransferableAssets();
+const AssetSearchField: React.FC<{
+  autoFocus?: boolean;
+  onItemClick: () => void;
+}> = memo(({ autoFocus, onItemClick, ...rest }) => {
+  const assets = useTransferableAssets();
 
-    const { selectedAsset, handleUpdateSelectedAsset } = useSelectedAsset();
+  const { selectedAsset, handleUpdateSelectedAsset } = useSelectedAsset();
 
-    const searchInput = useSearchInput();
-    const setSearchInput = useUpdateSearchInput();
+  const searchInput = useSearchInput();
+  const setSearchInput = useUpdateSearchInput();
 
-    useEffect(() => {
-      if (principalHasOnlyOneAsset(assets ?? [])) {
-        handleUpdateSelectedAsset(assets[0]);
-      }
-    }, [assets, handleUpdateSelectedAsset]);
+  useEffect(() => {
+    if (principalHasOnlyOneAsset(assets ?? [])) {
+      handleUpdateSelectedAsset(assets[0]);
+    }
+  }, [assets, handleUpdateSelectedAsset]);
 
-    const {
-      isOpen,
-      getLabelProps,
-      getMenuProps,
-      getInputProps,
-      getComboboxProps,
-      highlightedIndex,
-      getItemProps,
-      openMenu,
-    } = useCombobox({
-      items: assets || [],
-      initialIsOpen: true,
-      inputValue: searchInput,
-      defaultIsOpen: false,
-      selectedItem: selectedAsset,
-      itemToString: item => {
-        return item?.contractAddress || item?.name || '';
-      },
-      onSelectedItemChange: ({ selectedItem }) => {
-        onItemClick();
-        handleUpdateSelectedAsset(selectedItem || undefined);
-      },
-    });
+  const {
+    isOpen,
+    getLabelProps,
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    highlightedIndex,
+    getItemProps,
+    openMenu,
+  } = useCombobox({
+    items: assets || [],
+    initialIsOpen: true,
+    inputValue: searchInput,
+    defaultIsOpen: false,
+    selectedItem: selectedAsset,
+    itemToString: item => {
+      return item?.contractAddress || item?.name || '';
+    },
+    onSelectedItemChange: ({ selectedItem }) => {
+      onItemClick();
+      handleUpdateSelectedAsset(selectedItem || undefined);
+    },
+  });
 
-    const labelRef = useRef(null);
-    const comboRef = useRef(null);
+  const labelRef = React.useRef(null);
+  const comboRef = React.useRef(null);
 
-    if (!assets) return null;
+  if (!assets) return null;
 
-    return (
-      <Flex flexDirection="column" width="100%" position="relative" overflow="visible" {...rest}>
-        <Box width="100%">
-          <Text
-            as="label"
-            display="block"
-            mb="tight"
-            fontSize={1}
-            fontWeight="500"
-            htmlFor="amount"
-            {...getLabelProps({ ref: labelRef })}
-          >
-            Choose an asset
-          </Text>
-        </Box>
-        <Box width="100%" {...getComboboxProps({ ref: comboRef })}>
-          <Input
-            {...getInputProps()}
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              const { value } = e.currentTarget;
-              setSearchInput(value);
-            }}
-            width="100%"
-            placeholder="Search for an asset"
-            onFocus={() => {
-              openMenu();
-            }}
-            autoFocus={autoFocus}
-          />
-        </Box>
-        <AssetSearchResults
-          highlightedIndex={highlightedIndex}
-          getItemProps={getItemProps}
-          isOpen={isOpen}
-          {...getMenuProps()}
+  return (
+    <Flex flexDirection="column" width="100%" position="relative" overflow="visible" {...rest}>
+      <Box width="100%">
+        <Text
+          as="label"
+          display="block"
+          mb="tight"
+          fontSize={1}
+          fontWeight="500"
+          htmlFor="amount"
+          {...getLabelProps({ ref: labelRef })}
+        >
+          Choose an asset
+        </Text>
+      </Box>
+      <Box width="100%" {...getComboboxProps({ ref: comboRef })}>
+        <Input
+          {...getInputProps()}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            const { value } = e.currentTarget;
+            setSearchInput(value);
+          }}
+          width="100%"
+          placeholder="Search for an asset"
+          onFocus={() => {
+            openMenu();
+          }}
+          autoFocus={autoFocus}
         />
-      </Flex>
-    );
-  }
-);
+      </Box>
+      <AssetSearchResults
+        highlightedIndex={highlightedIndex}
+        getItemProps={getItemProps}
+        isOpen={isOpen}
+        {...getMenuProps()}
+      />
+    </Flex>
+  );
+});
 
 interface AssetSearchProps {
   autoFocus?: boolean;

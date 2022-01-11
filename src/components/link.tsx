@@ -1,8 +1,8 @@
-import { KeyboardEvent } from 'react';
+import * as React from 'react';
 import { Text, BoxProps, color } from '@stacks/ui';
 
 export const buildEnterKeyEvent = (onClick: () => void) => {
-  return (event: KeyboardEvent) => {
+  return (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && onClick) {
       onClick();
     }

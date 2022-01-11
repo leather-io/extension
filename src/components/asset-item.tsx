@@ -2,18 +2,15 @@ import { SpaceBetween } from '@components/space-between';
 import { Box, Stack, StackProps } from '@stacks/ui';
 import { AssetAvatar } from '@components/stx-avatar';
 import { Caption, Text } from '@components/typography';
-import { forwardRef, memo } from 'react';
+import { memo } from 'react';
+import * as React from 'react';
 import { usePressable } from '@components/item-hover';
 import { Tooltip } from '@components/tooltip';
 import { getFormattedAmount } from '@common/token-utils';
 import { FiCornerDownRight, FiInfo } from 'react-icons/fi';
 import { color, Flex } from '@stacks/ui';
 
-interface AssetCaptionProps {
-  caption?: string;
-  show?: boolean;
-}
-const AssetCaption = ({ caption, show }: AssetCaptionProps) =>
+const AssetCaption: React.FC<{ caption?: string; show?: boolean }> = ({ caption, show }) =>
   caption ? (
     <Flex flexDirection="row">
       <Caption>{caption}</Caption>{' '}
@@ -41,7 +38,7 @@ const AssetCaption = ({ caption, show }: AssetCaptionProps) =>
     </Flex>
   ) : null;
 
-const SubBalance = ({ amount }: { amount: string | undefined }) =>
+const SubBalance: React.FC<{ amount: string | undefined }> = ({ amount }) =>
   amount ? (
     <Text
       fontVariantNumeric="tabular-nums"
@@ -59,7 +56,7 @@ const SubBalance = ({ amount }: { amount: string | undefined }) =>
   ) : null;
 
 export const AssetItem = memo(
-  forwardRef(
+  React.forwardRef(
     (
       {
         isPressable,

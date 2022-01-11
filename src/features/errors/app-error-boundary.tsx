@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import * as React from 'react';
 import { Box, Button, CodeBlock, color, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@common/hooks/use-route-header';
@@ -48,7 +48,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   );
 }
 
-export const AppErrorBoundary: FC = ({ children }) => {
+export const AppErrorBoundary: React.FC = ({ children }) => {
   const handleOnError = useErrorHandler();
   return (
     <ErrorBoundary

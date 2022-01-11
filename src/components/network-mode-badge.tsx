@@ -1,10 +1,11 @@
 import { memo, useMemo } from 'react';
+import * as React from 'react';
 import { color, Flex, FlexProps, Text } from '@stacks/ui';
 import { ChainID } from '@stacks/transactions';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { useCurrentNetwork } from '@common/hooks/use-current-network';
 
-export const NetworkModeBadge = memo((props: FlexProps) => {
+export const NetworkModeBadge: React.FC<FlexProps> = memo(props => {
   const { chainId, name } = useCurrentNetwork();
   const isTestnetChain = useMemo(() => chainId === ChainID.Testnet, [chainId]);
   const { setShowNetworks } = useDrawers();

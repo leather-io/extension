@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Text, Button, Input, Stack, color } from '@stacks/ui';
 
@@ -8,7 +9,7 @@ import { useSignIn } from '@pages/onboarding/sign-in/use-sign-in';
 import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
 
-export const SignIn = () => {
+export const SignIn: React.FC = () => {
   const { onKeyDown, onChange, onPaste, onSubmit, value, error, isLoading, ref } = useSignIn();
   const navigate = useNavigate();
 
