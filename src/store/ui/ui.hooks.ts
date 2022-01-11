@@ -14,7 +14,6 @@ import {
   showEditNonceState,
   showTxSettingsCallback,
   showSignOut,
-  routeHeaderState,
 } from './ui';
 
 export function useAccountDrawerStep() {
@@ -76,8 +75,4 @@ export function useShowEditNonceCleanupEffect() {
       if (showNonce) setShowNonce(false);
     };
   }, [showNonce, setShowNonce]);
-}
-
-export function useRouteHeaderState() {
-  return useAtom(routeHeaderState);
 }

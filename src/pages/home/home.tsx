@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
-import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Header } from '@components/header';
 import { HiroMessages } from '@features/hiro-messages/hiro-messages';
 import { ActivityList } from '@features/activity-list/account-activity';
@@ -21,13 +21,6 @@ export const Home = () => {
   const { hasGeneratedWallet, encryptedSecretKey } = useWallet();
   const navigate = useNavigate();
 
-  useRouteHeader(
-    <>
-      <HiroMessages mx="tight" />
-      <Header pt="base-tight" />
-    </>
-  );
-
   useEffect(() => {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,14 +31,23 @@ export const Home = () => {
 
   return (
     <>
-      <Stack data-testid="home-page" flexGrow={1} spacing="loose">
-        <CurrentAccount />
-        <HomeActions />
-        <HomeTabs
-          balances={<BalancesList data-testid={HomePageSelectors.BalancesList} />}
-          activity={<ActivityList />}
-        />
-      </Stack>
+      <ContainerLayout
+        header={
+          <>
+            <HiroMessages mx="tight" />
+            <Header pt="base-tight" />
+          </>
+        }
+      >
+        <Stack data-testid="home-page" flexGrow={1} spacing="loose">
+          <CurrentAccount />
+          <HomeActions />
+          <HomeTabs
+            balances={<BalancesList data-testid={HomePageSelectors.BalancesList} />}
+            activity={<ActivityList />}
+          />
+        </Stack>
+      </ContainerLayout>
       <Outlet />
     </>
   );

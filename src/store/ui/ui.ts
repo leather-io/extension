@@ -34,8 +34,6 @@ export const showSignOut = atom(false);
 
 export const errorStackTraceState = atom<string | null>(null);
 
-export const routeHeaderState = atom<JSX.Element | null>(null);
-
 accountDrawerStep.debugLabel = 'accountDrawerStep';
 showAccountsStore.debugLabel = 'showAccountsStore';
 showNetworksStore.debugLabel = 'showNetworksStore';

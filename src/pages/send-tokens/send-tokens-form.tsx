@@ -3,17 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import toast from 'react-hot-toast';
 
-import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { useHandleSubmitTransaction } from '@common/hooks/use-submit-stx-transaction';
-import { logger } from '@common/logger';
+import { RouteUrls } from '@routes/route-urls';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Header } from '@components/header';
 import { HighFeeDrawer } from '@features/high-fee-drawer/high-fee-drawer';
 import { useSendFormValidation } from '@pages/send-tokens/hooks/use-send-form-validation';
-import { RouteUrls } from '@routes/route-urls';
-import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 import {
   useLocalTransactionInputsState,
   useSendFormUnsignedTxState,
@@ -24,7 +21,9 @@ import { SendTokensConfirmDrawer } from './components/send-tokens-confirm-drawer
 import { SendFormInner } from './components/send-form-inner';
 import { ShowDelay } from './components/show-delay';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
-import { useHomeTabs } from '@common/hooks/use-home-tabs';
+import { useHandleSubmitTransaction } from '@common/hooks/use-submit-stx-transaction';
+import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
+import { logger } from '@common/logger';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ function SendTokensFormBase() {
   const { showEditNonce, showHighFeeConfirmation } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
-  const { setActiveTabActivity } = useHomeTabs();
   const { selectedAsset } = useSelectedAsset();
   const sendFormSchema = useSendFormValidation({ setAssetError });
   const [_txData, setTxData] = useLocalTransactionInputsState();
@@ -40,18 +38,16 @@ function SendTokensFormBase() {
   const resetNonceCallback = useResetNonceCallback();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const transaction = useSendFormUnsignedTxState();
-  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
 
-  useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
+  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
 
   const handleConfirmDrawerOnClose = useCallback(() => {
     setShowing(false);
     setTxData(null);
     setIsIdle();
     resetNonceCallback();
-    setActiveTabActivity();
     navigate(RouteUrls.Home);
-  }, [navigate, resetNonceCallback, setActiveTabActivity, setIsIdle, setTxData]);
+  }, [navigate, resetNonceCallback, setIsIdle, setTxData]);
 
   const broadcastTransactionFn = useHandleSubmitTransaction({
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
@@ -87,47 +83,49 @@ function SendTokensFormBase() {
   };
 
   return (
-    <Formik
-      initialValues={initalValues}
-      validateOnChange={false}
-      validateOnBlur={false}
-      validateOnMount={false}
-      validationSchema={sendFormSchema}
-      onSubmit={values => {
-        if (selectedAsset && !assetError) {
-          setTxData({
-            amount: values.amount,
-            fee: values.fee,
-            memo: values.memo,
-            recipient: values.recipient,
-          });
-          setIsLoading();
-          setBeginShow(true);
-        }
-      }}
-    >
-      {() => (
-        <>
-          {!showHighFeeConfirmation && beginShow && (
+    <ContainerLayout header={<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />}>
+      <Formik
+        initialValues={initalValues}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validateOnMount={false}
+        validationSchema={sendFormSchema}
+        onSubmit={values => {
+          if (selectedAsset && !assetError) {
+            setTxData({
+              amount: values.amount,
+              fee: values.fee,
+              memo: values.memo,
+              recipient: values.recipient,
+            });
+            setIsLoading();
+            setBeginShow(true);
+          }
+        }}
+      >
+        {() => (
+          <>
+            {!showHighFeeConfirmation && beginShow && (
+              <Suspense fallback={<></>}>
+                <ShowDelay setShowing={setShowing} beginShow={beginShow} isShowing={isShowing} />
+              </Suspense>
+            )}
             <Suspense fallback={<></>}>
-              <ShowDelay setShowing={setShowing} beginShow={beginShow} isShowing={isShowing} />
+              <SendFormInner assetError={assetError} />
             </Suspense>
-          )}
-          <Suspense fallback={<></>}>
-            <SendFormInner assetError={assetError} />
-          </Suspense>
 
-          <SendTokensConfirmDrawer
-            isShowing={isShowing && !showEditNonce}
-            onClose={() => handleConfirmDrawerOnClose()}
-            onUserSelectBroadcastTransaction={async () => {
-              await broadcastTransactionAction();
-            }}
-          />
-          <HighFeeDrawer />
-        </>
-      )}
-    </Formik>
+            <SendTokensConfirmDrawer
+              isShowing={isShowing && !showEditNonce}
+              onClose={() => handleConfirmDrawerOnClose()}
+              onUserSelectBroadcastTransaction={async () => {
+                await broadcastTransactionAction();
+              }}
+            />
+            <HighFeeDrawer />
+          </>
+        )}
+      </Formik>
+    </ContainerLayout>
   );
 }
 

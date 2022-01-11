@@ -4,11 +4,11 @@ import { Box, Button, useClipboard, Stack, Text, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
-import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { Header } from '@components/header';
 import { Toast } from '@components/toast';
+import { ContainerLayout } from '@components/container/container.layout';
 import { Caption, Title } from '@components/typography';
 import { Tooltip } from '@components/tooltip';
 import { RouteUrls } from '@routes/route-urls';
@@ -21,41 +21,40 @@ export const ReceiveTokens: React.FC = () => {
   const address = currentAccountStxAddress || '';
   const analytics = useAnalytics();
   const { onCopy, hasCopied } = useClipboard(address);
-
-  useRouteHeader(<Header title="Receive" onClose={() => navigate(RouteUrls.Home)} />);
-
   const copyToClipboard = () => {
     void analytics.track('copy_address_to_clipboard');
     onCopy();
   };
 
   return (
-    <Stack spacing="loose" textAlign="center">
-      <Text
-        textStyle="body.small"
-        color={color('text-caption')}
-        textAlign={['left', 'left', 'center']}
-      >
-        Share your unique address to receive any token or collectible. Including a memo is not
-        required.
-      </Text>
-      <Toast show={hasCopied} />
-      <Box mx="auto">
-        <QrCode principal={address} />
-      </Box>
-      {currentAccount && (
-        <Title fontSize={3} lineHeight="1rem">
-          {getAccountDisplayName(currentAccount)}
-        </Title>
-      )}
-      <Box>
-        <Tooltip interactive placement="bottom" label={address}>
-          <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
-        </Tooltip>
-      </Box>
-      <Button width="100%" onClick={copyToClipboard} borderRadius="10px">
-        Copy your address
-      </Button>
-    </Stack>
+    <ContainerLayout header={<Header title="Receive" onClose={() => navigate(RouteUrls.Home)} />}>
+      <Stack spacing="loose" textAlign="center">
+        <Text
+          textStyle="body.small"
+          color={color('text-caption')}
+          textAlign={['left', 'left', 'center']}
+        >
+          Share your unique address to receive any token or collectible. Including a memo is not
+          required.
+        </Text>
+        <Toast show={hasCopied} />
+        <Box mx="auto">
+          <QrCode principal={address} />
+        </Box>
+        {currentAccount && (
+          <Title fontSize={3} lineHeight="1rem">
+            {getAccountDisplayName(currentAccount)}
+          </Title>
+        )}
+        <Box>
+          <Tooltip interactive placement="bottom" label={address}>
+            <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
+          </Tooltip>
+        </Box>
+        <Button width="100%" onClick={copyToClipboard} borderRadius="10px">
+          Copy your address
+        </Button>
+      </Stack>
+    </ContainerLayout>
   );
 };
