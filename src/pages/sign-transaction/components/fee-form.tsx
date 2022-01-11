@@ -12,7 +12,7 @@ import { FeeRow } from '@components/fee-row/fee-row';
 import { MinimalErrorMessage } from '@pages/sign-transaction/components/minimal-error-message';
 import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
 import {
-  useUnsignedTxForSettingsState,
+  useTxForSettingsState,
   useEstimatedUnsignedTransactionByteLengthState,
   useUnserializedSignedTransactionPayloadState,
 } from '@store/transactions/transaction.hooks';
@@ -26,7 +26,7 @@ export function FeeForm(): JSX.Element | null {
     serializedUnsignedTransactionPayloadState,
     estimatedUnsignedTxByteLength
   );
-  const [transaction] = useUnsignedTxForSettingsState();
+  const [transaction] = useTxForSettingsState();
 
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 

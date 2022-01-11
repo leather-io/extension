@@ -44,7 +44,7 @@ export const LocalTxItem: React.FC<{ transaction: StacksTransaction; txid: strin
     switch (transaction.payload.payloadType) {
       case PayloadType.TokenTransfer:
         return `-${stacksValue({
-          value: Number(transaction.payload.amount),
+          value: transaction.payload.amount.toNumber(),
           withTicker: false,
         })}`;
 

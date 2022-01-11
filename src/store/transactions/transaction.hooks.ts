@@ -8,7 +8,6 @@ import {
   FungibleConditionCode,
   makeStandardFungiblePostCondition,
   PostCondition,
-  StacksTransaction,
   TransactionSigner,
 } from '@stacks/transactions';
 
@@ -28,6 +27,7 @@ import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-
 import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
+import { StacksTransaction } from '@stacks/connect/node_modules/@stacks/transactions';
 import {
   estimatedTransactionByteLengthState,
   estimatedUnsignedTransactionByteLengthState,
@@ -121,7 +121,7 @@ export function useTransactionBroadcast() {
           });
           typeof nonce !== 'undefined' && (await setLatestNonce(nonce));
           finalizeTxSignature(requestToken, result);
-          if (typeof result.txId !== 'undefined') {
+          if (result.txId) {
             set(currentAccountLocallySubmittedTxsState, {
               [result.txId]: {
                 rawTx: result.txRaw,

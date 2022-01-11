@@ -60,11 +60,11 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
     ({ replaceByFee, onClose }: UseSubmitTransactionCallbackArgs) =>
       async (transaction: StacksTransaction) => {
         setIsLoading();
-        const nonce = !replaceByFee && Number(transaction.auth.spendingCondition?.nonce);
+        const nonce = !replaceByFee && transaction.auth.spendingCondition?.nonce.toNumber();
         try {
           const response = await broadcastTransaction(transaction, stacksNetwork);
           if (typeof response !== 'string') {
-            if (response.reason) toast.error(getErrorMessage(response.reason));
+            toast.error(getErrorMessage(response.reason));
             onClose();
             setIsIdle();
           } else {

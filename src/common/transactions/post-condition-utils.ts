@@ -1,16 +1,14 @@
 import {
   addressToString,
   FungibleConditionCode,
-  FungiblePostCondition,
   NonFungibleConditionCode,
-  NonFungiblePostCondition,
   parsePrincipalString,
   PostCondition,
   PostConditionType,
-  STXPostCondition,
 } from '@stacks/transactions';
 import { stacksValue } from '@common/stacks-utils';
 import { postConditionFromString } from '@common/utils';
+import { FungiblePostCondition, NonFungiblePostCondition, STXPostCondition } from '@common/types';
 
 export const getIconStringFromPostCondition = (
   pc: STXPostCondition | FungiblePostCondition | NonFungiblePostCondition
