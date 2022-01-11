@@ -1,3 +1,12 @@
+# [2.24.0-beta.9](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.8...v2.24.0-beta.9) (2022-01-11)
+
+
+### Features
+
+* add back up secret key page ([cdb3fbd](https://github.com/hirosystems/stacks-wallet-web/commit/cdb3fbd37f39db336dbd09da20e84adc34d22fab))
+* add set password page ([8a2bfab](https://github.com/hirosystems/stacks-wallet-web/commit/8a2bfab7b033ce3249d17a6a88124ac4f74bb01f))
+* add welcome page ([57c16a7](https://github.com/hirosystems/stacks-wallet-web/commit/57c16a734d8e2530f301db198df78fcc33ebd059))
+
 # [2.24.0-beta.8](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.7...v2.24.0-beta.8) (2022-01-11)
 
 
