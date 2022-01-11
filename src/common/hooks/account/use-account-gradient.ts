@@ -4,6 +4,8 @@ import { TransactionVersion } from '@stacks/transactions';
 import { generateHash, hashValue, moduloRange, stringToHslColor } from '@stacks/ui-utils';
 import chroma from 'chroma-js';
 
+// this file will be added to @stacks/ui when it's finalized.
+
 function toHex(str: string) {
   let result = '';
   for (let i = 0; i < str.length; i++) {
