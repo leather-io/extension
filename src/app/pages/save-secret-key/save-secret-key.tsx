@@ -22,7 +22,7 @@ export const SaveSecretKey = memo(() => {
 
   const wordCount = (secretKey || '').split(' ').length;
 
-  useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} title="Your Secret Key" />);
+  useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} />);
 
   useEffect(() => {
     void analytics.page('view', '/save-secret-key');

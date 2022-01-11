@@ -2,6 +2,10 @@ import { ChainID } from '@stacks/transactions';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
+export const FULL_PAGE_MAX_WIDTH = 440;
+export const POPUP_WIDTH = 442;
+export const POPUP_HEIGHT = 646;
+
 export const HIGH_FEE_AMOUNT_STX = 5;
 
 export const DEFAULT_FEE_RATE = 400;

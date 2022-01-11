@@ -26,7 +26,7 @@ export const Home = () => {
   useRouteHeader(
     <>
       <HiroMessages mx="tight" />
-      <Header />
+      <Header pt="base-tight" />
     </>
   );
 

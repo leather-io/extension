@@ -2,9 +2,8 @@ import { FC } from 'react';
 import { FiCheck } from 'react-icons/fi';
 import { Box, Button, Flex, color, Stack } from '@stacks/ui';
 
-import { PrimaryButton } from '@app/components/primary-button';
 import { Body, Title } from '@app/components/typography';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/constants';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 interface ReasonToAllowDiagnosticsProps {
@@ -49,12 +48,16 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
           <ReasonToAllowDiagnostics text="This data is used to generate and send crash reports, help us fix errors, and analyze trends and statistics" />
         </Stack>
         <Flex mt="loose" fontSize="14px" justifyContent="center">
-          <PrimaryButton
-            dataTestId={OnboardingSelectors.AnalyticsAllow}
-            onClick={onUserAllowDiagnostics}
+          <Button
+            type="button"
+            size="lg"
+            mode="primary"
+            data-testid={OnboardingSelectors.AnalyticsAllow}
+            onClick={() => onUserAllowDiagnostics()}
+            mr="base-tight"
           >
             Allow
-          </PrimaryButton>
+          </Button>
           <Button
             type="button"
             mode="tertiary"

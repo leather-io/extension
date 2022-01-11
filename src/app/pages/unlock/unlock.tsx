@@ -1,7 +1,7 @@
 import { useState, useCallback, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cx } from '@emotion/css';
-import { Box, Input, Stack, Text } from '@stacks/ui';
+import { Box, Button, Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
@@ -9,7 +9,6 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { buildEnterKeyEvent } from '@app/components/link';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
-import { PrimaryButton } from '@app/components/primary-button';
 import { Title } from '@app/components/typography';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -105,9 +104,17 @@ export function Unlock(): JSX.Element {
           </ErrorLabel>
         </Box>
       )}
-      <PrimaryButton isDisabled={loading} isLoading={loading} onClick={submit}>
+      <Button
+        borderRadius="10px"
+        data-testid="set-password-done"
+        height="48px"
+        isLoading={loading}
+        isDisabled={loading}
+        onClick={submit}
+        width="100%"
+      >
         Unlock
-      </PrimaryButton>
+      </Button>
       {showSignOut && <SignOutConfirmDrawer />}
     </Stack>
   );
