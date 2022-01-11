@@ -1,9 +1,8 @@
-import React, { memo, Suspense } from 'react';
-
+import React, { memo } from 'react';
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
-
-import { SendTxButton } from './tx-button';
+import { BuyTxButton, SendTxButton } from './tx-button';
+import { useHasFiatProviders } from '@query/hiro-config/hiro-config.query';
 
 const SendButtonSuspense = () => {
   const assets = useTransferableAssets();
@@ -14,7 +13,19 @@ const SendButtonSuspense = () => {
 const SendButtonFallback = memo(() => <SendTxButton isDisabled />);
 
 export const SendButton = () => (
-  <Suspense fallback={<SendButtonFallback />}>
+  <React.Suspense fallback={<SendButtonFallback />}>
     <SendButtonSuspense />
-  </Suspense>
+  </React.Suspense>
 );
+
+const BuyButtonFallback = memo(() => <BuyTxButton isDisabled />);
+
+export const BuyButton = () => {
+  const hasFiatProviders = useHasFiatProviders();
+  if (!hasFiatProviders) return null;
+  return (
+    <React.Suspense fallback={<BuyButtonFallback />}>
+      <BuyTxButton />
+    </React.Suspense>
+  );
+};

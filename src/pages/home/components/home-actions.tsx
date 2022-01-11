@@ -1,10 +1,7 @@
-import React from 'react';
-
 import { Stack, StackProps } from '@stacks/ui';
-
-import { BuyButton } from './buy-button';
-import { SendButton } from './send-button';
+import React from 'react';
 import { ReceiveTxButton } from './tx-button';
+import { SendButton, BuyButton } from './send-button';
 
 export const HomeActions: React.FC<StackProps> = props => {
   return (

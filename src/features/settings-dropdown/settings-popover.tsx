@@ -53,7 +53,7 @@ const MenuItem: React.FC<BoxProps> = memo(props => {
   );
 });
 
-export const SettingsDropdown: React.FC = () => {
+export const SettingsPopover: React.FC = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const { lockWallet, wallet, currentNetworkKey, hasGeneratedWallet, encryptedSecretKey } =
     useWallet();
@@ -141,7 +141,7 @@ export const SettingsDropdown: React.FC = () => {
                   onClick={wrappedCloseCallback(() => {
                     void analytics.track('lock_session');
                     void lockWallet();
-                    navigate(RouteUrls.Unlock);
+                    navigate(RouteUrls.Home);
                   })}
                   data-testid="settings-lock"
                 >

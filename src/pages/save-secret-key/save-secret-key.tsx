@@ -13,13 +13,9 @@ import { SecretKeyMessage } from './components/secret-key-message';
 import { SecretKeyCard } from './components/secret-key-card';
 
 export const SaveSecretKey: React.FC = memo(() => {
-  const { hasSetPassword, secretKey } = useWallet();
+  const { hasSetPassword } = useWallet();
   const analytics = useAnalytics();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!secretKey) navigate(RouteUrls.Onboarding);
-  }, [navigate, secretKey]);
 
   useEffect(() => {
     void analytics.page('view', '/save-your-secret-key');
