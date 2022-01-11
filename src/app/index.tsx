@@ -7,7 +7,7 @@ import { initSentry } from '@shared/utils/sentry-init';
 initSentry();
 
 function renderApp() {
-  ReactDOM.render(<App />, document.getElementById('app'));
+  ReactDOM.render(<App />, document.getElementById('actions-root'));
 }
 
 void persistAndRenderApp(renderApp);
