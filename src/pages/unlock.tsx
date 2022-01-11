@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { css } from '@emotion/css';
 import { Box, Button, Input, Stack, Text } from '@stacks/ui';
 
 import { useChangeScreen } from '@common/hooks/use-change-screen';
@@ -14,7 +13,6 @@ import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { RouteUrls } from '@routes/route-urls';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
-import { getViewMode } from '@common/utils';
 
 export function Unlock(): JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -25,9 +23,6 @@ export function Unlock(): JSX.Element {
   const { showSignOut } = useDrawers();
   const analytics = useAnalytics();
   const changeScreen = useChangeScreen();
-
-  const mode = getViewMode();
-  const isFullPage = mode === 'full';
 
   const submit = useCallback(async () => {
     const startUnlockTimeMs = performance.now();
@@ -57,15 +52,7 @@ export function Unlock(): JSX.Element {
       <PopupContainer header={<Header />} requestType="auth">
         <Box mt="loose">
           <Stack spacing="loose" width="100%">
-            <Body
-              className={
-                isFullPage
-                  ? css({ paddingLeft: '16px', paddingRight: '16px', textAlign: 'center' })
-                  : undefined
-              }
-            >
-              Enter the password you used on this device.
-            </Body>
+            <Body className="unlock-text">Enter the password you used on this device.</Body>
             <Box width="100%">
               <Input
                 placeholder="Enter your password"
