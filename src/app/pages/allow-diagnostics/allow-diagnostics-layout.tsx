@@ -50,7 +50,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
         </Stack>
         <Flex mt="loose" fontSize="14px" justifyContent="center">
           <PrimaryButton
-            data-testid={OnboardingSelectors.AnalyticsAllowBtn}
+            dataTestId={OnboardingSelectors.AnalyticsAllow}
             onClick={onUserAllowDiagnostics}
           >
             Allow

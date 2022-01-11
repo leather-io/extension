@@ -10,11 +10,11 @@ import { Header } from '@app/components/header';
 import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
 
-import { ViewSecretKeyActions } from './components/view-secret-key-actions';
-import { ViewSecretKeyMessage } from './components/view-secret-key-message';
-import { ViewSecretKeyCard } from './components/view-secret-key-card';
+import { SecretKeyActions } from './components/secret-key-actions';
+import { SecretKeyMessage } from './components/secret-key-message';
+import { SecretKeyCard } from './components/secret-key-card';
 
-export const ViewSecretKey = memo(() => {
+export const SaveSecretKey = memo(() => {
   const { secretKey } = useWallet();
   const analytics = useAnalytics();
   const navigate = useNavigate();
@@ -39,9 +39,9 @@ export const ViewSecretKey = memo(() => {
 
   return (
     <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose">
-      <ViewSecretKeyMessage wordCount={wordCount} />
-      <ViewSecretKeyCard secretKey={secretKey} />
-      <ViewSecretKeyActions
+      <SecretKeyMessage wordCount={wordCount} />
+      <SecretKeyCard secretKey={secretKey} />
+      <SecretKeyActions
         hasCopied={hasCopied}
         onClick={handleOnClick}
         onCopyToClipboard={copyToClipboard}

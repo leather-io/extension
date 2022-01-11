@@ -65,7 +65,7 @@ export const SignIn = () => {
         width="100%"
       />
       <PrimaryButton
-        data-testid={OnboardingSelectors.SignInBtn}
+        dataTestId={OnboardingSelectors.SignInBtn}
         isDisabled={isLoading}
         isLoading={isLoading}
       >
