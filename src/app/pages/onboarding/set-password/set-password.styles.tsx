@@ -1,15 +1,10 @@
 import { css } from '@emotion/css';
 
-import { FULL_PAGE_MAX_WIDTH } from '@shared/constants';
-
 export const fullPageContent = css`
   height: 100%;
   justify-content: center;
-  max-width: ${FULL_PAGE_MAX_WIDTH}px;
-`;
-
-export const fullPageOnboardingContent = css`
-  align-items: center;
+  max-width: 440px;
+  padding: 0px 24px;
 `;
 
 export const fullPageText = css`
@@ -23,15 +18,9 @@ export const fullPageTitle = css`
   text-align: center;
 `;
 
-export const fullPageOnboardingTitle = css`
-  font-size: 64px;
-`;
-
-export const popupPageContent = css`
-  margin-top: 16px;
-`;
-
-export const popupPageTitle = css`
+export const popupTitle = css`
   font-size: 32px;
   line-height: 44px;
+  margin-bottom: 16px !important;
+  width: 264px;
 `;

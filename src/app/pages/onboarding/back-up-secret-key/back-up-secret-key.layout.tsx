@@ -9,14 +9,13 @@ import KeyIllustrationPopup from '@assets/images/onboarding/key-illustration-pop
 import SecretKey from '@assets/images/onboarding/secret-key.svg';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import {
-  fullPageOnboardingContent,
-  fullPageOnboardingTitle,
-  popupPageContent,
-  popupPageTitle,
-} from '@app/pages/pages.styles';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/constants';
 
+import {
+  fullPageContent,
+  fullPageTitle,
+  popupContent,
+  popupTitle,
+} from './back-up-secret-key.styles';
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
 
 interface BackUpSecretKeyLayoutProps {
@@ -32,16 +31,15 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
   return (
     <Stack isInline={isFullPage} width="100%">
       <Flex
-        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
+        className={cx({ [fullPageContent]: isFullPage }, { [popupContent]: isPopup })}
         flexGrow={1}
         justifyContent="center"
       >
-        <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
+        <Stack maxWidth="440px" spacing="loose">
           <img src={SecretKey} width="135px" />
           <Title
-            className={cx({ [fullPageOnboardingTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+            className={cx({ [fullPageTitle]: isFullPage }, { [popupTitle]: isPopup })}
             fontWeight={500}
-            pr={isPopup ? '72px' : 'unset'}
           >
             Back up your Secret Key
           </Title>
@@ -54,7 +52,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
         </Stack>
       </Flex>
       <Flex
-        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
+        className={cx({ [fullPageContent]: isFullPage }, { [popupContent]: isPopup })}
         flexGrow={1}
         justifyContent="center"
       >

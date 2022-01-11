@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useClipboard } from '@stacks/ui';
 
@@ -14,10 +14,6 @@ export const BackUpSecretKeyPage = memo(() => {
   const navigate = useNavigate();
 
   const analytics = useAnalytics();
-
-  useEffect(() => {
-    if (!secretKey) navigate(RouteUrls.Onboarding);
-  }, [navigate, secretKey]);
 
   const copyToClipboard = () => {
     void analytics.track('copy_secret_key_to_clipboard');
