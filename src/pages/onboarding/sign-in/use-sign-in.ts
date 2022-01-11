@@ -127,6 +127,8 @@ export function useSignIn() {
     [handleSubmit]
   );
 
+  const onBack = useCallback(() => navigate(RouteUrls.Home), [navigate]);
+
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
@@ -145,6 +147,7 @@ export function useSignIn() {
   }, [setError, setSeed]);
 
   return {
+    onBack,
     onChange,
     onPaste,
     onSubmit,

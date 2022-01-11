@@ -5,9 +5,6 @@ import { useWallet } from '@common/hooks/use-wallet';
 import { useAuthRequest } from '@store/onboarding/onboarding.hooks';
 import { usePendingTransaction } from '@store/transactions/transaction.hooks';
 import { useOnCancel } from '@store/transactions/requests.hooks';
-import { useRouteHeaderState } from '@store/ui/ui.hooks';
-
-import { ContainerLayout } from './container.layout';
 
 function UnmountEffectSuspense() {
   const pendingTx = usePendingTransaction();
@@ -44,12 +41,11 @@ function UnmountEffect() {
 }
 
 export function Container(): JSX.Element | null {
-  const [routeHeader, _] = useRouteHeaderState();
-
-  return (
-    <ContainerLayout header={routeHeader}>
+  const { hasRehydratedVault } = useWallet();
+  return hasRehydratedVault ? (
+    <>
       <UnmountEffect />
       <Outlet />
-    </ContainerLayout>
-  );
+    </>
+  ) : null;
 }

@@ -62,7 +62,7 @@ export function useMagicRecoveryCode() {
     [setMagicRecoveryCodePassword]
   );
 
-  const onBack = () => navigate(RouteUrls.SignIn);
+  const handleBack = () => navigate(RouteUrls.SignIn);
 
   const onSubmit = useCallback(
     async (event: React.FormEvent) => {
@@ -83,7 +83,7 @@ export function useMagicRecoveryCode() {
     error,
     isLoading,
     magicRecoveryCodePassword,
-    onBack,
+    onBack: handleBack,
     onSubmit,
     onChange,
   };

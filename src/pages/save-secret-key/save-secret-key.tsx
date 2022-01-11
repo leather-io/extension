@@ -2,11 +2,11 @@ import React, { memo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
-import { useRouteHeader } from '@common/hooks/use-route-header';
 import { useWallet } from '@common/hooks/use-wallet';
-import { useAnalytics } from '@common/hooks/analytics/use-analytics';
-import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
+import { ContainerLayout } from '@components/container/container.layout';
+import { Header } from '@components/header';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 import { SecretKeyActions } from './components/secret-key-actions';
 import { SecretKeyMessage } from './components/secret-key-message';
@@ -17,16 +17,6 @@ export const SaveSecretKey: React.FC = memo(() => {
   const analytics = useAnalytics();
   const navigate = useNavigate();
 
-  useRouteHeader(
-    <Header
-      onClose={
-        hasSetPassword ? () => navigate(RouteUrls.Home) : () => navigate(RouteUrls.Onboarding)
-      }
-      hideActions={!hasSetPassword}
-      title={hasSetPassword ? 'Your Secret Key' : 'Save your Secret Key'}
-    />
-  );
-
   useEffect(() => {
     if (!secretKey) navigate(RouteUrls.Onboarding);
   }, [navigate, secretKey]);
@@ -36,10 +26,22 @@ export const SaveSecretKey: React.FC = memo(() => {
   }, [analytics]);
 
   return (
-    <Stack spacing="loose">
-      <SecretKeyMessage />
-      <SecretKeyCard />
-      <SecretKeyActions />
-    </Stack>
+    <ContainerLayout
+      header={
+        <Header
+          onClose={
+            hasSetPassword ? () => navigate(RouteUrls.Home) : () => navigate(RouteUrls.Onboarding)
+          }
+          hideActions={!hasSetPassword}
+          title={hasSetPassword ? 'Your Secret Key' : 'Save your Secret Key'}
+        />
+      }
+    >
+      <Stack spacing="loose">
+        <SecretKeyMessage />
+        <SecretKeyCard />
+        <SecretKeyActions />
+      </Stack>
+    </ContainerLayout>
   );
 });

@@ -1,12 +1,10 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useRouteHeader } from '@common/hooks/use-route-header';
+import { RouteUrls } from '@routes/route-urls';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
-import { Header } from '@components/header';
-import { RouteUrls } from '@routes/route-urls';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
 
 import { WelcomeLayout } from './welcome.layout';
@@ -17,8 +15,6 @@ export const WelcomePage = memo(() => {
   const { hasGeneratedWallet, hasSetPassword, encryptedSecretKey, makeWallet } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
-
-  useRouteHeader(<Header hideActions />);
 
   const [isGeneratingWallet, setIsGeneratingWallet] = useState(false);
 
@@ -36,9 +32,11 @@ export const WelcomePage = memo(() => {
 
   useEffect(() => {
     if (hasAllowedDiagnostics === undefined) navigate(RouteUrls.RequestDiagnostics);
-
-    return () => setIsGeneratingWallet(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    return () => setIsGeneratingWallet(false);
   }, []);
 
   useEffect(() => {

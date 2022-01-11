@@ -141,7 +141,7 @@ export const Accounts: React.FC<AccountsProps> = memo(
 
     return (
       <>
-        <Stack spacing="loose" {...rest}>
+        <Stack py="extra-loose" spacing="loose" px="extra-loose" {...rest}>
           {accounts.map(account => (
             <AccountItem key={account.address} account={account} />
           ))}
