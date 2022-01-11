@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, useClipboard, Stack, Text, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
@@ -14,7 +15,7 @@ import { RouteUrls } from '@routes/route-urls';
 
 import { QrCode } from './components/address-qr-code';
 
-export const ReceiveTokens = () => {
+export const ReceiveTokens: React.FC = () => {
   const { currentAccount, currentAccountStxAddress } = useWallet();
   const navigate = useNavigate();
   const address = currentAccountStxAddress || '';

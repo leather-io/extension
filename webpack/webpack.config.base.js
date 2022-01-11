@@ -120,6 +120,34 @@ const config = {
           },
           {
             loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              babelrc: false,
+              presets: [
+                '@babel/preset-typescript',
+                ['@babel/preset-env', { targets: { browsers: 'last 2 versions' } }],
+                [
+                  '@babel/preset-react',
+                  {
+                    runtime: 'automatic',
+                  },
+                ],
+              ],
+              plugins: [
+                ['@babel/plugin-proposal-class-properties', { loose: false }],
+                '@babel/plugin-transform-runtime',
+                '@babel/plugin-proposal-nullish-coalescing-operator',
+                '@babel/plugin-proposal-optional-chaining',
+                [
+                  '@babel/plugin-transform-react-jsx',
+                  {
+                    runtime: 'automatic',
+                  },
+                  '@emotion',
+                ],
+                IS_DEV && require.resolve('react-refresh/babel'),
+              ].filter(Boolean),
+            },
           },
         ],
       },

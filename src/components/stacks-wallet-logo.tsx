@@ -1,9 +1,9 @@
 import { memo } from 'react';
-
+import * as React from 'react';
 import { Stack, StackProps, color, Box, BoxProps } from '@stacks/ui';
 import { Title } from '@components/typography';
 
-const HiroSvg = (props: BoxProps) => (
+const HiroSvg: React.FC<BoxProps> = props => (
   <Box as="svg" viewBox="0 0 16 16" fill="none" {...props}>
     <circle cx="8" cy="8" r="8" fill="currentColor" />
     <path
@@ -17,7 +17,7 @@ const HiroSvg = (props: BoxProps) => (
   </Box>
 );
 
-export const StacksWalletLogo = memo((props: StackProps) => {
+export const StacksWalletLogo: React.FC<StackProps> = memo(props => {
   return (
     <Stack
       color={color('text-title')}

@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
 import { FiMoreHorizontal as IconDots, FiArrowLeft as IconArrowLeft } from 'react-icons/fi';
@@ -9,7 +10,7 @@ import { NetworkModeBadge } from '@components/network-mode-badge';
 import { Caption, Title } from '@components/typography';
 import { RouteUrls } from '@routes/route-urls';
 
-const MenuButton = memo((props: BoxProps) => {
+const MenuButton: React.FC<BoxProps> = memo(props => {
   const { showSettings, setShowSettings } = useDrawers();
   return (
     <IconButton

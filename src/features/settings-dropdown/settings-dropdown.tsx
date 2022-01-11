@@ -1,4 +1,5 @@
-import { memo, useCallback, useRef } from 'react';
+import { memo, useCallback } from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, SlideFade, BoxProps, color, Flex } from '@stacks/ui';
 
@@ -32,7 +33,7 @@ const MenuWrapper = forwardRefWithAs((props, ref) => (
   />
 ));
 
-const MenuItem = memo((props: BoxProps) => {
+const MenuItem: React.FC<BoxProps> = memo(props => {
   const { onClick, children, ...rest } = props;
   return (
     <Text
@@ -53,8 +54,8 @@ const MenuItem = memo((props: BoxProps) => {
   );
 });
 
-export const SettingsDropdown = () => {
-  const ref = useRef<HTMLDivElement | null>(null);
+export const SettingsDropdown: React.FC = () => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
   const { lockWallet, wallet, currentNetworkKey, hasGeneratedWallet, encryptedSecretKey } =
     useWallet();
   const {

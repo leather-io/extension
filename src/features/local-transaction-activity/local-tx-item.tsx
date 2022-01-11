@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { PayloadType, StacksTransaction } from '@stacks/transactions';
 import { Box, BoxProps, color, Stack } from '@stacks/ui';
 import { usePressable } from '@components/item-hover';
@@ -13,11 +14,11 @@ import { getTxCaption } from '@common/transactions/transaction-utils';
 
 type Tx = MempoolTransaction | Transaction;
 
-interface LocalTxItemProps extends BoxProps {
-  transaction: StacksTransaction;
-  txid: string;
-}
-export const LocalTxItem = ({ transaction, txid, ...rest }: LocalTxItemProps) => {
+export const LocalTxItem: React.FC<{ transaction: StacksTransaction; txid: string } & BoxProps> = ({
+  transaction,
+  txid,
+  ...rest
+}) => {
   const [component, bind] = usePressable(true);
   const { handleOpenTxLink } = useExplorerLink();
 

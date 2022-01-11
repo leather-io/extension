@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   FiArrowDown as IconArrowDown,
   FiArrowUp as IconArrowUp,
@@ -33,7 +34,7 @@ const colorFromTx = (tx: Tx): ColorsStringLiteral => {
   return colorMap[statusFromTx(tx)] ?? 'feedback-error';
 };
 
-export const TypeIconWrapper = ({ bg, icon: Icon, ...rest }: TypeIconWrapperProps) => (
+export const TypeIconWrapper: React.FC<TypeIconWrapperProps> = ({ bg, icon: Icon, ...rest }) => (
   <Circle
     bottom="-2px"
     right="-9px"

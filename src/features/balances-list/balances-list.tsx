@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Stack, StackProps } from '@stacks/ui';
 
 import { AssetRow } from '@components/asset-row';
@@ -9,7 +10,7 @@ import { useStxTokenState } from '@store/assets/asset.hooks';
 import { FungibleAssets } from './components/fungible-assets';
 import { NoAssets } from './components/no-assets';
 
-export const BalancesList = (props: StackProps) => {
+export const BalancesList: React.FC<StackProps> = props => {
   const stxToken = useStxTokenState();
   const currentAccount = useCurrentAccount();
   const balances = useCurrentAccountBalancesUnanchoredState();

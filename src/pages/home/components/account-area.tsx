@@ -1,6 +1,7 @@
 import { color, Box, Stack, StackProps, useClipboard } from '@stacks/ui';
 import { Caption } from '@components/typography';
 import { memo } from 'react';
+import * as React from 'react';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { Tooltip } from '@components/tooltip';
 import { truncateMiddle } from '@stacks/ui-utils';
@@ -38,7 +39,7 @@ const AccountAddress = memo((props: StackProps) => {
   ) : null;
 });
 
-export const CurrentAccount = memo((props: StackProps) => {
+export const CurrentAccount: React.FC<StackProps> = memo(props => {
   const currentAccount = useCurrentAccount();
   if (!currentAccount) {
     throw new Error('Homepage rendered without account state. This should never happen.');

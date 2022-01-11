@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "commonjs",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "react-jsx",
+    "jsx": "react",
     "sourceMap": true,
     "removeComments": true,
     "noEmit": false,
