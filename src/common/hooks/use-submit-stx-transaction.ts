@@ -36,8 +36,6 @@ function getErrorMessage(
   }
 }
 
-const timeForApiToUpdate = 250;
-
 interface UseSubmitTransactionCallbackArgs {
   replaceByFee?: boolean;
   onClose: () => void;
@@ -50,11 +48,7 @@ export function useSubmitTransactionCallback({
 }: UseSubmitTransactionCallbackArgs) {
   const refreshAccountData = useRefreshAllAccountData();
   const changeScreen = useChangeScreen();
-<<<<<<< HEAD
   const { setLatestNonce } = useWallet();
-=======
-  const { doSetLatestNonce } = useWallet();
->>>>>>> 3be3b2d29 (refactor(tx-signing): use unsigned serialised txs for fee estimation)
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
@@ -84,12 +78,13 @@ export function useSubmitTransactionCallback({
           if (nonce) await setLatestNonce(nonce);
           toast.success('Transaction submitted!');
           void analytics.track('broadcast_transaction');
+          changeScreen(RouteUrls.Home);
           onClose();
           setIsIdle();
           changeScreen(RouteUrls.Home);
           // switch active tab to activity
           setActiveTabActivity();
-          await refreshAccountData(timeForApiToUpdate);
+          await refreshAccountData(250); // delay to give the api time to receive the tx
         }
       } catch (e) {
         logger.error(e);
@@ -127,7 +122,11 @@ export function useHandleSubmitTransaction({
   loadingKey,
   replaceByFee = false,
 }: UseHandleSubmitTransactionArgs) {
-  const callback = useSubmitTransactionCallback({ onClose, loadingKey, replaceByFee });
+  const callback = useSubmitTransactionCallback({
+    onClose,
+    loadingKey,
+    replaceByFee,
+  });
   if (transaction) return () => callback(transaction);
   return () => null;
 }

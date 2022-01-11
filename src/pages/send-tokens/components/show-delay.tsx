@@ -6,12 +6,15 @@ import {
 } from '@store/transactions/transaction.hooks';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 
-interface ShowDelayProps {
+export const ShowDelay = ({
+  setShowing,
+  beginShow,
+  isShowing,
+}: {
   setShowing: (value: boolean) => void;
   beginShow: boolean;
   isShowing: boolean;
-}
-export const ShowDelay = ({ setShowing, beginShow, isShowing }: ShowDelayProps) => {
+}) => {
   const [tx] = useTxForSettingsState();
   const [txData] = useLocalTransactionInputsState();
   const { setIsIdle } = useLoading(LoadingKeys.SEND_TOKENS_FORM);

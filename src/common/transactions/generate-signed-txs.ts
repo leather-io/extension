@@ -5,20 +5,25 @@ import {
   ContractDeployPayload,
   TransactionTypes,
 } from '@stacks/connect';
+import { ChainID } from '@stacks/common';
+
 import {
   AnchorMode,
-  ContractDeployOptions,
   deserializeCV,
   makeContractCall,
   makeContractDeploy,
   makeSTXTokenTransfer,
-  SignedContractCallOptions,
-  SignedTokenTransferOptions,
 } from '@stacks/transactions';
 
 import { hexToBuff } from '@common/utils';
 import { getPostConditions } from '@common/transactions/post-condition-utils';
 
+import {
+  StacksMainnet,
+  StacksTestnet,
+  HIRO_MAINNET_DEFAULT,
+  HIRO_TESTNET_DEFAULT,
+} from '@stacks/network';
 import { isTransactionTypeSupported } from './transaction-utils';
 
 interface GenerateSignedTxArgs<TxPayload> {
@@ -44,7 +49,18 @@ function generateSignedContractCallTx(args: GenerateSignedContractCallTxArgs) {
 
   const fnArgs = functionArgs.map(arg => deserializeCV(hexToBuff(arg)));
 
-  const options: SignedContractCallOptions = {
+  let network = txData.network;
+
+  if (typeof txData.network?.getTransferFeeEstimateApiUrl !== 'function') {
+    const networkBuilder =
+      txData.network?.chainId === ChainID.Testnet ? StacksTestnet : StacksMainnet;
+    const defaultNetworkUrl =
+      txData.network?.chainId === ChainID.Testnet ? HIRO_TESTNET_DEFAULT : HIRO_MAINNET_DEFAULT;
+    network = new networkBuilder({ url: txData.network?.coreApiUrl || defaultNetworkUrl });
+    if (txData.network?.bnsLookupUrl) network.bnsLookupUrl = txData.network?.bnsLookupUrl;
+  }
+
+  const options = {
     contractName,
     contractAddress,
     functionName,
@@ -55,7 +71,7 @@ function generateSignedContractCallTx(args: GenerateSignedContractCallTxArgs) {
     fee: !fee ? new BN(0) : new BN(fee, 10),
     postConditionMode: postConditionMode,
     postConditions: getPostConditions(postConditions),
-    network: txData.network,
+    network,
     sponsored,
   };
   return makeContractCall(options);
@@ -66,7 +82,7 @@ type GenerateSignedContractDeployTxArgs = GenerateSignedTxArgs<ContractDeployPay
 function generateSignedContractDeployTx(args: GenerateSignedContractDeployTxArgs) {
   const { txData, senderKey, nonce, fee } = args;
   const { contractName, codeBody, network, postConditions, postConditionMode } = txData;
-  const options: ContractDeployOptions = {
+  const options = {
     contractName,
     codeBody,
     nonce: nonce !== undefined ? new BN(nonce, 10) : undefined,
@@ -85,7 +101,7 @@ type GenerateSignedStxTransferTxArgs = GenerateSignedTxArgs<STXTransferPayload>;
 function generateSignedStxTransferTx(args: GenerateSignedStxTransferTxArgs) {
   const { txData, senderKey, nonce, fee } = args;
   const { recipient, memo, amount, network } = txData;
-  const options: SignedTokenTransferOptions = {
+  const options = {
     recipient,
     memo,
     senderKey,
