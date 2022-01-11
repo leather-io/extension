@@ -3,7 +3,6 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
-import { Container } from '@components/container/container';
 import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
 import { SignTransaction } from '@pages/sign-transaction/sign-transaction';
@@ -32,7 +31,7 @@ export function AppRoutes(): JSX.Element {
 
   useEffect(() => {
     // This ensures the ext popup hits the right route on load
-    if (pathname === RouteUrls.Container && !hasGeneratedWallet) navigate(RouteUrls.Onboarding);
+    if (pathname === RouteUrls.Home && !hasGeneratedWallet) navigate(RouteUrls.Onboarding);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -42,91 +41,91 @@ export function AppRoutes(): JSX.Element {
 
   return (
     <Routes>
-      <Route path={RouteUrls.Container} element={<Container />}>
-        <Route
-          path={RouteUrls.Home}
-          element={
-            <AccountGate>
-              <Home />
-            </AccountGate>
-          }
-        >
-          <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
-        </Route>
-        <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
-        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-        <Route path={RouteUrls.SaveSecretKey} element={<SaveSecretKey />} />
-        <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
-        <Route path={RouteUrls.SignIn} element={<SignIn />} />
-        <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
-        <Route
-          path={RouteUrls.AddNetwork}
-          element={
-            <AccountGate>
-              <AddNetwork />
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.ChooseAccount}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <ChooseAccount />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.Buy}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <BuyPage />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.Receive}
-          element={
-            <AccountGate>
-              <ReceiveTokens />
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.Send}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <SendTokensForm />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.Transaction}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <SignTransaction />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.ViewSecretKey}
-          element={
-            <AccountGate>
-              <SaveSecretKey />
-            </AccountGate>
-          }
-        />
-        <Route path={RouteUrls.Unlock} element={<Unlock />} />
-        {/* Catch-all route redirects to onboarding */}
-        <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
+      {/* TODO: Use a layout container route at highest level - remove PopupContainer */}
+      {/* <Route element={<Layout />}> */}
+      <Route
+        path={RouteUrls.Home}
+        element={
+          <AccountGate>
+            <Home />
+          </AccountGate>
+        }
+      >
+        <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
       </Route>
+      <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
+      <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+      <Route path={RouteUrls.SaveSecretKey} element={<SaveSecretKey />} />
+      <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
+      <Route path={RouteUrls.SignIn} element={<SignIn />} />
+      <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
+      <Route
+        path={RouteUrls.AddNetwork}
+        element={
+          <AccountGate>
+            <AddNetwork />
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.ChooseAccount}
+        element={
+          <AccountGate>
+            <Suspense fallback={<></>}>
+              <ChooseAccount />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.Buy}
+        element={
+          <AccountGate>
+            <Suspense fallback={<></>}>
+              <BuyPage />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.Receive}
+        element={
+          <AccountGate>
+            <ReceiveTokens />
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.Send}
+        element={
+          <AccountGate>
+            <Suspense fallback={<></>}>
+              <SendTokensForm />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.Transaction}
+        element={
+          <AccountGate>
+            <Suspense fallback={<></>}>
+              <SignTransaction />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.ViewSecretKey}
+        element={
+          <AccountGate>
+            <SaveSecretKey />
+          </AccountGate>
+        }
+      />
+      <Route path={RouteUrls.Unlock} element={<Unlock />} />
+      {/* Catch-all route redirects to onboarding */}
+      <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
     </Routes>
   );
 }

@@ -11,7 +11,7 @@ import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { HUMAN_REACTION_DEBOUNCE_TIME } from '@common/constants';
 import { validatePassword, blankPasswordValidation } from '@common/validation/validate-password';
 import { Body, Caption } from '@components/typography';
-import { ContainerLayout } from '@components/container/container.layout';
+import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
 
@@ -84,7 +84,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
   });
 
   return (
-    <ContainerLayout
+    <PopupContainer
       header={
         <Header
           hideActions
@@ -92,6 +92,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
           title="Set a password"
         />
       }
+      requestType="auth"
     >
       <Formik
         initialValues={{ password: '' }}
@@ -138,6 +139,6 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
           </Form>
         )}
       </Formik>
-    </ContainerLayout>
+    </PopupContainer>
   );
 };
