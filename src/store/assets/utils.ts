@@ -1,7 +1,7 @@
 import { getAssetStringParts, truncateMiddle } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 import type { Asset } from '@common/asset-types';
-import type { AccountBalanceResponseBigNumber } from '@models/account-types';
+import type { AccountBalanceResponseBigNumber } from '@store/accounts/types';
 
 export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
   const _assets: Asset[] = [];
