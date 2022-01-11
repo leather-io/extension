@@ -18,16 +18,12 @@ import {
 import { ErrorLabel } from '@app/components/error-label';
 import { Body, Caption, Title } from '@app/components/typography';
 import { Header } from '@app/components/header';
-import {
-  fullPageContent,
-  fullPageText,
-  fullPageTitle,
-  popupPageTitle,
-} from '@app/pages/pages.styles';
 import { HUMAN_REACTION_DEBOUNCE_TIME } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+
+import { fullPageContent, fullPageText, fullPageTitle, popupTitle } from './set-password.styles';
 
 export const SetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
@@ -122,7 +118,7 @@ export const SetPasswordPage = () => {
         <Form>
           <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose">
             <Title
-              className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+              className={cx({ [fullPageTitle]: isFullPage }, { [popupTitle]: isPopup })}
               fontWeight={500}
             >
               Set a password
@@ -145,7 +141,7 @@ export const SetPasswordPage = () => {
               mb="16px !important"
               name="password"
               onChange={formik.handleChange}
-              placeholder="Set a password"
+              placeholder={'Set a password'}
               type="password"
               value={formik.values.password}
             />
@@ -159,7 +155,7 @@ export const SetPasswordPage = () => {
               key="confirm-password-input"
               name="confirmPassword"
               onChange={formik.handleChange}
-              placeholder="Confirm password"
+              placeholder={'Confirm password'}
               type="password"
               value={formik.values.confirmPassword}
               width="100%"

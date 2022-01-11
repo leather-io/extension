@@ -12,11 +12,11 @@ import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { CurrentAccount } from '@app/pages/home/components/account-area';
 import { HomeActions } from '@app/pages/home/components/home-actions';
-import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 
 import { HomeTabs } from './components/home-tabs';
+import { fullPageContent } from './home.styles';
 
 export const Home = () => {
   const { decodedAuthRequest } = useOnboardingState();
@@ -44,7 +44,6 @@ export const Home = () => {
         className={isFullPage ? fullPageContent : undefined}
         data-testid="home-page"
         flexGrow={1}
-        mt="loose"
         spacing="loose"
       >
         <CurrentAccount />

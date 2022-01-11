@@ -1,9 +1,8 @@
 import { FC } from 'react';
-import { FiCheck } from 'react-icons/fi';
-import { Box, Button, Flex, color, Stack } from '@stacks/ui';
 
 import { Body, Title } from '@app/components/typography';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/constants';
+import { Box, Button, Flex, color, Stack } from '@stacks/ui';
+import { FiCheck } from 'react-icons/fi';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 interface ReasonToAllowDiagnosticsProps {
@@ -28,12 +27,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
   const { onUserAllowDiagnostics, onUserDenyDiagnosticsPermissions } = props;
 
   return (
-    <Stack
-      flexGrow={1}
-      justifyContent="center"
-      maxWidth={`${FULL_PAGE_MAX_WIDTH}px`}
-      spacing="extra-loose"
-    >
+    <Stack flexGrow={1} justifyContent="center" maxWidth="440px" spacing="extra-loose">
       <Title as="h1" fontWeight={500} textAlign="center">
         Help us improve
       </Title>

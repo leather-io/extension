@@ -2,12 +2,11 @@ import { Suspense, useCallback, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import { Box, Text, Button, Stack } from '@stacks/ui';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
 import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
-import { isEmpty, isFullPage } from '@app/common/utils';
+import { isEmpty } from '@app/common/utils';
 import {
   getDefaultSimulatedFeeEstimations,
   getFeeEstimationsWithMaxValues,
@@ -20,7 +19,6 @@ import { FeeRow } from '@app/components/fee-row/fee-row';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
-import { fullPageContent } from '@app/pages/pages.styles';
 import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
@@ -33,6 +31,7 @@ import {
 } from '@app/store/transactions/transaction.hooks';
 
 import { SendFormMemoWarning } from './memo-warning';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
@@ -111,13 +110,7 @@ export function SendFormInner(props: SendFormInnerProps) {
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
   return (
-    <Stack
-      className={isFullPage ? fullPageContent : undefined}
-      spacing="loose"
-      flexDirection="column"
-      flexGrow={1}
-      shouldWrapChildren
-    >
+    <Stack spacing="loose" flexDirection="column" flexGrow={1} shouldWrapChildren>
       <AssetSearch onItemClick={onItemSelect} />
       <Suspense fallback={<></>}>
         <AmountField

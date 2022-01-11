@@ -2,10 +2,6 @@ import { ChainID } from '@stacks/transactions';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
-export const FULL_PAGE_MAX_WIDTH = 440;
-export const POPUP_WIDTH = 442;
-export const POPUP_HEIGHT = 646;
-
 export const HIGH_FEE_AMOUNT_STX = 5;
 
 export const DEFAULT_FEE_RATE = 400;
@@ -22,6 +18,8 @@ export const STX_DECIMALS = 6;
 
 export const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
 
+export const POPUP_WIDTH = 442;
+export const POPUP_HEIGHT = 646;
 export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 
 export const GITHUB_ORG = 'hirosystems';

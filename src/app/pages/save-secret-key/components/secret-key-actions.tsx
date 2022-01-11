@@ -1,29 +1,50 @@
-import { Button, color, Stack, StackProps } from '@stacks/ui';
+import { useNavigate } from 'react-router-dom';
+import { Button, color, Stack, StackProps, useClipboard } from '@stacks/ui';
+
+import { useWallet } from '@app/common/hooks/use-wallet';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { RouteUrls } from '@shared/route-urls';
 
 interface SecreteKeyActionsProps extends StackProps {
-  hasCopied: boolean;
-  onClick(): void;
-  onCopyToClipboard(): void;
+  onClose?: () => void;
 }
 export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
-  const { hasCopied, onClick, onCopyToClipboard, ...rest } = props;
+  const { onClose, ...rest } = props;
+  const { secretKey } = useWallet();
+  const { onCopy, hasCopied } = useClipboard(secretKey || '');
+  const navigate = useNavigate();
+
+  const analytics = useAnalytics();
+
+  const copyToClipboard = () => {
+    void analytics.track('copy_secret_key_to_clipboard');
+    onCopy();
+  };
+
+  const handleOnClick = () => {
+    navigate(RouteUrls.SetPassword);
+  };
 
   return (
-    <Stack width="100%" spacing="base" {...rest}>
+    <Stack spacing="base" {...rest}>
       <Button
+        data-testid="copy-key-to-clipboard"
+        width="100%"
         border="1px solid"
         borderColor={color('border')}
-        borderRadius="10px"
-        boxShadow="none"
         color={color(hasCopied ? 'text-caption' : 'brand')}
-        data-testid="copy-key-to-clipboard"
-        height="48px"
-        onClick={hasCopied ? undefined : onCopyToClipboard}
         mode="tertiary"
+        borderRadius="10px"
+        onClick={hasCopied ? undefined : copyToClipboard}
       >
         {hasCopied ? 'Copied!' : 'Copy to clipboard'}
       </Button>
-      <Button data-testid="confirm-saved-key" borderRadius="10px" height="48px" onClick={onClick}>
+      <Button
+        width="100%"
+        onClick={handleOnClick}
+        data-testid="confirm-saved-key"
+        borderRadius="10px"
+      >
         I've saved it
       </Button>
     </Stack>
