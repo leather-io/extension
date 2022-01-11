@@ -2,7 +2,6 @@ import React, { memo, useCallback } from 'react';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { Box, Fade, Stack, color, Spinner } from '@stacks/ui';
 import { FiCheck as IconCheck } from 'react-icons/fi';
-import { Virtuoso } from 'react-virtuoso';
 
 import { SpaceBetween } from '@components/space-between';
 import { useSwitchAccount } from '@common/hooks/account/use-switch-account';
@@ -87,10 +86,10 @@ interface AccountListProps {
 }
 export const AccountList = memo(({ accounts, handleClose }: AccountListProps) => {
   return (
-    <Virtuoso
-      style={{ height: '70vh' }}
-      totalCount={accounts.length}
-      itemContent={index => <AccountListItem handleClose={handleClose} account={accounts[index]} />}
-    />
+    <>
+      {accounts.map(account => (
+        <AccountListItem handleClose={handleClose} key={account.address} account={account} />
+      ))}
+    </>
   );
 });
