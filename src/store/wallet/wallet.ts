@@ -1,4 +1,5 @@
 import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 import {
   Wallet,
   WalletConfig,
@@ -6,12 +7,17 @@ import {
   createWalletGaiaConfig,
 } from '@stacks/wallet-sdk';
 import { gaiaUrl } from '@common/constants';
+import { makeLocalDataKey } from '@common/store-utils';
 
 export const secretKeyState = atom<Uint8Array | undefined>(undefined);
 export const hasSetPasswordState = atom<boolean>(false);
 export const walletState = atom<Wallet | undefined>(undefined);
-export const encryptedSecretKeyState = atom<string | undefined>(undefined);
-export const walletConfigState = atom<WalletConfig | null>(async get => {
+export const encryptedSecretKeyStore = atom<string | undefined>(undefined);
+export const lastSeenStore = atomWithStorage<number>(
+  makeLocalDataKey('wallet.last-seen'),
+  new Date().getTime()
+);
+export const walletConfigStore = atom<WalletConfig | null>(async get => {
   const wallet = get(walletState);
   if (!wallet) return null;
 
@@ -23,6 +29,7 @@ export const hasRehydratedVaultStore = atom(false);
 secretKeyState.debugLabel = 'secretKeyState';
 hasSetPasswordState.debugLabel = 'hasSetPasswordState';
 walletState.debugLabel = 'walletState';
-encryptedSecretKeyState.debugLabel = 'encryptedSecretKeyState';
-walletConfigState.debugLabel = 'walletConfigState';
+encryptedSecretKeyStore.debugLabel = 'encryptedSecretKeyStore';
+lastSeenStore.debugLabel = 'lastSeenStore';
+walletConfigStore.debugLabel = 'walletConfigStore';
 hasRehydratedVaultStore.debugLabel = 'hasRehydratedVaultStore';

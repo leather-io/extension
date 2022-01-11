@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react';
+import React, { memo } from 'react';
 import { BoxProps } from '@stacks/ui';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
@@ -8,7 +8,7 @@ import { Title } from '@components/typography';
 import { memoWithAs } from '@stacks/ui-core';
 import { useCurrentAccountDisplayName } from '@common/hooks/account/use-account-names';
 
-const AccountNameTitle = (props: BoxProps) => (
+const UsernameTitle = (props: BoxProps) => (
   <Title
     data-testid="home-current-display-name"
     as="h1"
@@ -19,7 +19,7 @@ const AccountNameTitle = (props: BoxProps) => (
   />
 );
 
-const AccountNameSuspense = memo((props: BoxProps) => {
+const UsernameSuspense = memo((props: BoxProps) => {
   const currentAccount = useCurrentAccount();
   const name = useCurrentAccountDisplayName();
   if (!currentAccount || typeof currentAccount.index === 'undefined') return null;
@@ -28,21 +28,21 @@ const AccountNameSuspense = memo((props: BoxProps) => {
   const displayName = truncateString(name, nameCharLimit);
 
   return (
-    <AccountNameTitle {...props}>
+    <UsernameTitle {...props}>
       <Tooltip label={isLong ? name : undefined}>
         <div>{displayName}</div>
       </Tooltip>
-    </AccountNameTitle>
+    </UsernameTitle>
   );
 });
 
-export const CurrentAccountName = memoWithAs((props: BoxProps) => {
+export const CurrentUsername = memoWithAs((props: BoxProps) => {
   const currentAccount = useCurrentAccount();
   const defaultName = currentAccount ? getAccountDisplayName(currentAccount) : '';
-  const fallback = <AccountNameTitle {...props}>{defaultName}</AccountNameTitle>;
+  const fallback = <UsernameTitle {...props}>{defaultName}</UsernameTitle>;
   return (
-    <Suspense fallback={fallback}>
-      <AccountNameSuspense {...props} />
-    </Suspense>
+    <React.Suspense fallback={fallback}>
+      <UsernameSuspense {...props} />
+    </React.Suspense>
   );
 });

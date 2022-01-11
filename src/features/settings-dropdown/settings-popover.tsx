@@ -7,6 +7,7 @@ import { useDrawers } from '@common/hooks/use-drawers';
 import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
 import { Divider } from '@components/divider';
+import { USERNAMES_ENABLED } from '@common/constants';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { AccountStep } from '@store/ui/ui.models';
@@ -54,7 +55,7 @@ const MenuItem: React.FC<BoxProps> = memo(props => {
 
 export const SettingsPopover: React.FC = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
-  const { lockWallet, wallet, currentNetworkKey, hasGeneratedWallet, encryptedSecretKey } =
+  const { currentAccount, lockWallet, wallet, currentNetworkKey, isSignedIn, encryptedSecretKey } =
     useWallet();
   const {
     setShowNetworks,
@@ -87,7 +88,7 @@ export const SettingsPopover: React.FC = () => {
     <SlideFade initialOffset="-20px" timeout={150} in={isShowing}>
       {styles => (
         <MenuWrapper ref={ref} style={styles} pointerEvents={!isShowing ? 'none' : 'all'}>
-          {hasGeneratedWallet && (
+          {isSignedIn && (
             <>
               {wallet && wallet?.accounts?.length > 1 && (
                 <MenuItem
@@ -112,14 +113,27 @@ export const SettingsPopover: React.FC = () => {
               <MenuItem
                 data-testid="settings-view-secret-key"
                 onClick={wrappedCloseCallback(() => {
-                  changeScreen(RouteUrls.ViewSecretKey);
+                  changeScreen(RouteUrls.SettingsKey);
                 })}
               >
                 View Secret Key
               </MenuItem>
             </>
           )}
-          {hasGeneratedWallet ? <Divider /> : null}
+          {USERNAMES_ENABLED && currentAccount && !currentAccount.username ? (
+            <>
+              <Divider />
+              <MenuItem
+                onClick={wrappedCloseCallback(() => {
+                  setAccountStep(AccountStep.Username);
+                  setShowAccounts(true);
+                })}
+              >
+                Add username
+              </MenuItem>
+            </>
+          ) : null}
+          {isSignedIn ? <Divider /> : null}
           <MenuItem
             data-testid={SettingsSelectors.ChangeNetworkAction}
             onClick={wrappedCloseCallback(() => {
@@ -135,12 +149,12 @@ export const SettingsPopover: React.FC = () => {
           {encryptedSecretKey && (
             <>
               <Divider />
-              {hasGeneratedWallet && (
+              {isSignedIn && (
                 <MenuItem
                   onClick={wrappedCloseCallback(() => {
                     void analytics.track('lock_session');
                     void lockWallet();
-                    changeScreen(RouteUrls.Home);
+                    changeScreen(RouteUrls.PopupHome);
                   })}
                   data-testid="settings-lock"
                 >

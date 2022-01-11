@@ -2,16 +2,17 @@ import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 
-import { useUpdateAuthRequest } from '@store/onboarding/onboarding.hooks';
+import { useCurrentScreenUpdate, useUpdateAuthRequest } from '@store/onboarding/onboarding.hooks';
 import { DecodedAuthRequest } from '@common/dev/types';
 import { useWallet } from '@common/hooks/use-wallet';
 import { getRequestOrigin, StorageKey } from '@common/storage';
 import { RouteUrls } from '@routes/route-urls';
-import { useChangeScreen } from '../use-change-screen';
+import { useOnboardingState } from './use-onboarding-state';
 
 export function useSaveAuthRequest() {
   const { wallet } = useWallet();
-  const changeScreen = useChangeScreen();
+  const { screen } = useOnboardingState();
+  const changeScreen = useCurrentScreenUpdate();
   const saveAuthRequest = useUpdateAuthRequest();
   const location = useLocation();
   const accounts = wallet?.accounts;
@@ -35,14 +36,11 @@ export function useSaveAuthRequest() {
       });
 
       const hasIdentities = accounts && accounts.length;
-      if (
-        (location.pathname === RouteUrls.Onboarding || location.pathname === RouteUrls.SignIn) &&
-        hasIdentities
-      ) {
+      if ((screen === RouteUrls.SignUp || screen === RouteUrls.SignIn) && hasIdentities) {
         changeScreen(RouteUrls.ChooseAccount);
       }
     },
-    [saveAuthRequest, location, accounts, changeScreen]
+    [changeScreen, saveAuthRequest, screen, accounts]
   );
 
   useEffect(() => {

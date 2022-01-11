@@ -20,7 +20,7 @@ export const AddNetwork: React.FC = () => {
 
   return (
     <PopupContainer
-      header={<Header title="Add a network" onClose={() => changeScreen(RouteUrls.Home)} />}
+      header={<Header title="Add a network" onClose={() => changeScreen(RouteUrls.PopupHome)} />}
     >
       <Box mt="base">
         <Text fontSize={2}>
@@ -58,7 +58,7 @@ export const AddNetwork: React.FC = () => {
                 };
               });
               setNetworkKey(key);
-              changeScreen(RouteUrls.Home);
+              changeScreen(RouteUrls.PopupHome);
               return;
             }
             setError('Unable to determine chainID from node.');

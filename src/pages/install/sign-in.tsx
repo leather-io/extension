@@ -7,7 +7,7 @@ import { Caption } from '@components/typography';
 import { useSignIn } from '@common/hooks/auth/use-sign-in';
 import { Header } from '@components/header';
 
-export const SignIn: React.FC = () => {
+export const InstalledSignIn: React.FC = () => {
   const { onBack, onKeyDown, onChange, onPaste, onSubmit, value, error, isLoading, ref } =
     useSignIn();
 

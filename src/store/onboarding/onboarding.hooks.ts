@@ -2,13 +2,17 @@ import { useAtom } from 'jotai';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import {
   authRequestState,
+  currentScreenState,
   hasAllowedDiagnosticsState,
   magicRecoveryCodePasswordState,
   magicRecoveryCodeState,
+  onboardingPathState,
+  onboardingProgressState,
   secretKeyState,
   seedInputErrorState,
   seedInputState,
   userHasAllowedDiagnosticsKey,
+  usernameState,
 } from './onboarding';
 
 export { userHasAllowedDiagnosticsKey };
@@ -43,6 +47,26 @@ export function useMagicRecoveryCodePasswordState() {
 
 export function useSecretKeyState() {
   return useAtomValue(secretKeyState);
+}
+
+export function useCurrentScreenState() {
+  return useAtomValue(currentScreenState);
+}
+
+export function useCurrentScreenUpdate() {
+  return useUpdateAtom(currentScreenState);
+}
+
+export function useOnboardingProgressState() {
+  return useAtomValue(onboardingProgressState);
+}
+
+export function useUsernameState() {
+  return useAtomValue(usernameState);
+}
+
+export function useOnboardingPathState() {
+  return useAtomValue(onboardingPathState);
 }
 
 export function useHasAllowedDiagnostics() {

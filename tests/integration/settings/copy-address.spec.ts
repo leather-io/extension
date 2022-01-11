@@ -16,7 +16,7 @@ describe(`Copy Address`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
   }, 10000);
 
   afterEach(async () => {

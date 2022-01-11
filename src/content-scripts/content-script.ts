@@ -77,7 +77,7 @@ document.addEventListener(DomEventName.authenticationRequest, ((
   event: AuthenticationRequestEvent
 ) => {
   forwardDomEventToBackground({
-    path: RouteUrls.Onboarding,
+    path: RouteUrls.SignUp,
     payload: event.detail.authenticationRequest,
     urlParam: 'authRequest',
     method: ExternalMethods.authenticationRequest,

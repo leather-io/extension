@@ -1,4 +1,5 @@
 import { Account } from '@stacks/wallet-sdk';
+import { cleanUsername } from '@common/utils';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { useAllAccountNames, useCurrentAccountNames } from '@query/bns/bns.hooks';
 
@@ -6,7 +7,11 @@ export function useCurrentAccountDisplayName() {
   const names = useCurrentAccountNames();
   const account = useCurrentAccount();
   if (!account || typeof account?.index !== 'number') return 'Account';
-  return names?.[0] || `Account ${account?.index + 1}`;
+  return (
+    names?.[0] ||
+    (account?.username && cleanUsername(account.username)) ||
+    `Account ${account?.index + 1}`
+  );
 }
 
 export function useAccountDisplayName(providedAccount?: Account) {
@@ -18,5 +23,9 @@ export function useAccountDisplayName(providedAccount?: Account) {
 
   if (!providedAccount) return accountDisplayName;
   if (!account || typeof account?.index !== 'number') return 'Account';
-  return names?.[account.index]?.names?.[0] || `Account ${account?.index + 1}`;
+  return (
+    names?.[account.index]?.names?.[0] ||
+    (account?.username && cleanUsername(account.username)) ||
+    `Account ${account?.index + 1}`
+  );
 }

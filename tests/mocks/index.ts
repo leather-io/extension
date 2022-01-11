@@ -87,6 +87,7 @@ export const TEST_WALLET: Wallet = {
         'xprvA1eQc5DGP8KU275yPdXUbWXPW4Ba2h2poSpXnV5jxxfpPghuaP4p8R1YHg8MsmqGpwFQU4R74cU5x8E7dExQN14cvPHn6c1vxajxWjQxTpM',
       salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
       index: 1,
+      username: 'fdsfdsfdf.id.blockstack',
     },
     {
       stxPrivateKey: 'b8e5b2c33be621fb16a5260b30d526cadc7087d58736f2f3c6f84d31be452b6601',
@@ -95,6 +96,7 @@ export const TEST_WALLET: Wallet = {
         'xprvA1vvF4rkEyBDLuvQKTa9YvCNKHcTNsrBwD5imsnnatG9RiyF5634o2GBwb5YvjC237LK6k273xRmaiCsNKpbS2EXUGPTtWo3CBFKRmzEHti',
       salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
       index: 2,
+      username: 'thisis45678.id.blockstack',
     },
     {
       stxPrivateKey: 'da62811e06fe6fb394982a740fdcab6f1194ed85c5f6421021777638512d41ee01',
@@ -103,6 +105,7 @@ export const TEST_WALLET: Wallet = {
         'xprvA23n53oLHrMsQcVULk6UBg3PJUWHC3L6W8DmKqzGEVprqjSF1qs8hcZfP3H1zg1asSUDDZBXNw81p5BBALZorQz2fKNeWGfwmRhUsbMiVsH',
       salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
       index: 3,
+      username: 'integration_tester.test-personal.id',
     },
   ],
 };
@@ -124,6 +127,7 @@ export const TEST_ACCOUNTS_WITH_ADDRESS = [
       'xprvA1eQc5DGP8KU275yPdXUbWXPW4Ba2h2poSpXnV5jxxfpPghuaP4p8R1YHg8MsmqGpwFQU4R74cU5x8E7dExQN14cvPHn6c1vxajxWjQxTpM',
     salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
     index: 1,
+    username: 'fdsfdsfdf.id.blockstack',
     address: 'SP2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6FQ2ZH9D',
   },
   {
@@ -133,6 +137,7 @@ export const TEST_ACCOUNTS_WITH_ADDRESS = [
       'xprvA1vvF4rkEyBDLuvQKTa9YvCNKHcTNsrBwD5imsnnatG9RiyF5634o2GBwb5YvjC237LK6k273xRmaiCsNKpbS2EXUGPTtWo3CBFKRmzEHti',
     salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
     index: 2,
+    username: 'thisis45678.id.blockstack',
     address: 'SP35Z3YQCTC1WZ8Z7AKHGE91HK05WKMKPTMATGQYP',
   },
   {
@@ -142,6 +147,7 @@ export const TEST_ACCOUNTS_WITH_ADDRESS = [
       'xprvA23n53oLHrMsQcVULk6UBg3PJUWHC3L6W8DmKqzGEVprqjSF1qs8hcZfP3H1zg1asSUDDZBXNw81p5BBALZorQz2fKNeWGfwmRhUsbMiVsH',
     salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
     index: 3,
+    username: 'integration_tester.test-personal.id',
     address: 'SP23C2PBK6PVQEW2M17JSB6S2K0VZ611PPJ0D20NH',
   },
 ];
