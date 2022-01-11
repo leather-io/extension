@@ -14,5 +14,11 @@ export const fullPageStyles = css`
       justify-content: center;
       margin: 0 auto;
     }
+    .temp {
+      max-width: 440px;
+    }
+    .onboarding-text {
+      text-align: center;
+    }
   }
 `;

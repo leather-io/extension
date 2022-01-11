@@ -1,15 +1,35 @@
 import { memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
-import { FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi';
+import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
+import { FiMoreHorizontal as IconDots, FiArrowLeft as IconArrowLeft } from 'react-icons/fi';
 
 import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { isFullPage } from '@app/common/utils';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Caption, Title } from '@app/components/typography';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
+
+const MenuButton = memo((props: BoxProps) => {
+  const { showSettings, setShowSettings } = useDrawers();
+  return (
+    <IconButton
+      size="36px"
+      iconSize="20px"
+      onMouseUp={showSettings ? undefined : () => setShowSettings(true)}
+      pointerEvents={showSettings ? 'none' : 'all'}
+      color={color('text-caption')}
+      _hover={{ color: color('text-title') }}
+      data-testid="menu-button"
+      icon={IconDots}
+      {...props}
+    />
+  );
+});
+
+const HeaderTitle: React.FC<BoxProps> = props => (
+  <Title fontSize="20px" lineHeight="28px" fontWeight={500} {...props} />
+);
 
 interface HeaderProps extends FlexProps {
   onClose?: () => void;
@@ -18,7 +38,6 @@ interface HeaderProps extends FlexProps {
 }
 export const Header: React.FC<HeaderProps> = memo(props => {
   const { onClose, title, hideActions, ...rest } = props;
-  const { showSettings, setShowSettings } = useDrawers();
   const navigate = useNavigate();
 
   const version = useMemo(() => {
@@ -43,29 +62,14 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       position="relative"
       {...rest}
     >
-      <Stack alignItems="center" isInline>
-        {onClose ? <IconButton icon={FiArrowLeft} onClick={onClose} /> : null}
-        {title ? (
-          <Title fontSize="20px" fontWeight={500} lineHeight="28px" {...props}>
-            {title}
-          </Title>
-        ) : null}
-      </Stack>
-      <Stack
-        alignItems="center"
-        flexGrow={1}
-        isInline
-        justifyContent={onClose ? 'center' : 'unset'}
-        pt="7px"
-      >
-        {!onClose || isFullPage ? (
-          <>
-            <HiroWalletLogo
-              data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
-              onClick={() => navigate(RouteUrls.Home)}
-            />
+      {!title ? (
+        <Stack alignItems="center" pt="7px" isInline>
+          <HiroWalletLogo
+            data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
+            onClick={() => navigate(RouteUrls.Home)}
+          />
+          {version ? (
             <Caption
-              display={!version ? 'none' : 'unset'}
               pt="extra-tight"
               mt="2px"
               color="#8D929A"
@@ -75,24 +79,25 @@ export const Header: React.FC<HeaderProps> = memo(props => {
             >
               {version}
             </Caption>
-          </>
-        ) : null}
-      </Stack>
-      <Stack alignItems="center" flexShrink={0} isInline pt={hideActions ? '7px' : 0}>
+          ) : null}
+        </Stack>
+      ) : (
+        <Box pt={onClose ? 'loose' : 'unset'} pr="tight">
+          {onClose ? (
+            <IconButton
+              top="base-tight"
+              position="absolute"
+              left="base"
+              onClick={onClose}
+              icon={IconArrowLeft}
+            />
+          ) : null}
+          <HeaderTitle>{title}</HeaderTitle>
+        </Box>
+      )}
+      <Stack flexShrink={0} pt={hideActions ? '7px' : 0} alignItems="center" isInline>
         <NetworkModeBadge />
-        {!hideActions && (
-          <IconButton
-            _hover={{ color: color('text-title') }}
-            color={color('text-caption')}
-            data-testid="menu-button"
-            iconSize="20px"
-            icon={FiMoreHorizontal}
-            onMouseUp={showSettings ? undefined : () => setShowSettings(true)}
-            pointerEvents={showSettings ? 'none' : 'all'}
-            size="36px"
-            {...props}
-          />
-        )}
+        {!hideActions && <MenuButton />}
       </Stack>
     </Flex>
   );
