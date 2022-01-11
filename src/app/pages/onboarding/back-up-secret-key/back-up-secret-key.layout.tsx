@@ -1,7 +1,8 @@
 import { cx } from '@emotion/css';
-import { Box, color, Flex, Stack } from '@stacks/ui';
+import { FiEyeOff, FiLock, FiRotateCcw } from 'react-icons/fi';
+import { Box, Button, color, Flex, Stack } from '@stacks/ui';
 
-import { Text, Title } from '@app/components/typography';
+import { Caption, Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { isFullPage, isPopup } from '@app/common/utils';
 import KeyIllustrationFull from '@assets/images/onboarding/key-illustration-full.svg';
@@ -11,12 +12,11 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 
 import {
-  fullPageContent,
+  fullPageContentText,
   fullPageTitle,
-  popupContent,
+  popupContentText,
   popupTitle,
 } from './back-up-secret-key.styles';
-import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
 
 interface BackUpSecretKeyLayoutProps {
   hasCopied: boolean;
@@ -31,7 +31,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
   return (
     <Stack isInline={isFullPage} width="100%">
       <Flex
-        className={cx({ [fullPageContent]: isFullPage }, { [popupContent]: isPopup })}
+        className={cx({ [fullPageContentText]: isFullPage }, { [popupContentText]: isPopup })}
         flexGrow={1}
         justifyContent="center"
       >
@@ -48,11 +48,39 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
             access your account on a new device, in a different wallet, or in case you lose your
             password — so back it up somewhere safe.
           </Text>
-          {isFullPage && <BackUpSecretKeyActions onBackedUpSecretKey={onBackedUpSecretKey} />}
+          <Stack alignItems="center" isInline>
+            <Box as={FiRotateCcw} color={color('text-caption')} size="12px" />
+            <Caption>Your Secret Key gives access to your account</Caption>
+          </Stack>
+          <Stack alignItems="center" isInline>
+            <Box as={FiEyeOff} color={color('text-caption')} size="12px" />
+            <Caption>Never share your Secret Key</Caption>
+          </Stack>
+          <Stack alignItems="center" isInline>
+            <Box as={FiLock} color={color('text-caption')} size="12px" />
+            <Caption>Put it somewhere private and secure</Caption>
+          </Stack>
+          <Stack alignItems={isFullPage ? 'center' : 'start'} isInline={isFullPage} spacing="loose">
+            <Button
+              borderRadius="10px"
+              height="48px"
+              mr="24px !important"
+              onClick={onBackedUpSecretKey}
+              width="198px"
+            >
+              I've backed it up
+            </Button>
+            <Stack isInline alignItems="center">
+              <Caption mr="4px !important">Or</Caption>
+              <Link fontSize="14px" onClick={() => {}}>
+                back it up later
+              </Link>
+            </Stack>
+          </Stack>
         </Stack>
       </Flex>
       <Flex
-        className={cx({ [fullPageContent]: isFullPage }, { [popupContent]: isPopup })}
+        className={cx({ [fullPageContentText]: isFullPage }, { [popupContentText]: isPopup })}
         flexGrow={1}
         justifyContent="center"
       >
@@ -75,11 +103,6 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
           </Stack>
         </Box>
       </Flex>
-      {isPopup && (
-        <Stack mt="loose" spacing="loose">
-          <BackUpSecretKeyActions onBackedUpSecretKey={onBackedUpSecretKey} />
-        </Stack>
-      )}
     </Stack>
   );
 }
