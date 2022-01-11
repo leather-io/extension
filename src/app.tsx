@@ -9,7 +9,7 @@ import { GlobalStyles } from '@components/global-styles';
 import { VaultLoader } from '@components/vault-loader';
 import { AccountsDrawer } from '@features/accounts-drawer/accounts-drawer';
 import { NetworksDrawer } from '@features/network-drawer/networks-drawer';
-import { SettingsDropdown } from '@features/settings-dropdown/settings-dropdown';
+import { SettingsPopover } from '@features/settings-dropdown/settings-popover';
 import { AppErrorBoundary } from '@features/errors/app-error-boundary';
 import { EditNonceDrawer } from '@features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@features/increase-fee-drawer/increase-fee-drawer';
@@ -44,7 +44,7 @@ export const App: React.FC = () => {
                 <NetworksDrawer />
                 <EditNonceDrawer />
                 <IncreaseFeeDrawer />
-                <SettingsDropdown />
+                <SettingsPopover />
               </AppErrorBoundary>
               <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
             </Router>

@@ -12,7 +12,7 @@ import { WelcomeLayout } from './welcome.layout';
 export const WelcomePage = memo(() => {
   const [hasAllowedDiagnostics] = useHasAllowedDiagnostics();
   const navigate = useNavigate();
-  const { hasGeneratedWallet, hasSetPassword, encryptedSecretKey, makeWallet } = useWallet();
+  const { makeWallet } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
 
@@ -38,11 +38,6 @@ export const WelcomePage = memo(() => {
   useEffect(() => {
     return () => setIsGeneratingWallet(false);
   }, []);
-
-  useEffect(() => {
-    // Catch if onboarding has been completed and route to Home
-    if ((hasGeneratedWallet || encryptedSecretKey) && hasSetPassword) navigate(RouteUrls.Home);
-  }, [encryptedSecretKey, hasGeneratedWallet, hasSetPassword, navigate]);
 
   return (
     <WelcomeLayout
