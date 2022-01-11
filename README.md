@@ -9,6 +9,8 @@
 
 Hiro Wallet is a browser extension for managing your digital assets, and connecting to apps built on the Stacks blockchain.
 
+Source code is available on GitHub at https://github.com/hirosystems/stacks-wallet-web/tree/main
+
 To use this extension with your own Stacks App, we recommend using [Connect](https://github.com/hirosystems/connect).
 
 Table of Contents:
@@ -20,9 +22,14 @@ Table of Contents:
   - [Dev mode](#dev-mode)
     - [Optional: run test app](#optional-run-test-app)
   - [Add extension to your browser](#add-extension-to-your-browser)
+    - [Chromium](#chromium)
+    - [Firefox](#firefox)
 - [Production](#production)
   - [Building browser extensions](#building-browser-extensions)
+    - [Optional: use Docker](#optional-use-docker)
   - [Install browser extension from source](#install-browser-extension-from-source)
+    - [Chromium](#chromium-1)
+    - [Firefox](#firefox-1)
 - [Security](#security)
   - [Audit Report](#audit-report)
 
@@ -30,9 +37,18 @@ Table of Contents:
 
 ## Development
 
-This application is a Web Extension. There is no ability to run it as a standalone web application.
+When working locally with `stacks-wallet-web`, it can only be used as you'd use any extension. There is no ability to
+run it as a standalone web application.
 
-Each child of the `src` directory represents the JavaScript context in which it is ran.
+### Setup
+
+Clone this repository and install dependencies:
+
+```bash
+git clone https://github.com/hirosystems/stacks-wallet-web
+cd stacks-wallet-web
+yarn
+```
 
 ### Dev mode
 
@@ -55,13 +71,27 @@ In a separate terminal, run:
 yarn dev:test-app
 ```
 
-### Loading extension in your browser
+### Add extension to your browser
 
-You'll need to add it to your browser of choice. Hiro Wallet only
-supports Chromium and Firefox browsers. When you run `yarn dev`, it will compile the application to the `/dist` folder
+After starting development mode, you'll have to add it to your browser of choice. Hiro Wallet for web currently only
+supports chromium and firefox browsers. When you run `yarn dev`, it will compile the application to the `/dist` folder
+within the project.
 
-- [Chrome instructions](https://developer.chrome.com/docs/extensions/mv3/faq/#faq-dev-01)
-- [Firefox instructions](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#trying_it_out)
+#### Chromium
+
+1. Go to: `chrome://extensions`
+2. Toggle: **"developer mode"** on
+3. Click on: **"Load unpacked"**
+4. Navigate to the `stacks-wallet-web` project directory
+5. Select the `dist` directory to load the extension
+
+#### Firefox
+
+1. Go to: `about:debugging`
+2. Click on **"This Firefox"**
+3. Click on: **"Load Temporary Add-on…"**
+4. Navigate to the `stacks-wallet-web` project directory
+5. Select the `manifest.json` file from the `stacks-wallet-web/dist` directory.
 
 ## Production
 
