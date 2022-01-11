@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, Button, Input, Stack, color } from '@stacks/ui';
 
 import { ErrorLabel } from '@components/error-label';
-import { ContainerLayout } from '@components/container/container.layout';
+import { PopupContainer } from '@components/popup/container';
 import { Caption } from '@components/typography';
 import { useSignIn } from '@pages/onboarding/sign-in/use-sign-in';
 import { Header } from '@components/header';
@@ -12,8 +12,10 @@ export const SignIn: React.FC = () => {
     useSignIn();
 
   return (
-    <ContainerLayout
+    <PopupContainer
       header={<Header title="Continue with your Secret Key" onClose={onBack} hideActions />}
+      key="sign-in"
+      requestType="auth"
     >
       <Stack spacing="loose">
         <Caption className="onboarding-text">
@@ -62,6 +64,6 @@ export const SignIn: React.FC = () => {
           </Button>
         </Stack>
       </Stack>
-    </ContainerLayout>
+    </PopupContainer>
   );
 };

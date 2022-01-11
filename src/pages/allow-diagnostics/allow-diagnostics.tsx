@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { initSentry } from '@common/sentry-init';
 import { initSegment } from '@common/segment-init';
-import { ContainerLayout } from '@components/container/container.layout';
+import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { RouteUrls } from '@routes/route-urls';
 import { useHasAllowedDiagnostics } from '@store/onboarding/onboarding.hooks';
@@ -28,11 +28,11 @@ export const AllowDiagnosticsPage = () => {
   );
 
   return (
-    <ContainerLayout header={<Header hideActions />}>
+    <PopupContainer header={<Header hideActions />} requestType="auth">
       <AllowDiagnosticsLayout
         onUserDenyDiagnosticsPermissions={() => goToOnboardingAndSetDiagnosticsPermissionTo(false)}
         onUserAllowDiagnostics={() => goToOnboardingAndSetDiagnosticsPermissionTo(true)}
       />
-    </ContainerLayout>
+    </PopupContainer>
   );
 };

@@ -5,7 +5,7 @@ import { Box, Button, Input, Stack, Text } from '@stacks/ui';
 
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
-import { ContainerLayout } from '@components/container/container.layout';
+import { PopupContainer } from '@components/popup/container';
 import { buildEnterKeyEvent } from '@components/link';
 import { ErrorLabel } from '@components/error-label';
 import { Header } from '@components/header';
@@ -54,7 +54,7 @@ export function Unlock(): JSX.Element {
 
   return (
     <>
-      <ContainerLayout header={<Header />}>
+      <PopupContainer header={<Header />} requestType="auth">
         <Box mt="loose">
           <Stack spacing="loose" width="100%">
             <Body
@@ -102,7 +102,7 @@ export function Unlock(): JSX.Element {
             </Box>
           </Stack>
         </Box>
-      </ContainerLayout>
+      </PopupContainer>
       {showSignOut && <SignOutConfirmDrawer />}
     </>
   );

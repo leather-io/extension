@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Text, Button, Input, Stack, StackProps } from '@stacks/ui';
 
 import { ErrorLabel } from '@components/error-label';
-import { ContainerLayout } from '@components/container/container.layout';
+import { PopupContainer } from '@components/popup/container';
 import { Caption } from '@components/typography';
 import { useMagicRecoveryCode } from '@common/hooks/auth/use-magic-recovery-code';
 import { useMountEffect } from '@common/hooks/use-mount-effect';
@@ -67,12 +67,12 @@ const Form: React.FC<StackProps> = memo(props => {
 export const MagicRecoveryCode: React.FC = memo(() => {
   const { onBack } = useMagicRecoveryCode();
   return (
-    <ContainerLayout header={<Header title="Enter your password" onClose={onBack} hideActions />}>
+    <PopupContainer header={<Header title="Enter your password" onClose={onBack} hideActions />}>
       <Caption>
         You entered a Magic Recovery Code. Enter the password you set when you first created your
         Blockstack ID.
       </Caption>
       <Form mt="auto" />
-    </ContainerLayout>
+    </PopupContainer>
   );
 });

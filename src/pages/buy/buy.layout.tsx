@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContainerLayout } from '@components/container/container.layout';
+import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { Caption, Text, Title } from '@components/typography';
 import { Button, Flex, Stack } from '@stacks/ui';
@@ -66,7 +66,10 @@ export const BuyLayout = (props: BuyLayoutProps) => {
   const { providersUrl, activeProviders, onCloseAction } = props;
 
   return (
-    <ContainerLayout header={<Header hideActions title=" " onClose={onCloseAction} />}>
+    <PopupContainer
+      header={<Header hideActions title=" " onClose={onCloseAction} />}
+      requestType="auth"
+    >
       <Flex flexDirection="column" flex={1}>
         <Stack overflow="hidden" alignItems="flex-start" spacing="base-tight">
           <img src={AddFunds} />
@@ -95,6 +98,6 @@ export const BuyLayout = (props: BuyLayoutProps) => {
           />
         ))}
       </Flex>
-    </ContainerLayout>
+    </PopupContainer>
   );
 };
