@@ -1,7 +1,7 @@
-import { Page } from 'playwright-core';
-
 import { RouteUrls } from '@shared/route-urls';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+
+import { Page } from 'playwright-core';
+import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
@@ -13,12 +13,13 @@ import {
   timeDifference,
 } from '../integration/utils';
 import { WalletPageSelectors } from './wallet.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export class WalletPage {
   static url = 'http://localhost:8081/index.html#';
-  $signUpButton = createTestSelector(OnboardingSelectors.SignUpBtn);
-  $signInButton = createTestSelector(OnboardingSelectors.SignInLink);
-  $analyticsAllowButton = createTestSelector(OnboardingSelectors.AnalyticsAllow);
+  $signUpButton = createTestSelector(InitialPageSelectors.SignUp);
+  $signInButton = createTestSelector(InitialPageSelectors.SignIn);
+  $analyticsAllowButton = createTestSelector(InitialPageSelectors.AnalyticsAllow);
   homePage = createTestSelector('home-page');
   $textareaReadOnlySeedPhrase = `${createTestSelector('textarea-seed-phrase')}[data-loaded="true"]`;
   $buttonSignInKeyContinue = createTestSelector('sign-in-key-continue');
