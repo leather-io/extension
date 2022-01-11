@@ -31,7 +31,9 @@ export interface Network {
   chainId: ChainID;
 }
 
-export const DEFAULT_TESTNET_SERVER = 'https://stacks-node-api.testnet.stacks.co';
+const DEFAULT_TESTNET_SERVER = 'https://stacks-node-api.testnet.stacks.co';
+
+const DEFAULT_REGTEST_SERVER = 'https://stacks-node-api.regtest.stacks.co';
 
 const DEFAULT_MAINNET_SERVER = 'https://stacks-node-api.stacks.co';
 
@@ -46,6 +48,11 @@ export const defaultNetworks: Networks = {
   testnet: {
     url: DEFAULT_TESTNET_SERVER,
     name: 'Testnet',
+    chainId: ChainID.Testnet,
+  },
+  regtest: {
+    url: DEFAULT_REGTEST_SERVER,
+    name: 'Regtest',
     chainId: ChainID.Testnet,
   },
   localnet: {
