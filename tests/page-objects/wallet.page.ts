@@ -1,10 +1,5 @@
-import { Page } from 'playwright-core';
-
 import { RouteUrls } from '@routes/route-urls';
-import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
-import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-
+import { Page } from 'playwright-core';
 import {
   createTestSelector,
   wait,
@@ -13,18 +8,20 @@ import {
   timeDifference,
 } from '../integration/utils';
 import { WalletPageSelectors } from './wallet.selectors';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
+import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 export class WalletPage {
   static url = 'http://localhost:8081/index.html#';
   $signUpButton = createTestSelector(InitialPageSelectors.SignUp);
   $signInButton = createTestSelector(InitialPageSelectors.SignIn);
-  $analyticsAllowButton = createTestSelector(InitialPageSelectors.AnalyticsAllow);
+  $analyticsAllowButton = createTestSelector('analytics-allow');
   homePage = createTestSelector('home-page');
   $textareaReadOnlySeedPhrase = `${createTestSelector('textarea-seed-phrase')}[data-loaded="true"]`;
   $buttonSignInKeyContinue = createTestSelector('sign-in-key-continue');
   setPasswordDone = createTestSelector('set-password-done');
-  passwordInput = createTestSelector(OnboardingSelectors.SetOrEnterPasswordInput);
+  passwordInput = createTestSelector('set-password');
   saveKeyButton = createTestSelector('save-key');
   sendTokenBtnSelector = createTestSelector(WalletPageSelectors.BtnSendTokens);
   confirmSavedKey = createTestSelector('confirm-saved-key');
@@ -37,7 +34,7 @@ export class WalletPage {
   $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
   $createAccountButton = createTestSelector(SettingsSelectors.BtnCreateAccount);
   $createAccountDone = createTestSelector(SettingsSelectors.BtnCreateAccountDone);
-  $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
+
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
   );
@@ -63,7 +60,6 @@ export class WalletPage {
   async clickAllowAnalytics() {
     await this.page.click(this.$analyticsAllowButton);
   }
-
   async clickSignUp() {
     await this.page.click(this.$signUpButton);
   }
@@ -80,16 +76,12 @@ export class WalletPage {
     await this.page.waitForSelector(this.$homePageBalancesList, { timeout: 30000 });
   }
 
-  async waitForSetOrEnterPasswordInput() {
+  async waitForSetPassword() {
     await this.page.waitForSelector(this.passwordInput, { timeout: 30000 });
   }
 
   async waitForMainHomePage() {
     await this.page.waitForSelector(this.homePage, { timeout: 30000 });
-  }
-
-  async waitForHiroWalletLogo() {
-    await this.page.waitForSelector(this.$hiroWalletLogo, { timeout: 3000 });
   }
 
   async waitForLoginPage() {
@@ -159,7 +151,7 @@ export class WalletPage {
     await this.clickSignIn();
     let startTime = new Date();
     await this.enterSecretKey(secretKey);
-    await this.waitForSetOrEnterPasswordInput();
+    await this.waitForSetPassword();
     console.log(
       `Page load time for 12 or 24 word Secret Key: ${timeDifference(
         startTime,
