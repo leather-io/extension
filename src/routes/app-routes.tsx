@@ -3,10 +3,11 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
-import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code/magic-recovery-code';
+import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
 import { SignTransaction } from '@pages/sign-transaction/sign-transaction';
-import { SignIn } from '@pages/onboarding/sign-in/sign-in';
+import { Onboarding } from '@pages/onboarding/onboarding';
+import { SignIn } from '@pages/onboarding/sign-in';
 import { ReceiveTokens } from '@pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@pages/add-network/add-network';
 import { SetPasswordPage } from '@pages/set-password';
@@ -20,7 +21,6 @@ import { SignOutConfirmDrawer } from '@pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@pages/allow-diagnostics/allow-diagnostics';
 import { BuyPage } from '@pages/buy/buy';
 import { RouteUrls } from '@routes/route-urls';
-import { WelcomePage } from '@pages/onboarding/welcome/welcome';
 
 export function AppRoutes(): JSX.Element {
   const { encryptedSecretKey, hasGeneratedWallet, hasSetPassword } = useWallet();
@@ -50,7 +50,7 @@ export function AppRoutes(): JSX.Element {
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
       ) : (
-        <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
+        <Route path={RouteUrls.Onboarding} element={<Onboarding />} />
       )}
       <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
       <Route path={RouteUrls.SaveSecretKey} element={<SaveSecretKey />} />
@@ -123,7 +123,7 @@ export function AppRoutes(): JSX.Element {
       />
       <Route path={RouteUrls.Unlock} element={<Unlock />} />
       {/* Catch-all route redirects to onboarding */}
-      <Route path="*" element={<WelcomePage />} />
+      <Route path="*" element={<Onboarding />} />
     </Routes>
   );
 }
