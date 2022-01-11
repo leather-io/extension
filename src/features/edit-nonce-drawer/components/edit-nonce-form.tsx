@@ -6,14 +6,14 @@ import { Button, Stack } from '@stacks/ui';
 import { LoadingKeys, useLoading } from '@common/hooks/use-loading';
 import { nonceSchema } from '@common/validation/nonce-schema';
 import { useCustomNonce } from '@store/transactions/nonce.hooks';
-import { useUnsignedTxForSettingsState } from '@store/transactions/transaction.hooks';
+import { useTxForSettingsState } from '@store/transactions/transaction.hooks';
 
 import { EditNonceFormInner } from './edit-nonce-form-inner';
 import { EditNonceField } from './edit-nonce-field';
 
 // Not sure what this is doing?
 const SuspenseOnMount = ({ onMountCallback, isEnabled }: any) => {
-  const [tx] = useUnsignedTxForSettingsState();
+  const [tx] = useTxForSettingsState();
 
   useEffect(() => {
     if (tx && isEnabled) {
