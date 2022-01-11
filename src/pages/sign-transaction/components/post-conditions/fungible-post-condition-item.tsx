@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react';
 import { TransactionTypes } from '@stacks/connect';
-import { addressToString, FungiblePostCondition } from '@stacks/transactions';
+import { addressToString } from '@stacks/transactions';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { LoadingSpinner } from '@components/loading-spinner';
+import { FungiblePostCondition } from '@common/types';
 import { ftDecimals } from '@common/stacks-utils';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import {

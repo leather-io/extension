@@ -20,7 +20,6 @@ module.exports = {
   collectCoverage: true,
   coverageReporters: ['html', 'json-summary'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
-  testEnvironment: 'jsdom',
   globals: {
     'ts-jest': {
       // https://huafu.github.io/ts-jest/user/config/diagnostics
@@ -42,5 +41,6 @@ module.exports = {
   transform: {
     '^.+\\.(t|j)sx?$': '@swc-node/jest',
   },
+  testEnvironment: 'jsdom',
   cacheDirectory: '<rootDir>/.jest-cache',
 };
