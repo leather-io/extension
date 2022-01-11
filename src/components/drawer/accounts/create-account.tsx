@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import * as React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, Flex, Button, Stack } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
 import { Body } from '@components/typography';

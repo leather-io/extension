@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { Body, Title } from '@components/typography';
 import { Box, Button, Flex, color, Stack } from '@stacks/ui';

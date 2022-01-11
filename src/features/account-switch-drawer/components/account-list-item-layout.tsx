@@ -1,3 +1,4 @@
+import React from 'react';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { Box, Stack, color, Spinner, StackProps } from '@stacks/ui';
 import { FiCheck as IconCheck } from 'react-icons/fi';

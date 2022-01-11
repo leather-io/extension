@@ -1,3 +1,4 @@
+import React from 'react';
 import { useClientQuery } from '@store/devtool/devtool.hooks';
 
 import { QueryClientProvider } from 'react-query';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StxIcon } from '@components/icons/stx-icon';
 import { MicroblockIcon } from '@components/icons/microblock';
 import { BoxProps, Circle, color, DynamicColorCircle } from '@stacks/ui';

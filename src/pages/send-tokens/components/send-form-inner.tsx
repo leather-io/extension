@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useEffect } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import { Box, Text, Button, Stack } from '@stacks/ui';
 

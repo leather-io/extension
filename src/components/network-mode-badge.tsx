@@ -1,5 +1,4 @@
-import { memo, useMemo } from 'react';
-import * as React from 'react';
+import React, { memo, useMemo } from 'react';
 import { color, Flex, FlexProps, Text } from '@stacks/ui';
 import { ChainID } from '@stacks/transactions';
 import { useDrawers } from '@common/hooks/use-drawers';

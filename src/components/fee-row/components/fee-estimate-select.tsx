@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
 import { color, Fade, Stack } from '@stacks/ui';
 
 import { useOnClickOutside } from '@common/hooks/use-onclickoutside';

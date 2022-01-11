@@ -1,3 +1,4 @@
+import React from 'react';
 import { deserializeCV, cvToString, getCVTypeString } from '@stacks/transactions';
 
 import { Row } from '@pages/sign-transaction/components/row';

@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useEffect } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { useWallet } from '@common/hooks/use-wallet';

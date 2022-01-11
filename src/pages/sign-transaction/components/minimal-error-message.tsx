@@ -1,4 +1,4 @@
-import { memo, Suspense } from 'react';
+import React, { memo, Suspense } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { Box, color, Stack, StackProps } from '@stacks/ui';
 

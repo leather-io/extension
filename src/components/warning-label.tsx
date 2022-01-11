@@ -1,3 +1,4 @@
+import React from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { Box, color, Stack, Text } from '@stacks/ui';
 

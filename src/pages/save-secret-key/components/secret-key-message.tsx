@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useWallet } from '@common/hooks/use-wallet';
 import { Body, Text } from '@components/typography';
 

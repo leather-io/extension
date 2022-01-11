@@ -1,5 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
-import * as React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'ts-debounce';
 import { Box, Button, Input, Stack } from '@stacks/ui';

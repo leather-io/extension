@@ -1,4 +1,4 @@
-import { memo, Suspense } from 'react';
+import React, { memo, Suspense } from 'react';
 
 import { useTransactionError } from '@pages/sign-transaction/hooks/use-transaction-error';
 

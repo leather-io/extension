@@ -1,3 +1,4 @@
+import React from 'react';
 import { FiCloudOff as IconCloudOff } from 'react-icons/fi';
 
 import { CheckmarkIcon } from '@components/icons/checkmark-icon';

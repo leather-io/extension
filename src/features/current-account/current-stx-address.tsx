@@ -1,6 +1,6 @@
 import { Box, BoxProps } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { Suspense } from 'react';
+import React from 'react';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { memoWithAs } from '@stacks/ui-core';
 import { LoadingRectangle } from '@components/loading-rectangle';
@@ -13,8 +13,8 @@ const CurrentStxAddressSuspense = memoWithAs((props: BoxProps) => {
 
 export const CurrentStxAddress = memoWithAs((props: BoxProps) => {
   return (
-    <Suspense fallback={<LoadingRectangle height="16px" width="50px" {...props} />}>
+    <React.Suspense fallback={<LoadingRectangle height="16px" width="50px" {...props} />}>
       <CurrentStxAddressSuspense {...props} />
-    </Suspense>
+    </React.Suspense>
   );
 });

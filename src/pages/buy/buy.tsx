@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useCurrentAccount } from '@store/accounts/account.hooks';

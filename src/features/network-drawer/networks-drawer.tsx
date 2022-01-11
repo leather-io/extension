@@ -1,5 +1,4 @@
-import { useCallback } from 'react';
-import * as React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@stacks/ui';
 

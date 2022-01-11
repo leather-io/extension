@@ -1,5 +1,4 @@
-import { useRef, useCallback, memo } from 'react';
-import * as React from 'react';
+import React, { useRef, useCallback, memo } from 'react';
 import { Flex, useEventListener, IconButton, color, transition } from '@stacks/ui';
 import { FiX as IconX } from 'react-icons/fi';
 

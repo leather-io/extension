@@ -1,5 +1,4 @@
-import { useCallback, memo } from 'react';
-import * as React from 'react';
+import React, { useCallback, memo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { Caption, Text, Title } from '@components/typography';

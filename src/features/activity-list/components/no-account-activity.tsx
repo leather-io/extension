@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Stack } from '@stacks/ui';
 
 import { Caption } from '@components/typography';

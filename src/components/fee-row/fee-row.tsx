@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { useField } from 'formik';
 import { Box, color, Stack, Text } from '@stacks/ui';

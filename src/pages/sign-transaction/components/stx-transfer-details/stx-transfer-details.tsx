@@ -1,3 +1,4 @@
+import React from 'react';
 import { color, Stack } from '@stacks/ui';
 
 import { Title } from '@components/typography';

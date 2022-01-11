@@ -1,5 +1,5 @@
 import { BoxProps, color, Circle } from '@stacks/ui';
-import { Suspense } from 'react';
+import React from 'react';
 import { Account, getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { useAccountGradient } from '@common/hooks/account/use-account-gradient';
@@ -36,8 +36,8 @@ interface AccountAvatarWithNameProps extends BoxProps {
 }
 export const AccountAvatarWithName = ({ account, name, ...props }: AccountAvatarWithNameProps) => {
   return (
-    <Suspense fallback={<AccountAvatar account={account} {...props} />}>
+    <React.Suspense fallback={<AccountAvatar account={account} {...props} />}>
       <AccountAvatarWithNameInner account={account} name={name} {...props} />
-    </Suspense>
+    </React.Suspense>
   );
 };

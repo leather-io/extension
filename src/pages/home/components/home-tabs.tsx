@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import React from 'react';
 import { Box, Stack, SlideFade, Flex } from '@stacks/ui';
 import type { StackProps } from '@stacks/ui';
 
@@ -37,7 +37,7 @@ export function HomeTabs(props: HomeTabsProps) {
       />
       <Flex position="relative" flexGrow={1}>
         {activeTab === 0 && (
-          <Suspense fallback={<LoadingSpinner pb="72px" />}>
+          <React.Suspense fallback={<LoadingSpinner pb="72px" />}>
             <SlideFade in={activeTab === 0}>
               {styles => (
                 <Box style={styles} width="100%">
@@ -45,10 +45,10 @@ export function HomeTabs(props: HomeTabsProps) {
                 </Box>
               )}
             </SlideFade>
-          </Suspense>
+          </React.Suspense>
         )}
         {activeTab === 1 && (
-          <Suspense fallback={<LoadingSpinner pb="72px" />}>
+          <React.Suspense fallback={<LoadingSpinner pb="72px" />}>
             <SlideFade in={activeTab === 1}>
               {styles => (
                 <Box position="absolute" top={0} left={0} width="100%" style={styles}>
@@ -56,7 +56,7 @@ export function HomeTabs(props: HomeTabsProps) {
                 </Box>
               )}
             </SlideFade>
-          </Suspense>
+          </React.Suspense>
         )}
       </Flex>
     </Stack>

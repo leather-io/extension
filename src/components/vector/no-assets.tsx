@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, BoxProps } from '@stacks/ui';
 
 export const NoAssetsEmptyIllustration = (props: BoxProps) => (

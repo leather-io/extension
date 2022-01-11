@@ -1,3 +1,4 @@
+import React from 'react';
 import { Stack, StackProps } from '@stacks/ui';
 
 import { FeeMultiplierButton } from './fee-multiplier-button';

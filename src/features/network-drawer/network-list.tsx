@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Flex, FlexProps } from '@stacks/ui';
 import { useWallet } from '@common/hooks/use-wallet';
 import { NetworkListItem } from '@features/network-drawer/network-list-item';

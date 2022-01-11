@@ -1,4 +1,4 @@
-import { memo, Suspense } from 'react';
+import React, { memo, Suspense } from 'react';
 
 import { useTransferableAssets } from '@store/assets/asset.hooks';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';

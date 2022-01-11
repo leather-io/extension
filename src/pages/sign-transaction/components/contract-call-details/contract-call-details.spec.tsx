@@ -1,3 +1,4 @@
+import React from 'react';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { cvToString, deserializeCV } from '@stacks/transactions';
 
