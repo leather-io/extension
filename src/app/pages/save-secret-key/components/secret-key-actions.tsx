@@ -1,8 +1,5 @@
 import { Button, color, Stack, StackProps } from '@stacks/ui';
 
-import { PrimaryButton } from '@app/components/primary-button';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-
 interface SecreteKeyActionsProps extends StackProps {
   hasCopied: boolean;
   onClick(): void;
@@ -14,9 +11,6 @@ export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
   return (
     <Stack width="100%" spacing="base" {...rest}>
       <Button
-        _hover={{
-          boxShadow: 'none',
-        }}
         border="1px solid"
         borderColor={color('border')}
         borderRadius="10px"
@@ -29,9 +23,9 @@ export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
       >
         {hasCopied ? 'Copied!' : 'Copy to clipboard'}
       </Button>
-      <PrimaryButton data-testid={SettingsSelectors.SaveSecretKey} onClick={onClick}>
+      <Button data-testid="confirm-saved-key" borderRadius="10px" height="48px" onClick={onClick}>
         I've saved it
-      </PrimaryButton>
+      </Button>
     </Stack>
   );
 }

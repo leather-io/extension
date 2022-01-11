@@ -15,12 +15,9 @@ import {
   popupPageContent,
   popupPageTitle,
 } from '@app/pages/pages.styles';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/constants';
 
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
-
-const KeyIllustration = () =>
-  isFullPage ? <img src={KeyIllustrationFull} /> : <img src={KeyIllustrationPopup} />;
 
 interface BackUpSecretKeyLayoutProps {
   hasCopied: boolean;
@@ -69,7 +66,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
           width="432px"
         >
           <Stack alignItems="center" pt="80px" spacing="loose">
-            <KeyIllustration />
+            {isFullPage ? <img src={KeyIllustrationFull} /> : <img src={KeyIllustrationPopup} />}
             <Title fontSize="20px">Your Secret Key</Title>
             <Text px="loose" textAlign="center">
               {secretKey}

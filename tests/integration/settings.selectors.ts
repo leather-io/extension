@@ -14,5 +14,4 @@ export enum SettingsSelectors {
   BtnSignOutActuallyDeleteWallet = 'btn-sign-out-actually-delete-wallet',
   LockListItem = 'settings-lock',
   AccountIndex = 'switch-account-item-[index]',
-  SaveSecretKey = 'save-secret-key',
 }
