@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { Global, css } from '@emotion/react';
 import { CSSReset } from '@stacks/ui';
+import { Global, css } from '@emotion/react';
 
 import { extensionStyles } from './popup-styles';
 import { fullPageStyles } from './full-page-styles';

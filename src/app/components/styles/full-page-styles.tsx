@@ -17,6 +17,29 @@ export const fullPageStyles = css`
     .temp {
       max-width: 440px;
     }
+    .welcome-page {
+      .content-image {
+        order: 2;
+        height: calc(100vh - 102px);
+        .image-small {
+          display: none;
+        }
+      }
+      .content-text {
+        order: 1;
+        margin-left: 168px;
+        .title {
+          max-width: 500px;
+          font-size: 64px;
+          margin-bottom: 24px;
+        }
+        .text {
+          max-width: 440px;
+          font-size: 16px;
+          margin-bottom: 24px;
+        }
+      }
+    }
     .onboarding-text {
       text-align: center;
     }
