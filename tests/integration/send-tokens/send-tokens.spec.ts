@@ -1,10 +1,9 @@
-import { delay } from '@common/utils';
 import { RouteUrls } from '@routes/route-urls';
-import { SECRET_KEY_2 } from '@tests/mocks';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { BrowserDriver, setupBrowser } from '../utils';
+import { SECRET_KEY_2 } from '@tests/mocks';
 
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -47,7 +46,6 @@ describe(`Send tokens flow`, () => {
       await sendForm.inputToAddressField('slkfjsdlkfjs');
       const defaultFeeEstimate = await sendForm.page.$(sendForm.getSelector('$feeEstimateItem'));
       const label = await defaultFeeEstimate?.innerText();
-      await delay(500);
       expect(label).toEqual('Standard');
     });
 
