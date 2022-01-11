@@ -1,3 +1,30 @@
+# [2.24.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.2...v2.24.0) (2022-01-11)
+
+
+### Bug Fixes
+
+* breaking change from stacks.js ([85666ae](https://github.com/hirosystems/stacks-wallet-web/commit/85666ae3d1f33fbbe61c24877702a7caa03facc1))
+* change wallet config default branch to main ([69ce2f0](https://github.com/hirosystems/stacks-wallet-web/commit/69ce2f00ea92b294b6393712778adf5b08b0c1a7))
+* gaia config being fetched on every key press, closes [#2101](https://github.com/hirosystems/stacks-wallet-web/issues/2101) ([2484d78](https://github.com/hirosystems/stacks-wallet-web/commit/2484d78a9545b36518a444230f37a4185387e215))
+* improve list render performance ([df65dbb](https://github.com/hirosystems/stacks-wallet-web/commit/df65dbbeeb5cc0b8256b6efc1eee3994ffe11bd1))
+* increase fee showing zero ([492ed1c](https://github.com/hirosystems/stacks-wallet-web/commit/492ed1c0073f254004f848ab0f2794edcdefa722))
+* long white screens ([feba515](https://github.com/hirosystems/stacks-wallet-web/commit/feba5157e071800a514f44d7d5d2168bc6f61482))
+* null rendering when accounts are undefined, closes [#2000](https://github.com/hirosystems/stacks-wallet-web/issues/2000) ([5d95af0](https://github.com/hirosystems/stacks-wallet-web/commit/5d95af09622a7ebe7470a29a1a1384aea4511b31))
+* onboarding route flashing ([f2419d5](https://github.com/hirosystems/stacks-wallet-web/commit/f2419d524a86f2064e6e9f4abd5902d09050cd82))
+* remove disabled regtest option from networks list ([6a68a2f](https://github.com/hirosystems/stacks-wallet-web/commit/6a68a2f728a5574344602a56fa904ff8f073f51b))
+* remove gaia call when unlocking wallet ([2bc01d4](https://github.com/hirosystems/stacks-wallet-web/commit/2bc01d44668f7e9190570617ae8e65d6315d6787)), closes [#1877](https://github.com/hirosystems/stacks-wallet-web/issues/1877)
+* remove gaia call when unlocking wallet ([e6c3947](https://github.com/hirosystems/stacks-wallet-web/commit/e6c39470b1b39af0e18104c65b33de5929370e41)), closes [#1877](https://github.com/hirosystems/stacks-wallet-web/issues/1877)
+* render whole account list when fewer than 10 accounts ([8464b74](https://github.com/hirosystems/stacks-wallet-web/commit/8464b7497f48552128584aaf4791478ab17257a7))
+* show fiat onramp buy button only on mainnet ([c02f138](https://github.com/hirosystems/stacks-wallet-web/commit/c02f1382186af0e7ae2da9b5d40216c73d9d14fa)), closes [#2049](https://github.com/hirosystems/stacks-wallet-web/issues/2049)
+* switch account failing test ([982e3e9](https://github.com/hirosystems/stacks-wallet-web/commit/982e3e96649e44d62b21dc2623cb6f06bf67cdf8))
+* use saved hasSetPassword from storage ([5e8869d](https://github.com/hirosystems/stacks-wallet-web/commit/5e8869dff511ea2083b35b12b169c840efd5a7fc))
+
+
+### Features
+
+* add metrics for fee estimation ([00690f2](https://github.com/hirosystems/stacks-wallet-web/commit/00690f2c981446a5989a5acae34581c57ac8d252)), closes [#2041](https://github.com/hirosystems/stacks-wallet-web/issues/2041)
+* add unlock waiting message ([03ffdf7](https://github.com/hirosystems/stacks-wallet-web/commit/03ffdf7cb3ed33b2789e72254b9cf01be5f803b7)), closes [#2062](https://github.com/hirosystems/stacks-wallet-web/issues/2062)
+
 ## [2.23.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.1...v2.23.2) (2021-12-08)
 
 
