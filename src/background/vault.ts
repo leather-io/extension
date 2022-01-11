@@ -34,7 +34,7 @@ const defaultVault: InMemoryVault = {
   salt: undefined,
 } as const;
 
-export function getHasSetPassword() {
+function getHasSetPassword() {
   const persisted = localStorage.getItem(hasSetPasswordIdentifier);
   if (persisted !== null) {
     return JSON.parse(persisted);
