@@ -16,6 +16,7 @@ import { todaysIsoDate } from '@common/date-utils';
 import { finalizeTxSignature } from '@common/actions/finalize-tx-signature';
 import { useWallet } from '@common/hooks/use-wallet';
 import { broadcastTransaction } from '@common/transactions/broadcast-transaction';
+import { logger } from '@common/logger';
 import { currentAccountState } from '@store/accounts';
 import { currentNetworkState } from '@store/network/networks';
 import {
@@ -83,6 +84,8 @@ export function useSignTransactionSoftwareWallet() {
   );
 }
 
+// TODO: @kyranjamie
+// only used for signed transactions, not send form
 export function useTransactionBroadcast() {
   const { setLatestNonce } = useWallet();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
@@ -116,9 +119,9 @@ export function useTransactionBroadcast() {
             attachment,
             networkUrl: network.url,
           });
-          if (typeof nonce !== 'undefined') await setLatestNonce(nonce);
+          typeof nonce !== 'undefined' && (await setLatestNonce(nonce));
           finalizeTxSignature(requestToken, result);
-          if (typeof result.txId === 'string') {
+          if (typeof result.txId !== 'undefined') {
             set(currentAccountLocallySubmittedTxsState, {
               [result.txId]: {
                 rawTx: result.txRaw,
@@ -127,6 +130,7 @@ export function useTransactionBroadcast() {
             });
           }
         } catch (error) {
+          logger.error(error);
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
