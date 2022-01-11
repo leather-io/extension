@@ -25,7 +25,7 @@ const manifest = {
   web_accessible_resources: ['inpage.js'],
   browser_action: {
     default_title: 'Stacks',
-    default_popup: 'popup.html',
+    default_popup: 'extension.html',
   },
   commands: {
     _execute_browser_action: {

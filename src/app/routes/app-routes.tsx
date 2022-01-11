@@ -12,9 +12,9 @@ import { SignTransaction } from '@app/pages/sign-transaction/sign-transaction';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
-import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
-import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
-import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
+import { SetPasswordPage } from '@app/pages/set-password';
+import { SendTokensForm } from '@app/pages/send-tokens/send-tokens-form';
+import { SaveSecretKey } from '@app/pages/save-secret-key/save-secret-key';
 import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
 import { Unlock } from '@app/pages/unlock';
@@ -22,9 +22,8 @@ import { Home } from '@app/pages/home/home';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
 import { BuyPage } from '@app/pages/buy/buy';
-import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { RouteUrls } from '@shared/route-urls';
+import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 
 export function AppRoutes(): JSX.Element | null {
   const { hasRehydratedVault } = useWallet();
@@ -60,8 +59,8 @@ export function AppRoutes(): JSX.Element | null {
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
         <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
-        <Route path={RouteUrls.BackUpSecretKey} element={<BackUpSecretKeyPage />} />
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+        <Route path={RouteUrls.SaveSecretKey} element={<SaveSecretKey />} />
         <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
         <Route path={RouteUrls.SignIn} element={<SignIn />} />
         <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
@@ -74,21 +73,21 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
-          path={RouteUrls.Buy}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <BuyPage />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
           path={RouteUrls.ChooseAccount}
           element={
             <AccountGate>
               <Suspense fallback={<></>}>
                 <ChooseAccount />
+              </Suspense>
+            </AccountGate>
+          }
+        />
+        <Route
+          path={RouteUrls.Buy}
+          element={
+            <AccountGate>
+              <Suspense fallback={<></>}>
+                <BuyPage />
               </Suspense>
             </AccountGate>
           }
@@ -125,7 +124,7 @@ export function AppRoutes(): JSX.Element | null {
           path={RouteUrls.ViewSecretKey}
           element={
             <AccountGate>
-              <ViewSecretKey />
+              <SaveSecretKey />
             </AccountGate>
           }
         />

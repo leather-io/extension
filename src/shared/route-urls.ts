@@ -2,11 +2,11 @@ export enum RouteUrls {
   Container = '/',
   // Onboarding routes
   Onboarding = '/onboarding',
-  BackUpSecretKey = '/back-up-secret-key',
+  RequestDiagnostics = '/request-diagnostics',
+  SaveSecretKey = '/save-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
   RecoveryCode = '/recovery-code',
-  RequestDiagnostics = '/request-diagnostics',
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',

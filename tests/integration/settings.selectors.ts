@@ -1,5 +1,4 @@
 export enum SettingsSelectors {
-  MenuBtn = 'menu-btn',
   NetworkListItem = 'network-list-item',
   ChangeNetworkAction = 'settings-change-network',
   SwitchAccount = 'switch-account',
@@ -15,6 +14,4 @@ export enum SettingsSelectors {
   BtnSignOutActuallyDeleteWallet = 'btn-sign-out-actually-delete-wallet',
   LockListItem = 'settings-lock',
   AccountIndex = 'switch-account-item-[index]',
-  EnterPasswordInput = 'password-input',
-  UnlockWalletBtn = 'unlock-wallet-btn',
 }

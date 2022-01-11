@@ -54,11 +54,10 @@ describe(`Settings integration tests`, () => {
     await wallet.clickSignIn();
     await wallet.enterSecretKey(secretKey);
     const password = randomString(15);
-    await wallet.enterNewPassword(password);
-    await wallet.enterConfirmPasswordAndClickDone(password);
+    await wallet.enterPassword(password);
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.LockListItem));
-    await wallet.enterPasswordAndUnlockWallet(password);
+    await wallet.enterPassword(password);
     const displayName = await wallet.page.textContent(
       createTestSelector(SettingsSelectors.HomeCurrentAccountDisplayName)
     );

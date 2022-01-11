@@ -18,7 +18,7 @@ export const AccountGate = ({ children }: AccountGateProps) => {
   if (!hasRehydratedVault) return null;
   if (isWalletActive) return <>{children}</>;
   if (isWalletLocked) return <Navigate to={RouteUrls.Unlock} />;
-  if (needsToCompleteOnboarding) return <Navigate to={RouteUrls.BackUpSecretKey} />;
+  if (needsToCompleteOnboarding) return <Navigate to={RouteUrls.SaveSecretKey} />;
 
   return null;
 };

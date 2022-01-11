@@ -270,5 +270,8 @@ export function isEmpty(value: Object) {
   return Object.keys(value).length === 0;
 }
 
-export const isFullPage = document.location.pathname.startsWith('/index.html');
-export const isPopup = !isFullPage;
+type ViewMode = 'full' | 'popup';
+
+export function getViewMode(): ViewMode {
+  return document.location.pathname.startsWith('/index.html') ? 'full' : 'popup';
+}
