@@ -1,10 +1,10 @@
 import { isFullPage } from '@app/common/utils';
 import { Body } from '@app/components/typography';
 
-interface ViewSecretKeyMessageProps {
+interface SecretKeyMessageProps {
   wordCount: number;
 }
-export function ViewSecretKeyMessage(props: ViewSecretKeyMessageProps): JSX.Element {
+export function SecretKeyMessage(props: SecretKeyMessageProps): JSX.Element {
   const { wordCount } = props;
 
   return (

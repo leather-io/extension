@@ -19,7 +19,7 @@ import { Caption } from '@app/components/typography';
 import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
 import { fullPageContent, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 const waitingMessages: WaitingMessages = {
   '2': 'Please wait a few seconds…',
@@ -88,7 +88,7 @@ export function Unlock(): JSX.Element {
       <Input
         autoFocus
         borderRadius="10px"
-        data-testid={SettingsSelectors.EnterPasswordInput}
+        data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
         height="64px"
         isDisabled={loading}
         onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
@@ -105,12 +105,7 @@ export function Unlock(): JSX.Element {
           </ErrorLabel>
         </Box>
       )}
-      <PrimaryButton
-        data-testid={SettingsSelectors.UnlockWalletBtn}
-        isDisabled={loading}
-        isLoading={loading}
-        onClick={submit}
-      >
+      <PrimaryButton isDisabled={loading} isLoading={loading} onClick={submit}>
         Unlock
       </PrimaryButton>
       {showSignOut && <SignOutConfirmDrawer />}

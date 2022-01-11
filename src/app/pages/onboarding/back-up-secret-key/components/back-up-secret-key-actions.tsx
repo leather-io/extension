@@ -4,7 +4,6 @@ import { Box, color, Stack } from '@stacks/ui';
 import { Caption } from '@app/components/typography';
 import { isFullPage } from '@app/common/utils';
 import { PrimaryButton } from '@app/components/primary-button';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 interface BackUpSecretKeyLayoutProps {
   onBackedUpSecretKey(): void;
@@ -27,12 +26,7 @@ export function BackUpSecretKeyActions(props: BackUpSecretKeyLayoutProps): JSX.E
         <Caption>Put it somewhere private and secure</Caption>
       </Stack>
       <Stack alignItems={isFullPage ? 'center' : 'start'} isInline={isFullPage} spacing="loose">
-        <PrimaryButton
-          data-testid={OnboardingSelectors.BackUpSecretKeyBtn}
-          onClick={onBackedUpSecretKey}
-        >
-          I've backed it up
-        </PrimaryButton>
+        <PrimaryButton onClick={onBackedUpSecretKey}>I've backed it up</PrimaryButton>
       </Stack>
     </>
   );

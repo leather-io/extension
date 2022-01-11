@@ -1,13 +1,14 @@
 import { Button, color, Stack, StackProps } from '@stacks/ui';
 
 import { PrimaryButton } from '@app/components/primary-button';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
-interface ViewSecreteKeyActionsProps extends StackProps {
+interface SecreteKeyActionsProps extends StackProps {
   hasCopied: boolean;
   onClick(): void;
   onCopyToClipboard(): void;
 }
-export function ViewSecretKeyActions(props: ViewSecreteKeyActionsProps): JSX.Element {
+export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
   const { hasCopied, onClick, onCopyToClipboard, ...rest } = props;
 
   return (
@@ -28,7 +29,9 @@ export function ViewSecretKeyActions(props: ViewSecreteKeyActionsProps): JSX.Ele
       >
         {hasCopied ? 'Copied!' : 'Copy to clipboard'}
       </Button>
-      <PrimaryButton onClick={onClick}>I've saved it</PrimaryButton>
+      <PrimaryButton data-testid={SettingsSelectors.SaveSecretKey} onClick={onClick}>
+        I've saved it
+      </PrimaryButton>
     </Stack>
   );
 }

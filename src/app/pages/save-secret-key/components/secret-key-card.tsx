@@ -1,10 +1,10 @@
 import { Body } from '@app/components/typography';
 import { Card } from '@app/components/card';
 
-interface ViewSecretKeyCardProps {
+interface SecretKeyCardProps {
   secretKey?: string;
 }
-export function ViewSecretKeyCard(props: ViewSecretKeyCardProps): JSX.Element {
+export function SecretKeyCard(props: SecretKeyCardProps): JSX.Element {
   const { secretKey } = props;
 
   return (

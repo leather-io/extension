@@ -10,7 +10,6 @@ import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Caption, Title } from '@app/components/typography';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 interface HeaderProps extends FlexProps {
   onClose?: () => void;
@@ -88,7 +87,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
           <IconButton
             _hover={{ color: color('text-title') }}
             color={color('text-caption')}
-            data-testid={SettingsSelectors.MenuBtn}
+            data-testid="menu-button"
             iconSize="16px"
             icon={FiMoreHorizontal}
             onMouseUp={showSettings ? undefined : () => setShowSettings(true)}

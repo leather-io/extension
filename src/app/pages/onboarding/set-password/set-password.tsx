@@ -141,7 +141,7 @@ export const SetPasswordPage = () => {
             <Stack spacing="base">
               <Input
                 autoFocus
-                data-testid={OnboardingSelectors.NewPasswordInput}
+                data-testid={OnboardingSelectors.SetOrEnterPasswordInput}
                 height="64px"
                 key="password-input"
                 name="password"
@@ -156,7 +156,6 @@ export const SetPasswordPage = () => {
                 </ErrorLabel>
               ) : null}
               <Input
-                data-testid={OnboardingSelectors.ConfirmPasswordInput}
                 height="64px"
                 key="confirm-password-input"
                 name="confirmPassword"
@@ -173,7 +172,7 @@ export const SetPasswordPage = () => {
               ) : null}
             </Stack>
             <PrimaryButton
-              data-testid={OnboardingSelectors.SetPasswordBtn}
+              dataTestId={OnboardingSelectors.SetPasswordBtn}
               isDisabled={loading}
               isLoading={loading || formik.isSubmitting}
             >
