@@ -1,11 +1,10 @@
 import React, { memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Box, SlideFade, BoxProps, color, Flex } from '@stacks/ui';
-
 import { Text, Caption } from '@components/typography';
 import { useOnClickOutside } from '@common/hooks/use-onclickoutside';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useDrawers } from '@common/hooks/use-drawers';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
 import { Divider } from '@components/divider';
 import { forwardRefWithAs } from '@stacks/ui-core';
@@ -65,7 +64,7 @@ export const SettingsPopover: React.FC = () => {
     showSettings,
     setShowSignOut,
   } = useDrawers();
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
   const analytics = useAnalytics();
 
   const handleClose = useCallback(() => {
@@ -113,7 +112,7 @@ export const SettingsPopover: React.FC = () => {
               <MenuItem
                 data-testid="settings-view-secret-key"
                 onClick={wrappedCloseCallback(() => {
-                  navigate(RouteUrls.ViewSecretKey);
+                  changeScreen(RouteUrls.ViewSecretKey);
                 })}
               >
                 View Secret Key
@@ -141,7 +140,7 @@ export const SettingsPopover: React.FC = () => {
                   onClick={wrappedCloseCallback(() => {
                     void analytics.track('lock_session');
                     void lockWallet();
-                    navigate(RouteUrls.Home);
+                    changeScreen(RouteUrls.Home);
                   })}
                   data-testid="settings-lock"
                 >
@@ -152,7 +151,7 @@ export const SettingsPopover: React.FC = () => {
                 color={color('feedback-error')}
                 onClick={wrappedCloseCallback(() => {
                   setShowSignOut(true);
-                  navigate(RouteUrls.SignOutConfirm);
+                  changeScreen(RouteUrls.SignOutConfirm);
                 })}
                 data-testid="settings-sign-out"
               >

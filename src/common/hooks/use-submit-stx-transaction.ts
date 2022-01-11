@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import {
   broadcastTransaction,
   StacksTransaction,
@@ -8,6 +7,7 @@ import {
 } from '@stacks/transactions';
 
 import { todaysIsoDate } from '@common/date-utils';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useWallet } from '@common/hooks/use-wallet';
 import { useLoading } from '@common/hooks/use-loading';
 import { logger } from '@common/logger';
@@ -47,7 +47,7 @@ interface UseSubmitTransactionCallbackArgs {
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const refreshAccountData = useRefreshAllAccountData();
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
   const { setLatestNonce } = useWallet();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
@@ -81,7 +81,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             void analytics.track('broadcast_transaction');
             onClose();
             setIsIdle();
-            navigate(RouteUrls.Home);
+            changeScreen(RouteUrls.Home);
             // switch active tab to activity
             setActiveTabActivity();
             await refreshAccountData(timeForApiToUpdate);
@@ -100,7 +100,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       externalTxid,
       setLatestNonce,
       analytics,
-      navigate,
+      changeScreen,
       setActiveTabActivity,
       refreshAccountData,
       setLocalTxs,

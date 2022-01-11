@@ -1,8 +1,8 @@
 import React, { memo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
 import { useWallet } from '@common/hooks/use-wallet';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
@@ -15,7 +15,7 @@ import { SecretKeyCard } from './components/secret-key-card';
 export const SaveSecretKey: React.FC = memo(() => {
   const { hasSetPassword } = useWallet();
   const analytics = useAnalytics();
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
   useEffect(() => {
     void analytics.page('view', '/save-your-secret-key');
@@ -26,7 +26,9 @@ export const SaveSecretKey: React.FC = memo(() => {
       header={
         <Header
           onClose={
-            hasSetPassword ? () => navigate(RouteUrls.Home) : () => navigate(RouteUrls.Onboarding)
+            hasSetPassword
+              ? () => changeScreen(RouteUrls.Home)
+              : () => changeScreen(RouteUrls.Onboarding)
           }
           hideActions={!hasSetPassword}
           title={hasSetPassword ? 'Your Secret Key' : 'Save your Secret Key'}

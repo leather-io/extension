@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, Stack, StackProps } from '@stacks/ui';
-
 import { useWallet } from '@common/hooks/use-wallet';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
 import { Link } from '@components/link';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
@@ -13,7 +12,7 @@ export function OnboardingActions(props: StackProps) {
   const [isGeneratingWallet, setIsGeneratingWallet] = useState(false);
   const { makeWallet } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
   const analytics = useAnalytics();
 
   useEffect(() => {
@@ -27,10 +26,10 @@ export function OnboardingActions(props: StackProps) {
     void analytics.track('generate_new_secret_key');
 
     if (decodedAuthRequest) {
-      navigate(RouteUrls.SetPassword);
+      changeScreen(RouteUrls.SetPassword);
     }
-    navigate(RouteUrls.SaveSecretKey);
-  }, [makeWallet, analytics, decodedAuthRequest, navigate]);
+    changeScreen(RouteUrls.SaveSecretKey);
+  }, [makeWallet, analytics, decodedAuthRequest, changeScreen]);
 
   return (
     <Stack justifyContent="center" spacing="loose" textAlign="center" {...props}>
@@ -42,7 +41,10 @@ export function OnboardingActions(props: StackProps) {
       >
         I'm new to Stacks
       </Button>
-      <Link onClick={() => navigate(RouteUrls.SignIn)} data-testid={InitialPageSelectors.SignIn}>
+      <Link
+        onClick={() => changeScreen(RouteUrls.SignIn)}
+        data-testid={InitialPageSelectors.SignIn}
+      >
         Sign in with Secret Key
       </Link>
     </Stack>
