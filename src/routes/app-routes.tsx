@@ -3,7 +3,6 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 import { useWallet } from '@common/hooks/use-wallet';
-import { getViewMode } from '@common/utils';
 import { Container } from '@components/container/container';
 import { MagicRecoveryCode } from '@pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@pages/choose-account/choose-account';
@@ -31,12 +30,9 @@ export function AppRoutes(): JSX.Element | null {
   const analytics = useAnalytics();
   useSaveAuthRequest();
 
-  const mode = getViewMode();
-
   useEffect(() => {
     // This ensures the ext popup hits the right route on load
-    if (mode === 'popup' && pathname === RouteUrls.Home && !hasGeneratedWallet)
-      navigate(RouteUrls.Onboarding);
+    if (pathname === RouteUrls.Home && !hasGeneratedWallet) navigate(RouteUrls.Onboarding);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
