@@ -16,14 +16,6 @@ import { RouteUrls } from '@routes/route-urls';
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
 import { getViewMode } from '@common/utils';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
-import { Caption } from '@components/typography';
-import { useWaitingMessage, WaitingMessages } from '@common/utils/use-waiting-message';
-
-const waitingMessages: WaitingMessages = {
-  '2': 'Please wait a few seconds…',
-  '10': 'Still working, please wait.',
-  '20': 'Almost there.',
-};
 
 export function Unlock(): JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -34,8 +26,6 @@ export function Unlock(): JSX.Element {
   const { showSignOut } = useDrawers();
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const [waitingMessage, startWaitingMessage, stopWaitingMessage] =
-    useWaitingMessage(waitingMessages);
 
   useRouteHeader(<Header />);
 
@@ -46,7 +36,6 @@ export function Unlock(): JSX.Element {
     const startUnlockTimeMs = performance.now();
     void analytics.track('start_unlock');
     setLoading(true);
-    startWaitingMessage();
     setError('');
     try {
       await unlockWallet(password);
@@ -60,20 +49,11 @@ export function Unlock(): JSX.Element {
       setError('The password you entered is invalid.');
     }
     setLoading(false);
-    stopWaitingMessage();
     const unlockSuccessTimeMs = performance.now();
     void analytics.track('complete_unlock', {
       durationMs: unlockSuccessTimeMs - startUnlockTimeMs,
     });
-  }, [
-    startWaitingMessage,
-    analytics,
-    stopWaitingMessage,
-    unlockWallet,
-    password,
-    decodedAuthRequest,
-    navigate,
-  ]);
+  }, [analytics, unlockWallet, password, decodedAuthRequest, navigate]);
 
   return (
     <>
@@ -86,9 +66,7 @@ export function Unlock(): JSX.Element {
                 : undefined
             }
           >
-            <Caption fontSize={0} mt="base-loose" textAlign={'center'}>
-              {waitingMessage || 'Enter the password you used on this device.'}
-            </Caption>
+            Enter the password you used on this device.
           </Body>
           <Box width="100%">
             <Input
