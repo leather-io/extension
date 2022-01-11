@@ -7,12 +7,12 @@ import type {
   AccountBalanceResponseBigNumber,
   AddressBalanceResponse,
   AccountBalanceStxKeys,
-} from '../../models/account-types';
+} from './types';
 
 import BigNumber from 'bignumber.js';
 import { atomFamily } from 'jotai/utils';
 import { atom } from 'jotai';
-import { AccountStxBalanceBigNumber } from '@models/account-types';
+import { AccountStxBalanceBigNumber } from './types';
 import deepEqual from 'fast-deep-equal';
 import { PaginatedResults } from '@common/types';
 

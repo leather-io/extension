@@ -1,7 +1,6 @@
+import type { AccountBalanceStxKeys, AccountStxBalanceBigNumber } from '@store/accounts/types';
 import BigNumber from 'bignumber.js';
-
 import { useGetAccountBalanceQuery } from './balance.query';
-import type { AccountBalanceStxKeys, AccountStxBalanceBigNumber } from '@models/account-types';
 
 const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'balance',
