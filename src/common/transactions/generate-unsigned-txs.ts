@@ -119,9 +119,10 @@ function generateUnsignedStxTransferTx(args: GenerateUnsignedStxTransferTxArgs) 
   return makeUnsignedSTXTokenTransfer(options);
 }
 
-export type GenerateUnsignedTransactionOptions = GenerateUnsignedTxArgs<
+type GenerateUnsignedTransactionOptions = GenerateUnsignedTxArgs<
   ContractCallPayload | STXTransferPayload | ContractDeployPayload
 >;
+
 export async function generateUnsignedTransaction(options: GenerateUnsignedTransactionOptions) {
   const { txData, publicKey, nonce, fee = 0 } = options;
   const isValid = isTransactionTypeSupported(txData.txType);

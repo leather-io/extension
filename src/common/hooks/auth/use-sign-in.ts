@@ -82,6 +82,7 @@ export function useSignIn() {
       setIsIdle,
     ]
   );
+
   const handleSetSeed = useCallback(
     async (value: string, trim?: boolean) => {
       const trimmed = trim ? value.trim() : value;

@@ -38,17 +38,23 @@ function getErrorMessage(
 
 const timeForApiToUpdate = 250;
 
-interface UseSubmitTransactionArgs {
-  loadingKey: string;
-}
 interface UseSubmitTransactionCallbackArgs {
   replaceByFee?: boolean;
-  onClose(): void;
+  onClose: () => void;
+  loadingKey: string;
 }
-export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
+export function useSubmitTransactionCallback({
+  replaceByFee,
+  onClose,
+  loadingKey,
+}: UseSubmitTransactionCallbackArgs) {
   const refreshAccountData = useRefreshAllAccountData();
   const changeScreen = useChangeScreen();
+<<<<<<< HEAD
   const { setLatestNonce } = useWallet();
+=======
+  const { doSetLatestNonce } = useWallet();
+>>>>>>> 3be3b2d29 (refactor(tx-signing): use unsigned serialised txs for fee estimation)
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
@@ -56,46 +62,47 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
   const externalTxid = useCurrentAccountTxIds();
   const analytics = useAnalytics();
 
-  return useCallback(
-    ({ replaceByFee, onClose }: UseSubmitTransactionCallbackArgs) =>
-      async (transaction: StacksTransaction) => {
-        setIsLoading();
-        const nonce = !replaceByFee && transaction.auth.spendingCondition?.nonce.toNumber();
-        try {
-          const response = await broadcastTransaction(transaction, stacksNetwork);
-          if (typeof response !== 'string') {
-            toast.error(getErrorMessage(response.reason));
-            onClose();
-            setIsIdle();
-          } else {
-            const txid = `0x${response}`;
-            if (!externalTxid.includes(txid)) {
-              await setLocalTxs({
-                rawTx: transaction.serialize().toString('hex'),
-                timestamp: todaysIsoDate(),
-                txid,
-              });
-            }
-            if (nonce) await setLatestNonce(nonce);
-            toast.success('Transaction submitted!');
-            void analytics.track('broadcast_transaction');
-            onClose();
-            setIsIdle();
-            changeScreen(RouteUrls.Home);
-            // switch active tab to activity
-            setActiveTabActivity();
-            await refreshAccountData(timeForApiToUpdate);
-          }
-        } catch (e) {
-          logger.error(e);
-          toast.error('Something went wrong');
+  return useCallback<(tx: StacksTransaction) => Promise<void>>(
+    async transaction => {
+      setIsLoading();
+      const nonce = !replaceByFee && transaction.auth.spendingCondition?.nonce.toNumber();
+      try {
+        const response = await broadcastTransaction(transaction, stacksNetwork);
+        if (typeof response !== 'string') {
+          toast.error(getErrorMessage(response.reason));
           onClose();
           setIsIdle();
+        } else {
+          const txid = `0x${response}`;
+          if (!externalTxid.includes(txid)) {
+            await setLocalTxs({
+              rawTx: transaction.serialize().toString('hex'),
+              timestamp: todaysIsoDate(),
+              txid,
+            });
+          }
+          if (nonce) await setLatestNonce(nonce);
+          toast.success('Transaction submitted!');
+          void analytics.track('broadcast_transaction');
+          onClose();
+          setIsIdle();
+          changeScreen(RouteUrls.Home);
+          // switch active tab to activity
+          setActiveTabActivity();
+          await refreshAccountData(timeForApiToUpdate);
         }
-      },
+      } catch (e) {
+        logger.error(e);
+        toast.error('Something went wrong');
+        onClose();
+        setIsIdle();
+      }
+    },
     [
       setIsLoading,
+      replaceByFee,
       stacksNetwork,
+      onClose,
       setIsIdle,
       externalTxid,
       setLatestNonce,
@@ -109,19 +116,18 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
 }
 
 interface UseHandleSubmitTransactionArgs {
+  transaction: StacksTransaction | null;
+  onClose: () => void;
   loadingKey: string;
-}
-interface UseHandleSubmitTransactionReturnFn {
-  transaction: StacksTransaction;
   replaceByFee?: boolean;
-  onClose(): void;
 }
-export function useHandleSubmitTransaction({ loadingKey }: UseHandleSubmitTransactionArgs) {
-  const broadcastTxCallback = useSubmitTransactionCallback({ loadingKey });
-
-  return useCallback(
-    ({ transaction, onClose, replaceByFee = false }: UseHandleSubmitTransactionReturnFn) =>
-      broadcastTxCallback({ onClose, replaceByFee })(transaction),
-    [broadcastTxCallback]
-  );
+export function useHandleSubmitTransaction({
+  transaction,
+  onClose,
+  loadingKey,
+  replaceByFee = false,
+}: UseHandleSubmitTransactionArgs) {
+  const callback = useSubmitTransactionCallback({ onClose, loadingKey, replaceByFee });
+  if (transaction) return () => callback(transaction);
+  return () => null;
 }

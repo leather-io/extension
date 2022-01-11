@@ -48,3 +48,9 @@ export const transactionRequestStxAddressState = atom(
 );
 
 export const transactionRequestNetwork = atom(get => get(requestTokenPayloadState)?.network);
+
+requestTokenPayloadState.debugLabel = 'requestTokenPayloadState';
+requestTokenOriginState.debugLabel = 'requestTokenOriginState';
+transactionRequestValidationState.debugLabel = 'transactionRequestValidationState';
+transactionRequestStxAddressState.debugLabel = 'transactionRequestStxAddressState';
+transactionRequestNetwork.debugLabel = 'transactionRequestNetwork';
