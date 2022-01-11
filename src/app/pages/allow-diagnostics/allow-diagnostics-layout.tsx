@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Body, Title } from '@app/components/typography';
 import { Box, Button, Flex, color, Stack } from '@stacks/ui';
 import { FiCheck } from 'react-icons/fi';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -27,7 +27,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
   const { onUserAllowDiagnostics, onUserDenyDiagnosticsPermissions } = props;
 
   return (
-    <Stack flexGrow={1} justifyContent="center" maxWidth="440px" spacing="extra-loose">
+    <Stack spacing="extra-loose" flexGrow={1} justifyContent="center">
       <Title as="h1" fontWeight={500} textAlign="center">
         Help us improve
       </Title>
@@ -46,7 +46,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
             type="button"
             size="lg"
             mode="primary"
-            data-testid={OnboardingSelectors.AnalyticsAllow}
+            data-testid={InitialPageSelectors.AnalyticsAllow}
             onClick={() => onUserAllowDiagnostics()}
             mr="base-tight"
           >
