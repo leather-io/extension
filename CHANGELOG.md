@@ -1,3 +1,10 @@
+# [2.24.0-beta.8](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.7...v2.24.0-beta.8) (2022-01-11)
+
+
+### Bug Fixes
+
+* remove disabled regtest option from networks list ([6aafe89](https://github.com/hirosystems/stacks-wallet-web/commit/6aafe8964a3b262aa9d59ad48376779e3bb07109))
+
 # [2.24.0-beta.7](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.6...v2.24.0-beta.7) (2021-12-23)
 
 
