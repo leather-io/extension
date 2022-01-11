@@ -1,3 +1,16 @@
+# [2.24.0-beta.10](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.9...v2.24.0-beta.10) (2022-01-11)
+
+
+### Reverts
+
+* Revert "feat: add welcome page" ([4b7859a](https://github.com/hirosystems/stacks-wallet-web/commit/4b7859a4f926b7020967293bf8be98a2821e82e3))
+* Revert "refactor: global styles" ([97b16c1](https://github.com/hirosystems/stacks-wallet-web/commit/97b16c1f50f1ef061ae71c35514ad4bf904ec93b))
+* Revert "feat: add back up secret key page" ([95c3a76](https://github.com/hirosystems/stacks-wallet-web/commit/95c3a766b74b0670b18d4d4ba0428771020b3d38))
+* Revert "feat: add set password page" ([4f44c48](https://github.com/hirosystems/stacks-wallet-web/commit/4f44c48ca68de9614b0027d7fa49c24e30ddba00))
+* Revert "refactor: update existing styles to match changes" ([326b0b2](https://github.com/hirosystems/stacks-wallet-web/commit/326b0b2834884a143b9af0d96aa51bb71e8dabf0))
+* Revert "refactor: add primary button" ([152fffd](https://github.com/hirosystems/stacks-wallet-web/commit/152fffd2d38edb05e338c37a1cc3466cdafde076))
+* Revert "refactor: integration tests with new onboarding" ([b24bd90](https://github.com/hirosystems/stacks-wallet-web/commit/b24bd90d73fe23ac045ce97c32778ff8937b3904))
+
 # [2.24.0-beta.9](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.8...v2.24.0-beta.9) (2022-01-11)
 
 
