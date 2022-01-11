@@ -6,11 +6,16 @@ import { BIP32Interface } from 'bitcoinjs-lib';
 
 function getSavedWalletConfig() {
   const walletConfig = localStorage.getItem('walletConfig');
-  if (typeof walletConfig !== 'string') return;
+  if (typeof walletConfig !== 'string')
+    return {
+      accounts: [{ apps: {} }],
+    };
   try {
     return JSON.parse(walletConfig) as WalletConfig;
   } catch (e) {
-    return;
+    return {
+      accounts: [{ apps: {} }],
+    };
   }
 }
 
@@ -66,7 +71,6 @@ export async function getWallet(params: GetWalletParams): Promise<SDKWallet | un
   });
 
   const walletConfig = getSavedWalletConfig();
-  if (!walletConfig) return;
 
   const accounts = await getSavedWalletAccounts({
     secretKey,
