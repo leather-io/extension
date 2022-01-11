@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Open Sauce One';
   src: url('/assets/fonts/open-sauce-one/opensauceone-bold-webfont.woff2') format('woff2'),
-    url('/assets/fonts/open-sauce-one/opensauceone-bold-webfont.woff') format('woff');
+  url('/assets/fonts/open-sauce-one/opensauceone-bold-webfont.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
@@ -9,7 +9,7 @@
 @font-face {
   font-family: 'Open Sauce One';
   src: url('/assets/fonts/open-sauce-one/opensauceone-bolditalic-webfont.woff2') format('woff2'),
-    url('/assets/fonts/open-sauce-one/opensauceone-bolditalic-webfont.woff') format('woff');
+  url('/assets/fonts/open-sauce-one/opensauceone-bolditalic-webfont.woff') format('woff');
   font-weight: bold;
   font-style: italic;
 }
@@ -17,7 +17,7 @@
 @font-face {
   font-family: 'Open Sauce One';
   src: url('/assets/fonts/open-sauce-one/opensauceone-italic-webfont.woff2') format('woff2'),
-    url('/assets/fonts/open-sauce-one/opensauceone-italic-webfont.woff') format('woff');
+  url('/assets/fonts/open-sauce-one/opensauceone-italic-webfont.woff') format('woff');
   font-weight: normal;
   font-style: italic;
 }
@@ -25,7 +25,7 @@
 @font-face {
   font-family: 'Open Sauce One';
   src: url('/assets/fonts/open-sauce-one/opensauceone-regular-webfont.woff2') format('woff2'),
-    url('/assets/fonts/open-sauce-one/opensauceone-regular-webfont.woff') format('woff');
+  url('/assets/fonts/open-sauce-one/opensauceone-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -33,7 +33,7 @@
 @font-face {
   font-family: 'Open Sauce One';
   src: url('/assets/fonts/open-sauce-one/opensauceone-semibold-webfont.woff2') format('woff2'),
-    url('/assets/fonts/open-sauce-one/opensauceone-semibold-webfont.woff') format('woff');
+  url('/assets/fonts/open-sauce-one/opensauceone-semibold-webfont.woff') format('woff');
   font-weight: 500;
   font-style: normal;
 }
@@ -41,7 +41,7 @@
 @font-face {
   font-family: 'Open Sauce One';
   src: url('/assets/fonts/open-sauce-one/opensauceone-semibolditalic-webfont.woff2') format('woff2'),
-    url('/assets/fonts/open-sauce-one/opensauceone-semibolditalic-webfont.woff') format('woff');
+  url('/assets/fonts/open-sauce-one/opensauceone-semibolditalic-webfont.woff') format('woff');
   font-weight: 500;
   font-style: italic;
 }
@@ -51,8 +51,8 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/assets/fonts/inter/Inter-Regular.woff2') format('woff2'),
-    url('/assets/fonts/inter/Inter-Regular.woff') format('woff');
+  src: url("/assets/fonts/inter/Inter-Regular.woff2") format("woff2"),
+  url("/assets/fonts/inter/Inter-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -60,8 +60,8 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url('/assets/fonts/inter/Inter-Italic.woff2') format('woff2'),
-    url('/assets/fonts/inter/Inter-Italic.woff') format('woff');
+  src: url("/assets/fonts/inter/Inter-Italic.woff2") format("woff2"),
+  url("/assets/fonts/inter/Inter-Italic.woff") format("woff");
 }
 
 @font-face {
@@ -69,8 +69,8 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('/assets/fonts/inter/Inter-Medium.woff2') format('woff2'),
-    url('/assets/fonts/inter/Inter-Medium.woff') format('woff');
+  src: url("/assets/fonts/inter/Inter-Medium.woff2") format("woff2"),
+  url("/assets/fonts/inter/Inter-Medium.woff") format("woff");
 }
 
 @font-face {
@@ -78,14 +78,15 @@
   font-style: italic;
   font-weight: 500;
   font-display: swap;
-  src: url('/assets/fonts/inter/Inter-MediumItalic.woff2') format('woff2'),
-    url('/assets/fonts/inter/Inter-MediumItalic.woff') format('woff');
+  src: url("/assets/fonts/inter/Inter-MediumItalic.woff2") format("woff2"),
+  url("/assets/fonts/inter/Inter-MediumItalic.woff") format("woff");
 }
+
 
 @font-face {
   font-family: 'Fira Code';
   src: url('/assets/fonts/fira-code/woff2/FiraCode-Light.woff2') format('woff2'),
-    url('/assets/fonts/fira-code/woff/FiraCode-Light.woff') format('woff');
+  url("/assets/fonts/fira-code/woff/FiraCode-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
@@ -93,13 +94,13 @@
 @font-face {
   font-family: 'Fira Code';
   src: url('/assets/fonts/fira-code/woff2/FiraCode-Regular.woff2') format('woff2'),
-    url('/assets/fonts/fira-code/woff/FiraCode-Regular.woff') format('woff');
+  url("/assets/fonts/fira-code/woff/FiraCode-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
-html,
-body {
+
+html, body {
   -webkit-font-smoothing: antialiased;
   background-color: white;
   font-size: 100%;
@@ -107,10 +108,10 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-html,
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+  sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 body {
@@ -151,14 +152,11 @@ abbr[title] {
   text-decoration: underline dotted;
 }
 
-b,
-strong {
+b, strong {
   font-weight: bolder;
 }
 
-code,
-kbd,
-samp {
+code, kbd, samp {
   font-family: monospace, monospace;
   font-size: 1em;
 }
@@ -167,8 +165,7 @@ small {
   font-size: 80%;
 }
 
-sub,
-sup {
+sub, sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
@@ -187,46 +184,31 @@ img {
   border-style: none;
 }
 
-button,
-input,
-optgroup,
-select,
-textarea {
+button, input, optgroup, select, textarea {
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
 }
 
-button,
-input {
+button, input {
   overflow: visible;
 }
 
-button,
-select {
+button, select {
   text-transform: none;
 }
 
-button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+button, [type="button"], [type="reset"], [type="submit"] {
   -webkit-appearance: button;
 }
 
-button::-moz-focus-inner,
-[type='button']::-moz-focus-inner,
-[type='reset']::-moz-focus-inner,
-[type='submit']::-moz-focus-inner {
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
 
-button:-moz-focusring,
-[type='button']:-moz-focusring,
-[type='reset']:-moz-focusring,
-[type='submit']:-moz-focusring {
+button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -251,23 +233,21 @@ textarea {
   overflow: auto;
 }
 
-[type='checkbox'],
-[type='radio'] {
+[type="checkbox"], [type="radio"] {
   box-sizing: border-box;
   padding: 0;
 }
 
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
-[type='search'] {
+[type="search"] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
 
-[type='search']::-webkit-search-decoration {
+[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -299,5 +279,5 @@ h4,
 h5,
 h6 {
   font-family: 'Open Sauce One', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }

@@ -154,8 +154,8 @@ const config = {
       contextRegExp: /bip39\/src$/,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'index.html'),
-      filename: 'index.html',
+      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'extension.html'),
+      filename: 'extension.html',
       ...HTML_PROD_OPTIONS,
     }),
     new HtmlWebpackPlugin({
@@ -164,8 +164,8 @@ const config = {
       ...HTML_PROD_OPTIONS,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'popup-center.html'),
-      filename: 'popup-center.html',
+      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'index.html'),
+      filename: 'index.html',
       ...HTML_PROD_OPTIONS,
     }),
     new GenerateJsonPlugin(
