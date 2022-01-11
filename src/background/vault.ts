@@ -18,6 +18,7 @@ import { getHasSetPassword, hasSetPasswordIdentifier } from '@common/storage';
 import { getDecryptedWalletDetails } from '@background/wallet/unlock-wallet';
 import { saveWalletConfigLocally } from '@common/wallet/wallet-config-helper';
 import { setToLocalstorageIfDefined } from '@common/storage';
+import { getHasSetPassword, hasSetPasswordIdentifier } from '@common/storage';
 
 // In-memory (background) wallet instance
 export interface InMemoryVault {
