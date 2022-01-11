@@ -1,5 +1,4 @@
-import { memo } from 'react';
-import * as React from 'react';
+import React, { memo } from 'react';
 import { createQR } from '@vkontakte/vk-qr';
 import { Box, color, Flex, FlexProps } from '@stacks/ui';
 

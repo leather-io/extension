@@ -1,5 +1,5 @@
 import { BoxProps, color, Text as BaseText } from '@stacks/ui';
-import * as React from 'react';
+import React from 'react';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import capsize from 'capsize';
 

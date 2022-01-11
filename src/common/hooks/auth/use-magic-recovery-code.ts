@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import * as React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { decrypt } from '@stacks/wallet-sdk';
 

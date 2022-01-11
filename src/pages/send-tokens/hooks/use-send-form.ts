@@ -1,5 +1,4 @@
-import { useCallback } from 'react';
-import * as React from 'react';
+import React, { useCallback } from 'react';
 import { FormikProps } from 'formik';
 
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';

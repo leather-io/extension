@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import { AccountWithAddress } from '@store/accounts/account.models';
 import { BoxProps } from '@stacks/ui';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';

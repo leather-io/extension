@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useFormik } from 'formik';
 
 import { Body, Caption } from '@components/typography';

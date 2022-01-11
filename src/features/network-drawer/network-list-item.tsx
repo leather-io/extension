@@ -1,5 +1,4 @@
-import { useCallback } from 'react';
-import * as React from 'react';
+import React, { useCallback } from 'react';
 
 import { Caption, Title } from '@components/typography';
 import { useDrawers } from '@common/hooks/use-drawers';

@@ -1,4 +1,4 @@
-import { memo, Suspense } from 'react';
+import React, { memo, Suspense } from 'react';
 import { ChainID } from '@stacks/transactions';
 import { useHasFiatProviders } from '@query/hiro-config/hiro-config.query';
 import { BuyTxButton } from './tx-button';

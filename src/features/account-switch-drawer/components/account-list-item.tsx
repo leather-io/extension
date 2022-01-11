@@ -1,4 +1,4 @@
-import { Suspense, memo } from 'react';
+import React, { memo } from 'react';
 
 import { useSwitchAccount } from '@common/hooks/account/use-switch-account';
 import { useLoading } from '@common/hooks/use-loading';
@@ -42,14 +42,14 @@ export const AccountListItem = memo(({ account, handleClose }: AccountListItemPr
       avatar={<AccountAvatarItem account={account} />}
       onSelectAccount={handleClick}
       accountName={
-        <Suspense fallback={<AccountNameFallback account={account} />}>
+        <React.Suspense fallback={<AccountNameFallback account={account} />}>
           <AccountName account={account} />
-        </Suspense>
+        </React.Suspense>
       }
       balanceLabel={
-        <Suspense fallback={<Caption>Loading…</Caption>}>
+        <React.Suspense fallback={<Caption>Loading…</Caption>}>
           <AccountBalanceLabel address={account.address} />
-        </Suspense>
+        </React.Suspense>
       }
     />
   );

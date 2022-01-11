@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { Box, color } from '@stacks/ui';
 

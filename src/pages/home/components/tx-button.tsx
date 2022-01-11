@@ -1,5 +1,4 @@
-import { memo, useCallback, useRef } from 'react';
-import * as React from 'react';
+import React, { memo, useCallback, useRef } from 'react';
 import { FiArrowUp, FiPlus } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, ButtonProps } from '@stacks/ui';

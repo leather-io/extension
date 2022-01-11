@@ -1,3 +1,4 @@
+import React from 'react';
 import { color, DynamicColorCircle, Stack, StackProps } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 

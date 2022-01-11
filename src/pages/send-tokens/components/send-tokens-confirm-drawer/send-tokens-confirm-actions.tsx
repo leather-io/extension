@@ -1,3 +1,4 @@
+import React from 'react';
 import { StacksTransaction } from '@stacks/transactions';
 import { Button, Stack } from '@stacks/ui';
 

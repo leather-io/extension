@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import arePassiveEventsSupported from 'are-passive-events-supported';
 import useLatest from 'use-latest';
 

@@ -1,4 +1,4 @@
-import { type ClipboardEvent } from 'react';
+import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { KEBAB_REGEX, Network } from '@common/constants';
@@ -31,7 +31,7 @@ export function extractPhraseFromString(value: string) {
   }
 }
 
-export function extractPhraseFromPasteEvent(event: ClipboardEvent) {
+export function extractPhraseFromPasteEvent(event: React.ClipboardEvent) {
   const pasted = event.clipboardData.getData('Text');
   return extractPhraseFromString(pasted);
 }

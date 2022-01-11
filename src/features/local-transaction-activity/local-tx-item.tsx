@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { PayloadType, StacksTransaction } from '@stacks/transactions';
 import { Box, BoxProps, color, Stack } from '@stacks/ui';
 import { usePressable } from '@components/item-hover';

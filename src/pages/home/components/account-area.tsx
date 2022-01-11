@@ -1,7 +1,6 @@
 import { color, Box, Stack, StackProps, useClipboard } from '@stacks/ui';
 import { Caption } from '@components/typography';
-import { memo } from 'react';
-import * as React from 'react';
+import React, { memo } from 'react';
 import { useCurrentAccount } from '@store/accounts/account.hooks';
 import { Tooltip } from '@components/tooltip';
 import { truncateMiddle } from '@stacks/ui-utils';

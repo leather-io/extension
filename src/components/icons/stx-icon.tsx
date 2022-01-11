@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Svg, BoxProps } from '@stacks/ui';
 
 export const StxIcon: React.FC<BoxProps> = props => (

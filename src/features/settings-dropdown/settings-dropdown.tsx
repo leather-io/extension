@@ -1,5 +1,4 @@
-import { memo, useCallback } from 'react';
-import * as React from 'react';
+import React, { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, SlideFade, BoxProps, color, Flex } from '@stacks/ui';
 

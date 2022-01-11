@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useAccountTransactionsWithTransfers } from '@common/hooks/account/use-account-transactions-with-transfers.hooks';
 import { useCurrentAccountFilteredMempoolTransactionsState } from '@query/mempool/mempool.hooks';
 import { useTrackChangedTransactions } from '@common/hooks/analytics/transactions-analytics.hooks';

@@ -1,4 +1,4 @@
-import { Suspense, memo } from 'react';
+import React, { memo } from 'react';
 import { Box, BoxProps } from '@stacks/ui';
 
 import { AccountWithAddress } from '@store/accounts/account.models';
@@ -18,9 +18,9 @@ export const AccountAvatarItem = memo(({ account, ...rest }: AccountAvatarProps)
   const defaultName = getAccountDisplayName(account);
   return (
     <Box {...rest}>
-      <Suspense fallback={<AccountAvatar name={defaultName} account={account} />}>
+      <React.Suspense fallback={<AccountAvatar name={defaultName} account={account} />}>
         <AccountAvatarSuspense account={account} />
-      </Suspense>
+      </React.Suspense>
     </Box>
   );
 });
