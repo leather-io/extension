@@ -22,6 +22,7 @@ import { useCurrentAccountAvailableStxBalance } from '@store/accounts/account.ho
 interface UseSendFormValidationArgs {
   setAssetError(error: string | undefined): void;
 }
+
 export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();

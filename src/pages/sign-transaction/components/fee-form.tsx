@@ -12,19 +12,19 @@ import { FeeRow } from '@components/fee-row/fee-row';
 import { MinimalErrorMessage } from '@pages/sign-transaction/components/minimal-error-message';
 import { useFeeEstimationsQuery } from '@query/fees/fees.hooks';
 import {
+  useEstimatedSignedTransactionByteLengthState,
+  useSerializedSignedTransactionPayloadState,
   useTxForSettingsState,
-  useEstimatedUnsignedTransactionByteLengthState,
-  useUnserializedSignedTransactionPayloadState,
 } from '@store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@store/transactions/fees.hooks';
 
 export function FeeForm(): JSX.Element | null {
   const { setFieldValue } = useFormikContext<TransactionFormValues>();
-  const serializedUnsignedTransactionPayloadState = useUnserializedSignedTransactionPayloadState();
-  const estimatedUnsignedTxByteLength = useEstimatedUnsignedTransactionByteLengthState();
+  const serializedSignedTransactionPayloadState = useSerializedSignedTransactionPayloadState();
+  const estimatedSignedTxByteLength = useEstimatedSignedTransactionByteLengthState();
   const { data: feeEstimationsResp, isError } = useFeeEstimationsQuery(
-    serializedUnsignedTransactionPayloadState,
-    estimatedUnsignedTxByteLength
+    serializedSignedTransactionPayloadState,
+    estimatedSignedTxByteLength
   );
   const [transaction] = useTxForSettingsState();
 
@@ -36,9 +36,9 @@ export function FeeForm(): JSX.Element | null {
     if (feeEstimationsResp) {
       if (
         (isError || !!feeEstimationsResp?.error || !feeEstimationsResp.estimations.length) &&
-        estimatedUnsignedTxByteLength
+        estimatedSignedTxByteLength
       ) {
-        setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedUnsignedTxByteLength));
+        setFeeEstimations(getDefaultSimulatedFeeEstimations(estimatedSignedTxByteLength));
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
         const feeEstimationsWithMaxValues = getFeeEstimationsWithMaxValues(
@@ -47,13 +47,7 @@ export function FeeForm(): JSX.Element | null {
         setFeeEstimations(feeEstimationsWithMaxValues);
       }
     }
-  }, [
-    estimatedUnsignedTxByteLength,
-    feeEstimationsResp,
-    isError,
-    setFeeEstimations,
-    setFieldValue,
-  ]);
+  }, [estimatedSignedTxByteLength, feeEstimationsResp, isError, setFeeEstimations, setFieldValue]);
 
   return (
     <>

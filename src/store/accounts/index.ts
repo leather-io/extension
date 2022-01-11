@@ -54,10 +54,12 @@ export const accountsWithAddressState = atom<AccountWithAddress[] | undefined>(g
   const accounts = get(accountsState);
   const transactionVersion = get(transactionNetworkVersionState);
   if (!accounts) return undefined;
-
   return accounts.map(account => {
     const address = getStxAddress({ account, transactionVersion });
-    return { ...account, address };
+    return {
+      ...account,
+      address,
+    };
   });
 });
 

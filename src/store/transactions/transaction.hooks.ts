@@ -20,17 +20,16 @@ import { localStacksTransactionInputsState } from '@store/transactions/local-tra
 import { currentAccountLocallySubmittedTxsState } from '@store/accounts/account-activity';
 
 import {
+  estimatedSignedTransactionByteLengthState,
   estimatedTransactionByteLengthState,
-  estimatedUnsignedTransactionByteLengthState,
   pendingTransactionState,
+  serializedSignedTransactionPayloadState,
   serializedTransactionPayloadState,
-  serializedUnsignedTransactionPayloadState,
   signedTransactionState,
   transactionAttachmentState,
   transactionBroadcastErrorState,
   txByteSize,
   txForSettingsState,
-  unsignedTransactionState,
 } from './index';
 import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
@@ -43,16 +42,22 @@ export function useTransactionPostConditions() {
   return useAtomValue(postConditionsState);
 }
 
-export function useUnsignedTransaction() {
-  return useAtomValue(unsignedTransactionState);
+/** @deprecated */
+export function useSignedTransaction() {
+  return useAtomValue(signedTransactionState);
 }
 
-export function useUnserializedSignedTransactionPayloadState() {
-  return useAtomValue(serializedUnsignedTransactionPayloadState);
+// See notes by atoms for these duplicated hooks using
+// different transaction states. This should be looked at
+// with the new transaction signing flow. These are used
+// for getting the fee estimates.
+/** @deprecated */
+export function useSerializedSignedTransactionPayloadState() {
+  return useAtomValue(serializedSignedTransactionPayloadState);
 }
 
-export function useEstimatedUnsignedTransactionByteLengthState() {
-  return useAtomValue(estimatedUnsignedTransactionByteLengthState);
+export function useEstimatedSignedTransactionByteLengthState() {
+  return useAtomValue(estimatedSignedTransactionByteLengthState);
 }
 
 export function useSerializedTransactionPayloadState() {
@@ -70,9 +75,6 @@ export function useTransactionBroadcast() {
       async (get, set) => {
         const { account, signedTransaction, attachment, requestToken, network } = await get(
           waitForAll({
-            // TODO: @kyranjamie
-            // Need to replace this mechanism to so that this broadcast hook
-            // doesn't implictly read the stxPrivateKey to create a signed tx
             signedTransaction: signedTransactionState,
             account: currentAccountState,
             attachment: transactionAttachmentState,
