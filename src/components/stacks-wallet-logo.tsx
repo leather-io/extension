@@ -17,7 +17,7 @@ const HiroSvg = (props: BoxProps) => (
   </Box>
 );
 
-export const HiroWalletLogo = memo((props: StackProps) => {
+export const StacksWalletLogo = memo((props: StackProps) => {
   return (
     <Stack
       color={color('text-title')}
