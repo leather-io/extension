@@ -1,9 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, color, Stack, StackProps, useClipboard } from '@stacks/ui';
 
 import { useWallet } from '@common/hooks/use-wallet';
 import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { RouteUrls } from '@routes/route-urls';
 
 interface SecreteKeyActionsProps extends StackProps {
@@ -13,7 +13,7 @@ export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
   const { onClose, ...rest } = props;
   const { hasSetPassword, secretKey } = useWallet();
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
   const analytics = useAnalytics();
 
@@ -24,9 +24,9 @@ export function SecretKeyActions(props: SecreteKeyActionsProps): JSX.Element {
 
   const handleOnClick = () => {
     if (hasSetPassword) {
-      navigate(RouteUrls.Home);
+      changeScreen(RouteUrls.Home);
     } else {
-      navigate(RouteUrls.SetPassword);
+      changeScreen(RouteUrls.SetPassword);
     }
   };
 

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
 import { HiroMessages } from '@features/hiro-messages/hiro-messages';
@@ -19,11 +20,11 @@ import { useWallet } from '@common/hooks/use-wallet';
 export const Home = () => {
   const { hasGeneratedWallet, encryptedSecretKey } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
   useEffect(() => {
-    if (!hasGeneratedWallet || !encryptedSecretKey) navigate(RouteUrls.Onboarding);
-    if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
+    if (!hasGeneratedWallet || !encryptedSecretKey) changeScreen(RouteUrls.Onboarding);
+    if (decodedAuthRequest) changeScreen(RouteUrls.ChooseAccount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,9 +1,9 @@
 import React, { memo, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Box, BoxProps, color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
 import { FiMoreHorizontal as IconDots, FiArrowLeft as IconArrowLeft } from 'react-icons/fi';
 
 import { StacksWalletLogo } from '@components/stacks-wallet-logo';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { useDrawers } from '@common/hooks/use-drawers';
 import { NetworkModeBadge } from '@components/network-mode-badge';
 import { Caption, Title } from '@components/typography';
@@ -37,7 +37,7 @@ interface HeaderProps extends FlexProps {
 }
 export const Header: React.FC<HeaderProps> = memo(props => {
   const { onClose, title, hideActions, ...rest } = props;
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
   const version = useMemo(() => {
     switch (process.env.WALLET_ENVIRONMENT) {
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
     >
       {!title ? (
         <Stack alignItems="center" pt="7px" isInline>
-          <StacksWalletLogo onClick={() => navigate(RouteUrls.Home)} />
+          <StacksWalletLogo onClick={() => changeScreen(RouteUrls.Home)} />
           {version ? (
             <Caption
               pt="extra-tight"

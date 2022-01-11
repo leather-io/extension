@@ -1,16 +1,15 @@
-import React, { memo, useCallback, useRef } from 'react';
-import { FiArrowUp, FiPlus } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
 import { Box, Button, ButtonProps } from '@stacks/ui';
-
+import React, { memo, useCallback, useRef } from 'react';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
+import { FiArrowUp, FiPlus } from 'react-icons/fi';
 import { QrCodeIcon } from '@components/qr-code-icon';
 import { RouteUrls } from '@routes/route-urls';
 
 export const SendTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
-  const handleClick = useCallback(() => navigate(RouteUrls.Send), [navigate]);
+  const handleClick = useCallback(() => changeScreen(RouteUrls.Send), [changeScreen]);
 
   return (
     <Button
@@ -36,9 +35,9 @@ export const SendTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
 
 export const ReceiveTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
-  const handleClick = useCallback(() => navigate(RouteUrls.Receive), [navigate]);
+  const handleClick = useCallback(() => changeScreen(RouteUrls.Receive), [changeScreen]);
   return (
     <Button
       size="sm"
@@ -63,9 +62,9 @@ export const ReceiveTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
 
 export const BuyTxButton: React.FC<ButtonProps> = memo(({ ...rest }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
-  const handleClick = useCallback(() => navigate(RouteUrls.Buy), [navigate]);
+  const handleClick = useCallback(() => changeScreen(RouteUrls.Buy), [changeScreen]);
 
   return (
     <Button

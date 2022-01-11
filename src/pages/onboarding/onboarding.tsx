@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
+import { useChangeScreen } from '@common/hooks/use-change-screen';
 import { PopupContainer } from '@components/popup/container';
 import { Title, Body } from '@components/typography';
 import { Header } from '@components/header';
@@ -12,10 +12,10 @@ import { OnboardingActions } from './onboarding-actions';
 
 export const Onboarding = memo(() => {
   const [hasAllowedDiagnostics, _] = useHasAllowedDiagnostics();
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
 
   useEffect(() => {
-    if (hasAllowedDiagnostics === undefined) navigate(RouteUrls.RequestDiagnostics);
+    if (hasAllowedDiagnostics === undefined) changeScreen(RouteUrls.RequestDiagnostics);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

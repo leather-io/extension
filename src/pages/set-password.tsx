@@ -1,19 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { debounce } from 'ts-debounce';
 import { Box, Button, Input, Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-
-import { useAnalytics } from '@common/hooks/analytics/use-analytics';
+import { PopupContainer } from '@components/popup/container';
+import { useChangeScreen } from '@common/hooks/use-change-screen';
+import { RouteUrls } from '@routes/route-urls';
 import { useWallet } from '@common/hooks/use-wallet';
+
 import { useOnboardingState } from '@common/hooks/auth/use-onboarding-state';
+
 import { HUMAN_REACTION_DEBOUNCE_TIME } from '@common/constants';
 import { validatePassword, blankPasswordValidation } from '@common/validation/validate-password';
 import { Body, Caption } from '@components/typography';
-import { PopupContainer } from '@components/popup/container';
 import { Header } from '@components/header';
-import { RouteUrls } from '@routes/route-urls';
+import { useAnalytics } from '@common/hooks/analytics/use-analytics';
 
 interface SetPasswordProps {
   placeholder?: string;
@@ -22,7 +23,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
   const { finishSignIn, setPassword, wallet } = useWallet();
-  const navigate = useNavigate();
+  const changeScreen = useChangeScreen();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
 
@@ -40,15 +41,15 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
       if (decodedAuthRequest) {
         const { accounts } = wallet;
         if (accounts && accounts.length > 1) {
-          navigate(RouteUrls.ChooseAccount);
+          changeScreen(RouteUrls.ChooseAccount);
         } else {
           await finishSignIn(0);
         }
       } else {
-        navigate(RouteUrls.Home);
+        changeScreen(RouteUrls.Home);
       }
     },
-    [navigate, decodedAuthRequest, finishSignIn, setPassword, wallet]
+    [changeScreen, decodedAuthRequest, finishSignIn, setPassword, wallet]
   );
 
   const handleSubmit = useCallback(
@@ -88,7 +89,7 @@ export const SetPasswordPage: React.FC<SetPasswordProps> = ({ placeholder }) => 
       header={
         <Header
           hideActions
-          onClose={() => navigate(RouteUrls.SaveSecretKey)}
+          onClose={() => changeScreen(RouteUrls.SaveSecretKey)}
           title="Set a password"
         />
       }
