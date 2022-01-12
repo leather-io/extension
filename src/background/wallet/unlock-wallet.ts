@@ -25,6 +25,7 @@ export async function getDecryptedWalletDetails(
     salt: decryptedData.salt,
     password,
   });
+  if (!wallet) return;
 
   const result = {
     ...keyInfo,
