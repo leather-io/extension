@@ -48,9 +48,9 @@ export const defaultNetworks: Networks = {
     name: 'Testnet',
     chainId: ChainID.Testnet,
   },
-  localnet: {
+  devnet: {
     url: 'http://localhost:3999',
-    name: 'Localnet',
+    name: 'Devnet',
     chainId: ChainID.Testnet,
   },
 } as const;
