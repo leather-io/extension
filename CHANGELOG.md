@@ -1,3 +1,10 @@
+# [2.24.0-beta.11](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.10...v2.24.0-beta.11) (2022-01-12)
+
+
+### Bug Fixes
+
+* remove inline source maps in prod ([46ddd28](https://github.com/hirosystems/stacks-wallet-web/commit/46ddd2829ecb40d1343143b39f7c03fc2038104c))
+
 # [2.24.0-beta.10](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.9...v2.24.0-beta.10) (2022-01-11)
 
 
