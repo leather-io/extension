@@ -1,7 +1,7 @@
 import { Page } from 'playwright-core';
 
 import { RouteUrls } from '@shared/route-urls';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
@@ -50,6 +50,11 @@ export class WalletPage {
   $enterPasswordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
   $unlockWalletBtn = createTestSelector(SettingsSelectors.UnlockWalletBtn);
   $magicRecoveryMessage = createTestSelector(WalletPageSelectors.MagicRecoveryMessage);
+  $hideStepsBtn = createTestSelector(OnboardingSelectors.HideStepsBtn);
+  $onboardingStepsList = createTestSelector(OnboardingSelectors.StepsList);
+  $onboardingStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
+  $onboardingStepDoneBadge = createTestSelector(OnboardingSelectors.StepItemDone);
+  $noAssetsFundAccountLink = createTestSelector(OnboardingSelectors.NoAssetsFundAccountLink);
 
   page: Page;
 
@@ -97,6 +102,10 @@ export class WalletPage {
     await this.page.click(this.$contractCallButton);
   }
 
+  async clickHideSteps() {
+    await this.page.click(this.$hideStepsBtn);
+  }
+
   async waitForHomePage() {
     await this.page.waitForSelector(this.$homePageBalancesList, { timeout: 30000 });
   }
@@ -121,12 +130,20 @@ export class WalletPage {
     await this.page.waitForSelector(this.$hiroWalletLogo, { timeout: 3000 });
   }
 
-  async waitForLoginPage() {
+  async waitForWelcomePage() {
     await this.page.waitForSelector(this.$signInButton, { timeout: 3000 });
   }
 
   async waitForStatusMessage() {
     await this.page.waitForSelector(this.$statusMessage, { timeout: 20000 });
+  }
+
+  async waitForHideOnboardingsStepsButton() {
+    await this.page.waitForSelector(this.$hideStepsBtn, { timeout: 30000 });
+  }
+
+  async waitForOnboardingStepsList() {
+    await this.page.waitForSelector(this.$onboardingStepsList, { timeout: 30000 });
   }
 
   async loginWithPreviousSecretKey(secretKey: string) {
@@ -206,14 +223,14 @@ export class WalletPage {
 
   /** Sign up with a randomly generated seed phrase */
   async signUp() {
-    await this.clickAllowAnalytics();
+    await this.clickDenyAnalytics();
     await this.clickSignUp();
     await this.backUpKeyAndSetPassword();
     await this.waitForHomePage();
   }
 
   async signIn(secretKey: string) {
-    await this.clickAllowAnalytics();
+    await this.clickDenyAnalytics();
     await this.clickSignIn();
     let startTime = new Date();
     await this.enterSecretKey(secretKey);

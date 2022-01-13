@@ -9,9 +9,9 @@ import { Header } from '@app/components/header';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
-import YourSecretKey from '@assets/images/onboarding/your-secret-key.svg';
+import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
 import { RouteUrls } from '@shared/route-urls';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { PageTitle } from '@app/components/page-title';
 import { Title } from '@app/components/typography';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
@@ -32,7 +32,7 @@ export const SignIn = () => {
           <Form>
             <Stack
               maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-              px={['unset', 'base-loose']}
+              px={['loose', 'base-loose']}
               spacing={['loose', 'extra-loose']}
               textAlign={['left', 'center']}
             >

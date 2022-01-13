@@ -3,7 +3,7 @@ import { Box, color, Stack } from '@stacks/ui';
 
 import { Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
-import YourSecretKey from '@assets/images/onboarding/your-secret-key.svg';
+import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
 
 import { SecretKeyWord } from './components/secret-key-word';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';

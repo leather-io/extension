@@ -30,11 +30,12 @@ export const ViewSecretKey = memo(() => {
       <Stack
         maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
         pb={['loose', 'unset']}
-        px={['unset', 'base-loose']}
+        px={['loose', 'base-loose']}
         spacing="loose"
+        textAlign={['left', 'center']}
       >
         <PageTitle fontSize={[4, 8]}>Your Secret Key</PageTitle>
-        <Text color={color('text-caption')} textAlign={['left', 'center']}>
+        <Text color={color('text-caption')}>
           These 24 words are your Secret Key. They create your account, and you sign in on different
           devices with them. Make sure to save these somewhere safe.{' '}
           <Text display="inline" fontWeight={500}>

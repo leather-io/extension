@@ -6,7 +6,7 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { PageTitle } from '@app/components/page-title';
-import AddFunds from '@assets/images/add-funds.svg';
+import AddFunds from '@assets/images/add-funds.png';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
@@ -21,7 +21,12 @@ export const BuyLayout = (props: BuyLayoutProps) => {
 
   return (
     <CenteredPageContainer>
-      <Stack maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} pb={['loose', 'unset']} spacing="base">
+      <Stack
+        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+        pb={['loose', 'unset']}
+        px={['loose', 'unset']}
+        spacing="base"
+      >
         <Box width={['100px', '115px']}>
           <img src={AddFunds} />
         </Box>

@@ -1,15 +1,12 @@
-import { Box, Stack } from '@stacks/ui';
+import { Stack } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
-import { NoActivityIllustration } from '@app/components/vector/no-activity';
+import NoActivity from '@assets/images/no-activity.svg';
 
 export function NoAccountActivity() {
   return (
     <Stack py="extra-loose" spacing="extra-loose" justifyContent="center" alignItems="center">
-      <Box mx="auto">
-        <NoActivityIllustration />
-      </Box>
-
+      <img src={NoActivity} />
       <Caption maxWidth="23ch" textAlign="center">
         No activity yet.
       </Caption>

@@ -94,7 +94,7 @@ function SignTransactionBase(): JSX.Element | null {
   if (!handleBroadcastTransaction) return <UnauthorizedErrorMessage />;
 
   return (
-    <Stack spacing="loose">
+    <Stack px={['loose', 'unset']} spacing="loose">
       <PageTop />
       <PostConditionModeWarning />
       <TransactionError />

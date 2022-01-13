@@ -5,7 +5,7 @@ import { isFullPage, isPopup } from '@app/common/utils';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { PageTitle } from '@app/components/page-title';
-import BackUpSecretKey from '@assets/images/onboarding/back-up-secret-key.svg';
+import BackUpSecretKey from '@assets/images/onboarding/back-up-secret-key.png';
 
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
 
@@ -18,7 +18,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
 
   return (
     <CenteredPageContainer>
-      <Stack isInline={isFullPage} pb="loose" width="100%">
+      <Stack isInline={isFullPage} pb="loose" px={['loose', 'unset']} width="100%">
         <Flex
           alignItems={['start', 'center']}
           flexGrow={1}

@@ -26,7 +26,7 @@ export function HomeTabs(props: HomeTabsProps) {
   };
 
   return (
-    <Stack flexGrow={1} spacing="extra-loose" {...rest}>
+    <Stack flexGrow={1} mt="loose" spacing="extra-loose" {...rest}>
       <Tabs
         tabs={[
           { slug: 'balances', label: 'Balances' },

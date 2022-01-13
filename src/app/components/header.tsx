@@ -8,7 +8,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { isFullPage } from '@app/common/utils';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Caption, Title } from '@app/components/typography';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 

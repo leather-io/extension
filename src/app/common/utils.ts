@@ -281,4 +281,6 @@ export function formatContractId(address: string, name: string) {
 }
 
 export const isFullPage = document.location.pathname.startsWith('/index.html');
-export const isPopup = !isFullPage;
+export const isPopup =
+  document.location.pathname.startsWith('/popup.html') ||
+  document.location.pathname.startsWith('/popup-center.html');

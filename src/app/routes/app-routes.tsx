@@ -53,7 +53,9 @@ export function AppRoutes(): JSX.Element | null {
           path={RouteUrls.Home}
           element={
             <AccountGate>
-              <Home />
+              <Suspense fallback={<></>}>
+                <Home />
+              </Suspense>
             </AccountGate>
           }
         >

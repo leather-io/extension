@@ -11,13 +11,11 @@ export function ContainerLayout(props: ContainerLayoutProps) {
     <Flex flexDirection="column" flexGrow={1} width="100%" background={color('bg')}>
       {header || null}
       <Flex
-        as="main"
         className="main-content"
         flexDirection="column"
         flexGrow={1}
         pb="loose"
         position="relative"
-        px="loose"
         width="100%"
       >
         {children}
