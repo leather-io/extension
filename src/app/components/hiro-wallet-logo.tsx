@@ -4,13 +4,18 @@ import { Stack, StackProps, color } from '@stacks/ui';
 import { HiroIcon } from './icons/hiro-icon';
 import { HiroWalletText } from './icons/hiro-wallet-text';
 
-export const HiroWalletLogo = memo((props: StackProps) => {
+interface HiroWalletPageLogo extends StackProps {
+  isClickable: boolean;
+}
+export const HiroWalletLogo = memo((props: HiroWalletPageLogo) => {
+  const { isClickable } = props;
+
   return (
     <Stack
       _hover={{ color: color('brand') }}
       alignItems="center"
       color={color('text-title')}
-      cursor="pointer"
+      cursor={isClickable ? 'pointer' : 'unset'}
       isInline
       {...props}
     >
