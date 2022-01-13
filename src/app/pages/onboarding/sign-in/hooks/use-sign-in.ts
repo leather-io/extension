@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
-import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validateMnemonic } from 'bip39';
 import toast from 'react-hot-toast';
+import { validateMnemonic } from 'bip39';
 
 import {
   extractPhraseFromPasteEvent,
@@ -15,6 +14,7 @@ import { useSeedInputErrorState } from '@app/store/onboarding/onboarding.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAppDispatch } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
+import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
 
 async function simulateShortDelayToAvoidImmediateNavigation() {
   await delay(600);
@@ -59,6 +59,7 @@ export function useSignIn() {
         if (result.isValid) {
           toast.success('Magic recovery code detected');
           await simulateShortDelayToAvoidImmediateNavigation();
+          dispatch(onboardingActions.hideSteps(true));
           navigate({
             pathname: RouteUrls.MagicRecoveryCode,
             search: `?magicRecoveryCode=${parsedKeyInput}`,
@@ -78,11 +79,12 @@ export function useSignIn() {
       await simulateShortDelayToAvoidImmediateNavigation();
       toast.success('Secret Key valid');
       dispatch(inMemoryKeyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
+      dispatch(onboardingActions.hideSteps(true));
       void analytics.track('submit_valid_secret_key');
       navigate(RouteUrls.SetPassword);
       setIsIdle();
     },
-    [setIsLoading, handleSetError, navigate, dispatch, analytics, setIsIdle]
+    [setIsLoading, dispatch, analytics, navigate, setIsIdle, handleSetError]
   );
 
   const onPaste = useCallback(

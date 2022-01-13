@@ -33,7 +33,7 @@ export const ReceiveTokens = () => {
     <CenteredPageContainer>
       <Stack
         maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-        px={['unset', 'base-loose']}
+        px={['loose', 'base-loose']}
         spacing="loose"
         textAlign="center"
       >

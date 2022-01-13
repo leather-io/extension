@@ -1,6 +1,6 @@
 import { Page, BrowserContext } from 'playwright-core';
 import { createTestSelector } from '../integration/utils';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 export class DemoPage {
   static url = 'http://localhost:3000';

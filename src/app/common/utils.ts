@@ -279,6 +279,3 @@ export function isEmpty(value: Object) {
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }
-
-export const isFullPage = document.location.pathname.startsWith('/index.html');
-export const isPopup = !isFullPage;
