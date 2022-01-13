@@ -11,7 +11,7 @@ const TabButton = ({
       px="base"
       py="tight"
       textAlign="center"
-      borderRadius="8px"
+      borderRadius="10px"
       color={isActive ? color('text-title') : color('text-caption')}
       fontSize={1}
       fontWeight={isActive ? 500 : 400}
@@ -60,13 +60,12 @@ export function Tabs({
 }) {
   return (
     <Stack
-      position="relative"
-      isInline
-      borderRadius="12px"
       bg={color('bg-4')}
+      borderRadius="10px"
+      isInline
       p="extra-tight"
-      width="100%"
-      flexShrink={0}
+      position="relative"
+      width={['100%', '193px']}
       {...rest}
     >
       <BackgroundPill alignment={activeTab === 0 ? 'start' : 'end'} />

@@ -20,11 +20,17 @@ import { Header } from '@app/components/header';
 import { PageTitle } from '@app/components/page-title';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import SetPassword from '@assets/images/onboarding/set-password.svg';
+import SetPassword from '@assets/images/onboarding/set-password.png';
 import { HUMAN_REACTION_DEBOUNCE_TIME } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+
+interface SetPasswordFormValues {
+  password: string;
+  confirmPassword: string;
+}
+const setPasswordFormValues: SetPasswordFormValues = { password: '', confirmPassword: '' };
 
 export const SetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
@@ -67,7 +73,7 @@ export const SetPasswordPage = () => {
     [wallet, setPassword, decodedAuthRequest, navigate, finishSignIn]
   );
 
-  const handleSubmit = useCallback(
+  const onSubmit = useCallback(
     async ({ password }) => {
       if (!password) return;
       setLoading(true);
@@ -109,8 +115,8 @@ export const SetPasswordPage = () => {
   return (
     <CenteredPageContainer>
       <Formik
-        initialValues={{ password: '', confirmPassword: '' }}
-        onSubmit={handleSubmit}
+        initialValues={setPasswordFormValues}
+        onSubmit={onSubmit}
         validationSchema={validationSchema}
         validateOnBlur={false}
         validateOnChange={false}
@@ -121,6 +127,7 @@ export const SetPasswordPage = () => {
             <Stack
               maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
               mb={['loose', 'unset']}
+              px={['loose', 'unset']}
               spacing="loose"
               textAlign={['left', 'center']}
             >

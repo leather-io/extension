@@ -6,8 +6,8 @@ import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Text, Title } from '@app/components/typography';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import HelpUsImprove from '@assets/images/onboarding/help-us-improve.svg';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import HelpUsImprove from '@assets/images/onboarding/help-us-improve.png';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -35,6 +35,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
       <Stack
         maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
         mt={['loose', 'unset']}
+        px={['loose', 'unset']}
         spacing="extra-loose"
         textAlign="left"
       >

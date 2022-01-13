@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 
+export const DESKTOP_VIEWPORT_MIN_WIDTH = '480px';
 export const CENTERED_FULL_PAGE_MAX_WIDTH = '440px';
+export const HOME_FULL_PAGE_MAX_WIDTH = '832px';
+export const ONBOARDING_PAGE_MAX_WIDTH = '1208px';
 
 export const fullPageStyles = css`
   .mode__full-page {
@@ -10,8 +13,7 @@ export const fullPageStyles = css`
       max-height: unset;
       width: 100%;
     }
-    main.main-content {
-      flex-direction: row;
+    .main-content {
       flex-grow: 1;
       justify-content: center;
       margin: 0 auto;
