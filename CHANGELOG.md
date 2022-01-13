@@ -1,3 +1,10 @@
+# [2.24.0-beta.13](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.12...v2.24.0-beta.13) (2022-01-13)
+
+
+### Bug Fixes
+
+* rename localnet to devnet ([5e489d5](https://github.com/hirosystems/stacks-wallet-web/commit/5e489d5334f39595ca2a896e92965eef37a7bddb))
+
 # [2.24.0-beta.12](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.11...v2.24.0-beta.12) (2022-01-13)
 
 
