@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 export const CENTERED_FULL_PAGE_MAX_WIDTH = '440px';
+export const HOME_FULL_PAGE_MAX_WIDTH = '800px';
 
 export const fullPageStyles = css`
   .mode__full-page {
@@ -10,7 +11,7 @@ export const fullPageStyles = css`
       max-height: unset;
       width: 100%;
     }
-    main.main-content {
+    .main-content {
       flex-direction: row;
       flex-grow: 1;
       justify-content: center;

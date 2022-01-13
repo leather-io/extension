@@ -6,8 +6,8 @@ import { Link } from '@app/components/link';
 import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import ExploreStacks from '@assets/images/onboarding/explore-stacks.svg';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 const WelcomeIllustration = () =>
   isFullPage ? (
@@ -17,7 +17,7 @@ const WelcomeIllustration = () =>
       </Box>
     </Box>
   ) : (
-    <Box bg={color('border')} borderRadius="16px" height="155px" overflow="hidden" width="344px">
+    <Box bg={color('border')} borderRadius="16px" height="155px" overflow="hidden" width="394px">
       <Box position="relative" top="-138px">
         <img src={ExploreStacks} width="346px" />
       </Box>
@@ -34,7 +34,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
 
   return (
     <CenteredPageContainer>
-      <Stack isInline={isFullPage} width="100%">
+      <Stack isInline={isFullPage} px={['loose', 'unset']} width="100%">
         <Flex flexGrow={1} justifyContent="center" order={[0, 1, 1]}>
           <WelcomeIllustration />
         </Flex>
