@@ -1,3 +1,10 @@
+# [2.24.0-beta.12](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.11...v2.24.0-beta.12) (2022-01-13)
+
+
+### Bug Fixes
+
+* can't unlock wallet after upgrade ([1882c1f](https://github.com/hirosystems/stacks-wallet-web/commit/1882c1f101f1a0be2d52e2df0d8cc1dead9fbb0c)), closes [#2124](https://github.com/hirosystems/stacks-wallet-web/issues/2124)
+
 # [2.24.0-beta.11](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0-beta.10...v2.24.0-beta.11) (2022-01-12)
 
 
