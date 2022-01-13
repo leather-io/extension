@@ -209,7 +209,7 @@ export class WalletPage {
     await this.clickAllowAnalytics();
     await this.clickSignUp();
     await this.backUpKeyAndSetPassword();
-    await this.waitForHomePage();
+    await this.waitForMainHomePage();
   }
 
   async signIn(secretKey: string) {

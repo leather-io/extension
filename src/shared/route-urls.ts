@@ -3,6 +3,9 @@ export enum RouteUrls {
   // Onboarding routes
   Onboarding = '/onboarding',
   BackUpSecretKey = '/back-up-secret-key',
+  ConnectLedger = '/onboarding/connect-ledger',
+  ConnectLedgerError = '/onboarding/connect-ledger-error',
+  ConnectLedgerSuccess = '/onboarding/connect-ledger-success',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
   MagicRecoveryCode = '/recovery-code',

@@ -1,15 +1,12 @@
 import { FiAlertTriangle } from 'react-icons/fi';
-import { Box, color, Stack, Text } from '@stacks/ui';
+import { Box, color, Stack, StackProps, Text } from '@stacks/ui';
 
-interface WarningLabelProps {
+interface WarningLabelProps extends StackProps {
   children: string | Element | undefined;
 }
-
-export function WarningLabel(props: WarningLabelProps): JSX.Element {
-  const { children } = props;
-
+export function WarningLabel({ children, ...rest }: WarningLabelProps): JSX.Element {
   return (
-    <Stack width="100%">
+    <Stack width="100%" {...rest}>
       <Stack alignItems="center" bg="#FFF5EB" borderRadius="10px" height="48px" isInline pl="base">
         <Box
           _hover={{ cursor: 'pointer' }}
