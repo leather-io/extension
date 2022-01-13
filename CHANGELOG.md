@@ -1,3 +1,82 @@
+## [2.24.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.0...v2.24.1) (2022-01-11)
+
+
+### Reverts
+
+* Revert "refactor(tx-signing): use unsigned serialised txs for fee estimation" ([114e1de](https://github.com/hirosystems/stacks-wallet-web/commit/114e1deaadf20e71dd39b7a30084a220af5ba616))
+* Revert "refactor(tx-signing): remove implicit signing of transactions from send-form" ([3161ed7](https://github.com/hirosystems/stacks-wallet-web/commit/3161ed7ee72e1b1a0a3e4f6fbacd1d71b3709128))
+* Revert "refactor(tx-signing): upgrade '@stacks/transaction', '@stacks/connect'" ([f4a3a52](https://github.com/hirosystems/stacks-wallet-web/commit/f4a3a52b9963fc7a507e1db84d5988e2ffc4c518))
+* Revert "refactor(tx-signing): adjust unusual fee behaviour, kill signed tx file" ([e836021](https://github.com/hirosystems/stacks-wallet-web/commit/e836021913594d6efde0e2f56be35defbf1e3c36))
+* Revert "fix: breaking change from stacks.js" ([1d9e6ba](https://github.com/hirosystems/stacks-wallet-web/commit/1d9e6ba9d83373a30c78178a92a6bb44c8464af5))
+* Revert "chore: update webpack mode to 'production'" ([8b77480](https://github.com/hirosystems/stacks-wallet-web/commit/8b77480ab334e536738025c78d1bc7c4bd38f9bb))
+* Revert "fix: change wallet config default branch to main" ([0e2159b](https://github.com/hirosystems/stacks-wallet-web/commit/0e2159b687b53768b1ae8e356312b9a939e7bbbc))
+* Revert "refactor: app routes and account gate" ([2a2cb56](https://github.com/hirosystems/stacks-wallet-web/commit/2a2cb5648304c8f0d1c6d71f67828f5e2a31f7bf))
+* Revert "refactor: address code comments" ([fa240f1](https://github.com/hirosystems/stacks-wallet-web/commit/fa240f100aac4ef3e0b83eca4d896c199e1f54f6))
+* Revert "refactor: replace useChangeScreen with useNavigate" ([2ad1117](https://github.com/hirosystems/stacks-wallet-web/commit/2ad11175dd7aa473ef969cc2316f00d15f41075c))
+* Revert "refactor(onboarding): use layout component for welcome page" ([31b787c](https://github.com/hirosystems/stacks-wallet-web/commit/31b787c820f387cb6e32d81ff8740386eb71977c))
+* Revert "refactor: routing fixes and cleanup" ([18c9ca3](https://github.com/hirosystems/stacks-wallet-web/commit/18c9ca3e69e62f5f3247cd97bbc752c185af6b43))
+* Revert "feat: add metrics for fee estimation" ([37ca5ae](https://github.com/hirosystems/stacks-wallet-web/commit/37ca5ae8f2e1316f59ac642acb53347967c184ef))
+* Revert "fix: show fiat onramp buy button only on mainnet" ([813de90](https://github.com/hirosystems/stacks-wallet-web/commit/813de9088ffde25cd0583f68bf4db2ea5016ceaf))
+* Revert "refactor: use container route with layout" ([a48e74b](https://github.com/hirosystems/stacks-wallet-web/commit/a48e74b3acf9cb1f11a4ed32b625f2926861aef0))
+* Revert "refactor: header for layout route" ([9b51528](https://github.com/hirosystems/stacks-wallet-web/commit/9b51528d5a708112d8692453434541284d136a5d))
+* Revert "fix: increase fee showing zero" ([9938d20](https://github.com/hirosystems/stacks-wallet-web/commit/9938d20ef9ff9b051e6e865b54a3e900433e2c27))
+* Revert "fix: onboarding route flashing" ([c51972b](https://github.com/hirosystems/stacks-wallet-web/commit/c51972b09c55556f55b78835388296a879fbf573))
+* Revert "refactor: tidy up <SwitchAccount /> component" ([60797e3](https://github.com/hirosystems/stacks-wallet-web/commit/60797e3e2ba6b5be7251f4c620a560ca958ca5b5))
+* Revert "fix: null rendering when accounts are undefined, closes #2000" ([f5fdfc8](https://github.com/hirosystems/stacks-wallet-web/commit/f5fdfc846f903188c44bb832180c689e520fa9ef)), closes [#2000](https://github.com/hirosystems/stacks-wallet-web/issues/2000)
+* Revert "fix: improve list render performance" ([72e2b7c](https://github.com/hirosystems/stacks-wallet-web/commit/72e2b7c94e89fc07c63a2a8e71a37ffbb3bd5b3c))
+* Revert "refactor(deps): upgrade @stacks/wallet-sdk" ([0989ec6](https://github.com/hirosystems/stacks-wallet-web/commit/0989ec617d7b8724ac6104dcf21b7fc954f86507))
+* Revert "refactor(deps): upgrade @stacks/{common,auth,network}" ([3c26ab2](https://github.com/hirosystems/stacks-wallet-web/commit/3c26ab2c886ff819c8ec3d7d36d26a281a93509d))
+* Revert "refactor(deps): upgrade @stacks/{transactions,encryption}" ([6427aa1](https://github.com/hirosystems/stacks-wallet-web/commit/6427aa1e014c14eb488982f58c6cf84640568cbe))
+* Revert "refactor: improve switch account behaviour" ([96727af](https://github.com/hirosystems/stacks-wallet-web/commit/96727af0b122250159dcdf3e979b20c1d942213a))
+* Revert "refactor: move type definitions" ([359cf83](https://github.com/hirosystems/stacks-wallet-web/commit/359cf83f21c63e12ba1ad2b1e2d7f1131d6237b2))
+* Revert "fix: use saved hasSetPassword from storage" ([9168f31](https://github.com/hirosystems/stacks-wallet-web/commit/9168f31f0b6bc09e122cc51d5c28c4fa6a2fca13))
+* Revert "fix: switch account failing test" ([e68c7c2](https://github.com/hirosystems/stacks-wallet-web/commit/e68c7c20ed845b60f818ac40d929592875eaec5d))
+* Revert "refactor: move vault utility" ([5bfba0a](https://github.com/hirosystems/stacks-wallet-web/commit/5bfba0acbe7c6d2c3750cc6784ef4f55f17607c9))
+* Revert "fix: long white screens" ([489ec81](https://github.com/hirosystems/stacks-wallet-web/commit/489ec8155f3d5a26418e9adb2f1aaa7709269755))
+* Revert "refactor: remove ShowDelay" ([df06783](https://github.com/hirosystems/stacks-wallet-web/commit/df06783645d0021a7d232e0d0fc22b33aa5c42c8))
+* Revert "refactor: use React jsx transform" ([3524860](https://github.com/hirosystems/stacks-wallet-web/commit/3524860c7048f51ae60515c4bc675d2bf1c42425))
+* Revert "refactor: remove unnecessary imports" ([564c2fb](https://github.com/hirosystems/stacks-wallet-web/commit/564c2fbdfb22885a8f9ac30c32eb436aea254a08))
+* Revert "refactor: add test for unlock route" ([dbf69fc](https://github.com/hirosystems/stacks-wallet-web/commit/dbf69fc330eee8509efa46dac52f8fce75f207ba))
+* Revert "fix: remove gaia call when unlocking wallet" ([2ffb470](https://github.com/hirosystems/stacks-wallet-web/commit/2ffb4700b63264d67e78ffe5ae6ede4c962710d7))
+* Revert "refactor: move vault utility" ([6e0342e](https://github.com/hirosystems/stacks-wallet-web/commit/6e0342efdc3379c67c6fcfa0dec835b968edd5dc))
+* Revert "fix: remove gaia call when unlocking wallet" ([098d90a](https://github.com/hirosystems/stacks-wallet-web/commit/098d90a9a5f28d85fc6187a5f0cb21d36097ee41))
+* Revert "refactor: add test for unique route paths" ([f26c850](https://github.com/hirosystems/stacks-wallet-web/commit/f26c85059871338dd00e09b522a42356f897dd24))
+* Revert "feat: add unlock waiting message" ([95c012a](https://github.com/hirosystems/stacks-wallet-web/commit/95c012a1249683ec802e2d42e2f5533384ea4218))
+* Revert "refactor(folders): move components" ([2f977d6](https://github.com/hirosystems/stacks-wallet-web/commit/2f977d68517ade25711cf30890b0747c76eb6b72))
+* Revert "refactor: rename linting actions" ([13814d7](https://github.com/hirosystems/stacks-wallet-web/commit/13814d734059ee2969f794c6182288bc2857cce8))
+* Revert "refactor(deps): update client deps" ([91eadd6](https://github.com/hirosystems/stacks-wallet-web/commit/91eadd6715b4caa97a45d00afd3beb8291ae0b0c))
+* Revert "refactor(deps): update dev deps" ([d528d77](https://github.com/hirosystems/stacks-wallet-web/commit/d528d7711d22db2180d2cfb610ef8b4095cb3e13))
+* Revert "fix: render whole account list when fewer than 10 accounts" ([b568c85](https://github.com/hirosystems/stacks-wallet-web/commit/b568c85100185e1094de325e858588e22e7d9705))
+* Revert "fix: gaia config being fetched on every key press, closes #2101" ([96546e5](https://github.com/hirosystems/stacks-wallet-web/commit/96546e50ab7e7f5d6022d86b31168be04ebe5713)), closes [#2101](https://github.com/hirosystems/stacks-wallet-web/issues/2101)
+* Revert "fix: remove disabled regtest option from networks list" ([5fd24dd](https://github.com/hirosystems/stacks-wallet-web/commit/5fd24ddf5057130e7d435b9fe9063e1ffb7caeb4))
+
+# [2.24.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.2...v2.24.0) (2022-01-11)
+
+
+### Bug Fixes
+
+* breaking change from stacks.js ([85666ae](https://github.com/hirosystems/stacks-wallet-web/commit/85666ae3d1f33fbbe61c24877702a7caa03facc1))
+* change wallet config default branch to main ([69ce2f0](https://github.com/hirosystems/stacks-wallet-web/commit/69ce2f00ea92b294b6393712778adf5b08b0c1a7))
+* gaia config being fetched on every key press, closes [#2101](https://github.com/hirosystems/stacks-wallet-web/issues/2101) ([2484d78](https://github.com/hirosystems/stacks-wallet-web/commit/2484d78a9545b36518a444230f37a4185387e215))
+* improve list render performance ([df65dbb](https://github.com/hirosystems/stacks-wallet-web/commit/df65dbbeeb5cc0b8256b6efc1eee3994ffe11bd1))
+* increase fee showing zero ([492ed1c](https://github.com/hirosystems/stacks-wallet-web/commit/492ed1c0073f254004f848ab0f2794edcdefa722))
+* long white screens ([feba515](https://github.com/hirosystems/stacks-wallet-web/commit/feba5157e071800a514f44d7d5d2168bc6f61482))
+* null rendering when accounts are undefined, closes [#2000](https://github.com/hirosystems/stacks-wallet-web/issues/2000) ([5d95af0](https://github.com/hirosystems/stacks-wallet-web/commit/5d95af09622a7ebe7470a29a1a1384aea4511b31))
+* onboarding route flashing ([f2419d5](https://github.com/hirosystems/stacks-wallet-web/commit/f2419d524a86f2064e6e9f4abd5902d09050cd82))
+* remove disabled regtest option from networks list ([6a68a2f](https://github.com/hirosystems/stacks-wallet-web/commit/6a68a2f728a5574344602a56fa904ff8f073f51b))
+* remove gaia call when unlocking wallet ([2bc01d4](https://github.com/hirosystems/stacks-wallet-web/commit/2bc01d44668f7e9190570617ae8e65d6315d6787)), closes [#1877](https://github.com/hirosystems/stacks-wallet-web/issues/1877)
+* remove gaia call when unlocking wallet ([e6c3947](https://github.com/hirosystems/stacks-wallet-web/commit/e6c39470b1b39af0e18104c65b33de5929370e41)), closes [#1877](https://github.com/hirosystems/stacks-wallet-web/issues/1877)
+* render whole account list when fewer than 10 accounts ([8464b74](https://github.com/hirosystems/stacks-wallet-web/commit/8464b7497f48552128584aaf4791478ab17257a7))
+* show fiat onramp buy button only on mainnet ([c02f138](https://github.com/hirosystems/stacks-wallet-web/commit/c02f1382186af0e7ae2da9b5d40216c73d9d14fa)), closes [#2049](https://github.com/hirosystems/stacks-wallet-web/issues/2049)
+* switch account failing test ([982e3e9](https://github.com/hirosystems/stacks-wallet-web/commit/982e3e96649e44d62b21dc2623cb6f06bf67cdf8))
+* use saved hasSetPassword from storage ([5e8869d](https://github.com/hirosystems/stacks-wallet-web/commit/5e8869dff511ea2083b35b12b169c840efd5a7fc))
+
+
+### Features
+
+* add metrics for fee estimation ([00690f2](https://github.com/hirosystems/stacks-wallet-web/commit/00690f2c981446a5989a5acae34581c57ac8d252)), closes [#2041](https://github.com/hirosystems/stacks-wallet-web/issues/2041)
+* add unlock waiting message ([03ffdf7](https://github.com/hirosystems/stacks-wallet-web/commit/03ffdf7cb3ed33b2789e72254b9cf01be5f803b7)), closes [#2062](https://github.com/hirosystems/stacks-wallet-web/issues/2062)
+
 ## [2.23.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.23.1...v2.23.2) (2021-12-08)
 
 
