@@ -162,7 +162,7 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
         };
       }
       // Since the user does not have the gaia wallet config saved locally, we use the legacy way
-      // i.e fetching it vis storeSeed. This can only happen when users have their wallet locked
+      // i.e fetching it via storeSeed. This can only happen when users have their wallet locked
       // and then got the wallet upgraded. They won't have the config saved yet (this is done on account creation and login)
       // This code path can be deleted after some months
       const decryptedData = await decryptMnemonic({
