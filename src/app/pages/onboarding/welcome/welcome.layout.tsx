@@ -1,7 +1,6 @@
-import { cx } from '@emotion/css';
 import { Flex, Stack } from '@stacks/ui';
 
-import { isFullPage, isPopup } from '@app/common/utils';
+import { isFullPage, isPopup, isPopupCenter } from '@app/common/utils';
 import { Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { PrimaryButton } from '@app/components/primary-button';
@@ -32,14 +31,15 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
         <WelcomeIllustration />
       </Flex>
       <Flex
-        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
+        className={isFullPage ? fullPageOnboardingContent : popupPageContent}
         flexGrow={1}
         justifyContent="center"
       >
         <Stack maxWidth="500px" spacing="loose">
           <Title
-            className={cx({ [fullPageOnboardingTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+            className={isFullPage ? fullPageOnboardingTitle : popupPageTitle}
             fontWeight={500}
+            maxWidth={isPopup || isPopupCenter ? '264px' : 'unset'}
           >
             Explore the world of Stacks
           </Title>

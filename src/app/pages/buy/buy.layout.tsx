@@ -1,9 +1,8 @@
-import { cx } from '@emotion/css';
 import { color, Stack } from '@stacks/ui';
 
 import AddFunds from '@assets/images/add-funds.svg';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { isFullPage, isPopup } from '@app/common/utils';
+import { isFullPage } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Header } from '@app/components/header';
 import { PrimaryButton } from '@app/components/primary-button';
@@ -66,7 +65,7 @@ export const BuyLayout = (props: BuyLayoutProps) => {
     >
       <img src={AddFunds} />
       <Title
-        className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+        className={isFullPage ? fullPageTitle : popupPageTitle}
         mt="base-tight"
         textAlign="left"
         width="100%"

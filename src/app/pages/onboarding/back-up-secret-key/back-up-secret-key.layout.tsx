@@ -1,9 +1,8 @@
-import { cx } from '@emotion/css';
 import { Box, color, Flex, Stack } from '@stacks/ui';
 
 import { Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
-import { isFullPage, isPopup } from '@app/common/utils';
+import { isFullPage, isPopup, isPopupCenter } from '@app/common/utils';
 import KeyIllustrationFull from '@assets/images/onboarding/key-illustration-full.svg';
 import KeyIllustrationPopup from '@assets/images/onboarding/key-illustration-popup.svg';
 import SecretKey from '@assets/images/onboarding/secret-key.svg';
@@ -35,16 +34,16 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
   return (
     <Stack isInline={isFullPage} width="100%">
       <Flex
-        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
+        className={isFullPage ? fullPageOnboardingContent : popupPageContent}
         flexGrow={1}
         justifyContent="center"
       >
         <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
           <img src={SecretKey} width="135px" />
           <Title
-            className={cx({ [fullPageOnboardingTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+            className={isFullPage ? fullPageOnboardingTitle : popupPageTitle}
             fontWeight={500}
-            pr={isPopup ? '72px' : 'unset'}
+            maxWidth={isPopup || isPopupCenter ? '264px' : 'unset'}
           >
             Back up your Secret Key
           </Title>
@@ -57,7 +56,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
         </Stack>
       </Flex>
       <Flex
-        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
+        className={isFullPage ? fullPageOnboardingContent : popupPageContent}
         flexGrow={1}
         justifyContent="center"
       >
@@ -80,7 +79,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
           </Stack>
         </Box>
       </Flex>
-      {isPopup && (
+      {(isPopup || isPopupCenter) && (
         <Stack mt="loose" spacing="loose">
           <BackUpSecretKeyActions onBackedUpSecretKey={onBackedUpSecretKey} />
         </Stack>

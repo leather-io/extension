@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Text, Stack } from '@stacks/ui';
 import { ChainID, fetchPrivate } from '@stacks/transactions';
@@ -18,6 +18,13 @@ import {
   useUpdateNetworkState,
 } from '@app/store/network/networks.hooks';
 
+interface AddNetworkFormValues {
+  key: string;
+  name: string;
+  url: string;
+}
+const addNetworkFormValues: AddNetworkFormValues = { key: '', name: '', url: '' };
+
 export const AddNetwork = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -27,44 +34,46 @@ export const AddNetwork = () => {
 
   useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
 
-  return (
-    <Formik
-      initialValues={{ name: '', url: '', key: '' }}
-      onSubmit={async values => {
-        const { name, url, key } = values;
-        if (!isValidUrl(url)) {
-          setError('Please enter a valid URL');
+  const onSubmit = useCallback(
+    async values => {
+      const { name, url, key } = values;
+      if (!isValidUrl(url)) {
+        setError('Please enter a valid URL');
+        return;
+      }
+      setLoading(true);
+      setError('');
+      try {
+        const origin = new URL(url).origin;
+        const response = await fetchPrivate(`${origin}/v2/info`);
+        const chainInfo = await response.json();
+        const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
+        if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {
+          setNetworks(networks => {
+            return {
+              ...networks,
+              [key]: {
+                url: origin,
+                name,
+                chainId: networkId,
+              },
+            };
+          });
+          setNetworkKey(key);
+          navigate(RouteUrls.Home);
           return;
         }
-        setLoading(true);
-        setError('');
-        try {
-          const origin = new URL(url).origin;
-          const response = await fetchPrivate(`${origin}/v2/info`);
-          const chainInfo = await response.json();
-          const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
-          if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {
-            setNetworks(networks => {
-              return {
-                ...networks,
-                [key]: {
-                  url: origin,
-                  name,
-                  chainId: networkId,
-                },
-              };
-            });
-            setNetworkKey(key);
-            navigate(RouteUrls.Home);
-            return;
-          }
-          setError('Unable to determine chainID from node.');
-        } catch (error) {
-          setError('Unable to fetch info from node.');
-        }
-        setLoading(false);
-      }}
-    >
+        setError('Unable to determine chainID from node.');
+      } catch (error) {
+        setError('Unable to fetch info from node.');
+      }
+      setLoading(false);
+    },
+    [navigate, setNetworkKey, setNetworks]
+  );
+
+  return (
+    <Formik initialValues={addNetworkFormValues} onSubmit={onSubmit}>
       {({ handleSubmit, values, handleChange }) => (
         <form onSubmit={handleSubmit}>
           <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose">

@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { debounce } from 'ts-debounce';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { cx } from '@emotion/css';
 import { Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { isFullPage, isPopup } from '@app/common/utils';
+import { isFullPage } from '@app/common/utils';
 import {
   validatePassword,
   blankPasswordValidation,
@@ -29,6 +28,12 @@ import { HUMAN_REACTION_DEBOUNCE_TIME } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+
+interface SetPasswordFormValues {
+  password: string;
+  confirmPassword: string;
+}
+const setPasswordFormValues: SetPasswordFormValues = { password: '', confirmPassword: '' };
 
 export const SetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
@@ -71,7 +76,7 @@ export const SetPasswordPage = () => {
     [navigate, decodedAuthRequest, finishSignIn, setPassword, wallet]
   );
 
-  const handleSubmit = useCallback(
+  const onSubmit = useCallback(
     async ({ password }) => {
       if (!password) return;
       setLoading(true);
@@ -112,8 +117,8 @@ export const SetPasswordPage = () => {
 
   return (
     <Formik
-      initialValues={{ password: '', confirmPassword: '' }}
-      onSubmit={handleSubmit}
+      initialValues={setPasswordFormValues}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}
       validateOnBlur={false}
       validateOnChange={false}
@@ -122,16 +127,15 @@ export const SetPasswordPage = () => {
       {formik => (
         <Form>
           <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose">
-            <Title
-              className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-              fontWeight={500}
-            >
+            <Title className={isFullPage ? fullPageTitle : popupPageTitle} fontWeight={500}>
               Set a password
             </Title>
             <Body className={isFullPage ? fullPageText : undefined}>
               Your password protects your Secret Key and is for this device only. To access your
               Stacks account on another device or wallet you’ll need just your Secret Key.
-              {formik.submitCount && !strengthResult.meetsAllStrengthRequirements ? (
+              {!formik.isSubmitting &&
+              formik.submitCount &&
+              !strengthResult.meetsAllStrengthRequirements ? (
                 <Caption fontSize={0} mt="base-loose">
                   Please use a stronger password. Longer than 12 characters, with symbols, numbers,
                   and words.

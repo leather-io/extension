@@ -271,4 +271,5 @@ export function isEmpty(value: Object) {
 }
 
 export const isFullPage = document.location.pathname.startsWith('/index.html');
-export const isPopup = !isFullPage;
+export const isPopup = document.location.pathname.startsWith('/popup.html');
+export const isPopupCenter = document.location.pathname.startsWith('/popup-center.html');

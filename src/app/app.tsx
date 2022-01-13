@@ -1,7 +1,8 @@
-import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
+import { Global } from '@emotion/react';
 import { HashRouter as Router } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
+import { ThemeProvider, ColorModeProvider, CSSReset } from '@stacks/ui';
 
 import { VaultLoader } from '@app/components/vault-loader';
 import { AccountsDrawer } from '@app/features/accounts-drawer/accounts-drawer';
@@ -12,10 +13,11 @@ import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-draw
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
 import { Devtools } from '@app/features/devtool/devtools';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
+
 import { initSegment } from './common/segment-init';
 import { theme } from './common/theme';
-import { GlobalStyles } from './components/global-styles/global-styles';
 import { AppRoutes } from './routes/app-routes';
+import { appStyles } from './app.styles';
 
 const devToolsEnabled = false;
 
@@ -32,7 +34,8 @@ void initSegment();
 export const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
+      {CSSReset}
+      <Global styles={appStyles} />
       <QueryClientProvider client={queryClient}>
         <ColorModeProvider defaultMode="light">
           <>

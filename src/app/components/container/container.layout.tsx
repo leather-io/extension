@@ -1,4 +1,6 @@
+import { isFullPage, isPopup } from '@app/common/utils';
 import { Flex, color } from '@stacks/ui';
+import { fullPageContainer, popupCenterContainer, popupContainer } from './container.styles';
 
 interface ContainerLayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -20,9 +22,7 @@ export function ContainerLayout(props: ContainerLayoutProps) {
     >
       {header || null}
       <Flex
-        as="main"
-        className="main-content"
-        flexDirection="column"
+        className={isFullPage ? fullPageContainer : isPopup ? popupContainer : popupCenterContainer}
         flexGrow={1}
         pb="loose"
         position="relative"
