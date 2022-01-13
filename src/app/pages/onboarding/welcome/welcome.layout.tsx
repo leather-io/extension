@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import { Box, color, Flex, Stack } from '@stacks/ui';
 
 import { isFullPage } from '@app/common/utils';
@@ -26,6 +27,7 @@ const WelcomeIllustration = () =>
 
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
+  onSelectConnectLedger(): void;
   onStartOnboarding(): void;
   onSelectConnectLedger(): void;
   onRestoreWallet(): void;
@@ -73,6 +75,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
           </Stack>
         </Flex>
       </Stack>
+      <Outlet />
     </CenteredPageContainer>
   );
 }

@@ -40,7 +40,7 @@ const DrawerHeader = ({
   onClose: BaseDrawerProps['onClose'];
 }) => {
   return (
-    <Flex pb="base" justifyContent="space-between" alignItems="center" pt="extra-loose" px="loose">
+    <Flex pb="base" justifyContent="space-between" alignItems="center" pt="loose" px="loose">
       {title && isString(title) ? (
         <Title fontSize="20px" lineHeight="28px">
           {title}
