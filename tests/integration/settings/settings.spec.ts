@@ -1,8 +1,8 @@
 import { BrowserDriver, createTestSelector, randomString, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { RouteUrls } from '@shared/route-urls';
+import { RouteUrls } from '@routes/route-urls';
 import { SettingsSelectors } from '../settings.selectors';
-import { delay } from '@app/common/utils';
+import { delay } from '@common/utils';
 
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -13,7 +13,7 @@ describe(`Settings integration tests`, () => {
 
   beforeAll(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
+    wallet = await WalletPage.init(browser, RouteUrls.Installed);
     await wallet.clickAllowAnalytics();
     await wallet.signUp();
   });
@@ -75,6 +75,6 @@ describe(`Settings integration tests`, () => {
     const networkListItems = await wallet.page.$$(
       createTestSelector(SettingsSelectors.NetworkListItem)
     );
-    expect(networkListItems).toHaveLength(3);
+    expect(networkListItems).toHaveLength(4);
   });
 });

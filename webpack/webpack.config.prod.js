@@ -4,8 +4,6 @@ const { ESBuildMinifyPlugin } = require('esbuild-loader');
 
 const shouldMinify = JSON.parse(process.env.MINIFY_PRODUCTION_BUILD || false);
 
-config.mode = 'production';
-
 // Basically, disable any code splitting stuff
 config.optimization = {
   ...config.optimization,
