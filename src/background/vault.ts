@@ -7,7 +7,7 @@ import {
   updateWalletConfig,
 } from '@stacks/wallet-sdk';
 
-import type { InMemoryVault, VaultActions } from '@shared/vault/vault-types';
+import type { InMemorySoftwareWalletVault, VaultActions } from '@shared/vault/vault-types';
 import { decryptMnemonic, encryptMnemonic } from '@background/crypto/mnemonic-encryption';
 import { gaiaUrl } from '@shared/constants';
 import { DEFAULT_PASSWORD } from '@shared/models/types';
@@ -21,13 +21,17 @@ import { setToLocalstorageIfDefined } from '@shared/utils/storage';
 const encryptedKeyIdentifier = 'stacks-wallet-encrypted-key' as const;
 const saltIdentifier = 'stacks-wallet-salt' as const;
 
-const defaultVault: InMemoryVault = {
+const defaultVault: InMemorySoftwareWalletVault = {
   encryptedSecretKey: undefined,
   hasSetPassword: false,
   salt: undefined,
 } as const;
 
-let inMemoryVault: InMemoryVault = {
+//
+// In memory storage like this is not possible with non-persistent bg scripts
+// necessary for future support of mv3 and mobile safari extensions
+// https://github.com/hirosystems/stacks-wallet-web/issues/1746
+let inMemoryVault: InMemorySoftwareWalletVault = {
   ...defaultVault,
   encryptedSecretKey: localStorage.getItem(encryptedKeyIdentifier) || undefined,
   hasSetPassword: getHasSetPassword(),
@@ -42,7 +46,10 @@ export async function vaultMessageHandler(message: VaultActions) {
   return inMemoryVault;
 }
 
-async function storeSeed(secretKey: string, password?: string): Promise<InMemoryVault> {
+async function storeSeed(
+  secretKey: string,
+  password?: string
+): Promise<InMemorySoftwareWalletVault> {
   const pw = password || DEFAULT_PASSWORD;
   const generatedWallet = await generateWallet({
     secretKey,
@@ -80,12 +87,11 @@ function throwUnhandledMethod(message: VaultActions) {
 }
 
 // Reducer to manage the state of the vault
-const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
+async function vaultReducer(message: VaultActions): Promise<InMemorySoftwareWalletVault> {
   switch (message.method) {
     case InternalMethods.getWallet:
-      return {
-        ...inMemoryVault,
-      };
+      return { ...inMemoryVault };
+
     case InternalMethods.makeWallet: {
       const secretKey = generateSecretKey(256);
       const _wallet = await generateWallet({ secretKey, password: DEFAULT_PASSWORD });
@@ -96,10 +102,12 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
         currentAccountIndex: 0,
       };
     }
+
     case InternalMethods.storeSeed: {
       const { secretKey, password } = message.payload;
       return storeSeed(secretKey, password);
     }
+
     case InternalMethods.createNewAccount: {
       const { secretKey, wallet } = inMemoryVault;
       if (!secretKey || !wallet) {
@@ -129,11 +137,11 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
         currentAccountIndex: newWallet.accounts.length - 1,
       };
     }
+
     case InternalMethods.signOut: {
-      return {
-        ...defaultVault,
-      };
+      return { ...defaultVault };
     }
+
     case InternalMethods.setPassword: {
       const { payload: password } = message;
       const { secretKey } = inMemoryVault;
@@ -148,6 +156,7 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
         hasSetPassword: true,
       };
     }
+
     case InternalMethods.unlockWallet: {
       const { payload: password } = message;
       const { encryptedSecretKey, salt } = inMemoryVault;
@@ -156,10 +165,7 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
       }
       const vault = await getDecryptedWalletDetails(encryptedSecretKey, password, salt);
       if (vault) {
-        return {
-          ...inMemoryVault,
-          ...vault,
-        };
+        return { ...inMemoryVault, ...vault };
       }
       // Since the user does not have the gaia wallet config saved locally, we use the legacy way
       // i.e fetching it via storeSeed. This can only happen when users have their wallet locked
@@ -177,13 +183,11 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
         encryptedSecretKey: decryptedData.encryptedSecretKey,
       };
     }
+
     case InternalMethods.lockWallet: {
-      return {
-        ...inMemoryVault,
-        wallet: undefined,
-        secretKey: undefined,
-      };
+      return { ...inMemoryVault, wallet: undefined, secretKey: undefined };
     }
+
     case InternalMethods.switchAccount: {
       const { wallet } = inMemoryVault;
       const newIndex = message.payload;
@@ -193,12 +197,10 @@ const vaultReducer = async (message: VaultActions): Promise<InMemoryVault> => {
           `Cannot switch to account ${accountNumber}, only ${wallet?.accounts.length} accounts.`
         );
       }
-      return {
-        ...inMemoryVault,
-        currentAccountIndex: newIndex,
-      };
+      return { ...inMemoryVault, currentAccountIndex: newIndex };
     }
+
     default:
       throwUnhandledMethod(message);
   }
-};
+}

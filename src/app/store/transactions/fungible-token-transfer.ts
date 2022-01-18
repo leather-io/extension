@@ -25,7 +25,6 @@ export const makeFungibleTokenTransferState = atom(get => {
       nonce,
       balances,
       network,
-      senderKey: currentAccount.stxPrivateKey,
       assetName,
       contractAddress,
       contractName,
@@ -33,5 +32,3 @@ export const makeFungibleTokenTransferState = atom(get => {
   }
   return;
 });
-
-makeFungibleTokenTransferState.debugLabel = 'makeFungibleTokenTransferState';
