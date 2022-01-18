@@ -1,13 +1,13 @@
-import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
+import { Page } from 'playwright';
 import { WalletPage } from '@tests/page-objects/wallet.page';
 import { DemoPage } from '@tests/page-objects/demo.page';
 import { RouteUrls } from '@shared/route-urls';
 import { SECRET_KEY_2 } from '@tests/mocks';
 import { TransactionSigningPage } from '@tests/page-objects/transaction-signing.page';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
-import { Page } from 'playwright';
 import { deserializeTransaction, TokenTransferPayload } from '@stacks/transactions';
 import { stxToMicroStx } from '@app/common/stacks-utils';
+import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
 
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -22,7 +22,6 @@ describe(`Transaction signing`, () => {
     await browser.context.tracing.start({ screenshots: true, snapshots: true });
     wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
     demo = browser.demo;
-    await wallet.clickAllowAnalytics();
   });
 
   afterEach(async () => {
