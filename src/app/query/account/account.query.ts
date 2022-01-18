@@ -4,11 +4,11 @@ import { AccountDataResponse } from '@stacks/stacks-blockchain-api-types';
 import { useApi, Api } from '@app/store/common/api-clients.hooks';
 import { useSetAccountInfo } from '@app/store/accounts/account.hooks';
 
-const STALE_TIME = 5 * 60 * 1000;
+const staleTime = 5 * 60 * 1000;
 
 const accountQueryOptions = {
   keepPreviousData: true,
-  cacheTime: STALE_TIME,
+  cacheTime: staleTime,
   refetchOnMount: true,
   refetchInterval: false,
   refetchOnReconnect: true,

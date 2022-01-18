@@ -2,11 +2,11 @@ import { useQuery } from 'react-query';
 
 import { fetchWithTimeout } from '@app/common/api/wrapped-fetch';
 
-const STALE_TIME = 15 * 60 * 1000; // 15 min
+const staleTime = 15 * 60 * 1000; // 15 min
 
 const networkStatusQueryOptions = {
   keepPreviousData: true,
-  cacheTime: STALE_TIME,
+  cacheTime: staleTime,
   refetchOnMount: false,
   refetchInterval: false,
   refetchOnReconnect: false,
