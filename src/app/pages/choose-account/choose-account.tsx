@@ -13,7 +13,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 export const ChooseAccount = memo(() => {
   const { name: appName } = useAppDetails();
-  const { wallet, cancelAuthentication } = useWallet();
+  const { hasGeneratedWallet, cancelAuthentication, encryptedSecretKey } = useWallet();
 
   useRouteHeader(<Header hideActions />);
 
@@ -26,7 +26,9 @@ export const ChooseAccount = memo(() => {
     return () => window.removeEventListener('beforeunload', handleUnmount);
   }, [handleUnmount]);
 
-  if (!wallet) return <Navigate to={RouteUrls.Onboarding} />;
+  // Keeps routing in sync b/w view modes
+  if (!hasGeneratedWallet && encryptedSecretKey) return <Navigate to={RouteUrls.Unlock} />;
+  if (!hasGeneratedWallet) return <Navigate to={RouteUrls.Onboarding} />;
 
   return (
     <Stack spacing="loose" textAlign="center">

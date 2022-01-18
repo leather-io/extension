@@ -26,6 +26,9 @@ import { RouteUrls } from '@shared/route-urls';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
 
+import { useOnWalletLock } from './hooks/use-on-wallet-lock';
+import { useOnSignOut } from './hooks/use-on-sign-out';
+
 export function AppRoutes(): JSX.Element | null {
   const { hasRehydratedVault } = useWallet();
   const { pathname } = useLocation();
@@ -34,10 +37,14 @@ export function AppRoutes(): JSX.Element | null {
   const { getWallet } = useVaultMessenger();
   useSaveAuthRequest();
 
+  useOnWalletLock(() => navigate(RouteUrls.Unlock));
+  useOnSignOut(() => navigate(RouteUrls.Onboarding));
+
   useEffect(() => {
     const hasSetPassword = getHasSetPassword();
-    // This ensures the route is correct bc the VaultLoader is slow to set wallet state
-    if (pathname === RouteUrls.Home && !hasSetPassword) navigate(RouteUrls.Onboarding);
+    const pathToGuard = pathname === RouteUrls.Home || pathname === RouteUrls.Transaction;
+    // This ensures the route is correct bc the vault is slow to set wallet state
+    if (pathToGuard && !hasSetPassword) navigate(RouteUrls.Onboarding);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
