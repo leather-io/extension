@@ -150,12 +150,14 @@ export class WalletPage {
 
   /** Sign up with a randomly generated seed phrase */
   async signUp() {
+    await this.clickAllowAnalytics();
     await this.clickSignUp();
     await this.saveKey();
     await this.waitForHomePage();
   }
 
   async signIn(secretKey: string) {
+    await this.clickAllowAnalytics();
     await this.clickSignIn();
     let startTime = new Date();
     await this.enterSecretKey(secretKey);

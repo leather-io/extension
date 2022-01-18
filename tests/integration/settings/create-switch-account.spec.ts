@@ -25,7 +25,6 @@ describe(`Create and switch account`, () => {
   });
 
   it('should be able to create a new account then switch', async () => {
-    await wallet.clickAllowAnalytics();
     await wallet.signUp();
     await wallet.clickSettingsButton();
     await wallet.page.click(wallet.$createAccountButton);
@@ -48,7 +47,6 @@ describe(`Create and switch account`, () => {
   });
 
   it(`should be able to create ${numOfAccountsToTest} new accounts then switch between them`, async () => {
-    await wallet.clickAllowAnalytics();
     await wallet.signUp();
     for (let i = 0; i < numOfAccountsToTest - 1; i++) {
       await wallet.clickSettingsButton();
