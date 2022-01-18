@@ -7,11 +7,11 @@ import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { useAssets } from '@app/store/assets/asset.hooks';
 import { formatContractId } from '@app/common/utils';
 
-const STALE_TIME = 10 * 60 * 1000;
+const staleTime = 10 * 60 * 1000;
 
 const queryOptions = {
   keepPreviousData: true,
-  cacheTime: STALE_TIME,
+  cacheTime: staleTime,
   refetchOnMount: false,
   refetchInterval: false,
   refetchOnReconnect: false,

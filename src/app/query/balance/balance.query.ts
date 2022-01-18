@@ -3,11 +3,11 @@ import { useQuery, UseQueryOptions } from 'react-query';
 import { useApi, Api, useAnchoredApi } from '@app/store/common/api-clients.hooks';
 import { AddressBalanceResponse } from '@shared/models/account-types';
 
-const STALE_TIME = 15 * 60 * 1000; // 15 min
+const staleTime = 15 * 60 * 1000; // 15 min
 
 const balanceQueryOptions = {
   keepPreviousData: false,
-  cacheTime: STALE_TIME,
+  cacheTime: staleTime,
   refetchOnMount: true,
   refetchInterval: false,
   refetchOnReconnect: false,
