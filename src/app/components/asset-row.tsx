@@ -4,7 +4,7 @@ import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
 import type { AssetWithMeta } from '@app/common/asset-types';
 import { getAssetName } from '@stacks/ui-utils';
 import { AssetItem } from '@app/components/asset-item';
-import { getTicker } from '@app/common/utils';
+import { formatContractId, getTicker } from '@app/common/utils';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 import { BigNumber } from 'bignumber.js';
 
@@ -39,7 +39,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
         name === 'stx'
           ? 'stx'
           : type === 'ft'
-          ? `${contractAddress}.${contractName}::${name}`
+          ? `${formatContractId(contractAddress, contractName)}::${name}`
           : name
       }
       title={friendlyName}

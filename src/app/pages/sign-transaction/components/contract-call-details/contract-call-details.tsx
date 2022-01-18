@@ -9,6 +9,7 @@ import { AttachmentRow } from '@app/pages/sign-transaction/components/attachment
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 import { FunctionArgumentsList } from './function-arguments-list';
+import { formatContractId } from '@app/common/utils';
 
 function ContractCallDetailsSuspense(): JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
@@ -31,7 +32,7 @@ function ContractCallDetailsSuspense(): JSX.Element | null {
       </Title>
 
       <ContractPreview
-        onClick={() => handleOpenTxLink(`${contractAddress}.${contractName}`)}
+        onClick={() => handleOpenTxLink(formatContractId(contractAddress, contractName))}
         contractAddress={contractAddress}
         contractName={contractName}
         functionName={functionName}

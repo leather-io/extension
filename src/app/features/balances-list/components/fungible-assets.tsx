@@ -1,23 +1,22 @@
 import { Suspense } from 'react';
 import { Stack, StackProps } from '@stacks/ui';
 import { AssetRow } from '@app/components/asset-row';
-import { useAssetItemState, useFungibleTokenBaseState } from '@app/store/assets/asset.hooks';
+import { useAssetWithMetadata, useFungibleTokenBaseState } from '@app/store/assets/asset.hooks';
 
-import { AssetWithMeta } from '@app/common/asset-types';
-import { useCurrentAccountBalancesUnanchoredState } from '@app/store/accounts/account.hooks';
+import { Asset } from '@app/common/asset-types';
+import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
 
 interface FungibleAssetRowProps {
-  asset: AssetWithMeta;
+  asset: Asset;
 }
-function FungibleAssetRow(props: FungibleAssetRowProps) {
-  const asset = useAssetItemState(props.asset);
-  if (!asset) return null;
-  return <AssetRow asset={asset} />;
+function FungibleAssetRow({ asset }: FungibleAssetRowProps) {
+  const assetWithMeta = useAssetWithMetadata(asset);
+  return <AssetRow asset={assetWithMeta} />;
 }
 
 export function FungibleAssets(props: StackProps) {
   const fungibleTokens = useFungibleTokenBaseState();
-  const balances = useCurrentAccountBalancesUnanchoredState();
+  const balances = useCurrentAccountUnanchoredBalances();
   if (!balances) return null;
 
   const ftCount = Object.keys(balances.fungible_tokens);

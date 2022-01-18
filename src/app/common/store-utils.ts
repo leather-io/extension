@@ -14,19 +14,6 @@ export function makeLocalDataKey(params: QueryKey): string {
   return hash(hashQueryKey([params, VERSION]));
 }
 
-export function getLocalData<Data>(params: string[]) {
-  const key = makeLocalDataKey(params);
-  const value = localStorage.getItem(key);
-  if (!value) return null;
-  return JSON.parse(value) as Data;
-}
-
-export function setLocalData<Data>(params: string[], data: Data): Data {
-  const key = makeLocalDataKey(params);
-  localStorage.setItem(key, JSON.stringify(data));
-  return data;
-}
-
 // LocalStorage keys kept across sign-in/signout sessions
 const PERSISTENT_LOCAL_DATA: string[] = [userHasAllowedDiagnosticsKey];
 

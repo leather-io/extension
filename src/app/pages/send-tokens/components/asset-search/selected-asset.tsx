@@ -5,6 +5,7 @@ import { useUpdateSearchInput } from '@app/store/assets/asset.hooks';
 import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { AssetAvatar } from '@app/components/stx-avatar';
 import { Caption } from '@app/components/typography';
+import { formatContractId } from '@app/common/utils';
 
 const SelectedAssetItem = memo(({ hideArrow, ...rest }: { hideArrow?: boolean } & BoxProps) => {
   const { selectedAsset, ticker, name, handleUpdateSelectedAsset } = useSelectedAsset();
@@ -21,7 +22,7 @@ const SelectedAssetItem = memo(({ hideArrow, ...rest }: { hideArrow?: boolean } 
 
   const isStx = name === 'Stacks Token';
 
-  const gradientString = `${contractAddress}.${contractName}::${_name}`;
+  const gradientString = `${formatContractId(contractAddress, contractName)}::${_name}`;
 
   return (
     <Box

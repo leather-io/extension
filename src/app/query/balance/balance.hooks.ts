@@ -1,24 +1,20 @@
 import BigNumber from 'bignumber.js';
 
-import { useGetAccountBalanceQuery } from './balance.query';
 import type {
+  AccountBalanceResponseBigNumber,
   AccountBalanceStxKeys,
   AccountStxBalanceBigNumber,
+  AddressBalanceResponse,
 } from '@shared/models/account-types';
 
-const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
-  'balance',
-  'total_sent',
-  'total_received',
-  'total_fees_sent',
-  'total_miner_rewards_received',
-  'locked',
-];
+import {
+  useCurrentAccount,
+  useSetAccountBalancesUnanchoredState,
+} from '@app/store/accounts/account.hooks';
+import { useGetAccountBalanceQuery, useGetAnchoredAccountBalanceQuery } from './balance.query';
+import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
 
-function useAddressBalances(address: string) {
-  const { data: balances } = useGetAccountBalanceQuery(address);
-  if (!balances) return;
-
+function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxBigNumbers = Object.fromEntries(
     accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
   ) as Record<AccountBalanceStxKeys, BigNumber>;
@@ -27,8 +23,45 @@ function useAddressBalances(address: string) {
   return { ...balances, stx };
 }
 
+export function useAddressBalances(address: string) {
+  const setAccountBalanceUnanchoredState = useSetAccountBalancesUnanchoredState();
+  const { data: balances } = useGetAccountBalanceQuery(address, {
+    select: (resp: AddressBalanceResponse) => initAmountsAsBigNumber(resp),
+    onSuccess: (resp: ReturnType<typeof initAmountsAsBigNumber>) =>
+      setAccountBalanceUnanchoredState(resp),
+    retryOnMount: true,
+    keepPreviousData: false,
+  });
+  return balances;
+}
+
+export function useCurrentAccountUnanchoredBalances() {
+  const account = useCurrentAccount();
+  return useAddressBalances(account?.address || '');
+}
+
 export function useAddressAvailableStxBalance(address: string) {
   const balances = useAddressBalances(address);
+  if (!balances) return new BigNumber(0);
+  return balances.stx.balance.minus(balances.stx.locked);
+}
+
+function useAddressAnchoredBalances(address: string) {
+  const { data: balances } = useGetAnchoredAccountBalanceQuery(address, {
+    select: (resp: AddressBalanceResponse) => initAmountsAsBigNumber(resp),
+    retryOnMount: true,
+    keepPreviousData: false,
+  });
+  return balances;
+}
+
+export function useCurrentAccountAnchoredBalances() {
+  const account = useCurrentAccount();
+  return useAddressAnchoredBalances(account?.address || '');
+}
+
+export function useAddressAnchoredAvailableStxBalance(address: string) {
+  const balances = useAddressAnchoredBalances(address);
   if (!balances) return new BigNumber(0);
   return balances.stx.balance.minus(balances.stx.locked);
 }

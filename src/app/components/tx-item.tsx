@@ -28,8 +28,9 @@ import {
   isAddressTransactionWithTransfers,
   StxTransfer,
 } from '@app/common/transactions/transaction-utils';
-import { useAssetByIdentifier } from '@app/store/assets/asset.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metadata.hook';
+import { pullContractIdFromIdentity } from '@app/common/utils';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -100,7 +101,7 @@ interface TxTransfersProps extends BoxProps {
   transaction: AddressTransactionWithTransfers;
 }
 
-const TxTransfers = ({ transaction, ...rest }: TxTransfersProps) => {
+function TxTransfers({ transaction, ...rest }: TxTransfersProps) {
   return (
     <>
       {transaction.stx_transfers.map((stxTransfer, index) => (
@@ -113,7 +114,7 @@ const TxTransfers = ({ transaction, ...rest }: TxTransfersProps) => {
         : null}
     </>
   );
-};
+}
 
 interface TxItemRowProps {
   title: string;
@@ -200,16 +201,20 @@ interface FtTransferItemProps {
   ftTransfer: FtTransfer;
   parentTx: AddressTransactionWithTransfers;
 }
-
-const FtTransferItem = ({ ftTransfer, parentTx }: FtTransferItemProps) => {
+function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   const currentAccount = useCurrentAccount();
   const { handleOpenTxLink } = useExplorerLink();
-  const asset = useAssetByIdentifier(ftTransfer.asset_identifier);
-  const title = `${asset?.meta?.name || 'Token'} Transfer`;
+  const assetMetadata = useFungibleTokenMetadata(
+    pullContractIdFromIdentity(ftTransfer.asset_identifier)
+  );
+  const title = `${assetMetadata?.name || 'Token'} Transfer`;
   const caption = getTxCaption(parentTx.tx) ?? '';
   const isOriginator = ftTransfer.sender === currentAccount?.address;
 
-  const displayAmount = calculateTokenTransferAmount(asset, ftTransfer.amount);
+  const displayAmount = calculateTokenTransferAmount(
+    assetMetadata?.decimals ?? 0,
+    ftTransfer.amount
+  );
   if (typeof displayAmount === 'undefined') return null;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
 
@@ -231,12 +236,11 @@ const FtTransferItem = ({ ftTransfer, parentTx }: FtTransferItemProps) => {
       icon={iconWrapper}
     />
   );
-};
+}
 
 interface TxViewProps extends BoxProps {
   transaction: AddressTransactionWithTransfers | Tx;
 }
-
 export const TxView = ({ transaction, ...rest }: TxViewProps) => {
   if (!isAddressTransactionWithTransfers(transaction))
     return <TxItem transaction={transaction} {...rest} />; // This is a normal Transaction or MempoolTransaction

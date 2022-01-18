@@ -3,12 +3,12 @@ import { useQueries, useQuery, UseQueryResult } from 'react-query';
 import { useApi, Api } from '@app/store/common/api-clients.hooks';
 import { BnsNamesOwnByAddressResponse } from '@stacks/blockchain-api-client';
 
-const STALE_TIME = 15 * 60 * 1000; // 15 min
+const staleTime = 15 * 60 * 1000; // 15 min
 
 const bnsQueryOptions = {
   keepPreviousData: true,
-  cacheTime: STALE_TIME,
-  staleTime: STALE_TIME,
+  cacheTime: staleTime,
+  staleTime: staleTime,
   refetchOnMount: false,
   refetchInterval: false,
   refetchOnReconnect: false,

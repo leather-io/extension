@@ -4,11 +4,11 @@ import { fetcher } from '@app/common/api/wrapped-fetch';
 import { TransactionFeeEstimation } from '@shared/models/fees-types';
 import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
 
-const STALE_TIME = 15 * 60 * 1000; // 15 min
+const staleTime = 15 * 60 * 1000; // 15 min
 
 const feeEstimationsQueryOptions = {
   keepPreviousData: true,
-  cacheTime: STALE_TIME,
+  cacheTime: staleTime,
   refetchOnMount: false,
   refetchInterval: false,
   refetchOnReconnect: false,

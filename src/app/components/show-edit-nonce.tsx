@@ -12,7 +12,7 @@ import {
 export function ShowEditNonceAction(): JSX.Element {
   const { isTestnet, name } = useCurrentNetwork();
   const { showEditNonce, setShowEditNonce } = useDrawers();
-  const [tx] = useUnsignedTxForSettingsState();
+  const tx = useUnsignedTxForSettingsState();
   const [, setTxBytes] = useTxByteSizeState();
 
   return (

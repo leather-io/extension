@@ -90,4 +90,9 @@ export class SendPage {
   async waitForSendMaxButton() {
     await this.page.waitForSelector(this.selectors.$btnSendMaxBalance);
   }
+
+  async selectStxFromDropdown() {
+    await this.page.waitForSelector('[data-asset="stx"]');
+    await this.page.click('[data-asset="stx"]');
+  }
 }
