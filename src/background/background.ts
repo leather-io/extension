@@ -7,19 +7,19 @@
  */
 import * as Sentry from '@sentry/react';
 
-import { storePayload, StorageKey } from '@common/storage';
-import { RouteUrls } from '@routes/route-urls';
+import { storePayload, StorageKey } from '@shared/utils/storage';
+import { RouteUrls } from '@shared/route-urls';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
   MessageFromContentScript,
-} from '@common/message-types';
+} from '@shared/message-types';
 
-import type { VaultActions } from '@background/vault-types';
+import type { VaultActions } from '@shared/vault/vault-types';
 import { popupCenter } from '@background/popup';
 import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
-import { initSentry } from '@common/sentry-init';
+import { initSentry } from '@shared/utils/sentry-init';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
@@ -40,7 +40,7 @@ chrome.runtime.onInstalled.addListener(details => {
   Sentry.wrap(async () => {
     if (details.reason === 'install' && !IS_TEST_ENV) {
       await chrome.tabs.create({
-        url: chrome.runtime.getURL(`index.html#${RouteUrls.Installed}`),
+        url: chrome.runtime.getURL(`index.html#${RouteUrls.Onboarding}`),
       });
     }
   });
@@ -60,7 +60,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.authenticationRequests,
               port,
             });
-            const path = RouteUrls.SignUp;
+            const path = RouteUrls.Onboarding;
             const urlParams = new URLSearchParams();
             urlParams.set('authRequest', payload);
             if (IS_TEST_ENV) {

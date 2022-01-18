@@ -1,10 +1,10 @@
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { RouteUrls } from '@routes/route-urls';
+import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { delay } from '@common/utils';
+import { delay } from '@app/common/utils';
 
-jest.setTimeout(40_000);
+jest.setTimeout(60_000);
 
 jest.retryTimes(process.env.CI ? 2 : 0);
 
@@ -15,7 +15,7 @@ describe(`Create and switch account`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, RouteUrls.Installed);
+    wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
   }, 10000);
 
   afterEach(async () => {
@@ -63,6 +63,7 @@ describe(`Create and switch account`, () => {
     for (let i = 0; i < numOfAccountsToTest; i++) {
       await wallet.clickSettingsButton();
       await wallet.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
+      await delay(500);
       await wallet.page.click(createTestSelector(`switch-account-item-${i}`));
       await wallet.page.waitForSelector(
         createTestSelector(`account-checked-${i - 1 + numOfAccountsToTest}`),

@@ -3,6 +3,7 @@ const { pathsToModuleNameMapper } = require('ts-jest/utils');
 
 const { compilerOptions } = require('./tsconfig');
 const pathNames = {};
+
 Object.keys(compilerOptions.paths).forEach(key => {
   const [path] = compilerOptions.paths[key];
   if (key.includes('/ui')) {
@@ -20,6 +21,7 @@ module.exports = {
   collectCoverage: true,
   coverageReporters: ['html', 'json-summary'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  testEnvironment: 'jsdom',
   globals: {
     'ts-jest': {
       // https://huafu.github.io/ts-jest/user/config/diagnostics
@@ -39,8 +41,8 @@ module.exports = {
   testMatch: ['**/?(*.)+(spec).(js|ts|tsx)'],
   testRunner: 'jest-circus/runner',
   transform: {
-    '^.+\\.(t|j)sx?$': '@swc-node/jest',
+    '^.+\\.tsx?$': 'babel-jest',
+    '^.+\\.(j|t)sx?$': '@swc-node/jest',
   },
-  testEnvironment: 'jsdom',
   cacheDirectory: '<rootDir>/.jest-cache',
 };

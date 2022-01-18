@@ -1,4 +1,4 @@
-import { createWorker, WorkerScript } from '../../workers';
+import { createWorker, WorkerScript } from '../workers';
 
 interface GenerateEncryptionKeyArgs {
   password: string;

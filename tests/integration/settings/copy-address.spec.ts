@@ -1,7 +1,7 @@
 import { createTestSelector, BrowserDriver, setupBrowser } from '../utils';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { RouteUrls } from '@routes/route-urls';
-import { validateStacksAddress } from '@common/stacks-utils';
+import { RouteUrls } from '@shared/route-urls';
+import { validateStacksAddress } from '@app/common/stacks-utils';
 import { UserAreaSelectors } from '../user-area.selectors';
 
 jest.setTimeout(30_000);
@@ -16,7 +16,7 @@ describe(`Copy Address`, () => {
 
   beforeEach(async () => {
     browser = await setupBrowser();
-    wallet = await WalletPage.init(browser, RouteUrls.Installed);
+    wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
   }, 10000);
 
   afterEach(async () => {
