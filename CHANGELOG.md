@@ -1,3 +1,10 @@
+## [2.25.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.25.0...v2.25.1) (2022-01-18)
+
+
+### Bug Fixes
+
+* security vulnerability ([c9dd7f0](https://github.com/hirosystems/stacks-wallet-web/commit/c9dd7f0547460f72258ff684c25768d0d068926c))
+
 # [2.25.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.1...v2.25.0) (2022-01-18)
 
 
