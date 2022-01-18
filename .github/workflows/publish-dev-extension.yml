@@ -8,7 +8,6 @@ on:
 env:
   # To use another sentry DSN
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-  SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
   PREVIEW_RELEASE: true
   WALLET_ENVIRONMENT: preview
 

@@ -3,15 +3,15 @@ import {
   AuthenticationRequestEventDetails,
   DomEventName,
   TransactionRequestEventDetails,
-} from '@shared/inpage-types';
+} from '@inpage/inpage-types';
 import {
   AuthenticationResponseMessage,
   ExternalMethods,
   MessageToContentScript,
   MESSAGE_SOURCE,
   TransactionResponseMessage,
-} from '@shared/message-types';
-import { logger } from '@shared/logger';
+} from '@common/message-types';
+import { logger } from '@common/logger';
 
 type CallableMethods = keyof typeof ExternalMethods;
 
