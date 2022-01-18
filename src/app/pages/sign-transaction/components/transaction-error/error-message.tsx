@@ -68,6 +68,7 @@ export const ErrorMessage = memo(({ title, body, actions, ...rest }: ErrorMessag
           p={0}
           flexGrow={1}
           borderRadius="12px"
+          mt="extra-loose"
           onClick={() => window.close()}
           variant="secondary"
         >
