@@ -8,16 +8,7 @@ export function ContainerLayout(props: ContainerLayoutProps) {
   const { children, header } = props;
 
   return (
-    <Flex
-      flexDirection="column"
-      flexGrow={1}
-      width="100%"
-      background={color('bg')}
-      minHeight="100vh"
-      maxHeight="100vh"
-      position="relative"
-      overflow="auto"
-    >
+    <Flex flexDirection="column" flexGrow={1} width="100%" background={color('bg')}>
       {header || null}
       <Flex
         as="main"

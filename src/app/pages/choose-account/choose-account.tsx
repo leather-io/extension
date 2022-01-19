@@ -25,13 +25,15 @@ export const ChooseAccount = memo(() => {
   }, [handleUnmount]);
 
   return (
-    <Stack spacing="loose" textAlign="center">
-      <AppIcon mt="extra-loose" mb="loose" size="72px" />
-      <Stack spacing="base">
-        <Title fontSize={4}>Choose an account</Title>
-        <Text textStyle="caption">to connect to {appName}</Text>
+    <>
+      <Stack spacing="loose" textAlign="center">
+        <AppIcon mt="extra-loose" mb="loose" size="72px" />
+        <Stack spacing="base">
+          <Title fontSize={4}>Choose an account</Title>
+          <Text textStyle="caption">to connect to {appName}</Text>
+        </Stack>
       </Stack>
-      <Accounts mt="base" />
-    </Stack>
+      <Accounts />
+    </>
   );
 });

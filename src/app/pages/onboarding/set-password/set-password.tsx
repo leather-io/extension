@@ -19,16 +19,13 @@ import { ErrorLabel } from '@app/components/error-label';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Body, Caption, Title } from '@app/components/typography';
 import { Header } from '@app/components/header';
-import {
-  fullPageContent,
-  fullPageText,
-  fullPageTitle,
-  popupPageTitle,
-} from '@app/pages/pages.styles';
+import { fullPageText, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
 import { HUMAN_REACTION_DEBOUNCE_TIME } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 export const SetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
@@ -111,77 +108,79 @@ export const SetPasswordPage = () => {
   });
 
   return (
-    <Formik
-      initialValues={{ password: '', confirmPassword: '' }}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-      validateOnBlur={false}
-      validateOnChange={false}
-      validateOnMount={false}
-    >
-      {formik => (
-        <Form>
-          <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose">
-            <Title
-              className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-              fontWeight={500}
-            >
-              Set a password
-            </Title>
-            <Body className={isFullPage ? fullPageText : undefined}>
-              Your password protects your Secret Key and is for this device only. To access your
-              Stacks account on another device or wallet you’ll need just your Secret Key.
-              {formik.submitCount && !strengthResult.meetsAllStrengthRequirements ? (
-                <Caption fontSize={0} mt="base-loose">
-                  Please use a stronger password. Longer than 12 characters, with symbols, numbers,
-                  and words.
-                </Caption>
-              ) : null}
-            </Body>
-            <Stack spacing="base">
-              <Input
-                autoFocus
-                data-testid={OnboardingSelectors.NewPasswordInput}
-                height="64px"
-                key="password-input"
-                name="password"
-                onChange={formik.handleChange}
-                placeholder="Set a password"
-                type="password"
-                value={formik.values.password}
-              />
-              {formik.submitCount && formik.errors.password ? (
-                <ErrorLabel>
-                  <Text textStyle="caption">{formik.errors.password}</Text>
-                </ErrorLabel>
-              ) : null}
-              <Input
-                data-testid={OnboardingSelectors.ConfirmPasswordInput}
-                height="64px"
-                key="confirm-password-input"
-                name="confirmPassword"
-                onChange={formik.handleChange}
-                placeholder="Confirm password"
-                type="password"
-                value={formik.values.confirmPassword}
-                width="100%"
-              />
-              {formik.submitCount && formik.errors.confirmPassword ? (
-                <ErrorLabel>
-                  <Text textStyle="caption">{formik.errors.confirmPassword}</Text>
-                </ErrorLabel>
-              ) : null}
+    <CenteredPageContainer>
+      <Formik
+        initialValues={{ password: '', confirmPassword: '' }}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+        validateOnBlur={false}
+        validateOnChange={false}
+        validateOnMount={false}
+      >
+        {formik => (
+          <Form>
+            <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
+              <Title
+                className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+                fontWeight={500}
+              >
+                Set a password
+              </Title>
+              <Body className={isFullPage ? fullPageText : undefined}>
+                Your password protects your Secret Key and is for this device only. To access your
+                Stacks account on another device or wallet you’ll need just your Secret Key.
+                {formik.submitCount && !strengthResult.meetsAllStrengthRequirements ? (
+                  <Caption fontSize={0} mt="base-loose">
+                    Please use a stronger password. Longer than 12 characters, with symbols,
+                    numbers, and words.
+                  </Caption>
+                ) : null}
+              </Body>
+              <Stack spacing="base">
+                <Input
+                  autoFocus
+                  data-testid={OnboardingSelectors.NewPasswordInput}
+                  height="64px"
+                  key="password-input"
+                  name="password"
+                  onChange={formik.handleChange}
+                  placeholder="Set a password"
+                  type="password"
+                  value={formik.values.password}
+                />
+                {formik.submitCount && formik.errors.password ? (
+                  <ErrorLabel>
+                    <Text textStyle="caption">{formik.errors.password}</Text>
+                  </ErrorLabel>
+                ) : null}
+                <Input
+                  data-testid={OnboardingSelectors.ConfirmPasswordInput}
+                  height="64px"
+                  key="confirm-password-input"
+                  name="confirmPassword"
+                  onChange={formik.handleChange}
+                  placeholder="Confirm password"
+                  type="password"
+                  value={formik.values.confirmPassword}
+                  width="100%"
+                />
+                {formik.submitCount && formik.errors.confirmPassword ? (
+                  <ErrorLabel>
+                    <Text textStyle="caption">{formik.errors.confirmPassword}</Text>
+                  </ErrorLabel>
+                ) : null}
+              </Stack>
+              <PrimaryButton
+                data-testid={OnboardingSelectors.SetPasswordBtn}
+                isDisabled={loading}
+                isLoading={loading || formik.isSubmitting}
+              >
+                Done
+              </PrimaryButton>
             </Stack>
-            <PrimaryButton
-              data-testid={OnboardingSelectors.SetPasswordBtn}
-              isDisabled={loading}
-              isLoading={loading || formik.isSubmitting}
-            >
-              Done
-            </PrimaryButton>
-          </Stack>
-        </Form>
-      )}
-    </Formik>
+          </Form>
+        )}
+      </Formik>
+    </CenteredPageContainer>
   );
 };
