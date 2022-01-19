@@ -9,6 +9,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { buildEnterKeyEvent } from '@app/components/link';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Title } from '@app/components/typography';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
@@ -17,8 +18,9 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { isFullPage, isPopup } from '@app/common/utils';
 import { Caption } from '@app/components/typography';
 import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
-import { fullPageContent, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
+import { fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 const waitingMessages: WaitingMessages = {
@@ -75,45 +77,47 @@ export function Unlock(): JSX.Element {
   ]);
 
   return (
-    <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose" width="100%">
-      <Title
-        className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-        fontWeight={500}
-      >
-        Unlock
-      </Title>
-      <Caption textAlign={isFullPage ? 'center' : 'left'}>
-        {waitingMessage || 'Enter the password you used on this device.'}
-      </Caption>
-      <Input
-        autoFocus
-        borderRadius="10px"
-        data-testid={SettingsSelectors.EnterPasswordInput}
-        height="64px"
-        isDisabled={loading}
-        onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
-        onKeyUp={buildEnterKeyEvent(submit)}
-        placeholder="Enter your password"
-        type="password"
-        value={password}
-        width="100%"
-      />
-      {error && (
-        <Box>
-          <ErrorLabel>
-            <Text textStyle="caption">{error}</Text>
-          </ErrorLabel>
-        </Box>
-      )}
-      <PrimaryButton
-        data-testid={SettingsSelectors.UnlockWalletBtn}
-        isDisabled={loading}
-        isLoading={loading}
-        onClick={submit}
-      >
-        Unlock
-      </PrimaryButton>
-      {showSignOut && <SignOutConfirmDrawer />}
-    </Stack>
+    <CenteredPageContainer>
+      <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose" width="100%">
+        <Title
+          className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
+          fontWeight={500}
+        >
+          Unlock
+        </Title>
+        <Caption textAlign={isFullPage ? 'center' : 'left'}>
+          {waitingMessage || 'Enter the password you used on this device.'}
+        </Caption>
+        <Input
+          autoFocus
+          borderRadius="10px"
+          data-testid={SettingsSelectors.EnterPasswordInput}
+          height="64px"
+          isDisabled={loading}
+          onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+          onKeyUp={buildEnterKeyEvent(submit)}
+          placeholder="Enter your password"
+          type="password"
+          value={password}
+          width="100%"
+        />
+        {error && (
+          <Box>
+            <ErrorLabel>
+              <Text textStyle="caption">{error}</Text>
+            </ErrorLabel>
+          </Box>
+        )}
+        <PrimaryButton
+          data-testid={SettingsSelectors.UnlockWalletBtn}
+          isDisabled={loading}
+          isLoading={loading}
+          onClick={submit}
+        >
+          Unlock
+        </PrimaryButton>
+        {showSignOut && <SignOutConfirmDrawer />}
+      </Stack>
+    </CenteredPageContainer>
   );
 }
