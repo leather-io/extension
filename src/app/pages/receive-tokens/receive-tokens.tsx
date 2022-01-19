@@ -6,14 +6,14 @@ import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { PrimaryButton } from '@app/components/primary-button';
-import { isFullPage } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { Toast } from '@app/components/toast';
 import { Caption, Title } from '@app/components/typography';
 import { Tooltip } from '@app/components/tooltip';
-import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 import { QrCode } from './components/address-qr-code';
 
@@ -32,30 +32,28 @@ export const ReceiveTokens = () => {
   };
 
   return (
-    <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose" textAlign="center">
-      <Text
-        textStyle="body.small"
-        color={color('text-caption')}
-        textAlign={['left', 'left', 'center']}
-      >
-        Share your unique address to receive any token or collectible. Including a memo is not
-        required.
-      </Text>
-      <Toast show={hasCopied} />
-      <Box mx="auto">
-        <QrCode principal={address} />
-      </Box>
-      {currentAccount && (
-        <Title fontSize={3} lineHeight="1rem">
-          {getAccountDisplayName(currentAccount)}
-        </Title>
-      )}
-      <Box>
-        <Tooltip interactive placement="bottom" label={address}>
-          <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
-        </Tooltip>
-      </Box>
-      <PrimaryButton onClick={copyToClipboard}>Copy your address</PrimaryButton>
-    </Stack>
+    <CenteredPageContainer>
+      <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose" textAlign="center">
+        <Text textStyle="body.small" color={color('text-caption')}>
+          Share your unique address to receive any token or collectible. Including a memo is not
+          required.
+        </Text>
+        <Toast show={hasCopied} />
+        <Box mx="auto">
+          <QrCode principal={address} />
+        </Box>
+        {currentAccount && (
+          <Title fontSize={3} lineHeight="1rem">
+            {getAccountDisplayName(currentAccount)}
+          </Title>
+        )}
+        <Box>
+          <Tooltip interactive placement="bottom" label={address}>
+            <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
+          </Tooltip>
+        </Box>
+        <PrimaryButton onClick={copyToClipboard}>Copy your address</PrimaryButton>
+      </Stack>
+    </CenteredPageContainer>
   );
 };

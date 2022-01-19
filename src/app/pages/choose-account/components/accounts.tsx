@@ -1,8 +1,9 @@
-import { useCallback, Suspense, memo } from 'react';
+import { useCallback, Suspense, memo, useState, useMemo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
-import { Caption, Text, Title } from '@app/components/typography';
+import { Virtuoso } from 'react-virtuoso';
 
+import { Caption, Text, Title } from '@app/components/typography';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { truncateMiddle } from '@stacks/ui-utils';
@@ -14,7 +15,6 @@ import { SpaceBetween } from '@app/components/space-between';
 
 import { usePressable } from '@app/components/item-hover';
 
-import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceCaption } from '@app/components/account-balance-caption';
 import { slugify } from '@app/common/utils';
 import { useAccounts } from '@app/store/accounts/account.hooks';
@@ -24,11 +24,6 @@ import { useAddressAvailableStxBalance } from '@app/query/balance/balance.hooks'
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
-
-interface AccountItemProps extends FlexProps {
-  selectedAddress?: string | null;
-  account: AccountWithAddress;
-}
 
 const AccountTitlePlaceholder = ({
   account,
@@ -51,56 +46,62 @@ const AccountTitle = ({ account, ...rest }: { account: AccountWithAddress } & Bo
   );
 };
 
-const AccountItem = ({ selectedAddress, account, ...rest }: AccountItemProps) => {
+interface AccountItemProps extends FlexProps {
+  selectedAddress?: string | null;
+  isLoading: boolean;
+  account: AccountWithAddress;
+  onSelectAccount(index: number): void;
+}
+
+const AccountItem = memo((props: AccountItemProps) => {
+  const { selectedAddress, account, isLoading, onSelectAccount, ...rest } = props;
   const [component, bind] = usePressable(true);
-  const { isLoading, setIsLoading } = useLoading(`CHOOSE_ACCOUNT__${account.address}`);
-  const { finishSignIn } = useWallet();
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
   const availableStxBalance = useAddressAvailableStxBalance(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
-  const handleOnClick = useCallback(async () => {
-    setIsLoading();
-    await finishSignIn(account.index);
-  }, [setIsLoading, finishSignIn, account]);
-
-  const accountSlug = slugify(`Account ${account?.index + 1}`);
+  const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
   return (
     <Box
+      height="68px"
       data-testid={`account-${accountSlug}-${account.index}`}
-      onClick={() => handleOnClick()}
-      {...bind}
+      onClick={() => onSelectAccount(account.index)}
       {...rest}
     >
-      <Stack spacing="base" isInline>
-        <AccountAvatarWithName name={name} flexGrow={0} account={account} />
-        <SpaceBetween width="100%" alignItems="center">
-          <Stack textAlign="left" spacing="base-tight">
-            <Suspense
-              fallback={
-                <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
-              }
-            >
-              <AccountTitle {...getLoadingProps(showLoadingProps)} account={account} />
-            </Suspense>
-            <Stack alignItems="center" spacing="6px" isInline>
-              <Caption fontSize={0} {...getLoadingProps(showLoadingProps)}>
-                {truncateMiddle(account.address, 4)}
-              </Caption>
-              <Suspense fallback={<></>}>
-                <AccountBalanceCaption availableBalance={availableStxBalance} />
+      <Box {...bind}>
+        <Stack spacing="base" alignSelf="center" isInline>
+          <AccountAvatarWithName name={name} flexGrow={0} account={account} />
+          <SpaceBetween width="100%" alignItems="center">
+            <Stack textAlign="left" spacing="base-tight">
+              <Suspense
+                fallback={
+                  <AccountTitlePlaceholder
+                    {...getLoadingProps(showLoadingProps)}
+                    account={account}
+                  />
+                }
+              >
+                <AccountTitle {...getLoadingProps(showLoadingProps)} account={account} />
               </Suspense>
+              <Stack alignItems="center" spacing="6px" isInline>
+                <Caption fontSize={0} {...getLoadingProps(showLoadingProps)}>
+                  {truncateMiddle(account.address, 4)}
+                </Caption>
+                <Suspense fallback={<></>}>
+                  <AccountBalanceCaption availableBalance={availableStxBalance} />
+                </Suspense>
+              </Stack>
             </Stack>
-          </Stack>
-          {isLoading && <Spinner width={4} height={4} {...loadingProps} />}
-        </SpaceBetween>
-      </Stack>
-      {component}
+            {isLoading && <Spinner width={4} height={4} {...loadingProps} />}
+          </SpaceBetween>
+        </Stack>
+        {component}
+      </Box>
     </Box>
   );
-};
+});
 
 const AddAccountAction = memo(() => {
   const setAccounts = useUpdateShowAccounts();
@@ -109,6 +110,7 @@ const AddAccountAction = memo(() => {
 
   return (
     <Box
+      mt="loose"
       px="base-tight"
       py="tight"
       onClick={() => {
@@ -126,27 +128,40 @@ const AddAccountAction = memo(() => {
   );
 });
 
-interface AccountsProps extends FlexProps {
-  accountIndex?: number;
-  showAddAccount?: boolean;
-  next?: (accountIndex: number) => void;
-}
-
-export const Accounts = memo(({ showAddAccount, accountIndex, next, ...rest }: AccountsProps) => {
-  const { wallet } = useWallet();
+export const Accounts = memo(() => {
+  const { wallet, finishSignIn } = useWallet();
   const accounts = useAccounts();
   const { decodedAuthRequest } = useOnboardingState();
+  const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
+
+  const signIntoAccount = useCallback(
+    async (index: number) => {
+      setSelectedAccount(index);
+      await finishSignIn(index);
+    },
+    [finishSignIn]
+  );
 
   if (!wallet || !accounts || !decodedAuthRequest) return null;
 
   return (
     <>
-      <Stack spacing="loose" {...rest}>
-        {accounts.map(account => (
-          <AccountItem key={account.address} account={account} />
-        ))}
-        <AddAccountAction />
-      </Stack>
+      <AddAccountAction />
+      <Box mt="base">
+        <Virtuoso
+          useWindowScroll
+          data={accounts}
+          style={{ height: '68px' }}
+          itemContent={(index, account) => (
+            <AccountItem
+              key={index}
+              account={account}
+              isLoading={selectedAccount === index}
+              onSelectAccount={index => signIntoAccount(index)}
+            />
+          )}
+        />
+      </Box>
     </>
   );
 });

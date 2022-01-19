@@ -1,15 +1,21 @@
 import { css } from '@emotion/react';
 
-export const extensionStyles = css`
+const maxWidth = '392px';
+const maxHeight = '600px';
+
+export const popupStyles = css`
   .mode__popup {
     &,
+    html,
     body {
-      min-height: 600px !important;
-      min-width: 392px !important;
-      overflow-x: hidden;
-      main.main-content {
-        flex-grow: 1;
-        max-width: 392px;
+      min-width: ${maxWidth};
+      max-width: ${maxWidth};
+      min-height: ${maxHeight};
+      max-height: ${maxHeight};
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
   }

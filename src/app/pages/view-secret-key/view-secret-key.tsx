@@ -5,10 +5,10 @@ import { Stack, useClipboard } from '@stacks/ui';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { isFullPage } from '@app/common/utils';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { Header } from '@app/components/header';
-import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 import { ViewSecretKeyActions } from './components/view-secret-key-actions';
 import { ViewSecretKeyMessage } from './components/view-secret-key-message';
@@ -38,14 +38,16 @@ export const ViewSecretKey = memo(() => {
   };
 
   return (
-    <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose">
-      <ViewSecretKeyMessage wordCount={wordCount} />
-      <ViewSecretKeyCard secretKey={secretKey} />
-      <ViewSecretKeyActions
-        hasCopied={hasCopied}
-        onClick={handleOnClick}
-        onCopyToClipboard={copyToClipboard}
-      />
-    </Stack>
+    <CenteredPageContainer>
+      <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
+        <ViewSecretKeyMessage wordCount={wordCount} />
+        <ViewSecretKeyCard secretKey={secretKey} />
+        <ViewSecretKeyActions
+          hasCopied={hasCopied}
+          onClick={handleOnClick}
+          onCopyToClipboard={copyToClipboard}
+        />
+      </Stack>
+    </CenteredPageContainer>
   );
 });

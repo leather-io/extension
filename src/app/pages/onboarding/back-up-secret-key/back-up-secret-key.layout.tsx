@@ -4,6 +4,7 @@ import { Box, color, Flex, Stack } from '@stacks/ui';
 import { Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { isFullPage, isPopup } from '@app/common/utils';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
 import KeyIllustrationFull from '@assets/images/onboarding/key-illustration-full.svg';
 import KeyIllustrationPopup from '@assets/images/onboarding/key-illustration-popup.svg';
 import SecretKey from '@assets/images/onboarding/secret-key.svg';
@@ -33,58 +34,69 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
   useRouteHeader(<Header hideActions />);
 
   return (
-    <Stack isInline={isFullPage} width="100%">
-      <Flex
-        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
-        flexGrow={1}
-        justifyContent="center"
-      >
-        <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
-          <img src={SecretKey} width="135px" />
-          <Title
-            className={cx({ [fullPageOnboardingTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-            fontWeight={500}
-            pr={isPopup ? '72px' : 'unset'}
-          >
-            Back up your Secret Key
-          </Title>
-          <Text>
-            Here’s your Secret Key: 24 words that generated your Stacks account. You’ll need it to
-            access your account on a new device, in a different wallet, or in case you lose your
-            password — so back it up somewhere safe.
-          </Text>
-          {isFullPage && <BackUpSecretKeyActions onBackedUpSecretKey={onBackedUpSecretKey} />}
-        </Stack>
-      </Flex>
-      <Flex
-        className={cx({ [fullPageOnboardingContent]: isFullPage }, { [popupPageContent]: isPopup })}
-        flexGrow={1}
-        justifyContent="center"
-      >
-        <Box
-          border="1px solid"
-          borderColor={color('border')}
-          borderRadius="16px"
-          height="484px"
-          width="432px"
+    <CenteredPageContainer>
+      <Stack isInline={isFullPage} pb="loose" width="100%">
+        <Flex
+          className={cx(
+            { [fullPageOnboardingContent]: isFullPage },
+            { [popupPageContent]: isPopup }
+          )}
+          flexGrow={1}
+          justifyContent="center"
         >
-          <Stack alignItems="center" pt="80px" spacing="loose">
-            <KeyIllustration />
-            <Title fontSize="20px">Your Secret Key</Title>
-            <Text px="loose" textAlign="center">
-              {secretKey}
+          <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
+            <img src={SecretKey} width="135px" />
+            <Title
+              className={cx(
+                { [fullPageOnboardingTitle]: isFullPage },
+                { [popupPageTitle]: isPopup }
+              )}
+              fontWeight={500}
+              pr={isPopup ? '72px' : 'unset'}
+            >
+              Back up your Secret Key
+            </Title>
+            <Text>
+              Here’s your Secret Key: 24 words that generated your Stacks account. You’ll need it to
+              access your account on a new device, in a different wallet, or in case you lose your
+              password — so back it up somewhere safe.
             </Text>
-            <Link fontSize="14px" onClick={!hasCopied ? onCopyToClipboard : undefined}>
-              {!hasCopied ? 'Copy to clipboard' : 'Copied!'}
-            </Link>
+            {isFullPage && <BackUpSecretKeyActions onBackedUpSecretKey={onBackedUpSecretKey} />}
           </Stack>
-        </Box>
-      </Flex>
-      {isPopup && (
-        <Stack mt="loose" spacing="loose">
-          <BackUpSecretKeyActions onBackedUpSecretKey={onBackedUpSecretKey} />
-        </Stack>
-      )}
-    </Stack>
+        </Flex>
+        <Flex
+          className={cx(
+            { [fullPageOnboardingContent]: isFullPage },
+            { [popupPageContent]: isPopup }
+          )}
+          flexGrow={1}
+          justifyContent="center"
+        >
+          <Box
+            border="1px solid"
+            borderColor={color('border')}
+            borderRadius="16px"
+            height="484px"
+            width="432px"
+          >
+            <Stack alignItems="center" pt="80px" spacing="loose">
+              <KeyIllustration />
+              <Title fontSize="20px">Your Secret Key</Title>
+              <Text px="loose" textAlign="center">
+                {secretKey}
+              </Text>
+              <Link fontSize="14px" onClick={!hasCopied ? onCopyToClipboard : undefined}>
+                {!hasCopied ? 'Copy to clipboard' : 'Copied!'}
+              </Link>
+            </Stack>
+          </Box>
+        </Flex>
+        {isPopup && (
+          <Stack mt="loose" spacing="loose">
+            <BackUpSecretKeyActions onBackedUpSecretKey={onBackedUpSecretKey} />
+          </Stack>
+        )}
+      </Stack>
+    </CenteredPageContainer>
   );
 }
