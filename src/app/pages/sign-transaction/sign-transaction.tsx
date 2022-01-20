@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Stack } from '@stacks/ui';
@@ -30,6 +30,8 @@ import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
 import { UnauthorizedErrorMessage } from './components/transaction-error/error-messages';
 import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Estimations } from '@shared/models/fees-types';
 
 function SignTransactionBase(): JSX.Element | null {
   useNextTxNonce();
@@ -41,10 +43,15 @@ function SignTransactionBase(): JSX.Element | null {
   const [, setTxData] = useLocalTransactionInputsState();
   const { isSponsored } = useUnsignedTransactionFee();
   const feeSchema = useFeeSchema();
+  const analytics = useAnalytics();
 
   const validationSchema = !isSponsored ? yup.object({ fee: feeSchema() }) : null;
 
   useRouteHeader(<PopupHeader />);
+
+  useEffect(() => {
+    void analytics.track('view_transaction_signing');
+  }, [analytics]);
 
   const onSubmit = useCallback(
     async values => {
@@ -61,12 +68,17 @@ function SignTransactionBase(): JSX.Element | null {
       await handleBroadcastTransaction();
       setIsIdle();
       setFeeEstimations([]);
+      void analytics.track('submit_fee_for_transaction', {
+        type: values.feeType,
+        fee: values.fee,
+      });
       return () => {
         setBroadcastError(null);
         setTxData(null);
       };
     },
     [
+      analytics,
       handleBroadcastTransaction,
       setBroadcastError,
       setFeeEstimations,
@@ -91,7 +103,7 @@ function SignTransactionBase(): JSX.Element | null {
       {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
       {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
       <Formik
-        initialValues={{ fee: '' }}
+        initialValues={{ fee: '', feeType: Estimations[Estimations.Middle] }}
         onSubmit={onSubmit}
         validateOnChange={false}
         validateOnBlur={false}
