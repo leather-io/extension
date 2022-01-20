@@ -1,3 +1,10 @@
+# [2.25.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v2.25.0-beta.1...v2.25.0-beta.2) (2022-01-20)
+
+
+### Bug Fixes
+
+* submitted transactions not appearing ([e1e902d](https://github.com/hirosystems/stacks-wallet-web/commit/e1e902daa4c6cc836fc6ab80045f3b7ed0a62243))
+
 # [2.25.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.1...v2.25.0-beta.1) (2022-01-18)
 
 
