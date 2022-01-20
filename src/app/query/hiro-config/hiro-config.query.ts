@@ -10,7 +10,7 @@ export interface HiroMessage {
   learnMoreUrl?: string;
 }
 
-export interface ActiveFiatProviderType {
+interface ActiveFiatProviderType {
   name: string;
   enabled: boolean;
 }
@@ -20,7 +20,7 @@ interface HiroConfig {
   activeFiatProviders: Record<string, ActiveFiatProviderType>;
 }
 
-const GITHUB_PRIMARY_BRANCH = 'main';
+const GITHUB_PRIMARY_BRANCH = 'dev';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
