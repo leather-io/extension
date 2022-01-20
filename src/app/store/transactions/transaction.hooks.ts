@@ -107,7 +107,7 @@ export function useTransactionBroadcast() {
             network: currentNetworkState,
             unsignedStacksTransaction: unsignedStacksTransactionState,
           }),
-          true
+          { unstable_promise: true }
         );
 
         if (!account || !requestToken || !unsignedStacksTransaction) {

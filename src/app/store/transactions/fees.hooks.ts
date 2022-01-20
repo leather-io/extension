@@ -24,7 +24,7 @@ export const useReplaceByFeeSubmitCallBack = () => {
   return useAtomCallback<void, { fee: number; nonce: number }>(
     useCallback(
       async get => {
-        const unsignedTx = await get(rawDeserializedTxState, true);
+        const unsignedTx = await get(rawDeserializedTxState, { unstable_promise: true });
         if (!unsignedTx) return;
         const signedTx = signTx(unsignedTx);
         if (!signedTx) return;

@@ -1,17 +1,12 @@
 import { atom } from 'jotai';
-import {
-  Wallet,
-  WalletConfig,
-  fetchWalletConfig,
-  createWalletGaiaConfig,
-} from '@stacks/wallet-sdk';
+import { Wallet, fetchWalletConfig, createWalletGaiaConfig } from '@stacks/wallet-sdk';
 import { gaiaUrl } from '@shared/constants';
 
 export const secretKeyState = atom<Uint8Array | undefined>(undefined);
 export const hasSetPasswordState = atom<boolean>(false);
 export const walletState = atom<Wallet | undefined>(undefined);
 export const encryptedSecretKeyState = atom<string | undefined>(undefined);
-export const walletConfigState = atom<WalletConfig | null>(async get => {
+export const walletConfigState = atom(async get => {
   const wallet = get(walletState);
   if (!wallet) return null;
 

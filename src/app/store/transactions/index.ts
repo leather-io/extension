@@ -72,7 +72,7 @@ export const unsignedStacksTransactionBaseState = atom(get => {
 export const unsignedStacksTransactionState = atom(get => {
   const { transaction, options } = get(unsignedStacksTransactionBaseState);
   if (!transaction) return;
-  return generateUnsignedTransaction({ ...options });
+  return generateUnsignedTransaction({ ...options } as any);
 });
 
 export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {

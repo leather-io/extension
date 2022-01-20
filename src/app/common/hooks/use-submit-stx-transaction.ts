@@ -63,12 +63,12 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
         const nonce = !replaceByFee && Number(transaction.auth.spendingCondition?.nonce);
         try {
           const response = await broadcastTransaction(transaction, stacksNetwork);
-          if (typeof response !== 'string') {
+          if (response.error) {
             if (response.reason) toast.error(getErrorMessage(response.reason));
             onClose();
             setIsIdle();
           } else {
-            const txid = `0x${response}`;
+            const txid = `0x${response.txid}`;
             if (!externalTxid.includes(txid)) {
               await setLocalTxs({
                 rawTx: transaction.serialize().toString('hex'),
