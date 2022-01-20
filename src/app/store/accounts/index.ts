@@ -112,7 +112,7 @@ export const currentAccountStxAddressState = atom<string | undefined>(
   get => get(currentAccountState)?.address
 );
 
-const accountAvailableAnchoredStxBalanceState = atomFamily<string, BigNumber | undefined>(
+const accountAvailableAnchoredStxBalanceState = atomFamily(
   principal =>
     atom(get => {
       const networkUrl = get(currentNetworkState).url;

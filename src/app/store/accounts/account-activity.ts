@@ -18,7 +18,7 @@ type LocalTx = Record<
     timestamp: string;
   }
 >;
-const currentAccountLocallySubmittedTxsRootState = atomFamily<[string, string], LocalTx, LocalTx>(
+const currentAccountLocallySubmittedTxsRootState = atomFamily(
   ([_address, _network]) =>
     atomWithStorage<LocalTx>(makeLocalDataKey([_address, _network, 'LOCAL_TXS']), {}),
   deepEqual

@@ -12,7 +12,7 @@ import { currentNetworkState } from '@app/store/network/networks';
 import { makeLocalDataKey } from '@app/common/store-utils';
 import { currentAccountLocallySubmittedLatestNonceState } from '@app/store/accounts/account-activity';
 
-export const localNonceState = atomFamily<[principal: string, networkUrl: string], number, number>(
+export const localNonceState = atomFamily(
   params => atomWithStorage(makeLocalDataKey(['LOCAL_NONCE_STATE', params]), 0),
   deepEqual
 );

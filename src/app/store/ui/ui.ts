@@ -3,7 +3,7 @@ import { atom } from 'jotai';
 import { makeLocalDataKey } from '@app/common/store-utils';
 import { AccountStep } from './ui.models';
 
-export const tabState = atomFamily<string, number, number>(param => {
+export const tabState = atomFamily(param => {
   const anAtom = atomWithStorage<number>(makeLocalDataKey(['HOME_TABS', param]), 0);
   anAtom.debugLabel = `TABS__${param}`;
   return anAtom;
@@ -11,7 +11,7 @@ export const tabState = atomFamily<string, number, number>(param => {
 
 type LoadingState = 'idle' | 'loading';
 
-export const loadingState = atomFamily<string, LoadingState, LoadingState>(_param => {
+export const loadingState = atomFamily(_param => {
   const anAtom = atom<LoadingState>('idle');
   anAtom.debugLabel = `loading-atom/${_param}`;
   return anAtom;

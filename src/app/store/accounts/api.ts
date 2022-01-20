@@ -2,11 +2,7 @@ import { atomFamilyWithInfiniteQuery, atomFamilyWithQuery } from 'jotai-query-to
 import { QueryRefreshRates } from '@shared/constants';
 import { apiClientAnchoredState, apiClientState } from '@app/store/common/api-clients';
 
-import type {
-  AccountBalanceResponseBigNumber,
-  AddressBalanceResponse,
-  AccountBalanceStxKeys,
-} from '@shared/models/account-types';
+import type { AddressBalanceResponse, AccountBalanceStxKeys } from '@shared/models/account-types';
 
 import BigNumber from 'bignumber.js';
 import { atomFamily } from 'jotai/utils';
@@ -68,10 +64,7 @@ const accountBalancesAnchoredClient = atomFamilyWithQuery<
   }
 );
 
-export const accountBalancesAnchoredBigNumber = atomFamily<
-  PrincipalWithNetworkUrl,
-  AccountBalanceResponseBigNumber
->(
+export const accountBalancesAnchoredBigNumber = atomFamily(
   ({ principal, networkUrl }) =>
     atom(get => {
       const balances = get(accountBalancesAnchoredClient({ principal, networkUrl }));
