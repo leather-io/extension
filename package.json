@@ -250,6 +250,7 @@
     "hosted-git-info": "4.0.2",
     "immer": "9.0.6",
     "mixme": "0.5.2",
+    "node-fetch": "2.6.7",
     "normalize-url": "4.5.1",
     "trim-newlines": "3.0.1",
     "schema-inspector": "2.0.1",
