@@ -58,7 +58,6 @@ export function SendFormInner(props: SendFormInnerProps) {
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
   useNextTxNonce();
-
   useEffect(() => {
     if (!values.fee && feeEstimationsResp) {
       if (
@@ -126,7 +125,9 @@ export function SendFormInner(props: SendFormInnerProps) {
         <RecipientField error={errors.recipient} value={values.recipient} />
         {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
         {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
-        {feeEstimationsResp && <FeeRow fieldName="fee" isSponsored={isSponsored} />}
+        {feeEstimationsResp && (
+          <FeeRow feeFieldName="fee" feeTypeFieldName="feeType" isSponsored={isSponsored} />
+        )}
         <Box mt="auto">
           {assetError && (
             <ErrorLabel mb="base">

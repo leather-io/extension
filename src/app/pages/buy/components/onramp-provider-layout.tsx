@@ -3,6 +3,7 @@ import { Stack } from '@stacks/ui';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Caption, Title } from '@app/components/typography';
 import { PrimaryButton } from '@app/components/primary-button';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
 const providersInfo = {
   transak: {
@@ -29,13 +30,18 @@ interface OnrampProviderLayoutProps {
 
 export const OnrampProviderLayout = ({ provider, providerUrl }: OnrampProviderLayoutProps) => {
   const { title, cta, body } = providersInfo[provider as keyof ProvidersUrl];
+  const analytics = useAnalytics();
+  const goToProviderWebsite = () => {
+    void analytics.track('select_buy_option', { provider });
+    openInNewTab(providerUrl);
+  };
   return (
     <Stack overflow="hidden" alignItems="flex-start" spacing="base" mt={5} className="buy-box">
       <Stack spacing="base-tight">
         <Title marginBottom="10">{title}</Title>
         <Caption>{body}</Caption>
       </Stack>
-      <PrimaryButton onClick={() => openInNewTab(providerUrl)}>{cta}</PrimaryButton>
+      <PrimaryButton onClick={goToProviderWebsite}>{cta}</PrimaryButton>
     </Stack>
   );
 };

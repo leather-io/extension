@@ -66,7 +66,7 @@ export function FeeForm(): JSX.Element | null {
   return (
     <>
       {feeEstimationsResp ? (
-        <FeeRow fieldName="fee" isSponsored={isSponsored} />
+        <FeeRow feeFieldName="fee" feeTypeFieldName="feeType" isSponsored={isSponsored} />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}

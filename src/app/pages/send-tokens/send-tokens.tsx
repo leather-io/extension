@@ -24,6 +24,8 @@ import {
 import { SendTokensConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Estimations } from '@shared/models/fees-types';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -35,9 +37,10 @@ function SendTokensFormBase() {
   const sendFormSchema = useSendFormValidation({ setAssetError });
   const [_txData, setTxData] = useLocalTransactionInputsState();
   const resetNonceCallback = useResetNonceCallback();
-  const [, setFeeEstimations] = useFeeEstimationsState();
+  const [_, setFeeEstimations] = useFeeEstimationsState();
   const transaction = useSendFormUnsignedTxState();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+  const analytics = useAnalytics();
 
   useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
 
@@ -83,16 +86,17 @@ function SendTokensFormBase() {
     transaction,
   ]);
 
-  const initalValues = {
+  const initialValues = {
     amount: '',
     recipient: '',
     fee: '',
     memo: '',
+    feeType: Estimations[Estimations.Middle],
   };
 
   return (
     <Formik
-      initialValues={initalValues}
+      initialValues={initialValues}
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
@@ -109,7 +113,7 @@ function SendTokensFormBase() {
         }
       }}
     >
-      {() => (
+      {props => (
         <>
           <Suspense fallback={<></>}>
             <SendFormInner assetError={assetError} />
@@ -119,6 +123,10 @@ function SendTokensFormBase() {
             onClose={() => handleConfirmDrawerOnClose()}
             onUserSelectBroadcastTransaction={async () => {
               await broadcastTransactionAction();
+              void analytics.track('submit_fee_for_transaction', {
+                type: props.values.feeType,
+                fee: props.values.fee,
+              });
             }}
           />
           <HighFeeDrawer />

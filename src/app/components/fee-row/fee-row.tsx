@@ -26,12 +26,15 @@ const feesInfo =
 const url = 'https://hiro.so/questions/fee-estimates';
 
 interface FeeRowProps {
-  fieldName: string;
+  feeFieldName: string;
+  feeTypeFieldName: string;
   isSponsored: boolean;
 }
 export function FeeRow(props: FeeRowProps): JSX.Element {
-  const { fieldName, isSponsored } = props;
-  const [input, meta, helpers] = useField(fieldName);
+  const { feeFieldName, isSponsored, feeTypeFieldName } = props;
+
+  const [feeInput, feeMeta, feeHelper] = useField(feeFieldName);
+  const [, , feeTypeHelper] = useField(feeTypeFieldName);
   const [fieldWarning, setFieldWarning] = useState<string | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(false);
   const [feeEstimations] = useFeeEstimationsState();
@@ -39,25 +42,28 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [isCustom, setIsCustom] = useState(false);
 
   useEffect(() => {
-    if (!input.value && !isCustom && feeEstimations.length) {
-      helpers.setValue(microStxToStx(feeEstimations[1].fee).toNumber());
+    // Set it to the middle estimation on mount
+    if (!feeInput.value && !isCustom && feeEstimations.length) {
+      feeHelper.setValue(microStxToStx(feeEstimations[1].fee).toNumber());
+      feeTypeHelper.setValue(Estimations[Estimations.Middle]);
     }
     if (isSponsored) {
-      helpers.setValue(0);
+      feeHelper.setValue(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeEstimations, helpers, isCustom, isSponsored]);
+  }, [feeEstimations, feeHelper, isCustom]);
 
   // Handles using the fee estimations selector or custom input
   const handleSelectedItem = useCallback(
     (index: number) => {
       if (!feeEstimations) return;
       if (selected !== index) setSelected(index);
+      feeTypeHelper.setValue(Estimations[index]);
       if (index === Estimations.Custom) {
-        helpers.setValue('');
+        feeHelper.setValue('');
         setIsCustom(true);
       } else {
-        helpers.setValue(
+        feeHelper.setValue(
           stacksValue({
             fixedDecimals: true,
             value: feeEstimations[index].fee,
@@ -69,7 +75,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       }
       setIsOpen(false);
     },
-    [feeEstimations, helpers, selected]
+    [feeEstimations, feeTypeHelper, feeHelper, selected]
   );
 
   return (
@@ -103,26 +109,26 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
           ) : null}
         </Stack>
         {isCustom ? (
-          <CustomFeeField fieldName={fieldName} setFieldWarning={setFieldWarning} />
-        ) : !isSponsored && !input.value ? (
+          <CustomFeeField fieldName={feeFieldName} setFieldWarning={setFieldWarning} />
+        ) : !isSponsored && !feeInput.value ? (
           <LoadingRectangle width="50px" height="10px" />
         ) : (
           <Suspense fallback={<></>}>
             <Caption>
-              <TransactionFee fee={input.value} />
+              <TransactionFee fee={feeInput.value} />
             </Caption>
           </Suspense>
         )}
       </SpaceBetween>
-      {meta.error && (
+      {feeMeta.error && (
         <ErrorLabel data-testid={SendFormSelectors.InputCustomFeeFieldErrorLabel}>
           <Text lineHeight="18px" textStyle="caption">
-            {meta.error}
+            {feeMeta.error}
           </Text>
         </ErrorLabel>
       )}
       {isSponsored && <SponsoredLabel />}
-      {!meta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
+      {!feeMeta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
     </Stack>
   );
 }

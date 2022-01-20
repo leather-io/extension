@@ -12,7 +12,9 @@ import {
 } from '@app/store/transactions/transaction.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
+import { useEffect } from 'react';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
 interface SendTokensConfirmDrawerProps extends BaseDrawerProps {
   onUserSelectBroadcastTransaction(): void;
@@ -22,7 +24,13 @@ export function SendTokensConfirmDrawer(props: SendTokensConfirmDrawerProps) {
 
   const [txData] = useLocalTransactionInputsState();
   const transaction = useUnsignedTxForSettingsState();
+  const analytics = useAnalytics();
   const { showEditNonce } = useDrawers();
+
+  useEffect(() => {
+    if (!isShowing) return;
+    void analytics.track('view_transaction_signing');
+  }, [isShowing, analytics]);
 
   if (!isShowing || !transaction || !txData) return null;
 
