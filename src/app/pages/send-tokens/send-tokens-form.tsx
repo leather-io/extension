@@ -58,7 +58,14 @@ function SendTokensFormBase() {
       toast.error('Unable to broadcast transaction');
       return;
     }
+
     const signedTx = signSoftwareWalletTx(transaction);
+    if (!signedTx) {
+      logger.error('Cannot sign transaction, no account in state');
+      toast.error('Unable to broadcast transaction');
+      return;
+    }
+
     await broadcastTransactionFn({
       transaction: signedTx,
       onClose() {

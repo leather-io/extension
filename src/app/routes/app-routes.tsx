@@ -42,9 +42,13 @@ export function AppRoutes(): JSX.Element | null {
 
   useEffect(() => {
     const hasSetPassword = getHasSetPassword();
-    const pathToGuard = pathname === RouteUrls.Home || pathname === RouteUrls.Transaction;
+    const shouldRedirectToOnboarding =
+      pathname === RouteUrls.Home ||
+      (pathname === RouteUrls.ChooseAccount || pathname) === RouteUrls.Transaction;
+    const shouldRedirectToHome = pathname === RouteUrls.Onboarding;
     // This ensures the route is correct bc the vault is slow to set wallet state
-    if (pathToGuard && !hasSetPassword) navigate(RouteUrls.Onboarding);
+    if (shouldRedirectToOnboarding && !hasSetPassword) navigate(RouteUrls.Onboarding);
+    if (shouldRedirectToHome && hasSetPassword) navigate(RouteUrls.Home);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

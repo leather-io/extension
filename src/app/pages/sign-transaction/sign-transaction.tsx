@@ -28,6 +28,7 @@ import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
+import { UnauthorizedErrorMessage } from './components/transaction-error/error-messages';
 
 function SignTransactionBase(): JSX.Element | null {
   useNextTxNonce();
@@ -72,6 +73,9 @@ function SignTransactionBase(): JSX.Element | null {
   );
 
   if (!transactionRequest) return null;
+  // This renders when a user has not properly signed out of an app
+  // and attempts to perform a transaction
+  if (!handleBroadcastTransaction) return <UnauthorizedErrorMessage />;
 
   return (
     <Stack spacing="loose">
