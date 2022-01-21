@@ -1,9 +1,8 @@
 import { Suspense, useEffect } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
@@ -19,7 +18,6 @@ import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 
 export const Home = () => {
   const { decodedAuthRequest } = useOnboardingState();
-  const { hasGeneratedWallet, encryptedSecretKey } = useWallet();
   const navigate = useNavigate();
 
   const account = useCurrentAccount();
@@ -35,9 +33,6 @@ export const Home = () => {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Keeps locking in sync b/w view modes
-  if (!hasGeneratedWallet && encryptedSecretKey) return <Navigate to={RouteUrls.Unlock} />;
 
   return (
     <>

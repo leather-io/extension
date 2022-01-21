@@ -44,6 +44,7 @@ import {
 import { serializePayload } from '@stacks/transactions/dist/payload';
 import { selectedAssetIdState } from '../assets/asset-search';
 import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
+import { logger } from '@shared/logger';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -81,14 +82,14 @@ export function useEstimatedTransactionByteLength() {
 
 export function useSignTransactionSoftwareWallet() {
   const account = useCurrentAccount();
-  if (!account) throw new Error('Cannot sign a transaction without an account');
   return useCallback(
     (tx: StacksTransaction) => {
       const signer = new TransactionSigner(tx);
+      if (!account) return null;
       signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
       return tx;
     },
-    [account.stxPrivateKey]
+    [account]
   );
 }
 
@@ -117,6 +118,10 @@ export function useTransactionBroadcast() {
 
         try {
           const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
+          if (!signedTx) {
+            logger.error('Cannot sign transaction, no account in state');
+            return;
+          }
           const { isSponsored, serialized, txRaw, nonce } = prepareTxDetailsForBroadcast(signedTx);
           const result = await broadcastTransaction({
             isSponsored,
