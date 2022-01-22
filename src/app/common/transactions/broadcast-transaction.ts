@@ -25,7 +25,7 @@ export async function broadcastTransaction(options: BroadcastTransactionOptions)
     const isValidTxId = validateTxId(response.txid);
     if (isValidTxId)
       return {
-        txId: response,
+        txId: response.txid,
         txRaw,
       };
     logger.error(`Error broadcasting raw transaction -- ${response}`);

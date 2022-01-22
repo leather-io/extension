@@ -29,6 +29,7 @@ import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
 import { UnauthorizedErrorMessage } from './components/transaction-error/error-messages';
+import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 
 function SignTransactionBase(): JSX.Element | null {
   useNextTxNonce();
@@ -38,7 +39,10 @@ function SignTransactionBase(): JSX.Element | null {
   const setBroadcastError = useUpdateTransactionBroadcastError();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [, setTxData] = useLocalTransactionInputsState();
+  const { isSponsored } = useUnsignedTransactionFee();
   const feeSchema = useFeeSchema();
+
+  const validationSchema = !isSponsored ? yup.object({ fee: feeSchema() }) : null;
 
   useRouteHeader(<PopupHeader />);
 
@@ -92,9 +96,7 @@ function SignTransactionBase(): JSX.Element | null {
         validateOnChange={false}
         validateOnBlur={false}
         validateOnMount={false}
-        validationSchema={yup.object({
-          fee: feeSchema(),
-        })}
+        validationSchema={validationSchema}
       >
         {() => (
           <>
