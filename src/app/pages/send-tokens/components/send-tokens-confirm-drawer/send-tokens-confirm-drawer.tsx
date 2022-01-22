@@ -13,7 +13,6 @@ import {
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
-import { isTxSponsored } from '@app/common/transactions/transaction-utils';
 
 interface SendTokensConfirmDrawerProps extends BaseDrawerProps {
   onUserSelectBroadcastTransaction(): void;
@@ -24,7 +23,6 @@ export function SendTokensConfirmDrawer(props: SendTokensConfirmDrawerProps) {
   const [txData] = useLocalTransactionInputsState();
   const transaction = useUnsignedTxForSettingsState();
   const { showEditNonce } = useDrawers();
-  const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
   if (!isShowing || !transaction || !txData) return null;
 
@@ -44,7 +42,7 @@ export function SendTokensConfirmDrawer(props: SendTokensConfirmDrawerProps) {
         <SpaceBetween>
           <Caption>Fees</Caption>
           <Caption>
-            <TransactionFee isSponsored={isSponsored} fee={txData.fee} />
+            <TransactionFee fee={txData.fee} />
           </Caption>
         </SpaceBetween>
         <SendTokensConfirmActions
