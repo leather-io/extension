@@ -14,7 +14,6 @@ export const AccountGate = ({ children }: AccountGateProps) => {
   const isWalletLocked = !hasGeneratedWallet && encryptedSecretKey;
   const needsToCompleteOnboarding = (hasGeneratedWallet || encryptedSecretKey) && !hasSetPassword;
 
-  if (isWalletActive) return <>{children}</>;
   if (isWalletLocked) return <Navigate to={RouteUrls.Unlock} />;
   if (needsToCompleteOnboarding) return <Navigate to={RouteUrls.BackUpSecretKey} />;
   if (isWalletActive) return <>{children}</>;
