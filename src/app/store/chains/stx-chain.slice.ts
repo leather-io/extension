@@ -26,6 +26,9 @@ export const stxChainSlice = createSlice({
       state.default.highestAccountIndex += 1;
       state.default.currentAccountIndex = state.default.highestAccountIndex;
     },
+    restoreAccountIndex(state, action: PayloadAction<number>) {
+      state.default.highestAccountIndex = action.payload;
+    },
   },
   extraReducers: {
     [keySlice.actions.signOut.toString()]: state => {

@@ -1,5 +1,3 @@
-export const hasSetPasswordIdentifier = 'stacks-wallet-has-set-password' as const;
-
 export const userHasAllowedDiagnosticsKey = 'stacks-wallet-has-allowed-diagnostics';
 
 export enum StorageKey {
