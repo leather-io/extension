@@ -4233,6 +4233,11 @@
   resolved "https://registry.yarnpkg.com/@types/prismjs/-/prismjs-1.16.6.tgz#377054f72f671b36dbe78c517ce2b279d83ecc40"
   integrity sha512-dTvnamRITNqNkqhlBd235kZl3KfVJQQoT5jkXeiWSBK7i4/TLKBNLV0S1wOt8gy4E2TY722KLtdmv2xc6+Wevg==
 
+"@types/promise-memoize@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@types/promise-memoize/-/promise-memoize-1.2.1.tgz#dccd0ae4cec10483515f1f04e7e40b7342c740d8"
+  integrity sha512-QZBczXmJZOLlefxGvMJn8Y5sn7dMNTKcjKaYJ3kNbzUDz5c9rgfk24yPnY3I5xuLd2u3SjD33KV9nA69nDiX0A==
+
 "@types/prop-types@*":
   version "15.7.4"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
@@ -12519,12 +12524,7 @@ lodash-es@^4.17.15, lodash-es@^4.17.21:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
-lodash.assignin@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/lodash.assignin/-/lodash.assignin-4.2.0.tgz#ba8df5fb841eb0a3e8044232b0e263a8dc6a28a2"
-  integrity sha1-uo31+4QesKPoBEIysOJjqNxqKKI=
-
-lodash.clonedeep@4.5.0, lodash.clonedeep@^4.5.0:
+lodash.clonedeep@4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
@@ -14414,6 +14414,11 @@ progress@~1.1.2:
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
   integrity sha1-4mDHj2Fhzdmw5WzD4Khd4Xx6V74=
 
+promise-memoize@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/promise-memoize/-/promise-memoize-1.2.1.tgz#71f9554a989cf6bf8987b43a52132d5c79312657"
+  integrity sha1-cflVSpic9r+Jh7Q6UhMtXHkxJlc=
+
 prompts@^2.0.1, prompts@^2.4.1, prompts@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.4.2.tgz#7b57e73b3a48029ad10ebd44f74b01722a4cb069"
@@ -15012,11 +15017,6 @@ redux-devtools-instrument@^1.9.4:
   dependencies:
     lodash "^4.17.19"
     symbol-observable "^1.2.0"
-
-redux-persist-chrome-storage@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/redux-persist-chrome-storage/-/redux-persist-chrome-storage-1.0.4.tgz#6a6142ed338e5fbb5d68591ac02db943dc1ead6c"
-  integrity sha512-uv45Q3zP2dsZlTL3uV0sxrPpk4GiOEcBHbX2zZi8Kv5f9yvYeqTuE4FxzAXTPOca9PBb9zuGrU8/MCf/KkgFGA==
 
 redux-persist@*, redux-persist@6.0.0:
   version "6.0.0"
@@ -17822,14 +17822,6 @@ web-ext@^6.2.0:
     ws "7.4.6"
     yargs "16.2.0"
     zip-dir "2.0.0"
-
-webext-redux@^2.1.9:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/webext-redux/-/webext-redux-2.1.9.tgz#f7fd01ea4b93191d07bcdd0db5966955766ef634"
-  integrity sha512-z7frkQ/avFgnMxUH6Q955hU8SDsHT9Zlq9az3OpY891RXw9nKODOTnUhNo9ZAlDFUPHhX2A+z6j74BCaYwEsfQ==
-  dependencies:
-    lodash.assignin "^4.2.0"
-    lodash.clonedeep "^4.5.0"
 
 webidl-conversions@^3.0.0:
   version "3.0.1"

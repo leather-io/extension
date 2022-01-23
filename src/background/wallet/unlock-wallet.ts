@@ -27,6 +27,8 @@ export async function getDecryptedWalletDetails(
     password,
   });
 
+  console.log({ wallet });
+
   // if (!wallet) return;
 
   const result = {

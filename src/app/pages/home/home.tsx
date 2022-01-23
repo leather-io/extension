@@ -15,11 +15,10 @@ import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-
-import { HomeTabs } from './components/home-tabs';
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
+import { HomeTabs } from './components/home-tabs';
 
-export const Home = () => {
+export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
 
@@ -67,4 +66,4 @@ export const Home = () => {
       <Outlet />
     </>
   );
-};
+}

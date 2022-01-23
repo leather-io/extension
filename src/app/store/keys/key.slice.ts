@@ -4,7 +4,7 @@ import { generateSecretKey } from '@stacks/wallet-sdk';
 
 import { RootState } from '../root-reducer';
 
-export interface KeyConfigSoftware {
+interface KeyConfigSoftware {
   type: 'software';
   id: string;
   encryptedSecretKey: string;
