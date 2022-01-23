@@ -19,8 +19,6 @@ import {
 
 import { popupCenter } from '@background/popup-center';
 import type { BackgroundActions } from '@shared/vault/vault-types';
-
-// import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
 import { logger } from '@shared/logger';
 
@@ -106,7 +104,7 @@ function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) 
 chrome.runtime.onMessage.addListener((message: BackgroundActions, sender, sendResponse) =>
   Sentry.wrap(() => {
     if (!validateMessagesAreFromExtension(sender)) {
-      logger.error('Received background script messagr from ' + sender.url);
+      logger.error('Received background script msg from ' + sender.url);
       return;
     }
 

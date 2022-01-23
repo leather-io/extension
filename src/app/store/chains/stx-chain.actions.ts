@@ -11,6 +11,7 @@ import {
 import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { saveWalletConfigLocally } from '@shared/utils/wallet-config-helper';
+import memoize from 'promise-memoize';
 
 import { selectCurrentKey, useCurrentKey } from '../keys/key.slice';
 import { AppThunk } from '../root-reducer';
@@ -43,20 +44,22 @@ export const createNewAccount = (wallet: Wallet): AppThunk => {
   };
 };
 
-export async function deriveWalletWithAccounts(secretKey: string, highestAccountIndex: number) {
-  // Here we only want the resulting `Wallet` objects, but the API
-  // requires a password (so it can also return an encrypted key)
-  const walletSdk = await generateWallet({ secretKey, password: '' });
-  // To generate a new account, the wallet-sdk requires the entire `Wallet` to
-  // be supplied so that it can count the `wallet.accounts[]` length, and return
-  // a new `Wallet` object with all the accounts. As we want to generate them
-  // all, we must set the updated value and read it again in the loop
-  let walWithAccounts = walletSdk;
-  for (let i = 0; i < highestAccountIndex; i++) {
-    walWithAccounts = generateNewAccount(walWithAccounts);
+export const deriveWalletWithAccounts = memoize(
+  async (secretKey: string, highestAccountIndex: number) => {
+    // Here we only want the resulting `Wallet` objects, but the API
+    // requires a password (so it can also return an encrypted key)
+    const walletSdk = await generateWallet({ secretKey, password: '' });
+    // To generate a new account, the wallet-sdk requires the entire `Wallet` to
+    // be supplied so that it can count the `wallet.accounts[]` length, and return
+    // a new `Wallet` object with all the accounts. As we want to generate them
+    // all, we must set the updated value and read it again in the loop
+    let walWithAccounts = walletSdk;
+    for (let i = 0; i < highestAccountIndex; i++) {
+      walWithAccounts = generateNewAccount(walWithAccounts);
+    }
+    return walWithAccounts;
   }
-  return walWithAccounts;
-}
+);
 
 export function useGeneratedCurrentWallet() {
   const currAccount = useCurrentKey();
@@ -69,5 +72,3 @@ export function useGeneratedCurrentWallet() {
     );
   }, [currAccount, stxChainState]).result;
 }
-
-export const actions = stxChainSlice.actions;

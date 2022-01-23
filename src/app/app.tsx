@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 import { HashRouter as Router } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
@@ -14,56 +15,43 @@ import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fe
 import { Devtools } from '@app/features/devtool/devtools';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
 
-import { initSegment } from './common/segment-init';
 import { theme } from './common/theme';
 import { GlobalStyles } from './components/global-styles/global-styles';
 import { AppRoutes } from './routes/app-routes';
 import { persistor, store } from './store/root-reducer';
-import { Suspense } from 'react';
+import { LoadingSpinner } from './components/loading-spinner';
 
-const devToolsEnabled = false;
+const reactQueryDevToolsEnabled = false;
 
-declare global {
-  interface Window {
-    __APP_VERSION__: string;
-  }
-}
-
-window.__APP_VERSION__ = VERSION;
-
-void initSegment();
-
-export const App = () => {
+export function App() {
   return (
-    <Suspense fallback={null}>
-      <Provider store={store}>
-        <PersistGate loading={<>loading persisted state</>} persistor={persistor}>
-          <ThemeProvider theme={theme}>
-            <GlobalStyles />
-            <QueryClientProvider client={queryClient}>
-              <ColorModeProvider defaultMode="light">
-                <>
-                  <Router>
-                    <AppErrorBoundary>
-                      <AppRoutes />
-                      <AccountsDrawer />
-                      <NetworksDrawer />
-                      <EditNonceDrawer />
-                      <IncreaseFeeDrawer />
-                      <SettingsDropdown />
-                    </AppErrorBoundary>
-                    <Toaster
-                      position="bottom-center"
-                      toastOptions={{ style: { fontSize: '14px' } }}
-                    />
-                  </Router>
-                  {devToolsEnabled && <Devtools />}
-                </>
-              </ColorModeProvider>
-            </QueryClientProvider>
-          </ThemeProvider>
-        </PersistGate>
-      </Provider>
-    </Suspense>
+    <Provider store={store}>
+      <PersistGate loading={<>loading persisted state</>} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <QueryClientProvider client={queryClient}>
+            <ColorModeProvider defaultMode="light">
+              <Suspense fallback={<LoadingSpinner />}>
+                <Router>
+                  <AppErrorBoundary>
+                    <AppRoutes />
+                    <AccountsDrawer />
+                    <NetworksDrawer />
+                    <EditNonceDrawer />
+                    <IncreaseFeeDrawer />
+                    <SettingsDropdown />
+                  </AppErrorBoundary>
+                  <Toaster
+                    position="bottom-center"
+                    toastOptions={{ style: { fontSize: '14px' } }}
+                  />
+                </Router>
+                {reactQueryDevToolsEnabled && <Devtools />}
+              </Suspense>
+            </ColorModeProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
-};
+}
