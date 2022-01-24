@@ -1,11 +1,7 @@
-import { useMemo } from 'react';
 import { useQueries, useQuery } from 'react-query';
 
 import { useApi, Api } from '@app/store/common/api-clients.hooks';
-
 import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
-import { useAssets } from '@app/store/assets/asset.hooks';
-import { formatContractId } from '@app/common/utils';
 
 const staleTime = 10 * 60 * 1000;
 
@@ -32,7 +28,7 @@ export function useGetFungibleTokenMetadataQuery(contractId: string) {
   });
 }
 
-function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
+export function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
   const api = useApi();
   const network = useCurrentNetwork();
   return useQueries(
@@ -41,18 +37,5 @@ function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
       queryFn: fetchUnanchoredAccountInfo(api)(contractId),
       ...queryOptions,
     }))
-  );
-}
-
-export function useAssetsWithMetadata() {
-  const assets = useAssets();
-  const assetMetadata = useGetFungibleTokenMetadataListQuery(
-    assets.map(a => formatContractId(a.contractAddress, a.contractName))
-  );
-  return useMemo(
-    () => assets.map((asset, i) => ({ ...asset, canTransfer: true, meta: assetMetadata[i].data })),
-    // We don't want to reevaluate on assetMetadata reference change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [assets]
   );
 }

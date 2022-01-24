@@ -16,7 +16,6 @@ interface FtMeta {
   name: string;
   symbol: string;
   decimals: number;
-  ftTrait?: boolean | null;
 }
 
 export interface NftMeta {
