@@ -1,30 +1,33 @@
 import { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
 import { Wallet } from '@stacks/wallet-sdk';
 
-import { keySlice } from '@app/store/keys/key.slice';
-import { useAnalytics } from './analytics/use-analytics';
+import { useAppDispatch } from '@app/store';
 import { clearSessionLocalData } from '@app/common/store-utils';
-import { stxChainSlice } from '@app/store/chains/stx-chain.slice';
-import { createNewAccount } from '@app/store/chains/stx-chain.actions';
-import { setWalletEncryptionPassword, unlockWalletAction } from '@app/store/keys/keys.actions';
+
+import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
+import { keyActions } from '@app/store/keys/key.actions';
+import { useAnalytics } from './analytics/use-analytics';
 
 export function useKeyActions() {
   const analytics = useAnalytics();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return useMemo(
     () => ({
       async setPassword(password: string) {
-        return dispatch(setWalletEncryptionPassword(password));
+        return dispatch(keyActions.setWalletEncryptionPassword(password));
+      },
+
+      generateWalletKey() {
+        return dispatch(keyActions.generateWalletKey());
       },
 
       async unlockWallet(password: string) {
-        return dispatch(unlockWalletAction(password));
+        return dispatch(keyActions.unlockWalletAction(password));
       },
 
       switchAccount(index: number) {
-        return dispatch(stxChainSlice.actions.switchAccount(index));
+        return dispatch(stxChainActions.switchAccount(index));
       },
 
       async createNewAccount(wallet: Wallet) {
@@ -33,12 +36,12 @@ export function useKeyActions() {
 
       async signOut() {
         void analytics.track('sign_out');
-        dispatch(keySlice.actions.signOut());
+        dispatch(keyActions.signOut());
         clearSessionLocalData();
       },
 
       lockWallet() {
-        return dispatch(keySlice.actions.lockWallet());
+        return dispatch(keyActions.lockWallet());
       },
     }),
     [analytics, dispatch]

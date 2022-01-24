@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Box, Flex, Button, Stack } from '@stacks/ui';
+import { Wallet } from '@stacks/wallet-sdk';
+
 import { Body } from '@app/components/typography';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useGeneratedCurrentWallet } from '@app/store/chains/stx-chain.actions';
-import { Wallet } from '@stacks/wallet-sdk';
+import { useGeneratedCurrentWallet } from '@app/store/chains/stx-chain.selectors';
 
 interface CreateAccountProps {
   close: () => void;

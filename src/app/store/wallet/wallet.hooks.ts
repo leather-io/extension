@@ -1,29 +1,27 @@
+import { useCallback } from 'react';
+import { useAtom } from 'jotai';
 import { useAtomCallback, useAtomValue } from 'jotai/utils';
-import type { BackgroundActions, InMemorySoftwareWalletVault } from '@shared/vault/vault-types';
-import { gaiaUrl } from '@shared/constants';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
   makeAuthResponse,
   updateWalletConfigWithApp,
 } from '@stacks/wallet-sdk';
+
+import { gaiaUrl } from '@shared/constants';
+import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { currentAccountStxAddressState } from '@app/store/accounts';
 import { localNonceState } from '@app/store/accounts/nonce';
 import { currentNetworkState } from '@app/store/network/networks';
-import { useAtom } from 'jotai';
-import { useCallback } from 'react';
+import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { logger } from '@shared/logger';
 import {
   encryptedSecretKeyState,
   hasSetPasswordState,
   secretKeyState,
   walletState,
 } from './wallet';
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
-import { logger } from '@shared/logger';
-import { useDispatch } from 'react-redux';
-import { stxChainSlice } from '../chains/stx-chain.slice';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 export function useWalletState() {
   return useAtom(walletState);
@@ -57,7 +55,7 @@ export function useSetLatestNonceCallback() {
 
 export function useFinishSignInCallback() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
-  const dispatch = useDispatch();
+  const keyActions = useKeyActions();
   return useAtomCallback<void, number>(
     useCallback(
       async (get, _set, accountIndex) => {
@@ -94,18 +92,10 @@ export function useFinishSignInCallback() {
           scopes: decodedAuthRequest.scopes,
           account,
         });
-        dispatch(stxChainSlice.actions.switchAccount(accountIndex));
+        keyActions.switchAccount(accountIndex);
         finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
       },
-      [decodedAuthRequest, authRequest, appIcon, appName, dispatch]
+      [decodedAuthRequest, authRequest, appIcon, appName, keyActions]
     )
-  );
-}
-
-export function sendBackgroundMessage(message: BackgroundActions) {
-  return new Promise(resolve =>
-    chrome.runtime.sendMessage(message, (vaultResponse: InMemorySoftwareWalletVault) => {
-      resolve(vaultResponse);
-    })
   );
 }
