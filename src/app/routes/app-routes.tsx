@@ -45,14 +45,14 @@ export function AppRoutes(): JSX.Element | null {
   }, [analytics, pathname]);
 
   const hasStateRehydrated = useHasStateRehydrated();
-  const currentWallet = useCurrentKey();
+  const currentKey = useCurrentKey();
 
   useEffect(() => {
     // This ensures the route is correct bc the VaultLoader is slow to set wallet state
-    if (pathname === RouteUrls.Home && !currentWallet?.hasSetPassword)
-      navigate(RouteUrls.Onboarding);
+    if (pathname === RouteUrls.Home && !currentKey?.hasSetPassword) navigate(RouteUrls.Onboarding);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentWallet?.hasSetPassword]);
+  }, [currentKey?.hasSetPassword]);
+
   // check to prevent renders before the state has rehydrated
   if (!hasStateRehydrated) return <>rehdryating state</>;
 
