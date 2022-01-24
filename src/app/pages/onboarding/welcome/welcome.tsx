@@ -7,17 +7,15 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { Header } from '@app/components/header';
 import { RouteUrls } from '@shared/route-urls';
 import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
-
 import { WelcomeLayout } from './welcome.layout';
-import { useDispatch } from 'react-redux';
-import { keySlice } from '@app/store/keys/key.slice';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 export const WelcomePage = memo(() => {
   const [hasAllowedDiagnostics] = useHasAllowedDiagnostics();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
-  const dispatch = useDispatch();
+  const keyActions = useKeyActions();
 
   useRouteHeader(<Header hideActions />);
 
@@ -25,9 +23,8 @@ export const WelcomePage = memo(() => {
 
   const startOnboarding = useCallback(async () => {
     setIsGeneratingWallet(true);
-    // await makeWallet();
 
-    dispatch(keySlice.actions.generateWalletKey());
+    keyActions.generateWalletKey();
 
     void analytics.track('generate_new_secret_key');
 
@@ -35,7 +32,7 @@ export const WelcomePage = memo(() => {
       navigate(RouteUrls.SetPassword);
     }
     navigate(RouteUrls.BackUpSecretKey);
-  }, [dispatch, analytics, decodedAuthRequest, navigate]);
+  }, [keyActions, analytics, decodedAuthRequest, navigate]);
 
   useEffect(() => {
     if (hasAllowedDiagnostics === undefined) navigate(RouteUrls.RequestDiagnostics);

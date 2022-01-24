@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { keySlice } from '../keys/key.slice';
-import { RootState } from '../root-reducer';
 
 interface StxChainKeyState {
   highestAccountIndex: number;
@@ -37,5 +36,3 @@ export const stxChainSlice = createSlice({
     },
   },
 });
-
-export const selectStxChain = (state: RootState) => state.chains.stx;

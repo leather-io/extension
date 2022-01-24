@@ -7,7 +7,6 @@ import {
   magicRecoveryCodeState,
   secretKeyState,
   seedInputErrorState,
-  seedInputState,
 } from './onboarding';
 
 export function useAuthRequest() {
@@ -16,10 +15,6 @@ export function useAuthRequest() {
 
 export function useUpdateAuthRequest() {
   return useUpdateAtom(authRequestState);
-}
-
-export function useSeedInputState() {
-  return useAtom(seedInputState);
 }
 
 export function useSeedInputErrorState() {

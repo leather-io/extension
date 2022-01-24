@@ -18,7 +18,7 @@ import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/com
 import { theme } from './common/theme';
 import { GlobalStyles } from './components/global-styles/global-styles';
 import { AppRoutes } from './routes/app-routes';
-import { persistor, store } from './store/root-reducer';
+import { persistor, store } from './store';
 import { LoadingSpinner } from './components/loading-spinner';
 
 const reactQueryDevToolsEnabled = false;

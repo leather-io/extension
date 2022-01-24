@@ -12,7 +12,7 @@ export enum ExternalMethods {
 }
 
 export enum InternalMethods {
-  TestAction = 'TestAction',
+  RequestDerivedStxAccounts = 'RequestDerivedStxAccounts',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;
