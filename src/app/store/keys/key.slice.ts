@@ -1,19 +1,13 @@
-import { useSelector } from 'react-redux';
-import { createEntityAdapter, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { generateSecretKey } from '@stacks/wallet-sdk';
 
-import { RootState } from '../root-reducer';
+import { migrateVaultReducerStoreToNewStateStructure } from '../utils/vault-reducer-migration';
 
 interface KeyConfigSoftware {
   type: 'software';
   id: string;
   encryptedSecretKey: string;
   salt: string;
-  // Legacy property from pre-vault reducer refactor. A wallet never arrives to
-  // the state prior to there being a password set for the key's encryption.
-  // `hasSetPassword` can later be inferred on the presence of an encryptedKey
-  // property.
-  hasSetPassword: boolean;
   secretKey: string;
 }
 
@@ -21,13 +15,15 @@ const keyAdapter = createEntityAdapter<KeyConfigSoftware>();
 
 // Only used during onboarding, pre-wallet creation
 // Could well be persisted elsewhere
-interface TempKeyState {
+interface ExtraKeyState {
   secretKey?: null | string;
 }
 
+export const initialKeysState = keyAdapter.getInitialState<ExtraKeyState>({ secretKey: null });
+
 export const keySlice = createSlice({
   name: 'keys',
-  initialState: keyAdapter.getInitialState<TempKeyState>({ secretKey: null }),
+  initialState: migrateVaultReducerStoreToNewStateStructure(initialKeysState),
   reducers: {
     generateWalletKey(state) {
       state.secretKey = generateSecretKey(256);
@@ -41,12 +37,14 @@ export const keySlice = createSlice({
       state.secretKey = null;
     },
 
-    addNewKey(state, action: PayloadAction<KeyConfigSoftware>) {
+    createNewWalletComplete(state, action: PayloadAction<KeyConfigSoftware>) {
       state.secretKey = null;
       keyAdapter.addOne(state, action.payload);
     },
 
-    updateCurrentWallet: keyAdapter.updateOne,
+    unlockWalletComplete(state, action: PayloadAction<Partial<KeyConfigSoftware>>) {
+      keyAdapter.updateOne(state, { id: 'default', changes: action.payload });
+    },
 
     lockWallet(state) {
       keyAdapter.updateOne(state, { id: 'default', changes: { secretKey: null } as any });
@@ -57,13 +55,3 @@ export const keySlice = createSlice({
     },
   },
 });
-
-const selectWalletSlice = (state: RootState) => state.keys;
-
-export const selectGeneratedSecretKey = createSelector(selectWalletSlice, state => state.secretKey);
-
-export const selectCurrentKey = createSelector(selectWalletSlice, state => state.entities.default);
-
-export function useCurrentKey() {
-  return useSelector(selectCurrentKey);
-}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { validateMnemonic } from 'bip39';
 
 import {
   extractPhraseFromPasteEvent,
@@ -14,9 +15,8 @@ import {
   useSeedInputErrorState,
 } from '@app/store/onboarding/onboarding.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useDispatch } from 'react-redux';
-import { keySlice } from '@app/store/keys/key.slice';
-import { validateMnemonic } from 'bip39';
+import { useAppDispatch } from '@app/store';
+import { keyActions } from '@app/store/keys/key.actions';
 
 export function useSignIn() {
   const [, setMagicRecoveryCode] = useMagicRecoveryCodeState();
@@ -29,7 +29,7 @@ export function useSignIn() {
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSetError = useCallback(
     (message = "The Secret Key you've entered is invalid") => {
@@ -72,7 +72,7 @@ export function useSignIn() {
       }
 
       try {
-        dispatch(keySlice.actions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
+        dispatch(keyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
         void analytics.track('submit_valid_secret_key');
         navigate(RouteUrls.SetPassword);
         setIsIdle();

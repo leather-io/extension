@@ -77,7 +77,7 @@ const config = {
     inpage: path.join(SRC_ROOT_PATH, 'inpage', 'inpage.ts'),
     'content-script': path.join(SRC_ROOT_PATH, 'content-scripts', 'content-script.ts'),
     index: path.join(SRC_ROOT_PATH, 'app', 'index.tsx'),
-    'decryption-worker': path.join(SRC_ROOT_PATH, 'background/workers/decryption-worker.ts'),
+    'decryption-worker': path.join(SRC_ROOT_PATH, 'shared/workers/decryption-worker.ts'),
   },
   output: {
     path: DIST_ROOT_PATH,

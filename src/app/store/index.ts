@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { atomWithStore } from 'jotai/redux';
 import storage from 'redux-persist/lib/storage';
 import devToolsEnhancer from 'remote-redux-devtools';
@@ -16,6 +16,7 @@ import {
 
 import { keySlice } from './keys/key.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
+import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
 
 // const storage = new ChromeStorage(chrome.storage.local, chrome.runtime);
 
@@ -37,12 +38,14 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    broadcastActionTypeToOtherFramesMiddleware,
+  ],
   enhancers: [
     devToolsEnhancer({
       hostname: 'localhost',
@@ -54,15 +57,17 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>;
-
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof persistedReducer>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
+type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+
 export const storeAtom = atomWithStore(store);
 
-export const selectHasRehydrated = (state: RootState) => state._persist.rehydrated;
+const selectHasRehydrated = (state: RootState) => state._persist.rehydrated;
 
 export function useHasStateRehydrated() {
   return useSelector(selectHasRehydrated);

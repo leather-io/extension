@@ -39,7 +39,7 @@ export function useWallet() {
   const networks = useNetworkState();
   const currentNetwork = useCurrentNetworkState();
   const currentNetworkKey = useCurrentNetworkKey();
-  const vaultMessenger = useKeyActions();
+  const keyActions = useKeyActions();
 
   const currentAccountDisplayName = currentAccount
     ? getAccountDisplayName(currentAccount)
@@ -79,6 +79,6 @@ export function useWallet() {
     setLatestNonce,
     setWallet,
     cancelAuthentication,
-    ...vaultMessenger,
+    ...keyActions,
   };
 }

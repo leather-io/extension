@@ -1,11 +1,12 @@
-import { encryptMnemonic } from '@background/crypto/mnemonic-encryption';
-import { getDecryptedWalletDetails } from '@background/wallet/unlock-wallet';
-import { gaiaUrl } from '@shared/constants';
 import { generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
-import { stxChainSlice } from '../chains/stx-chain.slice';
 
-import { AppThunk } from '../root-reducer';
-import { keySlice, selectCurrentKey, selectGeneratedSecretKey } from './key.slice';
+import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
+import { gaiaUrl } from '@shared/constants';
+import { AppThunk } from '@app/store';
+
+import { stxChainSlice } from '../chains/stx-chain.slice';
+import { keySlice } from './key.slice';
+import { selectCurrentKey, selectGeneratedSecretKey } from './key.selectors';
 
 async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
   try {
@@ -23,18 +24,17 @@ async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
   }
 }
 
-export const setWalletEncryptionPassword = (password: string): AppThunk => {
+const setWalletEncryptionPassword = (password: string): AppThunk => {
   return async (dispatch, getState) => {
     const secretKey = selectGeneratedSecretKey(getState());
     if (!secretKey) throw new Error('Cannot generate wallet without first having generated a key');
     const { encryptedSecretKey, salt } = await encryptMnemonic({ secretKey, password });
     const highestAccountIndex = await restoredWalletHighestGeneratedAccountIndex(secretKey);
     dispatch(
-      keySlice.actions.addNewKey({
+      keySlice.actions.createNewWalletComplete({
         type: 'software',
         id: 'default',
         salt,
-        hasSetPassword: true,
         secretKey,
         encryptedSecretKey,
       })
@@ -44,12 +44,18 @@ export const setWalletEncryptionPassword = (password: string): AppThunk => {
   };
 };
 
-export const unlockWalletAction = (password: string): AppThunk => {
+const unlockWalletAction = (password: string): AppThunk => {
   return async (dispatch, getState) => {
     const currentKey = selectCurrentKey(getState());
     if (!currentKey) return;
     const { encryptedSecretKey, salt } = currentKey;
-    const vault = await getDecryptedWalletDetails(encryptedSecretKey, password, salt);
-    dispatch(keySlice.actions.updateCurrentWallet({ id: 'default', changes: { ...vault } }));
+    const decryptedData = await decryptMnemonic({ encryptedSecretKey, password, salt });
+    dispatch(keySlice.actions.unlockWalletComplete(decryptedData));
   };
+};
+
+export const keyActions = {
+  ...keySlice.actions,
+  setWalletEncryptionPassword,
+  unlockWalletAction,
 };
