@@ -1,12 +1,12 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 
-// import { InternalMethods } from '@shared/message-types';
+import { keyActions } from '@app/store/keys/key.actions';
 
-export function useOnWalletLock(_handler: () => void) {
-  // useEffect(() => {
-  //   chrome.runtime.onMessage.addListener(message => {
-  //     if (message.method === InternalMethods.lockWallet) handler();
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+export function useOnWalletLock(handler: () => void) {
+  useEffect(() => {
+    chrome.runtime.onMessage.addListener(message => {
+      if (message?.method === keyActions.lockWallet.type) handler();
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }

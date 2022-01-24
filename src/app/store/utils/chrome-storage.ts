@@ -1,6 +1,7 @@
 const driverMap = new WeakMap();
 const runtimeMap = new WeakMap();
 
+// ts-unused-exports:disable-next-line
 export class ChromeStorage {
   constructor(driver: any, runtime: any) {
     driverMap.set(this, driver);

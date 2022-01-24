@@ -18,6 +18,7 @@ Object.keys(compilerOptions.paths).forEach(key => {
 });
 
 module.exports = {
+  setupFilesAfterEnv: ['./tests/jest-unit.setup.js'],
   collectCoverage: true,
   coverageReporters: ['html', 'json-summary'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],

@@ -13,14 +13,12 @@ import { initSentry } from '@shared/utils/sentry-init';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
-  InternalMethods,
   MessageFromContentScript,
 } from '@shared/message-types';
 
 import { popupCenter } from '@background/popup-center';
-import type { BackgroundActions } from '@shared/vault/vault-types';
 import { initContextMenuActions } from '@background/init-context-menus';
-import { logger } from '@shared/logger';
+import { backgroundMessageHandler } from './message-handler';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
@@ -28,6 +26,7 @@ initSentry();
 
 initContextMenuActions();
 
+//
 // Playwright does not currently support Chrome extension popup testing:
 // https://github.com/microsoft/playwright/issues/5593
 async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
@@ -36,7 +35,6 @@ async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
   });
 }
 
-// Listen for install event
 chrome.runtime.onInstalled.addListener(details => {
   Sentry.wrap(async () => {
     if (details.reason === 'install' && !IS_TEST_ENV) {
@@ -95,25 +93,12 @@ chrome.runtime.onConnect.addListener(port =>
   })
 );
 
-function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
-  // Only respond to internal messages from our UI, not content scripts in other applications
-  return sender.url?.startsWith(chrome.runtime.getURL(''));
-}
-
-// Listen for events triggered by the background memory vault
-chrome.runtime.onMessage.addListener((message: BackgroundActions, sender, sendResponse) =>
+//
+// Events from the popup script
+// Listener fn must return `true` to indicate the response will be async
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) =>
   Sentry.wrap(() => {
-    if (!validateMessagesAreFromExtension(sender)) {
-      logger.error('Received background script msg from ' + sender.url);
-      return;
-    }
-
-    switch (message.method) {
-      case InternalMethods.TestAction: {
-        sendResponse();
-      }
-    }
-
+    void backgroundMessageHandler(message, sender, sendResponse);
     return true;
   })
 );
