@@ -148,6 +148,7 @@ const AssetSearchField = memo(
             onFocus={() => {
               openMenu();
             }}
+            data-testid={`asset-select`}
             autoFocus={autoFocus}
           />
         </Box>

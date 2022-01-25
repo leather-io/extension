@@ -4,6 +4,7 @@ import { Page } from 'playwright-core';
 import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
 
 import {
   createTestSelector,
@@ -20,6 +21,7 @@ export class WalletPage {
   $signUpButton = createTestSelector(InitialPageSelectors.SignUp);
   $signInButton = createTestSelector(InitialPageSelectors.SignIn);
   $analyticsAllowButton = createTestSelector(InitialPageSelectors.AnalyticsAllow);
+  $analyticsDenyButton = createTestSelector(InitialPageSelectors.AnalyticsDeny);
   homePage = createTestSelector('home-page');
   $textareaReadOnlySeedPhrase = `${createTestSelector('textarea-seed-phrase')}[data-loaded="true"]`;
   $buttonSignInKeyContinue = createTestSelector('sign-in-key-continue');
@@ -27,16 +29,19 @@ export class WalletPage {
   passwordInput = createTestSelector(OnboardingSelectors.SetOrEnterPasswordInput);
   saveKeyButton = createTestSelector('save-key');
   sendTokenBtnSelector = createTestSelector(WalletPageSelectors.BtnSendTokens);
+  buyTokenBtnSelector = createTestSelector(BuyTokensSelectors.BtnBuyTokens);
   confirmSavedKey = createTestSelector('confirm-saved-key');
   lowerCharactersErrMsg =
     'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
   signInKeyError = createTestSelector('sign-in-seed-error');
   password = 'mysecretreallylongpassword';
   $settingsButton = createTestSelector('menu-button');
+  $contractCallButton = createTestSelector('btn-contract-call');
   $settingsViewSecretKey = createTestSelector('settings-view-secret-key');
   $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
   $createAccountButton = createTestSelector(SettingsSelectors.BtnCreateAccount);
   $createAccountDone = createTestSelector(SettingsSelectors.BtnCreateAccountDone);
+  $statusMessage = createTestSelector(WalletPageSelectors.statusMessage);
   $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
@@ -60,8 +65,16 @@ export class WalletPage {
     return new this(page);
   }
 
+  static async getAllPages(browser: BrowserDriver) {
+    return browser.context.pages();
+  }
+
   async clickAllowAnalytics() {
     await this.page.click(this.$analyticsAllowButton);
+  }
+
+  async clickDenyAnalytics() {
+    await this.page.click(this.$analyticsDenyButton);
   }
 
   async clickSignUp() {
@@ -74,6 +87,10 @@ export class WalletPage {
 
   async clickSettingsButton() {
     await this.page.click(this.$settingsButton);
+  }
+
+  async clickContractCall() {
+    await this.page.click(this.$contractCallButton);
   }
 
   async waitForHomePage() {
@@ -94,6 +111,10 @@ export class WalletPage {
 
   async waitForLoginPage() {
     await this.page.waitForSelector(this.$signInButton, { timeout: 3000 });
+  }
+
+  async waitForStatusMessage() {
+    await this.page.waitForSelector(this.$statusMessage, { timeout: 20000 });
   }
 
   async loginWithPreviousSecretKey(secretKey: string) {
@@ -146,6 +167,10 @@ export class WalletPage {
 
   async goToSendForm() {
     await this.page.click(this.sendTokenBtnSelector);
+  }
+
+  async goToBuyForm() {
+    await this.page.click(this.buyTokenBtnSelector);
   }
 
   /** Sign up with a randomly generated seed phrase */

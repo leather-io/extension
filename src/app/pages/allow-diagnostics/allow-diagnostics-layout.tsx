@@ -59,6 +59,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
             ml="base"
             variant="link"
             onClick={() => onUserDenyDiagnosticsPermissions()}
+            data-testid={InitialPageSelectors.AnalyticsDeny}
           >
             Deny
           </Button>
