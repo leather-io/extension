@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { baseAssetsAnchoredState, mergeAssetBalances } from '@app/store/assets/tokens';
 import type { Asset, AssetWithMeta } from '@app/common/asset-types';
@@ -10,11 +11,13 @@ import {
 } from '@app/query/balance/balance.hooks';
 import { useCurrentAccountStxAddressState } from '../accounts/account.hooks';
 import { transformAssets } from './utils';
-import { useAssetsWithMetadata } from '@app/query/tokens/fungible-token-metadata.query';
 import { getFullyQualifiedAssetName } from '@app/common/hooks/use-selected-asset';
-import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metadata.hook';
-import { useMemo } from 'react';
+import {
+  useAssetsWithMetadata,
+  useFungibleTokenMetadata,
+} from '@app/query/tokens/fungible-token-metadata.hook';
 import { formatContractId } from '@app/common/utils';
+import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 
 export function useAssets() {
   return useAtomValue(baseAssetsAnchoredState);
@@ -22,7 +25,7 @@ export function useAssets() {
 
 export function useTransferableAssets() {
   const assets = useAssetsWithMetadata();
-  return assets.filter(a => !!a.meta || a.type !== 'nft') as AssetWithMeta[];
+  return assets.filter(asset => isTransferableAsset(asset));
 }
 
 export function useAssetWithMetadata(asset: Asset) {
@@ -30,8 +33,8 @@ export function useAssetWithMetadata(asset: Asset) {
     formatContractId(asset.contractAddress, asset.contractName)
   );
   if (asset.type === 'ft') {
-    const canTransfer = !!assetMetadata;
-    return { ...asset, meta: assetMetadata, canTransfer, hasMemo: canTransfer } as AssetWithMeta;
+    const canTransfer = assetMetadata ? isTransferableAsset(asset) : false;
+    return { ...asset, meta: assetMetadata, canTransfer, hasMemo: canTransfer };
   }
   return asset as AssetWithMeta;
 }
