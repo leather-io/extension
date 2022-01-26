@@ -1,3 +1,10 @@
+# [3.0.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2022-01-26)
+
+
+### Features
+
+* reduce sentry tracesSampleRate ([a08a36d](https://github.com/hirosystems/stacks-wallet-web/commit/a08a36df21c9601b6e7c7694481546383285478a))
+
 # [3.0.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.1...v3.0.0-beta.1) (2022-01-25)
 
 
