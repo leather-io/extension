@@ -48,8 +48,6 @@ export const SetPasswordPage = () => {
 
   const submit = useCallback(
     async (password: string) => {
-      if (!wallet) throw 'Please sign in before setting a password.';
-
       setLoading(true);
 
       await setPassword(password);

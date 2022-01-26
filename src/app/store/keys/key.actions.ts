@@ -7,6 +7,9 @@ import { AppThunk } from '@app/store';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { keySlice } from './key.slice';
 import { selectCurrentKey, selectGeneratedSecretKey } from './key.selectors';
+import { sendMessage } from '@shared/messages';
+import { InternalMethods } from '@shared/message-types';
+import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
 
 async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
   try {
@@ -30,12 +33,19 @@ const setWalletEncryptionPassword = (password: string): AppThunk => {
     if (!secretKey) throw new Error('Cannot generate wallet without first having generated a key');
     const { encryptedSecretKey, salt } = await encryptMnemonic({ secretKey, password });
     const highestAccountIndex = await restoredWalletHighestGeneratedAccountIndex(secretKey);
+
+    sendMessage({
+      method: InternalMethods.ShareInMemoryKeyToBackground,
+      payload: { secretKey, keyId: 'default' },
+    });
+
+    dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
+
     dispatch(
       keySlice.actions.createNewWalletComplete({
         type: 'software',
         id: 'default',
         salt,
-        secretKey,
         encryptedSecretKey,
       })
     );
@@ -50,12 +60,14 @@ const unlockWalletAction = (password: string): AppThunk => {
     if (!currentKey) return;
     const { encryptedSecretKey, salt } = currentKey;
     const decryptedData = await decryptMnemonic({ encryptedSecretKey, password, salt });
+
+    sendMessage({
+      method: InternalMethods.ShareInMemoryKeyToBackground,
+      payload: { secretKey: decryptedData.secretKey, keyId: 'default' },
+    });
+    dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: decryptedData.secretKey }));
     dispatch(keySlice.actions.unlockWalletComplete(decryptedData));
   };
 };
 
-export const keyActions = {
-  ...keySlice.actions,
-  setWalletEncryptionPassword,
-  unlockWalletAction,
-};
+export const keyActions = { ...keySlice.actions, setWalletEncryptionPassword, unlockWalletAction };
