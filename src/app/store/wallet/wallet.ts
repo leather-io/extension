@@ -9,9 +9,9 @@ import { withDerivedKeyInformation } from '../keys/key.selectors';
 export const walletState = atom(async get => {
   const store = get(storeAtom);
   if (!store.keys.entities.default) return;
-  if (!store.keys.entities.default.secretKey) return;
+  if (!store.inMemoryKeys.keys.default) return;
   return deriveWalletWithAccounts(
-    store.keys.entities.default.secretKey,
+    store.inMemoryKeys.keys.default,
     store.chains.stx.default.highestAccountIndex
   );
 });
@@ -41,7 +41,5 @@ export const currentAccountIndexState = atom(get => {
 
 export const secretKeyState = atom(get => {
   const store = get(storeAtom);
-  return store.keys.entities.default?.secretKey
-    ? textToBytes(store.keys.entities.default?.secretKey)
-    : undefined;
+  return store.inMemoryKeys.keys.default ? textToBytes(store.inMemoryKeys.keys.default) : undefined;
 });

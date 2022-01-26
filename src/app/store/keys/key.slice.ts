@@ -8,7 +8,6 @@ interface KeyConfigSoftware {
   id: string;
   encryptedSecretKey: string;
   salt: string;
-  secretKey: string;
 }
 
 const keyAdapter = createEntityAdapter<KeyConfigSoftware>();
@@ -44,10 +43,6 @@ export const keySlice = createSlice({
 
     unlockWalletComplete(state, action: PayloadAction<Partial<KeyConfigSoftware>>) {
       keyAdapter.updateOne(state, { id: 'default', changes: action.payload });
-    },
-
-    lockWallet(state) {
-      keyAdapter.updateOne(state, { id: 'default', changes: { secretKey: null } as any });
     },
 
     signOut(state) {

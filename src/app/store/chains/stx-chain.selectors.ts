@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux';
 import memoize from 'promise-memoize';
 
 import { RootState } from '@app/store';
-import { useCurrentKey } from '@app/store/keys/key.selectors';
-import { RequestDerivedStxAccounts } from '@shared/vault/vault-types';
+import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { RequestDerivedStxAccounts } from '@shared/messages';
 import { InternalMethods } from '@shared/message-types';
+import { useDefaultWalletSecretKey } from '../in-memory-key/in-memory-key.selectors';
 
 const selectStxChain = (state: RootState) => state.chains.stx;
 
@@ -21,14 +22,15 @@ export const deriveWalletWithAccounts = memoize(
 );
 
 export function useGeneratedCurrentWallet() {
-  const currAccount = useCurrentKey();
+  const currentKeyDetails = useCurrentKeyDetails();
   const stxChainState = useSelector(selectStxChain);
+  const defaultWalletSecretKey = useDefaultWalletSecretKey();
   return useAsync(async () => {
-    if (!currAccount) return undefined;
-    if (!currAccount.secretKey) return undefined;
+    if (!currentKeyDetails) return undefined;
+    if (!defaultWalletSecretKey) return undefined;
     return deriveWalletWithAccounts(
-      currAccount.secretKey,
+      defaultWalletSecretKey,
       stxChainState.default.highestAccountIndex
     );
-  }, [currAccount, stxChainState]).result;
+  }, [currentKeyDetails, stxChainState]).result;
 }
