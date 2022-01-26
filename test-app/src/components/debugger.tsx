@@ -308,7 +308,7 @@ export const Debugger = () => {
       {txId && (
         <Text textStyle="body.large" display="block" my={'base'}>
           <Text color="green" fontSize={1}>
-            <span data-testId={WalletPageSelectors.StatusMessage}>
+            <span data-testId={WalletPageSelectors.statusMessage}>
               Successfully broadcasted &quot;{txType}&quot;
             </span>
           </Text>
