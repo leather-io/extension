@@ -60,7 +60,6 @@ export const SignIn = () => {
             ref={ref as any}
             spellCheck={false}
             style={{ resize: 'none' }}
-            value={value}
             width="100%"
           />
           {error && (

@@ -23,9 +23,8 @@ import { BuyPage } from '@app/pages/buy/buy';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { RouteUrls } from '@shared/route-urls';
-import { useHasStateRehydrated } from '@app/store/root-reducer';
-
-import { useCurrentKey } from '@app/store/keys/key.slice';
+import { useHasStateRehydrated } from '@app/store';
+import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
@@ -45,7 +44,7 @@ export function AppRoutes(): JSX.Element | null {
   }, [analytics, pathname]);
 
   const hasStateRehydrated = useHasStateRehydrated();
-  const currentKey = useCurrentKey();
+  const currentKey = useCurrentKeyDetails();
 
   useEffect(() => {
     // This ensures the route is correct bc the VaultLoader is slow to set wallet state
@@ -57,19 +56,17 @@ export function AppRoutes(): JSX.Element | null {
   if (!hasStateRehydrated) return <>rehdryating state</>;
 
   return (
-    <Suspense fallback="loading from app route">
-      <Routes>
-        <Route path={RouteUrls.Container} element={<Container />}>
-          <Route
-            path={RouteUrls.Home}
-            element={
-              <AccountGate>
-                <Home />
-              </AccountGate>
-            }
-          >
-            <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
-          </Route>
+    <Routes>
+      <Route path={RouteUrls.Container} element={<Container />}>
+        <Route
+          path={RouteUrls.Home}
+          element={
+            <AccountGate>
+              <Home />
+            </AccountGate>
+          }
+        >
+          <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
         <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
         <Route path={RouteUrls.BackUpSecretKey} element={<BackUpSecretKeyPage />} />
@@ -144,7 +141,7 @@ export function AppRoutes(): JSX.Element | null {
         <Route path={RouteUrls.Unlock} element={<Unlock />} />
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
-      </Routes>
-    </Suspense>
+      </Route>
+    </Routes>
   );
 }
