@@ -3,17 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useClipboard } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { RouteUrls } from '@shared/route-urls';
-
+import { useGeneratedSecretKey } from '@app/store/keys/key.selectors';
+import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 import { BackUpSecretKeyLayout } from './back-up-secret-key.layout';
 
 export const BackUpSecretKeyPage = memo(() => {
-  const { secretKey } = useWallet();
-  const { onCopy, hasCopied } = useClipboard(secretKey || '');
   const navigate = useNavigate();
-
   const analytics = useAnalytics();
+
+  const tmpSecretKey = useGeneratedSecretKey();
+  const defaultWalletSecretKey = useDefaultWalletSecretKey();
+  const secretKey = defaultWalletSecretKey ?? tmpSecretKey;
+  const { onCopy, hasCopied } = useClipboard(secretKey || '');
 
   useEffect(() => {
     if (!secretKey) navigate(RouteUrls.Onboarding);
@@ -29,7 +31,7 @@ export const BackUpSecretKeyPage = memo(() => {
       hasCopied={hasCopied}
       onBackedUpSecretKey={() => navigate(RouteUrls.SetPassword)}
       onCopyToClipboard={copyToClipboard}
-      secretKey={secretKey}
+      secretKey={secretKey ?? ''}
     />
   );
 });

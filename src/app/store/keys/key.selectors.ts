@@ -14,7 +14,7 @@ export function withDerivedKeyInformation(key: ReturnType<typeof selectCurrentKe
   return { ...key, hasSetPassword: !!key?.encryptedSecretKey };
 }
 
-export function useCurrentKey() {
+export function useCurrentKeyDetails() {
   const currentKey = useSelector(selectCurrentKey);
   return useMemo(() => withDerivedKeyInformation(currentKey), [currentKey]);
 }

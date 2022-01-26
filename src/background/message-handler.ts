@@ -1,6 +1,6 @@
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
-import { BackgroundActions } from '@shared/vault/vault-types';
+import { BackgroundActions } from '@shared/messages';
 import { generateNewAccount, generateWallet } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
 
@@ -24,6 +24,9 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
   return walWithAccounts;
 });
 
+// Persists keys in memory for the durtion of the background scripts life
+const inMemoryKeys = new Map();
+
 export async function backgroundMessageHandler(
   message: BackgroundActions,
   sender: chrome.runtime.MessageSender,
@@ -33,11 +36,29 @@ export async function backgroundMessageHandler(
     logger.error('Error: Received background script msg from ' + sender.url);
     return;
   }
+  logger.info(message);
   switch (message.method) {
     case InternalMethods.RequestDerivedStxAccounts: {
       const { secretKey, highestAccountIndex } = message.payload;
       const walletsWithAccounts = await deriveWalletWithAccounts(secretKey, highestAccountIndex);
       sendResponse(walletsWithAccounts);
+      break;
+    }
+
+    case InternalMethods.ShareInMemoryKeyToBackground: {
+      const { keyId, secretKey } = message.payload;
+      inMemoryKeys.set(keyId, secretKey);
+      break;
+    }
+
+    case InternalMethods.RequestInMemoryKeys: {
+      sendResponse(Object.fromEntries(inMemoryKeys));
+      break;
+    }
+
+    case InternalMethods.RemoveInMemoryKeys: {
+      inMemoryKeys.clear();
+      break;
     }
   }
 }
