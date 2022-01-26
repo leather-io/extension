@@ -17,6 +17,7 @@ import {
 import { keySlice } from './keys/key.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
+import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 
 // const storage = new ChromeStorage(chrome.storage.local, chrome.runtime);
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   chains: combineReducers({
     stx: stxChainSlice.reducer,
   }),
+  inMemoryKeys: inMemoryKeySlice.reducer,
 });
 
 const persistConfig = {
@@ -32,6 +34,7 @@ const persistConfig = {
   version: 1,
   storage,
   serialize: true,
+  whitelist: ['keys', 'chains'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

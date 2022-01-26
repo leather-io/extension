@@ -8,15 +8,13 @@ import {
 import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { saveWalletConfigLocally } from '@shared/utils/wallet-config-helper';
-import { selectCurrentKey } from '@app/store/keys/key.selectors';
 import { AppThunk } from '@app/store';
+import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { stxChainSlice } from './stx-chain.slice';
 
 export const createNewAccount = (wallet: Wallet): AppThunk => {
   return async (dispatch, getState) => {
-    const currentKey = selectCurrentKey(getState());
-    if (!currentKey) return;
-    const { secretKey } = currentKey;
+    const secretKey = selectDefaultWalletKey(getState());
     if (!secretKey) {
       throw new Error('Unable to create a new account - not logged in.');
     }
