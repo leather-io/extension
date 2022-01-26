@@ -41,7 +41,7 @@ export class WalletPage {
   $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
   $createAccountButton = createTestSelector(SettingsSelectors.BtnCreateAccount);
   $createAccountDone = createTestSelector(SettingsSelectors.BtnCreateAccountDone);
-  $statusMessage = createTestSelector(WalletPageSelectors.StatusMessage);
+  $statusMessage = createTestSelector(WalletPageSelectors.statusMessage);
   $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
