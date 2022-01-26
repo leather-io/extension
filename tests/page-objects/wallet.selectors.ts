@@ -1,4 +1,4 @@
 export enum WalletPageSelectors {
   BtnSendTokens = 'btn-send-tokens',
-  StatusMessage = 'status-message',
+  statusMessage = 'status-message',
 }
