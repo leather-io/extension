@@ -66,7 +66,8 @@ export class WalletPage {
   }
 
   static async getAllPages(browser: BrowserDriver) {
-    return browser.context.pages();
+    const pages = await browser.context.pages();
+    return pages;
   }
 
   async clickAllowAnalytics() {
