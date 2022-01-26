@@ -29,7 +29,7 @@ const selectors = {
   $feeError: createTestSelector(SendFormSelectors.InputCustomFeeFieldError),
   $account1: createTestSelector(SendFormSelectors.optionAccount1),
   $confirmTransaction: createTestSelector(TransactionSigningSelectors.BtnConfirmTransaction),
-  $statusMessage: createTestSelector(WalletPageSelectors.statusMessage),
+  $statusMessage: createTestSelector(WalletPageSelectors.StatusMessage),
   $sendToken: createTestSelector(SendFormSelectors.SendToken),
   $pendingStatus: createTestSelector(SendFormSelectors.PendingStatus),
   $sentTokenValue: createTestSelector(SendFormSelectors.SentTokenValue),
