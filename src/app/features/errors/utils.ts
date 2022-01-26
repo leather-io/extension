@@ -27,7 +27,8 @@ export const openGithubIssue = ({
   Thanks for creating an issue. Please include as much detail as possible,
   including screenshots, operating system, browser, and steps to recreate.
 
-  Please make sure to update the TITLE of this issue.
+  Please make sure to update the TITLE of this issue to something that
+  describes the bug.
 -->
 
 An error occurred while using Hiro Wallet for Web (\`${VERSION}\`).
