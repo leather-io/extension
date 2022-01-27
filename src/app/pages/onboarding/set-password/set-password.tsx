@@ -3,28 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { debounce } from 'ts-debounce';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { cx } from '@emotion/css';
 import { Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { isFullPage, isPopup } from '@app/common/utils';
+import { isFullPage } from '@app/common/utils';
 import {
   validatePassword,
   blankPasswordValidation,
 } from '@app/common/validation/validate-password';
 import { ErrorLabel } from '@app/components/error-label';
 import { PrimaryButton } from '@app/components/primary-button';
-import { Body, Caption, Title } from '@app/components/typography';
+import { Body, Caption } from '@app/components/typography';
 import { Header } from '@app/components/header';
-import {
-  fullPageContent,
-  fullPageText,
-  fullPageTitle,
-  popupPageTitle,
-} from '@app/pages/pages.styles';
+import { PageTitle } from '@app/components/page-title';
+import { fullPageContent, fullPageText } from '@app/pages/pages.styles';
 import { HUMAN_REACTION_DEBOUNCE_TIME } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
@@ -122,12 +117,7 @@ export const SetPasswordPage = () => {
       {formik => (
         <Form>
           <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose">
-            <Title
-              className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-              fontWeight={500}
-            >
-              Set a password
-            </Title>
+            <PageTitle isCentered>Set a password</PageTitle>
             <Body className={isFullPage ? fullPageText : undefined}>
               Your password protects your Secret Key and is for this device only. To access your
               Stacks account on another device or wallet you’ll need just your Secret Key.

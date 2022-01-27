@@ -1,6 +1,5 @@
 import { useState, useCallback, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { cx } from '@emotion/css';
 import { Box, Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
@@ -10,14 +9,14 @@ import { buildEnterKeyEvent } from '@app/components/link';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
 import { PrimaryButton } from '@app/components/primary-button';
-import { Title } from '@app/components/typography';
+import { PageTitle } from '@app/components/page-title';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { isFullPage, isPopup } from '@app/common/utils';
+import { isFullPage } from '@app/common/utils';
 import { Caption } from '@app/components/typography';
 import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
-import { fullPageContent, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
+import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
@@ -76,12 +75,7 @@ export function Unlock(): JSX.Element {
 
   return (
     <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose" width="100%">
-      <Title
-        className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-        fontWeight={500}
-      >
-        Unlock
-      </Title>
+      <PageTitle isCentered>Unlock</PageTitle>
       <Caption textAlign={isFullPage ? 'center' : 'left'}>
         {waitingMessage || 'Enter the password you used on this device.'}
       </Caption>

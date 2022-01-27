@@ -1,13 +1,13 @@
-import { cx } from '@emotion/css';
 import { color, Stack } from '@stacks/ui';
 
 import { Header } from '@app/components/header';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { isFullPage, isPopup } from '@app/common/utils';
+import { isFullPage } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Text, Title } from '@app/components/typography';
+import { Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
-import { fullPageContent, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
+import { PageTitle } from '@app/components/page-title';
+import { fullPageContent } from '@app/pages/pages.styles';
 import AddFunds from '@assets/images/add-funds.svg';
 
 interface BuyLayoutProps {
@@ -27,14 +27,7 @@ export const BuyLayout = (props: BuyLayoutProps) => {
       spacing="base"
     >
       <img src={AddFunds} />
-      <Title
-        className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-        mt="base-tight"
-        textAlign="left"
-        width="100%"
-      >
-        Fund your account
-      </Title>
+      <PageTitle mt={['unset', 'base', null]}>Fund your account</PageTitle>
       <Text>
         You'll need STX to pay for transaction fees and other interactions with the Stacks
         blockchain. Choose an option below to purchase and deposit STX directly into your account.

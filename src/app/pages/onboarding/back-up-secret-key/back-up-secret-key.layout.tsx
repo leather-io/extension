@@ -4,17 +4,13 @@ import { Box, color, Flex, Stack } from '@stacks/ui';
 import { Text, Title } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { isFullPage, isPopup } from '@app/common/utils';
+import { PageTitle } from '@app/components/page-title';
 import KeyIllustrationFull from '@assets/images/onboarding/key-illustration-full.svg';
 import KeyIllustrationPopup from '@assets/images/onboarding/key-illustration-popup.svg';
 import SecretKey from '@assets/images/onboarding/secret-key.svg';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import {
-  fullPageOnboardingContent,
-  fullPageOnboardingTitle,
-  popupPageContent,
-  popupPageTitle,
-} from '@app/pages/pages.styles';
+import { fullPageOnboardingContent, popupPageContent } from '@app/pages/pages.styles';
 import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
@@ -41,13 +37,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
       >
         <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
           <img src={SecretKey} width="135px" />
-          <Title
-            className={cx({ [fullPageOnboardingTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-            fontWeight={500}
-            pr={isPopup ? '72px' : 'unset'}
-          >
-            Back up your Secret Key
-          </Title>
+          <PageTitle>Back up your Secret Key</PageTitle>
           <Text>
             Here’s your Secret Key: 24 words that generated your Stacks account. You’ll need it to
             access your account on a new device, in a different wallet, or in case you lose your
