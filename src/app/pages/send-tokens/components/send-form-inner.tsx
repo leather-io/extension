@@ -1,13 +1,13 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { useFormikContext } from 'formik';
-import { Box, Text, Button, Stack } from '@stacks/ui';
+import { Box, Text, Stack } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
 import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
-import { isEmpty, isFullPage } from '@app/common/utils';
+import { isEmpty } from '@app/common/utils';
 import {
   getDefaultSimulatedFeeEstimations,
   getFeeEstimationsWithMaxValues,
@@ -17,10 +17,12 @@ import {
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import { PrimaryButton } from '@app/components/primary-button';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
-import { fullPageContent } from '@app/pages/pages.styles';
 import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
@@ -111,43 +113,39 @@ export function SendFormInner(props: SendFormInnerProps) {
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
   return (
-    <Stack
-      className={isFullPage ? fullPageContent : undefined}
-      spacing="loose"
-      flexDirection="column"
-      flexGrow={1}
-      shouldWrapChildren
-    >
-      <AssetSearch onItemClick={onItemSelect} />
-      <Suspense fallback={<></>}>
-        <AmountField
-          error={errors.amount}
-          feeQueryError={!!feeEstimationsResp?.error}
-          value={values.amount || 0}
-        />
-      </Suspense>
-      <RecipientField error={errors.recipient} value={values.recipient} />
-      {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
-      {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
-      {feeEstimationsResp && <FeeRow fieldName="fee" isSponsored={isSponsored} />}
-      <Box mt="auto">
-        {assetError && (
-          <ErrorLabel mb="base">
-            <Text textStyle="caption">{assetError}</Text>
-          </ErrorLabel>
-        )}
-        <Button
-          type="submit"
-          borderRadius="12px"
-          width="100%"
-          isDisabled={!hasValues}
-          onClick={onSubmit}
-          data-testid={SendFormSelectors.BtnPreviewSendTx}
-        >
-          Preview
-        </Button>
-      </Box>
-      <ShowEditNonceAction />
-    </Stack>
+    <CenteredPageContainer>
+      <Stack maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} px={['unset', 'base-loose']} spacing="loose">
+        <AssetSearch onItemClick={onItemSelect} />
+        <Suspense fallback={<></>}>
+          <AmountField
+            error={errors.amount}
+            feeQueryError={!!feeEstimationsResp?.error}
+            value={values.amount || 0}
+          />
+        </Suspense>
+        <RecipientField error={errors.recipient} value={values.recipient} />
+        {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
+        {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
+        {feeEstimationsResp && <FeeRow fieldName="fee" isSponsored={isSponsored} />}
+        <Box mt="auto">
+          {assetError && (
+            <ErrorLabel mb="base">
+              <Text textStyle="caption">{assetError}</Text>
+            </ErrorLabel>
+          )}
+          <PrimaryButton
+            data-testid={SendFormSelectors.BtnPreviewSendTx}
+            isDisabled={!hasValues}
+            onClick={onSubmit}
+            width="100%"
+          >
+            Preview
+          </PrimaryButton>
+        </Box>
+        <Box mb={['loose', 'unset']}>
+          <ShowEditNonceAction />
+        </Box>
+      </Stack>
+    </CenteredPageContainer>
   );
 }

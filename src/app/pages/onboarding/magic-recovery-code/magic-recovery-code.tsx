@@ -9,7 +9,7 @@ import { Caption } from '@app/components/typography';
 import { Header } from '@app/components/header';
 import { PrimaryButton } from '@app/components/primary-button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
 export const MagicRecoveryCode = memo(() => {
   const { onBack, onSubmit, onChange, magicRecoveryCodePassword, error, isLoading } =
@@ -24,7 +24,7 @@ export const MagicRecoveryCode = memo(() => {
 
   return (
     <CenteredPageContainer>
-      <Stack as="form" maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} onSubmit={onSubmit} spacing="loose">
+      <Stack as="form" maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} onSubmit={onSubmit} spacing="loose">
         <Caption textAlign={['left', 'center']}>
           You entered a Magic Recovery Code. Enter the password you set when you first created your
           Blockstack ID.

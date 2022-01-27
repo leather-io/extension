@@ -1,6 +1,5 @@
 import { useState, useCallback, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { cx } from '@emotion/css';
 import { Box, Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
@@ -11,16 +10,14 @@ import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { PrimaryButton } from '@app/components/primary-button';
-import { Title } from '@app/components/typography';
+import { PageTitle } from '@app/components/page-title';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { isFullPage, isPopup } from '@app/common/utils';
 import { Caption } from '@app/components/typography';
 import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
-import { fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { RouteUrls } from '@shared/route-urls';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 const waitingMessages: WaitingMessages = {
@@ -78,36 +75,37 @@ export function Unlock(): JSX.Element {
 
   return (
     <CenteredPageContainer>
-      <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose" width="100%">
-        <Title
-          className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-          fontWeight={500}
-        >
-          Unlock
-        </Title>
-        <Caption textAlign={isFullPage ? 'center' : 'left'}>
-          {waitingMessage || 'Enter the password you used on this device.'}
-        </Caption>
-        <Input
-          autoFocus
-          borderRadius="10px"
-          data-testid={SettingsSelectors.EnterPasswordInput}
-          height="64px"
-          isDisabled={loading}
-          onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
-          onKeyUp={buildEnterKeyEvent(submit)}
-          placeholder="Enter your password"
-          type="password"
-          value={password}
-          width="100%"
-        />
-        {error && (
-          <Box>
-            <ErrorLabel>
-              <Text textStyle="caption">{error}</Text>
-            </ErrorLabel>
-          </Box>
-        )}
+      <Stack
+        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+        px={['unset', 'base-loose']}
+        spacing="loose"
+        textAlign={['left', 'center']}
+        width="100%"
+      >
+        <PageTitle>Unlock</PageTitle>
+        <Caption>{waitingMessage || 'Enter the password you used on this device.'}</Caption>
+        <Stack spacing="base">
+          <Input
+            autoFocus
+            borderRadius="10px"
+            data-testid={SettingsSelectors.EnterPasswordInput}
+            height="64px"
+            isDisabled={loading}
+            onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+            onKeyUp={buildEnterKeyEvent(submit)}
+            placeholder="Enter your password"
+            type="password"
+            value={password}
+            width="100%"
+          />
+          {error && (
+            <Box>
+              <ErrorLabel>
+                <Text textStyle="caption">{error}</Text>
+              </ErrorLabel>
+            </Box>
+          )}
+        </Stack>
         <PrimaryButton
           data-testid={SettingsSelectors.UnlockWalletBtn}
           isDisabled={loading}
