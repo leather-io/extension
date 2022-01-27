@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { atomWithStore } from 'jotai/redux';
-import storage from 'redux-persist/lib/storage';
 import devToolsEnhancer from 'remote-redux-devtools';
 import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import {
@@ -18,8 +17,9 @@ import { keySlice } from './keys/key.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
+import { ExtensionStorage } from './utils/extension-storage';
 
-// const storage = new ChromeStorage(chrome.storage.local, chrome.runtime);
+const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
 const rootReducer = combineReducers({
   keys: keySlice.reducer,
