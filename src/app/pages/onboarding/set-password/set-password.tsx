@@ -3,29 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import { debounce } from 'ts-debounce';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { cx } from '@emotion/css';
-import { Input, Stack, Text } from '@stacks/ui';
+import { Box, color, Input, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { isFullPage, isPopup } from '@app/common/utils';
 import {
   validatePassword,
   blankPasswordValidation,
 } from '@app/common/validation/validate-password';
 import { ErrorLabel } from '@app/components/error-label';
 import { PrimaryButton } from '@app/components/primary-button';
-import { Body, Caption, Title } from '@app/components/typography';
+import { Caption } from '@app/components/typography';
 import { Header } from '@app/components/header';
-import { fullPageText, fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
+import { PageTitle } from '@app/components/page-title';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import SetPassword from '@assets/images/onboarding/set-password.svg';
 import { HUMAN_REACTION_DEBOUNCE_TIME } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 export const SetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
@@ -87,7 +86,7 @@ export const SetPasswordPage = () => {
       .string()
       .defined()
       .test({
-        message: 'Password strength is weak',
+        message: 'Weak',
         test: debounce((value: unknown) => {
           if (typeof value !== 'string') return false;
           const result = validatePassword(value);
@@ -119,24 +118,29 @@ export const SetPasswordPage = () => {
       >
         {formik => (
           <Form>
-            <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
-              <Title
-                className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-                fontWeight={500}
-              >
-                Set a password
-              </Title>
-              <Body className={isFullPage ? fullPageText : undefined}>
+            <Stack
+              maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+              mb={['loose', 'unset']}
+              spacing="loose"
+              textAlign={['left', 'center']}
+            >
+              <Box alignSelf={['start', 'center']} width={['95px', '117px']}>
+                <img src={SetPassword} />
+              </Box>
+              <PageTitle>Set a password</PageTitle>
+              <Text lineHeight="1.5rem">
                 Your password protects your Secret Key and is for this device only. To access your
                 Stacks account on another device or wallet you’ll need just your Secret Key.
-                {formik.submitCount && !strengthResult.meetsAllStrengthRequirements ? (
+                {formik.submitCount &&
+                !formik.isSubmitting &&
+                !strengthResult.meetsAllStrengthRequirements ? (
                   <Caption fontSize={0} mt="base-loose">
                     Please use a stronger password. Longer than 12 characters, with symbols,
                     numbers, and words.
                   </Caption>
                 ) : null}
-              </Body>
-              <Stack spacing="base">
+              </Text>
+              <Stack px={['unset', 'base-loose']} spacing="base">
                 <Input
                   autoFocus
                   data-testid={OnboardingSelectors.NewPasswordInput}
@@ -149,9 +153,10 @@ export const SetPasswordPage = () => {
                   value={formik.values.password}
                 />
                 {formik.submitCount && formik.errors.password ? (
-                  <ErrorLabel>
-                    <Text textStyle="caption">{formik.errors.password}</Text>
-                  </ErrorLabel>
+                  <Stack alignItems="center" isInline>
+                    <Caption mr="4px !important">Password strength:</Caption>
+                    <Caption color={color('feedback-error')}>{formik.errors.password}</Caption>
+                  </Stack>
                 ) : null}
                 <Input
                   data-testid={OnboardingSelectors.ConfirmPasswordInput}
@@ -169,14 +174,15 @@ export const SetPasswordPage = () => {
                     <Text textStyle="caption">{formik.errors.confirmPassword}</Text>
                   </ErrorLabel>
                 ) : null}
+                <PrimaryButton
+                  data-testid={OnboardingSelectors.SetPasswordBtn}
+                  isDisabled={loading}
+                  isLoading={loading || formik.isSubmitting}
+                  mt="tight"
+                >
+                  Done
+                </PrimaryButton>
               </Stack>
-              <PrimaryButton
-                data-testid={OnboardingSelectors.SetPasswordBtn}
-                isDisabled={loading}
-                isLoading={loading || formik.isSubmitting}
-              >
-                Done
-              </PrimaryButton>
             </Stack>
           </Form>
         )}

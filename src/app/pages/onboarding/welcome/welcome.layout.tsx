@@ -1,23 +1,28 @@
-import { cx } from '@emotion/css';
-import { Flex, Stack } from '@stacks/ui';
+import { Box, color, Flex, Stack } from '@stacks/ui';
 
-import { isFullPage, isPopup } from '@app/common/utils';
-import { Text, Title } from '@app/components/typography';
+import { isFullPage } from '@app/common/utils';
+import { Caption, Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
+import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import WelcomeStacksFull from '@assets/images/onboarding/welcome-full.svg';
-import WelcomeStacksPopup from '@assets/images/onboarding/welcome-popup.svg';
-import {
-  fullPageOnboardingContent,
-  fullPageOnboardingTitle,
-  popupPageContent,
-  popupPageTitle,
-} from '@app/pages/pages.styles';
+import ExploreStacks from '@assets/images/onboarding/explore-stacks.svg';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 const WelcomeIllustration = () =>
-  isFullPage ? <img src={WelcomeStacksFull} /> : <img src={WelcomeStacksPopup} width="394px" />;
+  isFullPage ? (
+    <Box bg={color('border')} borderRadius="16px" height="675px" width="518px">
+      <Box left="43px" position="relative" top="92px">
+        <img src={ExploreStacks} width="432px" />
+      </Box>
+    </Box>
+  ) : (
+    <Box bg={color('border')} borderRadius="16px" height="155px" overflow="hidden" width="344px">
+      <Box position="relative" top="-138px">
+        <img src={ExploreStacks} width="346px" />
+      </Box>
+    </Box>
+  );
 
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
@@ -30,28 +35,13 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
   return (
     <CenteredPageContainer>
       <Stack isInline={isFullPage} width="100%">
-        <Flex flexGrow={1} justifyContent="center" order={isFullPage ? 1 : 0}>
+        <Flex flexGrow={1} justifyContent="center" order={[0, 1, 1]}>
           <WelcomeIllustration />
         </Flex>
-        <Flex
-          className={cx(
-            { [fullPageOnboardingContent]: isFullPage },
-            { [popupPageContent]: isPopup }
-          )}
-          flexGrow={1}
-          justifyContent="center"
-        >
-          <Stack maxWidth="500px" spacing="loose">
-            <Title
-              className={cx(
-                { [fullPageOnboardingTitle]: isFullPage },
-                { [popupPageTitle]: isPopup }
-              )}
-              fontWeight={500}
-            >
-              Explore the world of Stacks
-            </Title>
-            <Text>
+        <Flex alignItems="center" flexGrow={1} justifyContent="center" mt={['base', 'unset']}>
+          <Stack maxWidth="500px" spacing={['base', 'base-loose', 'loose']}>
+            <PageTitle isHeadline>Explore the world of Stacks</PageTitle>
+            <Text pr={['unset', '60px']}>
               Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
               secure. Create your Stacks account to get started.
             </Text>
@@ -63,13 +53,16 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
             >
               Create Stacks Account
             </PrimaryButton>
-            <Link
-              data-testid={OnboardingSelectors.SignInLink}
-              fontSize="14px"
-              onClick={onRestoreWallet}
-            >
-              I already have an account
-            </Link>
+            <Stack mt={['base', 'base-tight', 'tight']} spacing="tight">
+              <Caption>Already have a Stacks account?</Caption>
+              <Link
+                data-testid={OnboardingSelectors.SignInLink}
+                fontSize="14px"
+                onClick={onRestoreWallet}
+              >
+                Sign in with Secret Key
+              </Link>
+            </Stack>
           </Stack>
         </Flex>
       </Stack>

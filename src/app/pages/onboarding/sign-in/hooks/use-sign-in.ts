@@ -30,7 +30,9 @@ export function useSignIn() {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleSetError = useCallback(
-    (message = "The Secret Key you've entered is invalid") => {
+    (
+      message = 'Incorrect Secret Key. Make sure it is 12 or 24 words with spaces between words.'
+    ) => {
       setError(message);
       setIsIdle();
       textAreaRef.current?.focus();
