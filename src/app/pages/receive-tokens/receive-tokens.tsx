@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, useClipboard, Stack, Text, color } from '@stacks/ui';
+import { Box, useClipboard, Stack, color, Button } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
@@ -9,11 +9,9 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Header } from '@app/components/header';
-import { Toast } from '@app/components/toast';
-import { Caption, Title } from '@app/components/typography';
-import { Tooltip } from '@app/components/tooltip';
+import { Caption, Text, Title } from '@app/components/typography';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { RouteUrls } from '@shared/route-urls';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 import { QrCode } from './components/address-qr-code';
 
@@ -33,12 +31,16 @@ export const ReceiveTokens = () => {
 
   return (
     <CenteredPageContainer>
-      <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose" textAlign="center">
-        <Text textStyle="body.small" color={color('text-caption')}>
+      <Stack
+        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+        px={['unset', 'base-loose']}
+        spacing="loose"
+        textAlign="center"
+      >
+        <Text textAlign={['left', 'center']}>
           Share your unique address to receive any token or collectible. Including a memo is not
           required.
         </Text>
-        <Toast show={hasCopied} />
         <Box mx="auto">
           <QrCode principal={address} />
         </Box>
@@ -47,12 +49,25 @@ export const ReceiveTokens = () => {
             {getAccountDisplayName(currentAccount)}
           </Title>
         )}
-        <Box>
-          <Tooltip interactive placement="bottom" label={address}>
-            <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
-          </Tooltip>
-        </Box>
-        <PrimaryButton onClick={copyToClipboard}>Copy your address</PrimaryButton>
+        <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
+        {!hasCopied ? (
+          <PrimaryButton onClick={copyToClipboard}>Copy your address</PrimaryButton>
+        ) : (
+          <Button
+            _hover={{
+              boxShadow: 'none',
+            }}
+            border="1px solid"
+            borderColor={color('border')}
+            borderRadius="10px"
+            boxShadow="none"
+            color={color('accent')}
+            height="48px"
+            mode="tertiary"
+          >
+            Copied to clipboard!
+          </Button>
+        )}
       </Stack>
     </CenteredPageContainer>
   );

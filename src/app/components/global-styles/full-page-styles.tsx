@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 
+export const CENTERED_FULL_PAGE_MAX_WIDTH = '440px';
+
 export const fullPageStyles = css`
   .mode__full-page {
     &,

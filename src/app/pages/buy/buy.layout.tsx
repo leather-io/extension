@@ -1,16 +1,14 @@
-import { cx } from '@emotion/css';
 import { Box, color, Stack } from '@stacks/ui';
 
 import { Header } from '@app/components/header';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { isFullPage, isPopup } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Text, Title } from '@app/components/typography';
+import { Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
-import { fullPageTitle, popupPageTitle } from '@app/pages/pages.styles';
+import { PageTitle } from '@app/components/page-title';
 import AddFunds from '@assets/images/add-funds.svg';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
 interface BuyLayoutProps {
   onCloseAction: () => void;
@@ -23,21 +21,16 @@ export const BuyLayout = (props: BuyLayoutProps) => {
 
   return (
     <CenteredPageContainer>
-      <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} pb="loose" spacing="base">
+      <Stack maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} pb={['loose', 'unset']} spacing="base">
         <Box width={['100px', '115px']}>
           <img src={AddFunds} />
         </Box>
-        <Title
-          className={cx({ [fullPageTitle]: isFullPage }, { [popupPageTitle]: isPopup })}
-          mt="base-tight"
-          textAlign="left"
-          width="100%"
-        >
+        <PageTitle fontSize={[4, 8]} mt={['unset', 'base', null]}>
           Fund your account
-        </Title>
+        </PageTitle>
         <Text>
-          You'll need STX to pay for transaction fees and other interactions with the Stacks
-          blockchain. Choose an option below to purchase and deposit STX directly into your account.
+          Fund your account with STX, the native currency of Stacks. You can use your STX to trade,
+          bid in auctions, earn Bitcoin, and much more. Buy some STX on an exchange to get started.
         </Text>
         <Link
           color={color('accent')}

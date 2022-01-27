@@ -7,8 +7,8 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { Header } from '@app/components/header';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { RouteUrls } from '@shared/route-urls';
-import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
 
 import { ViewSecretKeyActions } from './components/view-secret-key-actions';
 import { ViewSecretKeyMessage } from './components/view-secret-key-message';
@@ -39,7 +39,7 @@ export const ViewSecretKey = memo(() => {
 
   return (
     <CenteredPageContainer>
-      <Stack maxWidth={`${FULL_PAGE_MAX_WIDTH}px`} spacing="loose">
+      <Stack maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} spacing="loose">
         <ViewSecretKeyMessage wordCount={wordCount} />
         <ViewSecretKeyCard secretKey={secretKey} />
         <ViewSecretKeyActions
