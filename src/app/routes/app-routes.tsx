@@ -52,8 +52,7 @@ export function AppRoutes(): JSX.Element | null {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentKey?.hasSetPassword]);
 
-  // check to prevent renders before the state has rehydrated
-  if (!hasStateRehydrated) return <>rehdryating state</>;
+  if (!hasStateRehydrated) return <LoadingSpinner />;
 
   return (
     <Routes>
