@@ -10,21 +10,17 @@ import {
 } from '@app/common/utils';
 import { RouteUrls } from '@shared/route-urls';
 import { useLoading } from '@app/common/hooks/use-loading';
-import {
-  useMagicRecoveryCodeState,
-  useSeedInputErrorState,
-} from '@app/store/onboarding/onboarding.hooks';
+import { useSeedInputErrorState } from '@app/store/onboarding/onboarding.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAppDispatch } from '@app/store';
 import { keyActions } from '@app/store/keys/key.actions';
 import toast from 'react-hot-toast';
 
 async function simulateShortDelayToAvoidImmediateNavigation() {
-  await delay(500);
+  await delay(600);
 }
 
 export function useSignIn() {
-  const [, setMagicRecoveryCode] = useMagicRecoveryCodeState();
   const [error, setError] = useSeedInputErrorState();
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
@@ -61,8 +57,12 @@ export function useSignIn() {
       if (parsedKeyInput.split(' ').length <= 1) {
         const result = validateAndCleanRecoveryInput(parsedKeyInput);
         if (result.isValid) {
-          setMagicRecoveryCode(parsedKeyInput);
-          navigate(RouteUrls.RecoveryCode);
+          toast.success('Magic recovery code detected');
+          await simulateShortDelayToAvoidImmediateNavigation();
+          navigate({
+            pathname: RouteUrls.MagicRecoveryCode,
+            search: `?magicRecoveryCode=${parsedKeyInput}`,
+          });
           return;
         } else {
           // single word and not a valid recovery key
@@ -82,7 +82,7 @@ export function useSignIn() {
       navigate(RouteUrls.SetPassword);
       setIsIdle();
     },
-    [setIsLoading, handleSetError, setMagicRecoveryCode, navigate, dispatch, analytics, setIsIdle]
+    [setIsLoading, handleSetError, navigate, dispatch, analytics, setIsIdle]
   );
 
   const onPaste = useCallback(
@@ -93,11 +93,15 @@ export function useSignIn() {
     [submitMnemonicForm]
   );
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       setError(undefined);
-    };
-  }, [setError]);
+      setIsIdle();
+    },
+    // setIsIdle update change not desired
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [setError]
+  );
 
   return { onPaste, submitMnemonicForm, ref: textAreaRef, error, isLoading };
 }
