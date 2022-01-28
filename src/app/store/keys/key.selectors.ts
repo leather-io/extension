@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 
@@ -10,13 +9,8 @@ export const selectGeneratedSecretKey = createSelector(selectWalletSlice, state 
 
 export const selectCurrentKey = createSelector(selectWalletSlice, state => state.entities.default);
 
-export function withDerivedKeyInformation(key: ReturnType<typeof selectCurrentKey>) {
-  return { ...key, hasSetPassword: !!key?.encryptedSecretKey };
-}
-
 export function useCurrentKeyDetails() {
-  const currentKey = useSelector(selectCurrentKey);
-  return useMemo(() => withDerivedKeyInformation(currentKey), [currentKey]);
+  return useSelector(selectCurrentKey);
 }
 
 export function useGeneratedSecretKey() {
