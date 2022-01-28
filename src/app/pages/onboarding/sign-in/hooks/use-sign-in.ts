@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validateMnemonic } from 'bip39';
@@ -6,7 +6,7 @@ import { validateMnemonic } from 'bip39';
 import {
   extractPhraseFromPasteEvent,
   validateAndCleanRecoveryInput,
-  hasLineReturn,
+  delay,
 } from '@app/common/utils';
 import { RouteUrls } from '@shared/route-urls';
 import { useLoading } from '@app/common/hooks/use-loading';
@@ -17,10 +17,14 @@ import {
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAppDispatch } from '@app/store';
 import { keyActions } from '@app/store/keys/key.actions';
+import toast from 'react-hot-toast';
+
+async function simulateShortDelayToAvoidImmediateNavigation() {
+  await delay(500);
+}
 
 export function useSignIn() {
   const [, setMagicRecoveryCode] = useMagicRecoveryCodeState();
-  const [seed, setSeed] = useState('');
   const [error, setError] = useSeedInputErrorState();
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
@@ -35,18 +39,16 @@ export function useSignIn() {
     (message = "The Secret Key you've entered is invalid") => {
       setError(message);
       setIsIdle();
-      textAreaRef.current?.focus();
       void analytics.track('submit_invalid_secret_key');
       return;
     },
     [analytics, setError, setIsIdle]
   );
 
-  const handleSubmit = useCallback(
-    async (passedValue?: string) => {
-      textAreaRef.current?.blur();
+  const submitMnemonicForm = useCallback(
+    async (passedValue: string) => {
       setIsLoading();
-      const parsedKeyInput = passedValue || seed.trim();
+      const parsedKeyInput = passedValue ? passedValue.trim() : '';
 
       // empty?
       if (parsedKeyInput.length === 0) {
@@ -66,101 +68,34 @@ export function useSignIn() {
         }
       }
 
-      if (!validateMnemonic(seed)) {
+      if (!validateMnemonic(parsedKeyInput)) {
         handleSetError();
         return;
       }
 
-      try {
-        dispatch(keyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
-        void analytics.track('submit_valid_secret_key');
-        navigate(RouteUrls.SetPassword);
-        setIsIdle();
-      } catch (error) {
-        handleSetError();
-      }
+      await simulateShortDelayToAvoidImmediateNavigation();
+      toast.success('Secret Key valid');
+      dispatch(keyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
+      void analytics.track('submit_valid_secret_key');
+      navigate(RouteUrls.SetPassword);
+      setIsIdle();
     },
-    [
-      setIsLoading,
-      seed,
-
-      handleSetError,
-      setMagicRecoveryCode,
-      navigate,
-      dispatch,
-      analytics,
-      setIsIdle,
-    ]
-  );
-  const handleSetSeed = useCallback(
-    async (value: string, trim?: boolean) => {
-      const trimmed = trim ? value.trim() : value;
-      const isEmpty = JSON.stringify(trimmed) === '' || trimmed === '' || !trimmed;
-      if (trimmed === seed) return;
-      if (isEmpty) {
-        setSeed('');
-        error && setError(undefined);
-        return;
-      }
-      error && setError(undefined);
-      setSeed(trimmed || '');
-      if (hasLineReturn(trimmed)) {
-        textAreaRef.current?.blur();
-        await handleSubmit(trimmed);
-      }
-    },
-    [error, seed, textAreaRef, handleSubmit, setSeed, setError]
-  );
-
-  const onChange = useCallback(
-    async (event: React.FormEvent<HTMLInputElement>) => {
-      await handleSetSeed(event.currentTarget.value);
-    },
-    [handleSetSeed]
+    [setIsLoading, handleSetError, setMagicRecoveryCode, navigate, dispatch, analytics, setIsIdle]
   );
 
   const onPaste = useCallback(
     async (event: React.ClipboardEvent) => {
       const value = extractPhraseFromPasteEvent(event);
-      await handleSetSeed(value, true);
-      await handleSubmit(value);
+      await submitMnemonicForm(value);
     },
-    [handleSetSeed, handleSubmit]
-  );
-
-  const onSubmit = useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      return handleSubmit();
-    },
-    [handleSubmit]
-  );
-
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        void handleSubmit();
-      }
-    },
-    [handleSubmit]
+    [submitMnemonicForm]
   );
 
   useEffect(() => {
     return () => {
       setError(undefined);
-      setSeed('');
     };
-  }, [setError, setSeed]);
+  }, [setError]);
 
-  return {
-    onChange,
-    onPaste,
-    onSubmit,
-    onKeyDown,
-    ref: textAreaRef,
-    value: seed,
-    error,
-    isLoading,
-  };
+  return { onPaste, submitMnemonicForm, ref: textAreaRef, error, isLoading };
 }

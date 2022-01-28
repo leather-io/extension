@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Text, Input, Stack, color } from '@stacks/ui';
+import { Form, Formik } from 'formik';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPage } from '@app/common/utils';
@@ -13,7 +14,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export const SignIn = () => {
-  const { onKeyDown, onChange, onPaste, onSubmit, error, isLoading, ref } = useSignIn();
+  const { onPaste, submitMnemonicForm, error, isLoading, ref } = useSignIn();
   const navigate = useNavigate();
 
   useRouteHeader(
@@ -25,51 +26,56 @@ export const SignIn = () => {
   );
 
   return (
-    <Stack
-      as="form"
-      className={isFullPage ? fullPageContent : undefined}
-      onSubmit={onSubmit}
-      spacing="loose"
-      width="100%"
+    <Formik
+      initialValues={{ secretKey: '' }}
+      onSubmit={values => submitMnemonicForm(values.secretKey)}
     >
-      <Caption className={isFullPage ? fullPageText : undefined}>
-        Enter your 12 or 24 word Secret Key to continue.
-      </Caption>
-      {error && (
-        <ErrorLabel lineHeight="16px">
-          <Text
-            data-testid="sign-in-seed-error"
-            color={color('feedback-error')}
-            textAlign="left"
-            textStyle="caption"
-          >
-            {error}
-          </Text>
-        </ErrorLabel>
+      {form => (
+        <Form>
+          <Stack className={isFullPage ? fullPageContent : undefined} spacing="loose" width="100%">
+            <Caption className={isFullPage ? fullPageText : undefined}>
+              Enter your 12 or 24 word Secret Key to continue.
+            </Caption>
+            {error && (
+              <ErrorLabel lineHeight="16px">
+                <Text
+                  data-testid="sign-in-seed-error"
+                  color={color('feedback-error')}
+                  textAlign="left"
+                  textStyle="caption"
+                >
+                  {error}
+                </Text>
+              </ErrorLabel>
+            )}
+            <Input
+              name="secretKey"
+              as="textarea"
+              autoCapitalize="off"
+              autoFocus
+              borderRadius="10px"
+              fontSize="16px"
+              minHeight="140px"
+              onChange={form.handleChange}
+              onPaste={onPaste}
+              onKeyDown={e => e.key === 'Enter' && form.submitForm()}
+              placeholder="Paste or type your Secret Key"
+              value={form.values.secretKey}
+              ref={ref as any}
+              spellCheck={false}
+              style={{ resize: 'none' }}
+              width="100%"
+            />
+            <PrimaryButton
+              data-testid={OnboardingSelectors.SignInBtn}
+              isDisabled={isLoading}
+              isLoading={isLoading}
+            >
+              Continue
+            </PrimaryButton>
+          </Stack>
+        </Form>
       )}
-      <Input
-        as="textarea"
-        autoCapitalize="off"
-        autoFocus
-        borderRadius="10px"
-        fontSize="16px"
-        minHeight="140px"
-        onChange={onChange}
-        onKeyDown={onKeyDown as any}
-        onPaste={onPaste}
-        placeholder="Paste or type your Secret Key"
-        ref={ref as any}
-        spellCheck={false}
-        style={{ resize: 'none' }}
-        width="100%"
-      />
-      <PrimaryButton
-        data-testid={OnboardingSelectors.SignInBtn}
-        isDisabled={isLoading}
-        isLoading={isLoading}
-      >
-        Continue
-      </PrimaryButton>
-    </Stack>
+    </Formik>
   );
 };
