@@ -12,10 +12,8 @@ interface AuthRequestState {
   appURL?: URL;
 }
 
-export const magicRecoveryCodePasswordState = atom('');
 export const seedInputErrorState = atom<string | undefined>(undefined);
 export const secretKeyState = atom(null);
-export const magicRecoveryCodeState = atom<null | string>(null);
 export const authRequestState = atom<AuthRequestState>({
   authRequest: undefined,
   decodedAuthRequest: undefined,
