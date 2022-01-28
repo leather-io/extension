@@ -64,7 +64,7 @@ export function AppRoutes(): JSX.Element | null {
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
         <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
         <Route path={RouteUrls.SignIn} element={<SignIn />} />
-        <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
+        <Route path={RouteUrls.MagicRecoveryCode} element={<MagicRecoveryCode />} />
         <Route
           path={RouteUrls.AddNetwork}
           element={

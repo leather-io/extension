@@ -1,25 +1,34 @@
-import { FormEvent, useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { decrypt } from '@stacks/wallet-sdk';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useLoading } from '@app/common/hooks/use-loading';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { RouteUrls } from '@shared/route-urls';
-import {
-  useMagicRecoveryCodePasswordState,
-  useMagicRecoveryCodeState,
-} from '@app/store/onboarding/onboarding.hooks';
+import { decrypt } from '@stacks/wallet-sdk';
+import { useDispatch } from 'react-redux';
+import { keyActions } from '@app/store/keys/key.actions';
+import { delay } from '@app/common/utils';
+import toast from 'react-hot-toast';
+
+function pullMagicRecoveryCodeFromParams(urlSearchParams: URLSearchParams) {
+  return urlSearchParams.get('magicRecoveryCode');
+}
+
+async function simulateShortDelayToAvoidImmediateNavigation() {
+  await delay(850);
+}
 
 export function useMagicRecoveryCode() {
-  const [magicRecoveryCode, setMagicRecoveryCode] = useMagicRecoveryCodeState();
-  const [magicRecoveryCodePassword, setMagicRecoveryCodePassword] =
-    useMagicRecoveryCodePasswordState();
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useMagicRecoveryCode');
-  const { setPassword, finishSignIn } = useWallet();
+  const [urlSearchParams] = useSearchParams();
+
+  const { finishSignIn } = useWallet();
   const [error, setPasswordError] = useState('');
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleNavigate = useCallback(() => {
     if (decodedAuthRequest) {
@@ -27,64 +36,44 @@ export function useMagicRecoveryCode() {
         void finishSignIn(0);
       }, 1000);
     } else {
-      navigate(RouteUrls.Home);
+      navigate(RouteUrls.SetPassword);
     }
   }, [navigate, decodedAuthRequest, finishSignIn]);
 
-  const handleSubmit = useCallback(async () => {
-    if (!magicRecoveryCode) throw Error('No magic recovery seed');
-    setIsLoading();
-    try {
-      // const codeBuffer = Buffer.from(magicRecoveryCode, 'base64');
-      // const secretKey = await decrypt(codeBuffer, magicRecoveryCodePassword);
-      // await storeSeed({ secretKey });
-      await setPassword(magicRecoveryCodePassword);
-      handleNavigate();
-    } catch (error) {
-      setPasswordError(`Incorrect password, try again.`);
-      setIsIdle();
-    }
-  }, [
-    setPassword,
-    setIsIdle,
-    setIsLoading,
-    magicRecoveryCode,
-    magicRecoveryCodePassword,
-    // storeSeed,
-    handleNavigate,
-  ]);
-
-  const onChange = useCallback(
-    (event: FormEvent<HTMLInputElement>) => {
-      event.preventDefault();
-      setMagicRecoveryCodePassword(event.currentTarget.value);
+  const decryptMagicRecoveryCode = useCallback(
+    async (password: string) => {
+      const magicRecoveryCode = pullMagicRecoveryCodeFromParams(urlSearchParams);
+      if (!magicRecoveryCode) throw Error('No magic recovery seed');
+      setIsLoading();
+      try {
+        const codeBuffer = Buffer.from(magicRecoveryCode, 'base64');
+        const secretKey = await decrypt(codeBuffer, password);
+        toast.success('Password correct');
+        await simulateShortDelayToAvoidImmediateNavigation();
+        dispatch(keyActions.saveUsersSecretKeyToBeRestored(secretKey));
+        handleNavigate();
+      } catch (error) {
+        setPasswordError(`Incorrect password, try again.`);
+        setIsIdle();
+      }
     },
-    [setMagicRecoveryCodePassword]
-  );
-
-  const onBack = () => navigate(RouteUrls.SignIn);
-
-  const onSubmit = useCallback(
-    async (event: FormEvent) => {
-      event.preventDefault();
-      await handleSubmit();
-    },
-    [handleSubmit]
+    [urlSearchParams, setIsLoading, dispatch, handleNavigate, setIsIdle]
   );
 
   useEffect(() => {
-    return () => {
-      setMagicRecoveryCode('');
-      setMagicRecoveryCodePassword('');
-    };
-  }, [setMagicRecoveryCode, setMagicRecoveryCodePassword]);
+    if (pullMagicRecoveryCodeFromParams(urlSearchParams)) return;
+    navigate(RouteUrls.SignIn);
+  }, [navigate, urlSearchParams]);
+
+  useEffect(() => {
+    setIsIdle();
+    return () => setIsIdle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     error,
     isLoading,
-    magicRecoveryCodePassword,
-    onBack,
-    onSubmit,
-    onChange,
+    decryptMagicRecoveryCode,
   };
 }
