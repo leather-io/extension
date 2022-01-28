@@ -16,7 +16,7 @@ export const createNewAccount = (wallet: Wallet): AppThunk => {
   return async (dispatch, getState) => {
     const secretKey = selectDefaultWalletKey(getState());
     if (!secretKey) {
-      throw new Error('Unable to create a new account - not logged in.');
+      throw new Error('Unable to create a new account. Wallet not signed in');
     }
     const newWallet = generateNewAccount(wallet);
     // Attempt to update gaia config with new account information
