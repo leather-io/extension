@@ -1,6 +1,6 @@
-import { useCallback, Suspense, memo, useState, useMemo } from 'react';
+import { useCallback, Suspense, memo, useState, useMemo, useEffect } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
-import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
+import { Box, BoxProps, color, Flex, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { Virtuoso } from 'react-virtuoso';
 
 import { Caption, Text, Title } from '@app/components/typography';
@@ -25,10 +25,10 @@ import { useAddressAvailableStxBalance } from '@app/query/balance/balance.hooks'
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
-const AccountTitlePlaceholder = ({
-  account,
-  ...rest
-}: { account: AccountWithAddress } & BoxProps) => {
+interface AccountTitlePlaceholderProps extends BoxProps {
+  account: AccountWithAddress;
+}
+const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
   const name = `Account ${account?.index + 1}`;
   return (
     <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
@@ -37,8 +37,11 @@ const AccountTitlePlaceholder = ({
   );
 };
 
-const AccountTitle = ({ account, ...rest }: { account: AccountWithAddress } & BoxProps) => {
-  const name = useAccountDisplayName(account);
+interface AccountTitleProps extends BoxProps {
+  account: AccountWithAddress;
+  name: string;
+}
+const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
   return (
     <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
       {name}
@@ -52,12 +55,11 @@ interface AccountItemProps extends FlexProps {
   account: AccountWithAddress;
   onSelectAccount(index: number): void;
 }
-
 const AccountItem = memo((props: AccountItemProps) => {
   const { selectedAddress, account, isLoading, onSelectAccount, ...rest } = props;
   const [component, bind] = usePressable(true);
   const { decodedAuthRequest } = useOnboardingState();
-  const name = useAccountDisplayName(account);
+  const name = useAccountDisplayName(account.address, account.index);
   const availableStxBalance = useAddressAvailableStxBalance(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
@@ -83,15 +85,21 @@ const AccountItem = memo((props: AccountItemProps) => {
                   />
                 }
               >
-                <AccountTitle {...getLoadingProps(showLoadingProps)} account={account} />
+                <AccountTitle
+                  name={name}
+                  {...getLoadingProps(showLoadingProps)}
+                  account={account}
+                />
               </Suspense>
               <Stack alignItems="center" spacing="6px" isInline>
                 <Caption fontSize={0} {...getLoadingProps(showLoadingProps)}>
                   {truncateMiddle(account.address, 4)}
                 </Caption>
-                <Suspense fallback={<></>}>
-                  <AccountBalanceCaption availableBalance={availableStxBalance} />
-                </Suspense>
+                {availableStxBalance && (
+                  <Suspense fallback={<></>}>
+                    <AccountBalanceCaption availableBalance={availableStxBalance} />
+                  </Suspense>
+                )}
               </Stack>
             </Stack>
             {isLoading && <Spinner width={4} height={4} {...loadingProps} />}
@@ -154,10 +162,9 @@ export const Accounts = memo(() => {
           style={{ height: '68px' }}
           itemContent={(index, account) => (
             <AccountItem
-              key={index}
               account={account}
               isLoading={selectedAccount === index}
-              onSelectAccount={index => signIntoAccount(index)}
+              onSelectAccount={signIntoAccount}
             />
           )}
         />
