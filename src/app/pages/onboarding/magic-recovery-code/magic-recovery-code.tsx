@@ -7,6 +7,7 @@ import { useMountEffect } from '@app/common/hooks/use-mount-effect';
 import { ErrorLabel } from '@app/components/error-label';
 import { Caption } from '@app/components/typography';
 import { Header } from '@app/components/header';
+import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
 
 const Form: React.FC<StackProps> = memo(props => {
   const { onBack, onSubmit, onChange, magicRecoveryCodePassword, error, isLoading } =
@@ -71,7 +72,7 @@ export const MagicRecoveryCode: React.FC = memo(() => {
 
   return (
     <>
-      <Caption>
+      <Caption data-testid={WalletPageSelectors.MagicRecoveryMessage}>
         You entered a Magic Recovery Code. Enter the password you set when you first created your
         Blockstack ID.
       </Caption>

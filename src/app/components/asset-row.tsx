@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { StackProps } from '@stacks/ui';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
-import type { AssetWithMeta } from '@app/common/asset-types';
+import { AssetWithMeta } from '@app/common/asset-types';
 import { getAssetName } from '@stacks/ui-utils';
 import { AssetItem } from '@app/components/asset-item';
 import { formatContractId, getTicker } from '@app/common/utils';
@@ -48,6 +48,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
       subAmount={subAmount}
       isDifferent={isDifferent}
       name={name}
+      data-testid={`asset-${name}`}
       {...rest}
     />
   );
