@@ -4,15 +4,18 @@ import { Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { isFullPage } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { CurrentAccount } from '@app/pages/home/components/account-area';
 import { HomeActions } from '@app/pages/home/components/home-actions';
+import { fullPageContent } from '@app/pages/pages.styles';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+
 import { HomeTabs } from './components/home-tabs';
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 
@@ -25,7 +28,7 @@ export const Home = () => {
   useRouteHeader(
     <>
       <HiroMessages mx="tight" />
-      <Header pt="base-tight" />
+      <Header />
     </>
   );
 
@@ -40,7 +43,13 @@ export const Home = () => {
         {account?.address && <BalanceFetcher address={account.address} />}
         {account?.address && <AccountInfoFetcher address={account.address} />}
       </Suspense>
-      <Stack data-testid="home-page" flexGrow={1} spacing="loose">
+      <Stack
+        className={isFullPage ? fullPageContent : undefined}
+        data-testid="home-page"
+        flexGrow={1}
+        mt="loose"
+        spacing="loose"
+      >
         <CurrentAccount />
         <HomeActions />
         {account && (
