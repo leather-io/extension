@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
-
-import {
-  stacksLocalhostNetwork,
-  stacksTestnetNetwork,
-  stacksTestnetNetwork as network,
-} from '@common/utils';
-import { demoTokenContract } from '@common/contracts';
-import { useSTXAddress } from '@common/use-stx-address';
+import BN from 'bn.js';
 import { useConnect } from '@stacks/connect-react';
+import { StacksTestnet } from '@stacks/network';
 import {
+  broadcastTransaction,
   bufferCV,
   bufferCVFromString,
   createAssetInfo,
@@ -22,6 +16,8 @@ import {
   NonFungibleConditionCode,
   PostConditionMode,
   someCV,
+  sponsorTransaction,
+  StacksTransaction,
   standardPrincipalCV,
   stringAsciiCV,
   stringUtf8CV,
@@ -29,10 +25,18 @@ import {
   tupleCV,
   uintCV,
 } from '@stacks/transactions';
+import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
+
+import {
+  stacksLocalhostNetwork,
+  stacksTestnetNetwork,
+  stacksTestnetNetwork as network,
+} from '@common/utils';
+import { demoTokenContract } from '@common/contracts';
+import { useSTXAddress } from '@common/use-stx-address';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+
 import { ExplorerLink } from './explorer-link';
-import BN from 'bn.js';
-import { StacksTestnet } from '@stacks/network';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
 
 export const Debugger = () => {
@@ -50,6 +54,18 @@ export const Debugger = () => {
   const setState = (type: string, id: string) => {
     setTxId(id);
     setTxType(type);
+  };
+
+  // If need to add more test tokens: STW7PFH79HW1C9Z0SXBP5PTPHKZZ58KK9WP1MZZA
+  const handleSponsoredTransactionBroadcast = async (tx: StacksTransaction) => {
+    const sponsorOptions = {
+      fee: new BN(388),
+      sponsorPrivateKey: 'b8c6aaef4b6de5e62648a59fff13e389856dff5e58163e676c2cfdf9dd5dd11101',
+      transaction: tx,
+    };
+
+    const sponsoredTx = await sponsorTransaction(sponsorOptions);
+    return broadcastTransaction(sponsoredTx, network);
   };
 
   const callBnsTransfer = async () => {
@@ -108,7 +124,11 @@ export const Debugger = () => {
     });
   };
 
-  const callFaker = async (network: StacksTestnet, mode = PostConditionMode.Deny) => {
+  const callFaker = async (
+    network: StacksTestnet,
+    mode = PostConditionMode.Deny,
+    sponsored = false
+  ) => {
     clearState();
     const args = [
       uintCV(1234),
@@ -135,14 +155,15 @@ export const Debugger = () => {
       attachment: 'This is an attachment',
       postConditionMode: mode,
       postConditions,
-      onFinish: data => {
+      onFinish: async (data: any) => {
         console.log('finished faker!', data);
-        console.log(data.stacksTransaction.auth.spendingCondition?.nonce.toNumber());
+        if (sponsored) handleSponsoredTransactionBroadcast(data.stacksTransaction);
         setState('Contract Call', data.txId);
       },
       onCancel: () => {
         console.log('popup closed!');
       },
+      sponsored,
     });
   };
 
@@ -308,7 +329,7 @@ export const Debugger = () => {
       {txId && (
         <Text textStyle="body.large" display="block" my={'base'}>
           <Text color="green" fontSize={1}>
-            <span data-testId={WalletPageSelectors.statusMessage}>
+            <span data-testId={WalletPageSelectors.StatusMessage}>
               Successfully broadcasted &quot;{txType}&quot;
             </span>
           </Text>
@@ -365,6 +386,12 @@ export const Debugger = () => {
           </Button>
           <Button mt={3} onClick={callNullContract}>
             Non-existent contract
+          </Button>
+          <Button
+            mt={3}
+            onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow, true)}
+          >
+            Sponsored contract call
           </Button>
         </ButtonGroup>
       </Box>

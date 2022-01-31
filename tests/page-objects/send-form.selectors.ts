@@ -34,5 +34,5 @@ export enum SendFormSelectors {
   StxTokenOption = 'asset-Stacks Token',
   StellaTokenOption = 'asset-stella-token',
 
-  optionAccount1 = 'account-account-1-0',
+  OptionAccount1 = 'account-account-1-0',
 }

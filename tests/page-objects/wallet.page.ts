@@ -1,7 +1,7 @@
-import { RouteUrls } from '@shared/route-urls';
-
 import { Page } from 'playwright-core';
-import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
+
+import { RouteUrls } from '@shared/route-urls';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
@@ -14,39 +14,42 @@ import {
   timeDifference,
 } from '../integration/utils';
 import { WalletPageSelectors } from './wallet.selectors';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export class WalletPage {
   static url = 'http://localhost:8081/index.html#';
-  $signUpButton = createTestSelector(InitialPageSelectors.SignUp);
-  $signInButton = createTestSelector(InitialPageSelectors.SignIn);
-  $analyticsAllowButton = createTestSelector(InitialPageSelectors.AnalyticsAllow);
-  $analyticsDenyButton = createTestSelector(InitialPageSelectors.AnalyticsDeny);
+  $signUpButton = createTestSelector(OnboardingSelectors.SignUpBtn);
+  $signInButton = createTestSelector(OnboardingSelectors.SignInLink);
+  $analyticsAllowButton = createTestSelector(OnboardingSelectors.AnalyticsAllowBtn);
+  $analyticsDenyButton = createTestSelector(OnboardingSelectors.AnalyticsDenyBtn);
   homePage = createTestSelector('home-page');
   $textareaReadOnlySeedPhrase = `${createTestSelector('textarea-seed-phrase')}[data-loaded="true"]`;
-  $buttonSignInKeyContinue = createTestSelector('sign-in-key-continue');
-  setPasswordDone = createTestSelector('set-password-done');
-  passwordInput = createTestSelector(OnboardingSelectors.SetOrEnterPasswordInput);
-  saveKeyButton = createTestSelector('save-key');
+  $buttonSignInKeyContinue = createTestSelector(OnboardingSelectors.SignInBtn);
+  setPasswordDone = createTestSelector(OnboardingSelectors.SetPasswordBtn);
+  $passwordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
+  $newPasswordInput = createTestSelector(OnboardingSelectors.NewPasswordInput);
+  $confirmPasswordInput = createTestSelector(OnboardingSelectors.ConfirmPasswordInput);
   sendTokenBtnSelector = createTestSelector(WalletPageSelectors.BtnSendTokens);
   buyTokenBtnSelector = createTestSelector(BuyTokensSelectors.BtnBuyTokens);
-  confirmSavedKey = createTestSelector('confirm-saved-key');
+  $confirmBackedUpSecretKey = createTestSelector(OnboardingSelectors.BackUpSecretKeyBtn);
   lowerCharactersErrMsg =
     'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
   signInKeyError = createTestSelector('sign-in-seed-error');
   password = 'mysecretreallylongpassword';
-  $settingsButton = createTestSelector('menu-button');
+  $settingsButton = createTestSelector(SettingsSelectors.MenuBtn);
   $contractCallButton = createTestSelector('btn-contract-call');
-  $settingsViewSecretKey = createTestSelector('settings-view-secret-key');
+  $settingsViewSecretKey = createTestSelector(SettingsSelectors.ViewSecretKeyListItem);
   $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
   $createAccountButton = createTestSelector(SettingsSelectors.BtnCreateAccount);
   $createAccountDone = createTestSelector(SettingsSelectors.BtnCreateAccountDone);
-  $statusMessage = createTestSelector(WalletPageSelectors.statusMessage);
+  $statusMessage = createTestSelector(WalletPageSelectors.StatusMessage);
   $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
   );
   $signOutDeleteWalletBtn = createTestSelector(SettingsSelectors.BtnSignOutActuallyDeleteWallet);
+  $enterPasswordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
+  $unlockWalletBtn = createTestSelector(SettingsSelectors.UnlockWalletBtn);
+  $magicRecoveryMessage = createTestSelector(WalletPageSelectors.MagicRecoveryMessage);
 
   page: Page;
 
@@ -98,8 +101,16 @@ export class WalletPage {
     await this.page.waitForSelector(this.$homePageBalancesList, { timeout: 30000 });
   }
 
-  async waitForSetOrEnterPasswordInput() {
-    await this.page.waitForSelector(this.passwordInput, { timeout: 30000 });
+  async waitForNewPasswordInput() {
+    await this.page.waitForSelector(this.$newPasswordInput, { timeout: 30000 });
+  }
+
+  async waitForConfirmPasswordInput() {
+    await this.page.waitForSelector(this.$confirmPasswordInput, { timeout: 30000 });
+  }
+
+  async waitForEnterPasswordInput() {
+    await this.page.waitForSelector(this.$enterPasswordInput, { timeout: 30000 });
   }
 
   async waitForMainHomePage() {
@@ -120,7 +131,8 @@ export class WalletPage {
 
   async loginWithPreviousSecretKey(secretKey: string) {
     await this.enterSecretKey(secretKey);
-    await this.enterPassword();
+    await this.enterNewPassword();
+    await this.enterConfirmPasswordAndClickDone();
   }
 
   async enterSecretKey(secretKey: string) {
@@ -141,9 +153,10 @@ export class WalletPage {
     return secretKey;
   }
 
-  async saveKey() {
-    await this.page.click(this.confirmSavedKey);
-    await this.enterPassword();
+  async backUpKeyAndSetPassword() {
+    await this.page.click(this.$confirmBackedUpSecretKey);
+    await this.enterNewPassword();
+    await this.enterConfirmPasswordAndClickDone();
     await wait(1000);
   }
 
@@ -156,9 +169,27 @@ export class WalletPage {
     await this.page.click(this.$settingsViewSecretKey);
   }
 
-  async enterPassword(password?: string) {
-    await this.page.fill('input[type="password"]', password ?? this.password);
+  async enterNewPassword(password?: string) {
+    await this.page.fill(
+      `input[data-testid=${OnboardingSelectors.NewPasswordInput}]`,
+      password ?? this.password
+    );
+  }
+
+  async enterConfirmPasswordAndClickDone(password?: string) {
+    await this.page.fill(
+      `input[data-testid=${OnboardingSelectors.ConfirmPasswordInput}]`,
+      password ?? this.password
+    );
     await this.page.click(this.setPasswordDone);
+  }
+
+  async enterPasswordAndUnlockWallet(password?: string) {
+    await this.page.fill(
+      `input[data-testid=${SettingsSelectors.EnterPasswordInput}]`,
+      password ?? this.password
+    );
+    await this.page.click(this.$unlockWalletBtn);
   }
 
   async decryptRecoveryCode(password: string) {
@@ -174,11 +205,15 @@ export class WalletPage {
     await this.page.click(this.buyTokenBtnSelector);
   }
 
+  async waitForMagicRecoveryMessage() {
+    await this.page.waitForSelector(this.$magicRecoveryMessage, { timeout: 30000 });
+  }
+
   /** Sign up with a randomly generated seed phrase */
   async signUp() {
     await this.clickAllowAnalytics();
     await this.clickSignUp();
-    await this.saveKey();
+    await this.backUpKeyAndSetPassword();
     await this.waitForHomePage();
   }
 
@@ -187,7 +222,8 @@ export class WalletPage {
     await this.clickSignIn();
     let startTime = new Date();
     await this.enterSecretKey(secretKey);
-    await this.waitForSetOrEnterPasswordInput();
+    await this.waitForNewPasswordInput();
+    await this.waitForConfirmPasswordInput();
     console.log(
       `Page load time for 12 or 24 word Secret Key: ${timeDifference(
         startTime,
@@ -196,7 +232,8 @@ export class WalletPage {
     );
     const password = randomString(15);
     startTime = new Date();
-    await this.enterPassword(password);
+    await this.enterNewPassword(password);
+    await this.enterConfirmPasswordAndClickDone(password);
     await this.waitForMainHomePage();
     console.log(
       `Page load time for sign in with password: ${timeDifference(startTime, new Date())} seconds`

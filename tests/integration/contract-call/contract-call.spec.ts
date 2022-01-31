@@ -2,7 +2,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { BrowserDriver, createTestSelector, selectTestNet, setupBrowser } from '../utils';
+import { BrowserDriver, createTestSelector, selectTestnet, setupBrowser } from '../utils';
 import { SECRET_KEY_2 } from '@tests/mocks';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { Page } from 'playwright-core';
@@ -24,7 +24,7 @@ describe('Contract Call test', () => {
     await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForHomePage();
     // switch to test net
-    await selectTestNet(walletPage);
+    await selectTestnet(walletPage);
 
     // go to the previous page and click sign up again
     let pages = await WalletPage.getAllPages(browser);
@@ -134,7 +134,7 @@ describe('Wallet open', () => {
     await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForHomePage();
     // switch to test net
-    await selectTestNet(walletPage);
+    await selectTestnet(walletPage);
     pages = await WalletPage.getAllPages(browser);
     mainPage = new WalletPage(pages[1]);
     await mainPage.clickSignUp();
@@ -174,7 +174,7 @@ describe('Wallet open', () => {
     latestPage = pages[pages.length - 1];
     sendForm = new SendPage(latestPage);
     await walletPage.page.waitForTimeout(4000);
-    const isPasswordVisible = await sendForm.page.isVisible(mainPage.passwordInput);
+    const isPasswordVisible = await sendForm.page.isVisible(mainPage.$passwordInput);
     expect(isPasswordVisible).toBe(true);
   });
 });

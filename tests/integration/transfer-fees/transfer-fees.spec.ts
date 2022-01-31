@@ -2,7 +2,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { BrowserDriver, selectTestNet, setupBrowser } from '../utils';
+import { BrowserDriver, selectTestnet, setupBrowser } from '../utils';
 import { SECRET_KEY_2 } from '@tests/mocks';
 import { SendFormErrorMessages } from '@app/common/error-messages';
 
@@ -21,9 +21,10 @@ describe('Confirm transfer of tokens', () => {
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForHomePage();
+    await selectTestnet(walletPage);
+    await walletPage.page.waitForTimeout(2500);
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
-    await selectTestNet(walletPage);
     await sendForm.waitForAmountField();
 
     const isSelectedAsset = await sendForm.page.isVisible(
@@ -138,8 +139,6 @@ describe('Confirm transfer of tokens', () => {
       await sendForm.clickSendToken();
       await walletPage.waitForMainHomePage();
       await walletPage.page.waitForTimeout(5000);
-      const pendingStatus = await sendForm.page.isVisible(sendForm.getSelector('$pendingStatus'));
-      expect(pendingStatus).toBeTruthy();
       const sentTokenElem = await sendForm.page.$$(sendForm.getSelector('$sentTokenValue'));
       const sentTokenValue = await sentTokenElem[0].innerText();
       expect(sentTokenValue).toEqual('-0.000001');
@@ -240,15 +239,6 @@ describe('Confirm transfer of tokens', () => {
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$memoFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toContain(SendFormErrorMessages.MemoExceedsLimit);
-    });
-
-    it('validates that the amount field can have only 9 decimals', async () => {
-      await sendForm.inputToAmountField('0.00000000001');
-      await sendForm.inputToAddressField('ST3TZVW4VTZA1WZN2TB6RQ5J8RACHZYMWMM2N1HT2');
-      await sendForm.clickPreviewTxBtn();
-      const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
-      const errorMessage = await errorMsgElement[0].innerText();
-      expect(errorMessage).toContain(SendFormErrorMessages.Only9Decimals);
     });
 
     it('validates that the amount field can only be number', async () => {
