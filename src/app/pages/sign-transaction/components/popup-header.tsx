@@ -7,8 +7,10 @@ import { CurrentAccountName } from '@app/features/current-account/current-accoun
 import { CurrentStxAddress } from '@app/features/current-account/current-stx-address';
 
 import { Balance } from './balance';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 function PopupHeaderSuspense(): JSX.Element {
+  const account = useCurrentAccount();
   return (
     <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
       <Stack isInline alignItems="center" width="100%" justifyContent="space-between">
@@ -17,7 +19,7 @@ function PopupHeaderSuspense(): JSX.Element {
           <CurrentAccountName as="h3" />
           <CurrentStxAddress />
         </Stack>
-        <Balance />
+        {account && <Balance address={account.address} />}
       </Stack>
     </Box>
   );
