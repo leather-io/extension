@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect } from 'react';
-import { Stack, Text } from '@stacks/ui';
+import { Flex, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Title } from '@app/components/typography';
@@ -25,7 +25,7 @@ export const ChooseAccount = memo(() => {
   }, [handleUnmount]);
 
   return (
-    <>
+    <Flex flexDirection="column">
       <Stack spacing="loose" textAlign="center">
         <AppIcon mt="extra-loose" mb="loose" size="72px" />
         <Stack spacing="base">
@@ -34,6 +34,6 @@ export const ChooseAccount = memo(() => {
         </Stack>
       </Stack>
       <Accounts />
-    </>
+    </Flex>
   );
 });

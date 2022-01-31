@@ -13,6 +13,7 @@ import {
 } from '@app/store/accounts/account.hooks';
 import { useGetAccountBalanceQuery, useGetAnchoredAccountBalanceQuery } from './balance.query';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
+import { useMemo } from 'react';
 
 function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxBigNumbers = Object.fromEntries(
@@ -42,8 +43,10 @@ export function useCurrentAccountUnanchoredBalances() {
 
 export function useAddressAvailableStxBalance(address: string) {
   const balances = useAddressBalances(address);
-  if (!balances) return new BigNumber(0);
-  return balances.stx.balance.minus(balances.stx.locked);
+  return useMemo(() => {
+    if (!balances) return new BigNumber(0);
+    return balances.stx.balance.minus(balances.stx.locked);
+  }, [balances]);
 }
 
 function useAddressAnchoredBalances(address: string) {
