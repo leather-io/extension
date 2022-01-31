@@ -2,16 +2,21 @@ import { stacksValue } from '@app/common/stacks-utils';
 import { Caption, Text } from '@app/components/typography';
 import { color } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
 
 interface AccountBalanceCaptionProps {
   availableBalance?: BigNumber;
 }
 export function AccountBalanceCaption({ availableBalance }: AccountBalanceCaptionProps) {
-  const balance = stacksValue({
-    value: availableBalance || 0,
-    withTicker: true,
-    abbreviate: true,
-  });
+  const balance = useMemo(
+    () =>
+      stacksValue({
+        value: availableBalance || 0,
+        withTicker: true,
+        abbreviate: true,
+      }),
+    [availableBalance]
+  );
 
   return (
     <>

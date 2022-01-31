@@ -1,7 +1,6 @@
-import { useQueries, useQuery, UseQueryResult } from 'react-query';
+import { useQuery } from 'react-query';
 
 import { useApi, Api } from '@app/store/common/api-clients.hooks';
-import { BnsNamesOwnByAddressResponse } from '@stacks/blockchain-api-client';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -26,15 +25,4 @@ export function useGetBnsNamesOwnedByAddress(address: string) {
     queryFn: getBnsNameFetcherFactory(api)(address),
     ...bnsQueryOptions,
   });
-}
-
-export function useGetBnsNamesOwnedByAddressList(addresses: string[]) {
-  const api = useApi();
-  return useQueries(
-    addresses.map(address => ({
-      queryKey: ['bns-names-by-address', address],
-      queryFn: getBnsNameFetcherFactory(api)(address),
-      ...bnsQueryOptions,
-    }))
-  ) as UseQueryResult<BnsNamesOwnByAddressResponse, Error>[];
 }
