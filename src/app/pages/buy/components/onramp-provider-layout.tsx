@@ -12,7 +12,7 @@ const providersInfo = {
   },
   okcoin: {
     title: 'Okcoin',
-    body: 'US users can purchase STX quickly with USD',
+    body: 'Non-US residents can purchase STX with credit card, debit card, or bank transfer via Okcoin.',
     cta: 'Buy on Okcoin',
   },
 };
