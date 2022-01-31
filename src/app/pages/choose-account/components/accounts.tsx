@@ -1,6 +1,6 @@
-import { useCallback, Suspense, memo, useState, useMemo, useEffect } from 'react';
+import { useCallback, Suspense, memo, useState, useMemo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
-import { Box, BoxProps, color, Flex, FlexProps, Spinner, Stack } from '@stacks/ui';
+import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { Virtuoso } from 'react-virtuoso';
 
 import { Caption, Text, Title } from '@app/components/typography';
