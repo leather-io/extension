@@ -1,9 +1,11 @@
 import { FC } from 'react';
-
-import { Body, Title } from '@app/components/typography';
-import { Box, Button, Flex, color, Stack } from '@stacks/ui';
 import { FiCheck } from 'react-icons/fi';
-import { InitialPageSelectors } from '@tests/integration/initial-page.selectors';
+import { Box, Button, Flex, color, Stack } from '@stacks/ui';
+
+import { PrimaryButton } from '@app/components/primary-button';
+import { Body, Title } from '@app/components/typography';
+import { FULL_PAGE_MAX_WIDTH } from '@shared/styles-constants';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -27,7 +29,12 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
   const { onUserAllowDiagnostics, onUserDenyDiagnosticsPermissions } = props;
 
   return (
-    <Stack spacing="extra-loose" flexGrow={1} justifyContent="center">
+    <Stack
+      flexGrow={1}
+      justifyContent="center"
+      maxWidth={`${FULL_PAGE_MAX_WIDTH}px`}
+      spacing="extra-loose"
+    >
       <Title as="h1" fontWeight={500} textAlign="center">
         Help us improve
       </Title>
@@ -42,16 +49,12 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
           <ReasonToAllowDiagnostics text="This data is used to generate and send crash reports, help us fix errors, and analyze trends and statistics" />
         </Stack>
         <Flex mt="loose" fontSize="14px" justifyContent="center">
-          <Button
-            type="button"
-            size="lg"
-            mode="primary"
-            data-testid={InitialPageSelectors.AnalyticsAllow}
-            onClick={() => onUserAllowDiagnostics()}
-            mr="base-tight"
+          <PrimaryButton
+            data-testid={OnboardingSelectors.AnalyticsAllowBtn}
+            onClick={onUserAllowDiagnostics}
           >
             Allow
-          </Button>
+          </PrimaryButton>
           <Button
             type="button"
             mode="tertiary"
@@ -59,6 +62,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
             ml="base"
             variant="link"
             onClick={() => onUserDenyDiagnosticsPermissions()}
+            data-testid={OnboardingSelectors.AnalyticsDenyBtn}
           >
             Deny
           </Button>

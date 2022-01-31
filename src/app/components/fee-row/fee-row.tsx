@@ -10,6 +10,7 @@ import { Tooltip } from '@app/components/tooltip';
 import { WarningLabel } from '@app/components/warning-label';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { SpaceBetween } from '@app/components/space-between';
+import { SponsoredLabel } from '@app/components/sponsored-label';
 import { Caption } from '@app/components/typography';
 import { Estimations } from '@shared/models/fees-types';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
@@ -30,7 +31,6 @@ interface FeeRowProps {
 }
 export function FeeRow(props: FeeRowProps): JSX.Element {
   const { fieldName, isSponsored } = props;
-
   const [input, meta, helpers] = useField(fieldName);
   const [fieldWarning, setFieldWarning] = useState<string | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(false);
@@ -39,12 +39,14 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [isCustom, setIsCustom] = useState(false);
 
   useEffect(() => {
-    // Set it to the middle estimation on mount
     if (!input.value && !isCustom && feeEstimations.length) {
       helpers.setValue(microStxToStx(feeEstimations[1].fee).toNumber());
     }
+    if (isSponsored) {
+      helpers.setValue(0);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeEstimations, helpers, isCustom]);
+  }, [feeEstimations, helpers, isCustom, isSponsored]);
 
   // Handles using the fee estimations selector or custom input
   const handleSelectedItem = useCallback(
@@ -75,35 +77,39 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       <SpaceBetween position="relative">
         <Stack alignItems="center" isInline>
           <Caption>Fees</Caption>
-          <Stack _hover={{ cursor: 'pointer' }}>
-            <FeeEstimateItem index={selected} onClick={() => setIsOpen(true)} />
-            <FeeEstimateSelect
-              items={feeEstimations}
-              onClick={handleSelectedItem}
-              setIsOpen={setIsOpen}
-              visible={isOpen}
-            />
-          </Stack>
-          <Tooltip label={feesInfo} placement="bottom">
-            <Stack>
-              <Box
-                _hover={{ cursor: 'pointer' }}
-                as={FiInfo}
-                color={color('text-caption')}
-                onClick={() => openInNewTab(url)}
-                size="14px"
-              />
-            </Stack>
-          </Tooltip>
+          {!isSponsored ? (
+            <>
+              <Stack _hover={{ cursor: 'pointer' }}>
+                <FeeEstimateItem index={selected} onClick={() => setIsOpen(true)} />
+                <FeeEstimateSelect
+                  items={feeEstimations}
+                  onClick={handleSelectedItem}
+                  setIsOpen={setIsOpen}
+                  visible={isOpen}
+                />
+              </Stack>
+              <Tooltip label={feesInfo} placement="bottom">
+                <Stack>
+                  <Box
+                    _hover={{ cursor: 'pointer' }}
+                    as={FiInfo}
+                    color={color('text-caption')}
+                    onClick={() => openInNewTab(url)}
+                    size="14px"
+                  />
+                </Stack>
+              </Tooltip>
+            </>
+          ) : null}
         </Stack>
         {isCustom ? (
           <CustomFeeField fieldName={fieldName} setFieldWarning={setFieldWarning} />
-        ) : !input.value ? (
+        ) : !isSponsored && !input.value ? (
           <LoadingRectangle width="50px" height="10px" />
         ) : (
           <Suspense fallback={<></>}>
             <Caption>
-              <TransactionFee isSponsored={isSponsored} fee={input.value} />
+              <TransactionFee fee={input.value} />
             </Caption>
           </Suspense>
         )}
@@ -111,10 +117,11 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       {meta.error && (
         <ErrorLabel data-testid={SendFormSelectors.InputCustomFeeFieldErrorLabel}>
           <Text lineHeight="18px" textStyle="caption">
-            {meta.error}
+            <span data-testid={SendFormSelectors.InputCustomFeeFieldError}> {meta.error} </span>
           </Text>
         </ErrorLabel>
       )}
+      {isSponsored && <SponsoredLabel />}
       {!meta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
     </Stack>
   );
