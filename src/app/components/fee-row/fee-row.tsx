@@ -117,7 +117,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       {meta.error && (
         <ErrorLabel data-testid={SendFormSelectors.InputCustomFeeFieldErrorLabel}>
           <Text lineHeight="18px" textStyle="caption">
-            {meta.error}
+            <span data-testid={SendFormSelectors.InputCustomFeeFieldError}> {meta.error} </span>
           </Text>
         </ErrorLabel>
       )}
