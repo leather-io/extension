@@ -31,6 +31,7 @@ import {
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metadata.hook';
 import { pullContractIdFromIdentity } from '@app/common/utils';
+import { PendingLabel } from './transaction/pending-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 type Tx = MempoolTransaction | Transaction;
@@ -40,15 +41,7 @@ const Status = ({ transaction, ...rest }: { transaction: Tx } & BoxProps) => {
   const isFailed = !isPending && transaction.tx_status !== 'success';
   return isFailed || isPending ? (
     <Box {...rest}>
-      {isPending && (
-        <Caption
-          color={color('feedback-alert')}
-          data-testid={SendFormSelectors.PendingStatus}
-          variant="c2"
-        >
-          Pending
-        </Caption>
-      )}
+      {isPending && <PendingLabel />}
       {isFailed && (
         <Tooltip
           placement="bottom"
