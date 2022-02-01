@@ -64,7 +64,7 @@ export const Debugger = () => {
     };
 
     const sponsoredTx = await sponsorTransaction(sponsorOptions);
-    return broadcastTransaction(sponsoredTx, network);
+    return await broadcastTransaction(sponsoredTx, network);
   };
 
   const callBnsTransfer = async () => {
