@@ -2,6 +2,11 @@ import { broadcastRawTransaction } from '@stacks/transactions';
 import { Buffer } from 'buffer';
 import { logger } from '@shared/logger';
 import { validateTxId } from '@app/common/validation/validate-tx-id';
+import { delay } from '@app/common/utils';
+
+async function simulateShortDelayToAvoidUndefinedTabId() {
+  await delay(1000);
+}
 
 interface BroadcastTransactionOptions {
   txRaw: string;
@@ -13,7 +18,10 @@ interface BroadcastTransactionOptions {
 export async function broadcastTransaction(options: BroadcastTransactionOptions) {
   const { txRaw, serialized, isSponsored, attachment, networkUrl } = options;
 
-  if (isSponsored) return { txRaw };
+  if (isSponsored) {
+    await simulateShortDelayToAvoidUndefinedTabId();
+    return { txRaw };
+  }
 
   try {
     const response = await broadcastRawTransaction(
