@@ -7,6 +7,7 @@ import { useMountEffect } from '@app/common/hooks/use-mount-effect';
 import { ErrorLabel } from '@app/components/error-label';
 import { Caption } from '@app/components/typography';
 import { Header } from '@app/components/header';
+import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
 import { PrimaryButton } from '@app/components/primary-button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
@@ -25,7 +26,10 @@ export const MagicRecoveryCode = memo(() => {
   return (
     <CenteredPageContainer>
       <Stack as="form" maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} onSubmit={onSubmit} spacing="loose">
-        <Caption textAlign={['left', 'center']}>
+        <Caption
+          textAlign={['left', 'center']}
+          data-testid={WalletPageSelectors.MagicRecoveryMessage}
+        >
           You entered a Magic Recovery Code. Enter the password you set when you first created your
           Blockstack ID.
         </Caption>
