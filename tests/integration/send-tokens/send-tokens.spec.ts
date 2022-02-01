@@ -1,10 +1,12 @@
 import { delay } from '@app/common/utils';
 import { RouteUrls } from '@shared/route-urls';
 import { SECRET_KEY_2 } from '@tests/mocks';
+import { SendFormErrorMessages } from '@app/common/error-messages';
+import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { BrowserDriver, setupBrowser } from '../utils';
+import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -13,16 +15,24 @@ describe(`Send tokens flow`, () => {
   let browser: BrowserDriver;
   let walletPage: WalletPage;
   let sendForm: SendPage;
+  let copiedAddress: string;
+
+  const readClipboard = async () => {
+    return await walletPage.page.evaluate(() => window.navigator.clipboard.readText());
+  };
 
   beforeEach(async () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForHomePage();
+    await walletPage.page.click(createTestSelector(UserAreaSelectors.AccountCopyAddress));
+    copiedAddress = await readClipboard();
+
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
     await sendForm.waitForSendMaxButton();
-  }, 30_000);
+  }, 40_000);
 
   afterEach(async () => {
     try {
@@ -44,6 +54,7 @@ describe(`Send tokens flow`, () => {
     it('defaults to the middle fee estimate', async () => {
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
+      await sendForm.waitForFeeEstimateItem();
       const defaultFeeEstimate = await sendForm.page.$(sendForm.getSelector('$feeEstimateItem'));
       const label = await defaultFeeEstimate?.innerText();
       await delay(500);
@@ -53,8 +64,9 @@ describe(`Send tokens flow`, () => {
     it('can select the low fee estimate', async () => {
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
+      await sendForm.waitForFeeEstimateItem();
       await sendForm.selectFirstFeeEstimate();
-      const lowFeeEstimate = await sendForm.page.$(sendForm.getSelector('$feeEstimateItem'));
+      const lowFeeEstimate = await sendForm.page.$(sendForm.getSelector('$lowFeeSelect'));
       const label = await lowFeeEstimate?.innerText();
       expect(label).toEqual('Low');
     });
@@ -87,6 +99,33 @@ describe(`Send tokens flow`, () => {
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toContain('The address is for the incorrect Stacks network');
+    });
+
+    it('validates that the address used is invalid', async () => {
+      await sendForm.inputToAmountField('0.000001');
+      await sendForm.inputToAddressField('ST3TZVWsss4VTZA1WZN2TB6RQ5J8RACHZYMWMM2N1HT2');
+      await sendForm.clickPreviewTxBtn();
+      const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
+      const errorMessage = await errorMsgElement[0].innerText();
+      expect(errorMessage).toContain(SendFormErrorMessages.InvalidAddress);
+    });
+
+    it('validates that the address is same as sender', async () => {
+      await sendForm.inputToAmountField('0.000001');
+      await sendForm.inputToAddressField(copiedAddress);
+      await sendForm.clickPreviewTxBtn();
+      const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
+      const errorMessage = await errorMsgElement[0].innerText();
+      expect(errorMessage).toContain(SendFormErrorMessages.SameAddress);
+    });
+
+    it('validates that the amount must be number', async () => {
+      await sendForm.inputToAmountField('aaaaaa');
+      await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
+      await sendForm.clickPreviewTxBtn();
+      const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
+      const errorMessage = await errorMsgElement[0].innerText();
+      expect(errorMessage).toContain(SendFormErrorMessages.MustBeNumber);
     });
 
     it('validates against a negative amount of tokens', async () => {

@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { useFormikContext } from 'formik';
 import { Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { ErrorLabel } from '@app/components/error-label';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface FieldProps extends StackProps {
   value: string;
@@ -26,10 +27,11 @@ export const MemoField = memo(({ value, error, ...props }: FieldProps) => {
           onChange={handleChange}
           placeholder="Enter an message (optional)"
           autoComplete="off"
+          data-testid={SendFormSelectors.MemoField}
         />
       </InputGroup>
       {error && (
-        <ErrorLabel>
+        <ErrorLabel data-testid={SendFormSelectors.MemoFieldErrorLabel}>
           <Text textStyle="caption">{error}</Text>
         </ErrorLabel>
       )}

@@ -37,6 +37,7 @@ import { useSTXAddress } from '@common/use-stx-address';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 import { ExplorerLink } from './explorer-link';
+import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
 
 export const Debugger = () => {
   const { doContractCall, doSTXTransfer, doContractDeploy } = useConnect();
@@ -64,7 +65,7 @@ export const Debugger = () => {
     };
 
     const sponsoredTx = await sponsorTransaction(sponsorOptions);
-    return await broadcastTransaction(sponsoredTx, network);
+    return broadcastTransaction(sponsoredTx, network);
   };
 
   const callBnsTransfer = async () => {
@@ -328,7 +329,9 @@ export const Debugger = () => {
       {txId && (
         <Text textStyle="body.large" display="block" my={'base'}>
           <Text color="green" fontSize={1}>
-            Successfully broadcasted &quot;{txType}&quot;
+            <span data-testId={WalletPageSelectors.StatusMessage}>
+              Successfully broadcasted &quot;{txType}&quot;
+            </span>
           </Text>
           <ExplorerLink txId={txId} />
         </Text>
