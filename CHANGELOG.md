@@ -1,3 +1,10 @@
+# [3.1.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.1...v3.1.0-beta.2) (2022-02-01)
+
+
+### Bug Fixes
+
+* missing account balance ([0d5cdd8](https://github.com/hirosystems/stacks-wallet-web/commit/0d5cdd81627ce46efa0025b8c7199037a0b08d0c))
+
 # [3.1.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.0.0...v3.1.0-beta.1) (2022-02-01)
 
 
