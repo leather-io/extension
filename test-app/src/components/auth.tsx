@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Text, Box, ButtonGroup } from '@stacks/ui';
 import { useConnect } from '@stacks/connect-react';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export const Auth: React.FC = () => {
   const { doOpenAuth } = useConnect();
@@ -10,7 +11,12 @@ export const Auth: React.FC = () => {
         Sign in with your Hiro Wallet to try out a demo of the Stacks 2.0 blockchain.
       </Text>
       <ButtonGroup spacing={'base'} mt={'base-loose'}>
-        <Button size="lg" mode="primary" onClick={() => doOpenAuth()} data-testid="sign-up">
+        <Button
+          size="lg"
+          mode="primary"
+          onClick={() => doOpenAuth()}
+          data-testid={OnboardingSelectors.SignUpBtn}
+        >
           Sign up
         </Button>
       </ButtonGroup>

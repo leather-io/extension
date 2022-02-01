@@ -121,8 +121,8 @@ export const AssetItem = memo(
                     placement="left-start"
                     label={formatted.isAbbreviated ? amount : undefined}
                   >
-                    <Text fontVariantNumeric="tabular-nums" textAlign="right">
-                      <span data-testid={name}>{formatted.value}</span>
+                    <Text fontVariantNumeric="tabular-nums" textAlign="right" data-testid={name}>
+                      {formatted.value}
                     </Text>
                   </Tooltip>
                   {isDifferent ? <SubBalance amount={subAmount} /> : null}
