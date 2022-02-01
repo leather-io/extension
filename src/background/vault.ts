@@ -17,6 +17,7 @@ import { getHasSetPassword, hasSetPasswordIdentifier } from '@shared/utils/stora
 import { getDecryptedWalletDetails } from '@background/wallet/unlock-wallet';
 import { saveWalletConfigLocally } from '@shared/utils/wallet-config-helper';
 import { setToLocalstorageIfDefined } from '@shared/utils/storage';
+import { StacksMainnet } from '@stacks/network';
 
 const encryptedKeyIdentifier = 'stacks-wallet-encrypted-key' as const;
 const saltIdentifier = 'stacks-wallet-salt' as const;
@@ -61,9 +62,12 @@ async function storeSeed(secretKey: string, password?: string): Promise<InMemory
   // If this method fails, we return a single wallet instance,
   // the root wallet.
   try {
+    // use network to select addresses based on owned usernames
+    const network = new StacksMainnet();
     const _wallet = await restoreWalletAccounts({
       wallet: generatedWallet,
       gaiaHubUrl: gaiaUrl,
+      network,
     });
 
     return { ...inMemoryVault, ...keyInfo, wallet: _wallet };
