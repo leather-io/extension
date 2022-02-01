@@ -1,9 +1,10 @@
 import { Page, BrowserContext } from 'playwright-core';
 import { createTestSelector } from '../integration/utils';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 export class DemoPage {
   static url = 'http://localhost:3000';
-  openConnectBtn = createTestSelector('sign-up');
+  openConnectBtn = createTestSelector(OnboardingSelectors.SignUpBtn);
 
   page: Page;
 

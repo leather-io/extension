@@ -3,6 +3,7 @@ import { ChainID } from '@stacks/transactions';
 import { useHasFiatProviders } from '@app/query/hiro-config/hiro-config.query';
 import { BuyTxButton } from './tx-button';
 import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
+import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
 
 const BuyButtonFallback = memo(() => <BuyTxButton isDisabled />);
 
@@ -14,7 +15,7 @@ export const BuyButton = () => {
 
   return (
     <Suspense fallback={<BuyButtonFallback />}>
-      <BuyTxButton />
+      <BuyTxButton data-testid={BuyTokensSelectors.BtnBuyTokens} />
     </Suspense>
   );
 };

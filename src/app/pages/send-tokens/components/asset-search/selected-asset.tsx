@@ -52,7 +52,13 @@ const SelectedAssetItem = memo(({ hideArrow, ...rest }: { hideArrow?: boolean } 
         </AssetAvatar>
 
         <Stack flexGrow={1}>
-          <Text display="block" fontWeight="400" fontSize={2} color="ink.1000">
+          <Text
+            display="block"
+            fontWeight="400"
+            fontSize={2}
+            color="ink.1000"
+            data-testid={'selected-asset-option'}
+          >
             {name}
           </Text>
           <Caption>{ticker}</Caption>

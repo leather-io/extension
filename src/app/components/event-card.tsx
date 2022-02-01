@@ -5,6 +5,7 @@ import { Caption } from '@app/components/typography';
 import { SpaceBetween } from '@app/components/space-between';
 
 import { TxAssetItem } from './tx-asset-item';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface EventCardProps {
   actions?: string;
@@ -24,7 +25,7 @@ export function EventCard(props: EventCardProps): JSX.Element {
     <>
       <Stack p="base-loose" spacing="base-loose">
         <SpaceBetween position="relative">
-          <Text fontSize={2} fontWeight={500}>
+          <Text fontSize={2} fontWeight={500} data-testid={SendFormSelectors.TransferMessage}>
             {title}
           </Text>
           {actions && (
