@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Text, Button, Input, Stack, StackProps } from '@stacks/ui';
+import { Text, Input, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useMagicRecoveryCode } from '@app/common/hooks/auth/use-magic-recovery-code';
@@ -7,10 +7,16 @@ import { useMountEffect } from '@app/common/hooks/use-mount-effect';
 import { ErrorLabel } from '@app/components/error-label';
 import { Caption } from '@app/components/typography';
 import { Header } from '@app/components/header';
+import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { PrimaryButton } from '@app/components/primary-button';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
-const Form: React.FC<StackProps> = memo(props => {
+export const MagicRecoveryCode = memo(() => {
   const { onBack, onSubmit, onChange, magicRecoveryCodePassword, error, isLoading } =
     useMagicRecoveryCode();
+
+  useRouteHeader(<Header title="Enter your password" onClose={onBack} hideActions />);
 
   // Weird fix for preventing the input from using a value of the last input
   // I think this is related to the routing and should be resolved with.
@@ -18,18 +24,26 @@ const Form: React.FC<StackProps> = memo(props => {
   const mounted = useMountEffect();
 
   return (
-    <Stack as="form" onSubmit={onSubmit} spacing="loose" {...props}>
-      <Stack>
+    <CenteredPageContainer>
+      <Stack as="form" maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} onSubmit={onSubmit} spacing="loose">
+        <Caption
+          textAlign={['left', 'center']}
+          data-testid={WalletPageSelectors.MagicRecoveryMessage}
+        >
+          You entered a Magic Recovery Code. Enter the password you set when you first created your
+          Blockstack ID.
+        </Caption>
         {mounted && (
           <Input
-            autoFocus
-            type="password"
-            placeholder="Your password"
-            fontSize="16px"
             autoCapitalize="off"
-            spellCheck={false}
-            width="100%"
+            autoFocus
+            borderRadius="10px"
+            height="64px"
             onChange={onChange}
+            placeholder="Enter your password"
+            spellCheck={false}
+            type="password"
+            width="100%"
             value={magicRecoveryCodePassword}
           />
         )}
@@ -45,37 +59,15 @@ const Form: React.FC<StackProps> = memo(props => {
             </Text>
           </ErrorLabel>
         )}
-      </Stack>
-      <Stack>
-        <Button
-          width="100%"
-          isLoading={isLoading}
-          isDisabled={isLoading}
+        <PrimaryButton
           data-testid="decrypt-recovery-button"
-          type="submit"
+          isDisabled={isLoading}
+          isLoading={isLoading}
+          width="100%"
         >
           Continue
-        </Button>
-        <Button mode="tertiary" width="100%" isDisabled={isLoading} onClick={onBack}>
-          Go back
-        </Button>
+        </PrimaryButton>
       </Stack>
-    </Stack>
-  );
-});
-
-export const MagicRecoveryCode: React.FC = memo(() => {
-  const { onBack } = useMagicRecoveryCode();
-
-  useRouteHeader(<Header title="Enter your password" onClose={onBack} hideActions />);
-
-  return (
-    <>
-      <Caption>
-        You entered a Magic Recovery Code. Enter the password you set when you first created your
-        Blockstack ID.
-      </Caption>
-      <Form mt="auto" />
-    </>
+    </CenteredPageContainer>
   );
 });
