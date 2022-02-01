@@ -1,11 +1,11 @@
 import { useState, useCallback, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Input, Stack, Text } from '@stacks/ui';
+import { Box, color, Input, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { buildEnterKeyEvent } from '@app/components/link';
+import { buildEnterKeyEvent, Link } from '@app/components/link';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
@@ -14,9 +14,10 @@ import { PageTitle } from '@app/components/page-title';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { Caption } from '@app/components/typography';
+import { Caption, Text } from '@app/components/typography';
 import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import UnlockSession from '@assets/images/unlock-session.svg';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
@@ -82,8 +83,14 @@ export function Unlock(): JSX.Element {
         textAlign={['left', 'center']}
         width="100%"
       >
-        <PageTitle>Unlock</PageTitle>
-        <Caption>{waitingMessage || 'Enter the password you used on this device.'}</Caption>
+        <Box alignSelf={['start', 'center']} mt={['base', 'unset']} width={['97px', '119px']}>
+          <img src={UnlockSession} />
+        </Box>
+        <PageTitle fontSize={[4, 8]}>Your session is locked</PageTitle>
+        <Text color={color('text-caption')}>
+          {waitingMessage ||
+            'Enter the password you previously set to access your accounts on this device'}
+        </Text>
         <Stack spacing="base">
           <Input
             autoFocus
@@ -112,8 +119,14 @@ export function Unlock(): JSX.Element {
           isLoading={loading}
           onClick={submit}
         >
-          Unlock
+          Continue
         </PrimaryButton>
+        <Caption textAlign="left">
+          Forgot your password? Unlock your account by{' '}
+          <Link display="inline" fontSize={-1} onClick={() => navigate(RouteUrls.SignIn)}>
+            entering your Secret Key.
+          </Link>
+        </Caption>
         {showSignOut && <SignOutConfirmDrawer />}
       </Stack>
     </CenteredPageContainer>
