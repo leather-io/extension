@@ -12,7 +12,6 @@ import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/t
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { PrimaryButton } from '@app/components/primary-button';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
@@ -115,41 +114,45 @@ export function SendFormInner(props: SendFormInnerProps) {
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
   return (
-    <CenteredPageContainer>
-      <Stack maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} px={['unset', 'base-loose']} spacing="loose">
-        <AssetSearch onItemClick={onItemSelect} />
-        <Suspense fallback={<></>}>
-          <AmountField
-            error={errors.amount}
-            feeQueryError={!!feeEstimationsResp?.error}
-            value={values.amount || 0}
-          />
-        </Suspense>
-        <RecipientField error={errors.recipient} value={values.recipient} />
-        {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
-        {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
-        {feeEstimationsResp && (
-          <FeeRow feeFieldName="fee" feeTypeFieldName="feeType" isSponsored={isSponsored} />
+    <Stack
+      maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+      mt="loose"
+      px={['unset', 'base-loose']}
+      spacing="loose"
+      width="100%"
+    >
+      <AssetSearch onItemClick={onItemSelect} />
+      <Suspense fallback={<></>}>
+        <AmountField
+          error={errors.amount}
+          feeQueryError={!!feeEstimationsResp?.error}
+          value={values.amount || 0}
+        />
+      </Suspense>
+      <RecipientField error={errors.recipient} value={values.recipient} />
+      {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
+      {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
+      {feeEstimationsResp && (
+        <FeeRow feeFieldName="fee" feeTypeFieldName="feeType" isSponsored={isSponsored} />
+      )}
+      <Box mt="auto">
+        {assetError && (
+          <ErrorLabel mb="base">
+            <Text textStyle="caption">{assetError}</Text>
+          </ErrorLabel>
         )}
-        <Box mt="auto">
-          {assetError && (
-            <ErrorLabel mb="base">
-              <Text textStyle="caption">{assetError}</Text>
-            </ErrorLabel>
-          )}
-          <PrimaryButton
-            data-testid={SendFormSelectors.BtnPreviewSendTx}
-            isDisabled={!hasValues}
-            onClick={onSubmit}
-            width="100%"
-          >
-            Preview
-          </PrimaryButton>
-        </Box>
-        <Box mb={['loose', 'unset']}>
-          <ShowEditNonceAction />
-        </Box>
-      </Stack>
-    </CenteredPageContainer>
+        <PrimaryButton
+          data-testid={SendFormSelectors.BtnPreviewSendTx}
+          isDisabled={!hasValues}
+          onClick={onSubmit}
+          width="100%"
+        >
+          Preview
+        </PrimaryButton>
+      </Box>
+      <Box mb={['loose', 'unset']}>
+        <ShowEditNonceAction />
+      </Box>
+    </Stack>
   );
 }
