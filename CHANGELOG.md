@@ -1,3 +1,24 @@
+# [3.1.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.0.0...v3.1.0-beta.1) (2022-02-01)
+
+
+### Bug Fixes
+
+* change okcoin wording ([41e7255](https://github.com/hirosystems/stacks-wallet-web/commit/41e72558682cb6c5ffc66e2e007144d8ca571949)), closes [#2170](https://github.com/hirosystems/stacks-wallet-web/issues/2170)
+* near render loop issue ([e60d527](https://github.com/hirosystems/stacks-wallet-web/commit/e60d527b49b3bc88a3ad7f5bdcdae987452a2d70))
+* slower render performance on create account list, fixes [#2139](https://github.com/hirosystems/stacks-wallet-web/issues/2139) ([1e21648](https://github.com/hirosystems/stacks-wallet-web/commit/1e21648c393d5b599569261c043784b128a2584d))
+* slower render performance on create account list, fixes [#2139](https://github.com/hirosystems/stacks-wallet-web/issues/2139) ([4e372e4](https://github.com/hirosystems/stacks-wallet-web/commit/4e372e4dd17994954269b80701835e3c82a7e0c2))
+* sponsored tx fee ([9cfa3fd](https://github.com/hirosystems/stacks-wallet-web/commit/9cfa3fd52ddc28a69a9bf9bac8c7cb8662bba81e))
+* thrown error with sponsored tx ([396a87f](https://github.com/hirosystems/stacks-wallet-web/commit/396a87fbbd40a6d59014ac185709c7f99088201e))
+
+
+### Features
+
+* add analytics to tx signing & fiat onramp ([e943119](https://github.com/hirosystems/stacks-wallet-web/commit/e943119b06a76d3ac5776ad94a408fd7e0dfcd26)), closes [#2037](https://github.com/hirosystems/stacks-wallet-web/issues/2037) [#2035](https://github.com/hirosystems/stacks-wallet-web/issues/2035)
+* add back up secret key page ([6e11303](https://github.com/hirosystems/stacks-wallet-web/commit/6e113032d13ed1690be6944f2839add8ae592eb5))
+* add config for max fee estimations ([0a7a20e](https://github.com/hirosystems/stacks-wallet-web/commit/0a7a20e4fad2b63b62d4155c6d6946fc0f319339)), closes [#2039](https://github.com/hirosystems/stacks-wallet-web/issues/2039)
+* add set password page ([9d18c72](https://github.com/hirosystems/stacks-wallet-web/commit/9d18c72bdebc014dc0f8d648064023b2dbd61e3f))
+* add welcome page ([431e63b](https://github.com/hirosystems/stacks-wallet-web/commit/431e63b7a09404a7e20317146b5bdde9521b636b))
+
 # [3.0.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.1...v3.0.0) (2022-01-26)
 
 
