@@ -132,7 +132,7 @@ export function AppRoutes(): JSX.Element | null {
           path={RouteUrls.Transaction}
           element={
             <AccountGate>
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
                 <SignTransaction />
               </Suspense>
             </AccountGate>

@@ -36,10 +36,6 @@ export function useCurrentAccountStxAddressState() {
   return useAtomValue(currentAccountStxAddressState);
 }
 
-export function useCurrentAccountInfo() {
-  return useAtomValue(currentAccountInfoState);
-}
-
 export function useCurrentAccount() {
   return useAtomValue(currentAccountState);
 }
