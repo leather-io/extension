@@ -1,3 +1,10 @@
+# [3.1.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.3...v3.1.0-beta.4) (2022-02-02)
+
+
+### Bug Fixes
+
+* send max invalid fee calculation, closes [#2175](https://github.com/hirosystems/stacks-wallet-web/issues/2175) ([db22161](https://github.com/hirosystems/stacks-wallet-web/commit/db221617c5ffcf9bcb6cbf989a8646336984c227))
+
 # [3.1.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.2...v3.1.0-beta.3) (2022-02-02)
 
 
