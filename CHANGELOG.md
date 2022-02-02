@@ -1,3 +1,10 @@
+# [3.1.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.4...v3.1.0-beta.5) (2022-02-02)
+
+
+### Bug Fixes
+
+* disable performance tracking ([4dda809](https://github.com/hirosystems/stacks-wallet-web/commit/4dda809be1a4d45f5506cbe72a71c4151efe2ccd))
+
 # [3.1.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.3...v3.1.0-beta.4) (2022-02-02)
 
 
