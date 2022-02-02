@@ -1,3 +1,10 @@
+# [3.1.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.5...v3.1.0-beta.6) (2022-02-02)
+
+
+### Bug Fixes
+
+* add back tippy styles ([7ee08c8](https://github.com/hirosystems/stacks-wallet-web/commit/7ee08c8bcc8c9e3a410bd1d36bfa8273a05929a2))
+
 # [3.1.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.4...v3.1.0-beta.5) (2022-02-02)
 
 
