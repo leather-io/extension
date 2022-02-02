@@ -1,52 +1,46 @@
 import { memo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Stack, useClipboard } from '@stacks/ui';
+import { color, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { Header } from '@app/components/header';
+import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
+import { PrimaryButton } from '@app/components/primary-button';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import { Text } from '@app/components/typography';
+import { PageTitle } from '@app/components/page-title';
 import { RouteUrls } from '@shared/route-urls';
 
-import { ViewSecretKeyActions } from './components/view-secret-key-actions';
-import { ViewSecretKeyMessage } from './components/view-secret-key-message';
-import { ViewSecretKeyCard } from './components/view-secret-key-card';
-
 export const ViewSecretKey = memo(() => {
-  const { secretKey } = useWallet();
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const { onCopy, hasCopied } = useClipboard(secretKey || '');
 
-  const wordCount = (secretKey || '').split(' ').length;
-
-  useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} title="Your Secret Key" />);
+  useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} />);
 
   useEffect(() => {
     void analytics.page('view', '/save-secret-key');
   }, [analytics]);
 
-  const copyToClipboard = () => {
-    void analytics.track('copy_secret_key_to_clipboard');
-    onCopy();
-  };
-
-  const handleOnClick = () => {
-    navigate(RouteUrls.Home);
-  };
-
   return (
     <CenteredPageContainer>
-      <Stack maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} spacing="loose">
-        <ViewSecretKeyMessage wordCount={wordCount} />
-        <ViewSecretKeyCard secretKey={secretKey} />
-        <ViewSecretKeyActions
-          hasCopied={hasCopied}
-          onClick={handleOnClick}
-          onCopyToClipboard={copyToClipboard}
-        />
+      <Stack
+        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+        pb={['loose', 'unset']}
+        px={['unset', 'base-loose']}
+        spacing="loose"
+      >
+        <PageTitle fontSize={[4, 8]}>Your Secret Key</PageTitle>
+        <Text color={color('text-caption')} textAlign={['left', 'center']}>
+          These 24 words are your Secret Key. They create your account, and you sign in on different
+          devices with them. Make sure to save these somewhere safe.{' '}
+          <Text display="inline" fontWeight={500}>
+            If you lose these words, you lose your account.
+          </Text>
+        </Text>
+        <SecretKeyDisplayer />
+        <PrimaryButton onClick={() => navigate(RouteUrls.Home)}>I've saved it</PrimaryButton>
       </Stack>
     </CenteredPageContainer>
   );
