@@ -10,7 +10,7 @@ export function initSentry() {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     integrations: [new Integrations.BrowserTracing()],
-    tracesSampleRate: 0.1,
+    tracesSampleRate: 0,
     enabled: checkUserHasGrantedPermission(),
     beforeSend(event) {
       if (!checkUserHasGrantedPermission()) return null;
