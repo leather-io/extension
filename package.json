@@ -119,6 +119,7 @@
     "jotai": "1.5.3",
     "jotai-query-toolkit": "0.1.7",
     "jsontokens": "3.0.0",
+    "limiter": "2.1.0",
     "mdi-react": "7.5.0",
     "object-hash": "2.2.0",
     "pino": "7.6.0",
