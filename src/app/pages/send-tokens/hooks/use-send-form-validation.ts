@@ -4,7 +4,7 @@ import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
-import { STX_DECIMALS, STX_TRANSFER_TX_SIZE_BYTES } from '@shared/constants';
+import { STX_DECIMALS } from '@shared/constants';
 import { countDecimals, isNumber } from '@app/common/utils';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
 import { stxAmountSchema } from '@app/common/validation/currency-schema';
@@ -51,8 +51,9 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
       stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS)).test({
         message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
         test(value: unknown) {
+          const fee = stxToMicroStx(this.parent.fee);
           if (!availableStxBalance || !isNumber(value)) return false;
-          const availableBalanceLessFee = availableStxBalance.minus(STX_TRANSFER_TX_SIZE_BYTES);
+          const availableBalanceLessFee = availableStxBalance.minus(fee);
           return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
         },
       }),

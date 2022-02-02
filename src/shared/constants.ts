@@ -8,8 +8,6 @@ export const DEFAULT_FEE_RATE = 400;
 
 export const HUMAN_REACTION_DEBOUNCE_TIME = 250;
 
-export const STX_TRANSFER_TX_SIZE_BYTES = 180;
-
 export const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
