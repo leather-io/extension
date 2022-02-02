@@ -42,6 +42,7 @@ export function useAssetWithMetadata(asset: Asset) {
 export function useSelectedAssetItem() {
   const selectedAssetId = useAtomValue(selectedAssetIdState);
   const assetsWithMetadata = useAssetsWithMetadata();
+
   return useMemo(
     () =>
       assetsWithMetadata?.find(
