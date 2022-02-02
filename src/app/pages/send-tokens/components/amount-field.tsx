@@ -60,7 +60,7 @@ function AmountFieldBase(props: AmountFieldProps) {
           />
           {balances && selectedAsset ? (
             <SendMaxButton
-              isLoadingFee={!values.fee}
+              fee={values.fee}
               onClick={() => handleSetSendMaxTracked()}
               selectedAsset={selectedAsset}
             />
