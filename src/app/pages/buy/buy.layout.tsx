@@ -25,7 +25,7 @@ export const BuyLayout = (props: BuyLayoutProps) => {
         <Box width={['100px', '115px']}>
           <img src={AddFunds} />
         </Box>
-        <PageTitle fontSize={[4, 8]} mt={['unset', 'base', null]}>
+        <PageTitle fontSize={[4, 8]} mt={['unset', 'base']}>
           Fund your account
         </PageTitle>
         <Text>

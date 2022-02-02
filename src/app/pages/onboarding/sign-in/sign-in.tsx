@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Text, Input, Stack, color, Box } from '@stacks/ui';
+import { Input, Stack, color, Box } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPage } from '@app/common/utils';
@@ -12,7 +12,7 @@ import YourSecretKey from '@assets/images/onboarding/your-secret-key.svg';
 import { RouteUrls } from '@shared/route-urls';
 import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 import { PageTitle } from '@app/components/page-title';
-import { Caption, Title } from '@app/components/typography';
+import { Text, Title } from '@app/components/typography';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
 export const SignIn = () => {
@@ -39,10 +39,10 @@ export const SignIn = () => {
         ) : (
           <>
             <Title as="h1">Sign in with Secret Key</Title>
-            <Caption>
+            <Text color={color('text-caption')}>
               Enter your 12- or 24-word Secret Key to sign in to Stacks Wallet with an existing
               account
-            </Caption>
+            </Text>
           </>
         )}
         <Stack spacing="base-tight">
