@@ -25,8 +25,8 @@ export function EventCard(props: EventCardProps): JSX.Element {
     <>
       <Stack p="base-loose" spacing="base-loose">
         <SpaceBetween position="relative">
-          <Text fontSize={2} fontWeight={500}>
-            <span data-testid={SendFormSelectors.TransferMessage}>{title}</span>
+          <Text fontSize={2} fontWeight={500} data-testid={SendFormSelectors.TransferMessage}>
+            {title}
           </Text>
           {actions && (
             <IconButton size="24px" icon={FiMoreHorizontal} position="absolute" right={0} />

@@ -328,10 +328,8 @@ export const Debugger = () => {
       </Text>
       {txId && (
         <Text textStyle="body.large" display="block" my={'base'}>
-          <Text color="green" fontSize={1}>
-            <span data-testId={WalletPageSelectors.StatusMessage}>
-              Successfully broadcasted &quot;{txType}&quot;
-            </span>
+          <Text color="green" fontSize={1} data-testid={WalletPageSelectors.StatusMessage}>
+            Successfully broadcasted &quot;{txType}&quot;
           </Text>
           <ExplorerLink txId={txId} />
         </Text>
