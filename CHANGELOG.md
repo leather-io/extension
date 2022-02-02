@@ -1,3 +1,10 @@
+# [3.1.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.2...v3.1.0-beta.3) (2022-02-02)
+
+
+### Bug Fixes
+
+* send form styles ([a52696e](https://github.com/hirosystems/stacks-wallet-web/commit/a52696e0558d2f17a95be45d1703238dac9bf5ba))
+
 # [3.1.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.1...v3.1.0-beta.2) (2022-02-01)
 
 
