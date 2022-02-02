@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { Box, ButtonProps, color } from '@stacks/ui';
 
 import { AssetWithMeta } from '@app/common/asset-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { isUndefined } from '@app/common/utils';
 
 function SendMaxButtonAction(props: ButtonProps) {
   return (
@@ -28,17 +30,21 @@ function SendMaxButtonAction(props: ButtonProps) {
 }
 
 interface SendMaxProps {
-  isLoadingFee: boolean | undefined;
+  fee: string | number | undefined;
   onClick: () => void;
   selectedAsset: AssetWithMeta | undefined;
 }
-
 export function SendMaxButton(props: SendMaxProps): JSX.Element | null {
-  const { isLoadingFee, onClick, selectedAsset } = props;
+  const { fee, onClick, selectedAsset } = props;
   const isStx = selectedAsset?.type === 'stx';
 
-  return isLoadingFee && isStx ? (
-    <SendMaxButtonAction onClick={() => toast.error('Unable to calculate max. Try Again.')} />
+  const fireInactiveSendMaxButtonToast = useCallback(() => {
+    if (isUndefined(fee)) toast.error('Loading fee, please try again');
+    toast.error('A fee must be set to calculate max STX transfer amount');
+  }, [fee]);
+
+  return !fee && isStx ? (
+    <SendMaxButtonAction onClick={fireInactiveSendMaxButtonToast} />
   ) : (
     <SendMaxButtonAction onClick={onClick} />
   );
