@@ -5,6 +5,7 @@ import { CSSReset } from '@stacks/ui';
 import { fullPageStyles } from './full-page-styles';
 import { popupStyles } from './popup-styles';
 import { popupCenterStyles } from './popup-center-styles';
+import { tippyStyles } from './tippy-styles';
 
 const styles = css`
   body {
@@ -16,6 +17,7 @@ const styles = css`
   ${fullPageStyles};
   ${popupStyles};
   ${popupCenterStyles};
+  ${tippyStyles}
 `;
 
 export const GlobalStyles = memo(() => {
