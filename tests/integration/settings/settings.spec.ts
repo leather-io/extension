@@ -37,9 +37,9 @@ describe(`Settings integration tests`, () => {
   it('should be able to view and save secret key to clipboard', async () => {
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.ViewSecretKeyListItem));
-    await wallet.page.click(createTestSelector(SettingsSelectors.BtnCopyKeyToClipboard));
+    await wallet.page.click(createTestSelector(SettingsSelectors.CopyKeyToClipboardBtn));
     const copySuccessMessage = await wallet.page.textContent(
-      createTestSelector(SettingsSelectors.BtnCopyKeyToClipboard)
+      createTestSelector(SettingsSelectors.CopyKeyToClipboardBtn)
     );
     expect(copySuccessMessage).toContain('Copied!');
   });

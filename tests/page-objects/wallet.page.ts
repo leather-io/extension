@@ -22,7 +22,7 @@ export class WalletPage {
   $analyticsAllowButton = createTestSelector(OnboardingSelectors.AnalyticsAllowBtn);
   $analyticsDenyButton = createTestSelector(OnboardingSelectors.AnalyticsDenyBtn);
   homePage = createTestSelector('home-page');
-  $textareaReadOnlySeedPhrase = `${createTestSelector('textarea-seed-phrase')}[data-loaded="true"]`;
+  $secretKey = createTestSelector(OnboardingSelectors.SecretKey);
   $buttonSignInKeyContinue = createTestSelector(OnboardingSelectors.SignInBtn);
   setPasswordDone = createTestSelector(OnboardingSelectors.SetPasswordBtn);
   $passwordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
@@ -143,14 +143,9 @@ export class WalletPage {
 
   async getSecretKey() {
     await this.goToSecretKey();
-    await this.page.waitForSelector(this.$textareaReadOnlySeedPhrase);
-    const $secretKeyEl = await this.page.$(this.$textareaReadOnlySeedPhrase);
-    if (!$secretKeyEl) {
-      throw 'Could not find secret key field';
-    }
-    const secretKey = await $secretKeyEl.textContent();
-    if (!secretKey) throw 'No secret key content.';
-    return secretKey;
+    await this.page.waitForSelector(this.$secretKey);
+    const secretKeyWords = await this.page.locator(this.$secretKey).allInnerTexts();
+    return secretKeyWords.join(' ');
   }
 
   async backUpKeyAndSetPassword() {
