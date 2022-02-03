@@ -9,7 +9,6 @@ import { bytesToText } from '@app/common/store-utils';
 import {
   useEncryptedSecretKeyState,
   useFinishSignInCallback,
-  useHasSetPasswordState,
   useSecretKey,
   useSetLatestNonceCallback,
   useWalletState,
@@ -32,7 +31,6 @@ export function useWallet() {
   const secretKey = useSecretKey();
   const encryptedSecretKey = useEncryptedSecretKeyState();
   const currentAccountIndex = useCurrentAccountIndex();
-  const hasSetPassword = useHasSetPasswordState();
   const currentAccount = useCurrentAccount();
   const currentAccountStxAddress = useCurrentAccountStxAddressState();
   const transactionVersion = useTransactionNetworkVersion();
@@ -74,7 +72,6 @@ export function useWallet() {
     currentNetwork,
     currentNetworkKey,
     encryptedSecretKey,
-    hasSetPassword,
     finishSignIn,
     setLatestNonce,
     setWallet,

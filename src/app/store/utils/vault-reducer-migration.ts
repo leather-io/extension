@@ -21,7 +21,6 @@ export function migrateVaultReducerStoreToNewStateStructure(initialState: typeof
           id: 'default',
           encryptedSecretKey,
           salt,
-          hasSetPassword: true,
         },
       },
     };
