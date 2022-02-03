@@ -15,12 +15,7 @@ import { localNonceState } from '@app/store/accounts/nonce';
 import { currentNetworkState } from '@app/store/network/networks';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
-import {
-  encryptedSecretKeyState,
-  hasSetPasswordState,
-  secretKeyState,
-  walletState,
-} from './wallet';
+import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 export function useWalletState() {
@@ -33,10 +28,6 @@ export function useSecretKey() {
 
 export function useEncryptedSecretKeyState() {
   return useAtomValue(encryptedSecretKeyState);
-}
-
-export function useHasSetPasswordState() {
-  return useAtomValue(hasSetPasswordState);
 }
 
 export function useSetLatestNonceCallback() {

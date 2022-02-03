@@ -22,9 +22,8 @@ import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnos
 import { BuyPage } from '@app/pages/buy/buy';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { RouteUrls } from '@shared/route-urls';
 import { useHasStateRehydrated } from '@app/store';
-import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { RouteUrls } from '@shared/route-urls';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
@@ -44,13 +43,6 @@ export function AppRoutes(): JSX.Element | null {
   }, [analytics, pathname]);
 
   const hasStateRehydrated = useHasStateRehydrated();
-  const currentKey = useCurrentKeyDetails();
-
-  useEffect(() => {
-    // This ensures the route is correct bc the VaultLoader is slow to set wallet state
-    if (pathname === RouteUrls.Home && !currentKey?.hasSetPassword) navigate(RouteUrls.Onboarding);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentKey?.hasSetPassword]);
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
