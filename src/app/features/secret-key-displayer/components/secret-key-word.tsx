@@ -1,6 +1,7 @@
 import { Box, color } from '@stacks/ui';
 
 import { Text } from '@app/components/typography';
+import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
 
 interface SecretKeyWordProps {
   word: string;
@@ -10,7 +11,7 @@ export function SecretKeyWord(props: SecretKeyWordProps) {
 
   return (
     <Box border="1px solid" borderColor={color('border')} borderRadius="8px" p="tight">
-      <Text>{word}</Text>
+      <Text data-testid={OnboardingSelectors.SecretKey}>{word}</Text>
     </Box>
   );
 }

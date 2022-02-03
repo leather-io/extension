@@ -8,7 +8,7 @@ export enum SettingsSelectors {
   BtnCreateAccountDone = 'create-account-done-button',
   HomeCurrentAccountDisplayName = 'home-current-display-name',
   ViewSecretKeyListItem = 'settings-view-secret-key',
-  BtnCopyKeyToClipboard = 'copy-key-to-clipboard',
+  CopyKeyToClipboardBtn = 'copy-key-to-clipboard-btn',
   SignOutListItem = 'settings-sign-out',
   SignOutConfirmHasBackupCheckbox = 'sign-out-confirm-has-backup-checkbox',
   BtnSignOutReturnToHomeScreen = 'btn-sign-out-return-to-home-screen',
