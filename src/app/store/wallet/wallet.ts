@@ -4,7 +4,6 @@ import { gaiaUrl } from '@shared/constants';
 import { textToBytes } from '@app/common/store-utils';
 import { storeAtom } from '..';
 import { deriveWalletWithAccounts } from '../chains/stx-chain.selectors';
-import { withDerivedKeyInformation } from '../keys/key.selectors';
 
 export const walletState = atom(async get => {
   const store = get(storeAtom);
@@ -21,12 +20,6 @@ export const walletConfigState = atom(async get => {
   if (!wallet) return null;
   const gaiaHubConfig = await createWalletGaiaConfig({ wallet, gaiaHubUrl: gaiaUrl });
   return fetchWalletConfig({ wallet, gaiaHubConfig });
-});
-
-export const hasSetPasswordState = atom(get => {
-  const store = get(storeAtom);
-  if (!store.keys.entities.default) return;
-  return withDerivedKeyInformation(store.keys.entities.default).hasSetPassword;
 });
 
 export const encryptedSecretKeyState = atom(get => {

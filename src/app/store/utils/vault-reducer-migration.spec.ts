@@ -29,7 +29,6 @@ describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
             id: 'default',
             encryptedSecretKey: 'test-encrypted-key',
             salt: 'test-salt',
-            hasSetPassword: true,
           },
         },
       });
