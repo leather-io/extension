@@ -3,9 +3,9 @@ import { color, Stack } from '@stacks/ui';
 
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
-const LABELS = ['Low', 'Standard', 'High', 'Custom'];
+const labels = ['Low', 'Standard', 'High', 'Custom'];
+const testLabels = labels.map(label => label.toLowerCase());
 
 interface FeeEstimateItemProps {
   index: number;
@@ -13,7 +13,6 @@ interface FeeEstimateItemProps {
   selected?: number;
   visible?: boolean;
 }
-
 export function FeeEstimateItem(props: FeeEstimateItemProps) {
   const { index, onClick, visible } = props;
 
@@ -23,7 +22,7 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
       border={visible ? 'none' : '1px solid #EFEFF2'}
       borderRadius={visible ? '0px' : '10px'}
       bg={color('bg')}
-      data-testid={SendFormSelectors.FeeEstimateItem}
+      data-testid={`${testLabels[index]}-fee`}
       _hover={{ bg: visible ? color('bg-alt') : 'none', borderRadius: '8px' }}
       height="32px"
       isInline
@@ -33,7 +32,7 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
       onClick={() => onClick(index)}
     >
       <SpaceBetween flexGrow={1}>
-        <Caption ml="2px">{LABELS[index]}</Caption>
+        <Caption ml="2px">{labels[index]}</Caption>
         {visible ? <></> : <FiChevronDown />}
       </SpaceBetween>
     </Stack>

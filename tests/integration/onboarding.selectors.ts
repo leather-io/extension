@@ -1,5 +1,6 @@
 export enum OnboardingSelectors {
   AnalyticsAllowBtn = 'analytics-allow-btn',
+  AnalyticsDenyBtn = 'analytics-deny-btn',
   BackUpSecretKeyBtn = 'back-up-secret-key-btn',
   NewPasswordInput = 'set-or-enter-password-input',
   ConfirmPasswordInput = 'confirm-password-input',
