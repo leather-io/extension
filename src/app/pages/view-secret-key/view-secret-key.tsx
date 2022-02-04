@@ -12,10 +12,12 @@ import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full
 import { Text } from '@app/components/typography';
 import { PageTitle } from '@app/components/page-title';
 import { RouteUrls } from '@shared/route-urls';
+import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 
 export const ViewSecretKey = memo(() => {
   const analytics = useAnalytics();
   const navigate = useNavigate();
+  const defaultWalletSecretKey = useDefaultWalletSecretKey();
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} />);
 
@@ -39,7 +41,7 @@ export const ViewSecretKey = memo(() => {
             If you lose these words, you lose your account.
           </Text>
         </Text>
-        <SecretKeyDisplayer />
+        <SecretKeyDisplayer secretKey={defaultWalletSecretKey ?? ''} />
         <PrimaryButton onClick={() => navigate(RouteUrls.Home)}>I've saved it</PrimaryButton>
       </Stack>
     </CenteredPageContainer>
