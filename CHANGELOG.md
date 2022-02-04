@@ -1,3 +1,10 @@
+# [3.1.0-beta.7](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.6...v3.1.0-beta.7) (2022-02-04)
+
+
+### Bug Fixes
+
+* hitting api with metadata queries ([8776d6b](https://github.com/hirosystems/stacks-wallet-web/commit/8776d6bd19835e430a8631b728a39cef250ac6ee))
+
 # [3.1.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0-beta.5...v3.1.0-beta.6) (2022-02-02)
 
 
