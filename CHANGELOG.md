@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0...v3.1.1) (2022-02-07)
+
+
+### Bug Fixes
+
+* virtual account list ([d94deec](https://github.com/hirosystems/stacks-wallet-web/commit/d94deec7b9c7e3d9b4e02a1d1512a7cd51bac021))
+
 # [3.1.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.0.0...v3.1.0) (2022-02-07)
 
 
