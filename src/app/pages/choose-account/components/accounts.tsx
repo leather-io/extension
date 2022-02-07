@@ -1,7 +1,6 @@
 import { useCallback, Suspense, memo, useState, useMemo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
-import { Virtuoso } from 'react-virtuoso';
 
 import { Caption, Text, Title } from '@app/components/typography';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
@@ -156,18 +155,13 @@ export const Accounts = memo(() => {
     <>
       <AddAccountAction />
       <Box mt="base">
-        <Virtuoso
-          useWindowScroll
-          data={accounts}
-          style={{ height: '68px' }}
-          itemContent={(index, account) => (
-            <AccountItem
-              account={account}
-              isLoading={selectedAccount === index}
-              onSelectAccount={signIntoAccount}
-            />
-          )}
-        />
+        {accounts.map(account => (
+          <AccountItem
+            account={account}
+            onSelectAccount={signIntoAccount}
+            isLoading={account.index === selectedAccount}
+          />
+        ))}
       </Box>
     </>
   );
