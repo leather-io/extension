@@ -22,7 +22,8 @@ window.__APP_VERSION__ = VERSION;
 async function checkForInMemoryKeys() {
   return new Promise(resolve =>
     chrome.runtime.sendMessage({ method: InternalMethods.RequestInMemoryKeys }, resp => {
-      store.dispatch(inMemoryKeyActions.setKeysInMemory(!resp ? {} : resp));
+      if (!resp) resolve(true);
+      store.dispatch(inMemoryKeyActions.setKeysInMemory(resp));
       resolve(true);
     })
   );

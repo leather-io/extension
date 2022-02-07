@@ -49,13 +49,16 @@ export const store = configureStore({
     }),
     broadcastActionTypeToOtherFramesMiddleware,
   ],
-  enhancers: [
-    devToolsEnhancer({
-      hostname: 'localhost',
-      port: 8000,
-      realtime: true,
-    }),
-  ],
+  enhancers:
+    process.env.WALLET_ENVIRONMENT === 'development'
+      ? [
+          devToolsEnhancer({
+            hostname: 'localhost',
+            port: 8000,
+            realtime: true,
+          }),
+        ]
+      : [],
 });
 
 export const persistor = persistStore(store);
