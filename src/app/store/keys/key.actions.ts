@@ -1,4 +1,5 @@
 import { generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
+import { StacksMainnet } from '@stacks/network';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { gaiaUrl } from '@shared/constants';
@@ -13,6 +14,8 @@ import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
 
 async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
   try {
+    // use network to select addresses based on owned usernames
+    const network = new StacksMainnet();
     // Don't need, nor return, encrypted wallet value, so a legit password isn't
     // needed. Ideally `@stacks/wallet-sdk` should be updated so that the encrypt
     // function is a separate method
@@ -20,6 +23,7 @@ async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
     const restoredWallet = await restoreWalletAccounts({
       wallet,
       gaiaHubUrl: gaiaUrl,
+      network,
     });
     return restoredWallet.accounts.length - 1;
   } catch (e) {
