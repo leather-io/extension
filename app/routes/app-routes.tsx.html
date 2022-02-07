@@ -217,7 +217,9 @@
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,9 +387,9 @@ import { SignTransaction } from '@app/pages/sign-transaction/sign-transaction';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
-import { SetPasswordPage } from '@app/pages/set-password';
-import { SendTokensForm } from '@app/pages/send-tokens/send-tokens-form';
-import { SaveSecretKey } from '@app/pages/save-secret-key/save-secret-key';
+import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
+import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
+import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
 import { Unlock } from '@app/pages/unlock';
@@ -395,9 +397,10 @@ import { Home } from '@app/pages/home/home';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
 import { BuyPage } from '@app/pages/buy/buy';
-import { RouteUrls } from '@shared/route-urls';
+import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
+import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
@@ -449,8 +452,8 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
           &lt;Route path={RouteUrls.SignOutConfirm} element={&lt;SignOutConfirmDrawer /&gt;} /&gt;
         &lt;/Route&gt;
         &lt;Route path={RouteUrls.Onboarding} element={&lt;WelcomePage /&gt;} /&gt;
+        &lt;Route path={RouteUrls.BackUpSecretKey} element={&lt;BackUpSecretKeyPage /&gt;} /&gt;
         &lt;Route path={RouteUrls.RequestDiagnostics} element={&lt;AllowDiagnosticsPage /&gt;} /&gt;
-        &lt;Route path={RouteUrls.SaveSecretKey} element={&lt;SaveSecretKey /&gt;} /&gt;
         &lt;Route path={RouteUrls.SetPassword} element={&lt;SetPasswordPage /&gt;} /&gt;
         &lt;Route path={RouteUrls.SignIn} element={&lt;SignIn /&gt;} /&gt;
         &lt;Route path={RouteUrls.RecoveryCode} element={&lt;MagicRecoveryCode /&gt;} /&gt;
@@ -463,21 +466,21 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
           }
         /&gt;
         &lt;Route
-          path={RouteUrls.ChooseAccount}
-          element={
-            &lt;AccountGate&gt;
-              &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
-                &lt;ChooseAccount /&gt;
-              &lt;/Suspense&gt;
-            &lt;/AccountGate&gt;
-          }
-        /&gt;
-        &lt;Route
           path={RouteUrls.Buy}
           element={
             &lt;AccountGate&gt;
               &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
                 &lt;BuyPage /&gt;
+              &lt;/Suspense&gt;
+            &lt;/AccountGate&gt;
+          }
+        /&gt;
+        &lt;Route
+          path={RouteUrls.ChooseAccount}
+          element={
+            &lt;AccountGate&gt;
+              &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
+                &lt;ChooseAccount /&gt;
               &lt;/Suspense&gt;
             &lt;/AccountGate&gt;
           }
@@ -504,7 +507,7 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
           path={RouteUrls.Transaction}
           element={
             &lt;AccountGate&gt;
-              &lt;Suspense fallback={&lt;LoadingSpinner /&gt;}&gt;
+              &lt;Suspense fallback={&lt;LoadingSpinner height="600px" /&gt;}&gt;
                 &lt;SignTransaction /&gt;
               &lt;/Suspense&gt;
             &lt;/AccountGate&gt;
@@ -514,7 +517,7 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
           path={RouteUrls.ViewSecretKey}
           element={
             &lt;AccountGate&gt;
-              &lt;SaveSecretKey /&gt;
+              &lt;ViewSecretKey /&gt;
             &lt;/AccountGate&gt;
           }
         /&gt;
@@ -532,7 +535,7 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jan 26 2022 15:52:26 GMT+0000 (Coordinated Universal Time)
+                at Mon Feb 07 2022 16:17:53 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

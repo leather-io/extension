@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -139,7 +139,9 @@
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,18 +176,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -219,12 +223,7 @@
 import { useFormikContext } from 'formik';
 &nbsp;
 import { LoadingRectangle } from '@app/components/loading-rectangle';
-import {
-  getDefaultSimulatedFeeEstimations,
-  getFeeEstimationsWithMaxValues,
-  isTxSponsored,
-  TransactionFormValues,
-} from '@app/common/transactions/transaction-utils';
+import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { FeeRow } from '@app/components/fee-row/fee-row';
 import { MinimalErrorMessage } from '@app/pages/sign-transaction/components/minimal-error-message';
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
@@ -235,6 +234,11 @@ import {
 } from '@app/store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import {
+  getDefaultSimulatedFeeEstimations,
+  getFeeEstimationsWithMaxValues,
+} from '@shared/transactions/fee-estimations';
+import { useFeeEstimationsMaxValues } from '@app/common/transactions/use-fee-estimations-max-values';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >FeeForm(</span>): JSX.Element | null {
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
@@ -250,6 +254,7 @@ export function <span class="fstat-no" title="function not covered" >FeeForm(</s
   const isSponsored = <span class="cstat-no" title="statement not covered" >transaction ? isTxSponsored(transaction) : false;</span>
 &nbsp;
   const [, setFeeEstimations] = <span class="cstat-no" title="statement not covered" >useFeeEstimationsState();</span>
+  const feeEstimationsMaxValues = <span class="cstat-no" title="statement not covered" >useFeeEstimationsMaxValues();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (feeEstimationsResp) {</span>
@@ -262,7 +267,8 @@ export function <span class="fstat-no" title="function not covered" >FeeForm(</s
       }
 <span class="cstat-no" title="statement not covered" >      if (feeEstimationsResp.estimations &amp;&amp; feeEstimationsResp.estimations.length) {</span>
         const feeEstimationsWithMaxValues = <span class="cstat-no" title="statement not covered" >getFeeEstimationsWithMaxValues(</span>
-          feeEstimationsResp.estimations
+          feeEstimationsResp.estimations,
+          feeEstimationsMaxValues
         );
 <span class="cstat-no" title="statement not covered" >        setFeeEstimations(feeEstimationsWithMaxValues);</span>
 <span class="cstat-no" title="statement not covered" >        void analytics.track('use_fee_estimation', {</span>
@@ -283,7 +289,7 @@ export function <span class="fstat-no" title="function not covered" >FeeForm(</s
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       {feeEstimationsResp ? (
-        &lt;FeeRow fieldName="fee" isSponsored={isSponsored} /&gt;
+        &lt;FeeRow feeFieldName="fee" feeTypeFieldName="feeType" isSponsored={isSponsored} /&gt;
       ) : (
         &lt;LoadingRectangle height="32px" width="100%" /&gt;
       )}
@@ -298,7 +304,7 @@ export function <span class="fstat-no" title="function not covered" >FeeForm(</s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jan 26 2022 15:52:26 GMT+0000 (Coordinated Universal Time)
+                at Mon Feb 07 2022 16:17:53 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

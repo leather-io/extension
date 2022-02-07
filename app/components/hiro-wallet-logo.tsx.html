@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -84,36 +84,7 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,9 +92,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,39 +106,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
+import { Stack, StackProps, color } from '@stacks/ui';
 &nbsp;
-import { Stack, StackProps, color, Box, BoxProps } from '@stacks/ui';
-import { Title } from '@app/components/typography';
-&nbsp;
-const HiroSvg = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: BoxProps) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >  &lt;Box as="svg" viewBox="0 0 16 16" fill="none" {...props}&gt;</span>
-    &lt;circle cx="8" cy="8" r="8" fill="currentColor" /&gt;
-    &lt;path
-      d="M9.17128 9.07053L10.4458 11H9.4937L7.99748 8.733L6.50126 11H5.55416L6.82872 9.07557H5V8.34509H11V9.07053H9.17128Z"
-      fill={color('bg')}
-    /&gt;
-    &lt;path
-      d="M11 6.90428V7.63476V7.6398H5V6.90428H6.79345L5.53401 5H6.48615L7.99748 7.29723L9.51385 5H10.466L9.20655 6.90428H11Z"
-      fill={color('bg')}
-    /&gt;
-  &lt;/Box&gt;
-);
+import { HiroIcon } from './icons/hiro-icon';
+import { HiroWalletText } from './icons/hiro-wallet-text';
 &nbsp;
 export const HiroWalletLogo = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >(p</span>rops: StackProps) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Stack
+      _hover={{ color: color('brand') }}
+      alignItems="center"
       color={color('text-title')}
       cursor="pointer"
-      flexDirection="row"
       isInline
-      alignItems="center"
-      _hover={{ color: color('brand') }}
       {...props}
     &gt;
-      &lt;HiroSvg size="23px" /&gt;
-      &lt;Title lineHeight="1rem" fontSize={2} fontWeight={500}&gt;
-        Hiro Wallet
-      &lt;/Title&gt;
+      &lt;HiroIcon width="28px" height="20px" /&gt;
+      &lt;HiroWalletText width="82px" height="14px" /&gt;
     &lt;/Stack&gt;
   );
 });
@@ -181,7 +133,7 @@ export const HiroWalletLogo = <span class="cstat-no" title="statement not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jan 26 2022 15:52:26 GMT+0000 (Coordinated Universal Time)
+                at Mon Feb 07 2022 16:17:53 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

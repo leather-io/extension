@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -79,25 +79,7 @@
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -113,30 +95,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { logger } from '@shared/logger';
-import { useAccounts, useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useGetBnsNamesOwnedByAddress, useGetBnsNamesOwnedByAddressList } from './bns.query';
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useAllAccountNames(</span>) {
-  const accounts = <span class="cstat-no" title="statement not covered" >useAccounts() ?? [];</span>
-  const result = <span class="cstat-no" title="statement not covered" >useGetBnsNamesOwnedByAddressList(accounts.map(<span class="fstat-no" title="function not covered" >a </span>=&gt; <span class="cstat-no" title="statement not covered" >a.address)</span>);</span>
-<span class="cstat-no" title="statement not covered" >  return accounts.map(<span class="fstat-no" title="function not covered" >({</span> address, index }) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-    address,
-    index,
-    names: result[index].data?.names ?? [],
-  }));
-}
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
+import { logger } from '@shared/logger';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
+import { useGetBnsNamesOwnedByAddress } from './bns.query';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useCurrentAccountNames(</span>) {
   const principal = <span class="cstat-no" title="statement not covered" >useCurrentAccountStxAddressState();</span>
 <span class="cstat-no" title="statement not covered" >  if (!principal) <span class="cstat-no" title="statement not covered" >logger.error('No principal defined');</span></span>
   const namesResponse = <span class="cstat-no" title="statement not covered" >useGetBnsNamesOwnedByAddress(principal ?? '');</span>
-<span class="cstat-no" title="statement not covered" >  return namesResponse.data?.names ?? [];</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >namesResponse.data?.names ?? [],</span> [namesResponse.data?.names]);</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useGetAccountNamesByAddressQuery(</span>address: string) {
   const namesResponse = <span class="cstat-no" title="statement not covered" >useGetBnsNamesOwnedByAddress(address);</span>
-<span class="cstat-no" title="statement not covered" >  return namesResponse.data?.names ?? [];</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >namesResponse.data?.names ?? [],</span> [namesResponse.data?.names]);</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -145,7 +118,7 @@ export function <span class="fstat-no" title="function not covered" >useGetAccou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jan 26 2022 15:52:26 GMT+0000 (Coordinated Universal Time)
+                at Mon Feb 07 2022 16:17:53 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
