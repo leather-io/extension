@@ -1,3 +1,37 @@
+## [3.1.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.0...v3.1.1) (2022-02-07)
+
+
+### Bug Fixes
+
+* virtual account list ([d94deec](https://github.com/hirosystems/stacks-wallet-web/commit/d94deec7b9c7e3d9b4e02a1d1512a7cd51bac021))
+
+# [3.1.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.0.0...v3.1.0) (2022-02-07)
+
+
+### Bug Fixes
+
+* add back tippy styles ([1c7f7d4](https://github.com/hirosystems/stacks-wallet-web/commit/1c7f7d40dbbca52647e7a02daf349c56f65a152c))
+* change okcoin wording ([8437cf3](https://github.com/hirosystems/stacks-wallet-web/commit/8437cf36c958e07d15b9afaee361f5948f1c9f52)), closes [#2170](https://github.com/hirosystems/stacks-wallet-web/issues/2170)
+* disable performance tracking ([5059e5f](https://github.com/hirosystems/stacks-wallet-web/commit/5059e5ff4717134ce0a470366627f30102816b2d))
+* hitting api with metadata queries ([6283e9c](https://github.com/hirosystems/stacks-wallet-web/commit/6283e9cc7d025fc15ace044818deb7ff34929766))
+* missing account balance ([c6f9bca](https://github.com/hirosystems/stacks-wallet-web/commit/c6f9bca428a2f439e7d225c2767e10edf35927bf))
+* near render loop issue ([7b7d097](https://github.com/hirosystems/stacks-wallet-web/commit/7b7d0972cdfcf977e38d244b4a7027b451b117b7))
+* send form styles ([4aa6fd3](https://github.com/hirosystems/stacks-wallet-web/commit/4aa6fd3e1e5c85b2f786bceb32d1cd7beeb23c04))
+* send max invalid fee calculation, closes [#2175](https://github.com/hirosystems/stacks-wallet-web/issues/2175) ([f764ed2](https://github.com/hirosystems/stacks-wallet-web/commit/f764ed2104e8ae1343fb387e12cd4ce6d8553730))
+* slower render performance on create account list, fixes [#2139](https://github.com/hirosystems/stacks-wallet-web/issues/2139) ([87077cf](https://github.com/hirosystems/stacks-wallet-web/commit/87077cf18d48074dc89976491490426301d9eda2))
+* slower render performance on create account list, fixes [#2139](https://github.com/hirosystems/stacks-wallet-web/issues/2139) ([cbb1fa5](https://github.com/hirosystems/stacks-wallet-web/commit/cbb1fa53680208230fe3602e425182dbaf424ea4))
+* sponsored tx fee ([b0203b3](https://github.com/hirosystems/stacks-wallet-web/commit/b0203b32065b8fc632cf9e40c318c890c5c6a3f0))
+* thrown error with sponsored tx ([f943979](https://github.com/hirosystems/stacks-wallet-web/commit/f9439796330aedc0bffa7e9a217f0b82705c4772))
+
+
+### Features
+
+* add analytics to tx signing & fiat onramp ([d1a986e](https://github.com/hirosystems/stacks-wallet-web/commit/d1a986e23c549d35a806018aff0cb981ebda307a)), closes [#2037](https://github.com/hirosystems/stacks-wallet-web/issues/2037) [#2035](https://github.com/hirosystems/stacks-wallet-web/issues/2035)
+* add back up secret key page ([7a0acc0](https://github.com/hirosystems/stacks-wallet-web/commit/7a0acc0a774a08103e2ebef3542850ec2113e37a))
+* add config for max fee estimations ([4a3a1bd](https://github.com/hirosystems/stacks-wallet-web/commit/4a3a1bdb24a77da19872625f7744ce47818238a5)), closes [#2039](https://github.com/hirosystems/stacks-wallet-web/issues/2039)
+* add set password page ([cd7962e](https://github.com/hirosystems/stacks-wallet-web/commit/cd7962eedf447fce36be3cd9ca8d98b5f47940b7))
+* add welcome page ([bc17596](https://github.com/hirosystems/stacks-wallet-web/commit/bc175968339cb761670c5ddb3e91f7c5b4a81bea))
+
 # [3.0.0](https://github.com/hirosystems/stacks-wallet-web/compare/v2.24.1...v3.0.0) (2022-01-26)
 
 
