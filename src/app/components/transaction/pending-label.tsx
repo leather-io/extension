@@ -16,11 +16,7 @@ export function PendingLabel() {
       >
         Pending
       </Caption>
-      <Tooltip
-        label={pendingWaitingMessage}
-        labelProps={{ bg: '#e2e2e2', padding: '5px', borderRadius: '5px' }}
-        placement="bottom"
-      >
+      <Tooltip label={pendingWaitingMessage} placement="bottom">
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
