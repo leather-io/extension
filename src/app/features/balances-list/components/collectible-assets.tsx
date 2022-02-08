@@ -7,7 +7,7 @@ import { AssetItem } from '@app/components/asset-item';
 import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
 
 export const CollectibleAssets = memo((props: StackProps) => {
-  const balances = useCurrentAccountUnanchoredBalances();
+  const { data: balances } = useCurrentAccountUnanchoredBalances();
   if (!balances) return null;
   const noCollectibles = Object.keys(balances.non_fungible_tokens).length === 0;
   if (noCollectibles) return null;

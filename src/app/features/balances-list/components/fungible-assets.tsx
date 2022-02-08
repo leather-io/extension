@@ -16,7 +16,7 @@ function FungibleAssetRow({ asset }: FungibleAssetRowProps) {
 
 export function FungibleAssets(props: StackProps) {
   const fungibleTokens = useFungibleTokenBaseState();
-  const balances = useCurrentAccountUnanchoredBalances();
+  const { data: balances } = useCurrentAccountUnanchoredBalances();
   if (!balances) return null;
 
   const ftCount = Object.keys(balances.fungible_tokens);
