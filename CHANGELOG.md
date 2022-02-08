@@ -1,3 +1,10 @@
+# [3.2.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.1...v3.2.0-beta.2) (2022-02-08)
+
+
+### Features
+
+* add message in activity list ([f67f7ab](https://github.com/hirosystems/stacks-wallet-web/commit/f67f7ab8aeb3209513e9479405700fe6ca627acd)), closes [#2187](https://github.com/hirosystems/stacks-wallet-web/issues/2187)
+
 # [3.2.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.1...v3.2.0-beta.1) (2022-02-08)
 
 
