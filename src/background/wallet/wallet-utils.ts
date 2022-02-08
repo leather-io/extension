@@ -1,4 +1,10 @@
-import { Account, deriveAccount, generateWallet, WalletConfig } from '@stacks/wallet-sdk';
+import {
+  Account,
+  DerivationType,
+  deriveAccount,
+  generateWallet,
+  WalletConfig,
+} from '@stacks/wallet-sdk';
 import { Wallet as SDKWallet } from '@stacks/wallet-sdk';
 import { mnemonicToSeed } from 'bip39';
 import { fromSeed } from 'bip32';
@@ -24,6 +30,7 @@ function accountsFromWalletConfig(
       rootNode,
       index,
       salt,
+      stxDerivationType: DerivationType.Wallet,
     });
     return {
       ...existingAccount,
