@@ -1,3 +1,10 @@
+# [3.2.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.4...v3.2.0-beta.5) (2022-02-08)
+
+
+### Bug Fixes
+
+* pending label styling ([4f671eb](https://github.com/hirosystems/stacks-wallet-web/commit/4f671eb141a2e60758f3080d220136579d275e51)), closes [#2187](https://github.com/hirosystems/stacks-wallet-web/issues/2187)
+
 # [3.2.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.3...v3.2.0-beta.4) (2022-02-08)
 
 
