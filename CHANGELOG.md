@@ -1,3 +1,10 @@
+# [3.2.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.2...v3.2.0-beta.3) (2022-02-08)
+
+
+### Bug Fixes
+
+* remove suspense, causes scroll bug, closes [#2220](https://github.com/hirosystems/stacks-wallet-web/issues/2220) ([664a3ae](https://github.com/hirosystems/stacks-wallet-web/commit/664a3aeb44993d0d5b10a4323c42371951bf47cb))
+
 # [3.2.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.1...v3.2.0-beta.2) (2022-02-08)
 
 
