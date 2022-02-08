@@ -1,3 +1,17 @@
+# [3.2.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.3...v3.2.0-beta.4) (2022-02-08)
+
+
+### Bug Fixes
+
+* add release rules to commit analyzer ([2080626](https://github.com/hirosystems/stacks-wallet-web/commit/20806261e65dc49db34041a708e786409d520ffb))
+* missing stx derivation type err ([96b4f8f](https://github.com/hirosystems/stacks-wallet-web/commit/96b4f8f4c90e73931b10b67d9751ddeb89a7de87))
+* provide network when restoring accounts ([c7bd538](https://github.com/hirosystems/stacks-wallet-web/commit/c7bd53805ad31ff545a94b27306ff0bc2a577d7a))
+
+
+### Features
+
+* upgrade [@stacks](https://github.com/stacks) package to 3.1.0 ([c7ffe62](https://github.com/hirosystems/stacks-wallet-web/commit/c7ffe6235933627f77be43ba058528377ea92f74))
+
 # [3.2.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.2...v3.2.0-beta.3) (2022-02-08)
 
 
