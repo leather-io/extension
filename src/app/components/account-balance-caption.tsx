@@ -27,3 +27,14 @@ export function AccountBalanceCaption({ availableBalance }: AccountBalanceCaptio
     </>
   );
 }
+
+export function AccountBalanceLoading() {
+  return (
+    <>
+      <Text color={color('text-caption')} fontSize="10px">
+        •
+      </Text>
+      <Caption>Loading…</Caption>
+    </>
+  );
+}

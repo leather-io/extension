@@ -1,6 +1,7 @@
 import { useCallback, Suspense, memo, useState, useMemo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
+import { Virtuoso } from 'react-virtuoso';
 
 import { Caption, Text, Title } from '@app/components/typography';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
@@ -14,12 +15,15 @@ import { SpaceBetween } from '@app/components/space-between';
 
 import { usePressable } from '@app/components/item-hover';
 
-import { AccountBalanceCaption } from '@app/components/account-balance-caption';
+import {
+  AccountBalanceCaption,
+  AccountBalanceLoading,
+} from '@app/components/account-balance-caption';
 import { slugify } from '@app/common/utils';
 import { useAccounts } from '@app/store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@app/store/ui/ui.hooks';
 import { AccountStep } from '@app/store/ui/ui.models';
-import { useAddressAvailableStxBalance } from '@app/query/balance/balance.hooks';
+import { useAddressBalances } from '@app/query/balance/balance.hooks';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -59,7 +63,7 @@ const AccountItem = memo((props: AccountItemProps) => {
   const [component, bind] = usePressable(true);
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account.address, account.index);
-  const availableStxBalance = useAddressAvailableStxBalance(account.address);
+  const { data: balances, isLoading: isBalanceLoading } = useAddressBalances(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
   const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
@@ -94,10 +98,10 @@ const AccountItem = memo((props: AccountItemProps) => {
                 <Caption fontSize={0} {...getLoadingProps(showLoadingProps)}>
                   {truncateMiddle(account.address, 4)}
                 </Caption>
-                {availableStxBalance && (
-                  <Suspense fallback={<></>}>
-                    <AccountBalanceCaption availableBalance={availableStxBalance} />
-                  </Suspense>
+                {isBalanceLoading ? (
+                  <AccountBalanceLoading />
+                ) : (
+                  balances && <AccountBalanceCaption availableBalance={balances.availableStx} />
                 )}
               </Stack>
             </Stack>
@@ -155,13 +159,18 @@ export const Accounts = memo(() => {
     <>
       <AddAccountAction />
       <Box mt="base">
-        {accounts.map(account => (
-          <AccountItem
-            account={account}
-            onSelectAccount={signIntoAccount}
-            isLoading={account.index === selectedAccount}
-          />
-        ))}
+        <Virtuoso
+          useWindowScroll
+          data={accounts}
+          style={{ height: '68px' }}
+          itemContent={(index, account) => (
+            <AccountItem
+              account={account}
+              isLoading={selectedAccount === index}
+              onSelectAccount={signIntoAccount}
+            />
+          )}
+        />
       </Box>
     </>
   );

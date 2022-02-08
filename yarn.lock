@@ -14500,10 +14500,10 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-query@3.34.12:
-  version "3.34.12"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.34.12.tgz#dcaaf7b629f0868aae8afef9fb7692f6ea7643bf"
-  integrity sha512-flDdudQVH4CqE+kNYYYyo4g2Yjek3H/36G3b9bK5oe26jD5gFnx+PPwnq0gayq5z2dcSfr2z4+drvuyeZ3A5QQ==
+react-query@3.34.14:
+  version "3.34.14"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.34.14.tgz#ba944c1c36bbeab3e7037c42e8e862acd73111ff"
+  integrity sha512-KVMnM8omt+81oO9fPZfM65pGhQilpWzGsNwAqeeLMB2sG3xwY3bpIEYbhDf7FFgsqhAQfSzmCL4gRSiJaWIDwA==
   dependencies:
     "@babel/runtime" "^7.5.5"
     broadcast-channel "^3.4.1"
@@ -14557,10 +14557,10 @@ react-transition-group@^4.4.1:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-virtuoso@2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-2.5.1.tgz#73d562ea1760eed6c39b6357873040beac37057a"
-  integrity sha512-qHNuUEeSoORN6mQq1nLtGfE82ctMCRg+WOdLCrF8loXNl0VCAV2zj5jxXVPWuUJWbkmjgKugBu3wNyFM6dy2NA==
+react-virtuoso@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-2.6.0.tgz#6c134e8449a30669adcbf23dd9dc19186d119225"
+  integrity sha512-uTRlKeySwzGLkJ75Q9DXKV0YhofIjmqcclfjDIE1wGwu26TprAKEA5JzuYjDH6t9+byRfk/hWAlGbH8OXM1IKw==
   dependencies:
     "@virtuoso.dev/react-urx" "^0.2.12"
     "@virtuoso.dev/urx" "^0.2.12"

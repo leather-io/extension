@@ -13,7 +13,6 @@ import {
 } from '@app/store/accounts/account.hooks';
 import { useGetAccountBalanceQuery, useGetAnchoredAccountBalanceQuery } from './balance.query';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
-import { useMemo } from 'react';
 
 function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxBigNumbers = Object.fromEntries(
@@ -26,27 +25,23 @@ function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanc
 
 export function useAddressBalances(address: string) {
   const setAccountBalanceUnanchoredState = useSetAccountBalancesUnanchoredState();
-  const { data: balances } = useGetAccountBalanceQuery(address, {
-    select: (resp: AddressBalanceResponse) => initAmountsAsBigNumber(resp),
+  return useGetAccountBalanceQuery(address, {
+    select: (resp: AddressBalanceResponse) => {
+      const balances = initAmountsAsBigNumber(resp);
+      return { ...balances, availableStx: balances.stx.balance.minus(balances.stx.locked) };
+    },
     onSuccess: (resp: ReturnType<typeof initAmountsAsBigNumber>) =>
       setAccountBalanceUnanchoredState(resp),
-    retryOnMount: true,
     keepPreviousData: false,
+    useErrorBoundary: false,
+    refetchOnMount: false,
+    suspense: false,
   });
-  return balances;
 }
 
 export function useCurrentAccountUnanchoredBalances() {
   const account = useCurrentAccount();
   return useAddressBalances(account?.address || '');
-}
-
-export function useAddressAvailableStxBalance(address: string) {
-  const balances = useAddressBalances(address);
-  return useMemo(() => {
-    if (!balances) return new BigNumber(0);
-    return balances.stx.balance.minus(balances.stx.locked);
-  }, [balances]);
 }
 
 function useAddressAnchoredBalances(address: string) {
