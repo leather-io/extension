@@ -1,14 +1,14 @@
 import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountListItem } from './account-list-item';
 
 const smallNumberOfAccountsToRenderWholeList = 10;
 
 interface AccountListProps {
   handleClose: () => void;
-  accounts: AccountWithAddress[];
+  accounts: SoftwareWalletAccountWithAddress[];
   currentAccountIndex: number;
 }
 export const AccountList = memo(
