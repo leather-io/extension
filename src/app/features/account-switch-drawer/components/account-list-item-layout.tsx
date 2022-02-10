@@ -4,13 +4,13 @@ import { FiCheck as IconCheck } from 'react-icons/fi';
 
 import { SpaceBetween } from '@app/components/space-between';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
 import { Caption } from '@app/components/typography';
 
 interface AccountListItemLayoutProps extends StackProps {
   isLoading: boolean;
   isActive: boolean;
-  account: AccountWithAddress;
+  account: SoftwareWalletAccountWithAddress;
   accountName: JSX.Element;
   avatar: JSX.Element;
   balanceLabel: JSX.Element;
