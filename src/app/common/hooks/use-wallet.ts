@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
@@ -25,6 +24,7 @@ import {
   useNetworkState,
 } from '@app/store/network/networks.hooks';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { getAccountDisplayName } from '../utils/get-account-display-name';
 
 export function useWallet() {
   const [wallet, setWallet] = useWalletState();
