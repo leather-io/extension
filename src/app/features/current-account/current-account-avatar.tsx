@@ -1,15 +1,17 @@
 import { memo, Suspense } from 'react';
+import { BoxProps } from '@stacks/ui';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { AccountAvatar } from '@app/components/account-avatar/account-avatar';
-import { BoxProps } from '@stacks/ui';
+import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 
 const AccountAvatarSuspense = memo((props: BoxProps) => {
   const currentAccount = useCurrentAccount();
   const name = useCurrentAccountDisplayName();
   if (!currentAccount) return null;
-  return <AccountAvatar name={name} flexShrink={0} account={currentAccount} {...props} />;
+  return (
+    <AccountAvatar name={name} publicKey={currentAccount.stxPublicKey} flexShrink={0} {...props} />
+  );
 });
 
 export const CurrentAccountAvatar = memo((props: BoxProps) => {
@@ -19,7 +21,12 @@ export const CurrentAccountAvatar = memo((props: BoxProps) => {
   return (
     <Suspense
       fallback={
-        <AccountAvatar name={defaultName} flexShrink={0} account={currentAccount} {...props} />
+        <AccountAvatar
+          name={defaultName}
+          publicKey={currentAccount.stxPublicKey}
+          flexShrink={0}
+          {...props}
+        />
       }
     >
       <AccountAvatarSuspense {...props} />

@@ -6,9 +6,9 @@ import { AccountBalanceCaption } from '@app/components/account-balance-caption';
 import { Caption } from '@app/components/typography';
 import { AccountName, AccountNameFallback } from './account-name';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountListItemLayout } from './account-list-item-layout';
 import { AccountAvatarItem } from './account-avatar';
+import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
 
 interface AccountBalanceLabelProps {
   address: string;
@@ -19,7 +19,7 @@ const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
 });
 
 interface AccountListItemProps {
-  account: AccountWithAddress;
+  account: SoftwareWalletAccountWithAddress;
   handleClose(): void;
 }
 export const AccountListItem = memo(({ account, handleClose }: AccountListItemProps) => {
@@ -39,11 +39,11 @@ export const AccountListItem = memo(({ account, handleClose }: AccountListItemPr
       account={account}
       isLoading={isLoading}
       isActive={getIsActive(account.index)}
-      avatar={<AccountAvatarItem account={account} />}
+      avatar={<AccountAvatarItem publicKey={account.stxPublicKey} index={account.index} />}
       onSelectAccount={handleClick}
       accountName={
         <Suspense fallback={<AccountNameFallback account={account} />}>
-          <AccountName account={account} />
+          <AccountName address={account.address} index={account.index} />
         </Suspense>
       }
       balanceLabel={

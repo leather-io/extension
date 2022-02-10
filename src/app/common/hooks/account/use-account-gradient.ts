@@ -1,16 +1,7 @@
 import { useMemo } from 'react';
-import { Account, getStxAddress } from '@stacks/wallet-sdk';
-import { TransactionVersion } from '@stacks/transactions';
+
 import { generateHash, hashValue, moduloRange, stringToHslColor } from '@stacks/ui-utils';
 import chroma from 'chroma-js';
-
-function toHex(str: string) {
-  let result = '';
-  for (let i = 0; i < str.length; i++) {
-    result += str.charCodeAt(i).toString(16);
-  }
-  return result;
-}
 
 function generateGradientType(string: string) {
   const gradientType = `${hashValue(string, ['linear', 'radial'])}-gradient`;
@@ -32,17 +23,15 @@ function generateGradientType(string: string) {
   }
 }
 
-export function useAccountGradient(account: Account) {
+export function useAccountGradient(publicKey: string) {
   return useMemo(() => {
-    // always mainnet, so people can associate color with an account regardless of network
-    const transactionVersion = TransactionVersion.Mainnet;
+    const keyLength = publicKey.length;
+    const part1 = publicKey.substring(0, keyLength / 2);
+    const part2 = publicKey.substring(keyLength / 2, keyLength);
 
-    const stxAddress = getStxAddress({ account, transactionVersion });
-    const pubKeyLikeString = toHex(stxAddress);
-
-    const bg = stringToHslColor(stxAddress, 50, 60);
-    let bg2 = stringToHslColor(pubKeyLikeString, 50, 60);
-    const bg3 = stringToHslColor(pubKeyLikeString + '__' + stxAddress, 50, 60);
+    const bg = stringToHslColor(part1, 50, 60);
+    let bg2 = stringToHslColor(part2, 50, 60);
+    const bg3 = stringToHslColor(part2 + '__' + part1, 50, 60);
 
     const contrast = chroma.contrast(bg, bg2);
 
@@ -50,9 +39,9 @@ export function useAccountGradient(account: Account) {
       bg2 = chroma(bg2).darken(1.25).hex();
     }
 
-    const gradientTypeString = stxAddress + '__' + pubKeyLikeString;
+    const gradientTypeString = part1 + '__' + part2;
     const gradientType = generateGradientType(gradientTypeString);
 
     return `${gradientType}, ${bg3} 0%, ${bg2} 70%, ${bg} 100%)`;
-  }, [account]);
+  }, [publicKey]);
 }
