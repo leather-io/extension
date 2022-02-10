@@ -158,6 +158,9 @@ const config = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    client: {
+      overlay: false,
+    },
     allowedHosts: 'all',
   },
   devtool: 'cheap-module-source-map',
