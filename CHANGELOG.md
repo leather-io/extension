@@ -1,3 +1,13 @@
+# [3.2.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.5...v3.2.0-beta.6) (2022-02-11)
+
+
+### Reverts
+
+* Revert "feat: upgrade @stacks package to 3.1.0" ([58e3ee0](https://github.com/hirosystems/stacks-wallet-web/commit/58e3ee0f6b74ea87af7677b62015dcda2a13cd4e))
+* Revert "chore: upgrade @stacks/wallet-sdk,auth to 3.1.1" ([27de05c](https://github.com/hirosystems/stacks-wallet-web/commit/27de05c3054caf1dd4b352b586a46d54c9cb6f39))
+* Revert "fix: missing stx derivation type err" ([6da1ad6](https://github.com/hirosystems/stacks-wallet-web/commit/6da1ad6a69265373a08b996a88adcd4352ebf750))
+* Revert "fix: provide network when restoring accounts" ([c8cc8f4](https://github.com/hirosystems/stacks-wallet-web/commit/c8cc8f471ab1f3dc08b177680877d92d821de182))
+
 # [3.2.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.4...v3.2.0-beta.5) (2022-02-08)
 
 
