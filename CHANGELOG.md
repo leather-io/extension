@@ -1,3 +1,10 @@
+# [3.2.0-beta.7](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.6...v3.2.0-beta.7) (2022-02-11)
+
+
+### Bug Fixes
+
+* double scrollbar issue firefox, closes [#2228](https://github.com/hirosystems/stacks-wallet-web/issues/2228) ([75f60a7](https://github.com/hirosystems/stacks-wallet-web/commit/75f60a75f60a25605670522fb55c00d536168620))
+
 # [3.2.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.5...v3.2.0-beta.6) (2022-02-11)
 
 
