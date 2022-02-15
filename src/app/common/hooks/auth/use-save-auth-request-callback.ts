@@ -4,16 +4,14 @@ import { decodeToken } from 'jsontokens';
 
 import { useUpdateAuthRequest } from '@app/store/onboarding/onboarding.hooks';
 import { DecodedAuthRequest } from '@app/common/dev/types';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { getRequestOrigin, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
 
 export function useSaveAuthRequest() {
-  const { wallet } = useWallet();
   const navigate = useNavigate();
   const saveAuthRequest = useUpdateAuthRequest();
   const location = useLocation();
-  const accounts = wallet?.accounts;
+
   const saveAuthRequestParam = useCallback(
     (authRequest: string) => {
       const { payload } = decodeToken(authRequest);
@@ -33,15 +31,9 @@ export function useSaveAuthRequest() {
         appURL: new URL(origin),
       });
 
-      const hasIdentities = accounts && accounts.length;
-      if (
-        (location.pathname === RouteUrls.Onboarding || location.pathname === RouteUrls.SignIn) &&
-        hasIdentities
-      ) {
-        navigate(RouteUrls.ChooseAccount);
-      }
+      navigate(RouteUrls.ChooseAccount);
     },
-    [saveAuthRequest, location, accounts, navigate]
+    [saveAuthRequest, navigate]
   );
 
   useEffect(() => {
