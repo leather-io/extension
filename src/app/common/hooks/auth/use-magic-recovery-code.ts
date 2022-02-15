@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import { useLoading } from '@app/common/hooks/use-loading';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { RouteUrls } from '@shared/route-urls';
 import { decrypt } from '@stacks/wallet-sdk';
-import { useDispatch } from 'react-redux';
 import { keyActions } from '@app/store/keys/key.actions';
 import { delay } from '@app/common/utils';
-import toast from 'react-hot-toast';
+import { useAppDispatch } from '@app/store';
 
 function pullMagicRecoveryCodeFromParams(urlSearchParams: URLSearchParams) {
   return urlSearchParams.get('magicRecoveryCode');
@@ -28,7 +28,7 @@ export function useMagicRecoveryCode() {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleNavigate = useCallback(() => {
     if (decodedAuthRequest) {
