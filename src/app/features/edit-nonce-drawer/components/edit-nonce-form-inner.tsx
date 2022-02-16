@@ -26,10 +26,12 @@ export function EditNonceFormInner(): JSX.Element {
       </Stack>
       <Stack isInline>
         <Button
-          onClick={() => setShowEditNonce(false)}
-          flexGrow={1}
+          _hover={{ boxShadow: 'none' }}
           borderRadius="10px"
+          boxShadow="none"
+          flexGrow={1}
           mode="tertiary"
+          onClick={() => setShowEditNonce(false)}
         >
           Cancel
         </Button>

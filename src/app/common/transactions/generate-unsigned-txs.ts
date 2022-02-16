@@ -1,8 +1,8 @@
 import BN from 'bn.js';
 import {
-  ContractCallPayload,
-  ContractDeployPayload,
-  STXTransferPayload,
+  ContractCallPayload as ConnectContractCallPayload,
+  ContractDeployPayload as ConnectContractDeployPayload,
+  STXTransferPayload as ConnectSTXTransferPayload,
   TransactionTypes,
 } from '@stacks/connect';
 import {
@@ -16,9 +16,16 @@ import {
 import { hexToBuff } from '@app/common/utils';
 import { getPostConditions } from './post-condition-utils';
 import { isTransactionTypeSupported } from './transaction-utils';
+import { StacksNetwork } from '@stacks/network';
 
 function initNonce(nonce?: number) {
   return nonce !== undefined ? new BN(nonce, 10) : undefined;
+}
+
+// This type exists to bridge the gap while @stacks/connect uses an outdated
+// version of @stacks/network
+interface TempCorrectNetworkPackageType {
+  network?: StacksNetwork;
 }
 
 interface GenerateUnsignedTxArgs<TxPayload> {
@@ -28,6 +35,8 @@ interface GenerateUnsignedTxArgs<TxPayload> {
   nonce?: number;
 }
 
+export type ContractCallPayload = Omit<ConnectContractCallPayload, 'network'> &
+  TempCorrectNetworkPackageType;
 type GenerateUnsignedContractCallTxArgs = GenerateUnsignedTxArgs<ContractCallPayload>;
 
 function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs) {
@@ -63,6 +72,8 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
   return makeUnsignedContractCall(options);
 }
 
+export type ContractDeployPayload = Omit<ConnectContractDeployPayload, 'network'> &
+  TempCorrectNetworkPackageType;
 type GenerateUnsignedContractDeployTxArgs = GenerateUnsignedTxArgs<ContractDeployPayload>;
 
 function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTxArgs) {
@@ -82,6 +93,8 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
   return makeUnsignedContractDeploy(options);
 }
 
+export type STXTransferPayload = Omit<ConnectSTXTransferPayload, 'network'> &
+  TempCorrectNetworkPackageType;
 type GenerateUnsignedStxTransferTxArgs = GenerateUnsignedTxArgs<STXTransferPayload>;
 
 function generateUnsignedStxTransferTx(args: GenerateUnsignedStxTransferTxArgs) {
