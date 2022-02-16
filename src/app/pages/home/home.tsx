@@ -9,17 +9,19 @@ import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
-import { CurrentAccount } from '@app/pages/home/components/account-area';
+
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
-
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { HomeTabs } from './components/home-tabs';
 import { OnboardingStepsList } from './components/onboarding-steps-list';
 import { useOnboardingSteps } from './hooks/use-onboarding-steps';
 import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
+
+import { CurrentAccount } from './components/account-area';
+import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
@@ -39,6 +41,8 @@ export function Home() {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!account) return <FullPageLoadingSpinner />;
 
   return (
     <>

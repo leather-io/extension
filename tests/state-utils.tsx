@@ -2,10 +2,9 @@
 import React, { StrictMode, Suspense } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'jotai';
-import { walletState } from '@app/store/wallet/wallet';
+import { softwareWalletState } from '@app/store/wallet/wallet';
 import { TEST_WALLET, HEYSTACK_HEY_TX_REQUEST, STX_TRANSFER_TX_REQUEST } from './mocks';
 import { requestTokenState } from '@app/store/transactions/requests';
-import Mock = jest.Mock;
 import { selectedAssetIdState } from '@app/store/assets/asset-search';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -26,7 +25,7 @@ export const ProviderWithWalletAndRequestToken: React.FC = ({ children }) => (
     <QueryClientProvider client={testQueryClient}>
       <Provider
         initialValues={[
-          [walletState, TEST_WALLET] as const,
+          [softwareWalletState, TEST_WALLET] as const,
           [requestTokenState, HEYSTACK_HEY_TX_REQUEST] as const,
           [
             selectedAssetIdState,
@@ -45,7 +44,7 @@ export const ProviderWithWalletAndStxTransferRequestToken: React.FC = ({ childre
     <QueryClientProvider client={testQueryClient}>
       <Provider
         initialValues={[
-          [walletState, TEST_WALLET] as const,
+          [softwareWalletState, TEST_WALLET] as const,
           [requestTokenState, STX_TRANSFER_TX_REQUEST] as const,
         ]}
       >
@@ -59,30 +58,7 @@ export const ProviderWithWalletAndStxTransferRequestToken: React.FC = ({ childre
 export const ProviderWithTestWallet: React.FC = ({ children }) => (
   <StrictMode>
     <Suspense fallback="loading">
-      <Provider initialValues={[[walletState, TEST_WALLET] as const]}>{children}</Provider>
+      <Provider initialValues={[[softwareWalletState, TEST_WALLET] as const]}>{children}</Provider>
     </Suspense>
   </StrictMode>
 );
-
-export function mockLocalStorage() {
-  let mockLocalStorage: Record<string, string> = {};
-
-  beforeAll(() => {
-    global.Storage.prototype.setItem = jest.fn((key, value) => {
-      mockLocalStorage[key] = value;
-    });
-    global.Storage.prototype.getItem = jest.fn(key => mockLocalStorage[key]);
-  });
-
-  beforeEach(() => {
-    // make sure the fridge starts out empty for each test
-    mockLocalStorage = {};
-  });
-
-  afterAll(() => {
-    // return our mocks to their original values
-    // 🚨 THIS IS VERY IMPORTANT to avoid polluting future tests!
-    (global.Storage.prototype.setItem as Mock).mockReset();
-    (global.Storage.prototype.getItem as Mock).mockReset();
-  });
-}

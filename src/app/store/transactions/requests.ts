@@ -29,6 +29,7 @@ export const requestTokenOriginState = atom(get => {
 export const transactionRequestValidationState = atom(async get => {
   const requestToken = get(requestTokenState);
   const wallet = get(walletState);
+  console.log('wallet in tx request validation', walletState);
   const origin = get(requestTokenOriginState);
   if (!origin || !wallet || !requestToken) return;
   try {
@@ -41,6 +42,7 @@ export const transactionRequestValidationState = atom(async get => {
   } catch (e) {
     return false;
   }
+  // return true;
 });
 
 export const transactionRequestStxAddressState = atom(

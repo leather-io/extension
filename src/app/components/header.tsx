@@ -62,11 +62,10 @@ export const Header: React.FC<HeaderProps> = memo(props => {
         </Box>
       ) : null}
       {!title && (!onClose || desktopViewport) ? (
-        <Stack
+        <Flex
           alignItems="flex-end"
           flexBasis="60%"
           height="36px"
-          isInline
           justifyContent={onClose ? 'center' : 'unset'}
         >
           <HiroWalletLogo
@@ -78,13 +77,14 @@ export const Header: React.FC<HeaderProps> = memo(props => {
             color={color('text-caption')}
             display={!version ? 'none' : 'unset'}
             fontFamily="mono"
+            ml="tight"
+            mb="3px"
             marginRight="10px"
-            mb="2px"
             variant="c3"
           >
             {version}
           </Caption>
-        </Stack>
+        </Flex>
       ) : (
         <Title
           alignSelf="center"

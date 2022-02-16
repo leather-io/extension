@@ -4,6 +4,7 @@ import { IS_TEST_ENV } from '@shared/constants';
 import { EventParams, PageParams } from '@segment/analytics-next/dist/pkg/core/arguments-resolver';
 import { analytics } from '@app/common/segment-init';
 import { logger } from '@shared/logger';
+import { useWalletType } from '@app/common/use-wallet-type';
 
 const IGNORED_PATH_REGEXPS = [/^\/$/];
 
@@ -18,11 +19,14 @@ function isHiroApiUrl(url: string) {
 export function useAnalytics() {
   const currentNetwork = useCurrentNetworkState();
   const location = useLocation();
+  const { walletType } = useWalletType();
+
   const defaultProperties = {
     network: currentNetwork.name.toLowerCase(),
     usingDefaultHiroApi: isHiroApiUrl(currentNetwork.url),
     route: location.pathname,
     version: VERSION,
+    walletType,
   };
 
   const defaultOptions = {

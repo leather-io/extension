@@ -5,6 +5,7 @@ import { Body, Caption } from '@app/components/typography';
 import { Box, Button, Flex, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { BaseDrawer } from '@app/components/drawer';
+import { useWalletType } from '@app/common/use-wallet-type';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
@@ -13,8 +14,10 @@ interface SignOutConfirmLayoutProps {
 export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
   const { onUserDeleteWallet, onUserSafelyReturnToHomepage } = props;
 
+  const { whenWallet, walletType } = useWalletType();
+
   const form = useFormik({
-    initialValues: { confirmBackup: false },
+    initialValues: { confirmBackup: whenWallet({ ledger: true, software: false }) },
     onSubmit() {
       onUserDeleteWallet();
     },
@@ -25,15 +28,24 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
       <Box mx="loose" mb="extra-loose">
         <form onChange={form.handleChange} onSubmit={form.handleSubmit}>
           <Body>
-            When you sign out, you’ll need your Secret Key to sign back in. Only sign out if you’ve
-            backed up your Secret Key.
+            When you sign out,
+            {whenWallet({
+              software: ` you'll need your Secret Key to sign back in. Only sign out if you've backed up your Secret Key.`,
+              ledger: ` you'll need to reconnect your Ledger to sign back into your wallet.`,
+            })}
           </Body>
 
-          <Flex as="label" alignItems="center" mt="loose">
+          <Flex
+            as="label"
+            alignItems="center"
+            mt="loose"
+            display={walletType === 'software' ? 'flex' : 'none'}
+          >
             <Box mr="tight">
               <input
                 type="checkbox"
                 name="confirmBackup"
+                defaultChecked={form.values.confirmBackup}
                 data-testid={SettingsSelectors.SignOutConfirmHasBackupCheckbox}
               />
             </Box>

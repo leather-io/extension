@@ -27,6 +27,7 @@ module.exports = {
           `src/app.*\.actions\.ts`,
           `src/app.*\.selectors\.ts`,
           `src/app.*\.hooks\.ts`,
+          `src/app.*\.slice\.ts`,
           `src/app.*\.models\.ts`,
           `src/app.*\.utils\.ts`,
         ],

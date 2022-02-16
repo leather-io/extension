@@ -16,10 +16,10 @@ import { useEffect } from 'react';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
-interface SendTokensConfirmDrawerProps extends BaseDrawerProps {
+interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
   onUserSelectBroadcastTransaction(): void;
 }
-export function SendTokensConfirmDrawer(props: SendTokensConfirmDrawerProps) {
+export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirmDrawerProps) {
   const { isShowing, onClose, onUserSelectBroadcastTransaction } = props;
 
   const [txData] = useLocalTransactionInputsState();

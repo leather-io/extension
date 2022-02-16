@@ -1,16 +1,16 @@
 import { useRef, useCallback, memo, ReactNode, Suspense } from 'react';
-import { Flex, useEventListener, IconButton, color, transition } from '@stacks/ui';
+import { Flex, useEventListener, IconButton, color, transition, FlexProps } from '@stacks/ui';
 import { FiX as IconX } from 'react-icons/fi';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { isString } from '@app/common/utils';
+import { isString, noop } from '@app/common/utils';
 import { Title } from '@app/components/typography';
 
-export interface BaseDrawerProps {
+export interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
   isShowing: boolean;
   title?: string | JSX.Element;
   pauseOnClickOutside?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   children?: ReactNode;
 }
 
@@ -32,15 +32,13 @@ function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
   return ref;
 }
 
-const DrawerHeader = ({
-  title,
-  onClose,
-}: {
+interface DrawerHeaderProps {
   title: BaseDrawerProps['title'];
-  onClose: BaseDrawerProps['onClose'];
-}) => {
+  onClose?: BaseDrawerProps['onClose'];
+}
+const DrawerHeader = ({ title, onClose }: DrawerHeaderProps) => {
   return (
-    <Flex pb="base" justifyContent="space-between" alignItems="center" pt="extra-loose" px="loose">
+    <Flex pb="base" justifyContent="space-between" alignItems="center" pt="loose" px="loose">
       {title && isString(title) ? (
         <Title fontSize="20px" lineHeight="28px">
           {title}
@@ -48,22 +46,28 @@ const DrawerHeader = ({
       ) : (
         title
       )}
-      <IconButton
-        transform="translateX(8px)"
-        size="36px"
-        iconSize="20px"
-        onClick={onClose}
-        color={color('text-caption')}
-        _hover={{ color: color('text-title') }}
-        icon={IconX}
-      />
+      {onClose && (
+        <IconButton
+          transform="translateX(8px)"
+          size="36px"
+          iconSize="20px"
+          onClick={onClose}
+          color={color('text-caption')}
+          _hover={{ color: color('text-title') }}
+          icon={IconX}
+          // Drawer content should be able to overlay
+          // header, but not close button
+          position="relative"
+          zIndex={9}
+        />
+      )}
     </Flex>
   );
 };
 
 export const BaseDrawer = memo((props: BaseDrawerProps) => {
-  const { title, isShowing, onClose, children, pauseOnClickOutside } = props;
-  const ref = useDrawer(isShowing, onClose, pauseOnClickOutside);
+  const { title, isShowing, onClose, children, pauseOnClickOutside, ...rest } = props;
+  const ref = useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);
   return (
     <Flex
       bg={`rgba(0,0,0,0.${isShowing ? 4 : 0})`}
@@ -83,6 +87,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         userSelect: !isShowing ? 'none' : 'unset',
         willChange: 'background',
       }}
+      {...rest}
     >
       <Flex
         flexDirection="column"
@@ -102,15 +107,11 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         borderBottomRightRadius={[0, '24px', '24px', '24px']}
         position="relative"
         mt={['auto', 'unset', 'unset', 'unset']}
-        maxHeight={[
-          'calc(100vh - 24px)',
-          'calc(100vh - 96px)',
-          'calc(100vh - 96px)',
-          'calc(100vh - 96px)',
-        ]}
+        maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
+        overflow="hidden"
       >
         <DrawerHeader title={title} onClose={onClose} />
-        <Flex maxHeight="100%" flexGrow={1} overflowY="auto" flexDirection="column">
+        <Flex maxHeight="100%" flexGrow={1} flexDirection="column">
           <Suspense fallback={<></>}>{children}</Suspense>
         </Flex>
       </Flex>

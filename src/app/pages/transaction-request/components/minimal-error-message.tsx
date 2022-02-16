@@ -29,7 +29,7 @@ function MinimalErrorMessageSuspense(props: StackProps): JSX.Element | null {
         case TransactionErrorReason.BroadcastError:
           return `Broadcast error: ${JSON.stringify(broadcastError)}`;
         case TransactionErrorReason.Generic:
-          return 'Something went wrong';
+          return 'Something went wronlskjdflskdg';
       }
     }
     return null;

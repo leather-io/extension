@@ -10,8 +10,16 @@ interface KeyConfigSoftware {
   encryptedSecretKey: string;
   salt: string;
 }
+interface KeyConfigLedger {
+  type: 'ledger';
+  id: string;
+  publicKeys: string[];
+  targetId: string;
+}
 
-const keyAdapter = createEntityAdapter<KeyConfigSoftware>();
+type KeyConfig = KeyConfigSoftware | KeyConfigLedger;
+
+const keyAdapter = createEntityAdapter<KeyConfig>();
 
 export const initialKeysState = keyAdapter.getInitialState();
 
@@ -19,12 +27,16 @@ export const keySlice = createSlice({
   name: 'keys',
   initialState: migrateVaultReducerStoreToNewStateStructure(initialKeysState),
   reducers: {
-    createNewWalletComplete(state, action: PayloadAction<KeyConfigSoftware>) {
+    createNewSoftwareWalletComplete(state, action: PayloadAction<KeyConfigSoftware>) {
       keyAdapter.addOne(state, action.payload);
     },
 
     signOut(state) {
       keyAdapter.removeOne(state, defaultKeyId);
+    },
+
+    createLedgerWallet(state, action: PayloadAction<KeyConfigLedger>) {
+      keyAdapter.addOne(state, action.payload);
     },
   },
 });

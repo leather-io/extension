@@ -20,6 +20,8 @@ export const AccountGate = ({ children }: AccountGateProps) => {
   const currentKeyDetails = useCurrentKeyDetails();
   const currentInMemorySecretKey = useDefaultWalletSecretKey();
 
+  if (currentKeyDetails?.type === 'ledger') return <>{children}</>;
+
   if (shouldNavigateToOnboardingStartPage(currentKeyDetails))
     return <Navigate to={RouteUrls.Onboarding} />;
 

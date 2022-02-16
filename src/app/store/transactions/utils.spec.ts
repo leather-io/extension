@@ -4,9 +4,10 @@ import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
 
 import { setupHeystackEnv } from '@tests/mocks/heystack';
 
-import { HEYSTACK_HEY_TX_REQUEST_DECODED } from '@tests/mocks';
+import { HEYSTACK_HEY_TX_REQUEST, HEYSTACK_HEY_TX_REQUEST_DECODED } from '@tests/mocks';
 import { requestTokenState } from '@app/store/transactions/requests';
 import { getPayloadFromToken } from '@app/store/transactions/utils';
+import { TransactionTypes } from '@stacks/connect';
 
 describe('transaction utils state', () => {
   setupHeystackEnv();
@@ -17,5 +18,13 @@ describe('transaction utils state', () => {
     expect(result.current).toBeTruthy();
     const decoded = getPayloadFromToken(result.current as string);
     expect(decoded).toEqual(HEYSTACK_HEY_TX_REQUEST_DECODED);
+  });
+});
+
+describe(getPayloadFromToken.name, () => {
+  it('verifies payload', () => {
+    const result = getPayloadFromToken(HEYSTACK_HEY_TX_REQUEST);
+    console.log(result);
+    expect(result?.txType).toEqual(TransactionTypes.ContractCall);
   });
 });

@@ -9,7 +9,7 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 
-import type { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
+import type { AccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountAvatarWithName } from '@app/components/account-avatar/account-avatar';
 import { SpaceBetween } from '@app/components/space-between';
 
@@ -24,12 +24,13 @@ import { useAccounts } from '@app/store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@app/store/ui/ui.hooks';
 import { AccountStep } from '@app/store/ui/ui.models';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
+import { useWalletType } from '@app/common/use-wallet-type';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
 interface AccountTitlePlaceholderProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
 }
 const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
   const name = `Account ${account?.index + 1}`;
@@ -41,7 +42,7 @@ const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderPr
 };
 
 interface AccountTitleProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
   name: string;
 }
 const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
@@ -55,7 +56,7 @@ const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
 interface AccountItemProps extends FlexProps {
   selectedAddress?: string | null;
   isLoading: boolean;
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
   onSelectAccount(index: number): void;
 }
 const AccountItem = memo((props: AccountItemProps) => {
@@ -140,7 +141,8 @@ const AddAccountAction = memo(() => {
 });
 
 export const Accounts = memo(() => {
-  const { wallet, finishSignIn } = useWallet();
+  const { finishSignIn } = useWallet();
+  const { whenWallet } = useWalletType();
   const accounts = useAccounts();
   const { decodedAuthRequest } = useOnboardingState();
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
@@ -153,11 +155,11 @@ export const Accounts = memo(() => {
     [finishSignIn]
   );
 
-  if (!wallet || !accounts || !decodedAuthRequest) return null;
+  if (!accounts || !decodedAuthRequest) return null;
 
   return (
     <>
-      <AddAccountAction />
+      {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
       <Box mt="base">
         <Virtuoso
           useWindowScroll

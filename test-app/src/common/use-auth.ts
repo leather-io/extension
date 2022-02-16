@@ -30,6 +30,7 @@ export function useAuth() {
   }, [userSession]);
 
   const onFinish = useCallback(({ userSession, authResponse }) => {
+    console.log({ userSession, authResponse });
     const userData = userSession.loadUserData();
     setAppPrivateKey(userSession.loadUserData().appPrivateKey);
     setAuthResponse(authResponse);

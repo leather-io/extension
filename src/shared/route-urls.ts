@@ -1,5 +1,6 @@
 export enum RouteUrls {
   Container = '/',
+
   // Onboarding routes
   Onboarding = '/onboarding',
   BackUpSecretKey = '/back-up-secret-key',
@@ -7,13 +8,25 @@ export enum RouteUrls {
   SignIn = '/sign-in',
   MagicRecoveryCode = '/recovery-code',
   RequestDiagnostics = '/request-diagnostics',
+
+  // Ledger routes
+  ConnectLedger = 'connect-your-ledger',
+  ConnectLedgerError = 'ledger-connection-error',
+  ConnectLedgerSuccess = 'successfully-connected-your-ledger',
+  DeviceBusy = 'please-wait',
+  SignLedgerTransaction = 'awaiting-approval',
+  LedgerDisconnected = 'your-ledger-disconnected',
+  TransactionRejected = 'transaction-rejected',
+  LedgerPublicKeyMismatch = 'wrong-ledger-device',
+  LedgerUnsupportedBrowser = 'unsupported-browser',
+
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
   Buy = '/buy',
   ChooseAccount = '/choose-account',
   Receive = '/receive',
-  Send = '/send',
+  Send = '/send-transaction',
   SignOutConfirm = '/sign-out',
   TransactionRequest = '/transaction',
   ViewSecretKey = '/view-secret-key',

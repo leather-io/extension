@@ -42,7 +42,7 @@ export const finalizeAuthResponse = ({
     };
     chrome.tabs.sendMessage(tabId, responseMessage);
     deleteTabForRequest(StorageKey.authenticationRequests, authRequest);
-    window.close();
+    // window.close();
   } catch (error) {
     logger.debug('Failed to get Tab ID for authentication request:', authRequest);
     throw new Error(

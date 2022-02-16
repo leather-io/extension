@@ -33,6 +33,7 @@ import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metad
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { PendingLabel } from './transaction/pending-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useWalletType } from '@app/common/use-wallet-type';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -262,6 +263,7 @@ export const TxItem = ({ transaction, ...rest }: TxItemProps) => {
   const [component, bind, { isHovered }] = usePressable(true);
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
+  const { walletType } = useWalletType();
   const analytics = useAnalytics();
   const openTxLink = () => {
     void analytics.track('view_transaction');
@@ -303,11 +305,13 @@ export const TxItem = ({ transaction, ...rest }: TxItemProps) => {
                 {value}
               </Title>
             )}
-            <SpeedUpButton
-              isEnabled={isPending && isOriginator}
-              isHovered={isHovered}
-              txid={transaction.tx_id}
-            />
+            {walletType === 'software' && (
+              <SpeedUpButton
+                isEnabled={isPending && isOriginator}
+                isHovered={isHovered}
+                txid={transaction.tx_id}
+              />
+            )}
           </Stack>
         </SpaceBetween>
       </Stack>
