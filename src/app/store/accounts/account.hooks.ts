@@ -21,6 +21,11 @@ import { currentAccountIndexState } from '../wallet/wallet';
 import { useCurrentKeyDetails } from '../keys/key.selectors';
 import { getAddressFromPublicKey } from '@stacks/transactions';
 import { useMemo } from 'react';
+import {
+  AccountWithAddress,
+  LedgerAccountWithAddress,
+  SoftwareWalletAccountWithAddress,
+} from './account.models';
 
 export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableAnchoredStxBalanceState);
@@ -46,23 +51,27 @@ export function useCurrentAccountInfo() {
   return useAtomValue(currentAccountInfoState);
 }
 
-export function useCurrentLedgerAccount() {
+// Currently only works with one account
+export function useCurrentLedgerAccount(): LedgerAccountWithAddress | undefined {
   const currentKey = useCurrentKeyDetails();
   const transactionVersion = useTransactionNetworkVersion();
   return useMemo(() => {
-    if (currentKey?.type === 'ledger') {
-      const address = getAddressFromPublicKey(currentKey.publicKeys[0], transactionVersion);
-      return { address, stxPublicKey: currentKey.publicKeys[0], index: 0 };
-    }
-    return;
+    if (!currentKey || currentKey.type !== 'ledger') return;
+    const address = getAddressFromPublicKey(currentKey.publicKeys[0], transactionVersion);
+    return {
+      type: 'ledger',
+      address,
+      stxPublicKey: currentKey.publicKeys[0],
+      index: 0,
+    };
   }, [currentKey, transactionVersion]);
 }
 
-export function useCurrentSoftwareAccount() {
+export function useCurrentSoftwareAccount(): SoftwareWalletAccountWithAddress | undefined {
   return useAtomValue(currentAccountState);
 }
 
-export function useCurrentAccount() {
+export function useCurrentAccount(): AccountWithAddress {
   const ledgerAccount = useCurrentLedgerAccount();
   // console.log(ledgerAccount);
   const softwareAccount = useAtomValue(currentAccountState);

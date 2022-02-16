@@ -17,13 +17,10 @@ import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HomeTabs } from './components/home-tabs';
 
-import { useAtomValue } from 'jotai/utils';
+// import { useAtomValue } from 'jotai/utils';
 
-import { currentAccountState } from '@app/store/accounts';
-import {
-  useBaseAssetsUnachored,
-  useCurrentAccountUnanchoredBalances,
-} from '@app/query/balance/balance.hooks';
+// import { currentAccountState } from '@app/store/accounts';
+import { useBaseAssetsUnachored } from '@app/query/balance/balance.hooks';
 import { useAssets } from '@app/store/assets/asset.hooks';
 import { CurrentAccount } from './components/account-area';
 

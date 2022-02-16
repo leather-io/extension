@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 
-import { useAssets } from '@app/store/assets/asset.hooks';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 import { formatContractId } from '@app/common/utils';
 import {
