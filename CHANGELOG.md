@@ -1,3 +1,10 @@
+# [3.2.0-beta.8](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.7...v3.2.0-beta.8) (2022-02-16)
+
+
+### Bug Fixes
+
+* slow fetching of metadata, hit api faster ([0b5fb74](https://github.com/hirosystems/stacks-wallet-web/commit/0b5fb744853b67c8570e0a3f6f2f7b3cd4f5782f))
+
 # [3.2.0-beta.7](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0-beta.6...v3.2.0-beta.7) (2022-02-11)
 
 
