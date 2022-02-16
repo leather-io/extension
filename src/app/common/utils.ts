@@ -283,6 +283,8 @@ export function isEmpty(value: Object) {
   return Object.keys(value).length === 0;
 }
 
+export function noop() {}
+
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }
@@ -291,4 +293,8 @@ export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
   return asset
     ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
     : undefined;
+}
+
+export function doesBrowserSupportWebUsbApi() {
+  return Boolean((navigator as any).usb);
 }

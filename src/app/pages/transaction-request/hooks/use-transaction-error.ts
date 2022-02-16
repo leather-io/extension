@@ -2,11 +2,13 @@ import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useContractInterface } from '@app/query/contract/contract.hooks';
 import { TransactionTypes } from '@stacks/connect';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import {
+  useCurrentAccount,
+  useCurrentAccountAvailableStxBalance,
+} from '@app/store/accounts/account.hooks';
 import { useOrigin } from '@app/store/transactions/requests.hooks';
 import {
   useTransactionBroadcastError,
@@ -24,7 +26,7 @@ export function useTransactionError() {
   const isValidTransaction = useTransactionRequestValidation();
   const origin = useOrigin();
 
-  const { currentAccount } = useWallet();
+  const currentAccount = useCurrentAccount();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
 
   return useMemo<TransactionErrorReason | void>(() => {

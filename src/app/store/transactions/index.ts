@@ -1,21 +1,14 @@
 import { atom } from 'jotai';
 
-import {
-  ContractCallPayload,
-  ContractDeployPayload,
-  STXTransferPayload,
-  TransactionTypes,
-} from '@stacks/connect';
+import { TransactionTypes } from '@stacks/connect';
 import {
   AuthType,
   ChainID,
-  pubKeyfromPrivKey,
   StacksTransaction,
   TransactionVersion,
-  publicKeyToString,
   AddressVersion,
+  serializePayload,
 } from '@stacks/transactions';
-import { serializePayload } from '@stacks/transactions';
 
 import { stxToMicroStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { stacksTransactionToHex, whenChainId } from '@app/common/transactions/transaction-utils';
@@ -25,7 +18,12 @@ import { currentAccountState, currentAccountStxAddressState } from '@app/store/a
 import { requestTokenPayloadState } from '@app/store/transactions/requests';
 import { postConditionsState } from '@app/store/transactions/post-conditions';
 import { localStacksTransactionInputsState } from '@app/store/transactions/local-transactions';
-import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
+import {
+  ContractCallPayload,
+  ContractDeployPayload,
+  generateUnsignedTransaction,
+  STXTransferPayload,
+} from '@app/common/transactions/generate-unsigned-txs';
 import { customNonceState } from './nonce.hooks';
 
 export const pendingTransactionState = atom<
@@ -58,14 +56,12 @@ export const unsignedStacksTransactionBaseState = atom(get => {
   ) {
     return { transaction: undefined, options: {} };
   }
-  const publicKey = publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey));
   const options = {
     fee: txData.fee ?? 0,
-    publicKey,
+    publicKey: account.stxPublicKey,
     nonce: txNonce,
     txData,
   };
-
   return generateUnsignedTransaction(options).then(transaction => ({ transaction, options }));
 });
 
