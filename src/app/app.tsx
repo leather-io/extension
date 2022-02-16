@@ -16,7 +16,7 @@ import { Devtools } from '@app/features/devtool/devtools';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
 
 import { theme } from './common/theme';
-import { LoadingSpinner } from './components/loading-spinner';
+import { FullPageLoadingSpinner } from './components/loading-spinner';
 import { GlobalStyles } from './components/global-styles/global-styles';
 import { AppRoutes } from './routes/app-routes';
 import { persistor, store } from './store';
@@ -26,12 +26,12 @@ const reactQueryDevToolsEnabled = false;
 export function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={<LoadingSpinner />} persistor={persistor}>
+      <PersistGate loading={<FullPageLoadingSpinner />} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <QueryClientProvider client={queryClient}>
             <ColorModeProvider defaultMode="light">
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense fallback={<FullPageLoadingSpinner />}>
                 <Router>
                   <AppErrorBoundary>
                     <AppRoutes />
