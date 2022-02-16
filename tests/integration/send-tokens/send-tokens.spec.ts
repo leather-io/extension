@@ -40,16 +40,6 @@ describe(`Send tokens flow`, () => {
     } catch (error) {}
   });
 
-  describe('Set max button', () => {
-    it('does not set a fee below zero, when the account balance is 0 STX', async () => {
-      await sendForm.clickSendMaxBtn();
-      const amount = await sendForm.getAmountFieldValue();
-      expect(amount).toEqual('');
-      expect(amount).not.toEqual('-0.00018');
-      expect(Number(amount)).not.toBeLessThan(0);
-    });
-  });
-
   describe('Fee row', () => {
     it('defaults to the middle fee estimate', async () => {
       await sendForm.inputToAmountField('100000000');
