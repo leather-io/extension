@@ -13,7 +13,7 @@ export function useFeeEstimationsState() {
   return useAtom(feeEstimationsState);
 }
 
-export const useReplaceByFeeSubmitCallBack = () => {
+export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
   const [, setTxId] = useRawTxIdState();
   const signTx = useSignTransactionSoftwareWallet();
 

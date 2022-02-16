@@ -1,5 +1,6 @@
 import { memo, Suspense, useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { StacksTransaction } from '@stacks/transactions';
 import toast from 'react-hot-toast';
 import { Formik } from 'formik';
 
@@ -16,16 +17,19 @@ import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-for
 import { RouteUrls } from '@shared/route-urls';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import {
+  useGenerateSendFormUnsignedTx,
   useLocalTransactionInputsState,
-  useSendFormUnsignedTxState,
+  useSendFormUnsignedTxPreviewState,
   useSignTransactionSoftwareWallet,
 } from '@app/store/transactions/transaction.hooks';
 
-import { SendTokensConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
+import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -38,10 +42,12 @@ function SendTokensFormBase() {
   const [_txData, setTxData] = useLocalTransactionInputsState();
   const resetNonceCallback = useResetNonceCallback();
   const [_, setFeeEstimations] = useFeeEstimationsState();
-  const transaction = useSendFormUnsignedTxState();
+  const transaction = useSendFormUnsignedTxPreviewState();
+  const generateTx = useGenerateSendFormUnsignedTx();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const analytics = useAnalytics();
-
+  const { whenWallet } = useWalletType();
+  const ledgerNavigate = useLedgerNavigate();
   useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
 
   useEffect(() => {
@@ -61,36 +67,29 @@ function SendTokensFormBase() {
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
   });
 
-  const broadcastTransactionAction = useCallback(async () => {
-    if (!transaction) {
-      logger.error('Cannot broadcast transaction, no tx in state');
-      toast.error('Unable to broadcast transaction');
-      return;
-    }
-
-    const signedTx = signSoftwareWalletTx(transaction);
-    if (!signedTx) {
-      logger.error('Cannot sign transaction, no account in state');
-      toast.error('Unable to broadcast transaction');
-      return;
-    }
-
-    await broadcastTransactionFn({
-      transaction: signedTx,
-      onClose() {
-        handleConfirmDrawerOnClose();
-        navigate(RouteUrls.Home);
-      },
-    });
-    setFeeEstimations([]);
-  }, [
-    broadcastTransactionFn,
-    handleConfirmDrawerOnClose,
-    navigate,
-    setFeeEstimations,
-    signSoftwareWalletTx,
-    transaction,
-  ]);
+  const broadcastTransactionAction = useCallback(
+    async (signedTx: StacksTransaction) => {
+      if (!signedTx) {
+        logger.error('Cannot broadcast transaction, no tx in state');
+        toast.error('Unable to broadcast transaction');
+        return;
+      }
+      try {
+        await broadcastTransactionFn({
+          transaction: signedTx,
+          onClose() {
+            handleConfirmDrawerOnClose();
+            navigate(RouteUrls.Home);
+          },
+        });
+        setFeeEstimations([]);
+      } catch (e) {
+        toast.error('Something went wrong');
+        return;
+      }
+    },
+    [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate, setFeeEstimations]
+  );
 
   const initialValues = {
     amount: '',
@@ -107,7 +106,7 @@ function SendTokensFormBase() {
       validateOnBlur={false}
       validateOnMount={false}
       validationSchema={sendFormSchema}
-      onSubmit={values => {
+      onSubmit={async values => {
         if (selectedAsset && !assetError) {
           setTxData({
             amount: values.amount,
@@ -115,7 +114,14 @@ function SendTokensFormBase() {
             memo: values.memo,
             recipient: values.recipient,
           });
-          setShowing(true);
+          const tx = await generateTx(values);
+          whenWallet({
+            software: () => setShowing(true),
+            ledger: () => {
+              if (!tx) return logger.error('Attempted to sign tx, but no tx exists');
+              ledgerNavigate.toConnectAndSignStep(tx);
+            },
+          })();
         }
       }}
     >
@@ -124,17 +130,25 @@ function SendTokensFormBase() {
           <Suspense fallback={<></>}>
             <SendFormInner assetError={assetError} />
           </Suspense>
-          <SendTokensConfirmDrawer
-            isShowing={isShowing && !showEditNonce}
-            onClose={() => handleConfirmDrawerOnClose()}
-            onUserSelectBroadcastTransaction={async () => {
-              await broadcastTransactionAction();
-              void analytics.track('submit_fee_for_transaction', {
-                type: props.values.feeType,
-                fee: props.values.fee,
-              });
-            }}
-          />
+          {whenWallet({
+            ledger: <Outlet />,
+            software: (
+              <SendTokensSoftwareConfirmDrawer
+                isShowing={isShowing && !showEditNonce}
+                onClose={() => handleConfirmDrawerOnClose()}
+                onUserSelectBroadcastTransaction={async () => {
+                  if (!transaction) return;
+                  const signedTx = signSoftwareWalletTx(transaction);
+                  if (!signedTx) return;
+                  await broadcastTransactionAction(signedTx);
+                  void analytics.track('submit_fee_for_transaction', {
+                    type: props.values.feeType,
+                    fee: props.values.fee,
+                  });
+                }}
+              />
+            ),
+          })}
           <HighFeeDrawer />
         </>
       )}

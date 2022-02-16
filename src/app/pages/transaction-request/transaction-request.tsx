@@ -1,7 +1,8 @@
 import { memo, useCallback, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Stack } from '@stacks/ui';
+import { Flex, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
@@ -21,7 +22,8 @@ import {
 } from '@app/store/transactions/requests.hooks';
 import {
   useLocalTransactionInputsState,
-  useTransactionBroadcast,
+  useSoftwareWalletTransactionBroadcast,
+  useUnsignedStacksTransaction,
 } from '@app/store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 
@@ -31,18 +33,23 @@ import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
 import { PopupHeader } from '@app/features/current-account/popup-header';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 
 function TransactionRequestBase(): JSX.Element | null {
   useNextTxNonce();
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
-  const handleBroadcastTransaction = useTransactionBroadcast();
+  const handleBroadcastTransaction = useSoftwareWalletTransactionBroadcast();
   const setBroadcastError = useUpdateTransactionBroadcastError();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [, setTxData] = useLocalTransactionInputsState();
   const { isSponsored } = useUnsignedTransactionFee();
   const feeSchema = useFeeSchema();
   const analytics = useAnalytics();
+  const { walletType } = useWalletType();
+  const unsignedTx = useUnsignedStacksTransaction();
+  const ledgerNavigate = useLedgerNavigate();
 
   const validationSchema = !isSponsored ? yup.object({ fee: feeSchema() }) : null;
 
@@ -61,6 +68,10 @@ function TransactionRequestBase(): JSX.Element | null {
         memo: '',
         recipient: '',
       });
+      if (walletType === 'ledger' && unsignedTx) {
+        ledgerNavigate.toConnectAndSignStep(unsignedTx);
+        return;
+      }
       setIsLoading();
       await handleBroadcastTransaction();
       setIsIdle();
@@ -77,42 +88,48 @@ function TransactionRequestBase(): JSX.Element | null {
     [
       analytics,
       handleBroadcastTransaction,
+      ledgerNavigate,
       setBroadcastError,
       setFeeEstimations,
       setIsIdle,
       setIsLoading,
       setTxData,
+      unsignedTx,
+      walletType,
     ]
   );
 
   if (!transactionRequest) return null;
 
   return (
-    <Stack px="loose" spacing="loose">
-      <PageTop />
-      <PostConditionModeWarning />
-      <TransactionError />
-      <PostConditions />
-      {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
-      {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
-      {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-      <Formik
-        initialValues={{ fee: '', feeType: Estimations[Estimations.Middle] }}
-        onSubmit={onSubmit}
-        validateOnChange={false}
-        validateOnBlur={false}
-        validateOnMount={false}
-        validationSchema={validationSchema}
-      >
-        {() => (
-          <>
-            <FeeForm />
-            <SubmitAction />
-            <HighFeeDrawer />
-          </>
-        )}
-      </Formik>
-    </Stack>
+    <Flex alignItems="center" flexDirection="column" width="100%">
+      <Stack px="loose" spacing="loose">
+        <PageTop />
+        <PostConditionModeWarning />
+        <TransactionError />
+        <PostConditions />
+        {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
+        {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
+        {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
+        <Formik
+          initialValues={{ fee: '', feeType: Estimations[Estimations.Middle] }}
+          onSubmit={onSubmit}
+          validateOnChange={false}
+          validateOnBlur={false}
+          validateOnMount={false}
+          validationSchema={validationSchema}
+        >
+          {() => (
+            <>
+              <FeeForm />
+              <SubmitAction />
+              <HighFeeDrawer />
+            </>
+          )}
+        </Formik>
+      </Stack>
+      <Outlet />
+    </Flex>
   );
 }
 
