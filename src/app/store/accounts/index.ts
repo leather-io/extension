@@ -66,22 +66,22 @@ export const softwareAccountsState = atom<Account[] | undefined>(get => {
 });
 
 // map through the accounts and get the address for the current network mode (testnet|mainnet)
-export const softwareAccountsWithAddressState = atom<
-  SoftwareWalletAccountWithAddress[] | undefined
->(get => {
-  const accounts = get(softwareAccountsState);
-  const addressVersion = get(addressNetworkVersionState);
-  if (!accounts) return undefined;
+const softwareAccountsWithAddressState = atom<SoftwareWalletAccountWithAddress[] | undefined>(
+  get => {
+    const accounts = get(softwareAccountsState);
+    const addressVersion = get(addressNetworkVersionState);
+    if (!accounts) return undefined;
 
-  return accounts.map(account => {
-    const address = publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));
-    const stxPublicKey = derivePublicKey(account.stxPrivateKey);
-    const dataPublicKey = derivePublicKey(account.dataPrivateKey);
-    return { ...account, type: 'software', address, stxPublicKey, dataPublicKey };
-  });
-});
+    return accounts.map(account => {
+      const address = publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));
+      const stxPublicKey = derivePublicKey(account.stxPrivateKey);
+      const dataPublicKey = derivePublicKey(account.dataPrivateKey);
+      return { ...account, type: 'software', address, stxPublicKey, dataPublicKey };
+    });
+  }
+);
 
-export const ledgerAccountsWithAddressState = atom<LedgerAccountWithAddress[] | undefined>(get => {
+const ledgerAccountsWithAddressState = atom<LedgerAccountWithAddress[] | undefined>(get => {
   const ledgerWallet = get(ledgerWalletState);
   const addressVersion = get(addressNetworkVersionState);
   if (!ledgerWallet) return undefined;
@@ -122,7 +122,7 @@ export const transactionAccountIndexState = atom<number | undefined>(get => {
 // This contains the state of the current account:
 // could be the account associated with an in-process transaction request
 // or the last selected / first account of the user
-export const currentAccountState = atom<SoftwareWalletAccountWithAddress | undefined>(get => {
+export const currentAccountState = atom<AccountWithAddress | undefined>(get => {
   const accountIndex = get(currentAccountIndexState);
   const txIndex = get(transactionAccountIndexState);
   const hasSwitched = get(hasSwitchedAccountsState);
@@ -137,7 +137,7 @@ export const currentAccountState = atom<SoftwareWalletAccountWithAddress | undef
 
   if (!accounts) return undefined;
   if (typeof txIndex === 'number' && !hasSwitched) return accounts[txIndex];
-  return accounts[accountIndex];
+  return accounts[accountIndex] as AccountWithAddress | undefined;
 });
 
 // gets the address of the current account (in the current network mode)
