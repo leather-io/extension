@@ -9,8 +9,6 @@ import {
   createEmptyAddress,
   noneCV,
   PostConditionMode,
-  pubKeyfromPrivKey,
-  publicKeyToString,
   serializeCV,
   someCV,
   standardPrincipalCVFromAddress,
@@ -57,7 +55,7 @@ export function useStxTokenTransferUnsignedTxState() {
     if (!account || typeof nonce === 'undefined') return;
     const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
     const options: GenerateUnsignedTransactionOptions = {
-      publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
+      publicKey: account.stxPublicKey,
       nonce: txNonce,
       fee: stxToMicroStx(txData?.fee || 0).toNumber(),
       txData: {
@@ -143,10 +141,10 @@ export function useFtTokenTransferUnsignedTx() {
         postConditions,
         postConditionMode: PostConditionMode.Deny,
         network,
-        publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
+        publicKey: account.stxPublicKey,
       },
       fee: stxToMicroStx(txData?.fee || 0).toNumber(),
-      publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
+      publicKey: account.stxPublicKey,
       nonce: txNonce,
     } as const;
 

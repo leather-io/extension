@@ -9,7 +9,7 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 
-import type { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
+import type { AccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountAvatarWithName } from '@app/components/account-avatar/account-avatar';
 import { SpaceBetween } from '@app/components/space-between';
 
@@ -29,7 +29,7 @@ const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
 interface AccountTitlePlaceholderProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
 }
 const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
   const name = `Account ${account?.index + 1}`;
@@ -41,7 +41,7 @@ const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderPr
 };
 
 interface AccountTitleProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
   name: string;
 }
 const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
@@ -55,7 +55,7 @@ const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
 interface AccountItemProps extends FlexProps {
   selectedAddress?: string | null;
   isLoading: boolean;
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
   onSelectAccount(index: number): void;
 }
 const AccountItem = memo((props: AccountItemProps) => {

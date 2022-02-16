@@ -29,7 +29,6 @@ import { currentAccountLocallySubmittedTxsState } from '@app/store/accounts/acco
 
 import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
-import { useCurrentSoftwareAccount } from '@app/store/accounts/account.hooks';
 import {
   estimatedUnsignedTransactionByteLengthState,
   prepareTxDetailsForBroadcast,
@@ -46,7 +45,8 @@ import { serializePayload } from '@stacks/transactions/dist/payload';
 import { selectedAssetIdState } from '../assets/asset-search';
 import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
 import { logger } from '@shared/logger';
-import { useCurrentKeyDetails } from '../keys/key.selectors';
+
+import { useCurrentAccount } from '../accounts/account.hooks';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -83,12 +83,13 @@ export function useEstimatedTransactionByteLength() {
 }
 
 export function useSignTransactionSoftwareWallet() {
-  const currentKey = useCurrentKeyDetails();
-  const account = useCurrentSoftwareAccount();
+  const account = useCurrentAccount();
   return useCallback(
     (tx: StacksTransaction) => {
-      if (currentKey?.type !== 'software') {
-        toast.error('Cannot use this method to sign a non-software wallet transaction');
+      if (account?.type !== 'software') {
+        [toast.error, logger.error].forEach(fn =>
+          fn('Cannot use this method to sign a non-software wallet transaction')
+        );
         return;
       }
       const signer = new TransactionSigner(tx);
@@ -96,7 +97,7 @@ export function useSignTransactionSoftwareWallet() {
       signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
       return tx;
     },
-    [account, currentKey?.type]
+    [account]
   );
 }
 

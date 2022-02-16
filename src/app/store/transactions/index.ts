@@ -9,10 +9,8 @@ import {
 import {
   AuthType,
   ChainID,
-  pubKeyfromPrivKey,
   StacksTransaction,
   TransactionVersion,
-  publicKeyToString,
   AddressVersion,
 } from '@stacks/transactions';
 import { serializePayload } from '@stacks/transactions/dist/payload';
@@ -58,10 +56,9 @@ export const unsignedStacksTransactionBaseState = atom(get => {
   ) {
     return { transaction: undefined, options: {} };
   }
-  const publicKey = publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey));
   const options = {
     fee: txData.fee ?? 0,
-    publicKey,
+    publicKey: account.stxPublicKey,
     nonce: txNonce,
     txData,
   };

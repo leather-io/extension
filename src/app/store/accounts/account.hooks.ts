@@ -18,14 +18,6 @@ import {
   transactionAccountIndexState,
 } from '@app/store/accounts';
 import { currentAccountIndexState } from '../wallet/wallet';
-import { useCurrentKeyDetails } from '../keys/key.selectors';
-import { getAddressFromPublicKey } from '@stacks/transactions';
-import { useMemo } from 'react';
-import {
-  AccountWithAddress,
-  LedgerAccountWithAddress,
-  SoftwareWalletAccountWithAddress,
-} from './account.models';
 
 export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableAnchoredStxBalanceState);
@@ -51,34 +43,28 @@ export function useCurrentAccountInfo() {
   return useAtomValue(currentAccountInfoState);
 }
 
-// Currently only works with one account
-export function useCurrentLedgerAccount(): LedgerAccountWithAddress | undefined {
-  const currentKey = useCurrentKeyDetails();
-  const transactionVersion = useTransactionNetworkVersion();
-  return useMemo(() => {
-    if (!currentKey || currentKey.type !== 'ledger') return;
-    const address = getAddressFromPublicKey(currentKey.publicKeys[0], transactionVersion);
-    return {
-      type: 'ledger',
-      address,
-      stxPublicKey: currentKey.publicKeys[0],
-      index: 0,
-    };
-  }, [currentKey, transactionVersion]);
-}
+// // Currently only works with one account
+// export function useCurrentLedgerAccount(): LedgerAccountWithAddress | undefined {
+//   const currentKey = useCurrentKeyDetails();
+//   const transactionVersion = useTransactionNetworkVersion();
+//   return useMemo(() => {
+//     if (!currentKey || currentKey.type !== 'ledger') return;
+//     const address = getAddressFromPublicKey(currentKey.publicKeys[0], transactionVersion);
+//     return {
+//       type: 'ledger',
+//       address,
+//       stxPublicKey: currentKey.publicKeys[0],
+//       index: 0,
+//     };
+//   }, [currentKey, transactionVersion]);
+// }
 
-export function useCurrentSoftwareAccount(): SoftwareWalletAccountWithAddress | undefined {
+// export function useCurrentSoftwareAccount() {
+//   return useAtomValue(currentAccountState);
+// }
+
+export function useCurrentAccount() {
   return useAtomValue(currentAccountState);
-}
-
-export function useCurrentAccount(): AccountWithAddress {
-  const ledgerAccount = useCurrentLedgerAccount();
-  // console.log(ledgerAccount);
-  const softwareAccount = useAtomValue(currentAccountState);
-  if (ledgerAccount) {
-    return ledgerAccount;
-  }
-  return softwareAccount;
 }
 
 export function useCurrentAccountIndex() {
