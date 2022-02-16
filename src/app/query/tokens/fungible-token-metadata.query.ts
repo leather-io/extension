@@ -5,9 +5,9 @@ import { useApi, Api } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { isResponseCode } from '@app/common/network/is-response-code';
 
-const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 750 });
+const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 
-const staleTime = 20 * 60 * 1000;
+const staleTime = 6 * 60 * 60 * 1000;
 
 const queryOptions = {
   keepPreviousData: true,
