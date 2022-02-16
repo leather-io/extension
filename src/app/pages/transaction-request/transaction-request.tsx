@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Flex, Stack } from '@stacks/ui';
@@ -22,7 +23,8 @@ import {
 } from '@app/store/transactions/requests.hooks';
 import {
   useLocalTransactionInputsState,
-  useTransactionBroadcast,
+  useSoftwareWalletTransactionBroadcast,
+  useUnsignedStacksTransaction,
 } from '@app/store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 
@@ -31,18 +33,23 @@ import { SubmitAction } from './components/submit-action';
 import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 
 function TransactionRequestBase(): JSX.Element | null {
   useNextTxNonce();
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
-  const handleBroadcastTransaction = useTransactionBroadcast();
+  const handleBroadcastTransaction = useSoftwareWalletTransactionBroadcast();
   const setBroadcastError = useUpdateTransactionBroadcastError();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const [, setTxData] = useLocalTransactionInputsState();
   const { isSponsored } = useUnsignedTransactionFee();
   const feeSchema = useFeeSchema();
   const analytics = useAnalytics();
+  const { walletType } = useWalletType();
+  const unsignedTx = useUnsignedStacksTransaction();
+  const ledgerNavigate = useLedgerNavigate();
 
   const validationSchema = !isSponsored ? yup.object({ fee: feeSchema() }) : null;
 
@@ -61,6 +68,10 @@ function TransactionRequestBase(): JSX.Element | null {
         memo: '',
         recipient: '',
       });
+      if (walletType === 'ledger' && unsignedTx) {
+        ledgerNavigate.toConnectAndSignStep(unsignedTx);
+        return;
+      }
       setIsLoading();
       await handleBroadcastTransaction();
       setIsIdle();
@@ -77,11 +88,14 @@ function TransactionRequestBase(): JSX.Element | null {
     [
       analytics,
       handleBroadcastTransaction,
+      ledgerNavigate,
       setBroadcastError,
       setFeeEstimations,
       setIsIdle,
       setIsLoading,
       setTxData,
+      unsignedTx,
+      walletType,
     ]
   );
 
@@ -114,6 +128,7 @@ function TransactionRequestBase(): JSX.Element | null {
           )}
         </Formik>
       </Stack>
+      <Outlet />
     </Flex>
   );
 }

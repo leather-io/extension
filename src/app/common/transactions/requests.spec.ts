@@ -3,7 +3,7 @@ import { STX_TRANSFER_TX_REQUEST, TEST_WALLET } from '@tests/mocks';
 import { generateContractCallToken } from '@tests/utils/transation-test-utils';
 import { UNAUTHORIZED_TX_REQUEST, verifyTxRequest } from './requests';
 
-describe('verifyTxRequest', () => {
+describe.skip('verifyTxRequest', () => {
   test('can validate a known valid tx request', async () => {
     const result = await verifyTxRequest({
       requestToken: STX_TRANSFER_TX_REQUEST,

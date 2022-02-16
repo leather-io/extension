@@ -10,7 +10,7 @@ interface RequestInfo {
   origin: string;
 }
 
-export function getKeyForRequest(storageKey: StorageKey, request: string) {
+function getKeyForRequest(storageKey: StorageKey, request: string) {
   return `${storageKey}-${request}`;
 }
 

@@ -27,7 +27,7 @@ export const currentNetworkKeyState = atom<string, string>(
     // if txNetwork, default to this always, users cannot currently change networks when signing a transaction
     // @see https://github.com/blockstack/stacks-wallet-web/issues/1281
     if (txNetwork) {
-      const newKey = findMatchingNetworkKey(txNetwork, networks);
+      const newKey = findMatchingNetworkKey(txNetwork as any, networks);
       if (newKey) return newKey;
     }
     // otherwise default to the locally saved network key state
