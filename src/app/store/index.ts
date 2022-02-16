@@ -19,6 +19,7 @@ import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-ac
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { ExtensionStorage } from './utils/extension-storage';
 import { onboardingSlice } from './onboarding/onboarding.slice';
+import { analyticsSlice } from './analytics/analytics.slice';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   }),
   inMemoryKeys: inMemoryKeySlice.reducer,
   onboarding: onboardingSlice.reducer,
+  analytics: analyticsSlice.reducer,
 });
 
 const persistConfig = {
@@ -36,7 +38,7 @@ const persistConfig = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['keys', 'chains', 'onboarding'],
+  whitelist: ['keys', 'chains', 'onboarding', 'analytics'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
