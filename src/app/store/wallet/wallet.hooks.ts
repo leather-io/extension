@@ -15,11 +15,11 @@ import { localNonceState } from '@app/store/accounts/nonce';
 import { currentNetworkState } from '@app/store/network/networks';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
-import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
+import { encryptedSecretKeyState, secretKeyState, softwareWalletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 export function useWalletState() {
-  return useAtom(walletState);
+  return useAtom(softwareWalletState);
 }
 
 export function useSecretKey() {
@@ -50,7 +50,7 @@ export function useFinishSignInCallback() {
   return useAtomCallback<void, number>(
     useCallback(
       async (get, _set, accountIndex) => {
-        const wallet = get(walletState);
+        const wallet = get(softwareWalletState);
         const account = wallet?.accounts[accountIndex];
         if (!decodedAuthRequest || !authRequest || !account || !wallet) {
           logger.error('Uh oh! Finished onboarding without auth info.');

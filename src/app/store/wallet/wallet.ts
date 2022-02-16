@@ -6,16 +6,24 @@ import { storeAtom } from '..';
 import { deriveWalletWithAccounts } from '../chains/stx-chain.selectors';
 import { defaultKeyId } from '../keys/key.slice';
 
-export const walletState = atom(async get => {
+export const softwareWalletState = atom(async get => {
   const store = get(storeAtom);
   if (!store.keys.entities[defaultKeyId]) return;
   const defaultInMemoryKey = store.inMemoryKeys.keys[defaultKeyId];
+  if (store.keys.entities.default.type !== 'software') return;
   if (!defaultInMemoryKey) return;
   return deriveWalletWithAccounts(defaultInMemoryKey, store.chains.stx.default.highestAccountIndex);
 });
 
+export const ledgerWalletState = atom(async get => {
+  const store = get(storeAtom);
+  if (!store.keys.entities.default) return;
+  if (store.keys.entities.default.type !== 'ledger') return;
+  return store.keys.entities.default;
+});
+
 export const walletConfigState = atom(async get => {
-  const wallet = get(walletState);
+  const wallet = get(softwareWalletState);
   if (!wallet) return null;
   const gaiaHubConfig = await createWalletGaiaConfig({ wallet, gaiaHubUrl: gaiaUrl });
   return fetchWalletConfig({ wallet, gaiaHubConfig });
@@ -23,7 +31,9 @@ export const walletConfigState = atom(async get => {
 
 export const encryptedSecretKeyState = atom(get => {
   const store = get(storeAtom);
-  return store.keys.entities[defaultKeyId]?.encryptedSecretKey;
+  const defaultKey = store.keys.entities[defaultKeyId];
+  if (!defaultKey || defaultKey.type !== 'software') return;
+  return defaultKey.encryptedSecretKey;
 });
 
 export const currentAccountIndexState = atom(get => {

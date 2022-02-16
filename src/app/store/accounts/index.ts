@@ -15,7 +15,7 @@ import { transactionRequestStxAddressState } from '@app/store/transactions/reque
 import { currentNetworkState } from '@app/store/network/networks';
 
 import { addressNetworkVersionState } from '@app/store/transactions';
-import { currentAccountIndexState, walletState } from '@app/store/wallet/wallet';
+import { currentAccountIndexState, softwareWalletState } from '@app/store/wallet/wallet';
 
 import {
   accountBalancesAnchoredBigNumber,
@@ -52,7 +52,8 @@ import { derivePublicKey } from '@app/common/derive-public-key';
 // All accounts
 //--------------------------------------
 export const accountsState = atom<Account[] | undefined>(get => {
-  const wallet = get(walletState);
+  const wallet = get(softwareWalletState);
+  console.log({ wallet });
   if (!wallet) return undefined;
   return wallet.accounts;
 });
@@ -102,6 +103,13 @@ export const currentAccountState = atom<SoftwareWalletAccountWithAddress | undef
   const hasSwitched = get(hasSwitchedAccountsState);
   const accounts = get(accountsWithAddressState);
 
+  console.log({
+    accountIndex,
+    txIndex,
+    hasSwitched,
+    accounts,
+  });
+
   if (!accounts) return undefined;
   if (typeof txIndex === 'number' && !hasSwitched) return accounts[txIndex];
   return accounts[accountIndex];
@@ -144,11 +152,10 @@ export const currentAccountBalancesUnanchoredState = atom<
 export const currentAnchoredAccountBalancesState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   const networkUrl = get(currentNetworkState).url;
+  console.log(principal, networkUrl);
   if (!principal) return;
   return get(accountBalancesAnchoredBigNumber({ principal, networkUrl }));
 });
-
-// export const currentAnchoredAccountBalancesState = atom<AccountBalanceResponseBigNumber | undefined>(undefined);
 
 export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
   const transactionsWithTransfers = get(accountTransactionsWithTransfersState);

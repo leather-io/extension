@@ -6,6 +6,11 @@ export type SoftwareWalletAccountWithAddress = Account & {
   stxPublicKey: string;
   dataPublicKey: string;
 };
+export interface LedgerAccount {
+  index: number;
+  stxPublicKey: string;
+  dataPublicKey: string;
+}
 
 export const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'balance',

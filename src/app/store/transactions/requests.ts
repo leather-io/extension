@@ -5,7 +5,7 @@ import { verifyTxRequest } from '@app/common/transactions/requests';
 import { getRequestOrigin, StorageKey } from '@shared/utils/storage';
 import { atomWithParam } from '@app/store/utils/atom-with-params';
 import { getPayloadFromToken } from '@app/store/transactions/utils';
-import { walletState } from '@app/store/wallet/wallet';
+import { softwareWalletState } from '@app/store/wallet/wallet';
 
 export const requestTokenState = atomWithParam('transaction?request', null);
 
@@ -28,7 +28,7 @@ export const requestTokenOriginState = atom(get => {
 
 export const transactionRequestValidationState = atom(async get => {
   const requestToken = get(requestTokenState);
-  const wallet = get(walletState);
+  const wallet = get(softwareWalletState);
   const origin = get(requestTokenOriginState);
   if (!origin || !wallet || !requestToken) return;
   try {
