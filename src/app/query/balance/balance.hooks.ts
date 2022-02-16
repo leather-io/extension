@@ -13,6 +13,7 @@ import {
 } from '@app/store/accounts/account.hooks';
 import { useGetAccountBalanceQuery, useGetAnchoredAccountBalanceQuery } from './balance.query';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
+import { transformAssets } from '@app/store/assets/utils';
 
 function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxBigNumbers = Object.fromEntries(
@@ -42,6 +43,11 @@ export function useAddressBalances(address: string) {
 export function useCurrentAccountUnanchoredBalances() {
   const account = useCurrentAccount();
   return useAddressBalances(account?.address || '');
+}
+
+export function useBaseAssetsUnachored() {
+  const balances = useCurrentAccountUnanchoredBalances();
+  return transformAssets(balances.data);
 }
 
 function useAddressAnchoredBalances(address: string) {

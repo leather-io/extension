@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import BN from 'bn.js';
 import { useAtom } from 'jotai';
+import toast from 'react-hot-toast';
 import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
 import { useAsync } from 'react-async-hook';
 import {
@@ -28,7 +29,7 @@ import { currentAccountLocallySubmittedTxsState } from '@app/store/accounts/acco
 
 import { postConditionsState } from './post-conditions';
 import { requestTokenState } from './requests';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentSoftwareAccount } from '@app/store/accounts/account.hooks';
 import {
   estimatedUnsignedTransactionByteLengthState,
   prepareTxDetailsForBroadcast,
@@ -45,6 +46,7 @@ import { serializePayload } from '@stacks/transactions/dist/payload';
 import { selectedAssetIdState } from '../assets/asset-search';
 import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
 import { logger } from '@shared/logger';
+import { useCurrentKeyDetails } from '../keys/key.selectors';
 
 export function usePendingTransaction() {
   return useAtomValue(pendingTransactionState);
@@ -81,15 +83,20 @@ export function useEstimatedTransactionByteLength() {
 }
 
 export function useSignTransactionSoftwareWallet() {
-  const account = useCurrentAccount();
+  const currentKey = useCurrentKeyDetails();
+  const account = useCurrentSoftwareAccount();
   return useCallback(
     (tx: StacksTransaction) => {
+      if (currentKey?.type !== 'software') {
+        toast.error('Cannot use this method to sign a non-software wallet transaction');
+        return;
+      }
       const signer = new TransactionSigner(tx);
       if (!account) return null;
       signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
       return tx;
     },
-    [account]
+    [account, currentKey?.type]
   );
 }
 

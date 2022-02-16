@@ -8,7 +8,7 @@ import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
-import { CurrentAccount } from '@app/pages/home/components/account-area';
+
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
@@ -17,11 +17,28 @@ import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HomeTabs } from './components/home-tabs';
 
+import { useAtomValue } from 'jotai/utils';
+
+import { currentAccountState } from '@app/store/accounts';
+import {
+  useBaseAssetsUnachored,
+  useCurrentAccountUnanchoredBalances,
+} from '@app/query/balance/balance.hooks';
+import { useAssets } from '@app/store/assets/asset.hooks';
+import { CurrentAccount } from './components/account-area';
+
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
 
   const account = useCurrentAccount();
+  console.log('assets', useAssets());
+  // console.log('address balances', useAddressBalances(account?.address ?? ''));
+  // console.log('balances atom', useAtomValue(baseAssetsAnchoredState));
+  // console.log('global account', useAtomValue(currentAccountState));
+
+  const queryBalances = useBaseAssetsUnachored();
+  console.log('qb', queryBalances);
 
   useRouteHeader(
     <>

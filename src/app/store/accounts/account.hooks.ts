@@ -18,6 +18,9 @@ import {
   transactionAccountIndexState,
 } from '@app/store/accounts';
 import { currentAccountIndexState } from '../wallet/wallet';
+import { useCurrentKeyDetails } from '../keys/key.selectors';
+import { getAddressFromPublicKey } from '@stacks/transactions';
+import { useMemo } from 'react';
 
 export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableAnchoredStxBalanceState);
@@ -39,8 +42,34 @@ export function useCurrentAccountStxAddressState() {
   return useAtomValue(currentAccountStxAddressState);
 }
 
-export function useCurrentAccount() {
+export function useCurrentAccountInfo() {
+  return useAtomValue(currentAccountInfoState);
+}
+
+export function useCurrentLedgerAccount() {
+  const currentKey = useCurrentKeyDetails();
+  const transactionVersion = useTransactionNetworkVersion();
+  return useMemo(() => {
+    if (currentKey?.type === 'ledger') {
+      const address = getAddressFromPublicKey(currentKey.publicKeys[0], transactionVersion);
+      return { address, stxPublicKey: currentKey.publicKeys[0], index: 0 };
+    }
+    return;
+  }, [currentKey, transactionVersion]);
+}
+
+export function useCurrentSoftwareAccount() {
   return useAtomValue(currentAccountState);
+}
+
+export function useCurrentAccount() {
+  const ledgerAccount = useCurrentLedgerAccount();
+  // console.log(ledgerAccount);
+  const softwareAccount = useAtomValue(currentAccountState);
+  if (ledgerAccount) {
+    return ledgerAccount;
+  }
+  return softwareAccount;
 }
 
 export function useCurrentAccountIndex() {
