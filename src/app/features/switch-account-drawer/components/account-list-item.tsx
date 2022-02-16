@@ -8,7 +8,7 @@ import { AccountName, AccountNameFallback } from './account-name';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
 import { AccountListItemLayout } from './account-list-item-layout';
 import { AccountAvatarItem } from './account-avatar';
-import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 interface AccountBalanceLabelProps {
   address: string;
@@ -19,7 +19,7 @@ const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
 });
 
 interface AccountListItemProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
   handleClose(): void;
 }
 export const AccountListItem = memo(({ account, handleClose }: AccountListItemProps) => {

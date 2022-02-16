@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { AssetWithMeta } from '@app/common/asset-types';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 import { formatContractId } from '@app/common/utils';
-import { useAssets } from '@app/store/assets/asset.hooks';
 
 import {
   useGetFungibleTokenMetadataListQuery,
   useGetFungibleTokenMetadataQuery,
 } from './fungible-token-metadata.query';
+import { useBaseAssetsUnachored } from '../balance/balance.hooks';
 
 export function useFungibleTokenMetadata(contractId: string) {
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(contractId);
@@ -16,7 +16,7 @@ export function useFungibleTokenMetadata(contractId: string) {
 }
 
 export function useAssetsWithMetadata(): AssetWithMeta[] {
-  const assets = useAssets();
+  const assets = useBaseAssetsUnachored();
   const assetMetadata = useGetFungibleTokenMetadataListQuery(
     assets.map(a => formatContractId(a.contractAddress, a.contractName))
   );

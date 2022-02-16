@@ -1,4 +1,5 @@
-import { Box, color, Flex, Stack } from '@stacks/ui';
+import { Outlet } from 'react-router-dom';
+import { Box, color, Flex } from '@stacks/ui';
 
 import { ONBOARDING_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Caption, Text } from '@app/components/typography';
@@ -29,11 +30,13 @@ const WelcomeIllustration = () => (
 
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
+  onSelectConnectLedger(): void;
   onStartOnboarding(): void;
+  onSelectConnectLedger(): void;
   onRestoreWallet(): void;
 }
 export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
-  const { isGeneratingWallet, onStartOnboarding, onRestoreWallet } = props;
+  const { isGeneratingWallet, onStartOnboarding, onSelectConnectLedger, onRestoreWallet } = props;
 
   return (
     <CenteredPageContainer>
@@ -77,18 +80,26 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
               Create new wallet
             </PrimaryButton>
           </Box>
-          <Stack mt="loose" spacing="tight">
-            <Caption>Already have a wallet?</Caption>
-            <Link
-              data-testid={OnboardingSelectors.SignInLink}
-              fontSize="14px"
-              onClick={onRestoreWallet}
-            >
-              Sign in with Secret Key
-            </Link>
-          </Stack>
+
+          <Flex flexDirection="column" mt={['base', 'base-loose', 'extra-loose']} fontSize="14px">
+            <Caption>Already have a Stacks account?</Caption>
+            <Box mt="tight">
+              <Link
+                fontSize="inherit"
+                data-testid={OnboardingSelectors.SignInLink}
+                onClick={onRestoreWallet}
+              >
+                Sign in with Secret Key
+              </Link>{' '}
+              or{' '}
+              <Link fontSize="inherit" onClick={onSelectConnectLedger}>
+                connect your Ledger
+              </Link>
+            </Box>
+          </Flex>
         </Flex>
       </Flex>
+      <Outlet />
     </CenteredPageContainer>
   );
 }

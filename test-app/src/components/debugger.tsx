@@ -147,6 +147,7 @@ export const Debugger = () => {
         new BN('100', 10)
       ),
     ];
+    console.log('creating allow mode contract call');
     await doContractCall({
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',

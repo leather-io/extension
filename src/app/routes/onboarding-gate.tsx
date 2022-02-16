@@ -17,7 +17,8 @@ export const OnboardingGate = ({ children }: OnboardingGateProps) => {
   const currentInMemoryKey = useDefaultWalletSecretKey();
 
   if (
-    hasAlreadyMadeWalletAndPlaintextKeyInMemory(keyDetails?.encryptedSecretKey, currentInMemoryKey)
+    keyDetails?.type === 'software' &&
+    hasAlreadyMadeWalletAndPlaintextKeyInMemory(keyDetails.encryptedSecretKey, currentInMemoryKey)
   ) {
     return <Navigate to={RouteUrls.Home} />;
   }

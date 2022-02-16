@@ -158,6 +158,7 @@ export const SetPasswordPage = () => {
                   placeholder="Set a password"
                   type="password"
                   value={formik.values.password}
+                  isDisabled={loading}
                 />
                 {formik.submitCount && formik.errors.password ? (
                   <Stack alignItems="center" isInline>
@@ -175,6 +176,7 @@ export const SetPasswordPage = () => {
                   type="password"
                   value={formik.values.confirmPassword}
                   width="100%"
+                  isDisabled={loading}
                 />
                 {formik.submitCount && formik.errors.confirmPassword ? (
                   <ErrorLabel>

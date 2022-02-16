@@ -12,13 +12,19 @@ import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { CurrentAccount } from '@app/pages/home/components/account-area';
+
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { RouteUrls } from '@shared/route-urls';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import {
+  useCurrentAccount,
+  useCurrentAccountAvailableStxBalance,
+} from '@app/store/accounts/account.hooks';
 import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { HomeTabs } from './components/home-tabs';
+
+import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
@@ -37,6 +43,8 @@ export function Home() {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!account) return <FullPageLoadingSpinner />;
 
   return (
     <>

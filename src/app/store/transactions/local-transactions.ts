@@ -1,6 +1,7 @@
+import { useCallback } from 'react';
 import { atom } from 'jotai';
 import { useAtomValue, waitForAll } from 'jotai/utils';
-import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
+import { TransactionTypes } from '@stacks/connect';
 import { useAsync } from 'react-async-hook';
 import {
   bufferCVFromString,
@@ -9,8 +10,6 @@ import {
   createEmptyAddress,
   noneCV,
   PostConditionMode,
-  pubKeyfromPrivKey,
-  publicKeyToString,
   serializeCV,
   someCV,
   standardPrincipalCVFromAddress,
@@ -46,38 +45,130 @@ const stxTokenTransferAtomDeps = atom(get =>
   )
 );
 
+export function useGenerateStxTokenTransferUnsignedTx() {
+  const address = useAtomValue(currentAccountStxAddressState);
+  const customNonce = useAtomValue(customNonceState);
+  const { network, account, nonce } = useAtomValue(stxTokenTransferAtomDeps);
+
+  return useCallback(
+    async (txData?: TransactionFormValues) => {
+      if (!address) return;
+      if (!account || typeof nonce === 'undefined') return;
+      const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
+      // console.log({ address, account, nonce });
+      const options: GenerateUnsignedTransactionOptions = {
+        publicKey: account.stxPublicKey,
+        nonce: txNonce,
+        fee: stxToMicroStx(txData?.fee || 0).toNumber(),
+        txData: {
+          txType: TransactionTypes.STXTransfer,
+          // Using account address here as a fallback for a fee estimation
+          recipient: txData?.recipient || account.address,
+          amount: txData?.amount ? stxToMicroStx(txData?.amount).toString(10) : '0',
+          memo: txData?.memo || undefined,
+          network: network,
+          // Coercing type here as we don't have the public key
+          // as expected by STXTransferPayload type.
+          // This code will likely need to change soon with Ledger
+          // work, and concersion allows us to remove lots of type mangling
+          // and types are out of sync with @stacks/connect
+        } as any,
+      };
+      return generateUnsignedTransaction(options);
+    },
+    [address, customNonce, network, account, nonce]
+  );
+}
+
 export function useStxTokenTransferUnsignedTxState() {
+  const generateTx = useGenerateStxTokenTransferUnsignedTx();
+
   const txData = useAtomValue(localStacksTransactionInputsState);
   const address = useAtomValue(currentAccountStxAddressState);
   const customNonce = useAtomValue(customNonceState);
   const { network, account, nonce } = useAtomValue(stxTokenTransferAtomDeps);
 
-  return useAsync(async () => {
-    if (!address) return;
-    if (!account || typeof nonce === 'undefined') return;
-    const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
-    const options: GenerateUnsignedTransactionOptions = {
-      publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
-      nonce: txNonce,
-      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
-      txData: {
-        txType: TransactionTypes.STXTransfer,
-        // Using account address here as a fallback for a fee estimation
-        recipient: txData?.recipient || account.address,
-        amount: txData?.amount ? stxToMicroStx(txData.amount).toString(10) : '0',
-        memo: txData?.memo || undefined,
-        network,
-        // Coercing type here as we don't have the public key
-        // as expected by STXTransferPayload type.
-        // This code will likely need to change soon with Ledger
-        // work, and concersion allows us to remove lots of type mangling
-      } as STXTransferPayload,
-    };
-    return generateUnsignedTransaction(options);
-  }, [txData, address, customNonce, network, account, nonce]).result;
+  const tx = useAsync(async () => {
+    return generateTx(txData ?? undefined);
+  }, [txData, address, customNonce, network, account, nonce]);
+
+  return tx.result;
+}
+
+export function useGenerateFtTokenTransferUnsignedTx() {
+  const address = useAtomValue(currentAccountStxAddressState);
+  const customNonce = useAtomValue(customNonceState);
+
+  const account = useAtomValue(currentAccountState);
+  const assetTransferState = useMakeFungibleTokenTransfer();
+  const selectedAsset = useSelectedAssetItem();
+
+  return useCallback(
+    async (txData?: TransactionFormValues) => {
+      if (!address || !assetTransferState || !selectedAsset || !account) return;
+
+      const { network, assetName, contractAddress, contractName, nonce, stxAddress } =
+        assetTransferState;
+
+      const functionName = 'transfer';
+
+      const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
+
+      const realAmount =
+        selectedAsset.type === 'ft'
+          ? ftUnshiftDecimals(txData?.amount || 0, selectedAsset?.meta?.decimals || 0)
+          : txData?.amount || 0;
+
+      const postConditionOptions = {
+        contractAddress,
+        contractName,
+        assetName,
+        stxAddress,
+        amount: realAmount,
+      };
+
+      const postConditions = [makePostCondition(postConditionOptions)];
+
+      // (transfer (uint principal principal) (response bool uint))
+      const functionArgs: ClarityValue[] = [
+        uintCV(realAmount),
+        standardPrincipalCVFromAddress(createAddress(stxAddress)),
+        standardPrincipalCVFromAddress(
+          txData ? createAddress(txData?.recipient || '') : createEmptyAddress()
+        ),
+      ];
+
+      if (selectedAsset.hasMemo) {
+        functionArgs.push(
+          txData?.memo !== '' ? someCV(bufferCVFromString(txData?.memo || '')) : noneCV()
+        );
+      }
+
+      const options = {
+        txData: {
+          txType: TransactionTypes.ContractCall,
+          contractAddress,
+          contractName,
+          functionName,
+          functionArgs: functionArgs.map(serializeCV).map(arg => arg.toString('hex')),
+          postConditions,
+          postConditionMode: PostConditionMode.Deny,
+          network,
+          publicKey: account.stxPublicKey,
+        },
+        fee: stxToMicroStx(txData?.fee || 0).toNumber(),
+        publicKey: account.stxPublicKey,
+        nonce: txNonce,
+      } as const;
+
+      return generateUnsignedTransaction(options);
+    },
+    [address, customNonce, account, assetTransferState, selectedAsset]
+  );
 }
 
 export function useFtTokenTransferUnsignedTx() {
+  const generateTx = useGenerateFtTokenTransferUnsignedTx();
   const txData = useAtomValue(localStacksTransactionInputsState);
   const address = useAtomValue(currentAccountStxAddressState);
   const customNonce = useAtomValue(customNonceState);
@@ -86,63 +177,8 @@ export function useFtTokenTransferUnsignedTx() {
   const assetTransferState = useMakeFungibleTokenTransfer();
   const selectedAsset = useSelectedAssetItem();
 
-  return useAsync(async () => {
-    if (!address || !assetTransferState || !selectedAsset || !account) return;
-
-    const { network, assetName, contractAddress, contractName, nonce, stxAddress } =
-      assetTransferState;
-
-    const functionName = 'transfer';
-
-    const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
-
-    const realAmount =
-      selectedAsset.type === 'ft'
-        ? ftUnshiftDecimals(txData?.amount || 0, selectedAsset?.meta?.decimals || 0)
-        : txData?.amount || 0;
-
-    const postConditionOptions = {
-      contractAddress,
-      contractName,
-      assetName,
-      stxAddress,
-      amount: realAmount,
-    };
-
-    const postConditions = [makePostCondition(postConditionOptions)];
-
-    // (transfer (uint principal principal) (response bool uint))
-    const functionArgs: ClarityValue[] = [
-      uintCV(realAmount),
-      standardPrincipalCVFromAddress(createAddress(stxAddress)),
-      standardPrincipalCVFromAddress(
-        txData ? createAddress(txData?.recipient || '') : createEmptyAddress()
-      ),
-    ];
-
-    if (selectedAsset.hasMemo) {
-      functionArgs.push(
-        txData?.memo !== '' ? someCV(bufferCVFromString(txData?.memo || '')) : noneCV()
-      );
-    }
-
-    const options = {
-      txData: {
-        txType: TransactionTypes.ContractCall,
-        contractAddress,
-        contractName,
-        functionName,
-        functionArgs: functionArgs.map(serializeCV).map(arg => arg.toString('hex')),
-        postConditions,
-        postConditionMode: PostConditionMode.Deny,
-        network,
-        publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
-      },
-      fee: stxToMicroStx(txData?.fee || 0).toNumber(),
-      publicKey: publicKeyToString(pubKeyfromPrivKey(account.stxPrivateKey)),
-      nonce: txNonce,
-    } as const;
-
-    return generateUnsignedTransaction(options);
-  }, [txData, address, customNonce, account, assetTransferState, selectedAsset]).result;
+  return useAsync(
+    async () => generateTx(txData ?? undefined),
+    [txData, address, customNonce, account, assetTransferState, selectedAsset]
+  ).result;
 }

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import type {
@@ -13,6 +14,7 @@ import {
 } from '@app/store/accounts/account.hooks';
 import { useGetAccountBalanceQuery, useGetAnchoredAccountBalanceQuery } from './balance.query';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
+import { transformAssets } from '@app/store/assets/utils';
 
 function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxBigNumbers = Object.fromEntries(
@@ -43,6 +45,13 @@ export function useCurrentAccountUnanchoredBalances() {
   return useAddressBalances(account?.address || '');
 }
 
+export function useBaseAssetsUnachored() {
+  const balances = useCurrentAccountUnanchoredBalances();
+  return useMemo(() => {
+    return transformAssets(balances.data);
+  }, [balances]);
+}
+
 function useAddressAnchoredBalances(address: string) {
   const { data: balances } = useGetAnchoredAccountBalanceQuery(address, {
     select: (resp: AddressBalanceResponse) => initAmountsAsBigNumber(resp),
@@ -59,6 +68,8 @@ export function useCurrentAccountAnchoredBalances() {
 
 export function useAddressAnchoredAvailableStxBalance(address: string) {
   const balances = useAddressAnchoredBalances(address);
-  if (!balances) return new BigNumber(0);
-  return balances.stx.balance.minus(balances.stx.locked);
+  return useMemo(() => {
+    if (!balances) return new BigNumber(0);
+    return balances.stx.balance.minus(balances.stx.locked);
+  }, [balances]);
 }
