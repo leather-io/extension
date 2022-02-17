@@ -44,7 +44,7 @@ describe('Locked wallet test', () => {
     } catch (error) {}
   });
 
-  it('when wallet is locked it shows unlock screen', async () => {
+  it('should show unlock page when wallet is locked', async () => {
     await walletPage.clickSettingsButton();
     await walletPage.page.click(createTestSelector(SettingsSelectors.LockListItem));
 
