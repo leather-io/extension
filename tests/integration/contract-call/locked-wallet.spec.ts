@@ -31,7 +31,6 @@ describe('Locked wallet test', () => {
     mainPage = new WalletPage(pages[1]);
     await mainPage.clickSignUp();
 
-    await walletPage.page.waitForTimeout(2000);
     pages = await WalletPage.getAllPages(browser);
     latestPage = pages[pages.length - 1];
     sendForm = new SendPage(latestPage);
@@ -45,28 +44,26 @@ describe('Locked wallet test', () => {
     } catch (error) {}
   });
 
+  it('when wallet is locked it shows unlock screen', async () => {
+    await walletPage.clickSettingsButton();
+    await walletPage.page.click(createTestSelector(SettingsSelectors.LockListItem));
+
+    await mainPage.clickContractCall();
+    pages = await WalletPage.getAllPages(browser);
+    latestPage = pages[pages.length - 1];
+    sendForm = new SendPage(latestPage);
+    await sendForm.page.waitForSelector(mainPage.$passwordInput);
+    const isPasswordVisible = await sendForm.page.isVisible(mainPage.$passwordInput);
+    expect(isPasswordVisible).toBe(true);
+  });
+
   it('when wallet is not locked', async () => {
     await mainPage.clickContractCall();
-    await walletPage.page.waitForTimeout(2000);
     pages = await WalletPage.getAllPages(browser);
     latestPage = pages[pages.length - 1];
     sendForm = new SendPage(latestPage);
     await sendForm.waitForPreview('$standardFeeSelect');
     const isVisibleForm = await sendForm.page.isVisible(sendForm.getSelector('$standardFeeSelect'));
     expect(isVisibleForm).toBe(true);
-  });
-
-  it('when wallet is locked it shows unlock screen', async () => {
-    await walletPage.clickSettingsButton();
-    await walletPage.page.click(createTestSelector(SettingsSelectors.LockListItem));
-
-    await mainPage.clickContractCall();
-    await walletPage.page.waitForTimeout(2000);
-    pages = await WalletPage.getAllPages(browser);
-    latestPage = pages[pages.length - 1];
-    sendForm = new SendPage(latestPage);
-    await walletPage.page.waitForTimeout(4000);
-    const isPasswordVisible = await sendForm.page.isVisible(mainPage.$passwordInput);
-    expect(isPasswordVisible).toBe(true);
   });
 });
