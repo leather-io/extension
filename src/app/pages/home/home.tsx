@@ -12,16 +12,10 @@ import { BalancesList } from '@app/features/balances-list/balances-list';
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HomeTabs } from './components/home-tabs';
-
-// import { useAtomValue } from 'jotai/utils';
-
-// import { currentAccountState } from '@app/store/accounts';
-import { useBaseAssetsUnachored } from '@app/query/balance/balance.hooks';
-import { useAssets } from '@app/store/assets/asset.hooks';
 import { CurrentAccount } from './components/account-area';
 
 export function Home() {
@@ -29,13 +23,9 @@ export function Home() {
   const navigate = useNavigate();
 
   const account = useCurrentAccount();
-  console.log('assets', useAssets());
-  // console.log('address balances', useAddressBalances(account?.address ?? ''));
-  // console.log('balances atom', useAtomValue(baseAssetsAnchoredState));
-  // console.log('global account', useAtomValue(currentAccountState));
+  const a = useAccounts();
 
-  const queryBalances = useBaseAssetsUnachored();
-  console.log('qb', queryBalances);
+  console.log(a);
 
   useRouteHeader(
     <>

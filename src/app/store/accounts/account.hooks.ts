@@ -39,30 +39,6 @@ export function useCurrentAccountStxAddressState() {
   return useAtomValue(currentAccountStxAddressState);
 }
 
-export function useCurrentAccountInfo() {
-  return useAtomValue(currentAccountInfoState);
-}
-
-// // Currently only works with one account
-// export function useCurrentLedgerAccount(): LedgerAccountWithAddress | undefined {
-//   const currentKey = useCurrentKeyDetails();
-//   const transactionVersion = useTransactionNetworkVersion();
-//   return useMemo(() => {
-//     if (!currentKey || currentKey.type !== 'ledger') return;
-//     const address = getAddressFromPublicKey(currentKey.publicKeys[0], transactionVersion);
-//     return {
-//       type: 'ledger',
-//       address,
-//       stxPublicKey: currentKey.publicKeys[0],
-//       index: 0,
-//     };
-//   }, [currentKey, transactionVersion]);
-// }
-
-// export function useCurrentSoftwareAccount() {
-//   return useAtomValue(currentAccountState);
-// }
-
 export function useCurrentAccount() {
   return useAtomValue(currentAccountState);
 }
