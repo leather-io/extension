@@ -25,7 +25,7 @@ export function useAssets() {
 
 export function useTransferableAssets() {
   const assets = useAssetsWithMetadata();
-  return assets.filter(asset => isTransferableAsset(asset));
+  return useMemo(() => assets.filter(asset => isTransferableAsset(asset)), [assets]);
 }
 
 export function useAssetWithMetadata(asset: Asset) {
@@ -48,7 +48,9 @@ export function useSelectedAssetItem() {
       assetsWithMetadata?.find(
         asset => getFullyQualifiedAssetName(asset) === selectedAssetId
       ) as AssetWithMeta,
-    [assetsWithMetadata, selectedAssetId]
+    // Render loop occurs when `assetsWithMetadata` in dep array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedAssetId]
   );
 }
 
@@ -80,18 +82,20 @@ export function useStxTokenState(address: string) {
 
 function useBaseAssetsAnchoredState() {
   const balances = useCurrentAccountAnchoredBalances();
-  return transformAssets(balances);
+  return useMemo(() => transformAssets(balances), [balances]);
 }
 
 function useBaseAssetsUnanchoredState() {
   const { data: balances } = useCurrentAccountUnanchoredBalances();
-  return transformAssets(balances);
+  return useMemo(() => transformAssets(balances), [balances]);
 }
 
 export function useFungibleTokenBaseState() {
   const principal = useCurrentAccountStxAddressState();
   const anchoredAssets = useBaseAssetsAnchoredState();
   const unanchoredAssets = useBaseAssetsUnanchoredState();
-  if (!principal) return [];
-  return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');
+  return useMemo(() => {
+    if (!principal) return [];
+    return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');
+  }, [anchoredAssets, principal, unanchoredAssets]);
 }

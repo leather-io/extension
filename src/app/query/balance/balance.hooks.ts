@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import type {
@@ -47,7 +48,9 @@ export function useCurrentAccountUnanchoredBalances() {
 
 export function useBaseAssetsUnachored() {
   const balances = useCurrentAccountUnanchoredBalances();
-  return transformAssets(balances.data);
+  return useMemo(() => {
+    return transformAssets(balances.data);
+  }, [balances]);
 }
 
 function useAddressAnchoredBalances(address: string) {
@@ -66,6 +69,8 @@ export function useCurrentAccountAnchoredBalances() {
 
 export function useAddressAnchoredAvailableStxBalance(address: string) {
   const balances = useAddressAnchoredBalances(address);
-  if (!balances) return new BigNumber(0);
-  return balances.stx.balance.minus(balances.stx.locked);
+  return useMemo(() => {
+    if (!balances) return new BigNumber(0);
+    return balances.stx.balance.minus(balances.stx.locked);
+  }, [balances]);
 }
