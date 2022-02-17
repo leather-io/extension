@@ -128,13 +128,6 @@ export const currentAccountState = atom<AccountWithAddress | undefined>(get => {
   const hasSwitched = get(hasSwitchedAccountsState);
   const accounts = get(accountsWithAddressState);
 
-  console.log({
-    accountIndex,
-    txIndex,
-    hasSwitched,
-    accounts,
-  });
-
   if (!accounts) return undefined;
   if (typeof txIndex === 'number' && !hasSwitched) return accounts[txIndex];
   return accounts[accountIndex] as AccountWithAddress | undefined;
@@ -177,7 +170,6 @@ export const currentAccountBalancesUnanchoredState = atom<
 export const currentAnchoredAccountBalancesState = atom(get => {
   const principal = get(currentAccountStxAddressState);
   const networkUrl = get(currentNetworkState).url;
-  console.log(principal, networkUrl);
   if (!principal) return;
   return get(accountBalancesAnchoredBigNumber({ principal, networkUrl }));
 });
