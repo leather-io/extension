@@ -57,7 +57,7 @@ describe('Locked wallet test', () => {
     expect(isPasswordVisible).toBe(true);
   });
 
-  it('when wallet is not locked', async () => {
+  it('should show send form when wallet is not locked', async () => {
     await mainPage.clickContractCall();
     pages = await WalletPage.getAllPages(browser);
     latestPage = pages[pages.length - 1];
