@@ -18,7 +18,7 @@ import { logger } from '@shared/logger';
 import { encryptedSecretKeyState, secretKeyState, softwareWalletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
-export function useWalletState() {
+export function useSoftwareWalletState() {
   return useAtom(softwareWalletState);
 }
 
