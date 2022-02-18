@@ -12,7 +12,11 @@ import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 
-import { connectLedger, pullKeysFromLedgerDevice } from '@app/features/ledger/ledger-utils';
+import {
+  connectLedger,
+  pullKeysFromLedgerDevice,
+  useTriggerLedgerDeviceOnboarding,
+} from '@app/features/ledger/ledger-utils';
 
 export const WelcomePage = memo(() => {
   const [hasAllowedDiagnostics] = useHasAllowedDiagnostics();
@@ -21,6 +25,9 @@ export const WelcomePage = memo(() => {
   const analytics = useAnalytics();
   const keyActions = useKeyActions();
   const currentInMemoryKey = useDefaultWalletSecretKey();
+
+  const { completeLedgerDeviceOnboarding, fireErrorMessageToast } =
+    useTriggerLedgerDeviceOnboarding();
 
   useRouteHeader(<Header hideActions />);
 
@@ -53,8 +60,12 @@ export const WelcomePage = memo(() => {
       <button
         onClick={async () => {
           const stacks = await connectLedger();
-          const publicKeys = await pullKeysFromLedgerDevice(stacks);
-          console.log(publicKeys);
+          const resp = await pullKeysFromLedgerDevice(stacks);
+          if (resp.status === 'failure') {
+            fireErrorMessageToast(resp.errorMessage);
+            return;
+          }
+          completeLedgerDeviceOnboarding(resp.publicKeys);
         }}
       >
         open ledger
