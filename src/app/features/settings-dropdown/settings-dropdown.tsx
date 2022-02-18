@@ -13,10 +13,11 @@ import { AccountStep } from '@app/store/ui/ui.models';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SettingsMenuItem as MenuItem } from './components/settings-menu-item';
 import { MenuWrapper } from './components/settings-menu-wrapper';
+import { useAccounts } from '@app/store/accounts/account.hooks';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { lockWallet, wallet, currentNetworkKey, hasGeneratedWallet } = useWallet();
+  const { lockWallet, currentNetworkKey, hasGeneratedWallet } = useWallet();
   const {
     setShowNetworks,
     setShowAccounts,
@@ -29,6 +30,7 @@ export function SettingsDropdown() {
   const analytics = useAnalytics();
 
   const handleClose = useCallback(() => setShowSettings(false), [setShowSettings]);
+  const accounts = useAccounts();
 
   const wrappedCloseCallback = useCallback(
     (callback: () => void) => () => {
@@ -48,7 +50,7 @@ export function SettingsDropdown() {
         <MenuWrapper ref={ref} style={styles} pointerEvents={!isShowing ? 'none' : 'all'}>
           {hasGeneratedWallet && (
             <>
-              {wallet && wallet?.accounts?.length > 1 && (
+              {accounts && accounts.length > 1 && (
                 <MenuItem
                   data-testid={SettingsSelectors.SwitchAccount}
                   onClick={wrappedCloseCallback(() => {
