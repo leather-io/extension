@@ -21,21 +21,26 @@ interface PullKeysFromLedgerSuccess {
   status: 'success';
   publicKeys: string[];
 }
+
 interface PullKeysFromLedgerFailure {
   status: 'failure';
   errorMessage: string;
   returnCode: number;
 }
+
 type PullKeysFromLedgerResponse = Promise<PullKeysFromLedgerSuccess | PullKeysFromLedgerFailure>;
+
 export async function pullKeysFromLedgerDevice(app: StacksApp): PullKeysFromLedgerResponse {
   const keys = [];
-  for (let i = 0; i < 5; i++) {
+  const amountOfKeysToExtractFromDevice = 5;
+  for (let i = 0; i < amountOfKeysToExtractFromDevice; i++) {
     const resp = await app.getAddressAndPubKey(
       STX_DERIVATION_PATH_LESS_ACCOUNT.replace('{account}', i.toString()),
       // We pass mainnet as it expects something, however this is so it can return a formatted address
       // We only need the public key, and can derive the address later in any network format
       AddressVersion.MainnetSingleSig
     );
+    console.log(resp);
     if (!resp.publicKey) return { status: 'failure', ...resp };
     keys.push(resp.publicKey.toString('hex'));
   }
@@ -48,6 +53,9 @@ export function useTriggerLedgerDeviceOnboarding() {
 
   return useMemo(
     () => ({
+      fireErrorMessageToast(errorMsg: string) {
+        toast.error(errorMsg);
+      },
       completeLedgerDeviceOnboarding(publicKeys: string[]) {
         dispatch(
           keySlice.actions.createLedgerWallet({
@@ -59,6 +67,6 @@ export function useTriggerLedgerDeviceOnboarding() {
         navigate(RouteUrls.Home);
       },
     }),
-    []
+    [dispatch, navigate]
   );
 }
