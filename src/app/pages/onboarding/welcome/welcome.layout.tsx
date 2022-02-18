@@ -27,10 +27,11 @@ const WelcomeIllustration = () =>
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
   onStartOnboarding(): void;
+  onSelectConnectLedger(): void;
   onRestoreWallet(): void;
 }
 export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
-  const { isGeneratingWallet, onStartOnboarding, onRestoreWallet } = props;
+  const { isGeneratingWallet, onStartOnboarding, onSelectConnectLedger, onRestoreWallet } = props;
 
   return (
     <CenteredPageContainer>
@@ -53,16 +54,22 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
             >
               Create Stacks Account
             </PrimaryButton>
-            <Stack mt={['base', 'base-tight', 'tight']} spacing="tight">
+            <Flex flexDirection="column" mt={['base', 'base-tight', 'tight']} fontSize="14px">
               <Caption>Already have a Stacks account?</Caption>
-              <Link
-                data-testid={OnboardingSelectors.SignInLink}
-                fontSize="14px"
-                onClick={onRestoreWallet}
-              >
-                Sign in with Secret Key
-              </Link>
-            </Stack>
+              <Box mt="tight">
+                <Link
+                  fontSize="inherit"
+                  data-testid={OnboardingSelectors.SignInLink}
+                  onClick={onRestoreWallet}
+                >
+                  Sign in with Secret Key
+                </Link>{' '}
+                or{' '}
+                <Link fontSize="inherit" onClick={onSelectConnectLedger}>
+                  connect your Ledger
+                </Link>
+              </Box>
+            </Flex>
           </Stack>
         </Flex>
       </Stack>
