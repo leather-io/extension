@@ -51,30 +51,21 @@ export const WelcomePage = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    void analytics.track('xxx_testing_integration');
-  });
-
   return (
-    <>
-      <button
-        onClick={async () => {
-          const stacks = await connectLedger();
-          const resp = await pullKeysFromLedgerDevice(stacks);
-          if (resp.status === 'failure') {
-            fireErrorMessageToast(resp.errorMessage);
-            return;
-          }
-          completeLedgerDeviceOnboarding(resp.publicKeys);
-        }}
-      >
-        open ledger
-      </button>
-      <WelcomeLayout
-        isGeneratingWallet={isGeneratingWallet}
-        onStartOnboarding={() => startOnboarding()}
-        onRestoreWallet={() => navigate(RouteUrls.SignIn)}
-      />
-    </>
+    <WelcomeLayout
+      isGeneratingWallet={isGeneratingWallet}
+      onStartOnboarding={() => startOnboarding()}
+      onRestoreWallet={() => navigate(RouteUrls.SignIn)}
+      onSelectConnectLedger={async () => {
+        console.log('lskdjfslkd');
+        const stacks = await connectLedger();
+        const resp = await pullKeysFromLedgerDevice(stacks);
+        if (resp.status === 'failure') {
+          console.log(resp);
+          return fireErrorMessageToast(resp.errorMessage);
+        }
+        completeLedgerDeviceOnboarding(resp.publicKeys);
+      }}
+    />
   );
 });
