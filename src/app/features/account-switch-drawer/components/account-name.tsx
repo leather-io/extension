@@ -4,17 +4,17 @@ import { BoxProps } from '@stacks/ui';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { Title } from '@app/components/typography';
-import { useGetAccountNamesByAddressQuery } from '@app/query/bns/bns.hooks';
+import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 
 interface AccountNameProps extends BoxProps {
   account: AccountWithAddress;
 }
 export const AccountName = memo(({ account }: AccountNameProps) => {
-  const name = useGetAccountNamesByAddressQuery(account.address);
+  const name = useAccountDisplayName(account);
 
   return (
     <Title fontSize={2} lineHeight="1rem" fontWeight="400">
-      {name[0] ?? getAccountDisplayName(account)}
+      {name}
     </Title>
   );
 });
