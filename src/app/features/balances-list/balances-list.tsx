@@ -15,7 +15,7 @@ interface BalancesListProps extends StackProps {
 export const BalancesList = ({ address, ...props }: BalancesListProps) => {
   const stxToken = useStxTokenState(address);
   const currentAccount = useCurrentAccount();
-  const balances = useCurrentAccountUnanchoredBalances();
+  const { data: balances } = useCurrentAccountUnanchoredBalances();
 
   if (!balances) return null;
 

@@ -66,7 +66,7 @@ export function useUpdateSearchInput() {
 
 export function useStxTokenState(address: string) {
   const balance = useAddressAnchoredAvailableStxBalance(address);
-  const unanchoredBalances = useAddressBalances(address);
+  const { data: unanchoredBalances } = useAddressBalances(address);
 
   return {
     type: 'stx',
@@ -84,7 +84,7 @@ function useBaseAssetsAnchoredState() {
 }
 
 function useBaseAssetsUnanchoredState() {
-  const balances = useCurrentAccountUnanchoredBalances();
+  const { data: balances } = useCurrentAccountUnanchoredBalances();
   return transformAssets(balances);
 }
 

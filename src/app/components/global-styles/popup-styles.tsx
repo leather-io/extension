@@ -12,7 +12,12 @@ export const popupStyles = css`
       max-width: ${maxWidth};
       min-height: ${maxHeight};
       max-height: ${maxHeight};
-      overflow-y: scroll;
+      scrollbar-width: none;
+
+      // Only add overflow scroll on non-firefox browsers
+      @supports not (-moz-appearance: none) {
+        overflow-y: scroll;
+      }
 
       &::-webkit-scrollbar {
         display: none;
