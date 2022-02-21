@@ -62,7 +62,7 @@ const AccountItem = memo((props: AccountItemProps) => {
   const { selectedAddress, account, isLoading, onSelectAccount, ...rest } = props;
   const [component, bind] = usePressable(true);
   const { decodedAuthRequest } = useOnboardingState();
-  const name = useAccountDisplayName(account.address, account.index);
+  const name = useAccountDisplayName(account);
   const { data: balances, isLoading: isBalanceLoading } = useAddressBalances(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 

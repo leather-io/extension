@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useCurrentAccountNames, useGetAccountNamesByAddressQuery } from '@app/query/bns/bns.hooks';
+import { getAccountDisplayName } from '@stacks/wallet-sdk';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 export function useCurrentAccountDisplayName() {
   const names = useCurrentAccountNames();
@@ -12,11 +14,8 @@ export function useCurrentAccountDisplayName() {
   }, [account, names]);
 }
 
-export function useAccountDisplayName(address: string, index: number) {
-  const names = useGetAccountNamesByAddressQuery(address);
+export function useAccountDisplayName(account: AccountWithAddress) {
+  const names = useGetAccountNamesByAddressQuery(account.address);
 
-  return useMemo(() => {
-    if (!names.length) return `Account ${index + 1}`;
-    return names[0];
-  }, [index, names]);
+  return useMemo(() => names[0] ?? getAccountDisplayName(account), [account, names]);
 }
