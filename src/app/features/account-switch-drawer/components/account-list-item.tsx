@@ -43,7 +43,7 @@ export const AccountListItem = memo(({ account, handleClose }: AccountListItemPr
       onSelectAccount={handleClick}
       accountName={
         <Suspense fallback={<AccountNameFallback account={account} />}>
-          <AccountName address={account.address} index={account.index} />
+          <AccountName account={account} />
         </Suspense>
       }
       balanceLabel={
