@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useCurrentAccountNames, useGetAccountNamesByAddressQuery } from '@app/query/bns/bns.hooks';
 import { getAccountDisplayName } from '@stacks/wallet-sdk';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
 
 export function useCurrentAccountDisplayName() {
   const names = useCurrentAccountNames();
@@ -14,8 +14,7 @@ export function useCurrentAccountDisplayName() {
   }, [account, names]);
 }
 
-export function useAccountDisplayName(account: AccountWithAddress) {
+export function useAccountDisplayName(account: SoftwareWalletAccountWithAddress) {
   const names = useGetAccountNamesByAddressQuery(account.address);
-
   return useMemo(() => names[0] ?? getAccountDisplayName(account), [account, names]);
 }
