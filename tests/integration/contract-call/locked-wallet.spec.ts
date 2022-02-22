@@ -62,8 +62,8 @@ describe('Locked wallet test', () => {
     pages = await WalletPage.getAllPages(browser);
     latestPage = pages[pages.length - 1];
     sendForm = new SendPage(latestPage);
-    await sendForm.waitForPreview('$standardFeeSelect');
-    const isVisibleForm = await sendForm.page.isVisible(sendForm.getSelector('$standardFeeSelect'));
+    await sendForm.waitForPreview('$stxAddressField');
+    const isVisibleForm = await sendForm.page.isVisible(sendForm.getSelector('$stxAddressField'));
     expect(isVisibleForm).toBe(true);
   });
 });
