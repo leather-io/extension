@@ -1,7 +1,9 @@
+import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundActions } from '@shared/messages';
-import { generateNewAccount, generateWallet } from '@stacks/wallet-sdk';
+import { StacksMainnet } from '@stacks/network';
+import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
 
 function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
@@ -12,16 +14,26 @@ function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) 
 const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccountIndex: number) => {
   // Here we only want the resulting `Wallet` objects, but the API
   // requires a password (so it can also return an encrypted key)
-  const walletSdk = await generateWallet({ secretKey, password: '' });
-  // To generate a new account, the wallet-sdk requires the entire `Wallet` to
-  // be supplied so that it can count the `wallet.accounts[]` length, and return
-  // a new `Wallet` object with all the accounts. As we want to generate them
-  // all, we must set the updated value and read it again in the loop
-  let walWithAccounts = walletSdk;
-  for (let i = 0; i < highestAccountIndex; i++) {
-    walWithAccounts = generateNewAccount(walWithAccounts);
+  const wallet = await generateWallet({ secretKey, password: '' });
+
+  // If possible, we try to generate accounts using the `restoreWalletAccounts`
+  // method. This does the same as the catch case, with the addition that it will
+  // also try and fetch usernames associated with an account
+  try {
+    const network = new StacksMainnet();
+    return restoreWalletAccounts({ wallet, gaiaHubUrl: gaiaUrl, network });
+  } catch (e) {
+    console.log(e);
+    // To generate a new account, the wallet-sdk requires the entire `Wallet` to
+    // be supplied so that it can count the `wallet.accounts[]` length, and return
+    // a new `Wallet` object with all the accounts. As we want to generate them
+    // all, we must set the updated value and read it again in the loop
+    let walWithAccounts = wallet;
+    for (let i = 0; i < highestAccountIndex; i++) {
+      walWithAccounts = generateNewAccount(walWithAccounts);
+    }
+    return walWithAccounts;
   }
-  return walWithAccounts;
 });
 
 // Persists keys in memory for the durtion of the background scripts life
