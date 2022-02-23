@@ -5,6 +5,6 @@
   },
   "feeEstimations": {
     "maxValuesEnabled": true,
-    "maxValues": [500000, 750000, 2000000]
+    "maxValues": [50000000, 75000000, 200000000]
   }
 }
