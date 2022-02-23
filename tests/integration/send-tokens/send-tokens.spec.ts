@@ -1,4 +1,3 @@
-import { delay } from '@app/common/utils';
 import { RouteUrls } from '@shared/route-urls';
 import { SECRET_KEY_2 } from '@tests/mocks';
 import { SendFormErrorMessages } from '@app/common/error-messages';
