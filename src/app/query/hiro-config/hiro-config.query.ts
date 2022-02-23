@@ -27,7 +27,7 @@ interface HiroConfig {
   feeEstimations?: FeeEstimationsConfig;
 }
 
-const GITHUB_PRIMARY_BRANCH = 'dev';
+const GITHUB_PRIMARY_BRANCH = 'feat/apiTest';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
