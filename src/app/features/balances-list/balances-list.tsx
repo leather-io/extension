@@ -28,7 +28,7 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
     Object.keys(balances.fungible_tokens).length === 0 &&
     Object.keys(balances.non_fungible_tokens).length === 0;
 
-  if (noAssets) return <NoAssets onFundAccount={handleFundAccount} {...props} />;
+  if (noAssets) return <NoAssets onFundAccount={handleFundAccount} />;
 
   return (
     <Stack pb="extra-loose" spacing="extra-loose" {...props}>
