@@ -17,7 +17,7 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { Text } from '@app/components/typography';
 import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import UnlockSession from '@assets/images/unlock-session.png';
+import UnlockSession from '@assets/images/unlock-session.svg';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
@@ -79,7 +79,7 @@ export function Unlock(): JSX.Element {
     <CenteredPageContainer>
       <Stack
         maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-        px={['loose', 'base-loose']}
+        px={['unset', 'base-loose']}
         spacing="loose"
         textAlign={['left', 'center']}
         width="100%"

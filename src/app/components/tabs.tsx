@@ -7,10 +7,11 @@ const TabButton = ({
 }: { isActive?: boolean; label: string } & BoxProps) => {
   return (
     <Box
+      flexGrow={1}
       px="base"
       py="tight"
       textAlign="center"
-      borderRadius="10px"
+      borderRadius="8px"
       color={isActive ? color('text-title') : color('text-caption')}
       fontSize={1}
       fontWeight={isActive ? 500 : 400}
@@ -59,13 +60,13 @@ export function Tabs({
 }) {
   return (
     <Stack
-      bg={color('bg-4')}
-      borderRadius="10px"
-      flexShrink={0}
-      isInline
-      p="extra-tight"
       position="relative"
-      width="196px"
+      isInline
+      borderRadius="12px"
+      bg={color('bg-4')}
+      p="extra-tight"
+      width="100%"
+      flexShrink={0}
       {...rest}
     >
       <BackgroundPill alignment={activeTab === 0 ? 'start' : 'end'} />

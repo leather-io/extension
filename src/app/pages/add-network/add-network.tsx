@@ -18,13 +18,6 @@ import {
   useUpdateNetworkState,
 } from '@app/store/network/networks.hooks';
 
-interface AddNetworkFormValues {
-  key: string;
-  name: string;
-  url: string;
-}
-const addNetworkFormValues: AddNetworkFormValues = { key: '', name: '', url: '' };
-
 export const AddNetwork = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -37,7 +30,7 @@ export const AddNetwork = () => {
   return (
     <CenteredPageContainer>
       <Formik
-        initialValues={addNetworkFormValues}
+        initialValues={{ name: '', url: '', key: '' }}
         onSubmit={async values => {
           const { name, url, key } = values;
           if (!isValidUrl(url)) {
@@ -77,7 +70,7 @@ export const AddNetwork = () => {
           <form onSubmit={handleSubmit}>
             <Stack
               maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-              px={['loose', 'base-loose']}
+              px={['unset', 'base-loose']}
               spacing="loose"
               textAlign={['left', 'center']}
             >

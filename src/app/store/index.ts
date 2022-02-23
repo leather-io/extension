@@ -18,7 +18,6 @@ import { stxChainSlice } from './chains/stx-chain.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { ExtensionStorage } from './utils/extension-storage';
-import { onboardingSlice } from './onboarding/onboarding.slice';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
@@ -28,7 +27,6 @@ const rootReducer = combineReducers({
     stx: stxChainSlice.reducer,
   }),
   inMemoryKeys: inMemoryKeySlice.reducer,
-  onboarding: onboardingSlice.reducer,
 });
 
 const persistConfig = {
@@ -36,7 +34,7 @@ const persistConfig = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['keys', 'chains', 'onboarding'],
+  whitelist: ['keys', 'chains'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

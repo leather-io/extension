@@ -1,4 +1,5 @@
-import { POPUP_CENTER_HEIGHT, POPUP_CENTER_WIDTH } from '@shared/constants';
+const popupCenterWidth = 442;
+const popupCenterHeight = 646;
 
 interface PopupOptions {
   url?: string;
@@ -8,7 +9,7 @@ interface PopupOptions {
   skipPopupFallback?: boolean;
 }
 export function popupCenter(options: PopupOptions) {
-  const { url, w = POPUP_CENTER_WIDTH, h = POPUP_CENTER_HEIGHT } = options;
+  const { url, w = popupCenterWidth, h = popupCenterHeight } = options;
 
   // @see https://developer.chrome.com/docs/extensions/reference/windows/#method-getCurrent
   chrome.windows.getCurrent(async win => {

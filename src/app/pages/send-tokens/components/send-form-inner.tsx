@@ -117,7 +117,7 @@ export function SendFormInner(props: SendFormInnerProps) {
     <Stack
       maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
       mt="loose"
-      px={['loose', 'base-loose']}
+      px={['unset', 'base-loose']}
       spacing="loose"
       width="100%"
     >

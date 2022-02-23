@@ -25,7 +25,7 @@ export const ChooseAccount = memo(() => {
   }, [handleUnmount]);
 
   return (
-    <Flex flexDirection="column" px={['loose', 'unset']}>
+    <Flex flexDirection="column">
       <Stack spacing="loose" textAlign="center">
         <AppIcon mt="extra-loose" mb="loose" size="72px" />
         <Stack spacing="base">

@@ -1,28 +1,35 @@
-import { Flex } from '@stacks/ui';
-
 import { Caption } from '@app/components/typography';
-import NoFunds from '@assets/images/no-funds.png';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-import { SecondaryButton } from '@app/components/secondary-button';
+import { NoAssetsEmptyIllustration } from '@app/components/vector/no-assets';
+import { Button, color, Stack, StackProps, useClipboard } from '@stacks/ui';
+import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
 
-interface NoAssetProps {
-  onFundAccount(): void;
+interface NoAssetProps extends StackProps {
+  address: string;
 }
-export function NoAssets({ onFundAccount }: NoAssetProps) {
+export function NoAssets({ address, ...props }: NoAssetProps) {
+  const { onCopy, hasCopied } = useClipboard(address || '');
   return (
-    <Flex alignItems="center" flexDirection="column" justifyContent="center" py="extra-loose">
-      <img src={NoFunds} />
-      <Caption maxWidth="248px" mt="extra-loose" textAlign="center">
-        This is where you’ll see your balances. Get some STX to get started.
+    <Stack
+      py="extra-loose"
+      spacing="extra-loose"
+      justifyContent="center"
+      alignItems="center"
+      {...props}
+    >
+      <NoAssetsEmptyIllustration maxWidth="120px" />
+      <Caption maxWidth="23ch" textAlign="center">
+        Get started by sending some STX to your wallet.
       </Caption>
-      <SecondaryButton
-        data-testid={OnboardingSelectors.NoAssetsFundAccountLink}
-        height="36px"
-        mt="base"
-        onClick={onFundAccount}
+      <Button
+        bg="#EEF2FB"
+        _hover={{ bg: '#E5EBFA' }}
+        color={color('brand')}
+        borderRadius="10px"
+        onClick={onCopy}
+        data-testid={UserAreaSelectors.AccountBalancesCopyAddress}
       >
-        Fund your account
-      </SecondaryButton>
-    </Flex>
+        {hasCopied ? 'Copied!' : 'Copy address'}
+      </Button>
+    </Stack>
   );
 }
