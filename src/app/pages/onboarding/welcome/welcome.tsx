@@ -6,8 +6,8 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { Header } from '@app/components/header';
 import { RouteUrls } from '@shared/route-urls';
-import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
 import { WelcomeLayout } from './welcome.layout';
+import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 export const WelcomePage = memo(() => {
@@ -23,11 +23,8 @@ export const WelcomePage = memo(() => {
 
   const startOnboarding = useCallback(async () => {
     setIsGeneratingWallet(true);
-
     keyActions.generateWalletKey();
-
     void analytics.track('generate_new_secret_key');
-
     if (decodedAuthRequest) {
       navigate(RouteUrls.SetPassword);
     }
@@ -36,7 +33,6 @@ export const WelcomePage = memo(() => {
 
   useEffect(() => {
     if (hasAllowedDiagnostics === undefined) navigate(RouteUrls.RequestDiagnostics);
-
     return () => setIsGeneratingWallet(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

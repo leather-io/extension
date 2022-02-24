@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validateMnemonic } from 'bip39';
+import toast from 'react-hot-toast';
 
 import {
   extractPhraseFromPasteEvent,
@@ -13,8 +14,7 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { useSeedInputErrorState } from '@app/store/onboarding/onboarding.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAppDispatch } from '@app/store';
-import { keyActions } from '@app/store/keys/key.actions';
-import toast from 'react-hot-toast';
+import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 
 async function simulateShortDelayToAvoidImmediateNavigation() {
   await delay(600);
@@ -77,7 +77,7 @@ export function useSignIn() {
 
       await simulateShortDelayToAvoidImmediateNavigation();
       toast.success('Secret Key valid');
-      dispatch(keyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
+      dispatch(inMemoryKeyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
       void analytics.track('submit_valid_secret_key');
       navigate(RouteUrls.SetPassword);
       setIsIdle();

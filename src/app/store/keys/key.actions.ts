@@ -6,10 +6,11 @@ import { AppThunk } from '@app/store';
 
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { defaultKeyId, keySlice } from './key.slice';
-import { selectCurrentKey, selectGeneratedSecretKey } from './key.selectors';
+import { selectCurrentKey } from './key.selectors';
 import { sendMessage } from '@shared/messages';
 import { InternalMethods } from '@shared/message-types';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
+import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 
 async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
   try {
@@ -29,7 +30,7 @@ async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
 
 const setWalletEncryptionPassword = (password: string): AppThunk => {
   return async (dispatch, getState) => {
-    const secretKey = selectGeneratedSecretKey(getState());
+    const secretKey = selectDefaultWalletKey(getState());
     if (!secretKey) throw new Error('Cannot generate wallet without first having generated a key');
     const { encryptedSecretKey, salt } = await encryptMnemonic({ secretKey, password });
     const highestAccountIndex = await restoredWalletHighestGeneratedAccountIndex(secretKey);
