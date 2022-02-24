@@ -27,6 +27,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
+import { OnboardingGate } from './onboarding-gate';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();
@@ -59,10 +60,31 @@ export function AppRoutes(): JSX.Element | null {
         >
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
-        <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
-        <Route path={RouteUrls.BackUpSecretKey} element={<BackUpSecretKeyPage />} />
+        <Route
+          path={RouteUrls.Onboarding}
+          element={
+            <OnboardingGate>
+              <WelcomePage />
+            </OnboardingGate>
+          }
+        />
+        <Route
+          path={RouteUrls.BackUpSecretKey}
+          element={
+            <OnboardingGate>
+              <BackUpSecretKeyPage />
+            </OnboardingGate>
+          }
+        />
+        <Route
+          path={RouteUrls.SetPassword}
+          element={
+            <OnboardingGate>
+              <SetPasswordPage />
+            </OnboardingGate>
+          }
+        />
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-        <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
         <Route path={RouteUrls.SignIn} element={<SignIn />} />
         <Route path={RouteUrls.MagicRecoveryCode} element={<MagicRecoveryCode />} />
         <Route
