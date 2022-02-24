@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Wallet } from '@stacks/wallet-sdk';
+import { generateSecretKey, Wallet } from '@stacks/wallet-sdk';
 
 import { useAppDispatch } from '@app/store';
 import { clearSessionLocalData } from '@app/common/store-utils';
@@ -22,7 +22,12 @@ export function useKeyActions() {
       },
 
       generateWalletKey() {
-        return dispatch(keyActions.generateWalletKey());
+        const secretKey = generateSecretKey(256);
+        sendMessage({
+          method: InternalMethods.ShareInMemoryKeyToBackground,
+          payload: { secretKey, keyId: 'default' },
+        });
+        return dispatch(inMemoryKeyActions.generateWalletKey(secretKey));
       },
 
       async unlockWallet(password: string) {

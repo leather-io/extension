@@ -1,20 +1,7 @@
 import {
-  shouldNavigateBackToBackupSecretKeyPage,
   shouldNavigateToOnboardingStartPage,
   shouldNavigateToUnlockWalletPage,
 } from './account-gate';
-
-describe(shouldNavigateBackToBackupSecretKeyPage.name, () => {
-  test('that it navigates to backup page when no wallet yet created, but key generated', () => {
-    const result = shouldNavigateBackToBackupSecretKeyPage(undefined, 'some-encrypted-key');
-    expect(result).toBeTruthy();
-  });
-
-  test('that it does not navigate to backup page when no wallet yet created, but key generated', () => {
-    const result = shouldNavigateBackToBackupSecretKeyPage(undefined, null);
-    expect(result).toBeFalsy();
-  });
-});
 
 describe(shouldNavigateToOnboardingStartPage.name, () => {
   test('that it navigates to onboarding when no key details set', () => {

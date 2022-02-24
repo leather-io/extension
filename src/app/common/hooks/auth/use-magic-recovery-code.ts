@@ -7,7 +7,7 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { RouteUrls } from '@shared/route-urls';
 import { decrypt } from '@stacks/wallet-sdk';
-import { keyActions } from '@app/store/keys/key.actions';
+import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { delay } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 
@@ -50,7 +50,7 @@ export function useMagicRecoveryCode() {
         const secretKey = await decrypt(codeBuffer, password);
         toast.success('Password correct');
         await simulateShortDelayToAvoidImmediateNavigation();
-        dispatch(keyActions.saveUsersSecretKeyToBeRestored(secretKey));
+        dispatch(inMemoryKeyActions.saveUsersSecretKeyToBeRestored(secretKey));
         handleNavigate();
       } catch (error) {
         setPasswordError(`Incorrect password, try again.`);
