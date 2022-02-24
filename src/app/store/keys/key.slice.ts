@@ -3,6 +3,8 @@ import { generateSecretKey } from '@stacks/wallet-sdk';
 
 import { migrateVaultReducerStoreToNewStateStructure } from '../utils/vault-reducer-migration';
 
+export const defaultKeyId = 'default' as const;
+
 interface KeyConfigSoftware {
   type: 'software';
   id: string;
@@ -42,7 +44,7 @@ export const keySlice = createSlice({
     },
 
     signOut(state) {
-      keyAdapter.removeOne(state, 'default');
+      keyAdapter.removeOne(state, defaultKeyId);
     },
   },
 });

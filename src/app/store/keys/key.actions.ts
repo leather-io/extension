@@ -5,7 +5,7 @@ import { gaiaUrl } from '@shared/constants';
 import { AppThunk } from '@app/store';
 
 import { stxChainSlice } from '../chains/stx-chain.slice';
-import { keySlice } from './key.slice';
+import { defaultKeyId, keySlice } from './key.slice';
 import { selectCurrentKey, selectGeneratedSecretKey } from './key.selectors';
 import { sendMessage } from '@shared/messages';
 import { InternalMethods } from '@shared/message-types';
@@ -36,7 +36,7 @@ const setWalletEncryptionPassword = (password: string): AppThunk => {
 
     sendMessage({
       method: InternalMethods.ShareInMemoryKeyToBackground,
-      payload: { secretKey, keyId: 'default' },
+      payload: { secretKey, keyId: defaultKeyId },
     });
 
     dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
@@ -44,7 +44,7 @@ const setWalletEncryptionPassword = (password: string): AppThunk => {
     dispatch(
       keySlice.actions.createNewWalletComplete({
         type: 'software',
-        id: 'default',
+        id: defaultKeyId,
         salt,
         encryptedSecretKey,
       })
@@ -64,7 +64,7 @@ const unlockWalletAction = (password: string): AppThunk => {
 
     sendMessage({
       method: InternalMethods.ShareInMemoryKeyToBackground,
-      payload: { secretKey: secretKey, keyId: 'default' },
+      payload: { secretKey: secretKey, keyId: defaultKeyId },
     });
     dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
   };
