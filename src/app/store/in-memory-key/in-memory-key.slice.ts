@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { keySlice } from '../keys/key.slice';
+import { defaultKeyId, keySlice } from '../keys/key.slice';
+import { isUndefined } from '@app/common/utils';
 
 interface InMemoryKeyState {
   hasRestoredKeys: boolean;
@@ -15,9 +16,24 @@ export const inMemoryKeySlice = createSlice({
   name: 'inMemoryKey',
   initialState,
   reducers: {
-    setKeysInMemory(state, action: PayloadAction<Record<string, string>>) {
-      return { hasRestoredKeys: true, keys: { ...state.keys, ...action.payload } };
+    generateWalletKey(state, action: PayloadAction<string>) {
+      if (!isUndefined(state.keys[defaultKeyId])) {
+        throw new Error('Cannot generate new key for existing wallet');
+      }
+      state.keys[defaultKeyId] = action.payload;
     },
+
+    saveUsersSecretKeyToBeRestored(state, action: PayloadAction<string>) {
+      if (!isUndefined(state.keys[defaultKeyId])) {
+        throw new Error('Cannot restore key for pre-existing wallet');
+      }
+      state.keys[defaultKeyId] = action.payload;
+    },
+
+    setKeysInMemory(state, action: PayloadAction<Record<string, string>>) {
+      return { ...state, hasRestoredKeys: true, keys: { ...state.keys, ...action.payload } };
+    },
+
     lockWallet(state) {
       state.keys = {};
     },
