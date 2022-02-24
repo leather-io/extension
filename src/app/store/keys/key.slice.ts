@@ -41,10 +41,6 @@ export const keySlice = createSlice({
       keyAdapter.addOne(state, action.payload);
     },
 
-    unlockWalletComplete(state, action: PayloadAction<Partial<KeyConfigSoftware>>) {
-      keyAdapter.updateOne(state, { id: 'default', changes: action.payload });
-    },
-
     signOut(state) {
       keyAdapter.removeOne(state, 'default');
     },

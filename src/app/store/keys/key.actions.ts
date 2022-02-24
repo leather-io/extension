@@ -57,16 +57,16 @@ const setWalletEncryptionPassword = (password: string): AppThunk => {
 const unlockWalletAction = (password: string): AppThunk => {
   return async (dispatch, getState) => {
     const currentKey = selectCurrentKey(getState());
+
     if (!currentKey) return;
-    const { encryptedSecretKey, salt } = currentKey;
-    const decryptedData = await decryptMnemonic({ encryptedSecretKey, password, salt });
+
+    const { secretKey } = await decryptMnemonic({ password, ...currentKey });
 
     sendMessage({
       method: InternalMethods.ShareInMemoryKeyToBackground,
-      payload: { secretKey: decryptedData.secretKey, keyId: 'default' },
+      payload: { secretKey: secretKey, keyId: 'default' },
     });
-    dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: decryptedData.secretKey }));
-    dispatch(keySlice.actions.unlockWalletComplete(decryptedData));
+    dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
   };
 };
 
