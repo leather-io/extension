@@ -1,6 +1,6 @@
 import { Box, color, Flex, Stack } from '@stacks/ui';
 
-import { isFullPage } from '@app/common/utils';
+import { isFullPage, whenPageMode } from '@app/common/utils';
 import { Caption, Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { PageTitle } from '@app/components/page-title';
@@ -33,36 +33,70 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
   const { isGeneratingWallet, onStartOnboarding, onRestoreWallet } = props;
 
   return (
-    <CenteredPageContainer>
+    <CenteredPageContainer mt={whenPageMode({ full: undefined, popup: 'base-loose' })}>
       <Stack isInline={isFullPage} width="100%">
         <Flex flexGrow={1} justifyContent="center" order={[0, 1, 1]}>
           <WelcomeIllustration />
         </Flex>
         <Flex alignItems="center" flexGrow={1} justifyContent="center" mt={['base', 'unset']}>
           <Stack maxWidth="500px" spacing={['base', 'base-loose', 'loose']}>
-            <PageTitle isHeadline>Explore the world of Stacks</PageTitle>
+            <PageTitle isHeadline maxWidth="unset">
+              {whenPageMode({
+                full: <>Explore the world of Stacks</>,
+                popup: (
+                  <>
+                    Welcome to <br /> Hiro Wallet
+                  </>
+                ),
+              })}
+            </PageTitle>
             <Text pr={['unset', '60px']}>
               Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
-              secure. Create your Stacks account to get started.
+              secure.{' '}
+              {whenPageMode({
+                full: 'Create your Stacks account to get started.',
+                popup: null,
+              })}
             </Text>
-            <PrimaryButton
-              data-testid={OnboardingSelectors.SignUpBtn}
-              isLoading={isGeneratingWallet}
-              onClick={onStartOnboarding}
-              width="198px"
-            >
-              Create Stacks Account
-            </PrimaryButton>
-            <Stack mt={['base', 'base-tight', 'tight']} spacing="tight">
-              <Caption>Already have a Stacks account?</Caption>
-              <Link
-                data-testid={OnboardingSelectors.SignInLink}
-                fontSize="14px"
-                onClick={onRestoreWallet}
-              >
-                Sign in with Secret Key
-              </Link>
-            </Stack>
+            {whenPageMode({
+              popup: (
+                <>
+                  <PrimaryButton
+                    mt="base"
+                    data-testid={OnboardingSelectors.SignUpBtn}
+                    isLoading={isGeneratingWallet}
+                    onClick={onStartOnboarding}
+                  >
+                    Get started
+                  </PrimaryButton>
+                  <Caption mt="extra-tight" textAlign="center">
+                    You'll be taken to a new tab
+                  </Caption>
+                </>
+              ),
+              full: (
+                <>
+                  <PrimaryButton
+                    data-testid={OnboardingSelectors.SignUpBtn}
+                    isLoading={isGeneratingWallet}
+                    onClick={onStartOnboarding}
+                    width="198px"
+                  >
+                    Create Stacks Account
+                  </PrimaryButton>
+                  <Stack mt={['base', 'base-tight', 'tight']} spacing="tight">
+                    <Caption>Already have a Stacks account?</Caption>
+                    <Link
+                      data-testid={OnboardingSelectors.SignInLink}
+                      fontSize="14px"
+                      onClick={onRestoreWallet}
+                    >
+                      Sign in with Secret Key
+                    </Link>
+                  </Stack>
+                </>
+              ),
+            })}
           </Stack>
         </Flex>
       </Stack>

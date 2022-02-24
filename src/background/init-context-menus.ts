@@ -1,6 +1,4 @@
-function openNewTabWithWallet() {
-  return chrome.tabs.create({ url: 'index.html' });
-}
+import { openNewTabWalletPage } from '@shared/utils/open-wallet-page';
 
 export function initContextMenuActions() {
   chrome.contextMenus.removeAll();
@@ -9,7 +7,7 @@ export function initContextMenuActions() {
     title: 'Open Hiro Wallet in a new tab',
     contexts: ['browser_action'],
     async onclick() {
-      await openNewTabWithWallet();
+      await openNewTabWalletPage();
     },
   });
 }

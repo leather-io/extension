@@ -282,3 +282,13 @@ export function formatContractId(address: string, name: string) {
 
 export const isFullPage = document.location.pathname.startsWith('/index.html');
 export const isPopup = !isFullPage;
+
+const pageMode = isFullPage ? 'full' : 'popup';
+
+type PageMode = 'popup' | 'full';
+
+type WhenPageModeMap<T> = Record<PageMode, T>;
+
+export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
+  return pageModeMap[pageMode];
+}
