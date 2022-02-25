@@ -31,6 +31,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
+import { LedgerContainer } from '@app/pages/ledger/ledger-container';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();
@@ -71,9 +72,11 @@ export function AppRoutes(): JSX.Element | null {
             </OnboardingGate>
           }
         >
-          <Route path={RouteUrls.ConnectLedger} element={<ConnectLedger />} />
-          <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
-          <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccess />} />
+          <Route element={<LedgerContainer />}>
+            <Route path={RouteUrls.ConnectLedger} element={<ConnectLedger />} />
+            {/* <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
+            <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccess />} /> */}
+          </Route>
         </Route>
         <Route
           path={RouteUrls.BackUpSecretKey}

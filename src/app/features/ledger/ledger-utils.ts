@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Transport from '@ledgerhq/hw-transport-webusb';
-import StacksApp from '@zondax/ledger-blockstack';
+import StacksApp, { LedgerError } from '@zondax/ledger-blockstack';
 import { AddressVersion } from '@stacks/transactions';
 import { keySlice } from '@app/store/keys/key.slice';
 import { RouteUrls } from '@shared/route-urls';
@@ -10,8 +10,7 @@ import { RouteUrls } from '@shared/route-urls';
 import toast from 'react-hot-toast';
 import { delay } from '@app/common/utils';
 
-// const STX_DERIVATION_PATH = `m/44'/5757'/0'/0/0`;
-const STX_DERIVATION_PATH_LESS_ACCOUNT = `m/44'/5757'/0'/0/{account}`;
+const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
 
 export async function connectLedger() {
   const transport = await Transport.create();
@@ -21,11 +20,15 @@ export async function connectLedger() {
 function requestPublicKeyForAccount(app: StacksApp) {
   return async (index: number) =>
     app.getAddressAndPubKey(
-      STX_DERIVATION_PATH_LESS_ACCOUNT.replace('{account}', index.toString()),
+      stxDerivationWithAccount.replace('{account}', index.toString()),
       // We pass mainnet as it expects something, however this is so it can return a formatted address
       // We only need the public key, and can derive the address later in any network format
       AddressVersion.MainnetSingleSig
     );
+}
+
+export async function getAppVersion(app: StacksApp) {
+  return app.getVersion();
 }
 
 interface PullKeysFromLedgerSuccess {

@@ -13,11 +13,12 @@ import { ConnectLedgerTitle } from '../components/connect-ledger-title';
 
 interface ConnectLedgerLayoutProps {
   isLookingForLedger: boolean;
+  warning: React.ReactNode;
   onCancelConnectLedger(): void;
   onConnectLedger(): void;
 }
 export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
-  const { isLookingForLedger, onCancelConnectLedger, onConnectLedger } = props;
+  const { isLookingForLedger, onCancelConnectLedger, onConnectLedger, warning } = props;
 
   return (
     <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
@@ -30,6 +31,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
           </Box>
         </Flex>
         <ConnectLedgerTitle />
+        <Box mb="base">{warning}</Box>
         {isLookingForLedger ? (
           <LookingForLedger />
         ) : (
