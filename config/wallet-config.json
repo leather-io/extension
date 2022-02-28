@@ -5,6 +5,6 @@
   },
   "feeEstimations": {
     "maxValuesEnabled": true,
-    "maxValues": [3, 2, 1]
+    "maxValues": [000, 000, 000]
   }
 }
