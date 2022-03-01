@@ -9,11 +9,9 @@ export const ConnectLedgerSuccess = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // TODO: Replace with actual ledger integration
-    setTimeout(() => {
-      navigate(RouteUrls.Home);
-    }, 3000);
-  });
+    setTimeout(() => navigate(RouteUrls.Home), 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ConnectLedgerSuccessLayout onCancelConnectLedger={() => navigate(RouteUrls.Onboarding)} />

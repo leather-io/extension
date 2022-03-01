@@ -15,10 +15,12 @@ import { RouteUrls } from '@shared/route-urls';
 
 interface LedgerOnboardingContext {
   latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;
+  awaitingDeviceConnection: boolean;
   pullPublicKeysFromDevice(): Promise<void> | void;
 }
 export const ledgerOnboardingContext = createContext<LedgerOnboardingContext>({
   latestDeviceResponse: null,
+  awaitingDeviceConnection: false,
   pullPublicKeysFromDevice: noop,
 });
 
@@ -31,42 +33,56 @@ export function LedgerContainer() {
     useTriggerLedgerDeviceOnboarding();
 
   const setIsLookingForLedger = useCallback(
-    x => navigate(RouteUrls.ConnectLedger, { state: { isLookingForLedger: x } }),
+    x =>
+      navigate(RouteUrls.ConnectLedger, {
+        replace: true,
+        state: { isLookingForLedger: x },
+      }),
     [navigate]
   );
 
   const [latestDeviceResponse, setLatestDeviceResponse] =
     useState<LedgerOnboardingContext['latestDeviceResponse']>(null);
 
-  const [connectBtnLoading, setConnectBtnLoading] = useState(false);
+  const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
   const pullPublicKeysFromDevice = useCallback(async () => {
     console.log('connect ledger device');
+    setAwaitingDeviceConnection(true);
     const [error, stacks] = await safeAwait(connectLedger());
+    await delay(1000);
+    setAwaitingDeviceConnection(false);
 
     if (error) {
-      navigate(RouteUrls.ConnectLedgerError);
+      navigate(RouteUrls.ConnectLedgerError, { replace: true });
       return;
     }
     if (stacks) {
-      setIsLookingForLedger(true);
       const versionInfo = await getAppVersion(stacks);
       setLatestDeviceResponse(versionInfo);
       console.log({ versionInfo });
 
+      if (versionInfo.deviceLocked) {
+        // setIsLookingForLedger(false);
+        setAwaitingDeviceConnection(false);
+        return;
+      }
+
       if (versionInfo.returnCode !== LedgerError.NoErrors) {
-        setIsLookingForLedger(false);
+        // setIsLookingForLedger(false);
         await delay(1000);
         toast.error(versionInfo.errorMessage);
         return;
       }
 
       try {
+        setIsLookingForLedger(true);
         const resp = await pullKeysFromLedgerDevice(stacks);
         if (resp.status === 'failure') {
           setIsLookingForLedger(false);
           fireErrorMessageToast(resp.errorMessage);
           navigate(RouteUrls.ConnectLedgerError, {
+            replace: true,
             state: { latestLedgerError: resp.errorMessage },
           });
           return;
@@ -74,7 +90,7 @@ export function LedgerContainer() {
         setIsLookingForLedger(true);
         completeLedgerDeviceOnboarding(resp.publicKeys);
         setIsLookingForLedger(false);
-        navigate(RouteUrls.ConnectLedgerSuccess);
+        navigate(RouteUrls.ConnectLedgerSuccess, { replace: true });
       } catch (e) {
         console.log(e);
       }
@@ -82,11 +98,8 @@ export function LedgerContainer() {
   }, [completeLedgerDeviceOnboarding, fireErrorMessageToast, navigate, setIsLookingForLedger]);
 
   const ledgerContextValue = useMemo(
-    () => ({
-      pullPublicKeysFromDevice,
-      latestDeviceResponse,
-    }),
-    [latestDeviceResponse, pullPublicKeysFromDevice]
+    () => ({ pullPublicKeysFromDevice, latestDeviceResponse, awaitingDeviceConnection }),
+    [awaitingDeviceConnection, latestDeviceResponse, pullPublicKeysFromDevice]
   );
 
   return (

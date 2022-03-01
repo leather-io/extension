@@ -13,16 +13,22 @@ import { ConnectLedgerTitle } from '../components/connect-ledger-title';
 
 interface ConnectLedgerLayoutProps {
   isLookingForLedger: boolean;
+  awaitingLedgerConnection: boolean;
   warning: React.ReactNode;
   onCancelConnectLedger(): void;
   onConnectLedger(): void;
 }
 export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
-  const { x, isLookingForLedger, onCancelConnectLedger, onConnectLedger, warning } = props;
+  const {
+    isLookingForLedger,
+    onCancelConnectLedger,
+    onConnectLedger,
+    warning,
+    awaitingLedgerConnection,
+  } = props;
 
   return (
     <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
-      {x}
       <Flex alignItems="center" flexDirection="column" pb="loose" textAlign="center">
         <Flex flexDirection="column">
           {/* TODO: Implement warning with actual ledger integration */}
@@ -32,12 +38,19 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
           </Box>
         </Flex>
         <ConnectLedgerTitle />
-        <Box mb="base">{warning}</Box>
+        <Box mb="base" mx="extra-loose">
+          {warning}
+        </Box>
         {isLookingForLedger ? (
           <LookingForLedger />
         ) : (
           <>
-            <PrimaryButton height="40px" mb="loose" onClick={onConnectLedger}>
+            <PrimaryButton
+              height="40px"
+              mb="loose"
+              onClick={onConnectLedger}
+              isLoading={awaitingLedgerConnection}
+            >
               Connect
             </PrimaryButton>
             <Divider />

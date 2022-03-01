@@ -51,7 +51,7 @@ type PullKeysFromLedgerResponse = Promise<PullKeysFromLedgerSuccess | PullKeysFr
 
 export async function pullKeysFromLedgerDevice(stacksApp: StacksApp): PullKeysFromLedgerResponse {
   const publicKeys = [];
-  const amountOfKeysToExtractFromDevice = 3;
+  const amountOfKeysToExtractFromDevice = 5;
   for (let index = 0; index < amountOfKeysToExtractFromDevice; index++) {
     const resp = await requestPublicKeyForAccount(stacksApp)(index);
     if (!resp.publicKey) return { status: 'failure', ...resp };

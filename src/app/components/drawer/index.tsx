@@ -3,14 +3,14 @@ import { Flex, useEventListener, IconButton, color, transition } from '@stacks/u
 import { FiX as IconX } from 'react-icons/fi';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { isString } from '@app/common/utils';
+import { isString, noop } from '@app/common/utils';
 import { Title } from '@app/components/typography';
 
 export interface BaseDrawerProps {
   isShowing: boolean;
   title?: string | JSX.Element;
   pauseOnClickOutside?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   children?: ReactNode;
 }
 
@@ -32,13 +32,11 @@ function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
   return ref;
 }
 
-const DrawerHeader = ({
-  title,
-  onClose,
-}: {
+interface DrawerHeaderProps {
   title: BaseDrawerProps['title'];
-  onClose: BaseDrawerProps['onClose'];
-}) => {
+  onClose?: BaseDrawerProps['onClose'];
+}
+const DrawerHeader = ({ title, onClose }: DrawerHeaderProps) => {
   return (
     <Flex pb="base" justifyContent="space-between" alignItems="center" pt="loose" px="loose">
       {title && isString(title) ? (
@@ -48,22 +46,24 @@ const DrawerHeader = ({
       ) : (
         title
       )}
-      <IconButton
-        transform="translateX(8px)"
-        size="36px"
-        iconSize="20px"
-        onClick={onClose}
-        color={color('text-caption')}
-        _hover={{ color: color('text-title') }}
-        icon={IconX}
-      />
+      {onClose && (
+        <IconButton
+          transform="translateX(8px)"
+          size="36px"
+          iconSize="20px"
+          onClick={onClose}
+          color={color('text-caption')}
+          _hover={{ color: color('text-title') }}
+          icon={IconX}
+        />
+      )}
     </Flex>
   );
 };
 
 export const BaseDrawer = memo((props: BaseDrawerProps) => {
   const { title, isShowing, onClose, children, pauseOnClickOutside } = props;
-  const ref = useDrawer(isShowing, onClose, pauseOnClickOutside);
+  const ref = useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);
   return (
     <Flex
       bg={`rgba(0,0,0,0.${isShowing ? 4 : 0})`}

@@ -14,7 +14,8 @@ export const ConnectLedger = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { pullPublicKeysFromDevice, latestDeviceResponse } = useContext(ledgerOnboardingContext);
+  const { pullPublicKeysFromDevice, latestDeviceResponse, awaitingDeviceConnection } =
+    useContext(ledgerOnboardingContext);
 
   const isLookingForLedger = location.state && (location.state as any).isLookingForLedger;
 
@@ -22,7 +23,13 @@ export const ConnectLedger = () => {
 
   const warnings = useMemo(() => {
     if (isLookingForLedger) return null;
-    if (latestDeviceResponse?.status === 'success') return null;
+    // if (latestDeviceResponse?.status === 'success') return null;
+    if (latestDeviceResponse?.deviceLocked)
+      return (
+        <LedgerInfoLabel>
+          Your Ledger is locked. Unlock it and open the Stacks app to continue.
+        </LedgerInfoLabel>
+      );
     if (latestDeviceResponse?.returnCode === LedgerError.AppDoesNotSeemToBeOpen)
       return <LedgerInfoLabel>App doesn't appear to be open</LedgerInfoLabel>;
     return null;
@@ -31,20 +38,7 @@ export const ConnectLedger = () => {
   return (
     <>
       <ConnectLedgerLayout
-        // x={
-        //   <>
-        //     <button
-        //       onClick={() =>
-        //         navigate(RouteUrls.ConnectLedger, {
-        //           state: { isLookingForLedger: !isLookingForLedger },
-        //         })
-        //       }
-        //     >
-        //       toggle
-        //     </button>
-        //     <button onClick={() => console.log(ctx)}>ctx</button>
-        //   </>
-        // }
+        awaitingLedgerConnection={awaitingDeviceConnection}
         isLookingForLedger={isLookingForLedger}
         warning={warnings}
         onCancelConnectLedger={() => navigate(RouteUrls.Onboarding)}

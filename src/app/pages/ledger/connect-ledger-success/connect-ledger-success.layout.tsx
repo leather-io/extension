@@ -14,7 +14,7 @@ export function ConnectLedgerSuccessLayout(props: ConnectLedgerSuccessLayoutProp
   const { onCancelConnectLedger } = props;
 
   return (
-    <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
+    <BaseDrawer title={<Box />} isShowing>
       <Flex alignItems="center" flexDirection="column" pb="loose" textAlign="center">
         <Box mt="tight">
           <img src={ConnectLedgerSuccess} width="267px" />
