@@ -18,10 +18,11 @@ interface ConnectLedgerLayoutProps {
   onConnectLedger(): void;
 }
 export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
-  const { isLookingForLedger, onCancelConnectLedger, onConnectLedger, warning } = props;
+  const { x, isLookingForLedger, onCancelConnectLedger, onConnectLedger, warning } = props;
 
   return (
     <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
+      {x}
       <Flex alignItems="center" flexDirection="column" pb="loose" textAlign="center">
         <Flex flexDirection="column">
           {/* TODO: Implement warning with actual ledger integration */}

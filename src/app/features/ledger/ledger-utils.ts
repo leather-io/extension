@@ -31,6 +31,11 @@ export async function getAppVersion(app: StacksApp) {
   return app.getVersion();
 }
 
+export function signLedgerTransaction(app: StacksApp) {
+  return async (payload: Buffer, accountIndex: number) =>
+    app.sign(stxDerivationWithAccount.replace('{account}', accountIndex.toString()), payload);
+}
+
 interface PullKeysFromLedgerSuccess {
   status: 'success';
   publicKeys: string[];

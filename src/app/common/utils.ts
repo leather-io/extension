@@ -276,6 +276,8 @@ export function isEmpty(value: Object) {
   return Object.keys(value).length === 0;
 }
 
+export function noop() {}
+
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }

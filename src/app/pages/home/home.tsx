@@ -12,20 +12,18 @@ import { BalancesList } from '@app/features/balances-list/balances-list';
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
-import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HomeTabs } from './components/home-tabs';
 import { CurrentAccount } from './components/account-area';
+import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
 
   const account = useCurrentAccount();
-  const a = useAccounts();
-
-  console.log(a);
 
   useRouteHeader(
     <>
@@ -38,6 +36,8 @@ export function Home() {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!account) return <FullPageLoadingSpinner />;
 
   return (
     <>

@@ -1,9 +1,84 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { createContext, useCallback, useMemo, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { LedgerError } from '@zondax/ledger-blockstack';
+import toast from 'react-hot-toast';
 
-interface LedgerContainerProps {}
-export function LedgerContainer(props: LedgerContainerProps) {
-  console.log('ledger container');
-  const location = useLocation();
+import { delay, noop } from '@app/common/utils';
+import { safeAwait } from '@stacks/ui';
+import {
+  connectLedger,
+  getAppVersion,
+  pullKeysFromLedgerDevice,
+  useTriggerLedgerDeviceOnboarding,
+} from '@app/features/ledger/ledger-utils';
+import { RouteUrls } from '@shared/route-urls';
 
-  return <Outlet />;
+export const ledgerOnboardingContext = createContext({ onLedgerConnect: noop });
+
+const LedgerOnboardingProvider = ledgerOnboardingContext.Provider;
+
+export function LedgerContainer() {
+  const navigate = useNavigate();
+
+  const { completeLedgerDeviceOnboarding, fireErrorMessageToast } =
+    useTriggerLedgerDeviceOnboarding();
+
+  const setIsLookingForLedger = useCallback(
+    x => navigate(RouteUrls.ConnectLedger, { state: { isLookingForLedger: x } }),
+    [navigate]
+  );
+
+  const [latestDeviceResponse, setLatestDeviceResponse] =
+    useState<Awaited<ReturnType<typeof getAppVersion>>>();
+
+  const connectLedgerDevice = useCallback(async () => {
+    console.log('connect ledger device');
+    const [error, stacks] = await safeAwait(connectLedger());
+
+    if (error) {
+      navigate(RouteUrls.ConnectLedgerError);
+      return;
+    }
+    if (stacks) {
+      setIsLookingForLedger(true);
+      const versionInfo = await getAppVersion(stacks);
+      setLatestDeviceResponse(versionInfo);
+      console.log({ versionInfo });
+
+      if (versionInfo.returnCode !== LedgerError.NoErrors) {
+        setIsLookingForLedger(false);
+        await delay(1000);
+        toast.error(versionInfo.errorMessage);
+        return;
+      }
+
+      try {
+        const resp = await pullKeysFromLedgerDevice(stacks);
+        if (resp.status === 'failure') {
+          setIsLookingForLedger(false);
+          fireErrorMessageToast(resp.errorMessage);
+          navigate(RouteUrls.ConnectLedgerError);
+          return;
+        }
+        setIsLookingForLedger(true);
+        completeLedgerDeviceOnboarding(resp.publicKeys);
+        setIsLookingForLedger(false);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [completeLedgerDeviceOnboarding, fireErrorMessageToast, navigate, setIsLookingForLedger]);
+
+  const ledgerContextValue = useMemo(
+    () => ({
+      onLedgerConnect: connectLedgerDevice,
+    }),
+    []
+  );
+
+  return (
+    <LedgerOnboardingProvider value={ledgerContextValue}>
+      <Outlet />
+    </LedgerOnboardingProvider>
+  );
 }

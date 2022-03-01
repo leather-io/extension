@@ -63,7 +63,6 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         <PrimaryButton height="40px" onClick={onTryAgain}>
           Try again
         </PrimaryButton>
-        {/* TODO: Add support page route link here */}
         <Caption mt="loose">
           If the problem persists, check our{' '}
           <Link display="inline" fontSize={1} onClick={() => {}}>

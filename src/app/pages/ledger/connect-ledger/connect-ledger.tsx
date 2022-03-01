@@ -1,70 +1,54 @@
-import { useCallback, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { useContext, useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
-import {
-  connectLedger,
-  getAppVersion,
-  useTriggerLedgerDeviceOnboarding,
-} from '@app/features/ledger/ledger-utils';
 
 import { ConnectLedgerLayout } from './connect-ledger.layout';
 import { LedgerInfoLabel } from './components/ledger-info-label';
-import { LedgerError } from '@zondax/ledger-blockstack';
+
+import { useWhenReattemptingLedgerConnection } from '../use-when-reattempt-ledger-connection';
+
+import { ledgerOnboardingContext } from '../ledger-container';
 
 export const ConnectLedger = () => {
-  const [isLookingForLedger, setIsLookingForLedger] = useState(false);
-  const [latestDeviceResponse, setLatestDeviceResponse] =
-    useState<Awaited<ReturnType<typeof getAppVersion>>>();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const { completeLedgerDeviceOnboarding, fireErrorMessageToast } =
-    useTriggerLedgerDeviceOnboarding();
+  const ctx = useContext(ledgerOnboardingContext);
 
-  const connectLedgerDevice = useCallback(async () => {
-    console.log('connect to ledger');
-    try {
-      const stacks = await connectLedger();
-      // setIsLookingForLedger(true);
-      // const versionInfo = await getAppVersion(stacks);
-      // setLatestDeviceResponse(versionInfo);
-      // console.log(versionInfo);
+  const isLookingForLedger = location.state && (location.state as any).isLookingForLedger;
 
-      // if (versionInfo.returnCode !== LedgerError.NoErrors) return;
-    } catch (e) {
-      console.log(e);
-    }
-
-    try {
-      // const resp = await pullKeysFromLedgerDevice(stacks);
-      // setLatestDeviceResponse(resp);
-      // console.log(resp);
-      // if (resp.status === 'failure') {
-      //   // console.log(resp);
-      //   setIsLookingForLedger(false);
-      //   return fireErrorMessageToast(resp.errorMessage);
-      // }
-      // setIsLookingForLedger(true);
-      // completeLedgerDeviceOnboarding(resp.publicKeys);
-      setIsLookingForLedger(false);
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  useWhenReattemptingLedgerConnection(() => ctx.onLedgerConnect());
 
   const warnings = useMemo(() => {
     if (isLookingForLedger) return null;
-    if (latestDeviceResponse?.status === 'success') return null;
-    if (latestDeviceResponse?.returnCode === LedgerError.AppDoesNotSeemToBeOpen)
-      return <LedgerInfoLabel>App doesn't appear to be open</LedgerInfoLabel>;
-  }, [isLookingForLedger, latestDeviceResponse]);
+    // if (latestDeviceResponse?.status === 'success') return null;
+    // if (latestDeviceResponse?.returnCode === LedgerError.AppDoesNotSeemToBeOpen)
+    return <LedgerInfoLabel>App doesn't appear to be open</LedgerInfoLabel>;
+    return null;
+  }, [isLookingForLedger]);
 
   return (
-    <ConnectLedgerLayout
-      isLookingForLedger={isLookingForLedger}
-      warning={warnings}
-      onCancelConnectLedger={() => navigate(RouteUrls.Onboarding)}
-      onConnectLedger={connectLedgerDevice}
-    />
+    <>
+      <ConnectLedgerLayout
+        x={
+          <>
+            <button
+              onClick={() =>
+                navigate(RouteUrls.ConnectLedger, {
+                  state: { isLookingForLedger: !isLookingForLedger },
+                })
+              }
+            >
+              toggle
+            </button>
+            <button onClick={() => console.log(ctx)}>ctx</button>
+          </>
+        }
+        isLookingForLedger={isLookingForLedger}
+        warning={warnings}
+        onCancelConnectLedger={() => navigate(RouteUrls.Onboarding)}
+        onConnectLedger={ctx.onLedgerConnect}
+      />
+    </>
   );
 };

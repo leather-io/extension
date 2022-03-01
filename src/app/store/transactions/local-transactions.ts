@@ -50,10 +50,11 @@ export function useStxTokenTransferUnsignedTxState() {
   const customNonce = useAtomValue(customNonceState);
   const { network, account, nonce } = useAtomValue(stxTokenTransferAtomDeps);
 
-  return useAsync(async () => {
+  const tx = useAsync(async () => {
     if (!address) return;
     if (!account || typeof nonce === 'undefined') return;
     const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
+    // console.log({ address, account, nonce });
     const options: GenerateUnsignedTransactionOptions = {
       publicKey: account.stxPublicKey,
       nonce: txNonce,
@@ -71,8 +72,12 @@ export function useStxTokenTransferUnsignedTxState() {
         // work, and concersion allows us to remove lots of type mangling
       } as STXTransferPayload,
     };
-    return generateUnsignedTransaction(options);
-  }, [txData, address, customNonce, network, account, nonce]).result;
+    const tx = await generateUnsignedTransaction(options);
+    // console.log(tx);
+    return tx;
+  }, [txData, address, customNonce, network, account, nonce]);
+  // console.log(tx);
+  return tx.result;
 }
 
 export function useFtTokenTransferUnsignedTx() {

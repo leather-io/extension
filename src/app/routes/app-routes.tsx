@@ -74,8 +74,8 @@ export function AppRoutes(): JSX.Element | null {
         >
           <Route element={<LedgerContainer />}>
             <Route path={RouteUrls.ConnectLedger} element={<ConnectLedger />} />
-            {/* <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
-            <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccess />} /> */}
+            <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
+            <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccess />} />
           </Route>
         </Route>
         <Route

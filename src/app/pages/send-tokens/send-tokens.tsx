@@ -26,6 +26,16 @@ import { SendFormInner } from './components/send-form-inner';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { safeAwait } from '@stacks/ui';
+import { connectLedger, signLedgerTransaction } from '@app/features/ledger/ledger-utils';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { delay } from '@app/common/utils';
+import {
+  createMessageSignature,
+  deserializeTransaction,
+  SingleSigSpendingCondition,
+} from '@stacks/transactions';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -41,8 +51,9 @@ function SendTokensFormBase() {
   const transaction = useSendFormUnsignedTxState();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const analytics = useAnalytics();
-
+  const { whenWallet } = useWalletType();
   useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
+  const account = useCurrentAccount();
 
   const handleConfirmDrawerOnClose = useCallback(() => {
     setShowing(false);
@@ -62,27 +73,73 @@ function SendTokensFormBase() {
       return;
     }
 
-    const signedTx = signSoftwareWalletTx(transaction);
-    if (!signedTx) {
-      logger.error('Cannot sign transaction, no account in state');
-      toast.error('Unable to broadcast transaction');
+    // const signedTxGenerator = whenWallet({
+    //   software() {
+    //     return async () => signSoftwareWalletTx(transaction);
+    //   },
+    //   ledger() {
+    //     return async () => {
+    //       console.log('signing ledger tx', account);
+    //       if (!account) return toast.error('Must have an active account');
+    //       try {
+    //         const stacks = await connectLedger();
+    //         const rawTx = transaction.serialize();
+    //         console.log('rawtx', rawTx);
+    //         const ledgerResponse = await signLedgerTransaction(stacks)(rawTx, account.index);
+    //         const sig = ledgerResponse.signatureVRS.toString('hex');
+    //         const spendingCondition = createMessageSignature(sig);
+    //         console.log(spendingCondition);
+    //         const newTx = deserializeTransaction(rawTx);
+    //         (newTx.auth.spendingCondition as SingleSigSpendingCondition).signature =
+    //           spendingCondition;
+    //         return newTx;
+    //       } catch (e) {
+    //         console.log(e);
+    //         toast.error('SOmething went wr0nG');
+    //         return;
+    //       }
+    //     };
+    //   },
+    // });
+
+    console.log('signing ledger tx', account);
+    if (!account) return toast.error('Must have an active account');
+    try {
+      const stacks = await connectLedger();
+      const rawTx = transaction.serialize();
+      console.log('rawtx', rawTx);
+      const ledgerResponse = await signLedgerTransaction(stacks)(rawTx, account.index);
+      const sig = ledgerResponse.signatureVRS.toString('hex');
+      const spendingCondition = createMessageSignature(sig);
+      console.log(spendingCondition);
+      const signedTx = deserializeTransaction(rawTx);
+      (signedTx.auth.spendingCondition as SingleSigSpendingCondition).signature = spendingCondition;
+
+      if (!signedTx) {
+        logger.error('Cannot sign transaction, no account in state');
+        toast.error('Unable to broadcast transaction');
+        return;
+      }
+
+      await broadcastTransactionFn({
+        transaction: signedTx,
+        onClose() {
+          handleConfirmDrawerOnClose();
+          navigate(RouteUrls.Home);
+        },
+      });
+      setFeeEstimations([]);
+    } catch (e) {
+      console.log(e);
+      toast.error('SOmething went wr0nG');
       return;
     }
-
-    await broadcastTransactionFn({
-      transaction: signedTx,
-      onClose() {
-        handleConfirmDrawerOnClose();
-        navigate(RouteUrls.Home);
-      },
-    });
-    setFeeEstimations([]);
   }, [
+    account,
     broadcastTransactionFn,
     handleConfirmDrawerOnClose,
     navigate,
     setFeeEstimations,
-    signSoftwareWalletTx,
     transaction,
   ]);
 

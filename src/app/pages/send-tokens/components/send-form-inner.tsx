@@ -50,6 +50,11 @@ export function SendFormInner(props: SendFormInnerProps) {
     estimatedTxByteLength
   );
 
+  // console.log({
+  //   serializedTxPayload,
+  //   estimatedTxByteLength,
+  // });
+
   const [, setFeeEstimations] = useFeeEstimationsState();
   const feeEstimationsMaxValues = useFeeEstimationsMaxValues();
   const { selectedAsset } = useSelectedAsset();
@@ -108,6 +113,8 @@ export function SendFormInner(props: SendFormInnerProps) {
     setValues({ ...values, amount: '', fee: '' });
     setFieldError('amount', undefined);
   }, [assets.length, setValues, values, setFieldError]);
+
+  // console.log(values);
 
   const hasValues = values.amount && values.recipient !== '' && values.fee;
 
