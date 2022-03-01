@@ -9,6 +9,7 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { Link } from '@app/components/link';
 
 import { ConnectLedgerTitle } from '../components/connect-ledger-title';
+import { WarningLabel } from '@app/components/warning-label';
 
 interface PossibleReasonUnableToConnectProps {
   text: string;
@@ -27,23 +28,30 @@ function PossibleReasonUnableToConnect(props: PossibleReasonUnableToConnectProps
 }
 
 interface ConnectLedgerErrorLayoutProps {
+  warningText: string | null;
   onCancelConnectLedger(): void;
   onTryAgain(): void;
 }
 export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
-  const { onCancelConnectLedger, onTryAgain } = props;
+  const { warningText, onCancelConnectLedger, onTryAgain } = props;
 
   return (
     <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
-      {/* <Stack alignItems="center" pb="loose" px="loose" spacing="loose" textAlign="center"> */}
-      <Flex alignItems="center" flexDirection="column" pb="loose" textAlign="center">
+      <Flex alignItems="center" flexDirection="column" pb="extra-loose" textAlign="center">
         <Box mt="tight">
           <img src={ConnectLedgerError} width="247px" />
         </Box>
         <ConnectLedgerTitle />
-        <ErrorLabel fontSize={1} lineHeight={1.4} mt="tight">
-          Unable to connect
-        </ErrorLabel>
+
+        {warningText ? (
+          <WarningLabel mt="tight" px="extra-loose" fontSize="14px">
+            {warningText}
+          </WarningLabel>
+        ) : (
+          <ErrorLabel fontSize={1} lineHeight={1.4} mt="tight">
+            Unable to connect
+          </ErrorLabel>
+        )}
         <Stack
           border="2px solid"
           borderColor={color('border')}

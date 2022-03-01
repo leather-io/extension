@@ -13,7 +13,14 @@ import {
 } from '@app/features/ledger/ledger-utils';
 import { RouteUrls } from '@shared/route-urls';
 
-export const ledgerOnboardingContext = createContext({ onLedgerConnect: noop });
+interface LedgerOnboardingContext {
+  latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;
+  pullPublicKeysFromDevice(): Promise<void> | void;
+}
+export const ledgerOnboardingContext = createContext<LedgerOnboardingContext>({
+  latestDeviceResponse: null,
+  pullPublicKeysFromDevice: noop,
+});
 
 const LedgerOnboardingProvider = ledgerOnboardingContext.Provider;
 
@@ -29,9 +36,11 @@ export function LedgerContainer() {
   );
 
   const [latestDeviceResponse, setLatestDeviceResponse] =
-    useState<Awaited<ReturnType<typeof getAppVersion>>>();
+    useState<LedgerOnboardingContext['latestDeviceResponse']>(null);
 
-  const connectLedgerDevice = useCallback(async () => {
+  const [connectBtnLoading, setConnectBtnLoading] = useState(false);
+
+  const pullPublicKeysFromDevice = useCallback(async () => {
     console.log('connect ledger device');
     const [error, stacks] = await safeAwait(connectLedger());
 
@@ -57,12 +66,15 @@ export function LedgerContainer() {
         if (resp.status === 'failure') {
           setIsLookingForLedger(false);
           fireErrorMessageToast(resp.errorMessage);
-          navigate(RouteUrls.ConnectLedgerError);
+          navigate(RouteUrls.ConnectLedgerError, {
+            state: { latestLedgerError: resp.errorMessage },
+          });
           return;
         }
         setIsLookingForLedger(true);
         completeLedgerDeviceOnboarding(resp.publicKeys);
         setIsLookingForLedger(false);
+        navigate(RouteUrls.ConnectLedgerSuccess);
       } catch (e) {
         console.log(e);
       }
@@ -71,9 +83,10 @@ export function LedgerContainer() {
 
   const ledgerContextValue = useMemo(
     () => ({
-      onLedgerConnect: connectLedgerDevice,
+      pullPublicKeysFromDevice,
+      latestDeviceResponse,
     }),
-    []
+    [latestDeviceResponse, pullPublicKeysFromDevice]
   );
 
   return (

@@ -12,7 +12,7 @@ export const ConnectLedgerSuccess = () => {
     // TODO: Replace with actual ledger integration
     setTimeout(() => {
       navigate(RouteUrls.Home);
-    }, 2000);
+    }, 3000);
   });
 
   return (

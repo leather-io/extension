@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Transport from '@ledgerhq/hw-transport-webusb';
-import StacksApp, { LedgerError } from '@zondax/ledger-blockstack';
+import StacksApp from '@zondax/ledger-blockstack';
 import { AddressVersion } from '@stacks/transactions';
 import { keySlice } from '@app/store/keys/key.slice';
 import { RouteUrls } from '@shared/route-urls';
@@ -50,16 +50,15 @@ interface PullKeysFromLedgerFailure {
 type PullKeysFromLedgerResponse = Promise<PullKeysFromLedgerSuccess | PullKeysFromLedgerFailure>;
 
 export async function pullKeysFromLedgerDevice(stacksApp: StacksApp): PullKeysFromLedgerResponse {
-  const keys = [];
-  const amountOfKeysToExtractFromDevice = 5;
+  const publicKeys = [];
+  const amountOfKeysToExtractFromDevice = 3;
   for (let index = 0; index < amountOfKeysToExtractFromDevice; index++) {
     const resp = await requestPublicKeyForAccount(stacksApp)(index);
-    toast.success(`Fetched Account ${index + 1}`, { duration: 1000 });
     if (!resp.publicKey) return { status: 'failure', ...resp };
-    keys.push(resp.publicKey.toString('hex'));
+    publicKeys.push(resp.publicKey.toString('hex'));
   }
   await delay(1000);
-  return { status: 'success', publicKeys: keys };
+  return { status: 'success', publicKeys };
 }
 
 export function useTriggerLedgerDeviceOnboarding() {
