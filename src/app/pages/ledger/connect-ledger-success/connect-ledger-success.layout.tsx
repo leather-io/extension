@@ -10,9 +10,7 @@ import { ConnectLedgerTitle } from '../components/connect-ledger-title';
 interface ConnectLedgerSuccessLayoutProps {
   onCancelConnectLedger(): void;
 }
-export function ConnectLedgerSuccessLayout(props: ConnectLedgerSuccessLayoutProps) {
-  const { onCancelConnectLedger } = props;
-
+export function ConnectLedgerSuccessLayout(_props: ConnectLedgerSuccessLayoutProps) {
   return (
     <BaseDrawer title={<Box />} isShowing>
       <Flex alignItems="center" flexDirection="column" pb="loose" textAlign="center">

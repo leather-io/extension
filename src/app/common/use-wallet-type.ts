@@ -1,5 +1,5 @@
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 export type WalletType = 'ledger' | 'software';
 
@@ -23,12 +23,9 @@ type WhenWalletCallback = ReturnType<typeof whenWalletFactory>;
 
 export function useWalletType() {
   const wallet = useCurrentKeyDetails();
-  if (!wallet) {
-    throw new Error('Cannot use `useWalletType` when no wallet created');
-  }
-  const whenWallet = useCallback<WhenWalletCallback>(
-    args => whenWalletFactory(wallet.type)(args),
-    [wallet.type]
-  );
-  return { walletType: wallet.type, whenWallet };
+  return useMemo(() => {
+    if (!wallet) return {};
+    const whenWallet: WhenWalletCallback = args => whenWalletFactory(wallet.type)(args);
+    return { walletType: wallet.type, whenWallet };
+  }, [wallet]);
 }

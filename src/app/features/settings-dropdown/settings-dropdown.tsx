@@ -14,6 +14,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SettingsMenuItem as MenuItem } from './components/settings-menu-item';
 import { MenuWrapper } from './components/settings-menu-wrapper';
 import { useAccounts } from '@app/store/accounts/account.hooks';
+import { useWalletType } from '@app/common/use-wallet-type';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -28,6 +29,7 @@ export function SettingsDropdown() {
   } = useDrawers();
   const navigate = useNavigate();
   const analytics = useAnalytics();
+  const { walletType } = useWalletType();
 
   const handleClose = useCallback(() => setShowSettings(false), [setShowSettings]);
   const accounts = useAccounts();
@@ -61,21 +63,25 @@ export function SettingsDropdown() {
                   Switch account
                 </MenuItem>
               )}
-              <MenuItem
-                data-testid={SettingsSelectors.BtnCreateAccount}
-                onClick={wrappedCloseCallback(() => {
-                  setAccountStep(AccountStep.Create);
-                  setShowAccounts(true);
-                })}
-              >
-                Create an Account
-              </MenuItem>
-              <MenuItem
-                data-testid={SettingsSelectors.ViewSecretKeyListItem}
-                onClick={wrappedCloseCallback(() => navigate(RouteUrls.ViewSecretKey))}
-              >
-                View Secret Key
-              </MenuItem>
+              {walletType === 'software' && (
+                <>
+                  <MenuItem
+                    data-testid={SettingsSelectors.BtnCreateAccount}
+                    onClick={wrappedCloseCallback(() => {
+                      setAccountStep(AccountStep.Create);
+                      setShowAccounts(true);
+                    })}
+                  >
+                    Create an Account
+                  </MenuItem>
+                  <MenuItem
+                    data-testid={SettingsSelectors.ViewSecretKeyListItem}
+                    onClick={wrappedCloseCallback(() => navigate(RouteUrls.ViewSecretKey))}
+                  >
+                    View Secret Key
+                  </MenuItem>
+                </>
+              )}
             </>
           )}
           {hasGeneratedWallet ? <Divider /> : null}
@@ -94,16 +100,18 @@ export function SettingsDropdown() {
           {hasGeneratedWallet && (
             <>
               <Divider />
-              <MenuItem
-                onClick={wrappedCloseCallback(() => {
-                  void analytics.track('lock_session');
-                  void lockWallet();
-                  navigate(RouteUrls.Unlock);
-                })}
-                data-testid="settings-lock"
-              >
-                Lock
-              </MenuItem>
+              {walletType === 'software' && (
+                <MenuItem
+                  onClick={wrappedCloseCallback(() => {
+                    void analytics.track('lock_session');
+                    void lockWallet();
+                    navigate(RouteUrls.Unlock);
+                  })}
+                  data-testid="settings-lock"
+                >
+                  Lock
+                </MenuItem>
+              )}
               <MenuItem
                 color={color('feedback-error')}
                 onClick={wrappedCloseCallback(() => {

@@ -26,7 +26,7 @@ export const keySlice = createSlice({
   name: 'keys',
   initialState: migrateVaultReducerStoreToNewStateStructure(initialKeysState),
   reducers: {
-    createNewWalletComplete(state, action: PayloadAction<KeyConfigSoftware>) {
+    createNewSoftwareWalletComplete(state, action: PayloadAction<KeyConfigSoftware>) {
       keyAdapter.addOne(state, action.payload);
     },
 

@@ -1,7 +1,5 @@
-import { FC } from 'react';
 import { Box, color, Flex, Text } from '@stacks/ui';
 import { FiInfo } from 'react-icons/fi';
-import { HiroMessage } from '@app/query/hiro-config/hiro-config.query';
 
 interface LedgerInfoLabelProps {
   children: React.ReactNode;
