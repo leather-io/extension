@@ -263,7 +263,7 @@
     "yup": "0.32.9"
   },
   "resolutions": {
-    "**/**/prismjs": "1.25.0",
+    "**/**/prismjs": "1.27.0",
     "**/**/xmldom": "github:xmldom/xmldom#0.7.0",
     "**/**/@stacks/network": "3.0.0",
     "@redux-devtools/cli/**/tar": "4.4.18",
