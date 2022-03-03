@@ -8,11 +8,11 @@ import ConnectLedgerSuccess from '@assets/images/onboarding/ledger/connect-ledge
 import { ConnectLedgerTitle } from '../components/connect-ledger-title';
 
 interface ConnectLedgerSuccessLayoutProps {
-  onCancelConnectLedger(): void;
+  onCloseModal(): void;
 }
-export function ConnectLedgerSuccessLayout(_props: ConnectLedgerSuccessLayoutProps) {
+export function ConnectLedgerSuccessLayout(props: ConnectLedgerSuccessLayoutProps) {
   return (
-    <BaseDrawer title={<Box />} isShowing>
+    <BaseDrawer title={<Box />} onClose={props.onCloseModal} isShowing>
       <Flex alignItems="center" flexDirection="column" pb="loose" textAlign="center">
         <Box mt="tight">
           <img src={ConnectLedgerSuccess} width="267px" />
