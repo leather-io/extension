@@ -24,6 +24,7 @@ import { useAccounts } from '@app/store/accounts/account.hooks';
 import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@app/store/ui/ui.hooks';
 import { AccountStep } from '@app/store/ui/ui.models';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
+import { useBackupOldWalletSalt } from '@app/common/hooks/account/use-old-wallet-salt';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -144,6 +145,7 @@ export const Accounts = memo(() => {
   const accounts = useAccounts();
   const { decodedAuthRequest } = useOnboardingState();
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
+  useBackupOldWalletSalt();
 
   const signIntoAccount = useCallback(
     async (index: number) => {

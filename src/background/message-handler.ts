@@ -33,7 +33,7 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
   }
 });
 
-// Persists keys in memory for the durtion of the background scripts life
+// Persists keys in memory for the duration of the background scripts life
 const inMemoryKeys = new Map();
 
 export async function backgroundMessageHandler(
