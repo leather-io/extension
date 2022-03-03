@@ -14,6 +14,7 @@ export const walletState = atom(async get => {
   return deriveWalletWithAccounts(defaultInMemoryKey, store.chains.stx.default.highestAccountIndex);
 });
 
+// TOREMOVE
 export const walletConfigState = atom(async get => {
   const wallet = get(walletState);
   if (!wallet) return null;
