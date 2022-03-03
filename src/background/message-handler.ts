@@ -4,6 +4,7 @@ import { InternalMethods } from '@shared/message-types';
 import { BackgroundActions } from '@shared/messages';
 import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
+import { backupWalletSaltForGaia } from './backup-old-wallet-salt';
 
 function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
   // Only respond to internal messages from our UI, not content scripts in other applications
@@ -33,7 +34,7 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
   }
 });
 
-// Persists keys in memory for the durtion of the background scripts life
+// Persists keys in memory for the duration of the background scripts life
 const inMemoryKeys = new Map();
 
 export async function backgroundMessageHandler(
@@ -56,7 +57,9 @@ export async function backgroundMessageHandler(
 
     case InternalMethods.ShareInMemoryKeyToBackground: {
       const { keyId, secretKey } = message.payload;
+
       inMemoryKeys.set(keyId, secretKey);
+      await backupWalletSaltForGaia(secretKey);
       break;
     }
 
