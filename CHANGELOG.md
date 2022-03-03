@@ -1,3 +1,10 @@
+# [3.3.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.1-beta.1...v3.3.0-beta.1) (2022-03-03)
+
+
+### Features
+
+* add testnet survey msg, closes [#2253](https://github.com/hirosystems/stacks-wallet-web/issues/2253) ([4f98430](https://github.com/hirosystems/stacks-wallet-web/commit/4f98430d8ca5c546363f8350c83be493423bd1ee))
+
 ## [3.2.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0...v3.2.1-beta.1) (2022-03-03)
 
 
