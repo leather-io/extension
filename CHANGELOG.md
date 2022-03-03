@@ -1,3 +1,11 @@
+## [3.2.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0...v3.2.1-beta.1) (2022-03-03)
+
+
+### Bug Fixes
+
+* account names not displayed on sign in screen ([c2448fc](https://github.com/hirosystems/stacks-wallet-web/commit/c2448fc9a7a40496b40602d85faa3189bb5cbf57))
+* unlock auth routing bug ([04c093d](https://github.com/hirosystems/stacks-wallet-web/commit/04c093d806d31affcc20a3e06f4e0e2ccc10800a))
+
 # [3.2.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.1...v3.2.0) (2022-02-21)
 
 
