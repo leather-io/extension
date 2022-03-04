@@ -33,11 +33,8 @@ export function LedgerContainer() {
     useTriggerLedgerDeviceOnboarding();
 
   const setIsLookingForLedger = useCallback(
-    x =>
-      navigate(RouteUrls.ConnectLedger, {
-        replace: true,
-        state: { isLookingForLedger: x },
-      }),
+    (isLookingForLedger: boolean) =>
+      navigate(RouteUrls.ConnectLedger, { replace: true, state: { isLookingForLedger } }),
     [navigate]
   );
 
@@ -63,13 +60,11 @@ export function LedgerContainer() {
       console.log({ versionInfo });
 
       if (versionInfo.deviceLocked) {
-        // setIsLookingForLedger(false);
         setAwaitingDeviceConnection(false);
         return;
       }
 
       if (versionInfo.returnCode !== LedgerError.NoErrors) {
-        // setIsLookingForLedger(false);
         await delay(1000);
         toast.error(versionInfo.errorMessage);
         return;

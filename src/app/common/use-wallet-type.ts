@@ -1,5 +1,6 @@
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useMemo } from 'react';
+import { noop } from 'react-query/types/core/utils';
 
 export type WalletType = 'ledger' | 'software';
 
@@ -24,7 +25,11 @@ type WhenWalletCallback = ReturnType<typeof whenWalletFactory>;
 export function useWalletType() {
   const wallet = useCurrentKeyDetails();
   return useMemo(() => {
-    if (!wallet) return {};
+    if (!wallet)
+      return {
+        walletType: null,
+        whenWallet: { ledger: noop, software: noop },
+      };
     const whenWallet: WhenWalletCallback = args => whenWalletFactory(wallet.type)(args);
     return { walletType: wallet.type, whenWallet };
   }, [wallet]);

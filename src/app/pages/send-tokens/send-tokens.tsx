@@ -21,7 +21,7 @@ import {
   useSignTransactionSoftwareWallet,
 } from '@app/store/transactions/transaction.hooks';
 
-import { SendTokensConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
+import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
 import { useResetNonceCallback } from './hooks/use-reset-nonce-callback';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -73,75 +73,78 @@ function SendTokensFormBase() {
       return;
     }
 
-    // const signedTxGenerator = whenWallet({
-    //   software() {
-    //     return async () => signSoftwareWalletTx(transaction);
-    //   },
-    //   ledger() {
-    //     return async () => {
-    //       console.log('signing ledger tx', account);
-    //       if (!account) return toast.error('Must have an active account');
-    //       try {
-    //         const stacks = await connectLedger();
-    //         const rawTx = transaction.serialize();
-    //         console.log('rawtx', rawTx);
-    //         const ledgerResponse = await signLedgerTransaction(stacks)(rawTx, account.index);
-    //         const sig = ledgerResponse.signatureVRS.toString('hex');
-    //         const spendingCondition = createMessageSignature(sig);
-    //         console.log(spendingCondition);
-    //         const newTx = deserializeTransaction(rawTx);
-    //         (newTx.auth.spendingCondition as SingleSigSpendingCondition).signature =
-    //           spendingCondition;
-    //         return newTx;
-    //       } catch (e) {
-    //         console.log(e);
-    //         toast.error('SOmething went wr0nG');
-    //         return;
-    //       }
-    //     };
-    //   },
-    // });
+    if (!whenWallet) return;
 
-    console.log('signing ledger tx', account);
-    if (!account) return toast.error('Must have an active account');
-    try {
-      const stacks = await connectLedger();
-      const rawTx = transaction.serialize();
-      console.log('rawtx', rawTx);
-      const ledgerResponse = await signLedgerTransaction(stacks)(rawTx, account.index);
-      const sig = ledgerResponse.signatureVRS.toString('hex');
-      const spendingCondition = createMessageSignature(sig);
-      console.log(spendingCondition);
-      const signedTx = deserializeTransaction(rawTx);
-      (signedTx.auth.spendingCondition as SingleSigSpendingCondition).signature = spendingCondition;
+    const signedTxGenerator = whenWallet({
+      software() {
+        console.log('creating software fn');
+        return async () => {
+          console.log('signing software fn');
+          return signSoftwareWalletTx(transaction) ?? undefined;
+        };
+      },
+      ledger() {
+        console.log('create ledger fn');
+        return async () => {
+          console.log('signing ledger tx', account);
+          if (!account) return toast.error('Must have an active account');
+          try {
+            const stacks = await connectLedger();
+            const rawTx = transaction.serialize();
+            console.log('rawtx', rawTx);
+            const ledgerResponse = await signLedgerTransaction(stacks)(rawTx, account.index);
+            console.log({ ledgerResponse });
+            const sig = ledgerResponse.signatureVRS.toString('hex');
+            const spendingCondition = createMessageSignature(sig);
+            // console.log(spendingCondition);
+            const newTx = deserializeTransaction(rawTx);
+            (newTx.auth.spendingCondition as SingleSigSpendingCondition).signature =
+              spendingCondition;
+            return newTx;
+          } catch (e) {
+            console.log(e);
+            toast.error('SOmething went wr0nG');
+            return;
+          }
+        };
+      },
+    })();
 
-      if (!signedTx) {
-        logger.error('Cannot sign transaction, no account in state');
-        toast.error('Unable to broadcast transaction');
-        return;
-      }
+    console.log('xxxxxxxxxx', await signedTxGenerator());
 
-      await broadcastTransactionFn({
-        transaction: signedTx,
-        onClose() {
-          handleConfirmDrawerOnClose();
-          navigate(RouteUrls.Home);
-        },
-      });
-      setFeeEstimations([]);
-    } catch (e) {
-      console.log(e);
-      toast.error('SOmething went wr0nG');
-      return;
-    }
-  }, [
-    account,
-    broadcastTransactionFn,
-    handleConfirmDrawerOnClose,
-    navigate,
-    setFeeEstimations,
-    transaction,
-  ]);
+    // console.log('signing ledger tx', account);
+    // if (!account) return toast.error('Must have an active account');
+    // try {
+    //   const stacks = await connectLedger();
+    //   const rawTx = transaction.serialize();
+    //   console.log('rawtx', rawTx);
+    //   const ledgerResponse = await signLedgerTransaction(stacks)(rawTx, account.index);
+    //   const sig = ledgerResponse.signatureVRS.toString('hex');
+    //   const spendingCondition = createMessageSignature(sig);
+    //   console.log(spendingCondition);
+    //   const signedTx = deserializeTransaction(rawTx);
+    //   (signedTx.auth.spendingCondition as SingleSigSpendingCondition).signature = spendingCondition;
+
+    //   if (!signedTx) {
+    //     logger.error('Cannot sign transaction, no account in state');
+    //     toast.error('Unable to broadcast transaction');
+    //     return;
+    //   }
+
+    //   await broadcastTransactionFn({
+    //     transaction: signedTx,
+    //     onClose() {
+    //       handleConfirmDrawerOnClose();
+    //       navigate(RouteUrls.Home);
+    //     },
+    //   });
+    //   setFeeEstimations([]);
+    // } catch (e) {
+    //   console.log(e);
+    //   toast.error('SOmething went wr0nG');
+    //   return;
+    // }
+  }, [account, signSoftwareWalletTx, transaction, whenWallet]);
 
   const initialValues = {
     amount: '',
@@ -175,17 +178,21 @@ function SendTokensFormBase() {
           <Suspense fallback={<></>}>
             <SendFormInner assetError={assetError} />
           </Suspense>
-          <SendTokensConfirmDrawer
-            isShowing={isShowing && !showEditNonce}
-            onClose={() => handleConfirmDrawerOnClose()}
-            onUserSelectBroadcastTransaction={async () => {
-              await broadcastTransactionAction();
-              void analytics.track('submit_fee_for_transaction', {
-                type: props.values.feeType,
-                fee: props.values.fee,
-              });
-            }}
-          />
+          {whenWallet({
+            software: (
+              <SendTokensSoftwareConfirmDrawer
+                isShowing={isShowing && !showEditNonce}
+                onClose={() => handleConfirmDrawerOnClose()}
+                onUserSelectBroadcastTransaction={async () => {
+                  await broadcastTransactionAction();
+                  void analytics.track('submit_fee_for_transaction', {
+                    type: props.values.feeType,
+                    fee: props.values.fee,
+                  });
+                }}
+              />
+            ),
+          })}
           <HighFeeDrawer />
         </>
       )}

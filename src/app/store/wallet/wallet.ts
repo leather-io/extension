@@ -8,10 +8,10 @@ import { defaultKeyId } from '../keys/key.slice';
 
 export const softwareWalletState = atom(async get => {
   const store = get(storeAtom);
-  if (!store.keys.entities[defaultKeyId]) return;
+  const defaultKey = store.keys.entities[defaultKeyId];
   const defaultInMemoryKey = store.inMemoryKeys.keys[defaultKeyId];
-  if (store.keys.entities.default.type !== 'software') return;
-  if (!defaultInMemoryKey) return;
+  if (!defaultInMemoryKey || !defaultKey) return;
+  if (defaultKey.type !== 'software') return;
   return deriveWalletWithAccounts(defaultInMemoryKey, store.chains.stx.default.highestAccountIndex);
 });
 

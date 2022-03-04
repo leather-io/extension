@@ -1,8 +1,5 @@
 import { memo } from 'react';
-import {
-  AccountWithAddress,
-  SoftwareWalletAccountWithAddress,
-} from '@app/store/accounts/account.models';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { BoxProps } from '@stacks/ui';
 
 import { Title } from '@app/components/typography';
@@ -17,7 +14,7 @@ const AccountNameLayout = memo(({ children }) => (
 ));
 
 interface AccountNameProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
 }
 export const AccountName = memo(({ account }: AccountNameProps) => {
   const name = useAccountDisplayName(account);
