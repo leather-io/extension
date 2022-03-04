@@ -75,7 +75,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.transactionRequests,
               port,
             });
-            const path = RouteUrls.Transaction;
+            const path = RouteUrls.TransactionRequest;
             const urlParams = new URLSearchParams();
             urlParams.set('request', payload);
             if (IS_TEST_ENV) {

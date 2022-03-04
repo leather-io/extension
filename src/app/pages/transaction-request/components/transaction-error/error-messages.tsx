@@ -9,7 +9,7 @@ import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { Caption } from '@app/components/typography';
 import { SpaceBetween } from '@app/components/space-between';
-import { ErrorMessage } from '@app/pages/sign-transaction/components/transaction-error/error-message';
+import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
 import {
   useTransactionBroadcastError,
   useTransactionRequestState,

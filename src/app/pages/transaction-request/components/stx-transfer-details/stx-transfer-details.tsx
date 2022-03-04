@@ -2,8 +2,8 @@ import { color, Stack } from '@stacks/ui';
 
 import { Title } from '@app/components/typography';
 import { Divider } from '@app/components/divider';
-import { AttachmentRow } from '@app/pages/sign-transaction/components/attachment-row';
-import { Row } from '@app/pages/sign-transaction/components/row';
+import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
+import { Row } from '@app/pages/transaction-request/components/row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 export function StxTransferDetails(): JSX.Element | null {

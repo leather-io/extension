@@ -8,14 +8,14 @@ import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { PopupHeader } from '@app/pages/sign-transaction/components/popup-header';
-import { PageTop } from '@app/pages/sign-transaction/components/page-top';
-import { ContractCallDetails } from '@app/pages/sign-transaction/components/contract-call-details/contract-call-details';
-import { ContractDeployDetails } from '@app/pages/sign-transaction/components/contract-deploy-details/contract-deploy-details';
-import { PostConditions } from '@app/pages/sign-transaction/components/post-conditions/post-conditions';
-import { StxTransferDetails } from '@app/pages/sign-transaction/components/stx-transfer-details/stx-transfer-details';
-import { PostConditionModeWarning } from '@app/pages/sign-transaction/components/post-condition-mode-warning';
-import { TransactionError } from '@app/pages/sign-transaction/components/transaction-error/transaction-error';
+import { PopupHeader } from '@app/pages/transaction-request/components/popup-header';
+import { PageTop } from '@app/pages/transaction-request/components/page-top';
+import { ContractCallDetails } from '@app/pages/transaction-request/components/contract-call-details/contract-call-details';
+import { ContractDeployDetails } from '@app/pages/transaction-request/components/contract-deploy-details/contract-deploy-details';
+import { PostConditions } from '@app/pages/transaction-request/components/post-conditions/post-conditions';
+import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
+import { PostConditionModeWarning } from '@app/pages/transaction-request/components/post-condition-mode-warning';
+import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import {
   useTransactionRequestState,
   useUpdateTransactionBroadcastError,
@@ -33,7 +33,7 @@ import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
 
-function SignTransactionBase(): JSX.Element | null {
+function TransactionRequestBase(): JSX.Element | null {
   useNextTxNonce();
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
@@ -49,9 +49,7 @@ function SignTransactionBase(): JSX.Element | null {
 
   useRouteHeader(<PopupHeader />);
 
-  useEffect(() => {
-    void analytics.track('view_transaction_signing');
-  }, [analytics]);
+  useEffect(() => void analytics.track('view_transaction_signing'), [analytics]);
 
   const onSubmit = useCallback(
     async values => {
@@ -122,4 +120,4 @@ function SignTransactionBase(): JSX.Element | null {
   );
 }
 
-export const SignTransaction = memo(SignTransactionBase);
+export const TransactionRequest = memo(TransactionRequestBase);
