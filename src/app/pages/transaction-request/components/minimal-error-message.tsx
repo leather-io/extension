@@ -3,8 +3,8 @@ import { FiAlertTriangle } from 'react-icons/fi';
 import { Box, color, Stack, StackProps } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
-import { useTransactionError } from '@app/pages/sign-transaction/hooks/use-transaction-error';
-import { TransactionErrorReason } from '@app/pages/sign-transaction/components/transaction-error/transaction-error';
+import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
+import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useTransactionBroadcastError } from '@app/store/transactions/requests.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 

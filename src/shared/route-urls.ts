@@ -15,7 +15,7 @@ export enum RouteUrls {
   Receive = '/receive',
   Send = '/send',
   SignOutConfirm = '/sign-out',
-  Transaction = '/transaction',
+  TransactionRequest = '/transaction',
   ViewSecretKey = '/view-secret-key',
   // Locked wallet route
   Unlock = '/unlock',
