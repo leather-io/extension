@@ -29,6 +29,7 @@ module.exports = {
       diagnostics: false,
       tsconfig: '<rootDir>/tests/tsconfig.json',
     },
+    Uint8Array: Uint8Array,
     VERSION: version,
   },
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node', 'd.ts'],

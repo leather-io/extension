@@ -41,7 +41,7 @@ import {
   unsignedTransactionState,
   unsignedStacksTransactionBaseState,
 } from './index';
-import { serializePayload } from '@stacks/transactions/dist/payload';
+import { serializePayload } from '@stacks/transactions';
 import { selectedAssetIdState } from '../assets/asset-search';
 import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
 import { logger } from '@shared/logger';
