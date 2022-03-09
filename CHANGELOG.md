@@ -1,3 +1,11 @@
+## [3.2.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.0...v3.2.1) (2022-03-09)
+
+
+### Bug Fixes
+
+* account names not displayed on sign in screen ([15f9bbd](https://github.com/hirosystems/stacks-wallet-web/commit/15f9bbd50dff98e9300bae7ee8ba9258eac54326))
+* prismjs vulnerability ([0dbc1d7](https://github.com/hirosystems/stacks-wallet-web/commit/0dbc1d7fe3a442790bba83a0b59d17a2758bb4bf))
+
 # [3.2.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.1.1...v3.2.0) (2022-02-21)
 
 
