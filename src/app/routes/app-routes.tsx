@@ -13,6 +13,7 @@ import { AddNetwork } from '@app/pages/add-network/add-network';
 import { ConnectLedger } from '@app/pages/ledger/connect-ledger/connect-ledger';
 import { ConnectLedgerError } from '@app/pages/ledger/connect-ledger-error/connect-ledger-error';
 import { ConnectLedgerSuccess } from '@app/pages/ledger/connect-ledger-success/connect-ledger-success';
+import { LedgerDisconnected } from '@app/pages/ledger/ledger-disconnected/ledger-disconnected';
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
@@ -25,13 +26,14 @@ import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnos
 import { BuyPage } from '@app/pages/buy/buy';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { LedgerContainer } from '@app/pages/ledger/ledger-container';
+import { SignLedgerTransaction } from '@app/pages/ledger/sign-ledger-transaction/sign-ledger-transation';
 import { useHasStateRehydrated } from '@app/store';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
-import { LedgerContainer } from '@app/pages/ledger/ledger-container';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();
@@ -152,7 +154,10 @@ export function AppRoutes(): JSX.Element | null {
               </Suspense>
             </AccountGate>
           }
-        />
+        >
+          <Route path={RouteUrls.SignLedgerTransaction} element={<SignLedgerTransaction />} />
+          <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
+        </Route>
         <Route
           path={RouteUrls.ViewSecretKey}
           element={

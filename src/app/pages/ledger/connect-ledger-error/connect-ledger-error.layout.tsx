@@ -3,12 +3,12 @@ import { Box, color, Flex, Stack } from '@stacks/ui';
 
 import { BaseDrawer } from '@app/components/drawer';
 import { Caption } from '@app/components/typography';
-import ConnectLedgerError from '@assets/images/onboarding/ledger/connect-ledger-error.png';
+import ConnectLedgerError from '@assets/images/ledger/connect-ledger-error.png';
 import { ErrorLabel } from '@app/components/error-label';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Link } from '@app/components/link';
 
-import { ConnectLedgerTitle } from '../components/connect-ledger-title';
+import { LedgerDrawerType, LedgerTitle } from '../components/ledger-title';
 import { WarningLabel } from '@app/components/warning-label';
 
 interface PossibleReasonUnableToConnectProps {
@@ -37,18 +37,23 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
 
   return (
     <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
-      <Flex alignItems="center" flexDirection="column" pb="extra-loose" textAlign="center">
+      <Flex
+        alignItems="center"
+        flexDirection="column"
+        pb="extra-loose"
+        px="loose"
+        textAlign="center"
+      >
         <Box mt="tight">
           <img src={ConnectLedgerError} width="247px" />
         </Box>
-        <ConnectLedgerTitle />
-
+        <LedgerTitle mt="45px" mx="50px" type={LedgerDrawerType.Connect} />
         {warningText ? (
-          <WarningLabel mt="tight" px="extra-loose" fontSize="14px">
+          <WarningLabel mt="base" px="extra-loose" fontSize="14px">
             {warningText}
           </WarningLabel>
         ) : (
-          <ErrorLabel fontSize={1} lineHeight={1.4} mt="tight">
+          <ErrorLabel fontSize={1} lineHeight={1.4} mt="base">
             Unable to connect
           </ErrorLabel>
         )}
@@ -57,7 +62,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
           borderColor={color('border')}
           borderRadius="12px"
           my="loose"
-          mx="extra-loose"
+          mx="base"
           spacing="base"
           textAlign="left"
           p="extra-loose"

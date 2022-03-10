@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { ConnectLedgerLayout } from './connect-ledger.layout';
 
-import { useWhenReattemptingLedgerConnection } from '../use-when-reattempt-ledger-connection';
+import { useWhenReattemptingLedgerConnection } from '../hooks/use-when-reattempt-ledger-connection';
 
 import { ledgerOnboardingContext } from '../ledger-container';
 import { LedgerInfoLabel } from './components/ledger-info-label';

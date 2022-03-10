@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Stack } from '@stacks/ui';
@@ -32,6 +33,7 @@ import { UnauthorizedErrorMessage } from './components/transaction-error/error-m
 import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
+import { RouteUrls } from '@shared/route-urls';
 
 function SignTransactionBase(): JSX.Element | null {
   useNextTxNonce();
@@ -44,6 +46,7 @@ function SignTransactionBase(): JSX.Element | null {
   const { isSponsored } = useUnsignedTransactionFee();
   const feeSchema = useFeeSchema();
   const analytics = useAnalytics();
+  const navigate = useNavigate();
 
   const validationSchema = !isSponsored ? yup.object({ fee: feeSchema() }) : null;
 
@@ -55,6 +58,11 @@ function SignTransactionBase(): JSX.Element | null {
 
   const onSubmit = useCallback(
     async values => {
+      // TODO (Ledger): Detect if using ledger to connect/sign the tx
+      // before broadcasting. This is temporary for testing the UI.
+      navigate(RouteUrls.SignLedgerTransaction);
+      return;
+
       // Using the same pattern here as is used in the send tokens
       // form, but maybe we can get rid of global form state when
       // we refactor transaction signing?
@@ -64,6 +72,7 @@ function SignTransactionBase(): JSX.Element | null {
         memo: '',
         recipient: '',
       });
+
       setIsLoading();
       await handleBroadcastTransaction();
       setIsIdle();
@@ -80,6 +89,7 @@ function SignTransactionBase(): JSX.Element | null {
     [
       analytics,
       handleBroadcastTransaction,
+      navigate,
       setBroadcastError,
       setFeeEstimations,
       setIsIdle,
@@ -118,6 +128,7 @@ function SignTransactionBase(): JSX.Element | null {
           </>
         )}
       </Formik>
+      <Outlet />
     </Stack>
   );
 }

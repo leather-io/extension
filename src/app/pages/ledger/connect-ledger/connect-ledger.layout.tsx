@@ -5,11 +5,11 @@ import { BaseDrawer } from '@app/components/drawer';
 import { Link } from '@app/components/link';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
-import ConnectLedger from '@assets/images/onboarding/ledger/connect-ledger.png';
+import ConnectLedger from '@assets/images/ledger/connect-ledger.png';
 // import { WarningLabel } from '@app/components/warning-label';
 
 import { LookingForLedger } from './components/looking-for-ledger';
-import { ConnectLedgerTitle } from '../components/connect-ledger-title';
+import { LedgerDrawerType, LedgerTitle } from '../components/ledger-title';
 
 interface ConnectLedgerLayoutProps {
   isLookingForLedger: boolean;
@@ -29,7 +29,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
 
   return (
     <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
-      <Flex alignItems="center" flexDirection="column" pb="loose" textAlign="center">
+      <Flex alignItems="center" flexDirection="column" pb="loose" px="loose" textAlign="center">
         <Flex flexDirection="column">
           {/* TODO: Implement warning with actual ledger integration */}
           {/* <WarningLabel mb="loose">Before proceeding, close Ledger Live if it’s open</WarningLabel> */}
@@ -37,7 +37,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
             <img src={ConnectLedger} width="331px" />
           </Box>
         </Flex>
-        <ConnectLedgerTitle />
+        <LedgerTitle mt="extra-loose" mx="50px" type={LedgerDrawerType.Connect} />
         <Box mb="base" mx="extra-loose">
           {warning}
         </Box>

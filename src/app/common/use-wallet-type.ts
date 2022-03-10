@@ -1,6 +1,6 @@
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useMemo } from 'react';
-import { noop } from 'react-query/types/core/utils';
+import { noop } from './utils';
 
 export type WalletType = 'ledger' | 'software';
 

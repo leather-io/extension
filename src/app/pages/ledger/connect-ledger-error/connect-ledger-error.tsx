@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { immediatelyAttemptLedgerConnection } from '../use-when-reattempt-ledger-connection';
+import { immediatelyAttemptLedgerConnection } from '../hooks/use-when-reattempt-ledger-connection';
 import { ConnectLedgerErrorLayout } from './connect-ledger-error.layout';
 
 function useLedgerOnboardingError() {
