@@ -5,6 +5,13 @@ import { migrateVaultReducerStoreToNewStateStructure } from './vault-reducer-mig
 (global as any).localStorage = new LocalStorageMock();
 
 describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
+  describe('no migration needed scenario', () => {
+    test('nothing happens when no localStorage values are detected', () => {
+      const returnedValue = migrateVaultReducerStoreToNewStateStructure({} as any);
+      expect(returnedValue).toEqual({});
+    });
+  });
+
   describe('migration scenario', () => {
     beforeEach(() => {
       localStorage.setItem('stacks-wallet-salt', 'test-salt');
@@ -35,18 +42,12 @@ describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
       });
     });
 
-    test('it removes the existing existing localStorage values', () => {
+    // This functionality should be re-added, post a successful launch of the wallet refactor
+    test.skip('it removes the existing existing localStorage values', () => {
       jest.spyOn(global.localStorage.__proto__, 'removeItem');
       migrateVaultReducerStoreToNewStateStructure({} as any);
       expect(localStorage.removeItem).toHaveBeenCalledWith('stacks-wallet-salt');
       expect(localStorage.removeItem).toHaveBeenCalledWith('stacks-wallet-encrypted-key');
-    });
-  });
-
-  describe('no migration needed scenario', () => {
-    test('nothing happens when no localStorage values are detected', () => {
-      const returnedValue = migrateVaultReducerStoreToNewStateStructure({} as any);
-      expect(returnedValue).toEqual({});
     });
   });
 });
