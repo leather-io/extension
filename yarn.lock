@@ -3740,7 +3740,7 @@
   resolved "https://registry.yarnpkg.com/@stacks/stacks-blockchain-api-types/-/stacks-blockchain-api-types-0.65.0.tgz#38cd10571e38f314dbcd6f6244d6042f7d6a8e0a"
   integrity sha512-V0ko6Cge+IP/XV352rHDDPYYz84gSCRbeklyor3FaUdSZFZIXjVM1upIbo5FDQ6Enygbcpve+vpbbajiWMB16A==
 
-"@stacks/storage@^3.3.0":
+"@stacks/storage@3.3.0", "@stacks/storage@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-3.3.0.tgz#bcb3f96bada96fd0a3af4d2169a7b40585677d1a"
   integrity sha512-Rt6X74R6j2LZu4Hlkb3cUmBVblDU55ZFik4tq4kquAwhCWnf7CnUkZY6Sdy50QWCpishlcqCIz7NbFkcxRXIDQ==

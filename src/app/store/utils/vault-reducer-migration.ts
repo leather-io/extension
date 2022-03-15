@@ -9,6 +9,7 @@ const hiroWalletEncryptionKey = 'stacks-wallet-encrypted-key';
 export function migrateVaultReducerStoreToNewStateStructure(initialState: typeof initialKeysState) {
   const salt = localStorage.getItem(hiroWalletSalt);
   const encryptedSecretKey = localStorage.getItem(hiroWalletEncryptionKey);
+
   if (salt && encryptedSecretKey) {
     logger.debug(
       'VaultReducer generated Hiro Wallet detected. Running migration to keys store structure'
@@ -24,8 +25,6 @@ export function migrateVaultReducerStoreToNewStateStructure(initialState: typeof
         },
       },
     };
-    localStorage.removeItem(hiroWalletSalt);
-    localStorage.removeItem(hiroWalletEncryptionKey);
     return deepMerge(initialState, migratedState);
   }
   return initialState;

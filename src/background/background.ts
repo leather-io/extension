@@ -19,12 +19,14 @@ import {
 import { popupCenter } from '@background/popup-center';
 import { initContextMenuActions } from '@background/init-context-menus';
 import { backgroundMessageHandler } from './message-handler';
+import { backupOldWalletSalt } from './backup-old-wallet-salt';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 initSentry();
 
 initContextMenuActions();
+backupOldWalletSalt();
 
 //
 // Playwright does not currently support Chrome extension popup testing:
@@ -75,7 +77,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.transactionRequests,
               port,
             });
-            const path = RouteUrls.Transaction;
+            const path = RouteUrls.TransactionRequest;
             const urlParams = new URLSearchParams();
             urlParams.set('request', payload);
             if (IS_TEST_ENV) {

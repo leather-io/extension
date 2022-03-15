@@ -8,7 +8,7 @@ import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { isEmpty } from '@app/common/utils';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@app/components/show-edit-nonce';
-import { useTransactionError } from '@app/pages/sign-transaction/hooks/use-transaction-error';
+import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 function BaseConfirmButton(props: ButtonProps): JSX.Element {

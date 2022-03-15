@@ -4,7 +4,7 @@ import { Stack } from '@stacks/ui';
 import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { getUrlHostname, getUrlPort } from '@app/common/utils';
 import { Caption, Title } from '@app/components/typography';
-import { usePageTitle } from '@app/pages/sign-transaction/hooks/use-page-title';
+import { usePageTitle } from '@app/pages/transaction-request/hooks/use-page-title';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useOrigin } from '@app/store/transactions/requests.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';

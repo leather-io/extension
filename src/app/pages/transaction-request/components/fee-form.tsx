@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { FeeRow } from '@app/components/fee-row/fee-row';
-import { MinimalErrorMessage } from '@app/pages/sign-transaction/components/minimal-error-message';
+import { MinimalErrorMessage } from '@app/pages/transaction-request/components/minimal-error-message';
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
 import {
   useUnsignedTxForSettingsState,

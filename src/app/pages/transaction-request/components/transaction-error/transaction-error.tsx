@@ -1,6 +1,6 @@
 import { memo, Suspense } from 'react';
 
-import { useTransactionError } from '@app/pages/sign-transaction/hooks/use-transaction-error';
+import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
 import {
   BroadcastErrorMessage,

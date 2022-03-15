@@ -6,7 +6,7 @@ import { Container } from '@app/components/container/container';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
-import { SignTransaction } from '@app/pages/sign-transaction/sign-transaction';
+import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
@@ -134,11 +134,11 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
-          path={RouteUrls.Transaction}
+          path={RouteUrls.TransactionRequest}
           element={
             <AccountGate>
               <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <SignTransaction />
+                <TransactionRequest />
               </Suspense>
             </AccountGate>
           }
