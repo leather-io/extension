@@ -7,7 +7,7 @@
     "okcoin": { "name": "okcoin", "enabled": true }
   },
   "feeEstimations": {
-    "maxValuesEnabled": true,
+    "maxValuesEnabled": false,
     "maxValues": [500000, 750000, 2000000]
   }
 }
