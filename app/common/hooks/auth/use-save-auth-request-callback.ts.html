@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -109,16 +109,7 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,8 +122,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -153,12 +143,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,16 +161,14 @@ import { decodeToken } from 'jsontokens';
 &nbsp;
 import { useUpdateAuthRequest } from '@app/store/onboarding/onboarding.hooks';
 import { DecodedAuthRequest } from '@app/common/dev/types';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { getRequestOrigin, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSaveAuthRequest(</span>) {
-  const { wallet } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const saveAuthRequest = <span class="cstat-no" title="statement not covered" >useUpdateAuthRequest();</span>
   const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
-  const accounts = <span class="cstat-no" title="statement not covered" >wallet?.accounts;</span>
+&nbsp;
   const saveAuthRequestParam = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (a</span>uthRequest: string) =&gt; {
       const { payload } = <span class="cstat-no" title="statement not covered" >decodeToken(authRequest);</span>
@@ -206,15 +188,9 @@ export function <span class="fstat-no" title="function not covered" >useSaveAuth
         appURL: new URL(origin),
       });
 &nbsp;
-      const hasIdentities = <span class="cstat-no" title="statement not covered" >accounts &amp;&amp; accounts.length;</span>
-<span class="cstat-no" title="statement not covered" >      if (</span>
-        (location.pathname === RouteUrls.Onboarding || location.pathname === RouteUrls.SignIn) &amp;&amp;
-        hasIdentities
-      ) {
-<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.ChooseAccount);</span>
-      }
+<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.ChooseAccount);</span>
     },
-    [saveAuthRequest, location, accounts, navigate]
+    [saveAuthRequest, navigate]
   );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -232,7 +208,7 @@ export function <span class="fstat-no" title="function not covered" >useSaveAuth
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 09 2022 17:55:04 GMT+0000 (Coordinated Universal Time)
+                at Wed Mar 16 2022 15:11:37 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

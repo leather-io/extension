@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -110,29 +110,9 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,9 +137,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,18 +158,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
-import { Account, getStxAddress } from '@stacks/wallet-sdk';
-import { TransactionVersion } from '@stacks/transactions';
+&nbsp;
 import { generateHash, hashValue, moduloRange, stringToHslColor } from '@stacks/ui-utils';
 import chroma from 'chroma-js';
-&nbsp;
-function <span class="fstat-no" title="function not covered" >toHex(</span>str: string) {
-  let result = <span class="cstat-no" title="statement not covered" >'';</span>
-<span class="cstat-no" title="statement not covered" >  for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; str.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >    result += str.charCodeAt(i).toString(16);</span>
-  }
-<span class="cstat-no" title="statement not covered" >  return result;</span>
-}
 &nbsp;
 function <span class="fstat-no" title="function not covered" >generateGradientType(</span>string: string) {
   const gradientType = <span class="cstat-no" title="statement not covered" >`${hashValue(string, ['linear', 'radial'])}-gradient`;</span>
@@ -213,17 +182,15 @@ function <span class="fstat-no" title="function not covered" >generateGradientTy
   }
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useAccountGradient(</span>account: Account) {
+export function <span class="fstat-no" title="function not covered" >useAccountGradient(</span>publicKey: string) {
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    // always mainnet, so people can associate color with an account regardless of network
-    const transactionVersion = <span class="cstat-no" title="statement not covered" >TransactionVersion.Mainnet;</span>
+    const keyLength = <span class="cstat-no" title="statement not covered" >publicKey.length;</span>
+    const part1 = <span class="cstat-no" title="statement not covered" >publicKey.substring(0, keyLength / 2);</span>
+    const part2 = <span class="cstat-no" title="statement not covered" >publicKey.substring(keyLength / 2, keyLength);</span>
 &nbsp;
-    const stxAddress = <span class="cstat-no" title="statement not covered" >getStxAddress({ account, transactionVersion });</span>
-    const pubKeyLikeString = <span class="cstat-no" title="statement not covered" >toHex(stxAddress);</span>
-&nbsp;
-    const bg = <span class="cstat-no" title="statement not covered" >stringToHslColor(stxAddress, 50, 60);</span>
-    let bg2 = <span class="cstat-no" title="statement not covered" >stringToHslColor(pubKeyLikeString, 50, 60);</span>
-    const bg3 = <span class="cstat-no" title="statement not covered" >stringToHslColor(pubKeyLikeString + '__' + stxAddress, 50, 60);</span>
+    const bg = <span class="cstat-no" title="statement not covered" >stringToHslColor(part1, 50, 60);</span>
+    let bg2 = <span class="cstat-no" title="statement not covered" >stringToHslColor(part2, 50, 60);</span>
+    const bg3 = <span class="cstat-no" title="statement not covered" >stringToHslColor(part2 + '__' + part1, 50, 60);</span>
 &nbsp;
     const contrast = <span class="cstat-no" title="statement not covered" >chroma.contrast(bg, bg2);</span>
 &nbsp;
@@ -231,11 +198,11 @@ export function <span class="fstat-no" title="function not covered" >useAccountG
 <span class="cstat-no" title="statement not covered" >      bg2 = chroma(bg2).darken(1.25).hex();</span>
     }
 &nbsp;
-    const gradientTypeString = <span class="cstat-no" title="statement not covered" >stxAddress + '__' + pubKeyLikeString;</span>
+    const gradientTypeString = <span class="cstat-no" title="statement not covered" >part1 + '__' + part2;</span>
     const gradientType = <span class="cstat-no" title="statement not covered" >generateGradientType(gradientTypeString);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return `${gradientType}, ${bg3} 0%, ${bg2} 70%, ${bg} 100%)`;</span>
-  }, [account]);
+  }, [publicKey]);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -244,7 +211,7 @@ export function <span class="fstat-no" title="function not covered" >useAccountG
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 09 2022 17:55:04 GMT+0000 (Coordinated Universal Time)
+                at Wed Mar 16 2022 15:11:37 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

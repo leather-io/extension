@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.42% </span>
+                <span class="strong">61.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/70</span>
+                <span class='fraction'>44/71</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.33% </span>
+                <span class="strong">68.85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/60</span>
+                <span class='fraction'>42/61</span>
             </div>
         
             
@@ -294,14 +294,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -309,16 +313,12 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -425,33 +425,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type {
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Account } from '@stacks/wallet-sdk';
+&nbsp;
+import { atomFamily } from 'jotai/utils';
+import type {
   AccountDataResponse,
   MempoolTransaction,
   Transaction,
 } from '@stacks/stacks-blockchain-api-types';
-import { Account } from '@stacks/wallet-sdk';
 &nbsp;
-import { atomFamily, atomWithDefault, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import BigNumber from 'bignumber.js';
 import deepEqual from 'fast-deep-equal';
 &nbsp;
-import { makeLocalDataKey } from '@app/common/store-utils';
 import { transactionRequestStxAddressState } from '@app/store/transactions/requests';
 import { currentNetworkState } from '@app/store/network/networks';
-import { walletState } from '@app/store/wallet/wallet';
+&nbsp;
 import { addressNetworkVersionState } from '@app/store/transactions';
+import { currentAccountIndexState, walletState } from '@app/store/wallet/wallet';
+&nbsp;
 import {
   accountBalancesAnchoredBigNumber,
   accountBalancesUnanchoredClient,
   accountTransactionsUnanchoredClient,
 } from '@app/store/accounts/api';
-import { AccountWithAddress } from './account.models';
+import { SoftwareWalletAccountWithAddress } from './account.models';
 import { accountTransactionsWithTransfersState } from './transactions';
 import { DEFAULT_LIST_LIMIT } from '@shared/constants';
 import { pubKeyfromPrivKey, publicKeyToAddress } from '@stacks/transactions';
 import { AccountBalanceResponseBigNumber } from '@shared/models/account-types';
+import { derivePublicKey } from '@app/common/derive-public-key';
 &nbsp;
 /**
  * --------------------------------------
@@ -475,34 +478,31 @@ import { AccountBalanceResponseBigNumber } from '@shared/models/account-types';
 //--------------------------------------
 // All accounts
 //--------------------------------------
-export const accountsState = atomWithDefault&lt;Account[] | undefined&gt;(get =&gt; {
+export const accountsState = atom&lt;Account[] | undefined&gt;(get =&gt; {
   const wallet = get(walletState);
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!wallet) <span class="cstat-no" title="statement not covered" >return undefined;</span>
   return wallet.accounts;
 });
 &nbsp;
 // map through the accounts and get the address for the current network mode (testnet|mainnet)
-export const accountsWithAddressState = atom&lt;AccountWithAddress[] | undefined&gt;(get =&gt; {
-  const accounts = get(accountsState);
-  const addressVersion = get(addressNetworkVersionState);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!accounts) <span class="cstat-no" title="statement not covered" >return undefined;</span>
+export const accountsWithAddressState = atom&lt;SoftwareWalletAccountWithAddress[] | undefined&gt;(
+  get =&gt; {
+    const accounts = get(accountsState);
+    const addressVersion = get(addressNetworkVersionState);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!accounts) <span class="cstat-no" title="statement not covered" >return undefined;</span>
 &nbsp;
-  return accounts.map(account =&gt; {
-    const address = publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));
-    return { ...account, address };
-  });
-});
+    return accounts.map(account =&gt; {
+      const address = publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));
+      const stxPublicKey = derivePublicKey(account.stxPrivateKey);
+      const dataPublicKey = derivePublicKey(account.dataPrivateKey);
+      return { ...account, address, stxPublicKey, dataPublicKey };
+    });
+  }
+);
 &nbsp;
 //--------------------------------------
 // Current account
 //--------------------------------------
-&nbsp;
-// The index of the current account
-// persists through sessions (viewings)
-export const currentAccountIndexState = atomWithStorage&lt;number&gt;(
-  makeLocalDataKey('currentAccountIndex'),
-  0
-);
 &nbsp;
 // This is only used when there is a pending transaction request and
 // the user switches accounts during the signing process
@@ -514,7 +514,7 @@ export const transactionAccountIndexState = atom&lt;number | undefined&gt;(get =
   const accounts = get(accountsWithAddressState);
   const txAddress = get(transactionRequestStxAddressState);
 &nbsp;
-  if (txAddress &amp;&amp; accounts) {
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (txAddress &amp;&amp; accounts) {
     return accounts.findIndex(account =&gt; account.address === txAddress); // selected account
   }
 <span class="cstat-no" title="statement not covered" >  return undefined;</span>
@@ -523,14 +523,14 @@ export const transactionAccountIndexState = atom&lt;number | undefined&gt;(get =
 // This contains the state of the current account:
 // could be the account associated with an in-process transaction request
 // or the last selected / first account of the user
-export const currentAccountState = atom&lt;AccountWithAddress | undefined&gt;(get =&gt; {
+export const currentAccountState = atom&lt;SoftwareWalletAccountWithAddress | undefined&gt;(get =&gt; {
   const accountIndex = get(currentAccountIndexState);
   const txIndex = get(transactionAccountIndexState);
   const hasSwitched = get(hasSwitchedAccountsState);
   const accounts = get(accountsWithAddressState);
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!accounts) <span class="cstat-no" title="statement not covered" >return undefined;</span>
-  if (typeof txIndex === 'number' &amp;&amp; !hasSwitched) return accounts[txIndex];
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof txIndex === 'number' &amp;&amp; !hasSwitched) return accounts[txIndex];
 <span class="cstat-no" title="statement not covered" >  return accounts[accountIndex];</span>
 });
 &nbsp;
@@ -613,7 +613,7 @@ export const refreshAccountDataState = atom(null, <span class="fstat-no" title="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 09 2022 17:55:04 GMT+0000 (Coordinated Universal Time)
+                at Wed Mar 16 2022 15:11:37 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
