@@ -16,5 +16,5 @@ export function useCurrentAccountDisplayName() {
 
 export function useAccountDisplayName(account: SoftwareWalletAccountWithAddress) {
   const names = useGetAccountNamesByAddressQuery(account.address);
-  return useMemo(() => names[0] ?? getAccountDisplayName(account));
+  return useMemo(() => names[0] ?? getAccountDisplayName(account), [account, names]);
 }
