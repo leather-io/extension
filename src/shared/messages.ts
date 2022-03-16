@@ -22,11 +22,17 @@ type RequestInMemoryKeys = BackgroundMessage<InternalMethods.RequestInMemoryKeys
 
 type RemoveInMemoryKeys = BackgroundMessage<InternalMethods.RemoveInMemoryKeys>;
 
+export type RequestAccountsFromWalletSalt = BackgroundMessage<
+  InternalMethods.RequestAccountsFromWalletSalt,
+  { secretKey: string; salt: string; highestAccountIndex: number }
+>;
+
 export type BackgroundActions =
   | RequestDerivedStxAccounts
   | ShareInMemoryKeyToBackground
   | RequestInMemoryKeys
-  | RemoveInMemoryKeys;
+  | RemoveInMemoryKeys
+  | RequestAccountsFromWalletSalt;
 
 export function sendMessage(message: BackgroundActions) {
   return chrome.runtime.sendMessage(message);

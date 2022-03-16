@@ -16,6 +16,7 @@ export enum InternalMethods {
   ShareInMemoryKeyToBackground = 'ShareInMemoryKeyToBackground',
   RequestInMemoryKeys = 'RequestInMemoryKeys',
   RemoveInMemoryKeys = 'RemoveInMemoryKeys',
+  RequestAccountsFromWalletSalt = 'RequestAccountsFromWalletSalt',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;

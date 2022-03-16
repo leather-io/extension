@@ -17,6 +17,8 @@ import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response
 import { logger } from '@shared/logger';
 import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useDeriveAccountsFromWalletSalt } from '@app/common/hooks/account/use-account-from-wallet-salt';
+import { appPrivateKeyFromAccount } from '@app/common/utils/wallet-salt-that-generated-incorrect-appkey';
 
 export function useWalletState() {
   return useAtom(walletState);
@@ -47,6 +49,7 @@ export function useSetLatestNonceCallback() {
 export function useFinishSignInCallback() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
   const keyActions = useKeyActions();
+  const accountsFromWalletSalt = useDeriveAccountsFromWalletSalt();
   return useAtomCallback<void, number>(
     useCallback(
       async (get, _set, accountIndex) => {
@@ -76,17 +79,24 @@ export function useFinishSignInCallback() {
             name: appName as string,
           },
         });
+
+        const appPrivateKeyFromWalletSalt = appPrivateKeyFromAccount({
+          accountFromWalletSalt: accountsFromWalletSalt[accountIndex],
+          appDomain: appURL.origin,
+        });
+
         const authResponse = await makeAuthResponse({
           gaiaHubUrl: gaiaUrl,
           appDomain: appURL.origin,
           transitPublicKey: decodedAuthRequest.public_keys[0],
           scopes: decodedAuthRequest.scopes,
           account,
+          appPrivateKeyFromWalletSalt,
         });
         keyActions.switchAccount(accountIndex);
         finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
       },
-      [decodedAuthRequest, authRequest, appIcon, appName, keyActions]
+      [decodedAuthRequest, authRequest, appIcon, appName, accountsFromWalletSalt, keyActions]
     )
   );
 }

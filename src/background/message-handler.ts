@@ -6,6 +6,7 @@ import { StacksMainnet } from '@stacks/network';
 import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
 import { backupWalletSaltForGaia } from './backup-old-wallet-salt';
+import { getSavedWalletAccounts } from './accounts-from-salt';
 
 function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
   // Only respond to internal messages from our UI, not content scripts in other applications
@@ -67,6 +68,17 @@ export async function backgroundMessageHandler(
 
     case InternalMethods.RequestInMemoryKeys: {
       sendResponse(Object.fromEntries(inMemoryKeys));
+      break;
+    }
+
+    case InternalMethods.RequestAccountsFromWalletSalt: {
+      const { secretKey, salt, highestAccountIndex } = message.payload;
+      const walletAccountsFromWalletSalt = await getSavedWalletAccounts({
+        secretKey,
+        highestAccountIndex,
+        salt,
+      });
+      sendResponse(walletAccountsFromWalletSalt);
       break;
     }
 
