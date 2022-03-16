@@ -8,7 +8,9 @@ export interface HiroMessage {
   purpose: 'error' | 'info' | 'warning';
   publishedAt: string;
   dismissible: boolean;
+  chainTarget: 'all' | 'mainnet' | 'testnet';
   learnMoreUrl?: string;
+  learnMoreText?: string;
 }
 
 interface ActiveFiatProviderType {
@@ -34,7 +36,7 @@ async function fetchHiroMessages(): Promise<HiroConfig> {
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 
-export function useRemoteHiroConfig() {
+function useRemoteHiroConfig() {
   const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
@@ -43,6 +45,11 @@ export function useRemoteHiroConfig() {
     retryDelay: 1000 * 60,
   });
   return data;
+}
+
+export function useRemoteHiroMessages(): HiroMessage[] {
+  const config = useRemoteHiroConfig();
+  return config?.messages?.global ?? [];
 }
 
 export function useActiveFiatProviders() {

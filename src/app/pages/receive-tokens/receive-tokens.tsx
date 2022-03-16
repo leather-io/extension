@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, useClipboard, Stack, color, Button } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
@@ -12,6 +11,7 @@ import { Header } from '@app/components/header';
 import { Caption, Text, Title } from '@app/components/typography';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { RouteUrls } from '@shared/route-urls';
+import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 
 import { QrCode } from './components/address-qr-code';
 

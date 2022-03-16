@@ -4,7 +4,7 @@ import { FiInfo } from 'react-icons/fi';
 import { HiroMessage } from '@app/query/hiro-config/hiro-config.query';
 
 export const HiroMessageItem: FC<HiroMessage> = props => {
-  const { title, text, learnMoreUrl } = props;
+  const { title, text, learnMoreUrl, learnMoreText } = props;
 
   return (
     <Flex>
@@ -28,7 +28,7 @@ export const HiroMessageItem: FC<HiroMessage> = props => {
             whiteSpace="nowrap"
             target="_blank"
           >
-            Learn more
+            {learnMoreText ? learnMoreText : 'Learn more'}
           </Text>
         )}
       </Box>
