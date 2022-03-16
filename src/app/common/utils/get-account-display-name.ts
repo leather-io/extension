@@ -9,7 +9,7 @@ interface GetAccountDisplayNameArgs {
 }
 export function getAccountDisplayName(args: GetAccountDisplayNameArgs) {
   if (args.username) {
-    return args.username.split('.')[0];
+    return args.username;
   }
   return `Account ${args.index + 1}`;
 }
