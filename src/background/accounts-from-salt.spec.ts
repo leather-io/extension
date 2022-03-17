@@ -1,8 +1,8 @@
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { getSavedWalletAccounts } from './accounts-from-salt';
 
-describe('test unlock', () => {
-  it('unlock wallet', async () => {
+describe('derive accounts from wallet salt', () => {
+  it('derive the appPrivateKey correct', async () => {
     const secretKey =
       'divert dismiss popular truck neutral trend believe bleak again sample staff abstract soul weekend message amused pony child invite tenant finish pool logic check';
     const salt = '1be7c103ceab12816ae122ea919503b8';
@@ -28,7 +28,7 @@ describe('test unlock', () => {
     );
   });
 
-  it('unlock wallet', async () => {
+  it('derive the appPrivateKey correctly with another salt', async () => {
     const secretKey =
       'divert dismiss popular truck neutral trend believe bleak again sample staff abstract soul weekend message amused pony child invite tenant finish pool logic check';
     const salt = 'd7de679f081291a18eadd2b987a24547';

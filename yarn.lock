@@ -3469,15 +3469,15 @@
     jsontokens "^3.0.0"
     query-string "^6.13.1"
 
-"@stacks/auth@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.0.0.tgz#816987d8062a16a776e14766cb537929d3a9ded1"
-  integrity sha512-b/9OaH5x6fHspP569XGui7++Kv3eIX7rJDv1hNmOcEZoa2Q5huMw7qUXlnqiryH7Ucb/hbaVE+uxEJ6JvpvSBQ==
+"@stacks/auth@3.5.0-beta.0", "@stacks/auth@^3.5.0-beta.0":
+  version "3.5.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-3.5.0-beta.0.tgz#95a563725d31303d194fcdc35dbe5d2afb04bd82"
+  integrity sha512-yuWbg3p3NkRGIaYzsZL67Aee+FrNmGzY7N6sR2nel+ZEw5lV9R2ol0Ar/Sl9d1cV0aZyUXDy7fy9gWqRSGTWrw==
   dependencies:
-    "@stacks/common" "^3.0.0"
-    "@stacks/encryption" "^3.0.0"
-    "@stacks/network" "^3.0.0"
-    "@stacks/profile" "^3.0.0"
+    "@stacks/common" "^3.3.0"
+    "@stacks/encryption" "^3.3.0"
+    "@stacks/network" "^3.3.0"
+    "@stacks/profile" "^3.3.0"
     c32check "^1.1.3"
     cross-fetch "^3.1.4"
     jsontokens "^3.0.0"
@@ -3524,7 +3524,7 @@
     socket.io-client "^4.0.1"
     ws "^7.4.0"
 
-"@stacks/common@3.3.0", "@stacks/common@^3.0.0", "@stacks/common@^3.3.0":
+"@stacks/common@3.3.0", "@stacks/common@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/common/-/common-3.3.0.tgz#d43a3f32981ba8a2b85027b46d84cfb787f8c4eb"
   integrity sha512-PVZiGGvl1WwUa47PCF5mPq3KGik/e+DXQZ7NqHBwNi5GOpjAo0M6nPSF1R+iSnHQ7DHtfXSoIQz8PlCxlYIYKw==
@@ -3585,7 +3585,7 @@
     readable-stream "^3.6.0"
     url "^0.11.0"
 
-"@stacks/encryption@3.3.0", "@stacks/encryption@^3.0.0", "@stacks/encryption@^3.3.0":
+"@stacks/encryption@3.3.0", "@stacks/encryption@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-3.3.0.tgz#d1b68cbdbcd88ccab48032869db3b5cf51e922b7"
   integrity sha512-AzN2Yvnemso0Qh7q7aTqJKws1merkINMFoYf0e0DBmY/IjrzLO0j0yoAdU6Ol8OPgnbxmp4CN96DKfJ+Hq2SMg==
@@ -3645,7 +3645,7 @@
     eslint-plugin-import ">=2.23.3"
     eslint-plugin-prettier "4.0.0"
 
-"@stacks/network@2.0.1", "@stacks/network@3.3.0", "@stacks/network@^1.2.2", "@stacks/network@^2.0.1", "@stacks/network@^3.0.0", "@stacks/network@^3.2.0", "@stacks/network@^3.3.0":
+"@stacks/network@2.0.1", "@stacks/network@3.3.0", "@stacks/network@^1.2.2", "@stacks/network@^2.0.1", "@stacks/network@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/network/-/network-3.3.0.tgz#1e3b4d0917d1d33720986846de7d0100f36a2610"
   integrity sha512-s9YCCBoYCETOT4ssYMvSPXc8pthosq0JqzOpvwTsmqdZB8JQfS/XYzzWoT59Wm3hjaz1AaW9YXNxqvh5DRRs9A==
@@ -3698,18 +3698,6 @@
     schema-inspector "^2.0.1"
     zone-file "^1.0.0"
 
-"@stacks/profile@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-3.1.0.tgz#b2d016dec1cb156df265cdf867863e5411cb303b"
-  integrity sha512-XkuuzRVLXn45+4o8JHJ9RsWQn9Vahm2vBnbFHY/f0FAywK+D06VBpse9qj9ZbtsYtolB1pjdy+6kLsewPiBNIw==
-  dependencies:
-    "@stacks/common" "^3.0.0"
-    "@stacks/network" "^3.0.0"
-    "@stacks/transactions" "^3.1.0"
-    jsontokens "^3.0.0"
-    schema-inspector "^2.0.1"
-    zone-file "^2.0.0-beta.3"
-
 "@stacks/profile@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-3.3.0.tgz#c1af71a66e2006659d1cc64a05851d7c0c4d0835"
@@ -3740,12 +3728,23 @@
   resolved "https://registry.yarnpkg.com/@stacks/stacks-blockchain-api-types/-/stacks-blockchain-api-types-0.65.0.tgz#38cd10571e38f314dbcd6f6244d6042f7d6a8e0a"
   integrity sha512-V0ko6Cge+IP/XV352rHDDPYYz84gSCRbeklyor3FaUdSZFZIXjVM1upIbo5FDQ6Enygbcpve+vpbbajiWMB16A==
 
-"@stacks/storage@3.3.0", "@stacks/storage@^3.3.0":
+"@stacks/storage@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-3.3.0.tgz#bcb3f96bada96fd0a3af4d2169a7b40585677d1a"
   integrity sha512-Rt6X74R6j2LZu4Hlkb3cUmBVblDU55ZFik4tq4kquAwhCWnf7CnUkZY6Sdy50QWCpishlcqCIz7NbFkcxRXIDQ==
   dependencies:
     "@stacks/auth" "^3.3.0"
+    "@stacks/common" "^3.3.0"
+    "@stacks/encryption" "^3.3.0"
+    bitcoinjs-lib "^5.2.0"
+    jsontokens "^3.0.0"
+
+"@stacks/storage@^3.5.0-beta.0":
+  version "3.5.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-3.5.0-beta.0.tgz#3a06d74ad96b350c2ae274297c826b276192d30b"
+  integrity sha512-bRlTTsA9i201uj7WWar388Gz0EJYwE5iyprxPRm1mzmRO/Al8xG/Rk2mPy45zZmcYrnvnYeskKR1Rcd4IkQZZw==
+  dependencies:
+    "@stacks/auth" "^3.5.0-beta.0"
     "@stacks/common" "^3.3.0"
     "@stacks/encryption" "^3.3.0"
     bitcoinjs-lib "^5.2.0"
@@ -3817,28 +3816,6 @@
     sha.js "^2.4.11"
     smart-buffer "^4.1.0"
 
-"@stacks/transactions@^3.1.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-3.2.0.tgz#15138d008332bb7a001f93750ca8490531e0fc15"
-  integrity sha512-7exiwNjlUk0kkmNc76ttJXYezGJLLgDTSDGCi396CvJgkdHgSUZefPkBivHOJsMGnNnZcu2QLpWRauQzwIE7qg==
-  dependencies:
-    "@stacks/common" "^3.0.0"
-    "@stacks/network" "^3.2.0"
-    "@types/bn.js" "^4.11.6"
-    "@types/elliptic" "^6.4.12"
-    "@types/node" "^14.14.43"
-    "@types/randombytes" "^2.0.0"
-    "@types/sha.js" "^2.4.0"
-    bn.js "^4.12.0"
-    c32check "^1.1.3"
-    cross-fetch "^3.1.4"
-    elliptic "^6.5.4"
-    lodash.clonedeep "^4.5.0"
-    randombytes "^2.1.0"
-    ripemd160-min "^0.0.6"
-    sha.js "^2.4.11"
-    smart-buffer "^4.1.0"
-
 "@stacks/ui-core@7.3.0", "@stacks/ui-core@^7.3.0":
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/ui-core/-/ui-core-7.3.0.tgz#7d4dd4d60206e795ca6b7109dfbaea74f878fda2"
@@ -3895,17 +3872,17 @@
     use-events "^1.4.1"
     use-onclickoutside "npm:use-onclickoutside-peer-deps@0.3.1"
 
-"@stacks/wallet-sdk@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-3.4.0.tgz#f244661a3bc0d3cd4da034a76d332bc270b8f747"
-  integrity sha512-opHSAx7vl4SNqb/6448UxmWZrw3wzz6+MiXXtF+dlwXENecWNr0ebWwAcV4SlGeQeFuF54pPw4roSix+MbnM9A==
+"@stacks/wallet-sdk@3.5.0-beta.0":
+  version "3.5.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-3.5.0-beta.0.tgz#bd110cc96115d13d3c4d9956cc86a898543f64d3"
+  integrity sha512-Xn1kA0BwBq48F2ruA0tpB2RhdA7jv8k16s7Foy77f60Z6+sGVFo3AihRVr8ypTWGujHVp25iWlxiCImXLWCRqA==
   dependencies:
-    "@stacks/auth" "^3.3.0"
+    "@stacks/auth" "^3.5.0-beta.0"
     "@stacks/common" "^3.3.0"
     "@stacks/encryption" "^3.3.0"
     "@stacks/network" "^3.3.0"
     "@stacks/profile" "^3.3.0"
-    "@stacks/storage" "^3.3.0"
+    "@stacks/storage" "^3.5.0-beta.0"
     "@stacks/transactions" "^3.3.0"
     bip32 "^2.0.6"
     bip39 "^3.0.2"

@@ -1,4 +1,4 @@
-import { Account, deriveAccount } from '@stacks/wallet-sdk';
+import { Account, DerivationType, deriveAccount } from '@stacks/wallet-sdk';
 import { mnemonicToSeed } from 'bip39';
 import { fromSeed } from 'bip32';
 import { BIP32Interface } from 'bitcoinjs-lib';
@@ -15,6 +15,7 @@ function accountsFromHighestAccountIndex(
         rootNode,
         index,
         salt,
+        stxDerivationType: DerivationType.Wallet,
       })
     );
   }
