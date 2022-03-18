@@ -58,7 +58,7 @@ const onboardingSteps = [
     title: OnboardingSteps.ExploreApps,
   },
   {
-    action: 'Buy an NFT',
+    action: 'Find NFT',
     body: 'Collect and trade NFTs secured by Bitcoin',
     event: 'buy_nft',
     imageFull: BuyNftFull,

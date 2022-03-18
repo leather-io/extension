@@ -1,3 +1,4 @@
+import { makeMoonPayUrl } from '@app/features/fiat-onramp-providers/moonpay-helper';
 import { makeOkcoinUrl } from '@app/features/fiat-onramp-providers/okcoin-helper';
 import { makeTransakUrl } from '@app/features/fiat-onramp-providers/transak-helper';
 import {
@@ -18,6 +19,7 @@ export const OnrampProviders = (props: OnrampProvidersProps) => {
   const providersUrl = {
     transak: makeTransakUrl(address),
     okcoin: makeOkcoinUrl(address),
+    moonpay: makeMoonPayUrl(address),
   };
 
   return (

@@ -19,6 +19,12 @@ const providersInfo = {
     cta: 'Buy on Okcoin',
     test_id: 'BtnOkCoin',
   },
+  moonpay: {
+    title: 'MoonPay',
+    body: 'US and Non-US residents can purchase STX with credit card, debit card, bank transfer, Apple pay or Google pay via MoonPay.',
+    cta: 'Buy on MoonPay',
+    test_id: 'BtnMoonPay',
+  },
 };
 
 export interface ProvidersUrl {
