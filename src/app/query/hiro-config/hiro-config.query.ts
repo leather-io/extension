@@ -31,7 +31,7 @@ interface HiroConfig {
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const GITHUB_PRIMARY_BRANCH = 'main';
+const GITHUB_PRIMARY_BRANCH = 'feat/add-moonpay/I2068'; // TODO: Change to main
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {

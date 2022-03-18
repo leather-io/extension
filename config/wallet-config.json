@@ -3,8 +3,9 @@
     "global": []
   },
   "activeFiatProviders": {
-    "transak": { "name": "transak", "enabled": true },
-    "okcoin": { "name": "okcoin", "enabled": true }
+    "moonpay": { "name": "moonpay", "enabled": true },
+    "okcoin": { "name": "okcoin", "enabled": true },
+    "transak": { "name": "transak", "enabled": true }
   },
   "feeEstimations": {
     "maxValues": [500000, 750000, 2000000],

@@ -58,7 +58,8 @@
       "additionalProperties": false,
       "properties": {
         "transak": { "$ref": "#/$defs/provider" },
-        "okcoin": { "$ref": "#/$defs/provider" }
+        "okcoin": { "$ref": "#/$defs/provider" },
+        "moonpay": { "$ref": "#/$defs/provider" }
       }
     },
     "feeEstimations": {
