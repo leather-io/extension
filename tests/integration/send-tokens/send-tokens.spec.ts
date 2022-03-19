@@ -7,6 +7,7 @@ import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
+import { SettingsSelectors } from '../settings.selectors';
 
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -42,6 +43,9 @@ describe(`Send tokens flow`, () => {
 
   describe('Set max button', () => {
     it('does not set a fee below zero, when the account balance is 0 STX', async () => {
+      await walletPage.clickSettingsButton();
+      await walletPage.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
+      await walletPage.page.click(createTestSelector('switch-account-item-1'));
       await sendForm.clickSendMaxBtn();
       const amount = await sendForm.getAmountFieldValue();
       expect(amount).toEqual('');

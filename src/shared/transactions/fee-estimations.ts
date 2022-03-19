@@ -1,10 +1,12 @@
-import { DEFAULT_FEE_RATE } from '@shared/constants';
-import { FeeEstimation } from '@shared/models/fees-types';
 import { BigNumber } from 'bignumber.js';
 
-export function getFeeEstimationsWithMaxValues(
+import { DEFAULT_FEE_RATE } from '@shared/constants';
+import { FeeEstimation } from '@shared/models/fees-types';
+
+export function getFeeEstimationsWithCappedValues(
   feeEstimations: FeeEstimation[],
-  feeEstimationsMaxValues: number[] | undefined
+  feeEstimationsMaxValues: number[] | undefined,
+  feeEstimationsMinValues: number[] | undefined
 ) {
   return feeEstimations.map((feeEstimation, index) => {
     if (
@@ -12,6 +14,11 @@ export function getFeeEstimationsWithMaxValues(
       new BigNumber(feeEstimation.fee).isGreaterThan(feeEstimationsMaxValues[index])
     ) {
       return { fee: feeEstimationsMaxValues[index], fee_rate: 0 };
+    } else if (
+      feeEstimationsMinValues &&
+      new BigNumber(feeEstimation.fee).isLessThan(feeEstimationsMinValues[index])
+    ) {
+      return { fee: feeEstimationsMinValues[index], fee_rate: 0 };
     } else {
       return feeEstimation;
     }
