@@ -31,9 +31,12 @@ import {
 import { SendFormMemoWarning } from './memo-warning';
 import {
   getDefaultSimulatedFeeEstimations,
-  getFeeEstimationsWithMaxValues,
+  getFeeEstimationsWithCappedValues,
 } from '@shared/transactions/fee-estimations';
-import { useFeeEstimationsMaxValues } from '@app/common/transactions/use-fee-estimations-max-values';
+import {
+  useFeeEstimationsMaxValues,
+  useFeeEstimationsMinValues,
+} from '@app/common/transactions/use-fee-estimations-capped-values';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
@@ -52,6 +55,7 @@ export function SendFormInner(props: SendFormInnerProps) {
 
   const [, setFeeEstimations] = useFeeEstimationsState();
   const feeEstimationsMaxValues = useFeeEstimationsMaxValues();
+  const feeEstimationsMinValues = useFeeEstimationsMinValues();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
   const analytics = useAnalytics();
@@ -69,13 +73,14 @@ export function SendFormInner(props: SendFormInnerProps) {
         void analytics.track('use_fee_estimation_default_simulated');
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
-        const feeEstimationsWithMaxValues = getFeeEstimationsWithMaxValues(
+        const feeEstimationsWithCappedValues = getFeeEstimationsWithCappedValues(
           feeEstimationsResp.estimations,
-          feeEstimationsMaxValues
+          feeEstimationsMaxValues,
+          feeEstimationsMinValues
         );
-        setFeeEstimations(feeEstimationsWithMaxValues);
+        setFeeEstimations(feeEstimationsWithCappedValues);
         void analytics.track('use_fee_estimation', {
-          maxValues: feeEstimationsWithMaxValues,
+          cappedValues: feeEstimationsWithCappedValues,
           estimations: feeEstimationsResp.estimations,
         });
       }

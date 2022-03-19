@@ -79,6 +79,20 @@
             "type": "number",
             "description": "Fee estimation max value"
           }
+        },
+        "minValuesEnabled": {
+          "type": "boolean",
+          "description": "Whether or not the minimum values are enabled"
+        },
+        "minValues": {
+          "type": "array",
+          "description": "Low, middle and high min values for fee estimations",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number",
+            "description": "Fee estimation min value"
+          }
         }
       }
     }
