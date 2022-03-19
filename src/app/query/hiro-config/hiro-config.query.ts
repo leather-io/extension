@@ -17,14 +17,16 @@ interface ActiveFiatProviderType {
 }
 
 interface FeeEstimationsConfig {
-  maxValuesEnabled?: boolean;
   maxValues?: number[];
+  maxValuesEnabled?: boolean;
+  minValues?: number[];
+  minValuesEnabled?: boolean;
 }
 
 interface HiroConfig {
   messages: any;
   activeFiatProviders?: Record<string, ActiveFiatProviderType>;
-  feeEstimations?: FeeEstimationsConfig;
+  feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
 const GITHUB_PRIMARY_BRANCH = 'dev';
@@ -62,16 +64,30 @@ export function useHasFiatProviders() {
   );
 }
 
-export function useConfigFeeEstimationsEnabled() {
+export function useConfigFeeEstimationsMaxEnabled() {
   const config = useRemoteHiroConfig();
-  if (isUndefined(config) || isUndefined(config?.feeEstimations)) return;
-  return config.feeEstimations.maxValuesEnabled;
+  if (isUndefined(config) || isUndefined(config?.feeEstimationsMinMax)) return;
+  return config.feeEstimationsMinMax.maxValuesEnabled;
 }
 
 export function useConfigFeeEstimationsMaxValues() {
   const config = useRemoteHiroConfig();
-  if (typeof config?.feeEstimations === 'undefined') return;
-  if (!config.feeEstimations.maxValues) return;
-  if (!Array.isArray(config.feeEstimations.maxValues)) return;
-  return config.feeEstimations.maxValues;
+  if (typeof config?.feeEstimationsMinMax === 'undefined') return;
+  if (!config.feeEstimationsMinMax.maxValues) return;
+  if (!Array.isArray(config.feeEstimationsMinMax.maxValues)) return;
+  return config.feeEstimationsMinMax.maxValues;
+}
+
+export function useConfigFeeEstimationsMinEnabled() {
+  const config = useRemoteHiroConfig();
+  if (isUndefined(config) || isUndefined(config?.feeEstimationsMinMax)) return;
+  return config.feeEstimationsMinMax.minValuesEnabled;
+}
+
+export function useConfigFeeEstimationsMinValues() {
+  const config = useRemoteHiroConfig();
+  if (typeof config?.feeEstimationsMinMax === 'undefined') return;
+  if (!config.feeEstimationsMinMax.minValues) return;
+  if (!Array.isArray(config.feeEstimationsMinMax.minValues)) return;
+  return config.feeEstimationsMinMax.minValues;
 }

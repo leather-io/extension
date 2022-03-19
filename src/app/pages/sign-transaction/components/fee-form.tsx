@@ -15,9 +15,12 @@ import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import {
   getDefaultSimulatedFeeEstimations,
-  getFeeEstimationsWithMaxValues,
+  getFeeEstimationsWithCappedValues,
 } from '@shared/transactions/fee-estimations';
-import { useFeeEstimationsMaxValues } from '@app/common/transactions/use-fee-estimations-max-values';
+import {
+  useFeeEstimationsMaxValues,
+  useFeeEstimationsMinValues,
+} from '@app/common/transactions/use-fee-estimations-capped-values';
 
 export function FeeForm(): JSX.Element | null {
   const analytics = useAnalytics();
@@ -34,6 +37,7 @@ export function FeeForm(): JSX.Element | null {
 
   const [, setFeeEstimations] = useFeeEstimationsState();
   const feeEstimationsMaxValues = useFeeEstimationsMaxValues();
+  const feeEstimationsMinValues = useFeeEstimationsMinValues();
 
   useEffect(() => {
     if (feeEstimationsResp) {
@@ -45,13 +49,14 @@ export function FeeForm(): JSX.Element | null {
         void analytics.track('use_fee_estimation_default_simulated');
       }
       if (feeEstimationsResp.estimations && feeEstimationsResp.estimations.length) {
-        const feeEstimationsWithMaxValues = getFeeEstimationsWithMaxValues(
+        const feeEstimationsWithCappedValues = getFeeEstimationsWithCappedValues(
           feeEstimationsResp.estimations,
-          feeEstimationsMaxValues
+          feeEstimationsMaxValues,
+          feeEstimationsMinValues
         );
-        setFeeEstimations(feeEstimationsWithMaxValues);
+        setFeeEstimations(feeEstimationsWithCappedValues);
         void analytics.track('use_fee_estimation', {
-          maxValues: feeEstimationsWithMaxValues,
+          cappedValues: feeEstimationsWithCappedValues,
           estimations: feeEstimationsResp.estimations,
         });
       }
