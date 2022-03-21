@@ -72,8 +72,6 @@ describe(`Onboarding integration tests`, () => {
       'You entered a Magic Recovery Code. Enter the password you set when you first created your Blockstack ID.'
     );
     await wallet.decryptRecoveryCode(MAGIC_RECOVERY_PASSWORD);
-    await wallet.enterNewPassword('lksjdflksjlfkjsdlfjsldf');
-    await wallet.enterConfirmPasswordAndClickDone('lksjdflksjlfkjsdlfjsldf');
     await wallet.waitForHomePage();
     const homePageVisible = await wallet.page.isVisible(wallet.$homePageBalancesList);
     expect(homePageVisible).toBeTruthy();

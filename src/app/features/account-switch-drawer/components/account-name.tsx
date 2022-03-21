@@ -1,30 +1,33 @@
 import { memo } from 'react';
-import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { BoxProps } from '@stacks/ui';
+import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
 import { Title } from '@app/components/typography';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 
-import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
-
-const AccountNameLayout = memo(({ children }) => (
-  <Title fontSize={2} lineHeight="1rem" fontWeight="400">
-    {children}
-  </Title>
-));
-
 interface AccountNameProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
 }
 export const AccountName = memo(({ account }: AccountNameProps) => {
   const name = useAccountDisplayName(account);
-  return <AccountNameLayout>{name}</AccountNameLayout>;
+
+  return (
+    <Title fontSize={2} lineHeight="1rem" fontWeight="400">
+      {name}
+    </Title>
+  );
 });
 
 interface AccountNameFallbackProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
 }
 export const AccountNameFallback = memo(({ account }: AccountNameFallbackProps) => {
   const defaultName = getAccountDisplayName(account);
-  return <AccountNameLayout>{defaultName}</AccountNameLayout>;
+
+  return (
+    <Title fontSize={2} lineHeight="1rem" fontWeight="400">
+      {defaultName}
+    </Title>
+  );
 });

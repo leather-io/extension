@@ -87,7 +87,7 @@ document.addEventListener(DomEventName.authenticationRequest, ((
 // Listen for a CustomEvent (transaction request) coming from the web app
 document.addEventListener(DomEventName.transactionRequest, ((event: TransactionRequestEvent) => {
   forwardDomEventToBackground({
-    path: RouteUrls.TransactionRequest,
+    path: RouteUrls.Transaction,
     payload: event.detail.transactionRequest,
     urlParam: 'request',
     method: ExternalMethods.transactionRequest,

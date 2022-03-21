@@ -19,6 +19,6 @@ export class DemoPage {
   }
 
   async openConnect() {
-    return this.page.click(this.openConnectBtn, { timeout: 10000 });
+    return this.page.click(this.openConnectBtn, { timeout: 7000 });
   }
 }

@@ -1,22 +1,32 @@
-import { useCallback } from 'react';
-import { useAtom } from 'jotai';
 import { useAtomCallback, useAtomValue } from 'jotai/utils';
+import type { InMemorySoftwareWalletVault, VaultActions } from '@shared/vault/vault-types';
+import { gaiaUrl } from '@shared/constants';
+import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { textToBytes } from '@app/common/store-utils';
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
   makeAuthResponse,
   updateWalletConfigWithApp,
 } from '@stacks/wallet-sdk';
-
-import { gaiaUrl } from '@shared/constants';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { currentAccountStxAddressState } from '@app/store/accounts';
+import { currentAccountIndexState, currentAccountStxAddressState } from '@app/store/accounts';
 import { localNonceState } from '@app/store/accounts/nonce';
 import { currentNetworkState } from '@app/store/network/networks';
+import { useAtom } from 'jotai';
+import { useCallback } from 'react';
+import {
+  encryptedSecretKeyState,
+  hasRehydratedVaultStore,
+  hasSetPasswordState,
+  secretKeyState,
+  walletState,
+} from './wallet';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
-import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
-import { useKeyActions } from '@app/common/hooks/use-key-actions';
+
+export function useHasRehydratedVault() {
+  return useAtomValue(hasRehydratedVaultStore);
+}
 
 export function useWalletState() {
   return useAtom(walletState);
@@ -28,6 +38,10 @@ export function useSecretKey() {
 
 export function useEncryptedSecretKeyState() {
   return useAtomValue(encryptedSecretKeyState);
+}
+
+export function useHasSetPasswordState() {
+  return useAtomValue(hasSetPasswordState);
 }
 
 export function useSetLatestNonceCallback() {
@@ -46,10 +60,9 @@ export function useSetLatestNonceCallback() {
 
 export function useFinishSignInCallback() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
-  const keyActions = useKeyActions();
   return useAtomCallback<void, number>(
     useCallback(
-      async (get, _set, accountIndex) => {
+      async (get, set, accountIndex) => {
         const wallet = get(walletState);
         const account = wallet?.accounts[accountIndex];
         if (!decodedAuthRequest || !authRequest || !account || !wallet) {
@@ -83,10 +96,38 @@ export function useFinishSignInCallback() {
           scopes: decodedAuthRequest.scopes,
           account,
         });
-        keyActions.switchAccount(accountIndex);
+        set(currentAccountIndexState, accountIndex);
         finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
       },
-      [decodedAuthRequest, authRequest, appIcon, appName, keyActions]
+      [appName, appIcon, authRequest, decodedAuthRequest]
     )
+  );
+}
+
+export function useInnerMessageWrapper() {
+  return useAtomCallback<void, VaultActions>(
+    useCallback(async (_get, set, message) => {
+      return new Promise<InMemorySoftwareWalletVault>((resolve, reject) => {
+        chrome.runtime.sendMessage(message, (vaultOrError: InMemorySoftwareWalletVault | Error) => {
+          try {
+            if ('hasSetPassword' in vaultOrError) {
+              const vault = vaultOrError;
+              set(hasRehydratedVaultStore, true);
+              set(hasSetPasswordState, vault.hasSetPassword);
+              set(walletState, vault.wallet);
+              set(secretKeyState, vault.secretKey ? textToBytes(vault.secretKey) : undefined);
+              typeof vault.currentAccountIndex !== 'undefined' &&
+                set(currentAccountIndexState, vault.currentAccountIndex);
+              set(encryptedSecretKeyState, vault.encryptedSecretKey);
+              resolve(vault);
+            } else {
+              reject(vaultOrError);
+            }
+          } catch (e) {
+            logger.error(e);
+          }
+        });
+      });
+    }, [])
   );
 }

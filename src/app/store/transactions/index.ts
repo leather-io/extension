@@ -119,7 +119,6 @@ export const transactionNetworkVersionState = atom(get => {
     [ChainID.Testnet]: TransactionVersion.Testnet,
   });
 });
-
 export const addressNetworkVersionState = atom(get => {
   const chainId = get(currentNetworkState)?.chainId;
   return whenChainId(chainId)({

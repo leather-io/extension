@@ -3,8 +3,11 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import {
   authRequestState,
   hasAllowedDiagnosticsState,
+  magicRecoveryCodePasswordState,
+  magicRecoveryCodeState,
   secretKeyState,
   seedInputErrorState,
+  seedInputState,
 } from './onboarding';
 
 export function useAuthRequest() {
@@ -15,8 +18,24 @@ export function useUpdateAuthRequest() {
   return useUpdateAtom(authRequestState);
 }
 
+export function useSeedInputState() {
+  return useAtom(seedInputState);
+}
+
 export function useSeedInputErrorState() {
   return useAtom(seedInputErrorState);
+}
+
+export function useMagicRecoveryCodeState() {
+  return useAtom(magicRecoveryCodeState);
+}
+
+export function useMagicRecoveryCodeValue() {
+  return useAtomValue(magicRecoveryCodeState);
+}
+
+export function useMagicRecoveryCodePasswordState() {
+  return useAtom(magicRecoveryCodePasswordState);
 }
 
 export function useSecretKeyState() {
