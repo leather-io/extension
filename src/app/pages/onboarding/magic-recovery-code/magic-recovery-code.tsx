@@ -1,99 +1,73 @@
 import { memo } from 'react';
-import { Formik, Form } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { Text, Button, Input, Stack, StackProps, Flex } from '@stacks/ui';
+import { Text, Input, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useMagicRecoveryCode } from '@app/common/hooks/auth/use-magic-recovery-code';
+import { useMountEffect } from '@app/common/hooks/use-mount-effect';
 import { ErrorLabel } from '@app/components/error-label';
 import { Caption } from '@app/components/typography';
 import { Header } from '@app/components/header';
-import { RouteUrls } from '@shared/route-urls';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { PrimaryButton } from '@app/components/primary-button';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
-const MagicRecoveryCodeForm: React.FC<StackProps> = memo(props => {
-  const navigate = useNavigate();
-  const { decryptMagicRecoveryCode, error, isLoading } = useMagicRecoveryCode();
+export const MagicRecoveryCode = memo(() => {
+  const { onBack, onSubmit, onChange, magicRecoveryCodePassword, error, isLoading } =
+    useMagicRecoveryCode();
 
-  return (
-    <Formik
-      initialValues={{ password: '' }}
-      onSubmit={values => decryptMagicRecoveryCode(values.password)}
-    >
-      {form => (
-        <Form>
-          <Stack spacing="loose" {...props}>
-            <Stack>
-              <Input
-                autoFocus
-                type="password"
-                name="password"
-                placeholder="Your password"
-                fontSize="16px"
-                autoCapitalize="off"
-                spellCheck={false}
-                width="100%"
-                onChange={form.handleChange}
-                value={form.values.password}
-              />
-              {error && (
-                <ErrorLabel lineHeight="16px">
-                  <Text
-                    textAlign="left"
-                    textStyle="caption"
-                    color="feedback.error"
-                    data-testid="sign-in-seed-error"
-                  >
-                    {error}
-                  </Text>
-                </ErrorLabel>
-              )}
-            </Stack>
-            <Flex justifyContent="flex-end">
-              <Button
-                mode="tertiary"
-                isDisabled={isLoading}
-                mr="base"
-                type="button"
-                onClick={() => navigate(RouteUrls.SignIn)}
-              >
-                Go back
-              </Button>
-              <Button
-                isLoading={isLoading}
-                isDisabled={isLoading}
-                data-testid="decrypt-recovery-button"
-                type="submit"
-              >
-                Continue
-              </Button>
-            </Flex>
-          </Stack>
-        </Form>
-      )}
-    </Formik>
-  );
-});
+  useRouteHeader(<Header title="Enter your password" onClose={onBack} hideActions />);
 
-export const MagicRecoveryCode: React.FC = memo(() => {
-  const navigate = useNavigate();
-
-  useRouteHeader(
-    <Header title="Enter your password" onClose={() => navigate(RouteUrls.SignIn)} hideActions />
-  );
+  // Weird fix for preventing the input from using a value of the last input
+  // I think this is related to the routing and should be resolved with.
+  // https://github.com/blockstack/stacks-wallet-web/issues/1048
+  const mounted = useMountEffect();
 
   return (
     <CenteredPageContainer>
-      <Caption
-        mb="base"
-        textAlign={['left', 'center']}
-        data-testid={WalletPageSelectors.MagicRecoveryMessage}
-      >
-        You entered a Magic Recovery Code. Enter the password you set when you first created your
-        Blockstack ID.
-      </Caption>
-      <MagicRecoveryCodeForm mt="auto" />
+      <Stack as="form" maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH} onSubmit={onSubmit} spacing="loose">
+        <Caption
+          textAlign={['left', 'center']}
+          data-testid={WalletPageSelectors.MagicRecoveryMessage}
+        >
+          You entered a Magic Recovery Code. Enter the password you set when you first created your
+          Blockstack ID.
+        </Caption>
+        {mounted && (
+          <Input
+            autoCapitalize="off"
+            autoFocus
+            borderRadius="10px"
+            height="64px"
+            onChange={onChange}
+            placeholder="Enter your password"
+            spellCheck={false}
+            type="password"
+            width="100%"
+            value={magicRecoveryCodePassword}
+          />
+        )}
+        {error && (
+          <ErrorLabel lineHeight="16px">
+            <Text
+              textAlign="left"
+              textStyle="caption"
+              color="feedback.error"
+              data-testid="sign-in-seed-error"
+            >
+              {error}
+            </Text>
+          </ErrorLabel>
+        )}
+        <PrimaryButton
+          data-testid="decrypt-recovery-button"
+          isDisabled={isLoading}
+          isLoading={isLoading}
+          width="100%"
+        >
+          Continue
+        </PrimaryButton>
+      </Stack>
     </CenteredPageContainer>
   );
 });

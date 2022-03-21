@@ -1,11 +1,7 @@
 import { AccountBalanceStxKeys } from '@shared/models/account-types';
 import { Account } from '@stacks/wallet-sdk';
 
-export type SoftwareWalletAccountWithAddress = Account & {
-  address: string;
-  stxPublicKey: string;
-  dataPublicKey: string;
-};
+export type AccountWithAddress = Account & { address: string };
 
 export const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'balance',

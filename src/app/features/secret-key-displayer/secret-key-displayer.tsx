@@ -3,13 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { useClipboard } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useWallet } from '@app/common/hooks/use-wallet';
+
 import { SecretKeyDisplayerLayout } from './secret-key-displayer.layout';
 import { RouteUrls } from '@shared/route-urls';
 
-interface SecretKeyDisplayerProps {
-  secretKey: string;
-}
-export const SecretKeyDisplayer = memo(({ secretKey }: SecretKeyDisplayerProps) => {
+export const SecretKeyDisplayer = memo(() => {
+  const { secretKey } = useWallet();
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
   const { pathname } = useLocation();
   const analytics = useAnalytics();

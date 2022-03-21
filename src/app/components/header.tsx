@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
           fontWeight={500}
           lineHeight="24px"
           pr={hideActions ? '36px' : 'unset'}
-          {...rest}
+          {...props}
         >
           {title}
         </Title>

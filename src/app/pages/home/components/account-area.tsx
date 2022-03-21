@@ -40,7 +40,9 @@ const AccountAddress = memo((props: StackProps) => {
 
 export const CurrentAccount = memo((props: StackProps) => {
   const currentAccount = useCurrentAccount();
-  if (!currentAccount) return null;
+  if (!currentAccount) {
+    throw new Error('Homepage rendered without account state. This should never happen.');
+  }
   return (
     <Stack spacing="base-tight" alignItems="center" isInline {...props}>
       <CurrentAccountAvatar />

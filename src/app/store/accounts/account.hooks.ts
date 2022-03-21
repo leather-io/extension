@@ -1,14 +1,12 @@
 import { useAtom } from 'jotai';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
-import {
-  addressNetworkVersionState,
-  transactionNetworkVersionState,
-} from '@app/store/transactions';
+import { transactionNetworkVersionState } from '@app/store/transactions';
 import {
   accountsWithAddressState,
   currentAccountAvailableAnchoredStxBalanceState,
   currentAccountBalancesUnanchoredState,
   currentAccountConfirmedTransactionsState,
+  currentAccountIndexState,
   currentAccountInfoState,
   currentAccountMempoolTransactionsState,
   currentAccountState,
@@ -17,7 +15,6 @@ import {
   refreshAccountDataState,
   transactionAccountIndexState,
 } from '@app/store/accounts';
-import { currentAccountIndexState } from '../wallet/wallet';
 
 export function useCurrentAccountAvailableStxBalance() {
   return useAtomValue(currentAccountAvailableAnchoredStxBalanceState);
@@ -53,10 +50,6 @@ export function useTransactionAccountIndex() {
 
 export function useTransactionNetworkVersion() {
   return useAtomValue(transactionNetworkVersionState);
-}
-
-export function useAddressNetworkVersion() {
-  return useAtomValue(addressNetworkVersionState);
 }
 
 export function useHasSwitchedAccounts() {

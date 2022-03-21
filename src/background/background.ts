@@ -9,6 +9,7 @@ import * as Sentry from '@sentry/react';
 
 import { storePayload, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
+import type { VaultActions } from '@shared/vault/vault-types';
 import { initSentry } from '@shared/utils/sentry-init';
 import {
   CONTENT_SCRIPT_PORT,
@@ -17,18 +18,15 @@ import {
 } from '@shared/message-types';
 
 import { popupCenter } from '@background/popup-center';
+import { vaultMessageHandler } from '@background/vault';
 import { initContextMenuActions } from '@background/init-context-menus';
-import { backgroundMessageHandler } from './message-handler';
-import { backupOldWalletSalt } from './backup-old-wallet-salt';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 initSentry();
 
 initContextMenuActions();
-backupOldWalletSalt();
 
-//
 // Playwright does not currently support Chrome extension popup testing:
 // https://github.com/microsoft/playwright/issues/5593
 async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
@@ -37,6 +35,7 @@ async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
   });
 }
 
+// Listen for install event
 chrome.runtime.onInstalled.addListener(details => {
   Sentry.wrap(async () => {
     if (details.reason === 'install' && !IS_TEST_ENV) {
@@ -77,7 +76,7 @@ chrome.runtime.onConnect.addListener(port =>
               storageKey: StorageKey.transactionRequests,
               port,
             });
-            const path = RouteUrls.TransactionRequest;
+            const path = RouteUrls.Transaction;
             const urlParams = new URLSearchParams();
             urlParams.set('request', payload);
             if (IS_TEST_ENV) {
@@ -95,12 +94,13 @@ chrome.runtime.onConnect.addListener(port =>
   })
 );
 
-//
-// Events from the popup script
-// Listener fn must return `true` to indicate the response will be async
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) =>
+// Listen for events triggered by the background memory vault
+chrome.runtime.onMessage.addListener((message: VaultActions, sender, sendResponse) =>
   Sentry.wrap(() => {
-    void backgroundMessageHandler(message, sender, sendResponse);
+    // Only respond to internal messages from our UI, not content scripts in other applications
+    if (!sender.url?.startsWith(chrome.runtime.getURL(''))) return;
+    void vaultMessageHandler(message).then(sendResponse).catch(sendResponse);
+    // Return true to specify that we are responding async
     return true;
   })
 );

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
-import { keyActions } from '@app/store/keys/key.actions';
+import { InternalMethods } from '@shared/message-types';
 
 export function useOnSignOut(handler: () => void) {
   useEffect(() => {
     chrome.runtime.onMessage.addListener(message => {
-      if (message?.method === keyActions.signOut.type) handler();
+      if (message.method === InternalMethods.signOut) handler();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -2,11 +2,13 @@ import { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useWallet } from '@app/common/hooks/use-wallet';
+import { getHasSetPassword } from '@shared/utils/storage';
 import { Container } from '@app/components/container/container';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
-import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
+import { SignTransaction } from '@app/pages/sign-transaction/sign-transaction';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
@@ -22,30 +24,44 @@ import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnos
 import { BuyPage } from '@app/pages/buy/buy';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { useHasStateRehydrated } from '@app/store';
+import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
-import { OnboardingGate } from './onboarding-gate';
 
 export function AppRoutes(): JSX.Element | null {
+  const { hasRehydratedVault } = useWallet();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
-
+  const { getWallet } = useVaultMessenger();
   useSaveAuthRequest();
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => navigate(RouteUrls.Onboarding));
 
   useEffect(() => {
+    const hasSetPassword = getHasSetPassword();
+    const shouldRedirectToOnboarding =
+      pathname === RouteUrls.Home ||
+      (pathname === RouteUrls.ChooseAccount || pathname) === RouteUrls.Transaction;
+    const shouldRedirectToHome = pathname === RouteUrls.Onboarding;
+    // This ensures the route is correct bc the vault is slow to set wallet state
+    if (shouldRedirectToOnboarding && !hasSetPassword) navigate(RouteUrls.Onboarding);
+    if (shouldRedirectToHome && hasSetPassword) navigate(RouteUrls.Home);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     void analytics.page('view', `${pathname}`);
   }, [analytics, pathname]);
 
-  const hasStateRehydrated = useHasStateRehydrated();
+  useEffect(() => {
+    void getWallet();
+  }, [getWallet]);
 
-  if (!hasStateRehydrated) return <LoadingSpinner />;
+  if (!hasRehydratedVault) return null;
 
   return (
     <Routes>
@@ -60,33 +76,12 @@ export function AppRoutes(): JSX.Element | null {
         >
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
-        <Route
-          path={RouteUrls.Onboarding}
-          element={
-            <OnboardingGate>
-              <WelcomePage />
-            </OnboardingGate>
-          }
-        />
-        <Route
-          path={RouteUrls.BackUpSecretKey}
-          element={
-            <OnboardingGate>
-              <BackUpSecretKeyPage />
-            </OnboardingGate>
-          }
-        />
-        <Route
-          path={RouteUrls.SetPassword}
-          element={
-            <OnboardingGate>
-              <SetPasswordPage />
-            </OnboardingGate>
-          }
-        />
+        <Route path={RouteUrls.Onboarding} element={<WelcomePage />} />
+        <Route path={RouteUrls.BackUpSecretKey} element={<BackUpSecretKeyPage />} />
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+        <Route path={RouteUrls.SetPassword} element={<SetPasswordPage />} />
         <Route path={RouteUrls.SignIn} element={<SignIn />} />
-        <Route path={RouteUrls.MagicRecoveryCode} element={<MagicRecoveryCode />} />
+        <Route path={RouteUrls.RecoveryCode} element={<MagicRecoveryCode />} />
         <Route
           path={RouteUrls.AddNetwork}
           element={
@@ -134,11 +129,11 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
-          path={RouteUrls.TransactionRequest}
+          path={RouteUrls.Transaction}
           element={
             <AccountGate>
               <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <TransactionRequest />
+                <SignTransaction />
               </Suspense>
             </AccountGate>
           }

@@ -13,11 +13,12 @@ import { HomeActions } from '@app/pages/home/components/home-actions';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+
+import { HomeTabs } from './components/home-tabs';
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { HomeTabs } from './components/home-tabs';
 
-export function Home() {
+export const Home = () => {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
 
@@ -55,7 +56,7 @@ export function Home() {
           <HomeTabs
             balances={
               <BalancesList
-                address={account?.address}
+                address={account.address}
                 data-testid={HomePageSelectors.BalancesList}
               />
             }
@@ -66,4 +67,4 @@ export function Home() {
       <Outlet />
     </>
   );
-}
+};
