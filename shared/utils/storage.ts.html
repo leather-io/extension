@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.48% </span>
+                <span class="strong">32.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/29</span>
+                <span class='fraction'>11/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/14</span>
+                <span class='fraction'>2/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>3/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">35.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/26</span>
+                <span class='fraction'>11/31</span>
             </div>
         
             
@@ -134,7 +134,19 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,9 +215,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const userHasAllowedDiagnosticsKey = 'stacks-wallet-has-allowed-diagnostics';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const hasSetPasswordIdentifier = 'stacks-wallet-has-set-password' as const;
+&nbsp;
+export const userHasAllowedDiagnosticsKey = 'stacks-wallet-has-allowed-diagnostics';
 &nbsp;
 export enum StorageKey {
   'authenticationRequests',
@@ -271,6 +293,14 @@ export function <span class="fstat-no" title="function not covered" >deleteTabFo
 <span class="cstat-no" title="statement not covered" >  localStorage.removeItem(key);</span>
 }
 &nbsp;
+export function <span class="fstat-no" title="function not covered" >getHasSetPassword(</span>) {
+  const persisted = <span class="cstat-no" title="statement not covered" >localStorage.getItem(hasSetPasswordIdentifier);</span>
+<span class="cstat-no" title="statement not covered" >  if (persisted !== null) {</span>
+<span class="cstat-no" title="statement not covered" >    return JSON.parse(persisted);</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return false;</span>
+}
+&nbsp;
 export function <span class="fstat-no" title="function not covered" >setToLocalstorageIfDefined(</span>storageKey: string, value?: string) {
 <span class="cstat-no" title="statement not covered" >  if (value) {</span>
 <span class="cstat-no" title="statement not covered" >    localStorage.setItem(storageKey, value);</span>
@@ -283,7 +313,7 @@ export function <span class="fstat-no" title="function not covered" >setToLocals
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 16 2022 15:14:41 GMT+0000 (Coordinated Universal Time)
+                at Mon Mar 21 2022 16:10:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -89,9 +89,7 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -102,8 +100,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -122,27 +118,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense, memo } from 'react';
 import { Box, BoxProps } from '@stacks/ui';
 &nbsp;
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountAvatar } from '@app/components/account-avatar/account-avatar';
+import { getAccountDisplayName } from '@stacks/wallet-sdk';
 import { useGetAccountNamesByAddressQuery } from '@app/query/bns/bns.hooks';
-import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
-import { usePublicKeyToAddress } from '@app/common/hooks/use-public-key-to-address';
 &nbsp;
-interface AccountAvatarItemProps extends BoxProps {
-  publicKey: string;
-  index: number;
+interface AccountAvatarProps extends BoxProps {
+  account: AccountWithAddress;
 }
-const AccountAvatarSuspense = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> publicKey, index }: AccountAvatarItemProps) =&gt; {</span>
-  const address = <span class="cstat-no" title="statement not covered" >usePublicKeyToAddress(publicKey);</span>
-  const name = <span class="cstat-no" title="statement not covered" >useGetAccountNamesByAddressQuery(address);</span>
-<span class="cstat-no" title="statement not covered" >  return &lt;AccountAvatar name={name[0] ?? getAccountDisplayName({ index })} publicKey={publicKey} /&gt;;</span>
+const AccountAvatarSuspense = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> account }: AccountAvatarProps) =&gt; {</span>
+  const name = <span class="cstat-no" title="statement not covered" >useGetAccountNamesByAddressQuery(account.address);</span>
+<span class="cstat-no" title="statement not covered" >  return &lt;AccountAvatar name={name[0] ?? getAccountDisplayName(account)} account={account} /&gt;;</span>
 });
 &nbsp;
-export const AccountAvatarItem = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> publicKey, index, ...rest }: AccountAvatarItemProps) =&gt; {</span>
-  const defaultName = <span class="cstat-no" title="statement not covered" >getAccountDisplayName({ index });</span>
+export const AccountAvatarItem = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> account, ...rest }: AccountAvatarProps) =&gt; {</span>
+  const defaultName = <span class="cstat-no" title="statement not covered" >getAccountDisplayName(account);</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Box {...rest}&gt;
-      &lt;Suspense fallback={&lt;AccountAvatar name={defaultName} publicKey={publicKey} /&gt;}&gt;
-        &lt;AccountAvatarSuspense publicKey={publicKey} index={index} /&gt;
+      &lt;Suspense fallback={&lt;AccountAvatar name={defaultName} account={account} /&gt;}&gt;
+        &lt;AccountAvatarSuspense account={account} /&gt;
       &lt;/Suspense&gt;
     &lt;/Box&gt;
   );
@@ -154,7 +148,7 @@ export const AccountAvatarItem = <span class="cstat-no" title="statement not cov
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 16 2022 15:14:41 GMT+0000 (Coordinated Universal Time)
+                at Mon Mar 21 2022 16:10:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
