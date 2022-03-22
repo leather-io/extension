@@ -1,9 +1,5 @@
 import { useAtomValue } from 'jotai/utils';
-import {
-  currentAccountBalancesUnanchoredState,
-  currentAccountState,
-  currentAccountStxAddressState,
-} from '@app/store/accounts';
+import { currentAccountState, currentAccountStxAddressState } from '@app/store/accounts';
 import { currentStacksNetworkState } from '@app/store/network/networks';
 import { currentAccountNonceState } from '@app/store/accounts/nonce';
 import { useSelectedAssetItem } from '@app/store/assets/asset.hooks';
@@ -13,7 +9,6 @@ export function useMakeFungibleTokenTransfer() {
   const asset = useSelectedAssetItem();
   const currentAccount = useAtomValue(currentAccountState);
   const network = useAtomValue(currentStacksNetworkState);
-  const balances = useAtomValue(currentAccountBalancesUnanchoredState);
   const stxAddress = useAtomValue(currentAccountStxAddressState);
   const nonce = useAtomValue(currentAccountNonceState);
   return useMemo(() => {
@@ -25,7 +20,6 @@ export function useMakeFungibleTokenTransfer() {
         asset,
         stxAddress,
         nonce,
-        balances,
         network,
         assetName,
         contractAddress,
@@ -33,5 +27,5 @@ export function useMakeFungibleTokenTransfer() {
       };
     }
     return;
-  }, [asset, balances, currentAccount, network, nonce, stxAddress]);
+  }, [asset, currentAccount, network, nonce, stxAddress]);
 }
