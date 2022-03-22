@@ -1,3 +1,17 @@
+# [3.5.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.4.0...v3.5.0) (2022-03-22)
+
+
+### Bug Fixes
+
+* re-add dependency array for getAccountDisplayName usage ([9a40fd8](https://github.com/hirosystems/stacks-wallet-web/commit/9a40fd87dd2853ab724921e5443452dc117c955f))
+* remove conditional code for post conditions in fts ([16624e2](https://github.com/hirosystems/stacks-wallet-web/commit/16624e2918d7ca4ca1187a8ddfbc5d2aaf49dd67))
+
+
+### Features
+
+* revert "Release/2022 03 02 white buffalo" ([3dee883](https://github.com/hirosystems/stacks-wallet-web/commit/3dee883878fc788426754910f8a20655aea335d2))
+* show account username suffices ([289b44d](https://github.com/hirosystems/stacks-wallet-web/commit/289b44dd45bf8b18966261bbb371749d296f3450))
+
 # [3.4.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.3.0...v3.4.0) (2022-03-21)
 
 
