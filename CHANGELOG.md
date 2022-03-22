@@ -1,3 +1,15 @@
+# [3.4.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.3.0...v3.4.0-beta.1) (2022-03-22)
+
+
+### Bug Fixes
+
+* re-add dependency array for getAccountDisplayName usage ([e69dcac](https://github.com/hirosystems/stacks-wallet-web/commit/e69dcacafd6c0682ce27d5fa60ddf9dde8761c97))
+
+
+### Features
+
+* show account username suffices ([f8d631e](https://github.com/hirosystems/stacks-wallet-web/commit/f8d631e3e93103a6e23b82abb481bdbfade7ee78))
+
 # [3.3.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.2.1...v3.3.0) (2022-03-16)
 
 
