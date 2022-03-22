@@ -11,7 +11,7 @@
           "description": "ONLY FIRST ITEM WILL SHOW IN WALLET.",
           "items": {
             "type": "object",
-            "required": ["purpose", "title", "text", "publishedAt", "dismissible"],
+            "required": ["purpose", "title", "text", "publishedAt", "dismissible", "chainTarget"],
             "properties": {
               "purpose": {
                 "type": "string",
@@ -33,6 +33,15 @@
               "learnMoreUrl": {
                 "type": "string",
                 "description": "URL to additional resources such as blog or forum post"
+              },
+              "learnMoreText": {
+                "type": "string",
+                "default": "Learn more",
+                "description": "Link text"
+              },
+              "chainTarget": {
+                "type": "string",
+                "enum": ["all", "mainnet", "testnet"]
               },
               "dismissible": {
                 "type": "boolean",

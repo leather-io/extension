@@ -1,5 +1,3 @@
-export const hasSetPasswordIdentifier = 'stacks-wallet-has-set-password' as const;
-
 export const userHasAllowedDiagnosticsKey = 'stacks-wallet-has-allowed-diagnostics';
 
 export enum StorageKey {
@@ -64,14 +62,6 @@ export function getRequestOrigin(storageKey: StorageKey, request: string): strin
 export function deleteTabForRequest(storageKey: StorageKey, request: string) {
   const key = getKeyForRequest(storageKey, request);
   localStorage.removeItem(key);
-}
-
-export function getHasSetPassword() {
-  const persisted = localStorage.getItem(hasSetPasswordIdentifier);
-  if (persisted !== null) {
-    return JSON.parse(persisted);
-  }
-  return false;
 }
 
 export function setToLocalstorageIfDefined(storageKey: string, value?: string) {

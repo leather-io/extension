@@ -12,16 +12,10 @@ export enum ExternalMethods {
 }
 
 export enum InternalMethods {
-  getWallet = 'getWallet',
-  makeWallet = 'makeWallet',
-  storeSeed = 'storeSeed',
-  createNewAccount = 'createNewAccount',
-  signOut = 'signOut',
-  setPassword = 'setPassword',
-  switchAccountIndex = 'switchAccountIndex',
-  unlockWallet = 'unlockWallet',
-  lockWallet = 'lockWallet',
-  switchAccount = 'switchAccount',
+  RequestDerivedStxAccounts = 'RequestDerivedStxAccounts',
+  ShareInMemoryKeyToBackground = 'ShareInMemoryKeyToBackground',
+  RequestInMemoryKeys = 'RequestInMemoryKeys',
+  RemoveInMemoryKeys = 'RemoveInMemoryKeys',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;
@@ -34,7 +28,8 @@ interface BaseMessage {
 /**
  * Content Script <-> Background Script
  */
-export interface Message<Methods extends ExtensionMethods, Payload> extends BaseMessage {
+export interface Message<Methods extends ExtensionMethods, Payload = undefined>
+  extends BaseMessage {
   method: Methods;
   payload: Payload;
 }

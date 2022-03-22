@@ -5,7 +5,7 @@ export enum RouteUrls {
   BackUpSecretKey = '/back-up-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
-  RecoveryCode = '/recovery-code',
+  MagicRecoveryCode = '/recovery-code',
   RequestDiagnostics = '/request-diagnostics',
   // Active wallet routes
   Home = '/',
@@ -15,7 +15,7 @@ export enum RouteUrls {
   Receive = '/receive',
   Send = '/send',
   SignOutConfirm = '/sign-out',
-  Transaction = '/transaction',
+  TransactionRequest = '/transaction',
   ViewSecretKey = '/view-secret-key',
   // Locked wallet route
   Unlock = '/unlock',

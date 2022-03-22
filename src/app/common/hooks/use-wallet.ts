@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
-import { getAccountDisplayName } from '@stacks/wallet-sdk';
 
-import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 import { useOnboardingState } from './auth/use-onboarding-state';
 
@@ -9,8 +8,6 @@ import { bytesToText } from '@app/common/store-utils';
 import {
   useEncryptedSecretKeyState,
   useFinishSignInCallback,
-  useHasRehydratedVault,
-  useHasSetPasswordState,
   useSecretKey,
   useSetLatestNonceCallback,
   useWalletState,
@@ -27,21 +24,20 @@ import {
   useNetworkState,
 } from '@app/store/network/networks.hooks';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { getAccountDisplayName } from '../utils/get-account-display-name';
 
 export function useWallet() {
-  const hasRehydratedVault = useHasRehydratedVault();
   const [wallet, setWallet] = useWalletState();
   const secretKey = useSecretKey();
   const encryptedSecretKey = useEncryptedSecretKeyState();
   const currentAccountIndex = useCurrentAccountIndex();
-  const hasSetPassword = useHasSetPasswordState();
   const currentAccount = useCurrentAccount();
   const currentAccountStxAddress = useCurrentAccountStxAddressState();
   const transactionVersion = useTransactionNetworkVersion();
   const networks = useNetworkState();
   const currentNetwork = useCurrentNetworkState();
   const currentNetworkKey = useCurrentNetworkKey();
-  const vaultMessenger = useVaultMessenger();
+  const keyActions = useKeyActions();
 
   const currentAccountDisplayName = currentAccount
     ? getAccountDisplayName(currentAccount)
@@ -64,7 +60,6 @@ export function useWallet() {
   const finishSignIn = useFinishSignInCallback();
 
   return {
-    hasRehydratedVault,
     wallet,
     secretKey: secretKey ? bytesToText(secretKey) : undefined,
     hasGeneratedWallet,
@@ -77,11 +72,10 @@ export function useWallet() {
     currentNetwork,
     currentNetworkKey,
     encryptedSecretKey,
-    hasSetPassword,
     finishSignIn,
     setLatestNonce,
     setWallet,
     cancelAuthentication,
-    ...vaultMessenger,
+    ...keyActions,
   };
 }

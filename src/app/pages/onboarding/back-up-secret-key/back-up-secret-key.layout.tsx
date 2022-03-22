@@ -6,19 +6,15 @@ import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { PageTitle } from '@app/components/page-title';
 import BackUpSecretKey from '@assets/images/onboarding/back-up-secret-key.svg';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { Header } from '@app/components/header';
-import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
 
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
 
 interface BackUpSecretKeyLayoutProps {
+  secretKeyDisplay: JSX.Element;
   onBackedUpSecretKey(): void;
 }
 export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.Element {
-  const { onBackedUpSecretKey } = props;
-
-  useRouteHeader(<Header hideActions />);
+  const { secretKeyDisplay, onBackedUpSecretKey } = props;
 
   return (
     <CenteredPageContainer>
@@ -48,9 +44,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.El
           justifyContent="center"
           mt={['base', 'unset']}
         >
-          <Box width={['344px', '446px']}>
-            <SecretKeyDisplayer />
-          </Box>
+          <Box width={['344px', '446px']}>{secretKeyDisplay}</Box>
         </Flex>
         {isPopup && (
           <Stack mt="loose" spacing="loose">

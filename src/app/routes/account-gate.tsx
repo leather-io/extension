@@ -1,24 +1,30 @@
 import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useWallet } from '@app/common/hooks/use-wallet';
-
 import { RouteUrls } from '@shared/route-urls';
+import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
+
+export function shouldNavigateToOnboardingStartPage(currentKeyDetails?: any) {
+  return !currentKeyDetails;
+}
+
+export function shouldNavigateToUnlockWalletPage(currentInMemorySecretKey?: string) {
+  return !currentInMemorySecretKey;
+}
+
 interface AccountGateProps {
   children?: ReactNode;
 }
 export const AccountGate = ({ children }: AccountGateProps) => {
-  const { encryptedSecretKey, hasGeneratedWallet, hasRehydratedVault, hasSetPassword } =
-    useWallet();
+  const currentKeyDetails = useCurrentKeyDetails();
+  const currentInMemorySecretKey = useDefaultWalletSecretKey();
 
-  const isWalletActive = (hasGeneratedWallet || encryptedSecretKey) && hasSetPassword;
-  const isWalletLocked = !hasGeneratedWallet && encryptedSecretKey;
-  const needsToCompleteOnboarding = (hasGeneratedWallet || encryptedSecretKey) && !hasSetPassword;
+  if (shouldNavigateToOnboardingStartPage(currentKeyDetails))
+    return <Navigate to={RouteUrls.Onboarding} />;
 
-  if (!hasRehydratedVault) return null;
-  if (isWalletLocked) return <Navigate to={RouteUrls.Unlock} />;
-  if (needsToCompleteOnboarding) return <Navigate to={RouteUrls.BackUpSecretKey} />;
-  if (isWalletActive) return <>{children}</>;
+  if (shouldNavigateToUnlockWalletPage(currentInMemorySecretKey))
+    return <Navigate to={RouteUrls.Unlock} />;
 
-  return null;
+  return <>{children}</>;
 };
