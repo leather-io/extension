@@ -33,7 +33,7 @@ jobs:
       - uses: ./.github/actions/provision
 
       - name: Audit
-        run: yarn audit-ci --high
+        run: yarn audit-ci --high --skip-dev
 
   typecheck:
     runs-on: ubuntu-latest

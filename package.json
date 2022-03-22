@@ -274,6 +274,7 @@
     "dot-prop": "6.0.1",
     "hosted-git-info": "4.0.2",
     "immer": "9.0.6",
+    "minimist": "npm:minimist-lite@2.2.0",
     "mixme": "0.5.2",
     "node-fetch": "2.6.7",
     "normalize-url": "4.5.1",
