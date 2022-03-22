@@ -30,7 +30,7 @@ describe('Locked wallet test', () => {
     pages = await WalletPage.getAllPages(browser);
     mainPage = new WalletPage(pages[1]);
     await mainPage.clickSignUp();
-
+    await walletPage.page.waitForTimeout(2000);
     pages = await WalletPage.getAllPages(browser);
     latestPage = pages[pages.length - 1];
     sendForm = new SendPage(latestPage);
@@ -47,23 +47,24 @@ describe('Locked wallet test', () => {
   it('should show unlock page when wallet is locked', async () => {
     await walletPage.clickSettingsButton();
     await walletPage.page.click(createTestSelector(SettingsSelectors.LockListItem));
-
     await mainPage.clickContractCall();
+    await walletPage.page.waitForTimeout(2000);
     pages = await WalletPage.getAllPages(browser);
     latestPage = pages[pages.length - 1];
     sendForm = new SendPage(latestPage);
-    await sendForm.page.waitForSelector(mainPage.$passwordInput);
+    await walletPage.page.waitForTimeout(4000);
     const isPasswordVisible = await sendForm.page.isVisible(mainPage.$passwordInput);
     expect(isPasswordVisible).toBe(true);
   });
 
   it('should show send form when wallet is not locked', async () => {
     await mainPage.clickContractCall();
+    await walletPage.page.waitForTimeout(2000);
     pages = await WalletPage.getAllPages(browser);
     latestPage = pages[pages.length - 1];
     sendForm = new SendPage(latestPage);
-    await sendForm.waitForPreview('$stxAddressField');
-    const isVisibleForm = await sendForm.page.isVisible(sendForm.getSelector('$stxAddressField'));
+    await sendForm.waitForPreview('$standardFeeSelect');
+    const isVisibleForm = await sendForm.page.isVisible(sendForm.getSelector('$standardFeeSelect'));
     expect(isVisibleForm).toBe(true);
   });
 });
