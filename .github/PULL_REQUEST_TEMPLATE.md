@@ -8,4 +8,4 @@ PR reminders:
 Tips for good PR etiquette https://github.blog/2015-01-21-how-to-write-the-perfect-pull-request/
 -->
 
-cc/ @kyranjamie @fbwoolf
+cc/ @kyranjamie @fbwoolf @beguene @He1DAr
