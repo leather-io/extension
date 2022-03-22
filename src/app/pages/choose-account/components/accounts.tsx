@@ -9,7 +9,7 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 
-import type { AccountWithAddress } from '@app/store/accounts/account.models';
+import type { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountAvatarWithName } from '@app/components/account-avatar/account-avatar';
 import { SpaceBetween } from '@app/components/space-between';
 
@@ -29,7 +29,7 @@ const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
 interface AccountTitlePlaceholderProps extends BoxProps {
-  account: AccountWithAddress;
+  account: SoftwareWalletAccountWithAddress;
 }
 const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
   const name = `Account ${account?.index + 1}`;
@@ -41,7 +41,7 @@ const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderPr
 };
 
 interface AccountTitleProps extends BoxProps {
-  account: AccountWithAddress;
+  account: SoftwareWalletAccountWithAddress;
   name: string;
 }
 const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
@@ -55,7 +55,7 @@ const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
 interface AccountItemProps extends FlexProps {
   selectedAddress?: string | null;
   isLoading: boolean;
-  account: AccountWithAddress;
+  account: SoftwareWalletAccountWithAddress;
   onSelectAccount(index: number): void;
 }
 const AccountItem = memo((props: AccountItemProps) => {
@@ -77,7 +77,7 @@ const AccountItem = memo((props: AccountItemProps) => {
     >
       <Box {...bind}>
         <Stack spacing="base" alignSelf="center" isInline>
-          <AccountAvatarWithName name={name} flexGrow={0} account={account} />
+          <AccountAvatarWithName name={name} flexGrow={0} publicKey={account.stxPublicKey} />
           <SpaceBetween width="100%" alignItems="center">
             <Stack textAlign="left" spacing="base-tight">
               <Suspense

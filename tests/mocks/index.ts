@@ -113,6 +113,9 @@ export const TEST_ACCOUNTS_WITH_ADDRESS = [
   {
     stxPrivateKey: 'cc440106121617d5ea23646552aa40a62316878293a1baa7a02fbb071b8cbe2901',
     dataPrivateKey: '504b91ea465bb9f6c28a38432869bd04dbeb85b46525bcf5e9615a9ddfcc178c',
+    dataPublicKey:
+      '049463d20793c454256d876ca307976d47389eabf4ad18634d1ba24b873a2bb9987f8ee2fb9967ab67240911faae32bf8f0ddf2c2ff75264080bb1921309b58844',
+    stxPublicKey: '02c2a10447387399dd89634965a64c26292b7e0b7fc229d6eb262d3d8b69639fae',
     appsKey:
       'xprvA2KzZmgR2PMM55CgbWxRC6K74n4ANrBitjxKnKmEJYLq4tfQX5p17NpUx9gvk4fnnJDym14E1hixmDzjfbt4Fmf73g1RcvQZpMzih81Lg1S',
     salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
@@ -122,6 +125,9 @@ export const TEST_ACCOUNTS_WITH_ADDRESS = [
   {
     stxPrivateKey: '1499c9194feed4cbca3bd9f7a2b3413684d30c1a9d8a7f044398f9e27ae5d00301',
     dataPrivateKey: 'f96a1e65ce95db1ee6ff2e53988d4a3524c433548758d95354ea05fc24cc4505',
+    dataPublicKey:
+      '0494ac74cc518c3d30fbd9a6775c3b82f69c5609d789ae250bed502003e2ab1235db5125573a29a27c30b86883114d228c04603bfd526890e9e35f74ddd8c018e8',
+    stxPublicKey: '03a7bb275b5672a2f8b9041be18e88b67dcfb9f861713ce8b60e2c086665cd8060',
     appsKey:
       'xprvA1eQc5DGP8KU275yPdXUbWXPW4Ba2h2poSpXnV5jxxfpPghuaP4p8R1YHg8MsmqGpwFQU4R74cU5x8E7dExQN14cvPHn6c1vxajxWjQxTpM',
     salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
@@ -131,6 +137,9 @@ export const TEST_ACCOUNTS_WITH_ADDRESS = [
   {
     stxPrivateKey: 'b8e5b2c33be621fb16a5260b30d526cadc7087d58736f2f3c6f84d31be452b6601',
     dataPrivateKey: 'bdcc48a4b8c098a7cb06e7221ee0b784c05083353dad964674a4eebfaa104f0d',
+    dataPublicKey:
+      '04af5f37b6a17ddc33076f2d510aae54ad53bd1df48e1967013766fcde556277432c628b5c821aed4e1bb9b6b4bd2c3fa125ab8ec567056d9dfd5989e669de8c5e',
+    stxPublicKey: '03ab173ad9e6559a073883da533d964f8804faebcf2ecc4f660e10006073da65ab',
     appsKey:
       'xprvA1vvF4rkEyBDLuvQKTa9YvCNKHcTNsrBwD5imsnnatG9RiyF5634o2GBwb5YvjC237LK6k273xRmaiCsNKpbS2EXUGPTtWo3CBFKRmzEHti',
     salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',
@@ -140,6 +149,9 @@ export const TEST_ACCOUNTS_WITH_ADDRESS = [
   {
     stxPrivateKey: 'da62811e06fe6fb394982a740fdcab6f1194ed85c5f6421021777638512d41ee01',
     dataPrivateKey: '522a6fb27d2255c30ab7d83ffc3b43cda4627c505619f0bb1e7de66c297bc53c',
+    dataPublicKey:
+      '0422591d65340340c5514ec1f60050a331646a6763a7c54d37f915b44483690c563490e74a160f1dc0c061dfd803cd59a7e74a7556538039ef5e6d833720d4c186',
+    stxPublicKey: '0222c8e23d47e31d27ed8018bc0abb0ce9f138a07680cd2627e7c3f32a34478a23',
     appsKey:
       'xprvA23n53oLHrMsQcVULk6UBg3PJUWHC3L6W8DmKqzGEVprqjSF1qs8hcZfP3H1zg1asSUDDZBXNw81p5BBALZorQz2fKNeWGfwmRhUsbMiVsH',
     salt: 'e95b8fed404c4130267b15be0df5aecb7c118f1297bf25d096e2bf442ec7b1a7',

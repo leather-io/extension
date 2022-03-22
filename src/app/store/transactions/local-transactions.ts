@@ -87,36 +87,29 @@ export function useFtTokenTransferUnsignedTx() {
   const selectedAsset = useSelectedAssetItem();
 
   return useAsync(async () => {
-    if (!address) return;
+    if (!address || !assetTransferState || !selectedAsset || !account) return;
 
-    if (!assetTransferState || !selectedAsset || !account) return;
-    const { balances, network, assetName, contractAddress, contractName, nonce, stxAddress } =
+    const { network, assetName, contractAddress, contractName, nonce, stxAddress } =
       assetTransferState;
 
     const functionName = 'transfer';
 
     const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
 
-    const tokenBalanceKey = Object.keys(balances?.fungible_tokens || {}).find(contract => {
-      return contract.startsWith(contractAddress);
-    });
-
     const realAmount =
       selectedAsset.type === 'ft'
         ? ftUnshiftDecimals(txData?.amount || 0, selectedAsset?.meta?.decimals || 0)
         : txData?.amount || 0;
 
-    const postConditionOptions = tokenBalanceKey
-      ? {
-          contractAddress,
-          contractName,
-          assetName,
-          stxAddress,
-          amount: realAmount,
-        }
-      : undefined;
+    const postConditionOptions = {
+      contractAddress,
+      contractName,
+      assetName,
+      stxAddress,
+      amount: realAmount,
+    };
 
-    const postConditions = postConditionOptions ? [makePostCondition(postConditionOptions)] : [];
+    const postConditions = [makePostCondition(postConditionOptions)];
 
     // (transfer (uint principal principal) (response bool uint))
     const functionArgs: ClarityValue[] = [

@@ -22,7 +22,14 @@ module.exports = {
       from: { path: '^src/app/*', pathNot: ['^src/app/store/*'] },
       to: {
         path: ['^src/app/store/*'],
-        pathNot: [`src/app.*\.hooks\.ts`, `src/app.*\.models\.ts`, `src/app.*\.utils\.ts`],
+        pathNot: [
+          `src/app/store/index.ts`,
+          `src/app.*\.actions\.ts`,
+          `src/app.*\.selectors\.ts`,
+          `src/app.*\.hooks\.ts`,
+          `src/app.*\.models\.ts`,
+          `src/app.*\.utils\.ts`,
+        ],
       },
     },
     {
