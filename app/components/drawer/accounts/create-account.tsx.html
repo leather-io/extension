@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -119,7 +119,14 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,6 +137,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -137,6 +147,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -144,7 +157,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,10 +191,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useEffect, useState } from 'react';
 import { Box, Flex, Button, Stack } from '@stacks/ui';
-import { useWallet } from '@app/common/hooks/use-wallet';
+import { Wallet } from '@stacks/wallet-sdk';
+&nbsp;
 import { Body } from '@app/components/typography';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useGeneratedCurrentWallet } from '@app/store/chains/stx-chain.selectors';
 &nbsp;
 interface CreateAccountProps {
   close: () =&gt; void;
@@ -189,27 +206,31 @@ interface CreateAccountProps {
 const TIMEOUT = <span class="cstat-no" title="statement not covered" >3000;</span>
 &nbsp;
 export const CreateAccount: React.FC&lt;CreateAccountProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> close }) =&gt; {</span>
-  const { createNewAccount } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+  const { createNewAccount } = <span class="cstat-no" title="statement not covered" >useKeyActions();</span>
+  const wallet = <span class="cstat-no" title="statement not covered" >useGeneratedCurrentWallet();</span>
   const [isSetting, setSetting] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [hasFired, setHasFired] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
 &nbsp;
-  const createAccount = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!isSetting) {</span>
-<span class="cstat-no" title="statement not covered" >      setSetting(true);</span>
-<span class="cstat-no" title="statement not covered" >      await createNewAccount();</span>
-<span class="cstat-no" title="statement not covered" >      void analytics.track('create_new_account');</span>
-<span class="cstat-no" title="statement not covered" >      setSetting(false);</span>
-<span class="cstat-no" title="statement not covered" >      window.setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >close(),</span> TIMEOUT);</span>
-    }
-  }, [isSetting, createNewAccount, analytics, close]);
+  const createAccount = <span class="cstat-no" title="statement not covered" >useCallback(</span>
+<span class="fstat-no" title="function not covered" >    as</span>ync (wallet: Wallet) =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (!isSetting) {</span>
+<span class="cstat-no" title="statement not covered" >        setSetting(true);</span>
+<span class="cstat-no" title="statement not covered" >        await createNewAccount(wallet);</span>
+<span class="cstat-no" title="statement not covered" >        void analytics.track('create_new_account');</span>
+<span class="cstat-no" title="statement not covered" >        setSetting(false);</span>
+<span class="cstat-no" title="statement not covered" >        window.setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >close(),</span> TIMEOUT);</span>
+      }
+    },
+    [isSetting, createNewAccount, analytics, close]
+  );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!hasFired) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!hasFired &amp;&amp; wallet) {</span>
 <span class="cstat-no" title="statement not covered" >      setHasFired(true);</span>
-<span class="cstat-no" title="statement not covered" >      void createAccount();</span>
+<span class="cstat-no" title="statement not covered" >      void createAccount(wallet);</span>
     }
-  }, [createAccount, hasFired]);
+  }, [createAccount, hasFired, wallet]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Box width="100%" px="extra-loose"&gt;
@@ -238,7 +259,7 @@ export const CreateAccount: React.FC&lt;CreateAccountProps&gt; = <span class="cs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Mar 21 2022 17:24:53 GMT+0000 (Coordinated Universal Time)
+                at Tue Mar 22 2022 17:39:50 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

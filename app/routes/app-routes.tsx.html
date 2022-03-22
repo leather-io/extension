@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
                 <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -218,8 +218,12 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,28 +258,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -284,6 +271,29 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,13 +387,11 @@
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useWallet } from '@app/common/hooks/use-wallet';
-import { getHasSetPassword } from '@shared/utils/storage';
 import { Container } from '@app/components/container/container';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
-import { SignTransaction } from '@app/pages/sign-transaction/sign-transaction';
+import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
@@ -399,44 +407,30 @@ import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnos
 import { BuyPage } from '@app/pages/buy/buy';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { useVaultMessenger } from '@app/common/hooks/use-vault-messenger';
+import { useHasStateRehydrated } from '@app/store';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
+import { OnboardingGate } from './onboarding-gate';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >AppRoutes(</span>): JSX.Element | null {
-  const { hasRehydratedVault } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const { pathname } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-  const { getWallet } = <span class="cstat-no" title="statement not covered" >useVaultMessenger();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  useSaveAuthRequest();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnWalletLock(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Unlock))</span>;</span>
 <span class="cstat-no" title="statement not covered" >  useOnSignOut(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Onboarding))</span>;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    const hasSetPassword = <span class="cstat-no" title="statement not covered" >getHasSetPassword();</span>
-    const shouldRedirectToOnboarding =
-<span class="cstat-no" title="statement not covered" >      pathname === RouteUrls.Home ||</span>
-      (pathname === RouteUrls.ChooseAccount || pathname) === RouteUrls.Transaction;
-    const shouldRedirectToHome = <span class="cstat-no" title="statement not covered" >pathname === RouteUrls.Onboarding;</span>
-    // This ensures the route is correct bc the vault is slow to set wallet state
-<span class="cstat-no" title="statement not covered" >    if (shouldRedirectToOnboarding &amp;&amp; !hasSetPassword) <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Onboarding);</span></span>
-<span class="cstat-no" title="statement not covered" >    if (shouldRedirectToHome &amp;&amp; hasSetPassword) <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home);</span></span>
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.page('view', `${pathname}`);</span>
   }, [analytics, pathname]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    void getWallet();</span>
-  }, [getWallet]);
+  const hasStateRehydrated = <span class="cstat-no" title="statement not covered" >useHasStateRehydrated();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!hasRehydratedVault) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!hasStateRehydrated) <span class="cstat-no" title="statement not covered" >return &lt;LoadingSpinner /&gt;;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Routes&gt;
@@ -451,12 +445,33 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
         &gt;
           &lt;Route path={RouteUrls.SignOutConfirm} element={&lt;SignOutConfirmDrawer /&gt;} /&gt;
         &lt;/Route&gt;
-        &lt;Route path={RouteUrls.Onboarding} element={&lt;WelcomePage /&gt;} /&gt;
-        &lt;Route path={RouteUrls.BackUpSecretKey} element={&lt;BackUpSecretKeyPage /&gt;} /&gt;
+        &lt;Route
+          path={RouteUrls.Onboarding}
+          element={
+            &lt;OnboardingGate&gt;
+              &lt;WelcomePage /&gt;
+            &lt;/OnboardingGate&gt;
+          }
+        /&gt;
+        &lt;Route
+          path={RouteUrls.BackUpSecretKey}
+          element={
+            &lt;OnboardingGate&gt;
+              &lt;BackUpSecretKeyPage /&gt;
+            &lt;/OnboardingGate&gt;
+          }
+        /&gt;
+        &lt;Route
+          path={RouteUrls.SetPassword}
+          element={
+            &lt;OnboardingGate&gt;
+              &lt;SetPasswordPage /&gt;
+            &lt;/OnboardingGate&gt;
+          }
+        /&gt;
         &lt;Route path={RouteUrls.RequestDiagnostics} element={&lt;AllowDiagnosticsPage /&gt;} /&gt;
-        &lt;Route path={RouteUrls.SetPassword} element={&lt;SetPasswordPage /&gt;} /&gt;
         &lt;Route path={RouteUrls.SignIn} element={&lt;SignIn /&gt;} /&gt;
-        &lt;Route path={RouteUrls.RecoveryCode} element={&lt;MagicRecoveryCode /&gt;} /&gt;
+        &lt;Route path={RouteUrls.MagicRecoveryCode} element={&lt;MagicRecoveryCode /&gt;} /&gt;
         &lt;Route
           path={RouteUrls.AddNetwork}
           element={
@@ -504,11 +519,11 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
           }
         /&gt;
         &lt;Route
-          path={RouteUrls.Transaction}
+          path={RouteUrls.TransactionRequest}
           element={
             &lt;AccountGate&gt;
               &lt;Suspense fallback={&lt;LoadingSpinner height="600px" /&gt;}&gt;
-                &lt;SignTransaction /&gt;
+                &lt;TransactionRequest /&gt;
               &lt;/Suspense&gt;
             &lt;/AccountGate&gt;
           }
@@ -535,7 +550,7 @@ export function <span class="fstat-no" title="function not covered" >AppRoutes(<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Mar 21 2022 17:24:53 GMT+0000 (Coordinated Universal Time)
+                at Tue Mar 22 2022 17:39:50 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

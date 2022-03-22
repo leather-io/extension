@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -118,7 +118,14 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,16 +146,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,10 +170,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense } from 'react';
+import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 import { HashRouter as Router } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 &nbsp;
 import { AccountsDrawer } from '@app/features/accounts-drawer/accounts-drawer';
 import { NetworksDrawer } from '@app/features/network-drawer/networks-drawer';
@@ -186,48 +193,47 @@ import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-draw
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
 import { Devtools } from '@app/features/devtool/devtools';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
-import { initSegment } from './common/segment-init';
+&nbsp;
 import { theme } from './common/theme';
+import { FullPageLoadingSpinner } from './components/loading-spinner';
 import { GlobalStyles } from './components/global-styles/global-styles';
 import { AppRoutes } from './routes/app-routes';
+import { persistor, store } from './store';
 &nbsp;
-const devToolsEnabled = <span class="cstat-no" title="statement not covered" >false;</span>
+const reactQueryDevToolsEnabled = <span class="cstat-no" title="statement not covered" >false;</span>
 &nbsp;
-declare global {
-  interface Window {
-    __APP_VERSION__: string;
-  }
-}
-&nbsp;
-<span class="cstat-no" title="statement not covered" >window.__APP_VERSION__ = VERSION;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >void initSegment();</span>
-&nbsp;
-export const App = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+export function <span class="fstat-no" title="function not covered" >App(</span>) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;ThemeProvider theme={theme}&gt;
-      &lt;GlobalStyles /&gt;
-      &lt;QueryClientProvider client={queryClient}&gt;
-        &lt;ColorModeProvider defaultMode="light"&gt;
-          &lt;&gt;
-            &lt;Router&gt;
-              &lt;AppErrorBoundary&gt;
-                &lt;AppRoutes /&gt;
-                &lt;AccountsDrawer /&gt;
-                &lt;NetworksDrawer /&gt;
-                &lt;EditNonceDrawer /&gt;
-                &lt;IncreaseFeeDrawer /&gt;
-                &lt;SettingsDropdown /&gt;
-              &lt;/AppErrorBoundary&gt;
-              &lt;Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} /&gt;
-            &lt;/Router&gt;
-            {devToolsEnabled &amp;&amp; &lt;Devtools /&gt;}
-          &lt;/&gt;
-        &lt;/ColorModeProvider&gt;
-      &lt;/QueryClientProvider&gt;
-    &lt;/ThemeProvider&gt;
+    &lt;Provider store={store}&gt;
+      &lt;PersistGate loading={&lt;FullPageLoadingSpinner /&gt;} persistor={persistor}&gt;
+        &lt;ThemeProvider theme={theme}&gt;
+          &lt;GlobalStyles /&gt;
+          &lt;QueryClientProvider client={queryClient}&gt;
+            &lt;ColorModeProvider defaultMode="light"&gt;
+              &lt;Suspense fallback={&lt;FullPageLoadingSpinner /&gt;}&gt;
+                &lt;Router&gt;
+                  &lt;AppErrorBoundary&gt;
+                    &lt;AppRoutes /&gt;
+                    &lt;AccountsDrawer /&gt;
+                    &lt;NetworksDrawer /&gt;
+                    &lt;EditNonceDrawer /&gt;
+                    &lt;IncreaseFeeDrawer /&gt;
+                    &lt;SettingsDropdown /&gt;
+                  &lt;/AppErrorBoundary&gt;
+                  &lt;Toaster
+                    position="bottom-center"
+                    toastOptions={{ style: { fontSize: '14px' } }}
+                  /&gt;
+                &lt;/Router&gt;
+                {reactQueryDevToolsEnabled &amp;&amp; &lt;Devtools /&gt;}
+              &lt;/Suspense&gt;
+            &lt;/ColorModeProvider&gt;
+          &lt;/QueryClientProvider&gt;
+        &lt;/ThemeProvider&gt;
+      &lt;/PersistGate&gt;
+    &lt;/Provider&gt;
   );
-};
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -235,7 +241,7 @@ export const App = <span class="cstat-no" title="statement not covered" ><span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Mar 21 2022 17:24:53 GMT+0000 (Coordinated Universal Time)
+                at Tue Mar 22 2022 17:39:50 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../prettify.js"></script>
         <script>
