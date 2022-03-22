@@ -1,3 +1,10 @@
+# [3.4.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.4.0-beta.1...v3.4.0-beta.2) (2022-03-22)
+
+
+### Bug Fixes
+
+* remove conditional code for post conditions in fts ([d1ca5df](https://github.com/hirosystems/stacks-wallet-web/commit/d1ca5df88897422d8b23a948333f4789aa18cfbc))
+
 # [3.4.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.3.0...v3.4.0-beta.1) (2022-03-22)
 
 
