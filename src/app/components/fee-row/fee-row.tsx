@@ -90,6 +90,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
                 <FeeEstimateSelect
                   items={feeEstimations}
                   onClick={handleSelectedItem}
+                  selected={selected}
                   setIsOpen={setIsOpen}
                   visible={isOpen}
                 />

@@ -10,11 +10,12 @@ import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 interface FeeEstimateSelectProps {
   items: FeeEstimation[];
   onClick: (index: number) => void;
+  selected: number;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   visible: boolean;
 }
 export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
-  const { items, onClick, setIsOpen, visible } = props;
+  const { items, onClick, selected, setIsOpen, visible } = props;
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(ref, () => setIsOpen(false));
@@ -35,13 +36,24 @@ export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
           position="absolute"
           ref={ref}
           style={styles}
-          top="-32px"
+          top="-100px"
           zIndex={9999}
         >
           {items.map((item, index) => (
-            <FeeEstimateItem index={index} key={item.fee} onClick={onClick} visible />
+            <FeeEstimateItem
+              index={index}
+              key={item.fee}
+              onClick={onClick}
+              selected={selected}
+              visible
+            />
           ))}
-          <FeeEstimateItem index={Estimations.Custom} onClick={onClick} visible />
+          <FeeEstimateItem
+            index={Estimations.Custom}
+            onClick={onClick}
+            selected={selected}
+            visible
+          />
         </Stack>
       )}
     </Fade>
