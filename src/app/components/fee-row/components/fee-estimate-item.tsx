@@ -1,4 +1,5 @@
-import { FiChevronDown } from 'react-icons/fi';
+import { useCallback } from 'react';
+import { FiCheck, FiChevronDown } from 'react-icons/fi';
 import { color, Stack } from '@stacks/ui';
 
 import { SpaceBetween } from '@app/components/space-between';
@@ -14,7 +15,12 @@ interface FeeEstimateItemProps {
   visible?: boolean;
 }
 export function FeeEstimateItem(props: FeeEstimateItemProps) {
-  const { index, onClick, visible } = props;
+  const { index, onClick, selected, visible } = props;
+
+  const selectedIcon = useCallback(() => {
+    const isSelected = index === selected;
+    return isSelected ? <FiCheck color={color('accent')} size="14px" /> : <></>;
+  }, [index, selected]);
 
   return (
     <Stack
@@ -33,7 +39,7 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
     >
       <SpaceBetween flexGrow={1}>
         <Caption ml="2px">{labels[index]}</Caption>
-        {visible ? <></> : <FiChevronDown />}
+        {visible ? selectedIcon() : <FiChevronDown />}
       </SpaceBetween>
     </Stack>
   );
