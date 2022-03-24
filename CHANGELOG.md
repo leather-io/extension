@@ -1,3 +1,10 @@
+## [3.5.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.5.0...v3.5.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* add low fee caps ([f391ccf](https://github.com/hirosystems/stacks-wallet-web/commit/f391ccf77bff5d48c119e3173ea1f669690261d0))
+
 # [3.5.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.4.0...v3.5.0) (2022-03-22)
 
 
