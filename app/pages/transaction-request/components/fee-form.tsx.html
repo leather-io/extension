@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -141,7 +141,15 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,19 +173,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -185,10 +180,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,9 +246,12 @@ import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import {
   getDefaultSimulatedFeeEstimations,
-  getFeeEstimationsWithMaxValues,
+  getFeeEstimationsWithCappedValues,
 } from '@shared/transactions/fee-estimations';
-import { useFeeEstimationsMaxValues } from '@app/common/transactions/use-fee-estimations-max-values';
+import {
+  useFeeEstimationsMaxValues,
+  useFeeEstimationsMinValues,
+} from '@app/common/transactions/use-fee-estimations-capped-values';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >FeeForm(</span>): JSX.Element | null {
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
@@ -255,6 +268,7 @@ export function <span class="fstat-no" title="function not covered" >FeeForm(</s
 &nbsp;
   const [, setFeeEstimations] = <span class="cstat-no" title="statement not covered" >useFeeEstimationsState();</span>
   const feeEstimationsMaxValues = <span class="cstat-no" title="statement not covered" >useFeeEstimationsMaxValues();</span>
+  const feeEstimationsMinValues = <span class="cstat-no" title="statement not covered" >useFeeEstimationsMinValues();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (feeEstimationsResp) {</span>
@@ -266,13 +280,14 @@ export function <span class="fstat-no" title="function not covered" >FeeForm(</s
 <span class="cstat-no" title="statement not covered" >        void analytics.track('use_fee_estimation_default_simulated');</span>
       }
 <span class="cstat-no" title="statement not covered" >      if (feeEstimationsResp.estimations &amp;&amp; feeEstimationsResp.estimations.length) {</span>
-        const feeEstimationsWithMaxValues = <span class="cstat-no" title="statement not covered" >getFeeEstimationsWithMaxValues(</span>
+        const feeEstimationsWithCappedValues = <span class="cstat-no" title="statement not covered" >getFeeEstimationsWithCappedValues(</span>
           feeEstimationsResp.estimations,
-          feeEstimationsMaxValues
+          feeEstimationsMaxValues,
+          feeEstimationsMinValues
         );
-<span class="cstat-no" title="statement not covered" >        setFeeEstimations(feeEstimationsWithMaxValues);</span>
+<span class="cstat-no" title="statement not covered" >        setFeeEstimations(feeEstimationsWithCappedValues);</span>
 <span class="cstat-no" title="statement not covered" >        void analytics.track('use_fee_estimation', {</span>
-          maxValues: feeEstimationsWithMaxValues,
+          cappedValues: feeEstimationsWithCappedValues,
           estimations: feeEstimationsResp.estimations,
         });
       }
@@ -304,7 +319,7 @@ export function <span class="fstat-no" title="function not covered" >FeeForm(</s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Mar 22 2022 17:40:11 GMT+0000 (Coordinated Universal Time)
+                at Thu Mar 24 2022 13:29:56 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
