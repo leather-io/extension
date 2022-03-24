@@ -1,5 +1,6 @@
-import { memo, Suspense } from 'react';
+import { memo, Suspense, useEffect } from 'react';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
 import {
@@ -25,6 +26,15 @@ export enum TransactionErrorReason {
 
 const TransactionErrorSuspense = memo(() => {
   const reason = useTransactionError();
+  const analytics = useAnalytics();
+
+  useEffect(() => {
+    if (!reason) return;
+    void analytics.track('view_transaction_signing_error', {
+      reason: TransactionErrorReason[reason].toLowerCase(),
+    });
+  }, [analytics, reason]);
+
   if (!reason) return null;
 
   switch (reason) {
