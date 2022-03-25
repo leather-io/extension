@@ -28,7 +28,6 @@ import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
-import { UnauthorizedErrorMessage } from './components/transaction-error/error-messages';
 import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
@@ -87,9 +86,6 @@ function TransactionRequestBase(): JSX.Element | null {
   );
 
   if (!transactionRequest) return null;
-  // This renders when a user has not properly signed out of an app
-  // and attempts to perform a transaction
-  if (!handleBroadcastTransaction) return <UnauthorizedErrorMessage />;
 
   return (
     <Stack px={['loose', 'unset']} spacing="loose">
