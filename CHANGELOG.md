@@ -1,3 +1,19 @@
+# [3.6.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.5.1...v3.6.0) (2022-03-28)
+
+
+### Bug Fixes
+
+* add low fee caps ([7196a88](https://github.com/hirosystems/stacks-wallet-web/commit/7196a8856363fd6c52817b97b8b684b6bf9ca19b))
+* re-add dependency array for getAccountDisplayName usage ([e69dcac](https://github.com/hirosystems/stacks-wallet-web/commit/e69dcacafd6c0682ce27d5fa60ddf9dde8761c97))
+* remove conditional code for post conditions in fts ([d1ca5df](https://github.com/hirosystems/stacks-wallet-web/commit/d1ca5df88897422d8b23a948333f4789aa18cfbc))
+
+
+### Features
+
+* add moonpay fiat onramp ([e20a2ea](https://github.com/hirosystems/stacks-wallet-web/commit/e20a2ea8c2bfbe1dbdd0f69200f30bd79d59eb9e)), closes [#2068](https://github.com/hirosystems/stacks-wallet-web/issues/2068)
+* add new onboarding home page ([8e17124](https://github.com/hirosystems/stacks-wallet-web/commit/8e1712477dadb8d850716f4ce6e4605d29b84810))
+* show account username suffices ([f8d631e](https://github.com/hirosystems/stacks-wallet-web/commit/f8d631e3e93103a6e23b82abb481bdbfade7ee78))
+
 ## [3.5.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.5.0...v3.5.1) (2022-03-24)
 
 
