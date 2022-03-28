@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -97,8 +97,9 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,7 +109,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,41 +131,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Caption } from '@app/components/typography';
-import { NoAssetsEmptyIllustration } from '@app/components/vector/no-assets';
-import { Button, color, Stack, StackProps, useClipboard } from '@stacks/ui';
-import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Flex, FlexProps } from '@stacks/ui';
 &nbsp;
-interface NoAssetProps extends StackProps {
-  address: string;
+import { Caption } from '@app/components/typography';
+import NoFunds from '@assets/images/no-funds.png';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { SecondaryButton } from '@app/components/secondary-button';
+&nbsp;
+interface NoAssetProps extends FlexProps {
+  onFundAccount(): void;
 }
-export function <span class="fstat-no" title="function not covered" >NoAssets(</span>{ address, ...props }: NoAssetProps) {
-  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(address || '');</span>
+export function <span class="fstat-no" title="function not covered" >NoAssets(</span>{ onFundAccount, ...props }: NoAssetProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack
-      py="extra-loose"
-      spacing="extra-loose"
-      justifyContent="center"
+    &lt;Flex
       alignItems="center"
+      flexDirection="column"
+      justifyContent="center"
+      py="extra-loose"
       {...props}
     &gt;
-      &lt;NoAssetsEmptyIllustration maxWidth="120px" /&gt;
-      &lt;Caption maxWidth="23ch" textAlign="center"&gt;
-        Get started by sending some STX to your wallet.
+      &lt;img src={NoFunds} width="88px" /&gt;
+      &lt;Caption maxWidth="248px" mt="extra-loose" textAlign="center"&gt;
+        This is where you’ll see your balances. Get some STX to get started.
       &lt;/Caption&gt;
-      &lt;Button
-        bg="#EEF2FB"
-        _hover={{ bg: '#E5EBFA' }}
-        color={color('brand')}
-        borderRadius="10px"
-        onClick={onCopy}
-        data-testid={UserAreaSelectors.AccountBalancesCopyAddress}
+      &lt;SecondaryButton
+        data-testid={OnboardingSelectors.NoAssetsFundAccountLink}
+        height="36px"
+        mt="base"
+        onClick={onFundAccount}
       &gt;
-        {hasCopied ? 'Copied!' : 'Copy address'}
-      &lt;/Button&gt;
-    &lt;/Stack&gt;
+        Fund your account
+      &lt;/SecondaryButton&gt;
+    &lt;/Flex&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -175,7 +172,7 @@ export function <span class="fstat-no" title="function not covered" >NoAssets(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 24 2022 13:29:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Mar 28 2022 13:31:04 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -134,7 +134,30 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,9 +189,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,29 +253,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, color, Flex, Stack } from '@stacks/ui';
 &nbsp;
-import { isFullPage } from '@app/common/utils';
+import { ONBOARDING_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Caption, Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import ExploreStacks from '@assets/images/onboarding/explore-stacks.svg';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 &nbsp;
-const WelcomeIllustration = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt;</span>
-<span class="cstat-no" title="statement not covered" >  isFullPage ? (</span>
-    &lt;Box bg={color('border')} borderRadius="16px" height="675px" width="518px"&gt;
-      &lt;Box left="43px" position="relative" top="92px"&gt;
-        &lt;img src={ExploreStacks} width="432px" /&gt;
-      &lt;/Box&gt;
-    &lt;/Box&gt;
-  ) : (
-    &lt;Box bg={color('border')} borderRadius="16px" height="155px" overflow="hidden" width="344px"&gt;
-      &lt;Box position="relative" top="-138px"&gt;
-        &lt;img src={ExploreStacks} width="346px" /&gt;
-      &lt;/Box&gt;
-    &lt;/Box&gt;
-  );
+const WelcomeIllustration = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >  &lt;Box</span>
+    aria-label="Abstract illustration highlighting crypto symbology"
+    backgroundColor={color('border')}
+    backgroundImage={`url(${ExploreStacks})`}
+    backgroundPosition={[null, null, 'center']}
+    backgroundPositionY={['-137px', '-187px', 'center']}
+    backgroundRepeat="no-repeat"
+    backgroundSize={['cover', null, null, '80%']}
+    borderRadius="16px"
+    height={['155px', '220px', '675px']}
+    maxHeight="675px"
+    maxWidth={['auto', 'auto', '518px']}
+    overflow="hidden"
+    width="100%"
+  /&gt;
+);
 &nbsp;
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
@@ -241,38 +290,58 @@ export function <span class="fstat-no" title="function not covered" >WelcomeLayo
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;CenteredPageContainer&gt;
-      &lt;Stack isInline={isFullPage} width="100%"&gt;
-        &lt;Flex flexGrow={1} justifyContent="center" order={[0, 1, 1]}&gt;
+      &lt;Flex
+        justifyContent="start"
+        flexDirection={['column', 'column', 'row-reverse']}
+        maxWidth={ONBOARDING_PAGE_MAX_WIDTH}
+        mt="tight"
+        px="loose"
+        width="100%"
+      &gt;
+        &lt;Flex flexGrow={1} justifyContent={['left', 'left', 'right']}&gt;
           &lt;WelcomeIllustration /&gt;
         &lt;/Flex&gt;
-        &lt;Flex alignItems="center" flexGrow={1} justifyContent="center" mt={['base', 'unset']}&gt;
-          &lt;Stack maxWidth="500px" spacing={['base', 'base-loose', 'loose']}&gt;
-            &lt;PageTitle isHeadline&gt;Explore the world of Stacks&lt;/PageTitle&gt;
-            &lt;Text pr={['unset', '60px']}&gt;
-              Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
-              secure. Create your Stacks account to get started.
-            &lt;/Text&gt;
+        &lt;Flex
+          alignItems="left"
+          flexDirection="column"
+          flexGrow="2"
+          justifyContent="center"
+          maxWidth="574px"
+          mt={['base', 'unset']}
+        &gt;
+          &lt;PageTitle isHeadline maxWidth={['75%', '85%', '90%']} mt={['tight', 'base', 'loose']}&gt;
+            Explore the world of Stacks
+          &lt;/PageTitle&gt;
+          &lt;Text
+            maxWidth={['unset', '90%']}
+            mt={['base', null, null, 'extra-loose']}
+            pr={['unset', '80px']}
+          &gt;
+            Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
+            secure. Create your Stacks account to get started.
+          &lt;/Text&gt;
+          &lt;Box&gt;
             &lt;PrimaryButton
               data-testid={OnboardingSelectors.SignUpBtn}
               isLoading={isGeneratingWallet}
+              mt={['base', null, 'loose']}
               onClick={onStartOnboarding}
-              width="198px"
             &gt;
               Create Stacks Account
             &lt;/PrimaryButton&gt;
-            &lt;Stack mt={['base', 'base-tight', 'tight']} spacing="tight"&gt;
-              &lt;Caption&gt;Already have a Stacks account?&lt;/Caption&gt;
-              &lt;Link
-                data-testid={OnboardingSelectors.SignInLink}
-                fontSize="14px"
-                onClick={onRestoreWallet}
-              &gt;
-                Sign in with Secret Key
-              &lt;/Link&gt;
-            &lt;/Stack&gt;
+          &lt;/Box&gt;
+          &lt;Stack mt="loose" spacing="tight"&gt;
+            &lt;Caption&gt;Already have a Stacks account?&lt;/Caption&gt;
+            &lt;Link
+              data-testid={OnboardingSelectors.SignInLink}
+              fontSize="14px"
+              onClick={onRestoreWallet}
+            &gt;
+              Sign in with Secret Key
+            &lt;/Link&gt;
           &lt;/Stack&gt;
         &lt;/Flex&gt;
-      &lt;/Stack&gt;
+      &lt;/Flex&gt;
     &lt;/CenteredPageContainer&gt;
   );
 }
@@ -283,7 +352,7 @@ export function <span class="fstat-no" title="function not covered" >WelcomeLayo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 24 2022 13:29:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Mar 28 2022 13:31:04 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

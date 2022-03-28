@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -164,7 +164,24 @@
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,6 +204,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -223,7 +252,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,16 +300,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { color, Box, Flex, FlexProps, IconButton, Stack, useMediaQuery } from '@stacks/ui';
 import { FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi';
 &nbsp;
+import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { isFullPage } from '@app/common/utils';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Caption, Title } from '@app/components/typography';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 &nbsp;
@@ -287,7 +321,19 @@ interface HeaderProps extends FlexProps {
 export const Header: React.FC&lt;HeaderProps&gt; = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
   const { onClose, title, hideActions, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
   const { showSettings, setShowSettings } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
+  const { pathname } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+&nbsp;
+  const [desktopViewport] = <span class="cstat-no" title="statement not covered" >useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);</span>
+&nbsp;
+  const hiroWalletLogoIsClickable = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      pathname !== RouteUrls.RequestDiagnostics &amp;&amp;
+      pathname !== RouteUrls.Onboarding &amp;&amp;
+      pathname !== RouteUrls.BackUpSecretKey &amp;&amp;
+      pathname !== RouteUrls.SetPassword
+    );
+  }, [pathname]);
 &nbsp;
   const version = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    switch (process.env.WALLET_ENVIRONMENT) {</span>
@@ -312,19 +358,22 @@ export const Header: React.FC&lt;HeaderProps&gt; = <span class="cstat-no" title=
       {...rest}
     &gt;
       {onClose ? (
-        &lt;IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} /&gt;
+        &lt;Box flexBasis="20%"&gt;
+          &lt;IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} /&gt;
+        &lt;/Box&gt;
       ) : null}
-      {!title &amp;&amp; (!onClose || isFullPage) ? (
+      {!title &amp;&amp; (!onClose || desktopViewport) ? (
         &lt;Stack
           alignItems="flex-end"
-          flexGrow={1}
+          flexBasis="60%"
           height="36px"
           isInline
           justifyContent={onClose ? 'center' : 'unset'}
         &gt;
           &lt;HiroWalletLogo
             data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
-            onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home)}</span>
+            isClickable={hiroWalletLogoIsClickable}
+            onClick={hiroWalletLogoIsClickable ? <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home) </span>: undefined}
           /&gt;
           &lt;Caption
             color={color('text-caption')}
@@ -340,16 +389,18 @@ export const Header: React.FC&lt;HeaderProps&gt; = <span class="cstat-no" title=
       ) : (
         &lt;Title
           alignSelf="center"
+          flexBasis="60%"
           fontSize="16px"
           fontWeight={500}
           lineHeight="24px"
           pr={hideActions ? '36px' : 'unset'}
+          textAlign="center"
           {...rest}
         &gt;
           {title}
         &lt;/Title&gt;
       )}
-      &lt;Stack alignItems="center" isInline&gt;
+      &lt;Stack alignItems="center" flexBasis="20%" isInline justifyContent="flex-end"&gt;
         &lt;NetworkModeBadge /&gt;
         {!hideActions &amp;&amp; (
           &lt;IconButton
@@ -373,7 +424,7 @@ export const Header: React.FC&lt;HeaderProps&gt; = <span class="cstat-no" title=
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 24 2022 13:29:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Mar 28 2022 13:31:04 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

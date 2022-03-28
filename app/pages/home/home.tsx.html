@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -132,7 +132,22 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,22 +169,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,27 +227,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Stack } from '@stacks/ui';
+import { Flex, Stack } from '@stacks/ui';
 &nbsp;
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { CurrentAccount } from '@app/pages/home/components/account-area';
 import { HomeActions } from '@app/pages/home/components/home-actions';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+&nbsp;
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
-import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HomeTabs } from './components/home-tabs';
+import { OnboardingStepsList } from './components/onboarding-steps-list';
+import { useOnboardingSteps } from './hooks/use-onboarding-steps';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >Home(</span>) {
   const { decodedAuthRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
+  const { showOnboardingSteps } = <span class="cstat-no" title="statement not covered" >useOnboardingSteps();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-&nbsp;
   const account = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useRouteHeader(</span>
@@ -244,27 +271,36 @@ export function <span class="fstat-no" title="function not covered" >Home(</span
         {account?.address &amp;&amp; &lt;BalanceFetcher address={account.address} /&gt;}
         {account?.address &amp;&amp; &lt;AccountInfoFetcher address={account.address} /&gt;}
       &lt;/Suspense&gt;
-      &lt;Stack
-        data-testid="home-page"
-        flexGrow={1}
-        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-        mt="loose"
-        px={['unset', 'base-loose']}
-        spacing="loose"
-      &gt;
-        &lt;CurrentAccount /&gt;
-        &lt;HomeActions /&gt;
-        {account &amp;&amp; (
-          &lt;HomeTabs
-            balances={
-              &lt;BalancesList
-                address={account?.address}
-                data-testid={HomePageSelectors.BalancesList}
-              /&gt;
-            }
-            activity={&lt;ActivityList /&gt;}
-          /&gt;
-        )}
+      &lt;Stack alignItems="center" width="100%" spacing="extra-tight"&gt;
+        {showOnboardingSteps &amp;&amp; &lt;OnboardingStepsList /&gt;}
+        &lt;Stack
+          data-testid="home-page"
+          maxWidth={['unset', HOME_FULL_PAGE_MAX_WIDTH]}
+          mt="extra-loose"
+          px={['base-loose', 'base-loose', 'base-loose', 'unset']}
+          spacing="loose"
+          width="100%"
+        &gt;
+          &lt;Flex
+            flexDirection={['column', 'column', 'unset']}
+            alignItems={['start', 'start', 'center']}
+            justifyContent={['unset', 'space-between']}
+          &gt;
+            &lt;CurrentAccount /&gt;
+            &lt;HomeActions /&gt;
+          &lt;/Flex&gt;
+          {account &amp;&amp; (
+            &lt;HomeTabs
+              balances={
+                &lt;BalancesList
+                  address={account?.address}
+                  data-testid={HomePageSelectors.BalancesList}
+                /&gt;
+              }
+              activity={&lt;ActivityList /&gt;}
+            /&gt;
+          )}
+        &lt;/Stack&gt;
       &lt;/Stack&gt;
       &lt;Outlet /&gt;
     &lt;/&gt;
@@ -277,7 +313,7 @@ export function <span class="fstat-no" title="function not covered" >Home(</span
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 24 2022 13:29:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Mar 28 2022 13:31:04 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

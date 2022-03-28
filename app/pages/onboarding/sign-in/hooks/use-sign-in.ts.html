@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
@@ -170,7 +170,9 @@
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,21 +234,23 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -278,10 +282,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useEffect, useRef } from 'react';
-import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validateMnemonic } from 'bip39';
 import toast from 'react-hot-toast';
+import { validateMnemonic } from 'bip39';
 &nbsp;
 import {
   extractPhraseFromPasteEvent,
@@ -294,6 +297,7 @@ import { useSeedInputErrorState } from '@app/store/onboarding/onboarding.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAppDispatch } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
+import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
 &nbsp;
 async function <span class="fstat-no" title="function not covered" >simulateShortDelayToAvoidImmediateNavigation(</span>) {
 <span class="cstat-no" title="statement not covered" >  await delay(600);</span>
@@ -338,6 +342,7 @@ export function <span class="fstat-no" title="function not covered" >useSignIn(<
 <span class="cstat-no" title="statement not covered" >        if (result.isValid) {</span>
 <span class="cstat-no" title="statement not covered" >          toast.success('Magic recovery code detected');</span>
 <span class="cstat-no" title="statement not covered" >          await simulateShortDelayToAvoidImmediateNavigation();</span>
+<span class="cstat-no" title="statement not covered" >          dispatch(onboardingActions.hideSteps(true));</span>
 <span class="cstat-no" title="statement not covered" >          navigate({</span>
             pathname: RouteUrls.MagicRecoveryCode,
             search: `?magicRecoveryCode=${parsedKeyInput}`,
@@ -357,11 +362,12 @@ export function <span class="fstat-no" title="function not covered" >useSignIn(<
 <span class="cstat-no" title="statement not covered" >      await simulateShortDelayToAvoidImmediateNavigation();</span>
 <span class="cstat-no" title="statement not covered" >      toast.success('Secret Key valid');</span>
 <span class="cstat-no" title="statement not covered" >      dispatch(inMemoryKeyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));</span>
+<span class="cstat-no" title="statement not covered" >      dispatch(onboardingActions.hideSteps(true));</span>
 <span class="cstat-no" title="statement not covered" >      void analytics.track('submit_valid_secret_key');</span>
 <span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.SetPassword);</span>
 <span class="cstat-no" title="statement not covered" >      setIsIdle();</span>
     },
-    [setIsLoading, handleSetError, navigate, dispatch, analytics, setIsIdle]
+    [setIsLoading, dispatch, analytics, navigate, setIsIdle, handleSetError]
   );
 &nbsp;
   const onPaste = <span class="cstat-no" title="statement not covered" >useCallback(</span>
@@ -391,7 +397,7 @@ export function <span class="fstat-no" title="function not covered" >useSignIn(<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 24 2022 13:29:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Mar 28 2022 13:31:04 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
