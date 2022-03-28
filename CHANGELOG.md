@@ -1,3 +1,10 @@
+# [3.6.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.6.0-beta.1...v3.6.0-beta.2) (2022-03-28)
+
+
+### Bug Fixes
+
+* unauthorized request error ([28c1fa5](https://github.com/hirosystems/stacks-wallet-web/commit/28c1fa55d2cf7df1e47b1ad8eb00cbda125dd9e9))
+
 # [3.6.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.5.0...v3.6.0-beta.1) (2022-03-28)
 
 
