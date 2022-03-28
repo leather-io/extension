@@ -2,6 +2,9 @@ import { ChainID } from '@stacks/transactions';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
+export const POPUP_CENTER_WIDTH = 442;
+export const POPUP_CENTER_HEIGHT = 646;
+
 export const HIGH_FEE_AMOUNT_STX = 5;
 
 export const DEFAULT_FEE_RATE = 400;
@@ -62,3 +65,5 @@ export const DEFAULT_LIST_LIMIT = 50;
 
 export const TRANSAK_API_KEY_PRODUCTION = '7300ebf7-c657-46b1-9c72-c0d91bbed0a8';
 export const TRANSAK_API_KEY_STAGING = '4055d318-9d41-4b74-9253-e73e3ca13602';
+
+export const MOONPAY_API_KEY_PRODUCTION = 'pk_live_Bctok4Wp6KZHX0YfS4Ie7dFOYnNw8lqv';

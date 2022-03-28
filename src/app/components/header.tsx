@@ -1,14 +1,14 @@
 import { memo, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { color, Flex, FlexProps, IconButton, Stack } from '@stacks/ui';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { color, Box, Flex, FlexProps, IconButton, Stack, useMediaQuery } from '@stacks/ui';
 import { FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi';
 
+import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { isFullPage } from '@app/common/utils';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Caption, Title } from '@app/components/typography';
-import { OnboardingSelectors } from '@tests/integration/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
@@ -20,7 +20,19 @@ interface HeaderProps extends FlexProps {
 export const Header: React.FC<HeaderProps> = memo(props => {
   const { onClose, title, hideActions, ...rest } = props;
   const { showSettings, setShowSettings } = useDrawers();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
+
+  const hiroWalletLogoIsClickable = useMemo(() => {
+    return (
+      pathname !== RouteUrls.RequestDiagnostics &&
+      pathname !== RouteUrls.Onboarding &&
+      pathname !== RouteUrls.BackUpSecretKey &&
+      pathname !== RouteUrls.SetPassword
+    );
+  }, [pathname]);
 
   const version = useMemo(() => {
     switch (process.env.WALLET_ENVIRONMENT) {
@@ -45,19 +57,22 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       {...rest}
     >
       {onClose ? (
-        <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} />
+        <Box flexBasis="20%">
+          <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} />
+        </Box>
       ) : null}
-      {!title && (!onClose || isFullPage) ? (
+      {!title && (!onClose || desktopViewport) ? (
         <Stack
           alignItems="flex-end"
-          flexGrow={1}
+          flexBasis="60%"
           height="36px"
           isInline
           justifyContent={onClose ? 'center' : 'unset'}
         >
           <HiroWalletLogo
             data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
-            onClick={() => navigate(RouteUrls.Home)}
+            isClickable={hiroWalletLogoIsClickable}
+            onClick={hiroWalletLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
           />
           <Caption
             color={color('text-caption')}
@@ -73,16 +88,18 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       ) : (
         <Title
           alignSelf="center"
+          flexBasis="60%"
           fontSize="16px"
           fontWeight={500}
           lineHeight="24px"
           pr={hideActions ? '36px' : 'unset'}
+          textAlign="center"
           {...rest}
         >
           {title}
         </Title>
       )}
-      <Stack alignItems="center" isInline>
+      <Stack alignItems="center" flexBasis="20%" isInline justifyContent="flex-end">
         <NetworkModeBadge />
         {!hideActions && (
           <IconButton
