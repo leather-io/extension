@@ -17,9 +17,9 @@ export const OnrampProviders = (props: OnrampProvidersProps) => {
   if (!hasProviders) return null;
 
   const providersUrl = {
-    transak: makeTransakUrl(address),
-    okcoin: makeOkcoinUrl(address),
     moonpay: makeMoonPayUrl(address),
+    okcoin: makeOkcoinUrl(address),
+    transak: makeTransakUrl(address),
   };
 
   return (
