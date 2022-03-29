@@ -7,11 +7,11 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
 
 const providersInfo = {
-  transak: {
-    title: 'Transak',
-    body: 'Non-US residents can purchase STX with credit card, debit card, or bank transfer via Transak.',
-    cta: 'Buy on Transak',
-    test_id: 'BtnTransak',
+  moonpay: {
+    title: 'MoonPay',
+    body: 'US and Non-US residents can purchase STX with credit card, debit card, bank transfer, Apple pay or Google pay via MoonPay.',
+    cta: 'Buy on MoonPay',
+    test_id: 'BtnMoonPay',
   },
   okcoin: {
     title: 'Okcoin',
@@ -19,17 +19,18 @@ const providersInfo = {
     cta: 'Buy on Okcoin',
     test_id: 'BtnOkCoin',
   },
-  moonpay: {
-    title: 'MoonPay',
-    body: 'US and Non-US residents can purchase STX with credit card, debit card, bank transfer, Apple pay or Google pay via MoonPay.',
-    cta: 'Buy on MoonPay',
-    test_id: 'BtnMoonPay',
+  transak: {
+    title: 'Transak',
+    body: 'US and Non-US residents can purchase STX with credit card, debit card, or bank transfer via Transak.',
+    cta: 'Buy on Transak',
+    test_id: 'BtnTransak',
   },
 };
 
 export interface ProvidersUrl {
-  transak: string;
+  moonpay: string;
   okcoin: string;
+  transak: string;
 }
 
 interface OnrampProviderLayoutProps {
