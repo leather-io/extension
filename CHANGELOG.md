@@ -1,3 +1,12 @@
+## [3.6.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.6.0...v3.6.1-beta.1) (2022-03-30)
+
+
+### Bug Fixes
+
+* fee dropdown positioning ([936199a](https://github.com/hirosystems/stacks-wallet-web/commit/936199a7ef117ae0abc4dfa0708549236f008615))
+* track tx signing errors ([a387ef1](https://github.com/hirosystems/stacks-wallet-web/commit/a387ef15dd232d5d397445422ecdb8f775b129fd))
+* unauthorized request error ([28c1fa5](https://github.com/hirosystems/stacks-wallet-web/commit/28c1fa55d2cf7df1e47b1ad8eb00cbda125dd9e9))
+
 # [3.6.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.5.1...v3.6.0) (2022-03-28)
 
 
