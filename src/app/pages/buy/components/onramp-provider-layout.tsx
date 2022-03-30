@@ -9,19 +9,19 @@ import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
 const providersInfo = {
   moonpay: {
     title: 'MoonPay',
-    body: 'US and Non-US residents can purchase STX with credit card, debit card, bank transfer, Apple pay or Google pay via MoonPay.',
+    body: 'Purchase STX with credit card, debit card, bank transfer, Apple or Google pay.',
     cta: 'Buy on MoonPay',
     test_id: 'BtnMoonPay',
   },
   okcoin: {
     title: 'Okcoin',
-    body: 'Non-US residents can purchase STX with credit card, debit card, or bank transfer via Okcoin.',
+    body: 'Purchase STX with credit card, debit card, or bank transfer (except US residents).',
     cta: 'Buy on Okcoin',
     test_id: 'BtnOkCoin',
   },
   transak: {
     title: 'Transak',
-    body: 'US and Non-US residents can purchase STX with credit card, debit card, or bank transfer via Transak.',
+    body: 'Purchase STX with credit card, debit card, or bank transfer.',
     cta: 'Buy on Transak',
     test_id: 'BtnTransak',
   },
