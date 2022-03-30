@@ -2,30 +2,26 @@ import { useCallback, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { AssetWithMeta } from '@app/common/asset-types';
-import { formatContractId, getTicker, initBigNumber } from '@app/common/utils';
+import { getFullyQualifiedAssetName, getTicker, initBigNumber } from '@app/common/utils';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 import { useSelectedAssetItem, useUpdateSelectedAsset } from '@app/store/assets/asset.hooks';
-import { useAnalytics } from './analytics/use-analytics';
-
-export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
-  return asset
-    ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
-    : undefined;
-}
+import { useAnalytics } from '../../../common/hooks/analytics/use-analytics';
 
 export function useSelectedAsset() {
   const selectedAsset = useSelectedAssetItem();
   const setSelectedAsset = useUpdateSelectedAsset();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const analytics = useAnalytics();
-  const handleUpdateSelectedAsset = useCallback(
+
+  const updateSelectedAsset = useCallback(
     (asset: AssetWithMeta | undefined) => {
       setSelectedAsset(getFullyQualifiedAssetName(asset) || undefined);
       void analytics.track('select_asset_for_send');
     },
     [analytics, setSelectedAsset]
   );
+
   const name = selectedAsset?.meta?.name || selectedAsset?.name;
   const isStx = selectedAsset?.name === 'Stacks Token';
   const ticker = selectedAsset
@@ -51,12 +47,12 @@ export function useSelectedAsset() {
     : '';
 
   return {
-    selectedAsset,
-    handleUpdateSelectedAsset,
-    ticker,
     balance,
     balanceBigNumber: balance ? initBigNumber(balance.replace(/,/g, '')) : undefined,
     name,
     placeholder,
+    selectedAsset,
+    ticker,
+    updateSelectedAsset,
   };
 }

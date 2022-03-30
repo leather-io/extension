@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { baseAssetsAnchoredState, mergeAssetBalances } from '@app/store/assets/tokens';
 import type { Asset, AssetWithMeta } from '@app/common/asset-types';
-import { searchInputStore, selectedAssetIdState } from './asset-search';
+import { selectedAssetIdState } from './asset-search';
 import {
   useAddressAnchoredAvailableStxBalance,
   useAddressBalances,
@@ -11,12 +11,11 @@ import {
 } from '@app/query/balance/balance.hooks';
 import { useCurrentAccountStxAddressState } from '../accounts/account.hooks';
 import { transformAssets } from './utils';
-import { getFullyQualifiedAssetName } from '@app/common/hooks/use-selected-asset';
 import {
   useAssetsWithMetadata,
   useFungibleTokenMetadata,
 } from '@app/query/tokens/fungible-token-metadata.hook';
-import { formatContractId } from '@app/common/utils';
+import { formatContractId, getFullyQualifiedAssetName } from '@app/common/utils';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 
 export function useAssets() {
@@ -54,14 +53,6 @@ export function useSelectedAssetItem() {
 
 export function useUpdateSelectedAsset() {
   return useUpdateAtom(selectedAssetIdState);
-}
-
-export function useSearchInput() {
-  return useAtomValue(searchInputStore);
-}
-
-export function useUpdateSearchInput() {
-  return useUpdateAtom(searchInputStore);
 }
 
 export function useStxTokenState(address: string) {
