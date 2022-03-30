@@ -5,6 +5,8 @@ import { KEBAB_REGEX, Network } from '@shared/constants';
 import { StacksNetwork } from '@stacks/network';
 import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
 
+import { AssetWithMeta } from './asset-types';
+
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
 }
@@ -278,4 +280,10 @@ export function isEmpty(value: Object) {
 
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
+}
+
+export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
+  return asset
+    ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
+    : undefined;
 }
