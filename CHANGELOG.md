@@ -1,3 +1,10 @@
+# [3.7.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.0-beta.1...v3.7.0-beta.2) (2022-04-01)
+
+
+### Bug Fixes
+
+* search and select asset ([dc077b1](https://github.com/hirosystems/stacks-wallet-web/commit/dc077b18488541e859ceca1d3ee0ce3833302859))
+
 # [3.7.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.6.1-beta.2...v3.7.0-beta.1) (2022-04-01)
 
 
