@@ -1,3 +1,10 @@
+# [3.7.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.6.1-beta.2...v3.7.0-beta.1) (2022-04-01)
+
+
+### Features
+
+* track first deposit ([07f661b](https://github.com/hirosystems/stacks-wallet-web/commit/07f661b3ed300913f431677f822c272015b116e9)), closes [#2232](https://github.com/hirosystems/stacks-wallet-web/issues/2232)
+
 ## [3.6.1-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.6.1-beta.1...v3.6.1-beta.2) (2022-03-30)
 
 ## [3.6.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.6.0...v3.6.1-beta.1) (2022-03-30)
