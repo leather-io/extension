@@ -1,7 +1,7 @@
 import { RPCClient } from '@stacks/rpc-client';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { StacksTestnet } from '@stacks/network';
+import { StacksMainnet, StacksTestnet } from '@stacks/network';
 
 dayjs.extend(relativeTime);
 
@@ -15,5 +15,7 @@ export const getRPCClient = () => {
 export const toRelativeTime = (ts: number): string => dayjs().to(ts);
 
 export const stacksTestnetNetwork = new StacksTestnet({ url: testnetUrl });
+
+export const stacksMainnetNetwork = new StacksMainnet();
 
 export const stacksLocalhostNetwork = new StacksTestnet({ url: localhostUrl });
