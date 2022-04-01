@@ -234,8 +234,13 @@ export function getUrlHostname(url: string) {
   return new URL(url).hostname;
 }
 
-export function getUrlPort(url: string) {
+function getUrlPort(url: string) {
   return new URL(url).port;
+}
+
+export function addPortSuffix(url: string) {
+  const port = getUrlPort(url);
+  return port ? `:${port}` : '';
 }
 
 export async function delay(ms: number) {
