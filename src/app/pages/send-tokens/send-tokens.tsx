@@ -5,13 +5,13 @@ import { Formik } from 'formik';
 
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useHandleSubmitTransaction } from '@app/common/hooks/use-submit-stx-transaction';
 import { logger } from '@shared/logger';
 import { Header } from '@app/components/header';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
 import { RouteUrls } from '@shared/route-urls';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';

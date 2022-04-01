@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 import * as React from 'react';
 import { FormikProps } from 'formik';
 
-import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { microStxToStx } from '@app/common/stacks-utils';
 import { removeCommas } from '@app/common/token-utils';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 
 export function useSendAmountFieldActions({

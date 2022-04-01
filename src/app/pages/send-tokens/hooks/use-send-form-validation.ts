@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { useWallet } from '@app/common/hooks/use-wallet';
-import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { STX_DECIMALS } from '@shared/constants';
 import { countDecimals, isNumber } from '@app/common/utils';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
@@ -17,6 +16,7 @@ import { useCallback, useMemo } from 'react';
 import { SendFormErrorMessages } from '@app/common/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
+import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 
 interface UseSendFormValidationArgs {
