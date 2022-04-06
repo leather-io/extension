@@ -19,12 +19,14 @@ import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { HomeTabs } from './components/home-tabs';
 import { OnboardingStepsList } from './components/onboarding-steps-list';
 import { useOnboardingSteps } from './hooks/use-onboarding-steps';
+import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
   const { showOnboardingSteps } = useOnboardingSteps();
   const navigate = useNavigate();
   const account = useCurrentAccount();
+  useTrackFirstDeposit();
 
   useRouteHeader(
     <>

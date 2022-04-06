@@ -2,12 +2,12 @@ import { memo } from 'react';
 import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
-import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useAssets } from '@app/store/assets/asset.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';

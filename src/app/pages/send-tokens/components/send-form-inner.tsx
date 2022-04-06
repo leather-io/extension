@@ -6,7 +6,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
-import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { isEmpty } from '@app/common/utils';
 import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
@@ -17,6 +16,7 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
+import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
@@ -108,7 +108,7 @@ export function SendFormInner(props: SendFormInnerProps) {
     values.recipient,
   ]);
 
-  const onItemSelect = useCallback(() => {
+  const onSelectAssetResetForm = useCallback(() => {
     if (assets.length === 1) return;
     setValues({ ...values, amount: '', fee: '' });
     setFieldError('amount', undefined);
@@ -126,7 +126,7 @@ export function SendFormInner(props: SendFormInnerProps) {
       spacing="loose"
       width="100%"
     >
-      <AssetSearch onItemClick={onItemSelect} />
+      <AssetSearch onSelectAssetResetForm={onSelectAssetResetForm} />
       <Suspense fallback={<></>}>
         <AmountField
           error={errors.amount}

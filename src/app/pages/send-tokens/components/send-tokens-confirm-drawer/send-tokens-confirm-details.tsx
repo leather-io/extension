@@ -1,10 +1,10 @@
 import { Flex, StackProps } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
 
-import { useSelectedAsset } from '@app/common/hooks/use-selected-asset';
 import { EventCard } from '@app/components/event-card';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 
 interface SendTokensConfirmDetailsProps extends StackProps {
   amount: number | string;
