@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/common/hooks/use-selected-asset.ts</title>
+    <title>Code coverage report for app/pages/send-tokens/hooks/use-selected-asset.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/common/hooks</a> use-selected-asset.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/send-tokens/hooks</a> use-selected-asset.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/33</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -121,11 +121,7 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,19 +133,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,30 +183,26 @@
 import BigNumber from 'bignumber.js';
 &nbsp;
 import { AssetWithMeta } from '@app/common/asset-types';
-import { formatContractId, getTicker, initBigNumber } from '@app/common/utils';
+import { getFullyQualifiedAssetName, getTicker, initBigNumber } from '@app/common/utils';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 import { useSelectedAssetItem, useUpdateSelectedAsset } from '@app/store/assets/asset.hooks';
-import { useAnalytics } from './analytics/use-analytics';
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >getFullyQualifiedAssetName(</span>asset?: AssetWithMeta) {
-<span class="cstat-no" title="statement not covered" >  return asset</span>
-    ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
-    : undefined;
-}
+import { useAnalytics } from '../../../common/hooks/analytics/use-analytics';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSelectedAsset(</span>) {
   const selectedAsset = <span class="cstat-no" title="statement not covered" >useSelectedAssetItem();</span>
   const setSelectedAsset = <span class="cstat-no" title="statement not covered" >useUpdateSelectedAsset();</span>
   const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-  const handleUpdateSelectedAsset = <span class="cstat-no" title="statement not covered" >useCallback(</span>
+&nbsp;
+  const updateSelectedAsset = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (a</span>sset: AssetWithMeta | undefined) =&gt; {
 <span class="cstat-no" title="statement not covered" >      setSelectedAsset(getFullyQualifiedAssetName(asset) || undefined);</span>
 <span class="cstat-no" title="statement not covered" >      void analytics.track('select_asset_for_send');</span>
     },
     [analytics, setSelectedAsset]
   );
+&nbsp;
   const name = <span class="cstat-no" title="statement not covered" >selectedAsset?.meta?.name || selectedAsset?.name;</span>
   const isStx = <span class="cstat-no" title="statement not covered" >selectedAsset?.name === 'Stacks Token';</span>
   const ticker = <span class="cstat-no" title="statement not covered" >selectedAsset</span>
@@ -240,13 +228,13 @@ export function <span class="fstat-no" title="function not covered" >useSelected
     : '';
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
-    selectedAsset,
-    handleUpdateSelectedAsset,
-    ticker,
     balance,
     balanceBigNumber: balance ? initBigNumber(balance.replace(/,/g, '')) : undefined,
     name,
     placeholder,
+    selectedAsset,
+    ticker,
+    updateSelectedAsset,
   };
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -256,16 +244,16 @@ export function <span class="fstat-no" title="function not covered" >useSelected
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 30 2022 17:58:41 GMT+0000 (Coordinated Universal Time)
+                at Wed Apr 06 2022 06:31:34 GMT+0000 (Coordinated Universal Time)
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     
