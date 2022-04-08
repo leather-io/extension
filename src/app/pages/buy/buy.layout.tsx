@@ -6,9 +6,10 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { PageTitle } from '@app/components/page-title';
-import AddFunds from '@assets/images/add-funds.png';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import AddFunds from '@assets/images/add-funds.png';
 
 interface BuyLayoutProps {
   onCloseAction: () => void;
@@ -16,8 +17,14 @@ interface BuyLayoutProps {
 }
 export const BuyLayout = (props: BuyLayoutProps) => {
   const { onCloseAction, onrampProviders } = props;
+  const analytics = useAnalytics();
 
   useRouteHeader(<Header hideActions title=" " onClose={onCloseAction} />);
+
+  const goToLearnMore = () => {
+    void analytics.track('select_buy_learn_more');
+    openInNewTab('https://hiro.so/questions/wallet-stx-purchases');
+  };
 
   return (
     <CenteredPageContainer>
@@ -27,19 +34,15 @@ export const BuyLayout = (props: BuyLayoutProps) => {
         px={['loose', 'unset']}
         spacing="base"
       >
-        <Box width={['100px', '115px']}>
+        <Box display={['none', 'block']} width={['100px', '115px']}>
           <img src={AddFunds} />
         </Box>
-        <PageTitle mt={['unset', 'base']}>Fund your account</PageTitle>
+        <PageTitle mt={['unset', 'base']}>Buy STX quickly</PageTitle>
         <Text>
-          Fund your account with STX, the native currency of Stacks. You can use your STX to trade,
-          bid in auctions, earn Bitcoin, and much more. Buy some STX on an exchange to get started.
+          Easily purchase Stacks (STX) with your credit card or other method for direct deposit into
+          your Hiro Wallet account.
         </Text>
-        <Link
-          color={color('accent')}
-          fontSize="16px"
-          onClick={() => openInNewTab('https://hiro.so/questions/wallet-stx-purchases')}
-        >
+        <Link color={color('accent')} fontSize="16px" onClick={() => goToLearnMore()}>
           Learn more ↗
         </Link>
         {onrampProviders}
