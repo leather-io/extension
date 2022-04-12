@@ -47,12 +47,12 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ close }) => {
         <Body>Your new account has been created.</Body>
         <Flex width="100%" flexGrow={1} mt="base" pb="loose">
           <Button
-            width="100%"
-            onClick={close}
-            isLoading={isSetting}
+            data-testid={SettingsSelectors.BtnCreateAccountDone}
             borderRadius="10px"
             isDisabled={isSetting}
-            data-testid={isSetting ? undefined : SettingsSelectors.BtnCreateAccountDone}
+            isLoading={isSetting}
+            onClick={close}
+            width="100%"
           >
             Done
           </Button>
