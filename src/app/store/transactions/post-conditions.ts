@@ -5,11 +5,12 @@ import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/post-condition-utils';
+import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
 
-export const postConditionsState = atom(get => {
-  const payload = get(requestTokenPayloadState);
-  const address = get(currentAccountStxAddressState);
-
+export function formatPostConditionState(
+  payload?: ContractCallPayload | ContractDeployPayload | STXTransferPayload | null,
+  address?: string
+) {
   if (!payload || !address) return;
 
   if (payload.postConditions) {
@@ -19,6 +20,12 @@ export const postConditionsState = atom(get => {
     return payload.postConditions.map(getPostCondition);
   }
   return [];
+}
+
+export const postConditionsState = atom(get => {
+  const payload = get(requestTokenPayloadState);
+  const address = get(currentAccountStxAddressState);
+  return formatPostConditionState(payload, address);
 });
 
 export const postConditionModeState = atom(get => get(requestTokenPayloadState)?.postConditionMode);
