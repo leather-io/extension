@@ -12,19 +12,22 @@ import { LedgerSuccessLabel } from '../components/success-label';
 
 interface TransactionDetailProps {
   children: React.ReactNode;
+  isFullPage: boolean;
   title: string;
   tooltipLabel?: string;
 }
 function TransactionDetail(props: TransactionDetailProps) {
+  const { children, isFullPage, title, tooltipLabel } = props;
+
   return (
     <Flex borderColor="#DCDDE2" flexDirection="column">
-      <Caption>{props.title}</Caption>
+      <Caption>{title}</Caption>
       <Flex alignItems="center" mt="base">
-        <Text overflowWrap="break-word" maxWidth="360px">
-          {props.children}
+        <Text overflowWrap="break-word" maxWidth={['280px', '360px']}>
+          {children}
         </Text>
-        {props.tooltipLabel ? (
-          <Tooltip label={props.tooltipLabel} maxWidth="260px" placement="right">
+        {tooltipLabel ? (
+          <Tooltip label={tooltipLabel} maxWidth={isFullPage ? '260px' : '210px'} placement="right">
             <Stack>
               <Box
                 _hover={{ cursor: 'pointer' }}
@@ -43,9 +46,14 @@ function TransactionDetail(props: TransactionDetailProps) {
 
 interface SignLedgerTransactionLayoutProps {
   details: [string, string, string?][];
+  isFullPage: boolean;
   status: 'awaiting-approval' | 'approved';
 }
-export function SignLedgerTransactionLayout({ details, status }: SignLedgerTransactionLayoutProps) {
+export function SignLedgerTransactionLayout({
+  details,
+  isFullPage,
+  status,
+}: SignLedgerTransactionLayoutProps) {
   return (
     <LedgerWrapper>
       <Box mt="tight">
@@ -69,7 +77,7 @@ export function SignLedgerTransactionLayout({ details, status }: SignLedgerTrans
       >
         <DividerSeparator>
           {details.map(([title, value, tooltipLabel]) => (
-            <TransactionDetail title={title} tooltipLabel={tooltipLabel}>
+            <TransactionDetail isFullPage={isFullPage} title={title} tooltipLabel={tooltipLabel}>
               {value}
             </TransactionDetail>
           ))}
