@@ -35,15 +35,16 @@ import { ConnectLedgerSignTxError } from '@app/features/ledger/flows/tx-signing/
 import { ConnectLedgerSignTxSuccess } from '@app/features/ledger/flows/tx-signing/steps/connect-ledger-sign-tx-success';
 import { LedgerSignTxContainer } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx-container';
 import { ConnectLedgerSignTx } from '@app/features/ledger/flows/tx-signing/steps/connect-ledger-sign-tx';
-
-import { useOnWalletLock } from './hooks/use-on-wallet-lock';
-import { useOnSignOut } from './hooks/use-on-sign-out';
-import { OnboardingGate } from './onboarding-gate';
 import { LedgerTransactionRejected } from '@app/features/ledger/flows/tx-signing/steps/transaction-rejected';
 import { LedgerPublicKeyMismatch } from '@app/features/ledger/flows/tx-signing/steps/public-key-mismatch';
 import { VerifyingPublicKeysMatch } from '@app/features/ledger/flows/tx-signing/steps/verifying-public-keys-match';
 import { PullingKeysFromDevice } from '@app/features/ledger/flows/request-keys/steps/pulling-keys-from-device';
 import { UnsupportedBrowserLayout } from '@app/features/ledger/steps/unsupported-browser.layout';
+
+import { useOnWalletLock } from './hooks/use-on-wallet-lock';
+import { useOnSignOut } from './hooks/use-on-sign-out';
+import { OnboardingGate } from './onboarding-gate';
+import { AuthWithLedgerError } from '@app/pages/auth-with-ledger-error/auth-with-ledger-error';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();
@@ -166,6 +167,14 @@ export function AppRoutes(): JSX.Element | null {
                 <ChooseAccount />
               </Suspense>
             </AccountGate>
+          }
+        />
+        <Route
+          path={RouteUrls.AuthNotSupportedWithLedger}
+          element={
+            <Suspense fallback={<></>}>
+              <AuthWithLedgerError />
+            </Suspense>
           }
         />
         <Route

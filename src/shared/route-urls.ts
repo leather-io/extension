@@ -20,6 +20,8 @@ export enum RouteUrls {
   LedgerPublicKeyMismatch = 'wrong-ledger-device',
   LedgerUnsupportedBrowser = 'unsupported-browser',
 
+  AuthNotSupportedWithLedger = '/auth-not-supported-with-hardware-wallet',
+
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
