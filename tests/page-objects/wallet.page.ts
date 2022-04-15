@@ -39,8 +39,7 @@ export class WalletPage {
   $contractCallButton = createTestSelector('btn-contract-call');
   $settingsViewSecretKey = createTestSelector(SettingsSelectors.ViewSecretKeyListItem);
   $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
-  $createAccountButton = createTestSelector(SettingsSelectors.BtnCreateAccount);
-  $createAccountDone = createTestSelector(SettingsSelectors.BtnCreateAccountDone);
+  $createAccountButton = createTestSelector(SettingsSelectors.CreateAccountBtn);
   $statusMessage = createTestSelector(WalletPageSelectors.StatusMessage);
   $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
   $signOutConfirmHasBackupCheckbox = createTestSelector(

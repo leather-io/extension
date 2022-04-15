@@ -10,8 +10,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { Divider } from '@app/components/divider';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { AccountStep } from '@app/store/ui/ui.models';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 
 const MenuWrapper = forwardRefWithAs((props, ref) => (
   <Box
@@ -57,10 +57,10 @@ export const SettingsDropdown = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const { lockWallet, wallet, currentNetworkKey, hasGeneratedWallet, encryptedSecretKey } =
     useWallet();
+  const { createAccount, isCreatingAccount } = useCreateAccount();
   const {
     setShowNetworks,
-    setShowAccounts,
-    setAccountStep,
+    setShowSwitchAccountsState,
     setShowSettings,
     showSettings,
     setShowSignOut,
@@ -94,22 +94,22 @@ export const SettingsDropdown = () => {
                 <MenuItem
                   data-testid={SettingsSelectors.SwitchAccount}
                   onClick={wrappedCloseCallback(() => {
-                    setAccountStep(AccountStep.Switch);
-                    setShowAccounts(true);
+                    setShowSwitchAccountsState(true);
                   })}
                 >
                   Switch account
                 </MenuItem>
               )}
-              <MenuItem
-                data-testid={SettingsSelectors.BtnCreateAccount}
-                onClick={wrappedCloseCallback(() => {
-                  setAccountStep(AccountStep.Create);
-                  setShowAccounts(true);
-                })}
-              >
-                Create an Account
-              </MenuItem>
+              {!isCreatingAccount ? (
+                <MenuItem
+                  data-testid={SettingsSelectors.CreateAccountBtn}
+                  onClick={wrappedCloseCallback(() => {
+                    void createAccount();
+                  })}
+                >
+                  Create an Account
+                </MenuItem>
+              ) : null}
               <MenuItem
                 data-testid={SettingsSelectors.ViewSecretKeyListItem}
                 onClick={wrappedCloseCallback(() => {

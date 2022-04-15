@@ -9,7 +9,7 @@ import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 import { theme } from '@app/common/theme';
 import { GlobalStyles } from '@app/components/global-styles/global-styles';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
-import { AccountsDrawer } from '@app/features/accounts-drawer/accounts-drawer';
+import { SwitchAccountsDrawer } from '@app/features/account-switch-drawer/switch-accounts-drawer';
 import { NetworksDrawer } from '@app/features/network-drawer/networks-drawer';
 import { SettingsDropdown } from '@app/features/settings-dropdown/settings-dropdown';
 import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
@@ -34,7 +34,7 @@ export function App() {
                 <Router>
                   <AppErrorBoundary>
                     <AppRoutes />
-                    <AccountsDrawer />
+                    <SwitchAccountsDrawer />
                     <NetworksDrawer />
                     <EditNonceDrawer />
                     <IncreaseFeeDrawer />
