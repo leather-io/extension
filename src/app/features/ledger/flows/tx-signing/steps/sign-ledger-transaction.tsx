@@ -1,5 +1,6 @@
 import { useContext, useMemo } from 'react';
 import { cvToString, PayloadType } from '@stacks/transactions';
+import { BigNumber } from 'bignumber.js';
 
 import { microStxToStx } from '@app/common/stacks-utils';
 import { ledgerTxSigningContext } from '@app/features/ledger/ledger-tx-signing.context';
@@ -29,7 +30,7 @@ export function SignLedgerTransaction() {
         ['To', cvToString(transaction.payload.recipient)],
         [
           'Amount (µSTX)',
-          String(transaction.payload.amount),
+          new BigNumber(String(transaction.payload.amount)).toFormat(),
           formatTooltipLabel(transaction.payload.amount),
         ],
       ];
