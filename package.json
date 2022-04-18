@@ -269,6 +269,7 @@
     "**/**/xmldom": "github:xmldom/xmldom#0.7.0",
     "**/**/@stacks/network": "3.0.0",
     "@redux-devtools/cli/**/tar": "4.4.18",
+    "async": "2.6.4",
     "bn.js": "5.2.0",
     "buffer": "6.0.3",
     "css-what": "5.0.1",

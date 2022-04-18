@@ -1,6 +1,5 @@
 import {
-  useAccountDrawerStep,
-  useShowAccountsStore,
+  useShowSwitchAccountsState,
   useShowHighFeeConfirmationState,
   useShowNetworksStore,
   useShowSettingsStore,
@@ -10,8 +9,7 @@ import {
 } from '@app/store/ui/ui.hooks';
 
 export function useDrawers() {
-  const [accountStep, setAccountStep] = useAccountDrawerStep();
-  const [showAccounts, setShowAccounts] = useShowAccountsStore();
+  const [showAccounts, setShowSwitchAccountsState] = useShowSwitchAccountsState();
   const [showHighFeeConfirmation, setShowHighFeeConfirmation] = useShowHighFeeConfirmationState();
   const [showNetworks, setShowNetworks] = useShowNetworksStore();
   const [showSettings, setShowSettings] = useShowSettingsStore();
@@ -20,10 +18,8 @@ export function useDrawers() {
   const [showSignOut, setShowSignOut] = useShowSignOut();
 
   return {
-    accountStep,
-    setAccountStep,
     showAccounts,
-    setShowAccounts,
+    setShowSwitchAccountsState,
     showHighFeeConfirmation,
     setShowHighFeeConfirmation,
     showNetworks,

@@ -81,6 +81,8 @@ export const accountsWithAddressState = atom<SoftwareWalletAccountWithAddress[] 
 // the user switches accounts during the signing process
 export const hasSwitchedAccountsState = atom<boolean>(false);
 
+export const hasCreatedAccountState = atom<boolean>(false);
+
 // if there is a pending transaction that has a stxAccount param
 // find the index from the accounts atom and return it
 export const transactionAccountIndexState = atom<number | undefined>(get => {
