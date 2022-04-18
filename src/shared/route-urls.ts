@@ -2,7 +2,7 @@ export enum RouteUrls {
   Container = '/',
 
   // Onboarding routes
-  Onboarding = '/onboarding',
+  Onboarding = '/get-started',
   BackUpSecretKey = '/back-up-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
