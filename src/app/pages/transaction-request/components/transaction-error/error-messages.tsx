@@ -19,14 +19,14 @@ import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 export const FeeInsufficientFundsErrorMessage = memo(props => {
   const currentAccount = useCurrentAccount();
-  const { setShowAccounts } = useDrawers();
+  const { setShowSwitchAccountsState } = useDrawers();
   const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
   return (
     <ErrorMessage
       title="Insufficient balance"
       body={`You do not have enough STX to cover the network fees for this transaction.`}
       actions={[
-        { onClick: () => setShowAccounts(true), label: 'Switch account' },
+        { onClick: () => setShowSwitchAccountsState(true), label: 'Switch account' },
         { onClick: () => onCopy(), label: hasCopied ? 'Copied!' : 'Copy address' },
       ]}
       {...props}
@@ -38,7 +38,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const currentAccount = useCurrentAccount();
-  const { setShowAccounts } = useDrawers();
+  const { setShowSwitchAccountsState } = useDrawers();
   const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
   return (
     <ErrorMessage
@@ -75,7 +75,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
         </Stack>
       }
       actions={[
-        { onClick: () => setShowAccounts(true), label: 'Switch account' },
+        { onClick: () => setShowSwitchAccountsState(true), label: 'Switch account' },
         { onClick: () => onCopy(), label: hasCopied ? 'Copied!' : 'Copy address' },
       ]}
       {...props}
