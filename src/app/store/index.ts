@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { atomWithStore } from 'jotai/redux';
 import devToolsEnhancer from 'remote-redux-devtools';
+
 import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import {
   persistStore,
@@ -20,10 +21,12 @@ import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { ExtensionStorage } from './utils/extension-storage';
 import { onboardingSlice } from './onboarding/onboarding.slice';
 import { analyticsSlice } from './analytics/analytics.slice';
+import { appsSlice } from './apps/apps.slice';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
 const rootReducer = combineReducers({
+  apps: appsSlice.reducer,
   keys: keySlice.reducer,
   chains: combineReducers({
     stx: stxChainSlice.reducer,
@@ -33,12 +36,21 @@ const rootReducer = combineReducers({
   analytics: analyticsSlice.reducer,
 });
 
+// const logger = store => next => action => {
+//   console.group(action.type);
+//   console.info('dispatching', action);
+//   let result = next(action);
+//   console.log('next state', store.getState());
+//   console.groupEnd();
+//   return result;
+// };
+
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['keys', 'chains', 'onboarding', 'analytics'],
+  whitelist: ['apps', 'keys', 'chains', 'onboarding', 'analytics'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -46,6 +58,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware => [
+    // logger,
     ...getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

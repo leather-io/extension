@@ -6,7 +6,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Container } from '@app/features/container/container';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
-import { ChooseAccount } from '@app/pages/choose-account/choose-account';
+import { AuthenticateAccount } from '@app/pages/account-authentication/account-authentication';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { SignatureRequest } from '@app/pages/signature-request/signature-request';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
@@ -32,6 +32,8 @@ import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fe
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { ledgerTxSigningRoutes } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.routes';
 import { ledgerRequestKeysRoutes } from '@app/features/ledger/flows/request-keys/ledger-request-keys.routes';
+import { RouteUrls } from '@shared/route-urls';
+import { AccountRequest } from '@app/pages/choose-account-request/account-request';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
@@ -108,11 +110,21 @@ export function AppRoutes() {
           }
         />
         <Route
-          path={RouteUrls.ChooseAccount}
+          path={RouteUrls.AccountAuthentication}
           element={
             <AccountGate>
               <Suspense fallback={<></>}>
-                <ChooseAccount />
+                <AuthenticateAccount />
+              </Suspense>
+            </AccountGate>
+          }
+        />
+        <Route
+          path={RouteUrls.AccountRequest}
+          element={
+            <AccountGate>
+              <Suspense fallback={<></>}>
+                <AccountRequest />
               </Suspense>
             </AccountGate>
           }

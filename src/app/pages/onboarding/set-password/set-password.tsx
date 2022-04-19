@@ -62,7 +62,7 @@ export const SetPasswordPage = () => {
         if (!wallet) return;
         const { accounts } = wallet;
         if (accounts && accounts.length > 1) {
-          navigate(RouteUrls.ChooseAccount);
+          navigate(RouteUrls.AccountAuthentication);
         } else {
           await finishSignIn(0);
         }

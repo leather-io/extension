@@ -17,6 +17,7 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useAccounts } from '../accounts/account.hooks';
 import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
+import { useUserGrantsPermissionToAppDomain } from '../apps/apps.actions';
 
 export function useWalletState() {
   return useAtomValue(walletState);
@@ -33,6 +34,8 @@ export function useEncryptedSecretKeyState() {
 export function useFinishSignInCallback() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
   const keyActions = useKeyActions();
+  const grantPermissionToDomain = useUserGrantsPermissionToAppDomain();
+
   const wallet = useWalletState();
   const { walletType } = useWalletType();
   const accounts = useAccounts();
@@ -82,6 +85,8 @@ export function useFinishSignInCallback() {
           account: legacyAccount,
         });
         keyActions.switchAccount(accountIndex);
+        grantPermissionToDomain(appURL.origin);
+
         finalizeAuthResponse({
           decodedAuthRequest,
           authRequest,

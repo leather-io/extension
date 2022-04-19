@@ -8,19 +8,27 @@ import {
 import {
   AuthenticationResponseMessage,
   ExternalMethods,
-  MessageToContentScript,
+  LegacyMessageToContentScript,
   MESSAGE_SOURCE,
   SignatureResponseMessage,
+  RpcMethodNames,
+  RpcRequestArgs,
+  RpcResponseArgs,
   TransactionResponseMessage,
 } from '@shared/message-types';
 import { logger } from '@shared/logger';
+
+declare global {
+  interface Crypto {
+    randomUUID: () => string;
+  }
+}
 
 type CallableMethods = keyof typeof ExternalMethods;
 
 interface ExtensionResponse {
   source: 'blockstack-extension';
   method: CallableMethods;
-
   [key: string]: any;
 }
 
@@ -55,7 +63,7 @@ const callAndReceive = async (
   });
 };
 
-const isValidEvent = (event: MessageEvent, method: MessageToContentScript['method']) => {
+const isValidEvent = (event: MessageEvent, method: LegacyMessageToContentScript['method']) => {
   const { data } = event;
   const correctSource = data.source === MESSAGE_SOURCE;
   const correctMethod = data.method === method;
@@ -63,7 +71,7 @@ const isValidEvent = (event: MessageEvent, method: MessageToContentScript['metho
 };
 
 const provider: StacksProvider = {
-  getURL: async () => {
+  async getURL() {
     const { url } = await callAndReceive('getURL');
     return url;
   },
@@ -155,6 +163,26 @@ const provider: StacksProvider = {
       window.addEventListener('message', handleMessage);
     });
   },
+
+  async request(method: RpcMethodNames, params?: any[]): Promise<RpcResponseArgs> {
+    return new Promise((resolve, reject) => {
+      const id = crypto.randomUUID();
+      document.dispatchEvent(
+        new CustomEvent<RpcRequestArgs>(DomEventName.rpcRequest, {
+          detail: { jsonrpc: '2.0', id, method, params },
+        })
+      );
+      // @TODO: add RPC response type
+      const handleMessage = (event: MessageEvent<any>) => {
+        if (event.data.id !== id) return;
+        window.removeEventListener('message', handleMessage);
+        if (event.data.error) reject(event.data.error);
+        resolve(event.data.result);
+      };
+      window.addEventListener('message', handleMessage);
+    });
+  },
+
   getProductInfo() {
     return {
       version: VERSION,
@@ -165,9 +193,9 @@ const provider: StacksProvider = {
       },
     };
   },
-  request: function (_method: string): Promise<Record<string, any>> {
+  request(_method: string): Promise<Record<string, any>> {
     throw new Error('Function not implemented.');
   },
-};
+} as StacksProvider & { request(): Promise<RpcResponseArgs> };
 
 window.StacksProvider = provider;

@@ -32,7 +32,7 @@ export function useSaveAuthRequest() {
         appURL: new URL(origin),
       });
 
-      navigate(RouteUrls.ChooseAccount);
+      navigate(RouteUrls.AccountAuthentication);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []

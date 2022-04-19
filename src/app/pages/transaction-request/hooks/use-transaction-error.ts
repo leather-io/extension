@@ -9,26 +9,33 @@ import {
   useCurrentAccount,
   useCurrentAccountAvailableStxBalance,
 } from '@app/store/accounts/account.hooks';
-import { useOrigin } from '@app/store/transactions/requests.hooks';
+
+import { useTransactionRequestOrigin } from '@app/store/transactions/requests.hooks';
 import {
   useTransactionBroadcastError,
   useTransactionRequestState,
-  useTransactionRequestValidation,
 } from '@app/store/transactions/requests.hooks';
+
+import { useTransactionValidator } from './use-transaction-validator';
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
   const contractInterface = useContractInterface(transactionRequest);
   const broadcastError = useTransactionBroadcastError();
-  const isValidTransaction = useTransactionRequestValidation();
-  const origin = useOrigin();
+
+  const txValidationResult = useTransactionValidator();
+
+  const origin = useTransactionRequestOrigin();
 
   const currentAccount = useCurrentAccount();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
 
   return useMemo<TransactionErrorReason | void>(() => {
+    // console.log({ transactionRequest, availableStxBalance, currentAccount });
+
     if (origin === false) return TransactionErrorReason.ExpiredRequest;
-    if (isValidTransaction === false) return TransactionErrorReason.Unauthorized;
+
+    if (!txValidationResult.isValid) return TransactionErrorReason.Unauthorized;
 
     if (!transactionRequest || !availableStxBalance || !currentAccount) {
       return TransactionErrorReason.Generic;
@@ -66,10 +73,10 @@ export function useTransactionError() {
   }, [
     broadcastError,
     contractInterface,
+    origin,
+    txValidationResult.isValid,
+    transactionRequest,
     availableStxBalance,
     currentAccount,
-    transactionRequest,
-    isValidTransaction,
-    origin,
   ]);
 }

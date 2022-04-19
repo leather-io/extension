@@ -7,7 +7,7 @@ import { AppThunk } from '@app/store';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { defaultKeyId, keySlice } from './key.slice';
 import { selectCurrentKey } from './key.selectors';
-import { sendMessage } from '@shared/messages';
+import { sendMessageToBackground } from '@shared/messages';
 import { InternalMethods } from '@shared/message-types';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
@@ -39,7 +39,7 @@ const setWalletEncryptionPassword = (password: string): AppThunk => {
     const { encryptedSecretKey, salt } = await encryptMnemonic({ secretKey, password });
     const highestAccountIndex = await restoredWalletHighestGeneratedAccountIndex(secretKey);
 
-    sendMessage({
+    sendMessageToBackground({
       method: InternalMethods.ShareInMemoryKeyToBackground,
       payload: { secretKey, keyId: defaultKeyId },
     });
@@ -64,7 +64,7 @@ const unlockWalletAction = (password: string): AppThunk => {
     if (!currentKey) return;
     if (currentKey.type !== 'software') return;
     const { secretKey } = await decryptMnemonic({ password, ...currentKey });
-    sendMessage({
+    sendMessageToBackground({
       method: InternalMethods.ShareInMemoryKeyToBackground,
       payload: { secretKey: secretKey, keyId: defaultKeyId },
     });

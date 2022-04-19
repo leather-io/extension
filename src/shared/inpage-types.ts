@@ -6,6 +6,7 @@ export enum DomEventName {
   signatureRequest = 'signatureRequest',
   structuredDataSignatureRequest = 'structuredDataSignatureRequest',
   transactionRequest = 'stacksTransactionRequest',
+  rpcRequest = 'stxRpcRequest',
 }
 
 export interface AuthenticationRequestEventDetails {

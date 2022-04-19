@@ -3,7 +3,7 @@ import { Button, Text, Box, ButtonGroup } from '@stacks/ui';
 import { useConnect } from '@stacks/connect-react';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
-export const Auth: React.FC = () => {
+export const JwtAuth: React.FC = () => {
   const { doOpenAuth } = useConnect();
   return (
     <Box>
@@ -17,7 +17,7 @@ export const Auth: React.FC = () => {
           onClick={() => doOpenAuth()}
           data-testid={OnboardingSelectors.SignUpBtn}
         >
-          Sign up
+          JWT Authentication
         </Button>
       </ButtonGroup>
     </Box>

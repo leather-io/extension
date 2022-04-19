@@ -21,7 +21,7 @@ export function Unlock(): JSX.Element {
 
   const handleSuccess = useCallback(async () => {
     if (decodedAuthRequest) {
-      navigate(RouteUrls.ChooseAccount);
+      navigate(RouteUrls.AccountAuthentication);
     } else {
       navigate(RouteUrls.Home);
     }

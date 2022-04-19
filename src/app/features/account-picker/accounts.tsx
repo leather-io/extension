@@ -1,12 +1,13 @@
-import { Suspense, memo, useState, useMemo } from 'react';
+import { Suspense, memo, useMemo } from 'react';
+
 import { FiPlusCircle } from 'react-icons/fi';
 import { Virtuoso } from 'react-virtuoso';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
-import { Caption, Text, Title } from '@app/components/typography';
+import { Caption, Text } from '@app/components/typography';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { useWallet } from '@app/common/hooks/use-wallet';
+
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { AccountAvatarWithName } from '@app/components/account-avatar/account-avatar';
@@ -19,37 +20,13 @@ import {
 import { slugify } from '@app/common/utils';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
-import { useWalletType } from '@app/common/use-wallet-type';
+
 import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { useNavigate } from 'react-router-dom';
-import { RouteUrls } from '@shared/route-urls';
+import { AccountTitle, AccountTitlePlaceholder } from '@app/components/account/account-title';
+import { useWalletType } from '@app/common/use-wallet-type';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
-
-interface AccountTitlePlaceholderProps extends BoxProps {
-  account: AccountWithAddress;
-}
-const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
-  const name = `Account ${account?.index + 1}`;
-  return (
-    <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
-      {name}
-    </Title>
-  );
-};
-
-interface AccountTitleProps extends BoxProps {
-  account: AccountWithAddress;
-  name: string;
-}
-const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
-  return (
-    <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
-      {name}
-    </Title>
-  );
-};
 
 interface AccountItemProps extends FlexProps {
   selectedAddress?: string | null;
@@ -87,11 +64,7 @@ const AccountItem = memo((props: AccountItemProps) => {
                   />
                 }
               >
-                <AccountTitle
-                  name={name}
-                  {...getLoadingProps(showLoadingProps)}
-                  account={account}
-                />
+                <AccountTitle name={name} account={account} />
               </Suspense>
               <Stack alignItems="center" spacing="6px" isInline>
                 <Caption fontSize={0} {...getLoadingProps(showLoadingProps)}>
@@ -134,26 +107,33 @@ const AddAccountAction = memo(() => {
   );
 });
 
-export const Accounts = memo(() => {
-  const { finishSignIn } = useWallet();
+interface AccountPickerProps {
+  selectedAccountIndex: number | null;
+  onAccountSelected(index: number): void;
+}
+export function AccountPicker(props: AccountPickerProps) {
+  const { onAccountSelected, selectedAccountIndex } = props;
   const { whenWallet } = useWalletType();
+
   const accounts = useAccounts();
-  const navigate = useNavigate();
-  const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
 
-  const signIntoAccount = async (index: number) => {
-    setSelectedAccount(index);
-    await whenWallet({
-      async software() {
-        await finishSignIn(index);
-      },
-      async ledger() {
-        navigate(RouteUrls.ConnectLedger, { state: { index } });
-      },
-    })();
-  };
+  //   const { finishSignIn } = useWallet();
+  // const accounts = useAccounts();
+  // const navigate = useNavigate();
 
-  if (!accounts) return null;
+  // const signIntoAccount = async (index: number) => {
+  //   setSelectedAccount(index);
+  //   await whenWallet({
+  //     async software() {
+  //       await finishSignIn(index);
+  //     },
+  //     async ledger() {
+  //       navigate(RouteUrls.ConnectLedger, { state: { index } });
+  //     },
+  //   })();
+  // };
+
+  // if (!accounts) return null;
 
   return (
     <Box mt="loose" width="100%">
@@ -165,11 +145,11 @@ export const Accounts = memo(() => {
         itemContent={(index, account) => (
           <AccountItem
             account={account}
-            isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
-            onSelectAccount={signIntoAccount}
+            isLoading={whenWallet({ software: selectedAccountIndex === index, ledger: false })}
+            onSelectAccount={onAccountSelected}
           />
         )}
       />
     </Box>
   );
-});
+}

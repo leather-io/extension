@@ -1,4 +1,4 @@
-import { ExtensionMethods, InternalMethods, Message } from '@shared/message-types';
+import { ExtensionMethods, InternalMethods, Message, MESSAGE_SOURCE } from '@shared/message-types';
 
 /**
  * Vault <-> Background Script
@@ -28,6 +28,10 @@ export type BackgroundActions =
   | RequestInMemoryKeys
   | RemoveInMemoryKeys;
 
-export function sendMessage(message: BackgroundActions) {
+export function sendMessageToBackground(message: BackgroundActions) {
   return chrome.runtime.sendMessage(message);
+}
+
+export function sendMessageToTab(tabId: number, id: string, message: object) {
+  return chrome.tabs.sendMessage(tabId, { source: MESSAGE_SOURCE, id, ...message });
 }

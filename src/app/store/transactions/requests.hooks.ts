@@ -9,7 +9,7 @@ import { transactionBroadcastErrorState } from '@app/store/transactions/transact
 import { useCallback } from 'react';
 import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
 
-export function useOrigin() {
+export function useTransactionRequestOrigin() {
   return useAtomValue(requestTokenOriginState);
 }
 

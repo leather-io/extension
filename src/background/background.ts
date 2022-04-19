@@ -1,42 +1,34 @@
-/**
- The background script is the extension's event handler; it contains listeners for browser
- events that are important to the extension. It lies dormant until an event is fired then
- performs the instructed logic. An effective background script is only loaded when it is
- needed and unloaded when it goes idle.
- https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
- */
+//
+// This file is the entrypoint to the extension's background script
+// https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
 import * as Sentry from '@sentry/react';
 
-import { storePayload, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
 import { addRefererHeaderRequestListener } from '@shared/add-referer-header';
 import { initSentry } from '@shared/utils/sentry-init';
+import { logger } from '@shared/logger';
 import {
   CONTENT_SCRIPT_PORT,
-  ExternalMethods,
-  MessageFromContentScript,
+  LegacyMessageFromContentScript,
+  SupportedRpcMessages,
 } from '@shared/message-types';
 
-import { popupCenter } from '@background/popup-center';
-import { initContextMenuActions } from '@background/init-context-menus';
-import { backgroundMessageHandler } from './message-handler';
+import { initContextMenuActions } from './init-context-menus';
+import { internalBackgroundMessageHandler } from './message-handler';
 import { backupOldWalletSalt } from './backup-old-wallet-salt';
-
-const IS_TEST_ENV = process.env.TEST_ENV === 'true';
+import {
+  handleLegacyExternalMethodFormat,
+  inferLegacyMessage,
+} from './legacy-external-message-handler';
+import { popupCenter } from './popup-center';
+import { requestAccounts } from './methods/request-accounts';
 
 void addRefererHeaderRequestListener();
 initSentry();
 initContextMenuActions();
 backupOldWalletSalt();
 
-//
-// Playwright does not currently support Chrome extension popup testing:
-// https://github.com/microsoft/playwright/issues/5593
-async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
-  await chrome.tabs.create({
-    url: chrome.runtime.getURL(`index.html#${path}?${urlParams.toString()}`),
-  });
-}
+const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 chrome.runtime.onInstalled.addListener(details => {
   Sentry.wrap(async () => {
@@ -48,13 +40,25 @@ chrome.runtime.onInstalled.addListener(details => {
   });
 });
 
+//
 // Listen for connection to the content-script - port for two-way communication
 chrome.runtime.onConnect.addListener(port =>
   Sentry.wrap(() => {
-    // Listen for auth and transaction events
-    if (port.name === CONTENT_SCRIPT_PORT) {
-      port.onMessage.addListener(async (message: MessageFromContentScript, port) => {
-        const { payload } = message;
+    if (port.name !== CONTENT_SCRIPT_PORT) return;
+
+    port.onMessage.addListener(
+      (message: LegacyMessageFromContentScript | SupportedRpcMessages, port) => {
+        if (inferLegacyMessage(message)) {
+          void handleLegacyExternalMethodFormat(message, port);
+          return;
+        }
+
+        if (!port.sender?.tab?.id)
+          return logger.error('Message reached background script without a corresponding tab');
+
+        if (!port.sender?.origin)
+          return logger.error('Message reached background script without a corresponding origin');
+
         switch (message.method) {
           case ExternalMethods.authenticationRequest: {
             void storePayload({
@@ -118,31 +122,24 @@ chrome.runtime.onConnect.addListener(port =>
               payload,
               storageKey: StorageKey.transactionRequests,
               port,
-            });
-            const path = RouteUrls.TransactionRequest;
-            const urlParams = new URLSearchParams();
-            urlParams.set('request', payload);
-            if (IS_TEST_ENV) {
-              await openRequestInFullPage(path, urlParams);
-            } else {
-              popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
-            }
+                          });
+            break;
+          case RpcMethods[RpcMethods.stx_requestAccounts]: {
+            requestAccounts(port.sender.tab.id, port.sender.origin, message);
             break;
           }
-          default:
-            break;
         }
-      });
-    }
+      }
+    );
   })
 );
 
 //
-// Events from the popup script
-// Listener fn must return `true` to indicate the response will be async
+// Events from the extension frames script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) =>
   Sentry.wrap(() => {
-    void backgroundMessageHandler(message, sender, sendResponse);
+    void internalBackgroundMessageHandler(message, sender, sendResponse);
+    // Listener fn must return `true` to indicate the response will be async
     return true;
   })
 );
