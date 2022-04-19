@@ -62,29 +62,31 @@ export const Header: React.FC<HeaderProps> = memo(props => {
         </Box>
       ) : null}
       {!title && (!onClose || desktopViewport) ? (
-        <Stack
-          alignItems="flex-end"
+        <Flex
+          alignItems="center"
           flexBasis="60%"
           height="36px"
-          isInline
           justifyContent={onClose ? 'center' : 'unset'}
         >
-          <HiroWalletLogo
-            data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
-            isClickable={hiroWalletLogoIsClickable}
-            onClick={hiroWalletLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
-          />
-          <Caption
-            color={color('text-caption')}
-            display={!version ? 'none' : 'unset'}
-            fontFamily="mono"
-            marginRight="10px"
-            mb="2px"
-            variant="c3"
-          >
-            {version}
-          </Caption>
-        </Stack>
+          <Flex alignItems="flex-end">
+            <HiroWalletLogo
+              data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
+              isClickable={hiroWalletLogoIsClickable}
+              onClick={hiroWalletLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
+            />
+            <Caption
+              color={color('text-caption')}
+              display={!version ? 'none' : 'unset'}
+              fontFamily="mono"
+              marginRight="10px"
+              mb="2px"
+              ml="tight"
+              variant="c3"
+            >
+              {version}
+            </Caption>
+          </Flex>
+        </Flex>
       ) : (
         <Title
           alignSelf="center"

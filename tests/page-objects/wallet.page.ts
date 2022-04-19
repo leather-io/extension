@@ -104,6 +104,10 @@ export class WalletPage {
     await this.page.click(this.$hideStepsBtn);
   }
 
+  async waitForSettingsButton() {
+    await this.page.waitForSelector(this.$settingsButton, { timeout: 30000 });
+  }
+
   async waitForHomePage() {
     await this.page.waitForSelector(this.$homePageBalancesList, { timeout: 30000 });
   }

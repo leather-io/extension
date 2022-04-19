@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Navigate } from 'react-router-dom';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { color, Stack, useClipboard, Fade, Flex } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
@@ -16,6 +17,7 @@ import {
 } from '@app/store/transactions/requests.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { RouteUrls } from '@shared/route-urls';
 
 export const FeeInsufficientFundsErrorMessage = memo(props => {
   const currentAccount = useCurrentAccount();
@@ -116,44 +118,11 @@ export const IncorrectContractAddressMessage = memo(props => {
   );
 });
 
-export const UnauthorizedErrorMessage = memo(props => {
-  useScrollLock(true);
-  return (
-    <Fade in>
-      {styles => (
-        <Flex
-          position="absolute"
-          width="100%"
-          height="100vh"
-          zIndex={99}
-          left={0}
-          top={0}
-          alignItems="center"
-          justifyContent="center"
-          p="loose"
-          bg="rgba(0,0,0,0.35)"
-          backdropFilter="blur(10px)"
-          style={styles}
-        >
-          <ErrorMessage
-            title="Unauthorized request"
-            body="The transaction request was not properly authorized by any of your accounts. If you've logged in to this app before, then you might need to re-authenticate into this application before attempting to sign a transaction with the Hiro Wallet."
-            border={'1px solid'}
-            borderColor={color('border')}
-            boxShadow="high"
-            css={{
-              '& > *': {
-                pointerEvents: 'all',
-              },
-            }}
-            {...props}
-          />
-        </Flex>
-      )}
-    </Fade>
-  );
+export const UnauthorizedRequestRedirect = memo(() => {
+  return <Navigate to={RouteUrls.UnauthorizedRequest} />;
 });
 
+// TODO: Change this to new Error component?
 export const ExpiredRequestErrorMessage = memo(props => {
   useScrollLock(true);
   return (

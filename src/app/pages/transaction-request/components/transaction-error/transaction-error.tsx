@@ -10,7 +10,7 @@ import {
   IncorrectContractAddressMessage,
   NoContractErrorMessage,
   StxTransferInsufficientFundsErrorMessage,
-  UnauthorizedErrorMessage,
+  UnauthorizedRequestRedirect,
 } from './error-messages';
 
 export enum TransactionErrorReason {
@@ -49,7 +49,7 @@ const TransactionErrorSuspense = memo(() => {
     case TransactionErrorReason.FeeInsufficientFunds:
       return <FeeInsufficientFundsErrorMessage />;
     case TransactionErrorReason.Unauthorized:
-      return <UnauthorizedErrorMessage />;
+      return <UnauthorizedRequestRedirect />;
     case TransactionErrorReason.ExpiredRequest:
       return <ExpiredRequestErrorMessage />;
     default:
