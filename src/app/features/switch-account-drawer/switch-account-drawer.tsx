@@ -14,7 +14,7 @@ import { AccountList } from './components/account-list';
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { CreateAccountAction } from './components/create-account-action';
 
-export const SwitchAccountsDrawer = memo(() => {
+export const SwitchAccountDrawer = memo(() => {
   const [isShowing, setShowSwitchAccountsState] = useShowSwitchAccountsState();
   const accounts = useAccounts();
   const currentAccountIndex = useCurrentAccountIndex();
@@ -33,12 +33,12 @@ export const SwitchAccountsDrawer = memo(() => {
     setShowSwitchAccountsState(false);
   };
 
-  if (!accounts) {
+  if (isShowing && !accounts) {
     void analytics.track('account_list_unavailable_warning_displayed');
     return <AccountListUnavailable />;
   }
 
-  return isShowing ? (
+  return isShowing && accounts ? (
     <ControlledDrawer title="Switch account" isShowing={isShowing} onClose={onClose}>
       <AccountList
         accounts={accounts}
