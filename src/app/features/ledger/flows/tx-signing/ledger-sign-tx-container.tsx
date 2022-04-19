@@ -23,6 +23,7 @@ import { BaseDrawer } from '@app/components/drawer';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
+import { logger } from '@shared/logger';
 
 export function LedgerSignTxContainer() {
   const location = useLocation();
@@ -71,7 +72,7 @@ export function LedgerSignTxContainer() {
     }
 
     if (versionInfo.returnCode !== LedgerError.NoErrors) {
-      toast.error(versionInfo.errorMessage);
+      logger.error('Return code from device has error', versionInfo);
       return;
     }
 

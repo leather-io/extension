@@ -7,7 +7,7 @@ import { ErrorLabel } from '@app/components/error-label';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Link } from '@app/components/link';
 import { WarningLabel } from '@app/components/warning-label';
-import { LedgerConnectInstructionTitle } from '../components/ledger-title';
+import { LedgerTitle } from '../components/ledger-title';
 import { LedgerWrapper } from '../components/ledger-wrapper';
 
 interface PossibleReasonUnableToConnectProps {
@@ -39,7 +39,9 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
       <Box mt="tight">
         <img src={ConnectLedgerError} width="247px" />
       </Box>
-      <LedgerConnectInstructionTitle mt="45px" mx="50px" />
+      <LedgerTitle mt="45px" mx="50px">
+        We're unable to connect to your Ledger device
+      </LedgerTitle>
       {warningText ? (
         <WarningLabel mt="base" px="extra-loose" fontSize="14px">
           {warningText}
@@ -60,9 +62,9 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         p="extra-loose"
       >
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. If it is, close it and try again" />
+        <PossibleReasonUnableToConnect text="Ensure you only have one instance of the Hiro Wallet open" />
         <PossibleReasonUnableToConnect text="Check you've approved the browser USB pop up" />
         <PossibleReasonUnableToConnect text="Verify the Stacks app is installed and open" />
-        <PossibleReasonUnableToConnect text="Verify you're not on another app" />
       </Stack>
       <PrimaryButton height="40px" onClick={onTryAgain}>
         Try again

@@ -1,6 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { cvToString, PayloadType } from '@stacks/transactions';
 import { useMediaQuery } from '@stacks/ui';
+import { BigNumber } from 'bignumber.js';
 
 import { microStxToStx } from '@app/common/stacks-utils';
 import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
@@ -41,7 +42,7 @@ export function SignLedgerTransaction() {
         ],
         [
           'Amount (µSTX)',
-          String(transaction.payload.amount),
+          new BigNumber(String(transaction.payload.amount)).toFormat(),
           formatTooltipLabel(transaction.payload.amount),
         ],
         ['To', cvToString(transaction.payload.recipient)],
