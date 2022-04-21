@@ -5,28 +5,14 @@
 [![coverage](https://raw.githubusercontent.com/hirosystems/stacks-wallet-web/gh-pages/badge.svg)](https://hirosystems.github.io/stacks-wallet-web/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/hirosystems/stacks-wallet-web)
 
-Hiro Wallet is a browser extension for managing your digital assets, and connecting to apps built on the Stacks blockchain.
+Hiro Wallet is a web extension for managing your digital assets, and connecting to apps built on the Stacks blockchain.
 
-To use this extension with your own Stacks App, we recommend using [Connect](https://github.com/hirosystems/connect).
+To use this extension with your own Stacks App, we recommend  [@stacks/connect](https://github.com/hirosystems/connect).
 
-Table of Contents:
+[📚 See Hiro Wallet API Reference →](https://github.com/hirosystems/stacks-wallet-web/wiki)
 
-<!-- TOC depthFrom:2 -->
 
-- [Development](#development)
-  - [Setup](#setup)
-  - [Dev mode](#dev-mode)
-    - [Optional: run test app](#optional-run-test-app)
-  - [Add extension to your browser](#add-extension-to-your-browser)
-- [Production](#production)
-  - [Building browser extensions](#building-browser-extensions)
-  - [Install browser extension from source](#install-browser-extension-from-source)
-- [Security](#security)
-  - [Audit Report](#audit-report)
-
-<!-- /TOC -->
 
 ## Development
 
@@ -77,37 +63,9 @@ Run the following from within this repository's root directory if you've pulled 
 yarn && yarn build && sh build-ext.sh
 ```
 
-Alternatively, run the following if you've downloaded the source code as a zip file from GitHub:
-
-#### Optional: Use docker
-
-```
-docker build -f Dockerfile -t stacks-wallet-web . \
-  && docker run -d --name stacks-wallet-web stacks-wallet-web \
-  && docker cp stacks-wallet-web:stacks-wallet-chromium.zip . \
-  && docker rm -f stacks-wallet-web
-```
 
 The extension will be packaged as `stacks-wallet-chromium.zip`.
 
-### Install from source
-
-First, unzip the `stacks-wallet-chromium.zip` file that was generated in the previous step.
-
-Then for Chrome, Brave or Edge:
-
-1. Go to: `chrome://extensions`
-2. Toggle: **"developer mode"** on.
-3. Click on: **"Load unpacked"**
-4. Select the new directory that was unzipped from `stacks-wallet-chromium.zip`.
-
-Alternatively, for Firefox:
-
-1. Go to: `about:debugging`
-2. Click on **"This Firefox"**
-3. Click on: **"Load Temporary Add-on…"**
-4. Navigate inside the new directory that was unzipped from `stacks-wallet-chromium.zip`
-5. Select the `manifest.json` file.
 
 ## Security
 
