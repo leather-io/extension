@@ -3,14 +3,13 @@ import { Outlet } from 'react-router-dom';
 
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAuthRequest } from '@app/store/onboarding/onboarding.hooks';
-import { usePendingTransaction } from '@app/store/transactions/transaction.hooks';
-import { useOnCancel } from '@app/store/transactions/requests.hooks';
+import { useOnCancel, useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 
 import { ContainerLayout } from './container.layout';
 
 function UnmountEffectSuspense() {
-  const pendingTx = usePendingTransaction();
+  const transactionRequest = useTransactionRequestState();
   const { authRequest } = useAuthRequest();
   const handleCancelTransaction = useOnCancel();
   const { cancelAuthentication } = useWallet();
@@ -20,12 +19,12 @@ function UnmountEffectSuspense() {
    * the request promise to fail; triggering an onCancel callback function.
    */
   const handleUnmount = useCallback(async () => {
-    if (!!pendingTx) {
+    if (!!transactionRequest) {
       await handleCancelTransaction();
     } else if (!!authRequest) {
       cancelAuthentication();
     }
-  }, [cancelAuthentication, authRequest, pendingTx, handleCancelTransaction]);
+  }, [transactionRequest, authRequest, handleCancelTransaction, cancelAuthentication]);
 
   useEffect(() => {
     window.addEventListener('beforeunload', handleUnmount);

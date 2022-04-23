@@ -10,65 +10,40 @@ import {
   serializePayload,
 } from '@stacks/transactions';
 
-import { stxToMicroStx, validateStacksAddress } from '@app/common/stacks-utils';
+import { validateStacksAddress } from '@app/common/stacks-utils';
 import { stacksTransactionToHex, whenChainId } from '@app/common/transactions/transaction-utils';
 import { currentNetworkState, currentStacksNetworkState } from '@app/store/network/networks';
 import { currentAccountNonceState } from '@app/store/accounts/nonce';
 import { currentAccountState, currentAccountStxAddressState } from '@app/store/accounts';
 import { requestTokenPayloadState } from '@app/store/transactions/requests';
 import { postConditionsState } from '@app/store/transactions/post-conditions';
-import { localStacksTransactionInputsState } from '@app/store/transactions/local-transactions';
-import {
-  ContractCallPayload,
-  ContractDeployPayload,
-  generateUnsignedTransaction,
-  STXTransferPayload,
-} from '@app/common/transactions/generate-unsigned-txs';
-import { customNonceState } from './nonce.hooks';
+import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
 
-export const pendingTransactionState = atom<
-  ContractCallPayload | ContractDeployPayload | STXTransferPayload | undefined
->(get => {
+export const transactionAttachmentState = atom(get => get(requestTokenPayloadState)?.attachment);
+
+export const unsignedStacksTransactionBaseState = atom(get => {
   const payload = get(requestTokenPayloadState);
   const postConditions = get(postConditionsState);
   const network = get(currentStacksNetworkState);
-  const txData = get(localStacksTransactionInputsState);
-  if (!payload) return;
-  payload.fee = stxToMicroStx(txData?.fee || 0).toNumber();
-
-  return { ...payload, postConditions, network };
-});
-
-export const transactionAttachmentState = atom(get => get(pendingTransactionState)?.attachment);
-
-export const unsignedStacksTransactionBaseState = atom(get => {
   const account = get(currentAccountState);
-  const txData = get(pendingTransactionState);
   const stxAddress = get(currentAccountStxAddressState);
   const nonce = get(currentAccountNonceState);
-  const customNonce = get(customNonceState);
-  if (!account || !txData || !stxAddress || typeof nonce === 'undefined')
+
+  if (!account || !payload || !stxAddress || typeof nonce === 'undefined')
     return { transaction: undefined, options: {} };
-  const txNonce = typeof customNonce === 'number' ? customNonce : nonce;
   if (
-    txData.txType === TransactionTypes.ContractCall &&
-    !validateStacksAddress(txData.contractAddress)
+    payload.txType === TransactionTypes.ContractCall &&
+    !validateStacksAddress(payload.contractAddress)
   ) {
     return { transaction: undefined, options: {} };
   }
   const options = {
-    fee: txData.fee ?? 0,
+    fee: 0,
     publicKey: account.stxPublicKey,
-    nonce: txNonce,
-    txData,
+    nonce,
+    txData: { ...payload, postConditions, network },
   };
   return generateUnsignedTransaction(options).then(transaction => ({ transaction, options }));
-});
-
-export const unsignedStacksTransactionState = atom(get => {
-  const { transaction, options } = get(unsignedStacksTransactionBaseState);
-  if (!transaction) return;
-  return generateUnsignedTransaction({ ...options } as any);
 });
 
 export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
@@ -83,12 +58,6 @@ export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
     txRaw,
   };
 }
-
-export const unsignedTransactionState = atom(get => {
-  const unsignedTransaction = get(unsignedStacksTransactionState);
-  if (!unsignedTransaction) return;
-  return prepareTxDetailsForBroadcast(unsignedTransaction);
-});
 
 export const serializedUnsignedTransactionPayloadState = atom<string>(get => {
   const { transaction } = get(unsignedStacksTransactionBaseState);
@@ -125,5 +94,3 @@ export const addressNetworkVersionState = atom(get => {
 });
 
 export const transactionBroadcastErrorState = atom<string | null>(null);
-
-export const txByteSize = atom<number | null>(null);
