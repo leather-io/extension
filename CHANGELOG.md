@@ -1,3 +1,10 @@
+## [3.7.1-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.1-beta.1...v3.7.1-beta.2) (2022-04-23)
+
+
+### Bug Fixes
+
+* error message page ([228e9b7](https://github.com/hirosystems/stacks-wallet-web/commit/228e9b7f5118e3a0073a10065bff023104b8c971))
+
 ## [3.7.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.0...v3.7.1-beta.1) (2022-04-21)
 
 
