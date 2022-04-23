@@ -55,9 +55,9 @@ describe(`Send tokens flow`, () => {
 
   describe('Fee row', () => {
     it('defaults to the middle fee estimate', async () => {
+      await sendForm.waitForFeeEstimateItem();
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
-      await sendForm.waitForFeeEstimateItem();
       const defaultFeeEstimate = await sendForm.page.$(sendForm.getSelector('$standardFeeSelect'));
       await delay(500);
       const label = await defaultFeeEstimate?.innerText();
@@ -65,9 +65,9 @@ describe(`Send tokens flow`, () => {
     });
 
     it('can select the low fee estimate', async () => {
+      await sendForm.waitForFeeEstimateItem();
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
-      await sendForm.waitForFeeEstimateItem();
       await sendForm.selectFirstFeeEstimate();
       const lowFeeEstimate = await sendForm.page.$(sendForm.getSelector('$lowFeeSelect'));
       const label = await lowFeeEstimate?.innerText();
