@@ -23,6 +23,7 @@ import { BuyPage } from '@app/pages/buy/buy';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { useHasStateRehydrated } from '@app/store';
+import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
@@ -145,6 +146,7 @@ export function AppRoutes(): JSX.Element | null {
             </AccountGate>
           }
         />
+        <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
         <Route
           path={RouteUrls.ViewSecretKey}
           element={
