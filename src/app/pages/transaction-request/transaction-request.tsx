@@ -7,7 +7,7 @@ import { Flex, Stack } from '@stacks/ui';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
+import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { PageTop } from '@app/pages/transaction-request/components/page-top';
 import { ContractCallDetails } from '@app/pages/transaction-request/components/contract-call-details/contract-call-details';
@@ -21,37 +21,31 @@ import {
   useUpdateTransactionBroadcastError,
 } from '@app/store/transactions/requests.hooks';
 import {
-  useLocalTransactionInputsState,
+  useGenerateUnsignedStacksTransaction,
   useSoftwareWalletTransactionBroadcast,
-  useUnsignedStacksTransaction,
 } from '@app/store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
-
-import { FeeForm } from './components/fee-form';
-import { SubmitAction } from './components/submit-action';
-import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { nonceSchema } from '@app/common/validation/nonce-schema';
+
+import { FeeForm } from './components/fee-form';
+import { SubmitAction } from './components/submit-action';
 
 function TransactionRequestBase(): JSX.Element | null {
-  useNextTxNonce();
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const handleBroadcastTransaction = useSoftwareWalletTransactionBroadcast();
   const setBroadcastError = useUpdateTransactionBroadcastError();
   const [, setFeeEstimations] = useFeeEstimationsState();
-  const [, setTxData] = useLocalTransactionInputsState();
-  const { isSponsored } = useUnsignedTransactionFee();
   const feeSchema = useFeeSchema();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
-  const unsignedTx = useUnsignedStacksTransaction();
+  const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const ledgerNavigate = useLedgerNavigate();
-
-  const validationSchema = !isSponsored ? yup.object({ fee: feeSchema() }) : null;
 
   useRouteHeader(<PopupHeader />);
 
@@ -59,21 +53,14 @@ function TransactionRequestBase(): JSX.Element | null {
 
   const onSubmit = useCallback(
     async values => {
-      // Using the same pattern here as is used in the send tokens
-      // form, but maybe we can get rid of global form state when
-      // we refactor transaction signing?
-      setTxData({
-        amount: '',
-        fee: values.fee,
-        memo: '',
-        recipient: '',
-      });
-      if (walletType === 'ledger' && unsignedTx) {
-        ledgerNavigate.toConnectAndSignStep(unsignedTx);
+      if (walletType === 'ledger' && generateUnsignedTx) {
+        const tx = await generateUnsignedTx(values);
+        if (!tx) return;
+        ledgerNavigate.toConnectAndSignStep(tx);
         return;
       }
       setIsLoading();
-      await handleBroadcastTransaction();
+      await handleBroadcastTransaction(values);
       setIsIdle();
       setFeeEstimations([]);
       void analytics.track('submit_fee_for_transaction', {
@@ -82,24 +69,26 @@ function TransactionRequestBase(): JSX.Element | null {
       });
       return () => {
         setBroadcastError(null);
-        setTxData(null);
       };
     },
     [
       analytics,
+      generateUnsignedTx,
       handleBroadcastTransaction,
       ledgerNavigate,
       setBroadcastError,
       setFeeEstimations,
       setIsIdle,
       setIsLoading,
-      setTxData,
-      unsignedTx,
       walletType,
     ]
   );
 
   if (!transactionRequest) return null;
+
+  const validationSchema = !transactionRequest.sponsored
+    ? yup.object({ fee: feeSchema(), nonce: nonceSchema })
+    : null;
 
   return (
     <Flex alignItems="center" flexDirection="column" width="100%">
@@ -123,6 +112,7 @@ function TransactionRequestBase(): JSX.Element | null {
             <>
               <FeeForm />
               <SubmitAction />
+              <EditNonceDrawer />
               <HighFeeDrawer />
             </>
           )}

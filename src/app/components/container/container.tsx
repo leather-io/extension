@@ -7,14 +7,14 @@ import {
   useOnCancelSignMessage,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
-import { usePendingTransaction } from '@app/store/transactions/transaction.hooks';
 import { useOnCancelTransaction } from '@app/store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 
 import { ContainerLayout } from './container.layout';
 
 function UnmountEffectSuspense() {
-  const pendingTx = usePendingTransaction();
+  const transactionRequest = useTransactionRequestState();
   const { authRequest } = useAuthRequest();
   const handleCancelTransaction = useOnCancelTransaction();
   const { cancelAuthentication } = useWallet();
@@ -26,7 +26,7 @@ function UnmountEffectSuspense() {
    * the request promise to fail; triggering an onCancel callback function.
    */
   const handleUnmount = useCallback(async () => {
-    if (!!pendingTx) {
+    if (!!transactionRequest) {
       await handleCancelTransaction();
     } else if (!!authRequest) {
       cancelAuthentication();
@@ -34,7 +34,7 @@ function UnmountEffectSuspense() {
       handleCancelSignMessage();
     }
   }, [
-    pendingTx,
+    transactionRequest,
     authRequest,
     signatureRequest,
     handleCancelTransaction,

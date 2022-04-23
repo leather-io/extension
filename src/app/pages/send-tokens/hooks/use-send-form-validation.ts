@@ -18,6 +18,7 @@ import { formatInsufficientBalanceError, formatPrecisionError } from '@app/commo
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { nonceSchema } from '@app/common/validation/nonce-schema';
 
 interface UseSendFormValidationArgs {
   setAssetError(error: string | undefined): void;
@@ -113,11 +114,12 @@ export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationAr
   return useMemo(
     () =>
       yup.object({
-        selectedAsset: selectedAssetSchema(),
-        recipient: recipientSchema(),
         amount: amountSchema(),
-        memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
         fee: feeSchema(),
+        memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
+        nonce: nonceSchema,
+        recipient: recipientSchema(),
+        selectedAsset: selectedAssetSchema(),
       }),
     [amountSchema, feeSchema, recipientSchema, selectedAssetSchema]
   );

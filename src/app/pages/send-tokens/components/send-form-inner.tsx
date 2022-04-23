@@ -5,9 +5,13 @@ import { Box, Text, Stack } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
 import { isEmpty } from '@app/common/utils';
 import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import {
+  useFeeEstimationsMaxValues,
+  useFeeEstimationsMinValues,
+} from '@app/common/transactions/use-fee-estimations-capped-values';
+import { useCurrentAccountNonce } from '@app/store/accounts/nonce.hooks';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -21,29 +25,25 @@ import { RecipientField } from '@app/pages/send-tokens/components/recipient-fiel
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import {
-  useEstimatedTransactionByteLength,
-  useSerializedTransactionPayloadState,
-  useUnsignedTxForSettingsState,
-} from '@app/store/transactions/transaction.hooks';
-
-import { SendFormMemoWarning } from './memo-warning';
 import {
   getDefaultSimulatedFeeEstimations,
   getFeeEstimationsWithCappedValues,
 } from '@shared/transactions/fee-estimations';
 import {
-  useFeeEstimationsMaxValues,
-  useFeeEstimationsMinValues,
-} from '@app/common/transactions/use-fee-estimations-capped-values';
+  useEstimatedTransactionByteLength,
+  useSendFormUnsignedTxPreviewState,
+  useSerializedTransactionPayloadState,
+} from '@app/store/transactions/transaction.hooks';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+
+import { SendFormMemoWarning } from './memo-warning';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
 }
 export function SendFormInner(props: SendFormInnerProps) {
   const { assetError } = props;
-  const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue, validateForm } =
+  const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
     useFormikContext<TransactionFormValues>();
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const serializedTxPayload = useSerializedTransactionPayloadState();
@@ -52,22 +52,16 @@ export function SendFormInner(props: SendFormInnerProps) {
     serializedTxPayload,
     estimatedTxByteLength
   );
-
-  // console.log({
-  //   serializedTxPayload,
-  //   estimatedTxByteLength,
-  // });
-
+  const nonce = useCurrentAccountNonce();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const feeEstimationsMaxValues = useFeeEstimationsMaxValues();
   const feeEstimationsMinValues = useFeeEstimationsMinValues();
   const { selectedAsset } = useSelectedAsset();
   const assets = useTransferableAssets();
   const analytics = useAnalytics();
-  const transaction = useUnsignedTxForSettingsState();
+  const transaction = useSendFormUnsignedTxPreviewState(values);
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
-  useNextTxNonce();
   useEffect(() => {
     if (!values.fee && feeEstimationsResp) {
       if (
@@ -91,7 +85,7 @@ export function SendFormInner(props: SendFormInnerProps) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [estimatedTxByteLength, feeEstimationsResp, isError, setFeeEstimations, setFieldValue]);
+  }, [estimatedTxByteLength, feeEstimationsResp, isError, setFeeEstimations]);
 
   const onSubmit = useCallback(async () => {
     if (selectedAsset && values.amount && values.recipient && values.fee) {
@@ -115,13 +109,11 @@ export function SendFormInner(props: SendFormInnerProps) {
 
   const onSelectAssetResetForm = useCallback(() => {
     if (assets.length === 1) return;
-    setValues({ ...values, amount: '', fee: '' });
+    setValues({ ...values, amount: '', fee: '', nonce });
     setFieldError('amount', undefined);
-  }, [assets.length, setValues, values, setFieldError]);
+  }, [assets.length, setValues, values, nonce, setFieldError]);
 
-  // console.log(values);
-
-  const hasValues = values.amount && values.recipient !== '' && values.fee;
+  const hasValues = values.amount && values.recipient !== '' && values.fee && values.nonce;
 
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
