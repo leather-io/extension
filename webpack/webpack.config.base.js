@@ -69,7 +69,17 @@ const HTML_PROD_OPTIONS = IS_DEV
       },
     };
 
-const aliases = {};
+const aliases = {
+  // alias stacks.js packages to their esm (default prefers /dist/polyfill)
+  '@stacks/auth': '@stacks/auth/dist/esm',
+  '@stacks/common': '@stacks/common/dist/esm',
+  '@stacks/encryption': '@stacks/encryption/dist/esm',
+  '@stacks/network': '@stacks/network/dist/esm',
+  '@stacks/profile': '@stacks/profile/dist/esm',
+  '@stacks/storage': '@stacks/storage/dist/esm',
+  '@stacks/transactions': '@stacks/transactions/dist/esm',
+  '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
+};
 
 const config = {
   entry: {
