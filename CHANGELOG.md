@@ -1,3 +1,12 @@
+## [3.7.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.0...v3.7.1) (2022-04-25)
+
+
+### Bug Fixes
+
+* bug where wallet doesn't sign out, closes [#2341](https://github.com/hirosystems/stacks-wallet-web/issues/2341) ([5d6d52d](https://github.com/hirosystems/stacks-wallet-web/commit/5d6d52d745d5ad58215c16c63f5bce9a609ee3aa))
+* create account drawer to toast ([db7cbf3](https://github.com/hirosystems/stacks-wallet-web/commit/db7cbf38fb978a32eecd2105e3196f5ca79be762))
+* switch account drawer ([1d59e69](https://github.com/hirosystems/stacks-wallet-web/commit/1d59e69d515100df27ad08ce57727e272d0875c0))
+
 # [3.7.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.6.1...v3.7.0) (2022-04-06)
 
 
