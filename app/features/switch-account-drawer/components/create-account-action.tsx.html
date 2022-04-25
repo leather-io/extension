@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/features/account-switch-drawer/components/account-avatar.tsx</title>
+    <title>Code coverage report for app/features/switch-account-drawer/components/create-account-action.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/features/account-switch-drawer/components</a> account-avatar.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/features/switch-account-drawer/components</a> create-account-action.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -77,76 +77,34 @@
 <a name='L12'></a><a href='#L12'>12</a>
 <a name='L13'></a><a href='#L13'>13</a>
 <a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L15'></a><a href='#L15'>15</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense, memo } from 'react';
-import { Box, BoxProps } from '@stacks/ui';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, Button } from '@stacks/ui';
 &nbsp;
-import { AccountAvatar } from '@app/components/account-avatar/account-avatar';
-import { useGetAccountNamesByAddressQuery } from '@app/query/bns/bns.hooks';
-import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
-import { usePublicKeyToAddress } from '@app/common/hooks/use-public-key-to-address';
-&nbsp;
-interface AccountAvatarItemProps extends BoxProps {
-  publicKey: string;
-  index: number;
+interface CreateAccountActionProps {
+  onCreateAccount(): void;
 }
-const AccountAvatarSuspense = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> publicKey, index }: AccountAvatarItemProps) =&gt; {</span>
-  const address = <span class="cstat-no" title="statement not covered" >usePublicKeyToAddress(publicKey);</span>
-  const name = <span class="cstat-no" title="statement not covered" >useGetAccountNamesByAddressQuery(address);</span>
-<span class="cstat-no" title="statement not covered" >  return &lt;AccountAvatar name={name[0] ?? getAccountDisplayName({ index })} publicKey={publicKey} /&gt;;</span>
-});
-&nbsp;
-export const AccountAvatarItem = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> publicKey, index, ...rest }: AccountAvatarItemProps) =&gt; {</span>
-  const defaultName = <span class="cstat-no" title="statement not covered" >getAccountDisplayName({ index });</span>
+export function <span class="fstat-no" title="function not covered" >CreateAccountAction(</span>{ onCreateAccount }: CreateAccountActionProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box {...rest}&gt;
-      &lt;Suspense fallback={&lt;AccountAvatar name={defaultName} publicKey={publicKey} /&gt;}&gt;
-        &lt;AccountAvatarSuspense publicKey={publicKey} index={index} /&gt;
-      &lt;/Suspense&gt;
+    &lt;Box pt="base" pb="loose" px="loose"&gt;
+      &lt;Button borderRadius="10px" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onCreateAccount()}</span>&gt;
+        Create an account
+      &lt;/Button&gt;
     &lt;/Box&gt;
   );
-});
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -154,7 +112,7 @@ export const AccountAvatarItem = <span class="cstat-no" title="statement not cov
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Apr 06 2022 06:32:01 GMT+0000 (Coordinated Universal Time)
+                at Mon Apr 25 2022 12:40:45 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
