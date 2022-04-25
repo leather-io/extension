@@ -11,6 +11,7 @@ import { sendMessage } from '@shared/messages';
 import { InternalMethods } from '@shared/message-types';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
+import { StacksMainnet } from '@stacks/network';
 
 async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
   try {
@@ -21,6 +22,7 @@ async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
     const restoredWallet = await restoreWalletAccounts({
       wallet,
       gaiaHubUrl: gaiaUrl,
+      network: new StacksMainnet(),
     });
     return restoredWallet.accounts.length - 1;
   } catch (e) {
