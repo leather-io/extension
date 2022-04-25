@@ -3,7 +3,7 @@ import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
 
 import { TransactionError } from './transaction-error';
 
-describe('<TransactionError />', () => {
+describe.skip('<TransactionError />', () => {
   it('correctly displays the transaction error when no contract is found', async () => {
     const { findByText } = render(
       <ProviderWithWalletAndRequestToken>

@@ -22,7 +22,7 @@ module.exports = {
   collectCoverage: true,
   coverageReporters: ['html', 'json-summary'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
   globals: {
     'ts-jest': {
       // https://huafu.github.io/ts-jest/user/config/diagnostics
