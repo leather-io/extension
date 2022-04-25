@@ -15,7 +15,7 @@ import {
   publicKeyToString,
   AddressVersion,
 } from '@stacks/transactions';
-import { serializePayload } from '@stacks/transactions/dist/payload';
+import { serializePayload } from '@stacks/transactions';
 
 import { stxToMicroStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { stacksTransactionToHex, whenChainId } from '@app/common/transactions/transaction-utils';

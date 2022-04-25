@@ -2,6 +2,7 @@ import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundActions } from '@shared/messages';
+import { StacksMainnet } from '@stacks/network';
 import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
 import { backupWalletSaltForGaia } from './backup-old-wallet-salt';
@@ -20,7 +21,7 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
   // method. This does the same as the catch case, with the addition that it will
   // also try and fetch usernames associated with an account
   try {
-    return restoreWalletAccounts({ wallet, gaiaHubUrl: gaiaUrl });
+    return restoreWalletAccounts({ wallet, gaiaHubUrl: gaiaUrl, network: new StacksMainnet() });
   } catch (e) {
     // To generate a new account, the wallet-sdk requires the entire `Wallet` to
     // be supplied so that it can count the `wallet.accounts[]` length, and return
