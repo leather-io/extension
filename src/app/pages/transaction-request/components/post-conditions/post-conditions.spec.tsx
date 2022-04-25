@@ -2,6 +2,7 @@ import { render, waitFor } from '@testing-library/react';
 
 import { ProviderWithWalletAndRequestToken } from '@tests/state-utils';
 import { setupHeystackEnv } from '@tests/mocks/heystack';
+import StaticEmotionCacheProvider from '@tests/utils/static-emotion-cache-provider';
 
 import { PostConditions } from './post-conditions';
 
@@ -12,9 +13,11 @@ describe('<PostConditions />', () => {
   setupHeystackEnv();
   it('has correct message around transfer and principal', async () => {
     const { getByText } = render(
-      <ProviderWithWalletAndRequestToken>
-        <PostConditions />
-      </ProviderWithWalletAndRequestToken>
+      <StaticEmotionCacheProvider>
+        <ProviderWithWalletAndRequestToken>
+          <PostConditions />
+        </ProviderWithWalletAndRequestToken>
+      </StaticEmotionCacheProvider>
     );
     await waitFor(() => {
       getByText(message);
