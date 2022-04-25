@@ -14,6 +14,7 @@ import {
   currentAccountState,
   currentAccountStxAddressState,
   hasSwitchedAccountsState,
+  hasCreatedAccountState,
   refreshAccountDataState,
   transactionAccountIndexState,
 } from '@app/store/accounts';
@@ -61,6 +62,10 @@ export function useAddressNetworkVersion() {
 
 export function useHasSwitchedAccounts() {
   return useAtom(hasSwitchedAccountsState);
+}
+
+export function useHasCreatedAccount() {
+  return useAtom(hasCreatedAccountState);
 }
 
 export function useRefreshAccountData() {

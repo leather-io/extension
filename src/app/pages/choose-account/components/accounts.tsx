@@ -1,28 +1,24 @@
 import { useCallback, Suspense, memo, useState, useMemo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
-import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
 import { Virtuoso } from 'react-virtuoso';
+import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
+import { truncateMiddle } from '@stacks/ui-utils';
 
 import { Caption, Text, Title } from '@app/components/typography';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useWallet } from '@app/common/hooks/use-wallet';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-
+import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import type { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountAvatarWithName } from '@app/components/account-avatar/account-avatar';
 import { SpaceBetween } from '@app/components/space-between';
-
 import { usePressable } from '@app/components/item-hover';
-
 import {
   AccountBalanceCaption,
   AccountBalanceLoading,
 } from '@app/components/account-balance-caption';
 import { slugify } from '@app/common/utils';
-import { useAccounts } from '@app/store/accounts/account.hooks';
-import { useUpdateAccountDrawerStep, useUpdateShowAccounts } from '@app/store/ui/ui.hooks';
-import { AccountStep } from '@app/store/ui/ui.models';
+import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
 
 const loadingProps = { color: '#A1A7B3' };
@@ -115,21 +111,17 @@ const AccountItem = memo((props: AccountItemProps) => {
 });
 
 const AddAccountAction = memo(() => {
-  const setAccounts = useUpdateShowAccounts();
-  const setAccountDrawerStep = useUpdateAccountDrawerStep();
   const [component, bind] = usePressable(true);
+  const createAccount = useCreateAccount();
+  const [, setHasCreatedAccount] = useHasCreatedAccount();
+
+  const onCreateAccount = () => {
+    createAccount();
+    setHasCreatedAccount(true);
+  };
 
   return (
-    <Box
-      mt="loose"
-      px="base-tight"
-      py="tight"
-      onClick={() => {
-        setAccounts(true);
-        setAccountDrawerStep(AccountStep.Create);
-      }}
-      {...bind}
-    >
+    <Box mt="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
       <Stack isInline alignItems="center" color={color('text-body')}>
         <Box size="16px" as={FiPlusCircle} color={color('brand')} />
         <Text color="currentColor">Generate new account</Text>

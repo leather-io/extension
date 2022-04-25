@@ -1,7 +1,6 @@
 import { atomFamily, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import { makeLocalDataKey } from '@app/common/store-utils';
-import { AccountStep } from './ui.models';
 
 export const tabState = atomFamily(param => {
   const anAtom = atomWithStorage<number>(makeLocalDataKey(['HOME_TABS', param]), 0);
@@ -17,10 +16,8 @@ export const loadingState = atomFamily(_param => {
   return anAtom;
 });
 
-export const accountDrawerStep = atom<AccountStep>(AccountStep.Switch);
-
 // TODO: refactor into atom family
-export const showAccountsStore = atom(false);
+export const showSwitchAccountsState = atom(false);
 
 export const showHighFeeConfirmationState = atom(false);
 
@@ -36,7 +33,5 @@ export const errorStackTraceState = atom<string | null>(null);
 
 export const routeHeaderState = atom<JSX.Element | null>(null);
 
-accountDrawerStep.debugLabel = 'accountDrawerStep';
-showAccountsStore.debugLabel = 'showAccountsStore';
 showNetworksStore.debugLabel = 'showNetworksStore';
 showSettingsStore.debugLabel = 'showSettingsStore';

@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { useUpdateAtom } from 'jotai/utils';
 
 import {
-  accountDrawerStep,
   errorStackTraceState,
   loadingState,
-  showAccountsStore,
+  showSwitchAccountsState,
   showHighFeeConfirmationState,
   showNetworksStore,
   showSettingsStore,
@@ -17,24 +15,12 @@ import {
   routeHeaderState,
 } from './ui';
 
-export function useAccountDrawerStep() {
-  return useAtom(accountDrawerStep);
-}
-
-export function useUpdateAccountDrawerStep() {
-  return useUpdateAtom(accountDrawerStep);
-}
-
 export function useShowHighFeeConfirmationState() {
   return useAtom(showHighFeeConfirmationState);
 }
 
-export function useShowAccountsStore() {
-  return useAtom(showAccountsStore);
-}
-
-export function useUpdateShowAccounts() {
-  return useUpdateAtom(showAccountsStore);
+export function useShowSwitchAccountsState() {
+  return useAtom(showSwitchAccountsState);
 }
 
 export function useShowNetworksStore() {

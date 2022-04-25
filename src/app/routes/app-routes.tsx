@@ -37,7 +37,7 @@ export function AppRoutes(): JSX.Element | null {
   useSaveAuthRequest();
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
-  useOnSignOut(() => navigate(RouteUrls.Onboarding));
+  useOnSignOut(() => window.close());
 
   useEffect(() => {
     void analytics.page('view', `${pathname}`);

@@ -1,21 +1,23 @@
 import { memo, Suspense } from 'react';
 import { BoxProps } from '@stacks/ui';
+import { memoWithAs } from '@stacks/ui-core';
+
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { truncateString } from '@app/common/utils';
 import { Tooltip } from '@app/components/tooltip';
 import { Title } from '@app/components/typography';
-import { memoWithAs } from '@stacks/ui-core';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 function AccountNameTitle(props: BoxProps) {
   return (
     <Title
-      data-testid="home-current-display-name"
       as="h1"
-      lineHeight="1rem"
+      data-testid={SettingsSelectors.CurrentAccountDisplayName}
       fontSize={4}
       fontWeight={500}
+      lineHeight="1rem"
       {...props}
     />
   );

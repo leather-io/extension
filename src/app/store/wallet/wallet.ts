@@ -1,6 +1,4 @@
 import { atom } from 'jotai';
-import { fetchWalletConfig, createWalletGaiaConfig } from '@stacks/wallet-sdk';
-import { gaiaUrl } from '@shared/constants';
 import { textToBytes } from '@app/common/store-utils';
 import { storeAtom } from '..';
 import { deriveWalletWithAccounts } from '../chains/stx-chain.selectors';
@@ -12,14 +10,6 @@ export const walletState = atom(async get => {
   const defaultInMemoryKey = store.inMemoryKeys.keys[defaultKeyId];
   if (!defaultInMemoryKey) return;
   return deriveWalletWithAccounts(defaultInMemoryKey, store.chains.stx.default.highestAccountIndex);
-});
-
-// TOREMOVE
-export const walletConfigState = atom(async get => {
-  const wallet = get(walletState);
-  if (!wallet) return null;
-  const gaiaHubConfig = await createWalletGaiaConfig({ wallet, gaiaHubUrl: gaiaUrl });
-  return fetchWalletConfig({ wallet, gaiaHubConfig });
 });
 
 export const encryptedSecretKeyState = atom(get => {
