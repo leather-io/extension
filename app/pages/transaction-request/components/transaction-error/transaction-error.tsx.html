@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">10% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/20</span>
+                <span class='fraction'>2/20</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.22% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/18</span>
+                <span class='fraction'>2/18</span>
             </div>
         
             
@@ -158,19 +158,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,10 +184,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,7 +211,7 @@ import {
   IncorrectContractAddressMessage,
   NoContractErrorMessage,
   StxTransferInsufficientFundsErrorMessage,
-  UnauthorizedErrorMessage,
+  UnauthorizedRequestRedirect,
 } from './error-messages';
 &nbsp;
 export enum TransactionErrorReason {
@@ -225,8 +225,8 @@ export enum TransactionErrorReason {
   InvalidContractAddress = 8,
 }
 &nbsp;
-const TransactionErrorSuspense = memo(() =&gt; {
-  const reason = useTransactionError();
+const TransactionErrorSuspense = memo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+  const reason = <span class="cstat-no" title="statement not covered" >useTransactionError();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -250,7 +250,7 @@ const TransactionErrorSuspense = memo(() =&gt; {
     case TransactionErrorReason.FeeInsufficientFunds:
 <span class="cstat-no" title="statement not covered" >      return &lt;FeeInsufficientFundsErrorMessage /&gt;;</span>
     case TransactionErrorReason.Unauthorized:
-<span class="cstat-no" title="statement not covered" >      return &lt;UnauthorizedErrorMessage /&gt;;</span>
+<span class="cstat-no" title="statement not covered" >      return &lt;UnauthorizedRequestRedirect /&gt;;</span>
     case TransactionErrorReason.ExpiredRequest:
 <span class="cstat-no" title="statement not covered" >      return &lt;ExpiredRequestErrorMessage /&gt;;</span>
     default:
@@ -258,8 +258,8 @@ const TransactionErrorSuspense = memo(() =&gt; {
   }
 });
 &nbsp;
-function TransactionErrorBase(): JSX.Element {
-  return (
+function <span class="fstat-no" title="function not covered" >TransactionErrorBase(</span>): JSX.Element {
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
       &lt;TransactionErrorSuspense /&gt;
     &lt;/Suspense&gt;
@@ -274,7 +274,7 @@ export const TransactionError = memo(TransactionErrorBase);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Apr 25 2022 12:41:30 GMT+0000 (Coordinated Universal Time)
+                at Tue Apr 26 2022 15:02:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

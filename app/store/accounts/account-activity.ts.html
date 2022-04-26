@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.42% </span>
+                <span class="strong">12.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/66</span>
+                <span class='fraction'>8/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.29% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/17</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.26% </span>
+                <span class="strong">13.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/61</span>
+                <span class='fraction'>8/61</span>
             </div>
         
             
@@ -215,7 +215,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,10 +229,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -245,9 +245,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -257,16 +257,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,12 +277,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
@@ -344,8 +344,8 @@ type LocalTx = Record&lt;
   }
 &gt;;
 const currentAccountLocallySubmittedTxsRootState = atomFamily(
-  ([_address, _network]) =&gt;
-    atomWithStorage&lt;LocalTx&gt;(makeLocalDataKey([_address, _network, 'LOCAL_TXS']), {}),
+<span class="fstat-no" title="function not covered" >  ([</span>_address, _network]) =&gt;
+<span class="cstat-no" title="statement not covered" >    atomWithStorage&lt;LocalTx&gt;(makeLocalDataKey([_address, _network, 'LOCAL_TXS']), {}),</span>
   deepEqual
 );
 &nbsp;
@@ -353,16 +353,16 @@ const currentAccountLocallySubmittedTxsRootState = atomFamily(
  * @deprecated
  * Use `useCurrentAccountTxIds`
  */
-const currentAccountExternalTxIdsState = atom(get =&gt; [
+const currentAccountExternalTxIdsState = atom(<span class="fstat-no" title="function not covered" >ge</span>t =&gt; <span class="cstat-no" title="statement not covered" >[</span>
   ...new Set([...get(currentAccountTransactionsState).map(<span class="fstat-no" title="function not covered" >tx</span> =&gt; <span class="cstat-no" title="statement not covered" >tx.tx_id)</span>]),
 ]);
 &nbsp;
 export const currentAccountLocallySubmittedTxsState = atom&lt;LocalTx, LocalTx&gt;(
-  get =&gt; {
-    const principal = get(currentAccountStxAddressState);
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!principal) <span class="cstat-no" title="statement not covered" >return {};</span>
-    const networkUrl = get(currentNetworkState).url;
-    return get(currentAccountLocallySubmittedTxsRootState([principal, networkUrl]));
+<span class="fstat-no" title="function not covered" >  ge</span>t =&gt; {
+    const principal = <span class="cstat-no" title="statement not covered" >get(currentAccountStxAddressState);</span>
+<span class="cstat-no" title="statement not covered" >    if (!principal) <span class="cstat-no" title="statement not covered" >return {};</span></span>
+    const networkUrl = <span class="cstat-no" title="statement not covered" >get(currentNetworkState).url;</span>
+<span class="cstat-no" title="statement not covered" >    return get(currentAccountLocallySubmittedTxsRootState([principal, networkUrl]));</span>
   },
 <span class="fstat-no" title="function not covered" >  (g</span>et, set, update) =&gt; {
     const principal = <span class="cstat-no" title="statement not covered" >get(currentAccountStxAddressState);</span>
@@ -374,29 +374,29 @@ export const currentAccountLocallySubmittedTxsState = atom&lt;LocalTx, LocalTx&g
   }
 );
 &nbsp;
-const currentAccountLocallySubmittedTxIdsState = atom(get =&gt; {
-  const txs = get(currentAccountLocallySubmittedTxsState);
-  const externalTxids = get(currentAccountExternalTxIdsState);
-  return txs
+const currentAccountLocallySubmittedTxIdsState = atom(<span class="fstat-no" title="function not covered" >ge</span>t =&gt; {
+  const txs = <span class="cstat-no" title="statement not covered" >get(currentAccountLocallySubmittedTxsState);</span>
+  const externalTxids = <span class="cstat-no" title="statement not covered" >get(currentAccountExternalTxIdsState);</span>
+<span class="cstat-no" title="statement not covered" >  return txs</span>
     ? Object.entries(txs)
         .filter(<span class="fstat-no" title="function not covered" >([</span>txid]) =&gt; <span class="cstat-no" title="statement not covered" >!externalTxids.includes(safelyFormatHexTxid(txid)))</span>
         .sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; (<span class="cstat-no" title="statement not covered" >a[1].timestamp &gt; b[1].timestamp ? -1 : 1)</span>)
         .map(<span class="fstat-no" title="function not covered" >([</span>txid]) =&gt; <span class="cstat-no" title="statement not covered" >txid)</span>
-    : <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+    : [];
 });
 &nbsp;
 /** @deprecated */
-const currentAccountLocallySubmittedStacksTransactionsState = atom(get =&gt; {
-  const localTxs = get(currentAccountLocallySubmittedTxsState);
-  const txids = get(currentAccountLocallySubmittedTxIdsState);
-  const result: any = {};
-  txids.forEach(<span class="fstat-no" title="function not covered" >tx</span>id =&gt; {
+const currentAccountLocallySubmittedStacksTransactionsState = atom(<span class="fstat-no" title="function not covered" >ge</span>t =&gt; {
+  const localTxs = <span class="cstat-no" title="statement not covered" >get(currentAccountLocallySubmittedTxsState);</span>
+  const txids = <span class="cstat-no" title="statement not covered" >get(currentAccountLocallySubmittedTxIdsState);</span>
+  const result: any = <span class="cstat-no" title="statement not covered" >{};</span>
+<span class="cstat-no" title="statement not covered" >  txids.forEach(<span class="fstat-no" title="function not covered" >tx</span>id =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    result[txid] = {</span>
       transaction: deserializeTransaction(localTxs[txid].rawTx),
       timestamp: localTxs[txid].timestamp,
     };
   });
-  return result as Record&lt;
+<span class="cstat-no" title="statement not covered" >  return result as Record&lt;</span>
     string,
     {
       transaction: StacksTransaction;
@@ -406,13 +406,13 @@ const currentAccountLocallySubmittedStacksTransactionsState = atom(get =&gt; {
 });
 &nbsp;
 /** @deprecated */
-export const currentAccountLocallySubmittedLatestNonceState = atom(get =&gt; {
-  const txids = get(currentAccountLocallySubmittedTxIdsState);
-  const latestTxId = txids[0];
-  const txs = get(currentAccountLocallySubmittedStacksTransactionsState);
-  const nonce = Number(txs[latestTxId]?.transaction?.auth?.spendingCondition?.nonce);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof nonce !== 'number') <span class="cstat-no" title="statement not covered" >return;</span>
-  return nonce;
+export const currentAccountLocallySubmittedLatestNonceState = atom(<span class="fstat-no" title="function not covered" >ge</span>t =&gt; {
+  const txids = <span class="cstat-no" title="statement not covered" >get(currentAccountLocallySubmittedTxIdsState);</span>
+  const latestTxId = <span class="cstat-no" title="statement not covered" >txids[0];</span>
+  const txs = <span class="cstat-no" title="statement not covered" >get(currentAccountLocallySubmittedStacksTransactionsState);</span>
+  const nonce = <span class="cstat-no" title="statement not covered" >Number(txs[latestTxId]?.transaction?.auth?.spendingCondition?.nonce);</span>
+<span class="cstat-no" title="statement not covered" >  if (typeof nonce !== 'number') <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  return nonce;</span>
 });
 &nbsp;
 export const cleanupLocalTxs = atom(null, <span class="fstat-no" title="function not covered" >(g</span>et, set) =&gt; {
@@ -460,7 +460,7 @@ export const removeLocalSubmittedTxById = atom(null, <span class="fstat-no" titl
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Apr 25 2022 12:41:30 GMT+0000 (Coordinated Universal Time)
+                at Tue Apr 26 2022 15:02:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
