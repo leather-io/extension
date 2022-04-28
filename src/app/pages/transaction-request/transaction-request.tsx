@@ -88,7 +88,7 @@ function TransactionRequestBase(): JSX.Element | null {
   if (!transactionRequest) return null;
 
   return (
-    <Stack px={['loose', 'unset']} spacing="loose">
+    <Stack px='loose' spacing="loose">
       <PageTop />
       <PostConditionModeWarning />
       <TransactionError />
