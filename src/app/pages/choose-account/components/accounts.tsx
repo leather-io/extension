@@ -20,6 +20,7 @@ import {
 import { slugify } from '@app/common/utils';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
+import { POPUP_CENTER_WIDTH } from '@shared/constants';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -150,7 +151,7 @@ export const Accounts = memo(() => {
   return (
     <>
       <AddAccountAction />
-      <Box mt="base">
+      <Box minWidth={`${POPUP_CENTER_WIDTH}px`} mt="base" px="loose">
         <Virtuoso
           useWindowScroll
           data={accounts}
