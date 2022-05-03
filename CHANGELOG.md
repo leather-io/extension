@@ -1,3 +1,11 @@
+## [3.7.2-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.2-beta.1...v3.7.2-beta.2) (2022-05-03)
+
+
+### Bug Fixes
+
+* choose account padding ([13d091e](https://github.com/hirosystems/stacks-wallet-web/commit/13d091eeaa2931e571f142bfe01010ad9863fc52))
+* transaction page, keep padding at all breakpoints ([feebd62](https://github.com/hirosystems/stacks-wallet-web/commit/feebd62e0eab314eb238a6cbf546299db6bba2e6))
+
 ## [3.7.2-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.1...v3.7.2-beta.1) (2022-04-26)
 
 
