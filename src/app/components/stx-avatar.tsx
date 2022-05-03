@@ -1,7 +1,9 @@
+import { BoxProps, Circle, color, DynamicColorCircle } from '@stacks/ui';
+
 import { StxIcon } from '@app/components/icons/stx-icon';
 import { MicroblockIcon } from '@app/components/icons/microblock';
-import { BoxProps, Circle, color, DynamicColorCircle } from '@stacks/ui';
-import { TypeIconWrapper } from '@app/components/tx-icon';
+
+import { TransactionTypeIconWrapper } from './transaction/components/transaction-type-icon-wrapper';
 
 const microIcon = () => (
   <MicroblockIcon
@@ -13,7 +15,7 @@ const microIcon = () => (
 );
 
 const iconItem = (isUnanchored = false) =>
-  isUnanchored ? <TypeIconWrapper icon={microIcon} bg="invert" /> : null;
+  isUnanchored ? <TransactionTypeIconWrapper icon={microIcon} bg="invert" /> : null;
 
 interface StxAvatarProps extends BoxProps {
   isUnanchored?: boolean;

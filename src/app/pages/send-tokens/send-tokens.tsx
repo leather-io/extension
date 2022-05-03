@@ -1,4 +1,4 @@
-import { memo, Suspense, useCallback, useState } from 'react';
+import { memo, Suspense, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Formik } from 'formik';
@@ -29,7 +29,7 @@ import { Estimations } from '@shared/models/fees-types';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
-  const { showEditNonce } = useDrawers();
+  const { showEditNonce, showNetworks } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const { setActiveTabActivity } = useHomeTabs();
@@ -43,6 +43,12 @@ function SendTokensFormBase() {
   const analytics = useAnalytics();
 
   useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
+
+  useEffect(() => {
+    if (showNetworks) {
+      navigate(RouteUrls.Home);
+    }
+  }, [navigate, showNetworks]);
 
   const handleConfirmDrawerOnClose = useCallback(() => {
     setShowing(false);
