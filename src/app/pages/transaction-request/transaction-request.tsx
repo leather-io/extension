@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Stack } from '@stacks/ui';
+import { Flex, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
@@ -88,31 +88,33 @@ function TransactionRequestBase(): JSX.Element | null {
   if (!transactionRequest) return null;
 
   return (
-    <Stack px={['loose', 'unset']} spacing="loose">
-      <PageTop />
-      <PostConditionModeWarning />
-      <TransactionError />
-      <PostConditions />
-      {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
-      {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
-      {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-      <Formik
-        initialValues={{ fee: '', feeType: Estimations[Estimations.Middle] }}
-        onSubmit={onSubmit}
-        validateOnChange={false}
-        validateOnBlur={false}
-        validateOnMount={false}
-        validationSchema={validationSchema}
-      >
-        {() => (
-          <>
-            <FeeForm />
-            <SubmitAction />
-            <HighFeeDrawer />
-          </>
-        )}
-      </Formik>
-    </Stack>
+    <Flex alignItems="center" flexDirection="column" width="100%">
+      <Stack px="loose" spacing="loose">
+        <PageTop />
+        <PostConditionModeWarning />
+        <TransactionError />
+        <PostConditions />
+        {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
+        {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
+        {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
+        <Formik
+          initialValues={{ fee: '', feeType: Estimations[Estimations.Middle] }}
+          onSubmit={onSubmit}
+          validateOnChange={false}
+          validateOnBlur={false}
+          validateOnMount={false}
+          validationSchema={validationSchema}
+        >
+          {() => (
+            <>
+              <FeeForm />
+              <SubmitAction />
+              <HighFeeDrawer />
+            </>
+          )}
+        </Formik>
+      </Stack>
+    </Flex>
   );
 }
 
