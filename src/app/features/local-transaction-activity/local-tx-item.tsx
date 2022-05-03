@@ -1,17 +1,17 @@
 import { PayloadType, StacksTransaction } from '@stacks/transactions';
 import { Box, BoxProps, color, Stack } from '@stacks/ui';
+
+import { Tx } from '@app/common/api/transactions';
 import { usePressable } from '@app/components/item-hover';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { stacksValue } from '@app/common/stacks-utils';
 import { getTxSenderAddress } from '@app/store/accounts/account-activity.utils';
-import { StacksTransactionItemIcon } from '@app/components/tx-icon';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption, Title } from '@app/components/typography';
 import { Tooltip } from '@app/components/tooltip';
-import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
 import { getTxCaption } from '@app/common/transactions/transaction-utils';
-
-type Tx = MempoolTransaction | Transaction;
+import { TransactionTitle } from '@app/components/transaction/components/transaction-title';
+import { StacksTransactionIcon } from '@app/components/transaction/components/stacks-transaction-icon';
 
 interface LocalTxItemProps extends BoxProps {
   transaction: StacksTransaction;
@@ -35,7 +35,7 @@ export const LocalTxItem = ({ transaction, txid, ...rest }: LocalTxItemProps) =>
         return transaction.payload.contractName.content;
       // this should never be reached
       default:
-        return null;
+        return '';
     }
   };
 
@@ -97,12 +97,10 @@ export const LocalTxItem = ({ transaction, txid, ...rest }: LocalTxItemProps) =>
         zIndex={2}
         onClick={() => handleOpenTxLink(txid, `&submitted=true`)}
       >
-        <StacksTransactionItemIcon transaction={transaction} />
+        <StacksTransactionIcon transaction={transaction} />
         <SpaceBetween flexGrow={1}>
-          <Stack spacing="base-tight">
-            <Title as="h3" fontWeight="normal">
-              {getTxTitle()}
-            </Title>
+          <Stack spacing="base-tight" minWidth="0px">
+            <TransactionTitle title={getTxTitle()} />
             <Stack isInline flexWrap="wrap">
               <Caption variant="c2">{txCaption()}</Caption>
               <Tooltip

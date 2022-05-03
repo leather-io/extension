@@ -1,19 +1,19 @@
 import { useMemo } from 'react';
-import { Box, Stack, Text, color } from '@stacks/ui';
-
-import { createTxDateFormatList } from '@app/common/transactions/transaction-utils';
-import { TxView } from '@app/components/tx-item';
 import {
   AddressTransactionWithTransfers,
   MempoolTransaction,
 } from '@stacks/stacks-blockchain-api-types';
+import { Box, Stack, Text, color } from '@stacks/ui';
+
+import { createTxDateFormatList } from '@app/common/transactions/transaction-utils';
+import { Transaction } from '@app/components/transaction/transaction';
 
 interface TransactionListProps {
   txs: (AddressTransactionWithTransfers | MempoolTransaction)[];
 }
-
 export function TransactionList({ txs }: TransactionListProps) {
   const txsGroupedByDate = useMemo(() => (txs ? createTxDateFormatList(txs) : []), [txs]);
+
   return (
     <Stack pb="extra-loose" spacing="extra-loose">
       {txsGroupedByDate.map(({ date, displayDate, txs }) => (
@@ -23,7 +23,7 @@ export function TransactionList({ txs }: TransactionListProps) {
           </Text>
           <Stack mt="base-loose" spacing="loose">
             {txs.map(atx => (
-              <TxView transaction={atx} key={'tx' in atx ? atx.tx.tx_id : atx.tx_id} />
+              <Transaction transaction={atx} key={'tx' in atx ? atx.tx.tx_id : atx.tx_id} />
             ))}
           </Stack>
         </Box>
