@@ -63,7 +63,7 @@ const onboardingSteps = [
     event: 'buy_nft',
     imageFull: BuyNftFull,
     imagePopup: BuyNftPopup,
-    route: 'https://stxnft.com/',
+    route: 'https://www.hiro.so/wallet-faq/nfts',
     routeType: RouteType.External,
     title: OnboardingSteps.BuyNft,
   },
