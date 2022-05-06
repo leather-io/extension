@@ -1,3 +1,15 @@
+# [3.8.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.2-beta.2...v3.8.0-beta.1) (2022-05-06)
+
+
+### Bug Fixes
+
+* disable confirm button until fees are loaded ([0500796](https://github.com/hirosystems/stacks-wallet-web/commit/05007964d07d1f7eec3f3e54fe1e1038c24a5e2f))
+
+
+### Features
+
+* update NFTs URL ([5bd221a](https://github.com/hirosystems/stacks-wallet-web/commit/5bd221a1b2b44633ce8041bc04c7554d126723fc))
+
 ## [3.7.2-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.2-beta.1...v3.7.2-beta.2) (2022-05-03)
 
 
