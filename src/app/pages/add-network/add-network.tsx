@@ -17,6 +17,7 @@ import {
   useUpdateCurrentNetworkKey,
   useUpdateNetworkState,
 } from '@app/store/network/networks.hooks';
+import { NetworkSelectors } from '@tests/integration/network.selectors';
 
 interface AddNetworkFormValues {
   key: string;
@@ -97,6 +98,7 @@ export const AddNetwork = () => {
                 placeholder="Name"
                 value={values.name}
                 width="100%"
+                data-testid={NetworkSelectors.NetworkName}
               />
               <Input
                 borderRadius="10px"
@@ -106,6 +108,7 @@ export const AddNetwork = () => {
                 placeholder="Address"
                 value={values.url}
                 width="100%"
+                data-testid={NetworkSelectors.NetworkAddress}
               />
               <Input
                 borderRadius="10px"
@@ -115,13 +118,20 @@ export const AddNetwork = () => {
                 placeholder="Key"
                 value={values.key}
                 width="100%"
+                data-testid={NetworkSelectors.NetworkKey}
               />
               {error ? (
                 <ErrorLabel>
-                  <Text textStyle="caption">{error}</Text>
+                  <Text textStyle="caption" data-testid={NetworkSelectors.ErrorText}>
+                    {error}
+                  </Text>
                 </ErrorLabel>
               ) : null}
-              <PrimaryButton isDisabled={loading} isLoading={loading}>
+              <PrimaryButton
+                isDisabled={loading}
+                isLoading={loading}
+                data-testid={NetworkSelectors.BtnAddNetwork}
+              >
                 Add network
               </PrimaryButton>
             </Stack>
