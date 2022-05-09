@@ -3,6 +3,7 @@ import { createTestSelector } from '../integration/utils';
 import { SendFormSelectors } from './send-form.selectors';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { AssetSelectors } from '@tests/integration/asset.selectors';
 
 const selectors = {
   $btnSendMaxBalance: createTestSelector(SendFormSelectors.BtnSendMaxBalance),
@@ -18,6 +19,10 @@ const selectors = {
   $confirmDetails: createTestSelector(SendFormSelectors.ConfirmDetails),
   $stxTokenOption: createTestSelector(SendFormSelectors.StxTokenOption),
   $stellaTokenOption: createTestSelector(SendFormSelectors.StellaTokenOption),
+  $stswOption: createTestSelector(AssetSelectors.AssetSTSW),
+  $dikoOption: createTestSelector(AssetSelectors.AssetDiko),
+  $usdaOption: createTestSelector(AssetSelectors.AssetUSDA),
+  $miamiCoinOption: createTestSelector(AssetSelectors.AssetMiamiCoin),
   $lowFeeSelect: createTestSelector(SendFormSelectors.LowFeeOption),
   $highFeeSelect: createTestSelector(SendFormSelectors.HighFeeOption),
   $standardFeeSelect: createTestSelector(SendFormSelectors.StandardFeeOption),
@@ -126,6 +131,22 @@ export class SendPage {
 
   async clickStellaTokenOption() {
     await this.page.click(this.selectors.$stellaTokenOption);
+  }
+
+  async clickSTSWTokenOption() {
+    await this.page.click(this.selectors.$stswOption);
+  }
+
+  async clickDIKOtokenOption() {
+    await this.page.click(this.selectors.$dikoOption);
+  }
+
+  async clickUSDAtokenOption() {
+    await this.page.click(this.selectors.$usdaOption);
+  }
+
+  async clickMiamiCointokenOption() {
+    await this.page.click(this.selectors.$miamiCoinOption);
   }
 
   async clickAssetSelect() {
