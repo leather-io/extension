@@ -1,0 +1,71 @@
+[
+  {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJqdGkiOiI1OTQ5ZTYyNC0zYzYzLTRmODAtODc3OS0yYjY0Mzk1ZDAwNDkiLCJpYXQiOiIyMDIyLTA1LTIyVDE2OjQzOjA4Ljk2N1oiLCJleHAiOiIyMDIzLTA1LTIyVDE2OjQzOjA4Ljk2N1oiLCJzdWJqZWN0Ijp7InB1YmxpY0tleSI6IjAzYzFlODU2NDYyY2EyODQ0YWRiODk4YWVlOTBhZjUyMzdlOWQxYmUwZmU1MTIxMjYzNWIyZjdhNjQzYjA1ODVlMSJ9LCJpc3N1ZXIiOnsicHVibGljS2V5IjoiMDNjMWU4NTY0NjJjYTI4NDRhZGI4OThhZWU5MGFmNTIzN2U5ZDFiZTBmZTUxMjEyNjM1YjJmN2E2NDNiMDU4NWUxIn0sImNsYWltIjp7IkB0eXBlIjoiUGVyc29uIiwiQGNvbnRleHQiOiJodHRwOi8vc2NoZW1hLm9yZyIsImFwcHMiOnsiaHR0cHM6Ly9zdGFja3Mtd2FsbGV0LXdlYi52ZXJjZWwuYXBwIjoiaHR0cHM6Ly9nYWlhLmJsb2Nrc3RhY2sub3JnL2h1Yi8xNjg0N29yVm9xZU0yM2VlaVI5UEZlN2RNSGE4WXNoRnpWLyIsImh0dHBzOi8vZXhwbG9yZXIuc3RhY2tzLmNvIjoiaHR0cHM6Ly9nYWlhLmJsb2Nrc3RhY2sub3JnL2h1Yi8xQVhZVEE2WGVuaTFCM0JDaEhTVXN2aWM4NmVNVkNxcmFILyIsImh0dHBzOi8vc3RhY2tzLXdhbGxldC13ZWItcTc4a3g1c2NuLWJsb2Nrc3RhY2sudmVyY2VsLmFwcCI6Imh0dHBzOi8vZ2FpYS5ibG9ja3N0YWNrLm9yZy9odWIvMUVaTmc0cENBZWhNY3VEbTJVZlg4b2R0YzFoREZSOXIzdS8iLCJodHRwczovL2Jvb20ubW9uZXkiOiJodHRwczovL2dhaWEuYmxvY2tzdGFjay5vcmcvaHViLzEyTm9UWVJaaUdBa3FrU3RqcGM4WERjakhEdzdrWWdBZEUvIiwiaHR0cDovLzAuMC4wLjA6MzAwMCI6Imh0dHBzOi8vZ2FpYS5ibG9ja3N0YWNrLm9yZy9odWIvMUFhVmRVWGJOaU00VUZFZnBwWnBiTFVHZDJzVTFraWJ5TS8iLCJodHRwOi8vbG9jYWxob3N0OjMwMDAiOiJodHRwczovL2dhaWEuYmxvY2tzdGFjay5vcmcvaHViLzExMjJDS25wWFY5dkQxbm15VFIyZTlQQmdMVG9rVnhIYzgvIiwiaHR0cDovL2xvY2FsaG9zdDozMDAxIjoiaHR0cHM6Ly9nYWlhLmJsb2Nrc3RhY2sub3JnL2h1Yi8xN2pNb3VNS2R2eDdCa1FnNjNpUjd5elVtQmtOUnNrOTNpLyIsImh0dHBzOi8vd3d3LnN0YWNrc2FydC5jb20iOiJodHRwczovL2dhaWEuYmxvY2tzdGFjay5vcmcvaHViLzFNTlhQWjZGbXVScVZWUTRFWGpDMnFNS0J6eDVmRFM5cGkvIn0sImFwcHNNZXRhIjp7Imh0dHBzOi8vc3RhY2tzLXdhbGxldC13ZWIudmVyY2VsLmFwcCI6eyJzdG9yYWdlIjoiaHR0cHM6Ly9nYWlhLmJsb2Nrc3RhY2sub3JnL2h1Yi8xNjg0N29yVm9xZU0yM2VlaVI5UEZlN2RNSGE4WXNoRnpWLyIsInB1YmxpY0tleSI6IjAyODhlMTg4NTIxOWQyNWYxN2RhN2Y1N2Q4ZTY4MDBkOTJmNTU2ZDhjNTRmMWIyYmIxMWU2OTI1OGE5MzNmM2Y4OSJ9LCJodHRwczovL2V4cGxvcmVyLnN0YWNrcy5jbyI6eyJzdG9yYWdlIjoiaHR0cHM6Ly9nYWlhLmJsb2Nrc3RhY2sub3JnL2h1Yi8xQVhZVEE2WGVuaTFCM0JDaEhTVXN2aWM4NmVNVkNxcmFILyIsInB1YmxpY0tleSI6IjAzNzM5YjI0MzUzZTEzODdlZGE4MTJiYzY4ZGM3ZTU4YWUzZmRmMDAzYWI3NmFkYjNhZWJlMjZiZDYwNTcyOTRhNSJ9LCJodHRwczovL3N0YWNrcy13YWxsZXQtd2ViLXE3OGt4NXNjbi1ibG9ja3N0YWNrLnZlcmNlbC5hcHAiOnsic3RvcmFnZSI6Imh0dHBzOi8vZ2FpYS5ibG9ja3N0YWNrLm9yZy9odWIvMUVaTmc0cENBZWhNY3VEbTJVZlg4b2R0YzFoREZSOXIzdS8iLCJwdWJsaWNLZXkiOiIwMmVjOWEzMjNjYzkyNzY0MTg3NzUwNmRiYmVkNmFjMzBjNjYxN2I3MjkyZjA2MzJlYjAxZTcxYjJjZThkOTBkNWMifSwiaHR0cHM6Ly9ib29tLm1vbmV5Ijp7InN0b3JhZ2UiOiJodHRwczovL2dhaWEuYmxvY2tzdGFjay5vcmcvaHViLzEyTm9UWVJaaUdBa3FrU3RqcGM4WERjakhEdzdrWWdBZEUvIiwicHVibGljS2V5IjoiMDI5Mzc1MmNlN2Y2OTVkODY2ZDhmMDE0MTU3N2M2YWVjMDBjZjg1NGU1ZWZmNjhmYmU4MGQ4YjI1YzljMjIzZGQyIn0sImh0dHA6Ly8wLjAuMC4wOjMwMDAiOnsic3RvcmFnZSI6Imh0dHBzOi8vZ2FpYS5ibG9ja3N0YWNrLm9yZy9odWIvMUFhVmRVWGJOaU00VUZFZnBwWnBiTFVHZDJzVTFraWJ5TS8iLCJwdWJsaWNLZXkiOiIwMjIyYmIwYzc4MjVlOWJiMmZlNGM3OTUxYzhkNjc1MTI4YTQ2NDBhYzg3YTU5NWRmNDU4OWI4MTMxNjI1ZjMxNWMifSwiaHR0cDovL2xvY2FsaG9zdDozMDAwIjp7InN0b3JhZ2UiOiJodHRwczovL2dhaWEuYmxvY2tzdGFjay5vcmcvaHViLzExMjJDS25wWFY5dkQxbm15VFIyZTlQQmdMVG9rVnhIYzgvIiwicHVibGljS2V5IjoiMDJlYTVkMzk5OWIwYWUyOTQ3ZDBkYzNhOTcyMDJjMDhkMTFjY2M3NDU3YjVkMTRjYjVmNDA4YTdjZTY1NjI1OGY3In0sImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMSI6eyJzdG9yYWdlIjoiaHR0cHM6Ly9nYWlhLmJsb2Nrc3RhY2sub3JnL2h1Yi8xN2pNb3VNS2R2eDdCa1FnNjNpUjd5elVtQmtOUnNrOTNpLyIsInB1YmxpY0tleSI6IjAyNjNjZDgwOWRjODMzZmQxM2FhOTUyMzAyNTQxZmJjZjgwODM2MmUyMTg1MGJkNDBjOGUwYjA1ZGYzYjViY2ZjYyJ9LCJodHRwczovL3d3dy5zdGFja3NhcnQuY29tIjp7InN0b3JhZ2UiOiJodHRwczovL2dhaWEuYmxvY2tzdGFjay5vcmcvaHViLzFNTlhQWjZGbXVScVZWUTRFWGpDMnFNS0J6eDVmRFM5cGkvIiwicHVibGljS2V5IjoiMDMzZDAzYzQ1YzQ2ZTcyNjRmYTk1OTBiOWExZGE0MmZlOTM5ZjIwY2MwNzAzZWFlODZhN2I0ZGU4NTdhNGI3MWMyIn19fX0.g-sXPrF5tJbeiKwxUHViacx_h2ldknS8gEO_FdJQRjmFnzAHik2gVtXyPkLx4kBzhf3cZBVUCvte2w_AO4Pznw",
+    "decodedToken": {
+      "header": {
+        "typ": "JWT",
+        "alg": "ES256K"
+      },
+      "payload": {
+        "jti": "5949e624-3c63-4f80-8779-2b64395d0049",
+        "iat": "2022-05-22T16:43:08.967Z",
+        "exp": "2023-05-22T16:43:08.967Z",
+        "subject": {
+          "publicKey": "03c1e856462ca2844adb898aee90af5237e9d1be0fe51212635b2f7a643b0585e1"
+        },
+        "issuer": {
+          "publicKey": "03c1e856462ca2844adb898aee90af5237e9d1be0fe51212635b2f7a643b0585e1"
+        },
+        "claim": {
+          "@type": "Person",
+          "@context": "http://schema.org",
+          "apps": {
+            "https://stacks-wallet-web.vercel.app": "https://gaia.blockstack.org/hub/16847orVoqeM23eeiR9PFe7dMHa8YshFzV/",
+            "https://explorer.stacks.co": "https://gaia.blockstack.org/hub/1AXYTA6Xeni1B3BChHSUsvic86eMVCqraH/",
+            "https://stacks-wallet-web-q78kx5scn-blockstack.vercel.app": "https://gaia.blockstack.org/hub/1EZNg4pCAehMcuDm2UfX8odtc1hDFR9r3u/",
+            "https://boom.money": "https://gaia.blockstack.org/hub/12NoTYRZiGAkqkStjpc8XDcjHDw7kYgAdE/",
+            "http://0.0.0.0:3000": "https://gaia.blockstack.org/hub/1AaVdUXbNiM4UFEfppZpbLUGd2sU1kibyM/",
+            "http://localhost:3000": "https://gaia.blockstack.org/hub/1122CKnpXV9vD1nmyTR2e9PBgLTokVxHc8/",
+            "http://localhost:3001": "https://gaia.blockstack.org/hub/17jMouMKdvx7BkQg63iR7yzUmBkNRsk93i/",
+            "https://www.stacksart.com": "https://gaia.blockstack.org/hub/1MNXPZ6FmuRqVVQ4EXjC2qMKBzx5fDS9pi/"
+          },
+          "appsMeta": {
+            "https://stacks-wallet-web.vercel.app": {
+              "storage": "https://gaia.blockstack.org/hub/16847orVoqeM23eeiR9PFe7dMHa8YshFzV/",
+              "publicKey": "0288e1885219d25f17da7f57d8e6800d92f556d8c54f1b2bb11e69258a933f3f89"
+            },
+            "https://explorer.stacks.co": {
+              "storage": "https://gaia.blockstack.org/hub/1AXYTA6Xeni1B3BChHSUsvic86eMVCqraH/",
+              "publicKey": "03739b24353e1387eda812bc68dc7e58ae3fdf003ab76adb3aebe26bd6057294a5"
+            },
+            "https://stacks-wallet-web-q78kx5scn-blockstack.vercel.app": {
+              "storage": "https://gaia.blockstack.org/hub/1EZNg4pCAehMcuDm2UfX8odtc1hDFR9r3u/",
+              "publicKey": "02ec9a323cc927641877506dbbed6ac30c6617b7292f0632eb01e71b2ce8d90d5c"
+            },
+            "https://boom.money": {
+              "storage": "https://gaia.blockstack.org/hub/12NoTYRZiGAkqkStjpc8XDcjHDw7kYgAdE/",
+              "publicKey": "0293752ce7f695d866d8f0141577c6aec00cf854e5eff68fbe80d8b25c9c223dd2"
+            },
+            "http://0.0.0.0:3000": {
+              "storage": "https://gaia.blockstack.org/hub/1AaVdUXbNiM4UFEfppZpbLUGd2sU1kibyM/",
+              "publicKey": "0222bb0c7825e9bb2fe4c7951c8d675128a4640ac87a595df4589b8131625f315c"
+            },
+            "http://localhost:3000": {
+              "storage": "https://gaia.blockstack.org/hub/1122CKnpXV9vD1nmyTR2e9PBgLTokVxHc8/",
+              "publicKey": "02ea5d3999b0ae2947d0dc3a97202c08d11ccc7457b5d14cb5f408a7ce656258f7"
+            },
+            "http://localhost:3001": {
+              "storage": "https://gaia.blockstack.org/hub/17jMouMKdvx7BkQg63iR7yzUmBkNRsk93i/",
+              "publicKey": "0263cd809dc833fd13aa952302541fbcf808362e21850bd40c8e0b05df3b5bcfcc"
+            },
+            "https://www.stacksart.com": {
+              "storage": "https://gaia.blockstack.org/hub/1MNXPZ6FmuRqVVQ4EXjC2qMKBzx5fDS9pi/",
+              "publicKey": "033d03c45c46e7264fa9590b9a1da42fe939f20cc0703eae86a7b4de857a4b71c2"
+            }
+          }
+        }
+      },
+      "signature": "g-sXPrF5tJbeiKwxUHViacx_h2ldknS8gEO_FdJQRjmFnzAHik2gVtXyPkLx4kBzhf3cZBVUCvte2w_AO4Pznw"
+    }
+  }
+]
