@@ -30,6 +30,8 @@ export async function broadcastTransaction(options: BroadcastTransactionOptions)
       attachment ? Buffer.from(attachment, 'hex') : undefined
     );
 
+    if (response.error) throw new Error(response.error);
+
     const isValidTxId = validateTxId(response.txid);
     if (isValidTxId)
       return {
