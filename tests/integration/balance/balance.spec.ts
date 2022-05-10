@@ -45,12 +45,4 @@ describe(`Wallet Balance integration tests`, () => {
     const actualAmount = rocketAmount && getAmount(rocketAmount);
     expect(actualAmount).toBeGreaterThan(0);
   });
-
-  it('Check stella token balance is greater than 0', async () => {
-    const stellaAmount = await wallet.page.textContent(
-      createTestSelector(BalanceSelectors.StellaToken)
-    );
-    const actualAmount = stellaAmount && getAmount(stellaAmount);
-    expect(actualAmount).toBeGreaterThan(0);
-  });
 });
