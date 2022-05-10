@@ -7,11 +7,13 @@ import { removeCommas } from '@app/common/token-utils';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/mempool/mempool.hooks';
 
 export function useSendAmountFieldActions({
   setFieldValue,
 }: Pick<FormikProps<TransactionFormValues>, 'setFieldValue'>) {
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
   const { selectedAsset, balance } = useSelectedAsset();
   const isStx = selectedAsset?.type === 'stx';
 
@@ -19,14 +21,14 @@ export function useSendAmountFieldActions({
     (fee: number | string) => {
       if (!selectedAsset || !balance) return;
       if (isStx && fee) {
-        const stx = microStxToStx(availableStxBalance || 0).minus(fee);
+        const stx = microStxToStx(availableStxBalance?.minus(pendingTxsBalance) || 0).minus(fee);
         if (stx.isLessThanOrEqualTo(0)) return;
         return setFieldValue('amount', stx.toNumber());
       } else {
         if (balance) setFieldValue('amount', removeCommas(balance));
       }
     },
-    [selectedAsset, balance, isStx, setFieldValue, availableStxBalance]
+    [selectedAsset, balance, isStx, availableStxBalance, pendingTxsBalance, setFieldValue]
   );
 
   const handleOnKeyDown = useCallback(
