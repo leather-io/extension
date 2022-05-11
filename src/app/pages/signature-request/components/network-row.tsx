@@ -1,15 +1,15 @@
 import { whenChainId } from '@app/common/transactions/transaction-utils';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
-import { StacksNetwork } from '@stacks/network';
+
 import { ChainID } from '@stacks/transactions';
 import { Box } from '@stacks/ui';
 
 interface NetworkRowProps {
-  network: StacksNetwork;
+  chainId: ChainID;
 }
 export function NetworkRow(props: NetworkRowProps): JSX.Element | null {
-  const { network } = props;
+  const { chainId } = props;
 
   return (
     <Box spacing="base">
@@ -19,7 +19,7 @@ export function NetworkRow(props: NetworkRowProps): JSX.Element | null {
         </Box>
         <Caption>
           <span>
-            {whenChainId(network.chainId)({
+            {whenChainId(chainId)({
               [ChainID.Testnet]: 'Testnet',
               [ChainID.Mainnet]: 'Mainnet',
             })}

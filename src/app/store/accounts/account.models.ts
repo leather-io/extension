@@ -14,7 +14,7 @@ export interface LedgerAccountWithAddress {
   address: string;
   index: number;
   stxPublicKey: string;
-  // dataPublicKey: string;
+  dataPublicKey: string;
 }
 
 export type AccountWithAddress = SoftwareWalletAccountWithAddress | LedgerAccountWithAddress;

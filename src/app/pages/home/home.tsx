@@ -14,6 +14,7 @@ import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggest
 import { CurrentAccount } from '@app/pages/home/components/account-area';
 
 import { HomeActions } from '@app/pages/home/components/home-actions';
+import { useAccounts } from '@app/store/accounts/account.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import {
   useCurrentAccount,
@@ -25,12 +26,21 @@ import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { HomeTabs } from './components/home-tabs';
 
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
+import { OnboardingStepsList } from './components/onboarding-steps-list';
+import { useOnboardingSteps } from './hooks/use-onboarding-steps';
+import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
+import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
+
+import { CurrentAccount } from './components/account-area';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
   const account = useCurrentAccount();
   useTrackFirstDeposit();
+
+  // eslint-disable-next-line no-console
+  console.log(useAccounts());
 
   useRouteHeader(
     <>

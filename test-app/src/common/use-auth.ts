@@ -57,7 +57,7 @@ export function useAuth() {
     onCancel,
     appDetails: {
       name: 'Testing App',
-      icon: '/assets/messenger-app-icon.png',
+      icon: 'http://placekitten.com/g/100/100',
     },
   };
   return {

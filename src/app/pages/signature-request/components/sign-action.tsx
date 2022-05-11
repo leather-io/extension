@@ -13,7 +13,7 @@ function useSignMessageSoftwareWallet() {
   const account = useCurrentAccount();
   return useCallback(
     (message: string) => {
-      if (!account) return null;
+      if (!account || account.type === 'ledger') return null;
       const privateKey = createStacksPrivateKey(account.stxPrivateKey);
       return signMessage(message, privateKey);
     },

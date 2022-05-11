@@ -25,7 +25,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
 
   return (
     <LedgerWrapper>
-      <Box position="relative" width="100%" height="120px">
+      <Box position="relative" width="100%" minHeight="120px">
         <Suspense fallback={null}>
           <PluggingInLedgerCableAnimation position="absolute" top="-80px" />
         </Suspense>
@@ -45,7 +45,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
         {warning}
       </Box>
       {showInstructions ? (
-        <>
+        <Box width="100%">
           <Divider />
           <Caption mb="tight" mt="loose">
             First time using Ledger on Hiro Wallet?
@@ -56,7 +56,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
           >
             See how to download the Stacks app
           </ExternalLink>
-        </>
+        </Box>
       ) : null}
     </LedgerWrapper>
   );
