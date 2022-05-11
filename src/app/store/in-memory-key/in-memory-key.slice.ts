@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { defaultKeyId, keySlice } from '../keys/key.slice';
-import { isUndefined } from '@app/common/utils';
 import { logger } from '@shared/logger';
 
 interface InMemoryKeyState {
@@ -26,9 +25,6 @@ export const inMemoryKeySlice = createSlice({
     },
 
     saveUsersSecretKeyToBeRestored(state, action: PayloadAction<string>) {
-      if (!isUndefined(state.keys[defaultKeyId])) {
-        throw new Error('Cannot restore key for pre-existing wallet');
-      }
       state.keys[defaultKeyId] = action.payload;
     },
 

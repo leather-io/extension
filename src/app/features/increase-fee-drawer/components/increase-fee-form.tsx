@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import BigNumber from 'bignumber.js';
-import BN from 'bn.js';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
@@ -47,7 +46,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
   const onSubmit = useCallback(
     async values => {
       if (!rawTx) return;
-      rawTx.setFee(new BN(stxToMicroStx(values.fee).toNumber()));
+      rawTx.setFee(stxToMicroStx(values.fee).toString());
       // TODO: Revisit the need for this account refresh?
       await refreshAccountData();
       if (walletType === 'software') {

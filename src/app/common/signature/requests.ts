@@ -1,25 +1,17 @@
-import { Account, getAppPrivateKey } from '@stacks/wallet-sdk';
+import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { SignaturePayload } from '@stacks/connect';
 import { decodeToken, TokenVerifier } from 'jsontokens';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
-import { getAddressFromPrivateKey, TransactionVersion } from '@stacks/transactions';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 export function getPayloadFromToken(requestToken: string) {
   const token = decodeToken(requestToken);
   return token.payload as unknown as SignaturePayload;
 }
 
-function getTransactionVersionFromRequest(signature: SignaturePayload) {
-  const { network } = signature;
-  if (!network) return TransactionVersion.Mainnet;
-  if (![TransactionVersion.Mainnet, TransactionVersion.Testnet].includes(network.version)) {
-    throw new Error('Invalid network version provided');
-  }
-  return network.version;
-}
-
 const UNAUTHORIZED_SIGNATURE_REQUEST =
   'The signature request provided is not signed by this wallet.';
+
 /**
  * Verify a transaction request.
  * A transaction request is a signed JWT that is created on an app,
@@ -43,7 +35,7 @@ const UNAUTHORIZED_SIGNATURE_REQUEST =
  */
 interface VerifySignatureRequestArgs {
   requestToken: string;
-  accounts: Account[];
+  accounts: AccountWithAddress[];
   appDomain: string;
 }
 export async function verifySignatureRequest({
@@ -54,13 +46,15 @@ export async function verifySignatureRequest({
   const token = decodeToken(requestToken);
   const signature = token.payload as unknown as SignaturePayload;
   const { publicKey, stxAddress } = signature;
-  const txVersion = getTransactionVersionFromRequest(signature);
   const verifier = new TokenVerifier('ES256k', publicKey);
   const isSigned = await verifier.verifyAsync(requestToken);
   if (!isSigned) {
     throw new Error('Signature request is not signed');
   }
   const foundAccount = accounts.find(account => {
+    if (account.type === 'ledger') {
+      throw new Error('sdlkjsdlkf');
+    }
     const appPrivateKey = getAppPrivateKey({
       account,
       appDomain,
@@ -68,8 +62,8 @@ export async function verifySignatureRequest({
     const appPublicKey = getPublicKeyFromPrivate(appPrivateKey);
     if (appPublicKey !== publicKey) return false;
     if (!stxAddress) return true;
-    const accountStxAddress = getAddressFromPrivateKey(account.stxPrivateKey, txVersion);
-    if (stxAddress !== accountStxAddress) return false;
+
+    if (stxAddress !== account.address) return false;
     return true;
   });
   if (!foundAccount) {

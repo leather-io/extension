@@ -14,13 +14,11 @@ export enum RouteUrls {
   ConnectLedgerError = 'ledger-connection-error',
   ConnectLedgerSuccess = 'successfully-connected-your-ledger',
   DeviceBusy = 'please-wait',
-  SignLedgerTransaction = 'awaiting-approval',
+  AwaitingDeviceUserAction = 'awaiting-approval',
   LedgerDisconnected = 'your-ledger-disconnected',
-  TransactionRejected = 'transaction-rejected',
+  LedgerOperationRejected = 'action-rejected',
   LedgerPublicKeyMismatch = 'wrong-ledger-device',
   LedgerUnsupportedBrowser = 'unsupported-browser',
-
-  AuthNotSupportedWithLedger = '/auth-not-supported-with-hardware-wallet',
 
   // Active wallet routes
   Home = '/',

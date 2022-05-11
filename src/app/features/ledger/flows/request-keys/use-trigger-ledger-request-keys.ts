@@ -7,6 +7,7 @@ import { keySlice } from '@app/store/keys/key.slice';
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
+import { StxAndIdentityPublicKeys } from '../../ledger-utils';
 
 export function useTriggerLedgerDeviceRequestKeys() {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export function useTriggerLedgerDeviceRequestKeys() {
       fireErrorMessageToast(errorMsg: string) {
         toast.error(errorMsg);
       },
-      completeLedgerDeviceOnboarding(publicKeys: string[], targetId: string) {
+      completeLedgerDeviceOnboarding(publicKeys: StxAndIdentityPublicKeys[], targetId: string) {
         dispatch(
           keySlice.actions.createLedgerWallet({
             type: 'ledger',

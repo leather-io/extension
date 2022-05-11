@@ -16,7 +16,6 @@ import {
   SignatureMessage,
   SignatureMessageType,
 } from './components/sign-action';
-import { StacksNetwork, StacksTestnet } from '@stacks/network';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { Caption } from '@app/components/typography';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -24,6 +23,7 @@ import { getPayloadFromToken } from '@app/common/signature/requests';
 import { isUndefined } from '@app/common/utils';
 import { Link } from '@app/components/link';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { ChainID } from '@stacks/transactions/dist/esm/constants';
 
 function SignatureRequestBase(): JSX.Element | null {
   const validSignatureRequest = useIsSignatureRequestValid();
@@ -47,7 +47,7 @@ function SignatureRequestBase(): JSX.Element | null {
       ) : (
         <SignatureRequestContent
           message={message}
-          network={network || new StacksTestnet()}
+          chainId={network?.chainId || ChainID.Testnet}
           appName={appName}
           messageType={messageType as unknown as SignatureMessageType}
         />
@@ -82,16 +82,16 @@ function Disclaimer(props: DisclaimerProps) {
 }
 
 interface SignatureRequestContentProps extends SignatureMessage {
-  network: StacksNetwork;
+  chainId: ChainID;
   appName: string | undefined;
 }
 
 function SignatureRequestContent(props: SignatureRequestContentProps) {
-  const { message, messageType, appName, network } = props;
+  const { message, messageType, appName, chainId } = props;
   return (
     <>
       <MessageBox message={message} messageType={messageType} />
-      <NetworkRow network={network} />
+      <NetworkRow chainId={chainId} />
       <SignAction message={message} messageType={messageType} />
       <hr />
       <Disclaimer appName={appName} />
