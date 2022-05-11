@@ -4,6 +4,7 @@
 export enum DomEventName {
   authenticationRequest = 'stacksAuthenticationRequest',
   signatureRequest = 'signatureRequest',
+  structuredDataSignatureRequest = 'structuredDataSignatureRequest',
   transactionRequest = 'stacksTransactionRequest',
 }
 
