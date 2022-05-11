@@ -32,6 +32,7 @@ export function useSignatureRequestSearchParams() {
       requestToken: searchParams.get('request'),
       tabId: searchParams.get('tabId'),
       origin: searchParams.get('origin'),
+      messageType: searchParams.get('messageType'),
     }),
     [searchParams]
   );

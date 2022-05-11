@@ -1,6 +1,6 @@
 import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shared/message-types';
 import { logger } from '@shared/logger';
-import { SignatureData } from '@shared/crypto/sign-message';
+import { SignatureData } from '@stacks/connect';
 
 export const finalizeMessageSignature = (
   requestPayload: string,
