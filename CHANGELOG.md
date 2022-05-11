@@ -1,3 +1,10 @@
+# [3.8.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.0-beta.1...v3.8.0-beta.2) (2022-05-11)
+
+
+### Features
+
+* add arbitrary message signing ([cfb28e8](https://github.com/hirosystems/stacks-wallet-web/commit/cfb28e8d8eaef7db56741cdcff321129dac368f9)), closes [#1051](https://github.com/hirosystems/stacks-wallet-web/issues/1051)
+
 # [3.8.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.2-beta.2...v3.8.0-beta.1) (2022-05-06)
 
 
