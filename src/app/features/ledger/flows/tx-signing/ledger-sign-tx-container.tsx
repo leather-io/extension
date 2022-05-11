@@ -83,7 +83,7 @@ export function LedgerSignTxContainer() {
       await delay(1000);
       if (!unsignedTransaction) throw new Error('No unsigned tx');
 
-      ledgerNavigate.toSignTransactionStep({ hasApprovedTransaction: false });
+      ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
       const resp = await signLedgerTransaction(stacks)(
         Buffer.from(unsignedTransaction, 'hex'),
@@ -107,7 +107,7 @@ export function LedgerSignTxContainer() {
         throw new Error('Some other error');
       }
 
-      ledgerNavigate.toSignTransactionStep({ hasApprovedTransaction: true });
+      ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
 
       await delay(1000);
 

@@ -35,7 +35,7 @@ interface GenerateUnsignedTxArgs<TxPayload> {
   nonce?: number;
 }
 
-export type ContractCallPayload = Omit<ConnectContractCallPayload, 'network'> &
+type ContractCallPayload = Omit<ConnectContractCallPayload, 'network'> &
   TempCorrectNetworkPackageType;
 type GenerateUnsignedContractCallTxArgs = GenerateUnsignedTxArgs<ContractCallPayload>;
 
@@ -71,7 +71,7 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
   return makeUnsignedContractCall(options);
 }
 
-export type ContractDeployPayload = Omit<ConnectContractDeployPayload, 'network'> &
+type ContractDeployPayload = Omit<ConnectContractDeployPayload, 'network'> &
   TempCorrectNetworkPackageType;
 type GenerateUnsignedContractDeployTxArgs = GenerateUnsignedTxArgs<ContractDeployPayload>;
 
@@ -92,7 +92,7 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
   return makeUnsignedContractDeploy(options);
 }
 
-export type STXTransferPayload = Omit<ConnectSTXTransferPayload, 'network'> &
+type STXTransferPayload = Omit<ConnectSTXTransferPayload, 'network'> &
   TempCorrectNetworkPackageType;
 type GenerateUnsignedStxTransferTxArgs = GenerateUnsignedTxArgs<STXTransferPayload>;
 

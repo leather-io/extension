@@ -298,3 +298,15 @@ export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
 export function doesBrowserSupportWebUsbApi() {
   return Boolean((navigator as any).usb);
 }
+
+const isFullPage = document.location.pathname.startsWith('/index.html');
+
+const pageMode = isFullPage ? 'full' : 'popup';
+
+type PageMode = 'popup' | 'full';
+
+type WhenPageModeMap<T> = Record<PageMode, T>;
+
+export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
+  return pageModeMap[pageMode];
+}

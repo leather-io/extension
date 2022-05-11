@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Stack } from '@stacks/ui';
+import { Flex, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';

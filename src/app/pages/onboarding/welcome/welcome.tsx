@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +9,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { WelcomeLayout } from './welcome.layout';
 import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { doesBrowserSupportWebUsbApi } from '@app/common/utils';
+import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 
 export const WelcomePage = memo(() => {
   const [hasAllowedDiagnostics] = useHasAllowedDiagnostics();
@@ -40,13 +40,25 @@ export const WelcomePage = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const supportsWebUsbAction = whenPageMode({
+    full() {
+      navigate(RouteUrls.ConnectLedger);
+    },
+    popup() {
+      void openIndexPageInNewTab(`${RouteUrls.Onboarding}/${RouteUrls.ConnectLedger}`);
+    },
+  });
+
+  const doesNotSupportWebUsbAction = whenPageMode({
+    full: navigate as any,
+    popup: openIndexPageInNewTab,
+  });
+
   return (
     <WelcomeLayout
       isGeneratingWallet={isGeneratingWallet}
       onSelectConnectLedger={() =>
-        doesBrowserSupportWebUsbApi()
-          ? navigate(RouteUrls.ConnectLedger)
-          : navigate(RouteUrls.LedgerUnsupportedBrowser)
+        doesBrowserSupportWebUsbApi() ? supportsWebUsbAction() : doesNotSupportWebUsbAction()
       }
       onStartOnboarding={() => startOnboarding()}
       onRestoreWallet={() => navigate(RouteUrls.SignIn)}

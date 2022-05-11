@@ -57,9 +57,7 @@ export function LedgerRequestKeysContainer() {
 
     try {
       ledgerNavigate.toConnectionSuccessStep();
-
       await delay(1750);
-
       ledgerNavigate.toActivityHappeningOnDeviceStep();
 
       const resp = await pullKeysFromLedgerDevice(stacks);

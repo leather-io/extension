@@ -6,7 +6,7 @@ import { BigNumber } from 'bignumber.js';
 import { microStxToStx } from '@app/common/stacks-utils';
 import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { ledgerTxSigningContext } from '@app/features/ledger/ledger-tx-signing.context';
-import { useHasApprovedTransaction } from '@app/features/ledger/hooks/use-has-approved-transaction';
+import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
 import { SignLedgerTransactionLayout } from '@app/features/ledger/steps/sign-ledger-transaction.layout';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
@@ -24,7 +24,7 @@ function formatTooltipLabel(amount: bigint) {
 export function SignLedgerTransaction() {
   const { transaction } = useContext(ledgerTxSigningContext);
   const currentAccount = useCurrentAccount();
-  const hasApprovedTransaction = useHasApprovedTransaction();
+  const hasApprovedOperation = useHasApprovedOperation();
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
 
@@ -62,7 +62,7 @@ export function SignLedgerTransaction() {
     <SignLedgerTransactionLayout
       details={transactionDetails}
       isFullPage={desktopViewport}
-      status={hasApprovedTransaction ? 'approved' : 'awaiting-approval'}
+      status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
     />
   );
 }

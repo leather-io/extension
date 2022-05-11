@@ -86,9 +86,18 @@ const ledgerAccountsWithAddressState = atom<LedgerAccountWithAddress[] | undefin
   const addressVersion = get(addressNetworkVersionState);
   if (!ledgerWallet) return undefined;
 
-  return ledgerWallet.publicKeys.map((publicKey, index) => {
-    const address = publicKeyToAddress(addressVersion, createStacksPublicKey(publicKey));
-    return { type: 'ledger', address, stxPublicKey: publicKey, index };
+  return ledgerWallet.publicKeys.map((publicKeys, index) => {
+    const address = publicKeyToAddress(
+      addressVersion,
+      createStacksPublicKey(publicKeys.stxPublicKey)
+    );
+    return {
+      type: 'ledger',
+      address,
+      stxPublicKey: publicKeys.stxPublicKey,
+      dataPublicKey: publicKeys.dataPublicKey,
+      index,
+    };
   });
 });
 
