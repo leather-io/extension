@@ -110,7 +110,7 @@ export function createTxDateFormatList(
 export const getTxCaption = (transaction: Tx) => {
   switch (transaction.tx_type) {
     case 'smart_contract':
-      return truncateMiddle(transaction.smart_contract.contract_id, 4);
+      return truncateMiddle(transaction.smart_contract.contract_id.split('.')[0], 4);
     case 'contract_call':
       return transaction.contract_call.contract_id.split('.')[1];
     case 'token_transfer':
