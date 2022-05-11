@@ -2,6 +2,7 @@ import { StacksProvider } from '@stacks/connect';
 import {
   AuthenticationRequestEventDetails,
   DomEventName,
+  SignatureRequestEventDetails,
   TransactionRequestEventDetails,
 } from '@shared/inpage-types';
 import {
@@ -9,6 +10,7 @@ import {
   ExternalMethods,
   MessageToContentScript,
   MESSAGE_SOURCE,
+  SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
 import { logger } from '@shared/logger';
@@ -64,6 +66,27 @@ const provider: StacksProvider = {
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
     return url;
+  },
+  signatureRequest: async signatureRequest => {
+    const event = new CustomEvent<SignatureRequestEventDetails>(DomEventName.signatureRequest, {
+      detail: { signatureRequest },
+    });
+    document.dispatchEvent(event);
+    return new Promise((resolve, reject) => {
+      const handleMessage = (event: MessageEvent<SignatureResponseMessage>) => {
+        if (!isValidEvent(event, ExternalMethods.signatureResponse)) return;
+        if (event.data.payload?.signatureRequest !== signatureRequest) return;
+        window.removeEventListener('message', handleMessage);
+        if (event.data.payload.signatureResponse === 'cancel') {
+          reject(event.data.payload.signatureResponse);
+          return;
+        }
+        if (typeof event.data.payload.signatureResponse !== 'string') {
+          resolve(event.data.payload.signatureResponse);
+        }
+      };
+      window.addEventListener('message', handleMessage);
+    });
   },
   authenticationRequest: async authenticationRequest => {
     const event = new CustomEvent<AuthenticationRequestEventDetails>(

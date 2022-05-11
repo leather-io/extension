@@ -8,7 +8,6 @@ import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { PopupHeader } from '@app/pages/transaction-request/components/popup-header';
 import { PageTop } from '@app/pages/transaction-request/components/page-top';
 import { ContractCallDetails } from '@app/pages/transaction-request/components/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/pages/transaction-request/components/contract-deploy-details/contract-deploy-details';
@@ -31,6 +30,7 @@ import { SubmitAction } from './components/submit-action';
 import { useUnsignedTransactionFee } from './hooks/use-signed-transaction-fee';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Estimations } from '@shared/models/fees-types';
+import { PopupHeader } from '@app/features/current-account/popup-header';
 
 function TransactionRequestBase(): JSX.Element | null {
   useNextTxNonce();

@@ -3,6 +3,7 @@
  */
 export enum DomEventName {
   authenticationRequest = 'stacksAuthenticationRequest',
+  signatureRequest = 'signatureRequest',
   transactionRequest = 'stacksTransactionRequest',
 }
 
@@ -11,6 +12,12 @@ export interface AuthenticationRequestEventDetails {
 }
 
 export type AuthenticationRequestEvent = CustomEvent<AuthenticationRequestEventDetails>;
+
+export interface SignatureRequestEventDetails {
+  signatureRequest: string;
+}
+
+export type SignatureRequestEvent = CustomEvent<SignatureRequestEventDetails>;
 
 export interface TransactionRequestEventDetails {
   transactionRequest: string;

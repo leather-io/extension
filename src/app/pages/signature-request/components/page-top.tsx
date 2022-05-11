@@ -4,19 +4,17 @@ import { Stack } from '@stacks/ui';
 import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Caption, Title } from '@app/components/typography';
-import { usePageTitle } from '@app/pages/transaction-request/hooks/use-page-title';
-import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { useOrigin } from '@app/store/transactions/requests.hooks';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+import { getPayloadFromToken } from '@app/common/signature/requests';
+import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 function PageTopBase(): JSX.Element | null {
-  const transactionRequest = useTransactionRequestState();
-  const origin = useOrigin();
-  const pageTitle = usePageTitle();
   const network = useCurrentNetwork();
-  if (!transactionRequest) return null;
+  const { origin, requestToken } = useSignatureRequestSearchParams();
+  if (!requestToken) return null;
+  const signatureRequest = getPayloadFromToken(requestToken);
+  if (!signatureRequest) return null;
 
-  const appName = transactionRequest?.appDetails?.name;
+  const appName = signatureRequest?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
   const testnetAddition = network.isTestnet
     ? ` using ${getUrlHostname(network.url)}${addPortSuffix(network.url)}`
@@ -24,13 +22,9 @@ function PageTopBase(): JSX.Element | null {
   const caption = appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;
 
   return (
-    <Stack
-      pt="extra-loose"
-      spacing="base"
-      data-testid={TransactionSigningSelectors.TxSigningPageContainer}
-    >
+    <Stack pt="extra-loose" spacing="base">
       <Title fontWeight="bold" as="h1">
-        {pageTitle}
+        Sign Message
       </Title>
       {caption && <Caption wordBreak="break-word">{caption}</Caption>}
     </Stack>

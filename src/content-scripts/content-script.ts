@@ -14,6 +14,7 @@ import {
 import {
   AuthenticationRequestEvent,
   DomEventName,
+  SignatureRequestEvent,
   TransactionRequestEvent,
 } from '@shared/inpage-types';
 import { RouteUrls } from '@shared/route-urls';
@@ -91,6 +92,16 @@ document.addEventListener(DomEventName.transactionRequest, ((event: TransactionR
     payload: event.detail.transactionRequest,
     urlParam: 'request',
     method: ExternalMethods.transactionRequest,
+  });
+}) as EventListener);
+
+// Listen for a CustomEvent (signature request) coming from the web app
+document.addEventListener(DomEventName.signatureRequest, ((event: SignatureRequestEvent) => {
+  forwardDomEventToBackground({
+    path: RouteUrls.SignatureRequest,
+    payload: event.detail.signatureRequest,
+    urlParam: 'request',
+    method: ExternalMethods.signatureRequest,
   });
 }) as EventListener);
 
