@@ -35,7 +35,7 @@ interface GenerateUnsignedTxArgs<TxPayload> {
   nonce?: number;
 }
 
-export type ContractCallPayload = Omit<ConnectContractCallPayload, 'network'> &
+type ContractCallPayload = Omit<ConnectContractCallPayload, 'network'> &
   TempCorrectNetworkPackageType;
 type GenerateUnsignedContractCallTxArgs = GenerateUnsignedTxArgs<ContractCallPayload>;
 
@@ -62,8 +62,8 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     publicKey,
     anchorMode: anchorMode ?? AnchorMode.Any,
     functionArgs: fnArgs,
-    nonce: initNonce(nonce),
-    fee: new BN(fee, 10),
+    nonce: initNonce(nonce)?.toString(),
+    fee: new BN(fee, 10).toString(),
     postConditionMode: postConditionMode,
     postConditions: getPostConditions(postConditions),
     network,
@@ -72,7 +72,7 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
   return makeUnsignedContractCall(options);
 }
 
-export type ContractDeployPayload = Omit<ConnectContractDeployPayload, 'network'> &
+type ContractDeployPayload = Omit<ConnectContractDeployPayload, 'network'> &
   TempCorrectNetworkPackageType;
 type GenerateUnsignedContractDeployTxArgs = GenerateUnsignedTxArgs<ContractDeployPayload>;
 
@@ -82,8 +82,8 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
   const options = {
     contractName,
     codeBody,
-    nonce: initNonce(nonce),
-    fee: new BN(fee, 10),
+    nonce: initNonce(nonce)?.toString(),
+    fee: new BN(fee, 10)?.toString(),
     publicKey,
     anchorMode: anchorMode ?? AnchorMode.Any,
     postConditionMode: postConditionMode,
@@ -93,7 +93,7 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
   return makeUnsignedContractDeploy(options);
 }
 
-export type STXTransferPayload = Omit<ConnectSTXTransferPayload, 'network'> &
+type STXTransferPayload = Omit<ConnectSTXTransferPayload, 'network'> &
   TempCorrectNetworkPackageType;
 type GenerateUnsignedStxTransferTxArgs = GenerateUnsignedTxArgs<STXTransferPayload>;
 
@@ -105,9 +105,9 @@ function generateUnsignedStxTransferTx(args: GenerateUnsignedStxTransferTxArgs) 
     memo,
     publicKey,
     anchorMode: anchorMode ?? AnchorMode.Any,
-    amount: new BN(amount),
-    nonce: initNonce(nonce),
-    fee: new BN(fee, 10),
+    amount: new BN(amount).toString(),
+    nonce: initNonce(nonce)?.toString(),
+    fee: new BN(fee, 10).toString(),
     network,
   };
   return makeUnsignedSTXTokenTransfer(options);

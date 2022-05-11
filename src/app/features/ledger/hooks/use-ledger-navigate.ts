@@ -43,10 +43,10 @@ export function useLedgerNavigate() {
         });
       },
 
-      toSignTransactionStep({ hasApprovedTransaction }: { hasApprovedTransaction: boolean }) {
-        return navigate(RouteUrls.SignLedgerTransaction, {
+      toAwaitingDeviceOperation({ hasApprovedOperation }: { hasApprovedOperation: boolean }) {
+        return navigate(RouteUrls.AwaitingDeviceUserAction, {
           replace: true,
-          state: { hasApprovedTransaction },
+          state: { hasApprovedOperation },
         });
       },
 
@@ -55,7 +55,7 @@ export function useLedgerNavigate() {
       },
 
       toTransactionRejectedStep() {
-        return navigate(RouteUrls.TransactionRejected, { replace: true });
+        return navigate(RouteUrls.LedgerOperationRejected, { replace: true });
       },
 
       toDeviceDisconnectStep() {
