@@ -8,7 +8,6 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
 import { Header } from '@app/components/header';
 import { Accounts } from '@app/pages/choose-account/components/accounts';
-import { POPUP_CENTER_WIDTH } from '@shared/constants';
 
 export const ChooseAccount = memo(() => {
   const { name: appName } = useAppDetails();
@@ -26,8 +25,8 @@ export const ChooseAccount = memo(() => {
   }, [handleUnmount]);
 
   return (
-    <Flex alignItems="center" flexDirection="column" px="loose" width="100%">
-      <Stack minWidth={`${POPUP_CENTER_WIDTH}px`} spacing="loose" textAlign="center">
+    <Flex flexDirection="column" px="loose" width="100%">
+      <Stack spacing="loose" textAlign="center">
         <AppIcon mt="extra-loose" mb="loose" size="72px" />
         <Stack spacing="base">
           <Title fontSize={4}>Choose an account</Title>
