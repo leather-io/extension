@@ -76,7 +76,12 @@ const HTML_PROD_OPTIONS = IS_DEV
       },
     };
 
-const aliases = {};
+const aliases = {
+  '@stacks/network/dist/polyfill': '@stacks/network/dist/esm',
+  '@stacks/network': '@stacks/network/dist/esm',
+  '@stacks/profile': '@stacks/profile/dist/esm',
+  '@stacks/auth': '@stacks/auth/dist/esm',
+};
 
 const config = {
   entry: { index: path.join(SRC_ROOT_PATH, 'index.tsx') },

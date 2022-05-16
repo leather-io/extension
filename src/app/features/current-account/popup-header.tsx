@@ -6,8 +6,8 @@ import { CurrentAccountAvatar } from '@app/features/current-account/current-acco
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { CurrentStxAddress } from '@app/features/current-account/current-stx-address';
 
-import { Balance } from './balance';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { Balance } from '@app/components/balance';
 
 function PopupHeaderSuspense(): JSX.Element {
   const account = useCurrentAccount();
