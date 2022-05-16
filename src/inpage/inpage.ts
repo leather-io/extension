@@ -62,7 +62,7 @@ const isValidEvent = (event: MessageEvent, method: MessageToContentScript['metho
   return correctSource && correctMethod && !!data.payload;
 };
 
-const provider: StacksProvider = {
+const provider: Omit<StacksProvider, 'structuredDataSignatureRequest'> = {
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
     return url;
@@ -143,4 +143,7 @@ const provider: StacksProvider = {
   },
 };
 
-window.StacksProvider = provider;
+// Type casting to `any` as type from `@stacks/connect` expects the as-of-yet
+// unreleased `structuredDataSignatureRequest` method To be removed on release
+// of this feature, cc/ @beguene
+(window as any).StacksProvider = provider;
