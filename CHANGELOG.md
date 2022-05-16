@@ -1,3 +1,11 @@
+# [3.9.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.0-beta.1...v3.9.0-beta.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* refetch account balance ([20f11cb](https://github.com/hirosystems/stacks-wallet-web/commit/20f11cb62dc35416df6defd64bc29ad89dae8dfd))
+* subtract pending txs from send max balance ([8de6523](https://github.com/hirosystems/stacks-wallet-web/commit/8de65235cbc4c015d6dc8e0967f5b05ac6dd9907))
+
 # [3.9.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.1-beta.2...v3.9.0-beta.1) (2022-05-16)
 
 
