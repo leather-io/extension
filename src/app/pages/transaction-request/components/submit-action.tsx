@@ -9,6 +9,7 @@ import { TransactionFormValues } from '@app/common/transactions/transaction-util
 import { isEmpty } from '@app/common/utils';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@app/components/show-edit-nonce';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
+import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 function BaseConfirmButton(props: ButtonProps): JSX.Element {
@@ -24,8 +25,9 @@ function SubmitActionSuspense(): JSX.Element {
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const { isLoading } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const error = useTransactionError();
+  const [feeEstimations] = useFeeEstimationsState();
 
-  const isDisabled = !!error;
+  const isDisabled = !!error || !feeEstimations.length;
 
   return (
     <BaseConfirmButton

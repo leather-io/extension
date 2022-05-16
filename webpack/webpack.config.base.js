@@ -79,6 +79,7 @@ const aliases = {
   '@stacks/storage': '@stacks/storage/dist/esm',
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
+  '@stacks/network/dist/polyfill': '@stacks/network/dist/esm',
 };
 
 const config = {

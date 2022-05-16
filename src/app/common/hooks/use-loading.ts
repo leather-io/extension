@@ -5,6 +5,7 @@ export enum LoadingKeys {
   EDIT_NONCE_DRAWER = 'loading/EDIT_NONCE_DRAWER',
   INCREASE_FEE_DRAWER = 'loading/INCREASE_FEE_DRAWER',
   SUBMIT_TRANSACTION = 'loading/SUBMIT_TRANSACTION',
+  SUBMIT_SIGNATURE = 'loading/SUBMIT_SIGNATURE',
 }
 
 export function useLoading(key: string) {

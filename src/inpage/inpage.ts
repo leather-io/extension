@@ -2,6 +2,7 @@ import { StacksProvider } from '@stacks/connect';
 import {
   AuthenticationRequestEventDetails,
   DomEventName,
+  SignatureRequestEventDetails,
   TransactionRequestEventDetails,
 } from '@shared/inpage-types';
 import {
@@ -9,6 +10,7 @@ import {
   ExternalMethods,
   MessageToContentScript,
   MESSAGE_SOURCE,
+  SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
 import { logger } from '@shared/logger';
@@ -60,10 +62,31 @@ const isValidEvent = (event: MessageEvent, method: MessageToContentScript['metho
   return correctSource && correctMethod && !!data.payload;
 };
 
-const provider: StacksProvider = {
+const provider: Omit<StacksProvider, 'structuredDataSignatureRequest'> = {
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
     return url;
+  },
+  signatureRequest: async signatureRequest => {
+    const event = new CustomEvent<SignatureRequestEventDetails>(DomEventName.signatureRequest, {
+      detail: { signatureRequest },
+    });
+    document.dispatchEvent(event);
+    return new Promise((resolve, reject) => {
+      const handleMessage = (event: MessageEvent<SignatureResponseMessage>) => {
+        if (!isValidEvent(event, ExternalMethods.signatureResponse)) return;
+        if (event.data.payload?.signatureRequest !== signatureRequest) return;
+        window.removeEventListener('message', handleMessage);
+        if (event.data.payload.signatureResponse === 'cancel') {
+          reject(event.data.payload.signatureResponse);
+          return;
+        }
+        if (typeof event.data.payload.signatureResponse !== 'string') {
+          resolve(event.data.payload.signatureResponse);
+        }
+      };
+      window.addEventListener('message', handleMessage);
+    });
   },
   authenticationRequest: async authenticationRequest => {
     const event = new CustomEvent<AuthenticationRequestEventDetails>(
@@ -120,4 +143,7 @@ const provider: StacksProvider = {
   },
 };
 
-window.StacksProvider = provider;
+// Type casting to `any` as type from `@stacks/connect` expects the as-of-yet
+// unreleased `structuredDataSignatureRequest` method To be removed on release
+// of this feature, cc/ @beguene
+(window as any).StacksProvider = provider;

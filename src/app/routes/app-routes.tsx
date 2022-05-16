@@ -7,6 +7,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
+import { SignatureRequest } from '@app/pages/signature-request/signature-request';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
@@ -147,6 +148,16 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
+        <Route
+          path={RouteUrls.SignatureRequest}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <SignatureRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        />
         <Route
           path={RouteUrls.ViewSecretKey}
           element={

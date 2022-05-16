@@ -1,4 +1,5 @@
 import { FinishedTxPayload, SponsoredFinishedTxPayload } from '@stacks/connect';
+import { SignatureData } from './crypto/sign-message';
 
 export const MESSAGE_SOURCE = 'stacks-wallet' as const;
 
@@ -9,6 +10,8 @@ export enum ExternalMethods {
   transactionResponse = 'transactionResponse',
   authenticationRequest = 'authenticationRequest',
   authenticationResponse = 'authenticationResponse',
+  signatureRequest = 'signatureRequest',
+  signatureResponse = 'signatureResponse',
 }
 
 export enum InternalMethods {
@@ -44,6 +47,16 @@ export type AuthenticationResponseMessage = Message<
   }
 >;
 
+type SignatureRequestMessage = Message<ExternalMethods.signatureRequest, string>;
+
+export type SignatureResponseMessage = Message<
+  ExternalMethods.signatureResponse,
+  {
+    signatureRequest: string;
+    signatureResponse: SignatureData | string;
+  }
+>;
+
 type TransactionRequestMessage = Message<ExternalMethods.transactionRequest, string>;
 
 export type TxResult = SponsoredFinishedTxPayload | FinishedTxPayload;
@@ -56,5 +69,11 @@ export type TransactionResponseMessage = Message<
   }
 >;
 
-export type MessageFromContentScript = AuthenticationRequestMessage | TransactionRequestMessage;
-export type MessageToContentScript = AuthenticationResponseMessage | TransactionResponseMessage;
+export type MessageFromContentScript =
+  | AuthenticationRequestMessage
+  | TransactionRequestMessage
+  | SignatureRequestMessage;
+export type MessageToContentScript =
+  | AuthenticationResponseMessage
+  | TransactionResponseMessage
+  | SignatureResponseMessage;

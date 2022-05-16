@@ -7,8 +7,9 @@ import { Status } from './status';
 import { Counter } from './counter';
 import { Debugger } from './debugger';
 import { Bns } from './bns';
+import { Signature } from './signature';
 
-type Tabs = 'status' | 'counter' | 'debug' | 'bns';
+type Tabs = 'status' | 'counter' | 'debug' | 'bns' | 'signature';
 
 const Container: React.FC<BoxProps> = ({ children, ...props }) => {
   return (
@@ -37,6 +38,9 @@ const Page: React.FC<{ tab: Tabs; setTab: (value: Tabs) => void }> = ({ tab, set
           <Tab active={tab === 'bns'}>
             <Text onClick={() => setTab('bns')}>BNS</Text>
           </Tab>
+          <Tab active={tab === 'signature'}>
+            <Text onClick={() => setTab('signature')}>Signature</Text>
+          </Tab>
         </Flex>
       </Container>
       <Container>
@@ -44,6 +48,7 @@ const Page: React.FC<{ tab: Tabs; setTab: (value: Tabs) => void }> = ({ tab, set
         {tab === 'counter' && <Counter />}
         {tab === 'debug' && <Debugger />}
         {tab === 'bns' && <Bns />}
+        {tab === 'signature' && <Signature />}
       </Container>
     </>
   );
