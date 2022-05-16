@@ -10,7 +10,12 @@ import {
 import { PageTop } from './components/page-top';
 import { MessageBox } from './components/message-box';
 import { NetworkRow } from './components/network-row';
-import { SignAction } from './components/sign-action';
+import {
+  isSignatureMessageType,
+  SignAction,
+  SignatureMessage,
+  SignatureMessageType,
+} from './components/sign-action';
 import { StacksNetwork, StacksTestnet } from '@stacks/network';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { Caption } from '@app/components/typography';
@@ -22,15 +27,17 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 
 function SignatureRequestBase(): JSX.Element | null {
   const validSignatureRequest = useIsSignatureRequestValid();
-  const { requestToken } = useSignatureRequestSearchParams();
+  const { requestToken, messageType } = useSignatureRequestSearchParams();
+
   useRouteHeader(<PopupHeader />);
 
-  if (!requestToken) return null;
+  if (!requestToken || !messageType) return null;
   const signatureRequest = getPayloadFromToken(requestToken);
   if (!signatureRequest) return null;
   if (isUndefined(validSignatureRequest)) return null;
   const appName = signatureRequest?.appDetails?.name;
   const { message, network } = signatureRequest;
+  if (!isSignatureMessageType(message)) return null;
 
   return (
     <Stack px={['loose', 'unset']} spacing="loose" width="100%">
@@ -42,6 +49,7 @@ function SignatureRequestBase(): JSX.Element | null {
           message={message}
           network={network || new StacksTestnet()}
           appName={appName}
+          messageType={messageType as unknown as SignatureMessageType}
         />
       )}
     </Stack>
@@ -73,19 +81,18 @@ function Disclaimer(props: DisclaimerProps) {
   );
 }
 
-interface SignatureRequestContentProps {
+interface SignatureRequestContentProps extends SignatureMessage {
   network: StacksNetwork;
-  message: string;
   appName: string | undefined;
 }
 
 function SignatureRequestContent(props: SignatureRequestContentProps) {
-  const { message, network, appName } = props;
+  const { message, messageType, appName, network } = props;
   return (
     <>
-      <MessageBox message={message} />
+      <MessageBox message={message} messageType={messageType} />
       <NetworkRow network={network} />
-      <SignAction message={message} />
+      <SignAction message={message} messageType={messageType} />
       <hr />
       <Disclaimer appName={appName} />
     </>
