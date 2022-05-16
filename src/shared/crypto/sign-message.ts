@@ -1,5 +1,10 @@
-import { signECDSA, hashMessage } from '@stacks/encryption';
-import { StacksPrivateKey } from '@stacks/transactions';
+import { hashMessage } from '@stacks/encryption';
+import {
+  getPublicKey,
+  publicKeyToString,
+  signWithKey,
+  StacksPrivateKey,
+} from '@stacks/transactions';
 
 export interface SignatureData {
   signature: string; // - Hex encoded DER signature
@@ -7,7 +12,9 @@ export interface SignatureData {
 }
 
 export function signMessage(message: string, privateKey: StacksPrivateKey): SignatureData {
-  const privateKeyUncompressed = privateKey.data.slice(0, 32);
   const hash = hashMessage(message);
-  return signECDSA(privateKeyUncompressed.toString('hex'), hash);
+  return {
+    signature: signWithKey(privateKey, hash.toString('hex')).data,
+    publicKey: publicKeyToString(getPublicKey(privateKey)),
+  };
 }
