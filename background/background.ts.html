@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/51</span>
             </div>
         
             
@@ -174,7 +174,24 @@
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,6 +254,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -358,6 +392,23 @@ async function <span class="fstat-no" title="function not covered" >openRequestI
             }
 <span class="cstat-no" title="statement not covered" >            break;</span>
           }
+          case ExternalMethods.signatureRequest: {
+            const path = <span class="cstat-no" title="statement not covered" >RouteUrls.SignatureRequest;</span>
+            const urlParams = <span class="cstat-no" title="statement not covered" >new URLSearchParams();</span>
+<span class="cstat-no" title="statement not covered" >            if (!port.sender) <span class="cstat-no" title="statement not covered" >return;</span></span>
+            const { tab, url } = <span class="cstat-no" title="statement not covered" >port.sender;</span>
+<span class="cstat-no" title="statement not covered" >            if (!tab?.id || !url) <span class="cstat-no" title="statement not covered" >return;</span></span>
+            const origin = <span class="cstat-no" title="statement not covered" >new URL(url).origin;</span>
+<span class="cstat-no" title="statement not covered" >            urlParams.set('request', payload);</span>
+<span class="cstat-no" title="statement not covered" >            urlParams.set('tabId', tab.id.toString());</span>
+<span class="cstat-no" title="statement not covered" >            urlParams.set('origin', origin);</span>
+<span class="cstat-no" title="statement not covered" >            if (IS_TEST_ENV) {</span>
+<span class="cstat-no" title="statement not covered" >              await openRequestInFullPage(path, urlParams);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >              popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });</span>
+            }
+<span class="cstat-no" title="statement not covered" >            break;</span>
+          }
           case ExternalMethods.transactionRequest: {
 <span class="cstat-no" title="statement not covered" >            void storePayload({</span>
               payload,
@@ -403,7 +454,7 @@ async function <span class="fstat-no" title="function not covered" >openRequestI
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Apr 26 2022 15:03:12 GMT+0000 (Coordinated Universal Time)
+                at Mon May 16 2022 13:00:49 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/components/transaction/pending-label.tsx</title>
+    <title>Code coverage report for app/components/transaction/transaction.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/components/transaction</a> pending-label.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/components/transaction</a> transaction.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -91,18 +91,26 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,54 +119,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, Flex, Stack, color } from '@stacks/ui';
-import { Caption } from '@app/components/typography';
-import { Tooltip } from '@app/components/tooltip';
-import { FiInfo } from 'react-icons/fi';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-const pendingWaitingMessage =
-<span class="cstat-no" title="statement not covered" >  'This transaction is waiting to be confirmed. Depending on network congestion, this may take anywhere from a few minutes, to a couple of hours.';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
+import { BoxProps } from '@stacks/ui';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >PendingLabel(</span>) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex&gt;
-      &lt;Caption
-        data-testid={SendFormSelectors.PendingStatus}
-        variant="c2"
-        color={color('feedback-alert')}
-      &gt;
-        Pending
-      &lt;/Caption&gt;
-      &lt;Tooltip label={pendingWaitingMessage} placement="bottom"&gt;
-        &lt;Stack&gt;
-          &lt;Box
-            _hover={{ cursor: 'pointer' }}
-            as={FiInfo}
-            color={color('feedback-alert')}
-            ml={'2px'}
-            size="10px"
-          /&gt;
-        &lt;/Stack&gt;
-      &lt;/Tooltip&gt;
-    &lt;/Flex&gt;
-  );
+import { Tx } from '@app/common/api/transactions';
+import { isAddressTransactionWithTransfers } from '@app/common/transactions/transaction-utils';
+&nbsp;
+import { TransactionItem } from './components/transaction-item';
+import { TransactionTransfers } from './components/transaction-transfers';
+&nbsp;
+interface TransactionProps extends BoxProps {
+  transaction: AddressTransactionWithTransfers | Tx;
 }
+export const Transaction = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> transaction, ...rest }: TransactionProps) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  if (!isAddressTransactionWithTransfers(transaction))</span>
+    // This is a normal MempoolTransaction or Transaction
+<span class="cstat-no" title="statement not covered" >    return &lt;TransactionItem transaction={transaction} {...rest} /&gt;;</span>
+&nbsp;
+  // Show transfer only for contract calls
+<span class="cstat-no" title="statement not covered" >  if (transaction.tx.tx_type !== 'contract_call')</span>
+<span class="cstat-no" title="statement not covered" >    return &lt;TransactionItem transaction={transaction.tx} {...rest} /&gt;;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;&gt;
+      &lt;TransactionTransfers transaction={transaction} /&gt;
+      &lt;TransactionItem transaction={transaction.tx} {...rest} /&gt;
+    &lt;/&gt;
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -166,7 +154,7 @@ export function <span class="fstat-no" title="function not covered" >PendingLabe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Apr 26 2022 15:03:12 GMT+0000 (Coordinated Universal Time)
+                at Mon May 16 2022 13:00:49 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
