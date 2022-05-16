@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -109,7 +109,24 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -119,6 +136,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -155,18 +185,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { color, Stack, Text } from '@stacks/ui';
-import { sha256 } from 'sha.js';
-import { HashDrawer } from './hash-drawer';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ClarityValue, deserializeCV } from '@stacks/transactions';
+import { color, Stack, Text } from '@stacks/ui';
 import { useEffect, useState } from 'react';
+import { sha256 } from 'sha.js';
+import { ClarityValueListDisplayer } from './clarity-value-list';
+import { HashDrawer } from './hash-drawer';
+import { isStructuredMessage, SignatureMessage } from './sign-action';
 &nbsp;
-interface MessageBoxProps {
-  message: string;
-}
-export function <span class="fstat-no" title="function not covered" >MessageBox(</span>props: MessageBoxProps): JSX.Element | null {
-  const { message } = <span class="cstat-no" title="statement not covered" >props;</span>
+export function <span class="fstat-no" title="function not covered" >MessageBox(</span>props: SignatureMessage): JSX.Element | null {
+  const { message, messageType } = <span class="cstat-no" title="statement not covered" >props;</span>
+&nbsp;
   const [hash, setHash] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;();</span>
+  const [displayMessage, setDisplayMessage] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;();</span>
+  const [clarityValueMessage, setClarityValueMessage] = <span class="cstat-no" title="statement not covered" >useState&lt;ClarityValue | undefined&gt;();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (isStructuredMessage(messageType)) {</span>
+<span class="cstat-no" title="statement not covered" >      setClarityValueMessage(deserializeCV(Buffer.from(message, 'hex')));</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      setDisplayMessage(message);</span>
+    }
+  }, [message, messageType]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!message) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >    setHash(new sha256().update(message).digest('hex'));</span>
   }, [message]);
 &nbsp;
@@ -191,7 +238,11 @@ export function <span class="fstat-no" title="function not covered" >MessageBox(
           &gt;
             &lt;Stack spacing="base-tight"&gt;
               &lt;Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all"&gt;
-                {message}
+                {clarityValueMessage &amp;&amp; messageType === 'structured' ? (
+                  &lt;ClarityValueListDisplayer val={clarityValueMessage} encoding={'tryAscii'} /&gt;
+                ) : (
+                  displayMessage
+                )}
               &lt;/Text&gt;
             &lt;/Stack&gt;
           &lt;/Stack&gt;
@@ -208,7 +259,7 @@ export function <span class="fstat-no" title="function not covered" >MessageBox(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon May 16 2022 13:01:09 GMT+0000 (Coordinated Universal Time)
+                at Mon May 16 2022 16:43:41 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
