@@ -1,7 +1,13 @@
-import { logger } from '@shared/logger';
+import BigNumber from 'bignumber.js';
+import {
+  MempoolTokenTransferTransaction,
+  MempoolTransaction,
+} from '@stacks/stacks-blockchain-api-types';
+
 import { useTransactionsById } from '@app/query/transactions/transactions-by-id.query';
-import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
+import { logger } from '@shared/logger';
+
 import { useAccountMempool } from './mempool.query';
 
 const droppedCache = new Map();
@@ -46,4 +52,18 @@ export function useCurrentAccountMempool() {
       `Attempting to fetch from mempool with no address in ${useCurrentAccountFilteredMempoolTransactionsState.name}`
     );
   return useAccountMempool(address ?? '');
+}
+
+export function useCurrentAccountMempoolTransactionsBalance() {
+  const pendingTransactions = useCurrentAccountFilteredMempoolTransactionsState();
+  const tokenTransferTxsBalance = (
+    pendingTransactions.filter(
+      tx => tx.tx_type === 'token_transfer'
+    ) as unknown as MempoolTokenTransferTransaction[]
+  ).reduce((acc, tx) => acc.plus(tx.token_transfer.amount), new BigNumber(0));
+  const pendingTxsFeesBalance = pendingTransactions.reduce(
+    (acc, tx) => acc.plus(tx.fee_rate),
+    new BigNumber(0)
+  );
+  return tokenTransferTxsBalance.plus(pendingTxsFeesBalance);
 }

@@ -15,19 +15,22 @@ export const CollectibleAssets = memo((props: StackProps) => {
 
   return (
     <Stack {...props}>
-      {keys.map(key => {
-        const collectible = balances.non_fungible_tokens[key];
-        const { assetName, contractName } = getAssetStringParts(key);
-        return (
-          <AssetItem
-            amount={collectible.count}
-            avatar={key}
-            title={assetName}
-            caption={contractName}
-            key={key}
-          />
-        );
-      })}
+      {keys
+        .filter(key => Number(balances.non_fungible_tokens[key].count) > 0)
+        .map(key => {
+          const collectible = balances.non_fungible_tokens[key];
+          const { assetName, contractName } = getAssetStringParts(key);
+
+          return (
+            <AssetItem
+              amount={collectible.count}
+              avatar={key}
+              title={assetName}
+              caption={contractName}
+              key={key}
+            />
+          );
+        })}
     </Stack>
   );
 });

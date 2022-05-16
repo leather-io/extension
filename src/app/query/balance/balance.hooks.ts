@@ -34,7 +34,6 @@ export function useAddressBalances(address: string) {
       setAccountBalanceUnanchoredState(resp),
     keepPreviousData: false,
     useErrorBoundary: false,
-    refetchOnMount: false,
     suspense: false,
   });
 }

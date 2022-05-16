@@ -71,6 +71,24 @@ chrome.runtime.onConnect.addListener(port =>
             }
             break;
           }
+          case ExternalMethods.structuredDataSignatureRequest: {
+            const path = RouteUrls.SignatureRequest; // TODO refactor
+            const urlParams = new URLSearchParams();
+            if (!port.sender) return;
+            const { tab, url } = port.sender;
+            if (!tab?.id || !url) return;
+            const origin = new URL(url).origin;
+            urlParams.set('request', payload);
+            urlParams.set('tabId', tab.id.toString());
+            urlParams.set('origin', origin);
+            urlParams.set('messageType', 'structured');
+            if (IS_TEST_ENV) {
+              await openRequestInFullPage(path, urlParams);
+            } else {
+              popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
+            }
+            break;
+          }
           case ExternalMethods.signatureRequest: {
             const path = RouteUrls.SignatureRequest;
             const urlParams = new URLSearchParams();
@@ -81,6 +99,7 @@ chrome.runtime.onConnect.addListener(port =>
             urlParams.set('request', payload);
             urlParams.set('tabId', tab.id.toString());
             urlParams.set('origin', origin);
+            urlParams.set('messageType', 'utf8');
             if (IS_TEST_ENV) {
               await openRequestInFullPage(path, urlParams);
             } else {

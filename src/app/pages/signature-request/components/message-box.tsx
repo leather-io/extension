@@ -1,15 +1,28 @@
+import { ClarityValue, deserializeCV } from '@stacks/transactions';
 import { color, Stack, Text } from '@stacks/ui';
-import { sha256 } from 'sha.js';
-import { HashDrawer } from './hash-drawer';
 import { useEffect, useState } from 'react';
+import { sha256 } from 'sha.js';
+import { ClarityValueListDisplayer } from './clarity-value-list';
+import { HashDrawer } from './hash-drawer';
+import { isStructuredMessage, SignatureMessage } from './sign-action';
 
-interface MessageBoxProps {
-  message: string;
-}
-export function MessageBox(props: MessageBoxProps): JSX.Element | null {
-  const { message } = props;
+export function MessageBox(props: SignatureMessage): JSX.Element | null {
+  const { message, messageType } = props;
+
   const [hash, setHash] = useState<string | undefined>();
+  const [displayMessage, setDisplayMessage] = useState<string | undefined>();
+  const [clarityValueMessage, setClarityValueMessage] = useState<ClarityValue | undefined>();
+
   useEffect(() => {
+    if (isStructuredMessage(messageType)) {
+      setClarityValueMessage(deserializeCV(Buffer.from(message, 'hex')));
+    } else {
+      setDisplayMessage(message);
+    }
+  }, [message, messageType]);
+
+  useEffect(() => {
+    if (!message) return;
     setHash(new sha256().update(message).digest('hex'));
   }, [message]);
 
@@ -34,7 +47,11 @@ export function MessageBox(props: MessageBoxProps): JSX.Element | null {
           >
             <Stack spacing="base-tight">
               <Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all">
-                {message}
+                {clarityValueMessage && messageType === 'structured' ? (
+                  <ClarityValueListDisplayer val={clarityValueMessage} encoding={'tryAscii'} />
+                ) : (
+                  displayMessage
+                )}
               </Text>
             </Stack>
           </Stack>

@@ -62,10 +62,34 @@ const isValidEvent = (event: MessageEvent, method: MessageToContentScript['metho
   return correctSource && correctMethod && !!data.payload;
 };
 
-const provider: Omit<StacksProvider, 'structuredDataSignatureRequest'> = {
+const provider: StacksProvider = {
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
     return url;
+  },
+  structuredDataSignatureRequest: async signatureRequest => {
+    const event = new CustomEvent<SignatureRequestEventDetails>(
+      DomEventName.structuredDataSignatureRequest,
+      {
+        detail: { signatureRequest },
+      }
+    );
+    document.dispatchEvent(event);
+    return new Promise((resolve, reject) => {
+      const handleMessage = (event: MessageEvent<SignatureResponseMessage>) => {
+        if (!isValidEvent(event, ExternalMethods.signatureResponse)) return;
+        if (event.data.payload?.signatureRequest !== signatureRequest) return;
+        window.removeEventListener('message', handleMessage);
+        if (event.data.payload.signatureResponse === 'cancel') {
+          reject(event.data.payload.signatureResponse);
+          return;
+        }
+        if (typeof event.data.payload.signatureResponse !== 'string') {
+          resolve(event.data.payload.signatureResponse);
+        }
+      };
+      window.addEventListener('message', handleMessage);
+    });
   },
   signatureRequest: async signatureRequest => {
     const event = new CustomEvent<SignatureRequestEventDetails>(DomEventName.signatureRequest, {
@@ -143,7 +167,4 @@ const provider: Omit<StacksProvider, 'structuredDataSignatureRequest'> = {
   },
 };
 
-// Type casting to `any` as type from `@stacks/connect` expects the as-of-yet
-// unreleased `structuredDataSignatureRequest` method To be removed on release
-// of this feature, cc/ @beguene
-(window as any).StacksProvider = provider;
+window.StacksProvider = provider;
