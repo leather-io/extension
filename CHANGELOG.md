@@ -1,3 +1,10 @@
+# [3.9.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.0-beta.2...v3.9.0-beta.3) (2022-05-16)
+
+
+### Bug Fixes
+
+* hide nfts with zero balance ([67294a2](https://github.com/hirosystems/stacks-wallet-web/commit/67294a259ffca1b87323cb9c7d4e5419bc64430f))
+
 # [3.9.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.0-beta.1...v3.9.0-beta.2) (2022-05-16)
 
 
