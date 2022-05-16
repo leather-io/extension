@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Text } from '@stacks/ui';
 import { SignatureData, useConnect } from '@stacks/connect-react';
-import { verifyECDSA, hashMessage  } from '@stacks/encryption';
+import { verifyECDSA, hashMessage } from '@stacks/encryption';
 import { stacksTestnetNetwork as network } from '@common/utils';
 
 export const Signature = () => {
@@ -9,14 +9,19 @@ export const Signature = () => {
   const [signatureIsVerified, setSignatureIsVerified] = useState<boolean | undefined>();
   const [currentMessage, setCurrentMessage] = useState<string | undefined>();
   const signatureMessage = 'Hello world!';
-  const longSignatureMessage = 'Nullam eu ante vel est convallis dignissim.  Fusce suscipit, wisi nec facilisis facilisis, est dui fermentum leo, quis tempor ligula erat quis odio.  Nunc porta vulputate tellus.  Nunc rutrum turpis sed pede.  Sed bibendum.  Aliquam posuere.  Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa, quis varius mi purus non odio.  Pellentesque condimentum, magna ut suscipit hendrerit, ipsum augue ornare nulla, non luctus diam neque sit amet urna.  Curabitur vulputate vestibulum lorem.  Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla lacinia eros.  Sed id ligula quis est convallis tempor.  Curabitur lacinia pulvinar nibh.  Nam a sapien.'
+  const longSignatureMessage =
+    'Nullam eu ante vel est convallis dignissim.  Fusce suscipit, wisi nec facilisis facilisis, est dui fermentum leo, quis tempor ligula erat quis odio.  Nunc porta vulputate tellus.  Nunc rutrum turpis sed pede.  Sed bibendum.  Aliquam posuere.  Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa, quis varius mi purus non odio.  Pellentesque condimentum, magna ut suscipit hendrerit, ipsum augue ornare nulla, non luctus diam neque sit amet urna.  Curabitur vulputate vestibulum lorem.  Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla lacinia eros.  Sed id ligula quis est convallis tempor.  Curabitur lacinia pulvinar nibh.  Nam a sapien.';
   const { sign } = useConnect();
 
   useEffect(() => {
     if (!signature || !currentMessage) return;
-    const verified = verifyECDSA(hashMessage(currentMessage), signature.publicKey, signature.signature);
+    const verified = verifyECDSA(
+      hashMessage(currentMessage),
+      signature.publicKey,
+      signature.signature
+    );
     setSignatureIsVerified(verified);
-  }, [signature, currentMessage])
+  }, [signature, currentMessage]);
 
   const clearState = () => {
     setSignatureIsVerified(undefined);
@@ -26,7 +31,7 @@ export const Signature = () => {
   const signMessage = async (message: string) => {
     clearState();
     setCurrentMessage(message);
-    await sign ({
+    await sign({
       /* network: stacksMainnetNetwork, */
       network,
       message,
@@ -42,16 +47,18 @@ export const Signature = () => {
 
   return (
     <Box py={6}>
-
-      { signature && (
+      {signature && (
         <Text textStyle="body.large" display="block" my={'base'}>
-          <Text color="green" fontSize={1}> Signature {signatureIsVerified ? 'successfully ' : 'not'} verified</Text>
+          <Text color="green" fontSize={1}>
+            {' '}
+            Signature {signatureIsVerified ? 'successfully ' : 'not'} verified
+          </Text>
         </Text>
       )}
       <Button mt={3} onClick={() => signMessage(signatureMessage)}>
         Signature
       </Button>
-        <br />
+      <br />
       <Button mt={3} onClick={() => signMessage(longSignatureMessage)}>
         Signature (long message)
       </Button>
