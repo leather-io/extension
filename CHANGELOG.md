@@ -1,3 +1,10 @@
+## [3.8.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.0...v3.8.1-beta.1) (2022-05-16)
+
+
+### Bug Fixes
+
+* scrollbars from padding changes ([1dffe55](https://github.com/hirosystems/stacks-wallet-web/commit/1dffe55ddca70fca4e400a53999b9ee449b2667d))
+
 # [3.8.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.2...v3.8.0) (2022-05-16)
 
 
