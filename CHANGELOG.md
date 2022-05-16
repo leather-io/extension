@@ -1,3 +1,10 @@
+## [3.8.1-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.1-beta.1...v3.8.1-beta.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* use recoverable key format ([c80e651](https://github.com/hirosystems/stacks-wallet-web/commit/c80e6515d7c5a336b90d4a228c963f369fcdd122))
+
 ## [3.8.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.0...v3.8.1-beta.1) (2022-05-16)
 
 
