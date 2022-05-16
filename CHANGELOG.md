@@ -1,3 +1,10 @@
+# [3.9.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.1-beta.2...v3.9.0-beta.1) (2022-05-16)
+
+
+### Features
+
+* add signature for structured data, closes [#2387](https://github.com/hirosystems/stacks-wallet-web/issues/2387) ([23d9d9a](https://github.com/hirosystems/stacks-wallet-web/commit/23d9d9ac388ecf54f570be93f0b909cc662f0b2e))
+
 ## [3.8.1-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.1-beta.1...v3.8.1-beta.2) (2022-05-16)
 
 
