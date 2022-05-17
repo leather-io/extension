@@ -13,9 +13,11 @@ export interface HiroMessage {
   learnMoreText?: string;
 }
 
-interface ActiveFiatProviderType {
-  name: string;
+export interface ActiveFiatProvider {
   enabled: boolean;
+  hasFastCheckoutProcess: boolean;
+  name: string;
+  hasTradingFees: boolean;
 }
 
 interface FeeEstimationsConfig {
@@ -27,11 +29,12 @@ interface FeeEstimationsConfig {
 
 interface HiroConfig {
   messages: any;
-  activeFiatProviders?: Record<string, ActiveFiatProviderType>;
+  activeFiatProviders?: Record<string, ActiveFiatProvider>;
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const GITHUB_PRIMARY_BRANCH = 'main';
+// TODO: Change back to 'main' before merging
+const GITHUB_PRIMARY_BRANCH = 'refactor/buy-to-fund-page';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
@@ -56,7 +59,7 @@ export function useRemoteHiroMessages(): HiroMessage[] {
 
 export function useActiveFiatProviders() {
   const config = useRemoteHiroConfig();
-  if (!config?.activeFiatProviders) return {} as Record<string, ActiveFiatProviderType>;
+  if (!config?.activeFiatProviders) return {} as Record<string, ActiveFiatProvider>;
 
   return Object.fromEntries(
     Object.entries(config.activeFiatProviders).filter(([_, provider]) => provider.enabled)

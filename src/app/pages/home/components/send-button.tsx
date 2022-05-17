@@ -4,13 +4,13 @@ import { ButtonProps } from '@stacks/ui';
 
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 import { RouteUrls } from '@shared/route-urls';
-import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
 import { TxButton } from './tx-button';
 
 const SendTxButton = (props: ButtonProps) => (
   <TxButton
-    data-testid={WalletPageSelectors.BtnSendTokens}
+    data-testid={HomePageSelectors.BtnSendTokens}
     icon={FiArrowUp}
     route={RouteUrls.Send}
     type="Send"

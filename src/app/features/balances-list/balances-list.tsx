@@ -19,7 +19,7 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
   const { data: balances } = useCurrentAccountUnanchoredBalances();
   const navigate = useNavigate();
 
-  const handleFundAccount = useCallback(() => navigate(RouteUrls.Buy), [navigate]);
+  const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
 
   if (!balances) return null;
 

@@ -12,6 +12,8 @@ export const DEFAULT_FEE_RATE = 400;
 export const HUMAN_REACTION_DEBOUNCE_TIME = 250;
 
 export const IS_TEST_ENV = process.env.TEST_ENV === 'true';
+export const IS_PRODUCTION_ENV =
+  process.env.WALLET_ENVIRONMENT === 'production' || process.env.WALLET_ENVIRONMENT === 'preview';
 
 export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
 
