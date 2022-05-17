@@ -43,7 +43,7 @@ const onboardingSteps = [
     event: 'add_funds',
     imageFull: AddFundsFull,
     imagePopup: AddFundsPopup,
-    route: RouteUrls.Buy,
+    route: RouteUrls.Fund,
     routeType: RouteType.Internal,
     title: OnboardingSteps.AddFunds,
   },

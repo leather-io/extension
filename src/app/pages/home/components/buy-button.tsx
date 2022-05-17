@@ -6,15 +6,15 @@ import { ButtonProps } from '@stacks/ui';
 import { useHasFiatProviders } from '@app/query/hiro-config/hiro-config.query';
 import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
 import { RouteUrls } from '@shared/route-urls';
-import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
 import { TxButton } from './tx-button';
 
 const BuyTxButton = (props: ButtonProps) => (
   <TxButton
-    data-testid={BuyTokensSelectors.BtnBuyTokens}
+    data-testid={HomePageSelectors.BtnFundAccount}
     icon={FiPlus}
-    route={RouteUrls.Buy}
+    route={RouteUrls.Fund}
     type="Buy"
     {...props}
   />

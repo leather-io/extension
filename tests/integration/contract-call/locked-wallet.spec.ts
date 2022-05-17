@@ -24,7 +24,6 @@ describe('Locked wallet test', () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
     // switch to test net
     await selectTestnet(walletPage);
     pages = await WalletPage.getAllPages(browser);

@@ -7,12 +7,14 @@ import {
 } from '@shared/models/onboarding-types';
 
 interface OnboardingState {
-  hideSteps: boolean;
+  hasHiddenSteps: boolean;
+  hasSkippedFundAccount: boolean;
   stepsStatus: OnboardingStepsStatus;
 }
 
 const initialState: OnboardingState = {
-  hideSteps: false,
+  hasHiddenSteps: false,
+  hasSkippedFundAccount: false,
   stepsStatus: {
     [OnboardingSteps.BackUpSecretKey]: OnboardingStepStatus.Done,
     [OnboardingSteps.AddFunds]: OnboardingStepStatus.Start,
@@ -26,7 +28,10 @@ export const onboardingSlice = createSlice({
   initialState,
   reducers: {
     hideSteps(state, action: PayloadAction<boolean>) {
-      state.hideSteps = action.payload;
+      state.hasHiddenSteps = action.payload;
+    },
+    skipFundAccount(state, action: PayloadAction<boolean>) {
+      state.hasSkippedFundAccount = action.payload;
     },
     updateStepsStatus(state, action: PayloadAction<OnboardingStepsStatus>) {
       state.stepsStatus = action.payload;
