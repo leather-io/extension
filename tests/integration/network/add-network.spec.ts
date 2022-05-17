@@ -21,7 +21,6 @@ describe('Buy tokens test', () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
     await walletPage.clickSettingsButton();
     await walletPage.page.click(createTestSelector(SettingsSelectors.ChangeNetworkAction));
     await walletPage.page.click(createTestSelector(SettingsSelectors.BtnAddNetwork));

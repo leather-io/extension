@@ -13,12 +13,13 @@ import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 interface HeaderProps extends FlexProps {
-  onClose?: () => void;
+  actionButton?: JSX.Element;
   hideActions?: boolean;
+  onClose?(): void;
   title?: string;
 }
 export const Header: React.FC<HeaderProps> = memo(props => {
-  const { onClose, title, hideActions, ...rest } = props;
+  const { actionButton, hideActions, onClose, title, ...rest } = props;
   const { showSettings, setShowSettings } = useDrawers();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -114,6 +115,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
             pointerEvents={showSettings ? 'none' : 'all'}
           />
         )}
+        {actionButton ? actionButton : null}
       </Stack>
     </Flex>
   );
