@@ -12,7 +12,7 @@ import { OnboardingSteps, OnboardingStepStatus } from '@shared/models/onboarding
 
 export function useOnboardingSteps() {
   const dispatch = useAppDispatch();
-  const hideOnboardingSteps = useHideSteps();
+  const hasHiddenSteps = useHideSteps();
   const onboardingStepsStatus = useStepsStatus();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const { data: balances } = useCurrentAccountUnanchoredBalances();
@@ -44,7 +44,7 @@ export function useOnboardingSteps() {
   }, [onboardingStepsStatus]);
 
   const showOnboardingSteps =
-    accounts?.length === 1 && !hasCompletedOnboardingSteps && !hideOnboardingSteps;
+    accounts?.length === 1 && !hasCompletedOnboardingSteps && !hasHiddenSteps;
 
   return {
     showOnboardingSteps,

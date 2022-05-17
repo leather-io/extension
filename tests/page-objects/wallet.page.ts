@@ -2,9 +2,8 @@ import { Page } from 'playwright-core';
 
 import { RouteUrls } from '@shared/route-urls';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { BuyTokensSelectors } from '@tests/page-objects/buy-tokens-selectors';
 
 import {
   createTestSelector,
@@ -14,27 +13,27 @@ import {
   timeDifference,
 } from '../integration/utils';
 import { WalletPageSelectors } from './wallet.selectors';
+import { FundPageSelectors } from './fund.selectors';
 
+// TODO: This Page needs to be cleaned up -> create a HomePage?
+// Should we create one Page for each route?
 export class WalletPage {
   static url = 'http://localhost:8081/index.html#';
   $signUpButton = createTestSelector(OnboardingSelectors.SignUpBtn);
   $signInButton = createTestSelector(OnboardingSelectors.SignInLink);
   $analyticsAllowButton = createTestSelector(OnboardingSelectors.AnalyticsAllowBtn);
   $analyticsDenyButton = createTestSelector(OnboardingSelectors.AnalyticsDenyBtn);
-  homePage = createTestSelector('home-page');
+  $homePageContainer = createTestSelector(HomePageSelectors.HomePageContainer);
   $secretKey = createTestSelector(OnboardingSelectors.SecretKey);
   $buttonSignInKeyContinue = createTestSelector(OnboardingSelectors.SignInBtn);
   setPasswordDone = createTestSelector(OnboardingSelectors.SetPasswordBtn);
   $passwordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
   $newPasswordInput = createTestSelector(OnboardingSelectors.NewPasswordInput);
   $confirmPasswordInput = createTestSelector(OnboardingSelectors.ConfirmPasswordInput);
-  sendTokenBtnSelector = createTestSelector(WalletPageSelectors.BtnSendTokens);
-  buyTokenBtnSelector = createTestSelector(BuyTokensSelectors.BtnBuyTokens);
+  $sendTokenBtn = createTestSelector(HomePageSelectors.BtnSendTokens);
+  $fundAccountBtn = createTestSelector(HomePageSelectors.BtnFundAccount);
   $confirmBackedUpSecretKey = createTestSelector(OnboardingSelectors.BackUpSecretKeyBtn);
-  lowerCharactersErrMsg =
-    'text="You can only use lowercase letters (a–z), numbers (0–9), and underscores (_)."';
-  signInKeyError = createTestSelector('sign-in-seed-error');
-  password = 'mysecretreallylongpassword';
+  $password = 'mysecretreallylongpassword';
   $settingsButton = createTestSelector(SettingsSelectors.MenuBtn);
   $contractCallButton = createTestSelector('btn-contract-call');
   $settingsViewSecretKey = createTestSelector(SettingsSelectors.ViewSecretKeyListItem);
@@ -54,6 +53,7 @@ export class WalletPage {
   $onboardingStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
   $onboardingStepDoneBadge = createTestSelector(OnboardingSelectors.StepItemDone);
   $noAssetsFundAccountLink = createTestSelector(OnboardingSelectors.NoAssetsFundAccountLink);
+  $skipFundAccountBtn = createTestSelector(FundPageSelectors.BtnSkipFundAccount);
 
   page: Page;
 
@@ -105,12 +105,16 @@ export class WalletPage {
     await this.page.click(this.$hideStepsBtn);
   }
 
+  async clickSkipFundAccountButton() {
+    await this.page.click(this.$skipFundAccountBtn);
+  }
+
   async waitForSettingsButton() {
     await this.page.waitForSelector(this.$settingsButton, { timeout: 30000 });
   }
 
   async waitForHomePage() {
-    await this.page.waitForSelector(this.$homePageBalancesList, { timeout: 30000 });
+    await this.page.waitForSelector(this.$homePageContainer, { timeout: 30000 });
   }
 
   async waitForNewPasswordInput() {
@@ -123,10 +127,6 @@ export class WalletPage {
 
   async waitForEnterPasswordInput() {
     await this.page.waitForSelector(this.$enterPasswordInput, { timeout: 30000 });
-  }
-
-  async waitForMainHomePage() {
-    await this.page.waitForSelector(this.homePage, { timeout: 30000 });
   }
 
   async waitForHiroWalletLogo() {
@@ -187,14 +187,14 @@ export class WalletPage {
   async enterNewPassword(password?: string) {
     await this.page.fill(
       `input[data-testid=${OnboardingSelectors.NewPasswordInput}]`,
-      password ?? this.password
+      password ?? this.$password
     );
   }
 
   async enterConfirmPasswordAndClickDone(password?: string) {
     await this.page.fill(
       `input[data-testid=${OnboardingSelectors.ConfirmPasswordInput}]`,
-      password ?? this.password
+      password ?? this.$password
     );
     await this.page.click(this.setPasswordDone);
   }
@@ -202,7 +202,7 @@ export class WalletPage {
   async enterPasswordAndUnlockWallet(password?: string) {
     await this.page.fill(
       `input[data-testid=${SettingsSelectors.EnterPasswordInput}]`,
-      password ?? this.password
+      password ?? this.$password
     );
     await this.page.click(this.$unlockWalletBtn);
   }
@@ -213,11 +213,11 @@ export class WalletPage {
   }
 
   async goToSendForm() {
-    await this.page.click(this.sendTokenBtnSelector);
+    await this.page.click(this.$sendTokenBtn);
   }
 
-  async goToBuyForm() {
-    await this.page.click(this.buyTokenBtnSelector);
+  async goToFundPage() {
+    await this.page.click(this.$fundAccountBtn);
   }
 
   async waitForMagicRecoveryMessage() {
@@ -225,7 +225,7 @@ export class WalletPage {
   }
 
   async waitForSendButton() {
-    await this.page.waitForSelector(this.sendTokenBtnSelector, { timeout: 30000 });
+    await this.page.waitForSelector(this.$sendTokenBtn, { timeout: 30000 });
   }
 
   /** Sign up with a randomly generated seed phrase */
@@ -233,6 +233,7 @@ export class WalletPage {
     await this.clickDenyAnalytics();
     await this.clickSignUp();
     await this.backUpKeyAndSetPassword();
+    await this.clickSkipFundAccountButton();
     await this.waitForHomePage();
   }
 
@@ -253,7 +254,7 @@ export class WalletPage {
     startTime = new Date();
     await this.enterNewPassword(password);
     await this.enterConfirmPasswordAndClickDone(password);
-    await this.waitForMainHomePage();
+    await this.waitForHomePage();
     console.log(
       `Page load time for sign in with password: ${timeDifference(startTime, new Date())} seconds`
     );

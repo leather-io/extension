@@ -3,9 +3,72 @@
     "global": []
   },
   "activeFiatProviders": {
-    "moonpay": { "name": "moonpay", "enabled": true },
-    "transak": { "name": "transak", "enabled": true },
-    "okcoin": { "name": "okcoin", "enabled": true }
+    "moonPay": {
+      "enabled": true,
+      "hasFastCheckoutProcess": true,
+      "name": "MoonPay",
+      "hasTradingFees": false
+    },
+    "transak": {
+      "enabled": true,
+      "hasFastCheckoutProcess": true,
+      "name": "Transak",
+      "hasTradingFees": true
+    },
+    "okcoin": {
+      "enabled": true,
+      "hasFastCheckoutProcess": true,
+      "name": "Okcoin",
+      "hasTradingFees": true
+    },
+    "binance": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "Binance",
+      "hasTradingFees": true
+    },
+    "blockchainCom": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "Blockchain.com",
+      "hasTradingFees": true
+    },
+    "byBit": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "ByBit",
+      "hasTradingFees": true
+    },
+    "coinbase": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "Coinbase",
+      "hasTradingFees": true
+    },
+    "cryptoCom": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "Crypto.com",
+      "hasTradingFees": true
+    },
+    "gateIo": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "Gate.io",
+      "hasTradingFees": true
+    },
+    "kuCoin": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "KuCoin",
+      "hasTradingFees": true
+    },
+    "okx": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "OKX",
+      "hasTradingFees": true
+    }
   },
   "feeEstimations": {
     "maxValues": [500000, 750000, 2000000],
