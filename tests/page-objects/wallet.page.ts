@@ -39,8 +39,7 @@ export class WalletPage {
   $contractCallButton = createTestSelector('btn-contract-call');
   $settingsViewSecretKey = createTestSelector(SettingsSelectors.ViewSecretKeyListItem);
   $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
-  $createAccountButton = createTestSelector(SettingsSelectors.BtnCreateAccount);
-  $createAccountDone = createTestSelector(SettingsSelectors.BtnCreateAccountDone);
+  $createAccountButton = createTestSelector(SettingsSelectors.CreateAccountBtn);
   $statusMessage = createTestSelector(WalletPageSelectors.StatusMessage);
   $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
   $signOutConfirmHasBackupCheckbox = createTestSelector(
@@ -104,6 +103,10 @@ export class WalletPage {
 
   async clickHideSteps() {
     await this.page.click(this.$hideStepsBtn);
+  }
+
+  async waitForSettingsButton() {
+    await this.page.waitForSelector(this.$settingsButton, { timeout: 30000 });
   }
 
   async waitForHomePage() {
