@@ -37,12 +37,4 @@ describe(`Wallet Balance integration tests`, () => {
     const actualAmount = stxAmount && getAmount(stxAmount);
     expect(actualAmount).toBeGreaterThan(0);
   });
-
-  it('Check rocket token balance is greater than 0', async () => {
-    const rocketAmount = await wallet.page.textContent(
-      createTestSelector(BalanceSelectors.RocketToken)
-    );
-    const actualAmount = rocketAmount && getAmount(rocketAmount);
-    expect(actualAmount).toBeGreaterThan(0);
-  });
 });
