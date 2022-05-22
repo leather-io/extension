@@ -2,17 +2,12 @@ import { memo } from 'react';
 import { Stack } from '@stacks/ui';
 
 import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
-import { getUrlHostname, getUrlPort } from '@app/common/utils';
+import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Caption, Title } from '@app/components/typography';
 import { usePageTitle } from '@app/pages/transaction-request/hooks/use-page-title';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useOrigin } from '@app/store/transactions/requests.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
-
-function addPortSuffix(url: string) {
-  const port = getUrlPort(url);
-  return port ? `:${port}` : '';
-}
 
 function PageTopBase(): JSX.Element | null {
   const transactionRequest = useTransactionRequestState();

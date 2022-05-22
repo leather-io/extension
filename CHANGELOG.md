@@ -1,3 +1,43 @@
+# [3.9.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.0...v3.9.0) (2022-05-16)
+
+
+### Bug Fixes
+
+* hide nfts with zero balance ([67294a2](https://github.com/hirosystems/stacks-wallet-web/commit/67294a259ffca1b87323cb9c7d4e5419bc64430f))
+* refetch account balance ([20f11cb](https://github.com/hirosystems/stacks-wallet-web/commit/20f11cb62dc35416df6defd64bc29ad89dae8dfd))
+* scrollbars from padding changes ([1dffe55](https://github.com/hirosystems/stacks-wallet-web/commit/1dffe55ddca70fca4e400a53999b9ee449b2667d))
+* subtract pending txs from send max balance ([8de6523](https://github.com/hirosystems/stacks-wallet-web/commit/8de65235cbc4c015d6dc8e0967f5b05ac6dd9907))
+* use recoverable key format ([c80e651](https://github.com/hirosystems/stacks-wallet-web/commit/c80e6515d7c5a336b90d4a228c963f369fcdd122))
+
+
+### Features
+
+* add signature for structured data, closes [#2387](https://github.com/hirosystems/stacks-wallet-web/issues/2387) ([23d9d9a](https://github.com/hirosystems/stacks-wallet-web/commit/23d9d9ac388ecf54f570be93f0b909cc662f0b2e))
+
+# [3.8.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.2...v3.8.0) (2022-05-16)
+
+
+### Bug Fixes
+
+* choose account padding ([13d091e](https://github.com/hirosystems/stacks-wallet-web/commit/13d091eeaa2931e571f142bfe01010ad9863fc52))
+* disable confirm button until fees are loaded ([0500796](https://github.com/hirosystems/stacks-wallet-web/commit/05007964d07d1f7eec3f3e54fe1e1038c24a5e2f))
+* error message page ([228e9b7](https://github.com/hirosystems/stacks-wallet-web/commit/228e9b7f5118e3a0073a10065bff023104b8c971))
+* scrollbars from padding changes ([1038ddb](https://github.com/hirosystems/stacks-wallet-web/commit/1038ddbc9aeef83f57238ac22bf9fd3d02f78410))
+* transaction page, keep padding at all breakpoints ([feebd62](https://github.com/hirosystems/stacks-wallet-web/commit/feebd62e0eab314eb238a6cbf546299db6bba2e6))
+
+
+### Features
+
+* add arbitrary message signing ([cfb28e8](https://github.com/hirosystems/stacks-wallet-web/commit/cfb28e8d8eaef7db56741cdcff321129dac368f9)), closes [#1051](https://github.com/hirosystems/stacks-wallet-web/issues/1051)
+* update NFTs URL ([5bd221a](https://github.com/hirosystems/stacks-wallet-web/commit/5bd221a1b2b44633ce8041bc04c7554d126723fc))
+
+## [3.7.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.1...v3.7.2) (2022-04-26)
+
+
+### Bug Fixes
+
+* error message page ([e579961](https://github.com/hirosystems/stacks-wallet-web/commit/e5799617b9229bf5a6da4db6948f26a810292ab3))
+
 ## [3.7.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.0...v3.7.1) (2022-04-25)
 
 

@@ -56,6 +56,7 @@ export const Debugger = () => {
     setTxType(type);
   };
 
+
   // If need to add more test tokens: STW7PFH79HW1C9Z0SXBP5PTPHKZZ58KK9WP1MZZA
   const handleSponsoredTransactionBroadcast = async (tx: StacksTransaction) => {
     const sponsorOptions = {

@@ -3,6 +3,7 @@ export const userHasAllowedDiagnosticsKey = 'stacks-wallet-has-allowed-diagnosti
 export enum StorageKey {
   'authenticationRequests',
   'transactionRequests',
+  'signatureRequests',
 }
 
 interface RequestInfo {
