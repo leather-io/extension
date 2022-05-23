@@ -1,4 +1,9 @@
-import {addAPINetwork, BrowserDriver, createTestSelector, setupBrowser} from '@tests/integration/utils';
+import {
+  addAPINetwork,
+  BrowserDriver,
+  createTestSelector,
+  setupBrowser,
+} from '@tests/integration/utils';
 import { WalletPage } from '@tests/page-objects/wallet.page';
 import { RouteUrls } from '@shared/route-urls';
 import { BalanceSelectors } from '@tests/integration/balance.selectors';
