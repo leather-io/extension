@@ -16,7 +16,7 @@ const manifest = {
   author: 'Hiro PBC',
   description:
     'Hiro Wallet is a safe way to manage your STX, sign into apps, and protect your funds while interacting with Clarity smart contracts.',
-  permissions: ['contextMenus', 'storage'],
+  permissions: ['contextMenus', 'storage', 'webRequest', 'webRequestBlocking', '*://*/*'],
   manifest_version: 2,
   background: {
     scripts: ['background.js'],
