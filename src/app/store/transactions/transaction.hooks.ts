@@ -178,7 +178,7 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
   return makeStandardFungiblePostCondition(
     stxAddress,
     FungibleConditionCode.Equal,
-    new BN(amount, 10),
+    new BN(amount, 10).toString(),
     assetInfo
   );
 }

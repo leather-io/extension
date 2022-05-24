@@ -3200,13 +3200,6 @@
     "@types/node" "^14.14.43"
     buffer "^6.0.3"
 
-"@stacks/common@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@stacks/common/-/common-1.2.2.tgz#1365ffb0f8bd9e4cd194c63c65a1bb2c83876ba1"
-  integrity sha512-knCqq88EBRCN8AhS7+Sx2PJuRv0EFNChEpqLqCAchCHCQfp5bWad/47Zw+fLP9ccBwFXh4pl1wDtbQLBfDo0+A==
-  dependencies:
-    cross-fetch "^3.0.6"
-
 "@stacks/connect-react@17.0.1":
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-17.0.1.tgz#0253ae4a619fc2e22c8216e1794aea3f9f2fabb0"
@@ -3268,7 +3261,7 @@
     eslint-plugin-import ">=2.23.3"
     eslint-plugin-prettier "4.0.0"
 
-"@stacks/network@4.1.0", "@stacks/network@^1.2.2", "@stacks/network@^4.1.0":
+"@stacks/network@4.1.0", "@stacks/network@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@stacks/network/-/network-4.1.0.tgz#97ed43b7a5371297bb0336c10bc17e524e0d54b2"
   integrity sha512-vZoqBkMPUtPqdkW0oluzSQrJFFz2CThpTP2wgJLm3Aps+9TFJ3IXbZiN+8uKVpnd4ebDl9jaLwYZKOtF5ulg1Q==
@@ -3338,7 +3331,7 @@
     "@stacks/network" "^4.1.0"
     jsontokens "^3.0.0"
 
-"@stacks/transactions@4.1.0", "@stacks/transactions@^4.1.0":
+"@stacks/transactions@4.1.0", "@stacks/transactions@^1.0.1", "@stacks/transactions@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-4.1.0.tgz#f8cbf715bd0279c4236435926b640da435ed30e6"
   integrity sha512-NS3DkZh8WziUQaze6RY5ft1v5bmq1wHjYEoCMzzhdreJ+Sp74ZADaO38fQQGcEcVdOhcM31k2oh6DgJEmBXVUQ==
@@ -3351,28 +3344,6 @@
     "@types/sha.js" "^2.4.0"
     c32check "^1.1.3"
     lodash.clonedeep "^4.5.0"
-    ripemd160-min "^0.0.6"
-    sha.js "^2.4.11"
-    smart-buffer "^4.1.0"
-
-"@stacks/transactions@^1.0.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-1.4.1.tgz#7b1d046051065a28707bac58c39d021fa49575f4"
-  integrity sha512-7LFA9yQqlmN+oVJeYaj+NfZyuInJxF8ozJ8kypCmJ9rUrbbGC/es1KyseB96YBiiOh4eLUfRlD1j6boSdNR8aA==
-  dependencies:
-    "@stacks/common" "^1.2.2"
-    "@stacks/network" "^1.2.2"
-    "@types/bn.js" "^4.11.6"
-    "@types/elliptic" "^6.4.12"
-    "@types/randombytes" "^2.0.0"
-    "@types/sha.js" "^2.4.0"
-    bn.js "^4.11.9"
-    c32check "^1.1.1"
-    cross-fetch "^3.0.5"
-    elliptic "^6.5.3"
-    lodash "^4.17.20"
-    lodash-es "4.17.20"
-    randombytes "^2.1.0"
     ripemd160-min "^0.0.6"
     sha.js "^2.4.11"
     smart-buffer "^4.1.0"
@@ -6088,16 +6059,6 @@ array.prototype.flat@^1.2.5:
     es-abstract "^1.19.2"
     es-shim-unscopables "^1.0.0"
 
-array.prototype.flatmap@^1.2.5:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/array.prototype.flatmap/-/array.prototype.flatmap-1.3.0.tgz#a7e8ed4225f4788a70cd910abcf0791e76a5534f"
-  integrity sha512-PZC9/8TKAIxcWKdyeb77EzULHPrIX/tIZebLJUQOMR1OwYosT8yggdfWScfTBCDj5utONvOuPQQumYsU2ULbkg==
-  dependencies:
-    call-bind "^1.0.2"
-    define-properties "^1.1.3"
-    es-abstract "^1.19.2"
-    es-shim-unscopables "^1.0.0"
-
 arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
@@ -6177,20 +6138,19 @@ atomic-sleep@^1.0.0:
   resolved "https://registry.yarnpkg.com/atomic-sleep/-/atomic-sleep-1.0.0.tgz#eb85b77a601fc932cfe432c5acd364a9e2c9075b"
   integrity sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
 
-audit-ci@5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/audit-ci/-/audit-ci-5.1.2.tgz#2e9a6c23c8511d8f79f6fde18d042ebc1bdec881"
-  integrity sha512-FNBbo4ycoHxcS7ruNNkq3LB+fZ4UWDd0QUNAva7Ae/F/Y45BBA7ZfHPSr5Fr+tS2+eqSwxToeFRRnw2Tp2PE8Q==
+audit-ci@6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/audit-ci/-/audit-ci-6.3.0.tgz#7c9048fda4e7ff93d44edd11920d1a7cd1805f56"
+  integrity sha512-rVCn4J7SUMQw2A21E3PPLzMz70A5RqWIx5BzvuU0iKeEGuuC6vGE00eeo4mFEnr439WdvI9i2lCXnmgABqLSeQ==
   dependencies:
     JSONStream "^1.3.5"
-    array.prototype.flatmap "^1.2.5"
     cross-spawn "^7.0.3"
     escape-string-regexp "^4.0.0"
     event-stream "4.0.1"
     jju "^1.4.0"
     readline-transform "1.0.0"
     semver "^7.0.0"
-    yargs "^16.0.0"
+    yargs "^17.0.0"
 
 available-typed-arrays@^1.0.5:
   version "1.0.5"
@@ -12634,11 +12594,6 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash-es@4.17.20:
-  version "4.17.20"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.20.tgz#29f6332eefc60e849f869c264bc71126ad61e8f7"
-  integrity sha512-JD1COMZsq8maT6mnuz1UMV0jvYD0E0aUsSOdrr1/nAG3dhqQXwRRgeW0cSqH1U43INKcqxaiVIQNOUDld7gRDA==
-
 lodash-es@^4.17.15, lodash-es@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
@@ -17817,7 +17772,7 @@ yargs@^15.4.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
-yargs@^17.0.1:
+yargs@^17.0.0, yargs@^17.0.1:
   version "17.5.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.5.1.tgz#e109900cab6fcb7fd44b1d8249166feb0b36e58e"
   integrity sha512-t6YAJcxDkNX7NFYiVtKvWUz8l+PaKTLiL63mJYWR2GnHq2gjEWISzsLp9wg3aY36dY1j+gfIEL3pIF+XlJJfbA==
