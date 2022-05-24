@@ -3,7 +3,6 @@ import { gaiaUrl } from '@shared/constants';
 import { createWalletGaiaConfig, generateWallet } from '@stacks/wallet-sdk';
 import { GaiaHubConfig, uploadToGaiaHub } from '@stacks/storage';
 import { decryptContent, encryptContent, getPublicKeyFromPrivate } from '@stacks/encryption';
-import { fetchPrivate } from '@stacks/common';
 
 const walletSaltBackup = 'wallet-salt-backup';
 
@@ -29,7 +28,7 @@ async function fetchWalletMigrationData({
   gaiaHubConfig: GaiaHubConfig;
 }) {
   try {
-    const response = await fetchPrivate(
+    const response = await fetch(
       `${gaiaHubConfig.url_prefix}${gaiaHubConfig.address}/wallet-migration-data.json`
     );
     if (!response.ok) return null;
