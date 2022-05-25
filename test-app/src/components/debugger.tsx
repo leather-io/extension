@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BN from 'bn.js';
 import { useConnect } from '@stacks/connect-react';
-import { StacksTestnet } from '@stacks/network';
+import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import {
   broadcastTransaction,
   bufferCV,
@@ -285,6 +285,7 @@ export const Debugger = () => {
       },
     });
   };
+
   const sendRocketTokens = async () => {
     clearState();
     await doContractCall({
@@ -319,6 +320,38 @@ export const Debugger = () => {
     });
   };
 
+  const sendMiamiTokens = async () => {
+    clearState();
+    await doContractCall({
+      network: new StacksMainnet(),
+      contractAddress: 'SP466FNC0P7JWTNM2R9T199QRZN1MYEDTAR0KP27',
+      contractName: 'miamicoin-token',
+      functionName: 'transfer',
+      functionArgs: [
+        uintCV(1), // amount
+        standardPrincipalCV(address || ''), // sender
+        standardPrincipalCV('ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3'), // recipient
+      ],
+      postConditions: [
+        makeStandardFungiblePostCondition(
+          address || '',
+          FungibleConditionCode.Equal,
+          new BN(1),
+          createAssetInfo(
+            'SP466FNC0P7JWTNM2R9T199QRZN1MYEDTAR0KP27',
+            'miamicoin-token',
+            'miami-token'
+          )
+        ),
+      ],
+      onFinish: data => {
+        setState('Token Faucet', data.txId);
+      },
+      onCancel: () => {
+        console.log('popup closed!');
+      },
+    });
+  };
   return (
     <Box py={6}>
       <Text as="h2" textStyle="display.small">
@@ -382,6 +415,9 @@ export const Debugger = () => {
           </Button>
           <Button mt={3} onClick={sendRocketTokens}>
             Send Rocket tokens
+          </Button>
+          <Button mt={3} onClick={sendMiamiTokens}>
+            Send Miami tokens
           </Button>
           <Button mt={3} onClick={callNullContract}>
             Non-existent contract

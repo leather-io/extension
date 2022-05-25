@@ -12,10 +12,12 @@ export interface Asset {
   subBalance?: BigNumber;
 }
 
-interface FtMeta {
+export interface FtMeta {
   name: string;
   symbol: string;
   decimals: number;
+  image_uri?: string;
+  image_canonical_uri?: string;
 }
 
 export interface NftMeta {

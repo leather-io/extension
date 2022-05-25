@@ -7,6 +7,7 @@ import { AssetItem } from '@app/components/asset-item';
 import { formatContractId, getTicker } from '@app/common/utils';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 import { BigNumber } from 'bignumber.js';
+import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
 
 interface AssetRowProps extends StackProps {
   asset: AssetWithMeta;
@@ -31,6 +32,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
   const amount = valueFromBalance(correctBalance);
   const subAmount = subBalance && valueFromBalance(subBalance);
   const isDifferent = subBalance && !correctBalance.isEqualTo(subBalance);
+  const imageCanonicalUri = imageCanonicalUriFromFtMetadata(meta);
 
   return (
     <AssetItem
@@ -42,6 +44,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
           ? `${formatContractId(contractAddress, contractName)}::${name}`
           : name
       }
+      imageCanonicalUri={imageCanonicalUri}
       title={friendlyName}
       caption={symbol}
       amount={amount}
