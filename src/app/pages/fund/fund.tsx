@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
@@ -57,5 +57,10 @@ export function FundPage() {
   if (isOnboarding && availableStxBalance?.isGreaterThan(0))
     return <Navigate to={RouteUrls.Home} />;
 
-  return <FundLayout address={currentAccount.address} />;
+  return (
+    <>
+      <FundLayout address={currentAccount.address} />
+      <Outlet />
+    </>
+  );
 }

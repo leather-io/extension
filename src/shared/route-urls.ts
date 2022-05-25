@@ -12,6 +12,7 @@ export enum RouteUrls {
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
   Fund = '/fund',
+  FundReceive = '/fund/receive',
   Receive = '/receive',
   Send = '/send',
   SignOutConfirm = '/sign-out',
