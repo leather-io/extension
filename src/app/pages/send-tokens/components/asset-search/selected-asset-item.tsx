@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { Box, ChevronIcon, Text, color, Stack, BoxProps } from '@stacks/ui';
 
-import { formatContractId } from '@app/common/utils';
 import { AssetAvatar } from '@app/components/stx-avatar';
 import { Caption } from '@app/components/typography';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import { gradientStringForAsset, imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
 
 interface SelectedAssetItemProps extends BoxProps {
   hideArrow?: boolean;
@@ -15,9 +15,9 @@ export const SelectedAssetItem = memo(
     const { name, selectedAsset, ticker } = useSelectedAsset();
 
     if (!selectedAsset) return null;
-    const { contractAddress, contractName, name: _name } = selectedAsset;
     const isStx = name === 'Stacks Token';
-    const gradientString = `${formatContractId(contractAddress, contractName)}::${_name}`;
+    const gradientString = gradientStringForAsset(selectedAsset);
+    const imageCanonicalUri = imageCanonicalUriFromFtMetadata(selectedAsset.meta);
 
     return (
       <Box
@@ -35,6 +35,7 @@ export const SelectedAssetItem = memo(
           <AssetAvatar
             useStx={isStx}
             gradientString={gradientString}
+            imageCanonicalUri={imageCanonicalUri}
             mr="tight"
             size="36px"
             color="white"
