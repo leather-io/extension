@@ -33,17 +33,25 @@ interface AssetProps extends BoxProps {
   gradientString: string;
   useStx: boolean;
   isUnanchored?: boolean;
+  imageCanonicalUri?: string;
 }
 export const AssetAvatar = ({
   useStx,
   isUnanchored,
   gradientString,
   children,
+  imageCanonicalUri,
   ...props
 }: AssetProps) => {
   if (useStx) {
     return <StxAvatar {...props} />;
   }
+  const { size } = props;
+  const imageDimension = (size && +size) || '36px';
+  if (imageCanonicalUri)
+    return (
+      <img width={imageDimension} height={imageDimension} src={encodeURI(imageCanonicalUri)} />
+    );
   return (
     <DynamicColorCircle {...props} string={gradientString}>
       {children}

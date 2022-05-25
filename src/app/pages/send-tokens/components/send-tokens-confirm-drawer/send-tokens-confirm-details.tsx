@@ -1,10 +1,11 @@
 import { Flex, StackProps } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
 
+import { iconStringForAsset } from '@app/common/token-utils';
 import { EventCard } from '@app/components/event-card';
+import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 
 interface SendTokensConfirmDetailsProps extends StackProps {
   amount: number | string;
@@ -17,7 +18,8 @@ export function SendTokensConfirmDetails(props: SendTokensConfirmDetailsProps): 
   const { ticker } = useSelectedAsset();
   const currentAccount = useCurrentAccount();
   const { selectedAsset } = useSelectedAsset();
-  const gradientString = `${selectedAsset?.contractAddress}.${selectedAsset?.contractName}::${selectedAsset?.name}`;
+  const icon = iconStringForAsset(selectedAsset);
+
   return (
     <Flex
       border="4px solid"
@@ -30,7 +32,7 @@ export function SendTokensConfirmDetails(props: SendTokensConfirmDetailsProps): 
     >
       <EventCard
         amount={amount}
-        icon={selectedAsset?.contractAddress ? gradientString : 'STX'}
+        icon={icon}
         ticker={ticker || 'STX'}
         title="You will transfer exactly"
         left={
