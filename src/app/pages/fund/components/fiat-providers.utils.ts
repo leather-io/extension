@@ -67,31 +67,19 @@ function makeTransakUrl(address: string) {
   )}&defaultPaymentMethod=credit_debit_card&walletAddress=${address}`;
 }
 
-export function getProviderUrl(address: string, provider: string) {
-  switch (provider) {
-    case ActiveFiatProviders.Binance:
-      return '';
-    case ActiveFiatProviders.BlockchainCom:
-      return '';
-    case ActiveFiatProviders.ByBit:
-      return '';
-    case ActiveFiatProviders.Coinbase:
-      return '';
-    case ActiveFiatProviders.CryptoCom:
-      return '';
-    case ActiveFiatProviders.GateIo:
-      return '';
-    case ActiveFiatProviders.KuCoin:
-      return '';
+function makeGenericExternalUrl(address: string, provider: string) {
+  return `https://hiro.so/wallet-faq/exchange-purchase?provider=${provider}&address=${address}`;
+}
+
+export function getProviderUrl(address: string, providerKey: string, providerName: string) {
+  switch (providerKey) {
     case ActiveFiatProviders.MoonPay:
       return makeMoonPayUrl(address);
     case ActiveFiatProviders.Okcoin:
       return makeOkcoinUrl(address);
-    case ActiveFiatProviders.Okx:
-      return '';
     case ActiveFiatProviders.Transak:
       return makeTransakUrl(address);
     default:
-      return '';
+      return makeGenericExternalUrl(address, providerName);
   }
 }

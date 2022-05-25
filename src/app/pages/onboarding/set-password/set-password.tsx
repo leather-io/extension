@@ -187,7 +187,7 @@ export const SetPasswordPage = () => {
                   isLoading={loading || formik.isSubmitting}
                   mt="tight"
                 >
-                  Done
+                  Continue
                 </PrimaryButton>
               </Stack>
             </Stack>

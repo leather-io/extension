@@ -62,6 +62,7 @@ export function AppRoutes(): JSX.Element | null {
             </AccountGate>
           }
         >
+          <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
         <Route
@@ -118,15 +119,9 @@ export function AppRoutes(): JSX.Element | null {
               </Suspense>
             </AccountGate>
           }
-        />
-        <Route
-          path={RouteUrls.Receive}
-          element={
-            <AccountGate>
-              <ReceiveTokens />
-            </AccountGate>
-          }
-        />
+        >
+          <Route path={RouteUrls.FundReceive} element={<ReceiveTokens />} />
+        </Route>
         <Route
           path={RouteUrls.Send}
           element={
