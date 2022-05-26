@@ -1,9 +1,4 @@
-import {
-  addAPINetwork,
-  BrowserDriver,
-  createTestSelector,
-  setupBrowser,
-} from '@tests/integration/utils';
+import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
 import { WalletPage } from '@tests/page-objects/wallet.page';
 import { RouteUrls } from '@shared/route-urls';
 import { BalanceSelectors } from '@tests/integration/balance.selectors';
@@ -16,7 +11,7 @@ const getAmount = (stxAmount: string) => {
   return stxAmount ? parseFloat(stxAmount.replace(/,/g, '')) : 0;
 };
 
-describe(`Wallet Balance integration tests`, () => {
+describe(`balance integration tests`, () => {
   const BEFORE_ALL_TIMEOUT = 60000;
   let browser: BrowserDriver;
   let wallet: WalletPage;
@@ -25,9 +20,6 @@ describe(`Wallet Balance integration tests`, () => {
     browser = await setupBrowser();
     wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
     await wallet.signIn(SECRET_KEY_2);
-    await wallet.waitForHomePage();
-    await addAPINetwork(wallet);
-    await wallet.waitForSendButton();
   }, BEFORE_ALL_TIMEOUT);
 
   afterAll(async () => {
