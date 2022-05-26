@@ -1,6 +1,6 @@
 export enum OnboardingSteps {
   BackUpSecretKey = 'Back up secret key',
-  AddFunds = 'Add some funds',
+  AddFunds = 'Add funds',
   ExploreApps = 'Explore apps',
   BuyNft = 'Buy an NFT',
 }
