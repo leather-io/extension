@@ -59,7 +59,7 @@ export function useSignIn() {
         if (result.isValid) {
           toast.success('Magic recovery code detected');
           await simulateShortDelayToAvoidImmediateNavigation();
-          dispatch(onboardingActions.hideSteps(true));
+          dispatch(onboardingActions.hideSuggestedFirstSteps(true));
           navigate({
             pathname: RouteUrls.MagicRecoveryCode,
             search: `?magicRecoveryCode=${parsedKeyInput}`,
@@ -79,7 +79,7 @@ export function useSignIn() {
       await simulateShortDelayToAvoidImmediateNavigation();
       toast.success('Secret Key valid');
       dispatch(inMemoryKeyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
-      dispatch(onboardingActions.hideSteps(true));
+      dispatch(onboardingActions.hideSuggestedFirstSteps(true));
       void analytics.track('submit_valid_secret_key');
       navigate(RouteUrls.SetPassword);
       setIsIdle();
