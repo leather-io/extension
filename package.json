@@ -5,7 +5,7 @@
   "version": "3.11.2",
   "author": "Hiro Systems PBC",
   "scripts": {
-    "dev": "concurrently --raw 'node webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
+    "dev": "concurrently --raw 'node -r dotenv/config webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
     "dev:test-app": "webpack serve --config test-app/webpack/webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",
     "build:analyze": "cross-env ANALYZE=true NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",

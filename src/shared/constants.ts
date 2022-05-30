@@ -36,7 +36,8 @@ export interface Network {
 
 export const DEFAULT_TESTNET_SERVER = 'https://stacks-node-api.testnet.stacks.co';
 
-const DEFAULT_MAINNET_SERVER = 'https://stacks-node-api.stacks.co';
+// const DEFAULT_MAINNET_SERVER = 'https://stacks-node-api.stacks.co';
+const DEFAULT_MAINNET_SERVER = 'https://kong.stacks.co';
 
 export type Networks = Record<string, Network>;
 

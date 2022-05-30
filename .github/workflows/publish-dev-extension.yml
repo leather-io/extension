@@ -11,6 +11,7 @@ env:
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
   PREVIEW_RELEASE: true
   WALLET_ENVIRONMENT: preview
+  X_API_KEY: ${{ secrets.X_API_KEY }}
 
 jobs:
   build-extension:

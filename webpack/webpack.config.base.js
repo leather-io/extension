@@ -217,6 +217,7 @@ const config = {
       SENTRY_DSN: process.env.SENTRY_DSN ?? '',
       SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY ?? '',
       WALLET_ENVIRONMENT: process.env.WALLET_ENVIRONMENT ?? 'development',
+      X_API_KEY: process.env.X_API_KEY ?? '',
     }),
 
     new webpack.ProvidePlugin({

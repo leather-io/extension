@@ -5,6 +5,7 @@ env:
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
   WALLET_ENVIRONMENT: feature
+  X_API_KEY: ${{ secrets.X_API_KEY }}
 
 jobs:
   pre_run:
