@@ -1,27 +1,48 @@
 import { memo, Suspense } from 'react';
 import { FiArrowUp } from 'react-icons/fi';
 import { ButtonProps } from '@stacks/ui';
+import { useNavigate } from 'react-router-dom';
 
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 import { RouteUrls } from '@shared/route-urls';
-import { HomePageSelectors } from '@tests/page-objects/home.selectors';
+import { PrimaryButton } from '@app/components/primary-button';
+import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
 
-import { TxButton } from './tx-button';
+import { HomeActionButton } from './tx-button';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { whenPageMode } from '@app/common/utils';
 
 const SendTxButton = (props: ButtonProps) => (
-  <TxButton
-    data-testid={HomePageSelectors.BtnSendTokens}
+  <HomeActionButton
+    data-testid={WalletPageSelectors.BtnSendTokens}
     icon={FiArrowUp}
-    route={RouteUrls.Send}
-    type="Send"
+    label="Send"
+    buttonComponent={PrimaryButton}
     {...props}
   />
 );
 
 const SendButtonSuspense = () => {
+  const navigate = useNavigate();
+  const { whenWallet } = useWalletType();
   const assets = useTransferableAssets();
   const isDisabled = !assets || assets?.length === 0;
-  return <SendTxButton isDisabled={isDisabled} />;
+  return (
+    <SendTxButton
+      onClick={() =>
+        whenWallet({
+          ledger: () =>
+            whenPageMode({
+              full: () => navigate(RouteUrls.Send),
+              popup: () => openIndexPageInNewTab(RouteUrls.Send),
+            })(),
+          software: () => navigate(RouteUrls.Send),
+        })()
+      }
+      isDisabled={isDisabled}
+    />
+  );
 };
 
 const SendButtonFallback = memo(() => <SendTxButton isDisabled />);

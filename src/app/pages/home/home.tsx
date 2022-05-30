@@ -14,7 +14,11 @@ import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggest
 import { CurrentAccount } from '@app/pages/home/components/account-area';
 
 import { HomeActions } from '@app/pages/home/components/home-actions';
+<<<<<<< HEAD
 import { useAccounts } from '@app/store/accounts/account.hooks';
+=======
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+>>>>>>> b1a39aca4 (refactor: home buttons, open in new pages, fixes #2453)
 import { RouteUrls } from '@shared/route-urls';
 import {
   useCurrentAccount,
@@ -38,9 +42,6 @@ export function Home() {
   const navigate = useNavigate();
   const account = useCurrentAccount();
   useTrackFirstDeposit();
-
-  // eslint-disable-next-line no-console
-  console.log(useAccounts());
 
   useRouteHeader(
     <>
