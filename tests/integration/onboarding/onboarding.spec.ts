@@ -103,7 +103,7 @@ describe(`Onboarding integration tests`, () => {
     await wallet.loginWithPreviousSecretKey(SECRET_KEY);
     await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
-    const onboardingStepsVisible = await wallet.page.isVisible(wallet.$onboardingStepsList);
+    const onboardingStepsVisible = await wallet.page.isVisible(wallet.$suggestedStepsList);
     expect(onboardingStepsVisible).toBeFalsy();
   });
 
@@ -123,10 +123,10 @@ describe(`Onboarding integration tests`, () => {
     await wallet.backUpKeyAndSetPassword();
     await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
-    await wallet.waitForOnboardingStepsList();
-    const stepsToStartBtns = await wallet.page.$$(wallet.$onboardingStepStartBtn);
+    await wallet.waitForsuggestedStepsList();
+    const stepsToStartBtns = await wallet.page.$$(wallet.$suggestedStepStartBtn);
     await stepsToStartBtns[1].click();
-    const stepsDone = await wallet.page.$$(wallet.$onboardingStepDoneBadge);
+    const stepsDone = await wallet.page.$$(wallet.$suggestedStepDoneBadge);
     expect(stepsDone.length).toEqual(2);
   });
 
@@ -136,7 +136,7 @@ describe(`Onboarding integration tests`, () => {
     await wallet.backUpKeyAndSetPassword();
     await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
-    await wallet.waitForOnboardingStepsList();
+    await wallet.waitForsuggestedStepsList();
     const noAssetsFundAccountLink = await wallet.page.$(wallet.$noAssetsFundAccountLink);
     await noAssetsFundAccountLink?.click();
   });
