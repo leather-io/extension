@@ -1,3 +1,10 @@
+# [3.10.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.2...v3.10.0-beta.3) (2022-05-31)
+
+
+### Bug Fixes
+
+* receive page scroll ([fd363de](https://github.com/hirosystems/stacks-wallet-web/commit/fd363de08dad6d63c8757f0498985d7a01d0e689))
+
 # [3.10.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.1...v3.10.0-beta.2) (2022-05-31)
 
 # [3.10.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.1-beta.2...v3.10.0-beta.1) (2022-05-31)
