@@ -1,3 +1,10 @@
+# [3.10.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.1-beta.2...v3.10.0-beta.1) (2022-05-31)
+
+
+### Features
+
+* add image to fungible token ([c891983](https://github.com/hirosystems/stacks-wallet-web/commit/c8919833102ba490dfb011407c3be57c6282bc01)), closes [#1800](https://github.com/hirosystems/stacks-wallet-web/issues/1800)
+
 ## [3.9.1-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.1-beta.1...v3.9.1-beta.2) (2022-05-31)
 
 ## [3.9.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.0...v3.9.1-beta.1) (2022-05-26)
