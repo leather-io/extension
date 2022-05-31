@@ -26,7 +26,6 @@ describe(`Send tokens flow`, () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
     await walletPage.page.click(createTestSelector(UserAreaSelectors.AccountCopyAddress));
     copiedAddress = await readClipboard();
 
@@ -172,7 +171,6 @@ describe('Preview for sending token', () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
     await sendForm.waitForSendMaxButton();

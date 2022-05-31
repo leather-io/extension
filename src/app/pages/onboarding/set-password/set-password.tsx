@@ -67,10 +67,10 @@ export const SetPasswordPage = () => {
           await finishSignIn(0);
         }
       } else {
-        navigate(RouteUrls.Home);
+        navigate(RouteUrls.Fund, { state: { showSkipButton: true } });
       }
     },
-    [wallet, setPassword, decodedAuthRequest, navigate, finishSignIn]
+    [setPassword, decodedAuthRequest, wallet, navigate, finishSignIn]
   );
 
   const onSubmit = useCallback(
@@ -187,7 +187,7 @@ export const SetPasswordPage = () => {
                   isLoading={loading || formik.isSubmitting}
                   mt="tight"
                 >
-                  Done
+                  Continue
                 </PrimaryButton>
               </Stack>
             </Stack>

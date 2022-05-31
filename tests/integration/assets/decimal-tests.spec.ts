@@ -20,7 +20,6 @@ describe('Confirm transfer of tokens with decimals', () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
     await walletPage.waitForSettingsButton();
     await walletPage.clickSettingsButton();
     await walletPage.page.click(createTestSelector(SettingsSelectors.SwitchAccount));

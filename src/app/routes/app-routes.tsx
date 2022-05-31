@@ -20,7 +20,7 @@ import { Unlock } from '@app/pages/unlock';
 import { Home } from '@app/pages/home/home';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
-import { BuyPage } from '@app/pages/buy/buy';
+import { FundPage } from '@app/pages/fund/fund';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { useHasStateRehydrated } from '@app/store';
@@ -62,6 +62,7 @@ export function AppRoutes(): JSX.Element | null {
             </AccountGate>
           }
         >
+          <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
         </Route>
         <Route
@@ -100,16 +101,6 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
-          path={RouteUrls.Buy}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <BuyPage />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
           path={RouteUrls.ChooseAccount}
           element={
             <AccountGate>
@@ -120,13 +111,17 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
-          path={RouteUrls.Receive}
+          path={RouteUrls.Fund}
           element={
             <AccountGate>
-              <ReceiveTokens />
+              <Suspense fallback={<></>}>
+                <FundPage />
+              </Suspense>
             </AccountGate>
           }
-        />
+        >
+          <Route path={RouteUrls.FundReceive} element={<ReceiveTokens />} />
+        </Route>
         <Route
           path={RouteUrls.Send}
           element={

@@ -57,9 +57,17 @@
       "description": "All the active fiat onramp providers that will be displayed in the wallet",
       "additionalProperties": false,
       "properties": {
-        "transak": { "$ref": "#/$defs/provider" },
+        "binance": { "$ref": "#/$defs/provider" },
+        "blockchainCom": { "$ref": "#/$defs/provider" },
+        "byBit": { "$ref": "#/$defs/provider" },
+        "coinbase": { "$ref": "#/$defs/provider" },
+        "cryptoCom": { "$ref": "#/$defs/provider" },
+        "gateIo": { "$ref": "#/$defs/provider" },
+        "kuCoin": { "$ref": "#/$defs/provider" },
+        "moonPay": { "$ref": "#/$defs/provider" },
         "okcoin": { "$ref": "#/$defs/provider" },
-        "moonpay": { "$ref": "#/$defs/provider" }
+        "okx": { "$ref": "#/$defs/provider" },
+        "transak": { "$ref": "#/$defs/provider" }
       }
     },
     "feeEstimations": {

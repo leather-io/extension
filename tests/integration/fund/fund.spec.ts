@@ -3,7 +3,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { BrowserDriver, setupBrowser } from '../utils';
 import { SECRET_KEY_2 } from '@tests/mocks';
-import { BuyTokensPage } from '@tests/page-objects/buy-tokens-page';
+import { FundPage } from '@tests/page-objects/fund.page';
 
 jest.setTimeout(60_0000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -13,15 +13,14 @@ describe('Buy tokens test', () => {
 
   let browser: BrowserDriver;
   let walletPage: WalletPage;
-  let buyTokensPage: BuyTokensPage;
+  let fundPage: FundPage;
 
   beforeEach(async () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
-    await walletPage.goToBuyForm();
-    buyTokensPage = new BuyTokensPage(walletPage.page);
+    await walletPage.goToFundPage();
+    fundPage = new FundPage(walletPage.page);
   }, BEFORE_EACH_TIMEOUT);
 
   afterEach(async () => {
@@ -30,16 +29,16 @@ describe('Buy tokens test', () => {
     } catch (error) {}
   });
 
-  describe('Transak test', () => {
-    it('click button should redirect to transak URL', async () => {
-      await buyTokensPage.waitForBtnTransak();
-      await buyTokensPage.clickBtnTransak();
-      await buyTokensPage.page.waitForTimeout(2000);
+  describe('Fiat provider', () => {
+    it('should redirect to provider URL', async () => {
+      await fundPage.waitForFiatProviderItem();
+      await fundPage.clickMoonPayProviderItem();
+      await fundPage.page.waitForTimeout(2000);
       const allPages = await WalletPage.getAllPages(browser);
       const recentPage = allPages.pop();
       await recentPage?.waitForLoadState();
-      const URL = await recentPage?.url();
-      expect(URL).toContain('https://staging-global.transak.com');
+      const URL = recentPage?.url();
+      expect(URL).toContain('https://buy.moonpay.com');
     });
   });
 });

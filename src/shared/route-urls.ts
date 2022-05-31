@@ -10,8 +10,9 @@ export enum RouteUrls {
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
-  Buy = '/buy',
   ChooseAccount = '/choose-account',
+  Fund = '/fund',
+  FundReceive = '/fund/receive',
   Receive = '/receive',
   Send = '/send',
   SignOutConfirm = '/sign-out',
