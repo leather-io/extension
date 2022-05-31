@@ -49,9 +49,9 @@ export class WalletPage {
   $unlockWalletBtn = createTestSelector(SettingsSelectors.UnlockWalletBtn);
   $magicRecoveryMessage = createTestSelector(WalletPageSelectors.MagicRecoveryMessage);
   $hideStepsBtn = createTestSelector(OnboardingSelectors.HideStepsBtn);
-  $onboardingStepsList = createTestSelector(OnboardingSelectors.StepsList);
-  $onboardingStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
-  $onboardingStepDoneBadge = createTestSelector(OnboardingSelectors.StepItemDone);
+  $suggestedStepsList = createTestSelector(OnboardingSelectors.StepsList);
+  $suggestedStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
+  $suggestedStepDoneBadge = createTestSelector(OnboardingSelectors.StepItemDone);
   $noAssetsFundAccountLink = createTestSelector(OnboardingSelectors.NoAssetsFundAccountLink);
   $skipFundAccountBtn = createTestSelector(FundPageSelectors.BtnSkipFundAccount);
 
@@ -145,8 +145,8 @@ export class WalletPage {
     await this.page.waitForSelector(this.$hideStepsBtn, { timeout: 30000 });
   }
 
-  async waitForOnboardingStepsList() {
-    await this.page.waitForSelector(this.$onboardingStepsList, { timeout: 30000 });
+  async waitForsuggestedStepsList() {
+    await this.page.waitForSelector(this.$suggestedStepsList, { timeout: 30000 });
   }
 
   async loginWithPreviousSecretKey(secretKey: string) {

@@ -5,21 +5,29 @@ import { RootState } from '@app/store';
 
 const selectOnboarding = (state: RootState) => state.onboarding;
 
-const selectHideSteps = createSelector(selectOnboarding, state => state.hasHiddenSteps);
+const selectHideSuggestedFirstSteps = createSelector(
+  selectOnboarding,
+  state => state.hasHiddenSuggestedFirstSteps
+);
+
 const selectSkipFundAccount = createSelector(
   selectOnboarding,
   state => state.hasSkippedFundAccount
 );
-const selectStepsStatus = createSelector(selectOnboarding, state => state.stepsStatus);
 
-export function useHideSteps() {
-  return useSelector(selectHideSteps);
+const selectSuggestedFirstStepsStatus = createSelector(
+  selectOnboarding,
+  state => state.suggestedFirstStepsStatus
+);
+
+export function useHideSuggestedFirstSteps() {
+  return useSelector(selectHideSuggestedFirstSteps);
 }
 
 export function useSkipFundAccount() {
   return useSelector(selectSkipFundAccount);
 }
 
-export function useStepsStatus() {
-  return useSelector(selectStepsStatus);
+export function useSuggestedFirstStepsStatus() {
+  return useSelector(selectSuggestedFirstStepsStatus);
 }

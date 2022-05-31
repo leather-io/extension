@@ -1,25 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
-  OnboardingSteps,
-  OnboardingStepsStatus,
-  OnboardingStepStatus,
+  SuggestedFirstSteps,
+  SuggestedFirstStepsStatus,
+  SuggestedFirstStepStatus,
 } from '@shared/models/onboarding-types';
 
 interface OnboardingState {
-  hasHiddenSteps: boolean;
+  hasHiddenSuggestedFirstSteps: boolean;
   hasSkippedFundAccount: boolean;
-  stepsStatus: OnboardingStepsStatus;
+  suggestedFirstStepsStatus: SuggestedFirstStepsStatus;
 }
 
 const initialState: OnboardingState = {
-  hasHiddenSteps: false,
+  hasHiddenSuggestedFirstSteps: false,
   hasSkippedFundAccount: false,
-  stepsStatus: {
-    [OnboardingSteps.BackUpSecretKey]: OnboardingStepStatus.Done,
-    [OnboardingSteps.AddFunds]: OnboardingStepStatus.Start,
-    [OnboardingSteps.ExploreApps]: OnboardingStepStatus.Start,
-    [OnboardingSteps.BuyNft]: OnboardingStepStatus.Start,
+  suggestedFirstStepsStatus: {
+    [SuggestedFirstSteps.BackUpSecretKey]: SuggestedFirstStepStatus.Done,
+    [SuggestedFirstSteps.AddFunds]: SuggestedFirstStepStatus.Start,
+    [SuggestedFirstSteps.ExploreApps]: SuggestedFirstStepStatus.Start,
+    [SuggestedFirstSteps.BuyNft]: SuggestedFirstStepStatus.Start,
   },
 };
 
@@ -27,14 +27,14 @@ export const onboardingSlice = createSlice({
   name: 'onboarding',
   initialState,
   reducers: {
-    hideSteps(state, action: PayloadAction<boolean>) {
-      state.hasHiddenSteps = action.payload;
+    hideSuggestedFirstSteps(state, action: PayloadAction<boolean>) {
+      state.hasHiddenSuggestedFirstSteps = action.payload;
     },
     skipFundAccount(state, action: PayloadAction<boolean>) {
       state.hasSkippedFundAccount = action.payload;
     },
-    updateStepsStatus(state, action: PayloadAction<OnboardingStepsStatus>) {
-      state.stepsStatus = action.payload;
+    updateSuggestedFirstStepsStatus(state, action: PayloadAction<SuggestedFirstStepsStatus>) {
+      state.suggestedFirstStepsStatus = action.payload;
     },
   },
 });

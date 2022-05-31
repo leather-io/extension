@@ -8,9 +8,7 @@ export function SkipFundAccountButton({ onSkipFundAccount }: SkipFundAccountButt
   return (
     <Button
       _focus={{ boxShadow: 'none' }}
-      _hover={{
-        boxShadow: 'none',
-      }}
+      _hover={{ boxShadow: 'none' }}
       borderColor="#DCDDE2"
       borderRadius="10px"
       boxShadow="none"
