@@ -17,6 +17,7 @@ import {
 import { EventCard } from '@app/components/event-card';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
+import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
 
 interface FungiblePostConditionItemProps {
   isLast?: boolean;
@@ -31,9 +32,11 @@ function FungiblePostConditionItemSuspense(
   const pendingTransaction = useTransactionRequestState();
   // Use token meta data if available
   const asset = useAssetFromFungiblePostCondition(pc);
+  // find the correct asset
+  const imageCanonicalUri = imageCanonicalUriFromFtMetadata(asset);
 
   const title = getPostConditionTitle(pc);
-  const iconString = getIconStringFromPostCondition(pc);
+  const iconString = imageCanonicalUri ?? getIconStringFromPostCondition(pc);
   const pcTicker = getSymbolFromPostCondition(pc);
   const pcAmount = getAmountFromPostCondition(pc);
   const name = getNameFromPostCondition(pc);
