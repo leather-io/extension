@@ -34,7 +34,7 @@ interface HiroConfig {
 }
 
 // TODO: Change back to 'main' before merging
-const GITHUB_PRIMARY_BRANCH = 'refactor/buy-to-fund-page';
+const GITHUB_PRIMARY_BRANCH = 'dev';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
