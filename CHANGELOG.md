@@ -1,3 +1,5 @@
+# [3.10.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.1...v3.10.0-beta.2) (2022-05-31)
+
 # [3.10.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.1-beta.2...v3.10.0-beta.1) (2022-05-31)
 
 
