@@ -105,6 +105,18 @@ document.addEventListener(DomEventName.signatureRequest, ((event: SignatureReque
   });
 }) as EventListener);
 
+// Listen for a CustomEvent (structured data signature request) coming from the web app
+document.addEventListener(DomEventName.structuredDataSignatureRequest, ((
+  event: SignatureRequestEvent
+) => {
+  forwardDomEventToBackground({
+    path: RouteUrls.SignatureRequest,
+    payload: event.detail.signatureRequest,
+    urlParam: 'request',
+    method: ExternalMethods.structuredDataSignatureRequest,
+  });
+}) as EventListener);
+
 // Inject inpage script (Stacks Provider)
 const inpage = document.createElement('script');
 inpage.src = chrome.runtime.getURL('inpage.js');

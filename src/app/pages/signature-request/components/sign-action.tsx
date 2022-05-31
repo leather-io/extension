@@ -21,10 +21,24 @@ function useSignMessageSoftwareWallet() {
   );
 }
 
-interface SignActionProps {
+export type SignatureMessageType = 'utf8' | 'structured';
+
+export interface SignatureMessage {
   message: string;
+  messageType: SignatureMessageType;
 }
-export function SignAction(props: SignActionProps): JSX.Element | null {
+
+export function isStructuredMessage(
+  messageType: SignatureMessageType
+): messageType is 'structured' {
+  return messageType === 'structured';
+}
+
+export function isSignatureMessageType(message: unknown): message is SignatureMessageType {
+  return typeof message === 'string' || typeof message === 'object';
+}
+
+export function SignAction(props: SignatureMessage): JSX.Element | null {
   const { message } = props;
   const signSoftwareWalletMessage = useSignMessageSoftwareWallet();
   const { tabId, requestToken } = useSignatureRequestSearchParams();

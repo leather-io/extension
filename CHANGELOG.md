@@ -1,3 +1,19 @@
+# [3.9.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.0...v3.9.0) (2022-05-16)
+
+
+### Bug Fixes
+
+* hide nfts with zero balance ([67294a2](https://github.com/hirosystems/stacks-wallet-web/commit/67294a259ffca1b87323cb9c7d4e5419bc64430f))
+* refetch account balance ([20f11cb](https://github.com/hirosystems/stacks-wallet-web/commit/20f11cb62dc35416df6defd64bc29ad89dae8dfd))
+* scrollbars from padding changes ([1dffe55](https://github.com/hirosystems/stacks-wallet-web/commit/1dffe55ddca70fca4e400a53999b9ee449b2667d))
+* subtract pending txs from send max balance ([8de6523](https://github.com/hirosystems/stacks-wallet-web/commit/8de65235cbc4c015d6dc8e0967f5b05ac6dd9907))
+* use recoverable key format ([c80e651](https://github.com/hirosystems/stacks-wallet-web/commit/c80e6515d7c5a336b90d4a228c963f369fcdd122))
+
+
+### Features
+
+* add signature for structured data, closes [#2387](https://github.com/hirosystems/stacks-wallet-web/issues/2387) ([23d9d9a](https://github.com/hirosystems/stacks-wallet-web/commit/23d9d9ac388ecf54f570be93f0b909cc662f0b2e))
+
 # [3.8.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.7.2...v3.8.0) (2022-05-16)
 
 
