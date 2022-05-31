@@ -29,7 +29,7 @@ export const ReceiveTokens = () => {
 
   return (
     <BaseDrawer title="Receive" isShowing onClose={() => navigate(-1)}>
-      <Flex alignItems="center" flexDirection="column" pb="48px" px="loose">
+      <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
         <Text color={color('text-caption')} mb="tight" textAlign="left">
           Share your account’s unique address to receive any token or collectible. Including a memo
           is not required.
@@ -45,12 +45,8 @@ export const ReceiveTokens = () => {
           )}
           <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
           <Button
-            _focus={{
-              boxShadow: 'none',
-            }}
-            _hover={{
-              boxShadow: 'none',
-            }}
+            _focus={{ boxShadow: 'none' }}
+            _hover={{ boxShadow: 'none' }}
             borderRadius="10px"
             boxShadow="none"
             height="40px"
