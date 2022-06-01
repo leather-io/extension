@@ -28,7 +28,7 @@ export function useTriggerLedgerDeviceRequestKeys() {
           })
         );
         // It's possible a user may have first generated a key, then decided
-        // they wanted to pair with Ledger Here, we kill all in memory keys when
+        // they wanted to pair with Ledger. Here, we kill all in memory keys when
         // a new Ledger wallet is created
         sendMessage({ method: InternalMethods.RemoveInMemoryKeys, payload: undefined });
         navigate(RouteUrls.Home);

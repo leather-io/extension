@@ -11,6 +11,7 @@ interface AssetSearchResultsProps extends StackProps {
   highlightedIndex: number;
   isOpen: boolean;
 }
+
 export const AssetSearchResults = forwardRef(
   (
     {

@@ -2,7 +2,7 @@ import { FiAlertTriangle } from 'react-icons/fi';
 import { Box, color, Stack, StackProps, Text } from '@stacks/ui';
 
 interface WarningLabelProps extends StackProps {
-  children: string | Element | undefined;
+  children: string | JSX.Element | React.ReactNode | undefined;
 }
 export function WarningLabel({ children, ...rest }: WarningLabelProps): JSX.Element {
   return (
@@ -26,7 +26,7 @@ export function WarningLabel({ children, ...rest }: WarningLabelProps): JSX.Elem
           position="relative"
           top="2px"
         />
-        <Text color="#242629" fontSize="inherit" lineHeight="1.4">
+        <Text color="#242629" fontSize="inherit" lineHeight="1.5">
           {children}
         </Text>
       </Stack>

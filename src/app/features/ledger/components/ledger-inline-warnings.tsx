@@ -1,11 +1,27 @@
 import { WarningLabel } from '@app/components/warning-label';
+import { Text } from '@stacks/ui';
 import { isStacksLedgerAppClosed } from '../ledger-utils';
 
-interface LedgerInlineWarningsProps {
-  latestDeviceResponse: any;
+interface CommonLedgerInlineWarningsProps {
+  latestDeviceResponse: any | null;
+  outdatedLedgerAppWarning?: boolean;
 }
-export function LedgerInlineWarnings({ latestDeviceResponse }: LedgerInlineWarningsProps) {
+export function CommonLedgerDeviceInlineWarnings({
+  latestDeviceResponse,
+  outdatedLedgerAppWarning = false,
+}: CommonLedgerInlineWarningsProps) {
   if (!latestDeviceResponse) return null;
+
+  if (outdatedLedgerAppWarning) {
+    return (
+      <WarningLabel fontSize="14px" textAlign="left">
+        Latest version of <em>Stacks app</em> required
+        <Text as="a" textDecoration="underline" href="ledgerlive://manager">
+          Update on Ledger Live to continue
+        </Text>
+      </WarningLabel>
+    );
+  }
   if (latestDeviceResponse.deviceLocked)
     return (
       <WarningLabel fontSize="14px" textAlign="left">

@@ -5,6 +5,7 @@ import { Box } from '@stacks/ui';
 import toast from 'react-hot-toast';
 
 import {
+  doesLedgerStacksAppVersionSupportJwtAuth,
   getAppVersion,
   isStacksLedgerAppClosed,
   prepareLedgerDeviceConnection,
@@ -29,6 +30,7 @@ export function LedgerRequestKeysContainer() {
     useTriggerLedgerDeviceRequestKeys();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
+  const [outdatedAppVersionWarning, setAppVersionOutdatedWarning] = useState(false);
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
   const pullPublicKeysFromDevice = async () => {
@@ -52,6 +54,11 @@ export function LedgerRequestKeysContainer() {
 
     if (versionInfo.returnCode !== LedgerError.NoErrors) {
       if (!isStacksLedgerAppClosed(versionInfo)) toast.error(versionInfo.errorMessage);
+      return;
+    }
+
+    if (doesLedgerStacksAppVersionSupportJwtAuth(versionInfo)) {
+      setAppVersionOutdatedWarning(true);
       return;
     }
 
@@ -82,6 +89,7 @@ export function LedgerRequestKeysContainer() {
     pullPublicKeysFromDevice,
     latestDeviceResponse,
     awaitingDeviceConnection,
+    outdatedAppVersionWarning,
     onCancelConnectLedger,
   };
 

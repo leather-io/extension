@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { PrimaryButton } from '@app/components/primary-button';
-import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
 
 import { HomeActionButton } from './tx-button';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { whenPageMode } from '@app/common/utils';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
 const SendTxButton = (props: ButtonProps) => (
   <HomeActionButton
-    data-testid={WalletPageSelectors.BtnSendTokens}
+    data-testid={HomePageSelectors.BtnSendTokens}
     icon={FiArrowUp}
     label="Send"
     buttonComponent={PrimaryButton}
