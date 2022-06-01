@@ -5,10 +5,7 @@ import { RootState } from '@app/store';
 
 const selectOnboarding = (state: RootState) => state.onboarding;
 
-const selectHideSuggestedFirstSteps = createSelector(
-  selectOnboarding,
-  state => state.hasHiddenSuggestedFirstSteps
-);
+const selectHideSuggestedFirstSteps = createSelector(selectOnboarding, state => state.hideSteps);
 
 const selectSkipFundAccount = createSelector(
   selectOnboarding,
@@ -17,7 +14,7 @@ const selectSkipFundAccount = createSelector(
 
 const selectSuggestedFirstStepsStatus = createSelector(
   selectOnboarding,
-  state => state.suggestedFirstStepsStatus
+  state => state.stepsStatus
 );
 
 export function useHideSuggestedFirstSteps() {

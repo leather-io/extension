@@ -9,27 +9,24 @@ import ExploreAppsFullDone from '@assets/images/onboarding/steps/explore-apps-li
 import ExploreAppsPopup from '@assets/images/onboarding/steps/explore-apps-light-sm.png';
 import ExploreAppsPopupDone from '@assets/images/onboarding/steps/explore-apps-light-done-sm.png';
 import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/onboarding-types';
+import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
 
 import { SuggestedFirstStep } from './suggested-first-step';
-import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
 
 const exploreAppsExternalRoute = 'https://www.stacks.co/explore/discover-apps#apps';
 
 export function ExploreAppsStep() {
   const analytics = useAnalytics();
   const dispatch = useAppDispatch();
-  const suggestedFirstStepsStatus = useSuggestedFirstStepsStatus();
+  const stepsStatus = useSuggestedFirstStepsStatus();
 
   const onSelectStep = useCallback(() => {
-    void analytics.track('select_next_step', { step: SuggestedFirstSteps.ExploreApps });
+    void analytics.track('select_next_step', { step: 'explore_apps' });
     dispatch(
-      onboardingActions.updateSuggestedFirstStepsStatus({
-        ...suggestedFirstStepsStatus,
-        [SuggestedFirstSteps.ExploreApps]: SuggestedFirstStepStatus.Done,
-      })
+      onboardingActions.userCompletedSuggestedFirstStep({ step: SuggestedFirstSteps.ExploreApps })
     );
     openInNewTab(exploreAppsExternalRoute);
-  }, [analytics, dispatch, suggestedFirstStepsStatus]);
+  }, [analytics, dispatch]);
 
   return (
     <SuggestedFirstStep
@@ -39,8 +36,8 @@ export function ExploreAppsStep() {
       imageFullDone={ExploreAppsFullDone}
       imagePopup={ExploreAppsPopup}
       imagePopupDone={ExploreAppsPopupDone}
-      isDone={
-        suggestedFirstStepsStatus[SuggestedFirstSteps.ExploreApps] === SuggestedFirstStepStatus.Done
+      isComplete={
+        stepsStatus[SuggestedFirstSteps.ExploreApps] === SuggestedFirstStepStatus.Complete
       }
       isExternalRoute
       key={SuggestedFirstSteps.ExploreApps}

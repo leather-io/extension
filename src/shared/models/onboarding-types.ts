@@ -1,13 +1,13 @@
 export enum SuggestedFirstSteps {
-  BackUpSecretKey = 'back_up_secret_key',
-  AddFunds = 'add_funds',
-  ExploreApps = 'explore_apps',
-  BuyNft = 'buy_nft',
+  BackUpSecretKey = 'Back up secret key',
+  AddFunds = 'Add some funds',
+  ExploreApps = 'Explore apps',
+  BuyNft = 'Buy an NFT',
 }
 
 export enum SuggestedFirstStepStatus {
-  Start,
-  Done,
+  Incomplete,
+  Complete,
 }
 
 export interface SuggestedFirstStepsStatus {

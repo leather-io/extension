@@ -15,10 +15,10 @@ import { SuggestedFirstStep } from './suggested-first-step';
 export function AddFundsStep() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const suggestedFirstStepsStatus = useSuggestedFirstStepsStatus();
+  const stepsStatus = useSuggestedFirstStepsStatus();
 
   const onSelectStep = useCallback(() => {
-    void analytics.track('select_next_step', { step: SuggestedFirstSteps.AddFunds });
+    void analytics.track('select_next_step', { step: 'add_funds' });
     navigate(RouteUrls.Fund);
   }, [analytics, navigate]);
 
@@ -30,9 +30,7 @@ export function AddFundsStep() {
       imageFullDone={AddFundsFullDone}
       imagePopup={AddFundsPopup}
       imagePopupDone={AddFundsPopupDone}
-      isDone={
-        suggestedFirstStepsStatus[SuggestedFirstSteps.AddFunds] === SuggestedFirstStepStatus.Done
-      }
+      isComplete={stepsStatus[SuggestedFirstSteps.AddFunds] === SuggestedFirstStepStatus.Complete}
       key={SuggestedFirstSteps.AddFunds}
       onClick={onSelectStep}
       title="Add funds"
