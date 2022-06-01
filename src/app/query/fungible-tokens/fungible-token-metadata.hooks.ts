@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 
-import { useAssets } from '@app/store/assets/asset.hooks';
+import { AssetWithMeta } from '@app/common/asset-types';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 import { formatContractId } from '@app/common/utils';
+import { useAssets } from '@app/store/assets/asset.hooks';
+
 import {
   useGetFungibleTokenMetadataListQuery,
   useGetFungibleTokenMetadataQuery,
 } from './fungible-token-metadata.query';
-import { AssetWithMeta } from '@app/common/asset-types';
 
 export function useFungibleTokenMetadata(contractId: string) {
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(contractId);

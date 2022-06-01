@@ -14,7 +14,7 @@ import { transformAssets } from './utils';
 import {
   useAssetsWithMetadata,
   useFungibleTokenMetadata,
-} from '@app/query/tokens/fungible-token-metadata.hook';
+} from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
 import { formatContractId, getFullyQualifiedAssetName } from '@app/common/utils';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 

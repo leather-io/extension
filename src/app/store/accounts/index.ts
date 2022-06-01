@@ -73,6 +73,15 @@ export const accountsWithAddressState = atom<SoftwareWalletAccountWithAddress[] 
   }
 );
 
+export const accountsAvailableStxBalanceState = atom<BigNumber | undefined>(get => {
+  const accounts = get(accountsWithAddressState);
+  if (!accounts) return undefined;
+
+  return accounts.reduce((acc, account) => {
+    return acc.plus(get(accountAvailableAnchoredStxBalanceState(account.address)));
+  }, new BigNumber(0));
+});
+
 //--------------------------------------
 // Current account
 //--------------------------------------

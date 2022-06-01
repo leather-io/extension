@@ -7,7 +7,7 @@ import {
   getTxCaption,
 } from '@app/common/transactions/transaction-utils';
 import { pullContractIdFromIdentity } from '@app/common/utils';
-import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metadata.hook';
+import { useFungibleTokenMetadata } from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
