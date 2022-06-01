@@ -7,19 +7,19 @@ import {
 } from '@shared/models/onboarding-types';
 
 interface OnboardingState {
-  hasHiddenSuggestedFirstSteps: boolean;
+  hideSteps: boolean;
   hasSkippedFundAccount: boolean;
-  suggestedFirstStepsStatus: SuggestedFirstStepsStatus;
+  stepsStatus: SuggestedFirstStepsStatus;
 }
 
 const initialState: OnboardingState = {
-  hasHiddenSuggestedFirstSteps: false,
+  hideSteps: false,
   hasSkippedFundAccount: false,
-  suggestedFirstStepsStatus: {
-    [SuggestedFirstSteps.BackUpSecretKey]: SuggestedFirstStepStatus.Done,
-    [SuggestedFirstSteps.AddFunds]: SuggestedFirstStepStatus.Start,
-    [SuggestedFirstSteps.ExploreApps]: SuggestedFirstStepStatus.Start,
-    [SuggestedFirstSteps.BuyNft]: SuggestedFirstStepStatus.Start,
+  stepsStatus: {
+    [SuggestedFirstSteps.BackUpSecretKey]: SuggestedFirstStepStatus.Complete,
+    [SuggestedFirstSteps.AddFunds]: SuggestedFirstStepStatus.Incomplete,
+    [SuggestedFirstSteps.ExploreApps]: SuggestedFirstStepStatus.Incomplete,
+    [SuggestedFirstSteps.BuyNft]: SuggestedFirstStepStatus.Incomplete,
   },
 };
 
@@ -28,13 +28,13 @@ export const onboardingSlice = createSlice({
   initialState,
   reducers: {
     hideSuggestedFirstSteps(state, action: PayloadAction<boolean>) {
-      state.hasHiddenSuggestedFirstSteps = action.payload;
+      state.hideSteps = action.payload;
     },
-    skipFundAccount(state, action: PayloadAction<boolean>) {
+    userSkippedFundingAccount(state, action: PayloadAction<boolean>) {
       state.hasSkippedFundAccount = action.payload;
     },
-    updateSuggestedFirstStepsStatus(state, action: PayloadAction<SuggestedFirstStepsStatus>) {
-      state.suggestedFirstStepsStatus = action.payload;
+    userCompletedSuggestedFirstStep(state, action: PayloadAction<{ step: SuggestedFirstSteps }>) {
+      state.stepsStatus[action.payload.step] = SuggestedFirstStepStatus.Complete;
     },
   },
 });

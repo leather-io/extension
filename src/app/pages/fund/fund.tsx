@@ -30,7 +30,7 @@ export function FundPage() {
   const isOnboarding = state?.showSkipButton;
 
   const onSkipFundAccount = () => {
-    dispatch(onboardingActions.skipFundAccount(true));
+    dispatch(onboardingActions.userSkippedFundingAccount(true));
     navigate(RouteUrls.Home);
   };
 

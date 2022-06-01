@@ -14,13 +14,14 @@ interface StepFullPageProps {
   body: string;
   imageFull: string;
   imageFullDone: string;
-  isDone: boolean;
+  isComplete: boolean;
   isExternalRoute?: boolean;
   onClick(): void;
   title: string;
 }
 export function StepFullPage(props: StepFullPageProps) {
-  const { action, body, imageFull, imageFullDone, isDone, isExternalRoute, onClick, title } = props;
+  const { action, body, imageFull, imageFullDone, isComplete, isExternalRoute, onClick, title } =
+    props;
 
   return (
     <Stack
@@ -34,11 +35,11 @@ export function StepFullPage(props: StepFullPageProps) {
       spacing="base"
     >
       <Box height={['46px', '100px']} width={['55px', '132px']}>
-        <StepIllustration image={isDone ? imageFullDone : imageFull} />
+        <StepIllustration image={isComplete ? imageFullDone : imageFull} />
       </Box>
       <Flex alignItems={['center', 'unset']} flexDirection={['unset', 'column']}>
         <Title
-          color={isDone ? color('text-caption') : color('text-title')}
+          color={isComplete ? color('text-caption') : color('text-title')}
           fontSize={[1, 2]}
           lineHeight="24px"
           mr="extra-tight"
@@ -49,7 +50,7 @@ export function StepFullPage(props: StepFullPageProps) {
           {body}
         </Body>
       </Flex>
-      {isDone ? (
+      {isComplete ? (
         <StepDoneBadge />
       ) : (
         <Link

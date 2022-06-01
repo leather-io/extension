@@ -15,10 +15,10 @@ import { SuggestedFirstStep } from './suggested-first-step';
 export function BackUpSecretKeyStep() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const suggestedFirstStepsStatus = useSuggestedFirstStepsStatus();
+  const stepsStatus = useSuggestedFirstStepsStatus();
 
   const onSelectStep = useCallback(() => {
-    void analytics.track('select_next_step', { step: SuggestedFirstSteps.BackUpSecretKey });
+    void analytics.track('select_next_step', { step: 'back_up_secret_key' });
     navigate(RouteUrls.ViewSecretKey);
   }, [analytics, navigate]);
 
@@ -30,9 +30,8 @@ export function BackUpSecretKeyStep() {
       imageFullDone={BackUpSecretKeyFullDone}
       imagePopup={BackUpSecretKeyPopup}
       imagePopupDone={BackUpSecretKeyPopupDone}
-      isDone={
-        suggestedFirstStepsStatus[SuggestedFirstSteps.BackUpSecretKey] ===
-        SuggestedFirstStepStatus.Done
+      isComplete={
+        stepsStatus[SuggestedFirstSteps.BackUpSecretKey] === SuggestedFirstStepStatus.Complete
       }
       key={SuggestedFirstSteps.BackUpSecretKey}
       onClick={onSelectStep}
