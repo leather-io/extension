@@ -25,7 +25,7 @@ const is404 = isResponseCode(404);
 function fetchUnanchoredAccountInfo(api: Api) {
   return (contractId: string) => async () => {
     await limiter.removeTokens(1);
-    return api.tokensApi
+    return api.fungibleTokensApi
       .getContractFtMetadata({ contractId })
       .catch(error => (is404(error) ? undefined : error));
   };

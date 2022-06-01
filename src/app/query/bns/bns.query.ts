@@ -15,7 +15,7 @@ const bnsQueryOptions = {
 
 function getBnsNameFetcherFactory(api: Api) {
   return (address: string) => () =>
-    api.bnsApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
+    api.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
 }
 
 export function useGetBnsNamesOwnedByAddress(address: string) {
