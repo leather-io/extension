@@ -29,9 +29,11 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
+import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
+  const assets = useTransferableAssets();
   const { showEditNonce, showNetworks } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
@@ -94,6 +96,8 @@ function SendTokensFormBase() {
     nonce,
     recipient: '',
   };
+
+  if (assets.length < 1) return null;
 
   return (
     <Formik

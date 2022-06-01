@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Transport from '@ledgerhq/hw-transport-webusb';
 import StacksApp, { LedgerError, ResponseVersion } from '@zondax/ledger-blockstack';
 import ecdsaFormat from 'ecdsa-sig-formatter';
+import { compare } from 'compare-versions';
 import * as secp from '@noble/secp256k1';
 import { sha256 } from 'sha.js';
 
@@ -172,4 +173,20 @@ export function addSignatureToAuthResponseJwt(authResponse: string, signature: U
 
 export function getSha256HashOfJwtAuthPayload(payload: string) {
   return new sha256().update(payload).digest('hex');
+}
+
+type SemVerObject = Record<'major' | 'minor' | 'patch', number>;
+
+function versionObjectToVersionString(version: SemVerObject) {
+  return [version.major, version.minor, version.patch].join('.');
+}
+
+const ledgerStacksAppVersionFromWhichJwtAuthIsSupported = '0.22.5';
+
+export function doesLedgerStacksAppVersionSupportJwtAuth(versionInfo: SemVerObject) {
+  return compare(
+    ledgerStacksAppVersionFromWhichJwtAuthIsSupported,
+    versionObjectToVersionString(versionInfo),
+    '>'
+  );
 }

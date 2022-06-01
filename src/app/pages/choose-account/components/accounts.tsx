@@ -158,7 +158,7 @@ export const Accounts = memo(() => {
   return (
     <>
       <AddAccountAction />
-      <Box mt="base">
+      <Box mt="base" width="100%">
         {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
         <Virtuoso
           useWindowScroll

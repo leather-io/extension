@@ -52,16 +52,16 @@ export function LedgerSignTxContainer() {
   const signTransaction = async () => {
     if (!account) return;
 
-    const stacks = await prepareLedgerDeviceConnection({
+    const stacksApp = await prepareLedgerDeviceConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
         ledgerNavigate.toErrorStep();
       },
     });
 
-    if (!stacks) return;
+    if (!stacksApp) return;
 
-    const versionInfo = await getAppVersion(stacks);
+    const versionInfo = await getAppVersion(stacksApp);
     ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
     setLatestDeviceResponse(versionInfo);
 
@@ -85,7 +85,7 @@ export function LedgerSignTxContainer() {
 
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
-      const resp = await signLedgerTransaction(stacks)(
+      const resp = await signLedgerTransaction(stacksApp)(
         Buffer.from(unsignedTransaction, 'hex'),
         account.index
       );

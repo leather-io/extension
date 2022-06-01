@@ -15,7 +15,7 @@ import { SecondaryButton } from '@app/components/secondary-button';
 function BuyTxButton(props: ButtonProps) {
   return (
     <HomeActionButton
-      data-testid={BuyTokensSelectors.BtnBuyTokens}
+      data-testid={HomePageSelectors.BtnFundAccount}
       icon={FiPlus}
       label="Buy"
       buttonComponent={SecondaryButton}
@@ -35,7 +35,7 @@ export const BuyButton = () => {
 
   return (
     <Suspense fallback={<BuyButtonFallback />}>
-      <BuyTxButton onClick={() => navigate(RouteUrls.Buy)} />
+      <BuyTxButton onClick={() => navigate(RouteUrls.Fund)} />
     </Suspense>
   );
 };
