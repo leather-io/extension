@@ -1,7 +1,7 @@
 import { useQueries, useQuery } from 'react-query';
 
 import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
-import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { Api, useApi } from '@app/store/common/api-clients.hooks';
 
 function fetchNonFungibleTokenHoldings(api: Api) {
@@ -21,9 +21,7 @@ export function useGetNonFungibleTokenHoldingsQuery(address?: string) {
   });
 }
 
-export function useGetNonFungibleTokenHoldingsListQuery(
-  accounts?: SoftwareWalletAccountWithAddress[]
-) {
+export function useGetNonFungibleTokenHoldingsListQuery(accounts?: AccountWithAddress[]) {
   const api = useApi();
   const network = useCurrentNetwork();
 

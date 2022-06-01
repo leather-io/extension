@@ -12,6 +12,8 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 
 import { ContainerLayout } from './container.layout';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { AccountInfoFetcher, BalanceFetcher } from '@app/features/container/fetchers';
 
 function UnmountEffectSuspense() {
   const transactionRequest = useTransactionRequestState();
@@ -60,9 +62,14 @@ function UnmountEffect() {
 
 export function Container(): JSX.Element | null {
   const [routeHeader, _] = useRouteHeaderState();
+  const account = useCurrentAccount();
 
   return (
     <ContainerLayout header={routeHeader}>
+      <Suspense fallback={null}>
+        {account?.address && <BalanceFetcher address={account.address} />}
+        {account?.address && <AccountInfoFetcher address={account.address} />}
+      </Suspense>
       <UnmountEffect />
       <Outlet />
     </ContainerLayout>

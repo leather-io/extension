@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 import {
   useGetNonFungibleTokenHoldingsListQuery,
@@ -12,7 +12,7 @@ export function useNonFungibleTokenHoldings(address?: string) {
   return nftHoldings;
 }
 
-export function useAccountsNonFungibleTokenHoldings(accounts?: SoftwareWalletAccountWithAddress[]) {
+export function useAccountsNonFungibleTokenHoldings(accounts?: AccountWithAddress[]) {
   const accountsNftHoldings = useGetNonFungibleTokenHoldingsListQuery(accounts);
 
   return accountsNftHoldings.reduce((acc, nftHoldings) => {
