@@ -1,3 +1,10 @@
+# [3.10.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.3...v3.10.0-beta.4) (2022-06-02)
+
+
+### Bug Fixes
+
+* onboarding state ([40bb84b](https://github.com/hirosystems/stacks-wallet-web/commit/40bb84b0c92a67cc07bbba0df6b61d5f77f2e4e8))
+
 # [3.10.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.2...v3.10.0-beta.3) (2022-05-31)
 
 
