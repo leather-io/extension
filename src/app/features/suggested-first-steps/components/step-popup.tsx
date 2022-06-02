@@ -10,39 +10,39 @@ interface StepPopupProps {
   body: string;
   imagePopup: string;
   imagePopupDone: string;
-  isDone: boolean;
+  isComplete: boolean;
   isExternalRoute?: boolean;
   onClick(): void;
   title: string;
 }
 export function StepPopup(props: StepPopupProps) {
-  const { body, imagePopup, imagePopupDone, isDone, isExternalRoute, onClick, title } = props;
+  const { body, imagePopup, imagePopupDone, isComplete, isExternalRoute, onClick, title } = props;
 
   return (
     <Stack
-      _hover={{ cursor: !isDone ? 'pointer' : 'unset' }}
+      _hover={{ cursor: !isComplete ? 'pointer' : 'unset' }}
       border={['1px solid', 'unset']}
       borderColor={color('border')}
       borderRadius={['10px', 'unset']}
       flexGrow={1}
-      onClick={!isDone ? onClick : undefined}
+      onClick={!isComplete ? onClick : undefined}
       pl={['base', 'unset']}
       pr="base"
       py={['base', 'unset']}
       spacing="base"
     >
       <Box height={['46px', '100px']} width={['55px', '132px']}>
-        <StepIllustration image={isDone ? imagePopupDone : imagePopup} />
+        <StepIllustration image={isComplete ? imagePopupDone : imagePopup} />
       </Box>
       <Tooltip
-        disabled={isDone || !isExternalRoute}
+        disabled={isComplete || !isExternalRoute}
         label={externalLinkInfo}
         maxWidth="250px"
         placement="top"
       >
         <Flex alignItems={['center', 'unset']} flexDirection={['unset', 'column']}>
           <Title
-            color={isDone ? color('text-caption') : color('text-title')}
+            color={isComplete ? color('text-caption') : color('text-title')}
             fontSize={[1, 2]}
             lineHeight="24px"
             mr="extra-tight"

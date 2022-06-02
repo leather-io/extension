@@ -15,8 +15,8 @@ import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/on
 
 export function useSuggestedFirstSteps() {
   const dispatch = useAppDispatch();
-  const hideSuggestedFirstSteps = useHideSuggestedFirstSteps();
-  const suggestedFirstStepsStatus = useSuggestedFirstStepsStatus();
+  const hasHiddenSuggestedFirstSteps = useHideSuggestedFirstSteps();
+  const stepsStatus = useSuggestedFirstStepsStatus();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const { data: balances } = useCurrentAccountUnanchoredBalances();
   const accounts = useAccounts();
@@ -24,32 +24,24 @@ export function useSuggestedFirstSteps() {
   useEffect(() => {
     if (availableStxBalance?.isGreaterThan(0)) {
       dispatch(
-        onboardingActions.updateSuggestedFirstStepsStatus({
-          ...suggestedFirstStepsStatus,
-          [SuggestedFirstSteps.AddFunds]: SuggestedFirstStepStatus.Done,
-        })
+        onboardingActions.userCompletedSuggestedFirstStep({ step: SuggestedFirstSteps.AddFunds })
       );
     }
 
     if (balances && Object.keys(balances?.non_fungible_tokens).length > 0) {
       dispatch(
-        onboardingActions.updateSuggestedFirstStepsStatus({
-          ...suggestedFirstStepsStatus,
-          [SuggestedFirstSteps.BuyNft]: SuggestedFirstStepStatus.Done,
-        })
+        onboardingActions.userCompletedSuggestedFirstStep({ step: SuggestedFirstSteps.BuyNft })
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableStxBalance, balances?.non_fungible_tokens]);
 
-  const hasCompletedOnboardingSteps = useMemo(() => {
-    return Object.values(suggestedFirstStepsStatus).every(
-      val => val === SuggestedFirstStepStatus.Done
-    );
-  }, [suggestedFirstStepsStatus]);
+  const hasCompletedSuggestedFirstSteps = useMemo(() => {
+    return Object.values(stepsStatus).every(val => val === SuggestedFirstStepStatus.Complete);
+  }, [stepsStatus]);
 
   const showSuggestedFirstSteps =
-    accounts?.length === 1 && !hasCompletedOnboardingSteps && !hideSuggestedFirstSteps;
+    accounts?.length === 1 && !hasCompletedSuggestedFirstSteps && !hasHiddenSuggestedFirstSteps;
 
   return {
     showSuggestedFirstSteps,

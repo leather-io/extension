@@ -15,10 +15,10 @@ const buyNftExternalRoute = 'https://www.hiro.so/wallet-faq/nfts';
 
 export function BuyNftStep() {
   const analytics = useAnalytics();
-  const suggestedFirstStepsStatus = useSuggestedFirstStepsStatus();
+  const stepsStatus = useSuggestedFirstStepsStatus();
 
   const onSelectStep = useCallback(() => {
-    void analytics.track('select_next_step', { step: SuggestedFirstSteps.BuyNft });
+    void analytics.track('select_next_step', { step: 'buy_nft' });
     openInNewTab(buyNftExternalRoute);
   }, [analytics]);
 
@@ -30,9 +30,7 @@ export function BuyNftStep() {
       imageFullDone={BuyNftFullDone}
       imagePopup={BuyNftPopup}
       imagePopupDone={BuyNftPopupDone}
-      isDone={
-        suggestedFirstStepsStatus[SuggestedFirstSteps.BuyNft] === SuggestedFirstStepStatus.Done
-      }
+      isComplete={stepsStatus[SuggestedFirstSteps.BuyNft] === SuggestedFirstStepStatus.Complete}
       isExternalRoute
       key={SuggestedFirstSteps.BuyNft}
       onClick={onSelectStep}

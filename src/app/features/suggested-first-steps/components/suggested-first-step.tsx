@@ -20,7 +20,7 @@ interface SuggestedFirstStepProps {
   imageFullDone: string;
   imagePopup: string;
   imagePopupDone: string;
-  isDone: boolean;
+  isComplete: boolean;
   isExternalRoute?: boolean;
   onClick(): void;
   title: string;
