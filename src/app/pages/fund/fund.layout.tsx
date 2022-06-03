@@ -1,13 +1,13 @@
-import { Box, color, Stack, useMediaQuery } from '@stacks/ui';
+import { Box, color, Flex, Stack, useMediaQuery } from '@stacks/ui';
 
 import { Text } from '@app/components/typography';
 import { PageTitle } from '@app/components/page-title';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
 import {
   CENTERED_FULL_PAGE_MAX_WIDTH,
   DESKTOP_VIEWPORT_MIN_WIDTH,
 } from '@app/components/global-styles/full-page-styles';
 import AddFunds from '@assets/images/fund/add-funds.png';
+
 import { FiatProvidersList } from './components/fiat-providers-list';
 
 interface FundLayoutProps {
@@ -19,7 +19,15 @@ export const FundLayout = (props: FundLayoutProps) => {
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
 
   return (
-    <CenteredPageContainer>
+    <Flex
+      alignItems={['left', 'center']}
+      flexGrow={1}
+      flexDirection="column"
+      minHeight={['70vh', '90vh']}
+      justifyContent="start"
+      mb="loose"
+      {...props}
+    >
       <Stack
         alignItems={['left', 'center']}
         pb={['loose', 'unset']}
@@ -27,8 +35,8 @@ export const FundLayout = (props: FundLayoutProps) => {
         spacing={['base', 'loose']}
         mt={['base', 'unset']}
       >
-        <Box display={['none', 'block']} width={['100px', '84px']}>
-          <img src={AddFunds} />
+        <Box display={['none', 'block']}>
+          <img src={AddFunds} height="84px" width="84px" />
         </Box>
         <PageTitle
           fontSize={['24px', '32px', '48px']}
@@ -50,6 +58,6 @@ export const FundLayout = (props: FundLayoutProps) => {
         </Text>
       </Stack>
       <FiatProvidersList address={address} />
-    </CenteredPageContainer>
+    </Flex>
   );
 };

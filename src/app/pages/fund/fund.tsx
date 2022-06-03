@@ -10,9 +10,9 @@ import {
 import { RouteUrls } from '@shared/route-urls';
 import { useAppDispatch } from '@app/store';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
+import { useSkipFundAccount } from '@app/store/onboarding/onboarding.selectors';
 
 import { FundLayout } from './fund.layout';
-import { useSkipFundAccount } from '@app/store/onboarding/onboarding.selectors';
 import { SkipFundAccountButton } from './components/skip-fund-account-button';
 
 interface LocationStateProps {
@@ -34,13 +34,6 @@ export function FundPage() {
     navigate(RouteUrls.Home);
   };
 
-  useEffect(() => {
-    // This handles syncing b/w views, so it can likely be removed
-    // once we force onboarding via full page view
-    if (isOnboarding && hasSkippedFundAccount) navigate(RouteUrls.Home);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   useRouteHeader(
     <Header
       actionButton={
@@ -51,6 +44,13 @@ export function FundPage() {
       title={isOnboarding ? undefined : ' '}
     />
   );
+
+  useEffect(() => {
+    // This handles syncing b/w views, so it can likely be removed
+    // once we force onboarding via full page view
+    if (isOnboarding && hasSkippedFundAccount) navigate(RouteUrls.Home);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!currentAccount) return null;
 
