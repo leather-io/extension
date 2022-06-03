@@ -66,25 +66,27 @@ export function Home() {
           spacing="loose"
           width="100%"
         >
-          <Flex
-            flexDirection={['column', 'column', 'unset']}
-            alignItems={['start', 'start', 'center']}
-            justifyContent={['unset', 'space-between']}
-          >
-            <CurrentAccount />
-            <HomeActions />
-          </Flex>
-          {account && (
-            <HomeTabs
-              balances={
-                <BalancesList
-                  address={account?.address}
-                  data-testid={HomePageSelectors.BalancesList}
-                />
-              }
-              activity={<ActivityList />}
-            />
-          )}
+          {account ? (
+            <>
+              <Flex
+                flexDirection={['column', 'column', 'unset']}
+                alignItems={['start', 'start', 'center']}
+                justifyContent={['unset', 'space-between']}
+              >
+                <CurrentAccount />
+                <HomeActions />
+              </Flex>
+              <HomeTabs
+                balances={
+                  <BalancesList
+                    address={account?.address}
+                    data-testid={HomePageSelectors.BalancesList}
+                  />
+                }
+                activity={<ActivityList />}
+              />
+            </>
+          ) : null}
         </Stack>
       </Stack>
       <Outlet />
