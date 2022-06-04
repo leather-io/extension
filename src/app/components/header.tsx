@@ -1,13 +1,13 @@
 import { memo, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { color, Box, Flex, FlexProps, IconButton, Stack, useMediaQuery } from '@stacks/ui';
+import { color, Box, Flex, FlexProps, IconButton, Stack, Text, useMediaQuery } from '@stacks/ui';
 import { FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi';
 
 import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
-import { Caption, Title } from '@app/components/typography';
+import { Title } from '@app/components/typography';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
@@ -75,17 +75,18 @@ export const Header: React.FC<HeaderProps> = memo(props => {
               isClickable={hiroWalletLogoIsClickable}
               onClick={hiroWalletLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
             />
-            <Caption
+            <Text
               color={color('text-caption')}
               display={!version ? 'none' : 'unset'}
               fontFamily="mono"
+              fontSize="10px"
+              lineHeight="10px"
               marginRight="10px"
               mb="2px"
               ml="tight"
-              variant="c3"
             >
               {version}
-            </Caption>
+            </Text>
           </Flex>
         </Flex>
       ) : (
