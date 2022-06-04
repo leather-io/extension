@@ -4,10 +4,10 @@ import { Stack, StackProps, color } from '@stacks/ui';
 import { HiroIcon } from './icons/hiro-icon';
 import { HiroWalletText } from './icons/hiro-wallet-text';
 
-interface HiroWalletPageLogo extends StackProps {
+interface HiroWalletLogoProps extends StackProps {
   isClickable: boolean;
 }
-export const HiroWalletLogo = memo((props: HiroWalletPageLogo) => {
+export const HiroWalletLogo = memo((props: HiroWalletLogoProps) => {
   const { isClickable, ...rest } = props;
 
   return (
