@@ -1,3 +1,11 @@
+# [3.10.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.4...v3.10.0-beta.5) (2022-06-06)
+
+
+### Bug Fixes
+
+* fund page layout shift ([9f66227](https://github.com/hirosystems/stacks-wallet-web/commit/9f66227f925171bb28d61eff120ed11e48286dbb))
+* header version alignment ([676b5dd](https://github.com/hirosystems/stacks-wallet-web/commit/676b5dd2f033384c43275fca41e60a57b4fcd794))
+
 # [3.10.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.3...v3.10.0-beta.4) (2022-06-02)
 
 
