@@ -52,6 +52,7 @@ export const FiatProvidersList = (props: FiatProvidersProps) => {
             onGoToProvider={() => goToProviderExternalWebsite(providerValue.name, providerUrl)}
             hasFastCheckoutProcess={providerValue.hasFastCheckoutProcess}
             hasTradingFees={providerValue.hasTradingFees}
+            hasUnitedStatesAvailability={providerValue.hasUnitedStatesAvailability}
             title={providerValue.name}
           />
         );

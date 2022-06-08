@@ -18,6 +18,7 @@ export interface ActiveFiatProvider {
   hasFastCheckoutProcess: boolean;
   name: string;
   hasTradingFees: boolean;
+  hasUnitedStatesAvailability: boolean;
 }
 
 interface FeeEstimationsConfig {
