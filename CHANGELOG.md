@@ -1,3 +1,10 @@
+# [3.10.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.5...v3.10.0-beta.6) (2022-06-08)
+
+
+### Bug Fixes
+
+* use the anchor mode from the input transaction ([92c7c6a](https://github.com/hirosystems/stacks-wallet-web/commit/92c7c6a7afc3a5f8fde052aa412f8418e8f8eea3))
+
 # [3.10.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.4...v3.10.0-beta.5) (2022-06-06)
 
 
