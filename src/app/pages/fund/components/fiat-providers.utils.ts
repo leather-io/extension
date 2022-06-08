@@ -67,8 +67,8 @@ function makeTransakUrl(address: string) {
   )}&defaultPaymentMethod=credit_debit_card&walletAddress=${address}`;
 }
 
-function makeGenericExternalUrl(address: string, provider: string) {
-  return `https://hiro.so/wallet-faq/exchange-purchase?provider=${provider}&address=${address}`;
+function makeFiatProviderFaqUrl(address: string, provider: string) {
+  return `https://hiro.so/wallet-faq/how-do-i-buy-stx-from-an-exchange?provider=${provider}&address=${address}`;
 }
 
 export function getProviderUrl(address: string, providerKey: string, providerName: string) {
@@ -80,6 +80,6 @@ export function getProviderUrl(address: string, providerKey: string, providerNam
     case ActiveFiatProviders.Transak:
       return makeTransakUrl(address);
     default:
-      return makeGenericExternalUrl(address, providerName);
+      return makeFiatProviderFaqUrl(address, providerName);
   }
 }
