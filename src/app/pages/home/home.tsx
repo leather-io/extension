@@ -11,7 +11,6 @@ import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
-import { useSuggestedFirstSteps } from '@app/features/suggested-first-steps/hooks/use-suggested-first-steps';
 import { CurrentAccount } from '@app/pages/home/components/account-area';
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { RouteUrls } from '@shared/route-urls';
@@ -27,7 +26,6 @@ import { HomeTabs } from './components/home-tabs';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
-  const { showSuggestedFirstSteps } = useSuggestedFirstSteps();
   const navigate = useNavigate();
   const account = useCurrentAccount();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
@@ -57,7 +55,7 @@ export function Home() {
         {account?.address && <AccountInfoFetcher address={account.address} />}
       </Suspense>
       <Stack alignItems="center" width="100%" spacing="extra-tight">
-        {showSuggestedFirstSteps && <SuggestedFirstSteps />}
+        <SuggestedFirstSteps />
         <Stack
           data-testid={HomePageSelectors.HomePageContainer}
           maxWidth={['unset', HOME_FULL_PAGE_MAX_WIDTH]}
