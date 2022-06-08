@@ -4,17 +4,26 @@ import { FastCheckoutBadge } from './fast-checkout-badge';
 import { ZeroPercentFeesBadge } from './zero-percent-fees-badge';
 import { FundAccountTile } from './fund-account-tile';
 
-const description = 'Available in the US, South Korea, Europe and +33 countries';
+const availableInsideUnitedStatesDescription = 'Available in the US and other countries';
+const availableOutsideUnitedStatesDescription = 'Available outside the US and other countries';
 
 interface FiatProviderProps {
   icon: string;
   onGoToProvider(): void;
   hasFastCheckoutProcess: boolean;
   hasTradingFees: boolean;
+  hasUnitedStatesAvailability: boolean;
   title: string;
 }
 export const FiatProviderItem = (props: FiatProviderProps) => {
-  const { icon, onGoToProvider, hasFastCheckoutProcess, hasTradingFees, title } = props;
+  const {
+    icon,
+    onGoToProvider,
+    hasFastCheckoutProcess,
+    hasTradingFees,
+    hasUnitedStatesAvailability,
+    title,
+  } = props;
 
   const Attributes = (
     <>
@@ -26,7 +35,11 @@ export const FiatProviderItem = (props: FiatProviderProps) => {
   return (
     <FundAccountTile
       attributes={Attributes}
-      description={description}
+      description={
+        hasUnitedStatesAvailability
+          ? availableInsideUnitedStatesDescription
+          : availableOutsideUnitedStatesDescription
+      }
       icon={icon}
       onClickTile={onGoToProvider}
       testId={FundPageSelectors.FiatProviderItem}
