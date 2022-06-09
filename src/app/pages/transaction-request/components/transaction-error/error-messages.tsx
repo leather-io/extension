@@ -144,7 +144,7 @@ export const ExpiredRequestErrorMessage = memo(props => {
         >
           <ErrorMessage
             title="Expired request"
-            body="This transaction request has expired or cannot be validated, please try to re-initiate this transaction request from the original app."
+            body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
             border={'1px solid'}
             borderColor={color('border')}
             boxShadow="high"

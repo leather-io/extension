@@ -14,7 +14,7 @@ export const AccountListUnavailable = memo(() => (
       <Title>Unable to load account information</Title>
       <Body mt="base-tight">
         We're unable to load information about your accounts. This may be a problem with the
-        wallet's API. If this problem persists, please contact support.
+        wallet's API. If this problem persists, contact support.
       </Body>
     </Box>
   </Flex>

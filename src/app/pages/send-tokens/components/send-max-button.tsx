@@ -39,7 +39,7 @@ export function SendMaxButton(props: SendMaxProps): JSX.Element | null {
   const isStx = selectedAsset?.type === 'stx';
 
   const fireInactiveSendMaxButtonToast = useCallback(() => {
-    if (isUndefined(fee)) toast.error('Loading fee, please try again');
+    if (isUndefined(fee)) toast.error('Loading fee, try again');
     toast.error('A fee must be set to calculate max STX transfer amount');
   }, [fee]);
 

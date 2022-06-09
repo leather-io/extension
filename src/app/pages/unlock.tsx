@@ -22,8 +22,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 const waitingMessages: WaitingMessages = {
-  '2': 'Please wait a few seconds…',
-  '10': 'Still working, please wait.',
+  '2': 'Verifying password…',
+  '10': 'Still working…',
   '20': 'Almost there.',
 };
 
