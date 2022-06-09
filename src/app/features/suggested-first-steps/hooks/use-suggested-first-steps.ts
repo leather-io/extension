@@ -40,10 +40,7 @@ export function useSuggestedFirstSteps() {
     return Object.values(stepsStatus).every(val => val === SuggestedFirstStepStatus.Complete);
   }, [stepsStatus]);
 
-  const showSuggestedFirstSteps =
-    accounts?.length === 1 && !hasCompletedSuggestedFirstSteps && !hasHiddenSuggestedFirstSteps;
-
-  return {
-    showSuggestedFirstSteps,
-  };
+  return (
+    accounts?.length === 1 && !hasCompletedSuggestedFirstSteps && !hasHiddenSuggestedFirstSteps
+  );
 }
