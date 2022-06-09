@@ -108,7 +108,7 @@ export const SetPasswordPage = () => {
       .defined()
       .when('password', {
         is: (val: string | any[]) => (val && val.length > 0 ? true : false),
-        then: yup.string().oneOf([yup.ref('password')], 'Passwords must match'),
+        then: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
       }),
   });
 
@@ -119,7 +119,7 @@ export const SetPasswordPage = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         validateOnBlur={false}
-        validateOnChange={false}
+        // validateOnChange={false}
         validateOnMount={false}
       >
         {formik => (
@@ -138,14 +138,12 @@ export const SetPasswordPage = () => {
               <Text lineHeight="1.5rem">
                 Your password protects your Secret Key and is for this device only. To access your
                 Stacks account on another device or wallet you’ll need just your Secret Key.
-                {formik.submitCount &&
-                !formik.isSubmitting &&
-                !strengthResult.meetsAllStrengthRequirements ? (
+                {!formik.isSubmitting && !strengthResult.meetsAllStrengthRequirements && (
                   <Caption fontSize={0} mt="base-loose">
                     Use a stronger password. Longer than 12 characters, with symbols, numbers, and
                     words.
                   </Caption>
-                ) : null}
+                )}
               </Text>
               <Stack px={['unset', 'base-loose']} spacing="base">
                 <Input
@@ -160,12 +158,12 @@ export const SetPasswordPage = () => {
                   value={formik.values.password}
                   isDisabled={loading}
                 />
-                {formik.submitCount && formik.errors.password ? (
+                {formik.errors.password && (
                   <Stack alignItems="center" isInline>
                     <Caption mr="4px !important">Password strength:</Caption>
                     <Caption color={color('feedback-error')}>{formik.errors.password}</Caption>
                   </Stack>
-                ) : null}
+                )}
                 <Input
                   data-testid={OnboardingSelectors.ConfirmPasswordInput}
                   height="64px"
@@ -178,11 +176,11 @@ export const SetPasswordPage = () => {
                   width="100%"
                   isDisabled={loading}
                 />
-                {formik.submitCount && formik.errors.confirmPassword ? (
+                {formik.errors.confirmPassword && (
                   <ErrorLabel>
                     <Text textStyle="caption">{formik.errors.confirmPassword}</Text>
                   </ErrorLabel>
-                ) : null}
+                )}
                 <PrimaryButton
                   data-testid={OnboardingSelectors.SetPasswordBtn}
                   isDisabled={loading}
