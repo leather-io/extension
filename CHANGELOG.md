@@ -1,3 +1,10 @@
+# [3.10.0-beta.7](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.6...v3.10.0-beta.7) (2022-06-09)
+
+
+### Bug Fixes
+
+* suggested steps only updating with refresh ([2dea9c6](https://github.com/hirosystems/stacks-wallet-web/commit/2dea9c6954117e127f251fb1b72c258c93b81482))
+
 # [3.10.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.5...v3.10.0-beta.6) (2022-06-08)
 
 
