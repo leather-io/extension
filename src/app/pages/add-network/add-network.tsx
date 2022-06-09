@@ -42,7 +42,7 @@ export const AddNetwork = () => {
         onSubmit={async values => {
           const { name, url, key } = values;
           if (!isValidUrl(url)) {
-            setError('Please enter a valid URL');
+            setError('Enter a valid URL');
             return;
           }
           setLoading(true);
