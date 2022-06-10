@@ -3,8 +3,12 @@ import { Outlet } from 'react-router-dom';
 
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAuthRequest } from '@app/store/onboarding/onboarding.hooks';
+import {
+  useOnCancelSignMessage,
+  useSignatureRequestSearchParams,
+} from '@app/store/signatures/requests.hooks';
 import { usePendingTransaction } from '@app/store/transactions/transaction.hooks';
-import { useOnCancel } from '@app/store/transactions/requests.hooks';
+import { useOnCancelTransaction } from '@app/store/transactions/requests.hooks';
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 
 import { ContainerLayout } from './container.layout';
@@ -12,8 +16,10 @@ import { ContainerLayout } from './container.layout';
 function UnmountEffectSuspense() {
   const pendingTx = usePendingTransaction();
   const { authRequest } = useAuthRequest();
-  const handleCancelTransaction = useOnCancel();
+  const handleCancelTransaction = useOnCancelTransaction();
   const { cancelAuthentication } = useWallet();
+  const { requestToken: signatureRequest } = useSignatureRequestSearchParams();
+  const handleCancelSignMessage = useOnCancelSignMessage();
 
   /*
    * When the popup is closed, this checks the request type and forces
@@ -24,8 +30,17 @@ function UnmountEffectSuspense() {
       await handleCancelTransaction();
     } else if (!!authRequest) {
       cancelAuthentication();
+    } else if (!!signatureRequest) {
+      handleCancelSignMessage();
     }
-  }, [cancelAuthentication, authRequest, pendingTx, handleCancelTransaction]);
+  }, [
+    pendingTx,
+    authRequest,
+    signatureRequest,
+    handleCancelTransaction,
+    cancelAuthentication,
+    handleCancelSignMessage,
+  ]);
 
   useEffect(() => {
     window.addEventListener('beforeunload', handleUnmount);
