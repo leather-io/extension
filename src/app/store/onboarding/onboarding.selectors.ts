@@ -7,11 +7,6 @@ const selectOnboarding = (state: RootState) => state.onboarding;
 
 const selectHideSuggestedFirstSteps = createSelector(selectOnboarding, state => state.hideSteps);
 
-const selectSkipFundAccount = createSelector(
-  selectOnboarding,
-  state => state.hasSkippedFundAccount
-);
-
 const selectSuggestedFirstStepsStatus = createSelector(
   selectOnboarding,
   state => state.stepsStatus
@@ -19,10 +14,6 @@ const selectSuggestedFirstStepsStatus = createSelector(
 
 export function useHideSuggestedFirstSteps() {
   return useSelector(selectHideSuggestedFirstSteps);
-}
-
-export function useSkipFundAccount() {
-  return useSelector(selectSkipFundAccount);
 }
 
 export function useSuggestedFirstStepsStatus() {
