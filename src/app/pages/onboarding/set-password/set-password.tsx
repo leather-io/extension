@@ -142,8 +142,8 @@ export const SetPasswordPage = () => {
                 !formik.isSubmitting &&
                 !strengthResult.meetsAllStrengthRequirements ? (
                   <Caption fontSize={0} mt="base-loose">
-                    Please use a stronger password. Longer than 12 characters, with symbols,
-                    numbers, and words.
+                    Use a stronger password. Longer than 12 characters, with symbols, numbers, and
+                    words.
                   </Caption>
                 ) : null}
               </Text>

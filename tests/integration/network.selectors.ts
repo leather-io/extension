@@ -4,6 +4,6 @@ export const NetworkSelectors = {
   NetworkKey: 'network-key',
   BtnAddNetwork: 'btn-add-network',
   ErrorText: 'error-text',
-  EmptyAddressError: 'Please enter a valid URL',
+  EmptyAddressError: 'Enter a valid URL',
   NoNodeFetch: 'Unable to fetch info from node.',
 };
