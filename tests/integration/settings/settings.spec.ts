@@ -90,6 +90,7 @@ describe(`Settings integration tests`, () => {
     const password = randomString(15);
     await wallet.enterNewPassword(password);
     await wallet.enterConfirmPasswordAndClickDone(password);
+    await wallet.clickSkipFundAccountButton();
     await wallet.waitForSettingsButton();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.LockListItem));
