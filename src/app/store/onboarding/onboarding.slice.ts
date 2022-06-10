@@ -8,13 +8,11 @@ import {
 
 interface OnboardingState {
   hideSteps: boolean;
-  hasSkippedFundAccount: boolean;
   stepsStatus: SuggestedFirstStepsStatus;
 }
 
 const initialState: OnboardingState = {
   hideSteps: false,
-  hasSkippedFundAccount: false,
   stepsStatus: {
     [SuggestedFirstSteps.BackUpSecretKey]: SuggestedFirstStepStatus.Complete,
     [SuggestedFirstSteps.AddFunds]: SuggestedFirstStepStatus.Incomplete,
@@ -29,9 +27,6 @@ export const onboardingSlice = createSlice({
   reducers: {
     hideSuggestedFirstSteps(state, action: PayloadAction<boolean>) {
       state.hideSteps = action.payload;
-    },
-    userSkippedFundingAccount(state, action: PayloadAction<boolean>) {
-      state.hasSkippedFundAccount = action.payload;
     },
     userCompletedSuggestedFirstStep(state, action: PayloadAction<{ step: SuggestedFirstSteps }>) {
       state.stepsStatus[action.payload.step] = SuggestedFirstStepStatus.Complete;
