@@ -105,11 +105,9 @@ export const SetPasswordPage = () => {
       }),
     confirmPassword: yup
       .string()
-      .defined()
-      .when('password', {
-        is: (val: string | any[]) => (val && val.length > 0 ? true : false),
-        then: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
-      }),
+      .test('password-confirmation', 'Enter password again to confirm', function (value) {
+        return this.parent.password === value
+      })
   });
 
   return (
@@ -119,7 +117,6 @@ export const SetPasswordPage = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         validateOnBlur={false}
-        // validateOnChange={false}
         validateOnMount={false}
       >
         {formik => (
@@ -183,7 +180,7 @@ export const SetPasswordPage = () => {
                 )}
                 <PrimaryButton
                   data-testid={OnboardingSelectors.SetPasswordBtn}
-                  isDisabled={loading}
+                  isDisabled={loading || !(formik.isValid && formik.dirty)}
                   isLoading={loading || formik.isSubmitting}
                   mt="tight"
                 >
