@@ -17,6 +17,7 @@ import {
   hasCreatedAccountState,
   refreshAccountDataState,
   transactionAccountIndexState,
+  accountsAvailableStxBalanceState,
 } from '@app/store/accounts';
 import { currentAccountIndexState } from '../wallet/wallet';
 
@@ -34,6 +35,10 @@ export function useSetMempoolTransactions() {
 
 export function useAccounts() {
   return useAtomValue(accountsWithAddressState);
+}
+
+export function useAccountsAvailableStxBalance() {
+  return useAtomValue(accountsAvailableStxBalanceState);
 }
 
 export function useCurrentAccountStxAddressState() {

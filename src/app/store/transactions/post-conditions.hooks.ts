@@ -1,7 +1,7 @@
 import { useAtomValue } from 'jotai/utils';
 import { addressToString, FungiblePostCondition } from '@stacks/transactions';
 import { postConditionModeState } from '@app/store/transactions/post-conditions';
-import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metadata.hook';
+import { useFungibleTokenMetadata } from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
 
 export const usePostConditionModeState = () => {
   return useAtomValue(postConditionModeState);
