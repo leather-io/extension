@@ -9,7 +9,7 @@ export const HIGH_FEE_AMOUNT_STX = 5;
 
 export const DEFAULT_FEE_RATE = 400;
 
-export const HUMAN_REACTION_DEBOUNCE_TIME = 250;
+export const HUMAN_REACTION_DEBOUNCE_TIME = 200;
 
 export const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 export const IS_PRODUCTION_ENV =

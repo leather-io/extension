@@ -84,7 +84,6 @@ describe(`Onboarding integration tests`, () => {
     );
     await wallet.decryptRecoveryCode(MAGIC_RECOVERY_PASSWORD);
     await wallet.enterNewPassword('lksjdflksjlfkjsdlfjsldf');
-    await wallet.enterConfirmPasswordAndClickDone('lksjdflksjlfkjsdlfjsldf');
     await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     const homePageVisible = await wallet.page.isVisible(wallet.$homePageContainer);
