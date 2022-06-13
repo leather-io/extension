@@ -1,3 +1,10 @@
+# [3.10.0-beta.12](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.11...v3.10.0-beta.12) (2022-06-13)
+
+
+### Bug Fixes
+
+* sign message oncancel ([f2d75f8](https://github.com/hirosystems/stacks-wallet-web/commit/f2d75f8fe7226f14c9b27d8f1abd48a299eb5875))
+
 # [3.10.0-beta.11](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.10...v3.10.0-beta.11) (2022-06-13)
 
 # [3.10.0-beta.10](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.9...v3.10.0-beta.10) (2022-06-10)
