@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -169,8 +169,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -189,6 +187,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,6 +233,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Flex, Stack } from '@stacks/ui';
 &nbsp;
+import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
@@ -240,21 +241,18 @@ import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { ActivityList } from '@app/features/activity-list/account-activity';
 import { BalancesList } from '@app/features/balances-list/balances-list';
+import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { CurrentAccount } from '@app/pages/home/components/account-area';
 import { HomeActions } from '@app/pages/home/components/home-actions';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { RouteUrls } from '@shared/route-urls';
-import { HomePageSelectors } from '@tests/page-objects/home-page.selectors';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 &nbsp;
 import { AccountInfoFetcher, BalanceFetcher } from './components/fetchers';
 import { HomeTabs } from './components/home-tabs';
-import { OnboardingStepsList } from './components/onboarding-steps-list';
-import { useOnboardingSteps } from './hooks/use-onboarding-steps';
-import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >Home(</span>) {
   const { decodedAuthRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
-  const { showOnboardingSteps } = <span class="cstat-no" title="statement not covered" >useOnboardingSteps();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const account = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
 <span class="cstat-no" title="statement not covered" >  useTrackFirstDeposit();</span>
@@ -278,34 +276,36 @@ export function <span class="fstat-no" title="function not covered" >Home(</span
         {account?.address &amp;&amp; &lt;AccountInfoFetcher address={account.address} /&gt;}
       &lt;/Suspense&gt;
       &lt;Stack alignItems="center" width="100%" spacing="extra-tight"&gt;
-        {showOnboardingSteps &amp;&amp; &lt;OnboardingStepsList /&gt;}
+        &lt;SuggestedFirstSteps /&gt;
         &lt;Stack
-          data-testid="home-page"
+          data-testid={HomePageSelectors.HomePageContainer}
           maxWidth={['unset', HOME_FULL_PAGE_MAX_WIDTH]}
           mt="extra-loose"
           px={['base-loose', 'base-loose', 'base-loose', 'unset']}
           spacing="loose"
           width="100%"
         &gt;
-          &lt;Flex
-            flexDirection={['column', 'column', 'unset']}
-            alignItems={['start', 'start', 'center']}
-            justifyContent={['unset', 'space-between']}
-          &gt;
-            &lt;CurrentAccount /&gt;
-            &lt;HomeActions /&gt;
-          &lt;/Flex&gt;
-          {account &amp;&amp; (
-            &lt;HomeTabs
-              balances={
-                &lt;BalancesList
-                  address={account?.address}
-                  data-testid={HomePageSelectors.BalancesList}
-                /&gt;
-              }
-              activity={&lt;ActivityList /&gt;}
-            /&gt;
-          )}
+          {account ? (
+            &lt;&gt;
+              &lt;Flex
+                flexDirection={['column', 'column', 'unset']}
+                alignItems={['start', 'start', 'center']}
+                justifyContent={['unset', 'space-between']}
+              &gt;
+                &lt;CurrentAccount /&gt;
+                &lt;HomeActions /&gt;
+              &lt;/Flex&gt;
+              &lt;HomeTabs
+                balances={
+                  &lt;BalancesList
+                    address={account?.address}
+                    data-testid={HomePageSelectors.BalancesList}
+                  /&gt;
+                }
+                activity={&lt;ActivityList /&gt;}
+              /&gt;
+            &lt;/&gt;
+          ) : null}
         &lt;/Stack&gt;
       &lt;/Stack&gt;
       &lt;Outlet /&gt;
@@ -319,7 +319,7 @@ export function <span class="fstat-no" title="function not covered" >Home(</span
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon May 16 2022 16:44:13 GMT+0000 (Coordinated Universal Time)
+                at Mon Jun 13 2022 14:14:12 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

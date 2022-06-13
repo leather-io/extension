@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -126,19 +126,7 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,23 +150,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -212,77 +190,66 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
-import { Box, useClipboard, Stack, color, Button } from '@stacks/ui';
+import toast from 'react-hot-toast';
+import { FiCopy } from 'react-icons/fi';
+import { Box, Flex, useClipboard, Stack, color, Button } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 &nbsp;
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { PrimaryButton } from '@app/components/primary-button';
-import { Header } from '@app/components/header';
+&nbsp;
 import { Caption, Text, Title } from '@app/components/typography';
-import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { RouteUrls } from '@shared/route-urls';
+&nbsp;
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 &nbsp;
 import { QrCode } from './components/address-qr-code';
+import { BaseDrawer } from '@app/components/drawer';
 &nbsp;
 export const ReceiveTokens = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
   const { currentAccount, currentAccountStxAddress } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const address = <span class="cstat-no" title="statement not covered" >currentAccountStxAddress || '';</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(address);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;Header title="Receive" onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home)}</span> /&gt;);</span>
+  const { onCopy } = <span class="cstat-no" title="statement not covered" >useClipboard(address);</span>
 &nbsp;
   const copyToClipboard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('copy_address_to_clipboard');</span>
+<span class="cstat-no" title="statement not covered" >    toast.success('Copied to clipboard!');</span>
 <span class="cstat-no" title="statement not covered" >    onCopy();</span>
   };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;CenteredPageContainer&gt;
-      &lt;Stack
-        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-        px={['loose', 'base-loose']}
-        spacing="loose"
-        textAlign="center"
-      &gt;
-        &lt;Text textAlign={['left', 'center']}&gt;
-          Share your unique address to receive any token or collectible. Including a memo is not
-          required.
+    &lt;BaseDrawer title="Receive" isShowing onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(-1)}</span>&gt;
+      &lt;Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose"&gt;
+        &lt;Text color={color('text-caption')} mb="tight" textAlign="left"&gt;
+          Share your account’s unique address to receive any token or collectible. Including a memo
+          is not required.
         &lt;/Text&gt;
-        &lt;Box mx="auto"&gt;
+        &lt;Box mt="extra-loose" mx="auto"&gt;
           &lt;QrCode principal={address} /&gt;
         &lt;/Box&gt;
-        {currentAccount &amp;&amp; (
-          &lt;Title fontSize={3} lineHeight="1rem"&gt;
-            {getAccountDisplayName(currentAccount)}
-          &lt;/Title&gt;
-        )}
-        &lt;Caption userSelect="none"&gt;{truncateMiddle(address, 4)}&lt;/Caption&gt;
-        {!hasCopied ? (
-          &lt;PrimaryButton onClick={copyToClipboard}&gt;Copy your address&lt;/PrimaryButton&gt;
-        ) : (
+        &lt;Stack alignItems="center" spacing="base"&gt;
+          {currentAccount &amp;&amp; (
+            &lt;Title fontSize={3} lineHeight="1rem" mt="loose"&gt;
+              {getAccountDisplayName(currentAccount)}
+            &lt;/Title&gt;
+          )}
+          &lt;Caption userSelect="none"&gt;{truncateMiddle(address, 4)}&lt;/Caption&gt;
           &lt;Button
-            _hover={{
-              boxShadow: 'none',
-            }}
-            border="1px solid"
-            borderColor={color('border')}
+            _focus={{ boxShadow: 'none' }}
+            _hover={{ boxShadow: 'none' }}
             borderRadius="10px"
             boxShadow="none"
-            color={color('accent')}
-            height="48px"
+            height="40px"
             mode="tertiary"
+            onClick={copyToClipboard}
           &gt;
-            Copied to clipboard!
+            &lt;FiCopy /&gt;
+            &lt;Text ml="tight"&gt;Copy address&lt;/Text&gt;
           &lt;/Button&gt;
-        )}
-      &lt;/Stack&gt;
-    &lt;/CenteredPageContainer&gt;
+        &lt;/Stack&gt;
+      &lt;/Flex&gt;
+    &lt;/BaseDrawer&gt;
   );
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -292,7 +259,7 @@ export const ReceiveTokens = <span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon May 16 2022 16:44:13 GMT+0000 (Coordinated Universal Time)
+                at Mon Jun 13 2022 14:14:12 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

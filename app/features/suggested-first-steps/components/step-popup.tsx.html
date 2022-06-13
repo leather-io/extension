@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/home/hooks/use-onboarding-steps.ts</title>
+    <title>Code coverage report for app/features/suggested-first-steps/components/step-popup.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/home/hooks</a> use-onboarding-steps.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/features/suggested-first-steps/components</a> step-popup.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -115,7 +115,15 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,29 +132,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,67 +142,106 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useMemo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FiArrowRight } from 'react-icons/fi';
+import { Box, color, Flex, Stack } from '@stacks/ui';
 &nbsp;
-import {
-  useAccounts,
-  useCurrentAccountAvailableStxBalance,
-} from '@app/store/accounts/account.hooks';
-import { useAppDispatch } from '@app/store';
-import { useHideSteps, useStepsStatus } from '@app/store/onboarding/onboarding.selectors';
-import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
-import { OnboardingSteps, OnboardingStepStatus } from '@shared/models/onboarding-types';
+import { Tooltip } from '@app/components/tooltip';
+import { Body, Title } from '@app/components/typography';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useOnboardingSteps(</span>) {
-  const dispatch = <span class="cstat-no" title="statement not covered" >useAppDispatch();</span>
-  const hideOnboardingSteps = <span class="cstat-no" title="statement not covered" >useHideSteps();</span>
-  const onboardingStepsStatus = <span class="cstat-no" title="statement not covered" >useStepsStatus();</span>
-  const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
-  const { data: balances } = <span class="cstat-no" title="statement not covered" >useCurrentAccountUnanchoredBalances();</span>
-  const accounts = <span class="cstat-no" title="statement not covered" >useAccounts();</span>
+import { externalLinkInfo, StepIllustration } from './suggested-first-step';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (availableStxBalance?.isGreaterThan(0)) {</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(</span>
-        onboardingActions.updateStepsStatus({
-          ...onboardingStepsStatus,
-          [OnboardingSteps.AddFunds]: OnboardingStepStatus.Done,
-        })
-      );
-    }
+interface StepPopupProps {
+  body: string;
+  imagePopup: string;
+  imagePopupDone: string;
+  isComplete: boolean;
+  isExternalRoute?: boolean;
+  onClick(): void;
+  title: string;
+}
+export function <span class="fstat-no" title="function not covered" >StepPopup(</span>props: StepPopupProps) {
+  const { body, imagePopup, imagePopupDone, isComplete, isExternalRoute, onClick, title } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (balances &amp;&amp; Object.keys(balances?.non_fungible_tokens).length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(</span>
-        onboardingActions.updateStepsStatus({
-          ...onboardingStepsStatus,
-          [OnboardingSteps.BuyNft]: OnboardingStepStatus.Done,
-        })
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availableStxBalance, balances?.non_fungible_tokens]);
-&nbsp;
-  const hasCompletedOnboardingSteps = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return Object.values(onboardingStepsStatus).every(<span class="fstat-no" title="function not covered" >va</span>l =&gt; <span class="cstat-no" title="statement not covered" >val === OnboardingStepStatus.Done)</span>;</span>
-  }, [onboardingStepsStatus]);
-&nbsp;
-  const showOnboardingSteps =
-<span class="cstat-no" title="statement not covered" >    accounts?.length === 1 &amp;&amp; !hasCompletedOnboardingSteps &amp;&amp; !hideOnboardingSteps;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return {</span>
-    showOnboardingSteps,
-  };
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;Stack
+      _hover={{ cursor: !isComplete ? 'pointer' : 'unset' }}
+      border={['1px solid', 'unset']}
+      borderColor={color('border')}
+      borderRadius={['10px', 'unset']}
+      flexGrow={1}
+      onClick={!isComplete ? onClick : undefined}
+      pl={['base', 'unset']}
+      pr="base"
+      py={['base', 'unset']}
+      spacing="base"
+    &gt;
+      &lt;Box height={['46px', '100px']} width={['55px', '132px']}&gt;
+        &lt;StepIllustration image={isComplete ? imagePopupDone : imagePopup} /&gt;
+      &lt;/Box&gt;
+      &lt;Tooltip
+        disabled={isComplete || !isExternalRoute}
+        label={externalLinkInfo}
+        maxWidth="250px"
+        placement="top"
+      &gt;
+        &lt;Flex alignItems={['center', 'unset']} flexDirection={['unset', 'column']}&gt;
+          &lt;Title
+            color={isComplete ? color('text-caption') : color('text-title')}
+            fontSize={[1, 2]}
+            lineHeight="24px"
+            mr="extra-tight"
+          &gt;
+            {title}
+          &lt;/Title&gt;
+          {isExternalRoute ? &lt;Box as={FiArrowRight} transform={'rotate(-45deg)'} /&gt; : null}
+          &lt;Body display={['none', 'block']} mt="tight"&gt;
+            {body}
+          &lt;/Body&gt;
+        &lt;/Flex&gt;
+      &lt;/Tooltip&gt;
+    &lt;/Stack&gt;
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -226,7 +250,7 @@ export function <span class="fstat-no" title="function not covered" >useOnboardi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon May 16 2022 16:44:13 GMT+0000 (Coordinated Universal Time)
+                at Mon Jun 13 2022 14:14:12 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
