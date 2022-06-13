@@ -2,7 +2,6 @@ export enum OnboardingSelectors {
   AnalyticsAllowBtn = 'analytics-allow-btn',
   AnalyticsDenyBtn = 'analytics-deny-btn',
   BackUpSecretKeyBtn = 'back-up-secret-key-btn',
-  ConfirmPasswordInput = 'confirm-password-input',
   HideStepsBtn = 'hide-steps-btn',
   HiroWalletLogoRouteToHome = 'hiro-wallet-logo-route-to-home',
   NewPasswordInput = 'set-or-enter-password-input',
