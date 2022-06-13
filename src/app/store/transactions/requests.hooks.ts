@@ -29,7 +29,7 @@ export function useUpdateTransactionBroadcastError() {
   return useUpdateAtom(transactionBroadcastErrorState);
 }
 
-export function useOnCancel() {
+export function useOnCancelTransaction() {
   return useAtomCallback(
     useCallback(async (get, set) => {
       const requestToken = get(requestTokenState);
