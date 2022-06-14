@@ -6,6 +6,7 @@ export function LedgerWrapper(props: FlexProps) {
       alignItems="center"
       flexDirection="column"
       maxHeight="80vh"
+      overflowY="scroll"
       pb="loose"
       px="loose"
       textAlign="center"

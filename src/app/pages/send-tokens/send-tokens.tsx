@@ -88,6 +88,8 @@ function SendTokensFormBase() {
     [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate, setFeeEstimations]
   );
 
+  if (assets.length < 1 || !nonce) return null;
+
   const initialValues = {
     amount: '',
     fee: '',
@@ -96,8 +98,6 @@ function SendTokensFormBase() {
     nonce,
     recipient: '',
   };
-
-  if (assets.length < 1) return null;
 
   return (
     <Formik
