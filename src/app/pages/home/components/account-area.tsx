@@ -39,6 +39,8 @@ const AccountAddress = memo((props: StackProps) => {
 });
 
 export const CurrentAccount = memo((props: StackProps) => {
+  const currentAccount = useCurrentAccount();
+  if (!currentAccount) return null;
   return (
     <Stack spacing="base-tight" alignItems="center" isInline {...props}>
       <CurrentAccountAvatar />
