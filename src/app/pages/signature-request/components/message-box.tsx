@@ -8,16 +8,15 @@ import { isStructuredMessage, SignatureMessage } from './sign-action';
 
 export function MessageBox(props: SignatureMessage): JSX.Element | null {
   const { message, messageType } = props;
-
   const [hash, setHash] = useState<string | undefined>();
-  const [displayMessage, setDisplayMessage] = useState<string | undefined>();
+  const [displayMessage, setDisplayMessage] = useState<string[] | undefined>();
   const [clarityValueMessage, setClarityValueMessage] = useState<ClarityValue | undefined>();
 
   useEffect(() => {
     if (isStructuredMessage(messageType)) {
       setClarityValueMessage(deserializeCV(Buffer.from(message, 'hex')));
     } else {
-      setDisplayMessage(message);
+      setDisplayMessage(message.split(/\r?\n/));
     }
   }, [message, messageType]);
 
@@ -39,21 +38,22 @@ export function MessageBox(props: SignatureMessage): JSX.Element | null {
           backgroundColor={color('border')}
         >
           <Stack
-            py="loose"
-            px="loose"
-            spacing="loose"
+            bg={color('bg')}
             borderRadius="16px"
-            backgroundColor={'white'}
+            fontSize={2}
+            lineHeight="1.6"
+            px="loose"
+            py="loose"
+            spacing="tight"
+            wordBreak="break-all"
           >
-            <Stack spacing="base-tight">
-              <Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all">
-                {clarityValueMessage && messageType === 'structured' ? (
-                  <ClarityValueListDisplayer val={clarityValueMessage} encoding={'tryAscii'} />
-                ) : (
-                  displayMessage
-                )}
+            {clarityValueMessage && messageType === 'structured' ? (
+              <Text>
+                <ClarityValueListDisplayer encoding={'tryAscii'} val={clarityValueMessage} />
               </Text>
-            </Stack>
+            ) : (
+              displayMessage?.map(line => <Text>{line}</Text>)
+            )}
           </Stack>
           {hash ? <HashDrawer hash={hash} /> : null}
         </Stack>
