@@ -1,3 +1,10 @@
+# [3.10.0-beta.14](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.13...v3.10.0-beta.14) (2022-06-16)
+
+
+### Bug Fixes
+
+* sign message with line breaks ([fdc8866](https://github.com/hirosystems/stacks-wallet-web/commit/fdc8866861abf143dba3815b97ea85946914eae9))
+
 # [3.10.0-beta.13](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.12...v3.10.0-beta.13) (2022-06-16)
 
 
