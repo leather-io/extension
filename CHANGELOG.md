@@ -1,3 +1,10 @@
+# [3.10.0-beta.13](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.12...v3.10.0-beta.13) (2022-06-16)
+
+
+### Bug Fixes
+
+* nonce with pending tx ([9ba8234](https://github.com/hirosystems/stacks-wallet-web/commit/9ba8234c27b8d3e25923e1b4002c9c3548739811))
+
 # [3.10.0-beta.12](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.11...v3.10.0-beta.12) (2022-06-13)
 
 
