@@ -1,8 +1,8 @@
-import { ChainID } from '@stacks/transactions';
-import { Input, Stack } from '@stacks/ui';
-import { Formik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Formik } from 'formik';
+import { Input, Stack } from '@stacks/ui';
+import { ChainID } from '@stacks/transactions';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isValidUrl } from '@app/common/validation/validate-url';
@@ -13,12 +13,12 @@ import { Header } from '@app/components/header';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Text } from '@app/components/typography';
 import {
-  useCurrentStacksNetworkState,
   useUpdateCurrentNetworkKey,
   useUpdateNetworkState,
 } from '@app/store/network/networks.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { NetworkSelectors } from '@tests/integration/network.selectors';
+import { fetchPrivate } from '@shared/utils/fetch';
 
 interface AddNetworkFormValues {
   key: string;
@@ -33,7 +33,6 @@ export const AddNetwork = () => {
   const navigate = useNavigate();
   const setNetworks = useUpdateNetworkState();
   const setNetworkKey = useUpdateCurrentNetworkKey();
-  const network = useCurrentStacksNetworkState();
 
   useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
 
@@ -51,7 +50,7 @@ export const AddNetwork = () => {
           setError('');
           try {
             const origin = new URL(url).origin;
-            const response = await network.fetchFn(`${origin}/v2/info`);
+            const response = await fetchPrivate(`${origin}/v2/info`);
             const chainInfo = await response.json();
             const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
             if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {

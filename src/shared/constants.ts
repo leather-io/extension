@@ -36,8 +36,7 @@ export interface Network {
 
 export const DEFAULT_TESTNET_SERVER = 'https://stacks-node-api.testnet.stacks.co';
 
-// const DEFAULT_MAINNET_SERVER = 'https://stacks-node-api.stacks.co';
-const DEFAULT_MAINNET_SERVER = 'https://kong.stacks.co';
+const DEFAULT_MAINNET_SERVER = 'https://stacks-node-api.stacks.co';
 
 export type Networks = Record<string, Network>;
 
@@ -73,3 +72,5 @@ export const TRANSAK_API_KEY_PRODUCTION = '7300ebf7-c657-46b1-9c72-c0d91bbed0a8'
 export const TRANSAK_API_KEY_STAGING = '4055d318-9d41-4b74-9253-e73e3ca13602';
 
 export const MOONPAY_API_KEY_PRODUCTION = 'pk_live_Bctok4Wp6KZHX0YfS4Ie7dFOYnNw8lqv';
+
+export const X_API_KEY = process.env.X_API_KEY ?? '';

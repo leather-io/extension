@@ -1,5 +1,7 @@
+import { X_API_KEY } from '@shared/constants';
+
 const hiroHeaders: HeadersInit = {
-  'x-api-key': process.env.X_API_KEY ?? '',
+  'x-api-key': X_API_KEY,
   'x-hiro-product': 'stacks-wallet-web',
   'x-hiro-version': VERSION,
 };

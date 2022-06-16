@@ -5,7 +5,7 @@
   "version": "3.11.2",
   "author": "Hiro Systems PBC",
   "scripts": {
-    "dev": "concurrently --raw 'node -r dotenv/config webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
+    "dev": "concurrently --raw 'node webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
     "dev:test-app": "webpack serve --config test-app/webpack/webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",
     "build:analyze": "cross-env ANALYZE=true NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",
@@ -285,10 +285,12 @@
   "resolutions": {
     "**/**/prismjs": "1.27.0",
     "**/**/xmldom": "github:xmldom/xmldom#0.7.0",
+    "**/**/@stacks/common": "4.2.1",
+    "**/**/@stacks/network": "4.2.1",
+    "**/**/@stacks/transactions": "4.3.1",
     "@redux-devtools/cli/**/tar": "4.4.18",
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
-    "**/**/@stacks/transactions": "4.3.1",
     "async": "2.6.4",
     "bn.js": "5.2.0",
     "buffer": "6.0.3",

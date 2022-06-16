@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const { version: _version } = require('../package.json');
 const generateManifest = require('../scripts/generate-manifest');
 
+const DotEnv = require('dotenv');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -24,6 +25,8 @@ const IS_PUBLISHING = !!process.env.IS_PUBLISHING;
 const MAIN_BRANCH = 'refs/heads/main';
 const GITHUB_REF = process.env.GITHUB_REF;
 const GITHUB_SHA = process.env.GITHUB_SHA;
+
+DotEnv.config();
 
 /**
  * For non main branch builds, we add a random number after the patch version.
