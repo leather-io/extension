@@ -1,3 +1,10 @@
+# [3.10.0-beta.15](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.14...v3.10.0-beta.15) (2022-06-17)
+
+
+### Bug Fixes
+
+* current account name ([7b54aa4](https://github.com/hirosystems/stacks-wallet-web/commit/7b54aa4cc516841f5602a2c40d9e2a010c20441d))
+
 # [3.10.0-beta.14](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.13...v3.10.0-beta.14) (2022-06-16)
 
 
