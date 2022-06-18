@@ -16,6 +16,6 @@ export const MenuWrapper = forwardRefWithAs((props, ref) => (
     borderColor={color('border')}
     py="tight"
     transformOrigin="top right"
-    {...props}
+    {...(props as any)}
   />
 ));
