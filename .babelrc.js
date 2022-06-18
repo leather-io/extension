@@ -8,6 +8,7 @@ module.exports = api => {
         '@babel/preset-react',
         {
           runtime: 'automatic',
+          importSource: '@emotion/react',
         },
       ],
     ],

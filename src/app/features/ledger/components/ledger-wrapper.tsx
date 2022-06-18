@@ -1,16 +1,11 @@
-import { Flex, FlexProps } from '@stacks/ui';
+import { Box, BoxProps, Flex } from '@stacks/ui';
 
-export function LedgerWrapper(props: FlexProps) {
+export function LedgerWrapper({ children, ...props }: BoxProps) {
   return (
-    <Flex
-      alignItems="center"
-      flexDirection="column"
-      maxHeight="80vh"
-      overflowY="scroll"
-      pb="loose"
-      px="loose"
-      textAlign="center"
-      {...props}
-    />
+    <Box maxHeight="80vh" textAlign="center" {...props}>
+      <Flex alignItems="center" flexDirection="column" pb="loose" px="loose">
+        {children}
+      </Flex>
+    </Box>
   );
 }

@@ -20,11 +20,13 @@ import { BaseDrawer } from '@app/components/drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useTriggerLedgerDeviceRequestKeys } from './use-trigger-ledger-request-keys';
 import { useLedgerAnalytics } from '@app/features/ledger/hooks/use-ledger-analytics.hook';
+import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 
 export function LedgerRequestKeysContainer() {
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
+  useScrollLock(true);
 
   const { completeLedgerDeviceOnboarding, fireErrorMessageToast } =
     useTriggerLedgerDeviceRequestKeys();
