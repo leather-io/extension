@@ -1,10 +1,12 @@
 import { useRef, useCallback, memo, ReactNode, Suspense } from 'react';
 import { Flex, useEventListener, IconButton, color, transition, FlexProps } from '@stacks/ui';
 import { FiX as IconX } from 'react-icons/fi';
+import { css } from '@emotion/react';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { isString, noop } from '@app/common/utils';
 import { Title } from '@app/components/typography';
+import { hideScrollbarStyle } from '../global-styles/hide-scrollbar';
 
 export interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
   isShowing: boolean;
@@ -70,6 +72,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
   const ref = useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);
   return (
     <Flex
+      display={isShowing ? 'flex' : 'none'}
       bg={`rgba(0,0,0,0.${isShowing ? 4 : 0})`}
       transition={transition}
       position="fixed"
@@ -108,12 +111,18 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         position="relative"
         mt={['auto', 'unset', 'unset', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
-        overflow="hidden"
       >
-        <DrawerHeader title={title} onClose={onClose} />
-        <Flex maxHeight="100%" flexGrow={1} flexDirection="column">
-          <Suspense fallback={<></>}>{children}</Suspense>
-        </Flex>
+        <div
+          css={css`
+            overflow-y: scroll;
+            ${hideScrollbarStyle}
+          `}
+        >
+          <DrawerHeader title={title} onClose={onClose} />
+          <Flex maxHeight="100%" flexGrow={1} flexDirection="column">
+            <Suspense fallback={<></>}>{children}</Suspense>
+          </Flex>
+        </div>
       </Flex>
     </Flex>
   );

@@ -52,7 +52,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
       isDifferent={isDifferent}
       name={name}
       data-testid={`asset-${name}`}
-      {...rest}
+      {...(rest as any)}
     />
   );
 });

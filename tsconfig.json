@@ -33,7 +33,8 @@
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["jest", "chrome"]
+    "forceConsistentCasingInFileNames": true,
+    "types": ["jest", "chrome", "@emotion/react/types/css-prop"]
   },
   "include": ["./src/**/*", "./tests/**/*"],
   "exclude": ["test-app"]

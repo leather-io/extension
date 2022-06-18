@@ -9,9 +9,9 @@ import { tippyStyles } from './tippy-styles';
 
 const styles = css`
   body {
+    &.no-scroll,
     &.no-scroll .main-content {
       overflow: hidden;
-      pointer-events: none;
     }
   }
   ${fullPageStyles};
