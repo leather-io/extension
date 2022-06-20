@@ -1,3 +1,18 @@
+# [3.10.0-beta.17](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.16...v3.10.0-beta.17) (2022-06-20)
+
+
+### Bug Fixes
+
+* direct landing on send form page, closes [#2470](https://github.com/hirosystems/stacks-wallet-web/issues/2470) ([b98d570](https://github.com/hirosystems/stacks-wallet-web/commit/b98d570c1a17534772d4189a89641bdfcee5bd14))
+* new tab send form nonce and scroll ([62e6d11](https://github.com/hirosystems/stacks-wallet-web/commit/62e6d118d6681c641a280064d3c5e218a96a7dc3))
+* remove double scrollbars, emotion set up ([fc0be70](https://github.com/hirosystems/stacks-wallet-web/commit/fc0be704deb0a3d0884869fde8ce5faf9dc9fdf2))
+
+
+### Features
+
+* initial support jwt signing on ledger ([5f4696e](https://github.com/hirosystems/stacks-wallet-web/commit/5f4696ecfa8127ae682a98190a32d7e52d3e4ecc))
+* support Ledger hardware wallets ([8a7d0d2](https://github.com/hirosystems/stacks-wallet-web/commit/8a7d0d2a3d09848393f6fc033dcb24c48b758bef))
+
 # [3.10.0-beta.16](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.15...v3.10.0-beta.16) (2022-06-20)
 
 # [3.10.0-beta.15](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.14...v3.10.0-beta.15) (2022-06-17)
