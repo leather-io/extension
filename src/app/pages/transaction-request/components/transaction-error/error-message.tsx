@@ -1,35 +1,14 @@
 import { memo } from 'react';
-import { Box, BoxProps, color, Stack, StackProps } from '@stacks/ui';
 import { FiAlertTriangle } from 'react-icons/fi';
+import { Box, color, Stack, StackProps } from '@stacks/ui';
 
 import { Caption, Text } from '@app/components/typography';
-
-function ErrorButton({ variant, ...props }: { variant?: 'secondary' } & BoxProps) {
-  return (
-    <Caption
-      as="button"
-      border={0}
-      borderRadius="12px"
-      px="base"
-      py="base"
-      color={color('text-title')}
-      bg={variant === 'secondary' ? 'transparent' : color('bg-4')}
-      fontWeight={variant === 'secondary' ? 400 : 500}
-      {...props}
-    />
-  );
-}
 
 interface ErrorMessageProps extends StackProps {
   title: string;
   body: string | JSX.Element;
-  actions?: {
-    onClick: () => void;
-    label: string;
-    variant?: 'secondary';
-  }[];
+  actions?: JSX.Element;
 }
-
 export const ErrorMessage = memo(({ title, body, actions, ...rest }: ErrorMessageProps) => {
   return (
     <Stack
@@ -49,32 +28,7 @@ export const ErrorMessage = memo(({ title, body, actions, ...rest }: ErrorMessag
         </Stack>
         <Caption color={color('text-body')}>{body}</Caption>
       </Stack>
-      <Stack spacing="loose">
-        {actions && (
-          <Stack isInline flexWrap="wrap">
-            {actions.map(action => (
-              <ErrorButton
-                flexGrow={1}
-                borderRadius="12px"
-                onClick={action.onClick}
-                variant={action.variant}
-              >
-                {action.label}
-              </ErrorButton>
-            ))}
-          </Stack>
-        )}
-        <ErrorButton
-          p={0}
-          flexGrow={1}
-          borderRadius="12px"
-          mt="extra-loose"
-          onClick={() => window.close()}
-          variant="secondary"
-        >
-          Close window
-        </ErrorButton>
-      </Stack>
+      {actions && <Stack spacing="base-tight">{actions}</Stack>}
     </Stack>
   );
 });

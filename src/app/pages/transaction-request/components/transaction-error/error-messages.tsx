@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Navigate } from 'react-router-dom';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
-import { color, Stack, useClipboard, Fade, Flex } from '@stacks/ui';
+import { color, Stack, Fade, Flex } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { stacksValue } from '@app/common/stacks-utils';
@@ -16,21 +16,40 @@ import {
   useTransactionRequestState,
 } from '@app/store/transactions/requests.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { RouteUrls } from '@shared/route-urls';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { PrimaryButton } from '@app/components/primary-button';
+import { SecondaryButton } from '@app/components/secondary-button';
+
+interface InsufficientFundsActionButtonsProps {
+  eventName: string;
+}
+function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionButtonsProps) {
+  const analytics = useAnalytics();
+  const { setShowSwitchAccountsState } = useDrawers();
+
+  const onGetStx = () => {
+    void analytics.track(eventName);
+    window.close();
+    void chrome.tabs.create({ url: 'index.html#/fund' });
+  };
+
+  return (
+    <>
+      <PrimaryButton onClick={onGetStx}>Get STX</PrimaryButton>
+      <SecondaryButton onClick={() => setShowSwitchAccountsState(true)}>
+        Switch account
+      </SecondaryButton>
+    </>
+  );
+}
 
 export const FeeInsufficientFundsErrorMessage = memo(props => {
-  const currentAccount = useCurrentAccount();
-  const { setShowSwitchAccountsState } = useDrawers();
-  const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
   return (
     <ErrorMessage
       title="Insufficient balance"
       body={`You do not have enough STX to cover the network fees for this transaction.`}
-      actions={[
-        { onClick: () => setShowSwitchAccountsState(true), label: 'Switch account' },
-        { onClick: () => onCopy(), label: hasCopied ? 'Copied!' : 'Copy address' },
-      ]}
+      actions={<InsufficientFundsActionButtons eventName="get_stx_for_tx_fees" />}
       {...props}
     />
   );
@@ -39,9 +58,7 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const currentAccount = useCurrentAccount();
-  const { setShowSwitchAccountsState } = useDrawers();
-  const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
+
   return (
     <ErrorMessage
       title="Insufficient balance"
@@ -51,7 +68,6 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
             You don't have enough STX to make this transfer. Send some STX to this address, or
             switch to another account.
           </Caption>
-
           <Stack spacing="base" justifyContent="flex-end" textAlign="right">
             <SpaceBetween>
               <Caption>Current balance</Caption>
@@ -76,10 +92,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
           </Stack>
         </Stack>
       }
-      actions={[
-        { onClick: () => setShowSwitchAccountsState(true), label: 'Switch account' },
-        { onClick: () => onCopy(), label: hasCopied ? 'Copied!' : 'Copy address' },
-      ]}
+      actions={<InsufficientFundsActionButtons eventName="get_stx_for_stx_transfer" />}
       {...props}
     />
   );
