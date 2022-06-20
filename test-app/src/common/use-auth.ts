@@ -30,6 +30,7 @@ export function useAuth() {
   }, [userSession]);
 
   const onFinish = useCallback(({ userSession, authResponse }) => {
+    console.log({ userSession, authResponse });
     const userData = userSession.loadUserData();
     setAppPrivateKey(userSession.loadUserData().appPrivateKey);
     setAuthResponse(authResponse);
@@ -56,7 +57,7 @@ export function useAuth() {
     onCancel,
     appDetails: {
       name: 'Testing App',
-      icon: '/assets/messenger-app-icon.png',
+      icon: 'http://placekitten.com/g/100/100',
     },
   };
   return {

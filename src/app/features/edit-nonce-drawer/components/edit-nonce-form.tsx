@@ -1,82 +1,63 @@
-import { Suspense, useEffect, useState } from 'react';
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { Suspense } from 'react';
 import { Button, Stack } from '@stacks/ui';
 
-import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { nonceSchema } from '@app/common/validation/nonce-schema';
-import { useCustomNonce } from '@app/store/transactions/nonce.hooks';
-import { useUnsignedTxForSettingsState } from '@app/store/transactions/transaction.hooks';
-
-import { EditNonceFormInner } from './edit-nonce-form-inner';
 import { EditNonceField } from './edit-nonce-field';
+import { PrimaryButton } from '@app/components/primary-button';
 
-// Not sure what this is doing?
-const SuspenseOnMount = ({ onMountCallback, isEnabled }: any) => {
-  const tx = useUnsignedTxForSettingsState();
-
-  useEffect(() => {
-    if (tx && isEnabled) {
-      onMountCallback();
-    }
-  }, [onMountCallback, isEnabled, tx]);
-
-  return null;
-};
-
-interface FormProps {
-  onClose: () => void;
+function EditNonceFormFallback() {
+  return (
+    <>
+      <Stack>
+        <EditNonceField />
+      </Stack>
+      <Stack isInline>
+        <Button
+          _hover={{
+            boxShadow: 'none',
+          }}
+          boxShadow="none"
+          borderRadius="10px"
+          flexGrow={1}
+          mode="tertiary"
+        >
+          Cancel
+        </Button>
+        <PrimaryButton isLoading>Apply</PrimaryButton>
+      </Stack>
+    </>
+  );
 }
 
-export function EditNonceForm(props: FormProps): JSX.Element {
-  const { onClose } = props;
-  const [, setCustomNonce] = useCustomNonce();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const { setIsLoading } = useLoading(LoadingKeys.EDIT_NONCE_DRAWER);
+interface EditNonceFormProps {
+  onBlur(): void;
+  onClose(): void;
+  onSubmit(): void;
+}
+export function EditNonceForm(props: EditNonceFormProps): JSX.Element {
+  const { onBlur, onClose, onSubmit } = props;
 
   return (
-    <Formik
-      initialValues={{ nonce: 0 }}
-      onSubmit={values => {
-        setCustomNonce(values.nonce);
-        setIsLoading();
-        setTimeout(() => setIsEnabled(true), 10);
-      }}
-      validateOnChange={false}
-      validateOnBlur={false}
-      validateOnMount={false}
-      validationSchema={yup.object({
-        nonce: nonceSchema,
-      })}
-    >
-      {() => (
-        <>
-          {isEnabled && (
-            <Suspense fallback={<></>}>
-              <SuspenseOnMount isEnabled={isEnabled} onMountCallback={onClose} />
-            </Suspense>
-          )}
-          <Suspense
-            fallback={
-              <>
-                <Stack>
-                  <EditNonceField />
-                </Stack>
-                <Stack isInline>
-                  <Button flexGrow={1} borderRadius="10px" mode="tertiary">
-                    Cancel
-                  </Button>
-                  <Button type="submit" flexGrow={1} isLoading borderRadius="10px">
-                    Apply
-                  </Button>
-                </Stack>
-              </>
-            }
-          >
-            <EditNonceFormInner />
-          </Suspense>
-        </>
-      )}
-    </Formik>
+    <Suspense fallback={<EditNonceFormFallback />}>
+      <Stack>
+        <EditNonceField onBlur={onBlur} />
+      </Stack>
+      <Stack isInline>
+        <Button
+          _hover={{
+            boxShadow: 'none',
+          }}
+          boxShadow="none"
+          borderRadius="10px"
+          flexGrow={1}
+          mode="tertiary"
+          onClick={onClose}
+        >
+          Cancel
+        </Button>
+        <PrimaryButton flexGrow={1} onClick={onSubmit}>
+          Apply
+        </PrimaryButton>
+      </Stack>
+    </Suspense>
   );
 }

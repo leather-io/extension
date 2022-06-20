@@ -43,10 +43,10 @@ export function useKeyActions() {
       },
 
       async signOut() {
-        void analytics.track('sign_out');
-        dispatch(keyActions.signOut());
         sendMessage({ method: InternalMethods.RemoveInMemoryKeys, payload: undefined });
+        dispatch(keyActions.signOut());
         clearSessionLocalData();
+        void analytics.track('sign_out');
       },
 
       lockWallet() {

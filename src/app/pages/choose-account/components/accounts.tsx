@@ -1,4 +1,4 @@
-import { useCallback, Suspense, memo, useState, useMemo } from 'react';
+import { Suspense, memo, useState, useMemo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Virtuoso } from 'react-virtuoso';
 import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
@@ -9,7 +9,6 @@ import { useAccountDisplayName } from '@app/common/hooks/account/use-account-nam
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
-import type { SoftwareWalletAccountWithAddress } from '@app/store/accounts/account.models';
 import { AccountAvatarWithName } from '@app/components/account-avatar/account-avatar';
 import { SpaceBetween } from '@app/components/space-between';
 import { usePressable } from '@app/components/item-hover';
@@ -20,12 +19,16 @@ import {
 import { slugify } from '@app/common/utils';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { useAddressBalances } from '@app/query/balance/balance.hooks';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { useNavigate } from 'react-router-dom';
+import { RouteUrls } from '@shared/route-urls';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
 interface AccountTitlePlaceholderProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
 }
 const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
   const name = `Account ${account?.index + 1}`;
@@ -37,7 +40,7 @@ const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderPr
 };
 
 interface AccountTitleProps extends BoxProps {
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
   name: string;
 }
 const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
@@ -51,7 +54,7 @@ const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
 interface AccountItemProps extends FlexProps {
   selectedAddress?: string | null;
   isLoading: boolean;
-  account: SoftwareWalletAccountWithAddress;
+  account: AccountWithAddress;
   onSelectAccount(index: number): void;
 }
 const AccountItem = memo((props: AccountItemProps) => {
@@ -132,25 +135,31 @@ const AddAccountAction = memo(() => {
 });
 
 export const Accounts = memo(() => {
-  const { wallet, finishSignIn } = useWallet();
+  const { finishSignIn } = useWallet();
+  const { whenWallet } = useWalletType();
   const accounts = useAccounts();
-  const { decodedAuthRequest } = useOnboardingState();
+  const navigate = useNavigate();
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
 
-  const signIntoAccount = useCallback(
-    async (index: number) => {
-      setSelectedAccount(index);
-      await finishSignIn(index);
-    },
-    [finishSignIn]
-  );
+  const signIntoAccount = async (index: number) => {
+    setSelectedAccount(index);
+    await whenWallet({
+      async software() {
+        await finishSignIn(index);
+      },
+      async ledger() {
+        navigate(RouteUrls.ConnectLedger, { state: { index } });
+      },
+    })();
+  };
 
-  if (!wallet || !accounts || !decodedAuthRequest) return null;
+  if (!accounts) return null;
 
   return (
     <>
       <AddAccountAction />
-      <Box mt="base">
+      <Box mt="base" width="100%">
+        {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
         <Virtuoso
           useWindowScroll
           data={accounts}
@@ -158,7 +167,7 @@ export const Accounts = memo(() => {
           itemContent={(index, account) => (
             <AccountItem
               account={account}
-              isLoading={selectedAccount === index}
+              isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
               onSelectAccount={signIntoAccount}
             />
           )}

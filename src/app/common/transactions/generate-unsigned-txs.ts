@@ -1,8 +1,8 @@
 import BN from 'bn.js';
 import {
-  ContractCallPayload,
-  ContractDeployPayload,
-  STXTransferPayload,
+  ContractCallPayload as ConnectContractCallPayload,
+  ContractDeployPayload as ConnectContractDeployPayload,
+  STXTransferPayload as ConnectSTXTransferPayload,
   TransactionTypes,
 } from '@stacks/connect';
 import {
@@ -16,9 +16,16 @@ import {
 import { hexToBuff } from '@app/common/utils';
 import { getPostConditions } from './post-condition-utils';
 import { isTransactionTypeSupported } from './transaction-utils';
+import { StacksNetwork } from '@stacks/network';
 
 function initNonce(nonce?: number) {
   return nonce !== undefined ? new BN(nonce, 10) : undefined;
+}
+
+// This type exists to bridge the gap while @stacks/connect uses an outdated
+// version of @stacks/network
+interface TempCorrectNetworkPackageType {
+  network?: StacksNetwork;
 }
 
 interface GenerateUnsignedTxArgs<TxPayload> {
@@ -28,6 +35,8 @@ interface GenerateUnsignedTxArgs<TxPayload> {
   nonce?: number;
 }
 
+type ContractCallPayload = Omit<ConnectContractCallPayload, 'network'> &
+  TempCorrectNetworkPackageType;
 type GenerateUnsignedContractCallTxArgs = GenerateUnsignedTxArgs<ContractCallPayload>;
 
 function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs) {
@@ -53,8 +62,8 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     publicKey,
     anchorMode: anchorMode ?? AnchorMode.Any,
     functionArgs: fnArgs,
-    nonce: initNonce(nonce),
-    fee: new BN(fee, 10),
+    nonce: initNonce(nonce)?.toString(),
+    fee: new BN(fee, 10).toString(),
     postConditionMode: postConditionMode,
     postConditions: getPostConditions(postConditions),
     network,
@@ -63,6 +72,8 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
   return makeUnsignedContractCall(options);
 }
 
+type ContractDeployPayload = Omit<ConnectContractDeployPayload, 'network'> &
+  TempCorrectNetworkPackageType;
 type GenerateUnsignedContractDeployTxArgs = GenerateUnsignedTxArgs<ContractDeployPayload>;
 
 function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTxArgs) {
@@ -71,8 +82,8 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
   const options = {
     contractName,
     codeBody,
-    nonce: initNonce(nonce),
-    fee: new BN(fee, 10),
+    nonce: initNonce(nonce)?.toString(),
+    fee: new BN(fee, 10)?.toString(),
     publicKey,
     anchorMode: anchorMode ?? AnchorMode.Any,
     postConditionMode: postConditionMode,
@@ -82,6 +93,8 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
   return makeUnsignedContractDeploy(options);
 }
 
+type STXTransferPayload = Omit<ConnectSTXTransferPayload, 'network'> &
+  TempCorrectNetworkPackageType;
 type GenerateUnsignedStxTransferTxArgs = GenerateUnsignedTxArgs<STXTransferPayload>;
 
 function generateUnsignedStxTransferTx(args: GenerateUnsignedStxTransferTxArgs) {
@@ -92,9 +105,9 @@ function generateUnsignedStxTransferTx(args: GenerateUnsignedStxTransferTxArgs) 
     memo,
     publicKey,
     anchorMode: anchorMode ?? AnchorMode.Any,
-    amount: new BN(amount),
-    nonce: initNonce(nonce),
-    fee: new BN(fee, 10),
+    amount: new BN(amount).toString(),
+    nonce: initNonce(nonce)?.toString(),
+    fee: new BN(fee, 10).toString(),
     network,
   };
   return makeUnsignedSTXTokenTransfer(options);

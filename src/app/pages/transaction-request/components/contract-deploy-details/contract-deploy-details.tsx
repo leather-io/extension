@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { CodeBlock, Stack, color, BoxProps } from '@stacks/ui';
 
-import { usePendingTransaction } from '@app/store/transactions/transaction.hooks';
 import { Prism } from '@app/common/clarity-prism';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { Caption, Title } from '@app/components/typography';
@@ -9,14 +8,15 @@ import { Divider } from '@app/components/divider';
 import { ContractPreview } from '@app/pages/transaction-request/components/contract-preview';
 import { Row } from '@app/pages/transaction-request/components/row';
 import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 function ContractCodeSection(): JSX.Element | null {
-  const pendingTransaction = usePendingTransaction();
+  const transactionRequest = useTransactionRequestState();
   const { currentAccount, currentAccountStxAddress } = useWallet();
 
   if (
-    !pendingTransaction ||
-    pendingTransaction.txType !== 'smart_contract' ||
+    !transactionRequest ||
+    transactionRequest.txType !== 'smart_contract' ||
     !currentAccount ||
     !currentAccountStxAddress
   ) {
@@ -32,7 +32,7 @@ function ContractCodeSection(): JSX.Element | null {
       borderRadius="12px"
       backgroundColor="ink.1000"
       width="100%"
-      code={pendingTransaction.codeBody}
+      code={transactionRequest.codeBody}
       Prism={Prism as any}
     />
   );
@@ -60,13 +60,13 @@ function TabButton(props: TabButtonProps): JSX.Element {
 }
 
 export function ContractDeployDetails(): JSX.Element | null {
-  const pendingTransaction = usePendingTransaction();
+  const transactionRequest = useTransactionRequestState();
   const { currentAccount, currentAccountStxAddress } = useWallet();
   const [tab, setTab] = useState<'details' | 'code'>('details');
 
   if (
-    !pendingTransaction ||
-    pendingTransaction.txType !== 'smart_contract' ||
+    !transactionRequest ||
+    transactionRequest.txType !== 'smart_contract' ||
     !currentAccount ||
     !currentAccountStxAddress
   ) {
@@ -97,14 +97,14 @@ export function ContractDeployDetails(): JSX.Element | null {
           </Title>
           <ContractPreview
             contractAddress={currentAccountStxAddress}
-            contractName={pendingTransaction.contractName}
+            contractName={transactionRequest.contractName}
           />
           <Stack spacing="base-loose" divider={<Divider />}>
             {currentAccountStxAddress && (
               <Row name="Contract address" value={currentAccountStxAddress} type="Principal" />
             )}
-            <Row name="Contract name" value={pendingTransaction.contractName} type="String" />
-            {pendingTransaction.attachment && <AttachmentRow />}
+            <Row name="Contract name" value={transactionRequest.contractName} type="String" />
+            {transactionRequest.attachment && <AttachmentRow />}
           </Stack>
         </Stack>
       ) : (

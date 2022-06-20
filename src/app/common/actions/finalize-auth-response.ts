@@ -13,6 +13,7 @@ interface FinalizeAuthParams {
   authResponse: string;
   authRequest: string;
 }
+
 /**
  * Call this function at the end of onboarding.
  *

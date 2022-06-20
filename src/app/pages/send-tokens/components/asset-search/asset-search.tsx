@@ -1,13 +1,13 @@
 import { memo, useEffect, useState } from 'react';
 import { Box, color, Stack } from '@stacks/ui';
 
+import { AssetWithMeta } from '@app/common/asset-types';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
-import { AssetWithMeta } from '@app/common/asset-types';
+import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 
 import { AssetSearchField } from './asset-search-field';
 import { SelectedAsset } from './selected-asset';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 
 function principalHasOnlyOneAsset(assets: AssetWithMeta[]) {
   return assets.length === 1;
