@@ -1,45 +1,37 @@
 import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { delay } from '@app/common/utils';
+import { delay, isString } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
-import { signMessage } from '@shared/crypto/sign-message';
+import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { logger } from '@shared/logger';
-import { createStacksPrivateKey } from '@stacks/transactions';
+import { SignatureMessage } from '@shared/signature/types';
+import { ClarityValue, createStacksPrivateKey } from '@stacks/transactions';
+import { TupleCV } from '@stacks/transactions/dist/esm/clarity';
 import { Button, Stack } from '@stacks/ui';
 import { useCallback, useState } from 'react';
 
 function useSignMessageSoftwareWallet() {
   const account = useCurrentAccount();
   return useCallback(
-    (message: string) => {
+    ({ message, domain }: { message: string | ClarityValue; domain?: TupleCV }) => {
       if (!account || account.type === 'ledger') return null;
       const privateKey = createStacksPrivateKey(account.stxPrivateKey);
-      return signMessage(message, privateKey);
+      if (isString(message)) {
+        // Return signature in VRS format (to be fixed)
+        return signMessage(message, privateKey);
+      } else {
+        if (!domain) throw new Error('Domain is required for structured messages');
+        // returns signature in RSV format
+        return signStructuredDataMessage(message, domain, privateKey);
+      }
     },
     [account]
   );
 }
 
-export type SignatureMessageType = 'utf8' | 'structured';
-
-export interface SignatureMessage {
-  message: string;
-  messageType: SignatureMessageType;
-}
-
-export function isStructuredMessage(
-  messageType: SignatureMessageType
-): messageType is 'structured' {
-  return messageType === 'structured';
-}
-
-export function isSignatureMessageType(message: unknown): message is SignatureMessageType {
-  return typeof message === 'string' || typeof message === 'object';
-}
-
 export function SignAction(props: SignatureMessage): JSX.Element | null {
-  const { message } = props;
+  const { message, domain } = props;
   const signSoftwareWalletMessage = useSignMessageSoftwareWallet();
   const { tabId, requestToken } = useSignatureRequestSearchParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +43,7 @@ export function SignAction(props: SignatureMessage): JSX.Element | null {
   const sign = async () => {
     setIsLoading(true);
     void analytics.track('request_signature_sign');
-    const messageSignature = signSoftwareWalletMessage(message);
+    const messageSignature = signSoftwareWalletMessage({ message, domain });
     if (!messageSignature) {
       logger.error('Cannot sign message, no account in state');
       void analytics.track('request_signature_cannot_sign_message_no_account');

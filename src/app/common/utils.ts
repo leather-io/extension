@@ -1,5 +1,5 @@
-import type { ClipboardEvent } from 'react';
 import BigNumber from 'bignumber.js';
+import type { ClipboardEvent } from 'react';
 
 import { KEBAB_REGEX, Network } from '@shared/constants';
 import { StacksNetwork } from '@stacks/network';

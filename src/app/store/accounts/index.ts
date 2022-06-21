@@ -36,6 +36,7 @@ import { DEFAULT_LIST_LIMIT } from '@shared/constants';
 import { createStacksPublicKey, pubKeyfromPrivKey, publicKeyToAddress } from '@stacks/transactions';
 import { AccountBalanceResponseBigNumber } from '@shared/models/account-types';
 import { derivePublicKey } from '@app/common/derive-public-key';
+import { signatureRequestAccountIndex } from '../signatures/requests';
 
 /**
  * --------------------------------------
@@ -144,7 +145,7 @@ export const transactionAccountIndexState = atom<number | undefined>(get => {
 // or the last selected / first account of the user
 export const currentAccountState = atom<AccountWithAddress | undefined>(get => {
   const accountIndex = get(currentAccountIndexState);
-  const txIndex = get(transactionAccountIndexState);
+  const txIndex = get(transactionAccountIndexState) ?? get(signatureRequestAccountIndex);
   const hasSwitched = get(hasSwitchedAccountsState);
   const accounts = get(accountsWithAddressState);
 
