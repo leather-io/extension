@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { useAtomCallback } from 'jotai/utils';
 
@@ -7,6 +8,8 @@ import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-t
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { rawDeserializedTxState } from '@app/store/transactions/raw';
 import { feeEstimationsState } from '@app/store/transactions/fees';
+import { RouteUrls } from '@shared/route-urls';
+
 import { useSignTransactionSoftwareWallet } from './transaction.hooks';
 
 export function useFeeEstimationsState() {
@@ -16,6 +19,7 @@ export function useFeeEstimationsState() {
 export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
   const [, setTxId] = useRawTxIdState();
   const signTx = useSignTransactionSoftwareWallet();
+  const navigate = useNavigate();
 
   const submitTransaction = useSubmitTransactionCallback({
     loadingKey: LoadingKeys.INCREASE_FEE_DRAWER,
@@ -31,11 +35,12 @@ export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
         await submitTransaction({
           onClose: () => {
             setTxId(null);
+            navigate(RouteUrls.Home);
           },
           replaceByFee: true,
         })(signedTx);
       },
-      [setTxId, signTx, submitTransaction]
+      [navigate, setTxId, signTx, submitTransaction]
     )
   );
 };

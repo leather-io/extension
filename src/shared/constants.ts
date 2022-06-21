@@ -26,7 +26,8 @@ export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 export const GITHUB_ORG = 'hirosystems';
 export const GITHUB_REPO = 'stacks-wallet-web';
 
-export const isLedgerFeatureEnabled = false;
+// TODO: Change back to false before merging
+export const isLedgerFeatureEnabled = true;
 
 export interface Network {
   url: string;

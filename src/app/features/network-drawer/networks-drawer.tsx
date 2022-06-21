@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@stacks/ui';
 
-import { ControlledDrawer } from '@app/components/drawer/controlled';
+import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import { RouteUrls } from '@shared/route-urls';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useShowNetworksStore } from '@app/store/ui/ui.hooks';

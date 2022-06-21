@@ -4,7 +4,7 @@ import { Box } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { ControlledDrawer } from '@app/components/drawer/controlled';
+import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import {
   useAccounts,
   useCurrentAccountIndex,

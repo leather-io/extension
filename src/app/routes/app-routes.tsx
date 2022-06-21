@@ -42,16 +42,17 @@ import { LedgerPublicKeyMismatch } from '@app/features/ledger/flows/tx-signing/s
 import { VerifyingPublicKeysMatch } from '@app/features/ledger/flows/tx-signing/steps/verifying-public-keys-match';
 import { PullingKeysFromDevice } from '@app/features/ledger/flows/request-keys/steps/pulling-keys-from-device';
 import { UnsupportedBrowserLayout } from '@app/features/ledger/steps/unsupported-browser.layout';
-
-import { useOnWalletLock } from './hooks/use-on-wallet-lock';
-import { useOnSignOut } from './hooks/use-on-sign-out';
-import { OnboardingGate } from './onboarding-gate';
 import { LedgerSignJwtContainer } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt';
 import { SignJwtHash } from '@app/features/ledger/flows/jwt-signing/steps/sign-jwt-hash';
 import { ConnectLedgerSignJwt } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt';
 import { ConnectLedgerSignJwtError } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-error';
 import { ConnectLedgerSignJwtSuccess } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-success';
 import { LedgerJwtSigningRejected } from '@app/features/ledger/flows/jwt-signing/steps/transaction-rejected';
+import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
+
+import { useOnWalletLock } from './hooks/use-on-wallet-lock';
+import { useOnSignOut } from './hooks/use-on-sign-out';
+import { OnboardingGate } from './onboarding-gate';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();
@@ -116,6 +117,9 @@ export function AppRoutes(): JSX.Element | null {
             </AccountGate>
           }
         >
+          <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
+            {ledgerTxSigningRoutes}
+          </Route>
           <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
           {ledgerTxSigningRoutes}

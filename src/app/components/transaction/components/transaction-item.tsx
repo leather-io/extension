@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Box, BoxProps, color, Flex, Stack, Text, useMediaQuery } from '@stacks/ui';
 import { isPendingTx } from '@stacks/ui-utils';
@@ -11,6 +12,8 @@ import { getTxCaption, getTxTitle, getTxValue } from '@app/common/transactions/t
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { TransactionTitle } from '@app/components/transaction/components/transaction-title';
 import { Tx } from '@app/common/api/transactions';
+import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
+import { RouteUrls } from '@shared/route-urls';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { TransactionIcon } from './transaction-icon';
@@ -31,15 +34,23 @@ export const TransactionItem = ({
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
   const analytics = useAnalytics();
+  const [rawTxId, setTxId] = useRawTxIdState();
+  const navigate = useNavigate();
 
   const [hideIncreaseFeeButton] = useMediaQuery('(max-width: 355px)');
+
+  if (!transaction && !transferDetails) return null;
 
   const openTxLink = () => {
     void analytics.track('view_transaction');
     handleOpenTxLink(transaction?.tx_id || transferDetails?.link || '');
   };
 
-  if (!transaction && !transferDetails) return null;
+  const onIncreaseFee = () => {
+    if (!transaction) return;
+    setTxId(transaction.tx_id);
+    navigate(RouteUrls.IncreaseFee);
+  };
 
   const isOriginator = transaction?.sender_address === currentAccount?.address;
   const isPending = transaction && isPendingTx(transaction as MempoolTransaction);
@@ -80,7 +91,8 @@ export const TransactionItem = ({
               <IncreaseFeeButton
                 isEnabled={isOriginator && isPending}
                 isHovered={isHovered}
-                txid={transaction.tx_id}
+                isSelected={rawTxId === transaction.tx_id}
+                onIncreaseFee={onIncreaseFee}
               />
             ) : null}
           </SpaceBetween>

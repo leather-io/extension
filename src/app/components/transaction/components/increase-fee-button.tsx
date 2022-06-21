@@ -1,20 +1,16 @@
 import { FiFastForward } from 'react-icons/fi';
 import { Box, Button, color } from '@stacks/ui';
 
-import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
-
-export const IncreaseFeeButton = ({
-  isEnabled,
-  isHovered,
-  txid,
-}: {
+interface IncreaseFeeButtonProps {
   isEnabled?: boolean;
   isHovered: boolean;
-  txid: string;
-}) => {
-  const [rawTxId, setTxId] = useRawTxIdState();
-  const isSelected = rawTxId === txid;
+  isSelected: boolean;
+  onIncreaseFee(): void;
+}
+export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
+  const { isEnabled, isHovered, isSelected, onIncreaseFee } = props;
   const isActive = isEnabled && !isSelected && isHovered;
+
   return (
     <Button
       _hover={{
@@ -26,7 +22,7 @@ export const IncreaseFeeButton = ({
       ml="auto"
       mode="tertiary"
       onClick={e => {
-        setTxId(txid);
+        onIncreaseFee();
         e.stopPropagation();
       }}
       opacity={!isActive ? 0 : 1}
@@ -38,4 +34,4 @@ export const IncreaseFeeButton = ({
       Increase fee
     </Button>
   );
-};
+}
