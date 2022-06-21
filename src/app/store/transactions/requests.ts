@@ -48,4 +48,5 @@ export const transactionRequestStxAddressState = atom(
   get => get(requestTokenPayloadState)?.stxAddress
 );
 
+// TODO
 export const transactionRequestNetwork = atom(get => get(requestTokenPayloadState)?.network);

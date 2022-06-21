@@ -1,17 +1,19 @@
-import { memo } from 'react';
 import { Stack } from '@stacks/ui';
+import { memo } from 'react';
 
 import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
+import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Caption, Title } from '@app/components/typography';
-import { getPayloadFromToken } from '@app/common/signature/requests';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
+import { isSignatureMessageType } from '@shared/signature/types';
 
 function PageTopBase(): JSX.Element | null {
   const network = useCurrentNetwork();
-  const { origin, requestToken } = useSignatureRequestSearchParams();
+  const { origin, requestToken, messageType } = useSignatureRequestSearchParams();
   if (!requestToken) return null;
-  const signatureRequest = getPayloadFromToken(requestToken);
+  if (!isSignatureMessageType(messageType)) return null;
+  const signatureRequest = getSignaturePayloadFromToken(requestToken);
   if (!signatureRequest) return null;
 
   const appName = signatureRequest?.appDetails?.name;
