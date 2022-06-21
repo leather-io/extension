@@ -32,7 +32,6 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
       </Box>
       {/* <img src={ConnectLedger} width="299" height="97" /> */}
       <LedgerConnectInstructionTitle mt="extra-loose" mx="50px" />
-
       <PrimaryButton
         height="40px"
         my="base"

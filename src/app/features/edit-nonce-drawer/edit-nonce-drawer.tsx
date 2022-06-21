@@ -3,7 +3,7 @@ import { Stack } from '@stacks/ui';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { ControlledDrawer } from '@app/components/drawer/controlled';
+import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
 import { useShowEditNonceCleanupEffect } from '@app/store/ui/ui.hooks';

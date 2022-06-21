@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Box } from '@stacks/ui';
 import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
@@ -19,7 +18,7 @@ import { LedgerTxSigningProvider } from '@app/features/ledger/ledger-tx-signing.
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useHandleSubmitTransaction } from '@app/common/hooks/use-submit-stx-transaction';
-import { BaseDrawer } from '@app/components/drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { logger } from '@shared/logger';
 
@@ -127,7 +126,10 @@ export function LedgerSignTxContainer() {
     }
   };
 
-  const onCancelConnectLedger = ledgerNavigate.cancelLedgerAction;
+  const allowUserToGoBack = get(location.state, 'goBack');
+  const onCancelConnectLedger = allowUserToGoBack
+    ? ledgerNavigate.cancelLedgerActionAndReturnHome
+    : ledgerNavigate.cancelLedgerAction;
 
   const ledgerContextValue = {
     transaction: unsignedTransaction ? deserializeTransaction(unsignedTransaction) : null,
@@ -139,7 +141,7 @@ export function LedgerSignTxContainer() {
 
   return (
     <LedgerTxSigningProvider value={ledgerContextValue}>
-      <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
+      <BaseDrawer enableGoBack={allowUserToGoBack} isShowing onClose={onCancelConnectLedger}>
         <Outlet />
       </BaseDrawer>
     </LedgerTxSigningProvider>

@@ -12,7 +12,7 @@ import { Caption, Text, Title } from '@app/components/typography';
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 
 import { QrCode } from './components/address-qr-code';
-import { BaseDrawer } from '@app/components/drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 
 export const ReceiveTokens = () => {
   const { currentAccount, currentAccountStxAddress } = useWallet();

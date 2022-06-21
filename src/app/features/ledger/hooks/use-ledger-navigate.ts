@@ -21,10 +21,10 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignStep(transaction: StacksTransaction) {
+      toConnectAndSignStep(transaction: StacksTransaction, goBack?: boolean) {
         return navigate(RouteUrls.ConnectLedger, {
-          replace: true,
-          state: { tx: transaction.serialize().toString('hex') },
+          replace: !goBack,
+          state: { goBack, tx: transaction.serialize().toString('hex') },
         });
       },
 
@@ -62,8 +62,14 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.LedgerDisconnected, { replace: true });
       },
 
+      // TODO: Do we need to cancel the tx signing request here bc it still
+      // stays active on the ledger to approve/reject
       cancelLedgerAction() {
         return navigate('..');
+      },
+
+      cancelLedgerActionAndReturnHome() {
+        return navigate(RouteUrls.Home);
       },
     }),
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-blockstack';
-import { Box } from '@stacks/ui';
 import { logger } from '@shared/logger';
 import get from 'lodash.get';
 
@@ -17,7 +16,7 @@ import {
 import { getAddressFromPublicKey, TransactionVersion } from '@stacks/transactions';
 
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { BaseDrawer } from '@app/components/drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
@@ -126,7 +125,7 @@ export function LedgerSignJwtContainer() {
 
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
-      <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
+      <BaseDrawer isShowing onClose={onCancelConnectLedger}>
         <Outlet />
       </BaseDrawer>
     </LedgerJwtSigningProvider>
