@@ -88,7 +88,7 @@ function SendTokensFormBase() {
     [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate, setFeeEstimations]
   );
 
-  if (assets.length < 1 || !nonce) return null;
+  if (assets.length < 1) return null;
 
   const initialValues = {
     amount: '',

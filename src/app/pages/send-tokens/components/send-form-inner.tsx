@@ -113,7 +113,8 @@ export function SendFormInner(props: SendFormInnerProps) {
     setFieldError('amount', undefined);
   }, [assets.length, setValues, values, nonce, setFieldError]);
 
-  const hasValues = values.amount && values.recipient !== '' && values.fee && values.nonce;
+  const hasValues =
+    values.amount && values.recipient !== '' && values.fee && values.nonce !== undefined;
 
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
