@@ -1,3 +1,10 @@
+# [3.10.0-beta.18](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.17...v3.10.0-beta.18) (2022-06-22)
+
+
+### Bug Fixes
+
+* send form white screen ([1ff0e70](https://github.com/hirosystems/stacks-wallet-web/commit/1ff0e7056f4ff34e43ca2cfcf31a2ff731a3e856))
+
 # [3.10.0-beta.17](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.16...v3.10.0-beta.17) (2022-06-20)
 
 
