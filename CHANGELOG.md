@@ -1,3 +1,21 @@
+# [3.10.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.0...v3.10.0) (2022-06-13)
+
+
+### Bug Fixes
+
+* bad ui copy practices ([d92a767](https://github.com/hirosystems/stacks-wallet-web/commit/d92a767cabbda41861ecd419ee7353c89a3d5f3b))
+* fund page layout shift ([748136c](https://github.com/hirosystems/stacks-wallet-web/commit/748136c510006aab5a44e5cb18160c4195a4e8f2))
+* header version alignment ([99af515](https://github.com/hirosystems/stacks-wallet-web/commit/99af5153294ced1fad05f4f7d64809fb51bf1144))
+* onboarding state ([061f383](https://github.com/hirosystems/stacks-wallet-web/commit/061f383377f2864d4fdf2c43c13b5b5b4ffd1094))
+* receive page scroll ([9c41ace](https://github.com/hirosystems/stacks-wallet-web/commit/9c41acea45058858040598f9aa076c3607d43f6e))
+* suggested steps only updating with refresh ([edb5ace](https://github.com/hirosystems/stacks-wallet-web/commit/edb5ace2a8de9f45c626ddc1b0c3fbb1eb40ffcb))
+* use the anchor mode from the input transaction ([8f16d5b](https://github.com/hirosystems/stacks-wallet-web/commit/8f16d5bd8080a7359265ac070b5b45784882c9c3))
+
+
+### Features
+
+* add image to fungible token ([3c52fae](https://github.com/hirosystems/stacks-wallet-web/commit/3c52fae7b3e476b3a12829ecd75d25a20d7db7c2)), closes [#1800](https://github.com/hirosystems/stacks-wallet-web/issues/1800)
+
 # [3.9.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.8.0...v3.9.0) (2022-05-16)
 
 
