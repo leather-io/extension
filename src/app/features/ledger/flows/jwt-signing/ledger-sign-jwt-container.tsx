@@ -46,6 +46,7 @@ export function LedgerSignJwtContainer() {
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
+  const [awaitingSignedJwt, setAwaitingSignedJwt] = useState(false);
   const [jwtPayloadHash, setJwtPayloadHash] = useState<null | string>(null);
 
   const signJwtPayload = async () => {
@@ -73,6 +74,7 @@ export function LedgerSignJwtContainer() {
     }
 
     try {
+      setAwaitingSignedJwt(true);
       ledgerNavigate.toConnectionSuccessStep();
       await delay(1000);
 
@@ -99,6 +101,7 @@ export function LedgerSignJwtContainer() {
       const resp = await signLedgerJwtHash(stacks)(authResponsePayload, accountIndex);
 
       if (resp.returnCode === LedgerError.TransactionRejected) {
+        setAwaitingSignedJwt(false);
         ledgerNavigate.toTransactionRejectedStep();
         return;
       }
@@ -108,7 +111,9 @@ export function LedgerSignJwtContainer() {
       await delay(600);
       keyActions.switchAccount(accountIndex);
       finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
+      setAwaitingSignedJwt(false);
     } catch (e) {
+      setAwaitingSignedJwt(false);
       ledgerNavigate.toDeviceDisconnectStep();
     }
   };
@@ -125,7 +130,13 @@ export function LedgerSignJwtContainer() {
 
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
-      <BaseDrawer isShowing onClose={onCancelConnectLedger}>
+      <BaseDrawer
+        isShowing
+        isWaitingOnPerformedAction={awaitingDeviceConnection || awaitingSignedJwt}
+        onClose={onCancelConnectLedger}
+        pauseOnClickOutside
+        waitingOnPerformedActionMessage="Ledger device in use"
+      >
         <Outlet />
       </BaseDrawer>
     </LedgerJwtSigningProvider>

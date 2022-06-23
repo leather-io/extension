@@ -37,7 +37,7 @@ export const currentAccountNonceState = atom(get => {
   const latestLocallySubmittedNonce = get(currentAccountLocallySubmittedLatestNonceState);
   const lastApiNonce = get(lastApiNonceState);
 
-  if (lastApiNonce && !pendingTransactions) {
+  if (lastApiNonce && !pendingTransactions.length) {
     // if there is a missing nonce, use that
     if (lastApiNonce.isMissing) return lastApiNonce.nonce;
 

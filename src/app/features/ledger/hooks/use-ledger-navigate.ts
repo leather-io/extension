@@ -62,8 +62,6 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.LedgerDisconnected, { replace: true });
       },
 
-      // TODO: Do we need to cancel the tx signing request here bc it still
-      // stays active on the ledger to approve/reject
       cancelLedgerAction() {
         return navigate('..');
       },

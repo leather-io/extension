@@ -46,6 +46,8 @@ export function LedgerSignTxContainer() {
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
+  const [awaitingKeyVerification, setAwaitingKeyVerification] = useState(false);
+  const [awaitingSignedTransaction, setAwaitingSignedTransaction] = useState(false);
 
   const broadcastTransactionFn = useHandleSubmitTransaction({
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
@@ -77,10 +79,13 @@ export function LedgerSignTxContainer() {
       return;
     }
 
+    setAwaitingKeyVerification(true);
     ledgerNavigate.toActivityHappeningOnDeviceStep();
     await delay(1000);
+    setAwaitingKeyVerification(false);
 
     try {
+      setAwaitingSignedTransaction(true);
       ledgerNavigate.toConnectionSuccessStep();
       await delay(1000);
       if (!unsignedTransaction) throw new Error('No unsigned tx');
@@ -95,17 +100,21 @@ export function LedgerSignTxContainer() {
       // Assuming here that public keys are wrong. Alternatively, we may want
       // to proactively check the key before signing
       if (resp.returnCode === LedgerError.DataIsInvalid) {
+        setAwaitingSignedTransaction(false);
         ledgerNavigate.toPublicKeyMismatchStep();
         return;
       }
 
       if (resp.returnCode === LedgerError.TransactionRejected) {
+        setAwaitingSignedTransaction(false);
         ledgerNavigate.toTransactionRejectedStep();
         ledgerAnalytics.transactionSignedOnLedgerRejected();
+
         return;
       }
 
       if (resp.returnCode !== LedgerError.NoErrors) {
+        setAwaitingSignedTransaction(false);
         throw new Error('Some other error');
       }
 
@@ -120,8 +129,10 @@ export function LedgerSignTxContainer() {
         transaction: signedTx,
         onClose: noop,
       });
+      setAwaitingSignedTransaction(false);
       navigate(RouteUrls.Home);
     } catch (e) {
+      setAwaitingSignedTransaction(false);
       ledgerNavigate.toDeviceDisconnectStep();
     }
   };
@@ -141,7 +152,16 @@ export function LedgerSignTxContainer() {
 
   return (
     <LedgerTxSigningProvider value={ledgerContextValue}>
-      <BaseDrawer enableGoBack={allowUserToGoBack} isShowing onClose={onCancelConnectLedger}>
+      <BaseDrawer
+        enableGoBack={allowUserToGoBack}
+        isShowing
+        isWaitingOnPerformedAction={
+          awaitingDeviceConnection || awaitingKeyVerification || awaitingSignedTransaction
+        }
+        onClose={onCancelConnectLedger}
+        pauseOnClickOutside
+        waitingOnPerformedActionMessage="Ledger device in use"
+      >
         <Outlet />
       </BaseDrawer>
     </LedgerTxSigningProvider>
