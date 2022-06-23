@@ -2,15 +2,17 @@ import ReactDOM from 'react-dom';
 
 import { persistAndRenderApp } from '@app/common/persistence';
 import { initSentry } from '@shared/utils/sentry-init';
+import { InternalMethods } from '@shared/message-types';
+import { addRefererHeaderRequestListener } from '@shared/add-referer-header';
+
+import { inMemoryKeyActions } from './store/in-memory-key/in-memory-key.actions';
 import { initSegment } from './common/segment-init';
 import { store } from './store';
-import { InternalMethods } from '@shared/message-types';
-import { inMemoryKeyActions } from './store/in-memory-key/in-memory-key.actions';
-
 import { App } from './app';
 
 initSentry();
 void initSegment();
+addRefererHeaderRequestListener();
 
 declare global {
   interface Window {
