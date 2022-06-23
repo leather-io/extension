@@ -1,3 +1,10 @@
+# [3.10.0-beta.19](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.18...v3.10.0-beta.19) (2022-06-23)
+
+
+### Bug Fixes
+
+* support SIP-018 for structured data signing ([8087cd6](https://github.com/hirosystems/stacks-wallet-web/commit/8087cd604a6c3a6d8a8c0e0673d70fd7d543d282)), closes [#2443](https://github.com/hirosystems/stacks-wallet-web/issues/2443) [#2460](https://github.com/hirosystems/stacks-wallet-web/issues/2460) [#2419](https://github.com/hirosystems/stacks-wallet-web/issues/2419)
+
 # [3.10.0-beta.18](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.17...v3.10.0-beta.18) (2022-06-22)
 
 
