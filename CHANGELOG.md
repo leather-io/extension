@@ -1,3 +1,10 @@
+# [3.10.0-beta.20](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.19...v3.10.0-beta.20) (2022-06-23)
+
+
+### Bug Fixes
+
+* add referer headers to api calls ([4b23da1](https://github.com/hirosystems/stacks-wallet-web/commit/4b23da187ab5e9560746d31979b199860bd68f59))
+
 # [3.10.0-beta.19](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0-beta.18...v3.10.0-beta.19) (2022-06-23)
 
 
