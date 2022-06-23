@@ -10,6 +10,7 @@ interface ControlledDrawerProps {
   onClose(): void;
   title?: string;
 }
+// The visibility of this drawer is controlled by an atom
 export function ControlledDrawer(props: ControlledDrawerProps) {
   const { enableGoBack, children, icon, isShowing, onClose, title } = props;
 

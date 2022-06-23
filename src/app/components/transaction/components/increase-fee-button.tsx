@@ -9,7 +9,7 @@ interface IncreaseFeeButtonProps {
 }
 export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
   const { isEnabled, isHovered, isSelected, onIncreaseFee } = props;
-  const isActive = isEnabled && !isSelected && isHovered;
+  const isActive = isEnabled && isHovered && !isSelected;
 
   return (
     <Button

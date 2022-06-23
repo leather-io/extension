@@ -42,7 +42,7 @@ import { LedgerPublicKeyMismatch } from '@app/features/ledger/flows/tx-signing/s
 import { VerifyingPublicKeysMatch } from '@app/features/ledger/flows/tx-signing/steps/verifying-public-keys-match';
 import { PullingKeysFromDevice } from '@app/features/ledger/flows/request-keys/steps/pulling-keys-from-device';
 import { UnsupportedBrowserLayout } from '@app/features/ledger/steps/unsupported-browser.layout';
-import { LedgerSignJwtContainer } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt';
+import { LedgerSignJwtContainer } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt-container';
 import { SignJwtHash } from '@app/features/ledger/flows/jwt-signing/steps/sign-jwt-hash';
 import { ConnectLedgerSignJwt } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt';
 import { ConnectLedgerSignJwtError } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-error';
@@ -188,7 +188,6 @@ export function AppRoutes(): JSX.Element | null {
         >
           {ledgerJwtSigningRoutes}
         </Route>
-
         <Route
           path={RouteUrls.Fund}
           element={

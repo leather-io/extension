@@ -1,9 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Box, BoxProps, color, Flex, Stack, Text, useMediaQuery } from '@stacks/ui';
 import { isPendingTx } from '@stacks/ui-utils';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { whenPageMode } from '@app/common/utils';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Title } from '@app/components/typography';
 import { SpaceBetween } from '@app/components/space-between';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
@@ -34,8 +37,10 @@ export const TransactionItem = ({
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
   const analytics = useAnalytics();
-  const [rawTxId, setTxId] = useRawTxIdState();
+  const [_, setRawTxId] = useRawTxIdState();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { whenWallet } = useWalletType();
 
   const [hideIncreaseFeeButton] = useMediaQuery('(max-width: 355px)');
 
@@ -48,8 +53,18 @@ export const TransactionItem = ({
 
   const onIncreaseFee = () => {
     if (!transaction) return;
-    setTxId(transaction.tx_id);
-    navigate(RouteUrls.IncreaseFee);
+    setRawTxId(transaction.tx_id);
+
+    const urlSearchParams = `?${createSearchParams({ txId: transaction.tx_id })}`;
+
+    whenWallet({
+      ledger: () =>
+        whenPageMode({
+          full: () => navigate(RouteUrls.IncreaseFee),
+          popup: () => openIndexPageInNewTab(RouteUrls.IncreaseFee, urlSearchParams),
+        })(),
+      software: () => navigate(RouteUrls.IncreaseFee),
+    })();
   };
 
   const isOriginator = transaction?.sender_address === currentAccount?.address;
@@ -87,11 +102,11 @@ export const TransactionItem = ({
               </Text>
               {transaction ? <TransactionStatus transaction={transaction} /> : null}
             </Stack>
-            {transaction && !hideIncreaseFeeButton ? (
+            {!hideIncreaseFeeButton ? (
               <IncreaseFeeButton
                 isEnabled={isOriginator && isPending}
                 isHovered={isHovered}
-                isSelected={rawTxId === transaction.tx_id}
+                isSelected={pathname === RouteUrls.IncreaseFee}
                 onIncreaseFee={onIncreaseFee}
               />
             ) : null}

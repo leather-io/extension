@@ -7,7 +7,7 @@ import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { hideScrollbarStyle } from '@app/components/global-styles/hide-scrollbar';
 import { noop } from '@shared/utils';
 
-import { DrawerHeader } from './drawer-header';
+import { DrawerHeader } from './components/drawer-header';
 
 function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
   const ref = useRef(null);
@@ -32,13 +32,25 @@ export interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
   enableGoBack?: boolean;
   icon?: JSX.Element;
   isShowing: boolean;
+  isWaitingOnPerformedAction?: boolean;
   onClose?(): void;
   pauseOnClickOutside?: boolean;
   title?: string;
+  waitingOnPerformedActionMessage?: string;
 }
 export const BaseDrawer = memo((props: BaseDrawerProps) => {
-  const { children, enableGoBack, icon, isShowing, onClose, pauseOnClickOutside, title, ...rest } =
-    props;
+  const {
+    children,
+    enableGoBack,
+    icon,
+    isShowing,
+    isWaitingOnPerformedAction,
+    onClose,
+    pauseOnClickOutside,
+    title,
+    waitingOnPerformedActionMessage,
+    ...rest
+  } = props;
   const ref = useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);
   const navigate = useNavigate();
 
@@ -89,9 +101,11 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         <DrawerHeader
           enableGoBack={enableGoBack}
           icon={icon}
+          isWaitingOnPerformedAction={isWaitingOnPerformedAction}
           onClose={onClose}
           onGoBack={onGoBack}
           title={title}
+          waitingOnPerformedActionMessage={waitingOnPerformedActionMessage}
         />
         <Box
           css={css`
