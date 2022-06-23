@@ -1,29 +1,33 @@
-import { memo } from 'react';
 import { Box, color, Stack } from '@stacks/ui';
+import { memo } from 'react';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 
 import {
+  getSignaturePayloadFromToken,
+  getStructuredDataPayloadFromToken,
+} from '@app/common/signature/requests';
+import { isUndefined } from '@app/common/utils';
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { Link } from '@app/components/link';
+import { Caption } from '@app/components/typography';
+import { PopupHeader } from '@app/features/current-account/popup-header';
+import {
   useIsSignatureRequestValid,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
-import { PageTop } from './components/page-top';
-import { MessageBox } from './components/message-box';
-import { NetworkRow } from './components/network-row';
 import {
   isSignatureMessageType,
-  SignAction,
-  SignatureMessage,
+  isStructuredMessage,
   SignatureMessageType,
-} from './components/sign-action';
+} from '@shared/signature/types';
 import { FiAlertTriangle } from 'react-icons/fi';
-import { Caption } from '@app/components/typography';
-import { PopupHeader } from '@app/features/current-account/popup-header';
-import { getPayloadFromToken } from '@app/common/signature/requests';
-import { isUndefined } from '@app/common/utils';
-import { Link } from '@app/components/link';
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { ChainID } from '@stacks/transactions/dist/esm/constants';
+import { MessageBox } from './components/message-box';
+import { NetworkRow } from './components/network-row';
+import { PageTop } from './components/page-top';
+import { SignAction } from './components/sign-action';
+import { StructuredDataBox } from './components/structured-data-box';
+import { ChainID } from '@stacks/common';
 
 function SignatureRequestBase(): JSX.Element | null {
   const validSignatureRequest = useIsSignatureRequestValid();
@@ -31,26 +35,22 @@ function SignatureRequestBase(): JSX.Element | null {
 
   useRouteHeader(<PopupHeader />);
 
-  if (!requestToken || !messageType) return null;
-  const signatureRequest = getPayloadFromToken(requestToken);
-  if (!signatureRequest) return null;
+  if (!isSignatureMessageType(messageType)) return null;
   if (isUndefined(validSignatureRequest)) return null;
-  const appName = signatureRequest?.appDetails?.name;
-  const { message, network } = signatureRequest;
-  if (!isSignatureMessageType(message)) return null;
+  if (!requestToken || !messageType) return null;
 
   return (
     <Stack px={['loose', 'unset']} spacing="loose" width="100%">
       <PageTop />
       {!validSignatureRequest ? (
         <ErrorMessage errorMessage={'Invalid signature request'} />
-      ) : (
-        <SignatureRequestContent
-          message={message}
-          chainId={network?.chainId || ChainID.Testnet}
-          appName={appName}
-          messageType={messageType as unknown as SignatureMessageType}
+      ) : isStructuredMessage(messageType) ? (
+        <SignatureRequestStructuredDataContent
+          requestToken={requestToken}
+          messageType={messageType}
         />
+      ) : (
+        <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
       )}
     </Stack>
   );
@@ -81,18 +81,38 @@ function Disclaimer(props: DisclaimerProps) {
   );
 }
 
-interface SignatureRequestContentProps extends SignatureMessage {
-  chainId: ChainID;
-  appName: string | undefined;
-}
-
-function SignatureRequestContent(props: SignatureRequestContentProps) {
-  const { message, messageType, appName, chainId } = props;
+function SignatureRequestMessageContent(props: {
+  requestToken: string;
+  messageType: SignatureMessageType;
+}) {
+  const { requestToken, messageType } = props;
+  const signatureRequest = getSignaturePayloadFromToken(requestToken);
+  const { message, network } = signatureRequest;
+  const appName = signatureRequest.appDetails?.name;
   return (
     <>
-      <MessageBox message={message} messageType={messageType} />
-      <NetworkRow chainId={chainId} />
+      <MessageBox message={message} />
+      <NetworkRow chainId={network?.chainId || ChainID.Testnet} />
       <SignAction message={message} messageType={messageType} />
+      <hr />
+      <Disclaimer appName={appName} />
+    </>
+  );
+}
+
+function SignatureRequestStructuredDataContent(props: {
+  requestToken: string;
+  messageType: SignatureMessageType;
+}) {
+  const { requestToken, messageType } = props;
+  const signatureRequest = getStructuredDataPayloadFromToken(requestToken);
+  const { domain, message, network } = signatureRequest;
+  const appName = signatureRequest.appDetails?.name;
+  return (
+    <>
+      <StructuredDataBox message={message} domain={domain} />
+      <NetworkRow chainId={network?.chainId || ChainID.Testnet} />
+      <SignAction message={message} messageType={messageType} domain={domain} />
       <hr />
       <Disclaimer appName={appName} />
     </>

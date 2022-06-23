@@ -8,6 +8,7 @@ import { ChainID } from '@stacks/transactions';
 import { transactionRequestNetwork } from '@app/store/transactions/requests';
 import { makeLocalDataKey } from '@app/common/store-utils';
 import { whenChainId } from '@app/common/transactions/transaction-utils';
+import { signatureRequestNetwork } from '../signatures/requests';
 
 // Our root networks list, users can add to this list and it will persist to localstorage
 export const networksState = atomWithStorage<Networks>(
@@ -16,13 +17,13 @@ export const networksState = atomWithStorage<Networks>(
 );
 
 // the current key selected
-// if there is a pending transaction request, it will default to the network passed (if included)
+// if there is a pending transaction or signature request, it will default to the network passed (if included)
 // else it will default to the persisted key or default (mainnet)
 const localCurrentNetworkKeyState = atomWithStorage(makeLocalDataKey('networkKey'), 'mainnet');
 export const currentNetworkKeyState = atom<string, string>(
   get => {
     const networks = get(networksState);
-    const txNetwork = get(transactionRequestNetwork);
+    const txNetwork = get(transactionRequestNetwork) ?? get(signatureRequestNetwork);
 
     // if txNetwork, default to this always, users cannot currently change networks when signing a transaction
     // @see https://github.com/blockstack/stacks-wallet-web/issues/1281

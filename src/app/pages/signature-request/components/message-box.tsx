@@ -1,28 +1,22 @@
-import { ClarityValue, deserializeCV } from '@stacks/transactions';
+import { hashMessage } from '@stacks/encryption';
 import { color, Stack, Text } from '@stacks/ui';
 import { useEffect, useState } from 'react';
-import { sha256 } from 'sha.js';
-import { ClarityValueListDisplayer } from './clarity-value-list';
 import { HashDrawer } from './hash-drawer';
-import { isStructuredMessage, SignatureMessage } from './sign-action';
 
-export function MessageBox(props: SignatureMessage): JSX.Element | null {
-  const { message, messageType } = props;
+export function MessageBox(props: { message: string }): JSX.Element | null {
+  const { message } = props;
+
   const [hash, setHash] = useState<string | undefined>();
   const [displayMessage, setDisplayMessage] = useState<string[] | undefined>();
-  const [clarityValueMessage, setClarityValueMessage] = useState<ClarityValue | undefined>();
 
   useEffect(() => {
-    if (isStructuredMessage(messageType)) {
-      setClarityValueMessage(deserializeCV(Buffer.from(message, 'hex')));
-    } else {
-      setDisplayMessage(message.split(/\r?\n/));
-    }
-  }, [message, messageType]);
+    setDisplayMessage(message.split(/\r?\n/));
+  }, [message]);
 
   useEffect(() => {
     if (!message) return;
-    setHash(new sha256().update(message).digest('hex'));
+    const messageHash = hashMessage(message).toString('hex');
+    setHash(messageHash);
   }, [message]);
 
   if (!message) return null;
@@ -47,13 +41,9 @@ export function MessageBox(props: SignatureMessage): JSX.Element | null {
             spacing="tight"
             wordBreak="break-all"
           >
-            {clarityValueMessage && messageType === 'structured' ? (
-              <Text>
-                <ClarityValueListDisplayer encoding={'tryAscii'} val={clarityValueMessage} />
-              </Text>
-            ) : (
-              displayMessage?.map(line => <Text>{line}</Text>)
-            )}
+            {displayMessage?.map(line => (
+              <Text>{line}</Text>
+            ))}
           </Stack>
           {hash ? <HashDrawer hash={hash} /> : null}
         </Stack>
