@@ -12,12 +12,12 @@ export function addRefererHeaderRequestListener() {
     }
     return { requestHeaders: headers };
   };
-  chrome.webRequest.onBeforeSendHeaders.addListener(
+  chrome.webRequest?.onBeforeSendHeaders.addListener(
     handler,
     {
       urls: ['https://*.stacks.co/*'],
     },
     ['requestHeaders', 'blocking', 'extraHeaders']
   );
-  return () => chrome.webRequest.onBeforeSendHeaders.removeListener(handler);
+  return () => chrome.webRequest?.onBeforeSendHeaders.removeListener(handler);
 }
