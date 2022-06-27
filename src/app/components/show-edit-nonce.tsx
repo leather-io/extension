@@ -6,14 +6,15 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { useCurrentAccountNonce } from '@app/store/accounts/nonce.hooks';
 
-export function ShowEditNonceAction(): JSX.Element {
+interface ShowEditNonceActionProps {
+  nonce: number;
+}
+export function ShowEditNonceAction({ nonce }: ShowEditNonceActionProps) {
   const { errors, setFieldError, setFieldValue, values } =
     useFormikContext<TransactionFormValues>();
   const { isTestnet, name } = useCurrentNetwork();
   const { showEditNonce, setShowEditNonce } = useDrawers();
-  const nonce = useCurrentAccountNonce();
 
   return (
     <SpaceBetween>

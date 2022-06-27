@@ -6,6 +6,7 @@ import { StacksMainnet, StacksTestnet } from '@stacks/network';
 dayjs.extend(relativeTime);
 
 const testnetUrl = 'https://stacks-node-api.testnet.stacks.co';
+const mainnetUrl = 'https://stacks-node-api.stacks.co';
 const localhostUrl = 'http://localhost:3999';
 
 export const getRPCClient = () => {
@@ -14,7 +15,7 @@ export const getRPCClient = () => {
 
 export const toRelativeTime = (ts: number): string => dayjs().to(ts);
 
-export const stacksTestnetNetwork = new StacksTestnet({ url: testnetUrl });
+export const stacksTestnetNetwork = new StacksMainnet({ url: mainnetUrl });
 
 export const stacksMainnetNetwork = new StacksMainnet();
 

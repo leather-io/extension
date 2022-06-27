@@ -11,7 +11,6 @@ import {
   useFeeEstimationsMaxValues,
   useFeeEstimationsMinValues,
 } from '@app/common/transactions/use-fee-estimations-capped-values';
-import { useCurrentAccountNonce } from '@app/store/accounts/nonce.hooks';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -40,9 +39,10 @@ import { SendFormMemoWarning } from './memo-warning';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
+  nonce: number;
 }
 export function SendFormInner(props: SendFormInnerProps) {
-  const { assetError } = props;
+  const { assetError, nonce } = props;
   const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
     useFormikContext<TransactionFormValues>();
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
@@ -52,7 +52,6 @@ export function SendFormInner(props: SendFormInnerProps) {
     serializedTxPayload,
     estimatedTxByteLength
   );
-  const nonce = useCurrentAccountNonce();
   const [, setFeeEstimations] = useFeeEstimationsState();
   const feeEstimationsMaxValues = useFeeEstimationsMaxValues();
   const feeEstimationsMinValues = useFeeEstimationsMinValues();
@@ -156,7 +155,7 @@ export function SendFormInner(props: SendFormInnerProps) {
         </PrimaryButton>
       </Box>
       <Box mb={['loose', 'unset']}>
-        <ShowEditNonceAction />
+        <ShowEditNonceAction nonce={nonce} />
       </Box>
     </Stack>
   );

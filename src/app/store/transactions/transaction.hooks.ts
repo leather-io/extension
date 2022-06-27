@@ -17,7 +17,6 @@ import {
 import { todaysIsoDate } from '@app/common/date-utils';
 import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { currentAccountState } from '@app/store/accounts';
@@ -101,7 +100,6 @@ export function useSignTransactionSoftwareWallet() {
 }
 
 export function useSoftwareWalletTransactionBroadcast() {
-  const { setLatestNonce } = useWallet();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
 
   return useAtomCallback(
@@ -137,7 +135,7 @@ export function useSoftwareWalletTransactionBroadcast() {
             logger.error('Cannot sign transaction, no account in state');
             return;
           }
-          const { isSponsored, serialized, txRaw, nonce } = prepareTxDetailsForBroadcast(signedTx);
+          const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
           const result = await broadcastTransaction({
             isSponsored,
             serialized,
@@ -145,7 +143,6 @@ export function useSoftwareWalletTransactionBroadcast() {
             attachment,
             networkUrl: network.url,
           });
-          if (typeof nonce !== 'undefined') await setLatestNonce(nonce);
           finalizeTxSignature(requestToken, result);
           if (typeof result.txId === 'string') {
             set(currentAccountLocallySubmittedTxsState, {
@@ -159,7 +156,7 @@ export function useSoftwareWalletTransactionBroadcast() {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [setLatestNonce, signSoftwareWalletTx]
+      [signSoftwareWalletTx]
     )
   );
 }
