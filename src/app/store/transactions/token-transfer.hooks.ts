@@ -21,7 +21,7 @@ import { TransactionFormValues } from '@app/common/transactions/transaction-util
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 import { currentAccountState, currentAccountStxAddressState } from '@app/store/accounts';
 import { currentStacksNetworkState } from '@app/store/network/networks';
-import { currentAccountNonceState } from '@app/store/accounts/nonce';
+import { currentAccountNonceState } from '@app/store/nonce/nonce';
 import {
   generateUnsignedTransaction,
   GenerateUnsignedTransactionOptions,

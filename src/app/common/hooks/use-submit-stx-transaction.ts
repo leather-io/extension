@@ -8,7 +8,6 @@ import {
 } from '@stacks/transactions';
 
 import { todaysIsoDate } from '@app/common/date-utils';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
@@ -48,7 +47,6 @@ interface UseSubmitTransactionCallbackArgs {
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const refreshAccountData = useRefreshAllAccountData();
   const navigate = useNavigate();
-  const { setLatestNonce } = useWallet();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
@@ -57,10 +55,9 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
   const analytics = useAnalytics();
 
   return useCallback(
-    ({ replaceByFee, onClose }: UseSubmitTransactionCallbackArgs) =>
+    ({ onClose }: UseSubmitTransactionCallbackArgs) =>
       async (transaction: StacksTransaction) => {
         setIsLoading();
-        const nonce = !replaceByFee && Number(transaction.auth.spendingCondition?.nonce);
         try {
           const response = await broadcastTransaction(transaction, stacksNetwork);
           if (response.error) {
@@ -76,7 +73,6 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
                 txid,
               });
             }
-            if (nonce) await setLatestNonce(nonce);
             toast.success('Transaction submitted!');
             void analytics.track('broadcast_transaction');
             onClose();
@@ -98,7 +94,6 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       stacksNetwork,
       setIsIdle,
       externalTxid,
-      setLatestNonce,
       analytics,
       navigate,
       setActiveTabActivity,

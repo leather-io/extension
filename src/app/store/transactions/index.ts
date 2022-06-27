@@ -13,7 +13,7 @@ import {
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { stacksTransactionToHex, whenChainId } from '@app/common/transactions/transaction-utils';
 import { currentNetworkState, currentStacksNetworkState } from '@app/store/network/networks';
-import { currentAccountNonceState } from '@app/store/accounts/nonce';
+import { currentAccountNonceState } from '@app/store/nonce/nonce';
 import { currentAccountState, currentAccountStxAddressState } from '@app/store/accounts';
 import { requestTokenPayloadState } from '@app/store/transactions/requests';
 import { postConditionsState } from '@app/store/transactions/post-conditions';

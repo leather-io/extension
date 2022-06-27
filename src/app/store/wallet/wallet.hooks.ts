@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-
-import { useAtomCallback, useAtomValue } from 'jotai/utils';
+import { useAtomValue } from 'jotai/utils';
 
 import {
   createWalletGaiaConfig,
@@ -11,9 +10,6 @@ import {
 
 import { gaiaUrl } from '@shared/constants';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { currentAccountStxAddressState } from '@app/store/accounts';
-import { localNonceState } from '@app/store/accounts/nonce';
-import { currentNetworkState } from '@app/store/network/networks';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
 import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
@@ -32,20 +28,6 @@ export function useSecretKey() {
 
 export function useEncryptedSecretKeyState() {
   return useAtomValue(encryptedSecretKeyState);
-}
-
-export function useSetLatestNonceCallback() {
-  return useAtomCallback<void, number>(
-    useCallback((get, set, newNonce) => {
-      if (newNonce !== undefined) {
-        const network = get(currentNetworkState);
-        const address = get(currentAccountStxAddressState);
-        if (!address) return;
-        // we increment here for next nonce
-        set(localNonceState([address, network.url]), newNonce + 1);
-      }
-    }, [])
-  );
 }
 
 export function useFinishSignInCallback() {

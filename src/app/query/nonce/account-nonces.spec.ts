@@ -1,0 +1,122 @@
+import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
+import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
+
+import { setupHeystackEnv } from '@tests/mocks/heystack';
+
+import { getNextNonce } from './account-nonces.utils';
+
+describe(getNextNonce, () => {
+  setupHeystackEnv();
+
+  test('possible_next_nonce', () => {
+    const response: AddressNonces = {
+      detected_missing_nonces: [],
+      last_executed_tx_nonce: 53,
+      last_mempool_tx_nonce: null,
+      possible_next_nonce: 54,
+    };
+    const confirmedTxs: Transaction[] = [];
+    const pendingTxs: MempoolTransaction[] = [];
+    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(54);
+  });
+
+  test('detected_missing_nonces', () => {
+    const response: AddressNonces = {
+      detected_missing_nonces: [49],
+      last_executed_tx_nonce: 48,
+      last_mempool_tx_nonce: null,
+      possible_next_nonce: 54,
+    };
+    const confirmedTxs: Transaction[] = [];
+    const pendingTxs: MempoolTransaction[] = [];
+    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(49);
+  });
+
+  test('possible_next_nonce is less than missing nonce', () => {
+    const response: AddressNonces = {
+      detected_missing_nonces: [49],
+      last_executed_tx_nonce: 48,
+      last_mempool_tx_nonce: null,
+      possible_next_nonce: 24,
+    };
+    const confirmedTxs: Transaction[] = [];
+    const pendingTxs: MempoolTransaction[] = [];
+    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(49);
+  });
+
+  test('invalid state: last_executed_tx_nonce is more than or equal to missing nonce', () => {
+    const response: AddressNonces = {
+      detected_missing_nonces: [49],
+      last_executed_tx_nonce: 49,
+      last_mempool_tx_nonce: null,
+      possible_next_nonce: 50,
+    };
+    const confirmedTxs: Transaction[] = [];
+    const pendingTxs: MempoolTransaction[] = [];
+    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(50);
+  });
+
+  test('new account with zero nonce', () => {
+    const response: AddressNonces = {
+      last_executed_tx_nonce: null,
+      last_mempool_tx_nonce: null,
+      possible_next_nonce: 0,
+      detected_missing_nonces: [],
+    };
+    const confirmedTxs: Transaction[] = [];
+    const pendingTxs: MempoolTransaction[] = [];
+    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(0);
+  });
+
+  test('last_mempool_tx_nonce', () => {
+    const response: AddressNonces = {
+      last_executed_tx_nonce: 70,
+      last_mempool_tx_nonce: 72,
+      possible_next_nonce: 73,
+      detected_missing_nonces: [71],
+    };
+    const confirmedTxs: Transaction[] = [];
+    const pendingTxs: MempoolTransaction[] = [
+      {
+        anchor_mode: 'any',
+        fee_rate: '200',
+        post_conditions: [],
+        post_condition_mode: 'deny',
+        receipt_time: 0,
+        receipt_time_iso: '0',
+        sender_address: 'ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z',
+        sponsored: false,
+        tx_id: '1',
+        tx_status: 'pending',
+        token_transfer: {
+          amount: '10000',
+          memo: '',
+          recipient_address: '',
+        },
+        tx_type: 'token_transfer',
+        nonce: 72,
+      },
+    ];
+    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(71);
+  });
+
+  test('multiple missing nonces', () => {
+    const response1: AddressNonces = {
+      detected_missing_nonces: [73, 71],
+      last_executed_tx_nonce: 70,
+      last_mempool_tx_nonce: 74,
+      possible_next_nonce: 75,
+    };
+    const confirmedTxs: Transaction[] = [];
+    const pendingTxs: MempoolTransaction[] = [];
+    expect(getNextNonce(response1, confirmedTxs, pendingTxs)).toEqual(71);
+
+    const response2: AddressNonces = {
+      detected_missing_nonces: [71, 73],
+      last_executed_tx_nonce: 70,
+      last_mempool_tx_nonce: 74,
+      possible_next_nonce: 75,
+    };
+    expect(getNextNonce(response2, confirmedTxs, pendingTxs)).toEqual(71);
+  });
+});

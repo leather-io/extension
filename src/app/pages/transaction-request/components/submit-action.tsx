@@ -48,14 +48,17 @@ function SubmitActionSuspense(): JSX.Element {
   );
 }
 
-export function SubmitAction(): JSX.Element {
+interface SubmitActionProps {
+  nonce: number;
+}
+export function SubmitAction({ nonce }: SubmitActionProps) {
   return (
     <>
       <Suspense fallback={<BaseConfirmButton isLoading isDisabled />}>
         <SubmitActionSuspense />
       </Suspense>
       <Suspense fallback={<ShowEditNoncePlaceholder />}>
-        <ShowEditNonceAction />
+        <ShowEditNonceAction nonce={nonce} />
       </Suspense>
     </>
   );
