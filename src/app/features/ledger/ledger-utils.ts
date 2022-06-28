@@ -163,6 +163,9 @@ export function isStacksLedgerAppClosed(response: ResponseVersion) {
 }
 
 function reformatDerSignatureToJose(derSignature: Uint8Array) {
+  // Stacks authentication uses `ES256k`, however `ecdsa-sig-formatter` doesn't
+  // accept this. As it only uses this to validate key length, and the key
+  // lengths are the same, it works despite this confusing disparity.
   return ecdsaFormat.derToJose(Buffer.from(derSignature), 'ES256');
 }
 

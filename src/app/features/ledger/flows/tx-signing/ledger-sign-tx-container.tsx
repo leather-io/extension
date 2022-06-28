@@ -4,7 +4,8 @@ import { Box } from '@stacks/ui';
 import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
-import { delay, noop } from '@app/common/utils';
+import { delay } from '@app/common/utils';
+import { noop } from '@shared/utils';
 import {
   getAppVersion,
   prepareLedgerDeviceConnection,

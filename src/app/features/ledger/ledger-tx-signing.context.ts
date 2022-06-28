@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { StacksTransaction } from '@stacks/transactions';
 
-import { noop } from '@app/common/utils';
+import { noop } from '@shared/utils';
 import { getAppVersion } from './ledger-utils';
 
 export interface LedgerTxSigningProvider {

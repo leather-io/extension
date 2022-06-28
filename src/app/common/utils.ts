@@ -267,24 +267,6 @@ export function pullContractIdFromIdentity(identifier: string) {
   return identifier.split('::')[0];
 }
 
-export function isNumber(value: unknown): value is number {
-  return typeof value === 'number';
-}
-
-export function isString(value: unknown): value is string {
-  return typeof value === 'string';
-}
-
-export function isUndefined(value: unknown): value is undefined {
-  return typeof value === 'undefined';
-}
-
-export function isEmpty(value: Object) {
-  return Object.keys(value).length === 0;
-}
-
-export function noop() {}
-
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }

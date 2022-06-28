@@ -6,7 +6,7 @@ import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { isEmpty } from '@app/common/utils';
+import { isEmpty } from '@shared/utils';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@app/components/show-edit-nonce';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';

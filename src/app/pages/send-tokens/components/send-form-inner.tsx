@@ -5,7 +5,7 @@ import { Box, Text, Stack } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { isEmpty } from '@app/common/utils';
+import { isEmpty } from '@shared/utils';
 import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import {
   useFeeEstimationsMaxValues,

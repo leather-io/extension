@@ -1,14 +1,15 @@
+import { deserializeCV } from '@stacks/transactions';
+import { getAppPrivateKey } from '@stacks/wallet-sdk';
+import { decodeToken, TokenInterface, TokenVerifier } from 'jsontokens';
+import { getPublicKeyFromPrivate } from '@stacks/encryption';
+
 import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { isString } from '@shared/utils';
 import {
   CommonSignaturePayload,
   SignaturePayload,
   StructuredDataSignaturePayload,
 } from '@stacks/connect';
-import { getPublicKeyFromPrivate } from '@stacks/encryption';
-import { deserializeCV } from '@stacks/transactions';
-import { getAppPrivateKey } from '@stacks/wallet-sdk';
-import { decodeToken, TokenInterface, TokenVerifier } from 'jsontokens';
-import { isString } from '../utils';
 
 export function getGenericSignaturePayloadFromToken(requestToken: string): CommonSignaturePayload {
   const token = decodeToken(requestToken);

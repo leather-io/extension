@@ -4,7 +4,7 @@ import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { STX_DECIMALS } from '@shared/constants';
-import { countDecimals, isNumber } from '@app/common/utils';
+import { countDecimals } from '@app/common/utils';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
 import { stxAmountSchema } from '@app/common/validation/currency-schema';
 import {
@@ -19,6 +19,7 @@ import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 import { nonceSchema } from '@app/common/validation/nonce-schema';
+import { isNumber } from '@shared/utils';
 
 interface UseSendFormValidationArgs {
   setAssetError(error: string | undefined): void;
