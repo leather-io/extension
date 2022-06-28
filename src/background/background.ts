@@ -24,11 +24,10 @@ import { backupOldWalletSalt } from './backup-old-wallet-salt';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
+void addRefererHeaderRequestListener();
 initSentry();
-
 initContextMenuActions();
 backupOldWalletSalt();
-addRefererHeaderRequestListener();
 
 //
 // Playwright does not currently support Chrome extension popup testing:

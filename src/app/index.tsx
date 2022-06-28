@@ -12,7 +12,7 @@ import { App } from './app';
 
 initSentry();
 void initSegment();
-addRefererHeaderRequestListener();
+void addRefererHeaderRequestListener();
 
 declare global {
   interface Window {

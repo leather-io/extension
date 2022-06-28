@@ -1,6 +1,7 @@
 import * as yup from 'yup';
+
+import { isString } from '@shared/utils';
 import { validateAddressChain, validateStacksAddress } from '@app/common/stacks-utils';
-import { isString } from '@app/common/utils';
 import { Network } from '@shared/constants';
 
 export function stxAddressNetworkValidatorFactory(currentNetwork: Network) {

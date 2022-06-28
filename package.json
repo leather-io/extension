@@ -117,6 +117,7 @@
     "@stacks/wallet-sdk": "4.2.2",
     "@styled-system/theme-get": "5.1.2",
     "@tippyjs/react": "4.2.6",
+    "@types/webextension-polyfill": "0.9.0",
     "@vkontakte/vk-qr": "2.0.13",
     "@zondax/ledger-blockstack": "0.24.0",
     "are-passive-events-supported": "1.1.1",
@@ -166,6 +167,7 @@
     "use-events": "1.4.2",
     "use-latest": "1.2.0",
     "valid-url": "1.0.9",
+    "webextension-polyfill": "0.9.0",
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {

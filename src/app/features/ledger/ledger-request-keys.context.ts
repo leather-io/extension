@@ -1,4 +1,4 @@
-import { noop } from '@app/common/utils';
+import { noop } from '@shared/utils';
 import { createContext } from 'react';
 import { getAppVersion } from './ledger-utils';
 

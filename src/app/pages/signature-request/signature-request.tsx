@@ -7,7 +7,7 @@ import {
   getSignaturePayloadFromToken,
   getStructuredDataPayloadFromToken,
 } from '@app/common/signature/requests';
-import { isUndefined } from '@app/common/utils';
+import { isUndefined } from '@shared/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';

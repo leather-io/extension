@@ -1,6 +1,7 @@
-import { isUndefined } from '@app/common/utils';
-import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { useQuery } from 'react-query';
+
+import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
+import { isUndefined } from '@shared/utils';
 
 export interface HiroMessage {
   title: string;

@@ -1,15 +1,17 @@
+import { useCallback, useState } from 'react';
+import { ClarityValue, createStacksPrivateKey } from '@stacks/transactions';
+import { Button, Stack } from '@stacks/ui';
+import { TupleCV } from '@stacks/transactions/dist/esm/clarity';
+
 import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { delay, isString } from '@app/common/utils';
+import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { logger } from '@shared/logger';
 import { SignatureMessage } from '@shared/signature/types';
-import { ClarityValue, createStacksPrivateKey } from '@stacks/transactions';
-import { TupleCV } from '@stacks/transactions/dist/esm/clarity';
-import { Button, Stack } from '@stacks/ui';
-import { useCallback, useState } from 'react';
+import { isString } from '@shared/utils';
 
 function useSignMessageSoftwareWallet() {
   const account = useCurrentAccount();

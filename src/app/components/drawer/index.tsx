@@ -4,7 +4,7 @@ import { FiX as IconX } from 'react-icons/fi';
 import { css } from '@emotion/react';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { isString, noop } from '@app/common/utils';
+import { isString, noop } from '@shared/utils';
 import { Title } from '@app/components/typography';
 import { hideScrollbarStyle } from '../global-styles/hide-scrollbar';
 
