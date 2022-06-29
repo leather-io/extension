@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { AccountWithAddress } from '@app/store/accounts/account.models';
@@ -15,7 +16,10 @@ export function useNonFungibleTokenHoldings(address?: string) {
 export function useAccountsNonFungibleTokenHoldings(accounts?: AccountWithAddress[]) {
   const accountsNftHoldings = useGetNonFungibleTokenHoldingsListQuery(accounts);
 
-  return accountsNftHoldings.reduce((acc, nftHoldings) => {
-    return acc.plus(nftHoldings.data?.total || 0);
-  }, new BigNumber(0));
+  return useMemo(() => {
+    return accountsNftHoldings.reduce((acc, nftHoldings) => {
+      return acc.plus(nftHoldings.data?.total || 0);
+    }, new BigNumber(0));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
