@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { color, Stack } from '@stacks/ui';
 
@@ -13,11 +13,13 @@ import { Text } from '@app/components/typography';
 import { PageTitle } from '@app/components/page-title';
 import { RouteUrls } from '@shared/route-urls';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
+import { RequestPassword } from '@app/components/request-password';
 
 export const ViewSecretKey = memo(() => {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const defaultWalletSecretKey = useDefaultWalletSecretKey();
+  const [canShowSecretKey, setCanShowSecretKey] = useState(false);
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} />);
 
@@ -34,16 +36,26 @@ export const ViewSecretKey = memo(() => {
         spacing="loose"
         textAlign={['left', 'center']}
       >
-        <PageTitle fontSize={[4, 7]}>Your Secret Key</PageTitle>
-        <Text color={color('text-caption')}>
-          These 24 words are your Secret Key. They create your account, and you sign in on different
-          devices with them. Make sure to save these somewhere safe.{' '}
-          <Text display="inline" fontWeight={500}>
-            If you lose these words, you lose your account.
-          </Text>
-        </Text>
-        <SecretKeyDisplayer secretKey={defaultWalletSecretKey ?? ''} />
-        <PrimaryButton onClick={() => navigate(RouteUrls.Home)}>I've saved it</PrimaryButton>
+        {!canShowSecretKey ? (
+          <RequestPassword
+            title="View Secret Key"
+            caption="Enter the password you previously set to view your Secret Key"
+            onSuccess={() => setCanShowSecretKey(true)}
+          />
+        ) : (
+          <>
+            <PageTitle fontSize={[4, 7]}>Your Secret Key</PageTitle>
+            <Text color={color('text-caption')}>
+              These 24 words are your Secret Key. They create your account, and you sign in on
+              different devices with them. Make sure to save these somewhere safe.{' '}
+              <Text display="inline" fontWeight={500}>
+                If you lose these words, you lose your account.
+              </Text>
+            </Text>
+            <SecretKeyDisplayer secretKey={defaultWalletSecretKey ?? ''} />
+            <PrimaryButton onClick={() => navigate(RouteUrls.Home)}>I've saved it</PrimaryButton>
+          </>
+        )}
       </Stack>
     </CenteredPageContainer>
   );
