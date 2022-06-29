@@ -1,4 +1,4 @@
-import { Box, color, Stack } from '@stacks/ui';
+import { Box, color, Stack, transition } from '@stacks/ui';
 
 import { Caption, Title } from '@app/components/typography';
 
@@ -31,6 +31,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
       borderColor={color('border')}
       borderRadius="16px"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
+      transition={transition}
       data-testid={testId}
       display="flex"
       onClick={onClickTile}
