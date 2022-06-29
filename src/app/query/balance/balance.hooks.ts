@@ -7,14 +7,19 @@ import type {
   AccountStxBalanceBigNumber,
   AddressBalanceResponse,
 } from '@shared/models/account-types';
-
 import {
   useCurrentAccount,
   useSetAccountBalancesUnanchoredState,
 } from '@app/store/accounts/account.hooks';
-import { useGetAccountBalanceQuery, useGetAnchoredAccountBalanceQuery } from './balance.query';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
 import { transformAssets } from '@app/store/assets/utils';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
+
+import {
+  useGetAccountBalanceQuery,
+  useGetAnchoredAccountBalanceListQuery,
+  useGetAnchoredAccountBalanceQuery,
+} from './balance.query';
 
 function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxBigNumbers = Object.fromEntries(
@@ -72,4 +77,15 @@ export function useAddressAnchoredAvailableStxBalance(address: string) {
     if (!balances) return new BigNumber(0);
     return balances.stx.balance.minus(balances.stx.locked);
   }, [balances]);
+}
+
+export function useAccountsAvailableStxBalance(accounts?: AccountWithAddress[]) {
+  const accountsBalances = useGetAnchoredAccountBalanceListQuery(accounts);
+
+  return useMemo(() => {
+    return accountsBalances.reduce((acc, balance) => {
+      return acc.plus(balance.data?.stx.balance || 0);
+    }, new BigNumber(0));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
