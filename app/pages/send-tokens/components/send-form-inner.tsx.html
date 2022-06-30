@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/44</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -280,7 +280,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -289,30 +288,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -321,13 +301,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,8 +317,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -396,9 +396,13 @@ import { Box, Text, Stack } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { useNextTxNonce } from '@app/common/hooks/account/use-next-tx-nonce';
-import { isEmpty } from '@app/common/utils';
+import { isEmpty } from '@shared/utils';
 import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import {
+  useFeeEstimationsMaxValues,
+  useFeeEstimationsMinValues,
+} from '@app/common/transactions/use-fee-estimations-capped-values';
+import { useCurrentAccountNonce } from '@app/store/accounts/nonce.hooks';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -412,29 +416,25 @@ import { RecipientField } from '@app/pages/send-tokens/components/recipient-fiel
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import {
-  useEstimatedTransactionByteLength,
-  useSerializedTransactionPayloadState,
-  useUnsignedTxForSettingsState,
-} from '@app/store/transactions/transaction.hooks';
-&nbsp;
-import { SendFormMemoWarning } from './memo-warning';
 import {
   getDefaultSimulatedFeeEstimations,
   getFeeEstimationsWithCappedValues,
 } from '@shared/transactions/fee-estimations';
 import {
-  useFeeEstimationsMaxValues,
-  useFeeEstimationsMinValues,
-} from '@app/common/transactions/use-fee-estimations-capped-values';
+  useEstimatedTransactionByteLength,
+  useSendFormUnsignedTxPreviewState,
+  useSerializedTransactionPayloadState,
+} from '@app/store/transactions/transaction.hooks';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+&nbsp;
+import { SendFormMemoWarning } from './memo-warning';
 &nbsp;
 interface SendFormInnerProps {
   assetError: string | undefined;
 }
 export function <span class="fstat-no" title="function not covered" >SendFormInner(</span>props: SendFormInnerProps) {
   const { assetError } = <span class="cstat-no" title="statement not covered" >props;</span>
-  const { handleSubmit, values, setValues, errors, setFieldError, setFieldValue, validateForm } =
+  const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
 <span class="cstat-no" title="statement not covered" >    useFormikContext&lt;TransactionFormValues&gt;();</span>
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
   const serializedTxPayload = <span class="cstat-no" title="statement not covered" >useSerializedTransactionPayloadState();</span>
@@ -443,17 +443,16 @@ export function <span class="fstat-no" title="function not covered" >SendFormInn
     serializedTxPayload,
     estimatedTxByteLength
   );
-&nbsp;
+  const nonce = <span class="cstat-no" title="statement not covered" >useCurrentAccountNonce();</span>
   const [, setFeeEstimations] = <span class="cstat-no" title="statement not covered" >useFeeEstimationsState();</span>
   const feeEstimationsMaxValues = <span class="cstat-no" title="statement not covered" >useFeeEstimationsMaxValues();</span>
   const feeEstimationsMinValues = <span class="cstat-no" title="statement not covered" >useFeeEstimationsMinValues();</span>
   const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset();</span>
   const assets = <span class="cstat-no" title="statement not covered" >useTransferableAssets();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-  const transaction = <span class="cstat-no" title="statement not covered" >useUnsignedTxForSettingsState();</span>
+  const transaction = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(values);</span>
   const isSponsored = <span class="cstat-no" title="statement not covered" >transaction ? isTxSponsored(transaction) : false;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useNextTxNonce();</span>
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!values.fee &amp;&amp; feeEstimationsResp) {</span>
 <span class="cstat-no" title="statement not covered" >      if (</span>
@@ -477,7 +476,7 @@ export function <span class="fstat-no" title="function not covered" >SendFormInn
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [estimatedTxByteLength, feeEstimationsResp, isError, setFeeEstimations, setFieldValue]);
+  }, [estimatedTxByteLength, feeEstimationsResp, isError, setFeeEstimations]);
 &nbsp;
   const onSubmit = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (selectedAsset &amp;&amp; values.amount &amp;&amp; values.recipient &amp;&amp; values.fee) {</span>
@@ -501,11 +500,12 @@ export function <span class="fstat-no" title="function not covered" >SendFormInn
 &nbsp;
   const onSelectAssetResetForm = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (assets.length === 1) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >    setValues({ ...values, amount: '', fee: '' });</span>
+<span class="cstat-no" title="statement not covered" >    setValues({ ...values, amount: '', fee: '', nonce });</span>
 <span class="cstat-no" title="statement not covered" >    setFieldError('amount', undefined);</span>
-  }, [assets.length, setValues, values, setFieldError]);
+  }, [assets.length, setValues, values, nonce, setFieldError]);
 &nbsp;
-  const hasValues = <span class="cstat-no" title="statement not covered" >values.amount &amp;&amp; values.recipient !== '' &amp;&amp; values.fee;</span>
+  const hasValues =
+<span class="cstat-no" title="statement not covered" >    values.amount &amp;&amp; values.recipient !== '' &amp;&amp; values.fee &amp;&amp; values.nonce !== undefined;</span>
 &nbsp;
   const symbol = <span class="cstat-no" title="statement not covered" >selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;</span>
 &nbsp;
@@ -559,7 +559,7 @@ export function <span class="fstat-no" title="function not covered" >SendFormInn
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

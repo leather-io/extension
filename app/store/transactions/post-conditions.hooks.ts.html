@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,31 +85,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtomValue } from 'jotai/utils';
 import { addressToString, FungiblePostCondition } from '@stacks/transactions';
 import { postConditionModeState } from '@app/store/transactions/post-conditions';
-import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metadata.hook';
+import { useFungibleTokenMetadata } from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
 &nbsp;
-export const usePostConditionModeState = () =&gt; {
-  return useAtomValue(postConditionModeState);
+export const usePostConditionModeState = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >  return useAtomValue(postConditionModeState);</span>
 };
 &nbsp;
-export const useAssetFromFungiblePostCondition = (pc: FungiblePostCondition) =&gt; {
-  const contractAddress = addressToString(pc.assetInfo.address);
-  const contractName = pc.assetInfo.contractName.content;
-  const contractId = `${contractAddress}.${contractName}`;
-  const asset = useFungibleTokenMetadata(contractId);
-  return !asset || <span class="branch-1 cbranch-no" title="branch not covered" >'error' in asset </span>? undefined : <span class="branch-1 cbranch-no" title="branch not covered" >asset;</span>
+export const useAssetFromFungiblePostCondition = <span class="fstat-no" title="function not covered" >(p</span>c: FungiblePostCondition) =&gt; {
+  const contractAddress = <span class="cstat-no" title="statement not covered" >addressToString(pc.assetInfo.address);</span>
+  const contractName = <span class="cstat-no" title="statement not covered" >pc.assetInfo.contractName.content;</span>
+  const contractId = <span class="cstat-no" title="statement not covered" >`${contractAddress}.${contractName}`;</span>
+  const asset = <span class="cstat-no" title="statement not covered" >useFungibleTokenMetadata(contractId);</span>
+<span class="cstat-no" title="statement not covered" >  return !asset || 'error' in asset ? undefined : asset;</span>
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -118,7 +118,7 @@ export const useAssetFromFungiblePostCondition = (pc: FungiblePostCondition) =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

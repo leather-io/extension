@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">46.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>6/13</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">54.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>6/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,7 +87,14 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -95,22 +102,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { atom } from 'jotai';
 import { requestTokenPayloadState } from '@app/store/transactions/requests';
 import { currentAccountStxAddressState } from '@app/store/accounts';
@@ -118,11 +132,12 @@ import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/post-condition-utils';
+import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
 &nbsp;
-export const postConditionsState = atom(get =&gt; {
-  const payload = get(requestTokenPayloadState);
-  const address = get(currentAccountStxAddressState);
-&nbsp;
+export function formatPostConditionState(
+  payload?: ContractCallPayload | ContractDeployPayload | STXTransferPayload | null,
+  address?: string
+) {
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!payload || !address) <span class="cstat-no" title="statement not covered" >return;</span>
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.postConditions) {
@@ -132,9 +147,15 @@ export const postConditionsState = atom(get =&gt; {
 <span class="cstat-no" title="statement not covered" >    return payload.postConditions.map(getPostCondition);</span>
   }
 <span class="cstat-no" title="statement not covered" >  return [];</span>
+}
+&nbsp;
+export const postConditionsState = atom(<span class="fstat-no" title="function not covered" >ge</span>t =&gt; {
+  const payload = <span class="cstat-no" title="statement not covered" >get(requestTokenPayloadState);</span>
+  const address = <span class="cstat-no" title="statement not covered" >get(currentAccountStxAddressState);</span>
+<span class="cstat-no" title="statement not covered" >  return formatPostConditionState(payload, address);</span>
 });
 &nbsp;
-export const postConditionModeState = atom(get =&gt; get(requestTokenPayloadState)?.postConditionMode);
+export const postConditionModeState = atom(<span class="fstat-no" title="function not covered" >ge</span>t =&gt; <span class="cstat-no" title="statement not covered" >get(requestTokenPayloadState)?.postConditionMode)</span>;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -142,7 +163,7 @@ export const postConditionModeState = atom(get =&gt; get(requestTokenPayloadStat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

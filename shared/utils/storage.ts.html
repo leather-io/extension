@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.48% </span>
+                <span class="strong">3.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/29</span>
+                <span class='fraction'>1/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">3.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/26</span>
+                <span class='fraction'>1/26</span>
             </div>
         
             
@@ -135,7 +135,7 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,7 +149,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,11 +174,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,11 +190,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,8 +220,8 @@ interface RequestInfo {
   origin: string;
 }
 &nbsp;
-export function getKeyForRequest(storageKey: StorageKey, request: string) {
-  return `${storageKey}-${request}`;
+function <span class="fstat-no" title="function not covered" >getKeyForRequest(</span>storageKey: StorageKey, request: string) {
+<span class="cstat-no" title="statement not covered" >  return `${storageKey}-${request}`;</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >storePayload(</span>{
@@ -245,12 +245,12 @@ export function <span class="fstat-no" title="function not covered" >storePayloa
 <span class="cstat-no" title="statement not covered" >  localStorage.setItem(key, JSON.stringify(requestInfo));</span>
 }
 &nbsp;
-function getRequestInfo(storageKey: StorageKey, request: string): RequestInfo | undefined {
-  const key = getKeyForRequest(storageKey, request);
-  const valueJSON = localStorage.getItem(key);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!valueJSON) <span class="cstat-no" title="statement not covered" >return undefined;</span>
-  const existing: RequestInfo = JSON.parse(valueJSON);
-  return existing;
+function <span class="fstat-no" title="function not covered" >getRequestInfo(</span>storageKey: StorageKey, request: string): RequestInfo | undefined {
+  const key = <span class="cstat-no" title="statement not covered" >getKeyForRequest(storageKey, request);</span>
+  const valueJSON = <span class="cstat-no" title="statement not covered" >localStorage.getItem(key);</span>
+<span class="cstat-no" title="statement not covered" >  if (!valueJSON) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
+  const existing: RequestInfo = <span class="cstat-no" title="statement not covered" >JSON.parse(valueJSON);</span>
+<span class="cstat-no" title="statement not covered" >  return existing;</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >getTab(</span>storageKey: StorageKey, request: string): number {
@@ -261,12 +261,12 @@ export function <span class="fstat-no" title="function not covered" >getTab(</sp
 <span class="cstat-no" title="statement not covered" >  return existing.tabId;</span>
 }
 &nbsp;
-export function getRequestOrigin(storageKey: StorageKey, request: string): string {
-  const existing = getRequestInfo(storageKey, request);
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!existing?.origin) {
+export function <span class="fstat-no" title="function not covered" >getRequestOrigin(</span>storageKey: StorageKey, request: string): string {
+  const existing = <span class="cstat-no" title="statement not covered" >getRequestInfo(storageKey, request);</span>
+<span class="cstat-no" title="statement not covered" >  if (!existing?.origin) {</span>
 <span class="cstat-no" title="statement not covered" >    throw new Error(`Unable to get origin for request: ${request}`);</span>
   }
-  return existing.origin;
+<span class="cstat-no" title="statement not covered" >  return existing.origin;</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >deleteTabForRequest(</span>storageKey: StorageKey, request: string) {
@@ -286,7 +286,7 @@ export function <span class="fstat-no" title="function not covered" >setToLocals
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

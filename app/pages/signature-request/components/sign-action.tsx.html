@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
@@ -138,13 +138,11 @@
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,25 +161,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,48 +213,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useState } from 'react';
+import { ClarityValue, createStacksPrivateKey } from '@stacks/transactions';
+import { Button, Stack } from '@stacks/ui';
+import { TupleCV } from '@stacks/transactions/dist/esm/clarity';
+&nbsp;
+import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
-import { signMessage } from '@shared/crypto/sign-message';
+import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { logger } from '@shared/logger';
-import { createStacksPrivateKey } from '@stacks/transactions';
-import { Button, Stack } from '@stacks/ui';
-import { useCallback, useState } from 'react';
+import { SignatureMessage } from '@shared/signature/types';
+import { isString } from '@shared/utils';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useSignMessageSoftwareWallet(</span>) {
   const account = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
-<span class="fstat-no" title="function not covered" >    (m</span>essage: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!account) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="fstat-no" title="function not covered" >    ({</span> message, domain }: { message: string | ClarityValue; domain?: TupleCV }) =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (!account || account.type === 'ledger') <span class="cstat-no" title="statement not covered" >return null;</span></span>
       const privateKey = <span class="cstat-no" title="statement not covered" >createStacksPrivateKey(account.stxPrivateKey);</span>
-<span class="cstat-no" title="statement not covered" >      return signMessage(message, privateKey);</span>
+<span class="cstat-no" title="statement not covered" >      if (isString(message)) {</span>
+        // Return signature in VRS format (to be fixed)
+<span class="cstat-no" title="statement not covered" >        return signMessage(message, privateKey);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        if (!domain) <span class="cstat-no" title="statement not covered" >throw new Error('Domain is required for structured messages');</span></span>
+        // returns signature in RSV format
+<span class="cstat-no" title="statement not covered" >        return signStructuredDataMessage(message, domain, privateKey);</span>
+      }
     },
     [account]
   );
 }
 &nbsp;
-export type SignatureMessageType = 'utf8' | 'structured';
-&nbsp;
-export interface SignatureMessage {
-  message: string;
-  messageType: SignatureMessageType;
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >isStructuredMessage(</span>
-  messageType: SignatureMessageType
-): messageType is 'structured' {
-<span class="cstat-no" title="statement not covered" >  return messageType === 'structured';</span>
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >isSignatureMessageType(</span>message: unknown): message is SignatureMessageType {
-<span class="cstat-no" title="statement not covered" >  return typeof message === 'string' || typeof message === 'object';</span>
-}
-&nbsp;
 export function <span class="fstat-no" title="function not covered" >SignAction(</span>props: SignatureMessage): JSX.Element | null {
-  const { message } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const { message, domain } = <span class="cstat-no" title="statement not covered" >props;</span>
   const signSoftwareWalletMessage = <span class="cstat-no" title="statement not covered" >useSignMessageSoftwareWallet();</span>
   const { tabId, requestToken } = <span class="cstat-no" title="statement not covered" >useSignatureRequestSearchParams();</span>
   const [isLoading, setIsLoading] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
@@ -278,7 +260,7 @@ export function <span class="fstat-no" title="function not covered" >SignAction(
   const sign = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setIsLoading(true);</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('request_signature_sign');</span>
-    const messageSignature = <span class="cstat-no" title="statement not covered" >signSoftwareWalletMessage(message);</span>
+    const messageSignature = <span class="cstat-no" title="statement not covered" >signSoftwareWalletMessage({ message, domain });</span>
 <span class="cstat-no" title="statement not covered" >    if (!messageSignature) {</span>
 <span class="cstat-no" title="statement not covered" >      logger.error('Cannot sign message, no account in state');</span>
 <span class="cstat-no" title="statement not covered" >      void analytics.track('request_signature_cannot_sign_message_no_account');</span>
@@ -313,7 +295,7 @@ export function <span class="fstat-no" title="function not covered" >SignAction(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

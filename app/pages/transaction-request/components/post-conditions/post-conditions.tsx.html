@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.25% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -132,24 +132,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,7 +161,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,21 +185,21 @@ import { StxPostCondition } from './stx-post-condition';
 import { PostConditionsList } from './post-conditions-list';
 import { NoPostConditions } from './no-post-conditions';
 &nbsp;
-function PostConditionsSuspense(): JSX.Element | null {
-  const postConditions = useTransactionPostConditions();
-  const mode = usePostConditionModeState();
-  const pendingTransaction = useTransactionRequestState();
-  const hasPostConditions = useMemo(
-    () =&gt; postConditions &amp;&amp; postConditions?.length &gt; 0,
+function <span class="fstat-no" title="function not covered" >PostConditionsSuspense(</span>): JSX.Element | null {
+  const postConditions = <span class="cstat-no" title="statement not covered" >useTransactionPostConditions();</span>
+  const mode = <span class="cstat-no" title="statement not covered" >usePostConditionModeState();</span>
+  const pendingTransaction = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
+  const hasPostConditions = <span class="cstat-no" title="statement not covered" >useMemo(</span>
+<span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >postConditions &amp;&amp; postConditions?.length &gt; 0,</span>
     [postConditions]
   );
   const isStxTransfer =
-    pendingTransaction?.txType === TransactionTypes.STXTransfer &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!hasPostConditions;</span>
+<span class="cstat-no" title="statement not covered" >    pendingTransaction?.txType === TransactionTypes.STXTransfer &amp;&amp; !hasPostConditions;</span>
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!postConditions || !pendingTransaction) <span class="cstat-no" title="statement not covered" >return &lt;&gt;&lt;/&gt;;</span>
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!IS_TEST_ENV &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >mode === PostConditionMode.Allow)</span> <span class="cstat-no" title="statement not covered" >return null;</span>
+<span class="cstat-no" title="statement not covered" >  if (!postConditions || !pendingTransaction) <span class="cstat-no" title="statement not covered" >return &lt;&gt;&lt;/&gt;;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!IS_TEST_ENV &amp;&amp; mode === PostConditionMode.Allow) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex
       border="4px solid"
       borderColor={color('border')}
@@ -209,7 +209,7 @@ function PostConditionsSuspense(): JSX.Element | null {
     &gt;
       {hasPostConditions ? (
         &lt;PostConditionsList /&gt;
-      ) : <span class="branch-1 cbranch-no" title="branch not covered" >isStxTransfer ? (</span>
+      ) : isStxTransfer ? (
         &lt;StxPostCondition /&gt;
       ) : (
         &lt;NoPostConditions /&gt;
@@ -218,8 +218,8 @@ function PostConditionsSuspense(): JSX.Element | null {
   );
 }
 &nbsp;
-export function PostConditions(): JSX.Element {
-  return (
+export function <span class="fstat-no" title="function not covered" >PostConditions(</span>): JSX.Element {
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
       &lt;PostConditionsSuspense /&gt;
     &lt;/Suspense&gt;
@@ -232,7 +232,7 @@ export function PostConditions(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

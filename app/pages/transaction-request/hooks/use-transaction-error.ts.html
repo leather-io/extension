@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
@@ -162,7 +162,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -195,14 +194,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,11 +217,13 @@
 import BigNumber from 'bignumber.js';
 &nbsp;
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useContractInterface } from '@app/query/contract/contract.hooks';
 import { TransactionTypes } from '@stacks/connect';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import {
+  useCurrentAccount,
+  useCurrentAccountAvailableStxBalance,
+} from '@app/store/accounts/account.hooks';
 import { useOrigin } from '@app/store/transactions/requests.hooks';
 import {
   useTransactionBroadcastError,
@@ -229,17 +231,14 @@ import {
   useTransactionRequestValidation,
 } from '@app/store/transactions/requests.hooks';
 &nbsp;
-import { useUnsignedTransactionFee } from './use-signed-transaction-fee';
-&nbsp;
 export function <span class="fstat-no" title="function not covered" >useTransactionError(</span>) {
   const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
   const contractInterface = <span class="cstat-no" title="statement not covered" >useContractInterface(transactionRequest);</span>
-  const fee = <span class="cstat-no" title="statement not covered" >useUnsignedTransactionFee();</span>
   const broadcastError = <span class="cstat-no" title="statement not covered" >useTransactionBroadcastError();</span>
   const isValidTransaction = <span class="cstat-no" title="statement not covered" >useTransactionRequestValidation();</span>
   const origin = <span class="cstat-no" title="statement not covered" >useOrigin();</span>
 &nbsp;
-  const { currentAccount } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+  const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
   const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo&lt;TransactionErrorReason | void&gt;(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -269,16 +268,17 @@ export function <span class="fstat-no" title="function not covered" >useTransact
 <span class="cstat-no" title="statement not covered" >          return TransactionErrorReason.StxTransferInsufficientFunds;</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (zeroBalance &amp;&amp; !fee.isSponsored) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!transactionRequest.sponsored) {</span>
+<span class="cstat-no" title="statement not covered" >        if (zeroBalance) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (fee &amp;&amp; !fee.isSponsored &amp;&amp; fee.value) {</span>
-        const feeValue = <span class="cstat-no" title="statement not covered" >microStxToStx(fee.value);</span>
-<span class="cstat-no" title="statement not covered" >        if (feeValue.gte(availableStxBalance)) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (transactionRequest.fee) {</span>
+          const feeValue = <span class="cstat-no" title="statement not covered" >microStxToStx(transactionRequest.fee);</span>
+<span class="cstat-no" title="statement not covered" >          if (feeValue.gte(availableStxBalance)) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
+        }
       }
     }
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }, [
-    fee,
     broadcastError,
     contractInterface,
     availableStxBalance,
@@ -295,7 +295,7 @@ export function <span class="fstat-no" title="function not covered" >useTransact
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

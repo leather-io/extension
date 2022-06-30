@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -99,7 +99,15 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,7 +120,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,21 +128,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { ChainID } from '@stacks/transactions';
 import { ButtonProps } from '@stacks/ui';
@@ -145,21 +156,25 @@ import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 &nbsp;
-import { TxButton } from './tx-button';
+import { HomeActionButton } from './tx-button';
+import { SecondaryButton } from '@app/components/secondary-button';
 &nbsp;
-const BuyTxButton = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: ButtonProps) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >  &lt;TxButton</span>
-    data-testid={HomePageSelectors.BtnFundAccount}
-    icon={FiPlus}
-    route={RouteUrls.Fund}
-    type="Buy"
-    {...props}
-  /&gt;
-);
+function <span class="fstat-no" title="function not covered" >BuyTxButton(</span>props: ButtonProps) {
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;HomeActionButton
+      data-testid={HomePageSelectors.BtnFundAccount}
+      icon={FiPlus}
+      label="Buy"
+      buttonComponent={SecondaryButton}
+      {...props}
+    /&gt;
+  );
+}
 &nbsp;
 const BuyButtonFallback = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >&lt;BuyTxButton isDisabled /&gt;)</span>;</span>
 &nbsp;
 export const BuyButton = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const hasFiatProviders = <span class="cstat-no" title="statement not covered" >useHasFiatProviders();</span>
   const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
 <span class="cstat-no" title="statement not covered" >  if (!hasFiatProviders) <span class="cstat-no" title="statement not covered" >return null;</span></span>
@@ -167,7 +182,7 @@ export const BuyButton = <span class="cstat-no" title="statement not covered" ><
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Suspense fallback={&lt;BuyButtonFallback /&gt;}&gt;
-      &lt;BuyTxButton /&gt;
+      &lt;BuyTxButton onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Fund)}</span> /&gt;
     &lt;/Suspense&gt;
   );
 };
@@ -178,7 +193,7 @@ export const BuyButton = <span class="cstat-no" title="statement not covered" ><
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

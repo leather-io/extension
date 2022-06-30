@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -116,20 +116,7 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,16 +126,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -177,6 +160,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,36 +169,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ClarityValue, deserializeCV } from '@stacks/transactions';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { hashMessage } from '@stacks/encryption';
 import { color, Stack, Text } from '@stacks/ui';
 import { useEffect, useState } from 'react';
-import { sha256 } from 'sha.js';
-import { ClarityValueListDisplayer } from './clarity-value-list';
 import { HashDrawer } from './hash-drawer';
-import { isStructuredMessage, SignatureMessage } from './sign-action';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >MessageBox(</span>props: SignatureMessage): JSX.Element | null {
-  const { message, messageType } = <span class="cstat-no" title="statement not covered" >props;</span>
+export function <span class="fstat-no" title="function not covered" >MessageBox(</span>props: { message: string }): JSX.Element | null {
+  const { message } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
   const [hash, setHash] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;();</span>
-  const [displayMessage, setDisplayMessage] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;();</span>
-  const [clarityValueMessage, setClarityValueMessage] = <span class="cstat-no" title="statement not covered" >useState&lt;ClarityValue | undefined&gt;();</span>
+  const [displayMessage, setDisplayMessage] = <span class="cstat-no" title="statement not covered" >useState&lt;string[] | undefined&gt;();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (isStructuredMessage(messageType)) {</span>
-<span class="cstat-no" title="statement not covered" >      setClarityValueMessage(deserializeCV(Buffer.from(message, 'hex')));</span>
-    } else {
-<span class="cstat-no" title="statement not covered" >      setDisplayMessage(message);</span>
-    }
-  }, [message, messageType]);
+<span class="cstat-no" title="statement not covered" >    setDisplayMessage(message.split(/\r?\n/));</span>
+  }, [message]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!message) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >    setHash(new sha256().update(message).digest('hex'));</span>
+    const messageHash = <span class="cstat-no" title="statement not covered" >hashMessage(message).toString('hex');</span>
+<span class="cstat-no" title="statement not covered" >    setHash(messageHash);</span>
   }, [message]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!message) <span class="cstat-no" title="statement not covered" >return null;</span></span>
@@ -230,21 +203,18 @@ export function <span class="fstat-no" title="function not covered" >MessageBox(
           backgroundColor={color('border')}
         &gt;
           &lt;Stack
-            py="loose"
-            px="loose"
-            spacing="loose"
+            bg={color('bg')}
             borderRadius="16px"
-            backgroundColor={'white'}
+            fontSize={2}
+            lineHeight="1.6"
+            px="loose"
+            py="loose"
+            spacing="tight"
+            wordBreak="break-all"
           &gt;
-            &lt;Stack spacing="base-tight"&gt;
-              &lt;Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all"&gt;
-                {clarityValueMessage &amp;&amp; messageType === 'structured' ? (
-                  &lt;ClarityValueListDisplayer val={clarityValueMessage} encoding={'tryAscii'} /&gt;
-                ) : (
-                  displayMessage
-                )}
-              &lt;/Text&gt;
-            &lt;/Stack&gt;
+            {displayMessage?.map(<span class="fstat-no" title="function not covered" >li</span>ne =&gt; (
+<span class="cstat-no" title="statement not covered" >              &lt;Text&gt;{line}&lt;/Text&gt;</span>
+            ))}
           &lt;/Stack&gt;
           {hash ? &lt;HashDrawer hash={hash} /&gt; : null}
         &lt;/Stack&gt;
@@ -259,7 +229,7 @@ export function <span class="fstat-no" title="function not covered" >MessageBox(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

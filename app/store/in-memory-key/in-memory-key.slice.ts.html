@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
@@ -107,9 +107,7 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -118,25 +116,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,7 +153,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { defaultKeyId, keySlice } from '../keys/key.slice';
-import { isUndefined } from '@app/common/utils';
+import { logger } from '@shared/logger';
 &nbsp;
 interface InMemoryKeyState {
   hasRestoredKeys: boolean;
@@ -174,16 +170,14 @@ export const inMemoryKeySlice = createSlice({
   initialState,
   reducers: {
 <span class="fstat-no" title="function not covered" >    ge</span>nerateWalletKey(state, action: PayloadAction&lt;string&gt;) {
-<span class="cstat-no" title="statement not covered" >      if (!isUndefined(state.keys[defaultKeyId])) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new Error('Cannot generate new key for existing wallet');</span>
+<span class="cstat-no" title="statement not covered" >      if (state.keys[defaultKeyId]) {</span>
+<span class="cstat-no" title="statement not covered" >        logger.warn('Not generating another wallet, already exists.');</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
       }
 <span class="cstat-no" title="statement not covered" >      state.keys[defaultKeyId] = action.payload;</span>
     },
 &nbsp;
 <span class="fstat-no" title="function not covered" >    sa</span>veUsersSecretKeyToBeRestored(state, action: PayloadAction&lt;string&gt;) {
-<span class="cstat-no" title="statement not covered" >      if (!isUndefined(state.keys[defaultKeyId])) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new Error('Cannot restore key for pre-existing wallet');</span>
-      }
 <span class="cstat-no" title="statement not covered" >      state.keys[defaultKeyId] = action.payload;</span>
     },
 &nbsp;
@@ -208,7 +202,7 @@ export const inMemoryKeySlice = createSlice({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

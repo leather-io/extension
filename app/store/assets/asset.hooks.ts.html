@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -151,7 +151,11 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,26 +209,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,9 +236,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
@@ -255,7 +263,7 @@ import { transformAssets } from './utils';
 import {
   useAssetsWithMetadata,
   useFungibleTokenMetadata,
-} from '@app/query/tokens/fungible-token-metadata.hook';
+} from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
 import { formatContractId, getFullyQualifiedAssetName } from '@app/common/utils';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 &nbsp;
@@ -265,7 +273,7 @@ export function <span class="fstat-no" title="function not covered" >useAssets(<
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useTransferableAssets(</span>) {
   const assets = <span class="cstat-no" title="statement not covered" >useAssetsWithMetadata();</span>
-<span class="cstat-no" title="statement not covered" >  return assets.filter(<span class="fstat-no" title="function not covered" >as</span>set =&gt; <span class="cstat-no" title="statement not covered" >isTransferableAsset(asset))</span>;</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >assets.filter(<span class="fstat-no" title="function not covered" >as</span>set =&gt; <span class="cstat-no" title="statement not covered" >isTransferableAsset(asset))</span>,</span> [assets]);</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useAssetWithMetadata(</span>asset: Asset) {
@@ -288,7 +296,9 @@ export function <span class="fstat-no" title="function not covered" >useSelected
 <span class="cstat-no" title="statement not covered" >      assetsWithMetadata?.find(</span>
 <span class="fstat-no" title="function not covered" >        as</span>set =&gt; <span class="cstat-no" title="statement not covered" >getFullyQualifiedAssetName(asset) === selectedAssetId</span>
       ) as AssetWithMeta,
-    [assetsWithMetadata, selectedAssetId]
+    // Render loop occurs when `assetsWithMetadata` in dep array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedAssetId]
   );
 }
 &nbsp;
@@ -312,20 +322,22 @@ export function <span class="fstat-no" title="function not covered" >useStxToken
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useBaseAssetsAnchoredState(</span>) {
   const balances = <span class="cstat-no" title="statement not covered" >useCurrentAccountAnchoredBalances();</span>
-<span class="cstat-no" title="statement not covered" >  return transformAssets(balances);</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >transformAssets(balances),</span> [balances]);</span>
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useBaseAssetsUnanchoredState(</span>) {
   const { data: balances } = <span class="cstat-no" title="statement not covered" >useCurrentAccountUnanchoredBalances();</span>
-<span class="cstat-no" title="statement not covered" >  return transformAssets(balances);</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >transformAssets(balances),</span> [balances]);</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useFungibleTokenBaseState(</span>) {
   const principal = <span class="cstat-no" title="statement not covered" >useCurrentAccountStxAddressState();</span>
   const anchoredAssets = <span class="cstat-no" title="statement not covered" >useBaseAssetsAnchoredState();</span>
   const unanchoredAssets = <span class="cstat-no" title="statement not covered" >useBaseAssetsUnanchoredState();</span>
-<span class="cstat-no" title="statement not covered" >  if (!principal) <span class="cstat-no" title="statement not covered" >return [];</span></span>
-<span class="cstat-no" title="statement not covered" >  return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!principal) <span class="cstat-no" title="statement not covered" >return [];</span></span>
+<span class="cstat-no" title="statement not covered" >    return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');</span>
+  }, [anchoredAssets, principal, unanchoredAssets]);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -334,7 +346,7 @@ export function <span class="fstat-no" title="function not covered" >useFungible
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

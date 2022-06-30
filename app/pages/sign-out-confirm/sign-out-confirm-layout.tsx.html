@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -136,7 +136,20 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,12 +166,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,6 +240,7 @@ import { Body, Caption } from '@app/components/typography';
 import { Box, Button, Flex, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { BaseDrawer } from '@app/components/drawer';
+import { useWalletType } from '@app/common/use-wallet-type';
 &nbsp;
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
@@ -224,8 +249,10 @@ interface SignOutConfirmLayoutProps {
 export const SignOutConfirmLayout: FC&lt;SignOutConfirmLayoutProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
   const { onUserDeleteWallet, onUserSafelyReturnToHomepage } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
+  const { whenWallet, walletType } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
+&nbsp;
   const form = <span class="cstat-no" title="statement not covered" >useFormik({</span>
-    initialValues: { confirmBackup: false },
+    initialValues: { confirmBackup: whenWallet({ ledger: true, software: false }) },
 <span class="fstat-no" title="function not covered" >    on</span>Submit() {
 <span class="cstat-no" title="statement not covered" >      onUserDeleteWallet();</span>
     },
@@ -236,15 +263,24 @@ export const SignOutConfirmLayout: FC&lt;SignOutConfirmLayoutProps&gt; = <span c
       &lt;Box mx="loose" mb="extra-loose"&gt;
         &lt;form onChange={form.handleChange} onSubmit={form.handleSubmit}&gt;
           &lt;Body&gt;
-            When you sign out, you’ll need your Secret Key to sign back in. Only sign out if you’ve
-            backed up your Secret Key.
+            When you sign out,
+            {whenWallet({
+              software: ` you'll need your Secret Key to sign back in. Only sign out if you've backed up your Secret Key.`,
+              ledger: ` you'll need to reconnect your Ledger to sign back into your wallet.`,
+            })}
           &lt;/Body&gt;
 &nbsp;
-          &lt;Flex as="label" alignItems="center" mt="loose"&gt;
+          &lt;Flex
+            as="label"
+            alignItems="center"
+            mt="loose"
+            display={walletType === 'software' ? 'flex' : 'none'}
+          &gt;
             &lt;Box mr="tight"&gt;
               &lt;input
                 type="checkbox"
                 name="confirmBackup"
+                defaultChecked={form.values.confirmBackup}
                 data-testid={SettingsSelectors.SignOutConfirmHasBackupCheckbox}
               /&gt;
             &lt;/Box&gt;
@@ -289,7 +325,7 @@ export const SignOutConfirmLayout: FC&lt;SignOutConfirmLayoutProps&gt; = <span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

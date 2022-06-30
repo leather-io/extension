@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -155,11 +155,7 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,8 +173,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,6 +212,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,26 +247,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, useRef } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useRef } from 'react';
 import { useCombobox } from 'downshift';
 import { Box, Text, Flex, Input } from '@stacks/ui';
 &nbsp;
@@ -272,85 +264,81 @@ interface AssetSearchFieldProps {
   searchInput: string;
   selectedAsset: AssetWithMeta;
 }
-export const AssetSearchField = <span class="cstat-no" title="statement not covered" >memo(</span>
-<span class="fstat-no" title="function not covered" >  ({</span>
-    assets,
-    autoFocus,
-    hasStxBalance,
-    onInputValueChange,
-    onSelectedItemChange,
-    searchInput,
-    selectedAsset,
-    ...rest
-  }: AssetSearchFieldProps) =&gt; {
-    const {
-      isOpen,
-      getLabelProps,
-      getMenuProps,
-      getInputProps,
-      getComboboxProps,
-      highlightedIndex,
-      getItemProps,
-      openMenu,
-    } = <span class="cstat-no" title="statement not covered" >useCombobox({</span>
-      items: assets,
-      initialIsOpen: true,
-      inputValue: searchInput,
-      defaultIsOpen: false,
-      selectedItem: selectedAsset as any,
-      itemToString: <span class="fstat-no" title="function not covered" >it</span>em =&gt; {
-<span class="cstat-no" title="statement not covered" >        return item?.contractAddress || item?.name || '';</span>
-      },
-      onInputValueChange: <span class="fstat-no" title="function not covered" >({</span> inputValue }) =&gt; {
-<span class="cstat-no" title="statement not covered" >        onInputValueChange(inputValue);</span>
-      },
-      onSelectedItemChange: <span class="fstat-no" title="function not covered" >({</span> selectedItem }) =&gt; {
-<span class="cstat-no" title="statement not covered" >        onSelectedItemChange(selectedItem);</span>
-      },
-    });
+export const AssetSearchField = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span></span>
+  assets,
+  autoFocus,
+  hasStxBalance,
+  onInputValueChange,
+  onSelectedItemChange,
+  searchInput,
+  selectedAsset,
+}: AssetSearchFieldProps) =&gt; {
+  const {
+    isOpen,
+    getLabelProps,
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    highlightedIndex,
+    getItemProps,
+    openMenu,
+  } = <span class="cstat-no" title="statement not covered" >useCombobox({</span>
+    items: assets,
+    initialIsOpen: true,
+    inputValue: searchInput,
+    defaultIsOpen: false,
+    selectedItem: selectedAsset as any,
+    itemToString: <span class="fstat-no" title="function not covered" >it</span>em =&gt; {
+<span class="cstat-no" title="statement not covered" >      return item?.contractAddress || item?.name || '';</span>
+    },
+    onInputValueChange: <span class="fstat-no" title="function not covered" >({</span> inputValue }) =&gt; {
+<span class="cstat-no" title="statement not covered" >      onInputValueChange(inputValue);</span>
+    },
+    onSelectedItemChange: <span class="fstat-no" title="function not covered" >({</span> selectedItem }) =&gt; {
+<span class="cstat-no" title="statement not covered" >      onSelectedItemChange(selectedItem);</span>
+    },
+  });
 &nbsp;
-    const labelRef = <span class="cstat-no" title="statement not covered" >useRef(null);</span>
-    const comboRef = <span class="cstat-no" title="statement not covered" >useRef(null);</span>
+  const labelRef = <span class="cstat-no" title="statement not covered" >useRef(null);</span>
+  const comboRef = <span class="cstat-no" title="statement not covered" >useRef(null);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!assets) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Flex flexDirection="column" width="100%" position="relative" overflow="visible" {...rest}&gt;
-        &lt;Box width="100%"&gt;
-          &lt;Text
-            as="label"
-            display="block"
-            fontSize={1}
-            fontWeight="500"
-            htmlFor="amount"
-            mb="tight"
-            {...getLabelProps({ ref: labelRef })}
-          &gt;
-            Choose an asset
-          &lt;/Text&gt;
-        &lt;/Box&gt;
-        &lt;Box width="100%" {...getComboboxProps({ ref: comboRef })}&gt;
-          &lt;Input
-            autoFocus={autoFocus}
-            data-testid={`asset-select`}
-            onFocus={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >openMenu()}</span>
-            placeholder="Search for an asset"
-            width="100%"
-            {...getInputProps()}
-          /&gt;
-        &lt;/Box&gt;
-        &lt;AssetSearchResults
-          assets={assets}
-          getItemProps={getItemProps}
-          hasStxBalance={hasStxBalance}
-          highlightedIndex={highlightedIndex}
-          isOpen={isOpen}
-          {...getMenuProps()}
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;Flex flexDirection="column" width="100%" position="relative" overflow="visible"&gt;
+      &lt;Box width="100%"&gt;
+        &lt;Text
+          as="label"
+          display="block"
+          fontSize={1}
+          fontWeight="500"
+          htmlFor="amount"
+          mb="tight"
+          {...getLabelProps({ ref: labelRef })}
+        &gt;
+          Choose an asset
+        &lt;/Text&gt;
+      &lt;/Box&gt;
+      &lt;Box width="100%" {...getComboboxProps({ ref: comboRef })}&gt;
+        &lt;Input
+          autoFocus={autoFocus}
+          data-testid={`asset-select`}
+          onFocus={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >openMenu()}</span>
+          placeholder="Search for an asset"
+          width="100%"
+          {...getInputProps()}
         /&gt;
-      &lt;/Flex&gt;
-    );
-  }
-);
+      &lt;/Box&gt;
+&nbsp;
+      &lt;AssetSearchResults
+        assets={assets}
+        getItemProps={getItemProps}
+        hasStxBalance={hasStxBalance}
+        highlightedIndex={highlightedIndex}
+        isOpen={isOpen}
+        {...getMenuProps()}
+      /&gt;
+    &lt;/Flex&gt;
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -358,7 +346,7 @@ export const AssetSearchField = <span class="cstat-no" title="statement not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 13 2022 14:16:20 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 13:44:16 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
