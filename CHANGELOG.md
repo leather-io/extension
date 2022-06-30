@@ -1,3 +1,10 @@
+# [3.11.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.0-beta.1...v3.11.0-beta.2) (2022-06-30)
+
+
+### Bug Fixes
+
+* loading first steps ([bbbff9c](https://github.com/hirosystems/stacks-wallet-web/commit/bbbff9cfafcd894249fda8295eae7183b0f1fc90))
+
 # [3.11.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0...v3.11.0-beta.1) (2022-06-29)
 
 
