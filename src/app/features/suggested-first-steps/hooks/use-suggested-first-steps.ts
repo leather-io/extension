@@ -1,7 +1,12 @@
 import { useEffect, useMemo } from 'react';
 
 import {
+  useAccountsNonFungibleTokenHoldings,
+  useNonFungibleTokenHoldings,
+} from '@app/query/non-fungible-tokens/non-fungible-token-holdings.hooks';
+import {
   useAccounts,
+  useCurrentAccount,
   useCurrentAccountAvailableStxBalance,
 } from '@app/store/accounts/account.hooks';
 import { useAppDispatch } from '@app/store';
@@ -10,37 +15,38 @@ import {
   useSuggestedFirstStepsStatus,
 } from '@app/store/onboarding/onboarding.selectors';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
 import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/onboarding-types';
+import { useAccountsAvailableStxBalance } from '@app/query/balance/balance.hooks';
 
 export function useSuggestedFirstSteps() {
   const dispatch = useAppDispatch();
+  const accounts = useAccounts();
+  const currentAccount = useCurrentAccount();
   const hasHiddenSuggestedFirstSteps = useHideSuggestedFirstSteps();
   const stepsStatus = useSuggestedFirstStepsStatus();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const { data: balances } = useCurrentAccountUnanchoredBalances();
-  const accounts = useAccounts();
+  const accountsAvailableStxBalance = useAccountsAvailableStxBalance(accounts);
+  const nonFungibleTokenHoldings = useNonFungibleTokenHoldings(currentAccount?.address);
+  const accountsNonFungibleTokenHoldings = useAccountsNonFungibleTokenHoldings(accounts);
 
   useEffect(() => {
-    if (availableStxBalance?.isGreaterThan(0)) {
+    if (accountsAvailableStxBalance?.isGreaterThan(0)) {
       dispatch(
         onboardingActions.userCompletedSuggestedFirstStep({ step: SuggestedFirstSteps.AddFunds })
       );
     }
 
-    if (balances && Object.keys(balances?.non_fungible_tokens).length > 0) {
+    if (accountsNonFungibleTokenHoldings.isGreaterThan(0)) {
       dispatch(
         onboardingActions.userCompletedSuggestedFirstStep({ step: SuggestedFirstSteps.BuyNft })
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availableStxBalance, balances?.non_fungible_tokens]);
+  }, [availableStxBalance, nonFungibleTokenHoldings]);
 
   const hasCompletedSuggestedFirstSteps = useMemo(() => {
     return Object.values(stepsStatus).every(val => val === SuggestedFirstStepStatus.Complete);
   }, [stepsStatus]);
 
-  return (
-    accounts?.length === 1 && !hasCompletedSuggestedFirstSteps && !hasHiddenSuggestedFirstSteps
-  );
+  return !hasCompletedSuggestedFirstSteps && !hasHiddenSuggestedFirstSteps;
 }

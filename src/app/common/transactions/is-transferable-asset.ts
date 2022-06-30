@@ -1,5 +1,5 @@
+import { isUndefined } from '@shared/utils';
 import { AssetWithMeta } from '../asset-types';
-import { isUndefined } from '../utils';
 
 export function isTransferableAsset(asset: AssetWithMeta) {
   if (asset.type === 'stx') return true;

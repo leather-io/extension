@@ -9,7 +9,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { WelcomeLayout } from './welcome.layout';
 import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
+import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 
 export const WelcomePage = memo(() => {
   const [hasAllowedDiagnostics] = useHasAllowedDiagnostics();
@@ -17,7 +18,6 @@ export const WelcomePage = memo(() => {
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
   const keyActions = useKeyActions();
-  const currentInMemoryKey = useDefaultWalletSecretKey();
 
   useRouteHeader(<Header hideActions />);
 
@@ -35,15 +35,31 @@ export const WelcomePage = memo(() => {
 
   useEffect(() => {
     if (hasAllowedDiagnostics === undefined) navigate(RouteUrls.RequestDiagnostics);
-    if (currentInMemoryKey) navigate(RouteUrls.BackUpSecretKey);
 
     return () => setIsGeneratingWallet(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const supportsWebUsbAction = whenPageMode({
+    full() {
+      navigate(RouteUrls.ConnectLedger);
+    },
+    popup() {
+      void openIndexPageInNewTab(`${RouteUrls.Onboarding}/${RouteUrls.ConnectLedger}`);
+    },
+  });
+
+  const doesNotSupportWebUsbAction = whenPageMode({
+    full: navigate as any,
+    popup: openIndexPageInNewTab,
+  });
+
   return (
     <WelcomeLayout
       isGeneratingWallet={isGeneratingWallet}
+      onSelectConnectLedger={() =>
+        doesBrowserSupportWebUsbApi() ? supportsWebUsbAction() : doesNotSupportWebUsbAction()
+      }
       onStartOnboarding={() => startOnboarding()}
       onRestoreWallet={() => navigate(RouteUrls.SignIn)}
     />

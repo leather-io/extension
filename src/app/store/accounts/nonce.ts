@@ -37,7 +37,7 @@ export const currentAccountNonceState = atom(get => {
   const latestLocallySubmittedNonce = get(currentAccountLocallySubmittedLatestNonceState);
   const lastApiNonce = get(lastApiNonceState);
 
-  if (lastApiNonce) {
+  if (lastApiNonce && !pendingTransactions) {
     // if there is a missing nonce, use that
     if (lastApiNonce.isMissing) return lastApiNonce.nonce;
 
@@ -53,7 +53,7 @@ export const currentAccountNonceState = atom(get => {
   }
 
   // ----
-  // TODO: anything after this line likely is never called anymore, we should confirm that, then remove this code vv
+  // TODO: This logic needs to be revisited bc much of it is likely outdated
   // ----
 
   // most recent confirmed transactions sent by current address

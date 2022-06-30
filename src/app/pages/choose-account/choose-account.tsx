@@ -1,4 +1,5 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Flex, Stack, Text } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
@@ -15,25 +16,27 @@ export const ChooseAccount = memo(() => {
 
   useRouteHeader(<Header hideActions />);
 
-  const handleUnmount = useCallback(async () => {
-    cancelAuthentication();
-  }, [cancelAuthentication]);
+  const handleUnmount = async () => cancelAuthentication();
 
   useEffect(() => {
     window.addEventListener('beforeunload', handleUnmount);
     return () => window.removeEventListener('beforeunload', handleUnmount);
-  }, [handleUnmount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <Flex flexDirection="column" px="loose" width="100%">
-      <Stack spacing="loose" textAlign="center">
-        <AppIcon mt="extra-loose" mb="loose" size="72px" />
-        <Stack spacing="base">
-          <Title fontSize={4}>Choose an account</Title>
-          <Text textStyle="caption">to connect to {appName}</Text>
+    <>
+      <Flex alignItems="center" flexDirection="column" px="loose" width="100%">
+        <Stack spacing="loose" textAlign="center">
+          <AppIcon mt="extra-loose" mb="loose" size="72px" />
+          <Stack spacing="base">
+            <Title fontSize={4}>Choose an account</Title>
+            <Text textStyle="caption">to connect to {appName}</Text>
+          </Stack>
         </Stack>
-      </Stack>
-      <Accounts />
-    </Flex>
+        <Accounts />
+      </Flex>
+      <Outlet />
+    </>
   );
 });

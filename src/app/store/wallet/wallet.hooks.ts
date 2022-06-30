@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useAtom } from 'jotai';
 import { useAtomCallback, useAtomValue } from 'jotai/utils';
 import {
   createWalletGaiaConfig,
@@ -17,9 +16,11 @@ import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response
 import { logger } from '@shared/logger';
 import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { useAccounts } from '../accounts/account.hooks';
 
 export function useWalletState() {
-  return useAtom(walletState);
+  return useAtomValue(walletState);
 }
 
 export function useSecretKey() {
@@ -47,16 +48,26 @@ export function useSetLatestNonceCallback() {
 export function useFinishSignInCallback() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
   const keyActions = useKeyActions();
-  return useAtomCallback<void, number>(
-    useCallback(
-      async (get, _set, accountIndex) => {
-        const wallet = get(walletState);
-        const account = wallet?.accounts[accountIndex];
-        if (!decodedAuthRequest || !authRequest || !account || !wallet) {
-          logger.error('Uh oh! Finished onboarding without auth info.');
-          return;
-        }
-        const appURL = new URL(decodedAuthRequest.redirect_uri);
+  const wallet = useWalletState();
+  const { walletType } = useWalletType();
+  const accounts = useAccounts();
+
+  return useCallback(
+    async (accountIndex: number) => {
+      const account = accounts?.[accountIndex];
+
+      const legacyAccount = wallet?.accounts[accountIndex];
+
+      if (!decodedAuthRequest || !authRequest || !account || !legacyAccount || !wallet) {
+        logger.error('Uh oh! Finished onboarding without auth info.');
+        return;
+      }
+
+      const appURL = new URL(decodedAuthRequest.redirect_uri);
+
+      // We can't perform any of this logic for non-software wallets
+      // as they require the key to be available in the JS context
+      if (walletType === 'software') {
         const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
         const walletConfig = await getOrCreateWalletConfig({
           wallet,
@@ -67,7 +78,7 @@ export function useFinishSignInCallback() {
           wallet,
           walletConfig,
           gaiaHubConfig,
-          account,
+          account: legacyAccount,
           app: {
             origin: appURL.origin,
             lastLoginAt: new Date().getTime(),
@@ -81,12 +92,13 @@ export function useFinishSignInCallback() {
           appDomain: appURL.origin,
           transitPublicKey: decodedAuthRequest.public_keys[0],
           scopes: decodedAuthRequest.scopes,
-          account,
+          account: legacyAccount,
         });
+
         keyActions.switchAccount(accountIndex);
         finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
-      },
-      [decodedAuthRequest, authRequest, appIcon, appName, keyActions]
-    )
+      }
+    },
+    [accounts, appIcon, appName, authRequest, decodedAuthRequest, keyActions, wallet, walletType]
   );
 }

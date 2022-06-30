@@ -1,6 +1,7 @@
-import { isUndefined } from '@app/common/utils';
-import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { useQuery } from 'react-query';
+
+import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
+import { isUndefined } from '@shared/utils';
 
 export interface HiroMessage {
   title: string;
@@ -34,7 +35,8 @@ interface HiroConfig {
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const GITHUB_PRIMARY_BRANCH = 'main';
+// TODO: Change back to 'main' before merging
+const GITHUB_PRIMARY_BRANCH = 'dev';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {

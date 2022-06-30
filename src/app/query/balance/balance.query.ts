@@ -1,7 +1,8 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQueries, useQuery, UseQueryOptions } from 'react-query';
 
 import { useApi, Api, useAnchoredApi } from '@app/store/common/api-clients.hooks';
 import { AddressBalanceResponse } from '@shared/models/account-types';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -45,4 +46,15 @@ export function useGetAnchoredAccountBalanceQuery<T>(
     ...balanceQueryOptions,
     ...options,
   });
+}
+
+export function useGetAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
+  const api = useApi();
+
+  return useQueries(
+    (accounts || []).map(account => ({
+      queryKey: ['get-address-anchored-stx-balance', account.address],
+      queryFn: fetchAccountBalance(api)(account.address),
+    }))
+  );
 }

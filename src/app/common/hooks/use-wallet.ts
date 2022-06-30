@@ -27,7 +27,7 @@ import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response
 import { getAccountDisplayName } from '../utils/get-account-display-name';
 
 export function useWallet() {
-  const [wallet, setWallet] = useWalletState();
+  const wallet = useWalletState();
   const secretKey = useSecretKey();
   const encryptedSecretKey = useEncryptedSecretKeyState();
   const currentAccountIndex = useCurrentAccountIndex();
@@ -45,7 +45,7 @@ export function useWallet() {
 
   const { decodedAuthRequest, authRequest } = useOnboardingState();
 
-  const hasGeneratedWallet = !!wallet;
+  const hasGeneratedWallet = !!currentAccount;
 
   const setLatestNonce = useSetLatestNonceCallback();
 
@@ -74,7 +74,6 @@ export function useWallet() {
     encryptedSecretKey,
     finishSignIn,
     setLatestNonce,
-    setWallet,
     cancelAuthentication,
     ...keyActions,
   };

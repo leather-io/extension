@@ -78,6 +78,7 @@ const HTML_PROD_OPTIONS = IS_DEV
 
 const aliases = {
   '@stacks/network/dist/polyfill': '@stacks/network/dist/esm',
+  '@stacks/encryption': '@stacks/encryption/dist/esm',
   '@stacks/network': '@stacks/network/dist/esm',
   '@stacks/profile': '@stacks/profile/dist/esm',
   '@stacks/auth': '@stacks/auth/dist/esm',

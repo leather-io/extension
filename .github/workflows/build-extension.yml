@@ -17,6 +17,7 @@ jobs:
 
   update-pull-request-body:
     name: Add links to built extensions
+    if: github.repository == 'hirosystems/stacks-wallet-web'
     runs-on: ubuntu-latest
     needs:
       - pre_run

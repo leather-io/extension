@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import BN from 'bn.js';
 import { useConnect } from '@stacks/connect-react';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import {
@@ -26,18 +24,21 @@ import {
   uintCV,
 } from '@stacks/transactions';
 import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
+import BN from 'bn.js';
+import React, { useState } from 'react';
 
-import {
-  stacksLocalhostNetwork,
-  stacksTestnetNetwork,
-  stacksTestnetNetwork as network,
-} from '@common/utils';
 import { demoTokenContract } from '@common/contracts';
 import { useSTXAddress } from '@common/use-stx-address';
+import {
+  stacksLocalhostNetwork,
+  stacksMainnetNetwork,
+  stacksTestnetNetwork as network,
+  stacksTestnetNetwork,
+} from '@common/utils';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
-import { ExplorerLink } from './explorer-link';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { ExplorerLink } from './explorer-link';
 
 export const Debugger = () => {
   const { doContractCall, doSTXTransfer, doContractDeploy } = useConnect();
@@ -55,7 +56,6 @@ export const Debugger = () => {
     setTxId(id);
     setTxType(type);
   };
-
 
   // If need to add more test tokens: STW7PFH79HW1C9Z0SXBP5PTPHKZZ58KK9WP1MZZA
   const handleSponsoredTransactionBroadcast = async (tx: StacksTransaction) => {
@@ -147,6 +147,7 @@ export const Debugger = () => {
         new BN('100', 10)
       ),
     ];
+    console.log('creating allow mode contract call');
     await doContractCall({
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
@@ -384,6 +385,13 @@ export const Debugger = () => {
             onClick={() => callFaker(stacksTestnetNetwork)}
           >
             Contract call (Testnet)
+          </Button>
+          <Button
+            data-testid={TransactionSigningSelectors.BtnContractCall}
+            mt={3}
+            onClick={() => callFaker(stacksMainnetNetwork)}
+          >
+            Contract call (StacksMainnet)
           </Button>
           <Button
             data-testid={TransactionSigningSelectors.BtnContractCall}

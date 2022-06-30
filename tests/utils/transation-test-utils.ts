@@ -35,7 +35,7 @@ export async function generateContractCallToken({
     makeStandardFungiblePostCondition(
       address,
       FungibleConditionCode.GreaterEqual,
-      new BN(100),
+      new BN(100).toString(),
       info
     )
   );
@@ -58,7 +58,7 @@ export async function generateContractCallToken({
       makeStandardFungiblePostCondition(
         address,
         FungibleConditionCode.GreaterEqual,
-        new BN(100),
+        new BN(100).toString(),
         info
       ),
     ],
