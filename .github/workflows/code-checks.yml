@@ -8,7 +8,6 @@ on:
 jobs:
   lint-prettier:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/provision
@@ -18,7 +17,6 @@ jobs:
 
   lint-eslint:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/provision
@@ -91,6 +89,18 @@ jobs:
 
       - name: Lint unused TypeScript exports
         run: yarn lint:unused-exports
+
+  lint-firefox-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
+
+      - run: yarn build
+        env:
+          MINIFY_PRODUCTION_BUILD: true
+
+      - run: yarn web-ext lint
 
   build:
     runs-on: ubuntu-latest
