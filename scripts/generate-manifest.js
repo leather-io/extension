@@ -19,7 +19,7 @@ const manifest = {
   permissions: ['contextMenus', 'storage', 'webRequest', 'webRequestBlocking', '*://*/*'],
   manifest_version: 2,
   background: {
-    scripts: ['background.js'],
+    scripts: ['browser-polyfill.js', 'background.js'],
     persistent: true,
   },
   web_accessible_resources: ['inpage.js'],
@@ -42,7 +42,7 @@ const manifest = {
   },
   content_scripts: [
     {
-      js: ['content-script.js'],
+      js: ['browser-polyfill.js', 'content-script.js'],
       matches: ['*://*/*'],
     },
   ],
