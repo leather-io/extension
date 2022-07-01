@@ -58,3 +58,16 @@ jobs:
         with:
           name: release-notes
           path: release-notes.txt
+
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v5.4
+
+      - name: Merge `main` into `dev`
+        uses: devmasx/merge-branch@master
+        if: steps.branch-name.outputs.current_branch == 'main'
+        with:
+          type: now
+          from_branch: main
+          target_branch: dev
+          github_token: ${{ github.token }}

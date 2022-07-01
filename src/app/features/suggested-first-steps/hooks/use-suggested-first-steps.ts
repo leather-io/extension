@@ -6,7 +6,6 @@ import {
 } from '@app/query/non-fungible-tokens/non-fungible-token-holdings.hooks';
 import {
   useAccounts,
-  useAccountsAvailableStxBalance,
   useCurrentAccount,
   useCurrentAccountAvailableStxBalance,
 } from '@app/store/accounts/account.hooks';
@@ -17,6 +16,7 @@ import {
 } from '@app/store/onboarding/onboarding.selectors';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
 import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/onboarding-types';
+import { useAccountsAvailableStxBalance } from '@app/query/balance/balance.hooks';
 
 export function useSuggestedFirstSteps() {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ export function useSuggestedFirstSteps() {
   const hasHiddenSuggestedFirstSteps = useHideSuggestedFirstSteps();
   const stepsStatus = useSuggestedFirstStepsStatus();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const accountsAvailableStxBalance = useAccountsAvailableStxBalance();
+  const accountsAvailableStxBalance = useAccountsAvailableStxBalance(accounts);
   const nonFungibleTokenHoldings = useNonFungibleTokenHoldings(currentAccount?.address);
   const accountsNonFungibleTokenHoldings = useAccountsNonFungibleTokenHoldings(accounts);
 

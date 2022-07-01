@@ -1,3 +1,35 @@
+# [3.11.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0...v3.11.0) (2022-06-30)
+
+
+### Bug Fixes
+
+* add referer headers to api calls ([4b23da1](https://github.com/hirosystems/stacks-wallet-web/commit/4b23da187ab5e9560746d31979b199860bd68f59))
+* bad ui copy practices ([828082a](https://github.com/hirosystems/stacks-wallet-web/commit/828082abc8908e73c944f88358d62577571012da))
+* current account name ([7b54aa4](https://github.com/hirosystems/stacks-wallet-web/commit/7b54aa4cc516841f5602a2c40d9e2a010c20441d))
+* direct landing on send form page, closes [#2470](https://github.com/hirosystems/stacks-wallet-web/issues/2470) ([b98d570](https://github.com/hirosystems/stacks-wallet-web/commit/b98d570c1a17534772d4189a89641bdfcee5bd14))
+* firefox white screen with referer header ([427e592](https://github.com/hirosystems/stacks-wallet-web/commit/427e592bef3cdd82c4bb63362efe1ee8a5cc36f0))
+* fund page layout shift ([9f66227](https://github.com/hirosystems/stacks-wallet-web/commit/9f66227f925171bb28d61eff120ed11e48286dbb))
+* header version alignment ([676b5dd](https://github.com/hirosystems/stacks-wallet-web/commit/676b5dd2f033384c43275fca41e60a57b4fcd794))
+* loading first steps ([bbbff9c](https://github.com/hirosystems/stacks-wallet-web/commit/bbbff9cfafcd894249fda8295eae7183b0f1fc90))
+* new tab send form nonce and scroll ([62e6d11](https://github.com/hirosystems/stacks-wallet-web/commit/62e6d118d6681c641a280064d3c5e218a96a7dc3))
+* nonce with pending tx ([9ba8234](https://github.com/hirosystems/stacks-wallet-web/commit/9ba8234c27b8d3e25923e1b4002c9c3548739811))
+* onboarding state ([40bb84b](https://github.com/hirosystems/stacks-wallet-web/commit/40bb84b0c92a67cc07bbba0df6b61d5f77f2e4e8))
+* receive page scroll ([fd363de](https://github.com/hirosystems/stacks-wallet-web/commit/fd363de08dad6d63c8757f0498985d7a01d0e689))
+* remove double scrollbars, emotion set up ([fc0be70](https://github.com/hirosystems/stacks-wallet-web/commit/fc0be704deb0a3d0884869fde8ce5faf9dc9fdf2))
+* send form white screen ([1ff0e70](https://github.com/hirosystems/stacks-wallet-web/commit/1ff0e7056f4ff34e43ca2cfcf31a2ff731a3e856))
+* sign message oncancel ([f2d75f8](https://github.com/hirosystems/stacks-wallet-web/commit/f2d75f8fe7226f14c9b27d8f1abd48a299eb5875))
+* sign message with line breaks ([fdc8866](https://github.com/hirosystems/stacks-wallet-web/commit/fdc8866861abf143dba3815b97ea85946914eae9))
+* suggested steps only updating with refresh ([2dea9c6](https://github.com/hirosystems/stacks-wallet-web/commit/2dea9c6954117e127f251fb1b72c258c93b81482))
+* support SIP-018 for structured data signing ([8087cd6](https://github.com/hirosystems/stacks-wallet-web/commit/8087cd604a6c3a6d8a8c0e0673d70fd7d543d282)), closes [#2443](https://github.com/hirosystems/stacks-wallet-web/issues/2443) [#2460](https://github.com/hirosystems/stacks-wallet-web/issues/2460) [#2419](https://github.com/hirosystems/stacks-wallet-web/issues/2419)
+* use the anchor mode from the input transaction ([92c7c6a](https://github.com/hirosystems/stacks-wallet-web/commit/92c7c6a7afc3a5f8fde052aa412f8418e8f8eea3))
+
+
+### Features
+
+* add image to fungible token ([c891983](https://github.com/hirosystems/stacks-wallet-web/commit/c8919833102ba490dfb011407c3be57c6282bc01)), closes [#1800](https://github.com/hirosystems/stacks-wallet-web/issues/1800)
+* initial support jwt signing on ledger ([5f4696e](https://github.com/hirosystems/stacks-wallet-web/commit/5f4696ecfa8127ae682a98190a32d7e52d3e4ecc))
+* support Ledger hardware wallets ([8a7d0d2](https://github.com/hirosystems/stacks-wallet-web/commit/8a7d0d2a3d09848393f6fc033dcb24c48b758bef))
+
 # [3.10.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.9.0...v3.10.0) (2022-06-13)
 
 
