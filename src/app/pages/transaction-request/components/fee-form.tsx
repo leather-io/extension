@@ -8,7 +8,7 @@ import { MinimalErrorMessage } from '@app/pages/transaction-request/components/m
 import { useFeeEstimationsQuery } from '@app/query/fees/fees.hooks';
 import {
   useEstimatedUnsignedTransactionByteLengthState,
-  useUnserializedSignedTransactionPayloadState,
+  useSerializedUnsignedTransactionPayloadState,
   useUnsignedPrepareTransactionDetails,
 } from '@app/store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
@@ -22,10 +22,10 @@ import {
   useFeeEstimationsMinValues,
 } from '@app/common/transactions/use-fee-estimations-capped-values';
 
-export function FeeForm(): JSX.Element | null {
+export function FeeForm() {
   const analytics = useAnalytics();
   const { setFieldValue, values } = useFormikContext<TransactionFormValues>();
-  const serializedUnsignedTransactionPayloadState = useUnserializedSignedTransactionPayloadState();
+  const serializedUnsignedTransactionPayloadState = useSerializedUnsignedTransactionPayloadState();
   const estimatedUnsignedTxByteLength = useEstimatedUnsignedTransactionByteLengthState();
   const { data: feeEstimationsResp, isError } = useFeeEstimationsQuery(
     serializedUnsignedTransactionPayloadState,

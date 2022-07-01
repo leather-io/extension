@@ -5,7 +5,13 @@ import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.ho
 import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
 import { useApi } from '@app/store/common/api-clients.hooks';
 
-export function useGetAccountNonces(reactQueryOptions: UseQueryOptions) {
+const accountNoncesQueryOptions: UseQueryOptions = {
+  refetchOnMount: 'always',
+  refetchOnReconnect: 'always',
+  refetchOnWindowFocus: 'always',
+};
+
+export function useGetAccountNonces() {
   const principal = useCurrentAccountStxAddressState();
   const network = useCurrentNetworkState();
   const { accountsApi } = useApi();
@@ -21,6 +27,6 @@ export function useGetAccountNonces(reactQueryOptions: UseQueryOptions) {
     queryKey: ['account-nonces', principal, network],
     queryFn: fetchAccountNonces,
     enabled: !!principal,
-    ...reactQueryOptions,
+    ...accountNoncesQueryOptions,
   }) as UseQueryResult<AddressNonces, Error>;
 }

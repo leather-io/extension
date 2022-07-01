@@ -5,7 +5,7 @@ import { Box, Text, Stack } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { isEmpty } from '@shared/utils';
+import { isEmpty, isUndefined } from '@shared/utils';
 import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import {
   useFeeEstimationsMaxValues,
@@ -39,7 +39,7 @@ import { SendFormMemoWarning } from './memo-warning';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
-  nonce: number;
+  nonce: number | undefined;
 }
 export function SendFormInner(props: SendFormInnerProps) {
   const { assetError, nonce } = props;
@@ -113,7 +113,7 @@ export function SendFormInner(props: SendFormInnerProps) {
   }, [assets.length, setValues, values, nonce, setFieldError]);
 
   const hasValues =
-    values.amount && values.recipient !== '' && values.fee && values.nonce !== undefined;
+    values.amount && values.recipient !== '' && values.fee && !isUndefined(values.nonce);
 
   const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
 
@@ -155,7 +155,7 @@ export function SendFormInner(props: SendFormInnerProps) {
         </PrimaryButton>
       </Box>
       <Box mb={['loose', 'unset']}>
-        <ShowEditNonceAction nonce={nonce} />
+        <ShowEditNonceAction />
       </Box>
     </Stack>
   );

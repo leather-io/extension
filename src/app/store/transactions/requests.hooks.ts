@@ -5,7 +5,7 @@ import {
   transactionRequestValidationState,
 } from '@app/store/transactions/requests';
 import { requestTokenState } from '@app/store/transactions/requests';
-import { transactionBroadcastErrorState } from '@app/store/transactions';
+import { transactionBroadcastErrorState } from '@app/store/transactions/transaction';
 import { useCallback } from 'react';
 import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
 

@@ -19,9 +19,9 @@ import {
 import { ftUnshiftDecimals, stxToMicroStx } from '@app/common/stacks-utils';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
+import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { currentAccountState, currentAccountStxAddressState } from '@app/store/accounts';
 import { currentStacksNetworkState } from '@app/store/network/networks';
-import { currentAccountNonceState } from '@app/store/nonce/nonce';
 import {
   generateUnsignedTransaction,
   GenerateUnsignedTransactionOptions,
@@ -34,17 +34,15 @@ function useMakeFungibleTokenTransfer() {
   const currentAccount = useAtomValue(currentAccountState);
   const network = useAtomValue(currentStacksNetworkState);
   const stxAddress = useAtomValue(currentAccountStxAddressState);
-  const nonce = useAtomValue(currentAccountNonceState);
 
   return useMemo(() => {
-    if (!stxAddress || typeof nonce === 'undefined') return;
+    if (!stxAddress) return;
 
     if (asset && currentAccount && stxAddress) {
       const { contractName, contractAddress, name: assetName } = asset;
       return {
         asset,
         stxAddress,
-        nonce,
         network,
         assetName,
         contractAddress,
@@ -52,7 +50,7 @@ function useMakeFungibleTokenTransfer() {
       };
     }
     return;
-  }, [asset, currentAccount, network, nonce, stxAddress]);
+  }, [asset, currentAccount, network, stxAddress]);
 }
 
 const stxTokenTransferAtomDeps = atom(get =>
@@ -60,24 +58,22 @@ const stxTokenTransferAtomDeps = atom(get =>
     waitForAll({
       network: currentStacksNetworkState,
       account: currentAccountState,
-      nonce: currentAccountNonceState,
     })
   )
 );
 
 export function useGenerateStxTokenTransferUnsignedTx() {
   const address = useAtomValue(currentAccountStxAddressState);
-  const { network, account, nonce } = useAtomValue(stxTokenTransferAtomDeps);
+  const { nonce } = useNextNonce();
+  const { network, account } = useAtomValue(stxTokenTransferAtomDeps);
 
   return useCallback(
     async (values?: TransactionFormValues) => {
-      if (!address) return;
-      if (!account || typeof nonce === 'undefined') return;
-      const txNonce = Number(values?.nonce) || nonce;
+      if (!account || !address) return;
 
       const options: GenerateUnsignedTransactionOptions = {
         publicKey: account.stxPublicKey,
-        nonce: txNonce,
+        nonce: Number(values?.nonce) || nonce,
         fee: stxToMicroStx(values?.fee || 0).toNumber(),
         txData: {
           txType: TransactionTypes.STXTransfer,
@@ -89,7 +85,7 @@ export function useGenerateStxTokenTransferUnsignedTx() {
           // Coercing type here as we don't have the public key
           // as expected by STXTransferPayload type.
           // This code will likely need to change soon with Ledger
-          // work, and concersion allows us to remove lots of type mangling
+          // work, and coercion allows us to remove lots of type mangling
           // and types are out of sync with @stacks/connect
         } as any,
       };
@@ -101,8 +97,9 @@ export function useGenerateStxTokenTransferUnsignedTx() {
 
 export function useStxTokenTransferUnsignedTxState(values?: TransactionFormValues) {
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
+  const { nonce } = useNextNonce();
   const address = useAtomValue(currentAccountStxAddressState);
-  const { network, account, nonce } = useAtomValue(stxTokenTransferAtomDeps);
+  const { network, account } = useAtomValue(stxTokenTransferAtomDeps);
 
   const tx = useAsync(async () => {
     return generateTx(values ?? undefined);
@@ -112,21 +109,19 @@ export function useStxTokenTransferUnsignedTxState(values?: TransactionFormValue
 }
 
 export function useGenerateFtTokenTransferUnsignedTx() {
+  const assetTransferState = useMakeFungibleTokenTransfer();
+  const { nonce } = useNextNonce();
+  const selectedAsset = useSelectedAssetItem();
   const address = useAtomValue(currentAccountStxAddressState);
   const account = useAtomValue(currentAccountState);
-  const assetTransferState = useMakeFungibleTokenTransfer();
-  const selectedAsset = useSelectedAssetItem();
 
   return useCallback(
     async (values?: TransactionFormValues) => {
       if (!address || !assetTransferState || !selectedAsset || !account) return;
 
-      const { network, assetName, contractAddress, contractName, nonce, stxAddress } =
-        assetTransferState;
+      const { network, assetName, contractAddress, contractName, stxAddress } = assetTransferState;
 
       const functionName = 'transfer';
-
-      const txNonce = Number(values?.nonce) || nonce;
 
       const realAmount =
         selectedAsset.type === 'ft'
@@ -172,12 +167,12 @@ export function useGenerateFtTokenTransferUnsignedTx() {
         },
         fee: stxToMicroStx(values?.fee || 0).toNumber(),
         publicKey: account.stxPublicKey,
-        nonce: txNonce,
+        nonce: Number(values?.nonce) ?? nonce,
       } as const;
 
       return generateUnsignedTransaction(options);
     },
-    [address, account, assetTransferState, selectedAsset]
+    [address, assetTransferState, selectedAsset, account, nonce]
   );
 }
 
