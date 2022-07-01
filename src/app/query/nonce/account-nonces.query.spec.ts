@@ -3,7 +3,7 @@ import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-t
 
 import { setupHeystackEnv } from '@tests/mocks/heystack';
 
-import { getNextNonce } from './account-nonces.utils';
+import { getNextNonce, NonceTypes } from './account-nonces.utils';
 
 describe(getNextNonce, () => {
   setupHeystackEnv();
@@ -17,7 +17,9 @@ describe(getNextNonce, () => {
     };
     const confirmedTxs: Transaction[] = [];
     const pendingTxs: MempoolTransaction[] = [];
-    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(54);
+    const { nonce, nonceType } = getNextNonce(response, confirmedTxs, pendingTxs);
+    expect(nonce).toEqual(54);
+    expect(nonceType).toEqual(NonceTypes.apiSuggestedNonce);
   });
 
   test('detected_missing_nonces', () => {
@@ -29,7 +31,9 @@ describe(getNextNonce, () => {
     };
     const confirmedTxs: Transaction[] = [];
     const pendingTxs: MempoolTransaction[] = [];
-    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(49);
+    const { nonce, nonceType } = getNextNonce(response, confirmedTxs, pendingTxs);
+    expect(nonce).toEqual(49);
+    expect(nonceType).toEqual(NonceTypes.apiSuggestedNonce);
   });
 
   test('possible_next_nonce is less than missing nonce', () => {
@@ -41,7 +45,9 @@ describe(getNextNonce, () => {
     };
     const confirmedTxs: Transaction[] = [];
     const pendingTxs: MempoolTransaction[] = [];
-    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(49);
+    const { nonce, nonceType } = getNextNonce(response, confirmedTxs, pendingTxs);
+    expect(nonce).toEqual(49);
+    expect(nonceType).toEqual(NonceTypes.apiSuggestedNonce);
   });
 
   test('invalid state: last_executed_tx_nonce is more than or equal to missing nonce', () => {
@@ -53,27 +59,31 @@ describe(getNextNonce, () => {
     };
     const confirmedTxs: Transaction[] = [];
     const pendingTxs: MempoolTransaction[] = [];
-    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(50);
+    const { nonce, nonceType } = getNextNonce(response, confirmedTxs, pendingTxs);
+    expect(nonce).toEqual(50);
+    expect(nonceType).toEqual(NonceTypes.apiSuggestedNonce);
   });
 
   test('new account with zero nonce', () => {
     const response: AddressNonces = {
+      detected_missing_nonces: [],
       last_executed_tx_nonce: null,
       last_mempool_tx_nonce: null,
       possible_next_nonce: 0,
-      detected_missing_nonces: [],
     };
     const confirmedTxs: Transaction[] = [];
     const pendingTxs: MempoolTransaction[] = [];
-    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(0);
+    const { nonce, nonceType } = getNextNonce(response, confirmedTxs, pendingTxs);
+    expect(nonce).toEqual(0);
+    expect(nonceType).toEqual(NonceTypes.apiSuggestedNonce);
   });
 
   test('last_mempool_tx_nonce', () => {
     const response: AddressNonces = {
+      detected_missing_nonces: [71],
       last_executed_tx_nonce: 70,
       last_mempool_tx_nonce: 72,
       possible_next_nonce: 73,
-      detected_missing_nonces: [71],
     };
     const confirmedTxs: Transaction[] = [];
     const pendingTxs: MempoolTransaction[] = [
@@ -97,7 +107,9 @@ describe(getNextNonce, () => {
         nonce: 72,
       },
     ];
-    expect(getNextNonce(response, confirmedTxs, pendingTxs)).toEqual(71);
+    const { nonce, nonceType } = getNextNonce(response, confirmedTxs, pendingTxs);
+    expect(nonce).toEqual(71);
+    expect(nonceType).toEqual(NonceTypes.apiSuggestedNonce);
   });
 
   test('multiple missing nonces', () => {
@@ -109,7 +121,13 @@ describe(getNextNonce, () => {
     };
     const confirmedTxs: Transaction[] = [];
     const pendingTxs: MempoolTransaction[] = [];
-    expect(getNextNonce(response1, confirmedTxs, pendingTxs)).toEqual(71);
+    const { nonce: nonce1, nonceType: nonceType1 } = getNextNonce(
+      response1,
+      confirmedTxs,
+      pendingTxs
+    );
+    expect(nonce1).toEqual(71);
+    expect(nonceType1).toEqual(NonceTypes.apiSuggestedNonce);
 
     const response2: AddressNonces = {
       detected_missing_nonces: [71, 73],
@@ -117,6 +135,12 @@ describe(getNextNonce, () => {
       last_mempool_tx_nonce: 74,
       possible_next_nonce: 75,
     };
-    expect(getNextNonce(response2, confirmedTxs, pendingTxs)).toEqual(71);
+    const { nonce: nonce2, nonceType: nonceType2 } = getNextNonce(
+      response2,
+      confirmedTxs,
+      pendingTxs
+    );
+    expect(nonce2).toEqual(71);
+    expect(nonceType2).toEqual(NonceTypes.apiSuggestedNonce);
   });
 });

@@ -47,11 +47,11 @@ import { ConnectLedgerSignJwtError } from '@app/features/ledger/flows/jwt-signin
 import { ConnectLedgerSignJwtSuccess } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-success';
 import { LedgerJwtSigningRejected } from '@app/features/ledger/flows/jwt-signing/steps/transaction-rejected';
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
+import { LedgerDeviceInvalidTx } from '@app/features/ledger/flows/tx-signing/steps/device-invalid-tx';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
-import { LedgerDeviceInvalidTx } from '@app/features/ledger/flows/tx-signing/steps/device-invalid-tx';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();

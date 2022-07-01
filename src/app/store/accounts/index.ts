@@ -14,7 +14,7 @@ import deepEqual from 'fast-deep-equal';
 import { transactionRequestStxAddressState } from '@app/store/transactions/requests';
 import { currentNetworkState } from '@app/store/network/networks';
 
-import { addressNetworkVersionState } from '@app/store/transactions';
+import { addressNetworkVersionState } from '@app/store/transactions/transaction';
 import {
   currentAccountIndexState,
   ledgerKeyState,
