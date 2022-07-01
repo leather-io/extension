@@ -27,7 +27,7 @@ export function useGetNonFungibleTokenHoldingsListQuery(accounts?: AccountWithAd
 
   return useQueries(
     (accounts || []).map(account => ({
-      queryKey: ['get-ft-metadata', account.address, network.url],
+      queryKey: ['get-nft-holdings', account.address, network.url],
       queryFn: fetchNonFungibleTokenHoldings(api)(account.address),
     }))
   );
