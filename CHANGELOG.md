@@ -1,3 +1,10 @@
+## [3.11.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.0...v3.11.1-beta.1) (2022-07-04)
+
+
+### Bug Fixes
+
+* add transition to fund account tile ([a4cc29a](https://github.com/hirosystems/stacks-wallet-web/commit/a4cc29af44317c27f4b10bf8f877802f8d90eb9d))
+
 # [3.11.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0...v3.11.0) (2022-06-30)
 
 
