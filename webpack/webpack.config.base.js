@@ -202,6 +202,9 @@ const config = {
         { from: 'node_modules/argon2-browser/dist/argon2.wasm', to: '.' },
       ],
     }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'node_modules/webextension-polyfill/dist/browser-polyfill.js' }],
+    }),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV),
       VERSION: JSON.stringify(VERSION),
