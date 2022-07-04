@@ -1,3 +1,10 @@
+# [3.12.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.1-beta.1...v3.12.0-beta.1) (2022-07-04)
+
+
+### Features
+
+* ledger increase fee tx signing ([d8ff5eb](https://github.com/hirosystems/stacks-wallet-web/commit/d8ff5eb9ac8ae5988307d90b23bf4bb5fad4fa58))
+
 ## [3.11.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.0...v3.11.1-beta.1) (2022-07-04)
 
 
