@@ -89,7 +89,7 @@ export function Unlock(): JSX.Element {
         </Box>
         <PageTitle fontSize={[4, 7]}>Your session is locked</PageTitle>
         <Text color={color('text-caption')}>
-          {waitingMessage ||
+          {(loading && waitingMessage) ||
             'Enter the password you previously set to access your accounts on this device'}
         </Text>
         <Stack spacing="base">
