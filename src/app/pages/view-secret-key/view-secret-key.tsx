@@ -19,7 +19,7 @@ export const ViewSecretKey = memo(() => {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const defaultWalletSecretKey = useDefaultWalletSecretKey();
-  const [canShowSecretKey, setCanShowSecretKey] = useState(false);
+  const [showSecretKey, setShowSecretKey] = useState(false);
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} />);
 
@@ -35,12 +35,13 @@ export const ViewSecretKey = memo(() => {
         px={['loose', 'base-loose']}
         spacing="loose"
         textAlign={['left', 'center']}
+        width="100%"
       >
-        {!canShowSecretKey ? (
+        {!showSecretKey ? (
           <RequestPassword
             title="View Secret Key"
-            caption="Enter the password you previously set to view your Secret Key"
-            onSuccess={() => setCanShowSecretKey(true)}
+            caption="Enter the password you set on this device"
+            onSuccess={() => setShowSecretKey(true)}
           />
         ) : (
           <>

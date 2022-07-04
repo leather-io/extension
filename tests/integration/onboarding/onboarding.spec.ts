@@ -34,6 +34,7 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.goToSecretKey();
+    await wallet.enterPasswordAndUnlockWallet();
     const secretKey = await wallet.getSecretKey();
     expect(secretKey).not.toBeFalsy();
     expect(secretKey.split(' ').length).toEqual(24);
@@ -45,6 +46,8 @@ describe(`Onboarding integration tests`, () => {
     await wallet.loginWithPreviousSecretKey(SECRET_KEY);
     await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
+    await wallet.goToSecretKey();
+    await wallet.enterPasswordAndUnlockWallet();
     const secretKey = await wallet.getSecretKey();
     expect(secretKey).toEqual(SECRET_KEY);
     await wallet.clickSettingsButton();
