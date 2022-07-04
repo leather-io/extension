@@ -38,7 +38,7 @@ export function Unlock(): JSX.Element {
       >
         <RequestPassword
           title="Your session is locked"
-          caption="Enter the password you previously set to access your accounts on this device"
+          caption="Enter the password you set on this device"
           onSuccess={handleSuccess}
         />
         {/* TODO: Add this back when check for matching secret key is ready */}

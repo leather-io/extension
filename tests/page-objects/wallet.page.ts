@@ -162,7 +162,6 @@ export class WalletPage {
   }
 
   async getSecretKey() {
-    await this.goToSecretKey();
     await this.page.waitForSelector(this.$secretKey);
     const secretKeyWords = await this.page.locator(this.$secretKey).allInnerTexts();
     return secretKeyWords.join(' ');

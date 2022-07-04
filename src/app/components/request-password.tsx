@@ -14,44 +14,39 @@ import { PrimaryButton } from './primary-button';
 const waitingMessages: WaitingMessages = {
   '2': 'Verifying password…',
   '10': 'Still working…',
-  '20': 'Almost there.',
+  '20': 'Almost there',
 };
 
 interface RequestPasswordProps {
-  onSuccess: (password: string) => void;
+  onSuccess(password: string): void;
   title?: string;
   caption?: string;
 }
-
-export function RequestPassword({ title, caption, onSuccess }: RequestPasswordProps): JSX.Element {
-  const [loading, setLoading] = useState(false);
+export function RequestPassword({ title, caption, onSuccess }: RequestPasswordProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { unlockWallet } = useWallet();
   const analytics = useAnalytics();
-  const [waitingMessage, startWaitingMessage, stopWaitingMessage] =
+  const [isRunning, waitingMessage, startWaitingMessage, stopWaitingMessage] =
     useWaitingMessage(waitingMessages);
 
   const submit = useCallback(async () => {
     const startUnlockTimeMs = performance.now();
     void analytics.track('start_unlock');
-    setLoading(true);
     startWaitingMessage();
     setError('');
-
     try {
       await unlockWallet(password);
       onSuccess?.(password);
     } catch (error) {
-      setError('The password you entered is invalid.');
+      setError('The password you entered is invalid');
     }
-    setLoading(false);
     stopWaitingMessage();
     const unlockSuccessTimeMs = performance.now();
     void analytics.track('complete_unlock', {
       durationMs: unlockSuccessTimeMs - startUnlockTimeMs,
     });
-  }, [startWaitingMessage, analytics, stopWaitingMessage, unlockWallet, password]);
+  }, [analytics, startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
 
   return (
     <>
@@ -59,15 +54,18 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
         <img src={UnlockSession} />
       </Box>
       <PageTitle fontSize={[4, 7]}>{title}</PageTitle>
-      <Text color={color('text-caption')}>{waitingMessage || caption}</Text>
+      <Text color={color('text-caption')}>{(isRunning && waitingMessage) || caption}</Text>
       <Stack spacing="base">
         <Input
           autoFocus
           borderRadius="10px"
           data-testid={SettingsSelectors.EnterPasswordInput}
           height="64px"
-          isDisabled={loading}
-          onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+          isDisabled={isRunning}
+          onChange={(e: FormEvent<HTMLInputElement>) => {
+            setError('');
+            setPassword(e.currentTarget.value);
+          }}
           onKeyUp={buildEnterKeyEvent(submit)}
           placeholder="Enter your password"
           type="password"
@@ -84,8 +82,8 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
       </Stack>
       <PrimaryButton
         data-testid={SettingsSelectors.UnlockWalletBtn}
-        isDisabled={loading}
-        isLoading={loading}
+        isDisabled={isRunning || !!error}
+        isLoading={isRunning}
         onClick={submit}
       >
         Continue
