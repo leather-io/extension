@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-blockstack';
-import { Box } from '@stacks/ui';
 import toast from 'react-hot-toast';
 
 import {
@@ -16,7 +15,7 @@ import { delay } from '@app/common/utils';
 import { RouteUrls } from '@shared/route-urls';
 import { LedgerRequestKeysProvider } from '@app/features/ledger/ledger-request-keys.context';
 import { logger } from '@shared/logger';
-import { BaseDrawer } from '@app/components/drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useTriggerLedgerDeviceRequestKeys } from './use-trigger-ledger-request-keys';
 import { useLedgerAnalytics } from '@app/features/ledger/hooks/use-ledger-analytics.hook';
@@ -32,8 +31,10 @@ export function LedgerRequestKeysContainer() {
     useTriggerLedgerDeviceRequestKeys();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
+
   const [outdatedAppVersionWarning, setAppVersionOutdatedWarning] = useState(false);
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
+  const [awaitingKeyVerification, setAwaitingKeyVerification] = useState(false);
 
   const pullPublicKeysFromDevice = async () => {
     const stacks = await prepareLedgerDeviceConnection({
@@ -65,12 +66,14 @@ export function LedgerRequestKeysContainer() {
     }
 
     try {
+      setAwaitingKeyVerification(true);
       ledgerNavigate.toConnectionSuccessStep();
       await delay(1750);
       ledgerNavigate.toActivityHappeningOnDeviceStep();
 
       const resp = await pullKeysFromLedgerDevice(stacks);
       if (resp.status === 'failure') {
+        setAwaitingKeyVerification(false);
         fireErrorMessageToast(resp.errorMessage);
         ledgerNavigate.toErrorStep(resp.errorMessage);
         return;
@@ -78,9 +81,11 @@ export function LedgerRequestKeysContainer() {
       ledgerNavigate.toActivityHappeningOnDeviceStep();
       completeLedgerDeviceOnboarding(resp.publicKeys, versionInfo.targetId);
       ledgerAnalytics.publicKeysPulledFromLedgerSuccessfully();
+      setAwaitingKeyVerification(false);
       navigate(RouteUrls.Home);
     } catch (e) {
       logger.info(e);
+      setAwaitingKeyVerification(false);
       ledgerNavigate.toErrorStep();
     }
   };
@@ -97,7 +102,13 @@ export function LedgerRequestKeysContainer() {
 
   return (
     <LedgerRequestKeysProvider value={ledgerContextValue}>
-      <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
+      <BaseDrawer
+        isShowing
+        isWaitingOnPerformedAction={awaitingDeviceConnection || awaitingKeyVerification}
+        onClose={onCancelConnectLedger}
+        pauseOnClickOutside
+        waitingOnPerformedActionMessage="Ledger device in use"
+      >
         <Outlet />
       </BaseDrawer>
     </LedgerRequestKeysProvider>

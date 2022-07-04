@@ -26,6 +26,7 @@ export enum RouteUrls {
   ChooseAccount = '/choose-account',
   Fund = '/fund',
   FundReceive = '/fund/receive',
+  IncreaseFee = '/increase-fee',
   Receive = '/receive',
   Send = '/send-transaction',
   SignOutConfirm = '/sign-out',

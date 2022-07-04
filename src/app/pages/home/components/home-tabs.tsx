@@ -51,7 +51,7 @@ export function HomeTabs(props: HomeTabsProps) {
           <Suspense fallback={<LoadingSpinner pb="72px" />}>
             <SlideFade in={activeTab === 1}>
               {styles => (
-                <Box position="absolute" top={0} left={0} width="100%" style={styles}>
+                <Box width="100%" style={styles}>
                   {activity}
                 </Box>
               )}
