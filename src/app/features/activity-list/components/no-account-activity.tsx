@@ -8,7 +8,7 @@ export function NoAccountActivity() {
     <Stack py="extra-loose" spacing="extra-loose" justifyContent="center" alignItems="center">
       <img src={NoActivity} width="120px" />
       <Caption maxWidth="23ch" textAlign="center">
-        No activity yet.
+        No activity yet
       </Caption>
     </Stack>
   );

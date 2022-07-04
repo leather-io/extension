@@ -9,25 +9,17 @@ config.mode = 'production';
 // Basically, disable any code splitting stuff
 config.optimization = {
   ...config.optimization,
-  // flagIncludedChunks: false,
-  // concatenateModules: false,
   minimize: shouldMinify,
   moduleIds: 'deterministic',
   splitChunks: {
     chunks(chunk) {
-      return chunk.name !== 'background';
+      // Only enable code splitting on main bundle
+      return chunk.name === 'index';
     },
-    // hidePathInfo: false,
-    // minSize: 10000,
-    // maxAsyncRequests: Infinity,
-    // maxInitialRequests: Infinity,
-    // cacheGroups: {
-    //   commons: {
-    //     test: /[\\/]node_modules[\\/]/,
-    //     name: 'vendors',
-    //     chunks: 'all',
-    //   },l
-    // },
+    hidePathInfo: false,
+    minSize: 10000,
+    maxAsyncRequests: Infinity,
+    maxInitialRequests: Infinity,
   },
   ...(shouldMinify
     ? {
