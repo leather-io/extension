@@ -1,3 +1,10 @@
+# [3.12.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.1...v3.12.0-beta.2) (2022-07-04)
+
+
+### Bug Fixes
+
+* show unlock waiting message only when loading ([c1111b7](https://github.com/hirosystems/stacks-wallet-web/commit/c1111b776040ef713eb3f22bdfaa802fcabbc913))
+
 # [3.12.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.1-beta.1...v3.12.0-beta.1) (2022-07-04)
 
 
