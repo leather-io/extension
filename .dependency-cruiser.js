@@ -40,6 +40,12 @@ module.exports = {
       to: { path: 'jotai*' },
     },
     {
+      name: 'ban-non-type-imports-from-webextension-polyfill',
+      severity: 'error',
+      from: { path: '^src' },
+      to: { path: 'webextension-polyfill', dependencyTypesNot: ['type-only'] },
+    },
+    {
       name: 'component-cannot-import-pages-or-features',
       severity: 'error',
       from: { path: 'src/app/components*' },
