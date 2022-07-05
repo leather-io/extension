@@ -44,7 +44,12 @@ export function useSuggestedFirstSteps() {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availableStxBalance, nonFungibleTokenHoldings]);
+  }, [
+    accountsAvailableStxBalance,
+    accountsNonFungibleTokenHoldings,
+    availableStxBalance,
+    nonFungibleTokenHoldings,
+  ]);
 
   const hasCompletedSuggestedFirstSteps = useMemo(() => {
     return Object.values(stepsStatus).every(val => val === SuggestedFirstStepStatus.Complete);

@@ -20,6 +20,5 @@ export function useAccountsNonFungibleTokenHoldings(accounts?: AccountWithAddres
     return accountsNftHoldings.reduce((acc, nftHoldings) => {
       return acc.plus(nftHoldings.data?.total || 0);
     }, new BigNumber(0));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [accountsNftHoldings]);
 }
