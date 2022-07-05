@@ -1,3 +1,10 @@
+# [3.12.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.2...v3.12.0-beta.3) (2022-07-05)
+
+
+### Bug Fixes
+
+* error during sign out on lock screen ([8f04a0e](https://github.com/hirosystems/stacks-wallet-web/commit/8f04a0e78ae85f11e12af77bff8ce2d62d1e0fd4))
+
 # [3.12.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.1...v3.12.0-beta.2) (2022-07-04)
 
 
