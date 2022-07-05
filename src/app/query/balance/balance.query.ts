@@ -55,6 +55,7 @@ export function useGetAnchoredAccountBalanceListQuery(accounts?: AccountWithAddr
     (accounts || []).map(account => ({
       queryKey: ['get-address-anchored-stx-balance', account.address],
       queryFn: fetchAccountBalance(api)(account.address),
+      ...balanceQueryOptions,
     }))
   );
 }
