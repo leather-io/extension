@@ -98,21 +98,21 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         mt={['auto', 'unset', 'unset', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
       >
-        <DrawerHeader
-          enableGoBack={enableGoBack}
-          icon={icon}
-          isWaitingOnPerformedAction={isWaitingOnPerformedAction}
-          onClose={onClose}
-          onGoBack={onGoBack}
-          title={title}
-          waitingOnPerformedActionMessage={waitingOnPerformedActionMessage}
-        />
         <Box
           css={css`
             overflow-y: scroll;
             ${hideScrollbarStyle}
           `}
         >
+          <DrawerHeader
+            enableGoBack={enableGoBack}
+            icon={icon}
+            isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+            onClose={onClose}
+            onGoBack={onGoBack}
+            title={title}
+            waitingOnPerformedActionMessage={waitingOnPerformedActionMessage}
+          />
           <Flex maxHeight="100%" flexGrow={1} flexDirection="column">
             <Suspense fallback={<></>}>{children}</Suspense>
           </Flex>
