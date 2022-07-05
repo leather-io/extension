@@ -1,3 +1,10 @@
+# [3.12.0-beta.6](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.5...v3.12.0-beta.6) (2022-07-05)
+
+
+### Bug Fixes
+
+* query hook dependency ([378f0d1](https://github.com/hirosystems/stacks-wallet-web/commit/378f0d1a2b95d3336ece3b9ba01129a0b641eff5))
+
 # [3.12.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.4...v3.12.0-beta.5) (2022-07-05)
 
 
