@@ -25,9 +25,11 @@ export function useSuggestedFirstSteps() {
   const hasHiddenSuggestedFirstSteps = useHideSuggestedFirstSteps();
   const stepsStatus = useSuggestedFirstStepsStatus();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const accountsAvailableStxBalance = useAccountsAvailableStxBalance(accounts);
   const nonFungibleTokenHoldings = useNonFungibleTokenHoldings(currentAccount?.address);
-  const accountsNonFungibleTokenHoldings = useAccountsNonFungibleTokenHoldings(accounts);
+
+  const firstFiveAccounts = accounts?.slice(0, 5);
+  const accountsAvailableStxBalance = useAccountsAvailableStxBalance(firstFiveAccounts);
+  const accountsNonFungibleTokenHoldings = useAccountsNonFungibleTokenHoldings(firstFiveAccounts);
 
   useEffect(() => {
     if (accountsAvailableStxBalance?.isGreaterThan(0)) {
@@ -48,5 +50,10 @@ export function useSuggestedFirstSteps() {
     return Object.values(stepsStatus).every(val => val === SuggestedFirstStepStatus.Complete);
   }, [stepsStatus]);
 
-  return !hasCompletedSuggestedFirstSteps && !hasHiddenSuggestedFirstSteps;
+  return (
+    accounts &&
+    accounts.length <= 5 &&
+    !hasCompletedSuggestedFirstSteps &&
+    !hasHiddenSuggestedFirstSteps
+  );
 }

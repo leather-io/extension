@@ -19,7 +19,7 @@ import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
 import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
 
-const reactQueryDevToolsEnabled = false;
+const reactQueryDevToolsEnabled = process.env.NODE_ENV === 'development';
 
 export function App() {
   return (
