@@ -1,3 +1,10 @@
+# [3.12.0-beta.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.4...v3.12.0-beta.5) (2022-07-05)
+
+
+### Bug Fixes
+
+* drawer header ([1be4f88](https://github.com/hirosystems/stacks-wallet-web/commit/1be4f88d3cb0671aea7727a7797dbfe8b605a413))
+
 # [3.12.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.3...v3.12.0-beta.4) (2022-07-05)
 
 
