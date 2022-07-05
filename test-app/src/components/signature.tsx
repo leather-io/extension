@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Text } from '@stacks/ui';
-import { stacksMainnetNetwork, stacksTestnetNetwork as network, stacksTestnetNetwork } from '@common/utils';
+import {
+  stacksMainnetNetwork,
+  stacksTestnetNetwork as network,
+  stacksTestnetNetwork,
+} from '@common/utils';
 import { SignatureData } from '@stacks/connect';
 
 import {
@@ -33,7 +37,9 @@ export const Signature = () => {
   const [signatureStructured, setSignatureStructured] = useState<SignatureData | undefined>();
   const [signatureIsVerified, setSignatureIsVerified] = useState<boolean | undefined>();
   const [currentMessage, setCurrentMessage] = useState<string | undefined>();
-  const [currentStructuredData, setCurrentStructuredData] = useState<{message: ClarityValue, domain: ClarityValue} | undefined>();
+  const [currentStructuredData, setCurrentStructuredData] = useState<
+    { message: ClarityValue; domain: ClarityValue } | undefined
+  >();
   const signatureMessage = 'Hello world!';
   const longSignatureMessage =
     'Nullam eu ante vel est convallis dignissim.  Fusce suscipit, wisi nec facilisis facilisis, est dui fermentum leo, quis tempor ligula erat quis odio.  Nunc porta vulputate tellus.  Nunc rutrum turpis sed pede.  Sed bibendum.  Aliquam posuere.  Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa, quis varius mi purus non odio.  Pellentesque condimentum, magna ut suscipit hendrerit, ipsum augue ornare nulla, non luctus diam neque sit amet urna.  Curabitur vulputate vestibulum lorem.  Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla lacinia eros.  Sed id ligula quis est convallis tempor.  Curabitur lacinia pulvinar nibh.  Nam a sapien.';
@@ -73,7 +79,7 @@ export const Signature = () => {
 
   useEffect(() => {
     if (!signature || !currentMessage) return;
-    
+
     const verified = verifyMessageSignatureRsv({
       ...signature,
       message: hashMessage(currentMessage),
@@ -84,12 +90,12 @@ export const Signature = () => {
   useEffect(() => {
     if (!signatureStructured || !currentStructuredData) return;
     const message = encodeStructuredData(currentStructuredData);
-    const messageHash = new sha256().update(message).digest('hex')
+    const messageHash = new sha256().update(message).digest('hex');
     const verified = verifyMessageSignatureRsv({
       ...signatureStructured,
       message: Buffer.from(messageHash, 'hex'),
     });
-    
+
     setSignatureIsVerified(verified);
   }, [signatureStructured, currentStructuredData]);
 
@@ -119,13 +125,13 @@ export const Signature = () => {
     name: stringAsciiCV('hiro.so'),
     version: stringAsciiCV('1.0.0'),
     'chain-id': uintCV(1),
-  }); 
+  });
 
   const signStructure = async (message: ClarityValue, domain: TupleCV) => {
     console.log('signStructure', message, domain);
     clearState();
 
-    setCurrentStructuredData({message, domain});
+    setCurrentStructuredData({ message, domain });
     console.log('signStructure', message, domain);
     await signStructuredData({
       /* network: stacksMainnetNetwork, */
@@ -142,14 +148,16 @@ export const Signature = () => {
     });
   };
 
-  const sip18Test = [{
-    message: stringAsciiCV('Hello World'),
-    domain: tupleCV({
-      name: stringAsciiCV('Test App'),
-      version: stringAsciiCV('1.0.0'),
-      'chain-id': uintCV(1),
-    }),
-  }]
+  const sip18Test = [
+    {
+      message: stringAsciiCV('Hello World'),
+      domain: tupleCV({
+        name: stringAsciiCV('Test App'),
+        version: stringAsciiCV('1.0.0'),
+        'chain-id': uintCV(1),
+      }),
+    },
+  ];
 
   return (
     <Box py={6}>
@@ -180,12 +188,14 @@ export const Signature = () => {
         Signature of Structured Data (2)
       </Button>
       <br />
-      <hr style={{margin: '10px'}}/>
+      <hr style={{ margin: '10px' }} />
       <Button mt={3} onClick={() => signStructure(sip18Test[0].message, sip18Test[0].domain)}>
         Signature of Structured Data SIP-018 test vector
       </Button>
-      <br/>
-      <span>expected hash : '1bfdab6d4158313ce34073fbb8d6b0fc32c154d439def12247a0f44bb2225259'</span>
+      <br />
+      <span>
+        expected hash : '1bfdab6d4158313ce34073fbb8d6b0fc32c154d439def12247a0f44bb2225259'
+      </span>
     </Box>
   );
 };
