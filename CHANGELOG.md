@@ -1,3 +1,10 @@
+# [3.12.0-beta.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.3...v3.12.0-beta.4) (2022-07-05)
+
+
+### Bug Fixes
+
+* first steps limit to five accounts ([7058fb5](https://github.com/hirosystems/stacks-wallet-web/commit/7058fb53f752b059af4b270b919489b600256715))
+
 # [3.12.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0-beta.2...v3.12.0-beta.3) (2022-07-05)
 
 
