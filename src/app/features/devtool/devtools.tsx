@@ -7,7 +7,7 @@ export function Devtools() {
   const client = useClientQuery();
   return client ? (
     <QueryClientProvider client={client}>
-      <ReactQueryDevtools position={'top-left'} />
+      <ReactQueryDevtools position={'bottom-left'} />
     </QueryClientProvider>
   ) : null;
 }
