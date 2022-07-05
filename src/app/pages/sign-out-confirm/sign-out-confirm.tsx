@@ -13,10 +13,10 @@ export const SignOutConfirmDrawer = () => {
 
   return (
     <SignOutConfirmLayout
-      onUserDeleteWallet={async () => {
-        await signOut();
+      onUserDeleteWallet={() => {
         setShowSignOut(false);
         navigate(RouteUrls.Onboarding);
+        void signOut();
       }}
       onUserSafelyReturnToHomepage={() => {
         setShowSignOut(false);
