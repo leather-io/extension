@@ -37,7 +37,12 @@ export function SignLedgerTransactionLayout({
       >
         <DividerSeparator>
           {details.map(([title, value, tooltipLabel]) => (
-            <LedgerScreenDetail isFullPage={isFullPage} title={title} tooltipLabel={tooltipLabel}>
+            <LedgerScreenDetail
+              key={value}
+              isFullPage={isFullPage}
+              title={title}
+              tooltipLabel={tooltipLabel}
+            >
               {value}
             </LedgerScreenDetail>
           ))}
