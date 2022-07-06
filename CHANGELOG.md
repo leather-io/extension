@@ -1,3 +1,12 @@
+## [3.11.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.0...v3.11.1) (2022-07-06)
+
+
+### Bug Fixes
+
+* first steps limit to five accounts ([f2baa11](https://github.com/hirosystems/stacks-wallet-web/commit/f2baa1158a8495227b888c1ecc6f851649e38187))
+* query hook dependency ([927af6a](https://github.com/hirosystems/stacks-wallet-web/commit/927af6ae93fb68dc04bab93f87a4a4a044b4ed84))
+* transaction nonce not incrementing ([2528cf3](https://github.com/hirosystems/stacks-wallet-web/commit/2528cf31b352f7d3a25b176af68e83d1789db7be))
+
 # [3.11.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.10.0...v3.11.0) (2022-06-30)
 
 
