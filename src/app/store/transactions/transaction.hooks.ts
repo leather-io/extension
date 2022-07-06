@@ -13,10 +13,10 @@ import {
   StacksTransaction,
   TransactionSigner,
 } from '@stacks/transactions';
-import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { todaysIsoDate } from '@app/common/date-utils';
 import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
+import { stxToMicroStx } from '@app/common/stacks-utils';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
@@ -122,7 +122,7 @@ export function useSoftwareWalletTransactionBroadcast() {
         const { options } = stacksTxBaseState as any;
         const unsignedStacksTransaction = await generateUnsignedTransaction({
           ...options,
-          fee: stxToMicroStx(values.fee),
+          fee: stxToMicroStx(values.fee).toNumber(),
           nonce: Number(values.nonce) || options.nonce,
         });
 
@@ -191,7 +191,7 @@ export function useGenerateUnsignedStacksTransaction() {
       const { options } = stacksTxBaseState as any;
       return generateUnsignedTransaction({
         ...options,
-        fee: values.fee,
+        fee: stxToMicroStx(values.fee).toNumber(),
         nonce: Number(values.nonce) || options.nonce,
       });
     }, [])
