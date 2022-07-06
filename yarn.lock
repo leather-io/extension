@@ -3364,13 +3364,13 @@
     "@types/node" "^14.14.43"
     buffer "^6.0.3"
 
-"@stacks/connect-react@17.0.8":
-  version "17.0.8"
-  resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-17.0.8.tgz#e5c313db4e02f3a2da383f14795cb188c2d55fe1"
-  integrity sha512-eOCXPgADb5n6TMg4Ltcp6j7ZBZ0ijbfUvHw/+rcRT+FuO1Xf/xPxtS3y2UbEKLPtnkD/kC75LUxj8rIAIlXNYQ==
+"@stacks/connect-react@18.0.0":
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-18.0.0.tgz#ee568c0287de51d0babe062e4d6d487d9c51127a"
+  integrity sha512-AiI8qSxaL9YSRx2AoYqVLIRr/57zyaW8AS2ex+tw9Q+/zl8BRQCucDD3v39KW7AOLCfKN1dmZlbS9Lb221WJkg==
   dependencies:
     "@stacks/auth" "4.2.2"
-    "@stacks/connect" "6.8.8"
+    "@stacks/connect" "6.9.0"
     jsontokens "^3.0.0"
 
 "@stacks/connect-ui@5.5.2":
@@ -3380,10 +3380,10 @@
   dependencies:
     "@stencil/core" "2.15.0"
 
-"@stacks/connect@6.8.8":
-  version "6.8.8"
-  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-6.8.8.tgz#da532d147f06be23cde9e6b899a1597d39be0f44"
-  integrity sha512-3YXMgEzvfch6lbgEX7nIBzCfcPS5NUg3+emFcIIq1ffiS3QendGufLJpy9OQja4q0a66yYVTpAdKNGkzeTIuqA==
+"@stacks/connect@6.9.0":
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-6.9.0.tgz#702e5303da1fd36f3721c0953d5b412e9ee94817"
+  integrity sha512-334NTKtGYU0QRZ88NzdR84LLJM4cS75pw6FL3k1Z2KJDXLT6y+peLcRd7wkkRNNSNsM+ULwl1RGFjv/fU7pQqQ==
   dependencies:
     "@stacks/auth" "4.2.2"
     "@stacks/connect-ui" "5.5.2"
