@@ -53,6 +53,7 @@ import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fe
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
+import { LedgerDeviceInvalidTx } from '@app/features/ledger/flows/tx-signing/steps/device-invalid-tx';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();
@@ -82,6 +83,7 @@ export function AppRoutes(): JSX.Element | null {
         <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
         <Route path={RouteUrls.LedgerOperationRejected} element={<LedgerTransactionRejected />} />
         <Route path={RouteUrls.LedgerPublicKeyMismatch} element={<LedgerPublicKeyMismatch />} />
+        <Route path={RouteUrls.LedgerDeviceTxInvalid} element={<LedgerDeviceInvalidTx />} />
         <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
       </Route>
     ),
