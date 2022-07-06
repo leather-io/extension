@@ -101,7 +101,7 @@ export function LedgerSignTxContainer() {
       // to proactively check the key before signing
       if (resp.returnCode === LedgerError.DataIsInvalid) {
         setAwaitingSignedTransaction(false);
-        ledgerNavigate.toPublicKeyMismatchStep();
+        ledgerNavigate.toDeviceInvalidTx();
         return;
       }
 

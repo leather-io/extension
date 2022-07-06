@@ -54,6 +54,10 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.LedgerPublicKeyMismatch, { replace: true });
       },
 
+      toDeviceInvalidTx() {
+        return navigate(RouteUrls.LedgerDeviceTxInvalid, { replace: true });
+      },
+
       toTransactionRejectedStep() {
         return navigate(RouteUrls.LedgerOperationRejected, { replace: true });
       },
