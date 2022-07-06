@@ -1,6 +1,5 @@
-import browser from 'webextension-polyfill';
-
 import { isUndefined } from '@shared/utils';
+import type Browser from 'webextension-polyfill';
 
 function formatInitiator(initiator: string) {
   const [protocol, host] = initiator.split('://');
@@ -22,7 +21,7 @@ async function getBrowserInfo() {
 }
 
 export async function addRefererHeaderRequestListener() {
-  const handler = (details: browser.WebRequest.OnBeforeSendHeadersDetailsType) => {
+  const handler = (details: Browser.WebRequest.OnBeforeSendHeadersDetailsType) => {
     if (!details.requestHeaders) return;
     const headers = [...details.requestHeaders];
     const initiatorText = details.documentUrl || details.initiator || '';
@@ -36,7 +35,7 @@ export async function addRefererHeaderRequestListener() {
 
   const headerTypes = ['requestHeaders', 'blocking', 'extraHeaders'].filter(type =>
     filterOutExtraHeadersArgumentWhenFirefoxExtension(type, browserName)
-  ) as browser.WebRequest.OnBeforeSendHeadersOptions[];
+  ) as Browser.WebRequest.OnBeforeSendHeadersOptions[];
 
   browser.webRequest.onBeforeSendHeaders.addListener(
     handler,

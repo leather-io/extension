@@ -86,6 +86,5 @@ export function useAccountsAvailableStxBalance(accounts?: AccountWithAddress[]) 
     return accountsBalances.reduce((acc, balance) => {
       return acc.plus(balance.data?.stx.balance || 0);
     }, new BigNumber(0));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [accountsBalances]);
 }
