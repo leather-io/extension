@@ -9,6 +9,7 @@ import { ledgerTxSigningContext } from '@app/features/ledger/ledger-tx-signing.c
 import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
 import { SignLedgerTransactionLayout } from '@app/features/ledger/steps/sign-ledger-transaction.layout';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { isSip10Transfer } from '@app/common/transactions/is-sip-10-transfer';
 
 const sipTenTransferArguments = ['Amount', 'Sender', 'To', 'Memo'];
 
@@ -33,7 +34,7 @@ export function SignLedgerTransaction() {
 
     if (transaction.payload.payloadType === PayloadType.TokenTransfer) {
       return [
-        ['Origin', currentAccount?.address || ''],
+        ['Origin', currentAccount?.address ?? ''],
         ['Nonce', String(transaction.auth.spendingCondition.nonce)],
         [
           'Fee (µSTX)',
@@ -50,10 +51,18 @@ export function SignLedgerTransaction() {
       ];
     }
 
-    if (transaction.payload.payloadType === PayloadType.ContractCall)
+    if (
+      transaction.payload.payloadType === PayloadType.ContractCall &&
+      isSip10Transfer(transaction)
+    )
       return transaction.payload.functionArgs
         .map(cv => cvToString(cv))
         .map((value, index) => [formatSipTenTransferArgument(index), value]);
+
+    if (transaction.payload.payloadType === PayloadType.ContractCall)
+      return transaction.payload.functionArgs
+        .map(cv => cvToString(cv))
+        .map((value, index) => [`Argument ${index + 0}`, value]);
 
     return [];
   }, [currentAccount, transaction]);
