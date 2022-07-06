@@ -20,12 +20,17 @@ async function getBrowserInfo() {
   return { name: 'unknown-browser' };
 }
 
+function doesRequestOriginateFromExtension(requestInitiator: string) {
+  return requestInitiator.includes(browser.runtime.id);
+}
+
 export async function addRefererHeaderRequestListener() {
   const handler = (details: Browser.WebRequest.OnBeforeSendHeadersDetailsType) => {
     if (!details.requestHeaders) return;
     const headers = [...details.requestHeaders];
     const initiatorText = details.documentUrl || details.initiator || '';
-    if (initiatorText) {
+
+    if (initiatorText && doesRequestOriginateFromExtension(initiatorText)) {
       headers.push({ name: 'Referer', value: formatInitiator(initiatorText) });
     }
     return { requestHeaders: headers };
