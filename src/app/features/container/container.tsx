@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAuthRequest } from '@app/store/onboarding/onboarding.hooks';
@@ -14,6 +14,7 @@ import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 import { ContainerLayout } from './container.layout';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { AccountInfoFetcher, BalanceFetcher } from '@app/features/container/fetchers';
+import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 
 function UnmountEffectSuspense() {
   const transactionRequest = useTransactionRequestState();
@@ -60,9 +61,22 @@ function UnmountEffect() {
   );
 }
 
+function useCacheInitialRouteSearchParams() {
+  const [searchParams] = useSearchParams();
+  const [_, setParams] = useInitialRouteSearchParams();
+
+  useEffect(() => {
+    setParams(searchParams);
+    // We only want to set the initial searchParams, not all subsequent updates
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+}
+
 export function Container(): JSX.Element | null {
   const [routeHeader, _] = useRouteHeaderState();
   const account = useCurrentAccount();
+
+  useCacheInitialRouteSearchParams();
 
   return (
     <ContainerLayout header={routeHeader}>
