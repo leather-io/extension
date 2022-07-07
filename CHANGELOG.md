@@ -1,3 +1,10 @@
+## [3.11.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.1...v3.11.2) (2022-07-07)
+
+
+### Bug Fixes
+
+* validate redirect uri ([5264c9f](https://github.com/hirosystems/stacks-wallet-web/commit/5264c9f31a84cce439194e0268812f39692f03be))
+
 ## [3.11.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.0...v3.11.1) (2022-07-06)
 
 
