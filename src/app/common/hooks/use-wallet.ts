@@ -25,6 +25,7 @@ import {
 } from '@app/store/network/networks.hooks';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 import { getAccountDisplayName } from '../utils/get-account-display-name';
+import { useAuthRequestParams } from './auth/use-auth-request-params';
 
 export function useWallet() {
   const wallet = useWalletState();
@@ -38,6 +39,7 @@ export function useWallet() {
   const currentNetwork = useCurrentNetworkState();
   const currentNetworkKey = useCurrentNetworkKey();
   const keyActions = useKeyActions();
+  const { origin } = useAuthRequestParams();
 
   const currentAccountDisplayName = currentAccount
     ? getAccountDisplayName(currentAccount)
@@ -50,12 +52,17 @@ export function useWallet() {
   const setLatestNonce = useSetLatestNonceCallback();
 
   const cancelAuthentication = useCallback(() => {
-    if (!decodedAuthRequest || !authRequest) {
+    if (!decodedAuthRequest || !authRequest || !origin) {
       return;
     }
     const authResponse = 'cancel';
-    finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
-  }, [decodedAuthRequest, authRequest]);
+    finalizeAuthResponse({
+      decodedAuthRequest,
+      authRequest,
+      authResponse,
+      requestingOrigin: origin,
+    });
+  }, [decodedAuthRequest, authRequest, origin]);
 
   const finishSignIn = useFinishSignInCallback();
 

@@ -63,7 +63,12 @@ chrome.runtime.onConnect.addListener(port =>
               port,
             });
             const path = RouteUrls.Onboarding;
+            if (!port.sender) return;
+            const { tab, url } = port.sender;
+            if (!tab?.id || !url) return;
+            const origin = new URL(url).origin;
             const urlParams = new URLSearchParams();
+            urlParams.set('origin', origin);
             urlParams.set('authRequest', payload);
             if (IS_TEST_ENV) {
               await openRequestInFullPage(path, urlParams);
