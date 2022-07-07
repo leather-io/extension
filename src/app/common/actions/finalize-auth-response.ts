@@ -12,6 +12,7 @@ interface FinalizeAuthParams {
   decodedAuthRequest: DecodedAuthRequest;
   authResponse: string;
   authRequest: string;
+  requestingOrigin: string;
 }
 
 /**
@@ -26,11 +27,19 @@ export const finalizeAuthResponse = ({
   decodedAuthRequest,
   authRequest,
   authResponse,
+  requestingOrigin,
 }: FinalizeAuthParams) => {
   const dangerousUri = decodedAuthRequest.redirect_uri;
   if (!isValidUrl(dangerousUri)) {
     throw new Error('Cannot proceed with malicious url');
   }
+  const redirectUri = new URL(dangerousUri);
+  const origin = new URL(requestingOrigin);
+
+  if (redirectUri.hostname !== origin.hostname) {
+    throw new Error('Cannot redirect to a different domain than the one requesting');
+  }
+
   try {
     const tabId = getTab(StorageKey.authenticationRequests, authRequest);
     const responseMessage: AuthenticationResponseMessage = {
