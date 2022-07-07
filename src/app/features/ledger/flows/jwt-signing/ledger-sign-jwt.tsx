@@ -26,6 +26,7 @@ import { LedgerJwtSigningProvider } from '../../ledger-jwt-signing.context';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
 
 export function LedgerSignJwtContainer() {
   const location = useLocation();
@@ -48,8 +49,10 @@ export function LedgerSignJwtContainer() {
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
   const [jwtPayloadHash, setJwtPayloadHash] = useState<null | string>(null);
+  const { origin } = useAuthRequestParams();
 
   const signJwtPayload = async () => {
+    if (!origin) throw new Error('Cannot sign payload for unknown origin');
     if (!account || !decodedAuthRequest || !authRequest || accountIndex === null) return;
 
     const stacks = await prepareLedgerDeviceConnection({
@@ -108,7 +111,12 @@ export function LedgerSignJwtContainer() {
       const authResponse = addSignatureToAuthResponseJwt(authResponsePayload, resp.signatureDER);
       await delay(600);
       keyActions.switchAccount(accountIndex);
-      finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
+      finalizeAuthResponse({
+        decodedAuthRequest,
+        authRequest,
+        authResponse,
+        requestingOrigin: origin,
+      });
     } catch (e) {
       ledgerNavigate.toDeviceDisconnectStep();
     }

@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
+
 import { useAtomCallback, useAtomValue } from 'jotai/utils';
+
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
@@ -18,6 +20,7 @@ import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useAccounts } from '../accounts/account.hooks';
+import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
 
 export function useWalletState() {
   return useAtomValue(walletState);
@@ -51,6 +54,7 @@ export function useFinishSignInCallback() {
   const wallet = useWalletState();
   const { walletType } = useWalletType();
   const accounts = useAccounts();
+  const { origin } = useAuthRequestParams();
 
   return useCallback(
     async (accountIndex: number) => {
@@ -58,7 +62,7 @@ export function useFinishSignInCallback() {
 
       const legacyAccount = wallet?.accounts[accountIndex];
 
-      if (!decodedAuthRequest || !authRequest || !account || !legacyAccount || !wallet) {
+      if (!decodedAuthRequest || !authRequest || !account || !legacyAccount || !wallet || !origin) {
         logger.error('Uh oh! Finished onboarding without auth info.');
         return;
       }
@@ -87,6 +91,7 @@ export function useFinishSignInCallback() {
             name: appName as string,
           },
         });
+
         const authResponse = await makeAuthResponse({
           gaiaHubUrl: gaiaUrl,
           appDomain: appURL.origin,
@@ -94,11 +99,25 @@ export function useFinishSignInCallback() {
           scopes: decodedAuthRequest.scopes,
           account: legacyAccount,
         });
-
         keyActions.switchAccount(accountIndex);
-        finalizeAuthResponse({ decodedAuthRequest, authRequest, authResponse });
+        finalizeAuthResponse({
+          decodedAuthRequest,
+          authRequest,
+          authResponse,
+          requestingOrigin: origin,
+        });
       }
     },
-    [accounts, appIcon, appName, authRequest, decodedAuthRequest, keyActions, wallet, walletType]
+    [
+      accounts,
+      appIcon,
+      appName,
+      authRequest,
+      decodedAuthRequest,
+      keyActions,
+      origin,
+      wallet,
+      walletType,
+    ]
   );
 }
