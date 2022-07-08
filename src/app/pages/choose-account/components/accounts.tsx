@@ -156,23 +156,20 @@ export const Accounts = memo(() => {
   if (!accounts) return null;
 
   return (
-    <>
-      <AddAccountAction />
-      <Box mt="base" width="100%">
-        {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
-        <Virtuoso
-          useWindowScroll
-          data={accounts}
-          style={{ height: '68px' }}
-          itemContent={(index, account) => (
-            <AccountItem
-              account={account}
-              isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
-              onSelectAccount={signIntoAccount}
-            />
-          )}
-        />
-      </Box>
-    </>
+    <Box mt="base" width="100%">
+      {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
+      <Virtuoso
+        useWindowScroll
+        data={accounts}
+        style={{ height: '68px' }}
+        itemContent={(index, account) => (
+          <AccountItem
+            account={account}
+            isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
+            onSelectAccount={signIntoAccount}
+          />
+        )}
+      />
+    </Box>
   );
 });
