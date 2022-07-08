@@ -10,11 +10,12 @@ import {
 import { useOnCancelTransaction } from '@app/store/transactions/requests.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
-
-import { ContainerLayout } from './container.layout';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { AccountInfoFetcher, BalanceFetcher } from '@app/features/container/fetchers';
 import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
+import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
+
+import { ContainerLayout } from './container.layout';
 
 function UnmountEffectSuspense() {
   const transactionRequest = useTransactionRequestState();
@@ -77,6 +78,7 @@ export function Container(): JSX.Element | null {
   const account = useCurrentAccount();
 
   useCacheInitialRouteSearchParams();
+  useSaveAuthRequest();
 
   return (
     <ContainerLayout header={routeHeader}>

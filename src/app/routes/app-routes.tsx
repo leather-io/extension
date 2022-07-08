@@ -20,7 +20,6 @@ import { LedgerDisconnected } from '@app/features/ledger/flows/tx-signing/steps/
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
-import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
 import { Unlock } from '@app/pages/unlock';
 import { Home } from '@app/pages/home/home';
@@ -61,7 +60,6 @@ export function AppRoutes(): JSX.Element | null {
   const analytics = useAnalytics();
 
   useNextTxNonce();
-  useSaveAuthRequest();
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => window.close());
