@@ -3,8 +3,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
-import { delay } from '@app/common/utils';
-import { noop } from '@shared/utils';
+import { delay, whenPageMode } from '@app/common/utils';
 import {
   getAppVersion,
   prepareLedgerDeviceConnection,
@@ -127,10 +126,13 @@ export function LedgerSignTxContainer() {
 
       await broadcastTransactionFn({
         transaction: signedTx,
-        onClose: noop,
+        onClose: () =>
+          whenPageMode({
+            full: () => navigate(RouteUrls.Home),
+            popup: () => window.close(),
+          })(),
       });
       setAwaitingSignedTransaction(false);
-      navigate(RouteUrls.Home);
     } catch (e) {
       setAwaitingSignedTransaction(false);
       ledgerNavigate.toDeviceDisconnectStep();
