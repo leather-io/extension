@@ -53,7 +53,7 @@ function TransactionRequestBase(): JSX.Element | null {
 
   const onSubmit = useCallback(
     async values => {
-      if (walletType === 'ledger' && generateUnsignedTx) {
+      if (walletType === 'ledger') {
         const tx = await generateUnsignedTx(values);
         if (!tx) return;
         ledgerNavigate.toConnectAndSignStep(tx);

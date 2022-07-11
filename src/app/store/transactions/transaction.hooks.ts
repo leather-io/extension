@@ -164,6 +164,54 @@ export function useSoftwareWalletTransactionBroadcast() {
   );
 }
 
+//
+// TODO: duplicated from software wallet hook above
+// Broadcasting logic needs a complete refactor
+export function useHardwareWalletTransactionBroadcast() {
+  const { setLatestNonce } = useWallet();
+
+  return useAtomCallback(
+    useCallback(
+      async (get, set, { signedTx }: { signedTx: StacksTransaction }) => {
+        const { attachment, requestToken, network } = await get(
+          waitForAll({
+            attachment: transactionAttachmentState,
+            requestToken: requestTokenState,
+            network: currentNetworkState,
+          }),
+          { unstable_promise: true }
+        );
+
+        if (!requestToken) throw new Error('No request token found');
+
+        try {
+          const { isSponsored, serialized, txRaw, nonce } = prepareTxDetailsForBroadcast(signedTx);
+          const result = await broadcastTransaction({
+            isSponsored,
+            serialized,
+            txRaw,
+            attachment,
+            networkUrl: network.url,
+          });
+          if (typeof nonce !== 'undefined') await setLatestNonce(nonce);
+          finalizeTxSignature(requestToken, result);
+          if (typeof result.txId === 'string') {
+            set(currentAccountLocallySubmittedTxsState, {
+              [result.txId]: {
+                rawTx: result.txRaw,
+                timestamp: todaysIsoDate(),
+              },
+            });
+          }
+        } catch (error) {
+          if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
+        }
+      },
+      [setLatestNonce]
+    )
+  );
+}
+
 interface PostConditionsOptions {
   contractAddress: string;
   contractName: string;
