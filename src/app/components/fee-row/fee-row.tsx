@@ -51,7 +51,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
       feeHelper.setValue(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeEstimations, feeHelper, isCustom]);
+  }, [feeEstimations, isCustom]);
 
   // Handles using the fee estimations selector or custom input
   const handleSelectedItem = useCallback(
