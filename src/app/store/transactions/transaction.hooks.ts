@@ -182,8 +182,6 @@ export function useHardwareWalletTransactionBroadcast() {
           { unstable_promise: true }
         );
 
-        if (!requestToken) throw new Error('No request token found');
-
         try {
           const { isSponsored, serialized, txRaw, nonce } = prepareTxDetailsForBroadcast(signedTx);
           const result = await broadcastTransaction({
@@ -194,7 +192,6 @@ export function useHardwareWalletTransactionBroadcast() {
             networkUrl: network.url,
           });
           if (typeof nonce !== 'undefined') await setLatestNonce(nonce);
-          finalizeTxSignature(requestToken, result);
           if (typeof result.txId === 'string') {
             set(currentAccountLocallySubmittedTxsState, {
               [result.txId]: {
@@ -203,6 +200,10 @@ export function useHardwareWalletTransactionBroadcast() {
               },
             });
           }
+          // If there's a request token, this means it's a transaction request
+          // In which case we need to return to the app the results of the tx
+          // Otherwise, it's a send form tx and we don't want to
+          if (requestToken) finalizeTxSignature(requestToken, result);
         } catch (error) {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
