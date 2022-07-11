@@ -1,3 +1,5 @@
+import { generateOnRampURL } from '@coinbase/cbpay-js';
+
 import { ActiveFiatProvider } from '@app/query/hiro-config/hiro-config.query';
 import BinanceIcon from '@assets/images/fund/fiat-providers/binance-icon.png';
 import BlockchainComIcon from '@assets/images/fund/fiat-providers/blockchain.com-icon.png';
@@ -11,8 +13,9 @@ import OkcoinIcon from '@assets/images/fund/fiat-providers/okcoin-icon.png';
 import OkxIcon from '@assets/images/fund/fiat-providers/okx-icon.png';
 import TransakIcon from '@assets/images/fund/fiat-providers/transak-icon.png';
 import {
+  COINBASE_APP_ID,
   IS_PRODUCTION_ENV,
-  MOONPAY_API_KEY_PRODUCTION,
+  MOONPAY_API_KEY,
   TRANSAK_API_KEY_PRODUCTION,
   TRANSAK_API_KEY_STAGING,
 } from '@shared/constants';
@@ -46,8 +49,21 @@ export const activeFiatProviderIcons: Record<ActiveFiatProvider['name'], string>
   [ActiveFiatProviders.Transak]: TransakIcon,
 };
 
+function makeCoinbaseUrl(address: string) {
+  const onRampURL = generateOnRampURL({
+    appId: COINBASE_APP_ID,
+    destinationWallets: [
+      {
+        address,
+        assets: ['STX'],
+      },
+    ],
+  });
+  return onRampURL;
+}
+
 function makeMoonPayUrl(address: string) {
-  return `https://buy.moonpay.com?apiKey=${MOONPAY_API_KEY_PRODUCTION}&currencyCode=stx&walletAddress=${address}`;
+  return `https://buy.moonpay.com?apiKey=${MOONPAY_API_KEY}&currencyCode=stx&walletAddress=${address}`;
 }
 
 function makeOkcoinUrl(address: string) {
@@ -73,6 +89,8 @@ function makeFiatProviderFaqUrl(address: string, provider: string) {
 
 export function getProviderUrl(address: string, providerKey: string, providerName: string) {
   switch (providerKey) {
+    case ActiveFiatProviders.Coinbase:
+      return makeCoinbaseUrl(address);
     case ActiveFiatProviders.MoonPay:
       return makeMoonPayUrl(address);
     case ActiveFiatProviders.Okcoin:
