@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
@@ -21,9 +21,11 @@ import { logger } from '@shared/logger';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
+import { RouteUrls } from '@shared/route-urls';
 
 export function LedgerSignTxContainer() {
   const location = useLocation();
+  const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
@@ -119,6 +121,7 @@ export function LedgerSignTxContainer() {
 
       await hwWalletTxBroadcast({ signedTx });
       setAwaitingSignedTransaction(false);
+      navigate(RouteUrls.Home);
     } catch (e) {
       setAwaitingSignedTransaction(false);
       ledgerNavigate.toDeviceDisconnectStep();
