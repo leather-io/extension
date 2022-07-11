@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
-import { delay, whenPageMode } from '@app/common/utils';
+import { delay } from '@app/common/utils';
 import {
   getAppVersion,
   prepareLedgerDeviceConnection,
@@ -11,14 +11,12 @@ import {
   signTransactionWithSignature,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { RouteUrls } from '@shared/route-urls';
 import { deserializeTransaction } from '@stacks/transactions';
 import { LedgerTxSigningProvider } from '@app/features/ledger/ledger-tx-signing.context';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { LoadingKeys } from '@app/common/hooks/use-loading';
-import { useHandleSubmitTransaction } from '@app/common/hooks/use-submit-stx-transaction';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { useHardwareWalletTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 import { logger } from '@shared/logger';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
@@ -26,12 +24,11 @@ import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 
 export function LedgerSignTxContainer() {
   const location = useLocation();
-  const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
-
   const account = useCurrentAccount();
+  const hwWalletTxBroadcast = useHardwareWalletTransactionBroadcast();
 
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
 
@@ -47,10 +44,6 @@ export function LedgerSignTxContainer() {
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
   const [awaitingKeyVerification, setAwaitingKeyVerification] = useState(false);
   const [awaitingSignedTransaction, setAwaitingSignedTransaction] = useState(false);
-
-  const broadcastTransactionFn = useHandleSubmitTransaction({
-    loadingKey: LoadingKeys.CONFIRM_DRAWER,
-  });
 
   const signTransaction = async () => {
     if (!account) return;
@@ -124,14 +117,7 @@ export function LedgerSignTxContainer() {
       const signedTx = signTransactionWithSignature(unsignedTransaction, resp.signatureVRS);
       ledgerAnalytics.transactionSignedOnLedgerSuccessfully();
 
-      await broadcastTransactionFn({
-        transaction: signedTx,
-        onClose: () =>
-          whenPageMode({
-            full: () => navigate(RouteUrls.Home),
-            popup: () => window.close(),
-          })(),
-      });
+      await hwWalletTxBroadcast({ signedTx });
       setAwaitingSignedTransaction(false);
     } catch (e) {
       setAwaitingSignedTransaction(false);

@@ -3316,20 +3316,7 @@
     jsontokens "^3.1.1"
     query-string "^6.13.1"
 
-"@stacks/auth@4.3.0", "@stacks/auth@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-4.3.0.tgz#06c141eb26f5414b77c5c255d766ce6b6206ac94"
-  integrity sha512-Jo9A6mfb1VGpLZptMMQbWen9wqcCKHy6s1RUaMLnbzYiwQbYJ39cLbxPQudMabNJW0LrXQGSI5gy/kAehavDaw==
-  dependencies:
-    "@stacks/common" "^4.3.0"
-    "@stacks/encryption" "^4.3.0"
-    "@stacks/network" "^4.3.0"
-    "@stacks/profile" "^4.3.0"
-    cross-fetch "^3.1.5"
-    jsontokens "^3.1.1"
-    query-string "^6.13.1"
-
-"@stacks/auth@^4.3.1":
+"@stacks/auth@4.3.1", "@stacks/auth@^4.3.1":
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-4.3.1.tgz#b3f9d23ce077f92f7180790e177c5170c46cce50"
   integrity sha512-iaJhBSp3YfVWQYlE+MnQ52f8hFtBZ4rfOkG/n3X0Q5OdltZ7t7EGwZD39FYb5yg/PG575IfOAq6dHdYbxhz5LA==
@@ -3419,7 +3406,7 @@
     ripemd160-min "^0.0.6"
     varuint-bitcoin "^1.1.2"
 
-"@stacks/encryption@^4.2.2", "@stacks/encryption@^4.3.0":
+"@stacks/encryption@^4.2.2":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-4.3.0.tgz#7a64b45adc85566e2751be77e43906d2a0c28e80"
   integrity sha512-BaVYP6TwyR4N29mvpUkbLUcf6A68YKinh6KThldFaWsyV0+0jB0ZNMgcI8dHvI/BsHhK5v7cPK6jKwoe4HAlKQ==
@@ -3484,7 +3471,7 @@
   dependencies:
     prettier "2.4.1"
 
-"@stacks/profile@^4.2.2", "@stacks/profile@^4.3.0":
+"@stacks/profile@^4.2.2":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-4.3.0.tgz#608b310443bc70547107c44f212305352556013d"
   integrity sha512-xV1Jr+/Y+s0AWqJjrsy2mD7Ni62kr020k0Q5OAQjR5lAg3Mlul5Zacy2U9X7GX7m8d6vrZ6W74Rf3CPvFLN59w==
@@ -3526,18 +3513,7 @@
   resolved "https://registry.yarnpkg.com/@stacks/stacks-blockchain-api-types/-/stacks-blockchain-api-types-0.65.0.tgz#38cd10571e38f314dbcd6f6244d6042f7d6a8e0a"
   integrity sha512-V0ko6Cge+IP/XV352rHDDPYYz84gSCRbeklyor3FaUdSZFZIXjVM1upIbo5FDQ6Enygbcpve+vpbbajiWMB16A==
 
-"@stacks/storage@4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-4.3.0.tgz#9c263dc80878ba07e60525deb00de1dccd202beb"
-  integrity sha512-QRwOCg7dt+bWxcJQx8g/pE5gsEYIHc7ZlFZ1tMsdG0b/QE7XkNVuvNccMje/ikotm/9zA+Oy/Y9joCj1dXUw6w==
-  dependencies:
-    "@stacks/auth" "^4.3.0"
-    "@stacks/common" "^4.3.0"
-    "@stacks/encryption" "^4.3.0"
-    "@stacks/network" "^4.3.0"
-    jsontokens "^3.1.1"
-
-"@stacks/storage@^4.3.1":
+"@stacks/storage@4.3.1", "@stacks/storage@^4.3.1":
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-4.3.1.tgz#f94d28d208d585ae6b8f26dd4c687563dda21216"
   integrity sha512-Wc6OVRCXZIeFPMoYAy/NjJAjAS6csJmThM71Zg3CDxiCnQJyznMC9q68x0yk0XWNNxibP9w/RLhLwjTIO6iyAg==
