@@ -5,3 +5,4 @@ declare const STATS_URL: string;
 declare const COMMIT_SHA: string;
 declare const VERSION: string;
 declare const BRANCH: string;
+declare const BRANCH_NAME: string;

@@ -1108,6 +1108,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@coinbase/cbpay-js@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@coinbase/cbpay-js/-/cbpay-js-1.0.2.tgz#4975efa6b060868c0a6cda20bb6e6169f0d82b0b"
+  integrity sha512-m95VmSQm9xfA5MmOFRcVIPtZxO6GhRJKPbbxKSxGoCYf4SpAm7mz3euU1kiRr7bPMa+3wvyT36n2bHoiyuwseg==
+
 "@cspotcode/source-map-consumer@0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-consumer/-/source-map-consumer-0.8.0.tgz#33bf4b7b39c178821606f669bbc447a6a629786b"

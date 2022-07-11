@@ -28,7 +28,7 @@ export class FundPage {
     await this.page.waitForSelector(this.selectors.$fiatProviderItem);
   }
 
-  async clickMoonPayProviderItem() {
+  async clickFirstFastCheckoutProviderItem() {
     const providers = await this.page.$$(this.selectors.$fiatProviderItem);
     await providers[0].click();
   }

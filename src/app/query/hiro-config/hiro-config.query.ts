@@ -35,9 +35,10 @@ interface HiroConfig {
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-// TODO: Change back to 'main' before merging
-const GITHUB_PRIMARY_BRANCH = 'dev';
-const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${GITHUB_PRIMARY_BRANCH}/config/wallet-config.json`;
+const DEFAULT_BRANCH = 'main';
+const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
+  BRANCH_NAME ?? DEFAULT_BRANCH
+}/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());

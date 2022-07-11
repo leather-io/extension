@@ -4,8 +4,8 @@ import { FastCheckoutBadge } from './fast-checkout-badge';
 import { ZeroPercentFeesBadge } from './zero-percent-fees-badge';
 import { FundAccountTile } from './fund-account-tile';
 
-const availableInsideUnitedStatesDescription = 'Available in the US and other countries';
-const availableOutsideUnitedStatesDescription = 'Available outside the US and other countries';
+const availableInsideUnitedStatesDescription = 'Available both inside and outside of the US';
+const availableOutsideUnitedStatesDescription = 'Available only outside of the US';
 
 interface FiatProviderProps {
   icon: string;
