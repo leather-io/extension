@@ -67,7 +67,7 @@ export function useFinishSignInCallback() {
         return;
       }
 
-      const appURL = new URL(decodedAuthRequest.redirect_uri);
+      const appURL = new URL(origin);
 
       // We can't perform any of this logic for non-software wallets
       // as they require the key to be available in the JS context
