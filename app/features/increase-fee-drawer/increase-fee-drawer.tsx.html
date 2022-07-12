@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -109,7 +109,24 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,18 +139,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,33 +186,47 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense, useEffect } from 'react';
+import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Flex, Spinner, Stack } from '@stacks/ui';
 &nbsp;
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { ControlledDrawer } from '@app/components/drawer/controlled';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Caption } from '@app/components/typography';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
+import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { IncreaseFeeForm } from './components/increase-fee-form';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >IncreaseFeeDrawer(</span>): JSX.Element {
+export function <span class="fstat-no" title="function not covered" >IncreaseFeeDrawer(</span>) {
   const [rawTxId, setRawTxId] = <span class="cstat-no" title="statement not covered" >useRawTxIdState();</span>
   const { isLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(LoadingKeys.INCREASE_FEE_DRAWER);</span>
+  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+  const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
+  const [searchParams] = <span class="cstat-no" title="statement not covered" >useSearchParams();</span>
+  const txIdFromParams = <span class="cstat-no" title="statement not covered" >searchParams.get('txId');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!rawTxId &amp;&amp; txIdFromParams) {</span>
+<span class="cstat-no" title="statement not covered" >      setRawTxId(txIdFromParams);</span>
+    }
 <span class="cstat-no" title="statement not covered" >    if (isLoading &amp;&amp; !rawTxId) {</span>
 <span class="cstat-no" title="statement not covered" >      setIsIdle();</span>
     }
-  }, [isLoading, rawTxId, setIsIdle]);
+  }, [isLoading, rawTxId, setIsIdle, setRawTxId, txIdFromParams]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;ControlledDrawer
-      title="Increase transaction fee"
-      isShowing={!!rawTxId}
-      onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setRawTxId(null)}</span>
-    &gt;
-      &lt;Stack px="loose" spacing="loose" pb="extra-loose"&gt;
-        {rawTxId ? (
+  const onClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    setRawTxId(null);</span>
+<span class="cstat-no" title="statement not covered" >    navigate(RouteUrls.Home);</span>
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return rawTxId ? (</span>
+    &lt;&gt;
+      &lt;BaseDrawer
+        isShowing={location.pathname === RouteUrls.IncreaseFee}
+        onClose={onClose}
+        title="Increase transaction fee"
+      &gt;
+        &lt;Stack px="loose" spacing="loose" pb="extra-loose"&gt;
           &lt;Suspense
             fallback={
               &lt;Flex alignItems="center" justifyContent="center" p="extra-loose"&gt;
@@ -196,10 +240,11 @@ export function <span class="fstat-no" title="function not covered" >IncreaseFee
             &lt;/Caption&gt;
             &lt;IncreaseFeeForm /&gt;
           &lt;/Suspense&gt;
-        ) : null}
-      &lt;/Stack&gt;
-    &lt;/ControlledDrawer&gt;
-  );
+        &lt;/Stack&gt;
+      &lt;/BaseDrawer&gt;
+      &lt;Outlet /&gt;
+    &lt;/&gt;
+  ) : null;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -208,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseFee
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jul 07 2022 16:02:52 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 12 2022 12:12:45 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

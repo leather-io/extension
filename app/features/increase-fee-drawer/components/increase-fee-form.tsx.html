@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -156,8 +156,11 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,16 +208,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,14 +262,15 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import BigNumber from 'bignumber.js';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 &nbsp;
 import { microStxToStx, stacksValue, stxToMicroStx } from '@app/common/stacks-utils';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
+import { useWalletType } from '@app/common/use-wallet-type';
 import { Caption } from '@app/components/typography';
 import { TransactionItem } from '@app/components/transaction/components/transaction-item';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
@@ -270,8 +279,6 @@ import { useRemoveLocalSubmittedTxById } from '@app/store/accounts/account-activ
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
 import { useSelectedTx } from '../hooks/use-selected-tx';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >IncreaseFeeForm(</span>): JSX.Element | null {
   const refreshAccountData = <span class="cstat-no" title="statement not covered" >useRefreshAllAccountData();</span>
@@ -282,8 +289,8 @@ export function <span class="fstat-no" title="function not covered" >IncreaseFee
   const removeLocallySubmittedTx = <span class="cstat-no" title="statement not covered" >useRemoveLocalSubmittedTxById();</span>
   const feeSchema = <span class="cstat-no" title="statement not covered" >useFeeSchema();</span>
   const rawTx = <span class="cstat-no" title="statement not covered" >useRawDeserializedTxState();</span>
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const { walletType } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
+  const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
+  const ledgerNavigate = <span class="cstat-no" title="statement not covered" >useLedgerNavigate();</span>
 &nbsp;
   const fee = <span class="cstat-no" title="statement not covered" >Number(rawTx?.auth.spendingCondition?.fee);</span>
 &nbsp;
@@ -296,24 +303,29 @@ export function <span class="fstat-no" title="function not covered" >IncreaseFee
 &nbsp;
   const onSubmit = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    as</span>ync values =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!rawTx) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!tx || !rawTx) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >      rawTx.setFee(stxToMicroStx(values.fee).toString());</span>
-      // TODO: Revisit the need for this account refresh?
+      const txId = <span class="cstat-no" title="statement not covered" >tx.tx_id || rawTx.txid();</span>
 <span class="cstat-no" title="statement not covered" >      await refreshAccountData();</span>
-<span class="cstat-no" title="statement not covered" >      if (walletType === 'software') {</span>
-<span class="cstat-no" title="statement not covered" >        await replaceByFee(values);</span>
-<span class="cstat-no" title="statement not covered" >        if (tx?.tx_id) {</span>
-<span class="cstat-no" title="statement not covered" >          removeLocallySubmittedTx(tx.tx_id);</span>
-        }
-      }
-<span class="cstat-no" title="statement not covered" >      if (walletType === 'ledger') {</span>
-<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.ConnectLedger, {</span>
-          replace: true,
-          state: { tx: rawTx?.serialize().toString('hex') },
-        });
-      }
+<span class="cstat-no" title="statement not covered" >      removeLocallySubmittedTx(txId);</span>
+<span class="cstat-no" title="statement not covered" >      whenWallet({</span>
+        software: <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
+<span class="cstat-no" title="statement not covered" >          await replaceByFee(values);</span>
+        },
+        ledger: <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >          ledgerNavigate.toConnectAndSignStep(rawTx, true);</span>
+        },
+      })();
     },
-    [navigate, rawTx, refreshAccountData, removeLocallySubmittedTx, replaceByFee, tx, walletType]
+    [
+      ledgerNavigate,
+      rawTx,
+      refreshAccountData,
+      removeLocallySubmittedTx,
+      replaceByFee,
+      tx,
+      whenWallet,
+    ]
   );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!tx || !fee) <span class="cstat-no" title="statement not covered" >return null;</span></span>
@@ -349,7 +361,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseFee
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jul 07 2022 16:02:52 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 12 2022 12:12:45 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

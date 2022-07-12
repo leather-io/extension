@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/components/drawer/index.tsx</title>
+    <title>Code coverage report for app/components/drawer/base-drawer.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/components/drawer</a> index.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/components/drawer</a> base-drawer.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -186,20 +186,7 @@
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,24 +219,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,7 +241,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -322,22 +310,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useRef, useCallback, memo, ReactNode, Suspense } from 'react';
-import { Flex, useEventListener, IconButton, color, transition, FlexProps } from '@stacks/ui';
-import { FiX as IconX } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { Box, Flex, useEventListener, transition, FlexProps } from '@stacks/ui';
 &nbsp;
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { isString, noop } from '@shared/utils';
-import { Title } from '@app/components/typography';
-import { hideScrollbarStyle } from '../global-styles/hide-scrollbar';
+import { hideScrollbarStyle } from '@app/components/global-styles/hide-scrollbar';
+import { noop } from '@shared/utils';
 &nbsp;
-export interface BaseDrawerProps extends Omit&lt;FlexProps, 'title'&gt; {
-  isShowing: boolean;
-  title?: string | JSX.Element;
-  pauseOnClickOutside?: boolean;
-  onClose?: () =&gt; void;
-  children?: ReactNode;
-}
+import { DrawerHeader } from './components/drawer-header';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useDrawer(</span>isShowing: boolean, onClose: () =&gt; void, pause?: boolean) {
   const ref = <span class="cstat-no" title="statement not covered" >useRef(null);</span>
@@ -357,42 +338,35 @@ function <span class="fstat-no" title="function not covered" >useDrawer(</span>i
 <span class="cstat-no" title="statement not covered" >  return ref;</span>
 }
 &nbsp;
-interface DrawerHeaderProps {
-  title: BaseDrawerProps['title'];
-  onClose?: BaseDrawerProps['onClose'];
+export interface BaseDrawerProps extends Omit&lt;FlexProps, 'title'&gt; {
+  children?: ReactNode;
+  enableGoBack?: boolean;
+  icon?: JSX.Element;
+  isShowing: boolean;
+  isWaitingOnPerformedAction?: boolean;
+  onClose?(): void;
+  pauseOnClickOutside?: boolean;
+  title?: string;
+  waitingOnPerformedActionMessage?: string;
 }
-const DrawerHeader = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> title, onClose }: DrawerHeaderProps) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex pb="base" justifyContent="space-between" alignItems="center" pt="loose" px="loose"&gt;
-      {title &amp;&amp; isString(title) ? (
-        &lt;Title fontSize="20px" lineHeight="28px"&gt;
-          {title}
-        &lt;/Title&gt;
-      ) : (
-        title
-      )}
-      {onClose &amp;&amp; (
-        &lt;IconButton
-          transform="translateX(8px)"
-          size="36px"
-          iconSize="20px"
-          onClick={onClose}
-          color={color('text-caption')}
-          _hover={{ color: color('text-title') }}
-          icon={IconX}
-          // Drawer content should be able to overlay
-          // header, but not close button
-          position="relative"
-          zIndex={9}
-        /&gt;
-      )}
-    &lt;/Flex&gt;
-  );
-};
-&nbsp;
 export const BaseDrawer = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >(p</span>rops: BaseDrawerProps) =&gt; {</span>
-  const { title, isShowing, onClose, children, pauseOnClickOutside, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const {
+    children,
+    enableGoBack,
+    icon,
+    isShowing,
+    isWaitingOnPerformedAction,
+    onClose,
+    pauseOnClickOutside,
+    title,
+    waitingOnPerformedActionMessage,
+    ...rest
+  } = <span class="cstat-no" title="statement not covered" >props;</span>
   const ref = <span class="cstat-no" title="statement not covered" >useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);</span>
+  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+&nbsp;
+  const onGoBack = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(-1);</span></span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex
       display={isShowing ? 'flex' : 'none'}
@@ -435,17 +409,25 @@ export const BaseDrawer = <span class="cstat-no" title="statement not covered" >
         mt={['auto', 'unset', 'unset', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
       &gt;
-        &lt;div
+        &lt;Box
           css={css`
             overflow-y: scroll;
             ${hideScrollbarStyle}
           `}
         &gt;
-          &lt;DrawerHeader title={title} onClose={onClose} /&gt;
+          &lt;DrawerHeader
+            enableGoBack={enableGoBack}
+            icon={icon}
+            isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+            onClose={onClose}
+            onGoBack={onGoBack}
+            title={title}
+            waitingOnPerformedActionMessage={waitingOnPerformedActionMessage}
+          /&gt;
           &lt;Flex maxHeight="100%" flexGrow={1} flexDirection="column"&gt;
             &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;{children}&lt;/Suspense&gt;
           &lt;/Flex&gt;
-        &lt;/div&gt;
+        &lt;/Box&gt;
       &lt;/Flex&gt;
     &lt;/Flex&gt;
   );
@@ -457,7 +439,7 @@ export const BaseDrawer = <span class="cstat-no" title="statement not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jul 07 2022 16:02:52 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 12 2022 12:12:45 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
