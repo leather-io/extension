@@ -13,10 +13,10 @@ import {
   StacksTransaction,
   TransactionSigner,
 } from '@stacks/transactions';
-import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { todaysIsoDate } from '@app/common/date-utils';
 import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
+import { stxToMicroStx } from '@app/common/stacks-utils';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
@@ -122,7 +122,7 @@ export function useSoftwareWalletTransactionBroadcast() {
         const { options } = stacksTxBaseState as any;
         const unsignedStacksTransaction = await generateUnsignedTransaction({
           ...options,
-          fee: stxToMicroStx(values.fee),
+          fee: stxToMicroStx(values.fee).toNumber(),
           nonce: Number(values.nonce) || options.nonce,
         });
 
@@ -164,6 +164,55 @@ export function useSoftwareWalletTransactionBroadcast() {
   );
 }
 
+//
+// TODO: duplicated from software wallet hook above
+// Broadcasting logic needs a complete refactor
+export function useHardwareWalletTransactionBroadcast() {
+  const { setLatestNonce } = useWallet();
+
+  return useAtomCallback(
+    useCallback(
+      async (get, set, { signedTx }: { signedTx: StacksTransaction }) => {
+        const { attachment, requestToken, network } = await get(
+          waitForAll({
+            attachment: transactionAttachmentState,
+            requestToken: requestTokenState,
+            network: currentNetworkState,
+          }),
+          { unstable_promise: true }
+        );
+
+        try {
+          const { isSponsored, serialized, txRaw, nonce } = prepareTxDetailsForBroadcast(signedTx);
+          const result = await broadcastTransaction({
+            isSponsored,
+            serialized,
+            txRaw,
+            attachment,
+            networkUrl: network.url,
+          });
+          if (typeof nonce !== 'undefined') await setLatestNonce(nonce);
+          if (typeof result.txId === 'string') {
+            set(currentAccountLocallySubmittedTxsState, {
+              [result.txId]: {
+                rawTx: result.txRaw,
+                timestamp: todaysIsoDate(),
+              },
+            });
+          }
+          // If there's a request token, this means it's a transaction request
+          // In which case we need to return to the app the results of the tx
+          // Otherwise, it's a send form tx and we don't want to
+          if (requestToken) finalizeTxSignature(requestToken, result);
+        } catch (error) {
+          if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
+        }
+      },
+      [setLatestNonce]
+    )
+  );
+}
+
 interface PostConditionsOptions {
   contractAddress: string;
   contractName: string;
@@ -191,7 +240,7 @@ export function useGenerateUnsignedStacksTransaction() {
       const { options } = stacksTxBaseState as any;
       return generateUnsignedTransaction({
         ...options,
-        fee: values.fee,
+        fee: stxToMicroStx(values.fee).toNumber(),
         nonce: Number(values.nonce) || options.nonce,
       });
     }, [])

@@ -1,16 +1,17 @@
 import { useCallback, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 
 import { useUpdateAuthRequest } from '@app/store/onboarding/onboarding.hooks';
 import { DecodedAuthRequest } from '@app/common/dev/types';
+import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 import { getRequestOrigin, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
 
 export function useSaveAuthRequest() {
   const navigate = useNavigate();
   const saveAuthRequest = useUpdateAuthRequest();
-  const location = useLocation();
+  const [params] = useInitialRouteSearchParams();
 
   const saveAuthRequestParam = useCallback(
     (authRequest: string) => {
@@ -33,14 +34,14 @@ export function useSaveAuthRequest() {
 
       navigate(RouteUrls.ChooseAccount);
     },
-    [saveAuthRequest, navigate]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const authRequest = urlParams.get('authRequest');
+    const authRequest = params.get('authRequest');
     if (authRequest) {
       saveAuthRequestParam(authRequest);
     }
-  }, [location.search, saveAuthRequestParam]);
+  }, [params, saveAuthRequestParam]);
 }

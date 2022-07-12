@@ -436,6 +436,16 @@ export const Debugger = () => {
           >
             Sponsored contract call
           </Button>
+          <Button
+            mt={3}
+            onClick={() =>
+              fetch('https://stacks-node-api.stacks.co/v2/info')
+                .then(resp => resp.json())
+                .then(console.log)
+            }
+          >
+            Request API info
+          </Button>
         </ButtonGroup>
       </Box>
     </Box>

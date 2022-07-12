@@ -20,7 +20,6 @@ import { LedgerDisconnected } from '@app/features/ledger/flows/tx-signing/steps/
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
-import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
 import { Unlock } from '@app/pages/unlock';
 import { Home } from '@app/pages/home/home';
@@ -42,16 +41,18 @@ import { LedgerPublicKeyMismatch } from '@app/features/ledger/flows/tx-signing/s
 import { VerifyingPublicKeysMatch } from '@app/features/ledger/flows/tx-signing/steps/verifying-public-keys-match';
 import { PullingKeysFromDevice } from '@app/features/ledger/flows/request-keys/steps/pulling-keys-from-device';
 import { UnsupportedBrowserLayout } from '@app/features/ledger/steps/unsupported-browser.layout';
-
-import { useOnWalletLock } from './hooks/use-on-wallet-lock';
-import { useOnSignOut } from './hooks/use-on-sign-out';
-import { OnboardingGate } from './onboarding-gate';
-import { LedgerSignJwtContainer } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt';
+import { LedgerSignJwtContainer } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt-container';
 import { SignJwtHash } from '@app/features/ledger/flows/jwt-signing/steps/sign-jwt-hash';
 import { ConnectLedgerSignJwt } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt';
 import { ConnectLedgerSignJwtError } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-error';
 import { ConnectLedgerSignJwtSuccess } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-success';
 import { LedgerJwtSigningRejected } from '@app/features/ledger/flows/jwt-signing/steps/transaction-rejected';
+import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
+
+import { useOnWalletLock } from './hooks/use-on-wallet-lock';
+import { useOnSignOut } from './hooks/use-on-sign-out';
+import { OnboardingGate } from './onboarding-gate';
+import { LedgerDeviceInvalidTx } from '@app/features/ledger/flows/tx-signing/steps/device-invalid-tx';
 
 export function AppRoutes(): JSX.Element | null {
   const { pathname } = useLocation();
@@ -59,7 +60,6 @@ export function AppRoutes(): JSX.Element | null {
   const analytics = useAnalytics();
 
   useNextTxNonce();
-  useSaveAuthRequest();
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => window.close());
@@ -81,6 +81,7 @@ export function AppRoutes(): JSX.Element | null {
         <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
         <Route path={RouteUrls.LedgerOperationRejected} element={<LedgerTransactionRejected />} />
         <Route path={RouteUrls.LedgerPublicKeyMismatch} element={<LedgerPublicKeyMismatch />} />
+        <Route path={RouteUrls.LedgerDeviceTxInvalid} element={<LedgerDeviceInvalidTx />} />
         <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
       </Route>
     ),
@@ -116,6 +117,9 @@ export function AppRoutes(): JSX.Element | null {
             </AccountGate>
           }
         >
+          <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
+            {ledgerTxSigningRoutes}
+          </Route>
           <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
           {ledgerTxSigningRoutes}
@@ -184,7 +188,6 @@ export function AppRoutes(): JSX.Element | null {
         >
           {ledgerJwtSigningRoutes}
         </Route>
-
         <Route
           path={RouteUrls.Fund}
           element={
@@ -218,7 +221,9 @@ export function AppRoutes(): JSX.Element | null {
               </Suspense>
             </AccountGate>
           }
-        />
+        >
+          {ledgerTxSigningRoutes}
+        </Route>
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
         <Route
           path={RouteUrls.SignatureRequest}

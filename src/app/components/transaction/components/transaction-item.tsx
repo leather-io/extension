@@ -1,8 +1,12 @@
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Box, BoxProps, color, Flex, Stack, Text, useMediaQuery } from '@stacks/ui';
 import { isPendingTx } from '@stacks/ui-utils';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { whenPageMode } from '@app/common/utils';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Title } from '@app/components/typography';
 import { SpaceBetween } from '@app/components/space-between';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
@@ -11,6 +15,8 @@ import { getTxCaption, getTxTitle, getTxValue } from '@app/common/transactions/t
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { TransactionTitle } from '@app/components/transaction/components/transaction-title';
 import { Tx } from '@app/common/api/transactions';
+import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
+import { RouteUrls } from '@shared/route-urls';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { TransactionIcon } from './transaction-icon';
@@ -31,15 +37,35 @@ export const TransactionItem = ({
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentAccount();
   const analytics = useAnalytics();
+  const [_, setRawTxId] = useRawTxIdState();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { whenWallet } = useWalletType();
 
   const [hideIncreaseFeeButton] = useMediaQuery('(max-width: 355px)');
+
+  if (!transaction && !transferDetails) return null;
 
   const openTxLink = () => {
     void analytics.track('view_transaction');
     handleOpenTxLink(transaction?.tx_id || transferDetails?.link || '');
   };
 
-  if (!transaction && !transferDetails) return null;
+  const onIncreaseFee = () => {
+    if (!transaction) return;
+    setRawTxId(transaction.tx_id);
+
+    const urlSearchParams = `?${createSearchParams({ txId: transaction.tx_id })}`;
+
+    whenWallet({
+      ledger: () =>
+        whenPageMode({
+          full: () => navigate(RouteUrls.IncreaseFee),
+          popup: () => openIndexPageInNewTab(RouteUrls.IncreaseFee, urlSearchParams),
+        })(),
+      software: () => navigate(RouteUrls.IncreaseFee),
+    })();
+  };
 
   const isOriginator = transaction?.sender_address === currentAccount?.address;
   const isPending = transaction && isPendingTx(transaction as MempoolTransaction);
@@ -76,11 +102,12 @@ export const TransactionItem = ({
               </Text>
               {transaction ? <TransactionStatus transaction={transaction} /> : null}
             </Stack>
-            {transaction && !hideIncreaseFeeButton ? (
+            {!hideIncreaseFeeButton ? (
               <IncreaseFeeButton
                 isEnabled={isOriginator && isPending}
                 isHovered={isHovered}
-                txid={transaction.tx_id}
+                isSelected={pathname === RouteUrls.IncreaseFee}
+                onIncreaseFee={onIncreaseFee}
               />
             ) : null}
           </SpaceBetween>

@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Box } from '@stacks/ui';
 import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
 import { delay } from '@app/common/utils';
-import { noop } from '@shared/utils';
 import {
   getAppVersion,
   prepareLedgerDeviceConnection,
@@ -13,18 +11,17 @@ import {
   signTransactionWithSignature,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { RouteUrls } from '@shared/route-urls';
 import { deserializeTransaction } from '@stacks/transactions';
 import { LedgerTxSigningProvider } from '@app/features/ledger/ledger-tx-signing.context';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { LoadingKeys } from '@app/common/hooks/use-loading';
-import { useHandleSubmitTransaction } from '@app/common/hooks/use-submit-stx-transaction';
-import { BaseDrawer } from '@app/components/drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { useHardwareWalletTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 import { logger } from '@shared/logger';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
+import { RouteUrls } from '@shared/route-urls';
 
 export function LedgerSignTxContainer() {
   const location = useLocation();
@@ -32,8 +29,8 @@ export function LedgerSignTxContainer() {
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
-
   const account = useCurrentAccount();
+  const hwWalletTxBroadcast = useHardwareWalletTransactionBroadcast();
 
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
 
@@ -47,10 +44,8 @@ export function LedgerSignTxContainer() {
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
-
-  const broadcastTransactionFn = useHandleSubmitTransaction({
-    loadingKey: LoadingKeys.CONFIRM_DRAWER,
-  });
+  const [awaitingKeyVerification, setAwaitingKeyVerification] = useState(false);
+  const [awaitingSignedTransaction, setAwaitingSignedTransaction] = useState(false);
 
   const signTransaction = async () => {
     if (!account) return;
@@ -78,10 +73,13 @@ export function LedgerSignTxContainer() {
       return;
     }
 
+    setAwaitingKeyVerification(true);
     ledgerNavigate.toActivityHappeningOnDeviceStep();
     await delay(1000);
+    setAwaitingKeyVerification(false);
 
     try {
+      setAwaitingSignedTransaction(true);
       ledgerNavigate.toConnectionSuccessStep();
       await delay(1000);
       if (!unsignedTransaction) throw new Error('No unsigned tx');
@@ -96,17 +94,21 @@ export function LedgerSignTxContainer() {
       // Assuming here that public keys are wrong. Alternatively, we may want
       // to proactively check the key before signing
       if (resp.returnCode === LedgerError.DataIsInvalid) {
-        ledgerNavigate.toPublicKeyMismatchStep();
+        setAwaitingSignedTransaction(false);
+        ledgerNavigate.toDeviceInvalidTx();
         return;
       }
 
       if (resp.returnCode === LedgerError.TransactionRejected) {
+        setAwaitingSignedTransaction(false);
         ledgerNavigate.toTransactionRejectedStep();
         ledgerAnalytics.transactionSignedOnLedgerRejected();
+
         return;
       }
 
       if (resp.returnCode !== LedgerError.NoErrors) {
+        setAwaitingSignedTransaction(false);
         throw new Error('Some other error');
       }
 
@@ -117,17 +119,19 @@ export function LedgerSignTxContainer() {
       const signedTx = signTransactionWithSignature(unsignedTransaction, resp.signatureVRS);
       ledgerAnalytics.transactionSignedOnLedgerSuccessfully();
 
-      await broadcastTransactionFn({
-        transaction: signedTx,
-        onClose: noop,
-      });
+      await hwWalletTxBroadcast({ signedTx });
+      setAwaitingSignedTransaction(false);
       navigate(RouteUrls.Home);
     } catch (e) {
+      setAwaitingSignedTransaction(false);
       ledgerNavigate.toDeviceDisconnectStep();
     }
   };
 
-  const onCancelConnectLedger = ledgerNavigate.cancelLedgerAction;
+  const allowUserToGoBack = get(location.state, 'goBack');
+  const onCancelConnectLedger = allowUserToGoBack
+    ? ledgerNavigate.cancelLedgerActionAndReturnHome
+    : ledgerNavigate.cancelLedgerAction;
 
   const ledgerContextValue = {
     transaction: unsignedTransaction ? deserializeTransaction(unsignedTransaction) : null,
@@ -139,7 +143,16 @@ export function LedgerSignTxContainer() {
 
   return (
     <LedgerTxSigningProvider value={ledgerContextValue}>
-      <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
+      <BaseDrawer
+        enableGoBack={allowUserToGoBack}
+        isShowing
+        isWaitingOnPerformedAction={
+          awaitingDeviceConnection || awaitingKeyVerification || awaitingSignedTransaction
+        }
+        onClose={onCancelConnectLedger}
+        pauseOnClickOutside
+        waitingOnPerformedActionMessage="Ledger device in use"
+      >
         <Outlet />
       </BaseDrawer>
     </LedgerTxSigningProvider>

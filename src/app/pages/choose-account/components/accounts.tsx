@@ -124,7 +124,7 @@ const AddAccountAction = memo(() => {
   };
 
   return (
-    <Box mt="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
+    <Box mb="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
       <Stack isInline alignItems="center" color={color('text-body')}>
         <Box size="16px" as={FiPlusCircle} color={color('brand')} />
         <Text color="currentColor">Generate new account</Text>
@@ -156,23 +156,20 @@ export const Accounts = memo(() => {
   if (!accounts) return null;
 
   return (
-    <>
-      <AddAccountAction />
-      <Box mt="base" width="100%">
-        {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
-        <Virtuoso
-          useWindowScroll
-          data={accounts}
-          style={{ height: '68px' }}
-          itemContent={(index, account) => (
-            <AccountItem
-              account={account}
-              isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
-              onSelectAccount={signIntoAccount}
-            />
-          )}
-        />
-      </Box>
-    </>
+    <Box mt="loose" width="100%">
+      {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
+      <Virtuoso
+        useWindowScroll
+        data={accounts}
+        style={{ height: '68px' }}
+        itemContent={(index, account) => (
+          <AccountItem
+            account={account}
+            isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
+            onSelectAccount={signIntoAccount}
+          />
+        )}
+      />
+    </Box>
   );
 });

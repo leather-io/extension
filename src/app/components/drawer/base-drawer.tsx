@@ -1,20 +1,13 @@
 import { useRef, useCallback, memo, ReactNode, Suspense } from 'react';
-import { Flex, useEventListener, IconButton, color, transition, FlexProps } from '@stacks/ui';
-import { FiX as IconX } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { Box, Flex, useEventListener, transition, FlexProps } from '@stacks/ui';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { isString, noop } from '@shared/utils';
-import { Title } from '@app/components/typography';
-import { hideScrollbarStyle } from '../global-styles/hide-scrollbar';
+import { hideScrollbarStyle } from '@app/components/global-styles/hide-scrollbar';
+import { noop } from '@shared/utils';
 
-export interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
-  isShowing: boolean;
-  title?: string | JSX.Element;
-  pauseOnClickOutside?: boolean;
-  onClose?: () => void;
-  children?: ReactNode;
-}
+import { DrawerHeader } from './components/drawer-header';
 
 function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
   const ref = useRef(null);
@@ -34,42 +27,35 @@ function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
   return ref;
 }
 
-interface DrawerHeaderProps {
-  title: BaseDrawerProps['title'];
-  onClose?: BaseDrawerProps['onClose'];
+export interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
+  children?: ReactNode;
+  enableGoBack?: boolean;
+  icon?: JSX.Element;
+  isShowing: boolean;
+  isWaitingOnPerformedAction?: boolean;
+  onClose?(): void;
+  pauseOnClickOutside?: boolean;
+  title?: string;
+  waitingOnPerformedActionMessage?: string;
 }
-const DrawerHeader = ({ title, onClose }: DrawerHeaderProps) => {
-  return (
-    <Flex pb="base" justifyContent="space-between" alignItems="center" pt="loose" px="loose">
-      {title && isString(title) ? (
-        <Title fontSize="20px" lineHeight="28px">
-          {title}
-        </Title>
-      ) : (
-        title
-      )}
-      {onClose && (
-        <IconButton
-          transform="translateX(8px)"
-          size="36px"
-          iconSize="20px"
-          onClick={onClose}
-          color={color('text-caption')}
-          _hover={{ color: color('text-title') }}
-          icon={IconX}
-          // Drawer content should be able to overlay
-          // header, but not close button
-          position="relative"
-          zIndex={9}
-        />
-      )}
-    </Flex>
-  );
-};
-
 export const BaseDrawer = memo((props: BaseDrawerProps) => {
-  const { title, isShowing, onClose, children, pauseOnClickOutside, ...rest } = props;
+  const {
+    children,
+    enableGoBack,
+    icon,
+    isShowing,
+    isWaitingOnPerformedAction,
+    onClose,
+    pauseOnClickOutside,
+    title,
+    waitingOnPerformedActionMessage,
+    ...rest
+  } = props;
   const ref = useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);
+  const navigate = useNavigate();
+
+  const onGoBack = () => navigate(-1);
+
   return (
     <Flex
       display={isShowing ? 'flex' : 'none'}
@@ -112,17 +98,25 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         mt={['auto', 'unset', 'unset', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
       >
-        <div
+        <Box
           css={css`
             overflow-y: scroll;
             ${hideScrollbarStyle}
           `}
         >
-          <DrawerHeader title={title} onClose={onClose} />
+          <DrawerHeader
+            enableGoBack={enableGoBack}
+            icon={icon}
+            isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+            onClose={onClose}
+            onGoBack={onGoBack}
+            title={title}
+            waitingOnPerformedActionMessage={waitingOnPerformedActionMessage}
+          />
           <Flex maxHeight="100%" flexGrow={1} flexDirection="column">
             <Suspense fallback={<></>}>{children}</Suspense>
           </Flex>
-        </div>
+        </Box>
       </Flex>
     </Flex>
   );

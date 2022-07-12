@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import { Stack } from '@stacks/ui';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer';
+import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
 
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';

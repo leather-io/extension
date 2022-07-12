@@ -18,6 +18,7 @@ export enum RouteUrls {
   LedgerDisconnected = 'your-ledger-disconnected',
   LedgerOperationRejected = 'action-rejected',
   LedgerPublicKeyMismatch = 'wrong-ledger-device',
+  LedgerDeviceTxInvalid = 'ledger-rejected-tx',
   LedgerUnsupportedBrowser = 'unsupported-browser',
 
   // Active wallet routes
@@ -26,6 +27,7 @@ export enum RouteUrls {
   ChooseAccount = '/choose-account',
   Fund = '/fund',
   FundReceive = '/fund/receive',
+  IncreaseFee = '/increase-fee',
   Receive = '/receive',
   Send = '/send-transaction',
   SignOutConfirm = '/sign-out',

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-blockstack';
-import { Box } from '@stacks/ui';
 import { logger } from '@shared/logger';
 import get from 'lodash.get';
 
@@ -17,7 +16,7 @@ import {
 import { getAddressFromPublicKey, TransactionVersion } from '@stacks/transactions';
 
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { BaseDrawer } from '@app/components/drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
@@ -48,6 +47,7 @@ export function LedgerSignJwtContainer() {
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
+  const [awaitingSignedJwt, setAwaitingSignedJwt] = useState(false);
   const [jwtPayloadHash, setJwtPayloadHash] = useState<null | string>(null);
   const { origin } = useAuthRequestParams();
 
@@ -77,6 +77,7 @@ export function LedgerSignJwtContainer() {
     }
 
     try {
+      setAwaitingSignedJwt(true);
       ledgerNavigate.toConnectionSuccessStep();
       await delay(1000);
 
@@ -103,6 +104,7 @@ export function LedgerSignJwtContainer() {
       const resp = await signLedgerJwtHash(stacks)(authResponsePayload, accountIndex);
 
       if (resp.returnCode === LedgerError.TransactionRejected) {
+        setAwaitingSignedJwt(false);
         ledgerNavigate.toTransactionRejectedStep();
         return;
       }
@@ -117,7 +119,9 @@ export function LedgerSignJwtContainer() {
         authResponse,
         requestingOrigin: origin,
       });
+      setAwaitingSignedJwt(false);
     } catch (e) {
+      setAwaitingSignedJwt(false);
       ledgerNavigate.toDeviceDisconnectStep();
     }
   };
@@ -134,7 +138,13 @@ export function LedgerSignJwtContainer() {
 
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
-      <BaseDrawer title={<Box />} isShowing onClose={onCancelConnectLedger}>
+      <BaseDrawer
+        isShowing
+        isWaitingOnPerformedAction={awaitingDeviceConnection || awaitingSignedJwt}
+        onClose={onCancelConnectLedger}
+        pauseOnClickOutside
+        waitingOnPerformedActionMessage="Ledger device in use"
+      >
         <Outlet />
       </BaseDrawer>
     </LedgerJwtSigningProvider>
