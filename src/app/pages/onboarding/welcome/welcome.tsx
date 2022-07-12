@@ -40,19 +40,18 @@ export const WelcomePage = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const supportsWebUsbAction = whenPageMode({
-    full() {
-      navigate(RouteUrls.ConnectLedger);
-    },
-    popup() {
-      void openIndexPageInNewTab(`${RouteUrls.Onboarding}/${RouteUrls.ConnectLedger}`);
-    },
-  });
+  const pageModeRoutingAction = (url: RouteUrls) =>
+    whenPageMode({
+      full() {
+        navigate(url);
+      },
+      popup() {
+        void openIndexPageInNewTab(`${RouteUrls.Onboarding}/${url}`);
+      },
+    });
 
-  const doesNotSupportWebUsbAction = whenPageMode({
-    full: navigate as any,
-    popup: openIndexPageInNewTab,
-  });
+  const supportsWebUsbAction = pageModeRoutingAction(RouteUrls.ConnectLedger);
+  const doesNotSupportWebUsbAction = pageModeRoutingAction(RouteUrls.LedgerUnsupportedBrowser);
 
   return (
     <WelcomeLayout
