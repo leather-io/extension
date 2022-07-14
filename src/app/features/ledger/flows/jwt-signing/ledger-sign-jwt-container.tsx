@@ -59,7 +59,9 @@ export function LedgerSignJwtContainer() {
       return;
     }
 
-    if (!account || !decodedAuthRequest || !authRequest);
+    if (!account || !decodedAuthRequest || !authRequest) {
+      return;
+    }
 
     const stacks = await prepareLedgerDeviceConnection({
       setLoadingState: setAwaitingDeviceConnection,
