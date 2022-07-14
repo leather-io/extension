@@ -122,6 +122,7 @@ export function LedgerSignTxContainer() {
       await hwWalletTxBroadcast({ signedTx });
       setAwaitingSignedTransaction(false);
       navigate(RouteUrls.Home);
+      await stacksApp.transport.close();
     } catch (e) {
       setAwaitingSignedTransaction(false);
       ledgerNavigate.toDeviceDisconnectStep();
