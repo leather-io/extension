@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -12,10 +12,7 @@ import { SignatureRequest } from '@app/pages/signature-request/signature-request
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
-import { ConnectLedgerRequestKeys } from '@app/features/ledger/flows/request-keys/steps/connect-ledger-request-keys';
-import { ConnectLedgerRequestKeysError } from '@app/features/ledger/flows/request-keys/steps/connect-ledger-request-keys-error';
-import { ConnectLedgerOnboardingSuccess } from '@app/features/ledger/flows/request-keys/steps/connect-ledger-request-keys-success';
-import { LedgerDisconnected } from '@app/features/ledger/flows/tx-signing/steps/ledger-disconnected';
+
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
@@ -27,33 +24,20 @@ import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnos
 import { FundPage } from '@app/pages/fund/fund';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { LedgerRequestKeysContainer } from '@app/features/ledger/flows/request-keys/ledger-request-keys-container';
-import { SignLedgerTransaction } from '@app/features/ledger/flows/tx-signing/steps/sign-ledger-transaction';
+
 import { useHasStateRehydrated } from '@app/store';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
-import { ConnectLedgerSignTxError } from '@app/features/ledger/flows/tx-signing/steps/connect-ledger-sign-tx-error';
-import { ConnectLedgerSignTxSuccess } from '@app/features/ledger/flows/tx-signing/steps/connect-ledger-sign-tx-success';
-import { LedgerSignTxContainer } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx-container';
-import { ConnectLedgerSignTx } from '@app/features/ledger/flows/tx-signing/steps/connect-ledger-sign-tx';
-import { LedgerTransactionRejected } from '@app/features/ledger/flows/tx-signing/steps/transaction-rejected';
-import { LedgerPublicKeyMismatch } from '@app/features/ledger/flows/tx-signing/steps/public-key-mismatch';
-import { VerifyingPublicKeysMatch } from '@app/features/ledger/flows/tx-signing/steps/verifying-public-keys-match';
-import { PullingKeysFromDevice } from '@app/features/ledger/flows/request-keys/steps/pulling-keys-from-device';
-import { UnsupportedBrowserLayout } from '@app/features/ledger/steps/unsupported-browser.layout';
-import { LedgerSignJwtContainer } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt-container';
-import { SignJwtHash } from '@app/features/ledger/flows/jwt-signing/steps/sign-jwt-hash';
-import { ConnectLedgerSignJwt } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt';
-import { ConnectLedgerSignJwtError } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-error';
-import { ConnectLedgerSignJwtSuccess } from '@app/features/ledger/flows/jwt-signing/steps/connect-ledger-sign-jwt-success';
-import { LedgerJwtSigningRejected } from '@app/features/ledger/flows/jwt-signing/steps/transaction-rejected';
+
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
-import { LedgerDeviceInvalidTx } from '@app/features/ledger/flows/tx-signing/steps/device-invalid-tx';
+import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
+import { ledgerTxSigningRoutes } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.routes';
+import { ledgerRequestKeysRoutes } from '@app/features/ledger/flows/request-keys/ledger-request-keys.routes';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
 
-export function AppRoutes(): JSX.Element | null {
+export function AppRoutes() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
@@ -61,44 +45,9 @@ export function AppRoutes(): JSX.Element | null {
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => window.close());
 
-  useEffect(() => {
-    void analytics.page('view', `${pathname}`);
-  }, [analytics, pathname]);
+  useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
   const hasStateRehydrated = useHasStateRehydrated();
-
-  const ledgerTxSigningRoutes = useMemo(
-    () => (
-      <Route element={<LedgerSignTxContainer />}>
-        <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignTx />} />
-        <Route path={RouteUrls.DeviceBusy} element={<VerifyingPublicKeysMatch />} />
-        <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerSignTxError />} />
-        <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSignTxSuccess />} />
-        <Route path={RouteUrls.AwaitingDeviceUserAction} element={<SignLedgerTransaction />} />
-        <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
-        <Route path={RouteUrls.LedgerOperationRejected} element={<LedgerTransactionRejected />} />
-        <Route path={RouteUrls.LedgerPublicKeyMismatch} element={<LedgerPublicKeyMismatch />} />
-        <Route path={RouteUrls.LedgerDeviceTxInvalid} element={<LedgerDeviceInvalidTx />} />
-        <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
-      </Route>
-    ),
-    []
-  );
-
-  const ledgerJwtSigningRoutes = useMemo(
-    () => (
-      <Route element={<LedgerSignJwtContainer />}>
-        <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignJwt />} />
-        <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerSignJwtError />} />
-        <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSignJwtSuccess />} />
-        <Route path={RouteUrls.LedgerOperationRejected} element={<LedgerJwtSigningRejected />} />
-        <Route path={RouteUrls.AwaitingDeviceUserAction} element={<SignJwtHash />} />
-        <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
-      </Route>
-    ),
-    []
-  );
-
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
   return (
@@ -129,22 +78,7 @@ export function AppRoutes(): JSX.Element | null {
             </OnboardingGate>
           }
         >
-          <Route element={<LedgerRequestKeysContainer />}>
-            <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerRequestKeys />} />
-            <Route path={RouteUrls.DeviceBusy} element={<PullingKeysFromDevice />} />
-            <Route
-              path={RouteUrls.ConnectLedgerError}
-              element={<ConnectLedgerRequestKeysError />}
-            />
-            <Route
-              path={RouteUrls.LedgerUnsupportedBrowser}
-              element={<UnsupportedBrowserLayout />}
-            />
-            <Route
-              path={RouteUrls.ConnectLedgerSuccess}
-              element={<ConnectLedgerOnboardingSuccess />}
-            />
-          </Route>
+          {ledgerRequestKeysRoutes}
         </Route>
         <Route
           path={RouteUrls.BackUpSecretKey}
