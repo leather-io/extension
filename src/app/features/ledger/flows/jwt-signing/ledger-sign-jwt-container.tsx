@@ -128,6 +128,7 @@ export function LedgerSignJwtContainer() {
         requestingOrigin: origin,
       });
       setAwaitingSignedJwt(false);
+      await stacks.transport.close();
     } catch (e) {
       setAwaitingSignedJwt(false);
       ledgerNavigate.toDeviceDisconnectStep();
