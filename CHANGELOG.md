@@ -1,3 +1,31 @@
+# [3.12.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.2...v3.12.0) (2022-07-12)
+
+
+### Bug Fixes
+
+* add transition to fund account tile ([a4cc29a](https://github.com/hirosystems/stacks-wallet-web/commit/a4cc29af44317c27f4b10bf8f877802f8d90eb9d))
+* drawer header ([1be4f88](https://github.com/hirosystems/stacks-wallet-web/commit/1be4f88d3cb0671aea7727a7797dbfe8b605a413))
+* error during sign out on lock screen ([8f04a0e](https://github.com/hirosystems/stacks-wallet-web/commit/8f04a0e78ae85f11e12af77bff8ce2d62d1e0fd4))
+* error when selecting tx request fee ([ee64d9b](https://github.com/hirosystems/stacks-wallet-web/commit/ee64d9b33b956a7e9cba2ecc244ae193e474edda))
+* first steps limit to five accounts ([7058fb5](https://github.com/hirosystems/stacks-wallet-web/commit/7058fb53f752b059af4b270b919489b600256715))
+* **ledger:** add new error screen ([173af14](https://github.com/hirosystems/stacks-wallet-web/commit/173af1469034af45d8675f3a5677839fe082f55d))
+* **ledger:** conditional finalise tx req ([00830d1](https://github.com/hirosystems/stacks-wallet-web/commit/00830d1604392717320dfd379f344a86a9cc6e7f))
+* **ledger:** returning values back to app ([b0c5700](https://github.com/hirosystems/stacks-wallet-web/commit/b0c5700b4404a005b4631124934abda8badab309))
+* **ledger:** unsupported browser modal not opening ([e78864b](https://github.com/hirosystems/stacks-wallet-web/commit/e78864b9ed1bcb080f45f19216c77081a22bb5a6))
+* onclose after confirm ledger tx ([ad8b2b4](https://github.com/hirosystems/stacks-wallet-web/commit/ad8b2b49d6c7dac814acae8d7dfc5dbf3647adca))
+* query hook dependency ([378f0d1](https://github.com/hirosystems/stacks-wallet-web/commit/378f0d1a2b95d3336ece3b9ba01129a0b641eff5))
+* referrer header modifying page origins, closes [#2533](https://github.com/hirosystems/stacks-wallet-web/issues/2533) ([cfdc1e6](https://github.com/hirosystems/stacks-wallet-web/commit/cfdc1e625a17e6dae80ef46af7c8e74fc2d67e2c))
+* show unlock waiting message only when loading ([c1111b7](https://github.com/hirosystems/stacks-wallet-web/commit/c1111b776040ef713eb3f22bdfaa802fcabbc913))
+* sponsored tx edit nonce ([edd5c48](https://github.com/hirosystems/stacks-wallet-web/commit/edd5c48a112bf703107023565a7dd218bf51cdec))
+* **tx-signing:** missing sip10 detection, closes [#2537](https://github.com/hirosystems/stacks-wallet-web/issues/2537) ([a41ef58](https://github.com/hirosystems/stacks-wallet-web/commit/a41ef58778ac6a3bdf84863f3fffc40967eaf94b))
+* **tx-signing:** routes missing, readded, [#2534](https://github.com/hirosystems/stacks-wallet-web/issues/2534) ([4257768](https://github.com/hirosystems/stacks-wallet-web/commit/4257768cde6e36bea2819394eaf1e2cacb8bd794))
+* validate redirect uri ([8b180f2](https://github.com/hirosystems/stacks-wallet-web/commit/8b180f2fc98844f3ac99e9a293bcc84afec89f5c))
+
+
+### Features
+
+* ledger increase fee tx signing ([d8ff5eb](https://github.com/hirosystems/stacks-wallet-web/commit/d8ff5eb9ac8ae5988307d90b23bf4bb5fad4fa58))
+
 ## [3.11.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.1...v3.11.2) (2022-07-07)
 
 
