@@ -20,12 +20,13 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
-import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
-import { LedgerJwtSigningProvider } from '../../ledger-jwt-signing.context';
 import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
+
+import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
+import { LedgerJwtSigningProvider } from '../../ledger-jwt-signing.context';
 
 export function LedgerSignJwtContainer() {
   const location = useLocation();
@@ -41,7 +42,6 @@ export function LedgerSignJwtContainer() {
   useEffect(() => {
     const index = parseInt(get(location.state, 'index'), 10);
     if (Number.isFinite(index)) setAccountIndex(index);
-    return () => setAccountIndex(null);
   }, [location.state]);
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
@@ -53,7 +53,13 @@ export function LedgerSignJwtContainer() {
 
   const signJwtPayload = async () => {
     if (!origin) throw new Error('Cannot sign payload for unknown origin');
-    if (!account || !decodedAuthRequest || !authRequest || accountIndex === null) return;
+
+    if (accountIndex === null) {
+      logger.warn('No account index found');
+      return;
+    }
+
+    if (!account || !decodedAuthRequest || !authRequest);
 
     const stacks = await prepareLedgerDeviceConnection({
       setLoadingState: setAwaitingDeviceConnection,
