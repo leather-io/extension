@@ -15,6 +15,7 @@ import { store } from '@app/store';
 import { analyticsActions } from '@app/store/analytics/analytics.actions';
 import { useEffect, useMemo } from 'react';
 import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
+import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 
 let previousAccountTransactions: Map<string, TxStatus>;
 
@@ -48,32 +49,24 @@ interface TxStatus {
   tx: AddressTransactionWithTransfers | MempoolTransaction | StacksTransaction;
 }
 
-type localTx = {
-  [key: string]: {
-    transaction: StacksTransaction;
-    timestamp: number;
-  };
-};
-
 export function useTrackChangedTransactions(
   transactions: (AddressTransactionWithTransfers | MempoolTransaction)[],
-  localTransactions: localTx
+  submittedTxs: StacksTransaction[]
 ) {
   const currentAccount = useCurrentAccount();
   const analytics = useAnalytics();
   const now = new Date().toISOString();
 
   const result = new Map(previousAccountTransactions);
-  Object.keys(localTransactions).forEach(key => {
-    const tx = localTransactions[key];
+  submittedTxs.forEach(tx => {
     const status = 'submitted';
-    result.set(key, {
-      timeIso: now,
+    result.set(safelyFormatHexTxid(tx.txid()), {
       broadcastTimeIso: now,
-      timeSinceBroadcast: 0,
       status,
+      timeIso: now,
+      timeSinceBroadcast: 0,
       type: 'outbound',
-      tx: tx.transaction,
+      tx,
     });
   });
 
