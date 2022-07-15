@@ -15,7 +15,7 @@ import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigat
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
-import { useRemoveLocalSubmittedTxById } from '@app/store/accounts/account-activity.hooks';
+import { useRemoveSubmittedTransactionCallback } from '@app/store/accounts/submitted-transactions.hooks';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
@@ -27,7 +27,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
   const stxBalance = useCurrentAccountAvailableStxBalance();
-  const removeLocallySubmittedTx = useRemoveLocalSubmittedTxById();
+  const removeSubmittedTransaction = useRemoveSubmittedTransactionCallback();
   const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();
   const { whenWallet } = useWalletType();
@@ -48,7 +48,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
       rawTx.setFee(stxToMicroStx(values.fee).toString());
       const txId = tx.tx_id || rawTx.txid();
       await refreshAccountData();
-      removeLocallySubmittedTx(txId);
+      removeSubmittedTransaction(txId);
       whenWallet({
         software: async () => {
           await replaceByFee(values);
@@ -62,7 +62,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
       ledgerNavigate,
       rawTx,
       refreshAccountData,
-      removeLocallySubmittedTx,
+      removeSubmittedTransaction,
       replaceByFee,
       tx,
       whenWallet,

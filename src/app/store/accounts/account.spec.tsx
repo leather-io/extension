@@ -1,8 +1,9 @@
-import { act, renderHook } from '@testing-library/react-hooks';
-import { TEST_ACCOUNTS_WITH_ADDRESS } from '@tests/mocks';
 import { useAtomValue } from 'jotai/utils';
-import { softwareAccountsState, accountsWithAddressState } from '@app/store/accounts/index';
+import { act, renderHook } from '@testing-library/react-hooks';
+
+import { softwareAccountsState, accountsWithAddressState } from '@app/store/accounts/accounts';
 import { ProviderWithTestWallet } from '@tests/state-utils';
+import { TEST_ACCOUNTS_WITH_ADDRESS } from '@tests/mocks';
 
 describe.skip('account state', () => {
   it('wallet has correct amount of accounts state', async () => {

@@ -1,11 +1,7 @@
 import { Account } from '@stacks/wallet-sdk';
 
 import { atomFamily } from 'jotai/utils';
-import type {
-  AccountDataResponse,
-  MempoolTransaction,
-  Transaction,
-} from '@stacks/stacks-blockchain-api-types';
+import type { AccountDataResponse, Transaction } from '@stacks/stacks-blockchain-api-types';
 
 import { atom } from 'jotai';
 import BigNumber from 'bignumber.js';
@@ -189,19 +185,6 @@ export const currentAnchoredAccountBalancesState = atom(get => {
 export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
   const transactionsWithTransfers = get(accountTransactionsWithTransfersState);
   return transactionsWithTransfers.map(atx => atx.tx);
-});
-
-/**
- * @deprecated
- * Populated by mempool `useQuery`
- */
-export const currentAccountMempoolTransactionsState = atom<MempoolTransaction[]>([]);
-
-/** @deprecated */
-export const currentAccountTransactionsState = atom<(MempoolTransaction | Transaction)[]>(get => {
-  const transactions = get(currentAccountConfirmedTransactionsState);
-  const pending = get(currentAccountMempoolTransactionsState);
-  return [...pending, ...transactions];
 });
 
 export const currentAccountInfoState = atom<AccountDataResponse | undefined>(undefined);

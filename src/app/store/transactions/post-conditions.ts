@@ -1,11 +1,12 @@
 import { atom } from 'jotai';
+import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
+
 import { requestTokenPayloadState } from '@app/store/transactions/requests';
-import { currentAccountStxAddressState } from '@app/store/accounts';
+import { currentAccountStxAddressState } from '@app/store/accounts/accounts';
 import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/post-condition-utils';
-import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
 
 export function formatPostConditionState(
   payload?: ContractCallPayload | ContractDeployPayload | STXTransferPayload | null,
