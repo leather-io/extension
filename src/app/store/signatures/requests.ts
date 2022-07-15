@@ -1,6 +1,8 @@
-import { getGenericSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { atom } from 'jotai';
-import { accountsWithAddressState } from '../accounts';
+
+import { getGenericSignaturePayloadFromToken } from '@app/common/signature/requests';
+
+import { accountsWithAddressState } from '../accounts/accounts';
 import { atomWithParam } from '../utils/atom-with-params';
 
 const requestTokenState = atomWithParam('signature?request', null);
