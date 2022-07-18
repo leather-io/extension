@@ -43,7 +43,12 @@ export const FiatProvidersList = (props: FiatProvidersProps) => {
     >
       <ReceiveStxItem onReceiveStx={() => navigate(RouteUrls.FundReceive)} />
       {Object.entries(activeProviders).map(([providerKey, providerValue]) => {
-        const providerUrl = getProviderUrl(address, providerKey, providerValue.name);
+        const providerUrl = getProviderUrl({
+          address,
+          hasFastCheckoutProcess: providerValue.hasFastCheckoutProcess,
+          key: providerKey,
+          name: providerValue.name,
+        });
 
         return (
           <FiatProviderItem

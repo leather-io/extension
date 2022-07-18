@@ -3,13 +3,6 @@
     "global": []
   },
   "activeFiatProviders": {
-    "coinbase": {
-      "enabled": true,
-      "hasFastCheckoutProcess": true,
-      "name": "Coinbase",
-      "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
-    },
     "moonPay": {
       "enabled": true,
       "hasFastCheckoutProcess": true,
@@ -51,6 +44,13 @@
       "name": "ByBit",
       "hasTradingFees": true,
       "hasUnitedStatesAvailability": false
+    },
+    "coinbase": {
+      "enabled": true,
+      "hasFastCheckoutProcess": false,
+      "name": "Coinbase",
+      "hasTradingFees": true,
+      "hasUnitedStatesAvailability": true
     },
     "cryptoCom": {
       "enabled": true,
