@@ -1,3 +1,10 @@
+# [3.13.0-beta.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.0-beta.2...v3.13.0-beta.3) (2022-07-18)
+
+
+### Bug Fixes
+
+* unused import error ([9abca5f](https://github.com/hirosystems/stacks-wallet-web/commit/9abca5f19aba1faf97bb2b0017e97d2e19fb5af7))
+
 # [3.13.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.0-beta.1...v3.13.0-beta.2) (2022-07-18)
 
 
