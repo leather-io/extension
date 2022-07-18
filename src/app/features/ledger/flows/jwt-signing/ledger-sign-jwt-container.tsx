@@ -15,7 +15,8 @@ import {
 } from '@app/features/ledger/ledger-utils';
 import { getAddressFromPublicKey, TransactionVersion } from '@stacks/transactions';
 
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { isUndefined } from '@shared/utils';
+import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
@@ -33,7 +34,9 @@ export function LedgerSignJwtContainer() {
   const ledgerNavigate = useLedgerNavigate();
   useScrollLock(true);
 
-  const account = useCurrentAccount();
+  const activeAccount = useCurrentAccount();
+  const accounts = useAccounts();
+
   const keyActions = useKeyActions();
   const { decodedAuthRequest, authRequest } = useOnboardingState();
 
@@ -59,7 +62,20 @@ export function LedgerSignJwtContainer() {
       return;
     }
 
-    if (!account || !decodedAuthRequest || !authRequest) {
+    if (!activeAccount || !decodedAuthRequest || !authRequest || !accounts) {
+      logger.warn('No necessary state not found while performing JWT signing', {
+        account: activeAccount,
+        decodedAuthRequest,
+        authRequest,
+        accounts,
+      });
+      return;
+    }
+
+    const account = accounts[accountIndex];
+
+    if (!account) {
+      logger.warn('No account for given index found');
       return;
     }
 
@@ -93,14 +109,8 @@ export function LedgerSignJwtContainer() {
         dataPublicKey: account.dataPublicKey,
         profile: {
           stxAddress: {
-            testnet: getAddressFromPublicKey(
-              (account as any).stxPublicKey,
-              TransactionVersion.Testnet
-            ),
-            mainnet: getAddressFromPublicKey(
-              (account as any).stxPublicKey,
-              TransactionVersion.Mainnet
-            ),
+            testnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Testnet),
+            mainnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Mainnet),
           },
         },
       });
