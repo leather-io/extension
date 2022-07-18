@@ -1,3 +1,10 @@
+# [3.13.0-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.0-beta.1...v3.13.0-beta.2) (2022-07-18)
+
+
+### Bug Fixes
+
+* **ledger:** non-zero index account signing, closes [#2572](https://github.com/hirosystems/stacks-wallet-web/issues/2572) ([f19142e](https://github.com/hirosystems/stacks-wallet-web/commit/f19142e466903f865f4aed3dd5314fa5b3a6c655))
+
 # [3.13.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0...v3.13.0-beta.1) (2022-07-15)
 
 
