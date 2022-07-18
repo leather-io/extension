@@ -15,7 +15,6 @@ import {
 } from '@app/features/ledger/ledger-utils';
 import { getAddressFromPublicKey, TransactionVersion } from '@stacks/transactions';
 
-import { isUndefined } from '@shared/utils';
 import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
