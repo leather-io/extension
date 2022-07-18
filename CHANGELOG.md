@@ -1,3 +1,10 @@
+## [3.12.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0...v3.12.1) (2022-07-16)
+
+
+### Bug Fixes
+
+* path to wallet config ([4e7d978](https://github.com/hirosystems/stacks-wallet-web/commit/4e7d978f4eb7ee68f225a480d77efc1b5e273f48))
+
 # [3.12.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.11.2...v3.12.0) (2022-07-12)
 
 
