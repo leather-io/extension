@@ -3,6 +3,7 @@ import { Buffer } from 'buffer';
 import { logger } from '@shared/logger';
 import { validateTxId } from '@app/common/validation/validate-tx-id';
 import { delay } from '@app/common/utils';
+import { getErrorMessage } from '@app/common/get-error-message';
 
 async function simulateShortDelayToAvoidUndefinedTabId() {
   await delay(1000);
@@ -23,24 +24,23 @@ export async function broadcastTransaction(options: BroadcastTransactionOptions)
     return { txRaw };
   }
 
-  try {
-    const response = await broadcastRawTransaction(
-      serialized,
-      `${networkUrl}/v2/transactions`,
-      attachment ? Buffer.from(attachment, 'hex') : undefined
-    );
+  const response = await broadcastRawTransaction(
+    serialized,
+    `${networkUrl}/v2/transactions`,
+    attachment ? Buffer.from(attachment, 'hex') : undefined
+  );
 
-    const isValidTxId = validateTxId(response.txid);
-    if (isValidTxId)
-      return {
-        txId: response.txid,
-        txRaw,
-      };
+  if ('error' in response) {
     logger.error(`Error broadcasting raw transaction -- ${response}`);
-    throw new Error((response as any).error);
-  } catch (e) {
-    logger.error('Error broadcasting raw transaction');
-    logger.error(e);
-    throw new Error(e as any);
+    const message = getErrorMessage(response.reason as any);
+    throw new Error(`${message} - ${(response as any).error}`);
+  } else if (!validateTxId(response.txid)) {
+    logger.error(`Error broadcasting raw transaction -- ${response}`);
+    throw new Error('Invalid txid for transaction');
   }
+
+  return {
+    txId: response.txid,
+    txRaw,
+  };
 }
