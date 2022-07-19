@@ -22,32 +22,30 @@ export function MessageBox(props: { message: string }): JSX.Element | null {
   if (!message) return null;
 
   return (
-    <>
-      <Stack minHeight={'260px'}>
+    <Stack minHeight="260px">
+      <Stack
+        border="4px solid"
+        paddingBottom="8px"
+        borderColor={color('border')}
+        borderRadius="20px"
+        backgroundColor={color('border')}
+      >
         <Stack
-          border="4px solid"
-          paddingBottom={'8px'}
-          borderColor={color('border')}
-          borderRadius="20px"
-          backgroundColor={color('border')}
+          bg={color('bg')}
+          borderRadius="16px"
+          fontSize={2}
+          lineHeight="1.6"
+          px="loose"
+          py="loose"
+          spacing="tight"
+          wordBreak="break-all"
         >
-          <Stack
-            bg={color('bg')}
-            borderRadius="16px"
-            fontSize={2}
-            lineHeight="1.6"
-            px="loose"
-            py="loose"
-            spacing="tight"
-            wordBreak="break-all"
-          >
-            {displayMessage?.map(line => (
-              <Text>{line}</Text>
-            ))}
-          </Stack>
-          {hash ? <HashDrawer hash={hash} /> : null}
+          {displayMessage?.map(line => (
+            <Text>{line}</Text>
+          ))}
         </Stack>
+        {hash ? <HashDrawer hash={hash} /> : null}
       </Stack>
-    </>
+    </Stack>
   );
 }

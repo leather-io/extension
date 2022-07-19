@@ -13,8 +13,7 @@ const ShowHashButton = (props: ShowHashButtonProps) => {
 interface HashDrawerProps {
   hash: string;
 }
-
-export function HashDrawer(props: HashDrawerProps): JSX.Element | null {
+export function HashDrawer(props: HashDrawerProps) {
   const { hash } = props;
   const [showHash, setShowHash] = useState(false);
   const [displayHash, setDisplayHash] = useState(hash);
