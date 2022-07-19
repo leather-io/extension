@@ -10,6 +10,8 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useHandleSubmitTransaction } from '@app/common/hooks/use-submit-stx-transaction';
+import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { Header } from '@app/components/header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -17,7 +19,6 @@ import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-draw
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
-import { useCurrentAccountNonce } from '@app/store/accounts/nonce.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import {
   useGenerateSendFormUnsignedTx,
@@ -26,10 +27,10 @@ import {
 import { logger } from '@shared/logger';
 import { Estimations } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
+import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
-import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -43,10 +44,11 @@ function SendTokensFormBase() {
   const [_, setFeeEstimations] = useFeeEstimationsState();
   const generateTx = useGenerateSendFormUnsignedTx();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
-  const nonce = useCurrentAccountNonce();
+  const { nonce } = useNextNonce();
   const analytics = useAnalytics();
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
+
   useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
 
   useEffect(() => {
@@ -90,7 +92,7 @@ function SendTokensFormBase() {
 
   if (assets.length < 1) return null;
 
-  const initialValues = {
+  const initialValues: TransactionFormValues = {
     amount: '',
     fee: '',
     feeType: Estimations[Estimations.Middle],
@@ -122,7 +124,7 @@ function SendTokensFormBase() {
       {props => (
         <>
           <Suspense fallback={<></>}>
-            <SendFormInner assetError={assetError} />
+            <SendFormInner assetError={assetError} nonce={nonce} />
           </Suspense>
           {whenWallet({
             ledger: <Outlet />,

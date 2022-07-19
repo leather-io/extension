@@ -7,8 +7,6 @@ import { Flex, Stack } from '@stacks/ui';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { PageTop } from '@app/pages/transaction-request/components/page-top';
 import { ContractCallDetails } from '@app/pages/transaction-request/components/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/pages/transaction-request/components/contract-deploy-details/contract-deploy-details';
@@ -26,12 +24,16 @@ import {
 } from '@app/store/transactions/transaction.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { Estimations } from '@shared/models/fees-types';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { nonceSchema } from '@app/common/validation/nonce-schema';
+import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 
+import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
 
@@ -68,7 +70,7 @@ function TransactionRequestBase(): JSX.Element | null {
         fee: values.fee,
       });
       return () => {
-        setBroadcastError(null);
+        void setBroadcastError(null);
       };
     },
     [
@@ -90,6 +92,12 @@ function TransactionRequestBase(): JSX.Element | null {
     ? yup.object({ fee: feeSchema(), nonce: nonceSchema })
     : null;
 
+  const initialValues: Partial<TransactionFormValues> = {
+    fee: '',
+    feeType: Estimations[Estimations.Middle],
+    nonce: '',
+  };
+
   return (
     <Flex alignItems="center" flexDirection="column" width="100%">
       <Stack px="loose" spacing="loose">
@@ -101,7 +109,7 @@ function TransactionRequestBase(): JSX.Element | null {
         {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
         {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
         <Formik
-          initialValues={{ fee: '', feeType: Estimations[Estimations.Middle] }}
+          initialValues={initialValues}
           onSubmit={onSubmit}
           validateOnChange={false}
           validateOnBlur={false}
@@ -109,12 +117,12 @@ function TransactionRequestBase(): JSX.Element | null {
           validationSchema={validationSchema}
         >
           {() => (
-            <>
+            <TxRequestFormNonceSetter>
               <FeeForm />
               <SubmitAction />
               <EditNonceDrawer />
               <HighFeeDrawer />
-            </>
+            </TxRequestFormNonceSetter>
           )}
         </Formik>
       </Stack>

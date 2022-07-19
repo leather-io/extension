@@ -32,13 +32,14 @@ describe('Buy tokens test', () => {
   describe('Fiat provider', () => {
     it('should redirect to provider URL', async () => {
       await fundPage.waitForFiatProviderItem();
-      await fundPage.clickMoonPayProviderItem();
+      const providerName = await fundPage.getFirstFastCheckoutProviderName();
+      await fundPage.clickFirstFastCheckoutProviderItem();
       await fundPage.page.waitForTimeout(2000);
       const allPages = await WalletPage.getAllPages(browser);
       const recentPage = allPages.pop();
       await recentPage?.waitForLoadState();
       const URL = recentPage?.url();
-      expect(URL).toContain('https://buy.moonpay.com');
+      expect(URL).toContain(providerName);
     });
   });
 });

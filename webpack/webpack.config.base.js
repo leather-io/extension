@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const webpack = require('webpack');
+const { execSync } = require('child_process');
 const { version: _version } = require('../package.json');
 const generateManifest = require('../scripts/generate-manifest');
 
@@ -22,6 +23,7 @@ const TEST_ENV = !!process.env.TEST_ENV;
 const ANALYZE_BUNDLE = process.env.ANALYZE === 'true';
 const IS_PUBLISHING = !!process.env.IS_PUBLISHING;
 const MAIN_BRANCH = 'refs/heads/main';
+const GITHUB_HEAD_REF = process.env.GITHUB_HEAD_REF;
 const GITHUB_REF = process.env.GITHUB_REF;
 const GITHUB_SHA = process.env.GITHUB_SHA;
 
@@ -34,6 +36,7 @@ const getVersionWithRandomSuffix = ref => {
 };
 
 const BRANCH = GITHUB_REF;
+const BRANCH_NAME = GITHUB_HEAD_REF;
 const COMMIT_SHA = GITHUB_SHA;
 const VERSION = getVersionWithRandomSuffix(BRANCH);
 
@@ -210,6 +213,7 @@ const config = {
       VERSION: JSON.stringify(VERSION),
       COMMIT_SHA: JSON.stringify(COMMIT_SHA),
       BRANCH: JSON.stringify(BRANCH),
+      BRANCH_NAME: JSON.stringify(BRANCH_NAME),
       'process.env.TEST_ENV': JSON.stringify(TEST_ENV ? 'true' : 'false'),
     }),
 

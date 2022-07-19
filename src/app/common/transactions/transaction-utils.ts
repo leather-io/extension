@@ -19,9 +19,10 @@ type Tx = MempoolTransaction | Transaction;
 export interface TransactionFormValues {
   amount: number | string;
   fee: number | string;
+  feeType: string;
   recipient: string;
   memo: string;
-  nonce: number | string;
+  nonce?: number | string;
 }
 
 export interface StxTransfer {

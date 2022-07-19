@@ -9,7 +9,7 @@ export const HIGH_FEE_AMOUNT_STX = 5;
 
 export const DEFAULT_FEE_RATE = 400;
 
-export const HUMAN_REACTION_DEBOUNCE_TIME = 250;
+export const HUMAN_REACTION_DEBOUNCE_TIME = 200;
 
 export const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 export const IS_PRODUCTION_ENV =
@@ -67,8 +67,8 @@ export enum QueryRefreshRates {
 
 export const DEFAULT_LIST_LIMIT = 50;
 
+// TODO: Relocate to env file
+export const COINBASE_APP_ID = 'ca72edbc-0a08-468c-952d-6cde50b1dce6';
+export const MOONPAY_API_KEY = 'pk_live_Bctok4Wp6KZHX0YfS4Ie7dFOYnNw8lqv';
 export const TRANSAK_API_KEY_PRODUCTION = '7300ebf7-c657-46b1-9c72-c0d91bbed0a8';
-
 export const TRANSAK_API_KEY_STAGING = '4055d318-9d41-4b74-9253-e73e3ca13602';
-
-export const MOONPAY_API_KEY_PRODUCTION = 'pk_live_Bctok4Wp6KZHX0YfS4Ie7dFOYnNw8lqv';

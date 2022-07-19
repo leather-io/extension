@@ -6,6 +6,7 @@ import { createTestSelector } from '../integration/utils';
 
 const selectors = {
   $fiatProviderItem: createTestSelector(FundPageSelectors.FiatProviderItem),
+  $fiatProviderName: createTestSelector(FundPageSelectors.FiatProviderName),
 };
 
 export class FundPage {
@@ -28,8 +29,14 @@ export class FundPage {
     await this.page.waitForSelector(this.selectors.$fiatProviderItem);
   }
 
-  async clickMoonPayProviderItem() {
+  async clickFirstFastCheckoutProviderItem() {
     const providers = await this.page.$$(this.selectors.$fiatProviderItem);
     await providers[0].click();
+  }
+
+  async getFirstFastCheckoutProviderName() {
+    const providerNames = await this.page.$$(this.selectors.$fiatProviderName);
+    const firstFastCheckoutProviderName = providerNames[0].innerText();
+    return firstFastCheckoutProviderName;
   }
 }

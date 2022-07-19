@@ -48,7 +48,7 @@ function SubmitActionSuspense(): JSX.Element {
   );
 }
 
-export function SubmitAction(): JSX.Element {
+export function SubmitAction() {
   return (
     <>
       <Suspense fallback={<BaseConfirmButton isLoading isDisabled />}>

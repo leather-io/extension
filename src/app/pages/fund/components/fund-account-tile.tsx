@@ -1,6 +1,7 @@
 import { Box, color, Stack, transition } from '@stacks/ui';
 
 import { Caption, Title } from '@app/components/typography';
+import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
 
 interface FundAccountTileProps {
   attributes?: JSX.Element;
@@ -52,7 +53,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
           >
             <img src={icon} width="24px" />
           </Box>
-          <Title>{title}</Title>
+          <Title data-testid={FundPageSelectors.FiatProviderName}>{title}</Title>
         </Stack>
         <Caption>{description}</Caption>
         <Stack isInline spacing="tight">

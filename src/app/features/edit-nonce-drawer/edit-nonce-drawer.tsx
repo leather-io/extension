@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useFormikContext } from 'formik';
 import { Stack } from '@stacks/ui';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -7,10 +8,11 @@ import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
 import { useShowEditNonceCleanupEffect } from '@app/store/ui/ui.hooks';
+import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
+import { isUndefined } from '@shared/utils';
 
 import { EditNonceForm } from './components/edit-nonce-form';
-import { useFormikContext } from 'formik';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 
 const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
 
@@ -25,12 +27,12 @@ const CustomFeeMessaging = () => {
   );
 };
 
-export function EditNonceDrawer(): JSX.Element {
+export function EditNonceDrawer() {
   const { errors, setFieldError, setFieldValue, validateField, values } =
     useFormikContext<TransactionFormValues>();
   const [customNonce, setCustomNonce] = useState<number | string>();
+  const { nonce } = useNextNonce();
   const { showEditNonce, setShowEditNonce } = useDrawers();
-
   useShowEditNonceCleanupEffect();
 
   useEffect(() => {
@@ -38,21 +40,27 @@ export function EditNonceDrawer(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showEditNonce]);
 
+  useEffect(() => {
+    if (isUndefined(values.nonce)) setFieldValue('nonce', nonce);
+  }, [nonce, setFieldValue, values.nonce]);
+
   const onBlur = useCallback(() => {
     validateField('nonce');
   }, [validateField]);
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async () => {
+    validateField('nonce');
     if (!errors.nonce) {
       setShowEditNonce(false);
     }
-  }, [errors.nonce, setShowEditNonce]);
+  }, [errors.nonce, setShowEditNonce, validateField]);
 
   const onClose = useCallback(() => {
+    if (!values.nonce) setFieldValue('nonce', undefined);
     setFieldError('nonce', '');
     setFieldValue('nonce', customNonce);
     setShowEditNonce(false);
-  }, [customNonce, setFieldError, setFieldValue, setShowEditNonce]);
+  }, [customNonce, setFieldError, setFieldValue, setShowEditNonce, values.nonce]);
 
   return (
     <ControlledDrawer title="Edit nonce" isShowing={!!showEditNonce} onClose={onClose}>

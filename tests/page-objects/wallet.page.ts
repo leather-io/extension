@@ -29,7 +29,6 @@ export class WalletPage {
   setPasswordDone = createTestSelector(OnboardingSelectors.SetPasswordBtn);
   $passwordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
   $newPasswordInput = createTestSelector(OnboardingSelectors.NewPasswordInput);
-  $confirmPasswordInput = createTestSelector(OnboardingSelectors.ConfirmPasswordInput);
   $sendTokenBtn = createTestSelector(HomePageSelectors.BtnSendTokens);
   $fundAccountBtn = createTestSelector(HomePageSelectors.BtnFundAccount);
   $confirmBackedUpSecretKey = createTestSelector(OnboardingSelectors.BackUpSecretKeyBtn);
@@ -121,10 +120,6 @@ export class WalletPage {
     await this.page.waitForSelector(this.$newPasswordInput, { timeout: 30000 });
   }
 
-  async waitForConfirmPasswordInput() {
-    await this.page.waitForSelector(this.$confirmPasswordInput, { timeout: 30000 });
-  }
-
   async waitForEnterPasswordInput() {
     await this.page.waitForSelector(this.$enterPasswordInput, { timeout: 30000 });
   }
@@ -152,7 +147,6 @@ export class WalletPage {
   async loginWithPreviousSecretKey(secretKey: string) {
     await this.enterSecretKey(secretKey);
     await this.enterNewPassword();
-    await this.enterConfirmPasswordAndClickDone();
   }
 
   async enterSecretKey(secretKey: string) {
@@ -162,7 +156,6 @@ export class WalletPage {
   }
 
   async getSecretKey() {
-    await this.goToSecretKey();
     await this.page.waitForSelector(this.$secretKey);
     const secretKeyWords = await this.page.locator(this.$secretKey).allInnerTexts();
     return secretKeyWords.join(' ');
@@ -171,7 +164,6 @@ export class WalletPage {
   async backUpKeyAndSetPassword() {
     await this.page.click(this.$confirmBackedUpSecretKey);
     await this.enterNewPassword();
-    await this.enterConfirmPasswordAndClickDone();
     await wait(1000);
   }
 
@@ -187,13 +179,6 @@ export class WalletPage {
   async enterNewPassword(password?: string) {
     await this.page.fill(
       `input[data-testid=${OnboardingSelectors.NewPasswordInput}]`,
-      password ?? this.$password
-    );
-  }
-
-  async enterConfirmPasswordAndClickDone(password?: string) {
-    await this.page.fill(
-      `input[data-testid=${OnboardingSelectors.ConfirmPasswordInput}]`,
       password ?? this.$password
     );
     await this.page.click(this.setPasswordDone);
@@ -243,7 +228,6 @@ export class WalletPage {
     let startTime = new Date();
     await this.enterSecretKey(secretKey);
     await this.waitForNewPasswordInput();
-    await this.waitForConfirmPasswordInput();
     console.log(
       `Page load time for 12 or 24 word Secret Key: ${timeDifference(
         startTime,
@@ -253,15 +237,9 @@ export class WalletPage {
     const password = randomString(15);
     startTime = new Date();
     await this.enterNewPassword(password);
-    await this.enterConfirmPasswordAndClickDone(password);
     await this.waitForHomePage();
     console.log(
       `Page load time for sign in with password: ${timeDifference(startTime, new Date())} seconds`
-    );
-    startTime = new Date();
-    await this.waitForHomePage();
-    console.log(
-      `Page load time for mainnet account: ${timeDifference(startTime, new Date())} seconds`
     );
   }
 }

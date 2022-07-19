@@ -3,7 +3,7 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import {
   addressNetworkVersionState,
   transactionNetworkVersionState,
-} from '@app/store/transactions';
+} from '@app/store/transactions/transaction';
 import {
   accountsWithAddressState,
   currentAccountAvailableAnchoredStxBalanceState,

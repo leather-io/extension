@@ -9,6 +9,7 @@ jest.retryTimes(process.env.CI ? 2 : 0);
 
 describe(`Settings integration tests`, () => {
   const numOfAccountsToTest = 3;
+  let secretKey = '';
   let browser: BrowserDriver;
   let wallet: WalletPage;
 
@@ -68,9 +69,10 @@ describe(`Settings integration tests`, () => {
   });
 
   it('should be able to view and save secret key to clipboard', async () => {
-    await wallet.waitForSettingsButton();
-    await wallet.clickSettingsButton();
-    await wallet.page.click(createTestSelector(SettingsSelectors.ViewSecretKeyListItem));
+    await wallet.goToSecretKey();
+    await wallet.waitForEnterPasswordInput();
+    await wallet.enterPasswordAndUnlockWallet();
+    secretKey = await wallet.getSecretKey();
     await wallet.page.click(createTestSelector(SettingsSelectors.CopyKeyToClipboardBtn));
     const copySuccessMessage = await wallet.page.textContent(
       createTestSelector(SettingsSelectors.CopyKeyToClipboardBtn)
@@ -79,7 +81,6 @@ describe(`Settings integration tests`, () => {
   });
 
   it('should be able to sign out, lock and unlock the extension', async () => {
-    const secretKey = await wallet.getSecretKey();
     await wallet.waitForSettingsButton();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.SignOutListItem));
@@ -89,7 +90,6 @@ describe(`Settings integration tests`, () => {
     await wallet.enterSecretKey(secretKey);
     const password = randomString(15);
     await wallet.enterNewPassword(password);
-    await wallet.enterConfirmPasswordAndClickDone(password);
     await wallet.clickSkipFundAccountButton();
     await wallet.waitForSettingsButton();
     await wallet.clickSettingsButton();
