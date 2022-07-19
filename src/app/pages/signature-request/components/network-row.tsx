@@ -1,20 +1,18 @@
+import { ChainID } from '@stacks/transactions';
+import { Box } from '@stacks/ui';
+
 import { whenChainId } from '@app/common/transactions/transaction-utils';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
 
-import { ChainID } from '@stacks/transactions';
-import { Box } from '@stacks/ui';
-
 interface NetworkRowProps {
   chainId: ChainID;
 }
-export function NetworkRow(props: NetworkRowProps): JSX.Element | null {
-  const { chainId } = props;
-
+export function NetworkRow({ chainId }: NetworkRowProps) {
   return (
     <Box spacing="base">
       <SpaceBetween position="relative">
-        <Box alignItems="center" isInline>
+        <Box alignItems="center">
           <Caption>No fees will be incured</Caption>
         </Box>
         <Caption>
