@@ -1,11 +1,7 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import {
-  broadcastTransaction,
-  StacksTransaction,
-  TxBroadcastResultRejected,
-} from '@stacks/transactions';
+import { broadcastTransaction, StacksTransaction } from '@stacks/transactions';
 
 import { todaysIsoDate } from '@app/common/date-utils';
 import { useLoading } from '@app/common/hooks/use-loading';
@@ -17,23 +13,7 @@ import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks'
 import { useCurrentAccountTxIds } from '@app/query/transactions/transaction.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useSetLocalTxsCallback } from '@app/store/accounts/account-activity.hooks';
-
-function getErrorMessage(
-  reason: TxBroadcastResultRejected['reason'] | 'ConflictingNonceInMempool'
-) {
-  switch (reason) {
-    case 'ConflictingNonceInMempool':
-      return 'Nonce conflict, try again soon.';
-    case 'BadNonce':
-      return 'Incorrect nonce.';
-    case 'NotEnoughFunds':
-      return 'Not enough funds.';
-    case 'FeeTooLow':
-      return 'Fee is too low.';
-    default:
-      return 'Something went wrong';
-  }
-}
+import { getErrorMessage } from '@app/common/get-error-message';
 
 const timeForApiToUpdate = 250;
 
