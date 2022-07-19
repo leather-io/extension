@@ -219,7 +219,10 @@
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,6 +271,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -387,6 +391,8 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useHandleSubmitTransaction } from '@app/common/hooks/use-submit-stx-transaction';
+import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { Header } from '@app/components/header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -394,7 +400,6 @@ import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-draw
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
-import { useCurrentAccountNonce } from '@app/store/accounts/nonce.hooks';
 import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import {
   useGenerateSendFormUnsignedTx,
@@ -403,10 +408,10 @@ import {
 import { logger } from '@shared/logger';
 import { Estimations } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
+import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 &nbsp;
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
-import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >SendTokensFormBase(</span>) {
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -420,10 +425,11 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
   const [_, setFeeEstimations] = <span class="cstat-no" title="statement not covered" >useFeeEstimationsState();</span>
   const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateSendFormUnsignedTx();</span>
   const signSoftwareWalletTx = <span class="cstat-no" title="statement not covered" >useSignTransactionSoftwareWallet();</span>
-  const nonce = <span class="cstat-no" title="statement not covered" >useCurrentAccountNonce();</span>
+  const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const ledgerNavigate = <span class="cstat-no" title="statement not covered" >useLedgerNavigate();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;Header title="Send" onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home)}</span> /&gt;);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -467,7 +473,7 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (assets.length &lt; 1) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
-  const initialValues = <span class="cstat-no" title="statement not covered" >{</span>
+  const initialValues: TransactionFormValues = <span class="cstat-no" title="statement not covered" >{</span>
     amount: '',
     fee: '',
     feeType: Estimations[Estimations.Middle],
@@ -499,7 +505,7 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
       {<span class="fstat-no" title="function not covered" >pr</span>ops =&gt; (
 <span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
           &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
-            &lt;SendFormInner assetError={assetError} /&gt;
+            &lt;SendFormInner assetError={assetError} nonce={nonce} /&gt;
           &lt;/Suspense&gt;
           {whenWallet({
             ledger: &lt;Outlet /&gt;,
@@ -538,7 +544,7 @@ export const SendTokensForm = <span class="cstat-no" title="statement not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Jul 16 2022 14:31:08 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 19 2022 17:17:45 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

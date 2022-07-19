@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/query/nonce/use-get-account-nonce.ts</title>
+    <title>Code coverage report for app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/query/nonce</a> use-get-account-nonce.ts</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">app/features/ledger/flows/jwt-signing</a> ledger-sign-jwt.routes.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -91,13 +91,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -105,27 +101,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery, UseQueryOptions } from 'react-query';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Route } from 'react-router-dom';
 &nbsp;
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
-import { useApi } from '@app/store/common/api-clients.hooks';
+import { RouteUrls } from '@shared/route-urls';
+import { LedgerSignJwtContainer } from './ledger-sign-jwt-container';
+import { ConnectLedgerSignJwt } from './steps/connect-ledger-sign-jwt';
+import { ConnectLedgerSignJwtError } from './steps/connect-ledger-sign-jwt-error';
+import { ConnectLedgerSignJwtSuccess } from './steps/connect-ledger-sign-jwt-success';
+import { LedgerJwtSigningRejected } from './steps/transaction-rejected';
+import { SignJwtHash } from './steps/sign-jwt-hash';
+import { LedgerDisconnected } from '../tx-signing/steps/ledger-disconnected';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGetAccountNonce(</span>reactQueryOptions: UseQueryOptions = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
-  const principal = <span class="cstat-no" title="statement not covered" >useCurrentAccountStxAddressState();</span>
-  const network = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
-  const { accountsApi } = <span class="cstat-no" title="statement not covered" >useApi();</span>
-&nbsp;
-  const fetchNonce = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!principal) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >    return accountsApi.getAccountNonces({ principal });</span>
-  };
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return useQuery(['accountNonce', principal, network], fetchNonce, {</span>
-    enabled: !!principal,
-    ...(reactQueryOptions as any),
-  });
-}
+export const ledgerJwtSigningRoutes = (
+<span class="cstat-no" title="statement not covered" >  &lt;Route element={&lt;LedgerSignJwtContainer /&gt;}&gt;</span>
+    &lt;Route path={RouteUrls.ConnectLedger} element={&lt;ConnectLedgerSignJwt /&gt;} /&gt;
+    &lt;Route path={RouteUrls.ConnectLedgerError} element={&lt;ConnectLedgerSignJwtError /&gt;} /&gt;
+    &lt;Route path={RouteUrls.ConnectLedgerSuccess} element={&lt;ConnectLedgerSignJwtSuccess /&gt;} /&gt;
+    &lt;Route path={RouteUrls.LedgerOperationRejected} element={&lt;LedgerJwtSigningRejected /&gt;} /&gt;
+    &lt;Route path={RouteUrls.AwaitingDeviceUserAction} element={&lt;SignJwtHash /&gt;} /&gt;
+    &lt;Route path={RouteUrls.LedgerDisconnected} element={&lt;LedgerDisconnected /&gt;} /&gt;
+  &lt;/Route&gt;
+);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -133,16 +133,16 @@ export function <span class="fstat-no" title="function not covered" >useGetAccou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Jul 16 2022 14:31:08 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 19 2022 17:17:45 GMT+0000 (Coordinated Universal Time)
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/store/accounts/nonce.hooks.ts</title>
+    <title>Code coverage report for app/query/nonce/account-nonces.hooks.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/store/accounts</a> nonce.hooks.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/query/nonce</a> account-nonces.hooks.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -75,11 +75,23 @@
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
 <a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -87,17 +99,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtom } from 'jotai';
-import { useAtomValue } from 'jotai/utils';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useGetAccountNonces } from '@app/query/nonce/account-nonces.query';
+import { useCurrentAccountFilteredMempoolTransactionsState } from '@app/query/mempool/mempool.hooks';
+import { useAccountConfirmedTransactions } from '@app/store/accounts/account.hooks';
 &nbsp;
-import { currentAccountNonceState, lastApiNonceState } from '@app/store/accounts/nonce';
+import { getNextNonce, NonceTypes } from './account-nonces.utils';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useCurrentAccountNonce(</span>) {
-<span class="cstat-no" title="statement not covered" >  return useAtomValue(currentAccountNonceState);</span>
-}
+export function <span class="fstat-no" title="function not covered" >useNextNonce(</span>) {
+  const confirmedTransactions = <span class="cstat-no" title="statement not covered" >useAccountConfirmedTransactions();</span>
+  const pendingTransactions = <span class="cstat-no" title="statement not covered" >useCurrentAccountFilteredMempoolTransactionsState();</span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useLastApiNonceState(</span>) {
-<span class="cstat-no" title="statement not covered" >  return useAtom(lastApiNonceState);</span>
+  const { data: addressNonces } = <span class="cstat-no" title="statement not covered" >useGetAccountNonces();</span>
+&nbsp;
+  const nextNonce = <span class="cstat-no" title="statement not covered" >addressNonces</span>
+    ? getNextNonce(addressNonces, confirmedTransactions, pendingTransactions)
+    : { nonce: undefined, nonceType: NonceTypes.undefinedNonce };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return nextNonce;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -106,7 +124,7 @@ export function <span class="fstat-no" title="function not covered" >useLastApiN
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Jul 16 2022 14:31:08 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 19 2022 17:17:45 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
