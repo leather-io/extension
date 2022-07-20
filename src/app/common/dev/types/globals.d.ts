@@ -6,3 +6,7 @@ declare const COMMIT_SHA: string;
 declare const VERSION: string;
 declare const BRANCH: string;
 declare const BRANCH_NAME: string;
+// TESTING ENV VARIABLES
+declare const GITHUB_REF: string;
+declare const GITHUB_HEAD_REF: string;
+declare const GITHUB_REF_NAME: string;

@@ -35,6 +35,11 @@ interface HiroConfig {
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
+// TESTING ENV VARIABLES
+console.log('GITHUB_REF', GITHUB_REF);
+console.log('GITHUB_HEAD_REF', GITHUB_HEAD_REF);
+console.log('GITHUB_REF_NAME', GITHUB_REF_NAME);
+
 const DEFAULT_BRANCH = 'main';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
   BRANCH_NAME || DEFAULT_BRANCH

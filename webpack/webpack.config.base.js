@@ -24,6 +24,7 @@ const ANALYZE_BUNDLE = process.env.ANALYZE === 'true';
 const IS_PUBLISHING = !!process.env.IS_PUBLISHING;
 const MAIN_BRANCH = 'refs/heads/main';
 const GITHUB_HEAD_REF = process.env.GITHUB_HEAD_REF;
+const GITHUB_REF_NAME = process.env.GITHUB_REF_NAME;
 const GITHUB_REF = process.env.GITHUB_REF;
 const GITHUB_SHA = process.env.GITHUB_SHA;
 
@@ -215,6 +216,10 @@ const config = {
       BRANCH: JSON.stringify(BRANCH),
       BRANCH_NAME: JSON.stringify(BRANCH_NAME),
       'process.env.TEST_ENV': JSON.stringify(TEST_ENV ? 'true' : 'false'),
+      // TESTING ENV VARIABLES
+      GITHUB_REF: JSON.stringify(GITHUB_REF),
+      GITHUB_HEAD_REF: JSON.stringify(GITHUB_HEAD_REF),
+      GITHUB_REF_NAME: JSON.stringify(GITHUB_REF_NAME),
     }),
 
     new webpack.EnvironmentPlugin({
