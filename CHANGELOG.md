@@ -1,3 +1,24 @@
+# [3.13.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.1...v3.13.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* better error handling for broadcasting from apps ([759f1d5](https://github.com/hirosystems/stacks-wallet-web/commit/759f1d5f2fc03c5db8d14de9ca7b295bec84ced2))
+* change confirmation logic while setting password ([7d052fb](https://github.com/hirosystems/stacks-wallet-web/commit/7d052fbeb7c6bc64ff045f23ccfe5a0f07ae529e))
+* **ledger:** close transport on activity completion ([1133821](https://github.com/hirosystems/stacks-wallet-web/commit/1133821f07f0df4af285294bc8432c35a72b73a6))
+* **ledger:** improve onboarding ux, close transport ([bdf57d1](https://github.com/hirosystems/stacks-wallet-web/commit/bdf57d1e2ff9ae68198af2d0bb72c6cb43d6ff60))
+* **ledger:** non-zero index account signing, closes [#2572](https://github.com/hirosystems/stacks-wallet-web/issues/2572) ([f19142e](https://github.com/hirosystems/stacks-wallet-web/commit/f19142e466903f865f4aed3dd5314fa5b3a6c655))
+* **ledger:** try again jwt signing wasn't working, closes [#2561](https://github.com/hirosystems/stacks-wallet-web/issues/2561) ([ab53a8b](https://github.com/hirosystems/stacks-wallet-web/commit/ab53a8b6f9aba644504eca597d709345b453ebcd))
+* next tx nonce ([275c8f6](https://github.com/hirosystems/stacks-wallet-web/commit/275c8f6960c36ddbca0f18272f3c933db3b2ca61))
+* password strength indicator ux ([b4c4c34](https://github.com/hirosystems/stacks-wallet-web/commit/b4c4c34e29cb7b93c0641730d018dc5d5d1b7d4f))
+* remove instance of redirect_uri ([74328d2](https://github.com/hirosystems/stacks-wallet-web/commit/74328d28284ba010839bad2c490c492bc566ede6))
+* unused import error ([9abca5f](https://github.com/hirosystems/stacks-wallet-web/commit/9abca5f19aba1faf97bb2b0017e97d2e19fb5af7))
+
+
+### Features
+
+* add coinbase pay support ([7fdf363](https://github.com/hirosystems/stacks-wallet-web/commit/7fdf36337c71ad2b4a5894a27aea93195039d0fb))
+
 ## [3.12.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.12.0...v3.12.1) (2022-07-16)
 
 
