@@ -37,7 +37,7 @@ interface HiroConfig {
 
 const DEFAULT_BRANCH = 'main';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
-  BRANCH_NAME ?? DEFAULT_BRANCH
+  BRANCH_NAME || DEFAULT_BRANCH
 }/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
