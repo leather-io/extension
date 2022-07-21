@@ -18,7 +18,7 @@ export enum RouteUrls {
   LedgerDisconnected = 'your-ledger-disconnected',
   LedgerOperationRejected = 'action-rejected',
   LedgerPublicKeyMismatch = 'wrong-ledger-device',
-  LedgerDeviceTxInvalid = 'ledger-rejected-tx',
+  LedgerDevicePayloadInvalid = 'ledger-payload-invalid',
   LedgerUnsupportedBrowser = 'unsupported-browser',
 
   // Active wallet routes

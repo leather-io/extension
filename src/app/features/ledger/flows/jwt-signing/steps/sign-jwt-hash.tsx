@@ -1,11 +1,11 @@
 import { useContext } from 'react';
+import { Box, color, Flex } from '@stacks/ui';
 
 import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
-import { Box, color, Flex } from '@stacks/ui';
 import { LedgerScreenDetail } from '@app/features/ledger/components/ledger-screen-detail';
-import { ledgerJwtSigningContext } from '@app/features/ledger/ledger-jwt-signing.context';
+import { ledgerJwtSigningContext } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.context';
 import { DeviceOperationApprovalStatus } from '@app/features/ledger/components/device-approval-status';
 import SignLedgerTransaction from '@assets/images/ledger/sign-ledger-transaction.png';
 
@@ -34,7 +34,6 @@ export function SignJwtHash() {
         width="100%"
       >
         <LedgerScreenDetail
-          isFullPage={false}
           title="JWT Hash"
           tooltipLabel="This is a Sha256 hash of the JSON Web Token payload returned to the connecting app, which proves to the app you own the corresponding private key"
         >

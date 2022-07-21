@@ -55,7 +55,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
           await replaceByFee(values);
         },
         ledger: () => {
-          ledgerNavigate.toConnectAndSignStep(rawTx, true);
+          ledgerNavigate.toConnectAndSignTransactionStep(rawTx, true);
         },
       })();
     },

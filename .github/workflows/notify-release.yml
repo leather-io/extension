@@ -4,7 +4,7 @@ name: Notify on Release
 on:
   schedule:
     # Run every hour
-    - cron:  '0 * * * *'
+    - cron: '0 * * * *'
 
 jobs:
   firefox-notify:
@@ -54,7 +54,7 @@ jobs:
               "url": "https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/"
             }]
         with:
-          args: ":rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Hiro Wallet is available on the Firefox Web Store!"
+          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Hiro Wallet is available on the Firefox Web Store!'
 
       - name: Firefox Discord notification - userx-notifs
         if: steps.firefox.outputs.is_new
@@ -69,7 +69,7 @@ jobs:
               "url": "https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/"
             }]
         with:
-          args: ":rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Hiro Wallet is available on the Firefox Web Store!"
+          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Hiro Wallet is available on the Firefox Web Store!'
 
   chrome-notify:
     runs-on: ubuntu-latest
@@ -131,7 +131,7 @@ jobs:
               "url": "https://chrome.google.com/webstore/detail/hiro-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj"
             }]
         with:
-          args: ":rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Hiro Wallet is available on the Chrome Web Store!"
+          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Hiro Wallet is available on the Chrome Web Store!'
 
       - name: Chrome Discord notification - userx-notifs
         if: steps.chrome.outputs.is_new
@@ -146,4 +146,4 @@ jobs:
               "url": "https://chrome.google.com/webstore/detail/hiro-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj"
             }]
         with:
-          args: ":rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Hiro Wallet is available on the Chrome Web Store!"
+          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Hiro Wallet is available on the Chrome Web Store!'

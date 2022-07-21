@@ -16,6 +16,12 @@ export function useLedgerAnalytics() {
       transactionSignedOnLedgerRejected() {
         void analytics.track('ledger_transaction_signed_rejected');
       },
+      utf8MessageSignedOnLedgerSuccessfully() {
+        void analytics.track('ledger_message_signed_approved');
+      },
+      utf8MessageSignedOnLedgerRejected() {
+        void analytics.track('ledger_message_signed_rejected');
+      },
       publicKeysPulledFromLedgerSuccessfully() {
         void analytics.track('ledger_public_keys_pulled_from_device');
       },

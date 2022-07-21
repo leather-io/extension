@@ -3,9 +3,10 @@ import { color, Stack, Text } from '@stacks/ui';
 import { useEffect, useState } from 'react';
 import { HashDrawer } from './hash-drawer';
 
-export function MessageBox(props: { message: string }): JSX.Element | null {
-  const { message } = props;
-
+interface MessageBoxProps {
+  message: string;
+}
+export function MessageBox({ message }: MessageBoxProps) {
   const [hash, setHash] = useState<string | undefined>();
   const [displayMessage, setDisplayMessage] = useState<string[] | undefined>();
 
@@ -41,7 +42,7 @@ export function MessageBox(props: { message: string }): JSX.Element | null {
           wordBreak="break-all"
         >
           {displayMessage?.map(line => (
-            <Text>{line}</Text>
+            <Text key={line}>{line}</Text>
           ))}
         </Stack>
         {hash ? <HashDrawer hash={hash} /> : null}
