@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-blockstack';
+import { LedgerError } from '@zondax/ledger-stacks';
 import toast from 'react-hot-toast';
 
 import {
@@ -8,45 +8,48 @@ import {
   getAppVersion,
   isStacksLedgerAppClosed,
   prepareLedgerDeviceConnection,
-  pullKeysFromLedgerDevice,
+  useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
 import { delay } from '@app/common/utils';
 import { RouteUrls } from '@shared/route-urls';
-import { LedgerRequestKeysProvider } from '@app/features/ledger/ledger-request-keys.context';
+import {
+  LedgerRequestKeysContext,
+  LedgerRequestKeysProvider,
+} from '@app/features/ledger/flows/request-keys/ledger-request-keys.context';
 import { logger } from '@shared/logger';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useTriggerLedgerDeviceRequestKeys } from './use-trigger-ledger-request-keys';
 import { useLedgerAnalytics } from '@app/features/ledger/hooks/use-ledger-analytics.hook';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { pullKeysFromLedgerDevice } from './request-keys.utils';
 
 export function LedgerRequestKeysContainer() {
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
+
+  const canUserCancelAction = useActionCancellableByUser();
+
   useScrollLock(true);
 
   const { completeLedgerDeviceOnboarding, fireErrorMessageToast } =
     useTriggerLedgerDeviceRequestKeys();
 
-  const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
-
   const [outdatedAppVersionWarning, setAppVersionOutdatedWarning] = useState(false);
+  const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
-  const [awaitingKeyVerification, setAwaitingKeyVerification] = useState(false);
 
   const pullPublicKeysFromDevice = async () => {
-    const stacks = await prepareLedgerDeviceConnection({
+    const stacksApp = await prepareLedgerDeviceConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
         ledgerNavigate.toErrorStep();
       },
     });
 
-    if (!stacks) return;
-
-    const versionInfo = await getAppVersion(stacks);
+    const versionInfo = await getAppVersion(stacksApp);
     ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
     setLatestDeviceResponse(versionInfo);
 
@@ -66,46 +69,46 @@ export function LedgerRequestKeysContainer() {
     }
 
     try {
-      setAwaitingKeyVerification(true);
       ledgerNavigate.toConnectionSuccessStep();
-      await delay(1750);
-      ledgerNavigate.toActivityHappeningOnDeviceStep();
+      await delay(1250);
 
-      const resp = await pullKeysFromLedgerDevice(stacks);
+      const resp = await pullKeysFromLedgerDevice(stacksApp)({
+        onRequestKey(index) {
+          ledgerNavigate.toDeviceBusyStep(`Requesting STX addresses (${index + 1}…5)`);
+        },
+      });
       if (resp.status === 'failure') {
-        setAwaitingKeyVerification(false);
         fireErrorMessageToast(resp.errorMessage);
         ledgerNavigate.toErrorStep(resp.errorMessage);
         return;
       }
-      ledgerNavigate.toActivityHappeningOnDeviceStep();
-      completeLedgerDeviceOnboarding(resp.publicKeys, versionInfo.targetId);
+      ledgerNavigate.toDeviceBusyStep();
+      completeLedgerDeviceOnboarding(resp.publicKeys, latestDeviceResponse!?.targetId);
       ledgerAnalytics.publicKeysPulledFromLedgerSuccessfully();
-      setAwaitingKeyVerification(false);
+
       navigate(RouteUrls.Home);
-      await stacks.transport.close();
+      await stacksApp.transport.close();
     } catch (e) {
       logger.info(e);
-      setAwaitingKeyVerification(false);
+
       ledgerNavigate.toErrorStep();
     }
   };
 
   const onCancelConnectLedger = () => navigate(RouteUrls.Onboarding);
 
-  const ledgerContextValue = {
+  const ledgerContextValue: LedgerRequestKeysContext = {
     pullPublicKeysFromDevice,
     latestDeviceResponse,
     awaitingDeviceConnection,
     outdatedAppVersionWarning,
-    onCancelConnectLedger,
   };
 
   return (
     <LedgerRequestKeysProvider value={ledgerContextValue}>
       <BaseDrawer
         isShowing
-        isWaitingOnPerformedAction={awaitingDeviceConnection || awaitingKeyVerification}
+        isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
         onClose={onCancelConnectLedger}
         pauseOnClickOutside
         waitingOnPerformedActionMessage="Ledger device in use"

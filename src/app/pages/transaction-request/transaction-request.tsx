@@ -71,7 +71,7 @@ function TransactionRequestBase() {
       if (walletType === 'ledger') {
         const tx = await generateUnsignedTx(values);
         if (!tx) return;
-        ledgerNavigate.toConnectAndSignStep(tx);
+        ledgerNavigate.toConnectAndSignTransactionStep(tx);
         return;
       }
       setIsLoading();

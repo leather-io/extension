@@ -74,9 +74,9 @@ const aliases = {
   '@stacks/storage': '@stacks/storage/dist/esm',
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
+
   'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
 };
-
 const config = {
   entry: {
     background: path.join(SRC_ROOT_PATH, 'background', 'background.ts'),

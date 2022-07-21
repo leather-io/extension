@@ -12,6 +12,7 @@ const options: Options = {
   },
 };
 
+// Required for interop with `React.lazy`
 // ts-unused-exports:disable-next-line
 export default function PluggingInLedgerCableAnimation(props: BoxProps) {
   return (

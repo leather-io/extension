@@ -118,7 +118,7 @@ function SendTokensFormBase() {
             software: () => setShowing(true),
             ledger: () => {
               if (!tx) return logger.error('Attempted to sign tx, but no tx exists');
-              ledgerNavigate.toConnectAndSignStep(tx);
+              ledgerNavigate.toConnectAndSignTransactionStep(tx);
             },
           })();
         }

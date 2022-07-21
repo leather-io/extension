@@ -36,6 +36,7 @@ import { ledgerRequestKeysRoutes } from '@app/features/ledger/flows/request-keys
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
+import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
 
 export function AppRoutes() {
   const { pathname } = useLocation();
@@ -165,7 +166,9 @@ export function AppRoutes() {
               </Suspense>
             </AccountGate>
           }
-        />
+        >
+          {ledgerMessageSigningRoutes}
+        </Route>
         <Route
           path={RouteUrls.ViewSecretKey}
           element={

@@ -1,6 +1,6 @@
 import { memo } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { isUndefined } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import {
@@ -33,28 +33,27 @@ function SignatureRequestBase() {
   useSetAtomSignatureRequestToken(requestToken);
 
   if (!isSignatureMessageType(messageType)) return null;
-  if (isUndefined(validSignatureRequest)) return null;
+
   if (!requestToken || !messageType) return null;
 
-  if (!validSignatureRequest)
-    return (
-      <SignatureRequestLayout>
-        <ErrorMessage errorMessage="Invalid signature request" />
-      </SignatureRequestLayout>
-    );
-
   return (
-    <SignatureRequestLayout>
-      {isStructuredMessage(messageType) && (
-        <SignatureRequestStructuredDataContent
-          requestToken={requestToken}
-          messageType={messageType}
-        />
-      )}
-      {isUtf8Message(messageType) && (
-        <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
-      )}
-    </SignatureRequestLayout>
+    <>
+      <SignatureRequestLayout>
+        {!validSignatureRequest && (
+          <ErrorMessage errorMessage="Unverified signature request from origin Xxx. What does this mean?" />
+        )}
+        {isUtf8Message(messageType) && (
+          <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
+        )}
+        {isStructuredMessage(messageType) && (
+          <SignatureRequestStructuredDataContent
+            requestToken={requestToken}
+            messageType={messageType}
+          />
+        )}
+      </SignatureRequestLayout>
+      <Outlet />
+    </>
   );
 }
 

@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 
 import { ContainerLayout } from './container.layout';
+import { useSetInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 
 function useCacheInitialRouteSearchParams() {
   const [searchParams] = useSearchParams();
-  const [_, setParams] = useInitialRouteSearchParams();
+  const setParams = useSetInitialRouteSearchParams();
 
   useEffect(() => {
     setParams(searchParams);

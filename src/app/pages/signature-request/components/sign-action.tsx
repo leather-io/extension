@@ -1,60 +1,69 @@
-import { useCallback, useState } from 'react';
-import { ClarityValue, createStacksPrivateKey } from '@stacks/transactions';
+import { useState } from 'react';
+
 import { Button, Stack } from '@stacks/ui';
-import { TupleCV } from '@stacks/transactions/dist/esm/clarity';
+import {} from '@stacks/encryption';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { delay } from '@app/common/utils';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
-import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
+import { createDelay } from '@app/common/utils';
+
+import {
+  useOnCancelSignMessage,
+  useSignatureRequestSearchParams,
+} from '@app/store/signatures/requests.hooks';
+
 import { logger } from '@shared/logger';
 import { SignatureMessage } from '@shared/signature/types';
 import { isString } from '@shared/utils';
+import { useWalletType } from '@app/common/use-wallet-type';
 
-function useSignMessageSoftwareWallet() {
-  const account = useCurrentAccount();
-  return useCallback(
-    ({ message, domain }: { message: string | ClarityValue; domain?: TupleCV }) => {
-      if (!account || account.type === 'ledger') return null;
-      const privateKey = createStacksPrivateKey(account.stxPrivateKey);
-      if (isString(message)) {
-        // Return signature in VRS format (to be fixed)
-        return signMessage(message, privateKey);
-      } else {
-        if (!domain) throw new Error('Domain is required for structured messages');
-        // returns signature in RSV format
-        return signStructuredDataMessage(message, domain, privateKey);
-      }
-    },
-    [account]
-  );
-}
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { useSignMessageSoftwareWallet } from '../sign-message.hooks';
 
-export function SignAction(props: SignatureMessage): JSX.Element | null {
+const improveUxWithShortDelayAsSigningIsSoFast = createDelay(1000);
+
+export function SignAction(props: SignatureMessage) {
   const { message, domain } = props;
+
+  const analytics = useAnalytics();
+  const ledgerNavigate = useLedgerNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const cancelMessageSign = useOnCancelSignMessage();
   const signSoftwareWalletMessage = useSignMessageSoftwareWallet();
   const { tabId, requestToken } = useSignatureRequestSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const analytics = useAnalytics();
+  const { whenWallet } = useWalletType();
 
   if (!requestToken || !tabId) return null;
+  const tabIdInt = parseInt(tabId);
 
-  const sign = async () => {
-    setIsLoading(true);
-    void analytics.track('request_signature_sign');
-    const messageSignature = signSoftwareWalletMessage({ message, domain });
-    if (!messageSignature) {
-      logger.error('Cannot sign message, no account in state');
-      void analytics.track('request_signature_cannot_sign_message_no_account');
-      return;
-    }
-    // Since the signature is really fast, we add a delay to improve the UX
-    await delay(1000);
-    setIsLoading(false);
-    finalizeMessageSignature({ requestPayload: requestToken, tabId, data: messageSignature });
-  };
+  const sign = whenWallet({
+    async software() {
+      setIsLoading(true);
+      void analytics.track('request_signature_sign');
+
+      const messageSignature = signSoftwareWalletMessage({ message, domain });
+
+      if (!messageSignature) {
+        logger.error('Cannot sign message, no account in state');
+        void analytics.track('request_signature_cannot_sign_message_no_account');
+        return;
+      }
+
+      await improveUxWithShortDelayAsSigningIsSoFast();
+      setIsLoading(false);
+      finalizeMessageSignature({ requestPayload: requestToken, tabId, data: messageSignature });
+    },
+    async ledger() {
+      if (!isString(message)) {
+        logger.warn(`Ledger does not support structured data message signing`);
+        return;
+      }
+      void analytics.track('request_signature_sign');
+      ledgerNavigate.toConnectAndSignMessageStep(message);
+    },
+  });
 
   const cancel = () => {
     void analytics.track('request_signature_cancel');
@@ -66,8 +75,8 @@ export function SignAction(props: SignatureMessage): JSX.Element | null {
       <Button onClick={cancel} flexGrow={1} borderRadius="10px" mode="tertiary">
         Cancel
       </Button>
-      <Button type="submit" flexGrow={1} borderRadius="10px" onClick={sign} isLoading={isLoading}>
-        Sign
+      <Button type="button" flexGrow={1} borderRadius="10px" onClick={sign} isLoading={isLoading}>
+        {whenWallet({ software: 'Sign', ledger: 'Sign on Ledger' })}
       </Button>
     </Stack>
   );

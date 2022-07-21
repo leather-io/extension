@@ -1,6 +1,9 @@
 import { ClarityType, ClarityValue, cvToString } from '@stacks/transactions';
 import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/principalCV';
 
+function wrapText(text: string): JSX.Element {
+  return <>{text}</>;
+}
 interface ClarityValueListDisplayerProps {
   val: ClarityValue;
   encoding?: 'tryAscii' | 'hex';
@@ -9,9 +12,6 @@ interface ClarityValueListDisplayerProps {
 export function ClarityValueListDisplayer(props: ClarityValueListDisplayerProps) {
   const { val, encoding, isRoot = true } = props;
 
-  function wrapText(text: string): JSX.Element {
-    return <>{text}</>;
-  }
   switch (val.type) {
     case ClarityType.BoolTrue:
       return wrapText('true');
