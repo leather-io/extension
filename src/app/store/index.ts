@@ -20,6 +20,7 @@ import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { ExtensionStorage } from './utils/extension-storage';
 import { onboardingSlice } from './onboarding/onboarding.slice';
 import { analyticsSlice } from './analytics/analytics.slice';
+import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   inMemoryKeys: inMemoryKeySlice.reducer,
   onboarding: onboardingSlice.reducer,
   analytics: analyticsSlice.reducer,
+  submittedTransactions: submittedTransactionsSlice.reducer,
 });
 
 const persistConfig = {

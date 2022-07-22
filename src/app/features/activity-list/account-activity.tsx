@@ -1,37 +1,27 @@
 import { useAccountTransactionsWithTransfers } from '@app/common/hooks/account/use-account-transactions-with-transfers.hooks';
 import { useCurrentAccountFilteredMempoolTransactionsState } from '@app/query/mempool/mempool.hooks';
-import { useTrackChangedTransactions } from '@app/common/hooks/analytics/transactions-analytics.hooks';
-import {
-  useAccountSubmittedStacksTransactions,
-  useAccountSubmittedTransactionsState,
-  useCleanupSubmittedTransactions,
-} from '@app/store/accounts/submitted-transactions.hooks';
 import { TransactionsList } from '@app/features/activity-list/components/transactions-list';
-import { SubmittedTransactionsList } from '@app/features/activity-list/components/submitted-transactions-list';
+import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 import { NoAccountActivity } from './components/no-account-activity';
+import { SubmittedTransactions } from './components/submitted-transactions';
 
 export const ActivityList = () => {
   const transactions = useAccountTransactionsWithTransfers();
   const pendingTransactions = useCurrentAccountFilteredMempoolTransactionsState();
-
-  useCleanupSubmittedTransactions();
-  const submittedTransactions = useAccountSubmittedTransactionsState();
-  const submittedStacksTransactions = useAccountSubmittedStacksTransactions();
+  const submittedTransactions = useSubmittedTransactions();
 
   const allTransactions = [...pendingTransactions, ...transactions];
-  const hasTxs = submittedTransactions.length || transactions.length;
-  // TODO: Remove?
-  useTrackChangedTransactions(allTransactions, submittedStacksTransactions);
+  const hasTransactions = allTransactions.length > 0;
+  const hasSubmittedTransactions = submittedTransactions.length > 0;
+  const hasTxs = hasTransactions || hasSubmittedTransactions;
 
   if (!hasTxs) return <NoAccountActivity />;
 
   return (
     <>
-      {submittedTransactions.length > 0 && (
-        <SubmittedTransactionsList txs={submittedTransactions} />
-      )}
-      {allTransactions.length > 0 && <TransactionsList txs={allTransactions} />}
+      {hasSubmittedTransactions && <SubmittedTransactions txs={submittedTransactions} />}
+      {hasTransactions && <TransactionsList txs={allTransactions} />}
     </>
   );
 };
