@@ -4,28 +4,28 @@ import { Tx } from '@app/common/api/transactions';
 import { stacksValue } from '@app/common/stacks-utils';
 import { getTxCaption } from '@app/common/transactions/transaction-utils';
 
-export type SubmittedTransactionDetails = {
+interface SubmittedTransactionDetails {
   caption: string | null;
   title: string;
   value: string | null;
-};
+}
 
-interface getSubmittedTransationDetailsArgs {
+interface GetSubmittedTransactionDetailsArgs {
   payload: StacksTransaction['payload'];
   senderAddress?: string;
-  txid: string;
+  txId: string;
 }
-export function getSubmittedTransationDetails({
+export function getSubmittedTransactionDetails({
   payload,
   senderAddress,
-  txid,
-}: getSubmittedTransationDetailsArgs): SubmittedTransactionDetails | null {
+  txId,
+}: GetSubmittedTransactionDetailsArgs): SubmittedTransactionDetails | null {
   switch (payload.payloadType) {
     case PayloadType.TokenTransfer:
       return {
         caption: getTxCaption({
           tx_type: 'token_transfer',
-          tx_id: txid,
+          tx_id: txId,
         } as Tx),
         title: 'Stacks Token',
         value: `-${stacksValue({

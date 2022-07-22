@@ -34,7 +34,7 @@ export function useOnCancelTransaction() {
     useCallback(async (get, set) => {
       const requestToken = get(requestTokenState);
       if (!requestToken) {
-        set(transactionBroadcastErrorState, 'No pending transaction found.');
+        set(transactionBroadcastErrorState, 'No pending transaction');
         return;
       }
       try {

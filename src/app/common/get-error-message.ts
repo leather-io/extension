@@ -1,18 +1,5 @@
 import { TxBroadcastResultRejected } from '@stacks/transactions';
 
-// TODO: Errors to handle
-//
-// Also ref: https://github.com/stacks-network/stacks-blockchain/blob/master/src/chainstate/stacks/db/blocks.rs#L259
-//
-//   PoisonMicroblocksDoNotConflict = 'PoisonMicroblocksDoNotConflict',
-//   PoisonMicroblockHasUnknownPubKeyHash = 'PoisonMicroblockHasUnknownPubKeyHash',
-//   PoisonMicroblockIsInvalid = 'PoisonMicroblockIsInvalid',
-//   BadAddressVersionByte = 'BadAddressVersionByte',
-//   NoCoinbaseViaMempool = 'NoCoinbaseViaMempool',
-//   ServerFailureNoSuchChainTip = 'ServerFailureNoSuchChainTip',
-//   ServerFailureDatabase = 'ServerFailureDatabase',
-//   ServerFailureOther = 'ServerFailureOther',
-
 export function getErrorMessage(
   reason:
     | TxBroadcastResultRejected['reason']
@@ -23,12 +10,14 @@ export function getErrorMessage(
     | 'TransferRecipientCannotEqualSender'
 ) {
   switch (reason) {
+    case 'BadAddressVersionByte':
+      return 'Incorrect address';
     case 'BadFunctionArgument':
       return 'Incorrect function argument';
     case 'BadNonce':
       return 'Incorrect nonce';
     case 'BadTransactionVersion':
-      return 'Incorrect transaction version';
+      return 'Incorrect transaction';
     case 'ConflictingNonceInMempool':
       return 'Nonce conflict';
     case 'ContractAlreadyExists':
@@ -39,14 +28,28 @@ export function getErrorMessage(
       return 'Estimator error';
     case 'FeeTooLow':
       return 'Fee too low';
+    case 'NoCoinbaseViaMempool':
+      return 'No coinbase via mempool';
     case 'NoSuchContract':
       return 'Contract does not exist';
     case 'NoSuchPublicFunction':
       return 'Function does not exist';
     case 'NotEnoughFunds':
       return 'Not enough funds';
+    case 'PoisonMicroblocksDoNotConflict':
+      return 'Microblock conflict';
+    case 'PoisonMicroblockHasUnknownPubKeyHash':
+      return 'No anchor block with public key hash';
+    case 'PoisonMicroblockIsInvalid':
+      return 'Invalid microblock';
     case 'Serialization':
       return 'Serialization failure';
+    case 'ServerFailureDatabase':
+      return 'Database error';
+    case 'ServerFailureNoSuchChainTip':
+      return 'No such chain tip';
+    case 'ServerFailureOther':
+      return 'Server failure';
     case 'SignatureValidation':
       return 'Failed to validate signature';
     case 'TransferAmountMustBePositive':
