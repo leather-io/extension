@@ -10,9 +10,9 @@ import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useAddSubmittedTransactionCallback } from '@app/store/accounts/submitted-transactions.hooks';
 import { getErrorMessage } from '@app/common/get-error-message';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 
 const timeForApiToUpdate = 250;
 
@@ -25,11 +25,11 @@ interface UseSubmitTransactionCallbackArgs {
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const refreshAccountData = useRefreshAllAccountData();
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
   const navigate = useNavigate();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
-  const addSubmittedTransaction = useAddSubmittedTransactionCallback();
   const analytics = useAnalytics();
 
   return useCallback(
@@ -43,9 +43,9 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             onClose();
             setIsIdle();
           } else {
-            addSubmittedTransaction({
+            submittedTransactionsActions.newTransactionSubmitted({
               rawTx: transaction.serialize().toString('hex'),
-              txid: safelyFormatHexTxid(response.txid),
+              txId: safelyFormatHexTxid(response.txid),
             });
             toast.success('Transaction submitted!');
             void analytics.track('broadcast_transaction');
@@ -67,11 +67,11 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       setIsLoading,
       stacksNetwork,
       setIsIdle,
+      submittedTransactionsActions,
       analytics,
       navigate,
       setActiveTabActivity,
       refreshAccountData,
-      addSubmittedTransaction,
     ]
   );
 }

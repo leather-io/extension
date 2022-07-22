@@ -38,8 +38,8 @@ import {
   useCurrentAccount,
   useCurrentAccountStxAddressState,
 } from '@app/store/accounts/account.hooks';
-import { useAddSubmittedTransactionCallback } from '@app/store/accounts/submitted-transactions.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
@@ -146,7 +146,7 @@ export function useSoftwareWalletTransactionBroadcast() {
   const { nonce } = useNextNonce();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
-  const addSubmittedTransaction = useAddSubmittedTransactionCallback();
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
 
   return useAtomCallback(
     useCallback(
@@ -170,7 +170,7 @@ export function useSoftwareWalletTransactionBroadcast() {
         });
 
         if (!account || !requestToken || !unsignedStacksTransaction) {
-          set(transactionBroadcastErrorState, 'No pending transaction found.');
+          set(transactionBroadcastErrorState, 'No pending transaction');
           return;
         }
 
@@ -189,9 +189,9 @@ export function useSoftwareWalletTransactionBroadcast() {
             networkUrl: network.url,
           });
           if (typeof result.txId === 'string') {
-            addSubmittedTransaction({
+            submittedTransactionsActions.newTransactionSubmitted({
               rawTx: result.txRaw,
-              txid: result.txId,
+              txId: result.txId,
             });
           }
           finalizeTxSignature(requestToken, result);
@@ -199,7 +199,7 @@ export function useSoftwareWalletTransactionBroadcast() {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [addSubmittedTransaction, nonce, signSoftwareWalletTx, stacksTxBaseState]
+      [nonce, signSoftwareWalletTx, stacksTxBaseState, submittedTransactionsActions]
     )
   );
 }
@@ -208,7 +208,7 @@ export function useSoftwareWalletTransactionBroadcast() {
 // TODO: duplicated from software wallet hook above
 // Broadcasting logic needs a complete refactor
 export function useHardwareWalletTransactionBroadcast() {
-  const addSubmittedTransaction = useAddSubmittedTransactionCallback();
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
 
   return useAtomCallback(
     useCallback(
@@ -231,11 +231,10 @@ export function useHardwareWalletTransactionBroadcast() {
             attachment,
             networkUrl: network.url,
           });
-
           if (typeof result.txId === 'string') {
-            addSubmittedTransaction({
+            submittedTransactionsActions.newTransactionSubmitted({
               rawTx: result.txRaw,
-              txid: result.txId,
+              txId: result.txId,
             });
           }
           // If there's a request token, this means it's a transaction request
@@ -246,7 +245,7 @@ export function useHardwareWalletTransactionBroadcast() {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [addSubmittedTransaction]
+      [submittedTransactionsActions]
     )
   );
 }

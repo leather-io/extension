@@ -10,34 +10,35 @@ import { TransactionTitle } from '@app/components/transaction/components/transac
 import { StacksTransactionIcon } from '@app/components/transaction/components/stacks-transaction-icon';
 import { getTxSenderAddress } from '@app/common/transactions/transaction-utils';
 
-import {
-  getSubmittedTransationDetails,
-  SubmittedTransactionDetails,
-} from './submitted-transactions.utils';
+import { getSubmittedTransactionDetails } from './submitted-transactions.utils';
 
 interface SubmittedTransactionsItemProps extends BoxProps {
   transaction: StacksTransaction;
-  txid: string;
+  txId: string;
 }
 export function SubmittedTransactionsItem(props: SubmittedTransactionsItemProps) {
-  const { transaction, txid, ...rest } = props;
+  const { transaction, txId, ...rest } = props;
   const [component, bind] = usePressable(true);
   const { handleOpenTxLink } = useExplorerLink();
 
   if (!transaction) return null;
 
-  const { caption, title, value } = getSubmittedTransationDetails({
+  const submittedTransactionDetails = getSubmittedTransactionDetails({
     payload: transaction.payload,
     senderAddress: getTxSenderAddress(transaction),
-    txid,
-  }) as SubmittedTransactionDetails;
+    txId,
+  });
+
+  if (!submittedTransactionDetails) return null;
+
+  const { caption, title, value } = submittedTransactionDetails;
 
   return (
     <Box cursor="pointer" position="relative" {...bind} {...rest}>
       <Stack
         alignItems="center"
         isInline
-        onClick={() => handleOpenTxLink(txid, `&submitted=true`)}
+        onClick={() => handleOpenTxLink(txId, `&submitted=true`)}
         position="relative"
         spacing="base-loose"
         zIndex={2}
