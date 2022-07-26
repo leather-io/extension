@@ -1,3 +1,12 @@
+## [3.13.2-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.1...v3.13.2-beta.1) (2022-07-26)
+
+
+### Bug Fixes
+
+* Dockerfile to reduce vulnerabilities ([0c652ad](https://github.com/hirosystems/stacks-wallet-web/commit/0c652ad5a32103cae19fabd0795375b8c7af80f3))
+* filter nonce txs by sender address ([5655d33](https://github.com/hirosystems/stacks-wallet-web/commit/5655d33b1699f708a2a630a5f843971a5f858350))
+* wallet config path ([0c9cbcc](https://github.com/hirosystems/stacks-wallet-web/commit/0c9cbcc99a98f28dc089478ab555be9d4545ed6e))
+
 ## [3.13.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.0...v3.13.1) (2022-07-20)
 
 
