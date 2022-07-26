@@ -10,8 +10,6 @@ import {
 import { useOnCancelTransaction } from '@app/store/transactions/requests.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { AccountInfoFetcher, BalanceFetcher } from '@app/features/container/fetchers';
 import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 
@@ -75,17 +73,12 @@ function useCacheInitialRouteSearchParams() {
 
 export function Container(): JSX.Element | null {
   const [routeHeader, _] = useRouteHeaderState();
-  const account = useCurrentAccount();
 
   useCacheInitialRouteSearchParams();
   useSaveAuthRequest();
 
   return (
     <ContainerLayout header={routeHeader}>
-      <Suspense fallback={null}>
-        {account?.address && <BalanceFetcher address={account.address} />}
-        {account?.address && <AccountInfoFetcher address={account.address} />}
-      </Suspense>
       <UnmountEffect />
       <Outlet />
     </ContainerLayout>

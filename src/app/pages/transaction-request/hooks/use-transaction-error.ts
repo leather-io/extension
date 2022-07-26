@@ -5,10 +5,8 @@ import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useContractInterface } from '@app/query/contract/contract.hooks';
 import { TransactionTypes } from '@stacks/connect';
-import {
-  useCurrentAccount,
-  useCurrentAccountAvailableStxBalance,
-} from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { useOrigin } from '@app/store/transactions/requests.hooks';
 import {
   useTransactionBroadcastError,

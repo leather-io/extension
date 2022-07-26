@@ -5,7 +5,7 @@ import { AssetWithMeta } from '@app/common/asset-types';
 import { getAssetName } from '@stacks/ui-utils';
 import { AssetItem } from '@app/components/asset-item';
 import { formatContractId, getTicker } from '@app/common/utils';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { BigNumber } from 'bignumber.js';
 import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
 

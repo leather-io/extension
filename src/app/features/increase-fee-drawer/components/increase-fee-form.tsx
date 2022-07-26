@@ -14,9 +14,9 @@ import { TransactionItem } from '@app/components/transaction/components/transact
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';

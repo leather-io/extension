@@ -4,11 +4,8 @@ import {
   useAccountsNonFungibleTokenHoldings,
   useNonFungibleTokenHoldings,
 } from '@app/query/non-fungible-tokens/non-fungible-token-holdings.hooks';
-import {
-  useAccounts,
-  useCurrentAccount,
-  useCurrentAccountAvailableStxBalance,
-} from '@app/store/accounts/account.hooks';
+import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { useAppDispatch } from '@app/store';
 import {
   useHideSuggestedFirstSteps,
@@ -16,7 +13,7 @@ import {
 } from '@app/store/onboarding/onboarding.selectors';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
 import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/onboarding-types';
-import { useAccountsAvailableStxBalance } from '@app/query/balance/balance.hooks';
+import { useAllAccountsAvailableStxBalance } from '@app/query/balance/balance.hooks';
 
 export function useSuggestedFirstSteps() {
   const dispatch = useAppDispatch();
@@ -28,7 +25,7 @@ export function useSuggestedFirstSteps() {
   const nonFungibleTokenHoldings = useNonFungibleTokenHoldings(currentAccount?.address);
 
   const firstFiveAccounts = accounts?.slice(0, 5);
-  const accountsAvailableStxBalance = useAccountsAvailableStxBalance(firstFiveAccounts);
+  const accountsAvailableStxBalance = useAllAccountsAvailableStxBalance(firstFiveAccounts);
   const accountsNonFungibleTokenHoldings = useAccountsNonFungibleTokenHoldings(firstFiveAccounts);
 
   useEffect(() => {
