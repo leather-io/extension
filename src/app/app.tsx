@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 
+import { queryClient } from '@app/common/persistence';
 import { theme } from '@app/common/theme';
 import { GlobalStyles } from '@app/components/global-styles/global-styles';
 import { FullPageLoadingSpinner, NewAccountLoadingSpinner } from '@app/components/loading-spinner';
@@ -16,7 +17,6 @@ import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { Devtools } from '@app/features/devtool/devtools';
 import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
-import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
 
 const reactQueryDevToolsEnabled = process.env.NODE_ENV === 'development';
 

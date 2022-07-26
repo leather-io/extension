@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
-import { baseAssetsAnchoredState, mergeAssetBalances } from '@app/store/assets/tokens';
+import { mergeAssetBalances } from '@app/store/assets/tokens';
 import type { Asset, AssetWithMeta } from '@app/common/asset-types';
 import { selectedAssetIdState } from './asset-search';
 import {
@@ -17,10 +17,6 @@ import {
 } from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
 import { formatContractId, getFullyQualifiedAssetName } from '@app/common/utils';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
-
-export function useAssets() {
-  return useAtomValue(baseAssetsAnchoredState);
-}
 
 export function useTransferableAssets() {
   const assets = useAssetsWithMetadata();

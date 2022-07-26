@@ -141,7 +141,6 @@
     "formik": "2.2.9",
     "http-server": "14.0.0",
     "jotai": "1.5.3",
-    "jotai-query-toolkit": "0.1.7",
     "jsontokens": "3.0.0",
     "limiter": "2.1.0",
     "lodash": "4.17.21",

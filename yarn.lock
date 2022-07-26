@@ -12369,14 +12369,6 @@ joi@^17.6.0:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
-jotai-query-toolkit@0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/jotai-query-toolkit/-/jotai-query-toolkit-0.1.7.tgz#488e84efc1e30822bcbaef5e1bcd9f4470638daa"
-  integrity sha512-no5QpGoFVHqCOHKHPoaSp0TQRzWwDIWyUd+J6C9JFsn6TRAlzLaZn8ES/cCLn+XIYsfNxg9hagWjqfXZR4MCrA==
-  dependencies:
-    fast-deep-equal "3.1.3"
-    proxy-memoize "^0.3.5"
-
 jotai@1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.5.3.tgz#0157f962c6cd7d28389f9606a1eefebf223801ed"
@@ -14571,22 +14563,10 @@ proxy-addr@~2.0.7:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
 
-proxy-compare@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/proxy-compare/-/proxy-compare-2.1.0.tgz#5f99b3ed6a265135ce7ec145ce304e6f89b6511b"
-  integrity sha512-wapJ3h/w8fRSyPEG0y2WMV+tf9xwvj3nxM6aHVuPEOwKs/t5xLSKZb44ubNTiqq2T6lmEMHEWGMTaU2L6ddaFA==
-
 proxy-from-env@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
   integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
-
-proxy-memoize@^0.3.5:
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/proxy-memoize/-/proxy-memoize-0.3.8.tgz#31048786cdcb7224a66f1136bc42b7115c01b4ff"
-  integrity sha512-3PuBf1DWD2E+Xu0NC/sp5WX5WHsLGOuR/tEaGJ0nDpdvk+pjK9YwWaGGa7ilu8WXKWXtNJN4QtrBLLlxD6//ZQ==
-  dependencies:
-    proxy-compare "2.1.0"
 
 psl@^1.1.28, psl@^1.1.33:
   version "1.8.0"

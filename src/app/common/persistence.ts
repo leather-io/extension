@@ -1,15 +1,17 @@
+import { QueryClient } from 'react-query';
 import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor-experimental';
+import { persistQueryClient } from 'react-query/persistQueryClient-experimental';
 
 import { IS_TEST_ENV, PERSISTENCE_CACHE_TIME } from '@shared/constants';
-import { persistQueryClient } from 'react-query/persistQueryClient-experimental';
-import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
 
 const localStoragePersistor = createWebStoragePersistor({ storage: window.localStorage });
 
-queryClient.setDefaultOptions({
-  queries: {
-    cacheTime: PERSISTENCE_CACHE_TIME,
-    notifyOnChangeProps: ['data', 'error'],
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: PERSISTENCE_CACHE_TIME,
+      notifyOnChangeProps: ['data', 'error'],
+    },
   },
 });
 
