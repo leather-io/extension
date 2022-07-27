@@ -1,3 +1,10 @@
+## [3.13.2-beta.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.2-beta.1...v3.13.2-beta.2) (2022-07-27)
+
+
+### Bug Fixes
+
+* nan nonce ([b55ab4f](https://github.com/hirosystems/stacks-wallet-web/commit/b55ab4f8fed1ee65ade171fa5c4d9827b462485b))
+
 ## [3.13.2-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.1...v3.13.2-beta.1) (2022-07-26)
 
 
