@@ -8,10 +8,10 @@ export enum NonceTypes {
 }
 
 function apiSuggestsImpossibleZeroNonceWithConfirmedTxs(
-  confirmedTransactions: Transaction[],
+  confirmedTxsNonces: number[],
   possibleNextNonce: number
 ) {
-  return possibleNextNonce === 0 && confirmedTransactions.length > 0;
+  return possibleNextNonce === 0 && confirmedTxsNonces.length > 0;
 }
 
 function compareApiMissingNoncesWithPendingTxsNonces(
@@ -66,7 +66,7 @@ export function getNextNonce({
   const confirmedTxsNonces = confirmedTransactions
     .filter(tx => tx.sender_address === senderAddress)
     ?.map(tx => tx.nonce);
-  const lastConfirmedTxNonceIncremented = confirmedTxsNonces[0] + 1;
+  const lastConfirmedTxNonceIncremented = confirmedTxsNonces.length && confirmedTxsNonces[0] + 1;
   const lastPendingTxNonceIncremented = lastPendingTxNonce + 1;
   const pendingTxsNoncesIncludesApiPossibleNextNonce = pendingTxsNonces.includes(possibleNextNonce);
   const pendingTxsMissingNonces = findAnyMissingPendingTxsNonces(pendingTxsNonces);
@@ -81,7 +81,7 @@ export function getNextNonce({
     hasPendingTxs && pendingTxsNoncesIncludesApiPossibleNextNonce;
   const lastExecutedNonceIsNotTheFirstMissingNonce = lastExecutedNonce !== firstMissingNonce;
 
-  if (apiSuggestsImpossibleZeroNonceWithConfirmedTxs(confirmedTransactions, possibleNextNonce))
+  if (apiSuggestsImpossibleZeroNonceWithConfirmedTxs(confirmedTxsNonces, possibleNextNonce))
     return {
       nonce: lastConfirmedTxNonceIncremented,
       nonceType: NonceTypes.clientFallbackNonce,
