@@ -13,7 +13,7 @@ export function NetworkRow({ chainId }: NetworkRowProps) {
     <Box spacing="base">
       <SpaceBetween position="relative">
         <Box alignItems="center">
-          <Caption>No fees will be incured</Caption>
+          <Caption>No fees will be incurred</Caption>
         </Box>
         <Caption>
           <span>
