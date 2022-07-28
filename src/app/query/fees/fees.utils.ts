@@ -1,10 +1,10 @@
 import { BigNumber } from 'bignumber.js';
 
 import { DEFAULT_FEE_RATE } from '@shared/constants';
-import { FeeEstimation } from '@shared/models/fees-types';
+import { FeeEstimate } from '@shared/models/fees-types';
 
 export function getFeeEstimationsWithCappedValues(
-  feeEstimations: FeeEstimation[],
+  feeEstimations: FeeEstimate[],
   feeEstimationsMaxValues: number[] | undefined,
   feeEstimationsMinValues: number[] | undefined
 ) {
@@ -31,7 +31,7 @@ function calculateFeeFromFeeRate(txBytes: number, feeRate: number) {
 
 const marginFromDefaultFeeDecimalPercent = 0.1;
 
-export function getDefaultSimulatedFeeEstimations(estimatedByteLength: number): FeeEstimation[] {
+export function getDefaultSimulatedFeeEstimations(estimatedByteLength: number): FeeEstimate[] {
   const fee = calculateFeeFromFeeRate(estimatedByteLength, DEFAULT_FEE_RATE);
   return [
     { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },

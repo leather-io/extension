@@ -9,7 +9,6 @@ import { TransactionFormValues } from '@app/common/transactions/transaction-util
 import { isEmpty } from '@shared/utils';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@app/components/show-edit-nonce';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
-import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 function BaseConfirmButton(props: ButtonProps): JSX.Element {
@@ -20,39 +19,34 @@ function BaseConfirmButton(props: ButtonProps): JSX.Element {
   );
 }
 
-function SubmitActionSuspense(): JSX.Element {
+export function SubmitAction() {
   const { handleSubmit, values, validateForm } = useFormikContext<TransactionFormValues>();
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const { isLoading } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const error = useTransactionError();
-  const [feeEstimations] = useFeeEstimationsState();
 
-  const isDisabled = !!error || !feeEstimations.length;
+  const isDisabled = !!error || !values.fee;
 
-  return (
-    <BaseConfirmButton
-      data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
-      onClick={async () => {
-        // We need to check for errors here before we show the high fee confirmation
-        const formErrors = await validateForm();
-        if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
-          return setShowHighFeeConfirmation(!showHighFeeConfirmation);
-        }
-        handleSubmit();
-      }}
-      isLoading={isLoading}
-      isDisabled={isDisabled}
-    >
-      Confirm
-    </BaseConfirmButton>
-  );
-}
+  const onConfirmTransaction = async () => {
+    // Check for errors before showing the high fee confirmation
+    const formErrors = await validateForm();
+    if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
+      return setShowHighFeeConfirmation(!showHighFeeConfirmation);
+    }
+    handleSubmit();
+  };
 
-export function SubmitAction() {
   return (
     <>
       <Suspense fallback={<BaseConfirmButton isLoading isDisabled />}>
-        <SubmitActionSuspense />
+        <BaseConfirmButton
+          data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          onClick={onConfirmTransaction}
+        >
+          Confirm
+        </BaseConfirmButton>
       </Suspense>
       <Suspense fallback={<ShowEditNoncePlaceholder />}>
         <ShowEditNonceAction />

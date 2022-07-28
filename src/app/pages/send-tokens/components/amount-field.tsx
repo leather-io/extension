@@ -17,13 +17,12 @@ import { SendMaxButton } from './send-max-button';
 
 interface AmountFieldProps extends StackProps {
   error?: string;
-  feeQueryError: boolean;
   value: number | string;
 }
 
 // TODO: this should use a new "Field" component (with inline label like in figma)
 function AmountFieldBase(props: AmountFieldProps) {
-  const { error, feeQueryError, value, ...rest } = props;
+  const { error, value, ...rest } = props;
   const { setFieldValue, handleChange, values } = useFormikContext<TransactionFormValues>();
   const analytics = useAnalytics();
   const assets = useBaseAssetsUnanchored();

@@ -14,11 +14,13 @@ const feeEstimationsQueryOptions = {
   refetchOnReconnect: false,
 } as const;
 
-export function useGetFeeEstimations(transactionPayload: string, estimatedLen: number | null) {
+export function useGetTransactionFeeEstimationQuery(
+  estimatedLen: number | null,
+  transactionPayload: string
+) {
   const currentNetwork = useCurrentNetworkState();
 
-  const fetchFeeEstimations = async () => {
-    if (!transactionPayload) return;
+  const fetchTransactionFeeEstimation = async () => {
     const response = await fetcher(currentNetwork.url + '/v2/fees/transaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -32,8 +34,8 @@ export function useGetFeeEstimations(transactionPayload: string, estimatedLen: n
   };
 
   return useQuery({
-    queryKey: ['fee-estimations', transactionPayload],
-    queryFn: fetchFeeEstimations,
+    queryKey: ['transaction-fee-estimation', transactionPayload],
+    queryFn: fetchTransactionFeeEstimation,
     ...feeEstimationsQueryOptions,
   }) as UseQueryResult<TransactionFeeEstimation, Error>;
 }

@@ -9,11 +9,12 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 import { useOrigin } from '@app/store/transactions/requests.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
-function PageTopBase(): JSX.Element | null {
+function PageTopBase() {
   const transactionRequest = useTransactionRequestState();
   const origin = useOrigin();
   const pageTitle = usePageTitle();
   const network = useCurrentNetwork();
+
   if (!transactionRequest) return null;
 
   const appName = transactionRequest?.appDetails?.name;
@@ -25,11 +26,11 @@ function PageTopBase(): JSX.Element | null {
 
   return (
     <Stack
+      data-testid={TransactionSigningSelectors.TxSigningPageContainer}
       pt="extra-loose"
       spacing="base"
-      data-testid={TransactionSigningSelectors.TxSigningPageContainer}
     >
-      <Title fontWeight="bold" as="h1">
+      <Title as="h1" fontWeight="bold">
         {pageTitle}
       </Title>
       {caption && <Caption wordBreak="break-word">{caption}</Caption>}
