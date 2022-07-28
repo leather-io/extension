@@ -3,11 +3,11 @@ import { TransactionTypes } from '@stacks/connect';
 
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-export function usePageTitle(): string | undefined {
+export function usePageTitle(): string {
   const transactionRequest = useTransactionRequestState();
   const txType = transactionRequest?.txType;
   return useMemo(() => {
-    if (!transactionRequest) return;
+    if (!transactionRequest) return '';
     if (txType === TransactionTypes.STXTransfer) return 'Confirm transfer';
     if (txType === TransactionTypes.ContractDeploy) return 'Deploy contract';
     if (txType === TransactionTypes.ContractCall && 'functionName' in transactionRequest)

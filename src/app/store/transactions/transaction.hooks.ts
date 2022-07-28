@@ -95,32 +95,28 @@ export function useUnsignedPrepareTransactionDetails(values: TransactionFormValu
   );
 }
 
-export function useSerializedTransactionPayloadState(values?: TransactionFormValues) {
+export function useSendFormSerializedUnsignedTxPayloadState(values?: TransactionFormValues) {
   const transaction = useSendFormUnsignedTxPreviewState(values);
   if (!transaction) return '';
-  const serializedTxPayload = serializePayload(transaction.payload);
-  return serializedTxPayload.toString('hex');
+  return serializePayload(transaction.payload).toString('hex');
 }
 
-export function useEstimatedTransactionByteLength(values?: TransactionFormValues) {
+export function useSendFormEstimatedUnsignedTxByteLengthState(values?: TransactionFormValues) {
   const transaction = useSendFormUnsignedTxPreviewState(values);
   if (!transaction) return null;
-  const serializedTx = transaction.serialize();
-  return serializedTx.byteLength;
+  return transaction.serialize().byteLength;
 }
 
-export function useSerializedUnsignedTransactionPayloadState() {
+export function useTxRequestSerializedUnsignedTxPayloadState() {
   const { transaction } = useUnsignedStacksTransactionBaseState();
   if (!transaction) return '';
-  const serializedTxPayload = serializePayload((transaction as StacksTransaction).payload);
-  return serializedTxPayload.toString('hex');
+  return serializePayload(transaction.payload).toString('hex');
 }
 
-export function useEstimatedUnsignedTransactionByteLengthState() {
+export function useTxRequestEstimatedUnsignedTxByteLengthState() {
   const { transaction } = useUnsignedStacksTransactionBaseState();
   if (!transaction) return null;
-  const serializedTx = (transaction as StacksTransaction).serialize();
-  return serializedTx.byteLength;
+  return transaction.serialize().byteLength;
 }
 
 export function useSignTransactionSoftwareWallet() {

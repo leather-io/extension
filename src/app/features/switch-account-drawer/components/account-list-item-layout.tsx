@@ -51,11 +51,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
           </Stack>
         </Stack>
       </Stack>
-
-      {isLoading && (
-        <Spinner position="absolute" right="loose" color={color('text-caption')} size="18px" />
-      )}
-
+      {isLoading && <Spinner color={color('text-caption')} size="18px" />}
       {isActive && (
         <Box
           as={IconCheck}
