@@ -90,15 +90,7 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,8 +101,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -127,32 +119,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAccountTransactionsWithTransfers } from '@app/common/hooks/account/use-account-transactions-with-transfers.hooks';
 import { useCurrentAccountFilteredMempoolTransactionsState } from '@app/query/mempool/mempool.hooks';
-import { useTrackChangedTransactions } from '@app/common/hooks/analytics/transactions-analytics.hooks';
-import {
-  useCurrentAccountLocallySubmittedStacksTransactions,
-  useCurrentAccountLocalTxids,
-} from '@app/store/accounts/account-activity.hooks';
-import { TransactionList } from '@app/features/transaction-list/transaction-list';
-import { LocalTxList } from '@app/features/local-transaction-activity/local-tx-list';
+import { TransactionsList } from '@app/features/activity-list/components/transactions-list';
+import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 &nbsp;
 import { NoAccountActivity } from './components/no-account-activity';
+import { SubmittedTransactions } from './components/submitted-transactions';
 &nbsp;
 export const ActivityList = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
   const transactions = <span class="cstat-no" title="statement not covered" >useAccountTransactionsWithTransfers();</span>
   const pendingTransactions = <span class="cstat-no" title="statement not covered" >useCurrentAccountFilteredMempoolTransactionsState();</span>
+  const submittedTransactions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactions();</span>
 &nbsp;
-  const localTxs = <span class="cstat-no" title="statement not covered" >useCurrentAccountLocallySubmittedStacksTransactions();</span>
-  const localTxids = <span class="cstat-no" title="statement not covered" >useCurrentAccountLocalTxids();</span>
   const allTransactions = <span class="cstat-no" title="statement not covered" >[...pendingTransactions, ...transactions];</span>
-  const hasTxs = <span class="cstat-no" title="statement not covered" >localTxids.length &gt; 0 || transactions.length &gt; 0;</span>
-<span class="cstat-no" title="statement not covered" >  useTrackChangedTransactions(allTransactions, localTxs);</span>
+  const hasTransactions = <span class="cstat-no" title="statement not covered" >allTransactions.length &gt; 0;</span>
+  const hasSubmittedTransactions = <span class="cstat-no" title="statement not covered" >submittedTransactions.length &gt; 0;</span>
+  const hasTxs = <span class="cstat-no" title="statement not covered" >hasTransactions || hasSubmittedTransactions;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!hasTxs) <span class="cstat-no" title="statement not covered" >return &lt;NoAccountActivity /&gt;;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
-      {localTxids.length &gt; 0 &amp;&amp; &lt;LocalTxList txids={localTxids} /&gt;}
-      {allTransactions.length &gt; 0 &amp;&amp; &lt;TransactionList txs={allTransactions} /&gt;}
+      {hasSubmittedTransactions &amp;&amp; &lt;SubmittedTransactions txs={submittedTransactions} /&gt;}
+      {hasTransactions &amp;&amp; &lt;TransactionsList txs={allTransactions} /&gt;}
     &lt;/&gt;
   );
 };
@@ -163,7 +151,7 @@ export const ActivityList = <span class="cstat-no" title="statement not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 20 2022 16:23:15 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 01 2022 16:44:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

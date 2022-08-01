@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/111</span>
+                <span class='fraction'>0/113</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/100</span>
+                <span class='fraction'>0/102</span>
             </div>
         
             
@@ -440,7 +440,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -535,6 +534,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -576,17 +576,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -597,9 +596,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -612,7 +613,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -628,11 +628,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -725,12 +725,11 @@ import {
   TransactionSigner,
 } from '@stacks/transactions';
 &nbsp;
-import { todaysIsoDate } from '@app/common/date-utils';
 import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { currentAccountState } from '@app/store/accounts';
+import { currentAccountState } from '@app/store/accounts/accounts';
 import { currentNetworkState } from '@app/store/network/networks';
 import {
   useStxTokenTransferUnsignedTxState,
@@ -738,7 +737,6 @@ import {
   useGenerateStxTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
-import { currentAccountLocallySubmittedTxsState } from '@app/store/accounts/account-activity';
 import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { TransactionTypes } from '@stacks/connect';
 import { validateStacksAddress } from '@app/common/stacks-utils';
@@ -752,6 +750,7 @@ import {
   useCurrentAccountStxAddressState,
 } from '@app/store/accounts/account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 &nbsp;
@@ -858,6 +857,7 @@ export function <span class="fstat-no" title="function not covered" >useSoftware
   const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const signSoftwareWalletTx = <span class="cstat-no" title="statement not covered" >useSignTransactionSoftwareWallet();</span>
   const stacksTxBaseState = <span class="cstat-no" title="statement not covered" >useUnsignedStacksTransactionBaseState();</span>
+  const submittedTransactionsActions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactionsActions();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useAtomCallback(</span>
     useCallback(
@@ -881,7 +881,7 @@ export function <span class="fstat-no" title="function not covered" >useSoftware
         });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        if (!account || !requestToken || !unsignedStacksTransaction) {</span>
-<span class="cstat-no" title="statement not covered" >          set(transactionBroadcastErrorState, 'No pending transaction found.');</span>
+<span class="cstat-no" title="statement not covered" >          set(transactionBroadcastErrorState, 'No pending transaction');</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 &nbsp;
@@ -899,20 +899,18 @@ export function <span class="fstat-no" title="function not covered" >useSoftware
             attachment,
             networkUrl: network.url,
           });
-<span class="cstat-no" title="statement not covered" >          finalizeTxSignature(requestToken, result);</span>
 <span class="cstat-no" title="statement not covered" >          if (typeof result.txId === 'string') {</span>
-<span class="cstat-no" title="statement not covered" >            set(currentAccountLocallySubmittedTxsState, {</span>
-              [result.txId]: {
-                rawTx: result.txRaw,
-                timestamp: todaysIsoDate(),
-              },
+<span class="cstat-no" title="statement not covered" >            submittedTransactionsActions.newTransactionSubmitted({</span>
+              rawTx: result.txRaw,
+              txId: result.txId,
             });
           }
+<span class="cstat-no" title="statement not covered" >          finalizeTxSignature(requestToken, result);</span>
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >          if (error instanceof Error) <span class="cstat-no" title="statement not covered" >set(transactionBroadcastErrorState, error.message);</span></span>
         }
       },
-      [nonce, signSoftwareWalletTx, stacksTxBaseState]
+      [nonce, signSoftwareWalletTx, stacksTxBaseState, submittedTransactionsActions]
     )
   );
 }
@@ -921,43 +919,45 @@ export function <span class="fstat-no" title="function not covered" >useSoftware
 // TODO: duplicated from software wallet hook above
 // Broadcasting logic needs a complete refactor
 export function <span class="fstat-no" title="function not covered" >useHardwareWalletTransactionBroadcast(</span>) {
+  const submittedTransactionsActions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactionsActions();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return useAtomCallback(</span>
-    useCallback(<span class="fstat-no" title="function not covered" >as</span>ync (get, set, { signedTx }: { signedTx: StacksTransaction }) =&gt; {
-      const { attachment, requestToken, network } = <span class="cstat-no" title="statement not covered" >await get(</span>
-        waitForAll({
-          attachment: transactionAttachmentState,
-          requestToken: requestTokenState,
-          network: currentNetworkState,
-        }),
-        { unstable_promise: true }
-      );
+    useCallback(
+<span class="fstat-no" title="function not covered" >      as</span>ync (get, set, { signedTx }: { signedTx: StacksTransaction }) =&gt; {
+        const { attachment, requestToken, network } = <span class="cstat-no" title="statement not covered" >await get(</span>
+          waitForAll({
+            attachment: transactionAttachmentState,
+            requestToken: requestTokenState,
+            network: currentNetworkState,
+          }),
+          { unstable_promise: true }
+        );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      try {</span>
-        const { isSponsored, serialized, txRaw } = <span class="cstat-no" title="statement not covered" >prepareTxDetailsForBroadcast(signedTx);</span>
-        const result = <span class="cstat-no" title="statement not covered" >await broadcastTransaction({</span>
-          isSponsored,
-          serialized,
-          txRaw,
-          attachment,
-          networkUrl: network.url,
-        });
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        if (typeof result.txId === 'string') {</span>
-<span class="cstat-no" title="statement not covered" >          set(currentAccountLocallySubmittedTxsState, {</span>
-            [result.txId]: {
-              rawTx: result.txRaw,
-              timestamp: todaysIsoDate(),
-            },
+<span class="cstat-no" title="statement not covered" >        try {</span>
+          const { isSponsored, serialized, txRaw } = <span class="cstat-no" title="statement not covered" >prepareTxDetailsForBroadcast(signedTx);</span>
+          const result = <span class="cstat-no" title="statement not covered" >await broadcastTransaction({</span>
+            isSponsored,
+            serialized,
+            txRaw,
+            attachment,
+            networkUrl: network.url,
           });
+<span class="cstat-no" title="statement not covered" >          if (typeof result.txId === 'string') {</span>
+<span class="cstat-no" title="statement not covered" >            submittedTransactionsActions.newTransactionSubmitted({</span>
+              rawTx: result.txRaw,
+              txId: result.txId,
+            });
+          }
+          // If there's a request token, this means it's a transaction request
+          // In which case we need to return to the app the results of the tx
+          // Otherwise, it's a send form tx and we don't want to
+<span class="cstat-no" title="statement not covered" >          if (requestToken) <span class="cstat-no" title="statement not covered" >finalizeTxSignature(requestToken, result);</span></span>
+        } catch (error) {
+<span class="cstat-no" title="statement not covered" >          if (error instanceof Error) <span class="cstat-no" title="statement not covered" >set(transactionBroadcastErrorState, error.message);</span></span>
         }
-        // If there's a request token, this means it's a transaction request
-        // In which case we need to return to the app the results of the tx
-        // Otherwise, it's a send form tx and we don't want to
-<span class="cstat-no" title="statement not covered" >        if (requestToken) <span class="cstat-no" title="statement not covered" >finalizeTxSignature(requestToken, result);</span></span>
-      } catch (error) {
-<span class="cstat-no" title="statement not covered" >        if (error instanceof Error) <span class="cstat-no" title="statement not covered" >set(transactionBroadcastErrorState, error.message);</span></span>
-      }
-    }, [])
+      },
+      [submittedTransactionsActions]
+    )
   );
 }
 &nbsp;
@@ -1039,7 +1039,7 @@ function <span class="fstat-no" title="function not covered" >useIsSendingFormSe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 20 2022 16:23:15 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 01 2022 16:44:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

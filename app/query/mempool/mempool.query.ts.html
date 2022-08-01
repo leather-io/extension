@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -85,7 +85,17 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -94,28 +104,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery } from 'react-query';
+import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 &nbsp;
-import { useSetMempoolTransactions } from '@app/store/accounts/account.hooks';
 import { useApi } from '@app/store/common/api-clients.hooks';
-import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
+import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useAccountMempool(</span>address: string) {
   const api = <span class="cstat-no" title="statement not covered" >useApi();</span>
-  const setMempoolTxs = <span class="cstat-no" title="statement not covered" >useSetMempoolTransactions();</span>
+  const submittedTransactions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactions();</span>
+  const submittedTransactionsActions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactionsActions();</span>
 &nbsp;
   function <span class="fstat-no" title="function not covered" >accountMempoolFetcher(</span>) {
 <span class="cstat-no" title="statement not covered" >    return api.transactionsApi.getAddressMempoolTransactions({ address, limit: 50 });</span>
@@ -124,8 +143,13 @@ export function <span class="fstat-no" title="function not covered" >useAccountM
 <span class="cstat-no" title="statement not covered" >  return useQuery({</span>
     queryKey: ['account-mempool', address],
     queryFn: accountMempoolFetcher,
-<span class="fstat-no" title="function not covered" >    on</span>Success(resp) {
-<span class="cstat-no" title="statement not covered" >      setMempoolTxs(resp.results as MempoolTransaction[]);</span>
+    onSuccess: <span class="fstat-no" title="function not covered" >da</span>ta =&gt; {
+      const pendingTxids = <span class="cstat-no" title="statement not covered" >(data.results as MempoolTransaction[]).map(<span class="fstat-no" title="function not covered" >tx</span> =&gt; <span class="cstat-no" title="statement not covered" >tx.tx_id)</span>;</span>
+<span class="cstat-no" title="statement not covered" >      submittedTransactions.map(<span class="fstat-no" title="function not covered" >tx</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (pendingTxids.includes(safelyFormatHexTxid(tx.txId)))</span>
+<span class="cstat-no" title="statement not covered" >          return submittedTransactionsActions.transactionEnteredMempool(tx.txId);</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      });
     },
   });
 }
@@ -136,7 +160,7 @@ export function <span class="fstat-no" title="function not covered" >useAccountM
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 20 2022 16:23:15 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 01 2022 16:44:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

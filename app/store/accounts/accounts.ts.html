@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/store/accounts/index.ts</title>
+    <title>Code coverage report for app/store/accounts/accounts.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/store/accounts</a> index.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/store/accounts</a> accounts.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.42% </span>
+                <span class="strong">20.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/84</span>
+                <span class='fraction'>16/79</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.65% </span>
+                <span class="strong">23.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/73</span>
+                <span class='fraction'>16/68</span>
             </div>
         
             
@@ -263,28 +263,7 @@
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a>
-<a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a>
-<a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a>
-<a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -469,19 +448,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -500,11 +466,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Account } from '@stacks/wallet-sdk';
 &nbsp;
 import { atomFamily } from 'jotai/utils';
-import type {
-  AccountDataResponse,
-  MempoolTransaction,
-  Transaction,
-} from '@stacks/stacks-blockchain-api-types';
+import type { AccountDataResponse, Transaction } from '@stacks/stacks-blockchain-api-types';
 &nbsp;
 import { atom } from 'jotai';
 import BigNumber from 'bignumber.js';
@@ -690,19 +652,6 @@ export const currentAccountConfirmedTransactionsState = atom&lt;Transaction[]&gt
 <span class="cstat-no" title="statement not covered" >  return transactionsWithTransfers.map(<span class="fstat-no" title="function not covered" >at</span>x =&gt; <span class="cstat-no" title="statement not covered" >atx.tx)</span>;</span>
 });
 &nbsp;
-/**
- * @deprecated
- * Populated by mempool `useQuery`
- */
-export const currentAccountMempoolTransactionsState = atom&lt;MempoolTransaction[]&gt;([]);
-&nbsp;
-/** @deprecated */
-export const currentAccountTransactionsState = atom&lt;(MempoolTransaction | Transaction)[]&gt;(<span class="fstat-no" title="function not covered" >ge</span>t =&gt; {
-  const transactions = <span class="cstat-no" title="statement not covered" >get(currentAccountConfirmedTransactionsState);</span>
-  const pending = <span class="cstat-no" title="statement not covered" >get(currentAccountMempoolTransactionsState);</span>
-<span class="cstat-no" title="statement not covered" >  return [...pending, ...transactions];</span>
-});
-&nbsp;
 export const currentAccountInfoState = atom&lt;AccountDataResponse | undefined&gt;(undefined);
 &nbsp;
 export const refreshAccountDataState = atom(null, <span class="fstat-no" title="function not covered" >(g</span>et, set) =&gt; {
@@ -721,7 +670,7 @@ export const refreshAccountDataState = atom(null, <span class="fstat-no" title="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 20 2022 16:23:15 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 01 2022 16:44:29 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

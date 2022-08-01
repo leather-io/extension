@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/store/accounts/account-activity.utils.ts</title>
+    <title>Code coverage report for app/features/activity-list/components/submitted-transactions-list.layout.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/store/accounts</a> account-activity.utils.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/features/activity-list/components</a> submitted-transactions-list.layout.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -94,7 +94,9 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,16 +105,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,39 +115,53 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
-  addressFromVersionHash,
-  AddressHashMode,
-  addressHashModeToVersion,
-  addressToString,
-  StacksTransaction,
-  TransactionVersion,
-} from '@stacks/transactions';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ReactNode, useMemo } from 'react';
+import { deserializeTransaction } from '@stacks/transactions';
+import { color, Stack, Text } from '@stacks/ui';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getAddressFromPublicKeyHash(</span>
-  publicKeyHash: Buffer,
-  hashMode: AddressHashMode,
-  transactionVersion: TransactionVersion
-): string {
-  const addrVer = <span class="cstat-no" title="statement not covered" >addressHashModeToVersion(hashMode, transactionVersion);</span>
-<span class="cstat-no" title="statement not covered" >  if (publicKeyHash.length !== 20) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('expected 20-byte pubkeyhash');</span>
-  }
-  const addr = <span class="cstat-no" title="statement not covered" >addressFromVersionHash(addrVer, publicKeyHash.toString('hex'));</span>
-<span class="cstat-no" title="statement not covered" >  return addressToString(addr);</span>
+import { SubmittedTransactionsItem } from '@app/features/activity-list/components/submitted-transactions-item';
+import { SubmittedTransaction } from '@app/store/submitted-transactions/submitted-transactions.slice';
+&nbsp;
+type SubmittedTransactionsListItemProps = SubmittedTransaction;
+&nbsp;
+export const SubmittedTransactionsListItem = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span></span>
+  rawTx,
+  txId,
+}: SubmittedTransactionsListItemProps) =&gt; {
+  const submittedTx = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >deserializeTransaction(rawTx),</span> [rawTx]);</span>
+<span class="cstat-no" title="statement not covered" >  return &lt;SubmittedTransactionsItem transaction={submittedTx} txId={txId} /&gt;;</span>
+};
+&nbsp;
+interface SubmittedTransactionsListLayoutProps {
+  children: ReactNode;
 }
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >getTxSenderAddress(</span>tx: StacksTransaction): string | undefined {
-<span class="cstat-no" title="statement not covered" >  if (!tx?.auth?.spendingCondition?.signer) <span class="cstat-no" title="statement not covered" >return;</span></span>
-  const txSender = <span class="cstat-no" title="statement not covered" >getAddressFromPublicKeyHash(</span>
-    Buffer.from(tx.auth.spendingCondition.signer, 'hex'),
-    tx.auth.spendingCondition.hashMode as number,
-    tx.version
+export const SubmittedTransactionsListLayout = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span></span>
+  children,
+}: SubmittedTransactionsListLayoutProps) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;Stack pb="extra-loose" spacing="extra-loose"&gt;
+      &lt;Text textStyle="body.small" color={color('text-caption')}&gt;
+        Submitted
+      &lt;/Text&gt;
+      {children}
+      &lt;Stack mt="base-loose" spacing="loose"&gt;&lt;/Stack&gt;
+    &lt;/Stack&gt;
   );
-<span class="cstat-no" title="statement not covered" >  return txSender;</span>
-}
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -163,16 +169,16 @@ export function <span class="fstat-no" title="function not covered" >getTxSender
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 20 2022 16:23:15 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 01 2022 16:44:29 GMT+0000 (Coordinated Universal Time)
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     

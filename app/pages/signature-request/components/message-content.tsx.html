@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/features/local-transaction-activity/local-tx-list.tsx</title>
+    <title>Code coverage report for app/pages/signature-request/components/message-content.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/features/local-transaction-activity</a> local-tx-list.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/signature-request/components</a> message-content.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -91,28 +91,12 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,43 +106,47 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
-  useCleanupLocalTxsCallback,
-  useCurrentAccountLocalStacksTransaction,
-} from '@app/store/accounts/account-activity.hooks';
-import { LocalTxItem } from '@app/features/local-transaction-activity/local-tx-item';
-import { useEffect } from 'react';
-import { Box, color, Stack, Text } from '@stacks/ui';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
+import { SignatureMessageType } from '@shared/signature/types';
+import { ChainID } from '@stacks/common';
+import { MessageBox } from './message-box';
+import { Disclaimer } from './message-signing-disclaimer';
+import { NetworkRow } from './network-row';
+import { SignAction } from './sign-action';
 &nbsp;
-const LocalTxListItem = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> txid }: { txid: string }) =&gt; {</span>
-  const localTx = <span class="cstat-no" title="statement not covered" >useCurrentAccountLocalStacksTransaction(txid);</span>
-  const cleanup = <span class="cstat-no" title="statement not covered" >useCleanupLocalTxsCallback();</span>
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >cleanup(),</span></span> [cleanup]);</span>
-<span class="cstat-no" title="statement not covered" >  if (localTx) <span class="cstat-no" title="statement not covered" >return &lt;LocalTxItem txid={txid} transaction={localTx.transaction} /&gt;;</span></span>
-<span class="cstat-no" title="statement not covered" >  return &lt;&gt;Loading...&lt;/&gt;;</span>
-};
+interface SignatureRequestMessageContentProps {
+  requestToken: string;
+  messageType: SignatureMessageType;
+}
+export function <span class="fstat-no" title="function not covered" >SignatureRequestMessageContent(</span>props: SignatureRequestMessageContentProps) {
+  const { requestToken, messageType } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
-export const LocalTxList = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> txids }: { txids: string[] }) =&gt; {</span>
+  const signatureRequest = <span class="cstat-no" title="statement not covered" >getSignaturePayloadFromToken(requestToken);</span>
+  const { message, network } = <span class="cstat-no" title="statement not covered" >signatureRequest;</span>
+  const appName = <span class="cstat-no" title="statement not covered" >signatureRequest.appDetails?.name;</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack pb="extra-loose" spacing="extra-loose"&gt;
-      &lt;Box&gt;
-        &lt;Text textStyle="body.small" color={color('text-caption')}&gt;
-          Submitted
-        &lt;/Text&gt;
-        &lt;Stack mt="base-loose" spacing="loose"&gt;
-          {txids.map(<span class="fstat-no" title="function not covered" >tx</span>id =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;LocalTxListItem txid={txid} key={txid} /&gt;</span>
-          ))}
-        &lt;/Stack&gt;
-      &lt;/Box&gt;
-    &lt;/Stack&gt;
+    &lt;&gt;
+      &lt;MessageBox message={message} /&gt;
+      &lt;NetworkRow chainId={network?.chainId ?? ChainID.Testnet} /&gt;
+      &lt;SignAction message={message} messageType={messageType} /&gt;
+      &lt;hr /&gt;
+      &lt;Disclaimer appName={appName} /&gt;
+    &lt;/&gt;
   );
-};
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -166,16 +154,16 @@ export const LocalTxList = <span class="cstat-no" title="statement not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 20 2022 16:23:15 GMT+0000 (Coordinated Universal Time)
+                at Mon Aug 01 2022 16:44:29 GMT+0000 (Coordinated Universal Time)
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     
