@@ -1,3 +1,13 @@
+## [3.13.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.1...v3.13.2) (2022-08-01)
+
+
+### Bug Fixes
+
+* add 'all_frames' option, closes [#2351](https://github.com/hirosystems/stacks-wallet-web/issues/2351) ([276e5f6](https://github.com/hirosystems/stacks-wallet-web/commit/276e5f663052cef9ba713d9812170b285194bb5f))
+* dockerfile to reduce vulnerabilities ([6291364](https://github.com/hirosystems/stacks-wallet-web/commit/62913647707dbbd69c3460dcd66bf0e469cc99fa))
+* filter nonce txs by sender address ([8eaf9c7](https://github.com/hirosystems/stacks-wallet-web/commit/8eaf9c79f897d704a9350854b8b354183a0c902b))
+* nan nonce ([ecd13c5](https://github.com/hirosystems/stacks-wallet-web/commit/ecd13c51f20611f54cd05705f55eb7bcc0cd7156))
+
 ## [3.13.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.0...v3.13.1) (2022-07-20)
 
 
