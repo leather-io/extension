@@ -8,7 +8,7 @@ import { Caption, Title } from '@app/components/typography';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 import { isSignatureMessageType } from '@shared/signature/types';
 
-function PageTopBase(): JSX.Element | null {
+function PageTopBase() {
   const network = useCurrentNetwork();
   const { origin, requestToken, messageType } = useSignatureRequestSearchParams();
   if (!requestToken) return null;

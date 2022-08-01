@@ -44,6 +44,7 @@ const manifest = {
     {
       js: ['browser-polyfill.js', 'content-script.js'],
       matches: ['*://*/*'],
+      all_frames: true,
     },
   ],
   browser_specific_settings: {

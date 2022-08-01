@@ -1,4 +1,6 @@
-import { whenChainId } from '@app/common/transactions/transaction-utils';
+import { useEffect, useState } from 'react';
+import { sha256 } from 'sha.js';
+import { color, Stack, Text } from '@stacks/ui';
 import {
   ChainID,
   ClarityValue,
@@ -6,10 +8,9 @@ import {
   encodeStructuredData,
   TupleCV,
 } from '@stacks/transactions';
+
+import { whenChainId } from '@app/common/transactions/transaction-utils';
 import { ClarityType } from '@stacks/transactions/dist/esm/clarity';
-import { color, Stack, Text } from '@stacks/ui';
-import { useEffect, useState } from 'react';
-import { sha256 } from 'sha.js';
 import { ClarityValueListDisplayer } from './clarity-value-list';
 import { HashDrawer } from './hash-drawer';
 

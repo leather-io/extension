@@ -14,12 +14,11 @@ import {
   TransactionSigner,
 } from '@stacks/transactions';
 
-import { todaysIsoDate } from '@app/common/date-utils';
 import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { currentAccountState } from '@app/store/accounts';
+import { currentAccountState } from '@app/store/accounts/accounts';
 import { currentNetworkState } from '@app/store/network/networks';
 import {
   useStxTokenTransferUnsignedTxState,
@@ -27,7 +26,6 @@ import {
   useGenerateStxTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
-import { currentAccountLocallySubmittedTxsState } from '@app/store/accounts/account-activity';
 import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { TransactionTypes } from '@stacks/connect';
 import { validateStacksAddress } from '@app/common/stacks-utils';
@@ -41,6 +39,7 @@ import {
   useCurrentAccountStxAddressState,
 } from '@app/store/accounts/account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
@@ -147,6 +146,7 @@ export function useSoftwareWalletTransactionBroadcast() {
   const { nonce } = useNextNonce();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
 
   return useAtomCallback(
     useCallback(
@@ -170,7 +170,7 @@ export function useSoftwareWalletTransactionBroadcast() {
         });
 
         if (!account || !requestToken || !unsignedStacksTransaction) {
-          set(transactionBroadcastErrorState, 'No pending transaction found.');
+          set(transactionBroadcastErrorState, 'No pending transaction');
           return;
         }
 
@@ -188,20 +188,18 @@ export function useSoftwareWalletTransactionBroadcast() {
             attachment,
             networkUrl: network.url,
           });
-          finalizeTxSignature(requestToken, result);
           if (typeof result.txId === 'string') {
-            set(currentAccountLocallySubmittedTxsState, {
-              [result.txId]: {
-                rawTx: result.txRaw,
-                timestamp: todaysIsoDate(),
-              },
+            submittedTransactionsActions.newTransactionSubmitted({
+              rawTx: result.txRaw,
+              txId: result.txId,
             });
           }
+          finalizeTxSignature(requestToken, result);
         } catch (error) {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [nonce, signSoftwareWalletTx, stacksTxBaseState]
+      [nonce, signSoftwareWalletTx, stacksTxBaseState, submittedTransactionsActions]
     )
   );
 }
@@ -210,43 +208,45 @@ export function useSoftwareWalletTransactionBroadcast() {
 // TODO: duplicated from software wallet hook above
 // Broadcasting logic needs a complete refactor
 export function useHardwareWalletTransactionBroadcast() {
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
+
   return useAtomCallback(
-    useCallback(async (get, set, { signedTx }: { signedTx: StacksTransaction }) => {
-      const { attachment, requestToken, network } = await get(
-        waitForAll({
-          attachment: transactionAttachmentState,
-          requestToken: requestTokenState,
-          network: currentNetworkState,
-        }),
-        { unstable_promise: true }
-      );
+    useCallback(
+      async (get, set, { signedTx }: { signedTx: StacksTransaction }) => {
+        const { attachment, requestToken, network } = await get(
+          waitForAll({
+            attachment: transactionAttachmentState,
+            requestToken: requestTokenState,
+            network: currentNetworkState,
+          }),
+          { unstable_promise: true }
+        );
 
-      try {
-        const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
-        const result = await broadcastTransaction({
-          isSponsored,
-          serialized,
-          txRaw,
-          attachment,
-          networkUrl: network.url,
-        });
-
-        if (typeof result.txId === 'string') {
-          set(currentAccountLocallySubmittedTxsState, {
-            [result.txId]: {
-              rawTx: result.txRaw,
-              timestamp: todaysIsoDate(),
-            },
+        try {
+          const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
+          const result = await broadcastTransaction({
+            isSponsored,
+            serialized,
+            txRaw,
+            attachment,
+            networkUrl: network.url,
           });
+          if (typeof result.txId === 'string') {
+            submittedTransactionsActions.newTransactionSubmitted({
+              rawTx: result.txRaw,
+              txId: result.txId,
+            });
+          }
+          // If there's a request token, this means it's a transaction request
+          // In which case we need to return to the app the results of the tx
+          // Otherwise, it's a send form tx and we don't want to
+          if (requestToken) finalizeTxSignature(requestToken, result);
+        } catch (error) {
+          if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
-        // If there's a request token, this means it's a transaction request
-        // In which case we need to return to the app the results of the tx
-        // Otherwise, it's a send form tx and we don't want to
-        if (requestToken) finalizeTxSignature(requestToken, result);
-      } catch (error) {
-        if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
-      }
-    }, [])
+      },
+      [submittedTransactionsActions]
+    )
   );
 }
 

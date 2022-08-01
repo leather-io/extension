@@ -20,7 +20,7 @@ import { ftUnshiftDecimals, stxToMicroStx } from '@app/common/stacks-utils';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
-import { currentAccountState, currentAccountStxAddressState } from '@app/store/accounts';
+import { currentAccountState, currentAccountStxAddressState } from '@app/store/accounts/accounts';
 import { currentStacksNetworkState } from '@app/store/network/networks';
 import {
   generateUnsignedTransaction,

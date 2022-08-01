@@ -8,10 +8,10 @@ import { Box, Stack, Text, color } from '@stacks/ui';
 import { createTxDateFormatList } from '@app/common/transactions/transaction-utils';
 import { Transaction } from '@app/components/transaction/transaction';
 
-interface TransactionListProps {
+interface TransactionsListProps {
   txs: (AddressTransactionWithTransfers | MempoolTransaction)[];
 }
-export function TransactionList({ txs }: TransactionListProps) {
+export function TransactionsList({ txs }: TransactionsListProps) {
   const txsGroupedByDate = useMemo(() => (txs ? createTxDateFormatList(txs) : []), [txs]);
 
   return (

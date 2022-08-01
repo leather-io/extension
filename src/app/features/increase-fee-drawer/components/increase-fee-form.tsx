@@ -15,7 +15,8 @@ import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigat
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
-import { useRemoveLocalSubmittedTxById } from '@app/store/accounts/account-activity.hooks';
+import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
@@ -27,7 +28,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
   const stxBalance = useCurrentAccountAvailableStxBalance();
-  const removeLocallySubmittedTx = useRemoveLocalSubmittedTxById();
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
   const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();
   const { whenWallet } = useWalletType();
@@ -46,9 +47,9 @@ export function IncreaseFeeForm(): JSX.Element | null {
     async values => {
       if (!tx || !rawTx) return;
       rawTx.setFee(stxToMicroStx(values.fee).toString());
-      const txId = tx.tx_id || rawTx.txid();
+      const txId = tx.tx_id || safelyFormatHexTxid(rawTx.txid());
       await refreshAccountData();
-      removeLocallySubmittedTx(txId);
+      submittedTransactionsActions.transactionReplacedByFee(txId);
       whenWallet({
         software: async () => {
           await replaceByFee(values);
@@ -59,13 +60,13 @@ export function IncreaseFeeForm(): JSX.Element | null {
       })();
     },
     [
-      ledgerNavigate,
+      tx,
       rawTx,
       refreshAccountData,
-      removeLocallySubmittedTx,
-      replaceByFee,
-      tx,
+      submittedTransactionsActions,
       whenWallet,
+      replaceByFee,
+      ledgerNavigate,
     ]
   );
 

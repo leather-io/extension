@@ -3,7 +3,7 @@ import { BoxProps, DynamicColorCircle } from '@stacks/ui';
 
 import { StxIcon } from '@app/components/icons/stx-icon';
 import { Tx } from '@app/common/api/transactions';
-import { getTxSenderAddress } from '@app/store/accounts/account-activity.utils';
+import { getTxSenderAddress } from '@app/common/transactions/transaction-utils';
 
 import { TransactionTypeIcon } from './transaction-type-icon';
 import { TransactionIconWrapper } from './transaction-icon-wrapper';
