@@ -6,7 +6,7 @@ import { stxAmountSchema } from '@app/common/validation/currency-schema';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { SendFormErrorMessages } from '@app/common/error-messages';
 import { isNumber } from '@shared/utils';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 
 /**

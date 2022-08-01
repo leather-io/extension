@@ -17,7 +17,7 @@ import { SendFormErrorMessages } from '@app/common/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { isNumber } from '@shared/utils';
 

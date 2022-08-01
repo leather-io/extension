@@ -26,6 +26,7 @@ export function useGetAccountBalanceQuery<T>(
 ) {
   const api = useApi();
   return useQuery({
+    enabled: !!address,
     queryKey: ['get-address-stx-balance', address],
     queryFn: fetchAccountBalance(api)(address),
     suspense: true,
@@ -40,6 +41,7 @@ export function useGetAnchoredAccountBalanceQuery<T>(
 ) {
   const api = useAnchoredApi();
   return useQuery({
+    enabled: !!address,
     queryKey: ['get-address-anchored-stx-balance', address],
     queryFn: fetchAccountBalance(api)(address),
     suspense: true,

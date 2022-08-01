@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js';
 import { AssetWithMeta } from '@app/common/asset-types';
 import { getFullyQualifiedAssetName, getTicker, initBigNumber } from '@app/common/utils';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { useSelectedAssetItem, useUpdateSelectedAsset } from '@app/store/assets/asset.hooks';
-import { useAnalytics } from '../../../common/hooks/analytics/use-analytics';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
 export function useSelectedAsset() {
   const selectedAsset = useSelectedAssetItem();
