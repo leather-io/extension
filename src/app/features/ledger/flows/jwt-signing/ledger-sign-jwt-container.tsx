@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-stacks';
+import { LedgerError } from '@zondax/ledger-blockstack';
 import { getAddressFromPublicKey, TransactionVersion } from '@stacks/transactions';
 import get from 'lodash.get';
 
@@ -65,12 +65,13 @@ export function LedgerSignJwtContainer() {
       return;
     }
 
-    if (!activeAccount || !decodedAuthRequest || !authRequest || !accounts) {
+    if (!activeAccount || !decodedAuthRequest || !authRequest || !accounts || !tabId) {
       logger.warn('No necessary state not found while performing JWT signing', {
         account: activeAccount,
         decodedAuthRequest,
         authRequest,
         accounts,
+        tabId,
       });
       return;
     }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-stacks';
+import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
 import { delay } from '@app/common/utils';
@@ -72,9 +72,7 @@ export function LedgerSignMsgContainer() {
       await delay(1000);
       if (!message) throw new Error('No message to sign');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
-      // TODO: add actual requested index
       const resp = await signLedgerUtf8Message(stacksApp)(message, account.index);
-
       // Assuming here that public keys are wrong. Alternatively, we may want
       // to proactively check the key before signing
       if (resp.returnCode === LedgerError.DataIsInvalid) {

@@ -26,7 +26,7 @@ function parseAuthRequestValues(authRequest: string | null, origin: string | nul
 }
 
 export function useAuthRequestParams() {
-  const [params] = useInitialRouteSearchParams();
+  const params = useInitialRouteSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
 
   return useMemo(() => {

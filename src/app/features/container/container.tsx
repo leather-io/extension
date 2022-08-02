@@ -17,7 +17,7 @@ function useCacheInitialRouteSearchParams() {
   }, []);
 }
 
-export function Container(): JSX.Element | null {
+export function Container() {
   const [routeHeader, _] = useRouteHeaderState();
 
   useCacheInitialRouteSearchParams();

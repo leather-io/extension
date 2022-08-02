@@ -1,16 +1,12 @@
 import { useState } from 'react';
 
 import { Button, Stack } from '@stacks/ui';
-import {} from '@stacks/encryption';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { createDelay } from '@app/common/utils';
 
-import {
-  useOnCancelSignMessage,
-  useSignatureRequestSearchParams,
-} from '@app/store/signatures/requests.hooks';
+import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 import { logger } from '@shared/logger';
 import { SignatureMessage } from '@shared/signature/types';
@@ -30,13 +26,11 @@ export function SignAction(props: SignatureMessage) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const cancelMessageSign = useOnCancelSignMessage();
   const signSoftwareWalletMessage = useSignMessageSoftwareWallet();
   const { tabId, requestToken } = useSignatureRequestSearchParams();
   const { whenWallet } = useWalletType();
 
   if (!requestToken || !tabId) return null;
-  const tabIdInt = parseInt(tabId);
 
   const sign = whenWallet({
     async software() {

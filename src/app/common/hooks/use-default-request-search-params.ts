@@ -3,7 +3,7 @@ import { useInitialRouteSearchParams } from '@app/store/common/initial-route-sea
 import { isString } from '@shared/utils';
 
 export function useDefaultRequestParams() {
-  const [params] = useInitialRouteSearchParams();
+  const params = useInitialRouteSearchParams();
 
   return useMemo(() => {
     const origin = params.get('origin');

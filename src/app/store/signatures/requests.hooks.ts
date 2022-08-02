@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import { useSearchParams } from 'react-router-dom';
 import { useAtom } from 'jotai';
 
 import { verifySignatureRequest } from '@app/common/signature/requests';
@@ -39,25 +38,12 @@ export function useIsSignatureRequestValid() {
 }
 
 export function useSignatureRequestSearchParams() {
-  const [searchParams] = useSearchParams();
-  const { origin, tabId } = useDefaultRequestParams();
-
-  return useMemo(
-    () => ({
-      requestToken: searchParams.get('request'),
-      tabId: searchParams.get('tabId'),
-      origin: searchParams.get('origin'),
-      messageType: searchParams.get('messageType'),
-    }),
-    [searchParams]
-  );
-}
   const searchParams = useInitialRouteSearchParams();
+  const { origin, tabId } = useDefaultRequestParams();
 
   return useMemo(() => {
     const requestToken = searchParams.get('request');
-    const tabId = searchParams.get('tabId');
-    const origin = searchParams.get('origin');
+
     const messageType = searchParams.get('messageType');
 
     return {
@@ -66,16 +52,5 @@ export function useSignatureRequestSearchParams() {
       origin,
       messageType,
     };
-  }, [searchParams]);
-}
-
-export function useOnCancelSignMessage() {
-  const { requestToken, tabId } = useSignatureRequestSearchParams();
-
-  return useCallback(() => {
-    if (!requestToken || !tabId) return;
-    const tabIdInt = parseInt(tabId);
-    const data = 'cancel';
-    finalizeMessageSignature(requestToken, tabIdInt, data);
-  }, [requestToken, tabId]);
+  }, [origin, searchParams, tabId]);
 }

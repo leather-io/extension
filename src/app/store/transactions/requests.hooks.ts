@@ -7,8 +7,8 @@ import { getPayloadFromToken } from './utils';
 import { requestTokenPayloadState } from './requests';
 
 export function useTransactionRequest() {
-  const [params] = useInitialRouteSearchParams();
-  return useMemo(() => params.get('request'), [params]);
+  const params = useInitialRouteSearchParams();
+  return params.get('request');
 }
 
 export function useSetTransactionRequestAtom(request: string | null) {

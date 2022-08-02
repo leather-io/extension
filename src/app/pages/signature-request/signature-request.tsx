@@ -13,8 +13,8 @@ import {
   useSetAtomSignatureRequestToken,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
+import { WarningLabel } from '@app/components/warning-label';
 
-import { ErrorMessage } from './components/message-signing-error-msg';
 import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
 import { SignatureRequestMessageContent } from './components/message-content';
 import { SignatureRequestLayout } from './components/signature-request.layout';
@@ -37,23 +37,24 @@ function SignatureRequestBase() {
   if (!requestToken || !messageType) return null;
 
   return (
-    <>
-      <SignatureRequestLayout>
-        {!validSignatureRequest && (
-          <ErrorMessage errorMessage="Unverified signature request from origin Xxx. What does this mean?" />
-        )}
-        {isUtf8Message(messageType) && (
-          <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
-        )}
-        {isStructuredMessage(messageType) && (
-          <SignatureRequestStructuredDataContent
-            requestToken={requestToken}
-            messageType={messageType}
-          />
-        )}
-      </SignatureRequestLayout>
+    <SignatureRequestLayout>
+      {!validSignatureRequest && (
+        <WarningLabel>
+          Signing messages can have unintended consequences. Only sign messages from trusted
+          sources.
+        </WarningLabel>
+      )}
+      {isUtf8Message(messageType) && (
+        <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
+      )}
+      {isStructuredMessage(messageType) && (
+        <SignatureRequestStructuredDataContent
+          requestToken={requestToken}
+          messageType={messageType}
+        />
+      )}
       <Outlet />
-    </>
+    </SignatureRequestLayout>
   );
 }
 

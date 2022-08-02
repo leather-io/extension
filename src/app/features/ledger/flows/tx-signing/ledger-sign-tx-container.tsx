@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-stacks';
+import { LedgerError } from '@zondax/ledger-blockstack';
 import get from 'lodash.get';
 
 import { delay } from '@app/common/utils';
@@ -88,8 +88,6 @@ export function LedgerSignTxContainer() {
         Buffer.from(unsignedTransaction, 'hex'),
         account.index
       );
-
-      console.log(resp);
 
       // Assuming here that public keys are wrong. Alternatively, we may want
       // to proactively check the key before signing
