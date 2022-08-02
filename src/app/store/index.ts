@@ -74,9 +74,9 @@ export type RootState = ReturnType<typeof persistedReducer>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
-type AppDispatch = typeof store.dispatch;
+type AppDispatch = typeof store.dispatch & ((action: AppThunk) => void);
 
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppDispatch: () => AppDispatch = useDispatch;
 
 export const storeAtom = atomWithStore(store);
 

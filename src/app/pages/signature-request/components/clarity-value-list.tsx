@@ -1,5 +1,11 @@
 import { ClarityType, ClarityValue, cvToString } from '@stacks/transactions';
 import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/principalCV';
+import {
+  TupleDisplayer,
+  TupleNodeDisplayer,
+  TupleNodeLabelDisplayer,
+  TupleNodeValueDisplayer,
+} from './nested-tuple-displayer';
 
 function wrapText(text: string): JSX.Element {
   return <>{text}</>;
@@ -44,46 +50,17 @@ export function ClarityValueListDisplayer(props: ClarityValueListDisplayerProps)
     case ClarityType.List:
       return wrapText(`[${val.list.map(v => cvToString(v, encoding)).join(', ')}]`);
     case ClarityType.Tuple:
-      const rootStyles = isRoot
-        ? {
-            flex: '1 100%',
-            paddingTop: '12px',
-            marginLeft: 0,
-            fontFamily: 'Fira Code',
-          }
-        : {};
       return (
-        <div
-          style={{
-            marginLeft: '20px',
-            overflow: 'visible',
-            ...rootStyles,
-          }}
-        >
-          {Object.entries(val.data).map(([key, value]) => {
-            return (
-              <div style={{ display: value.type !== ClarityType.Tuple ? 'flex' : undefined }}>
-                <span
-                  style={{
-                    marginRight: '16px',
-                    color: '#74777D',
-                  }}
-                >
-                  {key}:
-                </span>
-                <span
-                  style={{
-                    display: 'flex',
-                    wordWrap: 'break-word',
-                    whiteSpace: 'pre-line',
-                  }}
-                >
-                  <ClarityValueListDisplayer val={value} encoding={'tryAscii'} isRoot={false} />
-                </span>
-              </div>
-            );
-          })}
-        </div>
+        <TupleDisplayer isRoot={isRoot}>
+          {Object.entries(val.data).map(([key, value]) => (
+            <TupleNodeDisplayer clarityType={value.type}>
+              <TupleNodeLabelDisplayer>{key}:</TupleNodeLabelDisplayer>
+              <TupleNodeValueDisplayer>
+                <ClarityValueListDisplayer val={value} encoding="tryAscii" isRoot={false} />
+              </TupleNodeValueDisplayer>
+            </TupleNodeDisplayer>
+          ))}
+        </TupleDisplayer>
       );
     case ClarityType.StringASCII:
       return wrapText(`"${val.data}"`);
