@@ -1,4 +1,4 @@
-import { Stack, Flex, Box, Text } from '@stacks/ui';
+import { Flex, Box, Text } from '@stacks/ui';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { useState } from 'react';
 
@@ -18,21 +18,21 @@ export function HashDrawer(props: HashDrawerProps) {
   const [showHash, setShowHash] = useState(false);
   const [displayHash, setDisplayHash] = useState(hash);
   return (
-    <Stack px="loose" spacing="loose">
-      <Flex marginBottom="0px !important">
+    <Box px="loose">
+      <Flex
+        as="button"
+        width="100%"
+        _hover={{ cursor: 'pointer' }}
+        _focus={{ outline: 0, textDecoration: 'underline' }}
+        onClick={() => {
+          setDisplayHash(showHash ? '' : hash);
+          setShowHash(!showHash);
+        }}
+      >
         <Text display="block" fontSize={1} py="tight">
           {showHash ? 'Hide hash' : 'Show hash'}
         </Text>
-        <Box
-          _hover={{ cursor: 'pointer' }}
-          marginLeft={'auto'}
-          marginTop={'auto'}
-          marginBottom={'auto'}
-          onClick={() => {
-            setDisplayHash(showHash ? '' : hash);
-            setShowHash(!showHash);
-          }}
-        >
+        <Box marginLeft="auto" marginTop="auto" marginBottom="auto">
           <ShowHashButton expanded={showHash} />
         </Box>
       </Flex>
@@ -41,19 +41,17 @@ export function HashDrawer(props: HashDrawerProps) {
         height={showHash ? '100%' : '0'}
         visibility={showHash ? 'visible' : 'hidden'}
       >
-        <Stack spacing="base-tight">
-          <Text
-            display="block"
-            color="#74777D"
-            fontSize={1}
-            lineHeight="1.6"
-            wordBreak="break-all"
-            fontFamily={'Fira Code'}
-          >
-            {displayHash}
-          </Text>
-        </Stack>
+        <Text
+          display="block"
+          color="#74777D"
+          fontSize={1}
+          lineHeight="1.6"
+          wordBreak="break-all"
+          fontFamily="Fira Code"
+        >
+          {displayHash}
+        </Text>
       </Box>
-    </Stack>
+    </Box>
   );
 }

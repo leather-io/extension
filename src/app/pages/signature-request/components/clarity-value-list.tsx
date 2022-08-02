@@ -4,6 +4,7 @@ import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/p
 function wrapText(text: string): JSX.Element {
   return <>{text}</>;
 }
+
 interface ClarityValueListDisplayerProps {
   val: ClarityValue;
   encoding?: 'tryAscii' | 'hex';
@@ -43,31 +44,46 @@ export function ClarityValueListDisplayer(props: ClarityValueListDisplayerProps)
     case ClarityType.List:
       return wrapText(`[${val.list.map(v => cvToString(v, encoding)).join(', ')}]`);
     case ClarityType.Tuple:
+      const rootStyles = isRoot
+        ? {
+            flex: '1 100%',
+            paddingTop: '12px',
+            marginLeft: 0,
+            fontFamily: 'Fira Code',
+          }
+        : {};
       return (
-        <dl
+        <div
           style={{
-            display: 'flex',
-            flexFlow: 'row',
-            flexWrap: 'wrap',
-            paddingTop: isRoot ? '0' : '20px',
+            marginLeft: '20px',
             overflow: 'visible',
+            ...rootStyles,
           }}
         >
-          {Object.keys(val.data).map(key => {
+          {Object.entries(val.data).map(([key, value]) => {
             return (
-              <>
-                <dt style={{ flex: '0 0 20%', color: '#74777D' }}>{key}:</dt>
-                <dd style={{ flex: '0 0 80%' }}>
-                  <ClarityValueListDisplayer
-                    val={val.data[key]}
-                    encoding={'tryAscii'}
-                    isRoot={false}
-                  />
-                </dd>
-              </>
+              <div style={{ display: value.type !== ClarityType.Tuple ? 'flex' : undefined }}>
+                <span
+                  style={{
+                    marginRight: '16px',
+                    color: '#74777D',
+                  }}
+                >
+                  {key}:
+                </span>
+                <span
+                  style={{
+                    display: 'flex',
+                    wordWrap: 'break-word',
+                    whiteSpace: 'pre-line',
+                  }}
+                >
+                  <ClarityValueListDisplayer val={value} encoding={'tryAscii'} isRoot={false} />
+                </span>
+              </div>
             );
           })}
-        </dl>
+        </div>
       );
     case ClarityType.StringASCII:
       return wrapText(`"${val.data}"`);

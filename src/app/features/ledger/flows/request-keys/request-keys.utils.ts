@@ -2,7 +2,7 @@ import { delay } from '@app/common/utils';
 import * as secp from '@noble/secp256k1';
 import { logger } from '@shared/logger';
 import { AddressVersion } from '@stacks/transactions';
-import StacksApp from '@zondax/ledger-blockstack';
+import StacksApp from '@zondax/ledger-stacks';
 
 import {
   getIdentityDerivationPath,
