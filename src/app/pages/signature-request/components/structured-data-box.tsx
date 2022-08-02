@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { sha256 } from 'sha.js';
-import { color, Stack, Text } from '@stacks/ui';
+import { Box, color, Stack, Text } from '@stacks/ui';
 import {
   ChainID,
   ClarityValue,
@@ -30,10 +30,7 @@ function chainIdToDisplay(chainIdCv: ClarityValue): string {
   });
 }
 
-export function StructuredDataBox(props: {
-  message: ClarityValue;
-  domain: TupleCV;
-}): JSX.Element | null {
+export function StructuredDataBox(props: { message: ClarityValue; domain: TupleCV }) {
   const { message, domain } = props;
 
   const [hash, setHash] = useState<string | undefined>();
@@ -57,38 +54,30 @@ export function StructuredDataBox(props: {
   if (!message) return null;
 
   return (
-    <>
-      <Stack minHeight={'260px'}>
-        <Stack
-          border="4px solid"
-          paddingBottom={'8px'}
-          borderColor={color('border')}
-          borderRadius="20px"
-          backgroundColor={color('border')}
-        >
-          <Stack
-            py="loose"
-            px="loose"
-            spacing="loose"
-            borderRadius="16px"
-            backgroundColor={'white'}
-          >
-            <Stack spacing="base-tight">
-              <Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all">
-                <h2>
-                  <strong>{domainName}</strong>{' '}
-                  <Text color={color('text-caption')}>
-                    {domainVersion} {domainChainName}
-                  </Text>
-                </h2>
-                <hr style={{ marginTop: '5px', marginBottom: '5px' }} />
-                <ClarityValueListDisplayer val={message} encoding={'tryAscii'} />
+    <Box minHeight="260px">
+      <Stack
+        border="4px solid"
+        paddingBottom={'8px'}
+        borderColor={color('border')}
+        borderRadius="20px"
+        backgroundColor={color('border')}
+      >
+        <Box overflowX="scroll" py="loose" borderRadius="16px" background="white">
+          <Box fontSize="14px" lineHeight="1.7" px="loose">
+            <h2>
+              <strong>{domainName}</strong>{' '}
+              <Text color={color('text-caption')}>
+                {domainVersion} {domainChainName}
               </Text>
-            </Stack>
-          </Stack>
-          {hash ? <HashDrawer hash={hash} /> : null}
-        </Stack>
+            </h2>
+            <hr style={{ marginTop: '5px', marginBottom: '5px' }} />
+            <Box>
+              <ClarityValueListDisplayer val={message} encoding={'tryAscii'} />
+            </Box>
+          </Box>
+        </Box>
+        {hash ? <HashDrawer hash={hash} /> : null}
       </Stack>
-    </>
+    </Box>
   );
 }
