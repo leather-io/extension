@@ -1,10 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-process.env.BABEL_ENV = 'development';
-process.env.NODE_ENV = 'development';
-process.env.ASSET_PATH = '/';
-process.env.PORT = '8080';
-
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
@@ -17,8 +10,8 @@ const PORT = process.env.PORT || '8080';
 
 const config = require('./webpack.config.dev');
 
-// This is important, allows for fast refresh to work
-// we don't want to inject our fast refresh helpers into these entry points
+// This is important bc it allows for fast refresh to work
+// We don't want to inject our fast refresh helpers into these entry points
 const excludeEntriesFromHotModuleReload = ['content-script', 'inpage'];
 
 Object.keys(config.entry).forEach(entryName => {

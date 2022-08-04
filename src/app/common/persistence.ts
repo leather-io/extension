@@ -2,7 +2,8 @@ import { QueryClient } from 'react-query';
 import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor-experimental';
 import { persistQueryClient } from 'react-query/persistQueryClient-experimental';
 
-import { IS_TEST_ENV, PERSISTENCE_CACHE_TIME } from '@shared/constants';
+import { PERSISTENCE_CACHE_TIME } from '@shared/constants';
+import { IS_TEST_ENV } from '@shared/environment';
 
 const localStoragePersistor = createWebStoragePersistor({ storage: window.localStorage });
 

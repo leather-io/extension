@@ -3,10 +3,10 @@ import { TransactionTypes } from '@stacks/connect';
 import { color, Flex } from '@stacks/ui';
 import { PostConditionMode } from '@stacks/transactions';
 
-import { IS_TEST_ENV } from '@shared/constants';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useTransactionPostConditions } from '@app/store/transactions/transaction.hooks';
 import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
+import { IS_TEST_ENV } from '@shared/environment';
 
 import { StxPostCondition } from './stx-post-condition';
 import { PostConditionsList } from './post-conditions-list';

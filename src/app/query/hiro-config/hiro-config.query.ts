@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
+import { BRANCH_NAME } from '@shared/environment';
 import { isUndefined } from '@shared/utils';
 
 export interface HiroMessage {
@@ -35,9 +36,9 @@ interface HiroConfig {
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const DEFAULT_BRANCH = 'main';
+const defaultBranch = 'main';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
-  BRANCH_NAME || DEFAULT_BRANCH
+  BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {

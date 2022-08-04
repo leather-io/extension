@@ -1,4 +1,6 @@
 import { StacksProvider } from '@stacks/connect';
+
+import { BRANCH, COMMIT_SHA } from '@shared/environment';
 import {
   AuthenticationRequestEventDetails,
   DomEventName,

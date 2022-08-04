@@ -5,7 +5,7 @@
   "version": "3.13.5",
   "author": "Hiro Systems PBC",
   "scripts": {
-    "dev": "concurrently --raw 'node webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
+    "dev": "cross-env NODE_ENV=development concurrently --raw 'node webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
     "dev:test-app": "webpack serve --config test-app/webpack/webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",
     "build:analyze": "cross-env ANALYZE=true NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",
@@ -271,6 +271,7 @@
     "deepmerge": "4.2.2",
     "dependency-cruiser": "11.11.0",
     "dotenv": "10.0.0",
+    "dotenv-webpack": "8.0.0",
     "esbuild": "0.14.7",
     "esbuild-loader": "2.18.0",
     "eslint-plugin-deprecation": "1.2.1",

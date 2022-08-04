@@ -1,5 +1,6 @@
 import pino from 'pino';
-import { IS_TEST_ENV } from './constants';
+
+import { IS_TEST_ENV } from './environment';
 
 const loggingTool = pino({
   enabled: process.env.NODE_ENV !== 'production' && !IS_TEST_ENV,
