@@ -38,7 +38,7 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
 // Persists keys in memory for the duration of the background scripts life
 const inMemoryKeys = new Map();
 
-export async function backgroundMessageHandler(
+export async function internalBackgroundMessageHandler(
   message: BackgroundActions,
   sender: chrome.runtime.MessageSender,
   sendResponse: (response?: any) => void

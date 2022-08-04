@@ -4,7 +4,6 @@ import {
   ExternalMethods,
   MESSAGE_SOURCE,
 } from '@shared/message-types';
-import { deleteTabForRequest, getTab, StorageKey } from '@shared/utils/storage';
 import { isValidUrl } from '@app/common/validation/validate-url';
 import { logger } from '@shared/logger';
 
@@ -13,6 +12,7 @@ interface FinalizeAuthParams {
   authResponse: string;
   authRequest: string;
   requestingOrigin: string;
+  tabId: number;
 }
 
 /**
@@ -23,12 +23,13 @@ interface FinalizeAuthParams {
  * of the extension.
  *
  */
-export const finalizeAuthResponse = ({
+export function finalizeAuthResponse({
   decodedAuthRequest,
   authRequest,
   authResponse,
   requestingOrigin,
-}: FinalizeAuthParams) => {
+  tabId,
+}: FinalizeAuthParams) {
   const dangerousUri = decodedAuthRequest.redirect_uri;
   if (!isValidUrl(dangerousUri)) {
     throw new Error('Cannot proceed with malicious url');
@@ -41,7 +42,6 @@ export const finalizeAuthResponse = ({
   }
 
   try {
-    const tabId = getTab(StorageKey.authenticationRequests, authRequest);
     const responseMessage: AuthenticationResponseMessage = {
       source: MESSAGE_SOURCE,
       payload: {
@@ -51,7 +51,6 @@ export const finalizeAuthResponse = ({
       method: ExternalMethods.authenticationResponse,
     };
     chrome.tabs.sendMessage(tabId, responseMessage);
-    deleteTabForRequest(StorageKey.authenticationRequests, authRequest);
     window.close();
   } catch (error) {
     logger.debug('Failed to get Tab ID for authentication request:', authRequest);
@@ -59,4 +58,4 @@ export const finalizeAuthResponse = ({
       'Your transaction was broadcasted, but we lost communication with the app you started with.'
     );
   }
-};
+}
