@@ -13,6 +13,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import { IS_DEV_ENV } from '@shared/environment';
+
 import { keySlice } from './keys/key.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
@@ -55,16 +57,15 @@ export const store = configureStore({
     }),
     broadcastActionTypeToOtherFramesMiddleware,
   ],
-  enhancers:
-    process.env.WALLET_ENVIRONMENT === 'development'
-      ? [
-          devToolsEnhancer({
-            hostname: 'localhost',
-            port: 8000,
-            realtime: true,
-          }),
-        ]
-      : [],
+  enhancers: IS_DEV_ENV
+    ? [
+        devToolsEnhancer({
+          hostname: 'localhost',
+          port: 8000,
+          realtime: true,
+        }),
+      ]
+    : [],
 });
 
 export const persistor = persistStore(store);

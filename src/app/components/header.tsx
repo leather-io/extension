@@ -11,6 +11,7 @@ import { Title } from '@app/components/typography';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { BRANCH } from '@shared/environment';
 
 interface HeaderProps extends FlexProps {
   actionButton?: JSX.Element;

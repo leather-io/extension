@@ -12,13 +12,7 @@ import MoonPayIcon from '@assets/images/fund/fiat-providers/moonpay-icon.png';
 import OkcoinIcon from '@assets/images/fund/fiat-providers/okcoin-icon.png';
 import OkxIcon from '@assets/images/fund/fiat-providers/okx-icon.png';
 import TransakIcon from '@assets/images/fund/fiat-providers/transak-icon.png';
-import {
-  COINBASE_APP_ID,
-  IS_PRODUCTION_ENV,
-  MOONPAY_API_KEY,
-  TRANSAK_API_KEY_PRODUCTION,
-  TRANSAK_API_KEY_STAGING,
-} from '@shared/constants';
+import { COINBASE_APP_ID, MOONPAY_API_KEY, TRANSAK_API_KEY } from '@shared/environment';
 
 // Keys are set in wallet-config.json
 enum ActiveFiatProviders {
@@ -74,11 +68,9 @@ function makeOkcoinUrl(address: string) {
 }
 
 function makeTransakUrl(address: string) {
-  const apiKey = IS_PRODUCTION_ENV ? TRANSAK_API_KEY_PRODUCTION : TRANSAK_API_KEY_STAGING;
-  const subdomain = IS_PRODUCTION_ENV ? 'global' : 'staging-global';
   const screenTitle = 'Buy Stacks';
 
-  return `https://${subdomain}.transak.com?apiKey=${apiKey}&cryptoCurrencyCode=STX&exchangeScreenTitle=${encodeURI(
+  return `https://global.transak.com?apiKey=${TRANSAK_API_KEY}&cryptoCurrencyCode=STX&exchangeScreenTitle=${encodeURI(
     screenTitle
   )}&defaultPaymentMethod=credit_debit_card&walletAddress=${address}`;
 }

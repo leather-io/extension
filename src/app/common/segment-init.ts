@@ -1,21 +1,21 @@
 import { Analytics, AnalyticsBrowser } from '@segment/analytics-next';
-import { IS_TEST_ENV } from '@shared/constants';
+
+import { IS_PROD_ENV, IS_TEST_ENV, SEGMENT_WRITE_KEY } from '@shared/environment';
 import { logger } from '@shared/logger';
 import { checkUserHasGrantedPermission } from '@shared/utils/sentry-init';
 
 export let analytics: Analytics;
 
 export function initSegment() {
-  const writeKey = process.env.SEGMENT_WRITE_KEY;
+  const writeKey = SEGMENT_WRITE_KEY;
   const hasPermission = checkUserHasGrantedPermission();
   if (!hasPermission) {
     logger.info('segment init aborted: has no permission.');
     return;
   }
   if (IS_TEST_ENV) return;
-  if (!writeKey) {
-    if (process.env.WALLET_ENVIRONMENT === 'production')
-      logger.error('segment init aborted: No WRITE_KEY setup.');
+  if (!SEGMENT_WRITE_KEY) {
+    if (IS_PROD_ENV) logger.error('segment init aborted: No WRITE_KEY setup.');
     return;
   }
 

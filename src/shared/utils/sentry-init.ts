@@ -1,5 +1,8 @@
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
+
+import { SENTRY_DSN } from '@shared/environment';
+
 import { userHasAllowedDiagnosticsKey } from './storage';
 
 export function checkUserHasGrantedPermission() {
@@ -8,7 +11,7 @@ export function checkUserHasGrantedPermission() {
 
 export function initSentry() {
   Sentry.init({
-    dsn: process.env.SENTRY_DSN,
+    dsn: SENTRY_DSN,
     integrations: [new Integrations.BrowserTracing()],
     tracesSampleRate: 0,
     enabled: checkUserHasGrantedPermission(),
