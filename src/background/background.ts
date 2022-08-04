@@ -9,7 +9,7 @@ import * as Sentry from '@sentry/react';
 
 import { storePayload, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
-import { addRefererHeaderRequestListener } from '@shared/add-referer-header';
+// import { addRefererHeaderRequestListener } from '@shared/add-referer-header';
 import { initSentry } from '@shared/utils/sentry-init';
 import {
   CONTENT_SCRIPT_PORT,
@@ -24,7 +24,7 @@ import { backupOldWalletSalt } from './backup-old-wallet-salt';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
-void addRefererHeaderRequestListener();
+// void addRefererHeaderRequestListener();
 initSentry();
 initContextMenuActions();
 backupOldWalletSalt();
