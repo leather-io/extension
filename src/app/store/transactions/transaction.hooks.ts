@@ -50,6 +50,7 @@ import {
   transactionAttachmentState,
   transactionBroadcastErrorState,
 } from './transaction';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 
 export function useTransactionPostConditions() {
   return useAtomValue(postConditionsState);
@@ -143,6 +144,7 @@ export function useSoftwareWalletTransactionBroadcast() {
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
+  const { tabId } = useDefaultRequestParams();
 
   return useAtomCallback(
     useCallback(
@@ -170,6 +172,8 @@ export function useSoftwareWalletTransactionBroadcast() {
           return;
         }
 
+        if (!tabId) throw new Error('tabId not defined');
+
         try {
           const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
           if (!signedTx) {
@@ -190,12 +194,12 @@ export function useSoftwareWalletTransactionBroadcast() {
               txId: result.txId,
             });
           }
-          finalizeTxSignature(requestToken, result);
+          finalizeTxSignature({ requestPayload: requestToken, data: result, tabId });
         } catch (error) {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [nonce, signSoftwareWalletTx, stacksTxBaseState, submittedTransactionsActions]
+      [nonce, signSoftwareWalletTx, stacksTxBaseState, submittedTransactionsActions, tabId]
     )
   );
 }
@@ -205,6 +209,7 @@ export function useSoftwareWalletTransactionBroadcast() {
 // Broadcasting logic needs a complete refactor
 export function useHardwareWalletTransactionBroadcast() {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
+  const { tabId } = useDefaultRequestParams();
 
   return useAtomCallback(
     useCallback(
@@ -236,12 +241,13 @@ export function useHardwareWalletTransactionBroadcast() {
           // If there's a request token, this means it's a transaction request
           // In which case we need to return to the app the results of the tx
           // Otherwise, it's a send form tx and we don't want to
-          if (requestToken) finalizeTxSignature(requestToken, result);
+          if (requestToken && tabId)
+            finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
         } catch (error) {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [submittedTransactionsActions]
+      [submittedTransactionsActions, tabId]
     )
   );
 }

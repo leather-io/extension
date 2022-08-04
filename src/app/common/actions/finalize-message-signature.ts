@@ -2,11 +2,16 @@ import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shar
 import { logger } from '@shared/logger';
 import { SignatureData } from '@stacks/connect';
 
-export const finalizeMessageSignature = (
-  requestPayload: string,
-  tabId: number,
-  data: SignatureData | string
-) => {
+interface FinalizeMessageSignatureArgs {
+  requestPayload: string;
+  tabId: number;
+  data: SignatureData | string;
+}
+export function finalizeMessageSignature({
+  requestPayload,
+  data,
+  tabId,
+}: FinalizeMessageSignatureArgs) {
   try {
     const responseMessage: SignatureResponseMessage = {
       source: MESSAGE_SOURCE,
@@ -24,4 +29,4 @@ export const finalizeMessageSignature = (
       'Your message was signed, but we lost communication with the app you started with.'
     );
   }
-};
+}

@@ -75,12 +75,13 @@ export type TransactionResponseMessage = Message<
   }
 >;
 
-export type MessageFromContentScript =
+export type LegacyMessageFromContentScript =
   | AuthenticationRequestMessage
   | TransactionRequestMessage
   | SignatureRequestMessage
   | StructuredDataSignatureRequestMessage;
-export type MessageToContentScript =
+
+export type LegacyMessageToContentScript =
   | AuthenticationResponseMessage
   | TransactionResponseMessage
   | SignatureResponseMessage;

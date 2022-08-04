@@ -4,12 +4,16 @@ import {
   TransactionResponseMessage,
   TxResult,
 } from '@shared/message-types';
-import { deleteTabForRequest, getTab, StorageKey } from '@shared/utils/storage';
+
 import { logger } from '@shared/logger';
 
-export const finalizeTxSignature = (requestPayload: string, data: TxResult | string) => {
+interface FinalizeTxSignatureArgs {
+  requestPayload: string;
+  data: TxResult | string;
+  tabId: number;
+}
+export function finalizeTxSignature({ requestPayload, data, tabId }: FinalizeTxSignatureArgs) {
   try {
-    const tabId = getTab(StorageKey.transactionRequests, requestPayload);
     const responseMessage: TransactionResponseMessage = {
       source: MESSAGE_SOURCE,
       method: ExternalMethods.transactionResponse,
@@ -19,7 +23,7 @@ export const finalizeTxSignature = (requestPayload: string, data: TxResult | str
       },
     };
     chrome.tabs.sendMessage(tabId, responseMessage);
-    deleteTabForRequest(StorageKey.transactionRequests, requestPayload);
+
     // If this is a string, then the transaction has been canceled
     // and the user has closed the window
     if (typeof data !== 'string') window.close();
@@ -29,4 +33,4 @@ export const finalizeTxSignature = (requestPayload: string, data: TxResult | str
       'Your transaction was broadcasted, but we lost communication with the app you started with.'
     );
   }
-};
+}
