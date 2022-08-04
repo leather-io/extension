@@ -1,3 +1,10 @@
+## [3.13.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.3...v3.13.4) (2022-08-04)
+
+
+### Bug Fixes
+
+* remove merge job from main ci ([55e8d98](https://github.com/hirosystems/stacks-wallet-web/commit/55e8d9864b57752b2fc73ce2dd7a6bc519db6340))
+
 ## [3.13.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.2...v3.13.3) (2022-08-04)
 
 
