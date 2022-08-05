@@ -1,3 +1,10 @@
+## [3.13.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.4...v3.13.5) (2022-08-05)
+
+
+### Bug Fixes
+
+* new pop up window extension crash ([2eeb416](https://github.com/hirosystems/stacks-wallet-web/commit/2eeb4169ececb54b397bfd2aeb4ad52af679952d))
+
 ## [3.13.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.3...v3.13.4) (2022-08-04)
 
 
