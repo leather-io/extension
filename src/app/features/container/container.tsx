@@ -28,13 +28,9 @@ function UnmountEffectSuspense() {
    * the request promise to fail; triggering an onCancel callback function.
    */
   const handleUnmount = useCallback(async () => {
-    if (!!transactionRequest) {
-      await handleCancelTransaction();
-    } else if (!!authRequest) {
-      cancelAuthentication();
-    } else if (!!signatureRequest) {
-      handleCancelSignMessage();
-    }
+    if (!!transactionRequest) await handleCancelTransaction();
+    if (!!authRequest) cancelAuthentication();
+    if (!!signatureRequest) handleCancelSignMessage();
   }, [
     transactionRequest,
     authRequest,
@@ -66,6 +62,8 @@ function useCacheInitialRouteSearchParams() {
 
   useEffect(() => {
     setParams(searchParams);
+    // Here we set some legacy atoms
+
     // We only want to set the initial searchParams, not all subsequent updates
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

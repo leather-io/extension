@@ -20,15 +20,16 @@ export const networksState = atomWithStorage<Networks>(
 // if there is a pending transaction or signature request, it will default to the network passed (if included)
 // else it will default to the persisted key or default (mainnet)
 const localCurrentNetworkKeyState = atomWithStorage(makeLocalDataKey('networkKey'), 'mainnet');
+
 export const currentNetworkKeyState = atom<string, string>(
   get => {
     const networks = get(networksState);
-    const txNetwork = get(transactionRequestNetwork) ?? get(signatureRequestNetwork);
+    const network = get(transactionRequestNetwork) ?? get(signatureRequestNetwork);
 
     // if txNetwork, default to this always, users cannot currently change networks when signing a transaction
     // @see https://github.com/blockstack/stacks-wallet-web/issues/1281
-    if (txNetwork) {
-      const newKey = findMatchingNetworkKey(txNetwork as any, networks);
+    if (network) {
+      const newKey = findMatchingNetworkKey(network as any, networks);
       if (newKey) return newKey;
     }
     // otherwise default to the locally saved network key state
@@ -54,9 +55,3 @@ export const currentStacksNetworkState = atom<StacksNetwork>(get => {
   stacksNetwork.bnsLookupUrl = network.url;
   return stacksNetwork;
 });
-
-networksState.debugLabel = 'networksState';
-localCurrentNetworkKeyState.debugLabel = 'localCurrentNetworkKeyState';
-currentNetworkKeyState.debugLabel = 'currentNetworkKeyState';
-currentNetworkState.debugLabel = 'currentNetworkState';
-currentStacksNetworkState.debugLabel = 'currentStacksNetworkState';

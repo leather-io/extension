@@ -10,9 +10,6 @@ import {
 
 import { stacksTransactionToHex, whenChainId } from '@app/common/transactions/transaction-utils';
 import { currentNetworkState } from '@app/store/network/networks';
-import { requestTokenPayloadState } from '@app/store/transactions/requests';
-
-export const transactionAttachmentState = atom(get => get(requestTokenPayloadState)?.attachment);
 
 export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
   const serialized = tx.serialize();

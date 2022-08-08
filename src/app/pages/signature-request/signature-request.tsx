@@ -10,6 +10,7 @@ import {
 } from '@shared/signature/types';
 import {
   useIsSignatureRequestValid,
+  useSetAtomSignatureRequestToken,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
 
@@ -23,6 +24,10 @@ function SignatureRequestBase() {
   const { requestToken, messageType } = useSignatureRequestSearchParams();
 
   useRouteHeader(<PopupHeader />);
+
+  // Temporary workaround to avoid pattern of pulling search params directly
+  // into an atom, rather than using the tooling provided by our router library
+  useSetAtomSignatureRequestToken(requestToken);
 
   if (!isSignatureMessageType(messageType)) return null;
   if (isUndefined(validSignatureRequest)) return null;

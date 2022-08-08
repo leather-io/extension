@@ -3,11 +3,19 @@ import { atom } from 'jotai';
 import { getGenericSignaturePayloadFromToken } from '@app/common/signature/requests';
 
 import { accountsWithAddressState } from '../accounts/accounts';
-import { atomWithParam } from '../utils/atom-with-params';
 
-const requestTokenState = atomWithParam('signature?request', null);
+/**
+ * @deprecated
+ * Use hooks to pull in search param values
+ */
+export const signatureRequestToken = atom<null | string>(null);
+
+/**
+ * @deprecated
+ * See root atom for more details
+ */
 const requestTokenPayloadState = atom(get => {
-  const token = get(requestTokenState);
+  const token = get(signatureRequestToken);
   if (!token) return null;
   return getGenericSignaturePayloadFromToken(token);
 });

@@ -15,6 +15,8 @@ import { StxTransferDetails } from '@app/pages/transaction-request/components/st
 import { PostConditionModeWarning } from '@app/pages/transaction-request/components/post-condition-mode-warning';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import {
+  useSetTransactionRequestAtom,
+  useTransactionRequest,
   useTransactionRequestState,
   useUpdateTransactionBroadcastError,
 } from '@app/store/transactions/requests.hooks';
@@ -57,6 +59,12 @@ function TransactionRequestBase() {
 
   useEffect(() => void analytics.track('view_transaction_signing'), [analytics]);
 
+  const txRequest = useTransactionRequest();
+
+  // This exists to move away from the pattern where the search param is pull
+  // from an atom, rather than from the tooling provided by the app's router
+  useSetTransactionRequestAtom(txRequest);
+
   const onSubmit = useCallback(
     async values => {
       if (walletType === 'ledger') {
@@ -73,9 +81,7 @@ function TransactionRequestBase() {
         fee: values.fee,
         type: values.feeType,
       });
-      return () => {
-        void setBroadcastError(null);
-      };
+      return () => void setBroadcastError(null);
     },
     [
       analytics,
