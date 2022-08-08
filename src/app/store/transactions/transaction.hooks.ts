@@ -18,7 +18,6 @@ import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { currentAccountState } from '@app/store/accounts/accounts';
 import { currentNetworkState } from '@app/store/network/networks';
 import {
   useStxTokenTransferUnsignedTxState,
@@ -43,26 +42,26 @@ import { useSubmittedTransactionsActions } from '@app/store/submitted-transactio
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
-import { postConditionsState } from './post-conditions';
-import { requestTokenPayloadState, requestTokenState } from './requests';
-import {
-  prepareTxDetailsForBroadcast,
-  transactionAttachmentState,
-  transactionBroadcastErrorState,
-} from './transaction';
+import { prepareTxDetailsForBroadcast, transactionBroadcastErrorState } from './transaction';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { usePostConditionState } from './post-conditions.hooks';
+import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
 
 export function useTransactionPostConditions() {
-  return useAtomValue(postConditionsState);
+  return usePostConditionState();
+}
+
+function useTransactionAttachment() {
+  return useTransactionRequestState()?.attachment;
 }
 
 function useUnsignedStacksTransactionBaseState() {
   const network = useCurrentStacksNetworkState();
   const { nonce } = useNextNonce();
   const stxAddress = useCurrentAccountStxAddressState();
-  const payload = useAtomValue(requestTokenPayloadState);
-  const postConditions = useAtomValue(postConditionsState);
-  const account = useAtomValue(currentAccountState);
+  const payload = useTransactionRequestState();
+  const postConditions = useTransactionPostConditions();
+  const account = useCurrentAccount();
 
   const options = {
     fee: 0,
@@ -145,19 +144,16 @@ export function useSoftwareWalletTransactionBroadcast() {
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
+  const requestToken = useTransactionRequest();
+  const attachment = useTransactionAttachment();
+  const account = useCurrentAccount();
 
   return useAtomCallback(
     useCallback(
       async (get, set, values: TransactionFormValues) => {
-        const { account, attachment, requestToken, network } = await get(
-          waitForAll({
-            account: currentAccountState,
-            attachment: transactionAttachmentState,
-            requestToken: requestTokenState,
-            network: currentNetworkState,
-          }),
-          { unstable_promise: true }
-        );
+        const { network } = await get(waitForAll({ network: currentNetworkState }), {
+          unstable_promise: true,
+        });
 
         if (!stacksTxBaseState) return;
         const { options } = stacksTxBaseState as any;
@@ -199,7 +195,16 @@ export function useSoftwareWalletTransactionBroadcast() {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [nonce, signSoftwareWalletTx, stacksTxBaseState, submittedTransactionsActions, tabId]
+      [
+        account,
+        attachment,
+        nonce,
+        requestToken,
+        signSoftwareWalletTx,
+        stacksTxBaseState,
+        submittedTransactionsActions,
+        tabId,
+      ]
     )
   );
 }
@@ -210,14 +215,14 @@ export function useSoftwareWalletTransactionBroadcast() {
 export function useHardwareWalletTransactionBroadcast() {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
+  const requestToken = useTransactionRequest();
+  const attachment = useTransactionAttachment();
 
   return useAtomCallback(
     useCallback(
       async (get, set, { signedTx }: { signedTx: StacksTransaction }) => {
-        const { attachment, requestToken, network } = await get(
+        const { network } = await get(
           waitForAll({
-            attachment: transactionAttachmentState,
-            requestToken: requestTokenState,
             network: currentNetworkState,
           }),
           { unstable_promise: true }
@@ -247,7 +252,7 @@ export function useHardwareWalletTransactionBroadcast() {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [submittedTransactionsActions, tabId]
+      [attachment, requestToken, submittedTransactionsActions, tabId]
     )
   );
 }

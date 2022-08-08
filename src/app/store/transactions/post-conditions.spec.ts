@@ -1,8 +1,8 @@
 import { getPayloadFromToken } from '@app/store/transactions/utils';
 
-import { formatPostConditionState } from '@app/store/transactions/post-conditions';
 import { FungibleConditionCode, parsePrincipalString } from '@stacks/transactions';
 import { HEYSTACK_HEY_TX_REQUEST, HEYSTACK_HEY_TX_REQUEST_DECODED } from '@tests/mocks';
+import { formatPostConditionState } from './post-conditions.hooks';
 
 describe(formatPostConditionState.name, () => {
   it('formats the post condition correctly', () => {

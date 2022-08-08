@@ -1,20 +1,32 @@
+import { useCallback, useEffect, useMemo } from 'react';
 import { useAtomCallback, useUpdateAtom, useAtomValue } from 'jotai/utils';
-import {
-  requestTokenPayloadState,
-  transactionRequestValidationState,
-} from '@app/store/transactions/requests';
-import { requestTokenState } from '@app/store/transactions/requests';
-import { transactionBroadcastErrorState } from '@app/store/transactions/transaction';
-import { useCallback } from 'react';
-import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
-import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
 
-export function useTransactionRequestState() {
-  return useAtomValue(requestTokenPayloadState);
+import { transactionBroadcastErrorState } from '@app/store/transactions/transaction';
+import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
+import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
+import { getPayloadFromToken } from './utils';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { requestTokenPayloadState } from './requests';
+
+export function useTransactionRequest() {
+  const [params] = useInitialRouteSearchParams();
+  return params.get('request');
 }
 
-export function useTransactionRequestValidation() {
-  return useAtomValue(transactionRequestValidationState);
+export function useSetTransactionRequestAtom(request: string | null) {
+  const updateRequestTokenState = useUpdateAtom(requestTokenPayloadState);
+
+  useEffect(() => {
+    if (request) updateRequestTokenState(getPayloadFromToken(request));
+  }, [request, updateRequestTokenState]);
+}
+
+export function useTransactionRequestState() {
+  const requestToken = useTransactionRequest();
+  return useMemo(() => {
+    if (!requestToken) return null;
+    return getPayloadFromToken(requestToken);
+  }, [requestToken]);
 }
 
 export function useTransactionBroadcastError() {
@@ -26,11 +38,12 @@ export function useUpdateTransactionBroadcastError() {
 }
 
 export function useOnCancelTransaction() {
-  const { tabId } = useAuthRequestParams();
+  const { tabId } = useDefaultRequestParams();
+  const requestToken = useTransactionRequest();
+
   return useAtomCallback(
     useCallback(
-      async (get, set) => {
-        const requestToken = get(requestTokenState);
+      async (_, set) => {
         if (!requestToken) {
           set(transactionBroadcastErrorState, 'No pending transaction');
           return;
@@ -42,7 +55,7 @@ export function useOnCancelTransaction() {
           if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
         }
       },
-      [tabId]
+      [requestToken, tabId]
     )
   );
 }

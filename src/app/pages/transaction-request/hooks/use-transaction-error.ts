@@ -11,7 +11,6 @@ import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance
 import {
   useTransactionBroadcastError,
   useTransactionRequestState,
-  useTransactionRequestValidation,
 } from '@app/store/transactions/requests.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 
@@ -19,7 +18,7 @@ export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
   const contractInterface = useContractInterface(transactionRequest);
   const broadcastError = useTransactionBroadcastError();
-  const isValidTransaction = useTransactionRequestValidation();
+
   const { origin } = useDefaultRequestParams();
 
   const currentAccount = useCurrentAccount();
@@ -27,7 +26,6 @@ export function useTransactionError() {
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;
-    if (isValidTransaction === false) return TransactionErrorReason.Unauthorized;
 
     if (!transactionRequest || !availableStxBalance || !currentAccount) {
       return TransactionErrorReason.Generic;
@@ -68,7 +66,6 @@ export function useTransactionError() {
     availableStxBalance,
     currentAccount,
     transactionRequest,
-    isValidTransaction,
     origin,
   ]);
 }
