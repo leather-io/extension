@@ -52,12 +52,12 @@ export const FiatProvidersList = (props: FiatProvidersProps) => {
 
         return (
           <FiatProviderItem
-            key={providerKey}
-            icon={activeFiatProviderIcons[providerKey]}
-            onGoToProvider={() => goToProviderExternalWebsite(providerValue.name, providerUrl)}
+            availableRegions={providerValue.availableRegions}
             hasFastCheckoutProcess={providerValue.hasFastCheckoutProcess}
             hasTradingFees={providerValue.hasTradingFees}
-            hasUnitedStatesAvailability={providerValue.hasUnitedStatesAvailability}
+            icon={activeFiatProviderIcons[providerKey]}
+            key={providerKey}
+            onGoToProvider={() => goToProviderExternalWebsite(providerValue.name, providerUrl)}
             title={providerValue.name}
           />
         );

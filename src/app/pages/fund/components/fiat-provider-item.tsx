@@ -1,29 +1,38 @@
+import { AvailableRegions } from '@app/query/hiro-config/hiro-config.query';
 import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
 
 import { FastCheckoutBadge } from './fast-checkout-badge';
 import { ZeroPercentFeesBadge } from './zero-percent-fees-badge';
 import { FundAccountTile } from './fund-account-tile';
 
-const availableInsideUnitedStatesDescription = 'Available both inside and outside of the US';
+const availableInsideUnitedStatesDescription = 'Available only inside of the US';
 const availableOutsideUnitedStatesDescription = 'Available only outside of the US';
+const availableGloballyDescription = 'Available both inside and outside of the US';
+
+function getProviderAvailability(availableRegions: AvailableRegions) {
+  switch (availableRegions) {
+    case AvailableRegions.InsideUsa:
+      return availableInsideUnitedStatesDescription;
+    case AvailableRegions.OutsideUsa:
+      return availableOutsideUnitedStatesDescription;
+    case AvailableRegions.Global:
+      return availableGloballyDescription;
+    default:
+      return '';
+  }
+}
 
 interface FiatProviderProps {
-  icon: string;
-  onGoToProvider(): void;
+  availableRegions: AvailableRegions;
   hasFastCheckoutProcess: boolean;
   hasTradingFees: boolean;
-  hasUnitedStatesAvailability: boolean;
+  icon: string;
+  onGoToProvider(): void;
   title: string;
 }
 export const FiatProviderItem = (props: FiatProviderProps) => {
-  const {
-    icon,
-    onGoToProvider,
-    hasFastCheckoutProcess,
-    hasTradingFees,
-    hasUnitedStatesAvailability,
-    title,
-  } = props;
+  const { availableRegions, hasFastCheckoutProcess, hasTradingFees, icon, onGoToProvider, title } =
+    props;
 
   const Attributes = (
     <>
@@ -35,11 +44,7 @@ export const FiatProviderItem = (props: FiatProviderProps) => {
   return (
     <FundAccountTile
       attributes={Attributes}
-      description={
-        hasUnitedStatesAvailability
-          ? availableInsideUnitedStatesDescription
-          : availableOutsideUnitedStatesDescription
-      }
+      description={getProviderAvailability(availableRegions)}
       icon={icon}
       onClickTile={onGoToProvider}
       testId={FundPageSelectors.FiatProviderItem}

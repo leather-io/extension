@@ -15,12 +15,18 @@ export interface HiroMessage {
   learnMoreText?: string;
 }
 
+export enum AvailableRegions {
+  InsideUsa = 'inside-usa-only',
+  OutsideUsa = 'outside-usa-only',
+  Global = 'global',
+}
+
 export interface ActiveFiatProvider {
+  availableRegions: AvailableRegions;
   enabled: boolean;
   hasFastCheckoutProcess: boolean;
-  name: string;
   hasTradingFees: boolean;
-  hasUnitedStatesAvailability: boolean;
+  name: string;
 }
 
 interface FeeEstimationsConfig {
