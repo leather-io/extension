@@ -21,6 +21,7 @@ import { popupCenter } from '@background/popup-center';
 import { initContextMenuActions } from '@background/init-context-menus';
 import { backgroundMessageHandler } from './message-handler';
 import { backupOldWalletSalt } from './backup-old-wallet-salt';
+import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
@@ -28,6 +29,7 @@ const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 initSentry();
 initContextMenuActions();
 backupOldWalletSalt();
+warnUsersAboutDevToolsDangers();
 
 //
 // Playwright does not currently support Chrome extension popup testing:
