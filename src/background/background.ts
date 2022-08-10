@@ -10,7 +10,7 @@ import * as Sentry from '@sentry/react';
 import { storePayload, StorageKey } from '@shared/utils/storage';
 import { RouteUrls } from '@shared/route-urls';
 // import { addRefererHeaderRequestListener } from '@shared/add-referer-header';
-import { initSentry } from '@shared/utils/sentry-init';
+import { initSentry } from '@shared/utils/analytics';
 import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
