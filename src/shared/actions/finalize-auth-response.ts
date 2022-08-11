@@ -1,11 +1,29 @@
-import { DecodedAuthRequest } from '@app/common/dev/types';
+import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import {
   AuthenticationResponseMessage,
   ExternalMethods,
   MESSAGE_SOURCE,
 } from '@shared/message-types';
-import { isValidUrl } from '@app/common/validation/validate-url';
+import { isValidUrl } from '@shared/utils/validate-url';
 import { logger } from '@shared/logger';
+
+interface FormatAuthResponseArgs {
+  request: string;
+  response: string;
+}
+export function formatAuthResponse({
+  request,
+  response,
+}: FormatAuthResponseArgs): AuthenticationResponseMessage {
+  return {
+    source: MESSAGE_SOURCE,
+    payload: {
+      authenticationRequest: request,
+      authenticationResponse: response,
+    },
+    method: ExternalMethods.authenticationResponse,
+  };
+}
 
 interface FinalizeAuthParams {
   decodedAuthRequest: DecodedAuthRequest;
@@ -42,14 +60,7 @@ export function finalizeAuthResponse({
   }
 
   try {
-    const responseMessage: AuthenticationResponseMessage = {
-      source: MESSAGE_SOURCE,
-      payload: {
-        authenticationRequest: authRequest,
-        authenticationResponse: authResponse,
-      },
-      method: ExternalMethods.authenticationResponse,
-    };
+    const responseMessage = formatAuthResponse({ request: authRequest, response: authResponse });
     chrome.tabs.sendMessage(tabId, responseMessage);
     window.close();
   } catch (error) {

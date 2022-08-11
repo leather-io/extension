@@ -4,24 +4,34 @@ import {
   TransactionResponseMessage,
   TxResult,
 } from '@shared/message-types';
-
 import { logger } from '@shared/logger';
 
+interface FormatTxSignatureResponseArgs {
+  payload: string;
+  response: TxResult | 'cancel';
+}
+export function formatTxSignatureResponse({
+  payload,
+  response,
+}: FormatTxSignatureResponseArgs): TransactionResponseMessage {
+  return {
+    source: MESSAGE_SOURCE,
+    method: ExternalMethods.transactionResponse,
+    payload: {
+      transactionRequest: payload,
+      transactionResponse: response,
+    },
+  };
+}
 interface FinalizeTxSignatureArgs {
   requestPayload: string;
-  data: TxResult | string;
+  data: TxResult | 'cancel';
   tabId: number;
 }
+
 export function finalizeTxSignature({ requestPayload, data, tabId }: FinalizeTxSignatureArgs) {
   try {
-    const responseMessage: TransactionResponseMessage = {
-      source: MESSAGE_SOURCE,
-      method: ExternalMethods.transactionResponse,
-      payload: {
-        transactionRequest: requestPayload,
-        transactionResponse: data,
-      },
-    };
+    const responseMessage = formatTxSignatureResponse({ payload: requestPayload, response: data });
     chrome.tabs.sendMessage(tabId, responseMessage);
 
     // If this is a string, then the transaction has been canceled

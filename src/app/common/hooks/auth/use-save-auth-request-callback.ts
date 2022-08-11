@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 
 import { useUpdateAuthRequest } from '@app/store/onboarding/onboarding.hooks';
-import { DecodedAuthRequest } from '@app/common/dev/types';
+import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 
 import { RouteUrls } from '@shared/route-urls';
 import { useAuthRequestParams } from './use-auth-request-params';

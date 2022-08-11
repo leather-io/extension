@@ -14,7 +14,7 @@ import {
   TransactionSigner,
 } from '@stacks/transactions';
 
-import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
+import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
@@ -37,7 +37,10 @@ import {
   useCurrentAccount,
   useCurrentAccountStxAddressState,
 } from '@app/store/accounts/account.hooks';
-import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks';
+import {
+  useCurrentNetworkState,
+  useCurrentStacksNetworkState,
+} from '@app/store/network/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
@@ -63,27 +66,32 @@ function useUnsignedStacksTransactionBaseState() {
   const postConditions = useTransactionPostConditions();
   const account = useCurrentAccount();
 
-  const options = {
-    fee: 0,
-    publicKey: account?.stxPublicKey,
-    nonce: nonce || 0,
-    txData: { ...payload, postConditions, network },
-  };
+  const options = useMemo(
+    () => ({
+      fee: 0,
+      publicKey: account?.stxPublicKey,
+      nonce: nonce || 0,
+      txData: { ...payload, postConditions, network },
+    }),
+    [account?.stxPublicKey, network, nonce, payload, postConditions]
+  );
 
   const transaction = useAsync(async () => {
     return generateUnsignedTransaction(options as GenerateUnsignedTransactionOptions);
   }, [account, nonce, payload, stxAddress]).result;
 
-  if (!account || !payload || !stxAddress) return { transaction: undefined, options };
+  return useMemo(() => {
+    if (!account || !payload || !stxAddress) return { transaction: undefined, options };
 
-  if (
-    payload.txType === TransactionTypes.ContractCall &&
-    !validateStacksAddress(payload.contractAddress)
-  ) {
-    return { transaction: undefined, options };
-  }
+    if (
+      payload.txType === TransactionTypes.ContractCall &&
+      !validateStacksAddress(payload.contractAddress)
+    ) {
+      return { transaction: undefined, options };
+    }
 
-  return { transaction, options };
+    return { transaction, options };
+  }, [account, options, payload, stxAddress, transaction]);
 }
 
 export function useUnsignedPrepareTransactionDetails(values: TransactionFormValues) {
@@ -147,14 +155,11 @@ export function useSoftwareWalletTransactionBroadcast() {
   const requestToken = useTransactionRequest();
   const attachment = useTransactionAttachment();
   const account = useCurrentAccount();
+  const network = useCurrentNetworkState();
 
   return useAtomCallback(
     useCallback(
-      async (get, set, values: TransactionFormValues) => {
-        const { network } = await get(waitForAll({ network: currentNetworkState }), {
-          unstable_promise: true,
-        });
-
+      async (_get, set, values: TransactionFormValues) => {
         if (!stacksTxBaseState) return;
         const { options } = stacksTxBaseState as any;
         const unsignedStacksTransaction = await generateUnsignedTransaction({
@@ -184,6 +189,7 @@ export function useSoftwareWalletTransactionBroadcast() {
             attachment,
             networkUrl: network.url,
           });
+
           if (typeof result.txId === 'string') {
             submittedTransactionsActions.newTransactionSubmitted({
               rawTx: result.txRaw,
@@ -198,6 +204,7 @@ export function useSoftwareWalletTransactionBroadcast() {
       [
         account,
         attachment,
+        network,
         nonce,
         requestToken,
         signSoftwareWalletTx,

@@ -36,12 +36,14 @@ export function useCurrentAccount() {
   const txIndex = useTransactionAccountIndex();
   const signatureIndex = useAtomValue(signatureRequestAccountIndex);
   // ⚠️ to refactor, we should not just continually add new conditionals here
-  const index = txIndex ?? signatureIndex;
   const hasSwitched = useAtomValue(hasSwitchedAccountsState);
-  const accounts = useAtomValue(accountsWithAddressState);
-  if (!accounts) return undefined;
-  if (typeof index === 'number' && !hasSwitched) return accounts[index];
-  return accounts[accountIndex] as AccountWithAddress | undefined;
+  const accounts = useAccounts();
+  return useMemo(() => {
+    const index = txIndex ?? signatureIndex;
+    if (!accounts) return undefined;
+    if (typeof index === 'number' && !hasSwitched) return accounts[index];
+    return accounts[accountIndex] as AccountWithAddress | undefined;
+  }, [accountIndex, accounts, hasSwitched, signatureIndex, txIndex]);
 }
 
 export function useCurrentAccountStxAddressState() {

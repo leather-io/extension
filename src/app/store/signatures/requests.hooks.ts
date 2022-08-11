@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 import { useSearchParams } from 'react-router-dom';
 import { useAtom } from 'jotai';
 
-import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
 import { verifySignatureRequest } from '@app/common/signature/requests';
 import { useAccounts } from '@app/store/accounts/account.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -50,14 +49,4 @@ export function useSignatureRequestSearchParams() {
     }),
     [origin, searchParams, tabId]
   );
-}
-
-export function useOnCancelSignMessage() {
-  const { requestToken, tabId } = useSignatureRequestSearchParams();
-
-  return useCallback(() => {
-    if (!requestToken || !tabId) return;
-    const data = 'cancel';
-    finalizeMessageSignature({ requestPayload: requestToken, tabId, data });
-  }, [requestToken, tabId]);
 }

@@ -2,6 +2,21 @@ import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shar
 import { logger } from '@shared/logger';
 import { SignatureData } from '@stacks/connect';
 
+interface FormatMessageSigningResponseArgs {
+  request: string;
+  response: SignatureData | string;
+}
+export function formatMessageSigningResponse({
+  request,
+  response,
+}: FormatMessageSigningResponseArgs): SignatureResponseMessage {
+  return {
+    source: MESSAGE_SOURCE,
+    method: ExternalMethods.signatureResponse,
+    payload: { signatureRequest: request, signatureResponse: response },
+  };
+}
+
 interface FinalizeMessageSignatureArgs {
   requestPayload: string;
   tabId: number;
@@ -13,14 +28,10 @@ export function finalizeMessageSignature({
   tabId,
 }: FinalizeMessageSignatureArgs) {
   try {
-    const responseMessage: SignatureResponseMessage = {
-      source: MESSAGE_SOURCE,
-      method: ExternalMethods.signatureResponse,
-      payload: {
-        signatureRequest: requestPayload,
-        signatureResponse: data,
-      },
-    };
+    const responseMessage = formatMessageSigningResponse({
+      request: requestPayload,
+      response: data,
+    });
     chrome.tabs.sendMessage(tabId, responseMessage);
     window.close();
   } catch (error) {
