@@ -28,7 +28,7 @@ export function isFtNameLikeStx(name: string) {
 export function imageCanonicalUriFromFtMetadata(meta: FtMeta | undefined) {
   return meta?.image_canonical_uri &&
     isIconUrl(meta.image_canonical_uri) &&
-    !isFtNameLikeStx(meta.image_canonical_uri)
+    !isFtNameLikeStx(meta.name)
     ? meta.image_canonical_uri
     : undefined;
 }
