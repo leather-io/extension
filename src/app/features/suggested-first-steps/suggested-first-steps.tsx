@@ -5,11 +5,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useAppDispatch } from '@app/store';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
-import { useSuggestedFirstStepsStatus } from '@app/store/onboarding/onboarding.selectors';
-import {
-  SuggestedFirstSteps as Steps,
-  SuggestedFirstStepStatus,
-} from '@shared/models/onboarding-types';
+import { SuggestedFirstSteps as Steps } from '@shared/models/onboarding-types';
 import { RouteUrls } from '@shared/route-urls';
 
 import { SuggestedFirstStepsLayout } from './suggested-first-steps.layout';
@@ -27,8 +23,12 @@ export function SuggestedFirstSteps() {
   const analytics = useAnalytics();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const showSuggestedFirstSteps = useSuggestedFirstSteps();
-  const stepsStatus = useSuggestedFirstStepsStatus();
+  const {
+    isAddFundsStepComplete,
+    isBuyNftStepComplete,
+    isExploreAppsStepComplete,
+    showSuggestedFirstSteps,
+  } = useSuggestedFirstSteps();
 
   const onDismissSteps = useCallback(() => {
     void analytics.track('dismiss_suggested_first_steps');
@@ -56,28 +56,17 @@ export function SuggestedFirstSteps() {
     openInNewTab(buyNftExternalRoute);
   }, [analytics]);
 
-  const hasCompletedBackUpSecretKeyStep =
-    stepsStatus[Steps.BackUpSecretKey] === SuggestedFirstStepStatus.Complete;
-  const hasCompletedAddFundsStep =
-    stepsStatus[Steps.AddFunds] === SuggestedFirstStepStatus.Complete;
-  const hasCompletedExploreAppsStep =
-    stepsStatus[Steps.ExploreApps] === SuggestedFirstStepStatus.Complete;
-  const hasCompletedBuyNftStep = stepsStatus[Steps.BuyNft] === SuggestedFirstStepStatus.Complete;
-
   if (!showSuggestedFirstSteps) return null;
 
   return (
     <SuggestedFirstStepsLayout onDismissSteps={onDismissSteps}>
-      <BackUpSecretKeyStep
-        isComplete={hasCompletedBackUpSecretKeyStep}
-        onSelectStep={onSelectBackUpSecretKeyStep}
-      />
-      <AddFundsStep isComplete={hasCompletedAddFundsStep} onSelectStep={onSelectAddFundsStep} />
+      <BackUpSecretKeyStep isComplete onSelectStep={onSelectBackUpSecretKeyStep} />
+      <AddFundsStep isComplete={isAddFundsStepComplete} onSelectStep={onSelectAddFundsStep} />
       <ExploreAppsStep
-        isComplete={hasCompletedExploreAppsStep}
+        isComplete={isExploreAppsStepComplete}
         onSelectStep={onSelectExploreAppsStep}
       />
-      <BuyNftStep isComplete={hasCompletedBuyNftStep} onSelectStep={onSelectBuyNftStep} />
+      <BuyNftStep isComplete={isBuyNftStepComplete} onSelectStep={onSelectBuyNftStep} />
     </SuggestedFirstStepsLayout>
   );
 }
