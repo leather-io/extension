@@ -9,38 +9,38 @@ import { CurrentStxAddress } from '@app/features/current-account/current-stx-add
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { Balance } from '@app/components/balance';
 
-function PopupHeaderSuspense(): JSX.Element {
+interface PopupHeaderLayoutProps {
+  children: React.ReactNode;
+}
+function PopupHeaderLayout({ children }: PopupHeaderLayoutProps) {
+  return (
+    <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
+      <Stack isInline alignItems="center" width="100%" justifyContent="space-between">
+        <Stack isInline alignItems="center">
+          <CurrentAccountAvatar size="24px" fontSize="10px" />
+          <CurrentAccountName as="h3" />
+          <CurrentStxAddress />
+        </Stack>
+        {children}
+      </Stack>
+    </Box>
+  );
+}
+
+function PopupHeaderSuspense() {
   const account = useCurrentAccount();
+  return <PopupHeaderLayout>{account && <Balance address={account.address} />}</PopupHeaderLayout>;
+}
+
+function PopupHeaderFallback() {
   return (
-    <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
-      <Stack isInline alignItems="center" width="100%" justifyContent="space-between">
-        <Stack isInline alignItems="center">
-          <CurrentAccountAvatar size="24px" fontSize="10px" />
-          <CurrentAccountName as="h3" />
-          <CurrentStxAddress />
-        </Stack>
-        {account && <Balance address={account.address} />}
-      </Stack>
-    </Box>
+    <PopupHeaderLayout>
+      <LoadingRectangle width="72px" height="14px" />
+    </PopupHeaderLayout>
   );
 }
 
-function PopupHeaderFallback(): JSX.Element {
-  return (
-    <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
-      <Stack isInline alignItems="center" width="100%" justifyContent="space-between">
-        <Stack isInline alignItems="center">
-          <CurrentAccountAvatar size="24px" fontSize="10px" />
-          <CurrentAccountName as="h3" />
-          <CurrentStxAddress />
-        </Stack>
-        <LoadingRectangle width="72px" height="14px" />
-      </Stack>
-    </Box>
-  );
-}
-
-export function PopupHeader(): JSX.Element {
+export function PopupHeader() {
   return (
     <Suspense fallback={<PopupHeaderFallback />}>
       <PopupHeaderSuspense />
