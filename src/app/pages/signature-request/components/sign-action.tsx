@@ -3,7 +3,7 @@ import { ClarityValue, createStacksPrivateKey } from '@stacks/transactions';
 import { Button, Stack } from '@stacks/ui';
 import { TupleCV } from '@stacks/transactions/dist/esm/clarity';
 
-import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
+import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';

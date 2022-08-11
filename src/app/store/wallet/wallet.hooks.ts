@@ -10,7 +10,7 @@ import {
 
 import { gaiaUrl } from '@shared/constants';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
 import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';

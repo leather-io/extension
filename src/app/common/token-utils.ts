@@ -2,7 +2,7 @@ import { abbreviateNumber } from '@app/common/utils';
 import { isUndefined } from '@shared/utils';
 import { AssetWithMeta, FtMeta } from './asset-types';
 import { convertUnicodeToAscii } from './string-utils';
-import { isValidUrl } from './validation/validate-url';
+import { isValidUrl } from '../../shared/utils/validate-url';
 
 export function removeCommas(amountWithCommas: string) {
   return amountWithCommas.replace(/,/g, '');

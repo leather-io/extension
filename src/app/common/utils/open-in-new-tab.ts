@@ -1,4 +1,4 @@
-import { isValidUrl } from '@app/common/validation/validate-url';
+import { isValidUrl } from '@shared/utils/validate-url';
 import { RouteUrls } from '@shared/route-urls';
 
 export function openInNewTab(url: string) {

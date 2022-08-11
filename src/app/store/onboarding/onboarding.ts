@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import { DecodedAuthRequest } from '@app/common/dev/types';
+import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import { userHasAllowedDiagnosticsKey } from '@shared/utils/storage';
 
 interface AuthRequestState {

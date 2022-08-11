@@ -22,7 +22,7 @@ import {
   useCurrentNetworkState,
   useNetworkState,
 } from '@app/store/network/networks.hooks';
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { getAccountDisplayName } from '../utils/get-account-display-name';
 import { useDefaultRequestParams } from './use-default-request-search-params';
 

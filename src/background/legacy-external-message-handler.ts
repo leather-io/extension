@@ -1,4 +1,11 @@
-import { ExternalMethods, LegacyMessageFromContentScript } from '@shared/message-types';
+import { formatAuthResponse } from '@shared/actions/finalize-auth-response';
+import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature';
+import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature';
+import {
+  ExternalMethods,
+  LegacyMessageFromContentScript,
+  LegacyMessageToContentScript,
+} from '@shared/message-types';
 import { RouteUrls } from '@shared/route-urls';
 import { popupCenter } from './popup-center';
 
@@ -8,7 +15,7 @@ const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 // Playwright does not currently support Chrome extension popup testing:
 // https://github.com/microsoft/playwright/issues/5593
 async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
-  await chrome.tabs.create({
+  return chrome.tabs.create({
     url: chrome.runtime.getURL(`index.html#${path}?${urlParams.toString()}`),
   });
 }
@@ -20,25 +27,46 @@ export function inferLegacyMessage(message: any): message is LegacyMessageFromCo
   return !hasIdProp;
 }
 
+function getTabIdFromPort(port: chrome.runtime.Port) {
+  return port.sender?.tab?.id;
+}
+
+function getOriginFromPort(port: chrome.runtime.Port) {
+  return port.sender?.origin;
+}
+
 function makeSearchParamsWithDefaults(
   port: chrome.runtime.Port,
   otherParams: [string, string][] = []
 ) {
   const urlParams = new URLSearchParams();
-  //
   // All actions must have a corresponding `origin` and `tabId`
-  urlParams.set('origin', port.sender?.origin ?? '');
-  urlParams.set('tabId', port.sender?.tab?.id?.toString() ?? '');
+  const origin = getOriginFromPort(port);
+  const tabId = getTabIdFromPort(port);
+  urlParams.set('origin', origin ?? '');
+  urlParams.set('tabId', tabId?.toString() ?? '');
   otherParams.forEach(([key, value]) => urlParams.set(key, value));
-  return urlParams;
+  return { urlParams, origin, tabId };
 }
 
-async function triggerRequstAction(path: RouteUrls, urlParams: URLSearchParams) {
-  if (IS_TEST_ENV) {
-    await openRequestInFullPage(path, urlParams);
-    return;
-  }
-  popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
+interface ListenForWindowCloseArgs {
+  // ID that comes from newly created window
+  id?: number;
+  // TabID from requesting tab, to which request should be returned
+  tabId?: number;
+  response: LegacyMessageToContentScript;
+}
+function listenForWindowClose({ id, tabId, response }: ListenForWindowCloseArgs) {
+  chrome.windows.onRemoved.addListener(winId => {
+    if (winId !== id || !tabId) return;
+    const responseMessage = response;
+    chrome.tabs.sendMessage(tabId, responseMessage);
+  });
+}
+
+async function triggerRequstWindowOpen(path: RouteUrls, urlParams: URLSearchParams) {
+  if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
+  return popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
 }
 
 export async function handleLegacyExternalMethodFormat(
@@ -49,36 +77,56 @@ export async function handleLegacyExternalMethodFormat(
 
   switch (message.method) {
     case ExternalMethods.authenticationRequest: {
-      const urlParams = makeSearchParamsWithDefaults(port, [['authRequest', payload]]);
+      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['authRequest', payload]]);
 
-      await triggerRequstAction(RouteUrls.Onboarding, urlParams);
+      const { id } = await triggerRequstWindowOpen(RouteUrls.Onboarding, urlParams);
+      listenForWindowClose({
+        id,
+        tabId,
+        response: formatAuthResponse({ request: payload, response: 'cancel' }),
+      });
       break;
     }
 
     case ExternalMethods.transactionRequest: {
-      const urlParams = makeSearchParamsWithDefaults(port, [['request', payload]]);
+      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
 
-      await triggerRequstAction(RouteUrls.TransactionRequest, urlParams);
+      const { id } = await triggerRequstWindowOpen(RouteUrls.TransactionRequest, urlParams);
+      listenForWindowClose({
+        id,
+        tabId,
+        response: formatTxSignatureResponse({ payload, response: 'cancel' }),
+      });
       break;
     }
 
     case ExternalMethods.signatureRequest: {
-      const urlParams = makeSearchParamsWithDefaults(port, [
+      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
         ['request', payload],
         ['messageType', 'utf8'],
       ]);
 
-      await triggerRequstAction(RouteUrls.SignatureRequest, urlParams);
+      const { id } = await triggerRequstWindowOpen(RouteUrls.SignatureRequest, urlParams);
+      listenForWindowClose({
+        id,
+        tabId,
+        response: formatMessageSigningResponse({ request: payload, response: 'cancel' }),
+      });
       break;
     }
 
     case ExternalMethods.structuredDataSignatureRequest: {
-      const urlParams = makeSearchParamsWithDefaults(port, [
+      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
         ['request', payload],
         ['messageType', 'structured'],
       ]);
 
-      await triggerRequstAction(RouteUrls.SignatureRequest, urlParams);
+      const { id } = await triggerRequstWindowOpen(RouteUrls.SignatureRequest, urlParams);
+      listenForWindowClose({
+        id,
+        tabId,
+        response: formatMessageSigningResponse({ request: payload, response: 'cancel' }),
+      });
       break;
     }
   }

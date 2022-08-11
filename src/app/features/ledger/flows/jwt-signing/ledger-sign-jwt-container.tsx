@@ -20,7 +20,7 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 
