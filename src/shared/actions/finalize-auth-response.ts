@@ -5,7 +5,7 @@ import {
   MESSAGE_SOURCE,
 } from '@shared/message-types';
 import { isValidUrl } from '@shared/utils/validate-url';
-import { logger } from '@shared/logger';
+import { analytics } from '@shared/segment-init';
 
 interface FormatAuthResponseArgs {
   request: string;
@@ -56,17 +56,11 @@ export function finalizeAuthResponse({
   const origin = new URL(requestingOrigin);
 
   if (redirectUri.hostname !== origin.hostname) {
+    void analytics.track('auth_response_with_illegal_redirect_uri');
     throw new Error('Cannot redirect to a different domain than the one requesting');
   }
 
-  try {
-    const responseMessage = formatAuthResponse({ request: authRequest, response: authResponse });
-    chrome.tabs.sendMessage(tabId, responseMessage);
-    window.close();
-  } catch (error) {
-    logger.debug('Failed to get Tab ID for authentication request:', authRequest);
-    throw new Error(
-      'Your transaction was broadcasted, but we lost communication with the app you started with.'
-    );
-  }
+  const responseMessage = formatAuthResponse({ request: authRequest, response: authResponse });
+  chrome.tabs.sendMessage(tabId, responseMessage);
+  window.close();
 }

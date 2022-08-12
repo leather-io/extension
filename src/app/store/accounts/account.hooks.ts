@@ -27,7 +27,7 @@ export function useAccounts() {
 }
 
 // Comment below from original atom. This pattern encourages view level
-// implementation details to leaak into the state structure. Do not do this.
+// implementation details to leak into the state structure. Do not do this.
 //   This contains the state of the current account:
 //   could be the account associated with an in-process transaction request
 //   or the last selected / first account of the user

@@ -1,5 +1,4 @@
 import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shared/message-types';
-import { logger } from '@shared/logger';
 import { SignatureData } from '@stacks/connect';
 
 interface FormatMessageSigningResponseArgs {
@@ -27,17 +26,7 @@ export function finalizeMessageSignature({
   data,
   tabId,
 }: FinalizeMessageSignatureArgs) {
-  try {
-    const responseMessage = formatMessageSigningResponse({
-      request: requestPayload,
-      response: data,
-    });
-    chrome.tabs.sendMessage(tabId, responseMessage);
-    window.close();
-  } catch (error) {
-    logger.debug('Failed to get Tab ID for message signature request:', requestPayload);
-    throw new Error(
-      'Your message was signed, but we lost communication with the app you started with.'
-    );
-  }
+  const responseMessage = formatMessageSigningResponse({ request: requestPayload, response: data });
+  chrome.tabs.sendMessage(tabId, responseMessage);
+  window.close();
 }

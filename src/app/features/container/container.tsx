@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';

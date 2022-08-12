@@ -1,10 +1,11 @@
+import { analytics } from '@shared/segment-init';
+import { logger } from '@shared/logger';
 import {
   ExternalMethods,
   MESSAGE_SOURCE,
   TransactionResponseMessage,
   TxResult,
 } from '@shared/message-types';
-import { logger } from '@shared/logger';
 
 interface FormatTxSignatureResponseArgs {
   payload: string;
@@ -33,14 +34,13 @@ export function finalizeTxSignature({ requestPayload, data, tabId }: FinalizeTxS
   try {
     const responseMessage = formatTxSignatureResponse({ payload: requestPayload, response: data });
     chrome.tabs.sendMessage(tabId, responseMessage);
-
-    // If this is a string, then the transaction has been canceled
-    // and the user has closed the window
-    if (typeof data !== 'string') window.close();
-  } catch (error) {
-    logger.debug('Failed to get Tab ID for transaction request:', requestPayload);
-    throw new Error(
-      'Your transaction was broadcasted, but we lost communication with the app you started with.'
-    );
+    window.close();
+  } catch (e) {
+    // EXPERIMENT:
+    // My own testing shows that `sendMessage` doesn't throw yet users have
+    // reported these errors. Tracking here to see if we are able to detect this
+    // happening.
+    void analytics.track('finalize_tx_signature_error_thrown', { data: e });
+    logger.error(e);
   }
 }
