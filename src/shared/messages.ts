@@ -1,7 +1,7 @@
 import { ExtensionMethods, InternalMethods, Message } from '@shared/message-types';
 
 /**
- * Vault <-> Background Script
+ * Popup <-> Background Script
  */
 type BackgroundMessage<Msg extends ExtensionMethods, Payload = undefined> = Omit<
   Message<Msg, Payload>,
@@ -22,12 +22,18 @@ type RequestInMemoryKeys = BackgroundMessage<InternalMethods.RequestInMemoryKeys
 
 type RemoveInMemoryKeys = BackgroundMessage<InternalMethods.RemoveInMemoryKeys>;
 
-export type BackgroundActions =
+type OriginatingTabClosed = BackgroundMessage<
+  InternalMethods.OriginatingTabClosed,
+  { tabId: number }
+>;
+
+export type BackgroundMessages =
   | RequestDerivedStxAccounts
   | ShareInMemoryKeyToBackground
   | RequestInMemoryKeys
-  | RemoveInMemoryKeys;
+  | RemoveInMemoryKeys
+  | OriginatingTabClosed;
 
-export function sendMessage(message: BackgroundActions) {
+export function sendMessage(message: BackgroundMessages) {
   return chrome.runtime.sendMessage(message);
 }

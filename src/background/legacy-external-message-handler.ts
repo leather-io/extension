@@ -3,9 +3,11 @@ import { formatMessageSigningResponse } from '@shared/actions/finalize-message-s
 import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature';
 import {
   ExternalMethods,
+  InternalMethods,
   LegacyMessageFromContentScript,
   LegacyMessageToContentScript,
 } from '@shared/message-types';
+import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
 import { popupCenter } from './popup-center';
 
@@ -49,18 +51,28 @@ function makeSearchParamsWithDefaults(
   return { urlParams, origin, tabId };
 }
 
-interface ListenForWindowCloseArgs {
+interface ListenForPopupCloseArgs {
   // ID that comes from newly created window
   id?: number;
   // TabID from requesting tab, to which request should be returned
   tabId?: number;
   response: LegacyMessageToContentScript;
 }
-function listenForWindowClose({ id, tabId, response }: ListenForWindowCloseArgs) {
+function listenForPopupClose({ id, tabId, response }: ListenForPopupCloseArgs) {
   chrome.windows.onRemoved.addListener(winId => {
     if (winId !== id || !tabId) return;
     const responseMessage = response;
     chrome.tabs.sendMessage(tabId, responseMessage);
+  });
+}
+
+interface ListenForOriginTabCloseArgs {
+  tabId?: number;
+}
+function listenForOriginTabClose({ tabId }: ListenForOriginTabCloseArgs) {
+  chrome.tabs.onRemoved.addListener(closedTabId => {
+    if (tabId !== closedTabId) return;
+    sendMessage({ method: InternalMethods.OriginatingTabClosed, payload: { tabId } });
   });
 }
 
@@ -80,11 +92,12 @@ export async function handleLegacyExternalMethodFormat(
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['authRequest', payload]]);
 
       const { id } = await triggerRequstWindowOpen(RouteUrls.ChooseAccount, urlParams);
-      listenForWindowClose({
+      listenForPopupClose({
         id,
         tabId,
         response: formatAuthResponse({ request: payload, response: 'cancel' }),
       });
+      listenForOriginTabClose({ tabId });
       break;
     }
 
@@ -92,11 +105,12 @@ export async function handleLegacyExternalMethodFormat(
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
 
       const { id } = await triggerRequstWindowOpen(RouteUrls.TransactionRequest, urlParams);
-      listenForWindowClose({
+      listenForPopupClose({
         id,
         tabId,
         response: formatTxSignatureResponse({ payload, response: 'cancel' }),
       });
+      listenForOriginTabClose({ tabId });
       break;
     }
 
@@ -107,11 +121,12 @@ export async function handleLegacyExternalMethodFormat(
       ]);
 
       const { id } = await triggerRequstWindowOpen(RouteUrls.SignatureRequest, urlParams);
-      listenForWindowClose({
+      listenForPopupClose({
         id,
         tabId,
         response: formatMessageSigningResponse({ request: payload, response: 'cancel' }),
       });
+      listenForOriginTabClose({ tabId });
       break;
     }
 
@@ -122,11 +137,12 @@ export async function handleLegacyExternalMethodFormat(
       ]);
 
       const { id } = await triggerRequstWindowOpen(RouteUrls.SignatureRequest, urlParams);
-      listenForWindowClose({
+      listenForPopupClose({
         id,
         tabId,
         response: formatMessageSigningResponse({ request: payload, response: 'cancel' }),
       });
+      listenForOriginTabClose({ tabId });
       break;
     }
   }

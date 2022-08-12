@@ -5,7 +5,7 @@ import {
   MESSAGE_SOURCE,
 } from '@shared/message-types';
 import { isValidUrl } from '@shared/utils/validate-url';
-import { analytics } from '@shared/segment-init';
+import { analytics } from '@shared/utils/analytics';
 
 interface FormatAuthResponseArgs {
   request: string;
