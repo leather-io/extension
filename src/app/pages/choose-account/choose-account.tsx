@@ -9,12 +9,14 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
 import { Header } from '@app/components/header';
 import { Accounts } from '@app/pages/choose-account/components/accounts';
+import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
 export const ChooseAccount = memo(() => {
   const { name: appName } = useAppDetails();
   const { cancelAuthentication } = useWallet();
 
   useRouteHeader(<Header hideActions />);
+  useOnOriginTabClose(() => window.close());
 
   const handleUnmount = async () => cancelAuthentication();
 

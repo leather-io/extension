@@ -20,6 +20,7 @@ export enum InternalMethods {
   ShareInMemoryKeyToBackground = 'ShareInMemoryKeyToBackground',
   RequestInMemoryKeys = 'RequestInMemoryKeys',
   RemoveInMemoryKeys = 'RemoveInMemoryKeys',
+  OriginatingTabClosed = 'OriginatingTabClosed',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;

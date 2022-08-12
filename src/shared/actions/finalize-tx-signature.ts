@@ -1,4 +1,3 @@
-import { analytics } from '@shared/segment-init';
 import { logger } from '@shared/logger';
 import {
   ExternalMethods,
@@ -6,6 +5,7 @@ import {
   TransactionResponseMessage,
   TxResult,
 } from '@shared/message-types';
+import { analytics } from '@shared/utils/analytics';
 
 interface FormatTxSignatureResponseArgs {
   payload: string;

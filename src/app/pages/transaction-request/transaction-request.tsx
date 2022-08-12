@@ -40,6 +40,7 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
+import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
@@ -112,6 +113,7 @@ function TransactionRequestBase() {
     <Flex alignItems="center" flexDirection="column" width="100%">
       <Stack px="loose" spacing="loose">
         <PageTop />
+        <RequestingTabClosedWarningMessage />
         <PostConditionModeWarning />
         <TransactionError />
         <PostConditions />
