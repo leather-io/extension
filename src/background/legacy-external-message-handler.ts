@@ -79,7 +79,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.authenticationRequest: {
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['authRequest', payload]]);
 
-      const { id } = await triggerRequstWindowOpen(RouteUrls.Onboarding, urlParams);
+      const { id } = await triggerRequstWindowOpen(RouteUrls.ChooseAccount, urlParams);
       listenForWindowClose({
         id,
         tabId,
