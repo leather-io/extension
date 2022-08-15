@@ -70,7 +70,7 @@
       [
         "@semantic-release/release-notes-generator",
         {
-          "preset": "conventionalCommits",
+          "preset": "conventionalcommits",
           "parserOpts": {
             "noteKeywords": [
               "BREAKING CHANGE",
@@ -218,6 +218,7 @@
     "@redux-devtools/cli": "1.0.7",
     "@redux-devtools/remote": "0.7.5",
     "@schemastore/web-manifest": "0.0.5",
+    "@semantic-release/release-notes-generator": "10.0.3",
     "@stacks/connect-react": "18.0.0",
     "@stacks/eslint-config": "1.0.10",
     "@stacks/prettier-config": "0.0.10",
@@ -321,6 +322,7 @@
     "**/**/@stacks/transactions": "4.3.1",
     "bn.js": "5.2.0",
     "buffer": "6.0.3",
+    "conventional-changelog-conventionalcommits": "5.0.0",
     "dot-prop": "6.0.1",
     "hosted-git-info": "4.0.2",
     "immer": "9.0.6",
