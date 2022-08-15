@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,24 +110,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,7 +131,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, Suspense } from 'react';
 import { Stack, StackProps } from '@stacks/ui';
 &nbsp;
@@ -146,20 +146,20 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 &nbsp;
 import { FunctionArgumentItem } from './function-argument-item';
 &nbsp;
-function FunctionArgumentsListBase(props: StackProps): JSX.Element | null {
-  const transactionRequest = useTransactionRequestState();
+function <span class="fstat-no" title="function not covered" >FunctionArgumentsListBase(</span>props: StackProps): JSX.Element | null {
+  const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!transactionRequest || transactionRequest.txType !== 'contract_call') {
+<span class="cstat-no" title="statement not covered" >  if (!transactionRequest || transactionRequest.txType !== 'contract_call') {</span>
 <span class="cstat-no" title="statement not covered" >    return null;</span>
   }
-  const hasArgs = transactionRequest.functionArgs.length &gt; 0;
+  const hasArgs = <span class="cstat-no" title="statement not covered" >transactionRequest.functionArgs.length &gt; 0;</span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       {hasArgs ? (
         &lt;Stack divider={&lt;Divider /&gt;} spacing="base" {...props}&gt;
-          {transactionRequest.functionArgs.map((arg, index) =&gt; {
-            return (
+          {transactionRequest.functionArgs.map(<span class="fstat-no" title="function not covered" >(a</span>rg, index) =&gt; {
+<span class="cstat-no" title="statement not covered" >            return (</span>
               &lt;Suspense fallback={&lt;&gt;loading&lt;/&gt;} key={`${arg}-${index}`}&gt;
                 &lt;FunctionArgumentItem arg={arg} index={index} /&gt;
               &lt;/Suspense&gt;
@@ -167,13 +167,13 @@ function FunctionArgumentsListBase(props: StackProps): JSX.Element | null {
           })}
         &lt;/Stack&gt;
       ) : (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Caption&gt;There are no additional arguments passed for this function call.&lt;/Caption&gt;</span>
+        &lt;Caption&gt;There are no additional arguments passed for this function call.&lt;/Caption&gt;
       )}
     &lt;/&gt;
   );
 }
 &nbsp;
-export const FunctionArgumentsList = memo(FunctionArgumentsListBase);
+export const FunctionArgumentsList = <span class="cstat-no" title="statement not covered" >memo(FunctionArgumentsListBase);</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -181,7 +181,7 @@ export const FunctionArgumentsList = memo(FunctionArgumentsListBase);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

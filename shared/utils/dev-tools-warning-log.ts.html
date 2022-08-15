@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for shared/utils/sentry-init.ts</title>
+    <title>Code coverage report for shared/utils/dev-tools-warning-log.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">shared/utils</a> sentry-init.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">shared/utils</a> dev-tools-warning-log.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -72,24 +72,8 @@
 <a name='L7'></a><a href='#L7'>7</a>
 <a name='L8'></a><a href='#L8'>8</a>
 <a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a>
-<a name='L11'></a><a href='#L11'>11</a>
-<a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L10'></a><a href='#L10'>10</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -97,31 +81,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
-import { userHasAllowedDiagnosticsKey } from './storage';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export function <span class="fstat-no" title="function not covered" >warnUsersAboutDevToolsDangers(</span>) {
+<span class="cstat-no" title="statement not covered" >  if (process.env.WALLET_ENVIRONMENT !== 'production') <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >checkUserHasGrantedPermission(</span>) {
-<span class="cstat-no" title="statement not covered" >  return localStorage.getItem(userHasAllowedDiagnosticsKey) === 'true';</span>
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >initSentry(</span>) {
-<span class="cstat-no" title="statement not covered" >  Sentry.init({</span>
-    dsn: process.env.SENTRY_DSN,
-    integrations: [new Integrations.BrowserTracing()],
-    tracesSampleRate: 0,
-    enabled: checkUserHasGrantedPermission(),
-<span class="fstat-no" title="function not covered" >    be</span>foreSend(event) {
-<span class="cstat-no" title="statement not covered" >      if (!checkUserHasGrantedPermission()) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >      return event;</span>
-    },
-  });
+  // eslint-disable-next-line no-console
+<span class="cstat-no" title="statement not covered" >  console.log(</span>
+    '%c ⚠️ Warning:\n   Do not paste any code here.\n   This is a developer tool which could be used to steal your funds.',
+    'color: red; font-size: 20px'
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -130,7 +97,7 @@ export function <span class="fstat-no" title="function not covered" >initSentry(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

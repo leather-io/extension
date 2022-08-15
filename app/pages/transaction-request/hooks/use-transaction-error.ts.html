@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/37</span>
+                <span class='fraction'>0/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/33</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -134,13 +134,7 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,13 +154,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,7 +196,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,30 +212,27 @@ import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useContractInterface } from '@app/query/contract/contract.hooks';
 import { TransactionTypes } from '@stacks/connect';
-import {
-  useCurrentAccount,
-  useCurrentAccountAvailableStxBalance,
-} from '@app/store/accounts/account.hooks';
-import { useOrigin } from '@app/store/transactions/requests.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
+&nbsp;
 import {
   useTransactionBroadcastError,
   useTransactionRequestState,
-  useTransactionRequestValidation,
 } from '@app/store/transactions/requests.hooks';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useTransactionError(</span>) {
   const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
   const contractInterface = <span class="cstat-no" title="statement not covered" >useContractInterface(transactionRequest);</span>
   const broadcastError = <span class="cstat-no" title="statement not covered" >useTransactionBroadcastError();</span>
-  const isValidTransaction = <span class="cstat-no" title="statement not covered" >useTransactionRequestValidation();</span>
-  const origin = <span class="cstat-no" title="statement not covered" >useOrigin();</span>
+&nbsp;
+  const { origin } = <span class="cstat-no" title="statement not covered" >useDefaultRequestParams();</span>
 &nbsp;
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
   const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo&lt;TransactionErrorReason | void&gt;(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (origin === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.ExpiredRequest;</span></span>
-<span class="cstat-no" title="statement not covered" >    if (isValidTransaction === false) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.Unauthorized;</span></span>
+<span class="cstat-no" title="statement not covered" >    if (!origin) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.ExpiredRequest;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!transactionRequest || !availableStxBalance || !currentAccount) {</span>
 <span class="cstat-no" title="statement not covered" >      return TransactionErrorReason.Generic;</span>
@@ -284,7 +273,6 @@ export function <span class="fstat-no" title="function not covered" >useTransact
     availableStxBalance,
     currentAccount,
     transactionRequest,
-    isValidTransaction,
     origin,
   ]);
 }
@@ -295,7 +283,7 @@ export function <span class="fstat-no" title="function not covered" >useTransact
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

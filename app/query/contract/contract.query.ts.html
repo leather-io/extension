@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -102,20 +102,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -127,14 +127,14 @@ import { TransactionPayload, TransactionTypes } from '@stacks/connect';
 import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-types';
 import { useApi } from '@app/store/common/api-clients.hooks';
 &nbsp;
-export function useGetContractInterface(
+export function <span class="fstat-no" title="function not covered" >useGetContractInterface(</span>
   transactionRequest: TransactionPayload | null,
-  reactQueryOptions: UseQueryOptions&lt;any&gt; = {}
+  reactQueryOptions: UseQueryOptions&lt;any&gt; = <span class="branch-0 cbranch-no" title="branch not covered" >{}</span>
 ) {
-  const { smartContractsApi } = useApi();
+  const { smartContractsApi } = <span class="cstat-no" title="statement not covered" >useApi();</span>
 &nbsp;
-  const fetchContractInterface = () =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (!transactionRequest || transactionRequest?.txType !== TransactionTypes.ContractCall) return;
+  const fetchContractInterface = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!transactionRequest || transactionRequest?.txType !== TransactionTypes.ContractCall) <span class="cstat-no" title="statement not covered" >return;</span></span>
     const contractAddress = <span class="cstat-no" title="statement not covered" >transactionRequest.contractAddress;</span>
     const contractName = <span class="cstat-no" title="statement not covered" >transactionRequest.contractName;</span>
 &nbsp;
@@ -144,7 +144,7 @@ export function useGetContractInterface(
     }) as unknown as Promise&lt;ContractInterfaceResponseWithFunctions&gt;;
   };
 &nbsp;
-  return useQuery({
+<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
     queryKey: ['contract-interface', transactionRequest?.publicKey],
     queryFn: fetchContractInterface,
     ...reactQueryOptions,
@@ -157,7 +157,7 @@ export function useGetContractInterface(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

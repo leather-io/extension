@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/common/transactions/use-fee-estimations-capped-values.ts</title>
+    <title>Code coverage report for shared/actions/finalize-message-signature.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/common/transactions</a> use-fee-estimations-capped-values.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">shared/actions</a> finalize-message-signature.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -90,7 +90,33 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -99,50 +125,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
-  useConfigFeeEstimationsMaxEnabled,
-  useConfigFeeEstimationsMaxValues,
-  useConfigFeeEstimationsMinEnabled,
-  useConfigFeeEstimationsMinValues,
-} from '@app/query/hiro-config/hiro-config.query';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shared/message-types';
+import { SignatureData } from '@stacks/connect';
 &nbsp;
-const defaultFeeEstimationsMaxValues = <span class="cstat-no" title="statement not covered" >[500000, 750000, 2000000];</span>
-const defaultFeeEstimationsMinValues = <span class="cstat-no" title="statement not covered" >[2500, 3000, 3500];</span>
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useFeeEstimationsMaxValues(</span>) {
-  // Get it first from the config
-  const configFeeEstimationsMaxEnabled = <span class="cstat-no" title="statement not covered" >useConfigFeeEstimationsMaxEnabled();</span>
-  const configFeeEstimationsMaxValues = <span class="cstat-no" title="statement not covered" >useConfigFeeEstimationsMaxValues();</span>
-  // Only when the remote config file explicitly sets the maxValuesEnabled as false, we return no max cap for fees
-<span class="cstat-no" title="statement not covered" >  if (configFeeEstimationsMaxEnabled === false) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >  return configFeeEstimationsMaxValues || defaultFeeEstimationsMaxValues;</span>
+interface FormatMessageSigningResponseArgs {
+  request: string;
+  response: SignatureData | string;
+}
+export function <span class="fstat-no" title="function not covered" >formatMessageSigningResponse(</span>{
+  request,
+  response,
+}: FormatMessageSigningResponseArgs): SignatureResponseMessage {
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    source: MESSAGE_SOURCE,
+    method: ExternalMethods.signatureResponse,
+    payload: { signatureRequest: request, signatureResponse: response },
+  };
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useFeeEstimationsMinValues(</span>) {
-  // Get it first from the config
-  const configFeeEstimationsMinEnabled = <span class="cstat-no" title="statement not covered" >useConfigFeeEstimationsMinEnabled();</span>
-  const configFeeEstimationsMinValues = <span class="cstat-no" title="statement not covered" >useConfigFeeEstimationsMinValues();</span>
-  // Only when the remote config file explicitly sets the minValuesEnabled as false, we return no min cap for fees
-<span class="cstat-no" title="statement not covered" >  if (configFeeEstimationsMinEnabled === false) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >  return configFeeEstimationsMinValues || defaultFeeEstimationsMinValues;</span>
+interface FinalizeMessageSignatureArgs {
+  requestPayload: string;
+  tabId: number;
+  data: SignatureData | string;
+}
+export function <span class="fstat-no" title="function not covered" >finalizeMessageSignature(</span>{
+  requestPayload,
+  data,
+  tabId,
+}: FinalizeMessageSignatureArgs) {
+  const responseMessage = <span class="cstat-no" title="statement not covered" >formatMessageSigningResponse({ request: requestPayload, response: data });</span>
+<span class="cstat-no" title="statement not covered" >  chrome.tabs.sendMessage(tabId, responseMessage);</span>
+<span class="cstat-no" title="statement not covered" >  window.close();</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -151,16 +166,16 @@ export function <span class="fstat-no" title="function not covered" >useFeeEstim
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     

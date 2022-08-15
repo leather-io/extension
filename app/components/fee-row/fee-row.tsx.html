@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -200,11 +200,7 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,7 +231,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -260,7 +255,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -306,6 +300,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,12 +347,10 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ErrorLabel } from '@app/components/error-label';
 import { Tooltip } from '@app/components/tooltip';
 import { WarningLabel } from '@app/components/warning-label';
-import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { SpaceBetween } from '@app/components/space-between';
 import { SponsoredLabel } from '@app/components/sponsored-label';
 import { Caption } from '@app/components/typography';
-import { Estimations } from '@shared/models/fees-types';
-import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
+import { FeeEstimate, FeeType } from '@shared/models/fees-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 &nbsp;
 import { TransactionFee } from './components/transaction-fee';
@@ -369,26 +363,25 @@ const feesInfo =
 const url = <span class="cstat-no" title="statement not covered" >'https://hiro.so/questions/fee-estimates';</span>
 &nbsp;
 interface FeeRowProps {
+  feeEstimations: FeeEstimate[];
   feeFieldName: string;
   feeTypeFieldName: string;
   isSponsored: boolean;
 }
 export function <span class="fstat-no" title="function not covered" >FeeRow(</span>props: FeeRowProps): JSX.Element {
-  const { feeFieldName, isSponsored, feeTypeFieldName } = <span class="cstat-no" title="statement not covered" >props;</span>
-&nbsp;
+  const { feeEstimations, feeFieldName, isSponsored, feeTypeFieldName } = <span class="cstat-no" title="statement not covered" >props;</span>
   const [feeInput, feeMeta, feeHelper] = <span class="cstat-no" title="statement not covered" >useField(feeFieldName);</span>
-  const [, , feeTypeHelper] = <span class="cstat-no" title="statement not covered" >useField(feeTypeFieldName);</span>
+  const [, _, feeTypeHelper] = <span class="cstat-no" title="statement not covered" >useField(feeTypeFieldName);</span>
   const [fieldWarning, setFieldWarning] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;(undefined);</span>
   const [isOpen, setIsOpen] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-  const [feeEstimations] = <span class="cstat-no" title="statement not covered" >useFeeEstimationsState();</span>
-  const [selected, setSelected] = <span class="cstat-no" title="statement not covered" >useState(Estimations.Middle);</span>
+  const [selected, setSelected] = <span class="cstat-no" title="statement not covered" >useState(FeeType.Middle);</span>
   const [isCustom, setIsCustom] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
     // Set it to the middle estimation on mount
-<span class="cstat-no" title="statement not covered" >    if (!feeInput.value &amp;&amp; !isCustom &amp;&amp; feeEstimations.length) {</span>
-<span class="cstat-no" title="statement not covered" >      feeHelper.setValue(microStxToStx(feeEstimations[1].fee).toNumber());</span>
-<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(Estimations[Estimations.Middle]);</span>
+<span class="cstat-no" title="statement not covered" >    if (!feeInput.value &amp;&amp; !isCustom) {</span>
+<span class="cstat-no" title="statement not covered" >      feeHelper.setValue(microStxToStx(feeEstimations[FeeType.Middle].fee).toNumber());</span>
+<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(FeeType[FeeType.Middle]);</span>
     }
 <span class="cstat-no" title="statement not covered" >    if (isSponsored) {</span>
 <span class="cstat-no" title="statement not covered" >      feeHelper.setValue(0);</span>
@@ -399,10 +392,9 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
   // Handles using the fee estimations selector or custom input
   const handleSelectedItem = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (i</span>ndex: number) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!feeEstimations) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >      if (selected !== index) <span class="cstat-no" title="statement not covered" >setSelected(index);</span></span>
-<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(Estimations[index]);</span>
-<span class="cstat-no" title="statement not covered" >      if (index === Estimations.Custom) {</span>
+<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(FeeType[index]);</span>
+<span class="cstat-no" title="statement not covered" >      if (index === FeeType.Custom) {</span>
 <span class="cstat-no" title="statement not covered" >        feeHelper.setValue('');</span>
 <span class="cstat-no" title="statement not covered" >        setIsCustom(true);</span>
       } else {
@@ -453,9 +445,11 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
           ) : null}
         &lt;/Stack&gt;
         {isCustom ? (
-          &lt;CustomFeeField fieldName={feeFieldName} setFieldWarning={setFieldWarning} /&gt;
-        ) : !isSponsored &amp;&amp; !feeInput.value ? (
-          &lt;LoadingRectangle width="50px" height="10px" /&gt;
+          &lt;CustomFeeField
+            fieldName={feeFieldName}
+            lowFeeEstimate={feeEstimations[FeeType.Low]}
+            setFieldWarning={setFieldWarning}
+          /&gt;
         ) : (
           &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
             &lt;Caption&gt;
@@ -487,7 +481,7 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

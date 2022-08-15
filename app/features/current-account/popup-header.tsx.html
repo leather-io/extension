@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -124,19 +124,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,6 +135,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,38 +172,38 @@ import { CurrentStxAddress } from '@app/features/current-account/current-stx-add
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { Balance } from '@app/components/balance';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >PopupHeaderSuspense(</span>): JSX.Element {
+interface PopupHeaderLayoutProps {
+  children: React.ReactNode;
+}
+function <span class="fstat-no" title="function not covered" >PopupHeaderLayout(</span>{ children }: PopupHeaderLayoutProps) {
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}&gt;
+      &lt;Stack isInline alignItems="center" width="100%" justifyContent="space-between"&gt;
+        &lt;Stack isInline alignItems="center"&gt;
+          &lt;CurrentAccountAvatar size="24px" fontSize="10px" /&gt;
+          &lt;CurrentAccountName as="h3" /&gt;
+          &lt;CurrentStxAddress /&gt;
+        &lt;/Stack&gt;
+        {children}
+      &lt;/Stack&gt;
+    &lt;/Box&gt;
+  );
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >PopupHeaderSuspense(</span>) {
   const account = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
+<span class="cstat-no" title="statement not covered" >  return &lt;PopupHeaderLayout&gt;{account &amp;&amp; &lt;Balance address={account.address} /&gt;}&lt;/PopupHeaderLayout&gt;;</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >PopupHeaderFallback(</span>) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}&gt;
-      &lt;Stack isInline alignItems="center" width="100%" justifyContent="space-between"&gt;
-        &lt;Stack isInline alignItems="center"&gt;
-          &lt;CurrentAccountAvatar size="24px" fontSize="10px" /&gt;
-          &lt;CurrentAccountName as="h3" /&gt;
-          &lt;CurrentStxAddress /&gt;
-        &lt;/Stack&gt;
-        {account &amp;&amp; &lt;Balance address={account.address} /&gt;}
-      &lt;/Stack&gt;
-    &lt;/Box&gt;
+    &lt;PopupHeaderLayout&gt;
+      &lt;LoadingRectangle width="72px" height="14px" /&gt;
+    &lt;/PopupHeaderLayout&gt;
   );
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >PopupHeaderFallback(</span>): JSX.Element {
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}&gt;
-      &lt;Stack isInline alignItems="center" width="100%" justifyContent="space-between"&gt;
-        &lt;Stack isInline alignItems="center"&gt;
-          &lt;CurrentAccountAvatar size="24px" fontSize="10px" /&gt;
-          &lt;CurrentAccountName as="h3" /&gt;
-          &lt;CurrentStxAddress /&gt;
-        &lt;/Stack&gt;
-        &lt;LoadingRectangle width="72px" height="14px" /&gt;
-      &lt;/Stack&gt;
-    &lt;/Box&gt;
-  );
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >PopupHeader(</span>): JSX.Element {
+export function <span class="fstat-no" title="function not covered" >PopupHeader(</span>) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Suspense fallback={&lt;PopupHeaderFallback /&gt;}&gt;
       &lt;PopupHeaderSuspense /&gt;
@@ -217,7 +217,7 @@ export function <span class="fstat-no" title="function not covered" >PopupHeader
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

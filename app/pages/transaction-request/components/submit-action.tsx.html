@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -119,14 +119,7 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,14 +145,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -168,15 +157,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,7 +186,6 @@ import { TransactionFormValues } from '@app/common/transactions/transaction-util
 import { isEmpty } from '@shared/utils';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@app/components/show-edit-nonce';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
-import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >BaseConfirmButton(</span>props: ButtonProps): JSX.Element {
@@ -209,39 +196,34 @@ function <span class="fstat-no" title="function not covered" >BaseConfirmButton(
   );
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >SubmitActionSuspense(</span>): JSX.Element {
+export function <span class="fstat-no" title="function not covered" >SubmitAction(</span>) {
   const { handleSubmit, values, validateForm } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;TransactionFormValues&gt;();</span>
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
   const { isLoading } = <span class="cstat-no" title="statement not covered" >useLoading(LoadingKeys.SUBMIT_TRANSACTION);</span>
   const error = <span class="cstat-no" title="statement not covered" >useTransactionError();</span>
-  const [feeEstimations] = <span class="cstat-no" title="statement not covered" >useFeeEstimationsState();</span>
 &nbsp;
-  const isDisabled = <span class="cstat-no" title="statement not covered" >!!error || !feeEstimations.length;</span>
+  const isDisabled = <span class="cstat-no" title="statement not covered" >!!error || !values.fee;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;BaseConfirmButton
-      data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
-      onClick={<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
-        // We need to check for errors here before we show the high fee confirmation
-        const formErrors = <span class="cstat-no" title="statement not covered" >await validateForm();</span>
-<span class="cstat-no" title="statement not covered" >        if (isEmpty(formErrors) &amp;&amp; values.fee &gt; HIGH_FEE_AMOUNT_STX) {</span>
-<span class="cstat-no" title="statement not covered" >          return setShowHighFeeConfirmation(!showHighFeeConfirmation);</span>
-        }
-<span class="cstat-no" title="statement not covered" >        handleSubmit();</span>
-      }}
-      isLoading={isLoading}
-      isDisabled={isDisabled}
-    &gt;
-      Confirm
-    &lt;/BaseConfirmButton&gt;
-  );
-}
+  const onConfirmTransaction = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
+    // Check for errors before showing the high fee confirmation
+    const formErrors = <span class="cstat-no" title="statement not covered" >await validateForm();</span>
+<span class="cstat-no" title="statement not covered" >    if (isEmpty(formErrors) &amp;&amp; values.fee &gt; HIGH_FEE_AMOUNT_STX) {</span>
+<span class="cstat-no" title="statement not covered" >      return setShowHighFeeConfirmation(!showHighFeeConfirmation);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    handleSubmit();</span>
+  };
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >SubmitAction(</span>) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Suspense fallback={&lt;BaseConfirmButton isLoading isDisabled /&gt;}&gt;
-        &lt;SubmitActionSuspense /&gt;
+        &lt;BaseConfirmButton
+          data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          onClick={onConfirmTransaction}
+        &gt;
+          Confirm
+        &lt;/BaseConfirmButton&gt;
       &lt;/Suspense&gt;
       &lt;Suspense fallback={&lt;ShowEditNoncePlaceholder /&gt;}&gt;
         &lt;ShowEditNonceAction /&gt;
@@ -256,7 +238,7 @@ export function <span class="fstat-no" title="function not covered" >SubmitActio
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

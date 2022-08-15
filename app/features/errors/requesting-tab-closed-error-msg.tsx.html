@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/common/actions/finalize-message-signature.ts</title>
+    <title>Code coverage report for app/features/errors/requesting-tab-closed-error-msg.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/common/actions</a> finalize-message-signature.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/features/errors</a> requesting-tab-closed-error-msg.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -30,23 +30,23 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -90,17 +90,37 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,42 +128,55 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shared/message-types';
-import { logger } from '@shared/logger';
-import { SignatureData } from '@stacks/connect';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
+import { Box, Flex, color, Text } from '@stacks/ui';
+import { useState } from 'react';
+import { FiAlertCircle } from 'react-icons/fi';
 &nbsp;
-export const finalizeMessageSignature = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>
-  requestPayload: string,
-  tabId: number,
-  data: SignatureData | string
-) =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const responseMessage: SignatureResponseMessage = <span class="cstat-no" title="statement not covered" >{</span>
-      source: MESSAGE_SOURCE,
-      method: ExternalMethods.signatureResponse,
-      payload: {
-        signatureRequest: requestPayload,
-        signatureResponse: data,
-      },
-    };
-<span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(tabId, responseMessage);</span>
-<span class="cstat-no" title="statement not covered" >    window.close();</span>
-  } catch (error) {
-<span class="cstat-no" title="statement not covered" >    logger.debug('Failed to get Tab ID for message signature request:', requestPayload);</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error(</span>
-      'Your message was signed, but we lost communication with the app you started with.'
-    );
-  }
-};
+export function <span class="fstat-no" title="function not covered" >RequestingTabClosedWarningMessage(</span>) {
+  const [hasTabClosed, setHasTabClosed] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  useOnOriginTabClose(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    setHasTabClosed(true);</span>
+<span class="cstat-no" title="statement not covered" >    window.scrollTo({ top: 0, behavior: 'smooth' });</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!hasTabClosed) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;Box background={color('bg-alt')} py="base" px="base-loose" borderRadius="10px"&gt;
+      &lt;Flex&gt;
+        &lt;Box mr="base-tight" mt="2px"&gt;
+          &lt;FiAlertCircle color={color('feedback-alert')} /&gt;
+        &lt;/Box&gt;
+        &lt;Box&gt;
+          &lt;Text textStyle="body.small.medium" fontWeight={500}&gt;
+            Requesting window closed
+          &lt;/Text&gt;
+          &lt;Text
+            textStyle="body.small"
+            color={color('text-caption')}
+            lineHeight="22px"
+            mt="extra-tight"
+          &gt;
+            The window making this request closed, but you can still broadcast the transaction
+          &lt;/Text&gt;
+        &lt;/Box&gt;
+      &lt;/Flex&gt;
+    &lt;/Box&gt;
+  );
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -151,7 +184,7 @@ export const finalizeMessageSignature = <span class="cstat-no" title="statement 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

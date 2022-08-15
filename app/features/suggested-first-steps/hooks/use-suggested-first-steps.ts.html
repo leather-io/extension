@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -125,14 +125,7 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,13 +147,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,14 +165,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -189,30 +180,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useMemo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 &nbsp;
 import {
   useAccountsNonFungibleTokenHoldings,
   useNonFungibleTokenHoldings,
 } from '@app/query/non-fungible-tokens/non-fungible-token-holdings.hooks';
-import {
-  useAccounts,
-  useCurrentAccount,
-  useCurrentAccountAvailableStxBalance,
-} from '@app/store/accounts/account.hooks';
-import { useAppDispatch } from '@app/store';
+import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import {
   useHideSuggestedFirstSteps,
   useSuggestedFirstStepsStatus,
 } from '@app/store/onboarding/onboarding.selectors';
-import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
 import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/onboarding-types';
-import { useAccountsAvailableStxBalance } from '@app/query/balance/balance.hooks';
+import { useAllAccountsAvailableStxBalance } from '@app/query/balance/balance.hooks';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSuggestedFirstSteps(</span>) {
-  const dispatch = <span class="cstat-no" title="statement not covered" >useAppDispatch();</span>
   const accounts = <span class="cstat-no" title="statement not covered" >useAccounts();</span>
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
   const hasHiddenSuggestedFirstSteps = <span class="cstat-no" title="statement not covered" >useHideSuggestedFirstSteps();</span>
@@ -221,39 +211,43 @@ export function <span class="fstat-no" title="function not covered" >useSuggeste
   const nonFungibleTokenHoldings = <span class="cstat-no" title="statement not covered" >useNonFungibleTokenHoldings(currentAccount?.address);</span>
 &nbsp;
   const firstFiveAccounts = <span class="cstat-no" title="statement not covered" >accounts?.slice(0, 5);</span>
-  const accountsAvailableStxBalance = <span class="cstat-no" title="statement not covered" >useAccountsAvailableStxBalance(firstFiveAccounts);</span>
+  const accountsAvailableStxBalance = <span class="cstat-no" title="statement not covered" >useAllAccountsAvailableStxBalance(firstFiveAccounts);</span>
   const accountsNonFungibleTokenHoldings = <span class="cstat-no" title="statement not covered" >useAccountsNonFungibleTokenHoldings(firstFiveAccounts);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (accountsAvailableStxBalance?.isGreaterThan(0)) {</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(</span>
-        onboardingActions.userCompletedSuggestedFirstStep({ step: SuggestedFirstSteps.AddFunds })
-      );
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (accountsNonFungibleTokenHoldings.isGreaterThan(0)) {</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(</span>
-        onboardingActions.userCompletedSuggestedFirstStep({ step: SuggestedFirstSteps.BuyNft })
-      );
-    }
+  const isAddFundsStepComplete = <span class="cstat-no" title="statement not covered" >useMemo(</span>
+<span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >accountsAvailableStxBalance?.isGreaterThan(0),</span>
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    accountsAvailableStxBalance,
-    accountsNonFungibleTokenHoldings,
-    availableStxBalance,
-    nonFungibleTokenHoldings,
-  ]);
+    [availableStxBalance]
+  );
 &nbsp;
-  const hasCompletedSuggestedFirstSteps = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return Object.values(stepsStatus).every(<span class="fstat-no" title="function not covered" >va</span>l =&gt; <span class="cstat-no" title="statement not covered" >val === SuggestedFirstStepStatus.Complete)</span>;</span>
-  }, [stepsStatus]);
+  const isBuyNftStepComplete = <span class="cstat-no" title="statement not covered" >useMemo(</span>
+<span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >accountsNonFungibleTokenHoldings.isGreaterThan(0),</span>
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [nonFungibleTokenHoldings]
+  );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    accounts &amp;&amp;
+  // This is the only step we need to persist
+  const isExploreAppsStepComplete = <span class="cstat-no" title="statement not covered" >useMemo(</span>
+<span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >stepsStatus[SuggestedFirstSteps.ExploreApps] === SuggestedFirstStepStatus.Complete,</span>
+    [stepsStatus]
+  );
+&nbsp;
+  // The first step loads completed, so check the last three
+  const hasCompletedSuggestedFirstSteps =
+<span class="cstat-no" title="statement not covered" >    isAddFundsStepComplete &amp;&amp; isBuyNftStepComplete &amp;&amp; isExploreAppsStepComplete;</span>
+&nbsp;
+  const showSuggestedFirstSteps =
+<span class="cstat-no" title="statement not covered" >    accounts &amp;&amp;</span>
     accounts.length &lt;= 5 &amp;&amp;
     !hasCompletedSuggestedFirstSteps &amp;&amp;
-    !hasHiddenSuggestedFirstSteps
-  );
+    !hasHiddenSuggestedFirstSteps;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    isAddFundsStepComplete,
+    isBuyNftStepComplete,
+    isExploreAppsStepComplete,
+    showSuggestedFirstSteps,
+  };
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -262,7 +256,7 @@ export function <span class="fstat-no" title="function not covered" >useSuggeste
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

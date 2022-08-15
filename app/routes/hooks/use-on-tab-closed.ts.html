@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/features/container/fetchers.tsx</title>
+    <title>Code coverage report for app/routes/hooks/use-on-tab-closed.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/features/container</a> fetchers.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/routes/hooks</a> use-on-tab-closed.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -86,20 +86,10 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,28 +99,47 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAccountInfo } from '@app/query/account/account.hooks';
-import { useAddressBalances } from '@app/query/balance/balance.hooks';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { InternalMethods } from '@shared/message-types';
+import { BackgroundMessages } from '@shared/messages';
+import { useEffect } from 'react';
 &nbsp;
-// These components are intended to be temporary. They exist only to coerce the
-// app to fetch data and set it into existing atoms. This code should be
-// removed, when all external data is accssed by via hooks, and not the implicit
-// atom tree.
+export function <span class="fstat-no" title="function not covered" >useOnOriginTabClose(</span>handler: () =&gt; void) {
+  const { tabId } = <span class="cstat-no" title="statement not covered" >useDefaultRequestParams();</span>
+  const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
 &nbsp;
-interface BalanceFetcherProps {
-  address: string;
-}
-export function <span class="fstat-no" title="function not covered" >BalanceFetcher(</span>{ address }: BalanceFetcherProps) {
-<span class="cstat-no" title="statement not covered" >  useAddressBalances(address);</span>
-<span class="cstat-no" title="statement not covered" >  return null;</span>
-}
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+    const messageHandler = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(m</span>essage: BackgroundMessages) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (message.method !== InternalMethods.OriginatingTabClosed) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (message.payload.tabId === tabId) {</span>
+<span class="cstat-no" title="statement not covered" >        handler();</span>
+<span class="cstat-no" title="statement not covered" >        void analytics.track('requesting_origin_tab_closed_with_pending_action');</span>
+      }
+    };
 &nbsp;
-interface AccountInfoFetcherProps {
-  address: string;
-}
-export function <span class="fstat-no" title="function not covered" >AccountInfoFetcher(</span>{ address }: AccountInfoFetcherProps) {
-<span class="cstat-no" title="statement not covered" >  useAccountInfo(address);</span>
-<span class="cstat-no" title="statement not covered" >  return null;</span>
+<span class="cstat-no" title="statement not covered" >    chrome.runtime.onMessage.addListener(messageHandler);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >chrome.runtime.onMessage.removeListener(handler);</span></span>
+&nbsp;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -139,7 +148,7 @@ export function <span class="fstat-no" title="function not covered" >AccountInfo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

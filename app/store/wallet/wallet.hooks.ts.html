@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -168,7 +168,17 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,6 +225,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,20 +244,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,8 +255,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,7 +305,7 @@ import {
 &nbsp;
 import { gaiaUrl } from '@shared/constants';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
 import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
@@ -311,7 +331,7 @@ export function <span class="fstat-no" title="function not covered" >useFinishSi
   const wallet = <span class="cstat-no" title="statement not covered" >useWalletState();</span>
   const { walletType } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const accounts = <span class="cstat-no" title="statement not covered" >useAccounts();</span>
-  const { origin } = <span class="cstat-no" title="statement not covered" >useAuthRequestParams();</span>
+  const { origin, tabId } = <span class="cstat-no" title="statement not covered" >useAuthRequestParams();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
 <span class="fstat-no" title="function not covered" >    as</span>ync (accountIndex: number) =&gt; {
@@ -319,7 +339,15 @@ export function <span class="fstat-no" title="function not covered" >useFinishSi
 &nbsp;
       const legacyAccount = <span class="cstat-no" title="statement not covered" >wallet?.accounts[accountIndex];</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!decodedAuthRequest || !authRequest || !account || !legacyAccount || !wallet || !origin) {</span>
+<span class="cstat-no" title="statement not covered" >      if (</span>
+        !decodedAuthRequest ||
+        !authRequest ||
+        !account ||
+        !legacyAccount ||
+        !wallet ||
+        !origin ||
+        !tabId
+      ) {
 <span class="cstat-no" title="statement not covered" >        logger.error('Uh oh! Finished onboarding without auth info.');</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
@@ -362,6 +390,7 @@ export function <span class="fstat-no" title="function not covered" >useFinishSi
           authRequest,
           authResponse,
           requestingOrigin: origin,
+          tabId,
         });
       }
     },
@@ -375,6 +404,7 @@ export function <span class="fstat-no" title="function not covered" >useFinishSi
       origin,
       wallet,
       walletType,
+      tabId,
     ]
   );
 }
@@ -385,7 +415,7 @@ export function <span class="fstat-no" title="function not covered" >useFinishSi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

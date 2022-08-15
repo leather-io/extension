@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.78% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/23</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/12</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/22</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -130,15 +130,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,23 +146,23 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,15 +186,15 @@ declare global {
   }
 }
 &nbsp;
-let instances: Set&lt;{}&gt; = new Set();
+let instances: Set&lt;{}&gt; = <span class="cstat-no" title="statement not covered" >new Set();</span>
 &nbsp;
-<span class="missing-if-branch" title="else path not taken" >E</span>if (typeof window !== 'undefined') {
+<span class="cstat-no" title="statement not covered" >if (typeof window !== 'undefined') {</span>
   // this is necessary because we may share instances of this file on a page so we store these globally
-  window.__useScrollLockInstances = window.__useScrollLockInstances || new Set&lt;{}&gt;();
-  instances = window.__useScrollLockInstances;
+<span class="cstat-no" title="statement not covered" >  window.__useScrollLockInstances = window.__useScrollLockInstances || new Set&lt;{}&gt;();</span>
+<span class="cstat-no" title="statement not covered" >  instances = window.__useScrollLockInstances;</span>
 }
 &nbsp;
-const registerInstance = <span class="fstat-no" title="function not covered" >(i</span>nstance: {}) =&gt; {
+const registerInstance = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>nstance: {}) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  if (instances.size === 0) {</span>
 <span class="cstat-no" title="statement not covered" >    setBodyOverflow(true);</span>
   }
@@ -202,7 +202,7 @@ const registerInstance = <span class="fstat-no" title="function not covered" >(i
 <span class="cstat-no" title="statement not covered" >  instances.add(instance);</span>
 };
 &nbsp;
-const unregisterInstance = <span class="fstat-no" title="function not covered" >(i</span>nstance: {}) =&gt; {
+const unregisterInstance = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>nstance: {}) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  instances.delete(instance);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (instances.size === 0) {</span>
@@ -210,7 +210,7 @@ const unregisterInstance = <span class="fstat-no" title="function not covered" >
   }
 };
 &nbsp;
-const setBodyOverflow = <span class="fstat-no" title="function not covered" >(s</span>houldLock: boolean) =&gt; {
+const setBodyOverflow = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>houldLock: boolean) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  if (shouldLock) {</span>
 <span class="cstat-no" title="statement not covered" >    document.body.classList.add('no-scroll');</span>
   } else {
@@ -218,7 +218,7 @@ const setBodyOverflow = <span class="fstat-no" title="function not covered" >(s<
   }
 };
 &nbsp;
-export const useScrollLock = <span class="fstat-no" title="function not covered" >(s</span>houldLock: boolean) =&gt; {
+export const useScrollLock = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>houldLock: boolean) =&gt; {</span>
   // we generate a unique reference to the component that uses this thing
   const [elementId] = <span class="cstat-no" title="statement not covered" >useState({});</span>
 &nbsp;
@@ -238,7 +238,7 @@ export const useScrollLock = <span class="fstat-no" title="function not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

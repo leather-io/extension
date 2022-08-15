@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/19</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/19</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,44 +104,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { atomFamily, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import { makeLocalDataKey } from '@app/common/store-utils';
 &nbsp;
-export const tabState = atomFamily(<span class="fstat-no" title="function not covered" >pa</span>ram =&gt; {
+export const tabState = <span class="cstat-no" title="statement not covered" >atomFamily(<span class="fstat-no" title="function not covered" >pa</span>ram =&gt; {</span>
   const anAtom = <span class="cstat-no" title="statement not covered" >atomWithStorage&lt;number&gt;(makeLocalDataKey(['HOME_TABS', param]), 0);</span>
 <span class="cstat-no" title="statement not covered" >  anAtom.debugLabel = `TABS__${param}`;</span>
 <span class="cstat-no" title="statement not covered" >  return anAtom;</span>
@@ -149,31 +149,31 @@ export const tabState = atomFamily(<span class="fstat-no" title="function not co
 &nbsp;
 type LoadingState = 'idle' | 'loading';
 &nbsp;
-export const loadingState = atomFamily(<span class="fstat-no" title="function not covered" >_p</span>aram =&gt; {
+export const loadingState = <span class="cstat-no" title="statement not covered" >atomFamily(<span class="fstat-no" title="function not covered" >_p</span>aram =&gt; {</span>
   const anAtom = <span class="cstat-no" title="statement not covered" >atom&lt;LoadingState&gt;('idle');</span>
 <span class="cstat-no" title="statement not covered" >  anAtom.debugLabel = `loading-atom/${_param}`;</span>
 <span class="cstat-no" title="statement not covered" >  return anAtom;</span>
 });
 &nbsp;
 // TODO: refactor into atom family
-export const showSwitchAccountsState = atom(false);
+export const showSwitchAccountsState = <span class="cstat-no" title="statement not covered" >atom(false);</span>
 &nbsp;
-export const showHighFeeConfirmationState = atom(false);
+export const showHighFeeConfirmationState = <span class="cstat-no" title="statement not covered" >atom(false);</span>
 &nbsp;
-export const showNetworksStore = atom(false);
+export const showNetworksStore = <span class="cstat-no" title="statement not covered" >atom(false);</span>
 &nbsp;
-export const showSettingsStore = atom(false);
-export const showEditNonceState = atom(false);
-export const showTxSettingsCallback = atom&lt;(() =&gt; Promise&lt;void&gt;) | undefined&gt;(undefined);
+export const showSettingsStore = <span class="cstat-no" title="statement not covered" >atom(false);</span>
+export const showEditNonceState = <span class="cstat-no" title="statement not covered" >atom(false);</span>
+export const showTxSettingsCallback = <span class="cstat-no" title="statement not covered" >atom&lt;(() =&gt; Promise&lt;void&gt;) | undefined&gt;(undefined);</span>
 &nbsp;
-export const showSignOut = atom(false);
+export const showSignOut = <span class="cstat-no" title="statement not covered" >atom(false);</span>
 &nbsp;
-export const errorStackTraceState = atom&lt;string | null&gt;(null);
+export const errorStackTraceState = <span class="cstat-no" title="statement not covered" >atom&lt;string | null&gt;(null);</span>
 &nbsp;
-export const routeHeaderState = atom&lt;JSX.Element | null&gt;(null);
+export const routeHeaderState = <span class="cstat-no" title="statement not covered" >atom&lt;JSX.Element | null&gt;(null);</span>
 &nbsp;
-showNetworksStore.debugLabel = 'showNetworksStore';
-showSettingsStore.debugLabel = 'showSettingsStore';
+<span class="cstat-no" title="statement not covered" >showNetworksStore.debugLabel = 'showNetworksStore';</span>
+<span class="cstat-no" title="statement not covered" >showSettingsStore.debugLabel = 'showSettingsStore';</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -181,7 +181,7 @@ showSettingsStore.debugLabel = 'showSettingsStore';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

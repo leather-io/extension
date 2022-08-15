@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/57</span>
+                <span class='fraction'>0/58</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/52</span>
+                <span class='fraction'>0/53</span>
             </div>
         
             
@@ -221,7 +221,15 @@
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,6 +264,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -270,7 +283,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -304,7 +316,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -354,6 +365,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,6 +378,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -400,13 +416,15 @@ import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-draw
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
-import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
+import { useFeeEstimations } from '@app/query/fees/fees.hooks';
 import {
   useGenerateSendFormUnsignedTx,
+  useSendFormEstimatedUnsignedTxByteLengthState,
+  useSendFormSerializedUnsignedTxPayloadState,
   useSignTransactionSoftwareWallet,
 } from '@app/store/transactions/transaction.hooks';
 import { logger } from '@shared/logger';
-import { Estimations } from '@shared/models/fees-types';
+import { FeeType } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 &nbsp;
@@ -422,9 +440,11 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
   const { setActiveTabActivity } = <span class="cstat-no" title="statement not covered" >useHomeTabs();</span>
   const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset();</span>
   const sendFormSchema = <span class="cstat-no" title="statement not covered" >useSendFormValidation({ setAssetError });</span>
-  const [_, setFeeEstimations] = <span class="cstat-no" title="statement not covered" >useFeeEstimationsState();</span>
   const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateSendFormUnsignedTx();</span>
   const signSoftwareWalletTx = <span class="cstat-no" title="statement not covered" >useSignTransactionSoftwareWallet();</span>
+  const txByteLength = <span class="cstat-no" title="statement not covered" >useSendFormEstimatedUnsignedTxByteLengthState();</span>
+  const txPayload = <span class="cstat-no" title="statement not covered" >useSendFormSerializedUnsignedTxPayloadState();</span>
+  const feeEstimations = <span class="cstat-no" title="statement not covered" >useFeeEstimations(txByteLength, txPayload);</span>
   const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
@@ -462,13 +482,12 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
 <span class="cstat-no" title="statement not covered" >            navigate(RouteUrls.Home);</span>
           },
         });
-<span class="cstat-no" title="statement not covered" >        setFeeEstimations([]);</span>
       } catch (e) {
 <span class="cstat-no" title="statement not covered" >        toast.error('Something went wrong');</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
     },
-    [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate, setFeeEstimations]
+    [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate]
   );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (assets.length &lt; 1) <span class="cstat-no" title="statement not covered" >return null;</span></span>
@@ -476,7 +495,7 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
   const initialValues: TransactionFormValues = <span class="cstat-no" title="statement not covered" >{</span>
     amount: '',
     fee: '',
-    feeType: Estimations[Estimations.Middle],
+    feeType: FeeType[FeeType.Middle],
     memo: '',
     nonce,
     recipient: '',
@@ -505,7 +524,11 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
       {<span class="fstat-no" title="function not covered" >pr</span>ops =&gt; (
 <span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
           &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
-            &lt;SendFormInner assetError={assetError} nonce={nonce} /&gt;
+            &lt;SendFormInner
+              assetError={assetError}
+              feeEstimations={feeEstimations.estimates}
+              nonce={nonce}
+            /&gt;
           &lt;/Suspense&gt;
           {whenWallet({
             ledger: &lt;Outlet /&gt;,
@@ -521,8 +544,9 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
 <span class="cstat-no" title="statement not covered" >                  if (!signedTx) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >                  await broadcastTransactionAction(signedTx);</span>
 <span class="cstat-no" title="statement not covered" >                  void analytics.track('submit_fee_for_transaction', {</span>
-                    type: props.values.feeType,
+                    calculation: feeEstimations.calculation,
                     fee: props.values.fee,
+                    type: props.values.feeType,
                   });
                 }}
               /&gt;
@@ -544,7 +568,7 @@ export const SendTokensForm = <span class="cstat-no" title="statement not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

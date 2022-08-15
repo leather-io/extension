@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -135,22 +135,7 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,7 +160,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -204,20 +193,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,11 +214,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useAppDispatch } from '@app/store';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
-import { useSuggestedFirstStepsStatus } from '@app/store/onboarding/onboarding.selectors';
-import {
-  SuggestedFirstSteps as Steps,
-  SuggestedFirstStepStatus,
-} from '@shared/models/onboarding-types';
+import { SuggestedFirstSteps as Steps } from '@shared/models/onboarding-types';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { SuggestedFirstStepsLayout } from './suggested-first-steps.layout';
@@ -258,8 +232,12 @@ export function <span class="fstat-no" title="function not covered" >SuggestedFi
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const dispatch = <span class="cstat-no" title="statement not covered" >useAppDispatch();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const showSuggestedFirstSteps = <span class="cstat-no" title="statement not covered" >useSuggestedFirstSteps();</span>
-  const stepsStatus = <span class="cstat-no" title="statement not covered" >useSuggestedFirstStepsStatus();</span>
+  const {
+    isAddFundsStepComplete,
+    isBuyNftStepComplete,
+    isExploreAppsStepComplete,
+    showSuggestedFirstSteps,
+  } = <span class="cstat-no" title="statement not covered" >useSuggestedFirstSteps();</span>
 &nbsp;
   const onDismissSteps = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('dismiss_suggested_first_steps');</span>
@@ -287,28 +265,17 @@ export function <span class="fstat-no" title="function not covered" >SuggestedFi
 <span class="cstat-no" title="statement not covered" >    openInNewTab(buyNftExternalRoute);</span>
   }, [analytics]);
 &nbsp;
-  const hasCompletedBackUpSecretKeyStep =
-<span class="cstat-no" title="statement not covered" >    stepsStatus[Steps.BackUpSecretKey] === SuggestedFirstStepStatus.Complete;</span>
-  const hasCompletedAddFundsStep =
-<span class="cstat-no" title="statement not covered" >    stepsStatus[Steps.AddFunds] === SuggestedFirstStepStatus.Complete;</span>
-  const hasCompletedExploreAppsStep =
-<span class="cstat-no" title="statement not covered" >    stepsStatus[Steps.ExploreApps] === SuggestedFirstStepStatus.Complete;</span>
-  const hasCompletedBuyNftStep = <span class="cstat-no" title="statement not covered" >stepsStatus[Steps.BuyNft] === SuggestedFirstStepStatus.Complete;</span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!showSuggestedFirstSteps) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;SuggestedFirstStepsLayout onDismissSteps={onDismissSteps}&gt;
-      &lt;BackUpSecretKeyStep
-        isComplete={hasCompletedBackUpSecretKeyStep}
-        onSelectStep={onSelectBackUpSecretKeyStep}
-      /&gt;
-      &lt;AddFundsStep isComplete={hasCompletedAddFundsStep} onSelectStep={onSelectAddFundsStep} /&gt;
+      &lt;BackUpSecretKeyStep isComplete onSelectStep={onSelectBackUpSecretKeyStep} /&gt;
+      &lt;AddFundsStep isComplete={isAddFundsStepComplete} onSelectStep={onSelectAddFundsStep} /&gt;
       &lt;ExploreAppsStep
-        isComplete={hasCompletedExploreAppsStep}
+        isComplete={isExploreAppsStepComplete}
         onSelectStep={onSelectExploreAppsStep}
       /&gt;
-      &lt;BuyNftStep isComplete={hasCompletedBuyNftStep} onSelectStep={onSelectBuyNftStep} /&gt;
+      &lt;BuyNftStep isComplete={isBuyNftStepComplete} onSelectStep={onSelectBuyNftStep} /&gt;
     &lt;/SuggestedFirstStepsLayout&gt;
   );
 }
@@ -319,7 +286,7 @@ export function <span class="fstat-no" title="function not covered" >SuggestedFi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 05 2022 09:11:08 GMT+0000 (Coordinated Universal Time)
+                at 2022-08-15T19:00:26.762Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
