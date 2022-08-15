@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { atomWithStore } from 'jotai/redux';
-import devToolsEnhancer from 'remote-redux-devtools';
+import { devToolsEnhancer } from '@redux-devtools/remote';
 import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import {
   persistStore,
@@ -12,6 +12,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+
+import { IS_DEV_ENV } from '@shared/environment';
 
 import { keySlice } from './keys/key.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
@@ -55,16 +57,15 @@ export const store = configureStore({
     }),
     broadcastActionTypeToOtherFramesMiddleware,
   ],
-  enhancers:
-    process.env.WALLET_ENVIRONMENT === 'development'
-      ? [
-          devToolsEnhancer({
-            hostname: 'localhost',
-            port: 8000,
-            realtime: true,
-          }),
-        ]
-      : [],
+  enhancers: IS_DEV_ENV
+    ? [
+        devToolsEnhancer({
+          hostname: 'localhost',
+          port: 8000,
+          realtime: true,
+        }),
+      ]
+    : [],
 });
 
 export const persistor = persistStore(store);

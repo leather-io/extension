@@ -3,21 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { decodeToken } from 'jsontokens';
 
 import { useUpdateAuthRequest } from '@app/store/onboarding/onboarding.hooks';
-import { DecodedAuthRequest } from '@app/common/dev/types';
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
-import { getRequestOrigin, StorageKey } from '@shared/utils/storage';
+import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
+
 import { RouteUrls } from '@shared/route-urls';
+import { useAuthRequestParams } from './use-auth-request-params';
 
 export function useSaveAuthRequest() {
   const navigate = useNavigate();
   const saveAuthRequest = useUpdateAuthRequest();
-  const [params] = useInitialRouteSearchParams();
+  const { origin, authRequest } = useAuthRequestParams();
 
   const saveAuthRequestParam = useCallback(
-    (authRequest: string) => {
+    (authRequest: string, origin: string) => {
       const { payload } = decodeToken(authRequest);
       const decodedAuthRequest = payload as unknown as DecodedAuthRequest;
-      const origin = getRequestOrigin(StorageKey.authenticationRequests, authRequest);
+
       const appName = decodedAuthRequest.appDetails?.name;
       const appIcon = decodedAuthRequest.appDetails?.icon;
 
@@ -39,9 +39,6 @@ export function useSaveAuthRequest() {
   );
 
   useEffect(() => {
-    const authRequest = params.get('authRequest');
-    if (authRequest) {
-      saveAuthRequestParam(authRequest);
-    }
-  }, [params, saveAuthRequestParam]);
+    if (authRequest && origin) saveAuthRequestParam(authRequest, origin);
+  }, [authRequest, origin, saveAuthRequestParam]);
 }

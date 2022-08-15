@@ -8,7 +8,7 @@ import {
   useGetFungibleTokenMetadataListQuery,
   useGetFungibleTokenMetadataQuery,
 } from './fungible-token-metadata.query';
-import { useBaseAssetsUnachored } from '../balance/balance.hooks';
+import { useBaseAssetsUnanchored } from '../balance/balance.hooks';
 
 export function useFungibleTokenMetadata(contractId: string) {
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(contractId);
@@ -16,7 +16,7 @@ export function useFungibleTokenMetadata(contractId: string) {
 }
 
 export function useAssetsWithMetadata(): AssetWithMeta[] {
-  const assets = useBaseAssetsUnachored();
+  const assets = useBaseAssetsUnanchored();
   const assetMetadata = useGetFungibleTokenMetadataListQuery(
     assets.map(a => formatContractId(a.contractAddress, a.contractName))
   );

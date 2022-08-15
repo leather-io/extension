@@ -1,7 +1,7 @@
 import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
-import { BackgroundActions } from '@shared/messages';
+import { BackgroundMessages } from '@shared/messages';
 import { StacksMainnet } from '@stacks/network';
 import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
@@ -38,8 +38,8 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
 // Persists keys in memory for the duration of the background scripts life
 const inMemoryKeys = new Map();
 
-export async function backgroundMessageHandler(
-  message: BackgroundActions,
+export async function internalBackgroundMessageHandler(
+  message: BackgroundMessages,
   sender: chrome.runtime.MessageSender,
   sendResponse: (response?: any) => void
 ) {

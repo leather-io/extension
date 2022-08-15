@@ -1,6 +1,7 @@
-import { userHasAllowedDiagnosticsKey } from '@shared/utils/storage';
 import hash from 'object-hash';
 import { hashQueryKey, QueryKey } from 'react-query';
+
+import { userHasAllowedDiagnosticsKey } from '@shared/utils/storage';
 
 export function textToBytes(content: string) {
   return new TextEncoder().encode(content);

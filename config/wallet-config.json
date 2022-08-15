@@ -3,82 +3,82 @@
     "global": []
   },
   "activeFiatProviders": {
-    "moonPay": {
+    "coinbase": {
+      "availableRegions": "inside-usa-only",
       "enabled": true,
       "hasFastCheckoutProcess": true,
-      "name": "MoonPay",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
+      "name": "Coinbase"
+    },
+    "moonPay": {
+      "availableRegions": "global",
+      "enabled": true,
+      "hasFastCheckoutProcess": true,
+      "hasTradingFees": true,
+      "name": "MoonPay"
     },
     "transak": {
+      "availableRegions": "global",
       "enabled": true,
       "hasFastCheckoutProcess": true,
-      "name": "Transak",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
+      "name": "Transak"
     },
     "okcoin": {
+      "availableRegions": "global",
       "enabled": true,
       "hasFastCheckoutProcess": true,
-      "name": "Okcoin",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
+      "name": "Okcoin"
     },
     "binance": {
+      "availableRegions": "global",
       "enabled": true,
       "hasFastCheckoutProcess": false,
-      "name": "Binance",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
+      "name": "Binance"
     },
     "blockchainCom": {
+      "availableRegions": "global",
       "enabled": true,
       "hasFastCheckoutProcess": false,
-      "name": "Blockchain.com",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
+      "name": "Blockchain.com"
     },
     "byBit": {
+      "availableRegions": "outside-usa-only",
       "enabled": true,
       "hasFastCheckoutProcess": false,
-      "name": "ByBit",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": false
-    },
-    "coinbase": {
-      "enabled": true,
-      "hasFastCheckoutProcess": false,
-      "name": "Coinbase",
-      "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
+      "name": "ByBit"
     },
     "cryptoCom": {
+      "availableRegions": "global",
       "enabled": true,
       "hasFastCheckoutProcess": false,
-      "name": "Crypto.com",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": true
+      "name": "Crypto.com"
     },
     "gateIo": {
+      "availableRegions": "outside-usa-only",
       "enabled": true,
       "hasFastCheckoutProcess": false,
-      "name": "Gate.io",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": false
+      "name": "Gate.io"
     },
     "kuCoin": {
+      "availableRegions": "outside-usa-only",
       "enabled": true,
       "hasFastCheckoutProcess": false,
-      "name": "KuCoin",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": false
+      "name": "KuCoin"
     },
     "okx": {
+      "availableRegions": "outside-usa-only",
       "enabled": true,
       "hasFastCheckoutProcess": false,
-      "name": "OKX",
       "hasTradingFees": true,
-      "hasUnitedStatesAvailability": false
+      "name": "OKX"
     }
   },
   "feeEstimations": {

@@ -3,7 +3,7 @@ import { ClarityValue, createStacksPrivateKey } from '@stacks/transactions';
 import { Button, Stack } from '@stacks/ui';
 import { TupleCV } from '@stacks/transactions/dist/esm/clarity';
 
-import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
+import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
@@ -40,7 +40,6 @@ export function SignAction(props: SignatureMessage): JSX.Element | null {
   const analytics = useAnalytics();
 
   if (!requestToken || !tabId) return null;
-  const tabIdInt = parseInt(tabId);
 
   const sign = async () => {
     setIsLoading(true);
@@ -54,12 +53,12 @@ export function SignAction(props: SignatureMessage): JSX.Element | null {
     // Since the signature is really fast, we add a delay to improve the UX
     await delay(1000);
     setIsLoading(false);
-    finalizeMessageSignature(requestToken, tabIdInt, messageSignature);
+    finalizeMessageSignature({ requestPayload: requestToken, tabId, data: messageSignature });
   };
 
   const cancel = () => {
     void analytics.track('request_signature_cancel');
-    finalizeMessageSignature(requestToken, tabIdInt, 'cancel');
+    finalizeMessageSignature({ requestPayload: requestToken, tabId, data: 'cancel' });
   };
 
   return (

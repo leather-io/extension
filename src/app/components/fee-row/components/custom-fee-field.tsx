@@ -6,29 +6,28 @@ import { color, Input, InputGroup, Stack, StackProps } from '@stacks/ui';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { SendFormWarningMessages } from '@app/common/warning-messages';
 import { Caption } from '@app/components/typography';
-import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { FeeEstimate } from '@shared/models/fees-types';
 
 interface CustomFeeFieldProps extends StackProps {
   fieldName: string;
+  lowFeeEstimate: FeeEstimate;
   setFieldWarning: Dispatch<SetStateAction<string | undefined>>;
 }
 export function CustomFeeField(props: CustomFeeFieldProps) {
-  const { setFieldWarning, fieldName, ...rest } = props;
+  const { fieldName, lowFeeEstimate, setFieldWarning, ...rest } = props;
   const [input, meta, helpers] = useField(fieldName);
-  const [feeEstimations] = useFeeEstimationsState();
 
   const checkFieldWarning = useCallback(
     (value: string) => {
       if (meta.error) return setFieldWarning('');
       const fee = stxToMicroStx(value);
-      const lowEstimate = new BigNumber(feeEstimations[0]?.fee);
-      if (lowEstimate.isGreaterThan(fee)) {
+      if (new BigNumber(lowFeeEstimate.fee).isGreaterThan(fee)) {
         return setFieldWarning(SendFormWarningMessages.AdjustedFeeBelowLowestEstimate);
       }
       return setFieldWarning('');
     },
-    [feeEstimations, meta.error, setFieldWarning]
+    [lowFeeEstimate, meta.error, setFieldWarning]
   );
 
   return (

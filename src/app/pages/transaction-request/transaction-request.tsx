@@ -15,17 +15,21 @@ import { StxTransferDetails } from '@app/pages/transaction-request/components/st
 import { PostConditionModeWarning } from '@app/pages/transaction-request/components/post-condition-mode-warning';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import {
+  useSetTransactionRequestAtom,
+  useTransactionRequest,
   useTransactionRequestState,
   useUpdateTransactionBroadcastError,
 } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
   useSoftwareWalletTransactionBroadcast,
+  useTxRequestEstimatedUnsignedTxByteLengthState,
+  useTxRequestSerializedUnsignedTxPayloadState,
 } from '@app/store/transactions/transaction.hooks';
-import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
+import { useFeeEstimations } from '@app/query/fees/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { Estimations } from '@shared/models/fees-types';
+import { FeeType } from '@shared/models/fees-types';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -36,13 +40,16 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
+import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 
-function TransactionRequestBase(): JSX.Element | null {
+function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const handleBroadcastTransaction = useSoftwareWalletTransactionBroadcast();
   const setBroadcastError = useUpdateTransactionBroadcastError();
-  const [, setFeeEstimations] = useFeeEstimationsState();
+  const txByteLength = useTxRequestEstimatedUnsignedTxByteLengthState();
+  const txPayload = useTxRequestSerializedUnsignedTxPayloadState();
+  const feeEstimations = useFeeEstimations(txByteLength, txPayload);
   const feeSchema = useFeeSchema();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
@@ -52,6 +59,12 @@ function TransactionRequestBase(): JSX.Element | null {
   useRouteHeader(<PopupHeader />);
 
   useEffect(() => void analytics.track('view_transaction_signing'), [analytics]);
+
+  const txRequest = useTransactionRequest();
+
+  // This exists to move away from the pattern where the search param is pull
+  // from an atom, rather than from the tooling provided by the app's router
+  useSetTransactionRequestAtom(txRequest);
 
   const onSubmit = useCallback(
     async values => {
@@ -64,22 +77,20 @@ function TransactionRequestBase(): JSX.Element | null {
       setIsLoading();
       await handleBroadcastTransaction(values);
       setIsIdle();
-      setFeeEstimations([]);
       void analytics.track('submit_fee_for_transaction', {
-        type: values.feeType,
+        calculation: feeEstimations.calculation,
         fee: values.fee,
+        type: values.feeType,
       });
-      return () => {
-        void setBroadcastError(null);
-      };
+      return () => void setBroadcastError(null);
     },
     [
       analytics,
+      feeEstimations.calculation,
       generateUnsignedTx,
       handleBroadcastTransaction,
       ledgerNavigate,
       setBroadcastError,
-      setFeeEstimations,
       setIsIdle,
       setIsLoading,
       walletType,
@@ -94,7 +105,7 @@ function TransactionRequestBase(): JSX.Element | null {
 
   const initialValues: Partial<TransactionFormValues> = {
     fee: '',
-    feeType: Estimations[Estimations.Middle],
+    feeType: FeeType[FeeType.Middle],
     nonce: '',
   };
 
@@ -102,6 +113,7 @@ function TransactionRequestBase(): JSX.Element | null {
     <Flex alignItems="center" flexDirection="column" width="100%">
       <Stack px="loose" spacing="loose">
         <PageTop />
+        <RequestingTabClosedWarningMessage />
         <PostConditionModeWarning />
         <TransactionError />
         <PostConditions />
@@ -118,7 +130,7 @@ function TransactionRequestBase(): JSX.Element | null {
         >
           {() => (
             <TxRequestFormNonceSetter>
-              <FeeForm />
+              <FeeForm feeEstimations={feeEstimations.estimates} />
               <SubmitAction />
               <EditNonceDrawer />
               <HighFeeDrawer />

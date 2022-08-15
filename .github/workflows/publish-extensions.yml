@@ -6,8 +6,11 @@ on:
   workflow_dispatch:
 
 env:
+  COINBASE_APP_ID: ${{ secrets.COINBASE_APP_ID }}
+  MOONPAY_API_KEY: ${{ secrets.MOONPAY_API_KEY }}
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY }}
+  TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
   WALLET_ENVIRONMENT: production
 
 jobs:

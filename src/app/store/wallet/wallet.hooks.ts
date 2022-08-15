@@ -10,7 +10,7 @@ import {
 
 import { gaiaUrl } from '@shared/constants';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
 import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
@@ -36,7 +36,7 @@ export function useFinishSignInCallback() {
   const wallet = useWalletState();
   const { walletType } = useWalletType();
   const accounts = useAccounts();
-  const { origin } = useAuthRequestParams();
+  const { origin, tabId } = useAuthRequestParams();
 
   return useCallback(
     async (accountIndex: number) => {
@@ -44,7 +44,15 @@ export function useFinishSignInCallback() {
 
       const legacyAccount = wallet?.accounts[accountIndex];
 
-      if (!decodedAuthRequest || !authRequest || !account || !legacyAccount || !wallet || !origin) {
+      if (
+        !decodedAuthRequest ||
+        !authRequest ||
+        !account ||
+        !legacyAccount ||
+        !wallet ||
+        !origin ||
+        !tabId
+      ) {
         logger.error('Uh oh! Finished onboarding without auth info.');
         return;
       }
@@ -87,6 +95,7 @@ export function useFinishSignInCallback() {
           authRequest,
           authResponse,
           requestingOrigin: origin,
+          tabId,
         });
       }
     },
@@ -100,6 +109,7 @@ export function useFinishSignInCallback() {
       origin,
       wallet,
       walletType,
+      tabId,
     ]
   );
 }

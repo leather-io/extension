@@ -5,7 +5,7 @@
   "version": "3.13.5",
   "author": "Hiro Systems PBC",
   "scripts": {
-    "dev": "concurrently --raw 'node webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
+    "dev": "cross-env NODE_ENV=development concurrently --raw 'node webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
     "dev:test-app": "webpack serve --config test-app/webpack/webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",
     "build:analyze": "cross-env ANALYZE=true NODE_ENV=production EXT_ENV=prod webpack --config webpack/webpack.config.prod.js",
@@ -67,7 +67,46 @@
           ]
         }
       ],
-      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalCommits",
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES",
+              "BREAKING"
+            ]
+          },
+          "presetConfig": {
+            "types": [
+              {
+                "type": "feat",
+                "section": "Features"
+              },
+              {
+                "type": "fix",
+                "section": "Bug Fixes"
+              },
+              {
+                "type": "chore",
+                "section": "Internal",
+                "hidden": false
+              },
+              {
+                "type": "refactor",
+                "section": "Internal",
+                "hidden": false
+              },
+              {
+                "type": "perf",
+                "section": "Internal",
+                "hidden": false
+              }
+            ]
+          }
+        }
+      ],
       [
         "@semantic-release/npm",
         {
@@ -97,7 +136,6 @@
     "@reach/utils": "0.15.3",
     "@reach/visually-hidden": "0.15.2",
     "@reduxjs/toolkit": "1.7.1",
-    "@rehooks/document-title": "1.0.2",
     "@segment/analytics-next": "1.31.1",
     "@sentry/react": "6.16.1",
     "@sentry/tracing": "6.16.1",
@@ -118,7 +156,6 @@
     "@stacks/wallet-sdk": "4.3.1",
     "@styled-system/theme-get": "5.1.2",
     "@tippyjs/react": "4.2.6",
-    "@types/webextension-polyfill": "0.9.0",
     "@vkontakte/vk-qr": "2.0.13",
     "@zondax/ledger-blockstack": "0.24.0",
     "are-passive-events-supported": "1.1.1",
@@ -126,7 +163,6 @@
     "assert": "2.0.0",
     "base64url": "3.0.1",
     "bignumber.js": "9.0.2",
-    "bip32": "2.0.6",
     "bitcoinjs-lib": "5.2.0",
     "bn.js": "5.2.0",
     "c32check": "1.1.3",
@@ -134,21 +170,16 @@
     "chroma-js": "2.1.2",
     "compare-versions": "4.1.3",
     "dayjs": "1.10.7",
-    "dns-packet": "5.3.0",
     "downshift": "6.1.7",
     "ecdsa-sig-formatter": "1.0.11",
-    "fast-deep-equal": "3.1.3",
     "formik": "2.2.9",
-    "http-server": "14.0.0",
     "jotai": "1.5.3",
-    "jotai-query-toolkit": "0.1.7",
     "jsontokens": "3.0.0",
     "limiter": "2.1.0",
-    "lodash": "4.17.21",
     "lodash.get": "4.4.2",
     "mdi-react": "7.5.0",
     "object-hash": "2.2.0",
-    "pino": "7.6.0",
+    "pino": "8.4.0",
     "prismjs": "1.27.0",
     "promise-memoize": "1.2.1",
     "react": "17.0.2",
@@ -163,12 +194,12 @@
     "react-virtuoso": "2.6.0",
     "redux-persist": "6.0.0",
     "sha.js": "2.4.11",
-    "svg-url-loader": "7.1.1",
     "ts-debounce": "4",
     "use-events": "1.4.2",
     "use-latest": "1.2.0",
     "valid-url": "1.0.9",
     "webextension-polyfill": "0.9.0",
+    "yup": "0.32.11",
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {
@@ -184,6 +215,8 @@
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@emotion/cache": "11.7.1",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.4",
+    "@redux-devtools/cli": "1.0.7",
+    "@redux-devtools/remote": "0.7.5",
     "@schemastore/web-manifest": "0.0.5",
     "@stacks/connect-react": "18.0.0",
     "@stacks/eslint-config": "1.0.10",
@@ -220,6 +253,7 @@
     "@types/segment-analytics": "0.0.34",
     "@types/styled-system__theme-get": "5.0.2",
     "@types/valid-url": "1.0.3",
+    "@types/webextension-polyfill": "0.9.0",
     "@types/webpack": "5.28.0",
     "@types/webpack-dev-server": "4.5.0",
     "@types/zxcvbn": "4.4.1",
@@ -232,41 +266,38 @@
     "chrome-webstore-upload-cli": "1.2.1",
     "clean-webpack-plugin": "4.0.0",
     "concurrently": "6.5.1",
+    "conventional-changelog-conventionalcommits": "5.0.0",
     "copy-webpack-plugin": "10.2.0",
     "cross-env": "7.0.3",
     "crypto-browserify": "3.12.0",
     "deepmerge": "4.2.2",
     "dependency-cruiser": "11.11.0",
-    "dotenv": "10.0.0",
-    "download": "8.0.0",
+    "dotenv-webpack": "8.0.0",
     "esbuild": "0.14.7",
     "esbuild-loader": "2.18.0",
     "eslint-plugin-deprecation": "1.2.1",
     "eslint-plugin-react-hooks": "4.3.0",
     "file-loader": "6.2.0",
     "generate-json-webpack-plugin": "2.0.0",
-    "glob-parent": "6.0.2",
     "html-webpack-plugin": "5.5.0",
     "jest": "26.6.3",
     "jest-chrome": "0.7.2",
     "jest-circus": "27.3.1",
     "jest-dev-server": "6.0.0",
-    "jest-junit": "13.0.0",
     "msw": "0.31.0",
-    "playwright": "1.17.1",
-    "playwright-chromium": "1.17.1",
-    "playwright-core": "1.17.1",
+    "playwright": "1.25.0",
+    "playwright-chromium": "1.25.0",
+    "playwright-core": "1.25.0",
     "process": "0.11.10",
     "progress-bar-webpack-plugin": "2.1.0",
     "react-dev-utils": "12.0.0",
     "react-refresh": "0.11.0",
     "react-test-renderer": "17.0.2",
     "redux-devtools-extension": "2.13.9",
-    "remote-redux-devtools": "0.5.16",
     "schema-inspector": "2.0.1",
     "speed-measure-webpack-plugin": "1.5.0",
-    "standard-version": "9.3.0",
     "stream-browserify": "3.0.0",
+    "svg-url-loader": "7.1.1",
     "ts-jest": "27.0.7",
     "ts-loader": "9.2.6",
     "ts-node": "10.4",
@@ -280,17 +311,14 @@
     "webpack-bundle-analyzer": "4.5.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.7.0",
-    "webpack-hot-middleware": "2.25.1",
-    "yup": "0.32.9"
+    "webpack-hot-middleware": "2.25.1"
   },
   "resolutions": {
     "**/**/prismjs": "1.27.0",
     "**/**/xmldom": "github:xmldom/xmldom#0.7.0",
-    "@redux-devtools/cli/**/tar": "4.4.18",
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
     "**/**/@stacks/transactions": "4.3.1",
-    "async": "2.6.4",
     "bn.js": "5.2.0",
     "buffer": "6.0.3",
     "dot-prop": "6.0.1",

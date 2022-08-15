@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
+import { BRANCH_NAME } from '@shared/environment';
 import { isUndefined } from '@shared/utils';
 
 export interface HiroMessage {
@@ -14,12 +15,18 @@ export interface HiroMessage {
   learnMoreText?: string;
 }
 
+export enum AvailableRegions {
+  InsideUsa = 'inside-usa-only',
+  OutsideUsa = 'outside-usa-only',
+  Global = 'global',
+}
+
 export interface ActiveFiatProvider {
+  availableRegions: AvailableRegions;
   enabled: boolean;
   hasFastCheckoutProcess: boolean;
-  name: string;
   hasTradingFees: boolean;
-  hasUnitedStatesAvailability: boolean;
+  name: string;
 }
 
 interface FeeEstimationsConfig {
@@ -35,9 +42,9 @@ interface HiroConfig {
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const DEFAULT_BRANCH = 'main';
+const defaultBranch = 'main';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
-  BRANCH_NAME || DEFAULT_BRANCH
+  BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {

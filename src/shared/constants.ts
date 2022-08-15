@@ -1,5 +1,7 @@
 import { ChainID } from '@stacks/transactions';
 
+import { IS_TEST_ENV } from './environment';
+
 export const gaiaUrl = 'https://hub.blockstack.org';
 
 export const POPUP_CENTER_WIDTH = 442;
@@ -11,10 +13,6 @@ export const DEFAULT_FEE_RATE = 400;
 
 export const HUMAN_REACTION_DEBOUNCE_TIME = 200;
 
-export const IS_TEST_ENV = process.env.TEST_ENV === 'true';
-export const IS_PRODUCTION_ENV =
-  process.env.WALLET_ENVIRONMENT === 'production' || process.env.WALLET_ENVIRONMENT === 'preview';
-
 export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
 
 export const STX_DECIMALS = 6;
@@ -25,8 +23,6 @@ export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 
 export const GITHUB_ORG = 'hirosystems';
 export const GITHUB_REPO = 'stacks-wallet-web';
-
-export const isLedgerFeatureEnabled = true;
 
 export interface Network {
   url: string;
@@ -66,9 +62,3 @@ export enum QueryRefreshRates {
 }
 
 export const DEFAULT_LIST_LIMIT = 50;
-
-// TODO: Relocate to env file
-export const COINBASE_APP_ID = 'ca72edbc-0a08-468c-952d-6cde50b1dce6';
-export const MOONPAY_API_KEY = 'pk_live_Bctok4Wp6KZHX0YfS4Ie7dFOYnNw8lqv';
-export const TRANSAK_API_KEY_PRODUCTION = '7300ebf7-c657-46b1-9c72-c0d91bbed0a8';
-export const TRANSAK_API_KEY_STAGING = '4055d318-9d41-4b74-9253-e73e3ca13602';

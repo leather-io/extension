@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { isValidUrl } from '@app/common/validation/validate-url';
+import { isValidUrl } from '@shared/utils/validate-url';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';

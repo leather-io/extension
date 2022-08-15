@@ -7,10 +7,7 @@ import type {
   AccountStxBalanceBigNumber,
   AddressBalanceResponse,
 } from '@shared/models/account-types';
-import {
-  useCurrentAccount,
-  useSetAccountBalancesUnanchoredState,
-} from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
 import { transformAssets } from '@app/store/assets/utils';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
@@ -31,14 +28,11 @@ function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanc
 }
 
 export function useAddressBalances(address: string) {
-  const setAccountBalanceUnanchoredState = useSetAccountBalancesUnanchoredState();
   return useGetAccountBalanceQuery(address, {
     select: (resp: AddressBalanceResponse) => {
       const balances = initAmountsAsBigNumber(resp);
       return { ...balances, availableStx: balances.stx.balance.minus(balances.stx.locked) };
     },
-    onSuccess: (resp: ReturnType<typeof initAmountsAsBigNumber>) =>
-      setAccountBalanceUnanchoredState(resp),
     keepPreviousData: false,
     useErrorBoundary: false,
     suspense: false,
@@ -50,7 +44,7 @@ export function useCurrentAccountUnanchoredBalances() {
   return useAddressBalances(account?.address || '');
 }
 
-export function useBaseAssetsUnachored() {
+export function useBaseAssetsUnanchored() {
   const balances = useCurrentAccountUnanchoredBalances();
   return useMemo(() => {
     return transformAssets(balances.data);
@@ -79,9 +73,13 @@ export function useAddressAnchoredAvailableStxBalance(address: string) {
   }, [balances]);
 }
 
-export function useAccountsAvailableStxBalance(accounts?: AccountWithAddress[]) {
-  const accountsBalances = useGetAnchoredAccountBalanceListQuery(accounts);
+export function useCurrentAccountAvailableStxBalance() {
+  const account = useCurrentAccount();
+  return useAddressAnchoredAvailableStxBalance(account?.address || '');
+}
 
+export function useAllAccountsAvailableStxBalance(accounts?: AccountWithAddress[]) {
+  const accountsBalances = useGetAnchoredAccountBalanceListQuery(accounts);
   return useMemo(() => {
     return accountsBalances.reduce((acc, balance) => {
       return acc.plus(balance.data?.stx.balance || 0);

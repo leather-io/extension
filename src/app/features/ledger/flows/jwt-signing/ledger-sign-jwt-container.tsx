@@ -20,13 +20,13 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { LedgerJwtSigningProvider } from '../../ledger-jwt-signing.context';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 
 export function LedgerSignJwtContainer() {
   const location = useLocation();
@@ -51,7 +51,7 @@ export function LedgerSignJwtContainer() {
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
   const [awaitingSignedJwt, setAwaitingSignedJwt] = useState(false);
   const [jwtPayloadHash, setJwtPayloadHash] = useState<null | string>(null);
-  const { origin } = useAuthRequestParams();
+  const { origin, tabId } = useDefaultRequestParams();
 
   const signJwtPayload = async () => {
     if (!origin) throw new Error('Cannot sign payload for unknown origin');
@@ -61,7 +61,7 @@ export function LedgerSignJwtContainer() {
       return;
     }
 
-    if (!activeAccount || !decodedAuthRequest || !authRequest || !accounts) {
+    if (!activeAccount || !decodedAuthRequest || !authRequest || !accounts || !tabId) {
       logger.warn('No necessary state not found while performing JWT signing', {
         account: activeAccount,
         decodedAuthRequest,
@@ -135,6 +135,7 @@ export function LedgerSignJwtContainer() {
         authRequest,
         authResponse,
         requestingOrigin: origin,
+        tabId,
       });
       setAwaitingSignedJwt(false);
       await stacks.transport.close();

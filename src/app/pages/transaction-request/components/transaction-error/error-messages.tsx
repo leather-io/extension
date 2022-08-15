@@ -15,7 +15,7 @@ import {
   useTransactionBroadcastError,
   useTransactionRequestState,
 } from '@app/store/transactions/requests.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { PrimaryButton } from '@app/components/primary-button';

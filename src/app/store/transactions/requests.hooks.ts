@@ -1,24 +1,30 @@
-import { useAtomCallback, useUpdateAtom, useAtomValue } from 'jotai/utils';
-import {
-  requestTokenPayloadState,
-  requestTokenOriginState,
-  transactionRequestValidationState,
-} from '@app/store/transactions/requests';
-import { requestTokenState } from '@app/store/transactions/requests';
-import { transactionBroadcastErrorState } from '@app/store/transactions/transaction';
-import { useCallback } from 'react';
-import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
+import { useEffect, useMemo } from 'react';
+import { useUpdateAtom, useAtomValue } from 'jotai/utils';
 
-export function useOrigin() {
-  return useAtomValue(requestTokenOriginState);
+import { transactionBroadcastErrorState } from '@app/store/transactions/transaction';
+import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
+import { getPayloadFromToken } from './utils';
+import { requestTokenPayloadState } from './requests';
+
+export function useTransactionRequest() {
+  const [params] = useInitialRouteSearchParams();
+  return useMemo(() => params.get('request'), [params]);
+}
+
+export function useSetTransactionRequestAtom(request: string | null) {
+  const updateRequestTokenState = useUpdateAtom(requestTokenPayloadState);
+
+  useEffect(() => {
+    if (request) updateRequestTokenState(getPayloadFromToken(request));
+  }, [request, updateRequestTokenState]);
 }
 
 export function useTransactionRequestState() {
-  return useAtomValue(requestTokenPayloadState);
-}
-
-export function useTransactionRequestValidation() {
-  return useAtomValue(transactionRequestValidationState);
+  const requestToken = useTransactionRequest();
+  return useMemo(() => {
+    if (!requestToken) return null;
+    return getPayloadFromToken(requestToken);
+  }, [requestToken]);
 }
 
 export function useTransactionBroadcastError() {
@@ -27,22 +33,4 @@ export function useTransactionBroadcastError() {
 
 export function useUpdateTransactionBroadcastError() {
   return useUpdateAtom(transactionBroadcastErrorState);
-}
-
-export function useOnCancelTransaction() {
-  return useAtomCallback(
-    useCallback(async (get, set) => {
-      const requestToken = get(requestTokenState);
-      if (!requestToken) {
-        set(transactionBroadcastErrorState, 'No pending transaction');
-        return;
-      }
-      try {
-        const result = 'cancel';
-        finalizeTxSignature(requestToken, result);
-      } catch (error) {
-        if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
-      }
-    }, [])
-  );
 }

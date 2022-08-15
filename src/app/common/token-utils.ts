@@ -1,8 +1,9 @@
 import { abbreviateNumber } from '@app/common/utils';
 import { isUndefined } from '@shared/utils';
+import { isValidUrl } from '@shared/utils/validate-url';
+
 import { AssetWithMeta, FtMeta } from './asset-types';
 import { convertUnicodeToAscii } from './string-utils';
-import { isValidUrl } from './validation/validate-url';
 
 export function removeCommas(amountWithCommas: string) {
   return amountWithCommas.replace(/,/g, '');
@@ -28,7 +29,7 @@ export function isFtNameLikeStx(name: string) {
 export function imageCanonicalUriFromFtMetadata(meta: FtMeta | undefined) {
   return meta?.image_canonical_uri &&
     isIconUrl(meta.image_canonical_uri) &&
-    !isFtNameLikeStx(meta.image_canonical_uri)
+    !isFtNameLikeStx(meta.name)
     ? meta.image_canonical_uri
     : undefined;
 }

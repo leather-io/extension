@@ -1,12 +1,11 @@
-import { useClientQuery } from '@app/store/devtool/devtool.hooks';
-
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
+import { queryClient } from '@app/common/persistence';
+
 export function Devtools() {
-  const client = useClientQuery();
-  return client ? (
-    <QueryClientProvider client={client}>
+  return queryClient ? (
+    <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools position={'bottom-left'} />
     </QueryClientProvider>
   ) : null;

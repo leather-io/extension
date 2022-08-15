@@ -22,9 +22,9 @@ import {
   useCurrentNetworkState,
   useNetworkState,
 } from '@app/store/network/networks.hooks';
-import { finalizeAuthResponse } from '@app/common/actions/finalize-auth-response';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { getAccountDisplayName } from '../utils/get-account-display-name';
-import { useAuthRequestParams } from './auth/use-auth-request-params';
+import { useDefaultRequestParams } from './use-default-request-search-params';
 
 export function useWallet() {
   const wallet = useWalletState();
@@ -38,7 +38,7 @@ export function useWallet() {
   const currentNetwork = useCurrentNetworkState();
   const currentNetworkKey = useCurrentNetworkKey();
   const keyActions = useKeyActions();
-  const { origin } = useAuthRequestParams();
+  const { origin, tabId } = useDefaultRequestParams();
 
   const currentAccountDisplayName = currentAccount
     ? getAccountDisplayName(currentAccount)
@@ -49,7 +49,7 @@ export function useWallet() {
   const hasGeneratedWallet = !!currentAccount;
 
   const cancelAuthentication = useCallback(() => {
-    if (!decodedAuthRequest || !authRequest || !origin) {
+    if (!decodedAuthRequest || !authRequest || !origin || !tabId) {
       return;
     }
     const authResponse = 'cancel';
@@ -58,8 +58,9 @@ export function useWallet() {
       authRequest,
       authResponse,
       requestingOrigin: origin,
+      tabId,
     });
-  }, [decodedAuthRequest, authRequest, origin]);
+  }, [decodedAuthRequest, authRequest, origin, tabId]);
 
   const finishSignIn = useFinishSignInCallback();
 

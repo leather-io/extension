@@ -19,13 +19,15 @@ import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-draw
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
-import { useFeeEstimationsState } from '@app/store/transactions/fees.hooks';
+import { useFeeEstimations } from '@app/query/fees/fees.hooks';
 import {
   useGenerateSendFormUnsignedTx,
+  useSendFormEstimatedUnsignedTxByteLengthState,
+  useSendFormSerializedUnsignedTxPayloadState,
   useSignTransactionSoftwareWallet,
 } from '@app/store/transactions/transaction.hooks';
 import { logger } from '@shared/logger';
-import { Estimations } from '@shared/models/fees-types';
+import { FeeType } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
@@ -41,9 +43,11 @@ function SendTokensFormBase() {
   const { setActiveTabActivity } = useHomeTabs();
   const { selectedAsset } = useSelectedAsset();
   const sendFormSchema = useSendFormValidation({ setAssetError });
-  const [_, setFeeEstimations] = useFeeEstimationsState();
   const generateTx = useGenerateSendFormUnsignedTx();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+  const txByteLength = useSendFormEstimatedUnsignedTxByteLengthState();
+  const txPayload = useSendFormSerializedUnsignedTxPayloadState();
+  const feeEstimations = useFeeEstimations(txByteLength, txPayload);
   const { nonce } = useNextNonce();
   const analytics = useAnalytics();
   const { whenWallet } = useWalletType();
@@ -81,13 +85,12 @@ function SendTokensFormBase() {
             navigate(RouteUrls.Home);
           },
         });
-        setFeeEstimations([]);
       } catch (e) {
         toast.error('Something went wrong');
         return;
       }
     },
-    [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate, setFeeEstimations]
+    [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate]
   );
 
   if (assets.length < 1) return null;
@@ -95,7 +98,7 @@ function SendTokensFormBase() {
   const initialValues: TransactionFormValues = {
     amount: '',
     fee: '',
-    feeType: Estimations[Estimations.Middle],
+    feeType: FeeType[FeeType.Middle],
     memo: '',
     nonce,
     recipient: '',
@@ -124,7 +127,11 @@ function SendTokensFormBase() {
       {props => (
         <>
           <Suspense fallback={<></>}>
-            <SendFormInner assetError={assetError} nonce={nonce} />
+            <SendFormInner
+              assetError={assetError}
+              feeEstimations={feeEstimations.estimates}
+              nonce={nonce}
+            />
           </Suspense>
           {whenWallet({
             ledger: <Outlet />,
@@ -140,8 +147,9 @@ function SendTokensFormBase() {
                   if (!signedTx) return;
                   await broadcastTransactionAction(signedTx);
                   void analytics.track('submit_fee_for_transaction', {
-                    type: props.values.feeType,
+                    calculation: feeEstimations.calculation,
                     fee: props.values.fee,
+                    type: props.values.feeType,
                   });
                 }}
               />

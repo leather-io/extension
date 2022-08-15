@@ -3,28 +3,29 @@ import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
+import {
+  useBaseAssetsUnanchored,
+  useCurrentAccountUnanchoredBalances,
+} from '@app/query/balance/balance.hooks';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
-import { useAssets } from '@app/store/assets/asset.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxButton } from './send-max-button';
 
 interface AmountFieldProps extends StackProps {
   error?: string;
-  feeQueryError: boolean;
   value: number | string;
 }
 
 // TODO: this should use a new "Field" component (with inline label like in figma)
 function AmountFieldBase(props: AmountFieldProps) {
-  const { error, feeQueryError, value, ...rest } = props;
+  const { error, value, ...rest } = props;
   const { setFieldValue, handleChange, values } = useFormikContext<TransactionFormValues>();
   const analytics = useAnalytics();
-  const assets = useAssets();
+  const assets = useBaseAssetsUnanchored();
   const balances = useCurrentAccountUnanchoredBalances();
   const { selectedAsset, placeholder } = useSelectedAsset();
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions({
