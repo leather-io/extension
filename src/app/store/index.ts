@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { atomWithStore } from 'jotai/redux';
-import devToolsEnhancer from 'remote-redux-devtools';
+import { devToolsEnhancer } from '@redux-devtools/remote';
 import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import {
   persistStore,
