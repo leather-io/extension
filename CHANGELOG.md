@@ -1,3 +1,44 @@
+## [3.14.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.5...v3.14.0) (2022-08-16)
+
+
+### Features
+
+* warn when originating tab closes ([552293e](https://github.com/hirosystems/stacks-wallet-web/commit/552293e59a895aa1ca08a06ca04151a86ce78ac3))
+
+
+### Bug Fixes
+
+* name spoofing detection from metadata ([d9c0e2d](https://github.com/hirosystems/stacks-wallet-web/commit/d9c0e2dea5b49d9a157a5679aef32cdcb6fdf223))
+* redirect back after successful unlock ([717ad60](https://github.com/hirosystems/stacks-wallet-web/commit/717ad60db4eb3f63acd44102acf063548b943056))
+* release notes ([3087cdf](https://github.com/hirosystems/stacks-wallet-web/commit/3087cdff0541cf251948a5c7126b6f966e90ea63))
+* semantic release ([3a897b5](https://github.com/hirosystems/stacks-wallet-web/commit/3a897b593da0685b11e174946f65c187f6daf085))
+* semantic release add, use yarn ([32a6785](https://github.com/hirosystems/stacks-wallet-web/commit/32a6785a84d0e084a92782ec57f34f3a16d44a41))
+* semantic release package install ([ae59396](https://github.com/hirosystems/stacks-wallet-web/commit/ae59396df170a61938ae8575a443bf61947cad28))
+* setup and relocate env variables ([e827f2e](https://github.com/hirosystems/stacks-wallet-web/commit/e827f2e330dd360ddf21722dadeb097918d56ef2))
+* upgrade semantic-release action plugin ([ea7d747](https://github.com/hirosystems/stacks-wallet-web/commit/ea7d7470e2997be361026a0f4ffc75adfa82c01b))
+
+
+### Internal
+
+* <PopupHeader/> component ([4cf384d](https://github.com/hirosystems/stacks-wallet-web/commit/4cf384d72078dd467fe784d3ea35ebc5b70ecef5))
+* add conventionalcommits pkg ([728f46d](https://github.com/hirosystems/stacks-wallet-web/commit/728f46d2fcd1e4339e053dc27508e8e56511d527))
+* add job post ([486eedb](https://github.com/hirosystems/stacks-wallet-web/commit/486eedb879563e4801de4a64210b2f260c79fee8))
+* **atoms:** remove transaction request atom ([ac29a32](https://github.com/hirosystems/stacks-wallet-web/commit/ac29a324a3a6a155fd8242fd2bfc6b1e6f0f37a7))
+* avoid using localStorage to cache ephemeral values, closes [#2547](https://github.com/hirosystems/stacks-wallet-web/issues/2547) ([4f7126f](https://github.com/hirosystems/stacks-wallet-web/commit/4f7126fc309e63fda7a4b67157812c049d77ea0b))
+* better handle window close event, closes [#1181](https://github.com/hirosystems/stacks-wallet-web/issues/1181) ([8b6523f](https://github.com/hirosystems/stacks-wallet-web/commit/8b6523f21c9b563c5f28150b850c7790f62bbd27))
+* coinbase pay ui ([7ede3ce](https://github.com/hirosystems/stacks-wallet-web/commit/7ede3ced9330d79d1a64d23783684da97f32565c))
+* **deps:** tidy unused packages ([664b59f](https://github.com/hirosystems/stacks-wallet-web/commit/664b59f3ec777aec2563fd06bf17d5fe747956e7))
+* disable sentry ([d88b955](https://github.com/hirosystems/stacks-wallet-web/commit/d88b955b073011d01fdce9ff81dfca104ec04bad))
+* enable coinbase pay fast checkout ([adcb2c0](https://github.com/hirosystems/stacks-wallet-web/commit/adcb2c04f0bcecbb823785515bea791fa576f40a))
+* fee estimations ([20ef805](https://github.com/hirosystems/stacks-wallet-web/commit/20ef80510489fb7951c697c5ca74997079f47d98))
+* remove more unused packages ([4cab525](https://github.com/hirosystems/stacks-wallet-web/commit/4cab525b518b7d7c4ce833f9bff81990809a207a))
+* remove react query wrapper ([1e479e5](https://github.com/hirosystems/stacks-wallet-web/commit/1e479e5f25756a1c30aaf7fea4c0ac0ae100e1b0))
+* **security:** add dev tools warning ([1021f34](https://github.com/hirosystems/stacks-wallet-web/commit/1021f34774df30faffbb29c73214a952bcfb54fe))
+* spell incurred properly ([9fd7ec7](https://github.com/hirosystems/stacks-wallet-web/commit/9fd7ec77e46e7c0406a6683081faff98f791f396))
+* steps state ([76e8c0a](https://github.com/hirosystems/stacks-wallet-web/commit/76e8c0a0cbc708a725c27c5125cb995cf0da4a05))
+* **tooling:** fix redux devtools ([e42367d](https://github.com/hirosystems/stacks-wallet-web/commit/e42367dc72e99c5defbb81cb2ae1353971ed2a69))
+* track on 'disconnected tab' error ([4577b21](https://github.com/hirosystems/stacks-wallet-web/commit/4577b214d0088f99573aa5f9d4b5c3fa8fd2e4b6))
+
 ## [3.13.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.4...v3.13.5) (2022-08-05)
 
 
