@@ -1,3 +1,15 @@
+## [3.16.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.15.0...v3.16.0) (2022-08-16)
+
+
+### Features
+
+* trigger release ([7ae759a](https://github.com/hirosystems/stacks-wallet-web/commit/7ae759a360c409263e6cd32051be3131c1bb84c4))
+
+
+### Bug Fixes
+
+* update create version release job ([efd2551](https://github.com/hirosystems/stacks-wallet-web/commit/efd2551e035f540a7211ca18d45ee35b432a1630))
+
 ## [3.15.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.14.0...v3.15.0) (2022-08-16)
 
 
