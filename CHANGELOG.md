@@ -1,3 +1,15 @@
+## [3.15.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.14.0...v3.15.0) (2022-08-16)
+
+
+### Features
+
+* trigger release ([0f4d87f](https://github.com/hirosystems/stacks-wallet-web/commit/0f4d87fe80a02b9360dd5afb612ea56caa84ef5c))
+
+
+### Bug Fixes
+
+* remove locally installed pkg ([74d8de6](https://github.com/hirosystems/stacks-wallet-web/commit/74d8de6127ca35a206b97192bebe3637aefc4ad6))
+
 ## [3.14.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.13.5...v3.14.0) (2022-08-16)
 
 
