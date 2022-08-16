@@ -33,7 +33,7 @@ jobs:
 
       # Semantic release action fails without this package
       # added manually
-      - run: yarn add conventional-changelog-conventionalcommits
+      - run: yarn global add conventional-changelog-conventionalcommits
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3.1.0
