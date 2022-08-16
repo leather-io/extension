@@ -168,7 +168,7 @@ const provider: StacksProvider = {
     };
   },
   request: function (_method: string): Promise<Record<string, any>> {
-    throw new Error('Function not implemented.');
+    throw new Error('`request` function is not implemented');
   },
 };
 
