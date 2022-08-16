@@ -1,8 +1,8 @@
 {
   "name": "@stacks/wallet-web",
-  "description": "The Hiro Wallet is browser extension for interacting with Stacks apps.",
+  "description": "The Hiro Wallet is browser extension for interacting with Stacks apps",
   "private": true,
-  "version": "3.13.5",
+  "version": "3.16.0",
   "author": "Hiro Systems PBC",
   "scripts": {
     "dev": "cross-env NODE_ENV=development concurrently --raw 'node webpack/dev-server.js' 'redux-devtools --hostname=localhost --port=8000'",
@@ -266,6 +266,7 @@
     "chrome-webstore-upload-cli": "1.2.1",
     "clean-webpack-plugin": "4.0.0",
     "concurrently": "6.5.1",
+    "conventional-changelog-conventionalcommits": "5.0.0",
     "copy-webpack-plugin": "10.2.0",
     "cross-env": "7.0.3",
     "crypto-browserify": "3.12.0",
