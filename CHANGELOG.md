@@ -1,3 +1,15 @@
+## [3.16.1-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.16.0...v3.16.1-beta.1) (2022-08-17)
+
+
+### Bug Fixes
+
+* firefox origin url issue ([b46a97d](https://github.com/hirosystems/stacks-wallet-web/commit/b46a97d178522b751bee8f54a954567e53c919e7))
+
+
+### Internal
+
+* analytics event on worker error ([00cfb49](https://github.com/hirosystems/stacks-wallet-web/commit/00cfb49556444be3d4ccb69a9daa44a10f93052a))
+
 ## [3.16.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.15.0...v3.16.0) (2022-08-16)
 
 
