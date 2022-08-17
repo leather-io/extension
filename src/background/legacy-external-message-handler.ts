@@ -34,6 +34,7 @@ function getTabIdFromPort(port: chrome.runtime.Port) {
 }
 
 function getOriginFromPort(port: chrome.runtime.Port) {
+  if (port.sender?.url) return new URL(port.sender.url).origin;
   return port.sender?.origin;
 }
 
