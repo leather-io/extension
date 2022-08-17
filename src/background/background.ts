@@ -47,7 +47,10 @@ chrome.runtime.onConnect.addListener(port =>
       if (!port.sender?.tab?.id)
         return logger.error('Message reached background script without a corresponding tab');
 
-      if (!port.sender?.origin)
+      // Chromium/Firefox discrepancy
+      const originUrl = port.sender?.origin ?? port.sender?.url;
+
+      if (!originUrl)
         return logger.error('Message reached background script without a corresponding origin');
 
       if (inferLegacyMessage(message)) {
