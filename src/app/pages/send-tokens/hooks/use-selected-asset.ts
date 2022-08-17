@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 
 import { getTicker, initBigNumber } from '@app/common/utils';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { useSelectedAssetMetadata } from '@app/store/assets/asset.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 
 export function useSelectedAsset(assetId: string) {
   const selectedAsset = useSelectedAssetMetadata(assetId);

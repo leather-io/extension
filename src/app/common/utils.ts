@@ -1,8 +1,13 @@
 import type { ClipboardEvent } from 'react';
 import BigNumber from 'bignumber.js';
-import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
+import {
+  BufferReader,
+  ChainID,
+  deserializePostCondition,
+  PostCondition,
+} from '@stacks/transactions';
 
-import { DefaultNetworkNames, KEBAB_REGEX } from '@shared/constants';
+import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
 
 import { AssetWithMeta } from './asset-types';
 
@@ -47,8 +52,8 @@ export function validateAndCleanRecoveryInput(value: string) {
   return { isValid: false, value };
 }
 
-export function makeTxExplorerLink(txid: string, chain: DefaultNetworkNames, suffix = '') {
-  return `https://explorer.stacks.co/txid/${txid}?chain=${chain}${suffix}`;
+export function makeTxExplorerLink(txid: string, mode: NetworkModes, suffix = '') {
+  return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
 }
 
 export function truncateString(str: string, maxLength: number) {
@@ -253,4 +258,16 @@ type WhenPageModeMap<T> = Record<PageMode, T>;
 
 export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
   return pageModeMap[pageMode];
+}
+
+interface WhenChainIdMap<T> {
+  [ChainID.Mainnet]: T;
+  [ChainID.Testnet]: T;
+}
+export function whenChainId(chainId: ChainID) {
+  return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
+}
+
+export function sumNumbers(nums: number[]) {
+  return nums.reduce((acc, num) => acc.plus(num), new BigNumber(0));
 }

@@ -16,8 +16,8 @@ import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transacti
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';

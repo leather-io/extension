@@ -1,9 +1,10 @@
 import { useQueries, useQuery } from 'react-query';
 import { RateLimiter } from 'limiter';
 
-import { useApi, Api } from '@app/store/common/api-clients.hooks';
 import { isResponseCode } from '@app/common/network/is-response-code';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { StacksClient } from '@app/query/stacks/stacks-client';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 
@@ -22,34 +23,34 @@ const queryOptions = {
 
 const is404 = isResponseCode(404);
 
-function fetchUnanchoredAccountInfo(api: Api) {
+function fetchUnanchoredAccountInfo(client: StacksClient) {
   return (contractId: string) => async () => {
     await limiter.removeTokens(1);
-    return api.fungibleTokensApi
+    return client.fungibleTokensApi
       .getContractFtMetadata({ contractId })
       .catch(error => (is404(error) ? undefined : error));
   };
 }
 
 export function useGetFungibleTokenMetadataQuery(contractId: string) {
-  const api = useApi();
+  const client = useStacksClient();
   const network = useCurrentNetworkState();
 
   return useQuery({
     queryKey: ['get-ft-metadata', contractId, network.url],
-    queryFn: fetchUnanchoredAccountInfo(api)(contractId),
+    queryFn: fetchUnanchoredAccountInfo(client)(contractId),
     ...queryOptions,
   });
 }
 
 export function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
-  const api = useApi();
+  const client = useStacksClient();
   const network = useCurrentNetworkState();
 
   return useQueries(
     contractIds.map(contractId => ({
       queryKey: ['get-ft-metadata', contractId, network.url],
-      queryFn: fetchUnanchoredAccountInfo(api)(contractId),
+      queryFn: fetchUnanchoredAccountInfo(client)(contractId),
       ...queryOptions,
     }))
   );

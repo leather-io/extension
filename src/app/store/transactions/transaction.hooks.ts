@@ -23,7 +23,7 @@ import {
   useGenerateStxTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
-import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { TransactionTypes } from '@stacks/connect';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import {

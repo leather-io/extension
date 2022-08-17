@@ -1,6 +1,6 @@
 import { generateOnRampURL } from '@coinbase/cbpay-js';
 
-import { ActiveFiatProvider } from '@app/query/hiro-config/hiro-config.query';
+import { ActiveFiatProvider } from '@app/query/stacks/hiro-config/hiro-config.query';
 import BinanceIcon from '@assets/images/fund/fiat-providers/binance-icon.png';
 import BlockchainComIcon from '@assets/images/fund/fiat-providers/blockchain.com-icon.png';
 import ByBitIcon from '@assets/images/fund/fiat-providers/bybit-icon.png';

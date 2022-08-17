@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useCurrentAccountNames, useGetAccountNamesByAddressQuery } from '@app/query/bns/bns.hooks';
+import {
+  useCurrentAccountNames,
+  useGetAccountNamesByAddressQuery,
+} from '@app/query/stacks/bns/bns.hooks';
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 

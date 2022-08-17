@@ -7,7 +7,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import {
   useActiveFiatProviders,
   useHasFiatProviders,
-} from '@app/query/hiro-config/hiro-config.query';
+} from '@app/query/stacks/hiro-config/hiro-config.query';
 import { RouteUrls } from '@shared/route-urls';
 
 import { FiatProviderItem } from './fiat-provider-item';

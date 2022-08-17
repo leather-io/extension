@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { delay } from '@app/common/utils';
-import { useCurrentAccountMempool } from '@app/query/mempool/mempool.hooks';
+import { useCurrentAccountMempool } from '@app/query/stacks/mempool/mempool.hooks';
 
 // TODO: Can this be removed? It seems like we should be able
 // to use react-query itself to do this if needed?

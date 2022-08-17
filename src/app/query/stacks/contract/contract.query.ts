@@ -2,10 +2,10 @@ import { useQuery } from 'react-query';
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 
 import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-types';
-import { useApi } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 export function useGetContractInterface(transactionRequest: ContractCallPayload | null) {
-  const { smartContractsApi } = useApi();
+  const { smartContractsApi } = useStacksClient();
 
   const fetchContractInterface = () => {
     if (!transactionRequest || transactionRequest?.txType !== TransactionTypes.ContractCall) return;

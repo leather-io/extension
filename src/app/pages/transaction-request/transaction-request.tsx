@@ -22,7 +22,7 @@ import {
   useTxRequestEstimatedUnsignedTxByteLengthState,
   useTxRequestSerializedUnsignedTxPayloadState,
 } from '@app/store/transactions/transaction.hooks';
-import { useFeeEstimations } from '@app/query/fees/fees.hooks';
+import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { FeeType } from '@shared/models/fees-types';

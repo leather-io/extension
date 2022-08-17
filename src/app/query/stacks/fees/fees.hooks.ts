@@ -11,8 +11,8 @@ import {
   useConfigFeeEstimationsMaxValues,
   useConfigFeeEstimationsMinEnabled,
   useConfigFeeEstimationsMinValues,
-} from '@app/query/hiro-config/hiro-config.query';
-import { useGetTransactionFeeEstimationQuery } from '@app/query/fees/fees.query';
+} from '@app/query/stacks/hiro-config/hiro-config.query';
+import { useGetTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 
 import { getDefaultSimulatedFeeEstimations, getFeeEstimationsWithCappedValues } from './fees.utils';
 import { UseQueryResult } from 'react-query';

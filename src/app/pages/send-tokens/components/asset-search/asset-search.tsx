@@ -5,7 +5,7 @@ import { Box, color, Stack } from '@stacks/ui';
 import { AssetWithMeta } from '@app/common/asset-types';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 
 import { AssetSearchField } from './asset-search-field';
 import { SelectedAsset } from './selected-asset';

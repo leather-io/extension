@@ -1,5 +1,5 @@
-import { useGetAccountNonces } from '@app/query/nonce/account-nonces.query';
-import { useCurrentAccountFilteredMempoolTransactionsState } from '@app/query/mempool/mempool.hooks';
+import { useGetAccountNonces } from '@app/query/stacks/nonce/account-nonces.query';
+import { useCurrentAccountFilteredMempoolTransactionsState } from '@app/query/stacks/mempool/mempool.hooks';
 import {
   useAccountConfirmedTransactions,
   useCurrentAccount,

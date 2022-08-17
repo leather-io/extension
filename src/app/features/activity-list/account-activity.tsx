@@ -1,5 +1,5 @@
 import { useAccountTransactionsWithTransfers } from '@app/common/hooks/account/use-account-transactions-with-transfers.hooks';
-import { useCurrentAccountFilteredMempoolTransactionsState } from '@app/query/mempool/mempool.hooks';
+import { useCurrentAccountFilteredMempoolTransactionsState } from '@app/query/stacks/mempool/mempool.hooks';
 import { TransactionsList } from '@app/features/activity-list/components/transactions-list';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
