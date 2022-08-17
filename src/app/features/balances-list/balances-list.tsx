@@ -4,7 +4,7 @@ import { Stack, StackProps } from '@stacks/ui';
 
 import { AssetRow } from '@app/components/asset-row';
 import { CollectibleAssets } from '@app/features/balances-list/components/collectible-assets';
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStxTokenState } from '@app/store/assets/asset.hooks';
 import { RouteUrls } from '@shared/route-urls';
 

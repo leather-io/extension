@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { DefaultNetworkConfigurations } from '@shared/constants';
 import { isValidUrl } from '@shared/utils/validate-url';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
@@ -55,7 +56,7 @@ export const AddNetwork = () => {
             if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {
               networksActions.addNetwork({
                 chainId: networkId,
-                id: key,
+                id: key as DefaultNetworkConfigurations,
                 name,
                 url: origin,
               });

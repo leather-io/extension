@@ -18,8 +18,8 @@ import { AssetWithMeta } from '@app/common/asset-types';
 import { ftUnshiftDecimals, stxToMicroStx } from '@app/common/stacks-utils';
 import { SendFormValues, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
-import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   generateUnsignedTransaction,
   GenerateUnsignedTransactionOptions,

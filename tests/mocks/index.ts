@@ -1,4 +1,4 @@
-import { DEFAULT_TESTNET_SERVER } from '@shared/constants';
+import { DEFAULT_SERVER_TESTNET } from '@shared/constants';
 
 export { setupMocks } from './playwright-mocks';
 import { Wallet } from '@stacks/wallet-sdk';
@@ -20,7 +20,7 @@ export const HEYSTACK_HEY_TX_REQUEST_DECODED = {
   network: {
     version: 128,
     chainId: 2147483648,
-    coreApiUrl: DEFAULT_TESTNET_SERVER,
+    coreApiUrl: DEFAULT_SERVER_TESTNET,
     bnsLookupUrl: 'https://stacks-node-api.mainnet.stacks.co',
     broadcastEndpoint: '/v2/transactions',
     transferFeeEstimateEndpoint: '/v2/fees/transfer',

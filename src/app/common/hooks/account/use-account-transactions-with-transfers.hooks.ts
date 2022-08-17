@@ -5,7 +5,7 @@ import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-t
 import { useAccountTransactionsWithTransfersState } from '@app/store/accounts/transactions-with-transfer.hooks';
 import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 import { PaginatedResults } from '@shared/models/types';
-import { useApi } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 const QUERY_OPTIONS = {
   refetchInterval: QueryRefreshRates.MEDIUM,
@@ -21,10 +21,10 @@ enum AccountClientKeys {
 function useGetAccountTransactionsWithTransfers(reactQueryOptions: UseQueryOptions = {}) {
   const principal = useCurrentAccountStxAddressState();
   const { url: networkUrl } = useCurrentNetworkState();
-  const api = useApi();
+  const client = useStacksClient();
   const fetch = () => {
     if (!principal) return;
-    return api.accountsApi.getAccountTransactionsWithTransfers({
+    return client.accountsApi.getAccountTransactionsWithTransfers({
       principal,
       limit: DEFAULT_LIST_LIMIT,
     });

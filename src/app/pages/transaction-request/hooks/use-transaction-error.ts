@@ -4,9 +4,9 @@ import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useContractInterface } from '@app/query/contract/contract.hooks';
+import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 

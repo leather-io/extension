@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { deserializeTransaction } from '@stacks/transactions';
 
 import { rawTxIdState } from '@app/store/transactions/raw';
-import { useApi } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 export function useRawTxIdState() {
   return useAtom(rawTxIdState);
@@ -14,7 +14,7 @@ const rawTxCache = new Map();
 
 function useRawTxState() {
   const [txId] = useRawTxIdState();
-  const { transactionsApi } = useApi();
+  const { transactionsApi } = useStacksClient();
 
   return useAsync(async () => {
     if (!txId) return;

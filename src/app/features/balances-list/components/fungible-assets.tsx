@@ -4,7 +4,7 @@ import { AssetRow } from '@app/components/asset-row';
 import { useAssetWithMetadata, useFungibleTokenBaseState } from '@app/store/assets/asset.hooks';
 
 import { Asset } from '@app/common/asset-types';
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 
 interface FungibleAssetRowProps {
   asset: Asset;

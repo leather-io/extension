@@ -7,7 +7,6 @@ import {
   addressHashModeToVersion,
   addressToString,
   AuthType,
-  ChainID,
   StacksTransaction,
   TransactionVersion,
 } from '@stacks/transactions';
@@ -194,14 +193,6 @@ export function isTransactionTypeSupported(txType: TransactionTypes) {
 
 export function isTxSponsored(tx: StacksTransaction) {
   return tx.auth.authType === AuthType.Sponsored;
-}
-
-interface WhenChainIdMap<T> {
-  [ChainID.Mainnet]: T;
-  [ChainID.Testnet]: T;
-}
-export function whenChainId(chainId: ChainID) {
-  return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
 }
 
 function getAddressFromPublicKeyHash(

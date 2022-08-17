@@ -9,7 +9,7 @@ import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
 import { useShowEditNonceCleanupEffect } from '@app/store/ui/ui.hooks';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { isUndefined } from '@shared/utils';
 
 import { EditNonceForm } from './components/edit-nonce-form';

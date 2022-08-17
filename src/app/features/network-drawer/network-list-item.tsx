@@ -5,7 +5,7 @@ import { Caption, Title } from '@app/components/typography';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { getUrlHostname } from '@app/common/utils';
-import { useNetworkStatus } from '@app/query/network/network.hooks';
+import { useNetworkStatus } from '@app/query/stacks/network/network.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useNetworksActions } from '@app/store/networks/networks.hooks';
 import { defaultCurrentNetwork } from '@shared/constants';

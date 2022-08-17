@@ -1,10 +1,10 @@
 import { createEntityAdapter, createSlice, EntityId, PayloadAction } from '@reduxjs/toolkit';
 
-import { DefaultNetworkIds, Network } from '@shared/constants';
+import { DefaultNetworkConfigurationIds, NetworkConfiguration } from '@shared/constants';
 
-const defaultCurrentNetworkId = DefaultNetworkIds.mainnet as EntityId;
+const defaultCurrentNetworkId = DefaultNetworkConfigurationIds.mainnet as EntityId;
 
-export const networksAdapter = createEntityAdapter<Network>();
+export const networksAdapter = createEntityAdapter<NetworkConfiguration>();
 
 const initialNetworksState = networksAdapter.getInitialState({
   currentNetworkId: defaultCurrentNetworkId,
@@ -14,7 +14,7 @@ export const networksSlice = createSlice({
   name: 'networks',
   initialState: initialNetworksState,
   reducers: {
-    addNetwork(state, action: PayloadAction<Network>) {
+    addNetwork(state, action: PayloadAction<NetworkConfiguration>) {
       networksAdapter.addOne(state, action.payload);
     },
     changeNetwork(state, action: PayloadAction<EntityId>) {

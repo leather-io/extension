@@ -3,7 +3,7 @@ import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { useApi } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 const accountNoncesQueryOptions: UseQueryOptions = {
   refetchOnMount: 'always',
@@ -14,7 +14,7 @@ const accountNoncesQueryOptions: UseQueryOptions = {
 export function useGetAccountNonces() {
   const principal = useCurrentAccountStxAddressState();
   const network = useCurrentNetworkState();
-  const { accountsApi } = useApi();
+  const { accountsApi } = useStacksClient();
 
   const fetchAccountNonces = () => {
     if (!principal) return;

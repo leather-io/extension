@@ -1,8 +1,9 @@
 import { useQueries, useQuery, UseQueryOptions } from 'react-query';
 
-import { useApi, Api, useAnchoredApi } from '@app/store/common/api-clients.hooks';
+import { useStacksClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
 import { AddressBalanceResponse } from '@shared/models/account-types';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { StacksClient } from '@app/query/stacks/stacks-client';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -14,21 +15,21 @@ const balanceQueryOptions = {
   refetchOnReconnect: false,
 } as const;
 
-function fetchAccountBalance(api: Api) {
+function fetchAccountBalance(client: StacksClient) {
   return (principal: string) => () =>
     // Coercing type with client-side one that's more accurate
-    api.accountsApi.getAccountBalance({ principal }) as Promise<AddressBalanceResponse>;
+    client.accountsApi.getAccountBalance({ principal }) as Promise<AddressBalanceResponse>;
 }
 
 export function useGetAccountBalanceQuery<T>(
   address: string,
   options: Partial<UseQueryOptions<AddressBalanceResponse, unknown, T, string[]>> = {}
 ) {
-  const api = useApi();
+  const client = useStacksClient();
   return useQuery({
     enabled: !!address,
     queryKey: ['get-address-stx-balance', address],
-    queryFn: fetchAccountBalance(api)(address),
+    queryFn: fetchAccountBalance(client)(address),
     suspense: true,
     ...balanceQueryOptions,
     ...options,
@@ -39,11 +40,11 @@ export function useGetAnchoredAccountBalanceQuery<T>(
   address: string,
   options: Partial<UseQueryOptions<AddressBalanceResponse, unknown, T, string[]>> = {}
 ) {
-  const api = useAnchoredApi();
+  const client = useStacksClientAnchored();
   return useQuery({
     enabled: !!address,
     queryKey: ['get-address-anchored-stx-balance', address],
-    queryFn: fetchAccountBalance(api)(address),
+    queryFn: fetchAccountBalance(client)(address),
     suspense: true,
     ...balanceQueryOptions,
     ...options,
@@ -51,12 +52,12 @@ export function useGetAnchoredAccountBalanceQuery<T>(
 }
 
 export function useGetAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
-  const api = useApi();
+  const client = useStacksClient();
 
   return useQueries(
     (accounts || []).map(account => ({
       queryKey: ['get-address-anchored-stx-balance', account.address],
-      queryFn: fetchAccountBalance(api)(account.address),
+      queryFn: fetchAccountBalance(client)(account.address),
       ...balanceQueryOptions,
     }))
   );

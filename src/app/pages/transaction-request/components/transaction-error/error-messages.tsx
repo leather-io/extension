@@ -11,7 +11,7 @@ import { Caption } from '@app/components/typography';
 import { SpaceBetween } from '@app/components/space-between';
 import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { PrimaryButton } from '@app/components/primary-button';

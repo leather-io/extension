@@ -7,7 +7,7 @@ import {
   handlePostConditions,
 } from '@app/common/transactions/post-condition-utils';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useFungibleTokenMetadata } from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
+import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
 
 import { useTransactionRequestState } from './requests.hooks';
 

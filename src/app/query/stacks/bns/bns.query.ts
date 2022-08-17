@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 
-import { useApi, Api } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { StacksClient } from '@app/query/stacks/stacks-client';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -13,18 +14,17 @@ const bnsQueryOptions = {
   refetchOnReconnect: false,
 } as const;
 
-function getBnsNameFetcherFactory(api: Api) {
-  return (address: string) => () => {
-    return api.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
-  };
+function getBnsNameFetcherFactory(client: StacksClient) {
+  return (address: string) => () =>
+    client.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
 }
 
 export function useGetBnsNamesOwnedByAddress(address: string) {
-  const api = useApi();
+  const client = useStacksClient();
   return useQuery({
     enabled: address !== '',
     queryKey: ['bns-names-by-address', address],
-    queryFn: getBnsNameFetcherFactory(api)(address),
+    queryFn: getBnsNameFetcherFactory(client)(address),
     ...bnsQueryOptions,
   });
 }

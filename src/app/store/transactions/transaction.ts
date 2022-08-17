@@ -7,7 +7,8 @@ import {
   TransactionVersion,
 } from '@stacks/transactions';
 
-import { stacksTransactionToHex, whenChainId } from '@app/common/transactions/transaction-utils';
+import { whenChainId } from '@app/common/utils';
+import { stacksTransactionToHex } from '@app/common/transactions/transaction-utils';
 import { currentNetworkAtom } from '@app/store/networks/networks';
 
 export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {

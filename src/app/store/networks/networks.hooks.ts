@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
 
-import { whenChainId } from '@app/common/transactions/transaction-utils';
+import { whenChainId } from '@app/common/utils';
 import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
-import { DefaultNetworkIds, Network } from '@shared/constants';
+import { DefaultNetworkModes, NetworkConfiguration } from '@shared/constants';
 import { useAppDispatch } from '@app/store';
 
 import { useCurrentNetwork, useNetworks } from './networks.selectors';
@@ -16,7 +16,7 @@ export function useCurrentNetworkState() {
 
   return useMemo(() => {
     const isTestnet = currentNetwork?.chainId === ChainID.Testnet;
-    const mode = isTestnet ? DefaultNetworkIds.testnet : DefaultNetworkIds.mainnet;
+    const mode = isTestnet ? DefaultNetworkModes.testnet : DefaultNetworkModes.mainnet;
     return { ...currentNetwork, isTestnet, mode };
   }, [currentNetwork]);
 }
@@ -42,7 +42,7 @@ export function useNetworksActions() {
 
   return useMemo(
     () => ({
-      addNetwork({ chainId, id, name, url }: Network) {
+      addNetwork({ chainId, id, name, url }: NetworkConfiguration) {
         dispatch(networksActions.addNetwork({ chainId, id, name, url }));
         dispatch(networksActions.changeNetwork(id));
         return;

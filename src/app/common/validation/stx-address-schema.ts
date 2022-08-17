@@ -1,10 +1,10 @@
 import * as yup from 'yup';
 
 import { validateAddressChain, validateStacksAddress } from '@app/common/stacks-utils';
-import { Network } from '@shared/constants';
+import { NetworkConfiguration } from '@shared/constants';
 import { isString } from '@shared/utils';
 
-export function stxAddressNetworkValidatorFactory(currentNetwork: Network) {
+export function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfiguration) {
   return (value: unknown) => {
     if (!isString(value)) return false;
     return validateAddressChain(value, currentNetwork);

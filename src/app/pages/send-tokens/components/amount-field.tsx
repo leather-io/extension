@@ -6,7 +6,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import {
   useBaseAssetsUnanchored,
   useCurrentAccountUnanchoredBalances,
-} from '@app/query/balance/balance.hooks';
+} from '@app/query/stacks/balance/balance.hooks';
 import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';

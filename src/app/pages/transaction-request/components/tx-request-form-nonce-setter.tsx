@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 
 interface TxRequestFormNonceSetterProps {
   children: ReactNode;

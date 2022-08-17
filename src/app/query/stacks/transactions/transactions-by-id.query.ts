@@ -1,12 +1,12 @@
 import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types/generated';
-import { useApi } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useQueries, useQuery } from 'react-query';
 
 export function useTransactionsById(txids: string[]) {
-  const api = useApi();
+  const client = useStacksClient();
 
   function transactionByIdFetcher(txId: string) {
-    return api.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction;
+    return client.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction;
   }
 
   return useQueries(
@@ -20,10 +20,10 @@ export function useTransactionsById(txids: string[]) {
 }
 
 export function useTransactionById(txid: string) {
-  const api = useApi();
+  const client = useStacksClient();
 
   function transactionByIdFetcher(txId: string) {
-    return api.transactionsApi.getTransactionById({ txId }) as unknown as
+    return client.transactionsApi.getTransactionById({ txId }) as unknown as
       | Transaction
       | MempoolTransaction;
   }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { store } from '@app/store';
 import { useAnalyticsHasStxDeposits } from '@app/store/analytics/analytics.selectors';
 import { analyticsActions } from '@app/store/analytics/analytics.actions';
