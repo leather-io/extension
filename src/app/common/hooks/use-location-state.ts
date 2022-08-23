@@ -19,7 +19,7 @@ export function useLocationStateWithCache(propName: string, defaultValue?: strin
   useEffect(() => {
     const stateVal = get(location, `state.${propName}`);
     if (!isUndefined(stateVal)) setValue(stateVal);
-  });
+  }, [location, propName]);
 
   return value ?? defaultValue;
 }

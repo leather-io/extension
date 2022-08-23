@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Transport from '@ledgerhq/hw-transport-webusb';
-import StacksApp, { LedgerError, ResponseVersion } from '@zondax/ledger-blockstack';
+import StacksApp, { LedgerError, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
 import {
