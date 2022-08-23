@@ -43,7 +43,11 @@ const selectors = {
 export class SendPage {
   selectors = selectors;
 
-  constructor(public page: Page) {}
+  page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
 
   async select(selector: keyof typeof selectors) {
     return this.page.$(selectors[selector]);
