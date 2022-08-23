@@ -84,7 +84,7 @@ export async function verifySignatureRequest({
   }
   const foundAccount = accounts.find(account => {
     if (account.type === 'ledger') {
-      throw new Error('sdlkjsdlkf');
+      throw new Error('Invalid account type');
     }
     const appPrivateKey = getAppPrivateKey({
       account,

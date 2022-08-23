@@ -1,5 +1,6 @@
 import { formatAuthResponse } from '@shared/actions/finalize-auth-response';
 import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature';
+import { formatProfileUpdateResponse } from '@shared/actions/finalize-profile-update';
 import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature';
 import {
   ExternalMethods,
@@ -158,6 +159,19 @@ export async function handleLegacyExternalMethodFormat(
         id,
         tabId,
         response: formatMessageSigningResponse({ request: payload, response: 'cancel' }),
+      });
+      listenForOriginTabClose({ tabId });
+      break;
+    }
+
+    case ExternalMethods.profileUpdateRequest: {
+      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
+
+      const { id } = await triggerRequestWindowOpen(RouteUrls.ProfileUpdateRequest, urlParams);
+      listenForPopupClose({
+        id,
+        tabId,
+        response: formatProfileUpdateResponse({ request: payload, response: 'cancel' }),
       });
       listenForOriginTabClose({ tabId });
       break;

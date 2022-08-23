@@ -4,6 +4,7 @@ import { BRANCH, COMMIT_SHA } from '@shared/environment';
 import {
   AuthenticationRequestEventDetails,
   DomEventName,
+  ProfileUpdateRequestEventDetails,
   SignatureRequestEventDetails,
   TransactionRequestEventDetails,
 } from '@shared/inpage-types';
@@ -12,6 +13,7 @@ import {
   ExternalMethods,
   LegacyMessageToContentScript,
   MESSAGE_SOURCE,
+  ProfileUpdateResponseMessage,
   SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
@@ -150,6 +152,30 @@ const provider: StacksProvider = {
         }
         if (typeof event.data.payload.transactionResponse !== 'string') {
           resolve(event.data.payload.transactionResponse);
+        }
+      };
+      window.addEventListener('message', handleMessage);
+    });
+  },
+  profileUpdateRequest: async profileUpdateRequest => {
+    const event = new CustomEvent<ProfileUpdateRequestEventDetails>(
+      DomEventName.profileUpdateRequest,
+      {
+        detail: { profileUpdateRequest },
+      }
+    );
+    document.dispatchEvent(event);
+    return new Promise((resolve, reject) => {
+      const handleMessage = (event: MessageEvent<ProfileUpdateResponseMessage>) => {
+        if (!isValidEvent(event, ExternalMethods.profileUpdateResponse)) return;
+        if (event.data.payload?.profileUpdateRequest !== profileUpdateRequest) return;
+        window.removeEventListener('message', handleMessage);
+        if (event.data.payload.profileUpdateResponse === 'cancel') {
+          reject(event.data.payload.profileUpdateResponse);
+          return;
+        }
+        if (typeof event.data.payload.profileUpdateResponse !== 'string') {
+          resolve(event.data.payload.profileUpdateResponse);
         }
       };
       window.addEventListener('message', handleMessage);
