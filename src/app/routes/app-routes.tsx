@@ -34,6 +34,7 @@ import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confi
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
+import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
 import { useHasStateRehydrated } from '@app/store';
@@ -192,6 +193,17 @@ function AppRoutesAfterUserHasConsented() {
         >
           {ledgerMessageSigningRoutes}
         </Route>
+        <Route
+          path={RouteUrls.ProfileUpdateRequest}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <ProfileUpdateRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        />
+
         <Route
           path={RouteUrls.ViewSecretKey}
           element={
