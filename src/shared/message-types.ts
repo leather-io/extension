@@ -13,6 +13,8 @@ export enum ExternalMethods {
   signatureResponse = 'signatureResponse',
   structuredDataSignatureRequest = 'structuredDataSignatureRequest',
   structuredDataSignatureResponse = 'structuredDataSignatureResponse',
+  updateProfileRequest = 'updateProfileRequest',
+  updateProfileResponse = 'updateProfileResponse'
 }
 
 export enum InternalMethods {
@@ -64,6 +66,13 @@ type StructuredDataSignatureRequestMessage = Message<
   string
 >;
 
+type UpdateProfileRequestMessage = Message<ExternalMethods.updateProfileRequest, string>;
+
+export type UpdateProfileResponseMessage = Message<ExternalMethods.updateProfileResponse, {
+  updateProfileRequest: string,
+  updateProfileResponse: PublicPayload
+}>;
+
 type TransactionRequestMessage = Message<ExternalMethods.transactionRequest, string>;
 
 export type TxResult = SponsoredFinishedTxPayload | FinishedTxPayload;
@@ -80,9 +89,11 @@ export type LegacyMessageFromContentScript =
   | AuthenticationRequestMessage
   | TransactionRequestMessage
   | SignatureRequestMessage
-  | StructuredDataSignatureRequestMessage;
+  | StructuredDataSignatureRequestMessage
+  | UpdateProfileRequestMessage;
 
 export type LegacyMessageToContentScript =
   | AuthenticationResponseMessage
   | TransactionResponseMessage
-  | SignatureResponseMessage;
+  | SignatureResponseMessage
+  | UpdateProfileResponseMessage;
