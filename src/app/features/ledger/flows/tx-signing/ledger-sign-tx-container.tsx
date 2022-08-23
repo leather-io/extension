@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-blockstack';
+import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { delay } from '@app/common/utils';

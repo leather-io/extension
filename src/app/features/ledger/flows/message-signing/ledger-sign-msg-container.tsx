@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-blockstack';
+import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { delay } from '@app/common/utils';
@@ -22,9 +22,9 @@ import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { finalizeMessageSignature } from '@app/common/actions/finalize-message-signature';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 import { signatureVrsToRsv } from '@stacks/common';
+import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 
 export function LedgerSignMsgContainer() {
   useScrollLock(true);
@@ -83,7 +83,7 @@ export function LedgerSignMsgContainer() {
       if (resp.returnCode === LedgerError.TransactionRejected) {
         ledgerNavigate.toOperationRejectedStep(`Message signing operation rejected`);
         ledgerAnalytics.utf8MessageSignedOnLedgerRejected();
-        finalizeMessageSignature(requestToken, tabId, 'cancel');
+        finalizeMessageSignature({ requestPayload: requestToken, tabId, data: 'cancel' });
         return;
       }
       if (resp.returnCode !== LedgerError.NoErrors) {
@@ -94,9 +94,13 @@ export function LedgerSignMsgContainer() {
 
       ledgerAnalytics.utf8MessageSignedOnLedgerSuccessfully();
 
-      finalizeMessageSignature(requestToken, tabId, {
-        signature: signatureVrsToRsv(resp.signatureVRS.toString('hex')),
-        publicKey: account.stxPublicKey,
+      finalizeMessageSignature({
+        requestPayload: requestToken,
+        tabId,
+        data: {
+          signature: signatureVrsToRsv(resp.signatureVRS.toString('hex')),
+          publicKey: account.stxPublicKey,
+        },
       });
 
       await stacksApp.transport.close();

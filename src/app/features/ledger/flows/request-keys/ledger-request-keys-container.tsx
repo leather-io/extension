@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-blockstack';
+import { LedgerError } from '@zondax/ledger-stacks';
 import toast from 'react-hot-toast';
 
 import {

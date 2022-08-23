@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-blockstack';
+import { LedgerError } from '@zondax/ledger-stacks';
 import { getAddressFromPublicKey, TransactionVersion } from '@stacks/transactions';
 import get from 'lodash.get';
 
