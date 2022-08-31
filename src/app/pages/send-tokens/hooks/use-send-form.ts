@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import * as React from 'react';
-import { FormikProps } from 'formik';
+import { useFormikContext } from 'formik';
 
 import { microStxToStx } from '@app/common/stacks-utils';
 import { removeCommas } from '@app/common/token-utils';
@@ -9,12 +9,11 @@ import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asse
 import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/mempool/mempool.hooks';
 
-export function useSendAmountFieldActions({
-  setFieldValue,
-}: Pick<FormikProps<TransactionFormValues>, 'setFieldValue'>) {
+export function useSendAmountFieldActions() {
+  const { setFieldValue, values } = useFormikContext<TransactionFormValues>();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
-  const { selectedAsset, balance } = useSelectedAsset();
+  const { selectedAsset, balance } = useSelectedAsset(values.assetId);
   const isStx = selectedAsset?.type === 'stx';
 
   const handleSetSendMax = useCallback(

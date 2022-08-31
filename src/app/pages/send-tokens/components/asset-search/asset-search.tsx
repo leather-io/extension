@@ -1,4 +1,5 @@
 import { memo, useEffect, useState } from 'react';
+import { useField } from 'formik';
 import { Box, color, Stack } from '@stacks/ui';
 
 import { AssetWithMeta } from '@app/common/asset-types';
@@ -15,19 +16,20 @@ function principalHasOnlyOneAsset(assets: AssetWithMeta[]) {
 
 interface AssetSearchProps {
   autoFocus?: boolean;
-  onSelectAssetResetForm(): void;
+  onSelectAsset(asset: AssetWithMeta): void;
 }
 export const AssetSearch: React.FC<AssetSearchProps> = memo(
-  ({ autoFocus, onSelectAssetResetForm, ...rest }) => {
+  ({ autoFocus, onSelectAsset, ...rest }) => {
+    const [field, _, helpers] = useField('assetId');
     const assets = useTransferableAssets();
     const availableStxBalance = useCurrentAccountAvailableStxBalance();
-    const { selectedAsset, updateSelectedAsset } = useSelectedAsset();
+    const { selectedAsset } = useSelectedAsset(field.value);
     const [searchInput, setSearchInput] = useState<string>('');
     const [assetItems, setAssetItems] = useState(assets);
 
     useEffect(() => {
       if (principalHasOnlyOneAsset(assets ?? [])) {
-        updateSelectedAsset(assets[0]);
+        onSelectAsset(assets[0]);
       }
       return () => onClearSearch();
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,7 +37,8 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
 
     const onClearSearch = () => {
       setSearchInput('');
-      updateSelectedAsset(undefined);
+      setAssetItems(assets);
+      helpers.setValue('');
     };
 
     const onInputValueChange = (value: string | undefined) => {
@@ -47,11 +50,6 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
       setAssetItems(assets.filter(asset => asset.name.toLowerCase().includes(value.toLowerCase())));
     };
 
-    const onSelectedItemChange = (item: any) => {
-      updateSelectedAsset(item || undefined);
-      onSelectAssetResetForm();
-    };
-
     if (!assets) {
       return (
         <Stack spacing="tight" {...rest}>
@@ -61,7 +59,7 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
       );
     }
 
-    if (selectedAsset) {
+    if (field.value) {
       return (
         <SelectedAsset
           hideArrow={principalHasOnlyOneAsset(assets ?? [])}
@@ -77,7 +75,7 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
         autoFocus={autoFocus}
         hasStxBalance={!!availableStxBalance}
         onInputValueChange={onInputValueChange}
-        onSelectedItemChange={onSelectedItemChange}
+        onSelectedItemChange={onSelectAsset}
         searchInput={searchInput}
         selectedAsset={selectedAsset}
         {...rest}

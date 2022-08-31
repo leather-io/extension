@@ -9,6 +9,7 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { Header } from '@app/components/header';
@@ -16,7 +17,6 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
 import { useFeeEstimations } from '@app/query/fees/fees.hooks';
 import {
@@ -30,9 +30,8 @@ import { FeeType } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
 import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
-import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
-import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
+import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -40,13 +39,13 @@ function SendTokensFormBase() {
   const { showEditNonce, showNetworks } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
+  const [selectedAssetId, setSelectedAssetId] = useState<string>('');
   const { setActiveTabActivity } = useHomeTabs();
-  const { selectedAsset } = useSelectedAsset();
-  const sendFormSchema = useSendFormValidation({ setAssetError });
-  const generateTx = useGenerateSendFormUnsignedTx();
+  const sendFormSchema = useSendFormValidation({ selectedAssetId, setAssetError });
+  const generateTx = useGenerateSendFormUnsignedTx(selectedAssetId);
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
-  const txByteLength = useSendFormEstimatedUnsignedTxByteLengthState();
-  const txPayload = useSendFormSerializedUnsignedTxPayloadState();
+  const txByteLength = useSendFormEstimatedUnsignedTxByteLengthState(selectedAssetId);
+  const txPayload = useSendFormSerializedUnsignedTxPayloadState(selectedAssetId);
   const feeEstimations = useFeeEstimations(txByteLength, txPayload);
   const { nonce } = useNextNonce();
   const analytics = useAnalytics();
@@ -101,6 +100,7 @@ function SendTokensFormBase() {
   if (assets.length < 1) return null;
 
   const initialValues: TransactionFormValues = {
+    assetId: '',
     amount: '',
     fee: '',
     feeType: FeeType[FeeType.Middle],
@@ -118,7 +118,7 @@ function SendTokensFormBase() {
         validateOnMount={false}
         validationSchema={sendFormSchema}
         onSubmit={async values => {
-          if (selectedAsset && !assetError) {
+          if (values.assetId && !assetError) {
             const tx = await generateTx(values);
             whenWallet({
               software: () => setShowing(true),
@@ -136,6 +136,7 @@ function SendTokensFormBase() {
               <SendFormInner
                 assetError={assetError}
                 feeEstimations={feeEstimations.estimates}
+                onAssetIdSelected={(assetId: string) => setSelectedAssetId(assetId)}
                 nonce={nonce}
               />
             </Suspense>

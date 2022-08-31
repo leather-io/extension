@@ -1,5 +1,5 @@
-import * as yup from 'yup';
 import BigNumber from 'bignumber.js';
+import * as yup from 'yup';
 import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { useWallet } from '@app/common/hooks/use-wallet';
@@ -22,12 +22,16 @@ import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { isNumber } from '@shared/utils';
 
 interface UseSendFormValidationArgs {
+  selectedAssetId: string;
   setAssetError(error: string | undefined): void;
 }
-export const useSendFormValidation = ({ setAssetError }: UseSendFormValidationArgs) => {
+export const useSendFormValidation = ({
+  selectedAssetId,
+  setAssetError,
+}: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const { selectedAsset, balanceBigNumber } = useSelectedAsset();
+  const { selectedAsset, balanceBigNumber } = useSelectedAsset(selectedAssetId);
   const feeSchema = useFeeSchema();
   const isSendingStx = selectedAsset?.type === 'stx';
 

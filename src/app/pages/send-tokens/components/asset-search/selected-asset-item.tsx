@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useField } from 'formik';
 import { Box, ChevronIcon, Text, color, Stack, BoxProps } from '@stacks/ui';
 
 import { AssetAvatar } from '@app/components/stx-avatar';
@@ -12,8 +13,8 @@ interface SelectedAssetItemProps extends BoxProps {
 }
 export const SelectedAssetItem = memo(
   ({ hideArrow, onClearSearch, ...rest }: SelectedAssetItemProps) => {
-    const { name, selectedAsset, ticker } = useSelectedAsset();
-
+    const [field] = useField('assetId');
+    const { name, selectedAsset, ticker } = useSelectedAsset(field.value);
     if (!selectedAsset) return null;
     const isStx = name === 'Stacks Token';
     const gradientString = gradientStringForAsset(selectedAsset);
