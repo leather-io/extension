@@ -23,14 +23,12 @@ interface AmountFieldProps extends StackProps {
 // TODO: this should use a new "Field" component (with inline label like in figma)
 function AmountFieldBase(props: AmountFieldProps) {
   const { error, value, ...rest } = props;
-  const { setFieldValue, handleChange, values } = useFormikContext<TransactionFormValues>();
+  const { handleChange, values } = useFormikContext<TransactionFormValues>();
   const analytics = useAnalytics();
   const assets = useBaseAssetsUnanchored();
   const balances = useCurrentAccountUnanchoredBalances();
-  const { selectedAsset, placeholder } = useSelectedAsset();
-  const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions({
-    setFieldValue,
-  });
+  const { selectedAsset, placeholder } = useSelectedAsset(values.assetId);
+  const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions();
 
   const handleSetSendMaxTracked = () => {
     void analytics.track('select_maximum_amount_for_send');

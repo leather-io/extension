@@ -2,7 +2,6 @@ import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 import BN from 'bn.js';
 import toast from 'react-hot-toast';
-import { useAtomValue } from 'jotai/utils';
 import {
   createAssetInfo,
   createStacksPrivateKey,
@@ -31,7 +30,6 @@ import {
   generateUnsignedTransaction,
   GenerateUnsignedTransactionOptions,
 } from '@app/common/transactions/generate-unsigned-txs';
-import { selectedAssetIdState } from '@app/store/assets/asset-search';
 import {
   useCurrentAccount,
   useCurrentAccountStxAddressState,
@@ -41,13 +39,14 @@ import {
   useCurrentStacksNetworkState,
 } from '@app/store/network/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
 import { prepareTxDetailsForBroadcast } from './transaction';
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
+import { isSendingFormSendingStx } from './utils';
 
 export function useTransactionPostConditions() {
   return usePostConditionState();
@@ -93,23 +92,32 @@ function useUnsignedStacksTransactionBaseState() {
   }, [account, options, payload, stxAddress, transaction]);
 }
 
-export function useUnsignedPrepareTransactionDetails(values: TransactionFormValues) {
+export function useUnsignedPrepareTransactionDetails(
+  selectedAssetId: string,
+  values: TransactionFormValues
+) {
   const unsignedStacksTransaction = useUnsignedStacksTransaction(values);
-  const sendFormUnsignedTx = useSendFormUnsignedTxPreviewState(values);
+  const sendFormUnsignedTx = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   return useMemo(
     () => unsignedStacksTransaction || sendFormUnsignedTx,
     [sendFormUnsignedTx, unsignedStacksTransaction]
   );
 }
 
-export function useSendFormSerializedUnsignedTxPayloadState(values?: TransactionFormValues) {
-  const transaction = useSendFormUnsignedTxPreviewState(values);
+export function useSendFormSerializedUnsignedTxPayloadState(
+  selectedAssetId: string,
+  values?: TransactionFormValues
+) {
+  const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return '';
   return serializePayload(transaction.payload).toString('hex');
 }
 
-export function useSendFormEstimatedUnsignedTxByteLengthState(values?: TransactionFormValues) {
-  const transaction = useSendFormUnsignedTxPreviewState(values);
+export function useSendFormEstimatedUnsignedTxByteLengthState(
+  selectedAssetId: string,
+  values?: TransactionFormValues
+) {
+  const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return null;
   return transaction.serialize().byteLength;
 }
@@ -261,27 +269,27 @@ function useUnsignedStacksTransaction(values: TransactionFormValues) {
   return tx.result;
 }
 
-export function useGenerateSendFormUnsignedTx() {
-  const isSendingStx = useIsSendingFormSendingStx();
+export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
+  const isSendingStx = isSendingFormSendingStx(selectedAssetId);
   const stxTokenTransferUnsignedTx = useGenerateStxTokenTransferUnsignedTx();
-  const ftTokenTransferUnsignedTx = useGenerateFtTokenTransferUnsignedTx();
+  const ftTokenTransferUnsignedTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
+
   return useMemo(
     () => (isSendingStx ? stxTokenTransferUnsignedTx : ftTokenTransferUnsignedTx),
-    [isSendingStx, stxTokenTransferUnsignedTx, ftTokenTransferUnsignedTx]
+    [ftTokenTransferUnsignedTx, isSendingStx, stxTokenTransferUnsignedTx]
   );
 }
 
-export function useSendFormUnsignedTxPreviewState(values?: TransactionFormValues) {
-  const isSendingStx = useIsSendingFormSendingStx();
+export function useSendFormUnsignedTxPreviewState(
+  selectedAssetId: string,
+  values?: TransactionFormValues
+) {
+  const isSendingStx = isSendingFormSendingStx(selectedAssetId);
   const stxTokenTransferUnsignedTx = useStxTokenTransferUnsignedTxState(values);
-  const ftTokenTransferUnsignedTx = useFtTokenTransferUnsignedTx(values);
+  const ftTokenTransferUnsignedTx = useFtTokenTransferUnsignedTx(selectedAssetId, values);
+
   return useMemo(
     () => (isSendingStx ? stxTokenTransferUnsignedTx : ftTokenTransferUnsignedTx),
-    [isSendingStx, stxTokenTransferUnsignedTx, ftTokenTransferUnsignedTx]
+    [ftTokenTransferUnsignedTx, isSendingStx, stxTokenTransferUnsignedTx]
   );
-}
-
-function useIsSendingFormSendingStx() {
-  const selectedAssetId = useAtomValue(selectedAssetIdState);
-  return selectedAssetId === '.::Stacks Token';
 }

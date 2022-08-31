@@ -22,7 +22,7 @@ interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
 export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirmDrawerProps) {
   const { isShowing, onClose, onUserSelectBroadcastTransaction } = props;
   const { values } = useFormikContext<TransactionFormValues>();
-  const transaction = useSendFormUnsignedTxPreviewState(values);
+  const transaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
   const analytics = useAnalytics();
   const { showEditNonce } = useDrawers();
 
@@ -43,6 +43,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
       <Stack pb="extra-loose" px="loose" spacing="loose">
         <SendTokensConfirmDetails
           amount={values.amount}
+          assetId={values.assetId}
           recipient={values.recipient}
           nonce={Number(transaction?.auth.spendingCondition?.nonce)}
         />
