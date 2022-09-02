@@ -3,7 +3,6 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
-import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 
 import { ContainerLayout } from './container.layout';
 
@@ -22,7 +21,6 @@ export function Container(): JSX.Element | null {
   const [routeHeader, _] = useRouteHeaderState();
 
   useCacheInitialRouteSearchParams();
-  useSaveAuthRequest();
 
   return (
     <ContainerLayout header={routeHeader}>
