@@ -1,19 +1,6 @@
 import { useAtom } from 'jotai';
-import { useAtomValue, useUpdateAtom } from 'jotai/utils';
-import {
-  authRequestState,
-  hasAllowedDiagnosticsState,
-  secretKeyState,
-  seedInputErrorState,
-} from './onboarding';
-
-export function useAuthRequest() {
-  return useAtomValue(authRequestState);
-}
-
-export function useUpdateAuthRequest() {
-  return useUpdateAtom(authRequestState);
-}
+import { useAtomValue } from 'jotai/utils';
+import { hasAllowedDiagnosticsState, secretKeyState, seedInputErrorState } from './onboarding';
 
 export function useSeedInputErrorState() {
   return useAtom(seedInputErrorState);
