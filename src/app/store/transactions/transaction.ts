@@ -41,5 +41,3 @@ export const addressNetworkVersionState = atom(get => {
     [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
   });
 });
-
-export const transactionBroadcastErrorState = atom<string | null>(null);

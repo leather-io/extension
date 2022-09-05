@@ -22,6 +22,7 @@ interface UseSubmitTransactionArgs {
 interface UseSubmitTransactionCallbackArgs {
   replaceByFee?: boolean;
   onClose(): void;
+  onError(error: Error): void;
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const refreshAccountData = useRefreshAllAccountData();
@@ -33,7 +34,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
   const analytics = useAnalytics();
 
   return useCallback(
-    ({ onClose }: UseSubmitTransactionCallbackArgs) =>
+    ({ onClose, onError }: UseSubmitTransactionCallbackArgs) =>
       async (transaction: StacksTransaction) => {
         setIsLoading();
         try {
@@ -56,10 +57,9 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             setActiveTabActivity();
             await refreshAccountData(timeForApiToUpdate);
           }
-        } catch (e) {
-          logger.error(e);
-          toast.error('Something went wrong');
-          onClose();
+        } catch (error) {
+          logger.error({ error });
+          onError(error instanceof Error ? error : { name: '', message: '' });
           setIsIdle();
         }
       },
@@ -73,23 +73,5 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       setActiveTabActivity,
       refreshAccountData,
     ]
-  );
-}
-
-interface UseHandleSubmitTransactionArgs {
-  loadingKey: string;
-}
-interface UseHandleSubmitTransactionReturnFn {
-  transaction: StacksTransaction;
-  replaceByFee?: boolean;
-  onClose(): void;
-}
-export function useHandleSubmitTransaction({ loadingKey }: UseHandleSubmitTransactionArgs) {
-  const broadcastTxCallback = useSubmitTransactionCallback({ loadingKey });
-
-  return useCallback(
-    ({ transaction, onClose, replaceByFee = false }: UseHandleSubmitTransactionReturnFn) =>
-      broadcastTxCallback({ onClose, replaceByFee })(transaction),
-    [broadcastTxCallback]
   );
 }

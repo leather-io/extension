@@ -4,7 +4,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
 import {
-  BroadcastErrorMessage,
   ExpiredRequestErrorMessage,
   FeeInsufficientFundsErrorMessage,
   IncorrectContractAddressMessage,
@@ -44,8 +43,6 @@ const TransactionErrorSuspense = memo(() => {
       return <IncorrectContractAddressMessage />;
     case TransactionErrorReason.StxTransferInsufficientFunds:
       return <StxTransferInsufficientFundsErrorMessage />;
-    case TransactionErrorReason.BroadcastError:
-      return <BroadcastErrorMessage />;
     case TransactionErrorReason.FeeInsufficientFunds:
       return <FeeInsufficientFundsErrorMessage />;
     case TransactionErrorReason.Unauthorized:
@@ -57,12 +54,10 @@ const TransactionErrorSuspense = memo(() => {
   }
 });
 
-function TransactionErrorBase(): JSX.Element {
+export function TransactionError() {
   return (
     <Suspense fallback={<></>}>
       <TransactionErrorSuspense />
     </Suspense>
   );
 }
-
-export const TransactionError = memo(TransactionErrorBase);

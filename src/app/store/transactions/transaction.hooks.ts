@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 import BN from 'bn.js';
 import toast from 'react-hot-toast';
-import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
+import { useAtomValue } from 'jotai/utils';
 import {
   createAssetInfo,
   createStacksPrivateKey,
@@ -18,7 +18,6 @@ import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { currentNetworkState } from '@app/store/network/networks';
 import {
   useStxTokenTransferUnsignedTxState,
   useFtTokenTransferUnsignedTx,
@@ -45,7 +44,7 @@ import { useSubmittedTransactionsActions } from '@app/store/submitted-transactio
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
-import { prepareTxDetailsForBroadcast, transactionBroadcastErrorState } from './transaction';
+import { prepareTxDetailsForBroadcast } from './transaction';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
@@ -146,122 +145,73 @@ export function useSignTransactionSoftwareWallet() {
   );
 }
 
+export function useBroadcastTransaction() {
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
+  const { tabId } = useDefaultRequestParams();
+  const requestToken = useTransactionRequest();
+  const attachment = useTransactionAttachment();
+  const network = useCurrentNetworkState();
+
+  return async ({ signedTx }: { signedTx: StacksTransaction }) => {
+    try {
+      const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
+      const result = await broadcastTransaction({
+        isSponsored,
+        serialized,
+        txRaw,
+        attachment,
+        networkUrl: network.url,
+      });
+      if (typeof result.txId === 'string') {
+        submittedTransactionsActions.newTransactionSubmitted({
+          rawTx: result.txRaw,
+          txId: result.txId,
+        });
+      }
+      // If there's a request token, this means it's a transaction request
+      // In which case we need to return to the app the results of the tx
+      // Otherwise, it's a send form tx and we don't want to
+      if (requestToken && tabId)
+        finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
+      return;
+    } catch (error) {
+      if (error instanceof Error) return { error };
+      return;
+    }
+  };
+}
+
 export function useSoftwareWalletTransactionBroadcast() {
   const { nonce } = useNextNonce();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
-  const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
-  const attachment = useTransactionAttachment();
   const account = useCurrentAccount();
-  const network = useCurrentNetworkState();
+  const txBroadcast = useBroadcastTransaction();
 
-  return useAtomCallback(
-    useCallback(
-      async (_get, set, values: TransactionFormValues) => {
-        if (!stacksTxBaseState) return;
-        const { options } = stacksTxBaseState as any;
-        const unsignedStacksTransaction = await generateUnsignedTransaction({
-          ...options,
-          fee: stxToMicroStx(values.fee).toNumber(),
-          nonce: Number(values.nonce) ?? nonce,
-        });
+  return async (values: TransactionFormValues) => {
+    if (!stacksTxBaseState) return;
+    const { options } = stacksTxBaseState as any;
+    const unsignedStacksTransaction = await generateUnsignedTransaction({
+      ...options,
+      fee: stxToMicroStx(values.fee).toNumber(),
+      nonce: Number(values.nonce) ?? nonce,
+    });
 
-        if (!account || !requestToken || !unsignedStacksTransaction) {
-          set(transactionBroadcastErrorState, 'No pending transaction');
-          return;
-        }
+    if (!account || !requestToken || !unsignedStacksTransaction) {
+      return { error: { message: 'No pending transaction' } };
+    }
 
-        if (!tabId) throw new Error('tabId not defined');
+    if (!tabId) throw new Error('tabId not defined');
 
-        try {
-          const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
-          if (!signedTx) {
-            logger.error('Cannot sign transaction, no account in state');
-            return;
-          }
-          const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
-          const result = await broadcastTransaction({
-            isSponsored,
-            serialized,
-            txRaw,
-            attachment,
-            networkUrl: network.url,
-          });
-
-          if (typeof result.txId === 'string') {
-            submittedTransactionsActions.newTransactionSubmitted({
-              rawTx: result.txRaw,
-              txId: result.txId,
-            });
-          }
-          finalizeTxSignature({ requestPayload: requestToken, data: result, tabId });
-        } catch (error) {
-          if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
-        }
-      },
-      [
-        account,
-        attachment,
-        network,
-        nonce,
-        requestToken,
-        signSoftwareWalletTx,
-        stacksTxBaseState,
-        submittedTransactionsActions,
-        tabId,
-      ]
-    )
-  );
-}
-
-//
-// TODO: duplicated from software wallet hook above
-// Broadcasting logic needs a complete refactor
-export function useHardwareWalletTransactionBroadcast() {
-  const submittedTransactionsActions = useSubmittedTransactionsActions();
-  const { tabId } = useDefaultRequestParams();
-  const requestToken = useTransactionRequest();
-  const attachment = useTransactionAttachment();
-
-  return useAtomCallback(
-    useCallback(
-      async (get, set, { signedTx }: { signedTx: StacksTransaction }) => {
-        const { network } = await get(
-          waitForAll({
-            network: currentNetworkState,
-          }),
-          { unstable_promise: true }
-        );
-
-        try {
-          const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
-          const result = await broadcastTransaction({
-            isSponsored,
-            serialized,
-            txRaw,
-            attachment,
-            networkUrl: network.url,
-          });
-          if (typeof result.txId === 'string') {
-            submittedTransactionsActions.newTransactionSubmitted({
-              rawTx: result.txRaw,
-              txId: result.txId,
-            });
-          }
-          // If there's a request token, this means it's a transaction request
-          // In which case we need to return to the app the results of the tx
-          // Otherwise, it's a send form tx and we don't want to
-          if (requestToken && tabId)
-            finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
-        } catch (error) {
-          if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
-        }
-      },
-      [attachment, requestToken, submittedTransactionsActions, tabId]
-    )
-  );
+    const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
+    if (!signedTx) {
+      logger.error('Cannot sign transaction, no account in state');
+      return;
+    }
+    return txBroadcast({ signedTx });
+  };
 }
 
 interface PostConditionsOptions {
