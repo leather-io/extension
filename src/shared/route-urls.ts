@@ -21,6 +21,8 @@ export enum RouteUrls {
   LedgerDevicePayloadInvalid = 'ledger-payload-invalid',
   LedgerUnsupportedBrowser = 'unsupported-browser',
 
+  TransactionBroadcastError = 'broadcast-error',
+
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',

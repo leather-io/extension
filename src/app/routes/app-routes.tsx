@@ -37,6 +37,7 @@ import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
 import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
+import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 
 export function AppRoutes() {
   const { pathname } = useLocation();
@@ -143,6 +144,7 @@ export function AppRoutes() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route
           path={RouteUrls.TransactionRequest}
@@ -155,6 +157,7 @@ export function AppRoutes() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
         <Route

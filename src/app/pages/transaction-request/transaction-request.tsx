@@ -1,8 +1,8 @@
-import { memo, useCallback, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { memo, useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Flex, Stack } from '@stacks/ui';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Flex, Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
@@ -18,7 +18,6 @@ import {
   useSetTransactionRequestAtom,
   useTransactionRequest,
   useTransactionRequestState,
-  useUpdateTransactionBroadcastError,
 } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
@@ -41,12 +40,13 @@ import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-set
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
+import { RouteUrls } from '@shared/route-urls';
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const handleBroadcastTransaction = useSoftwareWalletTransactionBroadcast();
-  const setBroadcastError = useUpdateTransactionBroadcastError();
+
   const txByteLength = useTxRequestEstimatedUnsignedTxByteLengthState();
   const txPayload = useTxRequestSerializedUnsignedTxPayloadState();
   const feeEstimations = useFeeEstimations(txByteLength, txPayload);
@@ -55,6 +55,7 @@ function TransactionRequestBase() {
   const { walletType } = useWalletType();
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const ledgerNavigate = useLedgerNavigate();
+  const navigate = useNavigate();
 
   useRouteHeader(<PopupHeader />);
 
@@ -66,36 +67,32 @@ function TransactionRequestBase() {
   // from an atom, rather than from the tooling provided by the app's router
   useSetTransactionRequestAtom(txRequest);
 
-  const onSubmit = useCallback(
-    async values => {
-      if (walletType === 'ledger') {
-        const tx = await generateUnsignedTx(values);
-        if (!tx) return;
-        ledgerNavigate.toConnectAndSignTransactionStep(tx);
-        return;
-      }
-      setIsLoading();
-      await handleBroadcastTransaction(values);
-      setIsIdle();
-      void analytics.track('submit_fee_for_transaction', {
-        calculation: feeEstimations.calculation,
-        fee: values.fee,
-        type: values.feeType,
-      });
-      return () => void setBroadcastError(null);
-    },
-    [
-      analytics,
-      feeEstimations.calculation,
-      generateUnsignedTx,
-      handleBroadcastTransaction,
-      ledgerNavigate,
-      setBroadcastError,
-      setIsIdle,
-      setIsLoading,
-      walletType,
-    ]
-  );
+  // TODO: fix `any`
+  // This was fine previously as wrapped in useCallback which masks the implict any error
+  const onSubmit = async (values: any) => {
+    if (walletType === 'ledger') {
+      const tx = await generateUnsignedTx(values);
+      if (!tx) return;
+      ledgerNavigate.toConnectAndSignTransactionStep(tx);
+      return;
+    }
+    setIsLoading();
+
+    const resp = await handleBroadcastTransaction(values);
+
+    setIsIdle();
+
+    if (resp?.error) {
+      navigate(RouteUrls.TransactionBroadcastError, { state: { message: resp.error.message } });
+      return;
+    }
+
+    void analytics.track('submit_fee_for_transaction', {
+      calculation: feeEstimations.calculation,
+      fee: values.fee,
+      type: values.feeType,
+    });
+  };
 
   if (!transactionRequest) return null;
 

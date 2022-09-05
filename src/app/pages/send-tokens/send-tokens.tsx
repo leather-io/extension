@@ -9,7 +9,6 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useHandleSubmitTransaction } from '@app/common/hooks/use-submit-stx-transaction';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { Header } from '@app/components/header';
@@ -33,6 +32,7 @@ import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 import { SendFormInner } from './components/send-form-inner';
+import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ function SendTokensFormBase() {
     void setActiveTabActivity();
   }, [setActiveTabActivity]);
 
-  const broadcastTransactionFn = useHandleSubmitTransaction({
+  const broadcastTransactionFn = useSubmitTransactionCallback({
     loadingKey: LoadingKeys.CONFIRM_DRAWER,
   });
 
@@ -79,15 +79,20 @@ function SendTokensFormBase() {
       }
       try {
         await broadcastTransactionFn({
-          transaction: signedTx,
           onClose() {
             handleConfirmDrawerOnClose();
-            navigate(RouteUrls.Home);
           },
-        });
+          onError(e) {
+            handleConfirmDrawerOnClose();
+            navigate(RouteUrls.TransactionBroadcastError, { state: { message: e.message } });
+          },
+          replaceByFee: false,
+        })(signedTx);
       } catch (e) {
-        toast.error('Something went wrong');
-        return;
+        handleConfirmDrawerOnClose();
+        navigate(RouteUrls.TransactionBroadcastError, {
+          state: { message: e instanceof Error ? e.message : 'unknown error' },
+        });
       }
     },
     [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate]
@@ -105,61 +110,64 @@ function SendTokensFormBase() {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validateOnChange={false}
-      validateOnBlur={false}
-      validateOnMount={false}
-      validationSchema={sendFormSchema}
-      onSubmit={async values => {
-        if (selectedAsset && !assetError) {
-          const tx = await generateTx(values);
-          whenWallet({
-            software: () => setShowing(true),
-            ledger: () => {
-              if (!tx) return logger.error('Attempted to sign tx, but no tx exists');
-              ledgerNavigate.toConnectAndSignTransactionStep(tx);
-            },
-          })();
-        }
-      }}
-    >
-      {props => (
-        <>
-          <Suspense fallback={<></>}>
-            <SendFormInner
-              assetError={assetError}
-              feeEstimations={feeEstimations.estimates}
-              nonce={nonce}
-            />
-          </Suspense>
-          {whenWallet({
-            ledger: <Outlet />,
-            software: (
-              <SendTokensSoftwareConfirmDrawer
-                isShowing={isShowing && !showEditNonce}
-                onClose={() => handleConfirmDrawerOnClose()}
-                onUserSelectBroadcastTransaction={async (
-                  transaction: StacksTransaction | undefined
-                ) => {
-                  if (!transaction) return;
-                  const signedTx = signSoftwareWalletTx(transaction);
-                  if (!signedTx) return;
-                  await broadcastTransactionAction(signedTx);
-                  void analytics.track('submit_fee_for_transaction', {
-                    calculation: feeEstimations.calculation,
-                    fee: props.values.fee,
-                    type: props.values.feeType,
-                  });
-                }}
+    <>
+      <Formik
+        initialValues={initialValues}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validateOnMount={false}
+        validationSchema={sendFormSchema}
+        onSubmit={async values => {
+          if (selectedAsset && !assetError) {
+            const tx = await generateTx(values);
+            whenWallet({
+              software: () => setShowing(true),
+              ledger: () => {
+                if (!tx) return logger.error('Attempted to sign tx, but no tx exists');
+                ledgerNavigate.toConnectAndSignTransactionStep(tx);
+              },
+            })();
+          }
+        }}
+      >
+        {props => (
+          <>
+            <Suspense fallback={<></>}>
+              <SendFormInner
+                assetError={assetError}
+                feeEstimations={feeEstimations.estimates}
+                nonce={nonce}
               />
-            ),
-          })}
-          <EditNonceDrawer />
-          <HighFeeDrawer />
-        </>
-      )}
-    </Formik>
+            </Suspense>
+            {whenWallet({
+              ledger: <></>,
+              software: (
+                <SendTokensSoftwareConfirmDrawer
+                  isShowing={isShowing && !showEditNonce}
+                  onClose={() => handleConfirmDrawerOnClose()}
+                  onUserSelectBroadcastTransaction={async (
+                    transaction: StacksTransaction | undefined
+                  ) => {
+                    if (!transaction) return;
+                    const signedTx = signSoftwareWalletTx(transaction);
+                    if (!signedTx) return;
+                    await broadcastTransactionAction(signedTx);
+                    void analytics.track('submit_fee_for_transaction', {
+                      calculation: feeEstimations.calculation,
+                      fee: props.values.fee,
+                      type: props.values.feeType,
+                    });
+                  }}
+                />
+              ),
+            })}
+            <EditNonceDrawer />
+            <HighFeeDrawer />
+          </>
+        )}
+      </Formik>
+      <Outlet />
+    </>
   );
 }
 

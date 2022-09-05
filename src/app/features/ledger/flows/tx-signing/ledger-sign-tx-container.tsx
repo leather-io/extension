@@ -20,7 +20,7 @@ import {
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { useHardwareWalletTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
+import { useBroadcastTransaction } from '@app/store/transactions/transaction.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { logger } from '@shared/logger';
 
@@ -34,7 +34,7 @@ export function LedgerSignTxContainer() {
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
   const account = useCurrentAccount();
-  const hwWalletTxBroadcast = useHardwareWalletTransactionBroadcast();
+  const hwWalletTxBroadcast = useBroadcastTransaction();
   const canUserCancelAction = useActionCancellableByUser();
 
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
@@ -114,12 +114,18 @@ export function LedgerSignTxContainer() {
       const signedTx = signTransactionWithSignature(unsignedTransaction, resp.signatureVRS);
       ledgerAnalytics.transactionSignedOnLedgerSuccessfully();
 
-      await hwWalletTxBroadcast({ signedTx });
+      const broadcastResp = await hwWalletTxBroadcast({ signedTx });
+
+      if (broadcastResp?.error) {
+        navigate(RouteUrls.TransactionBroadcastError);
+        return;
+      }
 
       navigate(RouteUrls.Home);
-      await stacksApp.transport.close();
     } catch (e) {
       ledgerNavigate.toDeviceDisconnectStep();
+    } finally {
+      await stacksApp.transport.close();
     }
   };
 
