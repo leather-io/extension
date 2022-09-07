@@ -10,15 +10,14 @@ import {
 } from '@shared/signature/types';
 import {
   useIsSignatureRequestValid,
-  useSetAtomSignatureRequestToken,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
 import { WarningLabel } from '@app/components/warning-label';
+import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
 import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
 import { SignatureRequestMessageContent } from './components/message-content';
 import { SignatureRequestLayout } from './components/signature-request.layout';
-import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
 function SignatureRequestBase() {
   const validSignatureRequest = useIsSignatureRequestValid();
@@ -27,10 +26,6 @@ function SignatureRequestBase() {
   useRouteHeader(<PopupHeader />);
 
   useOnOriginTabClose(() => window.close());
-
-  // Temporary workaround to avoid pattern of pulling search params directly
-  // into an atom, rather than using the tooling provided by our router library
-  useSetAtomSignatureRequestToken(requestToken);
 
   if (!isSignatureMessageType(messageType)) return null;
 

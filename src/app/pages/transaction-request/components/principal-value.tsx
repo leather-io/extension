@@ -1,14 +1,13 @@
-import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 interface PrincipalValueProps {
   address: string;
 }
-
-export function PrincipalValue(props: PrincipalValueProps): JSX.Element {
+export function PrincipalValue(props: PrincipalValueProps) {
   const { address, ...rest } = props;
-  const { mode } = useCurrentNetwork();
+  const { mode } = useCurrentNetworkState();
 
   return (
     <Link

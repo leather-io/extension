@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from 'react-query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 import { useAccountTransactionsWithTransfersState } from '@app/store/accounts/transactions-with-transfer.hooks';
 import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';

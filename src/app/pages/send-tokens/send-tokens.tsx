@@ -10,7 +10,7 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
 import { Header } from '@app/components/header';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -97,7 +97,7 @@ function SendTokensFormBase() {
 
   if (assets.length < 1) return null;
 
-  const initialValues: TransactionFormValues = {
+  const initialValues: SendFormValues = {
     assetId: '',
     amount: '',
     fee: '',

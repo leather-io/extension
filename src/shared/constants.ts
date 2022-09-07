@@ -24,35 +24,46 @@ export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 export const GITHUB_ORG = 'hirosystems';
 export const GITHUB_REPO = 'stacks-wallet-web';
 
-export interface Network {
-  url: string;
-  name: string;
-  chainId: ChainID;
-}
-
+const DEFAULT_MAINNET_SERVER = 'https://stacks-node-api.stacks.co';
 export const DEFAULT_TESTNET_SERVER = 'https://stacks-node-api.testnet.stacks.co';
 
-const DEFAULT_MAINNET_SERVER = 'https://stacks-node-api.stacks.co';
+export enum DefaultNetworkIds {
+  mainnet = 'mainnet',
+  testnet = 'testnet',
+  devnet = 'devnet',
+}
 
-export type Networks = Record<string, Network>;
+export type DefaultNetworkNames = keyof typeof DefaultNetworkIds;
 
-export const defaultNetworks: Networks = {
-  mainnet: {
-    url: DEFAULT_MAINNET_SERVER,
-    name: 'Mainnet',
-    chainId: ChainID.Mainnet,
-  },
-  testnet: {
-    url: DEFAULT_TESTNET_SERVER,
-    name: 'Testnet',
-    chainId: ChainID.Testnet,
-  },
-  devnet: {
-    url: 'http://localhost:3999',
-    name: 'Devnet',
-    chainId: ChainID.Testnet,
-  },
+export interface Network {
+  chainId: ChainID;
+  id: string;
+  name: string;
+  url: string;
+}
+
+export const defaultCurrentNetwork = {
+  chainId: ChainID.Mainnet,
+  id: DefaultNetworkIds.mainnet,
+  name: 'Mainnet',
+  url: DEFAULT_MAINNET_SERVER,
 } as const;
+
+export const defaultNetworksKeyedById = {
+  [DefaultNetworkIds.mainnet]: defaultCurrentNetwork,
+  [DefaultNetworkIds.testnet]: {
+    chainId: ChainID.Testnet,
+    id: DefaultNetworkIds.testnet,
+    name: 'Testnet',
+    url: DEFAULT_TESTNET_SERVER,
+  },
+  [DefaultNetworkIds.devnet]: {
+    chainId: ChainID.Testnet,
+    id: DefaultNetworkIds.devnet,
+    name: 'Devnet',
+    url: 'http://localhost:3999',
+  },
+};
 
 export enum QueryRefreshRates {
   VERY_SLOW = 120_000,

@@ -1,5 +1,3 @@
-import { atom } from 'jotai';
-import { currentNetworkState } from '@app/store/network/networks';
 import { fetcher as fetchApi } from '@app/common/api/wrapped-fetch';
 
 import {
@@ -26,7 +24,7 @@ import { MICROBLOCKS_ENABLED } from '@shared/constants';
  * Our mega api clients function. This is a combo of all clients that the blockchain-api-client package offers.
  * @param config - the `@stacks/blockchain-api-client` configuration object
  */
-function apiClients(config: Configuration) {
+export function apiClients(config: Configuration) {
   const smartContractsApi = new SmartContractsApi(config);
   const accountsApi = new AccountsApi(config);
   const infoApi = new InfoApi(config);
@@ -70,7 +68,7 @@ const unanchoredMiddleware: Middleware = {
   },
 };
 
-function createConfig(basePath: string, anchored?: boolean) {
+export function createConfig(basePath: string, anchored?: boolean) {
   const middleware: Middleware[] = [];
   if (MICROBLOCKS_ENABLED && !anchored) middleware.push(unanchoredMiddleware);
   return new Configuration({
@@ -79,17 +77,3 @@ function createConfig(basePath: string, anchored?: boolean) {
     middleware,
   });
 }
-
-// unanchored by default (microblocks)
-export const apiClientState = atom(get => {
-  const network = get(currentNetworkState);
-  const config = createConfig(network.url);
-  return apiClients(config);
-});
-
-// anchored (NON-microblocks)
-export const apiClientAnchoredState = atom(get => {
-  const network = get(currentNetworkState);
-  const config = createConfig(network.url, true);
-  return apiClients(config);
-});

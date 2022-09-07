@@ -6,7 +6,6 @@ import { truncateMiddle } from '@stacks/ui-utils';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { Caption } from '@app/components/typography';
 import { SpaceBetween } from '@app/components/space-between';
@@ -17,6 +16,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { PrimaryButton } from '@app/components/primary-button';
 import { SecondaryButton } from '@app/components/secondary-button';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;
@@ -96,7 +96,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
 });
 
 export const NoContractErrorMessage = memo(props => {
-  const network = useCurrentNetwork();
+  const network = useCurrentNetworkState();
   const pendingTransaction = useTransactionRequestState();
 
   if (!pendingTransaction || pendingTransaction.txType !== TransactionTypes.ContractCall)

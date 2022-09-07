@@ -1,8 +1,8 @@
 import { useQueries, useQuery } from 'react-query';
 
-import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { Api, useApi } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -20,7 +20,7 @@ function fetchNonFungibleTokenHoldings(api: Api) {
 
 export function useGetNonFungibleTokenHoldingsQuery(address?: string) {
   const api = useApi();
-  const network = useCurrentNetwork();
+  const network = useCurrentNetworkState();
 
   return useQuery({
     queryKey: ['get-nft-holdings', address, network.url],
@@ -31,7 +31,7 @@ export function useGetNonFungibleTokenHoldingsQuery(address?: string) {
 
 export function useGetNonFungibleTokenHoldingsListQuery(accounts?: AccountWithAddress[]) {
   const api = useApi();
-  const network = useCurrentNetwork();
+  const network = useCurrentNetworkState();
 
   return useQueries(
     (accounts || []).map(account => ({

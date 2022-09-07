@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useApi } from '@app/store/common/api-clients.hooks';
 
 const accountNoncesQueryOptions: UseQueryOptions = {

@@ -1,6 +1,7 @@
 import { HEYSTACK_HEY_TX_REQUEST } from '@tests/mocks';
-import { getPayloadFromToken } from '@app/store/transactions/utils';
 import { TransactionTypes } from '@stacks/connect';
+
+import { getPayloadFromToken } from './requests';
 
 describe(getPayloadFromToken.name, () => {
   it('verifies payload', () => {

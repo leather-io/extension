@@ -1,9 +1,10 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Flex, Stack } from '@stacks/ui';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
@@ -14,11 +15,7 @@ import { PostConditions } from '@app/pages/transaction-request/components/post-c
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
 import { PostConditionModeWarning } from '@app/pages/transaction-request/components/post-condition-mode-warning';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import {
-  useSetTransactionRequestAtom,
-  useTransactionRequest,
-  useTransactionRequestState,
-} from '@app/store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
   useSoftwareWalletTransactionBroadcast,
@@ -35,18 +32,17 @@ import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigat
 import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
+import { RouteUrls } from '@shared/route-urls';
 
 import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
-import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
-import { RouteUrls } from '@shared/route-urls';
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const handleBroadcastTransaction = useSoftwareWalletTransactionBroadcast();
-
   const txByteLength = useTxRequestEstimatedUnsignedTxByteLengthState();
   const txPayload = useTxRequestSerializedUnsignedTxPayloadState();
   const feeEstimations = useFeeEstimations(txByteLength, txPayload);
@@ -59,17 +55,11 @@ function TransactionRequestBase() {
 
   useRouteHeader(<PopupHeader />);
 
-  useEffect(() => void analytics.track('view_transaction_signing'), [analytics]);
+  useOnMount(() => {
+    void analytics.track('view_transaction_signing'), [analytics];
+  });
 
-  const txRequest = useTransactionRequest();
-
-  // This exists to move away from the pattern where the search param is pull
-  // from an atom, rather than from the tooling provided by the app's router
-  useSetTransactionRequestAtom(txRequest);
-
-  // TODO: fix `any`
-  // This was fine previously as wrapped in useCallback which masks the implict any error
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: TransactionFormValues) => {
     if (walletType === 'ledger') {
       const tx = await generateUnsignedTx(values);
       if (!tx) return;
@@ -100,7 +90,7 @@ function TransactionRequestBase() {
     ? yup.object({ fee: feeSchema(), nonce: nonceSchema })
     : null;
 
-  const initialValues: Partial<TransactionFormValues> = {
+  const initialValues: TransactionFormValues = {
     fee: '',
     feeType: FeeType[FeeType.Middle],
     nonce: '',

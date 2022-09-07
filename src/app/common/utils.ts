@@ -1,9 +1,8 @@
-import BigNumber from 'bignumber.js';
 import type { ClipboardEvent } from 'react';
-
-import { KEBAB_REGEX, Network } from '@shared/constants';
-import { StacksNetwork } from '@stacks/network';
+import BigNumber from 'bignumber.js';
 import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
+
+import { DefaultNetworkNames, KEBAB_REGEX } from '@shared/constants';
 
 import { AssetWithMeta } from './asset-types';
 
@@ -48,7 +47,7 @@ export function validateAndCleanRecoveryInput(value: string) {
   return { isValid: false, value };
 }
 
-export function makeTxExplorerLink(txid: string, chain: 'mainnet' | 'testnet', suffix = '') {
+export function makeTxExplorerLink(txid: string, chain: DefaultNetworkNames, suffix = '') {
   return `https://explorer.stacks.co/txid/${txid}?chain=${chain}${suffix}`;
 }
 
@@ -175,47 +174,6 @@ export function hexToHumanReadable(hex: string) {
   const buff = hexToBuff(hex);
   if (isUtf8(buff)) return buff.toString('utf8');
   return `0x${hex}`;
-}
-
-// We need this function because the latest changes
-// to `@stacks/network` had some undesired consequence.
-// As `StacksNetwork` is a class instance, this is auto
-// serialized when being passed across `postMessage`,
-// from the developer's app, to the Hiro Wallet.
-// `coreApiUrl` now uses a getter, rather than a prop,
-// and `_coreApiUrl` is a private value.
-// To support both `@stacks/network` versions a dev may be using
-// we look for both possible networks defined
-function getCoreApiUrl(network: StacksNetwork) {
-  if (network.coreApiUrl) return network.coreApiUrl;
-  if ((network as any)._coreApiUrl) return (network as any)._coreApiUrl;
-}
-
-export function findMatchingNetworkKey(
-  txNetwork: StacksNetwork,
-  networks: Record<string, Network>
-) {
-  if (!networks || !txNetwork) return;
-
-  const developerDefinedApiUrl = getCoreApiUrl(txNetwork);
-
-  const keys = Object.keys(networks);
-
-  // first try to search for an _exact_ url match
-  const exactUrlMatch = keys.find((key: string) => {
-    const network = networks[key] as Network;
-    return network.url === developerDefinedApiUrl;
-  });
-  if (exactUrlMatch) return exactUrlMatch;
-
-  // else check for a matching chain id (testnet/mainnet)
-  const chainIdMatch = keys.find((key: string) => {
-    const network = networks[key] as Network;
-    return network.url === developerDefinedApiUrl || network.chainId === txNetwork?.chainId;
-  });
-  if (chainIdMatch) return chainIdMatch;
-
-  return null;
 }
 
 export const slugify = (...args: (string | number)[]): string => {

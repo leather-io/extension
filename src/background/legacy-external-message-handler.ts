@@ -9,6 +9,8 @@ import {
 } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
+import { getCoreApiUrl, getPayloadFromToken } from '@shared/utils/requests';
+
 import { popupCenter } from './popup-center';
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
@@ -77,9 +79,19 @@ function listenForOriginTabClose({ tabId }: ListenForOriginTabCloseArgs) {
   });
 }
 
-async function triggerRequstWindowOpen(path: RouteUrls, urlParams: URLSearchParams) {
+async function triggerRequestWindowOpen(path: RouteUrls, urlParams: URLSearchParams) {
   if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
   return popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
+}
+
+function getNetworkParamsFromPayload(payload: string): [string, string][] {
+  const { network } = getPayloadFromToken(payload);
+  if (!network) return [];
+  const developerDefinedApiUrl = getCoreApiUrl(network);
+  return [
+    ['coreApiUrl', developerDefinedApiUrl],
+    ['networkChainId', network.chainId.toString()],
+  ];
 }
 
 export async function handleLegacyExternalMethodFormat(
@@ -92,7 +104,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.authenticationRequest: {
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['authRequest', payload]]);
 
-      const { id } = await triggerRequstWindowOpen(RouteUrls.ChooseAccount, urlParams);
+      const { id } = await triggerRequestWindowOpen(RouteUrls.ChooseAccount, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -103,9 +115,12 @@ export async function handleLegacyExternalMethodFormat(
     }
 
     case ExternalMethods.transactionRequest: {
-      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
+      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+        ['request', payload],
+        ...getNetworkParamsFromPayload(payload),
+      ]);
 
-      const { id } = await triggerRequstWindowOpen(RouteUrls.TransactionRequest, urlParams);
+      const { id } = await triggerRequestWindowOpen(RouteUrls.TransactionRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -119,9 +134,10 @@ export async function handleLegacyExternalMethodFormat(
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
         ['request', payload],
         ['messageType', 'utf8'],
+        ...getNetworkParamsFromPayload(payload),
       ]);
 
-      const { id } = await triggerRequstWindowOpen(RouteUrls.SignatureRequest, urlParams);
+      const { id } = await triggerRequestWindowOpen(RouteUrls.SignatureRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -137,7 +153,7 @@ export async function handleLegacyExternalMethodFormat(
         ['messageType', 'structured'],
       ]);
 
-      const { id } = await triggerRequstWindowOpen(RouteUrls.SignatureRequest, urlParams);
+      const { id } = await triggerRequestWindowOpen(RouteUrls.SignatureRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,

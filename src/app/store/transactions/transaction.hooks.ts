@@ -16,7 +16,7 @@ import {
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import {
   useStxTokenTransferUnsignedTxState,
   useFtTokenTransferUnsignedTx,
@@ -37,7 +37,7 @@ import {
 import {
   useCurrentNetworkState,
   useCurrentStacksNetworkState,
-} from '@app/store/network/networks.hooks';
+} from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { logger } from '@shared/logger';
@@ -46,7 +46,6 @@ import { isUndefined } from '@shared/utils';
 import { prepareTxDetailsForBroadcast } from './transaction';
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
-import { isSendingFormSendingStx } from './utils';
 
 export function useTransactionPostConditions() {
   return usePostConditionState();
@@ -94,10 +93,13 @@ function useUnsignedStacksTransactionBaseState() {
 
 export function useUnsignedPrepareTransactionDetails(
   selectedAssetId: string,
-  values: TransactionFormValues
+  values: SendFormValues | TransactionFormValues
 ) {
   const unsignedStacksTransaction = useUnsignedStacksTransaction(values);
-  const sendFormUnsignedTx = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
+  const sendFormUnsignedTx = useSendFormUnsignedTxPreviewState(
+    selectedAssetId,
+    values as SendFormValues
+  );
   return useMemo(
     () => unsignedStacksTransaction || sendFormUnsignedTx,
     [sendFormUnsignedTx, unsignedStacksTransaction]
@@ -106,7 +108,7 @@ export function useUnsignedPrepareTransactionDetails(
 
 export function useSendFormSerializedUnsignedTxPayloadState(
   selectedAssetId: string,
-  values?: TransactionFormValues
+  values?: SendFormValues
 ) {
   const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return '';
@@ -115,7 +117,7 @@ export function useSendFormSerializedUnsignedTxPayloadState(
 
 export function useSendFormEstimatedUnsignedTxByteLengthState(
   selectedAssetId: string,
-  values?: TransactionFormValues
+  values?: SendFormValues
 ) {
   const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return null;
@@ -269,6 +271,10 @@ function useUnsignedStacksTransaction(values: TransactionFormValues) {
   return tx.result;
 }
 
+function isSendingFormSendingStx(assetId: string) {
+  return assetId === '.::Stacks Token';
+}
+
 export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
   const isSendingStx = isSendingFormSendingStx(selectedAssetId);
   const stxTokenTransferUnsignedTx = useGenerateStxTokenTransferUnsignedTx();
@@ -282,7 +288,7 @@ export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
 
 export function useSendFormUnsignedTxPreviewState(
   selectedAssetId: string,
-  values?: TransactionFormValues
+  values?: SendFormValues
 ) {
   const isSendingStx = isSendingFormSendingStx(selectedAssetId);
   const stxTokenTransferUnsignedTx = useStxTokenTransferUnsignedTxState(values);

@@ -12,13 +12,12 @@ import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full
 import { Header } from '@app/components/header';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Text } from '@app/components/typography';
-import {
-  useCurrentStacksNetworkState,
-  useUpdateCurrentNetworkKey,
-  useUpdateNetworkState,
-} from '@app/store/network/networks.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { NetworkSelectors } from '@tests/integration/network.selectors';
+import {
+  useCurrentStacksNetworkState,
+  useNetworksActions,
+} from '@app/store/networks/networks.hooks';
 
 interface AddNetworkFormValues {
   key: string;
@@ -31,9 +30,8 @@ export const AddNetwork = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const setNetworks = useUpdateNetworkState();
-  const setNetworkKey = useUpdateCurrentNetworkKey();
   const network = useCurrentStacksNetworkState();
+  const networksActions = useNetworksActions();
 
   useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
 
@@ -55,17 +53,12 @@ export const AddNetwork = () => {
             const chainInfo = await response.json();
             const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
             if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {
-              setNetworks(networks => {
-                return {
-                  ...networks,
-                  [key]: {
-                    url: origin,
-                    name,
-                    chainId: networkId,
-                  },
-                };
+              networksActions.addNetwork({
+                chainId: networkId,
+                id: key,
+                name,
+                url: origin,
               });
-              setNetworkKey(key);
               navigate(RouteUrls.Home);
               return;
             }

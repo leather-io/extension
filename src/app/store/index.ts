@@ -23,17 +23,19 @@ import { ExtensionStorage } from './utils/extension-storage';
 import { onboardingSlice } from './onboarding/onboarding.slice';
 import { analyticsSlice } from './analytics/analytics.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
+import { networksSlice } from './networks/networks.slice';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
 const rootReducer = combineReducers({
-  keys: keySlice.reducer,
+  analytics: analyticsSlice.reducer,
   chains: combineReducers({
     stx: stxChainSlice.reducer,
   }),
   inMemoryKeys: inMemoryKeySlice.reducer,
+  keys: keySlice.reducer,
+  networks: networksSlice.reducer,
   onboarding: onboardingSlice.reducer,
-  analytics: analyticsSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
 });
 
@@ -42,7 +44,7 @@ const persistConfig = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['keys', 'chains', 'onboarding', 'analytics'],
+  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
