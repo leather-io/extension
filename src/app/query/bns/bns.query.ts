@@ -14,13 +14,15 @@ const bnsQueryOptions = {
 } as const;
 
 function getBnsNameFetcherFactory(api: Api) {
-  return (address: string) => () =>
-    api.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
+  return (address: string) => () => {
+    return api.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
+  };
 }
 
 export function useGetBnsNamesOwnedByAddress(address: string) {
   const api = useApi();
   return useQuery({
+    enabled: address !== '',
     queryKey: ['bns-names-by-address', address],
     queryFn: getBnsNameFetcherFactory(api)(address),
     ...bnsQueryOptions,

@@ -1,21 +1,11 @@
-import { useEffect, useMemo } from 'react';
-import { useUpdateAtom } from 'jotai/utils';
+import { useMemo } from 'react';
 
-import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
-import { getPayloadFromToken } from './utils';
-import { requestTokenPayloadState } from './requests';
+import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
+import { getPayloadFromToken } from '@shared/utils/requests';
 
 export function useTransactionRequest() {
   const params = useInitialRouteSearchParams();
   return params.get('request');
-}
-
-export function useSetTransactionRequestAtom(request: string | null) {
-  const updateRequestTokenState = useUpdateAtom(requestTokenPayloadState);
-
-  useEffect(() => {
-    if (request) updateRequestTokenState(getPayloadFromToken(request));
-  }, [request, updateRequestTokenState]);
 }
 
 export function useTransactionRequestState() {

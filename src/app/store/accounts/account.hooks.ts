@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
 
@@ -6,17 +7,16 @@ import {
   transactionNetworkVersionState,
 } from '@app/store/transactions/transaction';
 import {
-  accountsWithAddressState,
   currentAccountConfirmedTransactionsState,
   hasSwitchedAccountsState,
   hasCreatedAccountState,
+  accountsWithAddressState,
 } from '@app/store/accounts/accounts';
+import { currentAccountIndexState } from '@app/store/wallet/wallet';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
 
-import { currentAccountIndexState } from '../wallet/wallet';
-import { useTransactionRequestState } from '../transactions/requests.hooks';
-import { useMemo } from 'react';
 import { AccountWithAddress } from './account.models';
-import { signatureRequestAccountIndex } from '../signatures/requests';
 
 export function useAccountConfirmedTransactions() {
   return useAtomValue(currentAccountConfirmedTransactionsState);
@@ -34,10 +34,11 @@ export function useAccounts() {
 export function useCurrentAccount() {
   const accountIndex = useCurrentAccountIndex();
   const txIndex = useTransactionAccountIndex();
-  const signatureIndex = useAtomValue(signatureRequestAccountIndex);
+  const signatureIndex = useSignatureRequestAccountIndex();
   // ⚠️ to refactor, we should not just continually add new conditionals here
   const hasSwitched = useAtomValue(hasSwitchedAccountsState);
   const accounts = useAccounts();
+
   return useMemo(() => {
     const index = txIndex ?? signatureIndex;
     if (!accounts) return undefined;
@@ -47,7 +48,7 @@ export function useCurrentAccount() {
 }
 
 export function useCurrentAccountStxAddressState() {
-  return useCurrentAccount()?.address;
+  return useCurrentAccount()?.address ?? '';
 }
 
 export function useCurrentAccountIndex() {

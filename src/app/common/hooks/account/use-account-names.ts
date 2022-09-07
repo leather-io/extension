@@ -6,15 +6,16 @@ import { getAccountDisplayName } from '@app/common/utils/get-account-display-nam
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 export function useCurrentAccountDisplayName() {
-  const names = useCurrentAccountNames();
   const account = useCurrentAccount();
+  const names = useCurrentAccountNames();
+
   return useMemo(() => {
     if (!account || typeof account?.index !== 'number') return 'Account';
     return names?.[0] || `Account ${account?.index + 1}`;
   }, [account, names]);
 }
 
-export function useAccountDisplayName(account: AccountWithAddress) {
+export function useAccountDisplayName(account: AccountWithAddress): string {
   const names = useGetAccountNamesByAddressQuery(account.address);
   return useMemo(() => names[0] ?? getAccountDisplayName(account), [account, names]);
 }

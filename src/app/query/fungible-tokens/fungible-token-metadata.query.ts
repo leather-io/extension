@@ -2,8 +2,8 @@ import { useQueries, useQuery } from 'react-query';
 import { RateLimiter } from 'limiter';
 
 import { useApi, Api } from '@app/store/common/api-clients.hooks';
-import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { isResponseCode } from '@app/common/network/is-response-code';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 
@@ -33,7 +33,8 @@ function fetchUnanchoredAccountInfo(api: Api) {
 
 export function useGetFungibleTokenMetadataQuery(contractId: string) {
   const api = useApi();
-  const network = useCurrentNetwork();
+  const network = useCurrentNetworkState();
+
   return useQuery({
     queryKey: ['get-ft-metadata', contractId, network.url],
     queryFn: fetchUnanchoredAccountInfo(api)(contractId),
@@ -43,7 +44,8 @@ export function useGetFungibleTokenMetadataQuery(contractId: string) {
 
 export function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
   const api = useApi();
-  const network = useCurrentNetwork();
+  const network = useCurrentNetworkState();
+
   return useQueries(
     contractIds.map(contractId => ({
       queryKey: ['get-ft-metadata', contractId, network.url],

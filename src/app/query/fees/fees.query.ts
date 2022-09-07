@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from 'react-query';
 
 import { fetcher } from '@app/common/api/wrapped-fetch';
 import { TransactionFeeEstimation } from '@shared/models/fees-types';
-import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 

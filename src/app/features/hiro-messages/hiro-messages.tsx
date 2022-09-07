@@ -1,18 +1,19 @@
 import { Box, Flex, FlexProps } from '@stacks/ui';
 
 import { useRemoteHiroMessages } from '@app/query/hiro-config/hiro-config.query';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+
 import { HiroMessageItem } from './components/hiro-message-item';
-import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 
 export const HiroMessages = (props: FlexProps) => {
   const messages = useRemoteHiroMessages();
-  const network = useCurrentNetwork();
+  const { mode } = useCurrentNetworkState();
 
   if (!messages || messages?.length === 0) return null;
 
   const firstMessage = messages[0];
 
-  if (firstMessage.chainTarget !== 'all' && firstMessage.chainTarget !== network.mode) {
+  if (firstMessage.chainTarget !== 'all' && firstMessage.chainTarget !== mode) {
     return null;
   }
 

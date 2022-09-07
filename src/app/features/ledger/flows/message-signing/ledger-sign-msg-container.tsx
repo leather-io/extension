@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
+import { signatureVrsToRsv } from '@stacks/common';
 
 import { delay } from '@app/common/utils';
 import {
@@ -11,20 +12,17 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { logger } from '@shared/logger';
+import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
+import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
+import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
-
-import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
-import { signatureVrsToRsv } from '@stacks/common';
-import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 
 export function LedgerSignMsgContainer() {
   useScrollLock(true);

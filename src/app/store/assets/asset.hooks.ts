@@ -32,7 +32,7 @@ export function useAssetWithMetadata(asset: Asset) {
   return asset as AssetWithMeta;
 }
 
-export function useSelectedAssetMetadata(selectedAssetId?: string) {
+export function useSelectedAssetMetadata(selectedAssetId: string) {
   const assetsWithMetadata = useAssetsWithMetadata();
 
   return useMemo(

@@ -4,13 +4,13 @@ import { useFormikContext } from 'formik';
 
 import { microStxToStx } from '@app/common/stacks-utils';
 import { removeCommas } from '@app/common/token-utils';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/mempool/mempool.hooks';
 
 export function useSendAmountFieldActions() {
-  const { setFieldValue, values } = useFormikContext<TransactionFormValues>();
+  const { setFieldValue, values } = useFormikContext<SendFormValues>();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
   const { selectedAsset, balance } = useSelectedAsset(values.assetId);

@@ -1,10 +1,10 @@
-import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
 import { useLocation } from 'react-router-dom';
 import { EventParams, PageParams } from '@segment/analytics-next/dist/pkg/core/arguments-resolver';
 
 import { analytics } from '@shared/utils/analytics';
 import { logger } from '@shared/logger';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { IS_TEST_ENV } from '@shared/environment';
 
 const IGNORED_PATH_REGEXPS = [/^\/$/];

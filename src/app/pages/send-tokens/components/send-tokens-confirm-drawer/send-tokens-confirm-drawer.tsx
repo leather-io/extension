@@ -13,7 +13,7 @@ import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { useEffect } from 'react';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { StacksTransaction } from '@stacks/transactions';
 
 interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
@@ -21,7 +21,7 @@ interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
 }
 export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirmDrawerProps) {
   const { isShowing, onClose, onUserSelectBroadcastTransaction } = props;
-  const { values } = useFormikContext<TransactionFormValues>();
+  const { values } = useFormikContext<SendFormValues>();
   const transaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
   const analytics = useAnalytics();
   const { showEditNonce } = useDrawers();

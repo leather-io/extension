@@ -17,6 +17,7 @@ import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transact
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
@@ -52,7 +53,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
       submittedTransactionsActions.transactionReplacedByFee(txId);
       whenWallet({
         software: async () => {
-          await replaceByFee(values);
+          await replaceByFee(rawTx);
         },
         ledger: () => {
           ledgerNavigate.toConnectAndSignTransactionStep(rawTx, true);
@@ -70,7 +71,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
     ]
   );
 
-  if (!tx || !fee) return null;
+  if (!tx || !fee) return <LoadingSpinner />;
 
   return (
     <Formik

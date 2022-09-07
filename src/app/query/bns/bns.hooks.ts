@@ -5,8 +5,8 @@ import { useGetBnsNamesOwnedByAddress } from './bns.query';
 
 export function useCurrentAccountNames() {
   const principal = useCurrentAccountStxAddressState();
-  if (!principal) logger.error('No principal defined');
-  const namesResponse = useGetBnsNamesOwnedByAddress(principal ?? '');
+  const namesResponse = useGetBnsNamesOwnedByAddress(principal);
+  if (principal === '') logger.error('No principal defined');
   return useMemo(() => namesResponse.data?.names ?? [], [namesResponse.data?.names]);
 }
 

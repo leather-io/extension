@@ -8,7 +8,7 @@ import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
-import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks';
+import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { getErrorMessage } from '@app/common/get-error-message';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';

@@ -22,7 +22,7 @@ import { extractDeviceNameFromKnownTargetIds } from '../ledger/ledger-utils';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { lockWallet, currentNetworkKey, hasGeneratedWallet, wallet } = useWallet();
+  const { lockWallet, currentNetworkId, hasGeneratedWallet, wallet } = useWallet();
   const createAccount = useCreateAccount();
   const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
   const {
@@ -101,9 +101,7 @@ export function SettingsDropdown() {
             >
               <Flex width="100%" alignItems="center" justifyContent="space-between">
                 <Box>Change Network</Box>
-                <Caption data-testid={SettingsSelectors.CurrentNetwork}>
-                  {currentNetworkKey}
-                </Caption>
+                <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
               </Flex>
             </MenuItem>
             <Divider />
