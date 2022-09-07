@@ -5,7 +5,7 @@ import { Prism } from '@app/common/clarity-prism';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { Caption, Title } from '@app/components/typography';
 import { Divider } from '@app/components/divider';
-import { ContractPreview } from '@app/pages/transaction-request/components/contract-preview';
+import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
 import { Row } from '@app/pages/transaction-request/components/row';
 import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -95,7 +95,7 @@ export function ContractDeployDetails(): JSX.Element | null {
           <Title as="h2" fontWeight="500">
             Contract deploy details
           </Title>
-          <ContractPreview
+          <ContractPreviewLayout
             contractAddress={currentAccountStxAddress}
             contractName={transactionRequest.contractName}
           />
