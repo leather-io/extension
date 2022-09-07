@@ -4,14 +4,14 @@ import { Stack, color } from '@stacks/ui';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { Divider } from '@app/components/divider';
 import { Title } from '@app/components/typography';
-import { ContractPreview } from '@app/pages/transaction-request/components/contract-preview';
+import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
 import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 import { FunctionArgumentsList } from './function-arguments-list';
 import { formatContractId } from '@app/common/utils';
 
-function ContractCallDetailsSuspense(): JSX.Element | null {
+function ContractCallDetailsSuspense() {
   const transactionRequest = useTransactionRequestState();
   const { handleOpenTxLink } = useExplorerLink();
 
@@ -31,7 +31,7 @@ function ContractCallDetailsSuspense(): JSX.Element | null {
         Function and arguments
       </Title>
 
-      <ContractPreview
+      <ContractPreviewLayout
         onClick={() => handleOpenTxLink(formatContractId(contractAddress, contractName))}
         contractAddress={contractAddress}
         contractName={contractName}
@@ -45,7 +45,7 @@ function ContractCallDetailsSuspense(): JSX.Element | null {
   );
 }
 
-export function ContractCallDetails(): JSX.Element {
+export function ContractCallDetails() {
   return (
     <Suspense fallback={<></>}>
       <ContractCallDetailsSuspense />

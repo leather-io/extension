@@ -4,13 +4,13 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { Caption, Title } from '@app/components/typography';
 import { formatContractId } from '@app/common/utils';
 
-interface ContractPreviewProps extends StackProps {
+interface ContractPreviewLayoutProps extends StackProps {
   contractAddress: string;
   contractName: string;
   functionName?: string;
 }
 
-export function ContractPreview(props: ContractPreviewProps): JSX.Element {
+export function ContractPreviewLayout(props: ContractPreviewLayoutProps) {
   const { contractAddress, contractName, functionName, ...rest } = props;
 
   return (

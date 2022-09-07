@@ -1,26 +1,18 @@
-import { UseQueryOptions } from 'react-query';
 import type { TransactionPayload } from '@stacks/connect';
 import { ContractInterfaceFunction } from '@stacks/rpc-client';
 
-import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-types';
 import { useGetContractInterface } from '@app/query/contract/contract.query';
-import { useContractInterfaceState } from '@app/store/contracts/contract.hooks';
+
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { formatContractId } from '@app/common/utils';
 
 export function useContractInterface(transactionRequest: TransactionPayload | null) {
-  const [, setContractInterface] = useContractInterfaceState();
-  const queryOptions: UseQueryOptions<ContractInterfaceResponseWithFunctions> = {
-    onSuccess: (data: ContractInterfaceResponseWithFunctions) => {
-      if (data) setContractInterface(data);
-    },
-  };
-  return useGetContractInterface(transactionRequest, queryOptions);
+  return useGetContractInterface(transactionRequest).data;
 }
 
-export const useContractFunction = () => {
+export function useContractFunction() {
   const transactionRequest = useTransactionRequestState();
-  const [contractInterface] = useContractInterfaceState();
+  const contractInterface = useContractInterface(transactionRequest);
 
   if (!transactionRequest || transactionRequest.txType !== 'contract_call' || !contractInterface)
     return;
@@ -39,4 +31,4 @@ export const useContractFunction = () => {
     );
   }
   return selectedFunction;
-};
+}
