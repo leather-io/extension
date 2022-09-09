@@ -35,12 +35,13 @@ export async function internalBackgroundMessageHandler(
   sender: chrome.runtime.MessageSender,
   sendResponse: (response?: any) => void
 ) {
-  logger.info('Internal msg', message);
+  // console.info('Internal msg', message, validateMessagesAreFromExtension(sender));
   if (!validateMessagesAreFromExtension(sender)) {
     logger.error('Error: Received background script msg from ' + sender.url);
+    sendResponse();
     return;
   }
-  logger.debug('Internal message', message);
+  // logger.debug('Internal message', message);
   switch (message.method) {
     case InternalMethods.RequestDerivedStxAccounts: {
       const { secretKey, highestAccountIndex } = message.payload;
@@ -52,12 +53,13 @@ export async function internalBackgroundMessageHandler(
     case InternalMethods.ShareInMemoryKeyToBackground: {
       const { keyId, secretKey } = message.payload;
       inMemoryKeys.set(keyId, secretKey);
-      // await backupWalletSaltForGaia(secretKey);
+      sendResponse();
       break;
     }
 
     case InternalMethods.RequestInMemoryKeys: {
       sendResponse(Object.fromEntries(inMemoryKeys));
+      sendResponse();
       break;
     }
 
@@ -79,7 +81,11 @@ export async function internalBackgroundMessageHandler(
 
     case InternalMethods.RemoveInMemoryKeys: {
       inMemoryKeys.clear();
+      sendResponse();
       break;
     }
   }
+  // As browser is instructed that, if there is a response it will be
+  // asyncronous, we must always return a response, even if empty
+  sendResponse();
 }

@@ -1,5 +1,6 @@
-import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shared/message-types';
 import { SignatureData } from '@stacks/connect';
+
+import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage } from '@shared/message-types';
 
 interface FormatMessageSigningResponseArgs {
   request: string;
