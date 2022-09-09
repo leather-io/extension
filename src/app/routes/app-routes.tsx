@@ -197,9 +197,7 @@ function useAppRoutes() {
           path={RouteUrls.Fund}
           element={
             <AccountGate>
-              <Suspense fallback={<></>}>
-                <FundPage />
-              </Suspense>
+              <FundPage />
             </AccountGate>
           }
         >

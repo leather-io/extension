@@ -1,5 +1,5 @@
 import { formatAuthResponse } from '@shared/actions/finalize-auth-reaponse-format';
-import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature';
+import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature-format';
 import { formatProfileUpdateResponse } from '@shared/actions/finalize-profile-update';
 import { formatPsbtResponse } from '@shared/actions/finalize-psbt';
 import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature-format';

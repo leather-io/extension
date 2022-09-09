@@ -1,5 +1,5 @@
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Page } from 'playwright-core';
+import { Page } from 'playwright';
 
 import { createTestSelector } from '../integration/utils';
 import { TransactionSigningSelectors } from './transaction-signing.selectors';

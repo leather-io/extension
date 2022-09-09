@@ -1,6 +1,8 @@
 import { Page } from '@playwright/test';
 import { setupMockApis } from '@tests/mocks/mock-apis';
 
+// const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export class GlobalPage {
   readonly page: Page;
 
@@ -16,6 +18,15 @@ export class GlobalPage {
     await this.page.route(/.*/, route => route.continue());
     await setupMockApis(this.page);
     await this.gotoNakedRoot(extensionId);
+    // I've no idea why this delay is needed. Was required when switching to MV3. Without it,
+    // this error is thrown. Let's try removing with later versions of Playwright.
+    //
+    // Error: page.goto: Navigation failed because page was closed!
+    // =========================== logs ===========================
+    // navigating to "chrome-extension://bcokkkbghbnpbjpkoifjakaofdjfgeaj/index.html", waiting until "load"
+    // ============================================================
+    // await delay(600);
+    // await this.page.goto(`chrome-extension://${extensionId}/index.html`);
   }
 
   async setupAndUseMockedApiCalls(extensionId: string) {

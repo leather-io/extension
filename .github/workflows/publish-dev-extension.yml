@@ -33,7 +33,7 @@ jobs:
           IS_PUBLISHING: true
         run: yarn build
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         name: Upload build artifact
         with:
           name: hiro-wallet

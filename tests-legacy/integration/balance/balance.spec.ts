@@ -8,9 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
-const getAmount = (stxAmount: string) => {
-  return stxAmount ? parseFloat(stxAmount.replace(/,/g, '')) : 0;
-};
+const getAmount = (stxAmount: string) => (stxAmount ? parseFloat(stxAmount.replace(/,/g, '')) : 0);
 
 describe(`balance integration tests`, () => {
   const BEFORE_ALL_TIMEOUT = 60000;
