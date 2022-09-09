@@ -1,5 +1,5 @@
 import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
-import { Page } from 'playwright-core';
+import { Page } from 'playwright';
 
 import { createTestSelector } from '../integration/utils';
 

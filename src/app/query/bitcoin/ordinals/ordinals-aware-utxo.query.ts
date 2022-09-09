@@ -43,6 +43,7 @@ async function fetchOrdinalsAwareUtxo(
   if (!res.ok) throw new Error('Failed to fetch txid metadata');
 
   const data = await res.json();
+  if (data.error) throw new Error(data.error);
   if (Object.keys(data).length === 0) throw new Error('No output data found');
   return ordApiGetTransactionOutput.validate(data);
 }

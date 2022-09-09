@@ -14,7 +14,7 @@ jobs:
         run: curl -s https://addons.mozilla.org/api/v5/addons/addon/hiro-wallet/versions/ | jq -r '.results[0].version' > firefox_version
 
       - name: Upload latest Firefox version info
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: firefox_version
           path: firefox_version
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
       - name: Get latest Chrome version
@@ -91,7 +91,7 @@ jobs:
           EOF
 
       - name: Upload latest Chrome version info
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: chrome_version
           path: chrome_version
