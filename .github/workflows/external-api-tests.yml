@@ -52,6 +52,14 @@ jobs:
         with:
           run: yarn playwright test --reporter=github tests/api
 
+      - name: Truncate String
+        uses: 2428392/gh-truncate-string-action@v1.2.0
+        id: truncatedString
+        if: failure()
+        with:
+          stringToTruncate: ${{ steps.playwright.outputs.stdout }}
+          maxLength: 2000
+
       - name: Discord notification
         if: failure()
         env:
@@ -62,5 +70,5 @@ jobs:
             Something funky's up with the OrdAPI.xyz. Wallet team engineer to investigate. See `ordinals-checker.yml` Github Action.
             [Failing test job](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             ```bash
-            ${{ steps.playwright.outputs.stdout }}
+            ${{ steps.truncatedString.outputs.string }}
             ```

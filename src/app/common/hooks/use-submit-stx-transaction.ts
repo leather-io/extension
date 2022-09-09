@@ -25,11 +25,13 @@ interface UseSubmitTransactionCallbackArgs {
   onError(error: Error | string): void;
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
-  const refreshAccountData = useRefreshAllAccountData();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
+
+  const analytics = useAnalytics();
+  const refreshAccountData = useRefreshAllAccountData();
+
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
-  const analytics = useAnalytics();
 
   return useCallback(
     ({ onSuccess, onError }: UseSubmitTransactionCallbackArgs) =>

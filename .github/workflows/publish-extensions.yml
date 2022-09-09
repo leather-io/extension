@@ -41,7 +41,7 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         name: Upload build artifact
         with:
           name: hiro-wallet
@@ -93,7 +93,7 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache-node-modules
         with:
           path: '**/node_modules'
@@ -145,7 +145,7 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache-node-modules
         with:
           path: '**/node_modules'

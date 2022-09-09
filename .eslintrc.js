@@ -77,7 +77,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: 'src/**/*.spec.ts',
+      files: ['test/**', 'src/**/*.spec.ts'],
       rules: {
         'no-console': [0],
       },

@@ -1,6 +1,6 @@
 import { BrowserContext } from '@playwright/test';
 
-export const setupMocks = async (context: BrowserContext) => {
+export async function setupMocks(context: BrowserContext) {
   await context.route('https://test-registrar.blockstack.org/register', route => {
     void route.fulfill({
       status: 200,
@@ -43,4 +43,4 @@ export const setupMocks = async (context: BrowserContext) => {
   //   console.log(`Route to mock:`, url);
   //   void route.continue();
   // });
-};
+}

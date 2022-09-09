@@ -1,6 +1,7 @@
 import { logger } from '@shared/logger';
 import { TxResult } from '@shared/message-types';
 import { analytics } from '@shared/utils/analytics';
+
 import { formatTxSignatureResponse } from './finalize-tx-signature-format';
 
 interface FinalizeTxSignatureArgs {

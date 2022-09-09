@@ -5,7 +5,7 @@ const deepMerge = require('deepmerge');
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
-console.log(process.env.NODE_ENV);
+const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const PREVIEW_RELEASE = process.env.PREVIEW_RELEASE;
 
@@ -47,12 +47,13 @@ const browserSpecificConfig = {
     background: {
       page: 'background.js',
     },
+    web_accessible_resources: ['inpage.js'],
     browser_action: {
       default_title: 'Stacks',
       default_popup: 'popup.html',
-      default_icon: defaultIconEnvironment[process.env.NODE_ENV],
+      default_icon: defaultIconEnvironment[NODE_ENV],
     },
-    content_security_policy: contentSecurityPolicyEnvironment[process.env.NODE_ENV],
+    content_security_policy: contentSecurityPolicyEnvironment[NODE_ENV],
     browser_specific_settings: {
       gecko: {
         id: '{e22ae397-03d7-4622-bd8f-ecaca8c9b277}',
@@ -65,15 +66,15 @@ const browserSpecificConfig = {
     permissions: ['contextMenus', 'storage'],
     background: {
       service_worker: 'background.js',
-      type: 'module',
     },
+    web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
     action: {
       default_title: 'Stacks',
       default_popup: 'popup.html',
-      default_icon: defaultIconEnvironment[process.env.NODE_ENV],
+      default_icon: defaultIconEnvironment[NODE_ENV],
     },
     content_security_policy: {
-      extension_pages: contentSecurityPolicyEnvironment[process.env.NODE_ENV],
+      extension_pages: contentSecurityPolicyEnvironment[NODE_ENV],
     },
   },
 };
@@ -83,18 +84,8 @@ const browserSpecificConfig = {
  */
 const manifest = {
   author: 'Hiro PBC',
-  description: 'The most popular and trusted wallet for apps built on Bitcoin',
-  permissions: ['contextMenus', 'storage', '*://*/*'],
-  manifest_version: 2,
-  background: {
-    scripts: ['browser-polyfill.js', 'background.js'],
-    persistent: true,
-  },
-  web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
-  browser_action: {
-    default_title: 'Hiro Wallet',
-    default_popup: 'popup.html',
-  },
+  description:
+    'Hiro Wallet is a safe way to manage your STX, sign into apps, and protect your funds while interacting with Clarity smart contracts.',
   commands: {
     _execute_browser_action: {
       suggested_key: {
@@ -150,7 +141,7 @@ function generateManifest(packageVersion) {
     manifest,
     releaseEnvironmentConfig,
     browserConfig,
-    environmentIcons[process.env.NODE_ENV],
+    environmentIcons[NODE_ENV],
   ]);
 }
 
