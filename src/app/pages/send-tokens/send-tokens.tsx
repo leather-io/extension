@@ -55,9 +55,7 @@ function SendTokensFormBase() {
   useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
 
   useEffect(() => {
-    if (showNetworks) {
-      navigate(RouteUrls.Home);
-    }
+    if (showNetworks) navigate(RouteUrls.Home);
   }, [navigate, showNetworks]);
 
   const handleConfirmDrawerOnClose = useCallback(() => {

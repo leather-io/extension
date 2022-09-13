@@ -36,6 +36,7 @@ export function useGetTransactionFeeEstimationQuery(
   return useQuery({
     queryKey: ['transaction-fee-estimation', transactionPayload],
     queryFn: fetchTransactionFeeEstimation,
+    enabled: transactionPayload !== '',
     ...feeEstimationsQueryOptions,
   }) as UseQueryResult<TransactionFeeEstimation, Error>;
 }
