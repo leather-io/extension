@@ -1,3 +1,30 @@
+## [3.17.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.16.1...v3.17.0-beta.1) (2022-09-13)
+
+
+### Features
+
+* **ledger:** add utf-8 message signing support ([99239b2](https://github.com/hirosystems/stacks-wallet-web/commit/99239b2648c227a6d045962fde9c206d46800315))
+
+
+### Bug Fixes
+
+* cached data bug in atom with wrong network, closes [#2645](https://github.com/hirosystems/stacks-wallet-web/issues/2645) ([2a180ee](https://github.com/hirosystems/stacks-wallet-web/commit/2a180ee7940d2208654b4062fba7f5cc5143c0f2))
+* chrome rejections, unused permissions ([86e1ddb](https://github.com/hirosystems/stacks-wallet-web/commit/86e1ddbae9d69cbf4475d58f490b532aceedc575))
+* **message-signing:** message wrapping, closes [#2594](https://github.com/hirosystems/stacks-wallet-web/issues/2594), [#2441](https://github.com/hirosystems/stacks-wallet-web/issues/2441) ([3ca2d10](https://github.com/hirosystems/stacks-wallet-web/commit/3ca2d10c252056270a16212c0d86549c683e0838))
+* querying fee endpoint empty payload, closes [#2653](https://github.com/hirosystems/stacks-wallet-web/issues/2653) ([cf2ca3b](https://github.com/hirosystems/stacks-wallet-web/commit/cf2ca3b21d0d69dcc5c39e016cf3d64066e23cd0))
+
+
+### Internal
+
+* broadcast error ux ([70fe208](https://github.com/hirosystems/stacks-wallet-web/commit/70fe2082efa571b14ce235b69d4a42b303980263))
+* **deps-dev:** bump @actions/core from 1.6.0 to 1.9.1 ([fca2545](https://github.com/hirosystems/stacks-wallet-web/commit/fca2545e5de9bfa017a7d42b24fefc445254207c))
+* **message-signing:** structured data formatting ([b3dd513](https://github.com/hirosystems/stacks-wallet-web/commit/b3dd513b431fc83fd74e263560770de29e8a1a80))
+* remove useUpdateAuthRequest atom, closes [#2639](https://github.com/hirosystems/stacks-wallet-web/issues/2639) ([110d87c](https://github.com/hirosystems/stacks-wallet-web/commit/110d87c151b937cb537d0e9ae657c2a6af636825))
+* select asset ([b5684d8](https://github.com/hirosystems/stacks-wallet-web/commit/b5684d8483d5aad46f85aa25a3af398a13a5bbb0))
+* upgrade @zondax/ledger-stacks ([797ce5a](https://github.com/hirosystems/stacks-wallet-web/commit/797ce5aefeab64b9b715901f202823faba9fb424))
+* upgrade packages ([9558376](https://github.com/hirosystems/stacks-wallet-web/commit/955837664cbc55d23a435065067129152e4071a1))
+* upgrade stacks.js packages ([b6ed0a9](https://github.com/hirosystems/stacks-wallet-web/commit/b6ed0a9970daae671afa0ea4d99ed6ca472fc903))
+
 ## [3.16.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.16.0...v3.16.1) (2022-08-17)
 
 
