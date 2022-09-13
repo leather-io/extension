@@ -16,6 +16,7 @@ export function useAccountMempool(address: string) {
   }
 
   return useQuery({
+    enabled: !!address,
     queryKey: ['account-mempool', address],
     queryFn: accountMempoolFetcher,
     onSuccess: data => {

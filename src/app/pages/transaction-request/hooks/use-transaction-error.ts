@@ -14,7 +14,6 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
   const contractInterface = useContractInterface(transactionRequest);
-
   const { origin } = useDefaultRequestParams();
 
   const currentAccount = useCurrentAccount();
@@ -30,7 +29,7 @@ export function useTransactionError() {
     if (transactionRequest.txType === TransactionTypes.ContractCall) {
       if (!validateStacksAddress(transactionRequest.contractAddress))
         return TransactionErrorReason.InvalidContractAddress;
-      if (contractInterface.isError) return TransactionErrorReason.NoContract;
+      if (contractInterface?.isError) return TransactionErrorReason.NoContract;
     }
 
     if (availableStxBalance) {

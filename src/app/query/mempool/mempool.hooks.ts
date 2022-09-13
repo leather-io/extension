@@ -6,7 +6,6 @@ import {
 
 import { useTransactionsById } from '@app/query/transactions/transactions-by-id.query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { logger } from '@shared/logger';
 
 import { useAccountMempool } from './mempool.query';
 
@@ -36,10 +35,6 @@ function useAccountUnanchoredMempoolTransactions(address: string) {
 
 export function useCurrentAccountFilteredMempoolTransactionsState() {
   const address = useCurrentAccountStxAddressState();
-  if (!address)
-    logger.error(
-      `Attempting to fetch from mempool with no address in ${useCurrentAccountFilteredMempoolTransactionsState.name}`
-    );
   return useAccountUnanchoredMempoolTransactions(address ?? '').filter(
     tx => !!tx
   ) as MempoolTransaction[];
@@ -47,10 +42,6 @@ export function useCurrentAccountFilteredMempoolTransactionsState() {
 
 export function useCurrentAccountMempool() {
   const address = useCurrentAccountStxAddressState();
-  if (!address)
-    logger.error(
-      `Attempting to fetch from mempool with no address in ${useCurrentAccountFilteredMempoolTransactionsState.name}`
-    );
   return useAccountMempool(address ?? '');
 }
 

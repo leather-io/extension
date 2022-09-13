@@ -25,7 +25,7 @@ export function SubmitAction() {
   const { isLoading } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const error = useTransactionError();
 
-  const isDisabled = !!error || !values.fee;
+  const isDisabled = !!error || Number(values.fee) < 0;
 
   const onConfirmTransaction = async () => {
     // Check for errors before showing the high fee confirmation
