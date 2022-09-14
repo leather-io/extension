@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
                 <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/14</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -119,12 +119,7 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,15 +154,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,7 +173,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Analytics, AnalyticsBrowser } from '@segment/analytics-next';
 import * as Sentry from '@sentry/react';
@@ -219,16 +209,11 @@ export function <span class="fstat-no" title="function not covered" >initSentry(
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >initSegment(</span>) {
-<span class="cstat-no" title="statement not covered" >  if (IS_TEST_ENV) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (IS_TEST_ENV || !SEGMENT_WRITE_KEY) <span class="cstat-no" title="statement not covered" >return;</span></span>
+&nbsp;
   const hasPermission = <span class="cstat-no" title="statement not covered" >checkUserHasGrantedPermission();</span>
-<span class="cstat-no" title="statement not covered" >  if (IS_PROD_ENV &amp;&amp; !hasPermission) {</span>
-<span class="cstat-no" title="statement not covered" >    logger.info('Segment init aborted: has no permission');</span>
-<span class="cstat-no" title="statement not covered" >    return;</span>
-  }
-<span class="cstat-no" title="statement not covered" >  if (IS_PROD_ENV &amp;&amp; !SEGMENT_WRITE_KEY) {</span>
-<span class="cstat-no" title="statement not covered" >    logger.error('Segment init aborted: no WRITE_KEY');</span>
-<span class="cstat-no" title="statement not covered" >    return;</span>
-  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (IS_PROD_ENV &amp;&amp; !hasPermission) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return AnalyticsBrowser.standalone(SEGMENT_WRITE_KEY, {</span>
     integrations: {
@@ -244,7 +229,7 @@ export function <span class="fstat-no" title="function not covered" >initSegment
     },
   })
     .then(<span class="fstat-no" title="function not covered" >re</span>s =&gt; (<span class="cstat-no" title="statement not covered" >analytics = res)</span>)
-    .catch(logger.error);
+    .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; <span class="cstat-no" title="statement not covered" >logger.error({ error }))</span>;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -253,7 +238,7 @@ export function <span class="fstat-no" title="function not covered" >initSegment
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-17T13:42:03.120Z
+                at 2022-09-14T16:12:38.772Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

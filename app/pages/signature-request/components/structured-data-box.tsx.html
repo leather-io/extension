@@ -146,18 +146,7 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,9 +179,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -216,14 +202,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,7 +231,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useState } from 'react';
 import { sha256 } from 'sha.js';
-import { color, Stack, Text } from '@stacks/ui';
+import { Box, color, Stack, Text } from '@stacks/ui';
 import {
   ChainID,
   ClarityValue,
@@ -283,10 +261,7 @@ function <span class="fstat-no" title="function not covered" >chainIdToDisplay(<
   });
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >StructuredDataBox(</span>props: {
-  message: ClarityValue;
-  domain: TupleCV;
-}): JSX.Element | null {
+export function <span class="fstat-no" title="function not covered" >StructuredDataBox(</span>props: { message: ClarityValue; domain: TupleCV }) {
   const { message, domain } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
   const [hash, setHash] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;();</span>
@@ -310,39 +285,31 @@ export function <span class="fstat-no" title="function not covered" >StructuredD
 <span class="cstat-no" title="statement not covered" >  if (!message) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;Stack minHeight={'260px'}&gt;
-        &lt;Stack
-          border="4px solid"
-          paddingBottom={'8px'}
-          borderColor={color('border')}
-          borderRadius="20px"
-          backgroundColor={color('border')}
-        &gt;
-          &lt;Stack
-            py="loose"
-            px="loose"
-            spacing="loose"
-            borderRadius="16px"
-            backgroundColor={'white'}
-          &gt;
-            &lt;Stack spacing="base-tight"&gt;
-              &lt;Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all"&gt;
-                &lt;h2&gt;
-                  &lt;strong&gt;{domainName}&lt;/strong&gt;{' '}
-                  &lt;Text color={color('text-caption')}&gt;
-                    {domainVersion} {domainChainName}
-                  &lt;/Text&gt;
-                &lt;/h2&gt;
-                &lt;hr style={{ marginTop: '5px', marginBottom: '5px' }} /&gt;
-                &lt;ClarityValueListDisplayer val={message} encoding={'tryAscii'} /&gt;
+    &lt;Box minHeight="260px"&gt;
+      &lt;Stack
+        border="4px solid"
+        paddingBottom={'8px'}
+        borderColor={color('border')}
+        borderRadius="20px"
+        backgroundColor={color('border')}
+      &gt;
+        &lt;Box overflowX="scroll" py="loose" borderRadius="16px" background="white"&gt;
+          &lt;Box fontSize="14px" lineHeight="1.7" px="loose"&gt;
+            &lt;h2&gt;
+              &lt;strong&gt;{domainName}&lt;/strong&gt;{' '}
+              &lt;Text color={color('text-caption')}&gt;
+                {domainVersion} {domainChainName}
               &lt;/Text&gt;
-            &lt;/Stack&gt;
-          &lt;/Stack&gt;
-          {hash ? &lt;HashDrawer hash={hash} /&gt; : null}
-        &lt;/Stack&gt;
+            &lt;/h2&gt;
+            &lt;hr style={{ marginTop: '5px', marginBottom: '5px' }} /&gt;
+            &lt;Box&gt;
+              &lt;ClarityValueListDisplayer val={message} encoding={'tryAscii'} /&gt;
+            &lt;/Box&gt;
+          &lt;/Box&gt;
+        &lt;/Box&gt;
+        {hash ? &lt;HashDrawer hash={hash} /&gt; : null}
       &lt;/Stack&gt;
-    &lt;/&gt;
+    &lt;/Box&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -352,7 +319,7 @@ export function <span class="fstat-no" title="function not covered" >StructuredD
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-17T13:42:03.120Z
+                at 2022-09-14T16:12:38.772Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

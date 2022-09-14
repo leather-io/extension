@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -121,11 +121,7 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,8 +131,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -151,8 +145,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -194,12 +186,10 @@ import { Box, color, Stack, StackProps } from '@stacks/ui';
 import { Caption } from '@app/components/typography';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useTransactionBroadcastError } from '@app/store/transactions/requests.hooks';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >MinimalErrorMessageSuspense(</span>props: StackProps): JSX.Element | null {
+function <span class="fstat-no" title="function not covered" >MinimalErrorMessageSuspense(</span>props: StackProps) {
   const error = <span class="cstat-no" title="statement not covered" >useTransactionError();</span>
-  const broadcastError = <span class="cstat-no" title="statement not covered" >useTransactionBroadcastError();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!error) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
@@ -215,8 +205,6 @@ function <span class="fstat-no" title="function not covered" >MinimalErrorMessag
         case TransactionErrorReason.StxTransferInsufficientFunds:
         case TransactionErrorReason.FeeInsufficientFunds:
 <span class="cstat-no" title="statement not covered" >          return 'Insufficient balance';</span>
-        case TransactionErrorReason.BroadcastError:
-<span class="cstat-no" title="statement not covered" >          return `Broadcast error: ${JSON.stringify(broadcastError)}`;</span>
         case TransactionErrorReason.Generic:
 <span class="cstat-no" title="statement not covered" >          return 'Something went wrong';</span>
       }
@@ -240,7 +228,7 @@ function <span class="fstat-no" title="function not covered" >MinimalErrorMessag
   );
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >MinimalErrorMessageBase(</span>props: StackProps): JSX.Element {
+function <span class="fstat-no" title="function not covered" >MinimalErrorMessageBase(</span>props: StackProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
       &lt;MinimalErrorMessageSuspense {...props} /&gt;
@@ -256,7 +244,7 @@ export const MinimalErrorMessage = <span class="cstat-no" title="statement not c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-17T13:42:03.120Z
+                at 2022-09-14T16:12:38.772Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -159,17 +159,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,8 +186,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
+import { Outlet } from 'react-router-dom';
 &nbsp;
-import { isUndefined } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import {
@@ -200,8 +200,8 @@ import {
   useSetAtomSignatureRequestToken,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
+import { WarningLabel } from '@app/components/warning-label';
 &nbsp;
-import { ErrorMessage } from './components/message-signing-error-msg';
 import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
 import { SignatureRequestMessageContent } from './components/message-content';
 import { SignatureRequestLayout } from './components/signature-request.layout';
@@ -220,27 +220,27 @@ function <span class="fstat-no" title="function not covered" >SignatureRequestBa
 <span class="cstat-no" title="statement not covered" >  useSetAtomSignatureRequestToken(requestToken);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!isSignatureMessageType(messageType)) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (isUndefined(validSignatureRequest)) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (!requestToken || !messageType) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!validSignatureRequest)</span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;SignatureRequestLayout&gt;
-        &lt;ErrorMessage errorMessage="Invalid signature request" /&gt;
-      &lt;/SignatureRequestLayout&gt;
-    );
+<span class="cstat-no" title="statement not covered" >  if (!requestToken || !messageType) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;SignatureRequestLayout&gt;
+      {!validSignatureRequest &amp;&amp; (
+        &lt;WarningLabel&gt;
+          Signing messages can have unintended consequences. Only sign messages from trusted
+          sources.
+        &lt;/WarningLabel&gt;
+      )}
+      {isUtf8Message(messageType) &amp;&amp; (
+        &lt;SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} /&gt;
+      )}
       {isStructuredMessage(messageType) &amp;&amp; (
         &lt;SignatureRequestStructuredDataContent
           requestToken={requestToken}
           messageType={messageType}
         /&gt;
       )}
-      {isUtf8Message(messageType) &amp;&amp; (
-        &lt;SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} /&gt;
-      )}
+      &lt;Outlet /&gt;
     &lt;/SignatureRequestLayout&gt;
   );
 }
@@ -253,7 +253,7 @@ export const SignatureRequest = <span class="cstat-no" title="statement not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-17T13:42:03.120Z
+                at 2022-09-14T16:12:38.772Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

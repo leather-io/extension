@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -148,21 +148,13 @@
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,6 +163,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -188,18 +188,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,6 +234,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, useEffect, useState } from 'react';
+import { useField } from 'formik';
 import { Box, color, Stack } from '@stacks/ui';
 &nbsp;
 import { AssetWithMeta } from '@app/common/asset-types';
@@ -254,19 +251,20 @@ function <span class="fstat-no" title="function not covered" >principalHasOnlyOn
 &nbsp;
 interface AssetSearchProps {
   autoFocus?: boolean;
-  onSelectAssetResetForm(): void;
+  onSelectAsset(asset: AssetWithMeta): void;
 }
 export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-no" title="statement not covered" >memo(</span>
-<span class="fstat-no" title="function not covered" >  ({</span> autoFocus, onSelectAssetResetForm, ...rest }) =&gt; {
+<span class="fstat-no" title="function not covered" >  ({</span> autoFocus, onSelectAsset, ...rest }) =&gt; {
+    const [field, _, helpers] = <span class="cstat-no" title="statement not covered" >useField('assetId');</span>
     const assets = <span class="cstat-no" title="statement not covered" >useTransferableAssets();</span>
     const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
-    const { selectedAsset, updateSelectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset();</span>
+    const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset(field.value);</span>
     const [searchInput, setSearchInput] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;('');</span>
     const [assetItems, setAssetItems] = <span class="cstat-no" title="statement not covered" >useState(assets);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (principalHasOnlyOneAsset(assets ?? [])) {</span>
-<span class="cstat-no" title="statement not covered" >        updateSelectedAsset(assets[0]);</span>
+<span class="cstat-no" title="statement not covered" >        onSelectAsset(assets[0]);</span>
       }
 <span class="cstat-no" title="statement not covered" >      return <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onClearSearch();</span></span>
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -274,7 +272,8 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
 &nbsp;
     const onClearSearch = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      setSearchInput('');</span>
-<span class="cstat-no" title="statement not covered" >      updateSelectedAsset(undefined);</span>
+<span class="cstat-no" title="statement not covered" >      setAssetItems(assets);</span>
+<span class="cstat-no" title="statement not covered" >      helpers.setValue('');</span>
     };
 &nbsp;
     const onInputValueChange = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>alue: string | undefined) =&gt; {</span>
@@ -286,11 +285,6 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
 <span class="cstat-no" title="statement not covered" >      setAssetItems(assets.filter(<span class="fstat-no" title="function not covered" >as</span>set =&gt; <span class="cstat-no" title="statement not covered" >asset.name.toLowerCase().includes(value.toLowerCase()))</span>);</span>
     };
 &nbsp;
-    const onSelectedItemChange = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      updateSelectedAsset(item || undefined);</span>
-<span class="cstat-no" title="statement not covered" >      onSelectAssetResetForm();</span>
-    };
-&nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!assets) {</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;Stack spacing="tight" {...rest}&gt;
@@ -300,7 +294,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
       );
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (selectedAsset) {</span>
+<span class="cstat-no" title="statement not covered" >    if (field.value) {</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;SelectedAsset
           hideArrow={principalHasOnlyOneAsset(assets ?? [])}
@@ -316,7 +310,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
         autoFocus={autoFocus}
         hasStxBalance={!!availableStxBalance}
         onInputValueChange={onInputValueChange}
-        onSelectedItemChange={onSelectedItemChange}
+        onSelectedItemChange={onSelectAsset}
         searchInput={searchInput}
         selectedAsset={selectedAsset}
         {...rest}
@@ -331,7 +325,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-17T13:42:03.120Z
+                at 2022-09-14T16:12:38.772Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

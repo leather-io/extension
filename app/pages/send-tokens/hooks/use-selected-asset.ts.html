@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -108,22 +108,7 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,16 +119,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -178,30 +153,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useMemo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 &nbsp;
-import { AssetWithMeta } from '@app/common/asset-types';
-import { getFullyQualifiedAssetName, getTicker, initBigNumber } from '@app/common/utils';
+import { getTicker, initBigNumber } from '@app/common/utils';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
-import { useSelectedAssetItem, useUpdateSelectedAsset } from '@app/store/assets/asset.hooks';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useSelectedAssetMetadata } from '@app/store/assets/asset.hooks';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useSelectedAsset(</span>) {
-  const selectedAsset = <span class="cstat-no" title="statement not covered" >useSelectedAssetItem();</span>
-  const setSelectedAsset = <span class="cstat-no" title="statement not covered" >useUpdateSelectedAsset();</span>
+export function <span class="fstat-no" title="function not covered" >useSelectedAsset(</span>assetId: string) {
+  const selectedAsset = <span class="cstat-no" title="statement not covered" >useSelectedAssetMetadata(assetId);</span>
   const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
-  const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-&nbsp;
-  const updateSelectedAsset = <span class="cstat-no" title="statement not covered" >useCallback(</span>
-<span class="fstat-no" title="function not covered" >    (a</span>sset: AssetWithMeta | undefined) =&gt; {
-<span class="cstat-no" title="statement not covered" >      setSelectedAsset(getFullyQualifiedAssetName(asset) || undefined);</span>
-<span class="cstat-no" title="statement not covered" >      void analytics.track('select_asset_for_send');</span>
-    },
-    [analytics, setSelectedAsset]
-  );
 &nbsp;
   const name = <span class="cstat-no" title="statement not covered" >selectedAsset?.meta?.name || selectedAsset?.name;</span>
   const isStx = <span class="cstat-no" title="statement not covered" >selectedAsset?.name === 'Stacks Token';</span>
@@ -234,7 +196,6 @@ export function <span class="fstat-no" title="function not covered" >useSelected
     placeholder,
     selectedAsset,
     ticker,
-    updateSelectedAsset,
   };
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -244,7 +205,7 @@ export function <span class="fstat-no" title="function not covered" >useSelected
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-17T13:42:03.120Z
+                at 2022-09-14T16:12:38.772Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
