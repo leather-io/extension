@@ -10,10 +10,6 @@ export function useLedgerNavigate() {
 
   return useMemo(
     () => ({
-      toConnectStep() {
-        return navigate(RouteUrls.ConnectLedger, { replace: true });
-      },
-
       toConnectStepAndTryAgain() {
         return navigate(`../${RouteUrls.ConnectLedger}`, {
           replace: true,
@@ -21,15 +17,22 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignStep(transaction: StacksTransaction, goBack?: boolean) {
+      toConnectAndSignTransactionStep(transaction: StacksTransaction, goBack?: boolean) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: !goBack,
           state: { goBack, tx: transaction.serialize().toString('hex') },
         });
       },
 
-      toActivityHappeningOnDeviceStep() {
-        return navigate(RouteUrls.DeviceBusy, { replace: true });
+      toConnectAndSignMessageStep(message: string, goBack?: boolean) {
+        return navigate(RouteUrls.ConnectLedger, {
+          replace: !goBack,
+          state: { goBack, message },
+        });
+      },
+
+      toDeviceBusyStep(description?: string) {
+        return navigate(RouteUrls.DeviceBusy, { replace: true, state: { description } });
       },
 
       toConnectionSuccessStep() {
@@ -54,12 +57,15 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.LedgerPublicKeyMismatch, { replace: true });
       },
 
-      toDeviceInvalidTx() {
-        return navigate(RouteUrls.LedgerDeviceTxInvalid, { replace: true });
+      toDevicePayloadInvalid() {
+        return navigate(RouteUrls.LedgerDevicePayloadInvalid, { replace: true });
       },
 
-      toTransactionRejectedStep() {
-        return navigate(RouteUrls.LedgerOperationRejected, { replace: true });
+      toOperationRejectedStep(description?: string) {
+        return navigate(RouteUrls.LedgerOperationRejected, {
+          replace: true,
+          state: { description },
+        });
       },
 
       toDeviceDisconnectStep() {

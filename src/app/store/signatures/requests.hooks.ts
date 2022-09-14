@@ -1,10 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import { useSearchParams } from 'react-router-dom';
 import { useAtom } from 'jotai';
 
 import { verifySignatureRequest } from '@app/common/signature/requests';
 import { useAccounts } from '@app/store/accounts/account.hooks';
+import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
+import { isString } from '@shared/utils';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { signatureRequestToken } from './requests';
 
@@ -37,16 +38,19 @@ export function useIsSignatureRequestValid() {
 }
 
 export function useSignatureRequestSearchParams() {
-  const [searchParams] = useSearchParams();
+  const searchParams = useInitialRouteSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
 
-  return useMemo(
-    () => ({
+  return useMemo(() => {
+    const requestToken = searchParams.get('request');
+
+    const messageType = searchParams.get('messageType');
+
+    return {
+      tabId: isString(tabId) ? parseInt(tabId, 10) : tabId,
+      requestToken,
       origin,
-      tabId,
-      requestToken: searchParams.get('request'),
-      messageType: searchParams.get('messageType'),
-    }),
-    [origin, searchParams, tabId]
-  );
+      messageType,
+    };
+  }, [origin, searchParams, tabId]);
 }

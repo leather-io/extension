@@ -32,16 +32,11 @@ export function initSentry() {
 }
 
 export function initSegment() {
-  if (IS_TEST_ENV) return;
+  if (IS_TEST_ENV || !SEGMENT_WRITE_KEY) return;
+
   const hasPermission = checkUserHasGrantedPermission();
-  if (IS_PROD_ENV && !hasPermission) {
-    logger.info('Segment init aborted: has no permission');
-    return;
-  }
-  if (IS_PROD_ENV && !SEGMENT_WRITE_KEY) {
-    logger.error('Segment init aborted: no WRITE_KEY');
-    return;
-  }
+
+  if (IS_PROD_ENV && !hasPermission) return;
 
   return AnalyticsBrowser.standalone(SEGMENT_WRITE_KEY, {
     integrations: {
@@ -57,5 +52,5 @@ export function initSegment() {
     },
   })
     .then(res => (analytics = res))
-    .catch(logger.error);
+    .catch(error => logger.error({ error }));
 }

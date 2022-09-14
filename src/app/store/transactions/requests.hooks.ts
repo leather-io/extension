@@ -1,14 +1,13 @@
 import { useEffect, useMemo } from 'react';
-import { useUpdateAtom, useAtomValue } from 'jotai/utils';
+import { useUpdateAtom } from 'jotai/utils';
 
-import { transactionBroadcastErrorState } from '@app/store/transactions/transaction';
 import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
 import { getPayloadFromToken } from './utils';
 import { requestTokenPayloadState } from './requests';
 
 export function useTransactionRequest() {
-  const [params] = useInitialRouteSearchParams();
-  return useMemo(() => params.get('request'), [params]);
+  const params = useInitialRouteSearchParams();
+  return params.get('request');
 }
 
 export function useSetTransactionRequestAtom(request: string | null) {
@@ -25,12 +24,4 @@ export function useTransactionRequestState() {
     if (!requestToken) return null;
     return getPayloadFromToken(requestToken);
   }, [requestToken]);
-}
-
-export function useTransactionBroadcastError() {
-  return useAtomValue(transactionBroadcastErrorState);
-}
-
-export function useUpdateTransactionBroadcastError() {
-  return useUpdateAtom(transactionBroadcastErrorState);
 }

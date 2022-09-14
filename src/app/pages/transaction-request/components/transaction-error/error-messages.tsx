@@ -11,10 +11,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { Caption } from '@app/components/typography';
 import { SpaceBetween } from '@app/components/space-between';
 import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
-import {
-  useTransactionBroadcastError,
-  useTransactionRequestState,
-} from '@app/store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -171,17 +168,5 @@ export const ExpiredRequestErrorMessage = memo(props => {
         </Flex>
       )}
     </Fade>
-  );
-});
-
-export const BroadcastErrorMessage = memo(props => {
-  const broadcastError = useTransactionBroadcastError();
-  if (!broadcastError) return null;
-  return (
-    <ErrorMessage
-      title="There was an error when broadcasting this transaction:"
-      body={broadcastError}
-      {...props}
-    />
   );
 });

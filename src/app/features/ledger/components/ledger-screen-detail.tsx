@@ -5,7 +5,6 @@ import { Tooltip } from '@app/components/tooltip';
 
 interface LedgerScreenDetailProps {
   children: React.ReactNode;
-  isFullPage: boolean;
   title: string;
   tooltipLabel?: string;
 }

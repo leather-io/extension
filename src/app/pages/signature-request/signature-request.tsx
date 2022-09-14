@@ -1,6 +1,6 @@
 import { memo } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { isUndefined } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import {
@@ -13,8 +13,8 @@ import {
   useSetAtomSignatureRequestToken,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
+import { WarningLabel } from '@app/components/warning-label';
 
-import { ErrorMessage } from './components/message-signing-error-msg';
 import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
 import { SignatureRequestMessageContent } from './components/message-content';
 import { SignatureRequestLayout } from './components/signature-request.layout';
@@ -33,27 +33,27 @@ function SignatureRequestBase() {
   useSetAtomSignatureRequestToken(requestToken);
 
   if (!isSignatureMessageType(messageType)) return null;
-  if (isUndefined(validSignatureRequest)) return null;
-  if (!requestToken || !messageType) return null;
 
-  if (!validSignatureRequest)
-    return (
-      <SignatureRequestLayout>
-        <ErrorMessage errorMessage="Invalid signature request" />
-      </SignatureRequestLayout>
-    );
+  if (!requestToken || !messageType) return null;
 
   return (
     <SignatureRequestLayout>
+      {!validSignatureRequest && (
+        <WarningLabel>
+          Signing messages can have unintended consequences. Only sign messages from trusted
+          sources.
+        </WarningLabel>
+      )}
+      {isUtf8Message(messageType) && (
+        <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
+      )}
       {isStructuredMessage(messageType) && (
         <SignatureRequestStructuredDataContent
           requestToken={requestToken}
           messageType={messageType}
         />
       )}
-      {isUtf8Message(messageType) && (
-        <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
-      )}
+      <Outlet />
     </SignatureRequestLayout>
   );
 }

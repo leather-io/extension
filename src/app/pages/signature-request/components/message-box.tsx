@@ -1,11 +1,12 @@
 import { hashMessage } from '@stacks/encryption';
-import { color, Stack, Text } from '@stacks/ui';
+import { Box, color, Stack, Text } from '@stacks/ui';
 import { useEffect, useState } from 'react';
 import { HashDrawer } from './hash-drawer';
 
-export function MessageBox(props: { message: string }): JSX.Element | null {
-  const { message } = props;
-
+interface MessageBoxProps {
+  message: string;
+}
+export function MessageBox({ message }: MessageBoxProps) {
   const [hash, setHash] = useState<string | undefined>();
   const [displayMessage, setDisplayMessage] = useState<string[] | undefined>();
 
@@ -22,7 +23,7 @@ export function MessageBox(props: { message: string }): JSX.Element | null {
   if (!message) return null;
 
   return (
-    <Stack minHeight="260px">
+    <Box minHeight="260px">
       <Stack
         border="4px solid"
         paddingBottom="8px"
@@ -38,14 +39,14 @@ export function MessageBox(props: { message: string }): JSX.Element | null {
           px="loose"
           py="loose"
           spacing="tight"
-          wordBreak="break-all"
+          overflowX="scroll"
         >
           {displayMessage?.map(line => (
-            <Text>{line}</Text>
+            <Text key={line}>{line}</Text>
           ))}
         </Stack>
         {hash ? <HashDrawer hash={hash} /> : null}
       </Stack>
-    </Stack>
+    </Box>
   );
 }

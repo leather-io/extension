@@ -19,7 +19,6 @@ interface KeyConfigLedger {
 }
 
 type KeyConfig = KeyConfigSoftware | KeyConfigLedger;
-
 const keyAdapter = createEntityAdapter<KeyConfig>();
 
 export const initialKeysState = keyAdapter.getInitialState();

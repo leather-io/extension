@@ -247,6 +247,10 @@ export async function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+export function createDelay(ms: number) {
+  return async () => delay(ms);
+}
+
 export function with0x(value: string): string {
   return !value.startsWith('0x') ? `0x${value}` : value;
 }

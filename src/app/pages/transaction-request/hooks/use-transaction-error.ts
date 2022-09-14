@@ -8,17 +8,12 @@ import { TransactionTypes } from '@stacks/connect';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 
-import {
-  useTransactionBroadcastError,
-  useTransactionRequestState,
-} from '@app/store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
   const contractInterface = useContractInterface(transactionRequest);
-  const broadcastError = useTransactionBroadcastError();
-
   const { origin } = useDefaultRequestParams();
 
   const currentAccount = useCurrentAccount();
@@ -34,10 +29,8 @@ export function useTransactionError() {
     if (transactionRequest.txType === TransactionTypes.ContractCall) {
       if (!validateStacksAddress(transactionRequest.contractAddress))
         return TransactionErrorReason.InvalidContractAddress;
-      if (contractInterface.isError) return TransactionErrorReason.NoContract;
+      if (contractInterface?.isError) return TransactionErrorReason.NoContract;
     }
-
-    if (broadcastError) return TransactionErrorReason.BroadcastError;
 
     if (availableStxBalance) {
       const zeroBalance = availableStxBalance.toNumber() === 0;
@@ -60,12 +53,5 @@ export function useTransactionError() {
       }
     }
     return;
-  }, [
-    broadcastError,
-    contractInterface,
-    availableStxBalance,
-    currentAccount,
-    transactionRequest,
-    origin,
-  ]);
+  }, [contractInterface, availableStxBalance, currentAccount, transactionRequest, origin]);
 }

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useField } from 'formik';
 import { Text, Stack, StackProps } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
@@ -11,7 +12,8 @@ interface SelectedAssetProps extends StackProps {
   onClearSearch(): void;
 }
 export const SelectedAsset = memo(({ hideArrow, onClearSearch, ...rest }: SelectedAssetProps) => {
-  const { balance, selectedAsset, ticker } = useSelectedAsset();
+  const [field] = useField('assetId');
+  const { balance, selectedAsset, ticker } = useSelectedAsset(field.value);
 
   if (!selectedAsset) return null;
 

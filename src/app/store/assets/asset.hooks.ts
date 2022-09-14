@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
-import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { mergeAssetBalances } from '@app/store/assets/tokens';
 import type { Asset, AssetWithMeta } from '@app/common/asset-types';
-import { selectedAssetIdState } from './asset-search';
 import {
   useAddressAnchoredAvailableStxBalance,
   useAddressBalances,
@@ -34,8 +32,7 @@ export function useAssetWithMetadata(asset: Asset) {
   return asset as AssetWithMeta;
 }
 
-export function useSelectedAssetItem() {
-  const selectedAssetId = useAtomValue(selectedAssetIdState);
+export function useSelectedAssetMetadata(selectedAssetId?: string) {
   const assetsWithMetadata = useAssetsWithMetadata();
 
   return useMemo(
@@ -47,10 +44,6 @@ export function useSelectedAssetItem() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedAssetId]
   );
-}
-
-export function useUpdateSelectedAsset() {
-  return useUpdateAtom(selectedAssetIdState);
 }
 
 export function useStxTokenState(address: string) {

@@ -1,28 +1,22 @@
-import { useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
-import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 
 import { ContainerLayout } from './container.layout';
+import { useSetInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 
 function useCacheInitialRouteSearchParams() {
   const [searchParams] = useSearchParams();
-  const [_, setParams] = useInitialRouteSearchParams();
+  const setParams = useSetInitialRouteSearchParams();
 
-  useEffect(() => {
-    setParams(searchParams);
-    // We only want to set the initial searchParams, not all subsequent updates
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useOnMount(() => setParams(searchParams));
 }
 
-export function Container(): JSX.Element | null {
+export function Container() {
   const [routeHeader, _] = useRouteHeaderState();
 
   useCacheInitialRouteSearchParams();
-  useSaveAuthRequest();
 
   return (
     <ContainerLayout header={routeHeader}>

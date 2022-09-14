@@ -26,6 +26,7 @@ import { stacksValue } from '@app/common/stacks-utils';
 type Tx = MempoolTransaction | Transaction;
 
 export interface TransactionFormValues {
+  assetId: string;
   amount: number | string;
   fee: number | string;
   feeType: string;

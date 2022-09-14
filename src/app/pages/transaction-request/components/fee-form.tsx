@@ -12,7 +12,7 @@ interface FeeFormProps {
 }
 export function FeeForm({ feeEstimations }: FeeFormProps) {
   const { values } = useFormikContext<TransactionFormValues>();
-  const transaction = useUnsignedPrepareTransactionDetails(values);
+  const transaction = useUnsignedPrepareTransactionDetails(values.assetId, values);
 
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 

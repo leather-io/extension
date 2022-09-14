@@ -32,12 +32,13 @@ describe(`Settings integration tests`, () => {
     await wallet.waitForSettingsButton();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.CreateAccountBtn));
-    await delay(500);
-    await wallet.waitForHomePage();
+
+    const expectedText = 'Account 2';
+    await wallet.page.waitForSelector(`text=${expectedText}`);
     const displayName = await wallet.page.textContent(
       createTestSelector(SettingsSelectors.CurrentAccountDisplayName)
     );
-    expect(displayName).toEqual('Account 2');
+    expect(displayName).toEqual(expectedText);
   });
 
   it(`should be able to create ${numOfAccountsToTest} new accounts then switch between them`, async () => {
