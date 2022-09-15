@@ -1,3 +1,10 @@
+## [3.17.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.0...v3.17.1) (2022-09-15)
+
+
+### Bug Fixes
+
+* throwing error with contract function ([6f528fe](https://github.com/hirosystems/stacks-wallet-web/commit/6f528febb75f504f487f91c2ba42096d925d1ffc))
+
 ## [3.17.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.16.1...v3.17.0) (2022-09-14)
 
 
