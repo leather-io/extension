@@ -27,12 +27,15 @@ type OriginatingTabClosed = BackgroundMessage<
   { tabId: number }
 >;
 
+type StretchKey = BackgroundMessage<InternalMethods.StretchKey, { password: string; salt: string }>;
+
 export type BackgroundMessages =
   | RequestDerivedStxAccounts
   | ShareInMemoryKeyToBackground
   | RequestInMemoryKeys
   | RemoveInMemoryKeys
-  | OriginatingTabClosed;
+  | OriginatingTabClosed
+  | StretchKey;
 
 export function sendMessage(message: BackgroundMessages) {
   return chrome.runtime.sendMessage(message);

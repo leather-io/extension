@@ -2,6 +2,7 @@ import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
+import { generateEncryptionKey } from '@shared/workers/decryption-worker';
 import { StacksMainnet } from '@stacks/network';
 import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
@@ -71,6 +72,13 @@ export async function internalBackgroundMessageHandler(
 
     case InternalMethods.RemoveInMemoryKeys: {
       inMemoryKeys.clear();
+      break;
+    }
+
+    case InternalMethods.StretchKey: {
+      const { payload } = message;
+      const resp = await generateEncryptionKey(payload);
+      sendResponse(resp);
       break;
     }
   }

@@ -21,6 +21,7 @@ export enum InternalMethods {
   RequestInMemoryKeys = 'RequestInMemoryKeys',
   RemoveInMemoryKeys = 'RemoveInMemoryKeys',
   OriginatingTabClosed = 'OriginatingTabClosed',
+  StretchKey = 'StretchKey',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;

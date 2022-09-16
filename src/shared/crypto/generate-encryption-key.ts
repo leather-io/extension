@@ -1,19 +1,13 @@
-import { createWorker, WorkerScript } from '../workers';
+import { InternalMethods } from '@shared/message-types';
 
 interface GenerateEncryptionKeyArgs {
   password: string;
   salt: string;
 }
-export async function generateEncryptionKey(args: GenerateEncryptionKeyArgs): Promise<string> {
-  const worker = createWorker(WorkerScript.DecryptionWorker);
-
-  return new Promise((resolve, reject) => {
-    worker.addEventListener('message', (e: MessageEvent<string>) => {
-      worker.terminate();
-      resolve(e.data);
+export async function generateEncryptionKey(payload: GenerateEncryptionKeyArgs): Promise<string> {
+  return new Promise(resolve => {
+    chrome.runtime.sendMessage({ method: InternalMethods.StretchKey, payload }, response => {
+      resolve(response);
     });
-    worker.addEventListener('error', e => reject(e));
-    worker.addEventListener('messageerror', e => reject(e));
-    worker.postMessage(args);
   });
 }
