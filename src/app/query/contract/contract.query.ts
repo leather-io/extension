@@ -1,13 +1,10 @@
-import { useQuery, UseQueryOptions } from 'react-query';
-import { TransactionPayload, TransactionTypes } from '@stacks/connect';
+import { useQuery } from 'react-query';
+import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 
 import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-types';
 import { useApi } from '@app/store/common/api-clients.hooks';
 
-export function useGetContractInterface(
-  transactionRequest: TransactionPayload | null,
-  reactQueryOptions: UseQueryOptions<any> = {}
-) {
+export function useGetContractInterface(transactionRequest: ContractCallPayload | null) {
   const { smartContractsApi } = useApi();
 
   const fetchContractInterface = () => {
@@ -22,8 +19,12 @@ export function useGetContractInterface(
   };
 
   return useQuery({
-    queryKey: ['contract-interface', transactionRequest?.publicKey],
+    enabled: !!transactionRequest,
+    queryKey: [
+      'contract-interface',
+      transactionRequest?.contractName,
+      transactionRequest?.contractAddress,
+    ],
     queryFn: fetchContractInterface,
-    ...reactQueryOptions,
   });
 }

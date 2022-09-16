@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useContractInterface } from '@app/query/contract/contract.hooks';
-import { TransactionTypes } from '@stacks/connect';
+import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
 
@@ -13,7 +13,7 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
-  const contractInterface = useContractInterface(transactionRequest);
+  const contractInterface = useContractInterface(transactionRequest as ContractCallPayload);
   const { origin } = useDefaultRequestParams();
 
   const currentAccount = useCurrentAccount();
