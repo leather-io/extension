@@ -1,3 +1,10 @@
+## [3.17.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.1...v3.17.2) (2022-09-16)
+
+
+### Bug Fixes
+
+* **query:** reuse of query key ([9c654bc](https://github.com/hirosystems/stacks-wallet-web/commit/9c654bc409be2d1690ef9023dc25a25c2b897a19))
+
 ## [3.17.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.0...v3.17.1) (2022-09-15)
 
 
