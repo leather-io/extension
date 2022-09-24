@@ -1,3 +1,10 @@
+## [3.17.3-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.2...v3.17.3-beta.1) (2022-09-24)
+
+
+### Internal
+
+* network state to redux ([c475572](https://github.com/hirosystems/stacks-wallet-web/commit/c4755728904dbc747e0a4886d3a69de560274e22))
+
 ## [3.17.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.1...v3.17.2) (2022-09-16)
 
 
