@@ -16,6 +16,7 @@ import {
 import { LedgerSignTxContainer } from './ledger-sign-tx-container';
 import { ConnectLedgerSignTx } from './steps/connect-ledger-sign-tx';
 import { ApproveSignLedgerTx } from './steps/approve-sign-ledger-tx';
+import { ContractPrincipalBugWarning } from './steps/contract-principal-bug-warning';
 
 export const ledgerTxSigningRoutes = (
   <Route element={<LedgerSignTxContainer />}>
@@ -29,5 +30,6 @@ export const ledgerTxSigningRoutes = (
     <Route path={RouteUrls.LedgerOperationRejected} element={<OperationRejected />} />
     <Route path={RouteUrls.LedgerPublicKeyMismatch} element={<LedgerPublicKeyMismatch />} />
     <Route path={RouteUrls.LedgerDevicePayloadInvalid} element={<LedgerDeviceInvalidPayload />} />
+    <Route path={RouteUrls.LedgerOutdatedAppWarning} element={<ContractPrincipalBugWarning />} />
   </Route>
 );

@@ -15,6 +15,11 @@ import { safeAwait } from '@stacks/ui';
 import { useLocation } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
+export interface BaseLedgerOperationContext {
+  latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;
+  awaitingDeviceConnection: boolean;
+}
+
 const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
 
 const identityDerivationWithAccount = `m/888'/0'/{account}'`;
@@ -126,7 +131,16 @@ export function doesLedgerStacksAppVersionSupportJwtAuth(versionInfo: SemVerObje
   );
 }
 
-export interface BaseLedgerOperationContext {
-  latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;
-  awaitingDeviceConnection: boolean;
+// https://github.com/Zondax/ledger-stacks/issues/119
+// https://github.com/hirosystems/stacks-wallet-web/issues/2567
+const versionFromWhichContractPrincipalBugIsFixed = '0.23.3';
+
+export function isVersionOfLedgerStacksAppWithContractPrincipalBug(
+  currentDeviceVersion: SemVerObject
+) {
+  return compare(
+    versionObjectToVersionString(currentDeviceVersion),
+    versionFromWhichContractPrincipalBugIsFixed,
+    '<'
+  );
 }

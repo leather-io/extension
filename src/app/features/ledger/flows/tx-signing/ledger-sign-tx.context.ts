@@ -3,10 +3,16 @@ import { StacksTransaction } from '@stacks/transactions';
 
 import { noop } from '@shared/utils';
 import { BaseLedgerOperationContext } from '../../ledger-utils';
+import { createWaitableAction } from '@app/common/utils/create-waitable-action';
+
+export function createWaitForUserToSeeWarningScreen() {
+  return createWaitableAction<'ignored-warning' | 'cancelled-operation'>();
+}
 
 export interface LedgerTxSigningContext extends BaseLedgerOperationContext {
   transaction: StacksTransaction | null;
   signTransaction(): Promise<void> | void;
+  hasUserSkippedBuggyAppWarning: ReturnType<typeof createWaitForUserToSeeWarningScreen>;
 }
 
 export const ledgerTxSigningContext = createContext<LedgerTxSigningContext>({
@@ -14,6 +20,7 @@ export const ledgerTxSigningContext = createContext<LedgerTxSigningContext>({
   latestDeviceResponse: null,
   awaitingDeviceConnection: false,
   signTransaction: noop,
+  hasUserSkippedBuggyAppWarning: createWaitForUserToSeeWarningScreen(),
 });
 
 export const LedgerTxSigningProvider = ledgerTxSigningContext.Provider;
