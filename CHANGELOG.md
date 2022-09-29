@@ -1,3 +1,16 @@
+## [3.18.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.2...v3.18.0-beta.1) (2022-09-29)
+
+
+### Features
+
+* bitcoin data ([f6b4166](https://github.com/hirosystems/stacks-wallet-web/commit/f6b416645b7256a6617ebc28a59bdebdbca75d1e))
+
+
+### Internal
+
+* add bitcoin feature flag ([f0d284c](https://github.com/hirosystems/stacks-wallet-web/commit/f0d284c43b4ba8d1eec561eca9bf31d1e9b7923d))
+* network state to redux ([c475572](https://github.com/hirosystems/stacks-wallet-web/commit/c4755728904dbc747e0a4886d3a69de560274e22))
+
 ## [3.17.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.1...v3.17.2) (2022-09-16)
 
 
