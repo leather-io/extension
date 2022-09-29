@@ -20,13 +20,7 @@ export function LedgerDisconnectedLayout(props: LedgerDisconnectedLayoutProps) {
         Your Ledger has disconnected
       </LedgerTitle>
       <Stack isInline mb="loose">
-        <Button
-          _hover={{ boxShadow: 'none' }}
-          borderRadius="10px"
-          boxShadow="none"
-          mode="tertiary"
-          onClick={onClose}
-        >
+        <Button borderRadius="10px" mode="tertiary" onClick={onClose}>
           Close
         </Button>
         <PrimaryButton height="40px" onClick={onConnectAgain}>

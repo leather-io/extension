@@ -18,7 +18,7 @@ import { Devtools } from '@app/features/devtool/devtools';
 import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
 
-const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED;
+const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === 'true';
 
 export function App() {
   return (

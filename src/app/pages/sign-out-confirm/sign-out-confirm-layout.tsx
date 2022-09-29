@@ -53,10 +53,6 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
           </Flex>
           <Flex mt="loose">
             <Button
-              _hover={{
-                boxShadow: 'none',
-              }}
-              boxShadow="none"
               flex={1}
               type="button"
               onClick={() => onUserSafelyReturnToHomepage()}

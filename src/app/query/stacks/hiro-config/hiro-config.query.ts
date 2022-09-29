@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { BRANCH_NAME } from '@shared/environment';
 import { isUndefined } from '@shared/utils';
+import get from 'lodash.get';
 
 export interface HiroMessage {
   title: string;
@@ -64,7 +65,7 @@ function useRemoteHiroConfig() {
 
 export function useRemoteHiroMessages(): HiroMessage[] {
   const config = useRemoteHiroConfig();
-  return config?.messages?.global ?? [];
+  return get(config, 'messages.global', []);
 }
 
 export function useActiveFiatProviders() {

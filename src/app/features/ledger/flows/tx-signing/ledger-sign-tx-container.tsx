@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
@@ -6,6 +6,7 @@ import get from 'lodash.get';
 import { delay } from '@app/common/utils';
 import {
   getAppVersion,
+  isVersionOfLedgerStacksAppWithContractPrincipalBug,
   prepareLedgerDeviceConnection,
   signLedgerTransaction,
   signTransactionWithSignature,
@@ -14,6 +15,7 @@ import {
 } from '@app/features/ledger/ledger-utils';
 import { deserializeTransaction } from '@stacks/transactions';
 import {
+  createWaitForUserToSeeWarningScreen,
   LedgerTxSigningContext,
   LedgerTxSigningProvider,
 } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.context';
@@ -38,6 +40,8 @@ export function LedgerSignTxContainer() {
   const canUserCancelAction = useActionCancellableByUser();
 
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
+
+  const hasUserSkippedBuggyAppWarning = useMemo(() => createWaitForUserToSeeWarningScreen(), []);
 
   useEffect(() => {
     const tx = get(location.state, 'tx');
@@ -74,6 +78,16 @@ export function LedgerSignTxContainer() {
       return;
     }
 
+    if (isVersionOfLedgerStacksAppWithContractPrincipalBug(versionInfo)) {
+      navigate(RouteUrls.LedgerOutdatedAppWarning);
+      const response = await hasUserSkippedBuggyAppWarning.wait();
+
+      if (response === 'cancelled-operation') {
+        ledgerNavigate.cancelLedgerAction();
+        return;
+      }
+    }
+
     ledgerNavigate.toDeviceBusyStep('Verifying public key from Ledger…');
     await delay(1000);
 
@@ -99,7 +113,6 @@ export function LedgerSignTxContainer() {
       if (resp.returnCode === LedgerError.TransactionRejected) {
         ledgerNavigate.toOperationRejectedStep();
         ledgerAnalytics.transactionSignedOnLedgerRejected();
-
         return;
       }
 
@@ -139,6 +152,7 @@ export function LedgerSignTxContainer() {
     signTransaction,
     latestDeviceResponse,
     awaitingDeviceConnection,
+    hasUserSkippedBuggyAppWarning,
   };
 
   return (
