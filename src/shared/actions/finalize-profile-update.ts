@@ -23,7 +23,7 @@ export function formatProfileUpdaterResponse({
 interface FinalizeProfileUpdateArgs {
   requestPayload: string;
   tabId: number;
-  data: PublicProfile;
+  data: PublicProfile | string;
 }
 export function finalizeProfileUpdate({ requestPayload, data, tabId }: FinalizeProfileUpdateArgs) {
   const responseMessage = formatProfileUpdaterResponse({ request: requestPayload, response: data });

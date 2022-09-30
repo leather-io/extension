@@ -15,8 +15,7 @@ import {
   fetchAccountProfileUrl,
   fetchProfileFromUrl,
   signAndUploadProfile,
-} from '../wallet-sdk-clone/profiles';
-import { getHubInfo } from '../wallet-sdk-clone/utils';
+} from '@stacks/wallet-sdk';
 import { UpdateActionLayout } from './update-action.layout';
 
 function useUpdateProfileSoftwareWallet() {
@@ -29,10 +28,11 @@ function useUpdateProfileSoftwareWallet() {
 
       if (!account || account.type === 'ledger' || !wallet) return null;
 
-      const hubInfo = await getHubInfo(gaiaUrl, fetchFn);
+      const response = await fetchFn(`${gaiaUrl}/hub_info`);
+      const { read_url_prefix }: { read_url_prefix: string } = await response.json();
       const profileUrl = await fetchAccountProfileUrl({
         account,
-        gaiaHubUrl: hubInfo.read_url_prefix,
+        gaiaHubUrl: read_url_prefix,
       });
       console.log({ profileUrl, accountAddress: account.address });
       const profile = (await fetchProfileFromUrl(profileUrl, fetchFn)) || DEFAULT_PROFILE;
@@ -52,13 +52,13 @@ function useUpdateProfileSoftwareWallet() {
 }
 
 export function UpdateAction(props: {
-  profileUpdaterPayload: UpdateProfilePayload;
+  profileUpdaterPayload: ProfileUpdaterPayload;
 }): JSX.Element | null {
   const { profileUpdaterPayload } = props;
   const { profile: publicProfile } = profileUpdaterPayload;
 
   const { tabId, requestToken } = useProfileUpdaterRequestSearchParams();
-  const profileUpdaterSofwareWallet = useUpdateProfileSoftwareWallet();
+  const updateProfileSofwareWallet = useUpdateProfileSoftwareWallet();
   const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
 
