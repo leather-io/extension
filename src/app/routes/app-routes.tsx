@@ -173,13 +173,16 @@ export function AppRoutes() {
         >
           {ledgerMessageSigningRoutes}
         </Route>
-        <Route path={RouteUrls.ProfileUpdaterRequest} element={
-          <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
-              <ProfileUpdaterRequest />
-            </Suspense>
-          </AccountGate>
-        }
+        <Route
+          path={RouteUrls.ProfileUpdaterRequest}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <ProfileUpdaterRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        />
 
         <Route
           path={RouteUrls.ViewSecretKey}

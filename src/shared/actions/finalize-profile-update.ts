@@ -1,4 +1,5 @@
 import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage, UpdateProfileResponseMessage } from '@shared/message-types';
+import { PublicProfile } from '@shared/profiles/types';
 import { SignatureData } from '@stacks/connect';
 
 interface FormatProfileUpdateResponseArgs {
@@ -19,7 +20,7 @@ export function formatProfileUpdateResponse({
 interface FinalizeUpdateProfileArgs {
   requestPayload: string;
   tabId: number;
-  data: SignatureData | string;
+  data: PublicProfile | string;
 }
 export function finalizeUpdateProfile({
   requestPayload,
