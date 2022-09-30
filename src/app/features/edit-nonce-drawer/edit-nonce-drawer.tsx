@@ -63,7 +63,12 @@ export function EditNonceDrawer() {
   }, [customNonce, setFieldError, setFieldValue, setShowEditNonce, values.nonce]);
 
   return (
-    <ControlledDrawer title="Edit nonce" isShowing={!!showEditNonce} onClose={onClose}>
+    <ControlledDrawer
+      isShowing={!!showEditNonce}
+      onClose={onClose}
+      pauseOnClickOutside
+      title="Edit nonce"
+    >
       <Stack px="loose" spacing="loose" pb="extra-loose">
         <CustomFeeMessaging />
         {showEditNonce && <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />}

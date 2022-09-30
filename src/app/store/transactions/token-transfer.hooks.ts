@@ -59,7 +59,7 @@ export function useGenerateStxTokenTransferUnsignedTx() {
 
       const options: GenerateUnsignedTransactionOptions = {
         publicKey: account.stxPublicKey,
-        nonce: Number(values?.nonce) || nonce,
+        nonce: Number(values?.nonce) ?? nonce,
         fee: stxToMicroStx(values?.fee || 0).toNumber(),
         txData: {
           txType: TransactionTypes.STXTransfer,
