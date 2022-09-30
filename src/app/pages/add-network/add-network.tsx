@@ -49,8 +49,8 @@ export const AddNetwork = () => {
           setLoading(true);
           setError('');
           try {
-            const origin = new URL(url).origin;
-            const response = await network.fetchFn(`${origin}/v2/info`);
+            const path = new URL(url).href;
+            const response = await network.fetchFn(`${path}/v2/info`);
             const chainInfo = await response.json();
             const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
             if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {
@@ -58,7 +58,7 @@ export const AddNetwork = () => {
                 chainId: networkId,
                 id: key as DefaultNetworkConfigurations,
                 name,
-                url: origin,
+                url: path,
               });
               navigate(RouteUrls.Home);
               return;
