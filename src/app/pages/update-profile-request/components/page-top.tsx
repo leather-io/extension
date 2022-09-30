@@ -1,12 +1,13 @@
 import { Stack } from '@stacks/ui';
 import { memo } from 'react';
 
-import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Caption, Title } from '@app/components/typography';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 import { isSignatureMessageType } from '@shared/signature/types';
+import { ChainID } from '@stacks/transactions';
 
 function PageTopBase() {
   const network = useCurrentNetwork();
@@ -18,9 +19,10 @@ function PageTopBase() {
 
   const appName = signatureRequest?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = network.isTestnet
-    ? ` using ${getUrlHostname(network.url)}${addPortSuffix(network.url)}`
-    : '';
+  const testnetAddition =
+    network.chainId === ChainID.Testnet
+      ? ` using ${getUrlHostname(network.url)}${addPortSuffix(network.url)}`
+      : '';
   const caption = appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;
 
   return (

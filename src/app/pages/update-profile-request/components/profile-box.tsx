@@ -1,5 +1,5 @@
-import { color, Stack, Text } from '@stacks/ui';
 import { Image } from '@app/components/image';
+import { color, Stack, Text } from '@stacks/ui';
 
 export function ProfileBox({ name, imageUrl }: {
   name: string;

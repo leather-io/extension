@@ -1,33 +1,32 @@
-import { ExternalMethods, MESSAGE_SOURCE, SignatureResponseMessage, UpdateProfileResponseMessage } from '@shared/message-types';
+import {
+  ExternalMethods,
+  MESSAGE_SOURCE,
+  ProfileUpdaterResponseMessage,
+} from '@shared/message-types';
 import { PublicProfile } from '@shared/profiles/types';
-import { SignatureData } from '@stacks/connect';
 
-interface FormatProfileUpdateResponseArgs {
+interface FormatProfileUpdaterResponseArgs {
   request: string;
-  response: SignatureData | string;
+  response: PublicProfile | string;
 }
-export function formatProfileUpdateResponse({
+export function formatProfileUpdaterResponse({
   request,
   response,
-}: FormatProfileUpdateResponseArgs): UpdateProfileResponseMessage {
+}: FormatProfileUpdaterResponseArgs): ProfileUpdaterResponseMessage {
   return {
     source: MESSAGE_SOURCE,
-    method: ExternalMethods.updateProfileResponse,
-    payload: { updateProfileRequest: request, updateProfileResponse: response },
+    method: ExternalMethods.profileUpdaterResponse,
+    payload: { profileUpdaterRequest: request, profileUpdaterResponse: response },
   };
 }
 
-interface FinalizeUpdateProfileArgs {
+interface FinalizeProfileUpdateArgs {
   requestPayload: string;
   tabId: number;
-  data: PublicProfile | string;
+  data: PublicProfile;
 }
-export function finalizeUpdateProfile({
-  requestPayload,
-  data,
-  tabId,
-}: FinalizeUpdateProfileArgs) {
-  const responseMessage = formatProfileUpdateResponse({ request: requestPayload, response: data });
+export function finalizeProfileUpdate({ requestPayload, data, tabId }: FinalizeProfileUpdateArgs) {
+  const responseMessage = formatProfileUpdaterResponse({ request: requestPayload, response: data });
   chrome.tabs.sendMessage(tabId, responseMessage);
   window.close();
 }

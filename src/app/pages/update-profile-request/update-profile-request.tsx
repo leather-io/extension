@@ -1,16 +1,16 @@
 import { memo } from 'react';
 
-import { isUndefined } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
+import { isUndefined } from '@shared/utils';
 
-import { ErrorMessage } from './components/update-profile-error-msg';
-import { ProfileDataContent } from './components/profile-data-content';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import {
   useIsProfileUpdaterRequestValid,
   useProfileUpdaterRequestSearchParams,
 } from '@app/store/profiles/requests.hooks';
+import { ProfileDataContent } from './components/profile-data-content';
+import { ErrorMessage } from './components/update-profile-error-msg';
 import { ProfileUpdaterRequestLayout } from './components/update-profile-request.layout';
 
 function ProfileUpdaterRequestBase() {

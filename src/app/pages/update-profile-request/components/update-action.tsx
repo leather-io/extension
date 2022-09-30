@@ -1,22 +1,22 @@
 import { useCallback, useState } from 'react';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { ProfileUpdaterPayload } from '@app/common/profiles/requests';
 import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useProfileUpdaterRequestSearchParams } from '@app/store/profiles/requests.hooks';
-import { UpdateProfilePayload } from '@app/common/profiles/requests';
-import { finalizeUpdateProfile } from '@shared/actions/finalize-profile-update';
+import { useWalletState } from '@app/store/wallet/wallet.hooks';
+import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
+import { gaiaUrl } from '@shared/constants';
 import { PublicProfile } from '@shared/profiles/types';
-import { getHubInfo } from '../wallet-sdk-clone/utils';
+import { createFetchFn } from '@stacks/network';
 import {
   DEFAULT_PROFILE,
   fetchAccountProfileUrl,
   fetchProfileFromUrl,
   signAndUploadProfile,
 } from '../wallet-sdk-clone/profiles';
-import { createFetchFn } from '@stacks/network';
-import { gaiaUrl } from '@shared/constants';
-import { useWalletState } from '@app/store/wallet/wallet.hooks';
+import { getHubInfo } from '../wallet-sdk-clone/utils';
 import { UpdateActionLayout } from './update-action.layout';
 
 function useUpdateProfileSoftwareWallet() {
@@ -52,13 +52,13 @@ function useUpdateProfileSoftwareWallet() {
 }
 
 export function UpdateAction(props: {
-  updateProfilePayload: UpdateProfilePayload;
+  profileUpdaterPayload: UpdateProfilePayload;
 }): JSX.Element | null {
-  const { updateProfilePayload } = props;
-  const { profile: publicProfile } = updateProfilePayload;
+  const { profileUpdaterPayload } = props;
+  const { profile: publicProfile } = profileUpdaterPayload;
 
   const { tabId, requestToken } = useProfileUpdaterRequestSearchParams();
-  const updateProfileSofwareWallet = useUpdateProfileSoftwareWallet();
+  const profileUpdaterSofwareWallet = useUpdateProfileSoftwareWallet();
   const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
 
@@ -71,12 +71,12 @@ export function UpdateAction(props: {
     // Since the signature is really fast, we add a delay to improve the UX
     await delay(1000);
     setIsLoading(false);
-    finalizeUpdateProfile({ requestPayload: requestToken, tabId, data: publicProfile });
+    finalizeProfileUpdate({ requestPayload: requestToken, tabId, data: publicProfile });
   };
 
   const onCancel = async () => {
     void analytics.track('request_update_profile_cancel');
-    finalizeUpdateProfile({ requestPayload: requestToken, tabId, data: 'cancel' });
+    finalizeProfileUpdate({ requestPayload: requestToken, tabId, data: 'cancel' });
   };
 
   return (

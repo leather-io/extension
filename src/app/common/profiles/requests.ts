@@ -5,7 +5,7 @@ import { StacksNetwork } from '@stacks/network';
 import { AuthOptions } from '@stacks/connect';
 import { PublicProfile } from '@shared/profiles/types';
 
-export interface UpdateProfilePayload {
+export interface ProfileUpdaterPayload {
   profile: PublicProfile;
   appDetails?: AuthOptions['appDetails'];
   network?: StacksNetwork;
@@ -14,10 +14,10 @@ export interface UpdateProfilePayload {
 
 export function getProfileDataContentFromToken(
   requestToken: string
-): UpdateProfilePayload {
+): ProfileUpdaterPayload {
   const token = decodeToken(requestToken);
   if (isString(token.payload)) throw new Error('error decoding json token');
 
-  const result = token.payload as unknown as UpdateProfilePayload;
+  const result = token.payload as unknown as ProfileUpdaterPayload;
   return result
 }
