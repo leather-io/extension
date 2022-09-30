@@ -1,10 +1,10 @@
 import { Stack } from '@stacks/ui';
 import { PageTop } from './page-top';
 
-interface UpdateProfileRequestLayoutProps {
+interface ProfileUpdaterRequestLayoutProps {
   children: React.ReactNode;
 }
-export function UpdateProfileRequestLayout({ children }: UpdateProfileRequestLayoutProps) {
+export function ProfileUpdaterRequestLayout({ children }: ProfileUpdaterRequestLayoutProps) {
   return (
     <Stack px={['loose', 'unset']} spacing="loose" width="100%">
       <PageTop />

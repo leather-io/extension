@@ -66,7 +66,7 @@ type StructuredDataSignatureRequestMessage = Message<
   string
 >;
 
-type UpdateProfileRequestMessage = Message<ExternalMethods.updateProfileRequest, string>;
+type ProfileUpdaterRequestMessage = Message<ExternalMethods.updateProfileRequest, string>;
 
 export type UpdateProfileResponseMessage = Message<ExternalMethods.updateProfileResponse, {
   updateProfileRequest: string,
@@ -90,7 +90,7 @@ export type LegacyMessageFromContentScript =
   | TransactionRequestMessage
   | SignatureRequestMessage
   | StructuredDataSignatureRequestMessage
-  | UpdateProfileRequestMessage;
+  | ProfileUpdaterRequestMessage;
 
 export type LegacyMessageToContentScript =
   | AuthenticationResponseMessage

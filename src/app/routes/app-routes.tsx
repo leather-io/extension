@@ -38,7 +38,7 @@ import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
 import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
-import { UpdateProfileRequest } from '@app/pages/update-profile-request/update-profile-request';
+import { ProfileUpdaterRequest } from '@app/pages/update-profile-request/update-profile-request';
 
 export function AppRoutes() {
   const { pathname } = useLocation();
@@ -145,6 +145,7 @@ export function AppRoutes() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route
           path={RouteUrls.TransactionRequest}
@@ -157,6 +158,7 @@ export function AppRoutes() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
         <Route
@@ -168,17 +170,16 @@ export function AppRoutes() {
               </Suspense>
             </AccountGate>
           }
-        />
-        <Route
-          path={RouteUrls.ProfileUpdaterRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <UpdateProfileRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        />
+        >
+          {ledgerMessageSigningRoutes}
+        </Route>
+        <Route path={RouteUrls.ProfileUpdaterRequest} element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <ProfileUpdaterRequest />
+            </Suspense>
+          </AccountGate>
+        }
 
         <Route
           path={RouteUrls.ViewSecretKey}

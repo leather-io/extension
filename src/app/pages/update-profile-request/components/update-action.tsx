@@ -4,7 +4,7 @@ import { Button, Stack } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useUpdateProfileRequestSearchParams } from '@app/store/profiles/requests.hooks';
+import { useProfileUpdaterRequestSearchParams } from '@app/store/profiles/requests.hooks';
 import { UpdateProfilePayload } from '@app/common/profiles/requests';
 import { finalizeUpdateProfile } from '@shared/actions/finalize-profile-update';
 import { PublicProfile } from '@shared/profiles/types';
@@ -48,7 +48,7 @@ export function UpdateAction(props: { updateProfilePayload: UpdateProfilePayload
   const { updateProfilePayload } = props;
   const { profile: publicProfile } = updateProfilePayload
 
-  const { tabId, requestToken } = useUpdateProfileRequestSearchParams();
+  const { tabId, requestToken } = useProfileUpdaterRequestSearchParams();
   const updateProfileSofwareWallet = useUpdateProfileSoftwareWallet();
   const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
