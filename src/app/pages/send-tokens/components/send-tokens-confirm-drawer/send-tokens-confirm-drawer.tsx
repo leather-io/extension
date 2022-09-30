@@ -15,6 +15,7 @@ import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { StacksTransaction } from '@stacks/transactions';
+import { microStxToStx } from '@stacks/ui-utils';
 
 interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
   onUserSelectBroadcastTransaction(tx: StacksTransaction | undefined): void;
@@ -22,7 +23,7 @@ interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
 export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirmDrawerProps) {
   const { isShowing, onClose, onUserSelectBroadcastTransaction } = props;
   const { values } = useFormikContext<SendFormValues>();
-  const transaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
+  const unsignedTransaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
   const analytics = useAnalytics();
   const { showEditNonce } = useDrawers();
 
@@ -31,7 +32,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
     void analytics.track('view_transaction_signing');
   }, [isShowing, analytics]);
 
-  if (!isShowing || !transaction || !values) return null;
+  if (!isShowing || !unsignedTransaction || !values) return null;
 
   return (
     <BaseDrawer
@@ -40,22 +41,27 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
       onClose={onClose}
       pauseOnClickOutside={showEditNonce}
     >
-      <Stack pb="extra-loose" px="loose" spacing="loose">
+      <Stack pb="extra-loose" px="loose" spacing="base">
         <SendTokensConfirmDetails
           amount={values.amount}
           assetId={values.assetId}
           recipient={values.recipient}
-          nonce={Number(transaction?.auth.spendingCondition?.nonce)}
         />
         <SpaceBetween>
           <Caption>Fees</Caption>
           <Caption>
-            <TransactionFee fee={values.fee} />
+            <TransactionFee
+              fee={microStxToStx(Number(unsignedTransaction.auth.spendingCondition.fee))}
+            />
           </Caption>
         </SpaceBetween>
+        <SpaceBetween>
+          <Caption>Nonce</Caption>
+          <Caption>{Number(unsignedTransaction.auth.spendingCondition.nonce)}</Caption>
+        </SpaceBetween>
         <SendTokensConfirmActions
-          transaction={transaction}
-          onUserConfirmBroadcast={() => onUserSelectBroadcastTransaction(transaction)}
+          transaction={unsignedTransaction}
+          onUserConfirmBroadcast={() => onUserSelectBroadcastTransaction(unsignedTransaction)}
         />
       </Stack>
     </BaseDrawer>
