@@ -14,7 +14,7 @@ import {
   useFungibleTokenMetadata,
 } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
 import { formatContractId, getFullyQualifiedAssetName } from '@app/common/utils';
-import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
+import { isTransferableAsset } from '@app/common/transactions/stacks/is-transferable-asset';
 
 export function useTransferableAssets() {
   const assets = useAssetsWithMetadata();

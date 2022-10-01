@@ -7,7 +7,7 @@ import {
   useBaseAssetsUnanchored,
   useCurrentAccountUnanchoredBalances,
 } from '@app/query/stacks/balance/balance.hooks';
-import { SendFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@shared/models/form.model';
 import { ErrorLabel } from '@app/components/error-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';

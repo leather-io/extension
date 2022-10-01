@@ -5,7 +5,7 @@ import { addressToString, FungiblePostCondition } from '@stacks/transactions';
 import {
   getPostCondition,
   handlePostConditions,
-} from '@app/common/transactions/post-condition-utils';
+} from '@app/common/transactions/stacks/post-condition.utils';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
 

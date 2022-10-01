@@ -3,7 +3,7 @@ import { BoxProps, Circle, color, DynamicColorCircle } from '@stacks/ui';
 import { StxIcon } from '@app/components/icons/stx-icon';
 import { MicroblockIcon } from '@app/components/icons/microblock';
 
-import { TransactionTypeIconWrapper } from './transaction/components/transaction-type-icon-wrapper';
+import { TransactionTypeIconWrapper } from './transaction/transaction-type-icon-wrapper';
 
 const microIcon = () => (
   <MicroblockIcon

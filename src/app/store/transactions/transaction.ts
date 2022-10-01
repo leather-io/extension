@@ -7,8 +7,8 @@ import {
   TransactionVersion,
 } from '@stacks/transactions';
 
-import { whenChainId } from '@app/common/utils';
-import { stacksTransactionToHex } from '@app/common/transactions/transaction-utils';
+import { whenStxChainId } from '@app/common/utils';
+import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
 import { currentNetworkAtom } from '@app/store/networks/networks';
 
 export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
@@ -28,7 +28,7 @@ export const transactionNetworkVersionState = atom(get => {
   const defaultChainId = TransactionVersion.Testnet;
   if (!chainId) return defaultChainId;
 
-  return whenChainId(chainId)({
+  return whenStxChainId(chainId)({
     [ChainID.Mainnet]: TransactionVersion.Mainnet,
     [ChainID.Testnet]: TransactionVersion.Testnet,
   });
@@ -36,7 +36,7 @@ export const transactionNetworkVersionState = atom(get => {
 
 export const addressNetworkVersionState = atom(get => {
   const chainId = get(currentNetworkAtom)?.chainId;
-  return whenChainId(chainId)({
+  return whenStxChainId(chainId)({
     [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
     [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
   });

@@ -24,7 +24,7 @@ import {
 } from '@app/store/transactions/transaction.hooks';
 import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { TransactionFormValues } from '@shared/models/form.model';
 import { FeeType } from '@shared/models/fees-types';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useWalletType } from '@app/common/use-wallet-type';

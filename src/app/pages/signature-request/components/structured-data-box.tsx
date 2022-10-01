@@ -9,7 +9,7 @@ import {
   TupleCV,
 } from '@stacks/transactions';
 
-import { whenChainId } from '@app/common/utils';
+import { whenStxChainId } from '@app/common/utils';
 import { ClarityType } from '@stacks/transactions/dist/esm/clarity';
 import { ClarityValueListDisplayer } from './clarity-value-list';
 import { HashDrawer } from './hash-drawer';
@@ -24,7 +24,7 @@ function chainIdToDisplay(chainIdCv: ClarityValue): string {
   const chainId = parseInt(chainIdString.replace('u', ''));
   if (!Object.values(ChainID).includes(chainId)) return '';
 
-  return whenChainId(chainId as ChainID)({
+  return whenStxChainId(chainId as ChainID)({
     [ChainID.Testnet]: 'Testnet',
     [ChainID.Mainnet]: 'Mainnet',
   });
