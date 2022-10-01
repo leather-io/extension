@@ -10,7 +10,7 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
-import { SendFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@shared/models/form.model';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { Header } from '@app/components/header';
 import { useWalletType } from '@app/common/use-wallet-type';

@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
+import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
   bufferCVFromString,
@@ -16,18 +17,17 @@ import {
 
 import { AssetWithMeta } from '@app/common/asset-types';
 import { ftUnshiftDecimals, stxToMicroStx } from '@app/common/stacks-utils';
-import { SendFormValues, TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   generateUnsignedTransaction,
   GenerateUnsignedTransactionOptions,
-} from '@app/common/transactions/generate-unsigned-txs';
+} from '@app/common/transactions/stacks/generate-unsigned-txs';
 
 import { useSelectedAssetMetadata } from '../assets/asset.hooks';
 import { useCurrentAccount } from '../accounts/account.hooks';
-import { bytesToHex } from '@stacks/common';
 
 function useMakeFungibleTokenTransfer(asset: AssetWithMeta) {
   const currentAccount = useCurrentAccount();

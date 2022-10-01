@@ -1,24 +1,23 @@
+import { useEffect, useMemo } from 'react';
 import { useFormikContext } from 'formik';
 import { Stack } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
+import { StacksTransaction } from '@stacks/transactions';
+import { microStxToStx } from '@stacks/ui-utils';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
-
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
-
-import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
-import { useEffect, useMemo } from 'react';
-import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
+import { SendFormValues } from '@shared/models/form.model';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { SendFormValues } from '@app/common/transactions/transaction-utils';
-import { StacksTransaction } from '@stacks/transactions';
 import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { createMoney } from '@shared/models/money.model';
-import { microStxToStx } from '@app/common/stacks-utils';
+
+import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
+import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 
 function getFeeWithDefaultOfZero(tx?: StacksTransaction) {
   if (!tx) return createMoney(0, 'STX');

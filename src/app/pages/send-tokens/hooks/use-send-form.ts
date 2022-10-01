@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 
 import { microStxToStx } from '@app/common/stacks-utils';
 import { removeCommas } from '@app/common/token-utils';
-import { SendFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@shared/models/form.model';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';

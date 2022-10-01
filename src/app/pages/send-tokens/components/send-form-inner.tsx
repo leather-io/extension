@@ -8,7 +8,6 @@ import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { AssetWithMeta } from '@app/common/asset-types';
 import { isEmpty, isUndefined } from '@shared/utils';
-import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -22,6 +21,7 @@ import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { FeeEstimate } from '@shared/models/fees-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormValues } from '@shared/models/form.model';
 
 import { SendFormMemoWarning } from './memo-warning';
 

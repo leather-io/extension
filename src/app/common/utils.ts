@@ -1,5 +1,6 @@
 import type { ClipboardEvent } from 'react';
 import BigNumber from 'bignumber.js';
+import { hexToBytes } from '@stacks/common';
 import {
   BytesReader,
   ChainID,
@@ -7,10 +8,10 @@ import {
   PostCondition,
 } from '@stacks/transactions';
 
-import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
+import { DefaultNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
+import { WalletBlockchains, WalletChainTypes } from '@shared/models/blockchain.model';
 
 import { AssetWithMeta } from './asset-types';
-import { hexToBytes } from '@stacks/common';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -53,8 +54,28 @@ export function validateAndCleanRecoveryInput(value: string) {
   return { isValid: false, value };
 }
 
-export function makeTxExplorerLink(txid: string, mode: NetworkModes, suffix = '') {
-  return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
+interface MakeTxExplorerLinkArgs {
+  blockchain: WalletChainTypes;
+  mode: NetworkModes;
+  suffix?: string;
+  txid: string;
+}
+export function makeTxExplorerLink({
+  blockchain,
+  mode,
+  suffix = '',
+  txid,
+}: MakeTxExplorerLinkArgs) {
+  switch (blockchain) {
+    case WalletBlockchains.bitcoin:
+      return `https://blockchain.com/btc${
+        mode === DefaultNetworkModes.mainnet ? '' : `-${mode}`
+      }/tx/${txid}`;
+    case WalletBlockchains.stacks:
+      return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
+    default:
+      return '';
+  }
 }
 
 export function truncateString(str: string, maxLength: number) {
@@ -273,7 +294,7 @@ interface WhenChainIdMap<T> {
   [ChainID.Mainnet]: T;
   [ChainID.Testnet]: T;
 }
-export function whenChainId(chainId: ChainID) {
+export function whenStxChainId(chainId: ChainID) {
   return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
 }
 
