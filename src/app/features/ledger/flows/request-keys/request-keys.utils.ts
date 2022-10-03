@@ -1,24 +1,13 @@
 import { delay } from '@app/common/utils';
 import * as secp from '@noble/secp256k1';
 import { logger } from '@shared/logger';
-import { AddressVersion } from '@stacks/transactions';
 import StacksApp from '@zondax/ledger-stacks';
 
 import {
   getIdentityDerivationPath,
-  getStxDerivationPath,
+  requestPublicKeyForStxAccount,
   StxAndIdentityPublicKeys,
 } from '../../ledger-utils';
-
-function requestPublicKeyForStxAccount(app: StacksApp) {
-  return async (index: number) =>
-    app.getAddressAndPubKey(
-      getStxDerivationPath(index),
-      // We pass mainnet as it expects something, however this is so it can return a formatted address
-      // We only need the public key, and can derive the address later in any network format
-      AddressVersion.MainnetSingleSig
-    );
-}
 
 function requestPublicKeyForIdentityAccount(app: StacksApp) {
   return async (index: number) => app.getIdentityPubKey(getIdentityDerivationPath(index));

@@ -23,6 +23,7 @@ import { finalizeMessageSignature } from '@shared/actions/finalize-message-signa
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
+import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
 
 export function LedgerSignMsgContainer() {
   useScrollLock(true);
@@ -33,6 +34,7 @@ export function LedgerSignMsgContainer() {
   const ledgerAnalytics = useLedgerAnalytics();
   const message = useLocationStateWithCache('message');
   const account = useCurrentAccount();
+  const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();
   const { tabId, requestToken } = useSignatureRequestSearchParams();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
@@ -62,8 +64,8 @@ export function LedgerSignMsgContainer() {
       return;
     }
 
-    ledgerNavigate.toDeviceBusyStep(`Sending message to Ledger`);
-    await delay(1000);
+    ledgerNavigate.toDeviceBusyStep(`Verifying public key on Ledger…`);
+    await verifyLedgerPublicKey(stacksApp);
 
     try {
       ledgerNavigate.toConnectionSuccessStep();
