@@ -1,3 +1,24 @@
+## [3.18.0-beta.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.2...v3.18.0-beta.1) (2022-10-03)
+
+
+### Features
+
+* add warning msg for outdated ledger app versions ([1af7a04](https://github.com/hirosystems/stacks-wallet-web/commit/1af7a047cadc6050add2178da77fc2822a617b88))
+* bitcoin data ([f6b4166](https://github.com/hirosystems/stacks-wallet-web/commit/f6b416645b7256a6617ebc28a59bdebdbca75d1e))
+
+
+### Bug Fixes
+
+* edit nonce to zero ([1fb1e36](https://github.com/hirosystems/stacks-wallet-web/commit/1fb1e362dd5d641f235357bbdf2c7c1c6984eb4e))
+* hide menu in send form ([78c2001](https://github.com/hirosystems/stacks-wallet-web/commit/78c20017197d044d1e019e30d6b35e73ac15d737))
+* **network:** full path not accepted, closes [#2680](https://github.com/hirosystems/stacks-wallet-web/issues/2680) ([23fb2f6](https://github.com/hirosystems/stacks-wallet-web/commit/23fb2f686e9b3d85d885c9076ba4a93eca5d7ba1))
+
+
+### Internal
+
+* add bitcoin feature flag ([f0d284c](https://github.com/hirosystems/stacks-wallet-web/commit/f0d284c43b4ba8d1eec561eca9bf31d1e9b7923d))
+* network state to redux ([c475572](https://github.com/hirosystems/stacks-wallet-web/commit/c4755728904dbc747e0a4886d3a69de560274e22))
+
 ## [3.17.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.17.1...v3.17.2) (2022-09-16)
 
 
