@@ -52,7 +52,7 @@ function SendTokensFormBase() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
 
-  useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
+  useRouteHeader(<Header hideActions title="Send" onClose={() => navigate(RouteUrls.Home)} />);
 
   useEffect(() => {
     if (showNetworks) navigate(RouteUrls.Home);
