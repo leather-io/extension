@@ -1,0 +1,22 @@
+diff --git a/node_modules/@stacks/encryption/dist/esm/messageSignature.js b/node_modules/@stacks/encryption/dist/esm/messageSignature.js
+index 3da757d..d2bf5bd 100644
+--- a/node_modules/@stacks/encryption/dist/esm/messageSignature.js
++++ b/node_modules/@stacks/encryption/dist/esm/messageSignature.js
+@@ -1,7 +1,7 @@
+ import { sha256 } from '@noble/hashes/sha256';
+ import { Buffer } from '@stacks/common';
+ import { decode, encode, encodingLength } from 'varuint-bitcoin';
+-const chainPrefix = '\x18Stacks Message Signing:\n';
++const chainPrefix = '\x17Stacks Signed Message:\n';
+ export function hashMessage(message) {
+     return Buffer.from(sha256(encodeMessage(message)));
+ }
+@@ -10,7 +10,7 @@ export function encodeMessage(message) {
+     return Buffer.concat([Buffer.from(chainPrefix), encoded, Buffer.from(message)]);
+ }
+ export function decodeMessage(encodedMessage) {
+-    const messageWithoutChainPrefix = encodedMessage.subarray(1 + 24);
++    const messageWithoutChainPrefix = encodedMessage.subarray(Buffer.from(chainPrefix).byteLength);
+     const decoded = decode(messageWithoutChainPrefix);
+     const varIntLength = encodingLength(decoded);
+     return messageWithoutChainPrefix.slice(varIntLength);
