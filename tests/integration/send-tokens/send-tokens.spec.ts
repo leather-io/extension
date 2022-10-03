@@ -41,7 +41,8 @@ describe(`Send tokens flow`, () => {
   });
 
   describe('Set max button', () => {
-    it('does not set a fee below zero, when the account balance is 0 STX', async () => {
+    // Skipping while we hide the settings menu on the send form
+    it.skip('does not set a fee below zero, when the account balance is 0 STX', async () => {
       await walletPage.clickSettingsButton();
       await walletPage.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
       await walletPage.page.click(createTestSelector('switch-account-item-1'));
