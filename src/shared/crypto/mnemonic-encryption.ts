@@ -1,3 +1,4 @@
+import { bytesToHex } from '@stacks/common';
 import { decrypt, encrypt } from '@stacks/wallet-sdk';
 import { generateEncryptionKey } from './generate-encryption-key';
 import { generateRandomHexString } from './generate-random-hex';
@@ -12,7 +13,7 @@ export async function encryptMnemonic({ secretKey, password }: EncryptMnemonicAr
   const encryptedBuffer = await encrypt(secretKey, argonHash);
   return {
     salt,
-    encryptedSecretKey: encryptedBuffer.toString('hex'),
+    encryptedSecretKey: bytesToHex(encryptedBuffer),
   };
 }
 

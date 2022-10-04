@@ -4,6 +4,7 @@ import { StacksTransaction } from '@stacks/transactions';
 
 import { RouteUrls } from '@shared/route-urls';
 import { immediatelyAttemptLedgerConnection } from './use-when-reattempt-ledger-connection';
+import { bytesToHex } from '@stacks/common';
 
 export function useLedgerNavigate() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export function useLedgerNavigate() {
       toConnectAndSignTransactionStep(transaction: StacksTransaction, goBack?: boolean) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: !goBack,
-          state: { goBack, tx: transaction.serialize().toString('hex') },
+          state: { goBack, tx: bytesToHex(transaction.serialize()) },
         });
       },
 

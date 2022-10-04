@@ -71,10 +71,10 @@ export function getPostConditionCodeMessage(
     case FungibleConditionCode.LessEqual:
       return `${sender} will transfer at most`;
 
-    case NonFungibleConditionCode.DoesNotOwn:
+    case NonFungibleConditionCode.Sends:
       return `${sender} will transfer`;
 
-    case NonFungibleConditionCode.Owns:
+    case NonFungibleConditionCode.DoesNotSend:
       return `${sender} will keep or receive`;
   }
 }
@@ -136,9 +136,9 @@ const getTitleFromConditionCode = (code: FungibleConditionCode | NonFungibleCond
       return 'will transfer less than';
     case FungibleConditionCode.LessEqual:
       return 'will transfer less than or equal to';
-    case NonFungibleConditionCode.DoesNotOwn:
+    case NonFungibleConditionCode.Sends:
       return 'will transfer';
-    case NonFungibleConditionCode.Owns:
+    case NonFungibleConditionCode.DoesNotSend:
       return 'will keep';
     default:
       return '';

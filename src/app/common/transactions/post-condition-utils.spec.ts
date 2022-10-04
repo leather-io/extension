@@ -15,7 +15,7 @@ describe(handlePostConditions.name, function () {
     const postCondition = makeContractNonFungiblePostCondition(
       SENDER_ADDRESS,
       'btc-nft-swap-v1',
-      NonFungibleConditionCode.DoesNotOwn,
+      NonFungibleConditionCode.Sends,
       createAssetInfo(
         'ST248HH800501WYSG7Z2SS1ZWHQW1GGH85Q6YJBCC',
         'passive-blue-marmot',
@@ -35,7 +35,7 @@ describe(handlePostConditions.name, function () {
   it('should not modify a post condition when all addresses are the same (sender, current address, and postcondition principal)', () => {
     const postCondition = makeStandardNonFungiblePostCondition(
       SENDER_ADDRESS,
-      NonFungibleConditionCode.DoesNotOwn,
+      NonFungibleConditionCode.Sends,
       createAssetInfo(
         'ST248HH800501WYSG7Z2SS1ZWHQW1GGH85Q6YJBCC',
         'passive-blue-marmot',
@@ -56,7 +56,7 @@ describe(handlePostConditions.name, function () {
     const CURRENT_ADDRESS = 'ST248HH800501WYSG7Z2SS1ZWHQW1GGH85Q6YJBCC';
     const postCondition = makeStandardNonFungiblePostCondition(
       SENDER_ADDRESS,
-      NonFungibleConditionCode.DoesNotOwn,
+      NonFungibleConditionCode.Sends,
       createAssetInfo(
         'ST248HH800501WYSG7Z2SS1ZWHQW1GGH85Q6YJBCC',
         'passive-blue-marmot',
@@ -79,7 +79,7 @@ describe(handlePostConditions.name, function () {
     const PAYLOAD_ADDRESS = 'ST248HH800501WYSG7Z2SS1ZWHQW1GGH85Q6YJBCC';
     const postCondition = makeStandardNonFungiblePostCondition(
       SENDER_ADDRESS,
-      NonFungibleConditionCode.DoesNotOwn,
+      NonFungibleConditionCode.Sends,
       createAssetInfo(
         'ST248HH800501WYSG7Z2SS1ZWHQW1GGH85Q6YJBCC',
         'passive-blue-marmot',

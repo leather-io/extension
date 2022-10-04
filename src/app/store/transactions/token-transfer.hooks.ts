@@ -27,6 +27,7 @@ import {
 
 import { useSelectedAssetMetadata } from '../assets/asset.hooks';
 import { useCurrentAccount } from '../accounts/account.hooks';
+import { bytesToHex } from '@stacks/common';
 
 function useMakeFungibleTokenTransfer(asset: AssetWithMeta) {
   const currentAccount = useCurrentAccount();
@@ -150,7 +151,7 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
           contractAddress,
           contractName,
           functionName,
-          functionArgs: functionArgs.map(serializeCV).map(arg => arg.toString('hex')),
+          functionArgs: functionArgs.map(serializeCV).map(arg => bytesToHex(arg)),
           postConditions,
           postConditionMode: PostConditionMode.Deny,
           network,
