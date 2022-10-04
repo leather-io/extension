@@ -1,5 +1,4 @@
 import { broadcastRawTransaction } from '@stacks/transactions';
-import { Buffer } from 'buffer';
 import { logger } from '@shared/logger';
 import { validateTxId } from '@app/common/validation/validate-tx-id';
 import { delay } from '@app/common/utils';
@@ -11,7 +10,7 @@ async function simulateShortDelayToAvoidUndefinedTabId() {
 
 interface BroadcastTransactionOptions {
   txRaw: string;
-  serialized: Buffer;
+  serialized: Uint8Array;
   isSponsored: boolean;
   attachment?: string;
   networkUrl: string;

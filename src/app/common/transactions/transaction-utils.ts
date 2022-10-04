@@ -21,6 +21,7 @@ import { getContractName, truncateMiddle } from '@stacks/ui-utils';
 
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@app/common/date-utils';
 import { stacksValue } from '@app/common/stacks-utils';
+import { bytesToHex } from '@stacks/common';
 
 type Tx = MempoolTransaction | Transaction;
 
@@ -54,7 +55,7 @@ export interface FtTransfer {
 }
 
 export const stacksTransactionToHex = (transaction: StacksTransaction) =>
-  `0x${transaction.serialize().toString('hex')}`;
+  `0x${bytesToHex(transaction.serialize())}`;
 
 function txHasTime(tx: Tx) {
   return !!(

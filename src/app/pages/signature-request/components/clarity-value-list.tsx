@@ -1,3 +1,4 @@
+import { bytesToHex, bytesToAscii } from '@stacks/common';
 import { ClarityType, ClarityValue, cvToString } from '@stacks/transactions';
 import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/principalCV';
 import {
@@ -30,12 +31,10 @@ export function ClarityValueListDisplayer(props: ClarityValueListDisplayerProps)
       return wrapText(`u${val.value.toString()}`);
     case ClarityType.Buffer:
       if (encoding === 'tryAscii') {
-        const str = val.buffer.toString('ascii');
-        if (/[ -~]/.test(str)) {
-          return wrapText(JSON.stringify(str));
-        }
+        const str = bytesToAscii(val.buffer);
+        if (/[ -~]/.test(str)) return wrapText(JSON.stringify(str));
       }
-      return wrapText(`0x${val.buffer.toString('hex')}`);
+      return wrapText(`0x${bytesToHex(val.buffer)}`);
     case ClarityType.OptionalNone:
       return wrapText('none');
     case ClarityType.OptionalSome:
