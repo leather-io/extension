@@ -1,15 +1,15 @@
-import { addressToString, FungiblePostCondition } from '@stacks/transactions';
+import { useMemo } from 'react';
 import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
-
-import { useFungibleTokenMetadata } from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
-import { useTransactionRequestState } from './requests.hooks';
-import { useCurrentAccountStxAddressState } from '../accounts/account.hooks';
+import { addressToString, FungiblePostCondition } from '@stacks/transactions';
 
 import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/post-condition-utils';
-import { useMemo } from 'react';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
+import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
+
+import { useTransactionRequestState } from './requests.hooks';
 
 export function formatPostConditionState(
   payload?: ContractCallPayload | ContractDeployPayload | STXTransferPayload | null,

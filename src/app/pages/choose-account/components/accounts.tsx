@@ -18,7 +18,7 @@ import {
 } from '@app/components/account-balance-caption';
 import { slugify } from '@app/common/utils';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
-import { useAddressBalances } from '@app/query/balance/balance.hooks';
+import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useNavigate } from 'react-router-dom';

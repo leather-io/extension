@@ -5,7 +5,7 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceCaption } from '@app/components/account-balance-caption';
 import { Caption } from '@app/components/typography';
 import { AccountName, AccountNameFallback } from './account-name';
-import { useAddressBalances } from '@app/query/balance/balance.hooks';
+import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountListItemLayout } from './account-list-item-layout';
 import { AccountAvatarItem } from './account-avatar';
 import { AccountWithAddress } from '@app/store/accounts/account.models';

@@ -1,6 +1,9 @@
 import { ChainID } from '@stacks/transactions';
 import { AddressTransactionWithTransfers, Transaction } from '@stacks/stacks-blockchain-api-types';
-import { createTxDateFormatList, whenChainId } from './transaction-utils';
+
+import { whenChainId } from '@app/common/utils';
+
+import { createTxDateFormatList } from './transaction-utils';
 
 function createFakeTx(tx: Partial<Transaction>) {
   return {

@@ -10,15 +10,15 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
+import { SendFormValues } from '@app/common/transactions/transaction-utils';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { Header } from '@app/components/header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
-import { useFeeEstimations } from '@app/query/fees/fees.hooks';
+import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import {
   useGenerateSendFormUnsignedTx,
   useSendFormEstimatedUnsignedTxByteLengthState,
@@ -52,7 +52,7 @@ function SendTokensFormBase() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
 
-  useRouteHeader(<Header title="Send" onClose={() => navigate(RouteUrls.Home)} />);
+  useRouteHeader(<Header hideActions title="Send" onClose={() => navigate(RouteUrls.Home)} />);
 
   useEffect(() => {
     if (showNetworks) navigate(RouteUrls.Home);
@@ -97,7 +97,7 @@ function SendTokensFormBase() {
 
   if (assets.length < 1) return null;
 
-  const initialValues: TransactionFormValues = {
+  const initialValues: SendFormValues = {
     assetId: '',
     amount: '',
     fee: '',

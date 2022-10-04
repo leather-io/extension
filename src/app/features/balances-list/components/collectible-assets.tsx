@@ -4,7 +4,7 @@ import type { StackProps } from '@stacks/ui';
 import { getAssetStringParts } from '@stacks/ui-utils';
 
 import { AssetItem } from '@app/components/asset-item';
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 
 export const CollectibleAssets = memo((props: StackProps) => {
   const { data: balances } = useCurrentAccountUnanchoredBalances();

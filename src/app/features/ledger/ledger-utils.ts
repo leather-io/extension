@@ -4,6 +4,7 @@ import StacksApp, { LedgerError, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
 import {
+  AddressVersion,
   createMessageSignature,
   deserializeTransaction,
   SingleSigSpendingCondition,
@@ -15,6 +16,11 @@ import { safeAwait } from '@stacks/ui';
 import { useLocation } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
+export interface BaseLedgerOperationContext {
+  latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;
+  awaitingDeviceConnection: boolean;
+}
+
 const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
 
 const identityDerivationWithAccount = `m/888'/0'/{account}'`;
@@ -23,12 +29,21 @@ function getAccountIndexFromDerivationPathFactory(derivationPath: string) {
   return (account: number) => derivationPath.replace('{account}', account.toString());
 }
 
-export const getStxDerivationPath =
-  getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
+const getStxDerivationPath = getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
 
 export const getIdentityDerivationPath = getAccountIndexFromDerivationPathFactory(
   identityDerivationWithAccount
 );
+
+export function requestPublicKeyForStxAccount(app: StacksApp) {
+  return async (index: number) =>
+    app.getAddressAndPubKey(
+      getStxDerivationPath(index),
+      // We pass mainnet as it expects something, however this is so it can return a formatted address
+      // We only need the public key, and can derive the address later in any network format
+      AddressVersion.MainnetSingleSig
+    );
+}
 
 export interface StxAndIdentityPublicKeys {
   stxPublicKey: string;
@@ -126,7 +141,16 @@ export function doesLedgerStacksAppVersionSupportJwtAuth(versionInfo: SemVerObje
   );
 }
 
-export interface BaseLedgerOperationContext {
-  latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;
-  awaitingDeviceConnection: boolean;
+// https://github.com/Zondax/ledger-stacks/issues/119
+// https://github.com/hirosystems/stacks-wallet-web/issues/2567
+const versionFromWhichContractPrincipalBugIsFixed = '0.23.3';
+
+export function isVersionOfLedgerStacksAppWithContractPrincipalBug(
+  currentDeviceVersion: SemVerObject
+) {
+  return compare(
+    versionObjectToVersionString(currentDeviceVersion),
+    versionFromWhichContractPrincipalBugIsFixed,
+    '<'
+  );
 }

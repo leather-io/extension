@@ -9,7 +9,7 @@ import {
   TupleCV,
 } from '@stacks/transactions';
 
-import { whenChainId } from '@app/common/transactions/transaction-utils';
+import { whenChainId } from '@app/common/utils';
 import { ClarityType } from '@stacks/transactions/dist/esm/clarity';
 import { ClarityValueListDisplayer } from './clarity-value-list';
 import { HashDrawer } from './hash-drawer';

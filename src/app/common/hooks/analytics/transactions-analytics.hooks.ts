@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from 'react';
 
-import { useCurrentAccountUnanchoredBalances } from '@app/query/balance/balance.hooks';
+import { useCurrentAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { store } from '@app/store';
 import { useAnalyticsHasStxDeposits } from '@app/store/analytics/analytics.selectors';
 import { analyticsActions } from '@app/store/analytics/analytics.actions';
-import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { AccountStxBalanceBigNumber } from '@shared/models/account-types';
 
 import { useAnalytics } from './use-analytics';

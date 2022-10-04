@@ -9,7 +9,7 @@ import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
 import { useShowEditNonceCleanupEffect } from '@app/store/ui/ui.hooks';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
-import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { isUndefined } from '@shared/utils';
 
 import { EditNonceForm } from './components/edit-nonce-form';
@@ -63,7 +63,12 @@ export function EditNonceDrawer() {
   }, [customNonce, setFieldError, setFieldValue, setShowEditNonce, values.nonce]);
 
   return (
-    <ControlledDrawer title="Edit nonce" isShowing={!!showEditNonce} onClose={onClose}>
+    <ControlledDrawer
+      isShowing={!!showEditNonce}
+      onClose={onClose}
+      pauseOnClickOutside
+      title="Edit nonce"
+    >
       <Stack px="loose" spacing="loose" pb="extra-loose">
         <CustomFeeMessaging />
         {showEditNonce && <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />}

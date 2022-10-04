@@ -8,7 +8,7 @@ import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { AssetWithMeta } from '@app/common/asset-types';
 import { isEmpty, isUndefined } from '@shared/utils';
-import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { isTxSponsored, SendFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -35,7 +35,7 @@ interface SendFormInnerProps {
 export function SendFormInner(props: SendFormInnerProps) {
   const { assetError, feeEstimations, onAssetIdSelected, nonce } = props;
   const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
-    useFormikContext<TransactionFormValues>();
+    useFormikContext<SendFormValues>();
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const { selectedAsset } = useSelectedAsset(values.assetId);
   const transaction = useSendFormUnsignedTxPreviewState(values.assetId, values);

@@ -1,15 +1,14 @@
 import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
+import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useContractInterface } from '@app/query/contract/contract.hooks';
-import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
+import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/balance/balance.hooks';
-
-import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();

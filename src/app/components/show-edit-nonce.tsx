@@ -1,12 +1,12 @@
 import { color } from '@stacks/ui';
 
-import { useCurrentNetwork } from '@app/common/hooks/use-current-network';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 export function ShowEditNonceAction() {
-  const { isTestnet, name } = useCurrentNetwork();
+  const { isTestnet, name } = useCurrentNetworkState();
   const { showEditNonce, setShowEditNonce } = useDrawers();
 
   return (

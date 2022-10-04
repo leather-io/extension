@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - beta
     tags-ignore:
       - '**'
     paths-ignore:

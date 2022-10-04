@@ -6,8 +6,8 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import {
   useBaseAssetsUnanchored,
   useCurrentAccountUnanchoredBalances,
-} from '@app/query/balance/balance.hooks';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+} from '@app/query/stacks/balance/balance.hooks';
+import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
@@ -23,7 +23,7 @@ interface AmountFieldProps extends StackProps {
 // TODO: this should use a new "Field" component (with inline label like in figma)
 function AmountFieldBase(props: AmountFieldProps) {
   const { error, value, ...rest } = props;
-  const { handleChange, values } = useFormikContext<TransactionFormValues>();
+  const { handleChange, values } = useFormikContext<SendFormValues>();
   const analytics = useAnalytics();
   const assets = useBaseAssetsUnanchored();
   const balances = useCurrentAccountUnanchoredBalances();

@@ -1,7 +1,11 @@
 import { useFormikContext } from 'formik';
 
 import { LoadingRectangle } from '@app/components/loading-rectangle';
-import { isTxSponsored, TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import {
+  isTxSponsored,
+  SendFormValues,
+  TransactionFormValues,
+} from '@app/common/transactions/transaction-utils';
 import { FeeRow } from '@app/components/fee-row/fee-row';
 import { MinimalErrorMessage } from '@app/pages/transaction-request/components/minimal-error-message';
 import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
@@ -11,8 +15,9 @@ interface FeeFormProps {
   feeEstimations: FeeEstimate[];
 }
 export function FeeForm({ feeEstimations }: FeeFormProps) {
-  const { values } = useFormikContext<TransactionFormValues>();
-  const transaction = useUnsignedPrepareTransactionDetails(values.assetId, values);
+  const { values } = useFormikContext<SendFormValues | TransactionFormValues>();
+  const assetId = 'assetId' in values ? values.assetId : '';
+  const transaction = useUnsignedPrepareTransactionDetails(assetId, values);
 
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 

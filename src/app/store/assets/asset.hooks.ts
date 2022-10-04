@@ -6,13 +6,13 @@ import {
   useAddressBalances,
   useCurrentAccountAnchoredBalances,
   useCurrentAccountUnanchoredBalances,
-} from '@app/query/balance/balance.hooks';
+} from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountStxAddressState } from '../accounts/account.hooks';
 import { transformAssets } from './utils';
 import {
   useAssetsWithMetadata,
   useFungibleTokenMetadata,
-} from '@app/query/fungible-tokens/fungible-token-metadata.hooks';
+} from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
 import { formatContractId, getFullyQualifiedAssetName } from '@app/common/utils';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 
@@ -32,7 +32,7 @@ export function useAssetWithMetadata(asset: Asset) {
   return asset as AssetWithMeta;
 }
 
-export function useSelectedAssetMetadata(selectedAssetId?: string) {
+export function useSelectedAssetMetadata(selectedAssetId: string) {
   const assetsWithMetadata = useAssetsWithMetadata();
 
   return useMemo(

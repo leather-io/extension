@@ -7,7 +7,6 @@ import {
   addressHashModeToVersion,
   addressToString,
   AuthType,
-  ChainID,
   StacksTransaction,
   TransactionVersion,
 } from '@stacks/transactions';
@@ -25,13 +24,19 @@ import { stacksValue } from '@app/common/stacks-utils';
 
 type Tx = MempoolTransaction | Transaction;
 
-export interface TransactionFormValues {
+export interface SendFormValues {
   assetId: string;
   amount: number | string;
   fee: number | string;
   feeType: string;
   recipient: string;
   memo: string;
+  nonce?: number | string;
+}
+
+export interface TransactionFormValues {
+  fee: number | string;
+  feeType: string;
   nonce?: number | string;
 }
 
@@ -188,14 +193,6 @@ export function isTransactionTypeSupported(txType: TransactionTypes) {
 
 export function isTxSponsored(tx: StacksTransaction) {
   return tx.auth.authType === AuthType.Sponsored;
-}
-
-interface WhenChainIdMap<T> {
-  [ChainID.Mainnet]: T;
-  [ChainID.Testnet]: T;
-}
-export function whenChainId(chainId: ChainID) {
-  return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
 }
 
 function getAddressFromPublicKeyHash(

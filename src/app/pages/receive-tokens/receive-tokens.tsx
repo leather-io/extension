@@ -44,15 +44,7 @@ export const ReceiveTokens = () => {
             </Title>
           )}
           <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
-          <Button
-            _focus={{ boxShadow: 'none' }}
-            _hover={{ boxShadow: 'none' }}
-            borderRadius="10px"
-            boxShadow="none"
-            height="40px"
-            mode="tertiary"
-            onClick={copyToClipboard}
-          >
+          <Button borderRadius="10px" height="40px" mode="tertiary" onClick={copyToClipboard}>
             <FiCopy />
             <Text ml="tight">Copy address</Text>
           </Button>

@@ -1,7 +1,7 @@
 import { ChainID } from '@stacks/transactions';
 import { Box } from '@stacks/ui';
 
-import { whenChainId } from '@app/common/transactions/transaction-utils';
+import { whenChainId } from '@app/common/utils';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
 

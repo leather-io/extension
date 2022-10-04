@@ -1,4 +1,4 @@
-import { AvailableRegions } from '@app/query/hiro-config/hiro-config.query';
+import { AvailableRegions } from '@app/query/stacks/hiro-config/hiro-config.query';
 import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
 
 import { FastCheckoutBadge } from './fast-checkout-badge';
