@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/36</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/35</span>
+                <span class='fraction'>0/34</span>
             </div>
         
             
@@ -196,20 +196,7 @@
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,7 +241,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -268,13 +254,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -349,12 +329,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, useEffect } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Flex, Stack } from '@stacks/ui';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 &nbsp;
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
@@ -365,18 +346,14 @@ import { PostConditions } from '@app/pages/transaction-request/components/post-c
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
 import { PostConditionModeWarning } from '@app/pages/transaction-request/components/post-condition-mode-warning';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import {
-  useSetTransactionRequestAtom,
-  useTransactionRequest,
-  useTransactionRequestState,
-} from '@app/store/transactions/requests.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
   useSoftwareWalletTransactionBroadcast,
   useTxRequestEstimatedUnsignedTxByteLengthState,
   useTxRequestSerializedUnsignedTxPayloadState,
 } from '@app/store/transactions/transaction.hooks';
-import { useFeeEstimations } from '@app/query/fees/fees.hooks';
+import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import { FeeType } from '@shared/models/fees-types';
@@ -386,18 +363,17 @@ import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigat
 import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
+import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
-import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
-import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >TransactionRequestBase(</span>) {
   const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
   const { setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(LoadingKeys.SUBMIT_TRANSACTION);</span>
   const handleBroadcastTransaction = <span class="cstat-no" title="statement not covered" >useSoftwareWalletTransactionBroadcast();</span>
-&nbsp;
   const txByteLength = <span class="cstat-no" title="statement not covered" >useTxRequestEstimatedUnsignedTxByteLengthState();</span>
   const txPayload = <span class="cstat-no" title="statement not covered" >useTxRequestSerializedUnsignedTxPayloadState();</span>
   const feeEstimations = <span class="cstat-no" title="statement not covered" >useFeeEstimations(txByteLength, txPayload);</span>
@@ -410,17 +386,11 @@ function <span class="fstat-no" title="function not covered" >TransactionRequest
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;PopupHeader /&gt;);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >void analytics.track('view_transaction_signing'),</span> [analytics]);</span>
+<span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction_signing'), [analytics];</span>
+  });
 &nbsp;
-  const txRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequest();</span>
-&nbsp;
-  // This exists to move away from the pattern where the search param is pull
-  // from an atom, rather than from the tooling provided by the app's router
-<span class="cstat-no" title="statement not covered" >  useSetTransactionRequestAtom(txRequest);</span>
-&nbsp;
-  // TODO: fix `any`
-  // This was fine previously as wrapped in useCallback which masks the implict any error
-  const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (values: any) =&gt; {</span>
+  const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (values: TransactionFormValues) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (walletType === 'ledger') {</span>
       const tx = <span class="cstat-no" title="statement not covered" >await generateUnsignedTx(values);</span>
 <span class="cstat-no" title="statement not covered" >      if (!tx) <span class="cstat-no" title="statement not covered" >return;</span></span>
@@ -451,7 +421,7 @@ function <span class="fstat-no" title="function not covered" >TransactionRequest
     ? yup.object({ fee: feeSchema(), nonce: nonceSchema })
     : null;
 &nbsp;
-  const initialValues: Partial&lt;TransactionFormValues&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  const initialValues: TransactionFormValues = <span class="cstat-no" title="statement not covered" >{</span>
     fee: '',
     feeType: FeeType[FeeType.Middle],
     nonce: '',
@@ -499,7 +469,7 @@ export const TransactionRequest = <span class="cstat-no" title="statement not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-16T11:26:06.782Z
+                at 2022-10-04T09:43:35.212Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

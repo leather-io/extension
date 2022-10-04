@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -100,12 +100,7 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -127,16 +122,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,12 +139,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAtomCallback } from 'jotai/utils';
+import { StacksTransaction } from '@stacks/transactions';
 &nbsp;
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { rawDeserializedTxState } from '@app/store/transactions/raw';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useSignTransactionSoftwareWallet } from './transaction.hooks';
@@ -166,24 +157,21 @@ export const useReplaceByFeeSoftwareWalletSubmitCallBack = <span class="cstat-no
     loadingKey: LoadingKeys.INCREASE_FEE_DRAWER,
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return useAtomCallback&lt;void, { fee: number; nonce: number }&gt;(</span>
-    useCallback(
-<span class="fstat-no" title="function not covered" >      as</span>ync get =&gt; {
-        const unsignedTx = <span class="cstat-no" title="statement not covered" >await get(rawDeserializedTxState, { unstable_promise: true });</span>
-<span class="cstat-no" title="statement not covered" >        if (!unsignedTx) <span class="cstat-no" title="statement not covered" >return;</span></span>
-        const signedTx = <span class="cstat-no" title="statement not covered" >signTx(unsignedTx);</span>
-<span class="cstat-no" title="statement not covered" >        if (!signedTx) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >        await submitTransaction({</span>
-<span class="fstat-no" title="function not covered" >          on</span>Close() {
-<span class="cstat-no" title="statement not covered" >            setTxId(null);</span>
-<span class="cstat-no" title="statement not covered" >            navigate(RouteUrls.Home);</span>
-          },
-<span class="fstat-no" title="function not covered" >          on</span>Error() {},
-          replaceByFee: true,
-        })(signedTx);
-      },
-      [navigate, setTxId, signTx, submitTransaction]
-    )
+<span class="cstat-no" title="statement not covered" >  return useCallback(</span>
+<span class="fstat-no" title="function not covered" >    as</span>ync (rawTx: StacksTransaction) =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (!rawTx) <span class="cstat-no" title="statement not covered" >return;</span></span>
+      const signedTx = <span class="cstat-no" title="statement not covered" >signTx(rawTx);</span>
+<span class="cstat-no" title="statement not covered" >      if (!signedTx) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      await submitTransaction({</span>
+<span class="fstat-no" title="function not covered" >        on</span>Close() {
+<span class="cstat-no" title="statement not covered" >          setTxId(null);</span>
+<span class="cstat-no" title="statement not covered" >          navigate(RouteUrls.Home);</span>
+        },
+<span class="fstat-no" title="function not covered" >        on</span>Error() {},
+        replaceByFee: true,
+      })(signedTx);
+    },
+    [navigate, setTxId, signTx, submitTransaction]
   );
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -193,7 +181,7 @@ export const useReplaceByFeeSoftwareWalletSubmitCallBack = <span class="cstat-no
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-16T11:26:06.782Z
+                at 2022-10-04T09:43:35.212Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

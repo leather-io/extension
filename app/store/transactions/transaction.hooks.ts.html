@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/111</span>
+                <span class='fraction'>0/112</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/101</span>
+                <span class='fraction'>0/102</span>
             </div>
         
             
@@ -358,7 +358,13 @@
 <a name='L293'></a><a href='#L293'>293</a>
 <a name='L294'></a><a href='#L294'>294</a>
 <a name='L295'></a><a href='#L295'>295</a>
-<a name='L296'></a><a href='#L296'>296</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -408,7 +414,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -458,6 +463,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -624,6 +632,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -671,14 +683,14 @@ import {
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import {
   useStxTokenTransferUnsignedTxState,
   useFtTokenTransferUnsignedTx,
   useGenerateStxTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
-import { useNextNonce } from '@app/query/nonce/account-nonces.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { TransactionTypes } from '@stacks/connect';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import {
@@ -692,7 +704,7 @@ import {
 import {
   useCurrentNetworkState,
   useCurrentStacksNetworkState,
-} from '@app/store/network/networks.hooks';
+} from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { logger } from '@shared/logger';
@@ -701,7 +713,6 @@ import { isUndefined } from '@shared/utils';
 import { prepareTxDetailsForBroadcast } from './transaction';
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
-import { isSendingFormSendingStx } from './utils';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useTransactionPostConditions(</span>) {
 <span class="cstat-no" title="statement not covered" >  return usePostConditionState();</span>
@@ -749,10 +760,13 @@ function <span class="fstat-no" title="function not covered" >useUnsignedStacksT
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useUnsignedPrepareTransactionDetails(</span>
   selectedAssetId: string,
-  values: TransactionFormValues
+  values: SendFormValues | TransactionFormValues
 ) {
   const unsignedStacksTransaction = <span class="cstat-no" title="statement not covered" >useUnsignedStacksTransaction(values);</span>
-  const sendFormUnsignedTx = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(selectedAssetId, values);</span>
+  const sendFormUnsignedTx = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(</span>
+    selectedAssetId,
+    values as SendFormValues
+  );
 <span class="cstat-no" title="statement not covered" >  return useMemo(</span>
 <span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >unsignedStacksTransaction || sendFormUnsignedTx,</span>
     [sendFormUnsignedTx, unsignedStacksTransaction]
@@ -761,7 +775,7 @@ export function <span class="fstat-no" title="function not covered" >useUnsigned
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSendFormSerializedUnsignedTxPayloadState(</span>
   selectedAssetId: string,
-  values?: TransactionFormValues
+  values?: SendFormValues
 ) {
   const transaction = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(selectedAssetId, values);</span>
 <span class="cstat-no" title="statement not covered" >  if (!transaction) <span class="cstat-no" title="statement not covered" >return '';</span></span>
@@ -770,7 +784,7 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSendFormEstimatedUnsignedTxByteLengthState(</span>
   selectedAssetId: string,
-  values?: TransactionFormValues
+  values?: SendFormValues
 ) {
   const transaction = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(selectedAssetId, values);</span>
 <span class="cstat-no" title="statement not covered" >  if (!transaction) <span class="cstat-no" title="statement not covered" >return null;</span></span>
@@ -924,6 +938,10 @@ function <span class="fstat-no" title="function not covered" >useUnsignedStacksT
 <span class="cstat-no" title="statement not covered" >  return tx.result;</span>
 }
 &nbsp;
+function <span class="fstat-no" title="function not covered" >isSendingFormSendingStx(</span>assetId: string) {
+<span class="cstat-no" title="statement not covered" >  return assetId === '.::Stacks Token';</span>
+}
+&nbsp;
 export function <span class="fstat-no" title="function not covered" >useGenerateSendFormUnsignedTx(</span>selectedAssetId: string) {
   const isSendingStx = <span class="cstat-no" title="statement not covered" >isSendingFormSendingStx(selectedAssetId);</span>
   const stxTokenTransferUnsignedTx = <span class="cstat-no" title="statement not covered" >useGenerateStxTokenTransferUnsignedTx();</span>
@@ -937,7 +955,7 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSendFormUnsignedTxPreviewState(</span>
   selectedAssetId: string,
-  values?: TransactionFormValues
+  values?: SendFormValues
 ) {
   const isSendingStx = <span class="cstat-no" title="statement not covered" >isSendingFormSendingStx(selectedAssetId);</span>
   const stxTokenTransferUnsignedTx = <span class="cstat-no" title="statement not covered" >useStxTokenTransferUnsignedTxState(values);</span>
@@ -955,7 +973,7 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-16T11:26:06.782Z
+                at 2022-10-04T09:43:35.212Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

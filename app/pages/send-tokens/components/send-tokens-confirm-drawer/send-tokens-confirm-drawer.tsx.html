@@ -126,7 +126,13 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,11 +154,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -162,6 +169,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,16 +216,17 @@ import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { useEffect } from 'react';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { StacksTransaction } from '@stacks/transactions';
+import { microStxToStx } from '@stacks/ui-utils';
 &nbsp;
 interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
   onUserSelectBroadcastTransaction(tx: StacksTransaction | undefined): void;
 }
 export function <span class="fstat-no" title="function not covered" >SendTokensSoftwareConfirmDrawer(</span>props: SendTokensSoftwareConfirmDrawerProps) {
   const { isShowing, onClose, onUserSelectBroadcastTransaction } = <span class="cstat-no" title="statement not covered" >props;</span>
-  const { values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;TransactionFormValues&gt;();</span>
-  const transaction = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(values.assetId, values);</span>
+  const { values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SendFormValues&gt;();</span>
+  const unsignedTransaction = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(values.assetId, values);</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { showEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
 &nbsp;
@@ -222,7 +235,7 @@ export function <span class="fstat-no" title="function not covered" >SendTokensS
 <span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction_signing');</span>
   }, [isShowing, analytics]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!isShowing || !transaction || !values) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!isShowing || !unsignedTransaction || !values) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;BaseDrawer
@@ -231,22 +244,27 @@ export function <span class="fstat-no" title="function not covered" >SendTokensS
       onClose={onClose}
       pauseOnClickOutside={showEditNonce}
     &gt;
-      &lt;Stack pb="extra-loose" px="loose" spacing="loose"&gt;
+      &lt;Stack pb="extra-loose" px="loose" spacing="base"&gt;
         &lt;SendTokensConfirmDetails
           amount={values.amount}
           assetId={values.assetId}
           recipient={values.recipient}
-          nonce={Number(transaction?.auth.spendingCondition?.nonce)}
         /&gt;
         &lt;SpaceBetween&gt;
           &lt;Caption&gt;Fees&lt;/Caption&gt;
           &lt;Caption&gt;
-            &lt;TransactionFee fee={values.fee} /&gt;
+            &lt;TransactionFee
+              fee={microStxToStx(Number(unsignedTransaction.auth.spendingCondition.fee))}
+            /&gt;
           &lt;/Caption&gt;
         &lt;/SpaceBetween&gt;
+        &lt;SpaceBetween&gt;
+          &lt;Caption&gt;Nonce&lt;/Caption&gt;
+          &lt;Caption&gt;{Number(unsignedTransaction.auth.spendingCondition.nonce)}&lt;/Caption&gt;
+        &lt;/SpaceBetween&gt;
         &lt;SendTokensConfirmActions
-          transaction={transaction}
-          onUserConfirmBroadcast={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onUserSelectBroadcastTransaction(transaction)}</span>
+          transaction={unsignedTransaction}
+          onUserConfirmBroadcast={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onUserSelectBroadcastTransaction(unsignedTransaction)}</span>
         /&gt;
       &lt;/Stack&gt;
     &lt;/BaseDrawer&gt;
@@ -259,7 +277,7 @@ export function <span class="fstat-no" title="function not covered" >SendTokensS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-16T11:26:06.782Z
+                at 2022-10-04T09:43:35.212Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

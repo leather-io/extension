@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -202,13 +202,7 @@
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,7 +237,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,16 +259,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -360,6 +348,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 &nbsp;
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { DefaultNetworkConfigurations } from '@shared/constants';
 import { isValidUrl } from '@shared/utils/validate-url';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
@@ -367,13 +356,12 @@ import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full
 import { Header } from '@app/components/header';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Text } from '@app/components/typography';
-import {
-  useCurrentStacksNetworkState,
-  useUpdateCurrentNetworkKey,
-  useUpdateNetworkState,
-} from '@app/store/network/networks.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { NetworkSelectors } from '@tests/integration/network.selectors';
+import {
+  useCurrentStacksNetworkState,
+  useNetworksActions,
+} from '@app/store/networks/networks.hooks';
 &nbsp;
 interface AddNetworkFormValues {
   key: string;
@@ -386,9 +374,8 @@ export const AddNetwork = <span class="cstat-no" title="statement not covered" >
   const [loading, setLoading] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [error, setError] = <span class="cstat-no" title="statement not covered" >useState('');</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const setNetworks = <span class="cstat-no" title="statement not covered" >useUpdateNetworkState();</span>
-  const setNetworkKey = <span class="cstat-no" title="statement not covered" >useUpdateCurrentNetworkKey();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
+  const networksActions = <span class="cstat-no" title="statement not covered" >useNetworksActions();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;Header title="Add a network" onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home)}</span> /&gt;);</span>
 &nbsp;
@@ -405,22 +392,17 @@ export const AddNetwork = <span class="cstat-no" title="statement not covered" >
 <span class="cstat-no" title="statement not covered" >          setLoading(true);</span>
 <span class="cstat-no" title="statement not covered" >          setError('');</span>
 <span class="cstat-no" title="statement not covered" >          try {</span>
-            const origin = <span class="cstat-no" title="statement not covered" >new URL(url).origin;</span>
-            const response = <span class="cstat-no" title="statement not covered" >await network.fetchFn(`${origin}/v2/info`);</span>
+            const path = <span class="cstat-no" title="statement not covered" >new URL(url).href;</span>
+            const response = <span class="cstat-no" title="statement not covered" >await network.fetchFn(`${path}/v2/info`);</span>
             const chainInfo = <span class="cstat-no" title="statement not covered" >await response.json();</span>
             const networkId = <span class="cstat-no" title="statement not covered" >chainInfo?.network_id &amp;&amp; parseInt(chainInfo?.network_id);</span>
 <span class="cstat-no" title="statement not covered" >            if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {</span>
-<span class="cstat-no" title="statement not covered" >              setNetworks(<span class="fstat-no" title="function not covered" >ne</span>tworks =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                return {</span>
-                  ...networks,
-                  [key]: {
-                    url: origin,
-                    name,
-                    chainId: networkId,
-                  },
-                };
+<span class="cstat-no" title="statement not covered" >              networksActions.addNetwork({</span>
+                chainId: networkId,
+                id: key as DefaultNetworkConfigurations,
+                name,
+                url: path,
               });
-<span class="cstat-no" title="statement not covered" >              setNetworkKey(key);</span>
 <span class="cstat-no" title="statement not covered" >              navigate(RouteUrls.Home);</span>
 <span class="cstat-no" title="statement not covered" >              return;</span>
             }
@@ -505,7 +487,7 @@ export const AddNetwork = <span class="cstat-no" title="statement not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-16T11:26:06.782Z
+                at 2022-10-04T09:43:35.212Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

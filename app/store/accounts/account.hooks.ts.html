@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -147,7 +147,8 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,31 +188,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,12 +207,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAtom } from 'jotai';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
+import { useAtom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
 &nbsp;
 import {
@@ -239,17 +242,16 @@ import {
   transactionNetworkVersionState,
 } from '@app/store/transactions/transaction';
 import {
-  accountsWithAddressState,
   currentAccountConfirmedTransactionsState,
   hasSwitchedAccountsState,
   hasCreatedAccountState,
+  accountsWithAddressState,
 } from '@app/store/accounts/accounts';
+import { currentAccountIndexState } from '@app/store/wallet/wallet';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
 &nbsp;
-import { currentAccountIndexState } from '../wallet/wallet';
-import { useTransactionRequestState } from '../transactions/requests.hooks';
-import { useMemo } from 'react';
 import { AccountWithAddress } from './account.models';
-import { signatureRequestAccountIndex } from '../signatures/requests';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useAccountConfirmedTransactions(</span>) {
 <span class="cstat-no" title="statement not covered" >  return useAtomValue(currentAccountConfirmedTransactionsState);</span>
@@ -267,10 +269,11 @@ export function <span class="fstat-no" title="function not covered" >useAccounts
 export function <span class="fstat-no" title="function not covered" >useCurrentAccount(</span>) {
   const accountIndex = <span class="cstat-no" title="statement not covered" >useCurrentAccountIndex();</span>
   const txIndex = <span class="cstat-no" title="statement not covered" >useTransactionAccountIndex();</span>
-  const signatureIndex = <span class="cstat-no" title="statement not covered" >useAtomValue(signatureRequestAccountIndex);</span>
+  const signatureIndex = <span class="cstat-no" title="statement not covered" >useSignatureRequestAccountIndex();</span>
   // ⚠️ to refactor, we should not just continually add new conditionals here
   const hasSwitched = <span class="cstat-no" title="statement not covered" >useAtomValue(hasSwitchedAccountsState);</span>
   const accounts = <span class="cstat-no" title="statement not covered" >useAccounts();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
     const index = <span class="cstat-no" title="statement not covered" >txIndex ?? signatureIndex;</span>
 <span class="cstat-no" title="statement not covered" >    if (!accounts) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
@@ -280,7 +283,7 @@ export function <span class="fstat-no" title="function not covered" >useCurrentA
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useCurrentAccountStxAddressState(</span>) {
-<span class="cstat-no" title="statement not covered" >  return useCurrentAccount()?.address;</span>
+<span class="cstat-no" title="statement not covered" >  return useCurrentAccount()?.address ?? '';</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useCurrentAccountIndex(</span>) {
@@ -322,7 +325,7 @@ export function <span class="fstat-no" title="function not covered" >useHasCreat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-16T11:26:06.782Z
+                at 2022-10-04T09:43:35.212Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

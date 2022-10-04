@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -129,7 +129,11 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,39 +200,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
+import { Box, BoxProps, color, Flex, Stack } from '@stacks/ui';
 &nbsp;
 import { Caption, Title } from '@app/components/typography';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { getUrlHostname } from '@app/common/utils';
-import { Box, BoxProps, color, Flex, Stack } from '@stacks/ui';
-import { useUpdateCurrentNetworkKey } from '@app/store/network/networks.hooks';
-import { NetworkStatusIndicator } from './components/network-status-indicator';
-import { useNetworkStatus } from '@app/query/network/network.hooks';
+import { useNetworkStatus } from '@app/query/stacks/network/network.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useNetworksActions } from '@app/store/networks/networks.hooks';
+import { defaultCurrentNetwork } from '@shared/constants';
+&nbsp;
+import { NetworkStatusIndicator } from './components/network-status-indicator';
 &nbsp;
 interface NetworkListItemProps extends BoxProps {
-  item: string;
+  networkId: string;
 }
-export const NetworkListItem = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> item, ...props }: NetworkListItemProps) =&gt; {</span>
+export const NetworkListItem = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> networkId, ...props }: NetworkListItemProps) =&gt; {</span>
   const { setShowNetworks } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
-  const { networks, currentNetworkKey } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
-  const setCurrentNetworkKey = <span class="cstat-no" title="statement not covered" >useUpdateCurrentNetworkKey();</span>
-  const network = <span class="cstat-no" title="statement not covered" >networks[item];</span>
-  const isActive = <span class="cstat-no" title="statement not covered" >item === currentNetworkKey;</span>
+  const { networks, currentNetworkId } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+  const network = <span class="cstat-no" title="statement not covered" >networks[networkId] || defaultCurrentNetwork;</span>
+  const isActive = <span class="cstat-no" title="statement not covered" >networkId === currentNetworkId;</span>
   const isOnline = <span class="cstat-no" title="statement not covered" >useNetworkStatus(network.url);</span>
+  const networksActions = <span class="cstat-no" title="statement not covered" >useNetworksActions();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
 &nbsp;
   const handleItemClick = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('change_network');</span>
-<span class="cstat-no" title="statement not covered" >    setCurrentNetworkKey(item);</span>
+<span class="cstat-no" title="statement not covered" >    networksActions.changeNetwork(networkId);</span>
 <span class="cstat-no" title="statement not covered" >    setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowNetworks(false),</span> 25);</span>
-  }, [analytics, setCurrentNetworkKey, item, setShowNetworks]);
+  }, [analytics, networkId, networksActions, setShowNetworks]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Box
       width="100%"
-      key={item}
+      key={networkId}
       _hover={
         !isOnline || isActive
           ? undefined
@@ -256,7 +262,7 @@ export const NetworkListItem = <span class="cstat-no" title="statement not cover
           &lt;/Title&gt;
           &lt;Caption&gt;{getUrlHostname(network.url)}&lt;/Caption&gt;
         &lt;/Stack&gt;
-        &lt;NetworkStatusIndicator isActive={item === currentNetworkKey} isOnline={isOnline} /&gt;
+        &lt;NetworkStatusIndicator isActive={isActive} isOnline={isOnline} /&gt;
       &lt;/Flex&gt;
     &lt;/Box&gt;
   );
@@ -268,7 +274,7 @@ export const NetworkListItem = <span class="cstat-no" title="statement not cover
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-16T11:26:06.782Z
+                at 2022-10-04T09:43:35.212Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
