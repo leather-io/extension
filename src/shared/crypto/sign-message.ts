@@ -1,3 +1,4 @@
+import { bytesToHex } from '@stacks/common';
 import { SignatureData } from '@stacks/connect';
 import { hashMessage } from '@stacks/encryption';
 import {
@@ -12,7 +13,7 @@ import {
 export function signMessage(message: string, privateKey: StacksPrivateKey): SignatureData {
   const hash = hashMessage(message);
   return {
-    signature: signMessageHashRsv({ privateKey, messageHash: hash.toString('hex') }).data,
+    signature: signMessageHashRsv({ privateKey, messageHash: bytesToHex(hash) }).data,
     publicKey: publicKeyToString(getPublicKey(privateKey)),
   };
 }

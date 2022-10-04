@@ -1,6 +1,6 @@
 import { makeDIDFromAddress } from '@stacks/auth';
 import { makeUUID4, nextMonth } from '@stacks/common';
-import { publicKeyToAddress } from '@stacks/encryption';
+import { publicKeyToBtcAddress } from '@stacks/encryption';
 import base64url from 'base64url';
 
 export async function makeLedgerCompatibleUnsignedAuthResponsePayload({
@@ -12,7 +12,7 @@ export async function makeLedgerCompatibleUnsignedAuthResponsePayload({
   profile: any;
   expiresAt?: number;
 }): Promise<string> {
-  const address = publicKeyToAddress(dataPublicKey);
+  const address = publicKeyToBtcAddress(dataPublicKey);
 
   const payload = {
     jti: makeUUID4(),

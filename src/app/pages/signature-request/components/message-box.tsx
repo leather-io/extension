@@ -1,3 +1,4 @@
+import { bytesToHex } from '@stacks/common';
 import { hashMessage } from '@stacks/encryption';
 import { Box, color, Stack, Text } from '@stacks/ui';
 import { useEffect, useState } from 'react';
@@ -16,7 +17,7 @@ export function MessageBox({ message }: MessageBoxProps) {
 
   useEffect(() => {
     if (!message) return;
-    const messageHash = hashMessage(message).toString('hex');
+    const messageHash = bytesToHex(hashMessage(message));
     setHash(messageHash);
   }, [message]);
 
