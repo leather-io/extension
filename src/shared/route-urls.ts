@@ -40,5 +40,5 @@ export enum RouteUrls {
   // Locked wallet route
   Unlock = '/unlock',
   SignatureRequest = '/signature',
-  ProfileUpdaterRequest = '/update-profile'
+  ProfileUpdateRequest = '/update-profile'
 }

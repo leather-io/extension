@@ -14,6 +14,7 @@ import {
 import {
   AuthenticationRequestEvent,
   DomEventName,
+  ProfileUpdateRequestEvent,
   SignatureRequestEvent,
   TransactionRequestEvent,
 } from '@shared/inpage-types';
@@ -114,6 +115,19 @@ document.addEventListener(DomEventName.structuredDataSignatureRequest, ((
     payload: event.detail.signatureRequest,
     urlParam: 'request',
     method: ExternalMethods.structuredDataSignatureRequest,
+  });
+}) as EventListener);
+
+// Listen for a CustomEvent (profile update request) coming from the web app
+document.addEventListener(DomEventName.profileUpdateRequest, ((
+  event: ProfileUpdateRequestEvent
+) => {
+  console.log('domEvent', event);
+  forwardDomEventToBackground({
+    path: RouteUrls.ProfileUpdateRequest,
+    payload: event.detail.profileUpdateRequest,
+    urlParam: 'request',
+    method: ExternalMethods.profileUpdateRequest,
   });
 }) as EventListener);
 

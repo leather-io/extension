@@ -1,32 +1,35 @@
 import {
   ExternalMethods,
   MESSAGE_SOURCE,
-  ProfileUpdaterResponseMessage,
+  ProfileUpdateResponseMessage,
 } from '@shared/message-types';
-import { PublicProfile } from '@shared/profiles/types';
+import { Profile } from '@stacks/profile';
 
-interface FormatProfileUpdaterResponseArgs {
+interface FormatProfileUpdateResponseArgs {
   request: string;
-  response: PublicProfile | string;
+  response: Profile | string;
 }
-export function formatProfileUpdaterResponse({
+export function formatProfileUpdateResponse({
   request,
   response,
-}: FormatProfileUpdaterResponseArgs): ProfileUpdaterResponseMessage {
+}: FormatProfileUpdateResponseArgs): ProfileUpdateResponseMessage {
   return {
     source: MESSAGE_SOURCE,
-    method: ExternalMethods.profileUpdaterResponse,
-    payload: { profileUpdaterRequest: request, profileUpdaterResponse: response },
+    method: ExternalMethods.profileUpdateResponse,
+    payload: {
+      profileUpdateRequest: request,
+      profileUpdateResponse: response,
+    },
   };
 }
 
 interface FinalizeProfileUpdateArgs {
   requestPayload: string;
   tabId: number;
-  data: PublicProfile | string;
+  data: Profile | string;
 }
 export function finalizeProfileUpdate({ requestPayload, data, tabId }: FinalizeProfileUpdateArgs) {
-  const responseMessage = formatProfileUpdaterResponse({ request: requestPayload, response: data });
+  const responseMessage = formatProfileUpdateResponse({ request: requestPayload, response: data });
   chrome.tabs.sendMessage(tabId, responseMessage);
   window.close();
 }

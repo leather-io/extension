@@ -9,17 +9,19 @@ import { UpdateAction } from './update-action';
 interface ProfileDataContentProps {
   requestToken: string;
 }
+const DEFAULT_AVATAR_URL = 'https://github.com/stacks-network.png';
+
 export function ProfileDataContent(props: ProfileDataContentProps) {
   const { requestToken } = props;
-  const profileUpdaterRequest = getProfileDataContentFromToken(requestToken);
-  const { name, image } = profileUpdaterRequest.profile;
-  const { network } = profileUpdaterRequest;
-  const appName = profileUpdaterRequest.appDetails?.name;
+  const profileUpdateRequest = getProfileDataContentFromToken(requestToken);
+  const { name, image } = profileUpdateRequest.profile;
+  const { network } = profileUpdateRequest;
+  const appName = profileUpdateRequest.appDetails?.name;
   return (
     <>
-      <ProfileBox name={name} imageUrl={image[0].contentUrl} />
+      <ProfileBox name={name} imageUrl={image ? image[0]?.contentUrl : DEFAULT_AVATAR_URL} />
       <NetworkRow chainId={network?.chainId ?? ChainID.Testnet} />
-      <UpdateAction profileUpdaterPayload={profileUpdaterRequest} />
+      <UpdateAction profileUpdaterPayload={profileUpdateRequest} />
       <hr />
       <DisclaimerLayout
         disclaimerText={`${appName ?? 'The app'} requested to update your public profile.

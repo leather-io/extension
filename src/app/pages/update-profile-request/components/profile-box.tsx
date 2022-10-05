@@ -1,11 +1,13 @@
 import { Image } from '@app/components/image';
 import { color, Stack, Text } from '@stacks/ui';
 
-export function ProfileBox({ name, imageUrl }: {
+export function ProfileBox({
+  name,
+  imageUrl,
+}: {
   name: string;
   imageUrl: string;
 }): JSX.Element | null {
-
   return (
     <>
       <Stack minHeight={'260px'}>
@@ -27,9 +29,7 @@ export function ProfileBox({ name, imageUrl }: {
               <Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all">
                 <h2>
                   <strong>Update your Profile</strong>{' '}
-                  <Text color={color('text-caption')}>
-                    {name}
-                  </Text>
+                  <Text color={color('text-caption')}>{name}</Text>
                 </h2>
                 <hr style={{ marginTop: '5px', marginBottom: '5px' }} />
                 <Image src={imageUrl} />

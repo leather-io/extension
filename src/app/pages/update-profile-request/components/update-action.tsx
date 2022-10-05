@@ -4,11 +4,12 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ProfileUpdaterPayload } from '@app/common/profiles/requests';
 import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useProfileUpdaterRequestSearchParams } from '@app/store/profiles/requests.hooks';
+import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
 import { useWalletState } from '@app/store/wallet/wallet.hooks';
 import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
 import { gaiaUrl } from '@shared/constants';
 import { PublicProfile } from '@shared/profiles/types';
+import { Profile } from '@stacks/profile';
 import { createFetchFn } from '@stacks/network';
 import {
   DEFAULT_PROFILE,
@@ -36,16 +37,16 @@ function useUpdateProfileSoftwareWallet() {
       });
       console.log({ profileUrl, accountAddress: account.address });
       const profile = (await fetchProfileFromUrl(profileUrl, fetchFn)) || DEFAULT_PROFILE;
-      console.log({ profile });
+      const updatedProfile = {
+        ...profile,
+        ...publicProfile,
+      };
       await signAndUploadProfile({
-        profile: {
-          ...profile,
-          ...publicProfile,
-        },
+        profile: updatedProfile,
         account,
         gaiaHubUrl: gaiaUrl,
       });
-      return true;
+      return updatedProfile;
     },
     [account, wallet]
   );
@@ -57,7 +58,7 @@ export function UpdateAction(props: {
   const { profileUpdaterPayload } = props;
   const { profile: publicProfile } = profileUpdaterPayload;
 
-  const { tabId, requestToken } = useProfileUpdaterRequestSearchParams();
+  const { tabId, requestToken } = useProfileUpdateRequestSearchParams();
   const updateProfileSofwareWallet = useUpdateProfileSoftwareWallet();
   const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
@@ -67,11 +68,14 @@ export function UpdateAction(props: {
   const onUpdateProfile = async () => {
     setIsLoading(true);
     void analytics.track('request_update_profile_submit');
-    updateProfileSofwareWallet(publicProfile);
-    // Since the signature is really fast, we add a delay to improve the UX
-    await delay(1000);
+    const result = await updateProfileSofwareWallet(publicProfile);
     setIsLoading(false);
-    finalizeProfileUpdate({ requestPayload: requestToken, tabId, data: publicProfile });
+
+    finalizeProfileUpdate({
+      requestPayload: requestToken,
+      tabId,
+      data: result === null ? 'cancel' : new Profile(result), // result is null for hardware wallets
+    });
   };
 
   const onCancel = async () => {

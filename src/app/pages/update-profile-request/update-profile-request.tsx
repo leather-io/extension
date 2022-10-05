@@ -6,33 +6,33 @@ import { isUndefined } from '@shared/utils';
 
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import {
-  useIsProfileUpdaterRequestValid,
-  useProfileUpdaterRequestSearchParams,
+  useIsProfileUpdateRequestValid,
+  useProfileUpdateRequestSearchParams,
 } from '@app/store/profiles/requests.hooks';
 import { ProfileDataContent } from './components/profile-data-content';
 import { ErrorMessage } from './components/update-profile-error-msg';
-import { ProfileUpdaterRequestLayout } from './components/update-profile-request.layout';
+import { ProfileUpdateRequestLayout } from './components/update-profile-request.layout';
 
-function ProfileUpdaterRequestBase() {
-  const validProfileUpdaterRequest = useIsProfileUpdaterRequestValid();
-  let { requestToken } = useProfileUpdaterRequestSearchParams();
+function ProfileUpdateRequestBase() {
+  const validProfileUpdateRequest = useIsProfileUpdateRequestValid();
+  let { requestToken } = useProfileUpdateRequestSearchParams();
 
   useRouteHeader(<PopupHeader />);
 
   useOnOriginTabClose(() => window.close());
 
-  if (isUndefined(validProfileUpdaterRequest) || !requestToken)
+  if (isUndefined(validProfileUpdateRequest) || !requestToken)
     return (
-      <ProfileUpdaterRequestLayout>
+      <ProfileUpdateRequestLayout>
         <ErrorMessage errorMessage="Invalid profile update request" />
-      </ProfileUpdaterRequestLayout>
+      </ProfileUpdateRequestLayout>
     );
 
   return (
-    <ProfileUpdaterRequestLayout>
+    <ProfileUpdateRequestLayout>
       <ProfileDataContent requestToken={requestToken} />
-    </ProfileUpdaterRequestLayout>
+    </ProfileUpdateRequestLayout>
   );
 }
 
-export const ProfileUpdaterRequest = memo(ProfileUpdaterRequestBase);
+export const ProfileUpdateRequest = memo(ProfileUpdateRequestBase);

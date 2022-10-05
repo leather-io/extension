@@ -38,7 +38,7 @@ import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
 import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
-import { ProfileUpdaterRequest } from '@app/pages/update-profile-request/update-profile-request';
+import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 
 export function AppRoutes() {
   const { pathname } = useLocation();
@@ -174,11 +174,11 @@ export function AppRoutes() {
           {ledgerMessageSigningRoutes}
         </Route>
         <Route
-          path={RouteUrls.ProfileUpdaterRequest}
+          path={RouteUrls.ProfileUpdateRequest}
           element={
             <AccountGate>
               <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <ProfileUpdaterRequest />
+                <ProfileUpdateRequest />
               </Suspense>
             </AccountGate>
           }

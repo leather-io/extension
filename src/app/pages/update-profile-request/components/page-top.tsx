@@ -1,23 +1,22 @@
 import { Stack } from '@stacks/ui';
 import { memo } from 'react';
 
-import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Caption, Title } from '@app/components/typography';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
-import { isSignatureMessageType } from '@shared/signature/types';
 import { ChainID } from '@stacks/transactions';
+import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
+import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 
 function PageTopBase() {
   const network = useCurrentNetwork();
-  const { origin, requestToken, messageType } = useSignatureRequestSearchParams();
+  console.log("profile-request");
+  const { origin, requestToken } = useProfileUpdateRequestSearchParams();
   if (!requestToken) return null;
-  if (!isSignatureMessageType(messageType)) return null;
-  const signatureRequest = getSignaturePayloadFromToken(requestToken);
-  if (!signatureRequest) return null;
+  const profileUpdaterPayload = getProfileDataContentFromToken(requestToken);
+  if (!profileUpdaterPayload) return null;
 
-  const appName = signatureRequest?.appDetails?.name;
+  const appName = profileUpdaterPayload?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
   const testnetAddition =
     network.chainId === ChainID.Testnet
@@ -28,7 +27,7 @@ function PageTopBase() {
   return (
     <Stack pt="extra-loose" spacing="base">
       <Title fontWeight="bold" as="h1">
-        Sign Message
+        Update Profile
       </Title>
       {caption && <Caption wordBreak="break-word">{caption}</Caption>}
     </Stack>
