@@ -42,7 +42,7 @@ import {
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { logger } from '@shared/logger';
-import { isUndefined } from '@shared/utils';
+import { isString, isUndefined } from '@shared/utils';
 
 import { prepareTxDetailsForBroadcast } from './transaction';
 import { usePostConditionState } from './post-conditions.hooks';
@@ -156,7 +156,7 @@ export function useSignTransactionSoftwareWallet() {
   );
 }
 
-export function useBroadcastTransaction() {
+export function useTransactionRequestBroadcast() {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
@@ -164,6 +164,11 @@ export function useBroadcastTransaction() {
   const network = useCurrentNetworkState();
 
   return async ({ signedTx }: { signedTx: StacksTransaction }) => {
+    if (!requestToken || !tabId) {
+      logger.error(`Cannot broadcast transaction from `);
+      return;
+    }
+
     try {
       const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
       const result = await broadcastTransaction({
@@ -173,7 +178,7 @@ export function useBroadcastTransaction() {
         attachment,
         networkUrl: network.url,
       });
-      if (typeof result.txId === 'string') {
+      if (isString(result.txId)) {
         submittedTransactionsActions.newTransactionSubmitted({
           rawTx: result.txRaw,
           txId: result.txId,
@@ -182,25 +187,22 @@ export function useBroadcastTransaction() {
       // If there's a request token, this means it's a transaction request
       // In which case we need to return to the app the results of the tx
       // Otherwise, it's a send form tx and we don't want to
-      if (requestToken && tabId)
-        finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
-      return;
+      finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
+      return Promise.resolve();
     } catch (error) {
-      if (error instanceof Error) return { error };
-
-      return;
+      return Promise.reject(error);
     }
   };
 }
 
-export function useSoftwareWalletTransactionBroadcast() {
+export function useSoftwareWalletTransactionRequestBroadcast() {
   const { nonce } = useNextNonce();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
   const account = useCurrentAccount();
-  const txBroadcast = useBroadcastTransaction();
+  const txBroadcast = useTransactionRequestBroadcast();
 
   return async (values: TransactionFormValues) => {
     if (!stacksTxBaseState) return;
