@@ -3,11 +3,27 @@ import { useAsync } from 'react-async-hook';
 import { useSearchParams } from 'react-router-dom';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { verifyProfileUpdateRequest } from '@app/common/profiles/requests';
+import { useAccounts } from '../accounts/account.hooks';
 
 export function useIsProfileUpdateRequestValid() {
+  const accounts = useAccounts();
+  const { origin, requestToken } = useProfileUpdateRequestSearchParams();
+
   return useAsync(async () => {
-    return true;
-  }, []).result;
+    if (typeof accounts === 'undefined') return;
+    if (!origin || !accounts || !requestToken) return;
+    try {
+      const payload = await verifyProfileUpdateRequest({
+        requestToken,
+        accounts,
+        appDomain: origin,
+      });
+      return !!payload;
+    } catch (e) {
+      return false;
+    }
+  }, [accounts, requestToken, origin]).result;
 }
 
 export function useProfileUpdateRequestSearchParams() {

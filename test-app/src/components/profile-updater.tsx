@@ -19,6 +19,7 @@ export const ProfileTab = () => {
       profile: {
         name,
         image: [{ '@type': 'ImageObject', name: 'avatar', contentUrl: avatarUrl }],
+        sameAs: ['https://twitter.com/twitterHandle'],
       },
       network: network ?? defaultNetwork,
       onFinish: (profile: Profile) => {
@@ -39,7 +40,7 @@ export const ProfileTab = () => {
           <Text color="green" fontSize={1}>
             Profile {updatedProfile.profile ? 'successfully ' : 'not'} updated
           </Text>
-          {updatedProfile.profile && JSON.stringify(updatedProfile.profile)}
+          <Text>{updatedProfile.profile && JSON.stringify(updatedProfile.profile)}</Text>
         </Text>
       )}
       <Button mt={3} onClick={() => updateProfile(name, avatarUrl, stacksMainnetNetwork)}>
