@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from 'react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { RateLimiter } from 'limiter';
 
 import { isResponseCode } from '@app/common/network/is-response-code';
@@ -47,11 +47,11 @@ export function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
   const client = useStacksClient();
   const network = useCurrentNetworkState();
 
-  return useQueries(
-    contractIds.map(contractId => ({
+  return useQueries({
+    queries: contractIds.map(contractId => ({
       queryKey: ['get-ft-metadata', contractId, network.url],
       queryFn: fetchUnanchoredAccountInfo(client)(contractId),
       ...queryOptions,
-    }))
-  );
+    })),
+  });
 }

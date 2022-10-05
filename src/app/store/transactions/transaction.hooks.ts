@@ -187,6 +187,7 @@ export function useBroadcastTransaction() {
       return;
     } catch (error) {
       if (error instanceof Error) return { error };
+
       return;
     }
   };
