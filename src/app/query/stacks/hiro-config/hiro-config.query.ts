@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { BRANCH_NAME } from '@shared/environment';

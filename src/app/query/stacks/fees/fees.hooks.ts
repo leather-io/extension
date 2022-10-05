@@ -15,7 +15,7 @@ import {
 import { useGetTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 
 import { getDefaultSimulatedFeeEstimations, getFeeEstimationsWithCappedValues } from './fees.utils';
-import { UseQueryResult } from 'react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 const defaultFeesMaxValues = [500000, 750000, 2000000];
 const defaultFeesMinValues = [2500, 3000, 3500];

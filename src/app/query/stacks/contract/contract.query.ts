@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 
 import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-types';
