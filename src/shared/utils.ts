@@ -14,6 +14,10 @@ export function isFunction(value: unknown): value is Function {
   return typeof value === 'function';
 }
 
+export function isError(value: unknown): value is Error {
+  return value instanceof Error;
+}
+
 export function isEmpty(value: Object) {
   return Object.keys(value).length === 0;
 }
