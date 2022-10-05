@@ -1,4 +1,4 @@
-import { useQuery, UseQueryResult } from 'react-query';
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import { fetcher } from '@app/common/api/wrapped-fetch';
 import { TransactionFeeEstimation } from '@shared/models/fees-types';
