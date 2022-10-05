@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from 'react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -34,11 +34,11 @@ export function useGetNonFungibleTokenHoldingsListQuery(accounts?: AccountWithAd
   const client = useStacksClient();
   const network = useCurrentNetworkState();
 
-  return useQueries(
-    (accounts || []).map(account => ({
+  return useQueries({
+    queries: (accounts || []).map(account => ({
       queryKey: ['get-nft-holdings', account.address, network.url],
       queryFn: fetchNonFungibleTokenHoldings(client)(account.address),
       ...queryOptions,
-    }))
-  );
+    })),
+  });
 }

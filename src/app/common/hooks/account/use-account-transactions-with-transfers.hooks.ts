@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
