@@ -64,6 +64,14 @@ export function truncateString(str: string, maxLength: number) {
   return str.slice(0, maxLength) + '...';
 }
 
+export function isMultipleOf(multiple: number) {
+  return (num: number) => num % multiple === 0;
+}
+
+export function isEven(num: number) {
+  return isMultipleOf(2)(num);
+}
+
 function getLetters(string: string, offset = 1) {
   return string.slice(0, offset);
 }
