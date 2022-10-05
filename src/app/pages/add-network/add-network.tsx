@@ -19,6 +19,7 @@ import {
   useCurrentStacksNetworkState,
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
+import { removeTrailingSlash } from '@app/common/url-join';
 
 interface AddNetworkFormValues {
   key: string;
@@ -49,7 +50,7 @@ export const AddNetwork = () => {
           setLoading(true);
           setError('');
           try {
-            const path = new URL(url).href;
+            const path = removeTrailingSlash(new URL(url).href);
             const response = await network.fetchFn(`${path}/v2/info`);
             const chainInfo = await response.json();
             const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
