@@ -167,11 +167,9 @@ const provider: StacksProvider = {
         detail: { profileUpdateRequest },
       }
     );
-    console.log('event', event);
     document.dispatchEvent(event);
     return new Promise((resolve, reject) => {
       const handleMessage = (event: MessageEvent<ProfileUpdateResponseMessage>) => {
-        console.log('handleMessage profileUpdateRequest', event);
         if (!isValidEvent(event, ExternalMethods.profileUpdateResponse)) return;
         if (event.data.payload?.profileUpdateRequest !== profileUpdateRequest) return;
         window.removeEventListener('message', handleMessage);
@@ -180,7 +178,6 @@ const provider: StacksProvider = {
           return;
         }
         if (typeof event.data.payload.profileUpdateResponse !== 'string') {
-          console.log('profileUpdateResponse', event.data.payload.profileUpdateResponse);
           resolve(new Profile(event.data.payload.profileUpdateResponse));
         }
       };

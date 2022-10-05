@@ -10,7 +10,6 @@ import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 
 function PageTopBase() {
   const network = useCurrentNetwork();
-  console.log("profile-request");
   const { origin, requestToken } = useProfileUpdateRequestSearchParams();
   if (!requestToken) return null;
   const profileUpdaterPayload = getProfileDataContentFromToken(requestToken);

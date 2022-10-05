@@ -35,7 +35,6 @@ function useUpdateProfileSoftwareWallet() {
         account,
         gaiaHubUrl: read_url_prefix,
       });
-      console.log({ profileUrl, accountAddress: account.address });
       const profile = (await fetchProfileFromUrl(profileUrl, fetchFn)) || DEFAULT_PROFILE;
       const updatedProfile = {
         ...profile,
