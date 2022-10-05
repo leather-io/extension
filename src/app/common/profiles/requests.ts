@@ -49,8 +49,9 @@ export async function verifyProfileUpdateRequest({
   appDomain,
 }: VerifyProfileUpdateRequestArgs): Promise<ProfileUpdateRequestPayload> {
   const token = decodeToken(requestToken);
-  const payload = token.payload as unknown; //as ProfileUpdateRequestPayload;
-  const { publicKey, stxAddress } = payload as { publicKey: string; stxAddress: string };
+  const payload = token.payload as unknown as ProfileUpdateRequestPayload;
+  // TODO Person.validateSchmea(payload.profile, false)
+  const { publicKey, stxAddress } = payload as unknown as { publicKey: string; stxAddress: string };
   const verifier = new TokenVerifier('ES256k', publicKey);
   const isSigned = await verifier.verifyAsync(requestToken);
   if (!isSigned) {
