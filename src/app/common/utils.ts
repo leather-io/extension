@@ -280,3 +280,7 @@ export function whenChainId(chainId: ChainID) {
 export function sumNumbers(nums: number[]) {
   return nums.reduce((acc, num) => acc.plus(num), new BigNumber(0));
 }
+
+export async function fetchJson(request: RequestInfo | URL) {
+  return fetch(request).then(resp => resp.json());
+}
