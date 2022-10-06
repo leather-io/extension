@@ -22,12 +22,15 @@ import { HomeTabs } from './components/home-tabs';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 import { CurrentAccount } from './components/account-area';
+import { useStxMarketPrice } from '@app/query/common/market-data/market-data.hooks';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
   const account = useCurrentAccount();
   useTrackFirstDeposit();
+
+  console.log(useStxMarketPrice());
 
   useRouteHeader(
     <>
