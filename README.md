@@ -12,6 +12,8 @@ To use this extension with your own Stacks App, we recommend  [@stacks/connect](
 
 [📚 See Hiro Wallet API Reference →](https://github.com/hirosystems/stacks-wallet-web/wiki)
 
+[📩 Join the mailing list for updates →](https://forms.gle/sdZPu2jbX1AeQ8Fi9)
+
 
 
 ## Development
