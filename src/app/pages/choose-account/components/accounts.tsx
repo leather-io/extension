@@ -23,6 +23,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
+import { useStxMarketPrice } from '@app/query/common/market-data/market-data.hooks';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -64,6 +65,7 @@ const AccountItem = memo((props: AccountItemProps) => {
   const name = useAccountDisplayName(account);
   const { data: balances, isLoading: isBalanceLoading } = useAddressBalances(account.address);
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
+  const stxPrice = useStxMarketPrice();
 
   const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
@@ -102,6 +104,10 @@ const AccountItem = memo((props: AccountItemProps) => {
                 ) : (
                   balances && <AccountBalanceCaption availableBalance={balances.availableStx} />
                 )}
+                <Text color={color('text-caption')} fontSize="10px">
+                  •
+                </Text>
+                <div>slkdfsldjfsl</div>
               </Stack>
             </Stack>
             {isLoading && <Spinner width={4} height={4} {...loadingProps} />}
