@@ -63,9 +63,7 @@ export function SettingsDropdown() {
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
                 data-testid={SettingsSelectors.SwitchAccount}
-                onClick={wrappedCloseCallback(() => {
-                  setShowSwitchAccountsState(true);
-                })}
+                onClick={wrappedCloseCallback(() => setShowSwitchAccountsState(true))}
               >
                 Switch account
               </MenuItem>

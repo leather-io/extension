@@ -12,7 +12,13 @@ export const AccountAvatar = memo(({ publicKey, name, ...props }: AccountAvatarP
 
   const circleText = name?.includes('Account') ? name.split(' ')[1] : name[0];
   return (
-    <Circle flexShrink={0} backgroundImage={gradient} color={color('bg')} {...props}>
+    <Circle
+      flexShrink={0}
+      backgroundImage={gradient}
+      color={color('bg')}
+      userSelect="none"
+      {...props}
+    >
       {circleText.toUpperCase()}
     </Circle>
   );
