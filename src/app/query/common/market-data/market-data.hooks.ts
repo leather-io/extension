@@ -15,6 +15,7 @@ import {
   useCoinGeckoMarketDataQuery,
 } from './vendors/coingecko-market-data.query';
 import { MarketPair } from '@shared/models/currencies.model';
+import { logger } from '@shared/logger';
 
 interface MarketDataVendorWithPriceSelector {
   result: unknown;
@@ -27,7 +28,7 @@ function pullPriceDataFromAvailableResponses(responses: MarketDataVendorWithPric
     .map(val => new BigNumber(val));
 }
 
-export function useStxMarketPrice(): MarketPair {
+function useStxMarketPrice(): MarketPair {
   const { data: coingecko } = useCoinGeckoMarketDataQuery('STX');
   const { data: coincap } = useCoincapMarketDataQuery('STX');
   const { data: binance } = useBinanceMarketDataQuery('STX');
@@ -42,3 +43,5 @@ export function useStxMarketPrice(): MarketPair {
 
   return { base: 'STX', quote: 'USD', price: meanStxPrice };
 }
+
+logger.info(useStxMarketPrice);
