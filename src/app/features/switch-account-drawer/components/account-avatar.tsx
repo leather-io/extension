@@ -1,7 +1,7 @@
 import { Suspense, memo } from 'react';
 import { Box, BoxProps } from '@stacks/ui';
 
-import { AccountAvatar } from '@app/components/account-avatar/account-avatar';
+import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
 import { useGetAccountNamesByAddressQuery } from '@app/query/stacks/bns/bns.hooks';
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 import { usePublicKeyToAddress } from '@app/common/hooks/use-public-key-to-address';

@@ -2,7 +2,7 @@ import { memo, Suspense } from 'react';
 import { BoxProps } from '@stacks/ui';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { AccountAvatar } from '@app/components/account-avatar/account-avatar';
+import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 
