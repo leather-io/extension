@@ -1,6 +1,6 @@
 import zxcvbn, { ZXCVBNResult, ZXCVBNScore } from 'zxcvbn';
 
-const truncateCpuDemandingPassword = (input: string) => input.substr(0, 100);
+const truncateCpuDemandingPassword = (input: string) => input.slice(0, 100);
 
 export enum PasswordStrength {
   NoScore,
