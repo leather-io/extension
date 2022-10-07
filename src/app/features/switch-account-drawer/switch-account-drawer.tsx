@@ -12,7 +12,7 @@ import {
 } from '@app/store/accounts/account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 
-import { AccountList } from './components/account-list';
+import { SwitchAccountList } from './components/switch-account-list';
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { CreateAccountAction } from './components/create-account-action';
 
@@ -25,9 +25,7 @@ export const SwitchAccountDrawer = memo(() => {
   const [, setHasCreatedAccount] = useHasCreatedAccount();
   const { whenWallet } = useWalletType();
 
-  const onClose = () => {
-    setShowSwitchAccountsState(false);
-  };
+  const onClose = () => setShowSwitchAccountsState(false);
 
   const onCreateAccount = () => {
     void analytics.track('choose_to_create_account');
@@ -44,7 +42,7 @@ export const SwitchAccountDrawer = memo(() => {
   return isShowing && accounts ? (
     <ControlledDrawer title="Switch account" isShowing={isShowing} onClose={onClose}>
       <Box mb={whenWallet({ ledger: 'base', software: '' })}>
-        <AccountList
+        <SwitchAccountList
           accounts={accounts}
           currentAccountIndex={currentAccountIndex}
           handleClose={onClose}
