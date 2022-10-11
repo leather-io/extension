@@ -13,7 +13,7 @@ function useIsFirstDeposit(stxBalance: AccountStxBalanceBigNumber | undefined): 
   const currentNetwork = useCurrentNetworkState();
   const hasStxDeposits = useAnalyticsHasStxDeposits()[currentNetwork.chainId];
   const hasZeroStx = useMemo(
-    () => stxBalance?.total_received.isEqualTo(0) || false,
+    () => stxBalance?.total_received.amount.isEqualTo(0) || false,
     [stxBalance?.total_received]
   );
   useEffect(() => {
