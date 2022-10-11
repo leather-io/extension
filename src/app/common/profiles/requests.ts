@@ -1,16 +1,16 @@
 import { decodeToken, TokenVerifier } from 'jsontokens';
 
 import { isString } from '@shared/utils';
-import { ProfileUpdateRequestPayload } from '@stacks/connect';
+import { ProfileUpdatePayload, ProfileUpdateRequestOptions } from '@stacks/connect';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
 
-export function getProfileDataContentFromToken(requestToken: string): ProfileUpdateRequestPayload {
+export function getProfileDataContentFromToken(requestToken: string): ProfileUpdateRequestOptions {
   const token = decodeToken(requestToken);
   if (isString(token.payload)) throw new Error('error decoding json token');
-
-  const result = token.payload as unknown as ProfileUpdateRequestPayload;
+  console.log(token.payload)
+  const result = token.payload as unknown as ProfileUpdateRequestOptions
   return result;
 }
 
@@ -35,7 +35,7 @@ const UNAUTHORIZED_PROFILE_UPDATE_REQUEST =
  * - The `stxAddress` provided in the payload does not match an STX address
  * for any of the accounts in this wallet.
  *
- * @returns The decoded and validated `ProfileUpdaterPayload`
+ * @returns The decoded and validated `ProfileUpdatePayload`
  * @throws if the profile update request is invalid
  */
 interface VerifyProfileUpdateRequestArgs {
@@ -47,9 +47,9 @@ export async function verifyProfileUpdateRequest({
   requestToken,
   accounts,
   appDomain,
-}: VerifyProfileUpdateRequestArgs): Promise<ProfileUpdateRequestPayload> {
+}: VerifyProfileUpdateRequestArgs): Promise<ProfileUpdatePayload> {
   const token = decodeToken(requestToken);
-  const payload = token.payload as unknown as ProfileUpdateRequestPayload;
+  const payload = token.payload as unknown as ProfileUpdatePayload;
   // TODO Person.validateSchmea(payload.profile, false)
   const { publicKey, stxAddress } = payload as unknown as { publicKey: string; stxAddress: string };
   const verifier = new TokenVerifier('ES256k', publicKey);
@@ -76,5 +76,5 @@ export async function verifyProfileUpdateRequest({
   if (!foundAccount) {
     throw new Error(UNAUTHORIZED_PROFILE_UPDATE_REQUEST);
   }
-  return payload as ProfileUpdateRequestPayload;
+  return payload as ProfileUpdatePayload;
 }

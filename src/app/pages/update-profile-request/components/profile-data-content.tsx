@@ -14,12 +14,14 @@ const DEFAULT_AVATAR_URL = 'https://github.com/stacks-network.png';
 export function ProfileDataContent(props: ProfileDataContentProps) {
   const { requestToken } = props;
   const profileUpdateRequest = getProfileDataContentFromToken(requestToken);
-  const { name, image } = profileUpdateRequest.profile;
+  console.log(typeof profileUpdateRequest.profile, profileUpdateRequest.profile);
+  const name = profileUpdateRequest.profile.name();
+  const avatarUrl = profileUpdateRequest.profile.avatarUrl();
   const { network } = profileUpdateRequest;
   const appName = profileUpdateRequest.appDetails?.name;
   return (
     <>
-      <ProfileBox name={name} imageUrl={image ? image[0]?.contentUrl : DEFAULT_AVATAR_URL} />
+      <ProfileBox name={name} imageUrl={avatarUrl ?? DEFAULT_AVATAR_URL} />
       <NetworkRow chainId={network?.chainId ?? ChainID.Testnet} />
       <UpdateAction profileUpdaterPayload={profileUpdateRequest} />
       <hr />

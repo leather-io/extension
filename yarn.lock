@@ -4085,10 +4085,10 @@
     "@stacks/connect" "6.10.0"
     jsontokens "^3.0.0"
 
-"@stacks/connect-ui@5.0.6-alpha.327f23c.0":
-  version "5.0.6-alpha.327f23c.0"
-  resolved "https://registry.yarnpkg.com/@stacks/connect-ui/-/connect-ui-5.0.6-alpha.327f23c.0.tgz#5466018ca38f9e95ca31aa3f78273ef5922968b7"
-  integrity sha512-blFNRXJy4fTQ65wSZWIFcFKczHGjWIqg/5rT7pZyL+navmTLgXsGogo1xk7JYLU2gXPIC3wDEcPxictjHVB8tg==
+"@stacks/connect-ui@5.0.6-alpha.5ce9dd1.0":
+  version "5.0.6-alpha.5ce9dd1.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect-ui/-/connect-ui-5.0.6-alpha.5ce9dd1.0.tgz#462c38a6a97172a32718e948fa62d188b0ded997"
+  integrity sha512-T7F11cqhJMiJ/cEnULpAnldicannxA3N8l28JmnHhm8/7Xlz57SdWzWmGQTuKtiNV+12+PlrZ72MiEkACGEHow==
   dependencies:
     "@stencil/core" "^2.17.1"
 
@@ -4099,20 +4099,20 @@
   dependencies:
     "@stencil/core" "2.15.0"
 
-"@stacks/connect-ui@^5.0.6-alpha.327f23c.0":
+"@stacks/connect-ui@^5.0.6-alpha.5ce9dd1.0":
   version "5.5.4"
   resolved "https://registry.yarnpkg.com/@stacks/connect-ui/-/connect-ui-5.5.4.tgz#f9612e2b05cbc0f013656ce16d07cdcb389bd0ca"
   integrity sha512-xstC05PoxpPeA2HWytkJp/NJBtDEPDUoHuUyyvpuqS7f95rsHyx/tLFWv9ElxWiIbeMPPDEQipoy6S1qnZb8jw==
   dependencies:
     "@stencil/core" "^2.17.1"
 
-"@stacks/connect@5.0.6-alpha.327f23c.0":
-  version "5.0.6-alpha.327f23c.0"
-  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-5.0.6-alpha.327f23c.0.tgz#428e31dd35b5ff07305250a7d426d5a999209b0f"
-  integrity sha512-opZpVWEfcM/LN8/Da5fGfO21X0Fpr8rMFFNuyPYmVp58TK9iIeTdGTSbKQsWNTSHBEL/r/ofNuEccy6+E6vtmw==
+"@stacks/connect@5.0.6-alpha.5ce9dd1.0":
+  version "5.0.6-alpha.5ce9dd1.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-5.0.6-alpha.5ce9dd1.0.tgz#616ac465efb093fb64830dff32cf3ac091ddaa07"
+  integrity sha512-BxDXb6z1HycEq3RItVxl9U1617NZYN5s9i/EdpDlsEnBlDZHnvRG7pXXOFA1uqXhxd5hy6XNtqn/W16xjRh08A==
   dependencies:
     "@stacks/auth" "^5.0.0"
-    "@stacks/connect-ui" "^5.0.6-alpha.327f23c.0"
+    "@stacks/connect-ui" "^5.0.6-alpha.5ce9dd1.0"
     "@stacks/network" "^5.0.0"
     "@stacks/prettier-config" "0.0.8"
     "@stacks/profile" "^5.0.0"
