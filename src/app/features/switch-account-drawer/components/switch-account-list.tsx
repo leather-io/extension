@@ -31,6 +31,7 @@ export const SwitchAccountList = memo(
     return (
       <Virtuoso
         initialTopMostItemIndex={currentAccountIndex}
+        height="72px"
         style={{ paddingTop: '24px', height: '70vh' }}
         totalCount={accounts.length}
         itemContent={index => (

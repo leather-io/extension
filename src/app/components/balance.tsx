@@ -14,7 +14,7 @@ export function Balance(props: BalanceProps): JSX.Element | null {
   const balance = useMemo(
     () =>
       stacksValue({
-        value: balances?.availableStx || 0,
+        value: balances?.availableStx.amount ?? 0,
         withTicker: true,
       }),
     [balances]

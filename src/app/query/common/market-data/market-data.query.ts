@@ -7,4 +7,5 @@ export const marketDataQueryOptions: UseQueryOptions = {
   refetchOnReconnect: false,
   refetchOnWindowFocus: false,
   refetchIntervalInBackground: false,
+  suspense: true,
 } as const;
