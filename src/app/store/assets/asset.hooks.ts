@@ -54,7 +54,9 @@ export function useStxTokenState(address: string) {
     type: 'stx',
     contractAddress: '',
     balance: balance,
-    subBalance: unanchoredBalances?.stx?.balance.minus(unanchoredBalances?.stx.locked) || undefined,
+    subBalance:
+      unanchoredBalances?.stx?.balance.amount.minus(unanchoredBalances?.stx.locked.amount) ||
+      undefined,
     subtitle: 'STX',
     name: 'Stacks Token',
   } as AssetWithMeta;

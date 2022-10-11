@@ -1,7 +1,8 @@
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { useField } from 'formik';
 import { Box, color, Stack, Text } from '@stacks/ui';
+import BigNumber from 'bignumber.js';
 
 import { microStxToStx, stacksValue } from '@app/common/stacks-utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -18,6 +19,9 @@ import { TransactionFee } from './components/transaction-fee';
 import { FeeEstimateItem } from './components/fee-estimate-item';
 import { FeeEstimateSelect } from './components/fee-estimate-select';
 import { CustomFeeField } from './components/custom-fee-field';
+import { createMoney } from '@shared/models/money.model';
+import { isNumber, isString } from '@shared/utils';
+import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 
 const feesInfo =
   'Higher fees increase the likelihood of your transaction getting confirmed before others. Click to learn more.';
@@ -37,6 +41,14 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(FeeType.Middle);
   const [isCustom, setIsCustom] = useState(false);
+
+  const convertStxToUsd = useConvertStxToFiatAmount();
+
+  const feeInUsd = useMemo(() => {
+    if (!isNumber(feeInput.value) && !isString(feeInput.value)) return null;
+    const feeAsMoney = createMoney(new BigNumber(feeInput.value), 'STX');
+    return convertStxToUsd(feeAsMoney);
+  }, [convertStxToUsd, feeInput.value]);
 
   useEffect(() => {
     // Set it to the middle estimation on mount
@@ -114,7 +126,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
         ) : (
           <Suspense fallback={<></>}>
             <Caption>
-              <TransactionFee fee={feeInput.value} />
+              <TransactionFee fee={feeInput.value} usdAmount={feeInUsd} />
             </Caption>
           </Suspense>
         )}

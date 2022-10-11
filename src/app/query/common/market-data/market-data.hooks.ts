@@ -1,6 +1,9 @@
+import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { calculateMeanAverage } from '@app/common/calculate-averages';
+import { createMoney } from '@shared/models/money.model';
+import { createMarketData, createMarketPair, MarketData } from '@shared/models/market.model';
 
 import {
   selectBinanceUsdPrice,
@@ -14,8 +17,6 @@ import {
   selectCoingeckoUsdPrice,
   useCoinGeckoMarketDataQuery,
 } from './vendors/coingecko-market-data.query';
-import { MarketPair } from '@shared/models/currencies.model';
-import { logger } from '@shared/logger';
 
 interface MarketDataVendorWithPriceSelector {
   result: unknown;
@@ -28,20 +29,18 @@ function pullPriceDataFromAvailableResponses(responses: MarketDataVendorWithPric
     .map(val => new BigNumber(val));
 }
 
-function useStxMarketPrice(): MarketPair {
+export function useStxMarketData(): MarketData {
   const { data: coingecko } = useCoinGeckoMarketDataQuery('STX');
   const { data: coincap } = useCoincapMarketDataQuery('STX');
   const { data: binance } = useBinanceMarketDataQuery('STX');
 
-  const stxPriceData = pullPriceDataFromAvailableResponses([
-    { result: coingecko, selector: selectCoingeckoUsdPrice },
-    { result: coincap, selector: selectCoincapUsdPrice },
-    { result: binance, selector: selectBinanceUsdPrice },
-  ]);
-
-  const meanStxPrice = calculateMeanAverage(stxPriceData);
-
-  return { base: 'STX', quote: 'USD', price: meanStxPrice };
+  return useMemo(() => {
+    const stxPriceData = pullPriceDataFromAvailableResponses([
+      { result: coingecko, selector: selectCoingeckoUsdPrice },
+      { result: coincap, selector: selectCoincapUsdPrice },
+      { result: binance, selector: selectBinanceUsdPrice },
+    ]);
+    const meanStxPrice = calculateMeanAverage(stxPriceData);
+    return createMarketData(createMarketPair('STX', 'USD'), createMoney(meanStxPrice, 'STX'));
+  }, [binance, coincap, coingecko]);
 }
-
-logger.info(useStxMarketPrice);

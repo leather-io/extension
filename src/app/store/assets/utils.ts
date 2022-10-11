@@ -10,7 +10,7 @@ export function transformAssets(balances?: AccountBalanceResponseBigNumber) {
     type: 'stx',
     contractAddress: '',
     contractName: '',
-    balance: balances.stx.balance,
+    balance: balances.stx.balance.amount,
     subtitle: 'STX',
     name: 'Stacks Token',
     canTransfer: true,

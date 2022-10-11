@@ -134,7 +134,7 @@ function SendTokensFormBase() {
               <SendFormInner
                 assetError={assetError}
                 feeEstimations={feeEstimations.estimates}
-                onAssetIdSelected={(assetId: string) => setSelectedAssetId(assetId)}
+                onAssetIdSelected={assetId => setSelectedAssetId(assetId)}
                 nonce={nonce}
               />
             </Suspense>
