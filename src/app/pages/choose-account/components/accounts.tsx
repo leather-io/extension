@@ -23,6 +23,7 @@ import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -63,41 +64,48 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
   const { data: balances, isLoading: isBalanceLoading } = useAddressBalances(account.address);
+  const fiatValue = useStxMarketData();
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
   const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
   return (
-    <AccountListItemLayout
-      account={account}
-      accountName={
-        <Suspense
-          fallback={
-            <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
-          }
-        >
-          <AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} />
-        </Suspense>
-      }
-      avatar={<AccountAvatarWithName name={name} flexGrow={0} publicKey={account.stxPublicKey} />}
-      balanceLabel={
-        isBalanceLoading ? (
-          <AccountBalanceLoading />
-        ) : balances ? (
-          <AccountBalanceCaption availableBalance={balances.availableStx} />
-        ) : (
-          <></>
-        )
-      }
-      isLoading={isLoading}
-      onSelectAccount={() => onSelectAccount(account.index)}
-      data-testid={`account-${accountSlug}-${account.index}`}
-      mb="loose"
-      {...bind}
-      {...rest}
-    >
-      {component}
-    </AccountListItemLayout>
+    // Padding required on outer element to prevent jumpy list behaviours in
+    // virtualised list library
+    <Box pb="loose">
+      <AccountListItemLayout
+        account={account}
+        accountName={
+          <Suspense
+            fallback={
+              <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
+            }
+          >
+            <AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} />
+          </Suspense>
+        }
+        avatar={<AccountAvatarWithName name={name} flexGrow={0} publicKey={account.stxPublicKey} />}
+        balanceLabel={
+          isBalanceLoading ? (
+            <AccountBalanceLoading />
+          ) : balances ? (
+            <AccountBalanceCaption
+              availableBalance={balances.availableStx}
+              marketData={fiatValue}
+            />
+          ) : (
+            <></>
+          )
+        }
+        isLoading={isLoading}
+        onSelectAccount={() => onSelectAccount(account.index)}
+        data-testid={`account-${accountSlug}-${account.index}`}
+        {...bind}
+        {...rest}
+      >
+        {component}
+      </AccountListItemLayout>
+    </Box>
   );
 });
 
@@ -149,7 +157,6 @@ export const ChooseAccountsList = memo(() => {
       <Virtuoso
         useWindowScroll
         data={accounts}
-        style={{ height: '68px' }}
         itemContent={(index, account) => (
           <ChooseAccountItem
             account={account}

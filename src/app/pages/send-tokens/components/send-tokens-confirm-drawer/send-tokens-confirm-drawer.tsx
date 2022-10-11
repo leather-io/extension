@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik';
 import { Stack } from '@stacks/ui';
+import BigNumber from 'bignumber.js';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
@@ -10,12 +11,20 @@ import { TransactionFee } from '@app/components/fee-row/components/transaction-f
 import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { StacksTransaction } from '@stacks/transactions';
-import { microStxToStx } from '@stacks/ui-utils';
+import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { createMoney } from '@shared/models/money.model';
+import { microStxToStx } from '@app/common/stacks-utils';
+
+function getFeeWithDefaultOfZero(tx?: StacksTransaction) {
+  if (!tx) return createMoney(0, 'STX');
+  const fee = microStxToStx(Number(tx.auth.spendingCondition.fee));
+  return createMoney(new BigNumber(fee), 'STX');
+}
 
 interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
   onUserSelectBroadcastTransaction(tx: StacksTransaction | undefined): void;
@@ -26,6 +35,13 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
   const unsignedTransaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
   const analytics = useAnalytics();
   const { showEditNonce } = useDrawers();
+
+  const convertStxToUsd = useConvertStxToFiatAmount();
+
+  const feeInUsd = useMemo(
+    () => convertStxToUsd(getFeeWithDefaultOfZero(unsignedTransaction)),
+    [convertStxToUsd, unsignedTransaction]
+  );
 
   useEffect(() => {
     if (!isShowing) return;
@@ -51,7 +67,8 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
           <Caption>Fees</Caption>
           <Caption>
             <TransactionFee
-              fee={microStxToStx(Number(unsignedTransaction.auth.spendingCondition.fee))}
+              fee={getFeeWithDefaultOfZero(unsignedTransaction).amount.toString()}
+              usdAmount={feeInUsd}
             />
           </Caption>
         </SpaceBetween>

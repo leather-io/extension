@@ -17,21 +17,31 @@ import {
   useGetAnchoredAccountBalanceListQuery,
   useGetAnchoredAccountBalanceQuery,
 } from './balance.query';
+import { createMoney, Money } from '@shared/models/money.model';
 
-function initAmountsAsBigNumber(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
-  const stxBigNumbers = Object.fromEntries(
-    accountBalanceStxKeys.map(key => [key, new BigNumber(balances.stx[key])])
-  ) as Record<AccountBalanceStxKeys, BigNumber>;
+function initAmountsAsMoney(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
+  const stxMoney = Object.fromEntries(
+    accountBalanceStxKeys.map(key => [
+      key,
+      { amount: new BigNumber(balances.stx[key]), symbol: 'STX' },
+    ])
+  ) as Record<AccountBalanceStxKeys, Money>;
 
-  const stx: AccountStxBalanceBigNumber = { ...balances.stx, ...stxBigNumbers };
+  const stx: AccountStxBalanceBigNumber = { ...balances.stx, ...stxMoney };
   return { ...balances, stx };
 }
 
 export function useAddressBalances(address: string) {
   return useGetAccountBalanceQuery(address, {
     select: (resp: AddressBalanceResponse) => {
-      const balances = initAmountsAsBigNumber(resp);
-      return { ...balances, availableStx: balances.stx.balance.minus(balances.stx.locked) };
+      const balances = initAmountsAsMoney(resp);
+      return {
+        ...balances,
+        availableStx: createMoney(
+          balances.stx.balance.amount.minus(balances.stx.locked.amount),
+          'STX'
+        ),
+      };
     },
     keepPreviousData: false,
     useErrorBoundary: false,
@@ -53,7 +63,7 @@ export function useBaseAssetsUnanchored() {
 
 function useAddressAnchoredBalances(address: string) {
   const { data: balances } = useGetAnchoredAccountBalanceQuery(address, {
-    select: (resp: AddressBalanceResponse) => initAmountsAsBigNumber(resp),
+    select: (resp: AddressBalanceResponse) => initAmountsAsMoney(resp),
     retryOnMount: true,
     keepPreviousData: false,
   });
@@ -69,7 +79,7 @@ export function useAddressAnchoredAvailableStxBalance(address: string) {
   const balances = useAddressAnchoredBalances(address);
   return useMemo(() => {
     if (!balances) return new BigNumber(0);
-    return balances.stx.balance.minus(balances.stx.locked);
+    return balances.stx.balance.amount.minus(balances.stx.locked.amount);
   }, [balances]);
 }
 

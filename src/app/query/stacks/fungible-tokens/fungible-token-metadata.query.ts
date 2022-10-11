@@ -8,7 +8,7 @@ import { StacksClient } from '@app/query/stacks/stacks-client';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 
-const staleTime = 6 * 60 * 60 * 1000;
+const staleTime = 12 * 60 * 60 * 1000;
 
 const queryOptions = {
   keepPreviousData: true,
@@ -28,7 +28,7 @@ function fetchUnanchoredAccountInfo(client: StacksClient) {
     await limiter.removeTokens(1);
     return client.fungibleTokensApi
       .getContractFtMetadata({ contractId })
-      .catch(error => (is404(error) ? undefined : error));
+      .catch(error => (is404(error) ? null : error));
   };
 }
 
