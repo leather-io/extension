@@ -49,6 +49,16 @@ function useFeeEstimationsMinValues() {
   return configFeeEstimationsMinValues || defaultFeesMinValues;
 }
 
+function feeEstimationQueryFailedSilently(
+  feeEstimationResult: UseQueryResult<TransactionFeeEstimation, Error>
+) {
+  return !!(
+    feeEstimationResult.data &&
+    !feeEstimationResult.isLoading &&
+    (!!feeEstimationResult?.error || !feeEstimationResult.data.estimations?.length)
+  );
+}
+
 export function useFeeEstimations(txByteLength: number | null, txPayload: string) {
   const feeEstimationsMaxValues = useFeeEstimationsMaxValues();
   const feeEstimationsMinValues = useFeeEstimationsMinValues();
@@ -61,7 +71,7 @@ export function useFeeEstimations(txByteLength: number | null, txPayload: string
     if (!isLoading && isError) {
       return { estimates: defaultFeeEstimations, calculation: FeeCalculationType.Default };
     }
-    if (!isLoading && (!!txFeeEstimation?.error || !feeEstimations?.length) && txByteLength) {
+    if (txByteLength && feeEstimationQueryFailedSilently(result)) {
       return {
         estimates: getDefaultSimulatedFeeEstimations(txByteLength),
         calculation: FeeCalculationType.DefaultSimulated,
