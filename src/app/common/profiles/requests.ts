@@ -5,12 +5,13 @@ import { ProfileUpdatePayload, ProfileUpdateRequestOptions } from '@stacks/conne
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
+import { Person } from '@stacks/profile';
 
 export function getProfileDataContentFromToken(requestToken: string): ProfileUpdateRequestOptions {
   const token = decodeToken(requestToken);
   if (isString(token.payload)) throw new Error('error decoding json token');
-  console.log(token.payload)
-  const result = token.payload as unknown as ProfileUpdateRequestOptions
+  const person = new Person(token.payload.profile?.valueOf());
+  const result = { ...token.payload, profile: person };
   return result;
 }
 
