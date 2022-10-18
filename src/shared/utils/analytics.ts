@@ -52,5 +52,5 @@ export function initSegment() {
     },
   })
     .then(res => (analytics = res))
-    .catch(error => logger.error({ error }));
+    .catch(error => logger.error('Unable to init segment', error));
 }

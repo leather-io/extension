@@ -19,6 +19,8 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/ledger-utils';
+import { useModifierKey } from '@app/common/hooks/use-modifier-key';
+import { AdvancedMenuItems } from './components/advanced-menu-items';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -36,6 +38,7 @@ export function SettingsDropdown() {
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
   const key = useCurrentKeyDetails();
+  const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
 
   const handleClose = useCallback(() => setShowSettings(false), [setShowSettings]);
 
@@ -103,6 +106,9 @@ export function SettingsDropdown() {
               </Flex>
             </MenuItem>
             <Divider />
+            {showAdvancedMenuOptions && (
+              <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={showSettings} />
+            )}
             {hasGeneratedWallet && walletType === 'software' && (
               <MenuItem
                 onClick={wrappedCloseCallback(() => {

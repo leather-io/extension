@@ -30,13 +30,15 @@ export async function broadcastTransaction(options: BroadcastTransactionOptions)
   );
 
   if ('error' in response) {
-    logger.error(`Error broadcasting raw transaction -- ${response}`);
+    logger.error(`Error broadcasting raw transaction`, response);
     const message = getErrorMessage(response.reason as any);
     throw new Error(`${message} - ${(response as any).error}`);
   } else if (!validateTxId(response.txid)) {
-    logger.error(`Error broadcasting raw transaction -- ${response}`);
+    logger.error(`Error broadcasting raw transaction`, response);
     throw new Error('Invalid txid for transaction');
   }
+
+  logger.info('Transaction broadcast', response);
 
   return {
     txId: response.txid,

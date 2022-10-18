@@ -87,7 +87,7 @@ module.exports = {
       name: 'no-using-pino-directly',
       comment: 'Enforce use of Pino logging library via @logger wrapper',
       severity: 'error',
-      from: { path: '^src', pathNot: ['^src/shared/logger.ts$'] },
+      from: { path: '^src', pathNot: ['^src/shared/logger*'] },
       to: { path: 'pino' },
     },
     {
@@ -116,6 +116,13 @@ module.exports = {
       severity: 'error',
       from: { pathNot: ['^src/app/features'] },
       to: { path: '^src/app/features/([^/]+)/components' },
+    },
+    {
+      name: 'no-logger-inpage-use',
+      comment: `Inpage cannot use logger, which uses unavailable APIs`,
+      severity: 'error',
+      from: { path: '^src/inpage' },
+      to: { path: '^src/shared/logger' },
     },
   ],
   options: {

@@ -45,7 +45,7 @@ export function useKeyActions() {
       async signOut() {
         sendMessage({ method: InternalMethods.RemoveInMemoryKeys, payload: undefined });
         dispatch(keyActions.signOut());
-        clearSessionLocalData();
+        await clearSessionLocalData();
         void analytics.track('sign_out');
       },
 

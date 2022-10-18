@@ -41,6 +41,6 @@ export function finalizeTxSignature({ requestPayload, data, tabId }: FinalizeTxS
     // reported these errors. Tracking here to see if we are able to detect this
     // happening.
     void analytics.track('finalize_tx_signature_error_thrown', { data: e });
-    logger.error(e);
+    logger.error('Error in finalising tx signature', e);
   }
 }

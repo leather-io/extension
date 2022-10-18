@@ -41,10 +41,12 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
         try {
           const response = await broadcastTransaction(transaction, stacksNetwork);
           if (response.error) {
+            logger.error('Transaction broadcast', response);
             if (response.reason) toast.error(getErrorMessage(response.reason));
             onClose();
             setIsIdle();
           } else {
+            logger.info('Transaction broadcast', response);
             submittedTransactionsActions.newTransactionSubmitted({
               rawTx: bytesToHex(transaction.serialize()),
               txId: safelyFormatHexTxid(response.txid),
@@ -59,7 +61,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             await refreshAccountData(timeForApiToUpdate);
           }
         } catch (error) {
-          logger.error({ error });
+          logger.error('Transaction callback', { error });
           onError(error instanceof Error ? error : { name: '', message: '' });
           setIsIdle();
         }
