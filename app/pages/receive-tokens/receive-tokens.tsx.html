@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -118,8 +118,15 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,7 +146,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -148,7 +154,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,31 +192,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { FiCopy } from 'react-icons/fi';
-import { Box, Flex, useClipboard, Stack, color, Button } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
-&nbsp;
-import { useWallet } from '@app/common/hooks/use-wallet';
+import { Box, Flex, useClipboard, color, Button } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 &nbsp;
-import { Caption, Text, Title } from '@app/components/typography';
+import { Text, Title } from '@app/components/typography';
 &nbsp;
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 &nbsp;
 import { QrCode } from './components/address-qr-code';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 &nbsp;
 export const ReceiveTokens = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const { currentAccount, currentAccountStxAddress } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
+  const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentAccount();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const address = <span class="cstat-no" title="statement not covered" >currentAccountStxAddress || '';</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-  const { onCopy } = <span class="cstat-no" title="statement not covered" >useClipboard(address);</span>
+  const { onCopy } = <span class="cstat-no" title="statement not covered" >useClipboard(currentAccount?.address ?? '');</span>
 &nbsp;
   const copyToClipboard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('copy_address_to_clipboard');</span>
 <span class="cstat-no" title="statement not covered" >    toast.success('Copied to clipboard!');</span>
 <span class="cstat-no" title="statement not covered" >    onCopy();</span>
   };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!currentAccount) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;BaseDrawer title="Receive" isShowing onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(-1)}</span>&gt;
@@ -210,20 +226,28 @@ export const ReceiveTokens = <span class="cstat-no" title="statement not covered
           is not required.
         &lt;/Text&gt;
         &lt;Box mt="extra-loose" mx="auto"&gt;
-          &lt;QrCode principal={address} /&gt;
+          &lt;QrCode principal={currentAccount.address} /&gt;
         &lt;/Box&gt;
-        &lt;Stack alignItems="center" spacing="base"&gt;
+        &lt;Flex alignItems="center" flexDirection="column"&gt;
           {currentAccount &amp;&amp; (
             &lt;Title fontSize={3} lineHeight="1rem" mt="loose"&gt;
               {getAccountDisplayName(currentAccount)}
             &lt;/Title&gt;
           )}
-          &lt;Caption userSelect="none"&gt;{truncateMiddle(address, 4)}&lt;/Caption&gt;
-          &lt;Button borderRadius="10px" height="40px" mode="tertiary" onClick={copyToClipboard}&gt;
+          &lt;Flex maxWidth="280px" flexWrap="wrap" justifyContent="center" lineHeight={1.8} mt="base"&gt;
+            &lt;AddressDisplayer address={currentAccount.address} /&gt;
+          &lt;/Flex&gt;
+          &lt;Button
+            borderRadius="10px"
+            height="40px"
+            mode="tertiary"
+            onClick={copyToClipboard}
+            mt="base"
+          &gt;
             &lt;FiCopy /&gt;
             &lt;Text ml="tight"&gt;Copy address&lt;/Text&gt;
           &lt;/Button&gt;
-        &lt;/Stack&gt;
+        &lt;/Flex&gt;
       &lt;/Flex&gt;
     &lt;/BaseDrawer&gt;
   );
@@ -235,7 +259,7 @@ export const ReceiveTokens = <span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-14T11:43:38.649Z
+                at 2022-10-18T13:05:03.451Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

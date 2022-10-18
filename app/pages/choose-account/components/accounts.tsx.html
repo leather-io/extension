@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -233,12 +233,8 @@
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -304,12 +300,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,9 +333,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -396,7 +387,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,21 +406,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense, memo, useState, useMemo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Virtuoso } from 'react-virtuoso';
-import { Box, BoxProps, color, FlexProps, Spinner, Stack } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
+import { Box, BoxProps, color, FlexProps, Stack } from '@stacks/ui';
 &nbsp;
-import { Caption, Text, Title } from '@app/components/typography';
+import { Text, Title } from '@app/components/typography';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
-import { AccountAvatarWithName } from '@app/components/account-avatar/account-avatar';
-import { SpaceBetween } from '@app/components/space-between';
+import { AccountAvatarWithName } from '@app/components/account/account-avatar/account-avatar';
+&nbsp;
 import { usePressable } from '@app/components/item-hover';
 import {
   AccountBalanceCaption,
   AccountBalanceLoading,
-} from '@app/components/account-balance-caption';
+} from '@app/components/account/account-balance-caption';
 import { slugify } from '@app/common/utils';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
@@ -438,6 +427,8 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
+import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
 &nbsp;
 const loadingProps = <span class="cstat-no" title="statement not covered" >{ color: '#A1A7B3' };</span>
 const getLoadingProps = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(l</span>oading: boolean) =&gt; (<span class="cstat-no" title="statement not covered" >loading ? loadingProps : {})</span>;</span>
@@ -466,64 +457,59 @@ const AccountTitle = <span class="cstat-no" title="statement not covered" ><span
   );
 };
 &nbsp;
-interface AccountItemProps extends FlexProps {
+interface ChooseAccountItemProps extends FlexProps {
   selectedAddress?: string | null;
   isLoading: boolean;
   account: AccountWithAddress;
   onSelectAccount(index: number): void;
 }
-const AccountItem = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >(p</span>rops: AccountItemProps) =&gt; {</span>
+const ChooseAccountItem = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >(p</span>rops: ChooseAccountItemProps) =&gt; {</span>
   const { selectedAddress, account, isLoading, onSelectAccount, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
   const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
   const { decodedAuthRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
   const name = <span class="cstat-no" title="statement not covered" >useAccountDisplayName(account);</span>
   const { data: balances, isLoading: isBalanceLoading } = <span class="cstat-no" title="statement not covered" >useAddressBalances(account.address);</span>
+  const fiatValue = <span class="cstat-no" title="statement not covered" >useStxMarketData();</span>
   const showLoadingProps = <span class="cstat-no" title="statement not covered" >!!selectedAddress || !decodedAuthRequest;</span>
 &nbsp;
   const accountSlug = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >slugify(`Account ${account?.index + 1}`),</span> [account?.index]);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box
-      height="68px"
-      data-testid={`account-${accountSlug}-${account.index}`}
-      onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onSelectAccount(account.index)}</span>
-      {...rest}
-    &gt;
-      &lt;Box {...bind}&gt;
-        &lt;Stack spacing="base" alignSelf="center" isInline&gt;
-          &lt;AccountAvatarWithName name={name} flexGrow={0} publicKey={account.stxPublicKey} /&gt;
-          &lt;SpaceBetween width="100%" alignItems="center"&gt;
-            &lt;Stack textAlign="left" spacing="base-tight"&gt;
-              &lt;Suspense
-                fallback={
-                  &lt;AccountTitlePlaceholder
-                    {...getLoadingProps(showLoadingProps)}
-                    account={account}
-                  /&gt;
-                }
-              &gt;
-                &lt;AccountTitle
-                  name={name}
-                  {...getLoadingProps(showLoadingProps)}
-                  account={account}
-                /&gt;
-              &lt;/Suspense&gt;
-              &lt;Stack alignItems="center" spacing="6px" isInline&gt;
-                &lt;Caption fontSize={0} {...getLoadingProps(showLoadingProps)}&gt;
-                  {truncateMiddle(account.address, 4)}
-                &lt;/Caption&gt;
-                {isBalanceLoading ? (
-                  &lt;AccountBalanceLoading /&gt;
-                ) : (
-                  balances &amp;&amp; &lt;AccountBalanceCaption availableBalance={balances.availableStx} /&gt;
-                )}
-              &lt;/Stack&gt;
-            &lt;/Stack&gt;
-            {isLoading &amp;&amp; &lt;Spinner width={4} height={4} {...loadingProps} /&gt;}
-          &lt;/SpaceBetween&gt;
-        &lt;/Stack&gt;
+    // Padding required on outer element to prevent jumpy list behaviours in
+    // virtualised list library
+    &lt;Box pb="loose"&gt;
+      &lt;AccountListItemLayout
+        account={account}
+        accountName={
+          &lt;Suspense
+            fallback={
+              &lt;AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} /&gt;
+            }
+          &gt;
+            &lt;AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} /&gt;
+          &lt;/Suspense&gt;
+        }
+        avatar={&lt;AccountAvatarWithName name={name} flexGrow={0} publicKey={account.stxPublicKey} /&gt;}
+        balanceLabel={
+          isBalanceLoading ? (
+            &lt;AccountBalanceLoading /&gt;
+          ) : balances ? (
+            &lt;AccountBalanceCaption
+              availableBalance={balances.availableStx}
+              marketData={fiatValue}
+            /&gt;
+          ) : (
+            &lt;&gt;&lt;/&gt;
+          )
+        }
+        isLoading={isLoading}
+        onSelectAccount={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onSelectAccount(account.index)}</span>
+        data-testid={`account-${accountSlug}-${account.index}`}
+        {...bind}
+        {...rest}
+      &gt;
         {component}
-      &lt;/Box&gt;
+      &lt;/AccountListItemLayout&gt;
     &lt;/Box&gt;
   );
 });
@@ -549,7 +535,7 @@ const AddAccountAction = <span class="cstat-no" title="statement not covered" >m
   );
 });
 &nbsp;
-export const Accounts = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+export const ChooseAccountsList = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
   const { finishSignIn } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const accounts = <span class="cstat-no" title="statement not covered" >useAccounts();</span>
@@ -576,9 +562,8 @@ export const Accounts = <span class="cstat-no" title="statement not covered" >me
       &lt;Virtuoso
         useWindowScroll
         data={accounts}
-        style={{ height: '68px' }}
         itemContent={<span class="fstat-no" title="function not covered" >(i</span>ndex, account) =&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;AccountItem</span>
+<span class="cstat-no" title="statement not covered" >          &lt;ChooseAccountItem</span>
             account={account}
             isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
             onSelectAccount={signIntoAccount}
@@ -595,7 +580,7 @@ export const Accounts = <span class="cstat-no" title="statement not covered" >me
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-14T11:43:38.649Z
+                at 2022-10-18T13:05:03.451Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/components/account-avatar/account-avatar.tsx</title>
+    <title>Code coverage report for app/components/address-displayer/address-displayer.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/components/account-avatar</a> account-avatar.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/components/address-displayer</a> address-displayer.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -97,39 +97,23 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,54 +122,49 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, Suspense } from 'react';
-import { BoxProps, color, Circle } from '@stacks/ui';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isEven, isMultipleOf } from '@app/common/utils';
+import { AddressDisplayerLayout } from './address-displayer.layout';
 &nbsp;
-import { useAccountGradient } from '@app/common/hooks/account/use-account-gradient';
+const isMultipleOfFour = <span class="cstat-no" title="statement not covered" >isMultipleOf(4);</span>
 &nbsp;
-interface AccountAvatarProps extends BoxProps {
-  publicKey: string;
-  name: string;
+function <span class="fstat-no" title="function not covered" >groupByFour(</span>text: string) {
+  const initialValue = <span class="cstat-no" title="statement not covered" >{ result: [] as string[][], tmp: [] as string[] };</span>
+&nbsp;
+  const textGrouper = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> result, tmp }: typeof initialValue, letter: string, index: number) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    tmp.push(letter);</span>
+<span class="cstat-no" title="statement not covered" >    if (isMultipleOfFour(index + 1)) {</span>
+<span class="cstat-no" title="statement not covered" >      result.push(tmp);</span>
+<span class="cstat-no" title="statement not covered" >      tmp = [];</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return { result, tmp };</span>
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return [...text].reduce(textGrouper, initialValue).result;</span>
 }
-export const AccountAvatar = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> publicKey, name, ...props }: AccountAvatarProps) =&gt; {</span>
-  const gradient = <span class="cstat-no" title="statement not covered" >useAccountGradient(publicKey ?? '');</span>
 &nbsp;
-  const circleText = <span class="cstat-no" title="statement not covered" >name?.includes('Account') ? name.split(' ')[1] : name[0];</span>
+interface AddressDisplayerProps {
+  address: string;
+}
+export function <span class="fstat-no" title="function not covered" >AddressDisplayer(</span>{ address }: AddressDisplayerProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Circle flexShrink={0} backgroundImage={gradient} color={color('bg')} {...props}&gt;
-      {circleText.toUpperCase()}
-    &lt;/Circle&gt;
+    &lt;&gt;
+      {groupByFour(address).map(<span class="fstat-no" title="function not covered" >(l</span>etterGroup, index) =&gt; (
+<span class="cstat-no" title="statement not covered" >        &lt;AddressDisplayerLayout isEven={isEven(index + 1)}&gt;</span>
+          {letterGroup.join('')}
+        &lt;/AddressDisplayerLayout&gt;
+      ))}
+    &lt;/&gt;
   );
-});
-&nbsp;
-interface AccountAvatarWithNameInnerProps extends BoxProps {
-  name: string;
-  publicKey: string;
 }
-const AccountAvatarWithNameInner = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: AccountAvatarWithNameInnerProps) =&gt; {</span>
-  const { publicKey, name, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-<span class="cstat-no" title="statement not covered" >  return &lt;AccountAvatar publicKey={publicKey} name={name} {...rest} /&gt;;</span>
-};
-&nbsp;
-interface AccountAvatarWithNameProps extends BoxProps {
-  name: string;
-  publicKey: string;
-}
-export const AccountAvatarWithName = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: AccountAvatarWithNameProps) =&gt; {</span>
-  const { name, publicKey, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Suspense fallback={&lt;AccountAvatar publicKey={publicKey} name={name} {...rest} /&gt;}&gt;
-      &lt;AccountAvatarWithNameInner publicKey={publicKey} name={name} {...rest} /&gt;
-    &lt;/Suspense&gt;
-  );
-};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -193,7 +172,7 @@ export const AccountAvatarWithName = <span class="cstat-no" title="statement not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-14T11:43:38.649Z
+                at 2022-10-18T13:05:03.451Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

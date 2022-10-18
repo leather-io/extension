@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -147,7 +147,17 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,6 +206,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -248,7 +268,7 @@ import {
 import { useGetTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 &nbsp;
 import { getDefaultSimulatedFeeEstimations, getFeeEstimationsWithCappedValues } from './fees.utils';
-import { UseQueryResult } from 'react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 &nbsp;
 const defaultFeesMaxValues = <span class="cstat-no" title="statement not covered" >[500000, 750000, 2000000];</span>
 const defaultFeesMinValues = <span class="cstat-no" title="statement not covered" >[2500, 3000, 3500];</span>
@@ -282,6 +302,16 @@ function <span class="fstat-no" title="function not covered" >useFeeEstimationsM
 <span class="cstat-no" title="statement not covered" >  return configFeeEstimationsMinValues || defaultFeesMinValues;</span>
 }
 &nbsp;
+function <span class="fstat-no" title="function not covered" >feeEstimationQueryFailedSilently(</span>
+  feeEstimationResult: UseQueryResult&lt;TransactionFeeEstimation, Error&gt;
+) {
+<span class="cstat-no" title="statement not covered" >  return !!(</span>
+    feeEstimationResult.data &amp;&amp;
+    !feeEstimationResult.isLoading &amp;&amp;
+    (!!feeEstimationResult?.error || !feeEstimationResult.data.estimations?.length)
+  );
+}
+&nbsp;
 export function <span class="fstat-no" title="function not covered" >useFeeEstimations(</span>txByteLength: number | null, txPayload: string) {
   const feeEstimationsMaxValues = <span class="cstat-no" title="statement not covered" >useFeeEstimationsMaxValues();</span>
   const feeEstimationsMinValues = <span class="cstat-no" title="statement not covered" >useFeeEstimationsMinValues();</span>
@@ -294,7 +324,7 @@ export function <span class="fstat-no" title="function not covered" >useFeeEstim
 <span class="cstat-no" title="statement not covered" >    if (!isLoading &amp;&amp; isError) {</span>
 <span class="cstat-no" title="statement not covered" >      return { estimates: defaultFeeEstimations, calculation: FeeCalculationType.Default };</span>
     }
-<span class="cstat-no" title="statement not covered" >    if (!isLoading &amp;&amp; (!!txFeeEstimation?.error || !feeEstimations?.length) &amp;&amp; txByteLength) {</span>
+<span class="cstat-no" title="statement not covered" >    if (txByteLength &amp;&amp; feeEstimationQueryFailedSilently(result)) {</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
         estimates: getDefaultSimulatedFeeEstimations(txByteLength),
         calculation: FeeCalculationType.DefaultSimulated,
@@ -322,7 +352,7 @@ export function <span class="fstat-no" title="function not covered" >useFeeEstim
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-14T11:43:38.649Z
+                at 2022-10-18T13:05:03.451Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

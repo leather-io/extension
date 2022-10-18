@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -132,7 +132,24 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,8 +175,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -169,6 +202,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,6 +237,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useFormikContext } from 'formik';
 import { Stack } from '@stacks/ui';
+import BigNumber from 'bignumber.js';
 &nbsp;
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
@@ -213,12 +248,20 @@ import { TransactionFee } from '@app/components/fee-row/components/transaction-f
 import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
 &nbsp;
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { StacksTransaction } from '@stacks/transactions';
-import { microStxToStx } from '@stacks/ui-utils';
+import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { createMoney } from '@shared/models/money.model';
+import { microStxToStx } from '@app/common/stacks-utils';
+&nbsp;
+function <span class="fstat-no" title="function not covered" >getFeeWithDefaultOfZero(</span>tx?: StacksTransaction) {
+<span class="cstat-no" title="statement not covered" >  if (!tx) <span class="cstat-no" title="statement not covered" >return createMoney(0, 'STX');</span></span>
+  const fee = <span class="cstat-no" title="statement not covered" >microStxToStx(Number(tx.auth.spendingCondition.fee));</span>
+<span class="cstat-no" title="statement not covered" >  return createMoney(new BigNumber(fee), 'STX');</span>
+}
 &nbsp;
 interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
   onUserSelectBroadcastTransaction(tx: StacksTransaction | undefined): void;
@@ -229,6 +272,13 @@ export function <span class="fstat-no" title="function not covered" >SendTokensS
   const unsignedTransaction = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(values.assetId, values);</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { showEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
+&nbsp;
+  const convertStxToUsd = <span class="cstat-no" title="statement not covered" >useConvertStxToFiatAmount();</span>
+&nbsp;
+  const feeInUsd = <span class="cstat-no" title="statement not covered" >useMemo(</span>
+<span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >convertStxToUsd(getFeeWithDefaultOfZero(unsignedTransaction)),</span>
+    [convertStxToUsd, unsignedTransaction]
+  );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!isShowing) <span class="cstat-no" title="statement not covered" >return;</span></span>
@@ -254,7 +304,8 @@ export function <span class="fstat-no" title="function not covered" >SendTokensS
           &lt;Caption&gt;Fees&lt;/Caption&gt;
           &lt;Caption&gt;
             &lt;TransactionFee
-              fee={microStxToStx(Number(unsignedTransaction.auth.spendingCondition.fee))}
+              fee={getFeeWithDefaultOfZero(unsignedTransaction).amount.toString()}
+              usdAmount={feeInUsd}
             /&gt;
           &lt;/Caption&gt;
         &lt;/SpaceBetween&gt;
@@ -277,7 +328,7 @@ export function <span class="fstat-no" title="function not covered" >SendTokensS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-14T11:43:38.649Z
+                at 2022-10-18T13:05:03.451Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

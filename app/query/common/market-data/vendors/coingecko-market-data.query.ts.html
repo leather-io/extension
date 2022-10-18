@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/features/switch-account-drawer/components/account-list.tsx</title>
+    <title>Code coverage report for app/query/common/market-data/vendors/coingecko-market-data.query.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/features/switch-account-drawer/components</a> account-list.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">app/query/common/market-data/vendors</a> coingecko-market-data.query.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -90,37 +90,13 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,45 +111,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
-import { Virtuoso } from 'react-virtuoso';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery } from '@tanstack/react-query';
 &nbsp;
-import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { AccountListItem } from './account-list-item';
+import { fetchJson } from '@app/common/utils';
+import { CryptoCurrencies } from '@shared/models/currencies.model';
+import { marketDataQueryOptions } from '../market-data.query';
 &nbsp;
-const smallNumberOfAccountsToRenderWholeList = <span class="cstat-no" title="statement not covered" >10;</span>
+const currencyNameMap: Record&lt;CryptoCurrencies, string&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  STX: 'blockstack',
+};
 &nbsp;
-interface AccountListProps {
-  handleClose: () =&gt; void;
-  accounts: AccountWithAddress[];
-  currentAccountIndex: number;
+function <span class="fstat-no" title="function not covered" >fetchCoingeckoMarketData(</span>currency: CryptoCurrencies) {
+<span class="cstat-no" title="statement not covered" >  return fetchJson(</span>
+    `https://api.coingecko.com/api/v3/simple/price?ids=${currencyNameMap[currency]}&amp;vs_currencies=usd`
+  );
 }
-export const AccountList = <span class="cstat-no" title="statement not covered" >memo(</span>
-<span class="fstat-no" title="function not covered" >  ({</span> accounts, currentAccountIndex, handleClose }: AccountListProps) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (accounts.length &lt;= smallNumberOfAccountsToRenderWholeList) {</span>
-<span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;&gt;
-          {accounts.map(<span class="fstat-no" title="function not covered" >ac</span>count =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;AccountListItem handleClose={handleClose} account={account} key={account.address} /&gt;</span>
-          ))}
-        &lt;/&gt;
-      );
-    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Virtuoso
-        initialTopMostItemIndex={currentAccountIndex}
-        style={{ height: '70vh' }}
-        totalCount={accounts.length}
-        itemContent={<span class="fstat-no" title="function not covered" >in</span>dex =&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;AccountListItem handleClose={handleClose} account={accounts[index]} /&gt;</span>
-        )}
-      /&gt;
-    );
-  }
-);
+export function <span class="fstat-no" title="function not covered" >selectCoingeckoUsdPrice(</span>resp: any) {
+<span class="cstat-no" title="statement not covered" >  return resp?.blockstack?.usd;</span>
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useCoinGeckoMarketDataQuery(</span>currency: CryptoCurrencies) {
+<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
+    queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchCoingeckoMarketData(currency),</span>
+    queryKey: [`coin-gecko-market-data-${currency}`],
+    ...marketDataQueryOptions,
+  });
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -181,16 +151,16 @@ export const AccountList = <span class="cstat-no" title="statement not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-14T11:43:38.649Z
+                at 2022-10-18T13:05:03.451Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     
