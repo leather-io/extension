@@ -9,7 +9,7 @@ import { useWalletState } from '@app/store/wallet/wallet.hooks';
 import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
 import { gaiaUrl } from '@shared/constants';
 import { PublicProfile } from '@shared/profiles/types';
-import { Profile } from '@stacks/profile';
+import { Person, Profile } from '@stacks/profile';
 import { createFetchFn } from '@stacks/network';
 import {
   DEFAULT_PROFILE,
@@ -38,7 +38,7 @@ function useUpdateProfileSoftwareWallet() {
       const profile = (await fetchProfileFromUrl(profileUrl, fetchFn)) || DEFAULT_PROFILE;
       const updatedProfile = {
         ...profile,
-        ...publicProfile,
+        ...(publicProfile as unknown as Person).toJSON(),
       };
       await signAndUploadProfile({
         profile: updatedProfile,
@@ -51,10 +51,9 @@ function useUpdateProfileSoftwareWallet() {
   );
 }
 
-export function UpdateAction(props: {
+export function UpdateAction({ profileUpdaterPayload }: {
   profileUpdaterPayload: ProfileUpdaterPayload;
 }): JSX.Element | null {
-  const { profileUpdaterPayload } = props;
   const { profile: publicProfile } = profileUpdaterPayload;
 
   const { tabId, requestToken } = useProfileUpdateRequestSearchParams();

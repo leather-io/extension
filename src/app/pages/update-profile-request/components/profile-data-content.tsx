@@ -14,7 +14,6 @@ const DEFAULT_AVATAR_URL = 'https://github.com/stacks-network.png';
 export function ProfileDataContent(props: ProfileDataContentProps) {
   const { requestToken } = props;
   const profileUpdateRequest = getProfileDataContentFromToken(requestToken);
-  console.log(typeof profileUpdateRequest.profile, profileUpdateRequest.profile);
   const name = profileUpdateRequest.profile.name();
   const avatarUrl = profileUpdateRequest.profile.avatarUrl();
   const { network } = profileUpdateRequest;

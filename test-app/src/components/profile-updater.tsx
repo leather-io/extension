@@ -4,6 +4,7 @@ import { stacksMainnetNetwork } from '@common/utils';
 import { openProfileUpdateRequestPopup } from '@stacks/connect';
 import { Profile } from '@stacks/profile';
 import { StacksNetwork } from '@stacks/network';
+import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
 
 export const ProfileTab = () => {
   const name = 'Name ' + new Date().getTime().toString();
@@ -43,7 +44,11 @@ export const ProfileTab = () => {
           <Text>{updatedProfile.profile && JSON.stringify(updatedProfile.profile)}</Text>
         </Text>
       )}
-      <Button mt={3} onClick={() => updateProfile(name, avatarUrl, stacksMainnetNetwork)}>
+      <Button
+        data-testid={ProfileUpdatingSelectors.BtnUpdateProfile}
+        mt={3}
+        onClick={() => updateProfile(name, avatarUrl, stacksMainnetNetwork)}
+      >
         Update profile (Mainnet)
       </Button>
     </Box>

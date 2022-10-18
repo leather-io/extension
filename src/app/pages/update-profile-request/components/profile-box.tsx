@@ -1,5 +1,6 @@
 import { Image } from '@app/components/image';
 import { color, Stack, Text } from '@stacks/ui';
+import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
 
 export function ProfileBox({
   name,
@@ -29,7 +30,12 @@ export function ProfileBox({
               <Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all">
                 <h2>
                   <strong>Update your Profile</strong>{' '}
-                  <Text color={color('text-caption')}>{name}</Text>
+                  <Text
+                    data-testid={ProfileUpdatingSelectors.ProfileName}
+                    color={color('text-caption')}
+                  >
+                    {name}
+                  </Text>
                 </h2>
                 <hr style={{ marginTop: '5px', marginBottom: '5px' }} />
                 <Image src={imageUrl} />
