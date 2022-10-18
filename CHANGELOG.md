@@ -1,3 +1,27 @@
+## [3.19.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.18.2...v3.19.0) (2022-10-18)
+
+
+### Features
+
+* add base queries to fetch market data ([d98db75](https://github.com/hirosystems/stacks-wallet-web/commit/d98db75c36dd9b59d169311aa1ec073ff61f6490))
+* display address segments, closes [#2690](https://github.com/hirosystems/stacks-wallet-web/issues/2690) ([5e07f88](https://github.com/hirosystems/stacks-wallet-web/commit/5e07f88bf25e9858f38c136084c5f4507175a713))
+
+
+### Bug Fixes
+
+* fees query options ([16068b1](https://github.com/hirosystems/stacks-wallet-web/commit/16068b1138b5ebbdeb9230ba61660a09e28d098f))
+* password box lag issue, closes [#2697](https://github.com/hirosystems/stacks-wallet-web/issues/2697) ([d3aad11](https://github.com/hirosystems/stacks-wallet-web/commit/d3aad11b7a3e331635797714f7c9dcae1c7b6837))
+* remove deprecated substr methods ([10b9b62](https://github.com/hirosystems/stacks-wallet-web/commit/10b9b6231f64d3388ee5bea2f6e7c7cd40870dc2))
+* simulated fee estimations ([669ade2](https://github.com/hirosystems/stacks-wallet-web/commit/669ade25264ea97fc70b56fc38d98553e3481952))
+
+
+### Internal
+
+* add mailing list link to readme ([956840d](https://github.com/hirosystems/stacks-wallet-web/commit/956840dccad0155358c3e6739af1b622f536b941))
+* migrate to @tanstack/react-query ([b103bee](https://github.com/hirosystems/stacks-wallet-web/commit/b103bee8ac33fc7ceb451f7bf72930014fe5a99a))
+* reusable base type, Money, MarketPair, MarketData ([025c5f1](https://github.com/hirosystems/stacks-wallet-web/commit/025c5f1c47cfb18186e610300f0d9f3ce85c8d3d))
+* reuse account item layout component ([b6be275](https://github.com/hirosystems/stacks-wallet-web/commit/b6be2753e1b3dfe06badf3ea01d6c0fbb44fe2a5))
+
 ## [3.18.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.18.1...v3.18.2) (2022-10-14)
 
 
