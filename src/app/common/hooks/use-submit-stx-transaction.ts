@@ -13,6 +13,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { getErrorMessage } from '@app/common/get-error-message';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { bytesToHex } from '@stacks/common';
 
 const timeForApiToUpdate = 250;
 
@@ -45,7 +46,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             setIsIdle();
           } else {
             submittedTransactionsActions.newTransactionSubmitted({
-              rawTx: transaction.serialize().toString('hex'),
+              rawTx: bytesToHex(transaction.serialize()),
               txId: safelyFormatHexTxid(response.txid),
             });
             toast.success('Transaction submitted!');

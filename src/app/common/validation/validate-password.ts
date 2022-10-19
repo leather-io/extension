@@ -1,6 +1,6 @@
 import zxcvbn, { ZXCVBNResult, ZXCVBNScore } from 'zxcvbn';
 
-const truncateCpuDemandingPassword = (input: string) => input.substr(0, 100);
+const truncateCpuDemandingPassword = (input: string) => input.slice(0, 100);
 
 export enum PasswordStrength {
   NoScore,
@@ -27,6 +27,7 @@ export interface ValidatedPassword extends ZXCVBNResult {
   meetsLengthRequirement: boolean;
   meetsScoreRequirement: boolean;
   meetsAllStrengthRequirements: boolean;
+  password: string;
 }
 
 export function validatePassword(input: string): ValidatedPassword {
@@ -41,6 +42,7 @@ export function validatePassword(input: string): ValidatedPassword {
     meetsScoreRequirement,
     meetsLengthRequirement,
     meetsAllStrengthRequirements,
+    password,
   });
 }
 

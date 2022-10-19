@@ -28,6 +28,7 @@ import { logger } from '@shared/logger';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
+import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
 
 export function LedgerSignTxContainer() {
   const location = useLocation();
@@ -38,7 +39,7 @@ export function LedgerSignTxContainer() {
   const account = useCurrentAccount();
   const hwWalletTxBroadcast = useBroadcastTransaction();
   const canUserCancelAction = useActionCancellableByUser();
-
+  const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
 
   const hasUserSkippedBuggyAppWarning = useMemo(() => createWaitForUserToSeeWarningScreen(), []);
@@ -88,8 +89,8 @@ export function LedgerSignTxContainer() {
       }
     }
 
-    ledgerNavigate.toDeviceBusyStep('Verifying public key from Ledger…');
-    await delay(1000);
+    ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
+    await verifyLedgerPublicKey(stacksApp);
 
     try {
       ledgerNavigate.toConnectionSuccessStep();

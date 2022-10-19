@@ -1,4 +1,4 @@
-import { useQueries, useQuery, UseQueryOptions } from 'react-query';
+import { useQueries, useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { useStacksClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
 import { AddressBalanceResponse } from '@shared/models/account-types';
@@ -54,11 +54,11 @@ export function useGetAnchoredAccountBalanceQuery<T>(
 export function useGetAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
   const client = useStacksClient();
 
-  return useQueries(
-    (accounts || []).map(account => ({
+  return useQueries({
+    queries: (accounts ?? []).map(account => ({
       queryKey: ['get-address-anchored-stx-balance', account.address],
       queryFn: fetchAccountBalance(client)(account.address),
       ...balanceQueryOptions,
-    }))
-  );
+    })),
+  });
 }

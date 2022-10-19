@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 
 import { useStacksClient } from '@app/store/common/api-clients.hooks';

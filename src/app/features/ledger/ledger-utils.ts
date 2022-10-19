@@ -4,6 +4,7 @@ import StacksApp, { LedgerError, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
 import {
+  AddressVersion,
   createMessageSignature,
   deserializeTransaction,
   SingleSigSpendingCondition,
@@ -28,12 +29,21 @@ function getAccountIndexFromDerivationPathFactory(derivationPath: string) {
   return (account: number) => derivationPath.replace('{account}', account.toString());
 }
 
-export const getStxDerivationPath =
-  getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
+const getStxDerivationPath = getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
 
 export const getIdentityDerivationPath = getAccountIndexFromDerivationPathFactory(
   identityDerivationWithAccount
 );
+
+export function requestPublicKeyForStxAccount(app: StacksApp) {
+  return async (index: number) =>
+    app.getAddressAndPubKey(
+      getStxDerivationPath(index),
+      // We pass mainnet as it expects something, however this is so it can return a formatted address
+      // We only need the public key, and can derive the address later in any network format
+      AddressVersion.MainnetSingleSig
+    );
+}
 
 export interface StxAndIdentityPublicKeys {
   stxPublicKey: string;

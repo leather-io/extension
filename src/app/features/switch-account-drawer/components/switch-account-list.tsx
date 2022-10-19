@@ -2,22 +2,27 @@ import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { AccountListItem } from './account-list-item';
+import { SwitchAccountListItem } from './switch-account-list-item';
+import { Box } from '@stacks/ui';
 
 const smallNumberOfAccountsToRenderWholeList = 10;
 
-interface AccountListProps {
+interface SwitchAccountListProps {
   handleClose: () => void;
   accounts: AccountWithAddress[];
   currentAccountIndex: number;
 }
-export const AccountList = memo(
-  ({ accounts, currentAccountIndex, handleClose }: AccountListProps) => {
+export const SwitchAccountList = memo(
+  ({ accounts, currentAccountIndex, handleClose }: SwitchAccountListProps) => {
     if (accounts.length <= smallNumberOfAccountsToRenderWholeList) {
       return (
         <>
           {accounts.map(account => (
-            <AccountListItem handleClose={handleClose} account={account} key={account.address} />
+            <SwitchAccountListItem
+              handleClose={handleClose}
+              account={account}
+              key={account.address}
+            />
           ))}
         </>
       );
@@ -26,10 +31,13 @@ export const AccountList = memo(
     return (
       <Virtuoso
         initialTopMostItemIndex={currentAccountIndex}
-        style={{ height: '70vh' }}
+        height="72px"
+        style={{ paddingTop: '24px', height: '70vh' }}
         totalCount={accounts.length}
         itemContent={index => (
-          <AccountListItem handleClose={handleClose} account={accounts[index]} />
+          <Box mx="extra-loose">
+            <SwitchAccountListItem handleClose={handleClose} account={accounts[index]} />
+          </Box>
         )}
       />
     );

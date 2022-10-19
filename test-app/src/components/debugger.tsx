@@ -88,7 +88,7 @@ export const Debugger = () => {
       postConditions: [
         createNonFungiblePostCondition(
           address || '', // the sender
-          NonFungibleConditionCode.DoesNotOwn, // will not own this NFT anymore
+          NonFungibleConditionCode.Sends, // will not own this NFT anymore
           createAssetInfo('ST000000000000000000002AMW42H', 'bns', 'names'), // bns NFT
           tupleCV({
             name: bufferCVFromString('stella'),

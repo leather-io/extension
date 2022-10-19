@@ -1,5 +1,5 @@
-import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
+import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import type { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from 'react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { RateLimiter } from 'limiter';
 
 import { isResponseCode } from '@app/common/network/is-response-code';
@@ -8,7 +8,7 @@ import { StacksClient } from '@app/query/stacks/stacks-client';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 
-const staleTime = 6 * 60 * 60 * 1000;
+const staleTime = 12 * 60 * 60 * 1000;
 
 const queryOptions = {
   keepPreviousData: true,
@@ -28,7 +28,7 @@ function fetchUnanchoredAccountInfo(client: StacksClient) {
     await limiter.removeTokens(1);
     return client.fungibleTokensApi
       .getContractFtMetadata({ contractId })
-      .catch(error => (is404(error) ? undefined : error));
+      .catch(error => (is404(error) ? null : error));
   };
 }
 
@@ -47,11 +47,11 @@ export function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
   const client = useStacksClient();
   const network = useCurrentNetworkState();
 
-  return useQueries(
-    contractIds.map(contractId => ({
+  return useQueries({
+    queries: contractIds.map(contractId => ({
       queryKey: ['get-ft-metadata', contractId, network.url],
       queryFn: fetchUnanchoredAccountInfo(client)(contractId),
       ...queryOptions,
-    }))
-  );
+    })),
+  });
 }

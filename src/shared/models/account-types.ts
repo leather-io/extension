@@ -1,5 +1,5 @@
 import { AddressTokenOfferingLocked } from '@stacks/stacks-blockchain-api-types/generated';
-import BigNumber from 'bignumber.js';
+import { Money } from './money.model';
 
 type SelectedKeys =
   | 'balance'
@@ -49,12 +49,12 @@ export interface AddressBalanceResponse {
 
 export interface AccountStxBalanceBigNumber
   extends Omit<AddressBalanceResponse['stx'], AccountBalanceStxKeys> {
-  balance: BigNumber;
-  total_sent: BigNumber;
-  total_received: BigNumber;
-  total_fees_sent: BigNumber;
-  total_miner_rewards_received: BigNumber;
-  locked: BigNumber;
+  balance: Money;
+  total_sent: Money;
+  total_received: Money;
+  total_fees_sent: Money;
+  total_miner_rewards_received: Money;
+  locked: Money;
 }
 
 export interface AccountBalanceResponseBigNumber extends Omit<AddressBalanceResponse, 'stx'> {

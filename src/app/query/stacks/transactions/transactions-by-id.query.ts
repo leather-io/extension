@@ -1,6 +1,6 @@
 import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types/generated';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
-import { useQueries, useQuery } from 'react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 export function useTransactionsById(txids: string[]) {
   const client = useStacksClient();
@@ -9,14 +9,14 @@ export function useTransactionsById(txids: string[]) {
     return client.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction;
   }
 
-  return useQueries(
-    txids.map(txid => {
+  return useQueries({
+    queries: txids.map(txid => {
       return {
         queryKey: ['transaction-by-id', txid],
         queryFn: () => transactionByIdFetcher(txid),
       };
-    })
-  );
+    }),
+  });
 }
 
 export function useTransactionById(txid: string) {

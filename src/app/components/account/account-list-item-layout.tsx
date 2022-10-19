@@ -1,8 +1,7 @@
 import { truncateMiddle } from '@stacks/ui-utils';
-import { Box, Stack, color, Spinner, StackProps } from '@stacks/ui';
+import { Box, Stack, color, Spinner, StackProps, Flex } from '@stacks/ui';
 import { FiCheck as IconCheck } from 'react-icons/fi';
 
-import { SpaceBetween } from '@app/components/space-between';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { Caption } from '@app/components/typography';
@@ -25,18 +24,16 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     avatar,
     balanceLabel,
     onSelectAccount,
+    children = null,
     ...rest
   } = props;
 
   return (
-    <SpaceBetween
+    <Flex
       width="100%"
       key={`account-${account.index}`}
       data-testid={SettingsSelectors.AccountIndex.replace('[index]', `${account.index}`)}
-      _hover={{ bg: color('bg-4') }}
       cursor="pointer"
-      py="base"
-      px="extra-loose"
       position="relative"
       onClick={onSelectAccount}
       {...rest}
@@ -51,9 +48,20 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
           </Stack>
         </Stack>
       </Stack>
-      {isLoading && <Spinner color={color('text-caption')} size="18px" />}
+      {isLoading && (
+        <Spinner
+          position="absolute"
+          right="12px"
+          top="calc(50% - 8px)"
+          color={color('text-caption')}
+          size="18px"
+        />
+      )}
       {isActive && (
         <Box
+          position="absolute"
+          right="12px"
+          top="calc(50% - 8px)"
           as={IconCheck}
           size="18px"
           strokeWidth={2.5}
@@ -61,6 +69,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
           data-testid={`account-checked-${account.index}`}
         />
       )}
-    </SpaceBetween>
+      {children}
+    </Flex>
   );
 }

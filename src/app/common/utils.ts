@@ -1,7 +1,7 @@
 import type { ClipboardEvent } from 'react';
 import BigNumber from 'bignumber.js';
 import {
-  BufferReader,
+  BytesReader,
   ChainID,
   deserializePostCondition,
   PostCondition,
@@ -10,6 +10,7 @@ import {
 import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
 
 import { AssetWithMeta } from './asset-types';
+import { hexToBytes } from '@stacks/common';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -63,6 +64,14 @@ export function truncateString(str: string, maxLength: number) {
   return str.slice(0, maxLength) + '...';
 }
 
+export function isMultipleOf(multiple: number) {
+  return (num: number) => num % multiple === 0;
+}
+
+export function isEven(num: number) {
+  return isMultipleOf(2)(num);
+}
+
 function getLetters(string: string, offset = 1) {
   return string.slice(0, offset);
 }
@@ -83,7 +92,7 @@ export function getTicker(value: string) {
 }
 
 export function postConditionFromString(postCondition: string): PostCondition {
-  const reader = BufferReader.fromBuffer(Buffer.from(postCondition, 'hex'));
+  const reader = new BytesReader(hexToBytes(postCondition));
   return deserializePostCondition(reader);
 }
 
@@ -270,4 +279,8 @@ export function whenChainId(chainId: ChainID) {
 
 export function sumNumbers(nums: number[]) {
   return nums.reduce((acc, num) => acc.plus(num), new BigNumber(0));
+}
+
+export async function fetchJson(request: RequestInfo | URL) {
+  return fetch(request).then(resp => resp.json());
 }

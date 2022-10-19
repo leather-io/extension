@@ -46,6 +46,7 @@ import { isUndefined } from '@shared/utils';
 import { prepareTxDetailsForBroadcast } from './transaction';
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
+import { bytesToHex } from '@stacks/common';
 
 export function useTransactionPostConditions() {
   return usePostConditionState();
@@ -112,7 +113,7 @@ export function useSendFormSerializedUnsignedTxPayloadState(
 ) {
   const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return '';
-  return serializePayload(transaction.payload).toString('hex');
+  return bytesToHex(serializePayload(transaction.payload));
 }
 
 export function useSendFormEstimatedUnsignedTxByteLengthState(
@@ -127,7 +128,7 @@ export function useSendFormEstimatedUnsignedTxByteLengthState(
 export function useTxRequestSerializedUnsignedTxPayloadState() {
   const { transaction } = useUnsignedStacksTransactionBaseState();
   if (!transaction) return '';
-  return serializePayload(transaction.payload).toString('hex');
+  return bytesToHex(serializePayload(transaction.payload));
 }
 
 export function useTxRequestEstimatedUnsignedTxByteLengthState() {
@@ -186,6 +187,7 @@ export function useBroadcastTransaction() {
       return;
     } catch (error) {
       if (error instanceof Error) return { error };
+
       return;
     }
   };

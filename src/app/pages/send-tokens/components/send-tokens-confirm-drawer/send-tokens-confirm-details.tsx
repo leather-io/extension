@@ -10,11 +10,10 @@ import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 interface SendTokensConfirmDetailsProps extends StackProps {
   amount: number | string;
   assetId: string;
-  nonce?: number;
   recipient: string;
 }
 export function SendTokensConfirmDetails(props: SendTokensConfirmDetailsProps): JSX.Element {
-  const { amount, assetId, nonce, recipient, ...rest } = props;
+  const { amount, assetId, recipient, ...rest } = props;
   const { selectedAsset, ticker } = useSelectedAsset(assetId);
   const currentAccount = useCurrentAccount();
   const icon = iconStringForAsset(selectedAsset);

@@ -1,17 +1,13 @@
-import { useQuery, UseQueryResult } from 'react-query';
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import { fetcher } from '@app/common/api/wrapped-fetch';
 import { TransactionFeeEstimation } from '@shared/models/fees-types';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-const staleTime = 15 * 60 * 1000; // 15 min
+const staleTime = 5 * 60 * 1000; // 5 min
 
 const feeEstimationsQueryOptions = {
-  keepPreviousData: true,
-  cacheTime: staleTime,
-  refetchOnMount: false,
-  refetchInterval: false,
-  refetchOnReconnect: false,
+  staleTime,
 } as const;
 
 export function useGetTransactionFeeEstimationQuery(
