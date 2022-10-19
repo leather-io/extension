@@ -1,30 +1,24 @@
 import { useMemo } from 'react';
-import { useAtomValue, useUpdateAtom } from 'jotai/utils';
-import { baseAssetsAnchoredState, mergeAssetBalances } from '@app/store/assets/tokens';
+import { mergeAssetBalances } from '@app/store/assets/tokens';
 import type { Asset, AssetWithMeta } from '@app/common/asset-types';
-import { selectedAssetIdState } from './asset-search';
 import {
   useAddressAnchoredAvailableStxBalance,
   useAddressBalances,
   useCurrentAccountAnchoredBalances,
   useCurrentAccountUnanchoredBalances,
-} from '@app/query/balance/balance.hooks';
+} from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountStxAddressState } from '../accounts/account.hooks';
 import { transformAssets } from './utils';
 import {
   useAssetsWithMetadata,
   useFungibleTokenMetadata,
-} from '@app/query/tokens/fungible-token-metadata.hook';
+} from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
 import { formatContractId, getFullyQualifiedAssetName } from '@app/common/utils';
 import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
 
-export function useAssets() {
-  return useAtomValue(baseAssetsAnchoredState);
-}
-
 export function useTransferableAssets() {
   const assets = useAssetsWithMetadata();
-  return assets.filter(asset => isTransferableAsset(asset));
+  return useMemo(() => assets.filter(asset => isTransferableAsset(asset)), [assets]);
 }
 
 export function useAssetWithMetadata(asset: Asset) {
@@ -38,8 +32,7 @@ export function useAssetWithMetadata(asset: Asset) {
   return asset as AssetWithMeta;
 }
 
-export function useSelectedAssetItem() {
-  const selectedAssetId = useAtomValue(selectedAssetIdState);
+export function useSelectedAssetMetadata(selectedAssetId: string) {
   const assetsWithMetadata = useAssetsWithMetadata();
 
   return useMemo(
@@ -47,12 +40,10 @@ export function useSelectedAssetItem() {
       assetsWithMetadata?.find(
         asset => getFullyQualifiedAssetName(asset) === selectedAssetId
       ) as AssetWithMeta,
-    [assetsWithMetadata, selectedAssetId]
+    // Render loop occurs when `assetsWithMetadata` in dep array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedAssetId]
   );
-}
-
-export function useUpdateSelectedAsset() {
-  return useUpdateAtom(selectedAssetIdState);
 }
 
 export function useStxTokenState(address: string) {
@@ -63,7 +54,9 @@ export function useStxTokenState(address: string) {
     type: 'stx',
     contractAddress: '',
     balance: balance,
-    subBalance: unanchoredBalances?.stx?.balance.minus(unanchoredBalances?.stx.locked) || undefined,
+    subBalance:
+      unanchoredBalances?.stx?.balance.amount.minus(unanchoredBalances?.stx.locked.amount) ||
+      undefined,
     subtitle: 'STX',
     name: 'Stacks Token',
   } as AssetWithMeta;
@@ -71,18 +64,20 @@ export function useStxTokenState(address: string) {
 
 function useBaseAssetsAnchoredState() {
   const balances = useCurrentAccountAnchoredBalances();
-  return transformAssets(balances);
+  return useMemo(() => transformAssets(balances), [balances]);
 }
 
 function useBaseAssetsUnanchoredState() {
   const { data: balances } = useCurrentAccountUnanchoredBalances();
-  return transformAssets(balances);
+  return useMemo(() => transformAssets(balances), [balances]);
 }
 
 export function useFungibleTokenBaseState() {
   const principal = useCurrentAccountStxAddressState();
   const anchoredAssets = useBaseAssetsAnchoredState();
   const unanchoredAssets = useBaseAssetsUnanchoredState();
-  if (!principal) return [];
-  return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');
+  return useMemo(() => {
+    if (!principal) return [];
+    return mergeAssetBalances(anchoredAssets, unanchoredAssets, 'ft');
+  }, [anchoredAssets, principal, unanchoredAssets]);
 }

@@ -1,15 +1,7 @@
-import { atom } from 'jotai';
-
 import BigNumber from 'bignumber.js';
-import { currentAnchoredAccountBalancesState } from '@app/store/accounts';
-import { transformAssets } from '@app/store/assets/utils';
+
 import { AssetWithMeta, NftMeta } from '@app/common/asset-types';
 import { formatContractId } from '@app/common/utils';
-
-export const baseAssetsAnchoredState = atom(get => {
-  const balances = get(currentAnchoredAccountBalancesState);
-  return transformAssets(balances);
-});
 
 export function mergeAssetBalances(
   anchoredAssets: AssetWithMeta[],

@@ -1,4 +1,5 @@
-import { Box, color, Flex, Stack } from '@stacks/ui';
+import { Outlet } from 'react-router-dom';
+import { Box, color, Flex } from '@stacks/ui';
 
 import { ONBOARDING_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Caption, Text } from '@app/components/typography';
@@ -8,6 +9,7 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { featureFlags } from '@shared/feature-flags';
 
 const WelcomeIllustration = () => (
   <Box
@@ -29,11 +31,13 @@ const WelcomeIllustration = () => (
 
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
+  onSelectConnectLedger(): void;
   onStartOnboarding(): void;
+  onSelectConnectLedger(): void;
   onRestoreWallet(): void;
 }
 export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
-  const { isGeneratingWallet, onStartOnboarding, onRestoreWallet } = props;
+  const { isGeneratingWallet, onStartOnboarding, onSelectConnectLedger, onRestoreWallet } = props;
 
   return (
     <CenteredPageContainer>
@@ -65,7 +69,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
             pr={['unset', '80px']}
           >
             Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
-            secure. Create your Stacks account to get started.
+            secure.
           </Text>
           <Box>
             <PrimaryButton
@@ -74,21 +78,34 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
               mt={['base', null, 'loose']}
               onClick={onStartOnboarding}
             >
-              Create Stacks Account
+              Create new wallet
             </PrimaryButton>
           </Box>
-          <Stack mt="loose" spacing="tight">
+
+          <Flex flexDirection="column" mt={['base', 'base-loose', 'extra-loose']} fontSize="14px">
             <Caption>Already have a Stacks account?</Caption>
-            <Link
-              data-testid={OnboardingSelectors.SignInLink}
-              fontSize="14px"
-              onClick={onRestoreWallet}
-            >
-              Sign in with Secret Key
-            </Link>
-          </Stack>
+            <Box mt="tight">
+              <Link
+                fontSize="inherit"
+                data-testid={OnboardingSelectors.SignInLink}
+                onClick={onRestoreWallet}
+              >
+                Sign in with Secret Key
+              </Link>
+              {featureFlags.ledgerEnabled && (
+                <>
+                  {' '}
+                  or{' '}
+                  <Link fontSize="inherit" onClick={onSelectConnectLedger}>
+                    connect your Ledger
+                  </Link>
+                </>
+              )}
+            </Box>
+          </Flex>
         </Flex>
       </Flex>
+      <Outlet />
     </CenteredPageContainer>
   );
 }

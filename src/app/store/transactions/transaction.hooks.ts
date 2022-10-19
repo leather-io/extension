@@ -1,89 +1,152 @@
 import { useCallback, useMemo } from 'react';
-import BN from 'bn.js';
-import { useAtom } from 'jotai';
-import { useAtomCallback, useAtomValue, waitForAll } from 'jotai/utils';
 import { useAsync } from 'react-async-hook';
+import BN from 'bn.js';
+import toast from 'react-hot-toast';
 import {
   createAssetInfo,
   createStacksPrivateKey,
   FungibleConditionCode,
   makeStandardFungiblePostCondition,
   PostCondition,
+  serializePayload,
   StacksTransaction,
   TransactionSigner,
 } from '@stacks/transactions';
 
-import { todaysIsoDate } from '@app/common/date-utils';
-import { finalizeTxSignature } from '@app/common/actions/finalize-tx-signature';
-import { useWallet } from '@app/common/hooks/use-wallet';
+import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
+import { stxToMicroStx } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
-import { currentAccountState } from '@app/store/accounts';
-import { currentNetworkState } from '@app/store/network/networks';
+import { SendFormValues, TransactionFormValues } from '@app/common/transactions/transaction-utils';
 import {
-  localStacksTransactionInputsState,
   useStxTokenTransferUnsignedTxState,
   useFtTokenTransferUnsignedTx,
-} from '@app/store/transactions/local-transactions';
-import { currentAccountLocallySubmittedTxsState } from '@app/store/accounts/account-activity';
-
-import { postConditionsState } from './post-conditions';
-import { requestTokenState } from './requests';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+  useGenerateStxTokenTransferUnsignedTx,
+  useGenerateFtTokenTransferUnsignedTx,
+} from '@app/store/transactions/token-transfer.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
+import { TransactionTypes } from '@stacks/connect';
+import { validateStacksAddress } from '@app/common/stacks-utils';
 import {
-  estimatedUnsignedTransactionByteLengthState,
-  prepareTxDetailsForBroadcast,
-  pendingTransactionState,
-  serializedUnsignedTransactionPayloadState,
-  transactionAttachmentState,
-  transactionBroadcastErrorState,
-  txByteSize,
-  unsignedStacksTransactionState,
-  unsignedTransactionState,
-  unsignedStacksTransactionBaseState,
-} from './index';
-import { serializePayload } from '@stacks/transactions';
-import { selectedAssetIdState } from '../assets/asset-search';
-import { generateUnsignedTransaction } from '@app/common/transactions/generate-unsigned-txs';
+  generateUnsignedTransaction,
+  GenerateUnsignedTransactionOptions,
+} from '@app/common/transactions/generate-unsigned-txs';
+import {
+  useCurrentAccount,
+  useCurrentAccountStxAddressState,
+} from '@app/store/accounts/account.hooks';
+import {
+  useCurrentNetworkState,
+  useCurrentStacksNetworkState,
+} from '@app/store/networks/networks.hooks';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { logger } from '@shared/logger';
+import { isUndefined } from '@shared/utils';
 
-export function usePendingTransaction() {
-  return useAtomValue(pendingTransactionState);
-}
+import { prepareTxDetailsForBroadcast } from './transaction';
+import { usePostConditionState } from './post-conditions.hooks';
+import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
+import { bytesToHex } from '@stacks/common';
 
 export function useTransactionPostConditions() {
-  return useAtomValue(postConditionsState);
+  return usePostConditionState();
 }
 
-export function useUnsignedTransaction() {
-  return useAtomValue(unsignedTransactionState);
+function useTransactionAttachment() {
+  return useTransactionRequestState()?.attachment;
 }
 
-export function useUnserializedSignedTransactionPayloadState() {
-  return useAtomValue(serializedUnsignedTransactionPayloadState);
+function useUnsignedStacksTransactionBaseState() {
+  const network = useCurrentStacksNetworkState();
+  const { nonce } = useNextNonce();
+  const stxAddress = useCurrentAccountStxAddressState();
+  const payload = useTransactionRequestState();
+  const postConditions = useTransactionPostConditions();
+  const account = useCurrentAccount();
+
+  const options = useMemo(
+    () => ({
+      fee: 0,
+      publicKey: account?.stxPublicKey,
+      nonce: nonce || 0,
+      txData: { ...payload, postConditions, network },
+    }),
+    [account?.stxPublicKey, network, nonce, payload, postConditions]
+  );
+
+  const transaction = useAsync(async () => {
+    return generateUnsignedTransaction(options as GenerateUnsignedTransactionOptions);
+  }, [account, nonce, payload, stxAddress]).result;
+
+  return useMemo(() => {
+    if (!account || !payload || !stxAddress) return { transaction: undefined, options };
+
+    if (
+      payload.txType === TransactionTypes.ContractCall &&
+      !validateStacksAddress(payload.contractAddress)
+    ) {
+      return { transaction: undefined, options };
+    }
+
+    return { transaction, options };
+  }, [account, options, payload, stxAddress, transaction]);
 }
 
-export function useEstimatedUnsignedTransactionByteLengthState() {
-  return useAtomValue(estimatedUnsignedTransactionByteLengthState);
+export function useUnsignedPrepareTransactionDetails(
+  selectedAssetId: string,
+  values: SendFormValues | TransactionFormValues
+) {
+  const unsignedStacksTransaction = useUnsignedStacksTransaction(values);
+  const sendFormUnsignedTx = useSendFormUnsignedTxPreviewState(
+    selectedAssetId,
+    values as SendFormValues
+  );
+  return useMemo(
+    () => unsignedStacksTransaction || sendFormUnsignedTx,
+    [sendFormUnsignedTx, unsignedStacksTransaction]
+  );
 }
 
-export function useSerializedTransactionPayloadState() {
-  const transaction = useSendFormUnsignedTxState();
+export function useSendFormSerializedUnsignedTxPayloadState(
+  selectedAssetId: string,
+  values?: SendFormValues
+) {
+  const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return '';
-  const serializedTxPayload = serializePayload(transaction.payload);
-  return serializedTxPayload.toString('hex');
+  return bytesToHex(serializePayload(transaction.payload));
 }
 
-export function useEstimatedTransactionByteLength() {
-  const transaction = useSendFormUnsignedTxState();
+export function useSendFormEstimatedUnsignedTxByteLengthState(
+  selectedAssetId: string,
+  values?: SendFormValues
+) {
+  const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return null;
-  const serializedTx = transaction.serialize();
-  return serializedTx.byteLength;
+  return transaction.serialize().byteLength;
+}
+
+export function useTxRequestSerializedUnsignedTxPayloadState() {
+  const { transaction } = useUnsignedStacksTransactionBaseState();
+  if (!transaction) return '';
+  return bytesToHex(serializePayload(transaction.payload));
+}
+
+export function useTxRequestEstimatedUnsignedTxByteLengthState() {
+  const { transaction } = useUnsignedStacksTransactionBaseState();
+  if (!transaction) return null;
+  return transaction.serialize().byteLength;
 }
 
 export function useSignTransactionSoftwareWallet() {
   const account = useCurrentAccount();
   return useCallback(
     (tx: StacksTransaction) => {
+      if (account?.type !== 'software') {
+        [toast.error, logger.error].forEach(fn =>
+          fn('Cannot use this method to sign a non-software wallet transaction')
+        );
+        return;
+      }
       const signer = new TransactionSigner(tx);
       if (!account) return null;
       signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
@@ -93,60 +156,74 @@ export function useSignTransactionSoftwareWallet() {
   );
 }
 
-export function useTransactionBroadcast() {
-  const { setLatestNonce } = useWallet();
+export function useBroadcastTransaction() {
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
+  const { tabId } = useDefaultRequestParams();
+  const requestToken = useTransactionRequest();
+  const attachment = useTransactionAttachment();
+  const network = useCurrentNetworkState();
+
+  return async ({ signedTx }: { signedTx: StacksTransaction }) => {
+    try {
+      const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
+      const result = await broadcastTransaction({
+        isSponsored,
+        serialized,
+        txRaw,
+        attachment,
+        networkUrl: network.url,
+      });
+      if (typeof result.txId === 'string') {
+        submittedTransactionsActions.newTransactionSubmitted({
+          rawTx: result.txRaw,
+          txId: result.txId,
+        });
+      }
+      // If there's a request token, this means it's a transaction request
+      // In which case we need to return to the app the results of the tx
+      // Otherwise, it's a send form tx and we don't want to
+      if (requestToken && tabId)
+        finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
+      return;
+    } catch (error) {
+      if (error instanceof Error) return { error };
+
+      return;
+    }
+  };
+}
+
+export function useSoftwareWalletTransactionBroadcast() {
+  const { nonce } = useNextNonce();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+  const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
+  const { tabId } = useDefaultRequestParams();
+  const requestToken = useTransactionRequest();
+  const account = useCurrentAccount();
+  const txBroadcast = useBroadcastTransaction();
 
-  return useAtomCallback(
-    useCallback(
-      async (get, set) => {
-        const { account, unsignedStacksTransaction, attachment, requestToken, network } = await get(
-          waitForAll({
-            account: currentAccountState,
-            attachment: transactionAttachmentState,
-            requestToken: requestTokenState,
-            network: currentNetworkState,
-            unsignedStacksTransaction: unsignedStacksTransactionState,
-          }),
-          { unstable_promise: true }
-        );
+  return async (values: TransactionFormValues) => {
+    if (!stacksTxBaseState) return;
+    const { options } = stacksTxBaseState as any;
+    const unsignedStacksTransaction = await generateUnsignedTransaction({
+      ...options,
+      fee: stxToMicroStx(values.fee).toNumber(),
+      nonce: Number(values.nonce) ?? nonce,
+    });
 
-        if (!account || !requestToken || !unsignedStacksTransaction) {
-          set(transactionBroadcastErrorState, 'No pending transaction found.');
-          return;
-        }
+    if (!account || !requestToken || !unsignedStacksTransaction) {
+      return { error: { message: 'No pending transaction' } };
+    }
 
-        try {
-          const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
-          if (!signedTx) {
-            logger.error('Cannot sign transaction, no account in state');
-            return;
-          }
-          const { isSponsored, serialized, txRaw, nonce } = prepareTxDetailsForBroadcast(signedTx);
-          const result = await broadcastTransaction({
-            isSponsored,
-            serialized,
-            txRaw,
-            attachment,
-            networkUrl: network.url,
-          });
-          if (typeof nonce !== 'undefined') await setLatestNonce(nonce);
-          finalizeTxSignature(requestToken, result);
-          if (typeof result.txId === 'string') {
-            set(currentAccountLocallySubmittedTxsState, {
-              [result.txId]: {
-                rawTx: result.txRaw,
-                timestamp: todaysIsoDate(),
-              },
-            });
-          }
-        } catch (error) {
-          if (error instanceof Error) set(transactionBroadcastErrorState, error.message);
-        }
-      },
-      [setLatestNonce, signSoftwareWalletTx]
-    )
-  );
+    if (!tabId) throw new Error('tabId not defined');
+
+    const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
+    if (!signedTx) {
+      logger.error('Cannot sign transaction, no account in state');
+      return;
+    }
+    return txBroadcast({ signedTx });
+  };
 }
 
 interface PostConditionsOptions {
@@ -163,56 +240,64 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
   return makeStandardFungiblePostCondition(
     stxAddress,
     FungibleConditionCode.Equal,
-    new BN(amount, 10),
+    new BN(amount, 10).toString(),
     assetInfo
   );
 }
-function useUnsignedStacksTransaction() {
-  const stacksTxBaseState = useAtomValue(unsignedStacksTransactionBaseState);
-  return useAsync(async () => {
-    if (!stacksTxBaseState) return undefined;
-    const { options } = stacksTxBaseState as any;
-    return generateUnsignedTransaction({ ...options });
-  }, [stacksTxBaseState]).result;
+
+export function useGenerateUnsignedStacksTransaction() {
+  const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
+  const { nonce } = useNextNonce();
+
+  return useCallback(
+    (values: TransactionFormValues) => {
+      if (!stacksTxBaseState || isUndefined(nonce)) return undefined;
+      const { options } = stacksTxBaseState as any;
+      return generateUnsignedTransaction({
+        ...options,
+        fee: stxToMicroStx(values.fee).toNumber(),
+        nonce: Number(values.nonce) ?? nonce,
+      });
+    },
+    [nonce, stacksTxBaseState]
+  );
 }
 
-export function useLocalTransactionInputsState() {
-  return useAtom(localStacksTransactionInputsState);
+function useUnsignedStacksTransaction(values: TransactionFormValues) {
+  const generateTx = useGenerateUnsignedStacksTransaction();
+
+  const tx = useAsync(async () => {
+    return generateTx(values ?? undefined);
+  }, [values]);
+
+  return tx.result;
 }
 
-export function useSendFormUnsignedTxState() {
-  const isSendingStx = useIsSendingFormSendingStx();
-  const stxTokenTransferUnsignedTx = useStxTokenTransferUnsignedTxState();
-  const ftTokenTransferUnsignedTx = useFtTokenTransferUnsignedTx();
+function isSendingFormSendingStx(assetId: string) {
+  return assetId === '.::Stacks Token';
+}
+
+export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
+  const isSendingStx = isSendingFormSendingStx(selectedAssetId);
+  const stxTokenTransferUnsignedTx = useGenerateStxTokenTransferUnsignedTx();
+  const ftTokenTransferUnsignedTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
+
   return useMemo(
     () => (isSendingStx ? stxTokenTransferUnsignedTx : ftTokenTransferUnsignedTx),
-    [isSendingStx, stxTokenTransferUnsignedTx, ftTokenTransferUnsignedTx]
+    [ftTokenTransferUnsignedTx, isSendingStx, stxTokenTransferUnsignedTx]
   );
 }
 
-function useIsSendingFormSendingStx() {
-  const selectedAssetId = useAtomValue(selectedAssetIdState);
-  return selectedAssetId === '.::Stacks Token';
-}
+export function useSendFormUnsignedTxPreviewState(
+  selectedAssetId: string,
+  values?: SendFormValues
+) {
+  const isSendingStx = isSendingFormSendingStx(selectedAssetId);
+  const stxTokenTransferUnsignedTx = useStxTokenTransferUnsignedTxState(values);
+  const ftTokenTransferUnsignedTx = useFtTokenTransferUnsignedTx(selectedAssetId, values);
 
-/**
- * @deprecated
- * Do not use implicit state-driven atom to get a "active" `StacksTransaction`
- * This atom uses the presence of `pendingTransaction` to determine whether the
- * "current" tx is either from a dApp, or the send form.
- *
- * Instead, be explicit when dealing with transaction broadcasts.
- */
-export function useUnsignedTxForSettingsState() {
-  const pendingTxState = useAtomValue(pendingTransactionState);
-  const unsignedStacksTransaction = useUnsignedStacksTransaction();
-  const sendFormUnsignedTx = useSendFormUnsignedTxState();
   return useMemo(
-    () => (pendingTxState ? unsignedStacksTransaction : sendFormUnsignedTx),
-    [pendingTxState, sendFormUnsignedTx, unsignedStacksTransaction]
+    () => (isSendingStx ? stxTokenTransferUnsignedTx : ftTokenTransferUnsignedTx),
+    [ftTokenTransferUnsignedTx, isSendingStx, stxTokenTransferUnsignedTx]
   );
-}
-
-export function useTxByteSizeState() {
-  return useAtom(txByteSize);
 }

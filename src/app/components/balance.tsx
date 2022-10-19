@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { Caption } from '@app/components/typography';
-import { useAddressBalances } from '@app/query/balance/balance.hooks';
+import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
 
 interface BalanceProps {
   address: string;
@@ -14,7 +14,7 @@ export function Balance(props: BalanceProps): JSX.Element | null {
   const balance = useMemo(
     () =>
       stacksValue({
-        value: balances?.availableStx || 0,
+        value: balances?.availableStx.amount ?? 0,
         withTicker: true,
       }),
     [balances]

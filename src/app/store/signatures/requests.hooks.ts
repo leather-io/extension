@@ -1,8 +1,53 @@
-import { verifySignatureRequest } from '@app/common/signature/requests';
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import { useSearchParams } from 'react-router-dom';
-import { useAccounts } from '../accounts/account.hooks';
+
+import {
+  getGenericSignaturePayloadFromToken,
+  verifySignatureRequest,
+} from '@app/common/signature/requests';
+import { useAccounts } from '@app/store/accounts/account.hooks';
+import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
+import { isString } from '@shared/utils';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+
+export function useSignatureRequestSearchParams() {
+  const searchParams = useInitialRouteSearchParams();
+  const { origin, tabId } = useDefaultRequestParams();
+
+  return useMemo(() => {
+    const requestToken = searchParams.get('request');
+
+    const messageType = searchParams.get('messageType');
+
+    return {
+      tabId: isString(tabId) ? parseInt(tabId, 10) : tabId,
+      requestToken,
+      origin,
+      messageType,
+    };
+  }, [origin, searchParams, tabId]);
+}
+
+function useSignatureRequestState() {
+  const { requestToken } = useSignatureRequestSearchParams();
+  return useMemo(() => {
+    if (!requestToken) return null;
+    return getGenericSignaturePayloadFromToken(requestToken);
+  }, [requestToken]);
+}
+
+export function useSignatureRequestAccountIndex() {
+  const signaturePayload = useSignatureRequestState();
+  const accounts = useAccounts();
+
+  if (!signaturePayload?.stxAddress) return;
+  const { stxAddress } = signaturePayload;
+
+  if (stxAddress && accounts) {
+    return accounts.findIndex(account => account.address === stxAddress); // selected account
+  }
+  return undefined;
+}
 
 export function useIsSignatureRequestValid() {
   const accounts = useAccounts();
@@ -22,18 +67,4 @@ export function useIsSignatureRequestValid() {
       return false;
     }
   }, [accounts, requestToken, origin]).result;
-}
-
-export function useSignatureRequestSearchParams() {
-  const [searchParams] = useSearchParams();
-
-  return useMemo(
-    () => ({
-      requestToken: searchParams.get('request'),
-      tabId: searchParams.get('tabId'),
-      origin: searchParams.get('origin'),
-      messageType: searchParams.get('messageType'),
-    }),
-    [searchParams]
-  );
 }

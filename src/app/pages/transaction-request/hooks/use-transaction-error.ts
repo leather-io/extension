@@ -1,35 +1,25 @@
 import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
+import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useContractInterface } from '@app/query/contract/contract.hooks';
-import { TransactionTypes } from '@stacks/connect';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
-import { useOrigin } from '@app/store/transactions/requests.hooks';
-import {
-  useTransactionBroadcastError,
-  useTransactionRequestState,
-  useTransactionRequestValidation,
-} from '@app/store/transactions/requests.hooks';
-
-import { useUnsignedTransactionFee } from './use-signed-transaction-fee';
+import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
-  const contractInterface = useContractInterface(transactionRequest);
-  const fee = useUnsignedTransactionFee();
-  const broadcastError = useTransactionBroadcastError();
-  const isValidTransaction = useTransactionRequestValidation();
-  const origin = useOrigin();
+  const contractInterface = useContractInterface(transactionRequest as ContractCallPayload);
+  const { origin } = useDefaultRequestParams();
 
-  const { currentAccount } = useWallet();
+  const currentAccount = useCurrentAccount();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
 
   return useMemo<TransactionErrorReason | void>(() => {
-    if (origin === false) return TransactionErrorReason.ExpiredRequest;
-    if (isValidTransaction === false) return TransactionErrorReason.Unauthorized;
+    if (!origin) return TransactionErrorReason.ExpiredRequest;
 
     if (!transactionRequest || !availableStxBalance || !currentAccount) {
       return TransactionErrorReason.Generic;
@@ -38,10 +28,8 @@ export function useTransactionError() {
     if (transactionRequest.txType === TransactionTypes.ContractCall) {
       if (!validateStacksAddress(transactionRequest.contractAddress))
         return TransactionErrorReason.InvalidContractAddress;
-      if (contractInterface.isError) return TransactionErrorReason.NoContract;
+      if (contractInterface?.isError) return TransactionErrorReason.NoContract;
     }
-
-    if (broadcastError) return TransactionErrorReason.BroadcastError;
 
     if (availableStxBalance) {
       const zeroBalance = availableStxBalance.toNumber() === 0;
@@ -54,22 +42,15 @@ export function useTransactionError() {
           return TransactionErrorReason.StxTransferInsufficientFunds;
       }
 
-      if (zeroBalance && !fee.isSponsored) return TransactionErrorReason.FeeInsufficientFunds;
+      if (!transactionRequest.sponsored) {
+        if (zeroBalance) return TransactionErrorReason.FeeInsufficientFunds;
 
-      if (fee && !fee.isSponsored && fee.value) {
-        const feeValue = microStxToStx(fee.value);
-        if (feeValue.gte(availableStxBalance)) return TransactionErrorReason.FeeInsufficientFunds;
+        if (transactionRequest.fee) {
+          const feeValue = microStxToStx(transactionRequest.fee);
+          if (feeValue.gte(availableStxBalance)) return TransactionErrorReason.FeeInsufficientFunds;
+        }
       }
     }
     return;
-  }, [
-    fee,
-    broadcastError,
-    contractInterface,
-    availableStxBalance,
-    currentAccount,
-    transactionRequest,
-    isValidTransaction,
-    origin,
-  ]);
+  }, [contractInterface, availableStxBalance, currentAccount, transactionRequest, origin]);
 }

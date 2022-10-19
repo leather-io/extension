@@ -1,8 +1,9 @@
 import { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
+import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { Container } from '@app/components/container/container';
+import { Container } from '@app/features/container/container';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
@@ -11,42 +12,44 @@ import { SignatureRequest } from '@app/pages/signature-request/signature-request
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { AddNetwork } from '@app/pages/add-network/add-network';
+
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
-import { useSaveAuthRequest } from '@app/common/hooks/auth/use-save-auth-request-callback';
 import { AccountGate } from '@app/routes/account-gate';
 import { Unlock } from '@app/pages/unlock';
 import { Home } from '@app/pages/home/home';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
-import { BuyPage } from '@app/pages/buy/buy';
+import { FundPage } from '@app/pages/fund/fund';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+
 import { useHasStateRehydrated } from '@app/store';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
-import { RouteUrls } from '@shared/route-urls';
+
+import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
+import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
+import { ledgerTxSigningRoutes } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.routes';
+import { ledgerRequestKeysRoutes } from '@app/features/ledger/flows/request-keys/ledger-request-keys.routes';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
+import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
+import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 
-export function AppRoutes(): JSX.Element | null {
+export function AppRoutes() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
 
-  useSaveAuthRequest();
-
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => window.close());
 
-  useEffect(() => {
-    void analytics.page('view', `${pathname}`);
-  }, [analytics, pathname]);
+  useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
   const hasStateRehydrated = useHasStateRehydrated();
-
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
   return (
@@ -62,7 +65,12 @@ export function AppRoutes(): JSX.Element | null {
             </AccountGate>
           }
         >
+          <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
+            {ledgerTxSigningRoutes}
+          </Route>
+          <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+          {ledgerTxSigningRoutes}
         </Route>
         <Route
           path={RouteUrls.Onboarding}
@@ -71,7 +79,9 @@ export function AppRoutes(): JSX.Element | null {
               <WelcomePage />
             </OnboardingGate>
           }
-        />
+        >
+          {ledgerRequestKeysRoutes}
+        </Route>
         <Route
           path={RouteUrls.BackUpSecretKey}
           element={
@@ -100,16 +110,6 @@ export function AppRoutes(): JSX.Element | null {
           }
         />
         <Route
-          path={RouteUrls.Buy}
-          element={
-            <AccountGate>
-              <Suspense fallback={<></>}>
-                <BuyPage />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
           path={RouteUrls.ChooseAccount}
           element={
             <AccountGate>
@@ -118,15 +118,21 @@ export function AppRoutes(): JSX.Element | null {
               </Suspense>
             </AccountGate>
           }
-        />
+        >
+          {ledgerJwtSigningRoutes}
+        </Route>
         <Route
-          path={RouteUrls.Receive}
+          path={RouteUrls.Fund}
           element={
             <AccountGate>
-              <ReceiveTokens />
+              <Suspense fallback={<></>}>
+                <FundPage />
+              </Suspense>
             </AccountGate>
           }
-        />
+        >
+          <Route path={RouteUrls.FundReceive} element={<ReceiveTokens />} />
+        </Route>
         <Route
           path={RouteUrls.Send}
           element={
@@ -136,7 +142,10 @@ export function AppRoutes(): JSX.Element | null {
               </Suspense>
             </AccountGate>
           }
-        />
+        >
+          {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+        </Route>
         <Route
           path={RouteUrls.TransactionRequest}
           element={
@@ -146,7 +155,10 @@ export function AppRoutes(): JSX.Element | null {
               </Suspense>
             </AccountGate>
           }
-        />
+        >
+          {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+        </Route>
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
         <Route
           path={RouteUrls.SignatureRequest}
@@ -157,7 +169,9 @@ export function AppRoutes(): JSX.Element | null {
               </Suspense>
             </AccountGate>
           }
-        />
+        >
+          {ledgerMessageSigningRoutes}
+        </Route>
         <Route
           path={RouteUrls.ViewSecretKey}
           element={

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { atomWithStore } from 'jotai/redux';
-import devToolsEnhancer from 'remote-redux-devtools';
+import { devToolsEnhancer } from '@redux-devtools/remote';
 import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import {
   persistStore,
@@ -13,6 +13,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import { IS_DEV_ENV } from '@shared/environment';
+
 import { keySlice } from './keys/key.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
@@ -20,17 +22,21 @@ import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { ExtensionStorage } from './utils/extension-storage';
 import { onboardingSlice } from './onboarding/onboarding.slice';
 import { analyticsSlice } from './analytics/analytics.slice';
+import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
+import { networksSlice } from './networks/networks.slice';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
 const rootReducer = combineReducers({
-  keys: keySlice.reducer,
+  analytics: analyticsSlice.reducer,
   chains: combineReducers({
     stx: stxChainSlice.reducer,
   }),
   inMemoryKeys: inMemoryKeySlice.reducer,
+  keys: keySlice.reducer,
+  networks: networksSlice.reducer,
   onboarding: onboardingSlice.reducer,
-  analytics: analyticsSlice.reducer,
+  submittedTransactions: submittedTransactionsSlice.reducer,
 });
 
 const persistConfig = {
@@ -38,7 +44,7 @@ const persistConfig = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['keys', 'chains', 'onboarding', 'analytics'],
+  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -53,16 +59,15 @@ export const store = configureStore({
     }),
     broadcastActionTypeToOtherFramesMiddleware,
   ],
-  enhancers:
-    process.env.WALLET_ENVIRONMENT === 'development'
-      ? [
-          devToolsEnhancer({
-            hostname: 'localhost',
-            port: 8000,
-            realtime: true,
-          }),
-        ]
-      : [],
+  enhancers: IS_DEV_ENV
+    ? [
+        devToolsEnhancer({
+          hostname: 'localhost',
+          port: 8000,
+          realtime: true,
+        }),
+      ]
+    : [],
 });
 
 export const persistor = persistStore(store);
@@ -71,9 +76,9 @@ export type RootState = ReturnType<typeof persistedReducer>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
-type AppDispatch = typeof store.dispatch;
+type AppDispatch = typeof store.dispatch & ((action: AppThunk) => void);
 
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppDispatch: () => AppDispatch = useDispatch;
 
 export const storeAtom = atomWithStore(store);
 

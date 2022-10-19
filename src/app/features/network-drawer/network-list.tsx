@@ -5,11 +5,12 @@ import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 export const NetworkList = (props: FlexProps) => {
   const { networks } = useWallet();
-  const items = Object.keys(networks);
+  const networkIds = Object.keys(networks);
+
   return (
     <Flex flexWrap="wrap" flexDirection="column" {...props}>
-      {items.map(item => (
-        <NetworkListItem key={item} data-testid={SettingsSelectors.NetworkListItem} item={item} />
+      {networkIds.map(id => (
+        <NetworkListItem key={id} data-testid={SettingsSelectors.NetworkListItem} networkId={id} />
       ))}
     </Flex>
   );

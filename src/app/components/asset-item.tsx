@@ -70,6 +70,7 @@ export const AssetItem = memo(
         subAmount,
         isDifferent,
         name,
+        imageCanonicalUri,
         ...rest
       }: {
         isPressable?: boolean;
@@ -80,6 +81,7 @@ export const AssetItem = memo(
         subAmount?: string;
         isDifferent?: boolean;
         name?: string;
+        imageCanonicalUri?: string;
       } & StackProps,
       ref
     ) => {
@@ -102,6 +104,7 @@ export const AssetItem = memo(
           <Stack flexGrow={1} width="100%" isInline spacing="base">
             <AssetAvatar
               size="36px"
+              imageCanonicalUri={imageCanonicalUri}
               gradientString={avatar}
               useStx={caption === 'STX'}
               color="white"

@@ -22,7 +22,7 @@ RUN apt-get update -y \
     && ./build-ext.sh /stacks-wallet-chromium.zip
 
 
-FROM alpine:latest
+FROM alpine:3.15.3
 COPY --from=builder /stacks-wallet-chromium.zip .
 
 # Wait for extension.zip to be copied into local

@@ -1,11 +1,12 @@
+import { ChainID } from '@stacks/transactions';
+import { Input, Stack } from '@stacks/ui';
+import { Formik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Stack } from '@stacks/ui';
-import { ChainID, fetchPrivate } from '@stacks/transactions';
-import { Formik } from 'formik';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { isValidUrl } from '@app/common/validation/validate-url';
+import { DefaultNetworkConfigurations } from '@shared/constants';
+import { isValidUrl } from '@shared/utils/validate-url';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
@@ -13,10 +14,12 @@ import { Header } from '@app/components/header';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Text } from '@app/components/typography';
 import { RouteUrls } from '@shared/route-urls';
+import { NetworkSelectors } from '@tests/integration/network.selectors';
 import {
-  useUpdateCurrentNetworkKey,
-  useUpdateNetworkState,
-} from '@app/store/network/networks.hooks';
+  useCurrentStacksNetworkState,
+  useNetworksActions,
+} from '@app/store/networks/networks.hooks';
+import { removeTrailingSlash } from '@app/common/url-join';
 
 interface AddNetworkFormValues {
   key: string;
@@ -29,8 +32,8 @@ export const AddNetwork = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const setNetworks = useUpdateNetworkState();
-  const setNetworkKey = useUpdateCurrentNetworkKey();
+  const network = useCurrentStacksNetworkState();
+  const networksActions = useNetworksActions();
 
   useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
 
@@ -41,28 +44,23 @@ export const AddNetwork = () => {
         onSubmit={async values => {
           const { name, url, key } = values;
           if (!isValidUrl(url)) {
-            setError('Please enter a valid URL');
+            setError('Enter a valid URL');
             return;
           }
           setLoading(true);
           setError('');
           try {
-            const origin = new URL(url).origin;
-            const response = await fetchPrivate(`${origin}/v2/info`);
+            const path = removeTrailingSlash(new URL(url).href);
+            const response = await network.fetchFn(`${path}/v2/info`);
             const chainInfo = await response.json();
             const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
             if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {
-              setNetworks(networks => {
-                return {
-                  ...networks,
-                  [key]: {
-                    url: origin,
-                    name,
-                    chainId: networkId,
-                  },
-                };
+              networksActions.addNetwork({
+                chainId: networkId,
+                id: key as DefaultNetworkConfigurations,
+                name,
+                url: path,
               });
-              setNetworkKey(key);
               navigate(RouteUrls.Home);
               return;
             }
@@ -97,6 +95,7 @@ export const AddNetwork = () => {
                 placeholder="Name"
                 value={values.name}
                 width="100%"
+                data-testid={NetworkSelectors.NetworkName}
               />
               <Input
                 borderRadius="10px"
@@ -106,6 +105,7 @@ export const AddNetwork = () => {
                 placeholder="Address"
                 value={values.url}
                 width="100%"
+                data-testid={NetworkSelectors.NetworkAddress}
               />
               <Input
                 borderRadius="10px"
@@ -115,13 +115,20 @@ export const AddNetwork = () => {
                 placeholder="Key"
                 value={values.key}
                 width="100%"
+                data-testid={NetworkSelectors.NetworkKey}
               />
               {error ? (
                 <ErrorLabel>
-                  <Text textStyle="caption">{error}</Text>
+                  <Text textStyle="caption" data-testid={NetworkSelectors.ErrorText}>
+                    {error}
+                  </Text>
                 </ErrorLabel>
               ) : null}
-              <PrimaryButton isDisabled={loading} isLoading={loading}>
+              <PrimaryButton
+                isDisabled={loading}
+                isLoading={loading}
+                data-testid={NetworkSelectors.BtnAddNetwork}
+              >
                 Add network
               </PrimaryButton>
             </Stack>

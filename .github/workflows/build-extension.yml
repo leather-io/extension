@@ -2,8 +2,11 @@ name: PR Extensions builds
 on: [pull_request, workflow_dispatch]
 
 env:
+  COINBASE_APP_ID: ${{ secrets.COINBASE_APP_ID }}
+  MOONPAY_API_KEY: ${{ secrets.MOONPAY_API_KEY }}
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
+  TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
   WALLET_ENVIRONMENT: feature
 
 jobs:
@@ -17,18 +20,13 @@ jobs:
 
   update-pull-request-body:
     name: Add links to built extensions
+    # Don't run on forks
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     needs:
       - pre_run
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
-        # Don't run on forks
-        if: github.event.pull_request.head.repo.full_name == github.repository
         with:
           header: '> Try out this version of the Hiro Wallet - download [extension builds](https://github.com/hirosystems/stacks-wallet-web/actions/runs/${{ github.run_id }}).'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

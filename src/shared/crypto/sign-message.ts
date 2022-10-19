@@ -1,16 +1,36 @@
+import { bytesToHex } from '@stacks/common';
 import { SignatureData } from '@stacks/connect';
 import { hashMessage } from '@stacks/encryption';
 import {
+  ClarityValue,
   getPublicKey,
   publicKeyToString,
-  signWithKey,
+  signMessageHashRsv,
+  signStructuredData,
   StacksPrivateKey,
 } from '@stacks/transactions';
 
 export function signMessage(message: string, privateKey: StacksPrivateKey): SignatureData {
   const hash = hashMessage(message);
   return {
-    signature: signWithKey(privateKey, hash.toString('hex')).data,
+    signature: signMessageHashRsv({ privateKey, messageHash: bytesToHex(hash) }).data,
+    publicKey: publicKeyToString(getPublicKey(privateKey)),
+  };
+}
+
+export function signStructuredDataMessage(
+  message: ClarityValue,
+  domain: ClarityValue,
+  privateKey: StacksPrivateKey
+): SignatureData {
+  const signature = signStructuredData({
+    message,
+    domain,
+    privateKey,
+  }).data;
+
+  return {
+    signature,
     publicKey: publicKeyToString(getPublicKey(privateKey)),
   };
 }

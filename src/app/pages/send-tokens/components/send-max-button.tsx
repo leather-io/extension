@@ -4,7 +4,7 @@ import { Box, ButtonProps, color } from '@stacks/ui';
 
 import { AssetWithMeta } from '@app/common/asset-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { isUndefined } from '@app/common/utils';
+import { isUndefined } from '@shared/utils';
 
 function SendMaxButtonAction(props: ButtonProps) {
   return (
@@ -39,7 +39,7 @@ export function SendMaxButton(props: SendMaxProps): JSX.Element | null {
   const isStx = selectedAsset?.type === 'stx';
 
   const fireInactiveSendMaxButtonToast = useCallback(() => {
-    if (isUndefined(fee)) toast.error('Loading fee, please try again');
+    if (isUndefined(fee)) toast.error('Loading fee, try again');
     toast.error('A fee must be set to calculate max STX transfer amount');
   }, [fee]);
 

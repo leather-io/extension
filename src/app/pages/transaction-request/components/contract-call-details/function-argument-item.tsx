@@ -1,7 +1,7 @@
 import { deserializeCV, cvToString, getCVTypeString } from '@stacks/transactions';
 
 import { Row } from '@app/pages/transaction-request/components/row';
-import { useContractFunction } from '@app/query/contract/contract.hooks';
+import { useContractFunction } from '@app/query/stacks/contract/contract.hooks';
 
 interface FunctionArgumentProps {
   arg: string;

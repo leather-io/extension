@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import BN from 'bn.js';
 import { useConnect } from '@stacks/connect-react';
-import { StacksTestnet } from '@stacks/network';
+import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import {
   broadcastTransaction,
   bufferCV,
@@ -26,18 +24,21 @@ import {
   uintCV,
 } from '@stacks/transactions';
 import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
+import BN from 'bn.js';
+import React, { useState } from 'react';
 
-import {
-  stacksLocalhostNetwork,
-  stacksTestnetNetwork,
-  stacksTestnetNetwork as network,
-} from '@common/utils';
 import { demoTokenContract } from '@common/contracts';
 import { useSTXAddress } from '@common/use-stx-address';
+import {
+  stacksLocalhostNetwork,
+  stacksMainnetNetwork,
+  stacksTestnetNetwork as network,
+  stacksTestnetNetwork,
+} from '@common/utils';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
-import { ExplorerLink } from './explorer-link';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { ExplorerLink } from './explorer-link';
 
 export const Debugger = () => {
   const { doContractCall, doSTXTransfer, doContractDeploy } = useConnect();
@@ -55,7 +56,6 @@ export const Debugger = () => {
     setTxId(id);
     setTxType(type);
   };
-
 
   // If need to add more test tokens: STW7PFH79HW1C9Z0SXBP5PTPHKZZ58KK9WP1MZZA
   const handleSponsoredTransactionBroadcast = async (tx: StacksTransaction) => {
@@ -88,7 +88,7 @@ export const Debugger = () => {
       postConditions: [
         createNonFungiblePostCondition(
           address || '', // the sender
-          NonFungibleConditionCode.DoesNotOwn, // will not own this NFT anymore
+          NonFungibleConditionCode.Sends, // will not own this NFT anymore
           createAssetInfo('ST000000000000000000002AMW42H', 'bns', 'names'), // bns NFT
           tupleCV({
             name: bufferCVFromString('stella'),
@@ -147,6 +147,7 @@ export const Debugger = () => {
         new BN('100', 10)
       ),
     ];
+    console.log('creating allow mode contract call');
     await doContractCall({
       network,
       contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
@@ -285,6 +286,7 @@ export const Debugger = () => {
       },
     });
   };
+
   const sendRocketTokens = async () => {
     clearState();
     await doContractCall({
@@ -319,6 +321,38 @@ export const Debugger = () => {
     });
   };
 
+  const sendMiamiTokens = async () => {
+    clearState();
+    await doContractCall({
+      network: new StacksMainnet(),
+      contractAddress: 'SP466FNC0P7JWTNM2R9T199QRZN1MYEDTAR0KP27',
+      contractName: 'miamicoin-token',
+      functionName: 'transfer',
+      functionArgs: [
+        uintCV(1), // amount
+        standardPrincipalCV(address || ''), // sender
+        standardPrincipalCV('ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3'), // recipient
+      ],
+      postConditions: [
+        makeStandardFungiblePostCondition(
+          address || '',
+          FungibleConditionCode.Equal,
+          new BN(1),
+          createAssetInfo(
+            'SP466FNC0P7JWTNM2R9T199QRZN1MYEDTAR0KP27',
+            'miamicoin-token',
+            'miami-token'
+          )
+        ),
+      ],
+      onFinish: data => {
+        setState('Token Faucet', data.txId);
+      },
+      onCancel: () => {
+        console.log('popup closed!');
+      },
+    });
+  };
   return (
     <Box py={6}>
       <Text as="h2" textStyle="display.small">
@@ -355,6 +389,13 @@ export const Debugger = () => {
           <Button
             data-testid={TransactionSigningSelectors.BtnContractCall}
             mt={3}
+            onClick={() => callFaker(stacksMainnetNetwork)}
+          >
+            Contract call (StacksMainnet)
+          </Button>
+          <Button
+            data-testid={TransactionSigningSelectors.BtnContractCall}
+            mt={3}
             onClick={() => callFaker(stacksLocalhostNetwork)}
           >
             Contract call (Localhost)
@@ -383,6 +424,9 @@ export const Debugger = () => {
           <Button mt={3} onClick={sendRocketTokens}>
             Send Rocket tokens
           </Button>
+          <Button mt={3} onClick={sendMiamiTokens}>
+            Send Miami tokens
+          </Button>
           <Button mt={3} onClick={callNullContract}>
             Non-existent contract
           </Button>
@@ -391,6 +435,16 @@ export const Debugger = () => {
             onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow, true)}
           >
             Sponsored contract call
+          </Button>
+          <Button
+            mt={3}
+            onClick={() =>
+              fetch('https://stacks-node-api.stacks.co/v2/info')
+                .then(resp => resp.json())
+                .then(console.log)
+            }
+          >
+            Request API info
           </Button>
         </ButtonGroup>
       </Box>

@@ -1,27 +1,49 @@
-import { Account, getAppPrivateKey } from '@stacks/wallet-sdk';
-import { SignaturePayload } from '@stacks/connect';
-import { decodeToken, TokenVerifier } from 'jsontokens';
+import { deserializeCV } from '@stacks/transactions';
+import { getAppPrivateKey } from '@stacks/wallet-sdk';
+import { decodeToken, TokenInterface, TokenVerifier } from 'jsontokens';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
-import { getAddressFromPrivateKey, TransactionVersion } from '@stacks/transactions';
 
-export function getPayloadFromToken(requestToken: string) {
+import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { isString } from '@shared/utils';
+import {
+  CommonSignaturePayload,
+  SignaturePayload,
+  StructuredDataSignaturePayload,
+} from '@stacks/connect';
+
+export function getGenericSignaturePayloadFromToken(requestToken: string): CommonSignaturePayload {
+  const token = decodeToken(requestToken);
+  return token.payload as unknown as CommonSignaturePayload;
+}
+
+export function getSignaturePayloadFromToken(requestToken: string): SignaturePayload {
   const token = decodeToken(requestToken);
   return token.payload as unknown as SignaturePayload;
 }
 
-function getTransactionVersionFromRequest(signature: SignaturePayload) {
-  const { network } = signature;
-  if (!network) return TransactionVersion.Mainnet;
-  if (![TransactionVersion.Mainnet, TransactionVersion.Testnet].includes(network.version)) {
-    throw new Error('Invalid network version provided');
-  }
-  return network.version;
+export function getStructuredDataPayloadFromToken(
+  requestToken: string
+): StructuredDataSignaturePayload {
+  const token = decodeToken(requestToken);
+  if (isString(token.payload)) throw new Error('error decoding json token');
+
+  const result = token.payload as unknown as TokenInterface & {
+    message: string;
+    domain: string;
+  };
+
+  return {
+    ...(result as unknown as CommonSignaturePayload),
+    message: deserializeCV(Buffer.from(result.message, 'hex')),
+    domain: deserializeCV(Buffer.from(result.domain, 'hex')),
+  };
 }
 
 const UNAUTHORIZED_SIGNATURE_REQUEST =
   'The signature request provided is not signed by this wallet.';
+
 /**
- * Verify a transaction request.
+ * Verify a signature request.
  * A transaction request is a signed JWT that is created on an app,
  * via `@stacks/connect`. The private key used to sign this JWT is an
  * `appPrivateKey`, which an app can get from authentication.
@@ -43,24 +65,26 @@ const UNAUTHORIZED_SIGNATURE_REQUEST =
  */
 interface VerifySignatureRequestArgs {
   requestToken: string;
-  accounts: Account[];
+  accounts: AccountWithAddress[];
   appDomain: string;
 }
 export async function verifySignatureRequest({
   requestToken,
   accounts,
   appDomain,
-}: VerifySignatureRequestArgs): Promise<SignaturePayload> {
+}: VerifySignatureRequestArgs): Promise<CommonSignaturePayload> {
   const token = decodeToken(requestToken);
-  const signature = token.payload as unknown as SignaturePayload;
+  const signature = token.payload as unknown as CommonSignaturePayload;
   const { publicKey, stxAddress } = signature;
-  const txVersion = getTransactionVersionFromRequest(signature);
   const verifier = new TokenVerifier('ES256k', publicKey);
   const isSigned = await verifier.verifyAsync(requestToken);
   if (!isSigned) {
     throw new Error('Signature request is not signed');
   }
   const foundAccount = accounts.find(account => {
+    if (account.type === 'ledger') {
+      throw new Error('sdlkjsdlkf');
+    }
     const appPrivateKey = getAppPrivateKey({
       account,
       appDomain,
@@ -68,10 +92,11 @@ export async function verifySignatureRequest({
     const appPublicKey = getPublicKeyFromPrivate(appPrivateKey);
     if (appPublicKey !== publicKey) return false;
     if (!stxAddress) return true;
-    const accountStxAddress = getAddressFromPrivateKey(account.stxPrivateKey, txVersion);
-    if (stxAddress !== accountStxAddress) return false;
+
+    if (stxAddress !== account.address) return false;
     return true;
   });
+
   if (!foundAccount) {
     throw new Error(UNAUTHORIZED_SIGNATURE_REQUEST);
   }

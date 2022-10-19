@@ -1,10 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import { ButtonProps } from '@stacks/ui';
 
 import { QrCodeIcon } from '@app/components/qr-code-icon';
 import { RouteUrls } from '@shared/route-urls';
+import { PrimaryButton } from '@app/components/primary-button';
 
-import { TxButton } from './tx-button';
+import { HomeActionButton } from './tx-button';
 
-export const ReceiveButton = (props: ButtonProps) => (
-  <TxButton icon={QrCodeIcon} route={RouteUrls.Receive} type="Receive" {...props} />
-);
+export const ReceiveButton = (props: ButtonProps) => {
+  const navigate = useNavigate();
+
+  return (
+    <HomeActionButton
+      icon={QrCodeIcon}
+      onClick={() => navigate(RouteUrls.Receive)}
+      label="Receive"
+      buttonComponent={PrimaryButton}
+      {...props}
+    />
+  );
+};

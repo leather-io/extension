@@ -1,9 +1,11 @@
-import { useCurrentNetworkState } from '@app/store/network/networks.hooks';
 import { useLocation } from 'react-router-dom';
-import { IS_TEST_ENV } from '@shared/constants';
 import { EventParams, PageParams } from '@segment/analytics-next/dist/pkg/core/arguments-resolver';
-import { analytics } from '@app/common/segment-init';
+
+import { analytics } from '@shared/utils/analytics';
 import { logger } from '@shared/logger';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { IS_TEST_ENV } from '@shared/environment';
 
 const IGNORED_PATH_REGEXPS = [/^\/$/];
 
@@ -18,11 +20,14 @@ function isHiroApiUrl(url: string) {
 export function useAnalytics() {
   const currentNetwork = useCurrentNetworkState();
   const location = useLocation();
+  const { walletType } = useWalletType();
+
   const defaultProperties = {
     network: currentNetwork.name.toLowerCase(),
     usingDefaultHiroApi: isHiroApiUrl(currentNetwork.url),
     route: location.pathname,
     version: VERSION,
+    walletType,
   };
 
   const defaultOptions = {

@@ -1,11 +1,12 @@
 import { Suspense } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
-import { QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider, ColorModeProvider } from '@stacks/ui';
 
+import { queryClient } from '@app/common/persistence';
 import { theme } from '@app/common/theme';
 import { GlobalStyles } from '@app/components/global-styles/global-styles';
 import { FullPageLoadingSpinner, NewAccountLoadingSpinner } from '@app/components/loading-spinner';
@@ -13,14 +14,11 @@ import { SwitchAccountDrawer } from '@app/features/switch-account-drawer/switch-
 import { NetworksDrawer } from '@app/features/network-drawer/networks-drawer';
 import { SettingsDropdown } from '@app/features/settings-dropdown/settings-dropdown';
 import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
 import { Devtools } from '@app/features/devtool/devtools';
 import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
-import { jotaiWrappedReactQueryQueryClient as queryClient } from '@app/store/common/common.hooks';
 
-const reactQueryDevToolsEnabled = false;
+const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === 'true';
 
 export function App() {
   return (
@@ -36,8 +34,6 @@ export function App() {
                     <AppRoutes />
                     <SwitchAccountDrawer />
                     <NetworksDrawer />
-                    <EditNonceDrawer />
-                    <IncreaseFeeDrawer />
                     <SettingsDropdown />
                   </AppErrorBoundary>
                   <Toaster

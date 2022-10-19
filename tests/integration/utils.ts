@@ -158,3 +158,19 @@ export const timeDifference = (startDate: Date, endDate: Date) => {
   const seconds = (endDate.getTime() - startDate.getTime()) / 1000;
   return seconds;
 };
+
+// TODO: Need to fix this. It is producing an error: `Unable to fetch info from node.`
+// I don't even understand why this is being used in a test to check a balance?
+//
+// export const addAPINetwork = async (wallet: WalletPage) => {
+//   await wallet.clickSettingsButton();
+//   await wallet.page.click(createTestSelector(SettingsSelectors.ChangeNetworkAction));
+//   await wallet.page.click(createTestSelector(SettingsSelectors.BtnAddNetwork));
+//   const networkPage: NetworkPage = new NetworkPage(wallet.page);
+//   await networkPage.inputNetworkNameField('api');
+//   await networkPage.inputNetworkAddressField(
+//     process.env.APIEnvVariable || 'https://stacks-node-api-inactive.stacks.co/'
+//   );
+//   await networkPage.inputNetworkKeyField('api');
+//   await networkPage.clickAddNetwork();
+// };

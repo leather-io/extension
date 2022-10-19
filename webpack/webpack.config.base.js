@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const { version: _version } = require('../package.json');
 const generateManifest = require('../scripts/generate-manifest');
 
+const Dotenv = require('dotenv-webpack');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -15,29 +16,23 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const SRC_ROOT_PATH = path.join(__dirname, '../', 'src');
 const DIST_ROOT_PATH = path.join(__dirname, '../', 'dist');
+
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const IS_DEV = NODE_ENV === 'development';
-const IS_PROD = !IS_DEV;
-const TEST_ENV = !!process.env.TEST_ENV;
 const ANALYZE_BUNDLE = process.env.ANALYZE === 'true';
 const IS_PUBLISHING = !!process.env.IS_PUBLISHING;
-const MAIN_BRANCH = 'refs/heads/main';
-const GITHUB_REF = process.env.GITHUB_REF;
-const GITHUB_SHA = process.env.GITHUB_SHA;
+const BRANCH = process.env.GITHUB_REF;
 
-/**
- * For non main branch builds, we add a random number after the patch version.
- */
+const IS_DEV = NODE_ENV === 'development';
+const IS_PROD = !IS_DEV;
+const MAIN_BRANCH = 'refs/heads/main';
+
+// For non main branch builds, add a random number
 const getVersionWithRandomSuffix = ref => {
   if (ref === MAIN_BRANCH || !ref || IS_PUBLISHING) return _version;
   return `${_version}.${Math.floor(Math.floor(Math.random() * 1000))}`;
 };
-
-const BRANCH = GITHUB_REF;
-const COMMIT_SHA = GITHUB_SHA;
 const VERSION = getVersionWithRandomSuffix(BRANCH);
 
-// to measure speed :~)
 const smp = new SpeedMeasurePlugin({
   disable: !ANALYZE_BUNDLE,
   granularLoaderData: true,
@@ -79,9 +74,9 @@ const aliases = {
   '@stacks/storage': '@stacks/storage/dist/esm',
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
-  '@stacks/network/dist/polyfill': '@stacks/network/dist/esm',
-};
 
+  'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
+};
 const config = {
   entry: {
     background: path.join(SRC_ROOT_PATH, 'background', 'background.ts'),
@@ -202,18 +197,17 @@ const config = {
         { from: 'node_modules/argon2-browser/dist/argon2.wasm', to: '.' },
       ],
     }),
-    new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(NODE_ENV),
-      VERSION: JSON.stringify(VERSION),
-      COMMIT_SHA: JSON.stringify(COMMIT_SHA),
-      BRANCH: JSON.stringify(BRANCH),
-      'process.env.TEST_ENV': JSON.stringify(TEST_ENV ? 'true' : 'false'),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'node_modules/webextension-polyfill/dist/browser-polyfill.js' }],
     }),
 
-    new webpack.EnvironmentPlugin({
-      SENTRY_DSN: process.env.SENTRY_DSN ?? '',
-      SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY ?? '',
-      WALLET_ENVIRONMENT: process.env.WALLET_ENVIRONMENT ?? 'development',
+    new Dotenv({
+      allowEmptyValues: true,
+      systemvars: true,
+    }),
+
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(VERSION),
     }),
 
     new webpack.ProvidePlugin({

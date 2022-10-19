@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
-
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 
 export function useOnWalletLock(handler: () => void) {
-  useEffect(() => {
+  useOnMount(() => {
     chrome.runtime.onMessage.addListener(message => {
       if (message?.method === inMemoryKeyActions.lockWallet.type) handler();
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 }

@@ -1,7 +1,14 @@
+import { analytics } from '@shared/utils/analytics';
+
 export enum WorkerScript {
   DecryptionWorker = 'decryption-worker.js',
 }
 
 export function createWorker(scriptName: WorkerScript) {
-  return new Worker(scriptName);
+  const worker = new Worker(scriptName);
+  worker.addEventListener(
+    'error',
+    error => void analytics.track(`worker_error_thrown_${scriptName}`, { error })
+  );
+  return worker;
 }

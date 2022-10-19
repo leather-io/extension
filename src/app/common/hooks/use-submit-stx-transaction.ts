@@ -1,40 +1,19 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import {
-  broadcastTransaction,
-  StacksTransaction,
-  TxBroadcastResultRejected,
-} from '@stacks/transactions';
+import { broadcastTransaction, StacksTransaction } from '@stacks/transactions';
 
-import { todaysIsoDate } from '@app/common/date-utils';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
-import { useCurrentStacksNetworkState } from '@app/store/network/networks.hooks';
-import { useCurrentAccountTxIds } from '@app/query/transactions/transaction.hooks';
+import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useSetLocalTxsCallback } from '@app/store/accounts/account-activity.hooks';
-
-function getErrorMessage(
-  reason: TxBroadcastResultRejected['reason'] | 'ConflictingNonceInMempool'
-) {
-  switch (reason) {
-    case 'ConflictingNonceInMempool':
-      return 'Nonce conflict, try again soon.';
-    case 'BadNonce':
-      return 'Incorrect nonce.';
-    case 'NotEnoughFunds':
-      return 'Not enough funds.';
-    case 'FeeTooLow':
-      return 'Fee is too low.';
-    default:
-      return 'Something went wrong';
-  }
-}
+import { getErrorMessage } from '@app/common/get-error-message';
+import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { bytesToHex } from '@stacks/common';
 
 const timeForApiToUpdate = 250;
 
@@ -44,23 +23,21 @@ interface UseSubmitTransactionArgs {
 interface UseSubmitTransactionCallbackArgs {
   replaceByFee?: boolean;
   onClose(): void;
+  onError(error: Error): void;
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const refreshAccountData = useRefreshAllAccountData();
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
   const navigate = useNavigate();
-  const { setLatestNonce } = useWallet();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
   const { setActiveTabActivity } = useHomeTabs();
-  const setLocalTxs = useSetLocalTxsCallback();
-  const externalTxid = useCurrentAccountTxIds();
   const analytics = useAnalytics();
 
   return useCallback(
-    ({ replaceByFee, onClose }: UseSubmitTransactionCallbackArgs) =>
+    ({ onClose, onError }: UseSubmitTransactionCallbackArgs) =>
       async (transaction: StacksTransaction) => {
         setIsLoading();
-        const nonce = !replaceByFee && Number(transaction.auth.spendingCondition?.nonce);
         try {
           const response = await broadcastTransaction(transaction, stacksNetwork);
           if (response.error) {
@@ -68,15 +45,10 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             onClose();
             setIsIdle();
           } else {
-            const txid = `0x${response.txid}`;
-            if (!externalTxid.includes(txid)) {
-              await setLocalTxs({
-                rawTx: transaction.serialize().toString('hex'),
-                timestamp: todaysIsoDate(),
-                txid,
-              });
-            }
-            if (nonce) await setLatestNonce(nonce);
+            submittedTransactionsActions.newTransactionSubmitted({
+              rawTx: bytesToHex(transaction.serialize()),
+              txId: safelyFormatHexTxid(response.txid),
+            });
             toast.success('Transaction submitted!');
             void analytics.track('broadcast_transaction');
             onClose();
@@ -86,10 +58,9 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             setActiveTabActivity();
             await refreshAccountData(timeForApiToUpdate);
           }
-        } catch (e) {
-          logger.error(e);
-          toast.error('Something went wrong');
-          onClose();
+        } catch (error) {
+          logger.error({ error });
+          onError(error instanceof Error ? error : { name: '', message: '' });
           setIsIdle();
         }
       },
@@ -97,31 +68,11 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       setIsLoading,
       stacksNetwork,
       setIsIdle,
-      externalTxid,
-      setLatestNonce,
+      submittedTransactionsActions,
       analytics,
       navigate,
       setActiveTabActivity,
       refreshAccountData,
-      setLocalTxs,
     ]
-  );
-}
-
-interface UseHandleSubmitTransactionArgs {
-  loadingKey: string;
-}
-interface UseHandleSubmitTransactionReturnFn {
-  transaction: StacksTransaction;
-  replaceByFee?: boolean;
-  onClose(): void;
-}
-export function useHandleSubmitTransaction({ loadingKey }: UseHandleSubmitTransactionArgs) {
-  const broadcastTxCallback = useSubmitTransactionCallback({ loadingKey });
-
-  return useCallback(
-    ({ transaction, onClose, replaceByFee = false }: UseHandleSubmitTransactionReturnFn) =>
-      broadcastTxCallback({ onClose, replaceByFee })(transaction),
-    [broadcastTxCallback]
   );
 }

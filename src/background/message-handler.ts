@@ -1,7 +1,7 @@
 import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
-import { BackgroundActions } from '@shared/messages';
+import { BackgroundMessages } from '@shared/messages';
 import { StacksMainnet } from '@stacks/network';
 import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
@@ -21,12 +21,17 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
   // method. This does the same as the catch case, with the addition that it will
   // also try and fetch usernames associated with an account
   try {
-    return restoreWalletAccounts({ wallet, gaiaHubUrl: gaiaUrl, network: new StacksMainnet() });
+    return await restoreWalletAccounts({
+      wallet,
+      gaiaHubUrl: gaiaUrl,
+      network: new StacksMainnet(),
+    });
   } catch (e) {
     // To generate a new account, the wallet-sdk requires the entire `Wallet` to
     // be supplied so that it can count the `wallet.accounts[]` length, and return
     // a new `Wallet` object with all the accounts. As we want to generate them
     // all, we must set the updated value and read it again in the loop
+    logger.warn('Falling back to manual account generation without Gaia.');
     let walWithAccounts = wallet;
     for (let i = 0; i < highestAccountIndex; i++) {
       walWithAccounts = generateNewAccount(walWithAccounts);
@@ -38,8 +43,8 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
 // Persists keys in memory for the duration of the background scripts life
 const inMemoryKeys = new Map();
 
-export async function backgroundMessageHandler(
-  message: BackgroundActions,
+export async function internalBackgroundMessageHandler(
+  message: BackgroundMessages,
   sender: chrome.runtime.MessageSender,
   sendResponse: (response?: any) => void
 ) {

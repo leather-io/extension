@@ -1,37 +1,39 @@
 import { useCallback } from 'react';
+import { Box, BoxProps, color, Flex, Stack } from '@stacks/ui';
 
 import { Caption, Title } from '@app/components/typography';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { getUrlHostname } from '@app/common/utils';
-import { Box, BoxProps, color, Flex, Stack } from '@stacks/ui';
-import { useUpdateCurrentNetworkKey } from '@app/store/network/networks.hooks';
-import { NetworkStatusIndicator } from './components/network-status-indicator';
-import { useNetworkStatus } from '@app/query/network/network.hooks';
+import { useNetworkStatus } from '@app/query/stacks/network/network.hooks';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useNetworksActions } from '@app/store/networks/networks.hooks';
+import { defaultCurrentNetwork } from '@shared/constants';
+
+import { NetworkStatusIndicator } from './components/network-status-indicator';
 
 interface NetworkListItemProps extends BoxProps {
-  item: string;
+  networkId: string;
 }
-export const NetworkListItem = ({ item, ...props }: NetworkListItemProps) => {
+export const NetworkListItem = ({ networkId, ...props }: NetworkListItemProps) => {
   const { setShowNetworks } = useDrawers();
-  const { networks, currentNetworkKey } = useWallet();
-  const setCurrentNetworkKey = useUpdateCurrentNetworkKey();
-  const network = networks[item];
-  const isActive = item === currentNetworkKey;
+  const { networks, currentNetworkId } = useWallet();
+  const network = networks[networkId] || defaultCurrentNetwork;
+  const isActive = networkId === currentNetworkId;
   const isOnline = useNetworkStatus(network.url);
+  const networksActions = useNetworksActions();
   const analytics = useAnalytics();
 
   const handleItemClick = useCallback(() => {
     void analytics.track('change_network');
-    setCurrentNetworkKey(item);
+    networksActions.changeNetwork(networkId);
     setTimeout(() => setShowNetworks(false), 25);
-  }, [analytics, setCurrentNetworkKey, item, setShowNetworks]);
+  }, [analytics, networkId, networksActions, setShowNetworks]);
 
   return (
     <Box
       width="100%"
-      key={item}
+      key={networkId}
       _hover={
         !isOnline || isActive
           ? undefined
@@ -59,7 +61,7 @@ export const NetworkListItem = ({ item, ...props }: NetworkListItemProps) => {
           </Title>
           <Caption>{getUrlHostname(network.url)}</Caption>
         </Stack>
-        <NetworkStatusIndicator isActive={item === currentNetworkKey} isOnline={isOnline} />
+        <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
       </Flex>
     </Box>
   );

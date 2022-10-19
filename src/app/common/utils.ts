@@ -1,11 +1,16 @@
 import type { ClipboardEvent } from 'react';
 import BigNumber from 'bignumber.js';
+import {
+  BytesReader,
+  ChainID,
+  deserializePostCondition,
+  PostCondition,
+} from '@stacks/transactions';
 
-import { KEBAB_REGEX, Network } from '@shared/constants';
-import { StacksNetwork } from '@stacks/network';
-import { BufferReader, deserializePostCondition, PostCondition } from '@stacks/transactions';
+import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
 
 import { AssetWithMeta } from './asset-types';
+import { hexToBytes } from '@stacks/common';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -48,8 +53,8 @@ export function validateAndCleanRecoveryInput(value: string) {
   return { isValid: false, value };
 }
 
-export function makeTxExplorerLink(txid: string, chain: 'mainnet' | 'testnet', suffix = '') {
-  return `https://explorer.stacks.co/txid/${txid}?chain=${chain}${suffix}`;
+export function makeTxExplorerLink(txid: string, mode: NetworkModes, suffix = '') {
+  return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
 }
 
 export function truncateString(str: string, maxLength: number) {
@@ -57,6 +62,14 @@ export function truncateString(str: string, maxLength: number) {
     return str;
   }
   return str.slice(0, maxLength) + '...';
+}
+
+export function isMultipleOf(multiple: number) {
+  return (num: number) => num % multiple === 0;
+}
+
+export function isEven(num: number) {
+  return isMultipleOf(2)(num);
 }
 
 function getLetters(string: string, offset = 1) {
@@ -79,7 +92,7 @@ export function getTicker(value: string) {
 }
 
 export function postConditionFromString(postCondition: string): PostCondition {
-  const reader = BufferReader.fromBuffer(Buffer.from(postCondition, 'hex'));
+  const reader = new BytesReader(hexToBytes(postCondition));
   return deserializePostCondition(reader);
 }
 
@@ -177,47 +190,6 @@ export function hexToHumanReadable(hex: string) {
   return `0x${hex}`;
 }
 
-// We need this function because the latest changes
-// to `@stacks/network` had some undesired consequence.
-// As `StacksNetwork` is a class instance, this is auto
-// serialized when being passed across `postMessage`,
-// from the developer's app, to the Hiro Wallet.
-// `coreApiUrl` now uses a getter, rather than a prop,
-// and `_coreApiUrl` is a private value.
-// To support both `@stacks/network` versions a dev may be using
-// we look for both possible networks defined
-function getCoreApiUrl(network: StacksNetwork) {
-  if (network.coreApiUrl) return network.coreApiUrl;
-  if ((network as any)._coreApiUrl) return (network as any)._coreApiUrl;
-}
-
-export function findMatchingNetworkKey(
-  txNetwork: StacksNetwork,
-  networks: Record<string, Network>
-) {
-  if (!networks || !txNetwork) return;
-
-  const developerDefinedApiUrl = getCoreApiUrl(txNetwork);
-
-  const keys = Object.keys(networks);
-
-  // first try to search for an _exact_ url match
-  const exactUrlMatch = keys.find((key: string) => {
-    const network = networks[key] as Network;
-    return network.url === developerDefinedApiUrl;
-  });
-  if (exactUrlMatch) return exactUrlMatch;
-
-  // else check for a matching chain id (testnet/mainnet)
-  const chainIdMatch = keys.find((key: string) => {
-    const network = networks[key] as Network;
-    return network.url === developerDefinedApiUrl || network.chainId === txNetwork?.chainId;
-  });
-  if (chainIdMatch) return chainIdMatch;
-
-  return null;
-}
-
 export const slugify = (...args: (string | number)[]): string => {
   const value = args.join(' ');
 
@@ -247,6 +219,10 @@ export async function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+export function createDelay(ms: number) {
+  return async () => delay(ms);
+}
+
 export function with0x(value: string): string {
   return !value.startsWith('0x') ? `0x${value}` : value;
 }
@@ -267,22 +243,6 @@ export function pullContractIdFromIdentity(identifier: string) {
   return identifier.split('::')[0];
 }
 
-export function isNumber(value: unknown): value is number {
-  return typeof value === 'number';
-}
-
-export function isString(value: unknown): value is string {
-  return typeof value === 'string';
-}
-
-export function isUndefined(value: unknown): value is undefined {
-  return typeof value === 'undefined';
-}
-
-export function isEmpty(value: Object) {
-  return Object.keys(value).length === 0;
-}
-
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }
@@ -291,4 +251,36 @@ export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
   return asset
     ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
     : undefined;
+}
+
+export function doesBrowserSupportWebUsbApi() {
+  return Boolean((navigator as any).usb);
+}
+
+const isFullPage = document.location.pathname.startsWith('/index.html');
+
+const pageMode = isFullPage ? 'full' : 'popup';
+
+type PageMode = 'popup' | 'full';
+
+type WhenPageModeMap<T> = Record<PageMode, T>;
+
+export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
+  return pageModeMap[pageMode];
+}
+
+interface WhenChainIdMap<T> {
+  [ChainID.Mainnet]: T;
+  [ChainID.Testnet]: T;
+}
+export function whenChainId(chainId: ChainID) {
+  return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
+}
+
+export function sumNumbers(nums: number[]) {
+  return nums.reduce((acc, num) => acc.plus(num), new BigNumber(0));
+}
+
+export async function fetchJson(request: RequestInfo | URL) {
+  return fetch(request).then(resp => resp.json());
 }

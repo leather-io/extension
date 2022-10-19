@@ -1,4 +1,6 @@
 import { StacksProvider } from '@stacks/connect';
+
+import { BRANCH, COMMIT_SHA } from '@shared/environment';
 import {
   AuthenticationRequestEventDetails,
   DomEventName,
@@ -8,7 +10,7 @@ import {
 import {
   AuthenticationResponseMessage,
   ExternalMethods,
-  MessageToContentScript,
+  LegacyMessageToContentScript,
   MESSAGE_SOURCE,
   SignatureResponseMessage,
   TransactionResponseMessage,
@@ -55,7 +57,7 @@ const callAndReceive = async (
   });
 };
 
-const isValidEvent = (event: MessageEvent, method: MessageToContentScript['method']) => {
+const isValidEvent = (event: MessageEvent, method: LegacyMessageToContentScript['method']) => {
   const { data } = event;
   const correctSource = data.source === MESSAGE_SOURCE;
   const correctMethod = data.method === method;
@@ -164,6 +166,9 @@ const provider: StacksProvider = {
         commit: COMMIT_SHA,
       },
     };
+  },
+  request: function (_method: string): Promise<Record<string, any>> {
+    throw new Error('`request` function is not implemented');
   },
 };
 

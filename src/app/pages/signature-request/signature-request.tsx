@@ -1,118 +1,56 @@
 import { memo } from 'react';
-import { Box, color, Stack } from '@stacks/ui';
+import { Outlet } from 'react-router-dom';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-
+import { PopupHeader } from '@app/features/current-account/popup-header';
+import {
+  isSignatureMessageType,
+  isStructuredMessage,
+  isUtf8Message,
+} from '@shared/signature/types';
 import {
   useIsSignatureRequestValid,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
-import { PageTop } from './components/page-top';
-import { MessageBox } from './components/message-box';
-import { NetworkRow } from './components/network-row';
-import {
-  isSignatureMessageType,
-  SignAction,
-  SignatureMessage,
-  SignatureMessageType,
-} from './components/sign-action';
-import { StacksNetwork, StacksTestnet } from '@stacks/network';
-import { FiAlertTriangle } from 'react-icons/fi';
-import { Caption } from '@app/components/typography';
-import { PopupHeader } from '@app/features/current-account/popup-header';
-import { getPayloadFromToken } from '@app/common/signature/requests';
-import { isUndefined } from '@app/common/utils';
-import { Link } from '@app/components/link';
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { WarningLabel } from '@app/components/warning-label';
+import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
-function SignatureRequestBase(): JSX.Element | null {
+import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
+import { SignatureRequestMessageContent } from './components/message-content';
+import { SignatureRequestLayout } from './components/signature-request.layout';
+
+function SignatureRequestBase() {
   const validSignatureRequest = useIsSignatureRequestValid();
   const { requestToken, messageType } = useSignatureRequestSearchParams();
 
   useRouteHeader(<PopupHeader />);
 
+  useOnOriginTabClose(() => window.close());
+
+  if (!isSignatureMessageType(messageType)) return null;
+
   if (!requestToken || !messageType) return null;
-  const signatureRequest = getPayloadFromToken(requestToken);
-  if (!signatureRequest) return null;
-  if (isUndefined(validSignatureRequest)) return null;
-  const appName = signatureRequest?.appDetails?.name;
-  const { message, network } = signatureRequest;
-  if (!isSignatureMessageType(message)) return null;
 
   return (
-    <Stack px={['loose', 'unset']} spacing="loose" width="100%">
-      <PageTop />
-      {!validSignatureRequest ? (
-        <ErrorMessage errorMessage={'Invalid signature request'} />
-      ) : (
-        <SignatureRequestContent
-          message={message}
-          network={network || new StacksTestnet()}
-          appName={appName}
-          messageType={messageType as unknown as SignatureMessageType}
+    <SignatureRequestLayout>
+      {!validSignatureRequest && (
+        <WarningLabel>
+          Signing messages can have unintended consequences. Only sign messages from trusted
+          sources.
+        </WarningLabel>
+      )}
+      {isUtf8Message(messageType) && (
+        <SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} />
+      )}
+      {isStructuredMessage(messageType) && (
+        <SignatureRequestStructuredDataContent
+          requestToken={requestToken}
+          messageType={messageType}
         />
       )}
-    </Stack>
-  );
-}
-
-interface DisclaimerProps {
-  appName: string | undefined;
-}
-
-function Disclaimer(props: DisclaimerProps) {
-  const { appName } = props;
-  return (
-    <Box>
-      <Caption>
-        By signing this message, you are authorizing {appName || 'the app'} to do something specific
-        on your behalf. Only sign messages that you understand from apps that you trust.
-        <Link
-          display={'inline'}
-          fontSize="14px"
-          onClick={() => openInNewTab('https://docs.hiro.so/build-apps/message-signing')}
-        >
-          {' '}
-          Learn more
-        </Link>
-        .
-      </Caption>
-    </Box>
-  );
-}
-
-interface SignatureRequestContentProps extends SignatureMessage {
-  network: StacksNetwork;
-  appName: string | undefined;
-}
-
-function SignatureRequestContent(props: SignatureRequestContentProps) {
-  const { message, messageType, appName, network } = props;
-  return (
-    <>
-      <MessageBox message={message} messageType={messageType} />
-      <NetworkRow network={network} />
-      <SignAction message={message} messageType={messageType} />
-      <hr />
-      <Disclaimer appName={appName} />
-    </>
+      <Outlet />
+    </SignatureRequestLayout>
   );
 }
 
 export const SignatureRequest = memo(SignatureRequestBase);
-
-interface ErrorMessageProps {
-  errorMessage: string;
-}
-
-function ErrorMessage(props: ErrorMessageProps): JSX.Element | null {
-  const { errorMessage } = props;
-  if (!errorMessage) return null;
-
-  return (
-    <Stack alignItems="center" bg="#FCEEED" p="base" borderRadius="12px" isInline>
-      <Box color={color('feedback-error')} strokeWidth={2} as={FiAlertTriangle} />
-      <Caption color={color('feedback-error')}>{errorMessage}</Caption>
-    </Stack>
-  );
-}

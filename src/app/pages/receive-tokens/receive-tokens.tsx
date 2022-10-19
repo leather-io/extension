@@ -1,74 +1,63 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, useClipboard, Stack, color, Button } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
-
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useWallet } from '@app/common/hooks/use-wallet';
+import toast from 'react-hot-toast';
+import { FiCopy } from 'react-icons/fi';
+import { Box, Flex, useClipboard, color, Button } from '@stacks/ui';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { PrimaryButton } from '@app/components/primary-button';
-import { Header } from '@app/components/header';
-import { Caption, Text, Title } from '@app/components/typography';
-import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { RouteUrls } from '@shared/route-urls';
+
+import { Text, Title } from '@app/components/typography';
+
 import { getAccountDisplayName } from '@app/common/utils/get-account-display-name';
 
 import { QrCode } from './components/address-qr-code';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 export const ReceiveTokens = () => {
-  const { currentAccount, currentAccountStxAddress } = useWallet();
+  const currentAccount = useCurrentAccount();
   const navigate = useNavigate();
-  const address = currentAccountStxAddress || '';
   const analytics = useAnalytics();
-  const { onCopy, hasCopied } = useClipboard(address);
-
-  useRouteHeader(<Header title="Receive" onClose={() => navigate(RouteUrls.Home)} />);
+  const { onCopy } = useClipboard(currentAccount?.address ?? '');
 
   const copyToClipboard = () => {
     void analytics.track('copy_address_to_clipboard');
+    toast.success('Copied to clipboard!');
     onCopy();
   };
 
+  if (!currentAccount) return null;
+
   return (
-    <CenteredPageContainer>
-      <Stack
-        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-        px={['loose', 'base-loose']}
-        spacing="loose"
-        textAlign="center"
-      >
-        <Text textAlign={['left', 'center']}>
-          Share your unique address to receive any token or collectible. Including a memo is not
-          required.
+    <BaseDrawer title="Receive" isShowing onClose={() => navigate(-1)}>
+      <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
+        <Text color={color('text-caption')} mb="tight" textAlign="left">
+          Share your account’s unique address to receive any token or collectible. Including a memo
+          is not required.
         </Text>
-        <Box mx="auto">
-          <QrCode principal={address} />
+        <Box mt="extra-loose" mx="auto">
+          <QrCode principal={currentAccount.address} />
         </Box>
-        {currentAccount && (
-          <Title fontSize={3} lineHeight="1rem">
-            {getAccountDisplayName(currentAccount)}
-          </Title>
-        )}
-        <Caption userSelect="none">{truncateMiddle(address, 4)}</Caption>
-        {!hasCopied ? (
-          <PrimaryButton onClick={copyToClipboard}>Copy your address</PrimaryButton>
-        ) : (
+        <Flex alignItems="center" flexDirection="column">
+          {currentAccount && (
+            <Title fontSize={3} lineHeight="1rem" mt="loose">
+              {getAccountDisplayName(currentAccount)}
+            </Title>
+          )}
+          <Flex maxWidth="280px" flexWrap="wrap" justifyContent="center" lineHeight={1.8} mt="base">
+            <AddressDisplayer address={currentAccount.address} />
+          </Flex>
           <Button
-            _hover={{
-              boxShadow: 'none',
-            }}
-            border="1px solid"
-            borderColor={color('border')}
             borderRadius="10px"
-            boxShadow="none"
-            color={color('accent')}
-            height="48px"
+            height="40px"
             mode="tertiary"
+            onClick={copyToClipboard}
+            mt="base"
           >
-            Copied to clipboard!
+            <FiCopy />
+            <Text ml="tight">Copy address</Text>
           </Button>
-        )}
-      </Stack>
-    </CenteredPageContainer>
+        </Flex>
+      </Flex>
+    </BaseDrawer>
   );
 };

@@ -1,23 +1,18 @@
-export enum OnboardingSteps {
+export enum SuggestedFirstSteps {
   BackUpSecretKey = 'Back up secret key',
   AddFunds = 'Add some funds',
   ExploreApps = 'Explore apps',
   BuyNft = 'Buy an NFT',
 }
 
-export enum OnboardingStepStatus {
-  Start,
-  Done,
+export enum SuggestedFirstStepStatus {
+  Incomplete,
+  Complete,
 }
 
-export const enum RouteType {
-  Internal,
-  External,
-}
-
-export interface OnboardingStepsStatus {
-  [OnboardingSteps.BackUpSecretKey]: OnboardingStepStatus;
-  [OnboardingSteps.AddFunds]: OnboardingStepStatus;
-  [OnboardingSteps.BuyNft]: OnboardingStepStatus;
-  [OnboardingSteps.ExploreApps]: OnboardingStepStatus;
+export interface SuggestedFirstStepsStatus {
+  [SuggestedFirstSteps.BackUpSecretKey]: SuggestedFirstStepStatus;
+  [SuggestedFirstSteps.AddFunds]: SuggestedFirstStepStatus;
+  [SuggestedFirstSteps.BuyNft]: SuggestedFirstStepStatus;
+  [SuggestedFirstSteps.ExploreApps]: SuggestedFirstStepStatus;
 }

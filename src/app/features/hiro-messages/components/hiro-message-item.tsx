@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, color, Flex, Text } from '@stacks/ui';
 import { FiInfo } from 'react-icons/fi';
-import { HiroMessage } from '@app/query/hiro-config/hiro-config.query';
+import { HiroMessage } from '@app/query/stacks/hiro-config/hiro-config.query';
 
 export const HiroMessageItem: FC<HiroMessage> = props => {
   const { title, text, learnMoreUrl, learnMoreText } = props;

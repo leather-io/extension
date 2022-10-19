@@ -27,6 +27,7 @@ module.exports = {
           `src/app.*\.actions\.ts`,
           `src/app.*\.selectors\.ts`,
           `src/app.*\.hooks\.ts`,
+          `src/app.*\.slice\.ts`,
           `src/app.*\.models\.ts`,
           `src/app.*\.utils\.ts`,
         ],
@@ -37,6 +38,12 @@ module.exports = {
       severity: 'error',
       from: { path: '^src', pathNot: ['^src/app/store/*'] },
       to: { path: 'jotai*' },
+    },
+    {
+      name: 'ban-non-type-imports-from-webextension-polyfill',
+      severity: 'error',
+      from: { path: '^src' },
+      to: { path: 'webextension-polyfill', dependencyTypesNot: ['type-only'] },
     },
     {
       name: 'component-cannot-import-pages-or-features',
@@ -64,6 +71,7 @@ module.exports = {
     // },
     {
       name: 'features-cannot-import-pages',
+      comment: 'Pages are higher level abstractions than features and are typically non-reusable',
       severity: 'error',
       from: { path: '^src/app/features/.*' },
       to: { path: '^src/app/pages/.*' },

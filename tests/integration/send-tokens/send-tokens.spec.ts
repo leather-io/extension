@@ -26,7 +26,6 @@ describe(`Send tokens flow`, () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
     await walletPage.page.click(createTestSelector(UserAreaSelectors.AccountCopyAddress));
     copiedAddress = await readClipboard();
 
@@ -42,7 +41,8 @@ describe(`Send tokens flow`, () => {
   });
 
   describe('Set max button', () => {
-    it('does not set a fee below zero, when the account balance is 0 STX', async () => {
+    // Skipping while we hide the settings menu on the send form
+    it.skip('does not set a fee below zero, when the account balance is 0 STX', async () => {
       await walletPage.clickSettingsButton();
       await walletPage.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
       await walletPage.page.click(createTestSelector('switch-account-item-1'));
@@ -56,9 +56,9 @@ describe(`Send tokens flow`, () => {
 
   describe('Fee row', () => {
     it('defaults to the middle fee estimate', async () => {
+      await sendForm.waitForFeeEstimateItem();
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
-      await sendForm.waitForFeeEstimateItem();
       const defaultFeeEstimate = await sendForm.page.$(sendForm.getSelector('$standardFeeSelect'));
       await delay(500);
       const label = await defaultFeeEstimate?.innerText();
@@ -66,9 +66,9 @@ describe(`Send tokens flow`, () => {
     });
 
     it('can select the low fee estimate', async () => {
+      await sendForm.waitForFeeEstimateItem();
       await sendForm.inputToAmountField('100000000');
       await sendForm.inputToAddressField('slkfjsdlkfjs');
-      await sendForm.waitForFeeEstimateItem();
       await sendForm.selectFirstFeeEstimate();
       const lowFeeEstimate = await sendForm.page.$(sendForm.getSelector('$lowFeeSelect'));
       const label = await lowFeeEstimate?.innerText();
@@ -172,7 +172,6 @@ describe('Preview for sending token', () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
-    await walletPage.waitForHomePage();
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
     await sendForm.waitForSendMaxButton();

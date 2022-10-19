@@ -13,13 +13,13 @@ export const useWaitingMessage = (
   { waitingMessageInterval } = {
     waitingMessageInterval: 1000,
   }
-): [string, () => void, () => void] => {
+): [boolean, string, () => void, () => void] => {
   const [isRunning, setIsRunning] = useState(false);
   const [waitingMessage, setWaitingMessage] = useState(messageForSecondsPassed(waitingMessages, 0));
   const handlers = useMemo(
     () => ({
-      stopWaitingMessage: () => setIsRunning(false),
       startWaitingMessage: () => setIsRunning(true),
+      stopWaitingMessage: () => setIsRunning(false),
     }),
     []
   );
@@ -34,5 +34,5 @@ export const useWaitingMessage = (
     isRunning ? waitingMessageInterval : null
   );
 
-  return [waitingMessage, handlers.startWaitingMessage, handlers.stopWaitingMessage];
+  return [isRunning, waitingMessage, handlers.startWaitingMessage, handlers.stopWaitingMessage];
 };

@@ -5,8 +5,9 @@ import { AssetWithMeta } from '@app/common/asset-types';
 import { getAssetName } from '@stacks/ui-utils';
 import { AssetItem } from '@app/components/asset-item';
 import { formatContractId, getTicker } from '@app/common/utils';
-import { useCurrentAccountAvailableStxBalance } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { BigNumber } from 'bignumber.js';
+import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
 
 interface AssetRowProps extends StackProps {
   asset: AssetWithMeta;
@@ -31,6 +32,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
   const amount = valueFromBalance(correctBalance);
   const subAmount = subBalance && valueFromBalance(subBalance);
   const isDifferent = subBalance && !correctBalance.isEqualTo(subBalance);
+  const imageCanonicalUri = imageCanonicalUriFromFtMetadata(meta);
 
   return (
     <AssetItem
@@ -42,6 +44,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
           ? `${formatContractId(contractAddress, contractName)}::${name}`
           : name
       }
+      imageCanonicalUri={imageCanonicalUri}
       title={friendlyName}
       caption={symbol}
       amount={amount}
@@ -49,7 +52,7 @@ export const AssetRow = forwardRef<HTMLDivElement, AssetRowProps>((props, ref) =
       isDifferent={isDifferent}
       name={name}
       data-testid={`asset-${name}`}
-      {...rest}
+      {...(rest as any)}
     />
   );
 });

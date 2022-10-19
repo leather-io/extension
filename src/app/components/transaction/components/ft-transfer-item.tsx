@@ -1,18 +1,20 @@
-import { FiArrowDown, FiArrowUp } from 'react-icons/fi';
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
+import { FiArrowDown, FiArrowUp } from 'react-icons/fi';
 
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import {
   calculateTokenTransferAmount,
   FtTransfer,
   getTxCaption,
 } from '@app/common/transactions/transaction-utils';
-import { useFungibleTokenMetadata } from '@app/query/tokens/fungible-token-metadata.hook';
 import { pullContractIdFromIdentity } from '@app/common/utils';
+import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
+import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
+import { AssetAvatar } from '@app/components/stx-avatar';
+import { TransactionItem } from './transaction-item';
 import { TxTransferDetails } from './transaction-transfers';
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
-import { TransactionItem } from './transaction-item';
 
 interface FtTransferItemProps {
   ftTransfer: FtTransfer;
@@ -32,13 +34,27 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   if (typeof displayAmount === 'undefined') return null;
 
   const caption = getTxCaption(parentTx.tx) ?? '';
+  const ftImageCanonicalUri = imageCanonicalUriFromFtMetadata(assetMetadata);
   const icon = isOriginator ? FiArrowUp : FiArrowDown;
   const title = `${assetMetadata?.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
+  const transferIcon = ftImageCanonicalUri ? (
+    <AssetAvatar
+      size="36px"
+      imageCanonicalUri={ftImageCanonicalUri}
+      color="white"
+      gradientString={''}
+      useStx={false}
+    >
+      {title}
+    </AssetAvatar>
+  ) : (
+    <TxTransferIconWrapper icon={icon} />
+  );
 
   const transferDetails: TxTransferDetails = {
     caption,
-    icon: <TxTransferIconWrapper icon={icon} />,
+    icon: transferIcon,
     link: parentTx.tx.tx_id,
     title,
     value,

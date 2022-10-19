@@ -20,6 +20,7 @@ export enum InternalMethods {
   ShareInMemoryKeyToBackground = 'ShareInMemoryKeyToBackground',
   RequestInMemoryKeys = 'RequestInMemoryKeys',
   RemoveInMemoryKeys = 'RemoveInMemoryKeys',
+  OriginatingTabClosed = 'OriginatingTabClosed',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;
@@ -75,12 +76,13 @@ export type TransactionResponseMessage = Message<
   }
 >;
 
-export type MessageFromContentScript =
+export type LegacyMessageFromContentScript =
   | AuthenticationRequestMessage
   | TransactionRequestMessage
   | SignatureRequestMessage
   | StructuredDataSignatureRequestMessage;
-export type MessageToContentScript =
+
+export type LegacyMessageToContentScript =
   | AuthenticationResponseMessage
   | TransactionResponseMessage
   | SignatureResponseMessage;

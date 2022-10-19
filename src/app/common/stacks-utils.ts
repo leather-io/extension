@@ -2,7 +2,7 @@ import { ChainID } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
 
-import { Network, STX_DECIMALS } from '@shared/constants';
+import { NetworkConfiguration, STX_DECIMALS } from '@shared/constants';
 import { abbreviateNumber, initBigNumber } from '@app/common/utils';
 
 export const stacksValue = ({
@@ -59,8 +59,8 @@ export const validateStacksAddress = (stacksAddress: string): boolean => {
   }
 };
 
-export function validateAddressChain(address: string, currentNetwork: Network) {
-  const prefix = address.substr(0, 2);
+export function validateAddressChain(address: string, currentNetwork: NetworkConfiguration) {
+  const prefix = address.slice(0, 2);
   if (currentNetwork.chainId === ChainID.Testnet) return prefix === 'SN' || prefix === 'ST';
   if (currentNetwork.chainId === ChainID.Mainnet) return prefix === 'SM' || prefix === 'SP';
   return false;

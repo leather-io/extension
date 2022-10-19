@@ -19,14 +19,14 @@ export const QrCode = memo(({ principal, ...rest }: { principal: string } & Flex
   return (
     <Flex
       alignItems="center"
-      justifyContent="center"
-      p="loose"
-      borderRadius="18px"
-      boxShadow="mid"
       border="1px solid"
       borderColor={color('border')}
-      position="relative"
+      borderRadius="18px"
+      boxShadow="low"
+      justifyContent="center"
       mx="auto"
+      p="loose"
+      position="relative"
       {...rest}
     >
       {qr}

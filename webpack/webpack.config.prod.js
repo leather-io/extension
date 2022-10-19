@@ -9,11 +9,13 @@ config.mode = 'production';
 // Basically, disable any code splitting stuff
 config.optimization = {
   ...config.optimization,
-  flagIncludedChunks: false,
-  concatenateModules: false,
   minimize: shouldMinify,
   moduleIds: 'deterministic',
   splitChunks: {
+    chunks(chunk) {
+      // Only enable code splitting on main bundle
+      return chunk.name === 'index';
+    },
     hidePathInfo: false,
     minSize: 10000,
     maxAsyncRequests: Infinity,

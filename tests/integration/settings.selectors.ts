@@ -16,4 +16,5 @@ export enum SettingsSelectors {
   AccountIndex = 'switch-account-item-[index]',
   EnterPasswordInput = 'password-input',
   UnlockWalletBtn = 'unlock-wallet-btn',
+  BtnAddNetwork = 'btn-add-network',
 }

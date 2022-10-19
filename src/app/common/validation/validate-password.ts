@@ -1,8 +1,17 @@
 import zxcvbn, { ZXCVBNResult, ZXCVBNScore } from 'zxcvbn';
 
-const truncateCpuDemandingPassword = (input: string) => input.substr(0, 100);
+const truncateCpuDemandingPassword = (input: string) => input.slice(0, 100);
 
-const requiredStrengthScore: ZXCVBNScore = 4;
+export enum PasswordStrength {
+  NoScore,
+  PoorScore,
+  WeakScore,
+  AverageScore,
+  StrongScore,
+  MeetsAllRequirements,
+}
+
+const requiredStrengthScore: ZXCVBNScore = PasswordStrength.StrongScore;
 
 const requiredPasswordLength = 12;
 
@@ -14,10 +23,11 @@ function hasSufficientLength(input: string) {
   return input.length >= requiredPasswordLength;
 }
 
-interface ValidatedPassword extends ZXCVBNResult {
+export interface ValidatedPassword extends ZXCVBNResult {
   meetsLengthRequirement: boolean;
   meetsScoreRequirement: boolean;
   meetsAllStrengthRequirements: boolean;
+  password: string;
 }
 
 export function validatePassword(input: string): ValidatedPassword {
@@ -32,6 +42,7 @@ export function validatePassword(input: string): ValidatedPassword {
     meetsScoreRequirement,
     meetsLengthRequirement,
     meetsAllStrengthRequirements,
+    password,
   });
 }
 
