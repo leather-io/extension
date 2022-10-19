@@ -5,7 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
 import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
 import { ProfileUpdatingPage } from '@tests/page-objects/profile-updating.page';
-import exp from 'constants';
+import { ProfileTabSelectors } from './profile-test-app.selectors';
 
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -36,15 +36,22 @@ describe(`Profile updating`, () => {
   describe('New created wallet scenarios', () => {
     let profileUpdatingPage: ProfileUpdatingPage;
 
+    const clickBtn = async (selector: ProfileTabSelectors) => {
+      const [page] = await Promise.all([
+        browser.context.waitForEvent('page'),
+        demo.page.click('text=Profile'),
+        demo.page.click(createTestSelector(selector)),
+      ]);
+      profileUpdatingPage = new ProfileUpdatingPage(page);
+    };
+
     function interceptGaiaRequest(page: Page): Promise<Buffer> {
       return new Promise(resolve => {
         page.on('request', request => {
           if (request.url().startsWith('https://hub.blockstack.org/store')) {
             const requestBody = request.postDataBuffer();
             if (request.method() === 'GET') return;
-            console.log(request.method());
             if (requestBody === null) return;
-            console.log(requestBody.toString());
             resolve(requestBody);
           }
         });
@@ -65,22 +72,30 @@ describe(`Profile updating`, () => {
       if (response) console.log(response);
       await wallet.page.close();
       await demo.page.bringToFront();
-      const [page] = await Promise.all([
-        browser.context.waitForEvent('page'),
-        demo.page.click('text=Profile'),
-        demo.page.click(createTestSelector(ProfileUpdatingSelectors.BtnUpdateProfile)),
-      ]);
-      profileUpdatingPage = new ProfileUpdatingPage(page);
+      await demo.page.click('text=Profile');
     });
 
     it('should show profile details', async () => {
+      await clickBtn(ProfileTabSelectors.BtnUpdateValidProfile);
+
       const name = await profileUpdatingPage.page.textContent(
         createTestSelector(ProfileUpdatingSelectors.ProfileName)
       );
       expect(name).toContain('Name ');
     });
 
+    it('should show an error for invalid profile', async () => {
+      await clickBtn(ProfileTabSelectors.BtnUpdateInvalidProfile);
+
+      const error = await profileUpdatingPage.waitForError(
+        'Invalid profile update request (Profile must follow Person schema).'
+      );
+      expect(error).toBeTruthy();
+    });
+
     it('should send a signed profile token to gaia', async () => {
+      await clickBtn(ProfileTabSelectors.BtnUpdateValidProfile);
+
       const [gaiaRequestBody] = await Promise.all([
         interceptGaiaRequest(profileUpdatingPage.page),
         profileUpdatingPage.page
@@ -88,14 +103,12 @@ describe(`Profile updating`, () => {
           .click(),
       ]);
       const { decodedToken } = JSON.parse(gaiaRequestBody.toString())[0];
-      console.log(decodedToken);
+      console.log(decodedToken.payload);
       expect(decodedToken?.header?.alg).toEqual('ES256K');
       expect(decodedToken?.payload?.claim?.name).toContain('Name ');
-      
-      expect(decodedToken?.payload?.claim?.avatarUrl).toEqual(
+      expect(decodedToken?.payload?.claim?.image?.[0]?.contentUrl).toEqual(
         "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100' width='100'%3E%3Ccircle cx='50' cy='50' r='40' fill='red' /%3E%3C/svg%3E"
       );
-      
     });
   });
 });

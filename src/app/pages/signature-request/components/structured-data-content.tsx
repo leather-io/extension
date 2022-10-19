@@ -2,8 +2,8 @@ import { getStructuredDataPayloadFromToken } from '@app/common/signature/request
 import { SignatureMessageType } from '@shared/signature/types';
 import { ChainID } from '@stacks/common';
 
+import { NetworkRow } from '@app/components/network-row';
 import { Disclaimer } from './message-signing-disclaimer';
-import { NetworkRow } from './network-row';
 import { SignAction } from './sign-action';
 import { StructuredDataBox } from './structured-data-box';
 

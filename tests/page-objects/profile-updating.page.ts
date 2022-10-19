@@ -1,6 +1,6 @@
+import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
 import { Page } from 'playwright-core';
 import { createTestSelector } from '../integration/utils';
-import { ProfileUpdatingSelectors } from '../integration/profile/profile-updating.selector';
 
 const selectors = {
   //$pageContainer: createTestSelector(ProfileUpdatingSelectors.ProfileUpdaterPageContainer),
@@ -18,5 +18,9 @@ export class ProfileUpdatingPage {
 
   async clickUpdateProfileButton() {
     return this.page.click(selectors.$updateProfileBtn);
+  }
+
+  async waitForError(msg: string) {
+    return this.page.waitForSelector(`text=${msg}`);
   }
 }

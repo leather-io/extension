@@ -1,9 +1,9 @@
 import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
+import { NetworkRow } from '@app/components/network-row';
 import { SignatureMessageType } from '@shared/signature/types';
 import { ChainID } from '@stacks/common';
 import { MessageBox } from './message-box';
 import { Disclaimer } from './message-signing-disclaimer';
-import { NetworkRow } from './network-row';
 import { SignAction } from './sign-action';
 
 interface SignatureRequestMessageContentProps {

@@ -36,6 +36,6 @@ export function useProfileUpdateRequestSearchParams() {
       tabId: tabId || 1,
       requestToken,
     }),
-    [origin, searchParams, tabId]
+    [origin, requestToken, tabId]
   );
 }

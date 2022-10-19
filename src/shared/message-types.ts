@@ -1,8 +1,4 @@
-import {
-  FinishedTxPayload,
-  SignatureData,
-  SponsoredFinishedTxPayload,
-} from '@stacks/connect';
+import { FinishedTxPayload, SignatureData, SponsoredFinishedTxPayload } from '@stacks/connect';
 import { Profile } from '@stacks/profile';
 
 export const MESSAGE_SOURCE = 'stacks-wallet' as const;

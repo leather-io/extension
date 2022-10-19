@@ -15,16 +15,19 @@ import { ProfileUpdateRequestLayout } from './components/update-profile-request.
 
 function ProfileUpdateRequestBase() {
   const validProfileUpdateRequest = useIsProfileUpdateRequestValid();
-  let { requestToken } = useProfileUpdateRequestSearchParams();
+  const { requestToken } = useProfileUpdateRequestSearchParams();
 
   useRouteHeader(<PopupHeader />);
 
   useOnOriginTabClose(() => window.close());
-
-  if (isUndefined(validProfileUpdateRequest) || !requestToken)
+  if (isUndefined(validProfileUpdateRequest) || !validProfileUpdateRequest || !requestToken)
     return (
       <ProfileUpdateRequestLayout>
-        <ErrorMessage errorMessage="Invalid profile update request" />
+        <ErrorMessage
+          errorMessage={`Invalid profile update request${
+            !validProfileUpdateRequest && ' (Profile must follow Person schema).'
+          }`}
+        />
       </ProfileUpdateRequestLayout>
     );
 

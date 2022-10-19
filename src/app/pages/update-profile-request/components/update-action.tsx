@@ -1,30 +1,29 @@
 import { useCallback, useState } from 'react';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { ProfileUpdaterPayload } from '@app/common/profiles/requests';
-import { delay } from '@app/common/utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
 import { useWalletState } from '@app/store/wallet/wallet.hooks';
 import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
 import { gaiaUrl } from '@shared/constants';
-import { PublicProfile } from '@shared/profiles/types';
-import { Person, Profile } from '@stacks/profile';
+import { Profile, PublicPersonProfile } from '@stacks/profile';
 import { createFetchFn } from '@stacks/network';
 import {
   DEFAULT_PROFILE,
   fetchAccountProfileUrl,
   fetchProfileFromUrl,
   signAndUploadProfile,
+  Profile as WalletSdkProfile,
 } from '@stacks/wallet-sdk';
 import { UpdateActionLayout } from './update-action.layout';
+import { ProfileUpdatePayload } from '@stacks/connect';
 
 function useUpdateProfileSoftwareWallet() {
   const account = useCurrentAccount();
   const wallet = useWalletState();
 
   return useCallback(
-    async (publicProfile: PublicProfile) => {
+    async (publicProfile: PublicPersonProfile) => {
       const fetchFn = createFetchFn();
 
       if (!account || account.type === 'ledger' || !wallet) return null;
@@ -38,10 +37,13 @@ function useUpdateProfileSoftwareWallet() {
       const profile = (await fetchProfileFromUrl(profileUrl, fetchFn)) || DEFAULT_PROFILE;
       const updatedProfile = {
         ...profile,
-        ...(publicProfile as unknown as Person).toJSON(),
+        ...(publicProfile as PublicPersonProfile),
+        // apps and appsMeta must not be overwritten by user
+        apps: profile.apps,
+        appsMeta: profile.appsMeta,
       };
       await signAndUploadProfile({
-        profile: updatedProfile,
+        profile: updatedProfile as unknown as WalletSdkProfile,
         account,
         gaiaHubUrl: gaiaUrl,
       });
@@ -51,8 +53,10 @@ function useUpdateProfileSoftwareWallet() {
   );
 }
 
-export function UpdateAction({ profileUpdaterPayload }: {
-  profileUpdaterPayload: ProfileUpdaterPayload;
+export function UpdateAction({
+  profileUpdaterPayload,
+}: {
+  profileUpdaterPayload: ProfileUpdatePayload;
 }): JSX.Element | null {
   const { profile: publicProfile } = profileUpdaterPayload;
 

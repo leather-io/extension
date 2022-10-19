@@ -122,7 +122,6 @@ document.addEventListener(DomEventName.structuredDataSignatureRequest, ((
 document.addEventListener(DomEventName.profileUpdateRequest, ((
   event: ProfileUpdateRequestEvent
 ) => {
-  console.log('domEvent', event);
   forwardDomEventToBackground({
     path: RouteUrls.ProfileUpdateRequest,
     payload: event.detail.profileUpdateRequest,

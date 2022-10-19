@@ -1,7 +1,8 @@
 import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 import { DisclaimerLayout } from '@app/components/disclaimer';
-import { NetworkRow } from '@app/pages/signature-request/components/network-row';
+import { NetworkRow } from '@app/components/network-row';
 import { ChainID } from '@stacks/common';
+import { Person } from '@stacks/profile';
 
 import { ProfileBox } from './profile-box';
 import { UpdateAction } from './update-action';
@@ -9,18 +10,16 @@ import { UpdateAction } from './update-action';
 interface ProfileDataContentProps {
   requestToken: string;
 }
-const DEFAULT_AVATAR_URL = 'https://github.com/stacks-network.png';
 
 export function ProfileDataContent(props: ProfileDataContentProps) {
   const { requestToken } = props;
   const profileUpdateRequest = getProfileDataContentFromToken(requestToken);
-  const name = profileUpdateRequest.profile.name();
-  const avatarUrl = profileUpdateRequest.profile.avatarUrl();
+  const person = new Person(profileUpdateRequest.profile);
   const { network } = profileUpdateRequest;
   const appName = profileUpdateRequest.appDetails?.name;
   return (
     <>
-      <ProfileBox name={name} imageUrl={avatarUrl ?? DEFAULT_AVATAR_URL} />
+      <ProfileBox profile={person} />
       <NetworkRow chainId={network?.chainId ?? ChainID.Testnet} />
       <UpdateAction profileUpdaterPayload={profileUpdateRequest} />
       <hr />

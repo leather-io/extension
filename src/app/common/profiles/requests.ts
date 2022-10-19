@@ -1,18 +1,17 @@
 import { decodeToken, TokenVerifier } from 'jsontokens';
 
 import { isString } from '@shared/utils';
-import { ProfileUpdatePayload, ProfileUpdateRequestOptions } from '@stacks/connect';
+import { ProfileUpdatePayload } from '@stacks/connect';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
 import { Person } from '@stacks/profile';
+import { valid } from 'chroma-js';
 
-export function getProfileDataContentFromToken(requestToken: string): ProfileUpdateRequestOptions {
+export function getProfileDataContentFromToken(requestToken: string): ProfileUpdatePayload {
   const token = decodeToken(requestToken);
   if (isString(token.payload)) throw new Error('error decoding json token');
-  const person = new Person(token.payload.profile?.valueOf());
-  const result = { ...token.payload, profile: person };
-  return result;
+  return token.payload as unknown as ProfileUpdatePayload;
 }
 
 const UNAUTHORIZED_PROFILE_UPDATE_REQUEST =
@@ -51,7 +50,10 @@ export async function verifyProfileUpdateRequest({
 }: VerifyProfileUpdateRequestArgs): Promise<ProfileUpdatePayload> {
   const token = decodeToken(requestToken);
   const payload = token.payload as unknown as ProfileUpdatePayload;
-  // TODO Person.validateSchmea(payload.profile, false)
+  const validationResult = Person.validateSchema(payload.profile, false);
+  if (!validationResult.valid) {
+    throw new Error('Profile update payload not following PublicPersonProfile schema');
+  }
   const { publicKey, stxAddress } = payload as unknown as { publicKey: string; stxAddress: string };
   const verifier = new TokenVerifier('ES256k', publicKey);
   const isSigned = await verifier.verifyAsync(requestToken);
@@ -77,5 +79,5 @@ export async function verifyProfileUpdateRequest({
   if (!foundAccount) {
     throw new Error(UNAUTHORIZED_PROFILE_UPDATE_REQUEST);
   }
-  return payload as ProfileUpdatePayload;
+  return payload;
 }
