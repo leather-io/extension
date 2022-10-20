@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
 import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
@@ -13,11 +14,22 @@ import { PendingTransactionList } from './components/pending-transaction-list/pe
 import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
 
 export const ActivityList = () => {
-  const bitcoinTransactions = useGetBitcoinTransactionsByAddressQuery(BITCOIN_TEST_ADDRESS).data;
-  const stacksTransactionsWithTransfers =
-    useGetAccountTransactionsWithTransfersQuery().data?.results;
-  const stacksPendingTransactions = useStacksPendingTransactions();
+  const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
+    useGetBitcoinTransactionsByAddressQuery(BITCOIN_TEST_ADDRESS);
+  const {
+    isInitialLoading: isInitialLoadingStacksTransactions,
+    data: stacksTransactionsWithTransfers,
+  } = useGetAccountTransactionsWithTransfersQuery();
+  const {
+    query: { isInitialLoading: isInitialLoadingStacksPendingTransactions },
+    transactions: stacksPendingTransactions,
+  } = useStacksPendingTransactions();
   const submittedTransactions = useSubmittedTransactions();
+
+  const isInitialLoading =
+    isInitialLoadingBitcoinTransactions ||
+    isInitialLoadingStacksTransactions ||
+    isInitialLoadingStacksPendingTransactions;
 
   const bitcoinPendingTxs = useMemo(
     () => (bitcoinTransactions ?? []).filter(tx => !tx.status.confirmed),
@@ -28,7 +40,7 @@ export const ActivityList = () => {
     [bitcoinTransactions]
   );
   const transactionListStacksTxs = useMemo(
-    () => convertStacksTxsToListType(stacksTransactionsWithTransfers),
+    () => convertStacksTxsToListType(stacksTransactionsWithTransfers?.results),
     [stacksTransactionsWithTransfers]
   );
 
@@ -39,6 +51,8 @@ export const ActivityList = () => {
     transactionListBitcoinTxs.length > 0 || transactionListStacksTxs.length > 0;
 
   const hasTxs = hasSubmittedTransactions || hasPendingTransactions || hasTransactions;
+
+  if (isInitialLoading) return <LoadingSpinner />;
 
   if (!hasTxs) return <NoAccountActivity />;
 
