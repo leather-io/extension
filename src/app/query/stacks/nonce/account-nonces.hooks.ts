@@ -8,7 +8,7 @@ import { useStacksConfirmedTransactions } from '../transactions/transactions-wit
 export function useNextNonce() {
   const currentAccount = useCurrentAccount();
   const confirmedTransactions = useStacksConfirmedTransactions();
-  const pendingTransactions = useStacksPendingTransactions();
+  const { transactions: pendingTransactions } = useStacksPendingTransactions();
 
   const { data: addressNonces } = useGetAccountNonces();
 

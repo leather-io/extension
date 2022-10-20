@@ -11,7 +11,6 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       cacheTime: PERSISTENCE_CACHE_TIME,
-      notifyOnChangeProps: ['data', 'error'],
     },
   },
 });
