@@ -20,12 +20,10 @@ import { PageTitle } from '@app/components/page-title';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import SetPassword from '@assets/images/onboarding/set-password.png';
-import { HUMAN_REACTION_DEBOUNCE_TIME } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-
 import { PasswordField } from './components/password-field';
 
 interface SetPasswordFormValues {
@@ -105,7 +103,7 @@ export const SetPasswordPage = () => {
             void analytics.track('submit_invalid_password');
           }
           return result.meetsAllStrengthRequirements;
-        }, HUMAN_REACTION_DEBOUNCE_TIME) as unknown as yup.TestFunction<any, any>,
+        }, 60) as unknown as yup.TestFunction<any, any>,
       }),
   });
 
@@ -115,8 +113,9 @@ export const SetPasswordPage = () => {
         initialValues={setPasswordFormValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
-        validateOnBlur={true}
-        validateOnMount={true}
+        validateOnBlur
+        validateOnMount
+        validateOnChange
       >
         {({ dirty, isSubmitting, isValid }) => (
           <Form>

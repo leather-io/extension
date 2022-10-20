@@ -11,8 +11,6 @@ export const HIGH_FEE_AMOUNT_STX = 5;
 
 export const DEFAULT_FEE_RATE = 400;
 
-export const HUMAN_REACTION_DEBOUNCE_TIME = 200;
-
 export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
 
 export const BTC_DECIMALS = 8;
