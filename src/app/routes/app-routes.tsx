@@ -4,7 +4,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Container } from '@app/features/container/container';
-import { LoadingSpinner } from '@app/components/loading-spinner';
+import { FullPageWithHeaderLoadingSpinner, LoadingSpinner } from '@app/components/loading-spinner';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
@@ -137,7 +137,7 @@ export function AppRoutes() {
           path={RouteUrls.Send}
           element={
             <AccountGate>
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
                 <SendTokensForm />
               </Suspense>
             </AccountGate>
