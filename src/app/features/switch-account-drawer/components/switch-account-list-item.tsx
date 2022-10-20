@@ -10,20 +10,14 @@ import { AccountListItemLayout } from '../../../components/account/account-list-
 import { AccountAvatarItem } from './account-avatar';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { usePressable } from '@app/components/item-hover';
-import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
 
 interface AccountBalanceLabelProps {
   address: string;
 }
 const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
   const { data: balances } = useAddressBalances(address);
-  const stxMarketData = useStxMarketData();
-
   if (!balances) return null;
-
-  return (
-    <AccountBalanceCaption availableBalance={balances.availableStx} marketData={stxMarketData} />
-  );
+  return <AccountBalanceCaption availableBalance={balances.availableStx} />;
 });
 
 interface SwitchAccountListItemProps {
