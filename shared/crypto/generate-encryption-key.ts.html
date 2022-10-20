@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -77,25 +77,15 @@
 <a name='L12'></a><a href='#L12'>12</a>
 <a name='L13'></a><a href='#L13'>13</a>
 <a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L15'></a><a href='#L15'>15</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -103,20 +93,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createWorker, WorkerScript } from '../workers';
 &nbsp;
+const worker = <span class="cstat-no" title="statement not covered" >createWorker(WorkerScript.DecryptionWorker);</span>
 interface GenerateEncryptionKeyArgs {
   password: string;
   salt: string;
 }
 export async function <span class="fstat-no" title="function not covered" >generateEncryptionKey(</span>args: GenerateEncryptionKeyArgs): Promise&lt;string&gt; {
-  const worker = <span class="cstat-no" title="statement not covered" >createWorker(WorkerScript.DecryptionWorker);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    worker.addEventListener('message', <span class="fstat-no" title="function not covered" >(e</span>: MessageEvent&lt;string&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      worker.terminate();</span>
-<span class="cstat-no" title="statement not covered" >      resolve(e.data);</span>
-    });
-<span class="cstat-no" title="statement not covered" >    worker.addEventListener('error', <span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >reject(e))</span>;</span>
-<span class="cstat-no" title="statement not covered" >    worker.addEventListener('messageerror', <span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >reject(e))</span>;</span>
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >re</span>solve =&gt; {</span>
+    const handler = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>: MessageEvent&lt;string&gt;) =&gt; <span class="cstat-no" title="statement not covered" >resolve(e.data);</span></span>
+<span class="cstat-no" title="statement not covered" >    worker.addEventListener('message', handler);</span>
 <span class="cstat-no" title="statement not covered" >    worker.postMessage(args);</span>
   });
 }
@@ -127,7 +112,7 @@ export async function <span class="fstat-no" title="function not covered" >gener
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-18T13:07:20.255Z
+                at 2022-10-20T12:41:01.950Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

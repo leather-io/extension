@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -190,10 +190,7 @@
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L128'></a><a href='#L128'>128</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,8 +227,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -331,7 +327,7 @@ import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { AssetWithMeta } from '@app/common/asset-types';
 import { isEmpty, isUndefined } from '@shared/utils';
-import { isTxSponsored, SendFormValues } from '@app/common/transactions/transaction-utils';
+import { SendFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -342,7 +338,6 @@ import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
-import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { FeeEstimate } from '@shared/models/fees-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
@@ -359,10 +354,9 @@ export function <span class="fstat-no" title="function not covered" >SendFormInn
   const { assetError, feeEstimations, onAssetIdSelected, nonce } = <span class="cstat-no" title="statement not covered" >props;</span>
   const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
 <span class="cstat-no" title="statement not covered" >    useFormikContext&lt;SendFormValues&gt;();</span>
+&nbsp;
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
   const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset(values.assetId);</span>
-  const transaction = <span class="cstat-no" title="statement not covered" >useSendFormUnsignedTxPreviewState(values.assetId, values);</span>
-  const isSponsored = <span class="cstat-no" title="statement not covered" >transaction ? isTxSponsored(transaction) : false;</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
 &nbsp;
   const onSubmit = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
@@ -424,7 +418,7 @@ export function <span class="fstat-no" title="function not covered" >SendFormInn
           feeEstimations={feeEstimations}
           feeFieldName="fee"
           feeTypeFieldName="feeType"
-          isSponsored={isSponsored}
+          isSponsored={false}
         /&gt;
       ) : (
         &lt;LoadingRectangle height="32px" width="100%" /&gt;
@@ -457,7 +451,7 @@ export function <span class="fstat-no" title="function not covered" >SendFormInn
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-18T13:07:20.255Z
+                at 2022-10-20T12:41:01.950Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
