@@ -1,9 +1,7 @@
-import { Image } from '@app/components/image';
-import { Person, Profile } from '@stacks/profile';
+import { Caption } from '@app/components/typography';
+import { Profile } from '@stacks/profile';
 import { color, Stack, Text } from '@stacks/ui';
-import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
-
-const DEFAULT_AVATAR_URL = 'https://github.com/stacks-network.png';
+import React from 'react';
 
 function Value({ v }: { v: any }) {
   if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
@@ -34,7 +32,7 @@ function Properties({ p }: { p: any }) {
         .map(k => {
           return (
             <div key={k} style={{ textIndent: '-2em', marginLeft: '2em' }}>
-              <strong>{k}</strong> <Value v={p[k]} />
+              <span style={{ color: color('text-caption') }}>{k}:</span> <Value v={p[k]} />
             </div>
           );
         })}
@@ -61,27 +59,7 @@ export function ProfileBox({ profile }: { profile: Profile }): JSX.Element | nul
             backgroundColor={'white'}
           >
             <Stack spacing="base-tight">
-              {profile instanceof Person && (
-                <>
-                  <Text display="block" fontSize={2} lineHeight="1.6" wordBreak="break-all">
-                    <h2>
-                      <Text
-                        data-testid={ProfileUpdatingSelectors.ProfileName}
-                        color={color('text-caption')}
-                      >
-                        New details for {profile.name()}
-                      </Text>
-                    </h2>
-                    <hr style={{ marginTop: '5px', marginBottom: '5px' }} />
-                    {profile.avatarUrl() && (
-                      <Image src={profile.avatarUrl() || DEFAULT_AVATAR_URL} />
-                    )}
-                  </Text>
-                </>
-              )}
-              <>
-                <Properties p={profile._profile} />
-              </>
+              <Properties p={profile._profile} />
             </Stack>
           </Stack>
         </Stack>

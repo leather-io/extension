@@ -6,7 +6,6 @@ import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
 import { Person } from '@stacks/profile';
-import { valid } from 'chroma-js';
 
 export function getProfileDataContentFromToken(requestToken: string): ProfileUpdatePayload {
   const token = decodeToken(requestToken);

@@ -21,15 +21,25 @@ function PageTopBase() {
     network.chainId === ChainID.Testnet
       ? ` using ${getUrlHostname(network.url)}${addPortSuffix(network.url)}`
       : '';
-  const caption = appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;
-
+  const caption = appName
+    ? `Requested by "${appName}"${originAddition}${testnetAddition}`
+    : 'Request by an unknown app';
+  const avatarUrl = profileUpdaterPayload?.profile?.image?.[0]?.contentUrl;
   return (
-    <Stack pt="extra-loose" spacing="base">
-      <Title fontWeight="bold" as="h1">
-        Update Profile
-      </Title>
-      {caption && <Caption wordBreak="break-word">{caption}</Caption>}
-    </Stack>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Stack pt="extra-loose" spacing="base">
+        <Title fontWeight="bold" as="h1">
+          Update Profile
+        </Title>
+        {caption && <Caption wordBreak="break-word">{caption}</Caption>}
+      </Stack>
+      {avatarUrl && (
+        <img
+          style={{ borderRadius: '100%', width: '50px', height: '50px', alignItems: 'center' }}
+          src={avatarUrl}
+        />
+      )}
+    </div>
   );
 }
 
