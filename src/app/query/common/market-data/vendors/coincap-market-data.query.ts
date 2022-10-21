@@ -5,6 +5,7 @@ import { marketDataQueryOptions } from '../market-data.query';
 import { logAndThrow } from '@app/common/utils';
 
 const currencyNameMap: Record<CryptoCurrencies, string> = {
+  BTC: 'bitcoin',
   STX: 'stacks',
 };
 

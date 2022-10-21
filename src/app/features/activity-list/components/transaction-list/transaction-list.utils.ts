@@ -7,13 +7,12 @@ import {
   TransactionListTxs,
 } from '@app/features/activity-list/components/transaction-list/transaction-list.model';
 import { isUndefined } from '@shared/utils';
-import { WalletBlockchains } from '@shared/models/blockchain.model';
 
 export function getTransactionId(listTx: TransactionListTxs) {
   switch (listTx.blockchain) {
-    case WalletBlockchains.bitcoin:
+    case 'bitcoin':
       return listTx.transaction.txid;
-    case WalletBlockchains.stacks:
+    case 'stacks':
       return listTx.transaction.tx.tx_id;
     default:
       return undefined;
@@ -22,10 +21,10 @@ export function getTransactionId(listTx: TransactionListTxs) {
 
 function getTransactionTime(listTx: TransactionListTxs) {
   switch (listTx.blockchain) {
-    case WalletBlockchains.bitcoin:
+    case 'bitcoin':
       if (!listTx.transaction.status.block_time) return;
       return dayjs.unix(listTx.transaction.status.block_time).format();
-    case WalletBlockchains.stacks:
+    case 'stacks':
       return (
         listTx.transaction.tx.burn_block_time_iso ||
         listTx.transaction.tx.parent_burn_block_time_iso

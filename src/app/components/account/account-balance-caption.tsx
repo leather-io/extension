@@ -4,8 +4,8 @@ import { color, useMediaQuery } from '@stacks/ui';
 import { stacksValue } from '@app/common/stacks-utils';
 import { Caption, Text } from '@app/components/typography';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { Money } from '@shared/models/money.model';
-import { MarketData } from '@shared/models/market.model';
+import type { Money } from '@shared/models/money.model';
+import type { MarketData } from '@shared/models/market.model';
 import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
 
 interface AccountBalanceCaptionProps {

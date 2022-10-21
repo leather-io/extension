@@ -1,21 +1,25 @@
 import { forwardRef } from 'react';
 import { Fade, color, Stack, StackProps } from '@stacks/ui';
 
-import { AssetRow } from '@app/components/asset-row';
-import { AssetWithMeta } from '@app/common/asset-types';
+import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
+import { CryptoCurrencyAsset } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset';
+import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import type {
+  StacksCryptoCurrencyAssetBalance,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
 
 interface AssetSearchResultsProps extends StackProps {
-  assets: AssetWithMeta[];
+  assetBalances: (StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance)[];
   getItemProps: any;
   hasStxBalance: boolean;
   highlightedIndex: number;
   isOpen: boolean;
 }
-
 export const AssetSearchResults = forwardRef(
   (
     {
-      assets,
+      assetBalances,
       getItemProps,
       hasStxBalance,
       highlightedIndex,
@@ -24,10 +28,9 @@ export const AssetSearchResults = forwardRef(
     }: AssetSearchResultsProps,
     ref
   ) => {
-    if (!assets) return null;
-
+    if (!assetBalances.length) return null;
     return (
-      <Fade in={isOpen && !!assets?.length}>
+      <Fade in={isOpen && !!assetBalances.length}>
         {styles => (
           <Stack
             flexDirection="column"
@@ -36,7 +39,7 @@ export const AssetSearchResults = forwardRef(
             position="absolute"
             width="100%"
             top="77px"
-            maxHeight="230px"
+            maxHeight="240px"
             border={isOpen ? '1px solid #E1E3E8' : 'none'}
             zIndex={1000}
             overflow="auto"
@@ -47,18 +50,33 @@ export const AssetSearchResults = forwardRef(
             ref={ref}
             {...props}
           >
-            {assets?.map((asset, index) => {
-              const isStx = asset.type === 'stx';
+            {assetBalances.map((assetBalance, index) => {
+              const isStx =
+                assetBalance.asset.blockchain === 'stacks' &&
+                assetBalance.asset.type === 'crypto-currency';
               if (isStx && !hasStxBalance) return null;
+              if (isStx)
+                return (
+                  <CryptoCurrencyAsset
+                    assetBalance={assetBalance}
+                    data-testid={assetBalance.asset.symbol}
+                    highlighted={highlightedIndex === index ? 'ink.150' : 'white'}
+                    icon={<StxAvatar />}
+                    index={index}
+                    isPressable
+                    key={`${assetBalance.asset.name}__${index}`}
+                    {...getItemProps({ item: assetBalance, index })}
+                  />
+                );
               return (
-                <AssetRow
-                  isPressable
-                  asset={asset}
-                  index={index}
-                  key={`${asset.contractAddress || asset.name}__${index}`}
-                  data-asset={isStx ? 'stx' : asset.meta?.symbol}
+                <StacksFungibleTokenAssetItem
+                  assetBalance={assetBalance}
+                  data-testid={assetBalance.asset.symbol}
                   highlighted={highlightedIndex === index ? 'ink.150' : 'white'}
-                  {...getItemProps({ item: asset, index })}
+                  index={index}
+                  isPressable
+                  key={`${assetBalance.asset.name}__${index}`}
+                  {...getItemProps({ item: assetBalance, index })}
                 />
               );
             })}

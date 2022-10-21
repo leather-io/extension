@@ -34,5 +34,5 @@ export function useGetTransactionFeeEstimationQuery(
     queryFn: fetchTransactionFeeEstimation,
     enabled: transactionPayload !== '',
     ...feeEstimationsQueryOptions,
-  }) as UseQueryResult<TransactionFeeEstimation, Error>;
+  }) as UseQueryResult<TransactionFeeEstimation>;
 }

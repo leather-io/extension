@@ -1,6 +1,5 @@
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import { WalletBlockchains } from '@shared/models/blockchain.model';
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import {
@@ -10,14 +9,14 @@ import {
 
 function createBitcoinTxTypeWrapper(tx: BitcoinTransaction): TransactionListBitcoinTx {
   return {
-    blockchain: WalletBlockchains.bitcoin,
+    blockchain: 'bitcoin',
     transaction: tx,
   };
 }
 
 function createStacksTxTypeWrapper(tx: AddressTransactionWithTransfers): TransactionListStacksTx {
   return {
-    blockchain: WalletBlockchains.stacks,
+    blockchain: 'stacks',
     transaction: tx,
   };
 }

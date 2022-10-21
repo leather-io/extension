@@ -9,8 +9,8 @@ import { pullContractIdFromIdentity } from '@app/common/utils';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
-import { AssetAvatar } from '@app/components/stx-avatar';
+import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import {
   FtTransfer,
   TxTransferDetails,
@@ -36,20 +36,20 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   if (typeof displayAmount === 'undefined') return null;
 
   const caption = getTxCaption(parentTx.tx) ?? '';
-  const ftImageCanonicalUri = imageCanonicalUriFromFtMetadata(assetMetadata);
+  const ftImageCanonicalUri =
+    assetMetadata && getImageCanonicalUri(assetMetadata.image_canonical_uri, assetMetadata.name);
   const icon = isOriginator ? FiArrowUp : FiArrowDown;
   const title = `${assetMetadata?.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
   const transferIcon = ftImageCanonicalUri ? (
-    <AssetAvatar
+    <StacksAssetAvatar
       size="36px"
       imageCanonicalUri={ftImageCanonicalUri}
       color="white"
-      gradientString={''}
-      useStx={false}
+      gradientString=""
     >
       {title}
-    </AssetAvatar>
+    </StacksAssetAvatar>
   ) : (
     <TxTransferIconWrapper icon={icon} />
   );

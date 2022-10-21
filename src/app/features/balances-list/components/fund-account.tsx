@@ -5,10 +5,10 @@ import NoFunds from '@assets/images/no-funds.png';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { SecondaryButton } from '@app/components/secondary-button';
 
-interface NoAssetProps extends FlexProps {
+interface FundAccountProps extends FlexProps {
   onFundAccount(): void;
 }
-export function NoAssets({ onFundAccount, ...props }: NoAssetProps) {
+export function FundAccount({ onFundAccount, ...props }: FundAccountProps) {
   return (
     <Flex
       alignItems="center"

@@ -6,7 +6,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 import { BtcIcon } from '@app/components/icons/btc-icon';
-import { WalletBlockchains } from '@shared/models/blockchain.model';
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 
 import { getBitcoinTxCaption, getBitcoinTxValue } from './bitcoin-transaction.utils';
@@ -29,7 +28,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   const openTxLink = () => {
     void analytics.track('view_bitcoin_transaction');
     handleOpenTxLink({
-      blockchain: WalletBlockchains.bitcoin,
+      blockchain: 'bitcoin',
       txid: transaction?.txid || '',
     });
   };

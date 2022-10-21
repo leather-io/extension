@@ -2,27 +2,31 @@ import { useRef } from 'react';
 import { useCombobox } from 'downshift';
 import { Box, Text, Flex, Input } from '@stacks/ui';
 
-import { AssetWithMeta } from '@app/common/asset-types';
+import type {
+  StacksCryptoCurrencyAssetBalance,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { AssetSearchResults } from './asset-search-results';
 
 interface AssetSearchFieldProps {
-  assets: AssetWithMeta[];
+  assetBalances: (StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance)[];
   autoFocus?: boolean;
   hasStxBalance: boolean;
   onInputValueChange(value: string | undefined): void;
   onSelectedItemChange(item: any): void;
   searchInput: string;
-  selectedAsset: AssetWithMeta;
+  selectedAssetBalance?: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance;
 }
 export const AssetSearchField = ({
-  assets,
+  assetBalances,
   autoFocus,
   hasStxBalance,
   onInputValueChange,
   onSelectedItemChange,
   searchInput,
-  selectedAsset,
+  selectedAssetBalance,
 }: AssetSearchFieldProps) => {
   const {
     isOpen,
@@ -34,13 +38,13 @@ export const AssetSearchField = ({
     getItemProps,
     openMenu,
   } = useCombobox({
-    items: assets,
+    items: assetBalances,
     initialIsOpen: true,
     inputValue: searchInput,
     defaultIsOpen: false,
-    selectedItem: selectedAsset as any,
+    selectedItem: selectedAssetBalance as any,
     itemToString: item => {
-      return item?.contractAddress || item?.name || '';
+      return item ? item.asset.name : '';
     },
     onInputValueChange: ({ inputValue }) => {
       onInputValueChange(inputValue);
@@ -71,22 +75,21 @@ export const AssetSearchField = ({
       <Box width="100%" {...getComboboxProps({ ref: comboRef })}>
         <Input
           autoFocus={autoFocus}
-          data-testid={`asset-select`}
+          data-testid={SendFormSelectors.AssetSelect}
           onFocus={() => openMenu()}
           placeholder="Search for an asset"
           width="100%"
           {...getInputProps()}
         />
+        <AssetSearchResults
+          assetBalances={assetBalances}
+          getItemProps={getItemProps}
+          hasStxBalance={hasStxBalance}
+          highlightedIndex={highlightedIndex}
+          isOpen={isOpen}
+          {...getMenuProps()}
+        />
       </Box>
-
-      <AssetSearchResults
-        assets={assets}
-        getItemProps={getItemProps}
-        hasStxBalance={hasStxBalance}
-        highlightedIndex={highlightedIndex}
-        isOpen={isOpen}
-        {...getMenuProps()}
-      />
     </Flex>
   );
 };

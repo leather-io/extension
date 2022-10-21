@@ -16,7 +16,7 @@ import { useCallback, useMemo } from 'react';
 import { SendFormErrorMessages } from '@app/common/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { isNumber } from '@shared/utils';
@@ -31,25 +31,21 @@ export const useSendFormValidation = ({
 }: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const { selectedAsset, balanceBigNumber } = useSelectedAsset(selectedAssetId);
+  const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const feeSchema = useFeeSchema();
-  const isSendingStx = selectedAsset?.type === 'stx';
 
-  // `selectedAsset` is in an atom's state, not the form, but we want to
-  // validate it at the same time, to call `setAssetError`. This is a dummy
-  // schema that we use to call this function at the same time as the rest
-  // of the form is validated
+  // TODO: Can this be removed?
   const selectedAssetSchema = useCallback(
     () =>
       yup.mixed().test(() => {
-        if (!selectedAsset) {
+        if (!selectedAssetBalance) {
           setAssetError(SendFormErrorMessages.MustSelectAsset);
         } else {
           setAssetError(undefined);
         }
-        return !!selectedAsset;
+        return !!selectedAssetBalance;
       }),
-    [selectedAsset, setAssetError]
+    [selectedAssetBalance, setAssetError]
   );
 
   const stxAmountFormSchema = useCallback(
@@ -71,25 +67,28 @@ export const useSendFormValidation = ({
       yup
         .number()
         .test((value: unknown, context) => {
-          if (!isNumber(value) || !selectedAsset || !selectedAsset.meta) return false;
-          if (!selectedAsset.meta.decimals && countDecimals(value) > 0)
+          if (!isNumber(value) || !selectedAssetBalance) return false;
+          const { symbol, decimals } = selectedAssetBalance.asset;
+          if (!decimals && countDecimals(value) > 0)
             return context.createError({
               message: SendFormErrorMessages.DoesNotSupportDecimals,
             });
-          if (countDecimals(value) > selectedAsset.meta.decimals) {
-            const { symbol, decimals } = selectedAsset.meta;
+          if (countDecimals(value) > decimals) {
             return context.createError({ message: formatPrecisionError(symbol, decimals) });
           }
           return true;
         })
         .test({
-          message: formatInsufficientBalanceError(balanceBigNumber, selectedAsset?.meta?.symbol),
+          message: formatInsufficientBalanceError(
+            selectedAssetBalance?.balance.amount,
+            selectedAssetBalance?.asset.symbol
+          ),
           test(value: unknown) {
-            if (!isNumber(value) || !balanceBigNumber) return false;
-            return new BigNumber(value).isLessThanOrEqualTo(balanceBigNumber);
+            if (!isNumber(value) || !selectedAssetBalance?.balance.amount) return false;
+            return new BigNumber(value).isLessThanOrEqualTo(selectedAssetBalance.balance.amount);
           },
         }),
-    [balanceBigNumber, selectedAsset]
+    [selectedAssetBalance]
   );
 
   const amountSchema = useCallback(
@@ -98,8 +97,8 @@ export const useSendFormValidation = ({
         .number()
         .required()
         .positive(SendFormErrorMessages.MustNotBeZero)
-        .concat(isSendingStx ? stxAmountFormSchema() : fungibleTokenSchema()),
-    [fungibleTokenSchema, isSendingStx, stxAmountFormSchema]
+        .concat(isStx ? stxAmountFormSchema() : fungibleTokenSchema()),
+    [fungibleTokenSchema, isStx, stxAmountFormSchema]
   );
 
   const recipientSchema = useCallback(

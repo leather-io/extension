@@ -17,7 +17,7 @@ import {
 import { EventCard } from '@app/components/event-card';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
-import { imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
+import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 
 interface FungiblePostConditionItemProps {
   isLast?: boolean;
@@ -33,7 +33,7 @@ function FungiblePostConditionItemSuspense(
   // Use token meta data if available
   const asset = useAssetFromFungiblePostCondition(pc);
   // find the correct asset
-  const imageCanonicalUri = imageCanonicalUriFromFtMetadata(asset);
+  const imageCanonicalUri = asset && getImageCanonicalUri(asset.image_canonical_uri, asset.name);
 
   const title = getPostConditionTitle(pc);
   const iconString = imageCanonicalUri ?? getIconStringFromPostCondition(pc);

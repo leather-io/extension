@@ -23,7 +23,6 @@ describe('Confirm transfer of tokens with decimals', () => {
     await walletPage.waitForSettingsButton();
     await walletPage.clickSettingsButton();
     await walletPage.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
-    // switch to account 2
     await walletPage.page.click(createTestSelector(`switch-account-item-1`));
     await walletPage.page.waitForTimeout(3000);
 
@@ -31,17 +30,6 @@ describe('Confirm transfer of tokens with decimals', () => {
     await walletPage.goToSendForm();
     sendForm = new SendPage(walletPage.page);
     await sendForm.waitForAmountField();
-
-    const isSelectedAsset = await sendForm.page.isVisible(
-      sendForm.getSelector('$selectedAssetOption')
-    );
-    if (isSelectedAsset) {
-      await sendForm.waitForSelectedAssetOption();
-      await sendForm.clickSelectedAsset();
-    } else {
-      await sendForm.waitForAssetSelect();
-      await sendForm.clickAssetSelect();
-    }
   }, BEFORE_EACH_TIMEOUT);
 
   afterEach(async () => {
