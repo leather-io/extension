@@ -1,8 +1,8 @@
 import { Stack, StackProps, Text } from '@stacks/ui';
 
-import { AssetAvatar } from '@app/components/stx-avatar';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { SpaceBetween } from '@app/components/space-between';
-import { isIconUrl } from '@app/common/token-utils';
+import { isValidUrl } from '@shared/utils/validate-url';
 
 interface AssetItemProps extends StackProps {
   iconString: string;
@@ -12,16 +12,16 @@ interface AssetItemProps extends StackProps {
 
 export function TxAssetItem(props: AssetItemProps): JSX.Element {
   const { iconString, amount, ticker, ...rest } = props;
-  const imageCanonicalUri = isIconUrl(iconString) ? iconString : undefined;
+  const imageCanonicalUri = isValidUrl(iconString) ? iconString : undefined;
 
   return (
     <SpaceBetween alignItems="center" flexGrow={1} width="100%" {...rest}>
       <Stack isInline>
-        <AssetAvatar
-          size="32px"
-          useStx={iconString === 'STX'}
+        <StacksAssetAvatar
           gradientString={iconString}
           imageCanonicalUri={imageCanonicalUri}
+          isStx={iconString === 'STX'}
+          size="32px"
         />
         <Text fontWeight="500" fontSize={4}>
           {ticker}

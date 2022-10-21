@@ -233,15 +233,15 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
 
 interface PostConditionsOptions {
   contractAddress: string;
+  contractAssetName: string;
   contractName: string;
-  assetName: string;
   stxAddress: string;
   amount: string | number;
 }
 export function makePostCondition(options: PostConditionsOptions): PostCondition {
-  const { contractAddress, contractName, assetName, stxAddress, amount } = options;
+  const { contractAddress, contractAssetName, contractName, stxAddress, amount } = options;
 
-  const assetInfo = createAssetInfo(contractAddress, contractName, assetName);
+  const assetInfo = createAssetInfo(contractAddress, contractName, contractAssetName);
   return makeStandardFungiblePostCondition(
     stxAddress,
     FungibleConditionCode.Equal,
@@ -279,7 +279,7 @@ function useUnsignedStacksTransaction(values: TransactionFormValues) {
 }
 
 function isSendingFormSendingStx(assetId: string) {
-  return assetId === '.::Stacks Token';
+  return assetId === '::stacks-token';
 }
 
 export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {

@@ -9,7 +9,6 @@ import { Tooltip } from '@app/components/tooltip';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { SubmittedTransactionIcon } from '@app/features/activity-list/components/submitted-transaction-list/submitted-transaction-icon';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
-import { WalletBlockchains } from '@shared/models/blockchain.model';
 
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';
 
@@ -41,7 +40,7 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
         isInline
         onClick={() =>
           handleOpenTxLink({
-            blockchain: WalletBlockchains.stacks,
+            blockchain: 'stacks',
             suffix: `&submitted=true`,
             txid: txId,
           })

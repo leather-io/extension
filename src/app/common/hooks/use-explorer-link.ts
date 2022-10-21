@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 
 import { makeTxExplorerLink } from '@app/common/utils';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { WalletChainTypes } from '@shared/models/blockchain.model';
+import type { Blockchains } from '@shared/models/blockchain.model';
 
 interface HandleOpenTxLinkArgs {
-  blockchain: WalletChainTypes;
+  blockchain: Blockchains;
   suffix?: string;
   txid: string;
 }

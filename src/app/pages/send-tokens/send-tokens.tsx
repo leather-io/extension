@@ -28,14 +28,12 @@ import {
 import { logger } from '@shared/logger';
 import { FeeType } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
-import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
 import { SendFormInner } from './components/send-form-inner';
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
-  const assets = useTransferableAssets();
   const { showEditNonce } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
@@ -90,8 +88,6 @@ function SendTokensFormBase() {
     },
     [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate]
   );
-
-  if (assets.length < 1) return null;
 
   const initialValues: SendFormValues = {
     assetId: '',

@@ -2,11 +2,14 @@ import { Suspense, useCallback } from 'react';
 import { useFormikContext } from 'formik';
 import { Box, Text, Stack } from '@stacks/ui';
 
-import { getFullyQualifiedAssetName } from '@app/common/utils';
+import { getFullyQualifiedStacksAssetName } from '@app/common/utils';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { AssetWithMeta } from '@app/common/asset-types';
+import type {
+  StacksCryptoCurrencyAssetBalance,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
 import { isEmpty, isUndefined } from '@shared/utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
@@ -15,13 +18,13 @@ import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full
 import { PrimaryButton } from '@app/components/primary-button';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { FeeEstimate } from '@shared/models/fees-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { SendFormValues } from '@shared/models/form.model';
+import type { SendFormValues } from '@shared/models/form.model';
 
 import { SendFormMemoWarning } from './memo-warning';
 
@@ -37,11 +40,11 @@ export function SendFormInner(props: SendFormInnerProps) {
     useFormikContext<SendFormValues>();
 
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
-  const { selectedAsset } = useSelectedAsset(values.assetId);
+  const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
   const analytics = useAnalytics();
 
   const onSubmit = useCallback(async () => {
-    if (selectedAsset && values.amount && values.recipient && values.fee) {
+    if (selectedAssetBalance && values.amount && values.recipient && values.fee) {
       // We need to check for errors here before we show the high fee confirmation
       const formErrors = await validateForm();
       if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
@@ -51,7 +54,7 @@ export function SendFormInner(props: SendFormInnerProps) {
     }
   }, [
     handleSubmit,
-    selectedAsset,
+    selectedAssetBalance,
     setShowHighFeeConfirmation,
     showHighFeeConfirmation,
     validateForm,
@@ -60,9 +63,11 @@ export function SendFormInner(props: SendFormInnerProps) {
     values.recipient,
   ]);
 
-  const onSelectAsset = (asset: AssetWithMeta) => {
+  const onSelectAssetBalance = (
+    assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
+  ) => {
     void analytics.track('select_asset_for_send');
-    const assetId = getFullyQualifiedAssetName(asset) || '';
+    const assetId = getFullyQualifiedStacksAssetName(assetBalance.asset);
     onAssetIdSelected(assetId);
     setValues({
       ...values,
@@ -77,8 +82,6 @@ export function SendFormInner(props: SendFormInnerProps) {
   const hasValues =
     values.amount && values.recipient !== '' && values.fee && !isUndefined(values.nonce);
 
-  const symbol = selectedAsset?.type === 'stx' ? 'STX' : selectedAsset?.meta?.symbol;
-
   return (
     <Stack
       maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
@@ -87,13 +90,15 @@ export function SendFormInner(props: SendFormInnerProps) {
       spacing="loose"
       width="100%"
     >
-      <AssetSearch onSelectAsset={onSelectAsset} />
+      <AssetSearch onSelectAssetBalance={onSelectAssetBalance} />
       <Suspense fallback={<></>}>
         <AmountField error={errors.amount} value={values.amount || 0} />
       </Suspense>
       <RecipientField error={errors.recipient} value={values.recipient} />
-      {selectedAsset?.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
-      {selectedAsset?.hasMemo && symbol && <SendFormMemoWarning symbol={symbol} />}
+      {selectedAssetBalance?.asset.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
+      {selectedAssetBalance?.asset.hasMemo && selectedAssetBalance?.asset.symbol && (
+        <SendFormMemoWarning symbol={selectedAssetBalance?.asset.symbol} />
+      )}
       {feeEstimations.length ? (
         <FeeRow
           feeEstimations={feeEstimations}

@@ -6,18 +6,17 @@ import type {
   AccountBalanceStxKeys,
   AccountStxBalanceBigNumber,
   AddressBalanceResponse,
-} from '@shared/models/account-types';
+} from '@shared/models/account.model';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
-import { transformAssets } from '@app/store/assets/utils';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { createMoney, Money } from '@shared/models/money.model';
 
 import {
   useGetAccountBalanceQuery,
   useGetAnchoredAccountBalanceListQuery,
   useGetAnchoredAccountBalanceQuery,
 } from './balance.query';
-import { createMoney, Money } from '@shared/models/money.model';
 
 function initAmountsAsMoney(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxMoney = Object.fromEntries(
@@ -54,20 +53,12 @@ export function useCurrentAccountUnanchoredBalances() {
   return useAddressBalances(account?.address || '');
 }
 
-export function useBaseAssetsUnanchored() {
-  const balances = useCurrentAccountUnanchoredBalances();
-  return useMemo(() => {
-    return transformAssets(balances.data);
-  }, [balances]);
-}
-
 function useAddressAnchoredBalances(address: string) {
-  const { data: balances } = useGetAnchoredAccountBalanceQuery(address, {
+  return useGetAnchoredAccountBalanceQuery(address, {
     select: (resp: AddressBalanceResponse) => initAmountsAsMoney(resp),
     retryOnMount: true,
     keepPreviousData: false,
   });
-  return balances;
 }
 
 export function useCurrentAccountAnchoredBalances() {
@@ -75,8 +66,8 @@ export function useCurrentAccountAnchoredBalances() {
   return useAddressAnchoredBalances(account?.address || '');
 }
 
-export function useAddressAnchoredAvailableStxBalance(address: string) {
-  const balances = useAddressAnchoredBalances(address);
+function useAddressAnchoredAvailableStxBalance(address: string) {
+  const { data: balances } = useAddressAnchoredBalances(address);
   return useMemo(() => {
     if (!balances) return new BigNumber(0);
     return balances.stx.balance.amount.minus(balances.stx.locked.amount);

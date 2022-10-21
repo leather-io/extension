@@ -1,5 +1,5 @@
 import { CryptoCurrencies, FiatCurrencies } from './currencies.model';
-import { Money } from './money.model';
+import type { Money } from './money.model';
 
 interface MarketPair {
   readonly base: CryptoCurrencies;

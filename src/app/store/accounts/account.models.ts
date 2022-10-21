@@ -1,5 +1,6 @@
-import { AccountBalanceStxKeys } from '@shared/models/account-types';
 import { Account } from '@stacks/wallet-sdk';
+
+import type { AccountBalanceStxKeys } from '@shared/models/account.model';
 
 // Extending the `Account` type from `@stacks/wallet-sdk`
 export type SoftwareWalletAccountWithAddress = Account & {

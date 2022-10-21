@@ -9,10 +9,12 @@ import {
 } from '@stacks/transactions';
 
 import { DefaultNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
-import { WalletBlockchains, WalletChainTypes } from '@shared/models/blockchain.model';
-
-import { AssetWithMeta } from './asset-types';
 import { logger } from '@shared/logger';
+import type { Blockchains } from '@shared/models/blockchain.model';
+import type {
+  StacksCryptoCurrencyAsset,
+  StacksFungibleTokenAsset,
+} from '@shared/models/crypto-asset.model';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -56,7 +58,7 @@ export function validateAndCleanRecoveryInput(value: string) {
 }
 
 interface MakeTxExplorerLinkArgs {
-  blockchain: WalletChainTypes;
+  blockchain: Blockchains;
   mode: NetworkModes;
   suffix?: string;
   txid: string;
@@ -68,11 +70,11 @@ export function makeTxExplorerLink({
   txid,
 }: MakeTxExplorerLinkArgs) {
   switch (blockchain) {
-    case WalletBlockchains.bitcoin:
+    case 'bitcoin':
       return `https://blockchain.com/btc${
         mode === DefaultNetworkModes.mainnet ? '' : `-${mode}`
       }/tx/${txid}`;
-    case WalletBlockchains.stacks:
+    case 'stacks':
       return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
     default:
       return '';
@@ -269,10 +271,13 @@ export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }
 
-export function getFullyQualifiedAssetName(asset?: AssetWithMeta) {
-  return asset
-    ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
-    : undefined;
+export function getFullyQualifiedStacksAssetName(
+  asset: StacksCryptoCurrencyAsset | StacksFungibleTokenAsset
+) {
+  if (asset.type === 'crypto-currency') return '::stacks-token';
+  return `${formatContractId(asset.contractAddress, asset.contractName)}::${
+    asset.contractAssetName
+  }`;
 }
 
 export function doesBrowserSupportWebUsbApi() {

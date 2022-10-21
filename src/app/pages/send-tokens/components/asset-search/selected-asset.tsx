@@ -3,7 +3,7 @@ import { useField } from 'formik';
 import { Text, Stack, StackProps } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 
 import { SelectedAssetItem } from './selected-asset-item';
 
@@ -13,9 +13,7 @@ interface SelectedAssetProps extends StackProps {
 }
 export const SelectedAsset = memo(({ hideArrow, onClearSearch, ...rest }: SelectedAssetProps) => {
   const [field] = useField('assetId');
-  const { balance, selectedAsset, ticker } = useSelectedAsset(field.value);
-
-  if (!selectedAsset) return null;
+  const { balance, ticker } = useSelectedAssetBalance(field.value);
 
   return (
     <Stack spacing="base-loose" flexDirection="column" {...rest}>

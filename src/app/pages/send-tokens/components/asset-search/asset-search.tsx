@@ -2,34 +2,44 @@ import { memo, useEffect, useState } from 'react';
 import { useField } from 'formik';
 import { Box, color, Stack } from '@stacks/ui';
 
-import { AssetWithMeta } from '@app/common/asset-types';
-import { useTransferableAssets } from '@app/store/assets/asset.hooks';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import {
+  useStacksCryptoCurrencyAssetBalance,
+  useTransferableStacksFungibleTokenAssetBalances,
+} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import type {
+  StacksCryptoCurrencyAssetBalance,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
 
 import { AssetSearchField } from './asset-search-field';
 import { SelectedAsset } from './selected-asset';
 
-function principalHasOnlyOneAsset(assets: AssetWithMeta[]) {
-  return assets.length === 1;
+function principalHasNoFungibleTokenAssets(assets: StacksFungibleTokenAssetBalance[]) {
+  return assets.length === 0;
 }
 
 interface AssetSearchProps {
   autoFocus?: boolean;
-  onSelectAsset(asset: AssetWithMeta): void;
+  onSelectAssetBalance(
+    assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
+  ): void;
 }
 export const AssetSearch: React.FC<AssetSearchProps> = memo(
-  ({ autoFocus, onSelectAsset, ...rest }) => {
+  ({ autoFocus, onSelectAssetBalance, ...rest }) => {
     const [field, _, helpers] = useField('assetId');
-    const assets = useTransferableAssets();
+    const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance();
+    const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances();
+    const allAssetBalances = [stxCryptoCurrencyAssetBalance, ...stacksFtAssetBalances];
     const availableStxBalance = useCurrentAccountAvailableStxBalance();
-    const { selectedAsset } = useSelectedAsset(field.value);
+    const { selectedAssetBalance } = useSelectedAssetBalance(field.value);
     const [searchInput, setSearchInput] = useState<string>('');
-    const [assetItems, setAssetItems] = useState(assets);
+    const [assetBalanceItems, setAssetBalanceItems] = useState(allAssetBalances);
 
     useEffect(() => {
-      if (principalHasOnlyOneAsset(assets ?? [])) {
-        onSelectAsset(assets[0]);
+      if (principalHasNoFungibleTokenAssets(stacksFtAssetBalances)) {
+        onSelectAssetBalance(allAssetBalances[0]);
       }
       return () => onClearSearch();
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,20 +47,24 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
 
     const onClearSearch = () => {
       setSearchInput('');
-      setAssetItems(assets);
+      setAssetBalanceItems(allAssetBalances);
       helpers.setValue('');
     };
 
     const onInputValueChange = (value: string | undefined) => {
       if (!value) {
-        setSearchInput('');
+        onClearSearch();
         return;
       }
       setSearchInput(value);
-      setAssetItems(assets.filter(asset => asset.name.toLowerCase().includes(value.toLowerCase())));
+      setAssetBalanceItems(
+        allAssetBalances.filter(assetBalance =>
+          assetBalance.asset.name.toLowerCase().includes(value.toLowerCase())
+        )
+      );
     };
 
-    if (!assets) {
+    if (!allAssetBalances.length) {
       return (
         <Stack spacing="tight" {...rest}>
           <Box height="16px" width="68px" bg={color('bg-4')} borderRadius="8px" />
@@ -62,7 +76,7 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
     if (field.value) {
       return (
         <SelectedAsset
-          hideArrow={principalHasOnlyOneAsset(assets ?? [])}
+          hideArrow={principalHasNoFungibleTokenAssets(stacksFtAssetBalances)}
           onClearSearch={onClearSearch}
           {...rest}
         />
@@ -71,13 +85,13 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
 
     return (
       <AssetSearchField
-        assets={assetItems}
+        assetBalances={assetBalanceItems}
         autoFocus={autoFocus}
         hasStxBalance={!!availableStxBalance}
         onInputValueChange={onInputValueChange}
-        onSelectedItemChange={onSelectAsset}
+        onSelectedItemChange={onSelectAssetBalance}
         searchInput={searchInput}
-        selectedAsset={selectedAsset}
+        selectedAssetBalance={selectedAssetBalance}
         {...rest}
       />
     );

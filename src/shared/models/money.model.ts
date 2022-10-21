@@ -1,7 +1,9 @@
-import { STX_DECIMALS } from '@shared/constants';
-import { isUndefined } from '@shared/utils';
 import BigNumber from 'bignumber.js';
-import { Currencies } from './currencies.model';
+
+import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
+import { isUndefined } from '@shared/utils';
+
+import type { Currencies } from './currencies.model';
 
 type NumType = BigNumber | number;
 
@@ -14,6 +16,7 @@ export interface Money {
 // Units of `Money` should be declared in their smallest unit. Similar to
 // Rosetta, we model currencies with their respective resolution
 export const currencydecimalsMap: Record<Currencies, number> = {
+  BTC: BTC_DECIMALS,
   STX: STX_DECIMALS,
   USD: 2,
 };

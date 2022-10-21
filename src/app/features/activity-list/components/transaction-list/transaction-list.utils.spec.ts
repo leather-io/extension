@@ -1,14 +1,12 @@
 import dayjs from 'dayjs';
 import { AddressTransactionWithTransfers, Transaction } from '@stacks/stacks-blockchain-api-types';
 
-import { WalletBlockchains } from '@shared/models/blockchain.model';
-
 import { createTxDateFormatList } from './transaction-list.utils';
 import { TransactionListBitcoinTx, TransactionListStacksTx } from './transaction-list.model';
 
 function createFakeTx(tx: Partial<Transaction>) {
   return {
-    blockchain: WalletBlockchains.stacks,
+    blockchain: 'stacks',
     transaction: {
       tx: {
         tx_id: '0x56c6381874c8f6b152c8815d950764b8759b97660fdc50091f3c1368d7f1c514',
@@ -22,7 +20,7 @@ function createFakeTx(tx: Partial<Transaction>) {
 describe(createTxDateFormatList.name, () => {
   test('grouping by date', () => {
     const mockBitcoinTx = {
-      blockchain: WalletBlockchains.bitcoin,
+      blockchain: 'bitcoin',
       transaction: { status: { confirmed: true, block_time: 666020884 } },
     } as TransactionListBitcoinTx;
     const mockStacksTx = createFakeTx({
@@ -40,7 +38,7 @@ describe(createTxDateFormatList.name, () => {
   test('relative dates todays date', () => {
     const today = new Date().toISOString();
     const mockBitcoinTx = {
-      blockchain: WalletBlockchains.bitcoin,
+      blockchain: 'bitcoin',
       transaction: { status: { confirmed: true, block_time: dayjs().unix() } },
     } as TransactionListBitcoinTx;
     const mockStacksTx = createFakeTx({ burn_block_time_iso: today });
@@ -53,7 +51,7 @@ describe(createTxDateFormatList.name, () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const mockBitcoinTx = {
-      blockchain: WalletBlockchains.bitcoin,
+      blockchain: 'bitcoin',
       transaction: { status: { confirmed: true, block_time: dayjs().subtract(1, 'day').unix() } },
     } as TransactionListBitcoinTx;
     const mockStacksTx = createFakeTx({ burn_block_time_iso: yesterday.toISOString() });
