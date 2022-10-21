@@ -13,7 +13,7 @@ import {
   getPostConditionCodeMessage,
   getPostConditionTitle,
   getSymbolFromPostCondition,
-} from '@app/common/transactions/post-condition-utils';
+} from '@app/common/transactions/stacks/post-condition.utils';
 import { EventCard } from '@app/components/event-card';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';

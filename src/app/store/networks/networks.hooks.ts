@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
 
-import { whenChainId } from '@app/common/utils';
+import { whenStxChainId } from '@app/common/utils';
 import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 import { DefaultNetworkModes, NetworkConfiguration } from '@shared/constants';
 import { useAppDispatch } from '@app/store';
@@ -27,7 +27,7 @@ export function useCurrentStacksNetworkState(): StacksNetwork {
   return useMemo(() => {
     if (!currentNetwork) throw new Error('No current network');
 
-    const stacksNetwork = whenChainId(currentNetwork.chainId || 1)({
+    const stacksNetwork = whenStxChainId(currentNetwork.chainId || 1)({
       [ChainID.Mainnet]: new StacksMainnet({ url: currentNetwork.url }),
       [ChainID.Testnet]: new StacksTestnet({ url: currentNetwork.url }),
     });

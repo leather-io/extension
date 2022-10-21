@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 import BN from 'bn.js';
 import toast from 'react-hot-toast';
+import { bytesToHex } from '@stacks/common';
 import {
   createAssetInfo,
   createStacksPrivateKey,
@@ -15,8 +16,8 @@ import {
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { stxToMicroStx } from '@app/common/stacks-utils';
-import { broadcastTransaction } from '@app/common/transactions/broadcast-transaction';
-import { SendFormValues, TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { broadcastTransaction } from '@app/common/transactions/stacks/broadcast-transaction';
+import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
 import {
   useStxTokenTransferUnsignedTxState,
   useFtTokenTransferUnsignedTx,
@@ -29,7 +30,7 @@ import { validateStacksAddress } from '@app/common/stacks-utils';
 import {
   generateUnsignedTransaction,
   GenerateUnsignedTransactionOptions,
-} from '@app/common/transactions/generate-unsigned-txs';
+} from '@app/common/transactions/stacks/generate-unsigned-txs';
 import {
   useCurrentAccount,
   useCurrentAccountStxAddressState,
@@ -46,7 +47,6 @@ import { isUndefined } from '@shared/utils';
 import { prepareTxDetailsForBroadcast } from './transaction';
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
-import { bytesToHex } from '@stacks/common';
 
 export function useTransactionPostConditions() {
   return usePostConditionState();
