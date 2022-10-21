@@ -5,6 +5,8 @@ import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.ho
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
+import { useHiroApiRateLimiter } from '../rate-limiter';
+
 const accountNoncesQueryOptions: UseQueryOptions = {
   refetchOnMount: 'always',
   refetchOnReconnect: 'always',
@@ -15,9 +17,11 @@ export function useGetAccountNonces() {
   const principal = useCurrentAccountStxAddressState();
   const network = useCurrentNetworkState();
   const { accountsApi } = useStacksClientUnanchored();
+  const limiter = useHiroApiRateLimiter();
 
-  const fetchAccountNonces = () => {
+  const fetchAccountNonces = async () => {
     if (!principal) return;
+    await limiter.removeTokens(1);
     return accountsApi.getAccountNonces({
       principal,
     }) as Promise<AddressNonces>;

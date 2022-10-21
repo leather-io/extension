@@ -6,6 +6,8 @@ import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
+import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+
 const staleTime = 15 * 60 * 1000; // 15 min
 
 const queryOptions = {
@@ -13,9 +15,10 @@ const queryOptions = {
   staleTime,
 } as const;
 
-function fetchNonFungibleTokenHoldings(client: StacksClient) {
-  return (address?: string) => {
+function fetchNonFungibleTokenHoldings(client: StacksClient, limiter: RateLimiter) {
+  return async (address?: string) => {
     if (!address) return;
+    await limiter.removeTokens(1);
     return client.nonFungibleTokensApi.getNftHoldings({ principal: address, limit: 50 });
   };
 }
@@ -29,10 +32,11 @@ export function useGetNonFungibleTokenHoldingsQuery<
 >(address?: string, options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>) {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
+  const limiter = useHiroApiRateLimiter();
 
   return useQuery({
     queryKey: ['get-nft-holdings', address, network.chain.stacks.url],
-    queryFn: () => fetchNonFungibleTokenHoldings(client)(address),
+    queryFn: () => fetchNonFungibleTokenHoldings(client, limiter)(address),
     ...queryOptions,
     ...options,
   });
@@ -46,11 +50,12 @@ export function useGetNonFungibleTokenHoldingsListQuery<
 ) {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
+  const limiter = useHiroApiRateLimiter();
 
   return useQueries({
     queries: (accounts ?? []).map(account => ({
       queryKey: ['get-nft-holdings', account.address, network.chain.stacks.url],
-      queryFn: () => fetchNonFungibleTokenHoldings(client)(account.address),
+      queryFn: () => fetchNonFungibleTokenHoldings(client, limiter)(account.address),
       ...queryOptions,
       ...options,
     })),

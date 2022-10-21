@@ -5,19 +5,22 @@ import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-
 
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
+import { useHiroApiRateLimiter } from '../rate-limiter';
+
 export function useGetContractInterface(transactionRequest: ContractCallPayload | null) {
   const { smartContractsApi } = useStacksClientUnanchored();
+  const limiter = useHiroApiRateLimiter();
 
-  const fetchContractInterface = () => {
+  async function fetchContractInterface() {
     if (!transactionRequest || transactionRequest?.txType !== TransactionTypes.ContractCall) return;
     const contractAddress = transactionRequest.contractAddress;
     const contractName = transactionRequest.contractName;
-
+    await limiter.removeTokens(1);
     return smartContractsApi.getContractInterface({
       contractAddress,
       contractName,
     }) as unknown as Promise<ContractInterfaceResponseWithFunctions>;
-  };
+  }
 
   return useQuery({
     enabled: !!transactionRequest,

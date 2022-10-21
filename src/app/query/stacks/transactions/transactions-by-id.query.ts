@@ -3,10 +3,14 @@ import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
+import { useHiroApiRateLimiter } from '../rate-limiter';
+
 export function useTransactionsById(txids: string[]) {
   const client = useStacksClientUnanchored();
+  const limiter = useHiroApiRateLimiter();
 
-  function transactionByIdFetcher(txId: string) {
+  async function transactionByIdFetcher(txId: string) {
+    await limiter.removeTokens(1);
     return client.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction;
   }
 
@@ -22,8 +26,9 @@ export function useTransactionsById(txids: string[]) {
 
 export function useTransactionById(txid: string) {
   const client = useStacksClientUnanchored();
-
-  function transactionByIdFetcher(txId: string) {
+  const limiter = useHiroApiRateLimiter();
+  async function transactionByIdFetcher(txId: string) {
+    await limiter.removeTokens(1);
     return client.transactionsApi.getTransactionById({ txId }) as unknown as
       | Transaction
       | MempoolTransaction;
