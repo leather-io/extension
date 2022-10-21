@@ -5537,45 +5537,45 @@
   dependencies:
     remove-accents "0.4.2"
 
-"@tanstack/query-core@4.10.1":
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.10.1.tgz#a587e39c28a905168bdf8a3906e36715c30ec083"
-  integrity sha512-UZRYzjgQSfYhQ+cJX0CspAbzutf8p93gR1xFjQuH3OYcb/7t3WnHkdb/qC9mbqrfWXN/JAbBTJlTU/XQHc5HbA==
+"@tanstack/query-core@4.13.0":
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.13.0.tgz#89153096d1fce42c0294fa1d1ae4b3e72aa5353b"
+  integrity sha512-PzmLQcEgC4rl2OzkiPHYPC9O79DFcMGaKsOzDEP+U4PJ+tbkcEP+Z+FQDlfvX8mCwYC7UNH7hXrQ5EdkGlJjVg==
 
-"@tanstack/query-persist-client-core@4.10.1":
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-persist-client-core/-/query-persist-client-core-4.10.1.tgz#20845471e70806aaf3dd176b0d0ba314727ec9ec"
-  integrity sha512-WVU3Iz396SS1Kc/DJxLrtNMxobV/5u5ej96zXZFZ6y25Z4S0NXvqvXx/DC/hfPXkOkq7l6O6AQ9O4zmvRdEsfA==
+"@tanstack/query-persist-client-core@4.13.0":
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-persist-client-core/-/query-persist-client-core-4.13.0.tgz#22b112a6d90bd8dcccd3f72e38272d661cb19f4b"
+  integrity sha512-ZWm0BKpfgaHDj3/3yhEi9EeZAEg/6zLiq8H52H9lg/nUHhVtHVUznWz5WDKNwR09I/wQ6+NE4eZRzfWYPztNbA==
 
-"@tanstack/query-sync-storage-persister@4.10.1":
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-sync-storage-persister/-/query-sync-storage-persister-4.10.1.tgz#16cf7806b4c7809c2545b41d82854d570fce8fc3"
-  integrity sha512-Qe5fnnP+wUf2FEIk9EOXD6uOZ49Mo6tNykPXuyMkx4aq6KYkxUb8SS3AgIcjJKb0VPlMixdrJqpM0YHig7Ho5g==
+"@tanstack/query-sync-storage-persister@4.13.0":
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-sync-storage-persister/-/query-sync-storage-persister-4.13.0.tgz#cbc309f6d602f38ba75df606c3b7569f37a3ebde"
+  integrity sha512-/mhwrQEXYyeteTqweZiIiQfn5ne1oIF5dEwGNR6NY9aAa1HyWBqy2o18vgcECyNBqVjctEXTtbypZv2+2Uvx5A==
   dependencies:
-    "@tanstack/query-persist-client-core" "4.10.1"
+    "@tanstack/query-persist-client-core" "4.13.0"
 
-"@tanstack/react-query-devtools@4.10.1":
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-4.10.1.tgz#6b1d9d5e15cb44048f9ed9b4e64a4df4cac76ab2"
-  integrity sha512-aPsFBr9zbylnQxQoCNzPF1teN+NVGdeU1xQO515FM3gq6uISUWbqirVj/mE6HHJJpH/zi0j6HD1StD5h1XdNmg==
+"@tanstack/react-query-devtools@4.13.0":
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-4.13.0.tgz#d3827cdcf770dd8b9f560196a86975477edc0fe5"
+  integrity sha512-Gv33auVlcUMrnj5qXJuhhTJtBs8bKp7v3TFRysnS+VlLOmdj9gwl5bc0e0/URL7m+PQoR1Rr55yzQ5bmZcWm1g==
   dependencies:
     "@tanstack/match-sorter-utils" "^8.1.1"
     superjson "^1.10.0"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-query-persist-client@4.10.1":
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-4.10.1.tgz#0b4ac7ffbc3dfacd0463b3c187de52b337b8d882"
-  integrity sha512-YZRwtTmesSsCQ7/XSV3LjPfHf1idq7TKHOeZSQdGUlWwrc4OAiFmvjDuRo4Nt5AQOK2glIgnsacgHp9ORvxaQw==
+"@tanstack/react-query-persist-client@4.13.0":
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-4.13.0.tgz#022a42243cb7e3484775e43747f9aa22ae1ce3e1"
+  integrity sha512-jzCFGi5PZVIPJ+6R3dko20iYRutpFjgn34PvwbvnJsAjIeZywU9wmFj0+V1tpUfyVxLCe/ZaII/o9OzwG3qHjQ==
   dependencies:
-    "@tanstack/query-persist-client-core" "4.10.1"
+    "@tanstack/query-persist-client-core" "4.13.0"
 
-"@tanstack/react-query@4.10.1":
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.10.1.tgz#baab36cf41362ed75a00ef0aa31e96e20a065124"
-  integrity sha512-6GaLYAsAu/4aX6HR4krpOej9qbKWXe0X0eccikpv5hAw4CoAAPG29Pydql1nTl9cYF2zd21unVm4yApklFY0AA==
+"@tanstack/react-query@4.13.0":
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.13.0.tgz#13797d590a6c0708545881e38aea5eb39b960c28"
+  integrity sha512-dI/5hJ/pGQ74P5hxBLC9h6K0/Cap2T3k0ZjjjFLBCNnohDYgl7LNmMopzrRzBHk2mMjf2hgXHIzcKNG8GOZ5hg==
   dependencies:
-    "@tanstack/query-core" "4.10.1"
+    "@tanstack/query-core" "4.13.0"
     use-sync-external-store "^1.2.0"
 
 "@testing-library/dom@^8.0.0":
