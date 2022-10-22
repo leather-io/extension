@@ -30,12 +30,14 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
 
   return (
     <Flex
-      width="100%"
       key={`account-${account.index}`}
       data-testid={SettingsSelectors.AccountIndex.replace('[index]', `${account.index}`)}
       cursor="pointer"
       position="relative"
       onClick={onSelectAccount}
+      marginLeft="24px"
+      marginRight="24px"
+      marginBottom="24px"
       {...rest}
     >
       <Stack isInline alignItems="center" spacing="base">
@@ -51,7 +53,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       {isLoading && (
         <Spinner
           position="absolute"
-          right="12px"
+          right="0px"
           top="calc(50% - 8px)"
           color={color('text-caption')}
           size="18px"
@@ -60,7 +62,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       {isActive && (
         <Box
           position="absolute"
-          right="12px"
+          right="0px"
           top="calc(50% - 8px)"
           as={IconCheck}
           size="18px"

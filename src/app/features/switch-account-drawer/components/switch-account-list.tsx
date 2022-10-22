@@ -3,7 +3,6 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { SwitchAccountListItem } from './switch-account-list-item';
-import { Box } from '@stacks/ui';
 
 const smallNumberOfAccountsToRenderWholeList = 10;
 
@@ -32,12 +31,10 @@ export const SwitchAccountList = memo(
       <Virtuoso
         initialTopMostItemIndex={currentAccountIndex}
         height="72px"
-        style={{ paddingTop: '24px', height: '70vh' }}
+        style={{ height: '70vh' }}
         totalCount={accounts.length}
         itemContent={index => (
-          <Box mx="extra-loose">
-            <SwitchAccountListItem handleClose={handleClose} account={accounts[index]} />
-          </Box>
+          <SwitchAccountListItem handleClose={handleClose} account={accounts[index]} />
         )}
       />
     );
