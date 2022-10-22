@@ -5,13 +5,14 @@ import { openProfileUpdateRequestPopup } from '@stacks/connect';
 import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
 import { StacksNetwork } from '@stacks/network';
 import { ProfileTabSelectors } from '@tests/integration/profile/profile-test-app.selectors';
+import { useAuth } from '@common/use-auth';
 
 export const ProfileTab = () => {
   const name = 'Name ' + new Date().getTime().toString();
-  const avatarUrl =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100' width='100'%3E%3Ccircle cx='50' cy='50' r='40' fill='red' /%3E%3C/svg%3E";
-
+  const avatarUrl ="https://byzantion.mypinata.cloud/ipfs/Qmb84UcaMr1MUwNbYBnXWHM3kEaDcYrKuPWwyRLVTNKELC/2256.png"
+  const backgroundUrl = "https://unsplash.com/photos/h0Vxgz5tyXA/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mnx8YmFja2dyb3VuZHxlbnwwfDB8fHwxNjY2NDA0Nzkx&force=true&w=640"
   const [updatedProfile, setUpdatedProfile] = useState<{ profile?: PublicProfile }>();
+  const { authOptions } = useAuth();
 
   const updateProfile = async (profile: PublicPersonProfile, network?: StacksNetwork) => {
     const defaultNetwork = stacksMainnetNetwork;
@@ -19,8 +20,9 @@ export const ProfileTab = () => {
     await openProfileUpdateRequestPopup({
       profile,
       network: network ?? defaultNetwork,
+      appDetails: authOptions.appDetails,
       onFinish: (profile: PublicProfile) => {
-        console.log('profile from debugger', profile);
+        console.log('profile', profile);
         setUpdatedProfile({ profile });
       },
       onCancel: () => {
@@ -52,9 +54,16 @@ export const ProfileTab = () => {
                 name,
                 image: [
                   { '@type': 'ImageObject', name: 'avatar', contentUrl: avatarUrl },
-                  { '@type': 'ImageObject', name: 'background', contentUrl: avatarUrl },
+                  { '@type': 'ImageObject', name: 'background', contentUrl: backgroundUrl },
                 ],
                 sameAs: ['https://twitter.com/twitterHandle', 'https://instagram.com/instaHandle'],
+                owns: [
+                  {
+                    '@type': 'OwnershipInfo',
+                    identifier:
+                      'bip122:000000000019d6689c085ae165831e93:12cbQLTFMXRnSzktFkuoG3eHoMeFtpTu3S',
+                  },
+                ],
               },
               stacksMainnetNetwork
             )

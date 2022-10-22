@@ -16,7 +16,6 @@ export function ProfileDataContent(props: ProfileDataContentProps) {
   const profileUpdateRequest = getProfileDataContentFromToken(requestToken);
   const person = new Person(profileUpdateRequest.profile);
   const { network } = profileUpdateRequest;
-  const appName = profileUpdateRequest.appDetails?.name;
   return (
     <>
       <ProfileBox profile={person} />

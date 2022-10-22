@@ -26,7 +26,7 @@ function PageTopBase() {
     : 'Request by an unknown app';
   const avatarUrl = profileUpdaterPayload?.profile?.image?.[0]?.contentUrl;
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <Stack pt="extra-loose" spacing="base">
         <Title fontWeight="bold" as="h1">
           Update Profile

@@ -1,11 +1,9 @@
-import { Caption } from '@app/components/typography';
 import { Profile } from '@stacks/profile';
-import { color, Stack, Text } from '@stacks/ui';
-import React from 'react';
+import { color, Stack } from '@stacks/ui';
 
 function Value({ v }: { v: any }) {
   if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
-    return <>{v}</>;
+    return <span style={{wordBreak:"break-all"}}>{v}</span>;
   } else if (v instanceof Array) {
     return (
       <div style={{ textIndent: '0em' }}>
@@ -31,7 +29,7 @@ function Properties({ p }: { p: any }) {
         .filter(k => !k.startsWith('@'))
         .map(k => {
           return (
-            <div key={k} style={{ textIndent: '-2em', marginLeft: '2em' }}>
+            <div key={k} style={{ textIndent: '-1em', marginLeft: '1em' }}>
               <span style={{ color: color('text-caption') }}>{k}:</span> <Value v={p[k]} />
             </div>
           );
