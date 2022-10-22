@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
-import { SignOutConfirmLayout } from './sign-out-confirm-layout';
+import { SignOutConfirmLayout } from './sign-out-confirm.layout';
 
 export function SignOutConfirmDrawer() {
   const { signOut } = useKeyActions();
