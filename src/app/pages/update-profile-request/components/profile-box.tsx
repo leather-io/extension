@@ -3,17 +3,24 @@ import { color, Stack } from '@stacks/ui';
 
 function Value({ v }: { v: any }) {
   if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
-    return <span style={{wordBreak:"break-all"}}>{v}</span>;
+    return <span style={{ wordBreak: 'break-all' }}>{v}</span>;
   } else if (v instanceof Array) {
     return (
-      <div style={{ textIndent: '0em' }}>
-        {v.map((entry, index) => (
-          <div key={index}>
-            <Value v={entry} />
-            <hr />
-          </div>
-        ))}
-      </div>
+      <>
+        [
+        <div style={{ textIndent: '0em' }}>
+          {v.map((entry, index) => {
+            return (
+              <>
+                <div key={index}>
+                  <Value v={entry} />{index < v.length - 1 && <>,</>}
+                </div>
+              </>
+            );
+          })}
+        </div>
+        ]
+      </>
     );
   } else if (typeof v === 'object') {
     return <Properties p={v} />;
