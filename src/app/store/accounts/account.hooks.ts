@@ -2,10 +2,7 @@ import { useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
 
-import {
-  addressNetworkVersionState,
-  transactionNetworkVersionState,
-} from '@app/store/transactions/transaction';
+import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
 import {
   hasSwitchedAccountsState,
   hasCreatedAccountState,
@@ -65,10 +62,6 @@ export function useTransactionAccountIndex() {
 
 export function useTransactionNetworkVersion() {
   return useAtomValue(transactionNetworkVersionState);
-}
-
-export function useAddressNetworkVersion() {
-  return useAtomValue(addressNetworkVersionState);
 }
 
 export function useHasSwitchedAccounts() {

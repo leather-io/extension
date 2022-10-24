@@ -97,19 +97,35 @@ const titleStyles = (as: Headings) => {
   }
 };
 
-export const Title = forwardRefWithAs<BoxProps, Headings>((props, ref) => (
-  <BaseText
-    userSelect="none"
-    letterSpacing="-0.01em"
-    fontFamily="'Open Sauce One'"
-    fontWeight="500"
-    color={color('text-title')}
-    ref={ref}
-    display="block"
-    css={titleStyles(props.as)}
-    {...props}
-  />
-));
+interface TitleProps extends BoxProps {
+  /** Removes ::before pseudoelement inserted by capsize */
+  removeBeforePseudoElement?: boolean;
+}
+export const Title = forwardRefWithAs<TitleProps, Headings>(
+  ({ removeBeforePseudoElement, ...restProps }, ref) => {
+    // This is to prevent tall graphemes (like emojis, some chinese characters,
+    // and others) getting cut off by pseudoelements inserted by capsize, which
+    // is due for removal:
+    // https://github.com/hirosystems/stacks-wallet-web/issues/2344
+    const styleObject = removeBeforePseudoElement
+      ? { ...titleStyles(restProps.as), ['::before']: undefined }
+      : titleStyles(restProps.as);
+
+    return (
+      <BaseText
+        userSelect="none"
+        letterSpacing="-0.01em"
+        fontFamily="'Open Sauce One'"
+        fontWeight="500"
+        color={color('text-title')}
+        ref={ref}
+        display="block"
+        css={styleObject}
+        {...restProps}
+      />
+    );
+  }
+);
 
 export const Text = forwardRefWithAs<BoxProps, 'span'>((props, ref) => (
   <BaseText
