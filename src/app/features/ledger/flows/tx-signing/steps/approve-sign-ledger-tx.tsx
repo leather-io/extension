@@ -8,7 +8,7 @@ import { ledgerTxSigningContext } from '@app/features/ledger/flows/tx-signing/le
 import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { isSip10Transfer } from '@app/common/transactions/is-sip-10-transfer';
+import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-transfer';
 
 const sipTenTransferArguments = ['Amount', 'Sender', 'To', 'Memo'];
 

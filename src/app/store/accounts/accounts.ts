@@ -1,6 +1,5 @@
 import { atom } from 'jotai';
 import { Account } from '@stacks/wallet-sdk';
-import type { Transaction } from '@stacks/stacks-blockchain-api-types';
 import { createStacksPublicKey, pubKeyfromPrivKey, publicKeyToAddress } from '@stacks/transactions';
 
 import { ledgerKeyState, softwareWalletState } from '@app/store/wallet/wallet';
@@ -12,7 +11,6 @@ import {
   LedgerAccountWithAddress,
   SoftwareWalletAccountWithAddress,
 } from './account.models';
-import { accountTransactionsWithTransfersState } from './transactions';
 
 export const softwareAccountsState = atom<Account[] | undefined>(get => {
   const wallet = get(softwareWalletState);
@@ -66,8 +64,3 @@ export const accountsWithAddressState = atom<AccountWithAddress[] | undefined>(g
 export const hasSwitchedAccountsState = atom<boolean>(false);
 
 export const hasCreatedAccountState = atom<boolean>(false);
-
-export const currentAccountConfirmedTransactionsState = atom<Transaction[]>(get => {
-  const transactionsWithTransfers = get(accountTransactionsWithTransfersState);
-  return transactionsWithTransfers.map(atx => atx.tx);
-});

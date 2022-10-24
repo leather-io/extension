@@ -8,7 +8,6 @@ import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { AssetWithMeta } from '@app/common/asset-types';
 import { isEmpty, isUndefined } from '@shared/utils';
-import { isTxSponsored, SendFormValues } from '@app/common/transactions/transaction-utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -19,10 +18,10 @@ import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
 import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
-import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { FeeEstimate } from '@shared/models/fees-types';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormValues } from '@shared/models/form.model';
 
 import { SendFormMemoWarning } from './memo-warning';
 
@@ -36,10 +35,9 @@ export function SendFormInner(props: SendFormInnerProps) {
   const { assetError, feeEstimations, onAssetIdSelected, nonce } = props;
   const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
     useFormikContext<SendFormValues>();
+
   const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
   const { selectedAsset } = useSelectedAsset(values.assetId);
-  const transaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
-  const isSponsored = transaction ? isTxSponsored(transaction) : false;
   const analytics = useAnalytics();
 
   const onSubmit = useCallback(async () => {
@@ -101,7 +99,7 @@ export function SendFormInner(props: SendFormInnerProps) {
           feeEstimations={feeEstimations}
           feeFieldName="fee"
           feeTypeFieldName="feeType"
-          isSponsored={isSponsored}
+          isSponsored={false}
         />
       ) : (
         <LoadingRectangle height="32px" width="100%" />

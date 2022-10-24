@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import { Button, Stack } from '@stacks/ui';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { TransactionFormValues } from '@shared/models/form.model';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { Caption, Title } from '@app/components/typography';

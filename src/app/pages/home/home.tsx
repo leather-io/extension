@@ -8,7 +8,7 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Header } from '@app/components/header';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
-import { ActivityList } from '@app/features/activity-list/account-activity';
+import { ActivityList } from '@app/features/activity-list/activity-list';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 

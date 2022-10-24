@@ -1,7 +1,7 @@
 import { ChainID } from '@stacks/transactions';
 import { Box } from '@stacks/ui';
 
-import { whenChainId } from '@app/common/utils';
+import { whenStxChainId } from '@app/common/utils';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
 
@@ -17,7 +17,7 @@ export function NetworkRow({ chainId }: NetworkRowProps) {
         </Box>
         <Caption>
           <span>
-            {whenChainId(chainId)({
+            {whenStxChainId(chainId)({
               [ChainID.Testnet]: 'Testnet',
               [ChainID.Mainnet]: 'Mainnet',
             })}

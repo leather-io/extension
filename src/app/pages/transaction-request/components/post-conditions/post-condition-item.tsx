@@ -10,7 +10,7 @@ import {
   getPostConditionCodeMessage,
   getPostConditionTitle,
   getSymbolFromPostCondition,
-} from '@app/common/transactions/post-condition-utils';
+} from '@app/common/transactions/stacks/post-condition.utils';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { EventCard } from '@app/components/event-card';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';

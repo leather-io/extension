@@ -1,3 +1,29 @@
+## [3.20.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.19.1...v3.20.0) (2022-10-21)
+
+
+### Features
+
+* add bitcoin to tx list ([711ad3c](https://github.com/hirosystems/stacks-wallet-web/commit/711ad3ceae001ededad2d2cfa722835c567d281d))
+
+
+### Bug Fixes
+
+* no suspense on market data query ([100e927](https://github.com/hirosystems/stacks-wallet-web/commit/100e927c24e228cd2f9d22e058ef0fade943be5e))
+
+## [3.19.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.19.0...v3.19.1) (2022-10-20)
+
+
+### Bug Fixes
+
+* menu items casing ([ab4fbc9](https://github.com/hirosystems/stacks-wallet-web/commit/ab4fbc9cac4124d1383590cfd6bb75f8d3bf2490))
+* slow firefox sign in times, persistent worker ([7eb353a](https://github.com/hirosystems/stacks-wallet-web/commit/7eb353ad799d3a2398127d4de328848f8536e23d))
+* white screen on account select list ([12d77a1](https://github.com/hirosystems/stacks-wallet-web/commit/12d77a16fde366f6d4055a270a599ca7f32801e5))
+
+
+### Internal
+
+* removes 1 of the 2 expensive tx generations on input change ([7dd067c](https://github.com/hirosystems/stacks-wallet-web/commit/7dd067c7975a4ec645a262bce443e69a3ac2cd8c))
+
 ## [3.19.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.18.2...v3.19.0) (2022-10-18)
 
 

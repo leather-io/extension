@@ -8,7 +8,7 @@ import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
 import { useShowEditNonceCleanupEffect } from '@app/store/ui/ui.hooks';
-import { TransactionFormValues } from '@app/common/transactions/transaction-utils';
+import { TransactionFormValues } from '@shared/models/form.model';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { isUndefined } from '@shared/utils';
 

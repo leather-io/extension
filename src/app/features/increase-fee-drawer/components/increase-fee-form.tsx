@@ -10,7 +10,7 @@ import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { Caption } from '@app/components/typography';
-import { TransactionItem } from '@app/components/transaction/components/transaction-item';
+import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
@@ -84,7 +84,7 @@ export function IncreaseFeeForm(): JSX.Element | null {
     >
       {() => (
         <Stack spacing="extra-loose">
-          {tx && <TransactionItem position="relative" transaction={tx} zIndex={99} />}
+          {tx && <StacksTransactionItem position="relative" transaction={tx} zIndex={99} />}
           <Stack spacing="base">
             <IncreaseFeeField currentFee={fee} />
             {stxBalance && (

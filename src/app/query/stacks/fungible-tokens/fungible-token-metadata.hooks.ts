@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { AssetWithMeta } from '@app/common/asset-types';
-import { isTransferableAsset } from '@app/common/transactions/is-transferable-asset';
+import { isTransferableAsset } from '@app/common/transactions/stacks/is-transferable-asset';
 import { formatContractId } from '@app/common/utils';
 
 import {

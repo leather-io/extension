@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { whenChainId } from '@app/common/utils';
+import { whenStxChainId } from '@app/common/utils';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { createStacksAnchoredConfig, createStacksUnanchoredConfig } from '@app/query/stacks/utils';
@@ -12,7 +12,7 @@ import { ChainID } from '@stacks/transactions';
 export function useBitcoinClient() {
   const network = useCurrentNetworkState();
 
-  const baseUrl = whenChainId(network.chainId)({
+  const baseUrl = whenStxChainId(network.chainId)({
     [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
     [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
   });

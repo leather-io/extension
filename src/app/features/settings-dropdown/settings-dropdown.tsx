@@ -77,7 +77,7 @@ export function SettingsDropdown() {
                     setHasCreatedAccount(true);
                   })}
                 >
-                  Create an Account
+                  Create an account
                 </MenuItem>
                 <MenuItem
                   data-testid={SettingsSelectors.ViewSecretKeyListItem}
@@ -98,7 +98,7 @@ export function SettingsDropdown() {
               })}
             >
               <Flex width="100%" alignItems="center" justifyContent="space-between">
-                <Box>Change Network</Box>
+                <Box>Change network</Box>
                 <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
               </Flex>
             </MenuItem>
@@ -123,7 +123,7 @@ export function SettingsDropdown() {
               })}
               data-testid="settings-sign-out"
             >
-              Sign Out
+              Sign out
             </MenuItem>
           </MenuWrapper>
         )}
