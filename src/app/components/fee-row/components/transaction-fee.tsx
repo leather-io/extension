@@ -11,6 +11,6 @@ export function TransactionFee({ fee, usdAmount }: TransactionFeeProps) {
   const feeLabel = (
     <span data-testid={TransactionSigningSelectors.FeeToBePaidLabel}>{fee} STX</span>
   );
-  if (!usdAmount) return feeLabel;
+  if (!usdAmount || usdAmount.amount.isNaN()) return feeLabel;
   return <Tooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}>{feeLabel}</Tooltip>;
 }
