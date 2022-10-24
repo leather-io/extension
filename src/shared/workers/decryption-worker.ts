@@ -18,7 +18,7 @@ async function generateEncryptionKey({ password, salt }: GenerateEncryptionKeyAr
     type: ArgonType.Argon2id,
   });
   const y = performance.now();
-  logger.info({ keyStretchDuration: (y - x) / 1000 + ' seconds' });
+  logger.info('keyStretchDuration', (y - x) / 1000 + ' seconds');
   return argonHash.hashHex;
 }
 

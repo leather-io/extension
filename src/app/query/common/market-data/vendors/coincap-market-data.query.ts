@@ -1,15 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchJson } from '@app/common/utils';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { marketDataQueryOptions } from '../market-data.query';
+import { logAndThrow } from '@app/common/utils';
 
 const currencyNameMap: Record<CryptoCurrencies, string> = {
   STX: 'stacks',
 };
 
-function fetchCoincapMarketData(currency: CryptoCurrencies) {
-  return fetchJson(`https://api.coincap.io/v2/assets/${currencyNameMap[currency]}`);
+async function fetchCoincapMarketData(currency: CryptoCurrencies) {
+  const resp = await fetch(`https://api.coincap.io/v2/assets/${currencyNameMap[currency]}`);
+  if (!resp.ok) logAndThrow('Cannot load coincap data');
+  return resp.json();
 }
 
 export function selectCoincapUsdPrice(resp: any) {
