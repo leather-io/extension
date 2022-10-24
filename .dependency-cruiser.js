@@ -3,6 +3,22 @@ module.exports = {
   extends: 'dependency-cruiser/configs/recommended',
 
   forbidden: [
+    // Note: this rule is intended to override the rule by the same name in the
+    // `dependency-cruiser/configs/recommended` set. It removes `punycode` from
+    // the path given this repo uses the third party `punycode` package, not
+    // Node.js' deprecated built-in with the same name.
+    {
+      name: 'no-deprecated-core',
+      comment:
+        'This module depends on a node core module that has been deprecated. Find an ' +
+        "alternative - these are bound to exist - node doesn't deprecate lightly.",
+      severity: 'error',
+      from: {},
+      to: {
+        dependencyTypes: ['core'],
+        path: '^(domain|constants|sys|_linklist|_stream_wrap)$',
+      },
+    },
     {
       name: 'no-orphans',
       severity: 'warn',

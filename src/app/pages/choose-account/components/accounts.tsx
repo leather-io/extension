@@ -8,7 +8,7 @@ import { useAccountDisplayName } from '@app/common/hooks/account/use-account-nam
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
-import { AccountAvatarWithName } from '@app/components/account/account-avatar/account-avatar';
+import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
 
 import { usePressable } from '@app/components/item-hover';
 import {
@@ -83,7 +83,14 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
             <AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} />
           </Suspense>
         }
-        avatar={<AccountAvatarWithName name={name} flexGrow={0} publicKey={account.stxPublicKey} />}
+        avatar={
+          <AccountAvatar
+            index={account.index}
+            publicKey={account.stxPublicKey}
+            name={name}
+            flexGrow={0}
+          />
+        }
         balanceLabel={
           isBalanceLoading ? (
             <AccountBalanceLoading />
