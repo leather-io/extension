@@ -11,11 +11,10 @@ function Value({ v }: { v: any }) {
         <div style={{ textIndent: '0em' }}>
           {v.map((entry, index) => {
             return (
-              <>
-                <div key={index}>
-                  <Value v={entry} />{index < v.length - 1 && <>,</>}
-                </div>
-              </>
+              <div key={index}>
+                <Value v={entry} />
+                {index < v.length - 1 && <>,</>}
+              </div>
             );
           })}
         </div>

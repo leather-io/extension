@@ -9,8 +9,10 @@ import { useAuth } from '@common/use-auth';
 
 export const ProfileTab = () => {
   const name = 'Name ' + new Date().getTime().toString();
-  const avatarUrl ="https://byzantion.mypinata.cloud/ipfs/Qmb84UcaMr1MUwNbYBnXWHM3kEaDcYrKuPWwyRLVTNKELC/2256.png"
-  const backgroundUrl = "https://unsplash.com/photos/h0Vxgz5tyXA/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mnx8YmFja2dyb3VuZHxlbnwwfDB8fHwxNjY2NDA0Nzkx&force=true&w=640"
+  const avatarUrl =
+    'https://byzantion.mypinata.cloud/ipfs/Qmb84UcaMr1MUwNbYBnXWHM3kEaDcYrKuPWwyRLVTNKELC/2256.png';
+  const backgroundUrl =
+    'https://unsplash.com/photos/h0Vxgz5tyXA/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mnx8YmFja2dyb3VuZHxlbnwwfDB8fHwxNjY2NDA0Nzkx&force=true&w=640';
   const [updatedProfile, setUpdatedProfile] = useState<{ profile?: PublicProfile }>();
   const { authOptions } = useAuth();
 
