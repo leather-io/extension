@@ -138,7 +138,7 @@ export const SetPasswordPage = () => {
                 words.
               </Caption>
               <Stack px={['unset', 'base-loose']} spacing="base">
-                <PasswordField strengthResult={strengthResult} />
+                <PasswordField strengthResult={strengthResult} isDisabled={loading} />
                 <PrimaryButton
                   data-testid={OnboardingSelectors.SetPasswordBtn}
                   isDisabled={loading || !(dirty && isValid)}

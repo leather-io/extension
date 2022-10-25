@@ -12,8 +12,9 @@ import { getIndicatorsOfPasswordStrength } from './password-field.utils';
 
 interface PasswordFieldProps {
   strengthResult: ValidatedPassword;
+  isDisabled: boolean;
 }
-export function PasswordField({ strengthResult }: PasswordFieldProps) {
+export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps) {
   const [field] = useField('password');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -31,6 +32,7 @@ export function PasswordField({ strengthResult }: PasswordFieldProps) {
           key="password-input"
           placeholder="Set a password"
           type={showPassword ? 'text' : 'password'}
+          isDisabled={isDisabled}
           {...field}
         />
         <Button
