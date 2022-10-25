@@ -1,3 +1,15 @@
+## [3.20.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.19.1...v3.20.0) (2022-10-21)
+
+
+### Features
+
+* add bitcoin to tx list ([711ad3c](https://github.com/hirosystems/stacks-wallet-web/commit/711ad3ceae001ededad2d2cfa722835c567d281d))
+
+
+### Bug Fixes
+
+* no suspense on market data query ([100e927](https://github.com/hirosystems/stacks-wallet-web/commit/100e927c24e228cd2f9d22e058ef0fade943be5e))
+
 ## [3.19.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.19.0...v3.19.1) (2022-10-20)
 
 
