@@ -165,7 +165,10 @@ export function useTransactionRequestBroadcast() {
 
   return async ({ signedTx }: { signedTx: StacksTransaction }) => {
     if (!requestToken || !tabId) {
-      logger.error(`Cannot broadcast transaction from `);
+      logger.error(`Cannot broadcast transaction from transaction request`, {
+        requestToken,
+        tabId,
+      });
       return;
     }
 
