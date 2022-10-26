@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { EventParams, PageParams } from '@segment/analytics-next/dist/pkg/core/arguments-resolver';
 
@@ -22,38 +23,39 @@ export function useAnalytics() {
   const location = useLocation();
   const { walletType } = useWalletType();
 
-  const defaultProperties = {
-    network: currentNetwork.name.toLowerCase(),
-    usingDefaultHiroApi: isHiroApiUrl(currentNetwork.url),
-    route: location.pathname,
-    version: VERSION,
-    walletType,
-  };
+  return useMemo(() => {
+    const defaultProperties = {
+      network: currentNetwork.name.toLowerCase(),
+      usingDefaultHiroApi: isHiroApiUrl(currentNetwork.url),
+      route: location.pathname,
+      version: VERSION,
+      walletType,
+    };
 
-  const defaultOptions = {
-    context: { ip: '0.0.0.0' },
-  };
+    const defaultOptions = {
+      context: { ip: '0.0.0.0' },
+    };
 
-  return {
-    page: async (...args: PageParams) => {
-      if (!analytics || IS_TEST_ENV) return;
-      const [category, name, properties, options, ...rest] = args;
+    return {
+      async page(...args: PageParams) {
+        const [category, name, properties, options, ...rest] = args;
+        const prop = { ...defaultProperties, ...properties };
+        const opts = { ...defaultOptions, ...options };
+        logger.info(`Analytics page view: ${name}`, properties);
 
-      if (typeof name === 'string' && isIgnoredPath(name)) return;
+        if (!analytics || IS_TEST_ENV) return;
+        if (typeof name === 'string' && isIgnoredPath(name)) return;
+        return analytics.page(category, name, prop, opts, ...rest).catch(logger.error);
+      },
+      async track(...args: EventParams) {
+        const [eventName, properties, options, ...rest] = args;
+        const prop = { ...defaultProperties, ...properties };
+        const opts = { ...defaultOptions, ...options };
+        logger.info(`Analytics event: ${eventName}`, properties);
 
-      const prop = { ...defaultProperties, ...properties };
-      const opts = { ...defaultOptions, ...options };
-
-      return analytics.page(category, name, prop, opts, ...rest).catch(logger.error);
-    },
-    track: async (...args: EventParams) => {
-      if (!analytics || IS_TEST_ENV) return;
-      const [eventName, properties, options, ...rest] = args;
-
-      const prop = { ...defaultProperties, ...properties };
-      const opts = { ...defaultOptions, ...options };
-
-      return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
-    },
-  };
+        if (!analytics || IS_TEST_ENV) return;
+        return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
+      },
+    };
+  }, [currentNetwork.name, currentNetwork.url, location.pathname, walletType]);
 }

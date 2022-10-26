@@ -25,7 +25,7 @@ export function AddressDisplayer({ address }: AddressDisplayerProps) {
   return (
     <>
       {groupByFour(address).map((letterGroup, index) => (
-        <AddressDisplayerLayout isEven={isEven(index + 1)}>
+        <AddressDisplayerLayout key={index} isEven={isEven(index + 1)}>
           {letterGroup.join('')}
         </AddressDisplayerLayout>
       ))}
