@@ -322,7 +322,7 @@
     "**/**/xmldom": "github:xmldom/xmldom#0.7.0",
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
-    "**/**/@stacks/transactions": "5.0.1",
+    "**/**/@stacks/transactions": "5.0.3-pr.ea8bc25.0",
     "bn.js": "5.2.0",
     "buffer": "6.0.3",
     "dot-prop": "6.0.1",
