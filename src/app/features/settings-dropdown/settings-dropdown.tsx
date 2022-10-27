@@ -63,6 +63,7 @@ export function SettingsDropdown() {
             {key && key.type === 'ledger' && (
               <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(key.targetId)} />
             )}
+
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
                 data-testid={SettingsSelectors.SwitchAccount}
@@ -92,6 +93,15 @@ export function SettingsDropdown() {
                 </MenuItem>
               </>
             )}
+            <MenuItem
+              data-testid={SettingsSelectors.ToggleTheme}
+              onClick={wrappedCloseCallback(() => {
+                void analytics.track('change_theme_menu_item');
+                navigate(RouteUrls.ChangeTheme);
+              })}
+            >
+              Change theme
+            </MenuItem>
             {hasGeneratedWallet ? <Divider /> : null}
             <MenuItem
               data-testid={SettingsSelectors.ChangeNetworkAction}
@@ -105,6 +115,7 @@ export function SettingsDropdown() {
                 <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
               </Flex>
             </MenuItem>
+
             <Divider />
             {showAdvancedMenuOptions && (
               <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={showSettings} />

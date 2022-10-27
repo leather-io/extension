@@ -6,21 +6,29 @@ import { fullPageStyles } from './full-page-styles';
 import { popupStyles } from './popup-styles';
 import { popupCenterStyles } from './popup-center-styles';
 import { tippyStyles } from './tippy-styles';
-
-const styles = css`
-  body {
-    &.no-scroll,
-    &.no-scroll .main-content {
-      overflow: hidden;
-    }
-  }
-  ${fullPageStyles};
-  ${popupStyles};
-  ${popupCenterStyles};
-  ${tippyStyles}
-`;
+import { useThemeSwitcher } from '@app/common/theme-provider';
 
 export const GlobalStyles = memo(() => {
+  const { theme } = useThemeSwitcher();
+
+  const styles = css`
+    :root {
+      ${theme === 'dark' ? 'filter: invert(1) hue-rotate(180deg)' : ''};
+      transition: filter 0.8s;
+    }
+
+    body {
+      &.no-scroll,
+      &.no-scroll .main-content {
+        overflow: hidden;
+      }
+    }
+    ${fullPageStyles};
+    ${popupStyles};
+    ${popupCenterStyles};
+    ${tippyStyles}
+  `;
+
   return (
     <>
       {CSSReset}
