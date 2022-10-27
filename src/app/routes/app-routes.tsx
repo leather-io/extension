@@ -38,6 +38,7 @@ import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
 import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
+import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 
 export function AppRoutes() {
   const { pathname } = useLocation();
@@ -70,6 +71,7 @@ export function AppRoutes() {
           </Route>
           <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
           <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+          <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
           {ledgerTxSigningRoutes}
         </Route>
         <Route

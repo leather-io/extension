@@ -17,6 +17,7 @@ import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { Devtools } from '@app/features/devtool/devtools';
 import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
+import { ThemeSwitcherProvider } from './common/theme-provider';
 
 const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === 'true';
 
@@ -25,26 +26,28 @@ export function App() {
     <Provider store={store}>
       <PersistGate loading={<FullPageLoadingSpinner />} persistor={persistor}>
         <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <QueryClientProvider client={queryClient}>
-            <ColorModeProvider defaultMode="light">
-              <Suspense fallback={<NewAccountLoadingSpinner />}>
-                <Router>
-                  <AppErrorBoundary>
-                    <AppRoutes />
-                    <SwitchAccountDrawer />
-                    <NetworksDrawer />
-                    <SettingsDropdown />
-                  </AppErrorBoundary>
-                  <Toaster
-                    position="bottom-center"
-                    toastOptions={{ style: { fontSize: '14px' } }}
-                  />
-                </Router>
-                {reactQueryDevToolsEnabled && <Devtools />}
-              </Suspense>
-            </ColorModeProvider>
-          </QueryClientProvider>
+          <ThemeSwitcherProvider>
+            <GlobalStyles />
+            <QueryClientProvider client={queryClient}>
+              <ColorModeProvider defaultMode="light">
+                <Suspense fallback={<NewAccountLoadingSpinner />}>
+                  <Router>
+                    <AppErrorBoundary>
+                      <AppRoutes />
+                      <SwitchAccountDrawer />
+                      <NetworksDrawer />
+                      <SettingsDropdown />
+                    </AppErrorBoundary>
+                    <Toaster
+                      position="bottom-center"
+                      toastOptions={{ style: { fontSize: '14px' } }}
+                    />
+                  </Router>
+                  {reactQueryDevToolsEnabled && <Devtools />}
+                </Suspense>
+              </ColorModeProvider>
+            </QueryClientProvider>
+          </ThemeSwitcherProvider>
         </ThemeProvider>
       </PersistGate>
     </Provider>
