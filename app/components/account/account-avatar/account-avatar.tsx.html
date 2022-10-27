@@ -25,21 +25,21 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -110,37 +110,23 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,60 +136,80 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, Suspense } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
 import { BoxProps, color, Circle } from '@stacks/ui';
 &nbsp;
 import { useAccountGradient } from '@app/common/hooks/account/use-account-gradient';
 &nbsp;
-interface AccountAvatarProps extends BoxProps {
-  publicKey: string;
-  name: string;
-}
-export const AccountAvatar = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> publicKey, name, ...props }: AccountAvatarProps) =&gt; {</span>
-  const gradient = <span class="cstat-no" title="statement not covered" >useAccountGradient(publicKey ?? '');</span>
+const getAvatarText = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(n</span>ame: string, index: number) =&gt; {</span>
+  // Returns a string with the account's ordinal number.
+  //
+  // Assumes that account names starting with "Account" have been autogenerated
+  // by the app. This will probably break when the account has a BNS name
+  // starting with "Account", although it's probably good enough for now.
+<span class="cstat-no" title="statement not covered" >  if (name.startsWith('Account')) <span class="cstat-no" title="statement not covered" >return String(index + 1);</span></span>
 &nbsp;
-  const circleText = <span class="cstat-no" title="statement not covered" >name?.includes('Account') ? name.split(' ')[1] : name[0];</span>
+  // At the time of writing, Firefox does not yet support Segmenter. Avatar
+  // text will default to the account's ordinal number.
+<span class="cstat-no" title="statement not covered" >  if (!Intl.Segmenter) {</span>
+<span class="cstat-no" title="statement not covered" >    return String(index + 1);</span>
+  }
+&nbsp;
+  // Displays the first grapheme of the account name in uppercase.
+  //
+  // Using graphemes allows proper handling of emojis and other characters
+  // with multiple code points.
+<span class="cstat-no" title="statement not covered" >  return [...new Intl.Segmenter().segment(name)][0].segment.toUpperCase();</span>
+};
+&nbsp;
+interface AccountAvatarProps extends BoxProps {
+  name: string;
+  publicKey: string;
+  index: number;
+}
+export const AccountAvatar = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> name, publicKey, index, ...props }: AccountAvatarProps) =&gt; {</span>
+  const gradient = <span class="cstat-no" title="statement not covered" >useAccountGradient(publicKey ?? '');</span>
+  const text = <span class="cstat-no" title="statement not covered" >getAvatarText(name, index);</span>
+  const isFirstGraphemeEmoji = <span class="cstat-no" title="statement not covered" >/\p{Extended_Pictographic}/u.test(text);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Circle
       flexShrink={0}
-      backgroundImage={gradient}
-      color={color('bg')}
+      background={isFirstGraphemeEmoji ? '#f4f4f6' : color('bg')}
+      backgroundImage={isFirstGraphemeEmoji ? undefined : gradient}
+      color={color('text-title')}
       userSelect="none"
       {...props}
     &gt;
-      {circleText.toUpperCase()}
+      {text}
     &lt;/Circle&gt;
   );
 });
-&nbsp;
-interface AccountAvatarWithNameInnerProps extends BoxProps {
-  name: string;
-  publicKey: string;
-}
-const AccountAvatarWithNameInner = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: AccountAvatarWithNameInnerProps) =&gt; {</span>
-  const { publicKey, name, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-<span class="cstat-no" title="statement not covered" >  return &lt;AccountAvatar publicKey={publicKey} name={name} {...rest} /&gt;;</span>
-};
-&nbsp;
-interface AccountAvatarWithNameProps extends BoxProps {
-  name: string;
-  publicKey: string;
-}
-export const AccountAvatarWithName = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: AccountAvatarWithNameProps) =&gt; {</span>
-  const { name, publicKey, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Suspense fallback={&lt;AccountAvatar publicKey={publicKey} name={name} {...rest} /&gt;}&gt;
-      &lt;AccountAvatarWithNameInner publicKey={publicKey} name={name} {...rest} /&gt;
-    &lt;/Suspense&gt;
-  );
-};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -211,7 +217,7 @@ export const AccountAvatarWithName = <span class="cstat-no" title="statement not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-21T10:44:07.266Z
+                at 2022-10-27T12:13:45.782Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

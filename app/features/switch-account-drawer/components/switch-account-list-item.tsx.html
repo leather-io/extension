@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -123,12 +123,7 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,6 +151,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -187,24 +183,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense, memo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
 &nbsp;
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceCaption } from '@app/components/account/account-balance-caption';
-import { Caption } from '@app/components/typography';
-import { AccountName, AccountNameFallback } from './account-name';
+import { AccountName } from './account-name';
 import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountListItemLayout } from '../../../components/account/account-list-item-layout';
 import { AccountAvatarItem } from './account-avatar';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { usePressable } from '@app/components/item-hover';
+import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 &nbsp;
 interface AccountBalanceLabelProps {
   address: string;
@@ -224,6 +214,7 @@ export const SwitchAccountListItem = <span class="cstat-no" title="statement not
     const { isLoading, setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading('SWITCH_ACCOUNTS' + account.address);</span>
     const { handleSwitchAccount, getIsActive } = <span class="cstat-no" title="statement not covered" >useSwitchAccount(handleClose);</span>
     const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
+    const name = <span class="cstat-no" title="statement not covered" >useAccountDisplayName(account);</span>
 &nbsp;
     const handleClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      setIsLoading();</span>
@@ -238,18 +229,12 @@ export const SwitchAccountListItem = <span class="cstat-no" title="statement not
         account={account}
         isLoading={isLoading}
         isActive={getIsActive(account.index)}
-        avatar={&lt;AccountAvatarItem publicKey={account.stxPublicKey} index={account.index} /&gt;}
+        avatar={
+          &lt;AccountAvatarItem index={account.index} publicKey={account.stxPublicKey} name={name} /&gt;
+        }
         onSelectAccount={handleClick}
-        accountName={
-          &lt;Suspense fallback={&lt;AccountNameFallback account={account} /&gt;}&gt;
-            &lt;AccountName account={account} /&gt;
-          &lt;/Suspense&gt;
-        }
-        balanceLabel={
-          &lt;Suspense fallback={&lt;Caption&gt;Loading…&lt;/Caption&gt;}&gt;
-            &lt;AccountBalanceLabel address={account.address} /&gt;
-          &lt;/Suspense&gt;
-        }
+        accountName={&lt;AccountName account={account} /&gt;}
+        balanceLabel={&lt;AccountBalanceLabel address={account.address} /&gt;}
         mt="loose"
         {...bind}
       &gt;
@@ -265,7 +250,7 @@ export const SwitchAccountListItem = <span class="cstat-no" title="statement not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-21T10:44:07.266Z
+                at 2022-10-27T12:13:45.782Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
