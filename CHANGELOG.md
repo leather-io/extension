@@ -1,3 +1,23 @@
+## [3.21.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.20.0...v3.21.0) (2022-10-27)
+
+
+### Features
+
+* **logging:** add client side logs ([6d5b355](https://github.com/hirosystems/stacks-wallet-web/commit/6d5b355940b212ba4633e635fbf1d217b1ede584))
+* punycode support ([521c05b](https://github.com/hirosystems/stacks-wallet-web/commit/521c05baafeadd227b964a2dc156476188ce8401))
+
+
+### Bug Fixes
+
+* not quite strong strength bar full ([dcfb1ec](https://github.com/hirosystems/stacks-wallet-web/commit/dcfb1ec3aad26faf0deef1ea91c2ce38b0399239))
+* send form loading ui ([eaf313b](https://github.com/hirosystems/stacks-wallet-web/commit/eaf313b141872527179356ebbc39a5eddbb98f0a))
+* throw on http error response ([5291cc3](https://github.com/hirosystems/stacks-wallet-web/commit/5291cc3eddfa58201979d2467cd6ad7dc600c47d))
+
+
+### Internal
+
+* prevent vercel msgs ([11278e5](https://github.com/hirosystems/stacks-wallet-web/commit/11278e5fe663d170018d22203904a6afc247bdc7))
+
 ## [3.20.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.19.1...v3.20.0) (2022-10-21)
 
 
