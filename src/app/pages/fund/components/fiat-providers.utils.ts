@@ -13,7 +13,7 @@ import { generateOnRampURL } from '@coinbase/cbpay-js';
 
 import { COINBASE_APP_ID, MOONPAY_API_KEY, TRANSAK_API_KEY } from '@shared/environment';
 
-import { ActiveFiatProvider } from '@app/query/stacks/hiro-config/hiro-config.query';
+import { ActiveFiatProvider } from '@app/query/common/hiro-config/hiro-config.query';
 
 // Keys are set in wallet-config.json
 enum ActiveFiatProviders {

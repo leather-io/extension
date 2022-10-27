@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { logger } from '@shared/logger';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
@@ -8,9 +6,12 @@ import { useGetBnsNamesOwnedByAddress } from './bns.query';
 
 export function useCurrentAccountNames() {
   const principal = useCurrentAccountStxAddressState();
-  const namesResponse = useGetBnsNamesOwnedByAddress(principal);
-  if (principal === '') logger.error('No principal defined');
-  return useMemo(() => namesResponse.data?.names ?? [], [namesResponse.data?.names]);
+  return useGetBnsNamesOwnedByAddress(principal, {
+    select: resp => {
+      if (principal === '') logger.error('No principal defined');
+      return resp.names ?? [];
+    },
+  });
 }
 
 export function useCurrentAccountNamesQuery() {
@@ -21,6 +22,5 @@ export function useCurrentAccountNamesQuery() {
 }
 
 export function useGetAccountNamesByAddressQuery(address: string) {
-  const namesResponse = useGetBnsNamesOwnedByAddress(address);
-  return useMemo(() => namesResponse.data?.names ?? [], [namesResponse.data?.names]);
+  return useGetBnsNamesOwnedByAddress(address, { select: resp => resp.names ?? [] });
 }

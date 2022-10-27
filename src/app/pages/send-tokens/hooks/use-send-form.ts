@@ -13,7 +13,7 @@ import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/m
 
 export function useSendAmountFieldActions() {
   const { setFieldValue, values } = useFormikContext<SendFormValues>();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
   const { balance, isStx, selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
 

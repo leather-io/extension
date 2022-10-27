@@ -3,7 +3,7 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box, BoxProps, FlexProps, Stack, color } from '@stacks/ui';
+import { Box, BoxProps, FlexProps, Stack, Text, color } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -20,9 +20,9 @@ import {
 } from '@app/components/account/account-balance-caption';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { Text, Title } from '@app/components/typography';
+import { Title } from '@app/components/typography';
 import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 
@@ -64,8 +64,11 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const [component, bind] = usePressable(true);
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
-  const { data: balances, isLoading: isBalanceLoading } = useAddressBalances(account.address);
-  const fiatValue = useStxMarketData();
+  const { data: balances, isLoading: isBalanceLoading } = useAccountUnanchoredBalances(
+    account.address
+  );
+  const stxMarketData = useStxMarketData();
+
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
   const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
@@ -98,8 +101,8 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
             <AccountBalanceLoading />
           ) : balances ? (
             <AccountBalanceCaption
-              availableBalance={balances.availableStx}
-              marketData={fiatValue}
+              availableBalance={balances.stx.availableStx}
+              marketData={stxMarketData}
             />
           ) : (
             <></>

@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 
 import BigNumber from 'bignumber.js';
 
-import type {
-  AccountBalanceResponseBigNumber,
+import {
   AccountBalanceStxKeys,
   AccountStxBalanceBigNumber,
   AddressBalanceResponse,
@@ -11,8 +10,7 @@ import type {
 import { Money, createMoney } from '@shared/models/money.model';
 
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { AccountWithAddress, accountBalanceStxKeys } from '@app/store/accounts/account.models';
 
 import {
   useGetAccountBalanceQuery,
@@ -20,7 +18,7 @@ import {
   useGetAnchoredAccountBalanceQuery,
 } from './balance.query';
 
-function initAmountsAsMoney(balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
+function initAmountsAsMoney(balances: AddressBalanceResponse) {
   const stxMoney = Object.fromEntries(
     accountBalanceStxKeys.map(key => [
       key,
@@ -28,52 +26,46 @@ function initAmountsAsMoney(balances: AddressBalanceResponse): AccountBalanceRes
     ])
   ) as Record<AccountBalanceStxKeys, Money>;
 
-  const stx: AccountStxBalanceBigNumber = { ...balances.stx, ...stxMoney };
+  const stx: AccountStxBalanceBigNumber & { availableStx: Money } = {
+    ...balances.stx,
+    ...stxMoney,
+    availableStx: createMoney(stxMoney.balance.amount.minus(stxMoney.locked.amount), 'STX'),
+  };
   return { ...balances, stx };
 }
 
-export function useAddressBalances(address: string) {
+export function useAccountUnanchoredBalances(address: string) {
   return useGetAccountBalanceQuery(address, {
-    select: (resp: AddressBalanceResponse) => {
-      const balances = initAmountsAsMoney(resp);
-      return {
-        ...balances,
-        availableStx: createMoney(
-          balances.stx.balance.amount.minus(balances.stx.locked.amount),
-          'STX'
-        ),
-      };
-    },
-    keepPreviousData: false,
-    useErrorBoundary: false,
-    suspense: false,
+    select: initAmountsAsMoney,
   });
 }
-
 export function useCurrentAccountUnanchoredBalances() {
   const account = useCurrentAccount();
-  return useAddressBalances(account?.address || '');
+  return useAccountUnanchoredBalances(account?.address ?? '');
 }
 
-function useAddressAnchoredBalances(address: string) {
-  return useGetAnchoredAccountBalanceQuery(address, {
-    select: (resp: AddressBalanceResponse) => initAmountsAsMoney(resp),
-    retryOnMount: true,
-    keepPreviousData: false,
+export function useBaseAssetsUnanchored() {
+  const account = useCurrentAccount();
+  return useGetAccountBalanceQuery(account?.address ?? '', {
+    select: resp => transformAssets(initAmountsAsMoney(resp)),
   });
 }
 
 export function useCurrentAccountAnchoredBalances() {
   const account = useCurrentAccount();
-  return useAddressAnchoredBalances(account?.address || '');
+  return useGetAnchoredAccountBalanceQuery(account?.address ?? '', {
+    select: resp => initAmountsAsMoney(resp),
+  });
 }
 
-function useAddressAnchoredAvailableStxBalance(address: string) {
-  const { data: balances } = useAddressAnchoredBalances(address);
-  return useMemo(() => {
-    if (!balances) return new BigNumber(0);
-    return balances.stx.balance.amount.minus(balances.stx.locked.amount);
-  }, [balances]);
+export function useAddressAnchoredAvailableStxBalance(address: string) {
+  return useGetAnchoredAccountBalanceQuery(address, {
+    select: resp => {
+      const parsedResp = initAmountsAsMoney(resp);
+      return parsedResp.stx.balance.amount.minus(parsedResp.stx.locked.amount);
+    },
+    suspense: false,
+  });
 }
 
 export function useCurrentAccountAvailableStxBalance() {
@@ -84,8 +76,9 @@ export function useCurrentAccountAvailableStxBalance() {
 export function useAllAccountsAvailableStxBalance(accounts?: AccountWithAddress[]) {
   const accountsBalances = useGetAnchoredAccountBalanceListQuery(accounts);
   return useMemo(() => {
-    return accountsBalances.reduce((acc, balance) => {
-      return acc.plus(balance.data?.stx.balance || 0);
-    }, new BigNumber(0));
+    return accountsBalances.reduce(
+      (acc, balance) => acc.plus(balance.data?.stx.balance || 0),
+      new BigNumber(0)
+    );
   }, [accountsBalances]);
 }

@@ -15,7 +15,7 @@ import {
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
+import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
@@ -25,7 +25,7 @@ interface FtTransferItemProps {
   parentTx: AddressTransactionWithTransfers;
 }
 export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
-  const assetMetadata = useFungibleTokenMetadata(
+  const { data: assetMetadata } = useGetFungibleTokenMetadataQuery(
     pullContractIdFromIdentity(ftTransfer.asset_identifier)
   );
   const currentAccount = useCurrentAccount();

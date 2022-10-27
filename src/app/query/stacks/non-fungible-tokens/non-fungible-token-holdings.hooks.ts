@@ -4,15 +4,7 @@ import BigNumber from 'bignumber.js';
 
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 
-import {
-  useGetNonFungibleTokenHoldingsListQuery,
-  useGetNonFungibleTokenHoldingsQuery,
-} from './non-fungible-token-holdings.query';
-
-export function useNonFungibleTokenHoldings(address?: string) {
-  const { data: nftHoldings } = useGetNonFungibleTokenHoldingsQuery(address);
-  return nftHoldings;
-}
+import { useGetNonFungibleTokenHoldingsListQuery } from './non-fungible-token-holdings.query';
 
 export function useAccountsNonFungibleTokenHoldings(accounts?: AccountWithAddress[]) {
   const accountsNftHoldings = useGetNonFungibleTokenHoldingsListQuery(accounts);

@@ -7,7 +7,7 @@ import { AccountBalanceCaption } from '@app/components/account/account-balance-c
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 import { AccountAvatarItem } from './account-avatar';
@@ -17,13 +17,15 @@ interface AccountBalanceLabelProps {
   address: string;
 }
 const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
-  const { data: balances } = useAddressBalances(address);
   const stxMarketData = useStxMarketData();
-
+  const { data: balances } = useAccountUnanchoredBalances(address);
   if (!balances) return null;
 
   return (
-    <AccountBalanceCaption availableBalance={balances.availableStx} marketData={stxMarketData} />
+    <AccountBalanceCaption
+      availableBalance={balances.stx.availableStx}
+      marketData={stxMarketData}
+    />
   );
 });
 

@@ -32,7 +32,7 @@ export const useSendFormValidation = ({
   setAssetError,
 }: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const feeSchema = useFeeSchema();
 

@@ -15,7 +15,7 @@ import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/
  * @param amountToSend stx amount in µSTX
  */
 export const useFeeSchema = (amountToSend?: number) => {
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
 
   return useCallback(
     () =>

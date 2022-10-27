@@ -20,7 +20,7 @@ const parseIfValidPunycode = (s: string) => {
 
 export function useCurrentAccountDisplayName() {
   const account = useCurrentAccount();
-  const names = useCurrentAccountNames();
+  const { data: names = [] } = useCurrentAccountNames();
 
   return useMemo(() => {
     if (!account || typeof account?.index !== 'number') return 'Account';
@@ -32,7 +32,7 @@ export function useCurrentAccountDisplayName() {
 }
 
 export function useAccountDisplayName(account: AccountWithAddress): string {
-  const names = useGetAccountNamesByAddressQuery(account.address);
+  const { data: names = [] } = useGetAccountNamesByAddressQuery(account.address);
   return useMemo(() => {
     if (names[0]) return parseIfValidPunycode(names[0]);
 

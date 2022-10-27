@@ -1,6 +1,6 @@
 import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
 
-import { AvailableRegions } from '@app/query/stacks/hiro-config/hiro-config.query';
+import { AvailableRegions } from '@app/query/common/hiro-config/hiro-config.query';
 
 import { FastCheckoutBadge } from './fast-checkout-badge';
 import { FundAccountTile } from './fund-account-tile';
