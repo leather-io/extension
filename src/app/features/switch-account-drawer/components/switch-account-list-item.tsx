@@ -1,15 +1,15 @@
-import { Suspense, memo } from 'react';
+import { memo } from 'react';
 
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceCaption } from '@app/components/account/account-balance-caption';
-import { Caption } from '@app/components/typography';
-import { AccountName, AccountNameFallback } from './account-name';
+import { AccountName } from './account-name';
 import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountListItemLayout } from '../../../components/account/account-list-item-layout';
 import { AccountAvatarItem } from './account-avatar';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { usePressable } from '@app/components/item-hover';
+import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 
 interface AccountBalanceLabelProps {
   address: string;
@@ -29,6 +29,7 @@ export const SwitchAccountListItem = memo(
     const { isLoading, setIsLoading, setIsIdle } = useLoading('SWITCH_ACCOUNTS' + account.address);
     const { handleSwitchAccount, getIsActive } = useSwitchAccount(handleClose);
     const [component, bind] = usePressable(true);
+    const name = useAccountDisplayName(account);
 
     const handleClick = async () => {
       setIsLoading();
@@ -43,18 +44,12 @@ export const SwitchAccountListItem = memo(
         account={account}
         isLoading={isLoading}
         isActive={getIsActive(account.index)}
-        avatar={<AccountAvatarItem publicKey={account.stxPublicKey} index={account.index} />}
+        avatar={
+          <AccountAvatarItem index={account.index} publicKey={account.stxPublicKey} name={name} />
+        }
         onSelectAccount={handleClick}
-        accountName={
-          <Suspense fallback={<AccountNameFallback account={account} />}>
-            <AccountName account={account} />
-          </Suspense>
-        }
-        balanceLabel={
-          <Suspense fallback={<Caption>Loading…</Caption>}>
-            <AccountBalanceLabel address={account.address} />
-          </Suspense>
-        }
+        accountName={<AccountName account={account} />}
+        balanceLabel={<AccountBalanceLabel address={account.address} />}
         mt="loose"
         {...bind}
       >

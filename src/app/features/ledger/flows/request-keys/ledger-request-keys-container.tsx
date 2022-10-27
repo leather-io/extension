@@ -89,8 +89,7 @@ export function LedgerRequestKeysContainer() {
       navigate(RouteUrls.Home);
       await stacksApp.transport.close();
     } catch (e) {
-      logger.info(e);
-
+      logger.error('Failed to request Ledger keys', e);
       ledgerNavigate.toErrorStep();
     }
   };

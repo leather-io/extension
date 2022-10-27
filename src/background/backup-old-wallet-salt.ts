@@ -39,7 +39,7 @@ async function fetchWalletMigrationData({
     const config: WalletDataMigrationConfig = JSON.parse(configJSON);
     return config;
   } catch (error) {
-    logger.error(error);
+    logger.error('Failed to back up wallet salt', error);
     return null;
   }
 }
@@ -69,7 +69,7 @@ async function storeToGaia(
       true
     );
   } catch (e) {
-    logger.error(e);
+    logger.error('Unable to back up key in Gaia', e);
     return;
   }
   return migrationData;

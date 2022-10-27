@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { logAndThrow } from '@app/common/utils';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { fetchJson } from '@app/common/utils';
 import { marketDataQueryOptions } from '../market-data.query';
 
-function fetchBinanceMarketData(currency: CryptoCurrencies) {
-  return fetchJson(`https://api1.binance.com/api/v3/ticker/price?symbol=${currency}USDT`);
+async function fetchBinanceMarketData(currency: CryptoCurrencies) {
+  const resp = await fetch(`https://api1.binance.com/api/v3/ticker/price?symbol=${currency}USDT`);
+  if (!resp.ok) logAndThrow('Cannot load binance data');
+  return resp.json();
 }
 
 export function selectBinanceUsdPrice(resp: any) {

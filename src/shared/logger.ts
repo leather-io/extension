@@ -1,15 +1,52 @@
 import pino from 'pino';
+import { defer, mergeMap, Subject } from 'rxjs';
 
 import { IS_TEST_ENV } from './environment';
+import { appendLogToBrowserStorage } from './logger-storage';
 
-const loggingTool = pino({
-  enabled: process.env.NODE_ENV !== 'production' && !IS_TEST_ENV,
-  browser: { asObject: true },
+const logs$ = new Subject<pino.LogEvent>();
+
+const maximumConcurrentLogAppends = 1;
+
+logs$
+  // `chrome.storage` has no append API. Appending logs requires reading the
+  // whole log, and writing it back. This is expensive, but not a problem when
+  // logs are periodic. Though, when multiple logs happen quickly, we need to
+  // queue appends, otherwise one append might get overwritten by the other.
+  // Here we defer the promise, and only handle a single concurrent append at a
+  // given time.
+  .pipe(mergeMap(log => defer(() => appendLogToBrowserStorage(log)), maximumConcurrentLogAppends))
+  .subscribe();
+
+const pinoLogger = pino({
+  enabled: !IS_TEST_ENV,
+  browser: {
+    asObject: true,
+    transmit: {
+      level: 'info',
+      send(_level, logEvent) {
+        if (!chrome) return;
+        logs$.next(logEvent);
+      },
+    },
+  },
 });
 
-export const logger = {
-  info: loggingTool.info,
-  warn: loggingTool.warn,
-  debug: loggingTool.debug,
-  error: loggingTool.error,
+type LoggerFnApi = (msg: string, ...args: any[]) => void;
+
+// Pino offers a handful of APIs to log messages. Here we enforce a single one,
+// described by `LoggerFnApi`
+export const logger: Record<string, LoggerFnApi> = {
+  debug(...args) {
+    pinoLogger.debug(...args);
+  },
+  info(...args) {
+    pinoLogger.info(...args);
+  },
+  warn(...args) {
+    pinoLogger.warn(...args);
+  },
+  error(...args) {
+    pinoLogger.error(...args);
+  },
 };

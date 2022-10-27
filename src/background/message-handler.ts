@@ -52,7 +52,7 @@ export async function internalBackgroundMessageHandler(
     logger.error('Error: Received background script msg from ' + sender.url);
     return;
   }
-  logger.info(message);
+  logger.debug('Internal message', message);
   switch (message.method) {
     case InternalMethods.RequestDerivedStxAccounts: {
       const { secretKey, highestAccountIndex } = message.payload;

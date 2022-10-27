@@ -1,4 +1,3 @@
-import { logger } from '@shared/logger';
 import argon2, { ArgonType } from 'argon2-browser';
 
 const context = self as unknown as Worker;
@@ -18,7 +17,8 @@ async function generateEncryptionKey({ password, salt }: GenerateEncryptionKeyAr
     type: ArgonType.Argon2id,
   });
   const y = performance.now();
-  logger.info({ keyStretchDuration: (y - x) / 1000 + ' seconds' });
+  // eslint-disable-next-line no-console
+  console.log('Key stretch duration', (y - x) / 1000 + ' seconds');
   return argonHash.hashHex;
 }
 

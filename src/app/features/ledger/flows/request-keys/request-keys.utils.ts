@@ -1,6 +1,5 @@
 import { delay } from '@app/common/utils';
 import * as secp from '@noble/secp256k1';
-import { logger } from '@shared/logger';
 import StacksApp from '@zondax/ledger-stacks';
 
 import {
@@ -54,7 +53,6 @@ export function pullKeysFromLedgerDevice(stacksApp: StacksApp) {
         dataPublicKey: decompressSecp256k1PublicKey(dataPublicKeyResp.publicKey.toString('hex')),
       });
     }
-    logger.info(publicKeys);
     await delay(1000);
     return { status: 'success', publicKeys };
   };

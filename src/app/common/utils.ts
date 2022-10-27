@@ -12,6 +12,7 @@ import { DefaultNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constant
 import { WalletBlockchains, WalletChainTypes } from '@shared/models/blockchain.model';
 
 import { AssetWithMeta } from './asset-types';
+import { logger } from '@shared/logger';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -302,6 +303,7 @@ export function sumNumbers(nums: number[]) {
   return nums.reduce((acc, num) => acc.plus(num), new BigNumber(0));
 }
 
-export async function fetchJson(request: RequestInfo | URL) {
-  return fetch(request).then(resp => resp.json());
+export function logAndThrow(msg: string, args: any[] = []) {
+  logger.error(msg, ...args);
+  throw new Error(msg);
 }
