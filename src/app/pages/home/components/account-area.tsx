@@ -27,7 +27,7 @@ const AccountBnsAddress = memo(() => {
   return (
     <>
       <Caption>{bnsName}</Caption>
-      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy BNS address'}>
+      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy BNS name'}>
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
