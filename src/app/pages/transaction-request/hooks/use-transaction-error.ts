@@ -17,7 +17,7 @@ export function useTransactionError() {
   const { origin } = useDefaultRequestParams();
 
   const currentAccount = useCurrentAccount();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;

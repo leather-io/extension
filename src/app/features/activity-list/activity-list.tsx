@@ -40,6 +40,7 @@ export const ActivityList = () => {
     () => convertBitcoinTxsToListType(bitcoinTransactions),
     [bitcoinTransactions]
   );
+
   const transactionListStacksTxs = useMemo(
     () => convertStacksTxsToListType(stacksTransactionsWithTransfers?.results),
     [stacksTransactionsWithTransfers]

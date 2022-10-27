@@ -18,7 +18,7 @@ export function FundPage() {
   const { state } = useLocation() as LocationStateProps;
   const navigate = useNavigate();
   const currentAccount = useCurrentAccount();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
 
   const isOnboarding = state?.showSkipButton;
 

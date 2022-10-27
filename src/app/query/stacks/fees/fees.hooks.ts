@@ -9,13 +9,13 @@ import {
   TransactionFeeEstimation,
 } from '@shared/models/fees-types';
 
-import { useGetTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 import {
   useConfigFeeEstimationsMaxEnabled,
   useConfigFeeEstimationsMaxValues,
   useConfigFeeEstimationsMinEnabled,
   useConfigFeeEstimationsMinValues,
-} from '@app/query/stacks/hiro-config/hiro-config.query';
+} from '@app/query/common/hiro-config/hiro-config.query';
+import { useGetTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 
 import { getDefaultSimulatedFeeEstimations, getFeeEstimationsWithCappedValues } from './fees.utils';
 

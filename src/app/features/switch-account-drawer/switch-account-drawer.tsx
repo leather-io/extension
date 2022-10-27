@@ -36,7 +36,6 @@ export const SwitchAccountDrawer = memo(() => {
   };
 
   if (isShowing && !accounts) {
-    void analytics.track('account_list_unavailable_warning_displayed');
     return <AccountListUnavailable />;
   }
 

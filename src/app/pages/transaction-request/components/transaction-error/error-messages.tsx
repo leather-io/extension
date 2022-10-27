@@ -56,7 +56,7 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
 
   return (
     <ErrorMessage

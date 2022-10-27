@@ -24,12 +24,12 @@ import { useSelectedTx } from '../hooks/use-selected-tx';
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
 
-export function IncreaseFeeForm(): JSX.Element | null {
+export function IncreaseFeeForm() {
   const refreshAccountData = useRefreshAllAccountData();
   const tx = useSelectedTx();
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
-  const stxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: stxBalance } = useCurrentAccountAvailableStxBalance();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();

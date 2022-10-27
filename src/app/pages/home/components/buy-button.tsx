@@ -9,7 +9,7 @@ import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 import { RouteUrls } from '@shared/route-urls';
 
 import { SecondaryButton } from '@app/components/secondary-button';
-import { useHasFiatProviders } from '@app/query/stacks/hiro-config/hiro-config.query';
+import { useHasFiatProviders } from '@app/query/common/hiro-config/hiro-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { HomeActionButton } from './tx-button';
