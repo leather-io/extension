@@ -1,7 +1,10 @@
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'bignumber.js';
 
-import { createMoney, formatMoney, Money } from '@shared/models/money.model';
+import { createMoney, Money } from '@shared/models/money.model';
 import { formatMarketPair, MarketData } from '@shared/models/market.model';
+import { formatMoney } from './format-money';
+import { isMoney } from './is-money';
+import { isNumber } from '@shared/utils';
 
 export function baseCurrencyAmountInQuote(quantity: Money, { pair, price }: MarketData) {
   if (quantity.symbol !== pair.base)
@@ -11,5 +14,21 @@ export function baseCurrencyAmountInQuote(quantity: Money, { pair, price }: Mark
       )}`
     );
 
-  return createMoney(new BigNumber(quantity.amount).times(price.amount), pair.quote);
+  return createMoney(
+    convertAmountToBaseUnit(quantity).times(convertAmountToBaseUnit(price)),
+    pair.quote
+  );
+}
+
+export function convertAmountToFractionalUnit(num: Money | BigNumber, decimals?: number) {
+  if (isMoney(num)) return num.amount.shiftedBy(num.decimals);
+  if (!isNumber(decimals)) throw new Error('Must define decimal of given currency');
+  return num.shiftedBy(decimals);
+}
+
+// ts-unused-exports:disable-next-line
+export function convertAmountToBaseUnit(num: Money | BigNumber, decimals?: number) {
+  if (isMoney(num)) return num.amount.shiftedBy(-num.decimals);
+  if (!isNumber(decimals)) throw new Error('Must define decimal of given currency');
+  return num.shiftedBy(-decimals);
 }

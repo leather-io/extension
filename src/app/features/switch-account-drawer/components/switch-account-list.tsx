@@ -18,7 +18,7 @@ export const SwitchAccountList = memo(
       return (
         <>
           {accounts.map(account => (
-            <Box mx="extra-loose">
+            <Box mx={['base-loose', 'extra-loose']}>
               <SwitchAccountListItem
                 handleClose={handleClose}
                 account={account}
@@ -37,7 +37,7 @@ export const SwitchAccountList = memo(
         style={{ paddingTop: '24px', height: '70vh' }}
         totalCount={accounts.length}
         itemContent={index => (
-          <Box mx="extra-loose">
+          <Box mx={['base-loose', 'extra-loose']}>
             <SwitchAccountListItem handleClose={handleClose} account={accounts[index]} />
           </Box>
         )}

@@ -1,6 +1,6 @@
+import { AccountActiveCheckmark } from './account-active-checkmark';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { Box, Stack, color, Spinner, StackProps, Flex } from '@stacks/ui';
-import { FiCheck as IconCheck } from 'react-icons/fi';
+import { Stack, color, Spinner, StackProps, Flex, useMediaQuery } from '@stacks/ui';
 
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
@@ -28,6 +28,8 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     ...rest
   } = props;
 
+  const [isNarrowViewport] = useMediaQuery('(max-width: 400px)');
+
   return (
     <Flex
       width="100%"
@@ -41,9 +43,14 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       <Stack isInline alignItems="center" spacing="base">
         {avatar}
         <Stack spacing="base-tight">
-          {accountName}
-          <Stack alignItems="center" spacing="6px" isInline>
-            <Caption>{truncateMiddle(account.address, 4)}</Caption>
+          <Flex>
+            {accountName}
+            {isActive && isNarrowViewport && (
+              <AccountActiveCheckmark index={account.index} ml="tight" />
+            )}
+          </Flex>
+          <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
+            <Caption>{truncateMiddle(account.address, isNarrowViewport ? 3 : 4)}</Caption>
             {balanceLabel}
           </Stack>
         </Stack>
@@ -51,22 +58,18 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       {isLoading && (
         <Spinner
           position="absolute"
-          right="12px"
+          right={0}
           top="calc(50% - 8px)"
           color={color('text-caption')}
           size="18px"
         />
       )}
-      {isActive && (
-        <Box
+      {isActive && !isNarrowViewport && (
+        <AccountActiveCheckmark
+          index={account.index}
           position="absolute"
-          right="12px"
+          right={0}
           top="calc(50% - 8px)"
-          as={IconCheck}
-          size="18px"
-          strokeWidth={2.5}
-          color={color('brand')}
-          data-testid={`account-checked-${account.index}`}
         />
       )}
       {children}
