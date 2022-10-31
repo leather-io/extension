@@ -7,7 +7,7 @@ interface MarketPair {
 }
 
 export function createMarketPair(base: CryptoCurrencies, quote: FiatCurrencies): MarketPair {
-  return { base, quote };
+  return Object.freeze({ base, quote });
 }
 
 export function formatMarketPair({ base, quote }: MarketPair) {
@@ -20,5 +20,7 @@ export interface MarketData {
 }
 
 export function createMarketData(pair: MarketPair, price: Money): MarketData {
-  return { pair, price };
+  if (pair.quote !== price.symbol)
+    throw new Error('Cannot create market data when price does not match quote');
+  return Object.freeze({ pair, price });
 }
