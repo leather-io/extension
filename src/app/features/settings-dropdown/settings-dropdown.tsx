@@ -27,13 +27,8 @@ export function SettingsDropdown() {
   const { lockWallet, currentNetworkId, hasGeneratedWallet, wallet } = useWallet();
   const createAccount = useCreateAccount();
   const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
-  const {
-    setShowNetworks,
-    setShowSettings,
-    showSettings,
-    setShowSignOut,
-    setShowSwitchAccountsState,
-  } = useDrawers();
+  const { setShowNetworks, setShowSettings, showSettings, setShowSwitchAccountsState } =
+    useDrawers();
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
@@ -135,7 +130,6 @@ export function SettingsDropdown() {
             <MenuItem
               color={color('feedback-error')}
               onClick={wrappedCloseCallback(() => {
-                setShowSignOut(true);
                 navigate(RouteUrls.SignOutConfirm);
               })}
               data-testid="settings-sign-out"
