@@ -18,11 +18,13 @@ export const SwitchAccountList = memo(
       return (
         <>
           {accounts.map(account => (
-            <SwitchAccountListItem
-              handleClose={handleClose}
-              account={account}
-              key={account.address}
-            />
+            <Box mx="extra-loose">
+              <SwitchAccountListItem
+                handleClose={handleClose}
+                account={account}
+                key={account.address}
+              />
+            </Box>
           ))}
         </>
       );
