@@ -18,7 +18,7 @@ import { TransactionError } from '@app/pages/transaction-request/components/tran
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
-  useSoftwareWalletTransactionBroadcast,
+  useSoftwareWalletTransactionRequestBroadcast,
   useTxRequestEstimatedUnsignedTxByteLengthState,
   useTxRequestSerializedUnsignedTxPayloadState,
 } from '@app/store/transactions/transaction.hooks';
@@ -38,11 +38,12 @@ import { RouteUrls } from '@shared/route-urls';
 import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
+import get from 'lodash.get';
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
-  const handleBroadcastTransaction = useSoftwareWalletTransactionBroadcast();
+  const handleBroadcastTransaction = useSoftwareWalletTransactionRequestBroadcast();
   const txByteLength = useTxRequestEstimatedUnsignedTxByteLengthState();
   const txPayload = useTxRequestSerializedUnsignedTxPayloadState();
   const feeEstimations = useFeeEstimations(txByteLength, txPayload);
@@ -68,12 +69,11 @@ function TransactionRequestBase() {
     }
     setIsLoading();
 
-    const resp = await handleBroadcastTransaction(values);
-
-    setIsIdle();
-
-    if (resp?.error) {
-      navigate(RouteUrls.TransactionBroadcastError, { state: { message: resp.error.message } });
+    try {
+      await handleBroadcastTransaction(values);
+      setIsIdle();
+    } catch (e) {
+      navigate(RouteUrls.TransactionBroadcastError, { state: { message: get(e, 'message') } });
       return;
     }
 
