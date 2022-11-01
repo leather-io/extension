@@ -96,7 +96,7 @@ export function SendFormInner(props: SendFormInnerProps) {
       <Suspense fallback={<></>}>
         <AmountField error={errors.amount} value={values.amount || 0} />
       </Suspense>
-      <RecipientField error={errors.recipient} value={values.recipient} />
+      <RecipientField error={errors.recipient} value={values.recipientAddressOrBnsName} />
       {selectedAssetBalance?.asset.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
       {selectedAssetBalance?.asset.hasMemo && selectedAssetBalance?.asset.symbol && (
         <SendFormMemoWarning symbol={selectedAssetBalance?.asset.symbol} />

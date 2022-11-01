@@ -4,6 +4,7 @@ export interface SendFormValues {
   fee: number | string;
   feeType: string;
   recipient: string;
+  recipientAddressOrBnsName: string;
   memo: string;
   nonce?: number | string;
 }

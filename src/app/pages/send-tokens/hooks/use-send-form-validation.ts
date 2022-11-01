@@ -22,6 +22,7 @@ import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 interface UseSendFormValidationArgs {
   selectedAssetId: string;
@@ -35,6 +36,7 @@ export const useSendFormValidation = ({
   const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const feeSchema = useFeeSchema();
+  const client = useStacksClient();
 
   // TODO: Can this be removed?
   const selectedAssetSchema = useCallback(
@@ -103,19 +105,34 @@ export const useSendFormValidation = ({
     [fungibleTokenSchema, isStx, stxAmountFormSchema]
   );
 
-  const recipientSchema = useCallback(
-    () =>
-      stxAddressSchema(SendFormErrorMessages.InvalidAddress)
-        .test({
-          message: SendFormErrorMessages.IncorrectAddressMode,
-          test: stxAddressNetworkValidatorFactory(currentNetwork),
-        })
-        .test({
-          message: SendFormErrorMessages.SameAddress,
-          test: stxNotCurrentAddressValidatorFactory(currentAccountStxAddress || ''),
-        }),
-    [currentAccountStxAddress, currentNetwork]
-  );
+  const addressSchema = stxAddressSchema(SendFormErrorMessages.InvalidAddress)
+    .test({
+      message: SendFormErrorMessages.IncorrectAddressMode,
+      test: stxAddressNetworkValidatorFactory(currentNetwork),
+    })
+    .test({
+      message: SendFormErrorMessages.SameAddress,
+      test: stxNotCurrentAddressValidatorFactory(currentAccountStxAddress || ''),
+    });
+
+  const recipientAddressOrBnsNameSchema = yup.string().test({
+    name: 'recipientAddressOrBnsName',
+    test: async value => {
+      try {
+        await addressSchema.validate(value);
+        return true;
+      } catch (e) {}
+      try {
+        const res = await client.namesApi.getNameInfo({ name: value ?? '' });
+        if (typeof res.address !== 'string' || res.address.length === 0) return false;
+        return true;
+      } catch (e) {
+        return false;
+      }
+    },
+  });
+
+  const recipientSchema = addressSchema;
 
   return useMemo(
     () =>
@@ -124,9 +141,10 @@ export const useSendFormValidation = ({
         fee: feeSchema(),
         memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
         nonce: nonceSchema,
-        recipient: recipientSchema(),
+        recipient: recipientSchema,
+        recipientAddressOrBnsName: recipientAddressOrBnsNameSchema,
         selectedAsset: selectedAssetSchema(),
       }),
-    [amountSchema, feeSchema, recipientSchema, selectedAssetSchema]
+    [recipientAddressOrBnsNameSchema, amountSchema, feeSchema, recipientSchema, selectedAssetSchema]
   );
 };

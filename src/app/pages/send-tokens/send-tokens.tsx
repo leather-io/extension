@@ -98,6 +98,7 @@ function SendTokensFormBase() {
     feeType: FeeType[FeeType.Middle],
     memo: '',
     nonce,
+    recipientAddressOrBnsName: '',
     recipient: '',
   };
 

@@ -46,7 +46,9 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('validates that token amount has more than 6 decimal places', async () => {
       await sendForm.inputToAmountField('0.0000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$amountFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toEqual('DIKO can only have 6 decimals');
@@ -55,6 +57,7 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('no error with 6 decimal digits', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0]?.innerText();
@@ -70,7 +73,9 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('validates that amount must be more than 0', async () => {
       await sendForm.inputToAmountField('-1');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$amountFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toEqual('Must be more than zero');
@@ -79,6 +84,7 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('no error with 1 coin', async () => {
       await sendForm.inputToAmountField('1');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0]?.innerText();
@@ -94,7 +100,9 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('validates that token amount has more than 6 decimal places', async () => {
       await sendForm.inputToAmountField('0.0000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$amountFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toEqual('STSW can only have 6 decimals');
@@ -103,6 +111,7 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('no error with 6 decimal digits', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0]?.innerText();
@@ -118,7 +127,9 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('validates that token amount has more than 6 decimal places', async () => {
       await sendForm.inputToAmountField('0.0000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$amountFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toEqual('USDA can only have 6 decimals');
@@ -127,6 +138,7 @@ describe('Confirm transfer of tokens with decimals', () => {
     it('no error with 6 decimal digits', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
+      await sendForm.page.click(sendForm.getSelector('$memoField'));
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0]?.innerText();
