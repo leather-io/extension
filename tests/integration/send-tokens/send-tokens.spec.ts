@@ -84,6 +84,7 @@ describe(`Send tokens flow`, () => {
       await sendForm.inputToAddressField('slkfjsdlkfjs');
       await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsg = await sendForm.page.isVisible(sendForm.getSelector('$stxAddressFieldError'));
       expect(errorMsg).toBeTruthy();
     });
@@ -102,6 +103,7 @@ describe(`Send tokens flow`, () => {
       await sendForm.inputToAddressField('STRE7HABZGQ204G3VQAKMDMVBBD8A8CYKET9M0T');
       await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toContain('The address is for the incorrect Stacks network');
@@ -110,7 +112,9 @@ describe(`Send tokens flow`, () => {
     it('validates that the address used is invalid', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField('ST3TZVWsss4VTZA1WZN2TB6RQ5J8RACHZYMWMM2N1HT2');
+      await sendForm.inputToCustomFeeField('1');
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toContain(SendFormErrorMessages.InvalidAddress);
@@ -119,7 +123,9 @@ describe(`Send tokens flow`, () => {
     it('validates that the address is same as sender', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField(copiedAddress);
+      await sendForm.inputToCustomFeeField('1');
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
       expect(errorMessage).toContain(SendFormErrorMessages.SameAddress);
@@ -128,6 +134,7 @@ describe(`Send tokens flow`, () => {
     it('validates that the amount must be number', async () => {
       await sendForm.inputToAmountField('aaaaaa');
       await sendForm.inputToAddressField('SP15DFMYE5JDDKRMAZSC6947TCERK36JM4KD5VKZD');
+      await sendForm.inputToCustomFeeField('1');
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
@@ -139,6 +146,7 @@ describe(`Send tokens flow`, () => {
       await sendForm.inputToAddressField('ess-pee');
       await sendForm.inputToCustomFeeField('0.00001');
       await sendForm.clickPreviewTxBtn();
+      await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsg = await sendForm.page.isVisible(sendForm.getSelector('$amountFieldError'));
       expect(errorMsg).toBeTruthy();
     });
