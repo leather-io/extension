@@ -1,3 +1,18 @@
+## [3.21.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.21.0...v3.21.1) (2022-10-31)
+
+
+### Bug Fixes
+
+* add analytics events to local log ([b0bfb9a](https://github.com/hirosystems/stacks-wallet-web/commit/b0bfb9ad022dcac450ff76023a4b72d899aa905c))
+* disable input on pw field when loading ([9e26a45](https://github.com/hirosystems/stacks-wallet-web/commit/9e26a457cb50a397002648243d889655a6c9f93a))
+* parsing invalid punycode ([18f59fa](https://github.com/hirosystems/stacks-wallet-web/commit/18f59fa1fb5b90a32f696338bbdf7aef0beaee6b))
+* tooltip label ([ff587cd](https://github.com/hirosystems/stacks-wallet-web/commit/ff587cd6d56075a69688f5c1a728285bd06ccb33))
+
+
+### Internal
+
+* broadcast fn ([07e4362](https://github.com/hirosystems/stacks-wallet-web/commit/07e43627f29dd4efb954c0f20a548f922b009f95))
+
 ## [3.21.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.20.0...v3.21.0) (2022-10-27)
 
 
