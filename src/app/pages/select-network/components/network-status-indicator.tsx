@@ -6,7 +6,6 @@ interface NetworkStatusIndicatorProps {
   isActive: boolean;
   isOnline: boolean;
 }
-
-export const NetworkStatusIndicator = ({ isActive, isOnline }: NetworkStatusIndicatorProps) => {
+export function NetworkStatusIndicator({ isActive, isOnline }: NetworkStatusIndicatorProps) {
   return !isOnline ? <IconCloudOff /> : isActive ? <CheckmarkIcon /> : null;
-};
+}

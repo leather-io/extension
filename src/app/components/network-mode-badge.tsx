@@ -1,16 +1,19 @@
 import { memo, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { color, Flex, FlexProps, Text } from '@stacks/ui';
 import { ChainID } from '@stacks/transactions';
 
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { RouteUrls } from '@shared/route-urls';
 
 export const NetworkModeBadge = memo((props: FlexProps) => {
+  const navigate = useNavigate();
   const { chainId, name } = useCurrentNetworkState();
   const isTestnetChain = useMemo(() => chainId === ChainID.Testnet, [chainId]);
-  const { setShowNetworks } = useDrawers();
 
-  return isTestnetChain ? (
+  if (!isTestnetChain) return null;
+
+  return (
     <Flex
       borderWidth="1px"
       borderColor={color('border')}
@@ -20,16 +23,13 @@ export const NetworkModeBadge = memo((props: FlexProps) => {
       px="12px"
       position="relative"
       zIndex={999}
-      _hover={{
-        cursor: 'pointer',
-        bg: color('bg-4'),
-      }}
-      onClick={() => setShowNetworks(true)}
+      _hover={{ cursor: 'pointer', bg: color('bg-4') }}
+      onClick={() => navigate(RouteUrls.SelectNetwork, { relative: 'path' })}
       {...props}
     >
       <Text fontSize="11px" fontWeight="500">
         {name}
       </Text>
     </Flex>
-  ) : null;
+  );
 });

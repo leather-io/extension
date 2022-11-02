@@ -22,8 +22,6 @@ export enum RouteUrls {
   LedgerUnsupportedBrowser = 'unsupported-browser',
   LedgerOutdatedAppWarning = 'outdated-app-warning',
 
-  TransactionBroadcastError = 'broadcast-error',
-
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
@@ -33,12 +31,17 @@ export enum RouteUrls {
   IncreaseFee = '/increase-fee',
   Receive = '/receive',
   Send = '/send-transaction',
-  SignOutConfirm = '/sign-out',
-  ChangeTheme = '/change-theme',
+
   TransactionRequest = '/transaction',
+  TransactionBroadcastError = 'broadcast-error',
   UnauthorizedRequest = '/unauthorized-request',
   ViewSecretKey = '/view-secret-key',
   // Locked wallet route
   Unlock = '/unlock',
   SignatureRequest = '/signature',
+
+  // Modals
+  SignOutConfirm = 'sign-out',
+  ChangeTheme = 'change-theme',
+  SelectNetwork = 'choose-network',
 }

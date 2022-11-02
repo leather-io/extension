@@ -1,16 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useDrawers } from '@app/common/hooks/use-drawers';
+
 import { Header } from '@app/components/header';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
+
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { RequestPassword } from '@app/components/request-password';
 
 export function Unlock() {
-  const { showSignOut } = useDrawers();
   const navigate = useNavigate();
 
   useRouteHeader(<Header />);
@@ -41,8 +40,8 @@ export function Unlock() {
             entering your Secret Key.
           </Link>
         </Caption> */}
-        {showSignOut && <SignOutConfirmDrawer />}
       </Stack>
+      <Outlet />
     </CenteredPageContainer>
   );
 }

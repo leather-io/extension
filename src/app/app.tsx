@@ -11,7 +11,6 @@ import { theme } from '@app/common/theme';
 import { GlobalStyles } from '@app/components/global-styles/global-styles';
 import { FullPageLoadingSpinner, NewAccountLoadingSpinner } from '@app/components/loading-spinner';
 import { SwitchAccountDrawer } from '@app/features/switch-account-drawer/switch-account-drawer';
-import { NetworksDrawer } from '@app/features/network-drawer/networks-drawer';
 import { SettingsDropdown } from '@app/features/settings-dropdown/settings-dropdown';
 import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { Devtools } from '@app/features/devtool/devtools';
@@ -35,7 +34,6 @@ export function App() {
                     <AppErrorBoundary>
                       <AppRoutes />
                       <SwitchAccountDrawer />
-                      <NetworksDrawer />
                       <SettingsDropdown />
                     </AppErrorBoundary>
                     <Toaster
