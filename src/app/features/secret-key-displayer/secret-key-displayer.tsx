@@ -1,10 +1,10 @@
 import { memo, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useClipboard } from '@stacks/ui';
 
+import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SecretKeyDisplayerLayout } from './secret-key-displayer.layout';
-import { RouteUrls } from '@shared/route-urls';
 
 interface SecretKeyDisplayerProps {
   secretKey: string;
@@ -23,11 +23,14 @@ export const SecretKeyDisplayer = memo(({ secretKey }: SecretKeyDisplayerProps) 
   const showTitleAndIllustration = pathname === RouteUrls.BackUpSecretKey;
 
   return (
-    <SecretKeyDisplayerLayout
-      hasCopied={hasCopied}
-      onCopyToClipboard={copyToClipboard}
-      secretKeyWords={secretKeyWords}
-      showTitleAndIllustration={showTitleAndIllustration}
-    />
+    <>
+      <SecretKeyDisplayerLayout
+        hasCopied={hasCopied}
+        onCopyToClipboard={copyToClipboard}
+        secretKeyWords={secretKeyWords}
+        showTitleAndIllustration={showTitleAndIllustration}
+      />
+      <Outlet />
+    </>
   );
 });

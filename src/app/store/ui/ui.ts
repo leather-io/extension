@@ -21,13 +21,9 @@ export const showSwitchAccountsState = atom(false);
 
 export const showHighFeeConfirmationState = atom(false);
 
-export const showNetworksStore = atom(false);
-
 export const showSettingsStore = atom(false);
 export const showEditNonceState = atom(false);
 export const showTxSettingsCallback = atom<(() => Promise<void>) | undefined>(undefined);
-
-export const showSignOut = atom(false);
 
 export const errorStackTraceState = atom<string | null>(null);
 

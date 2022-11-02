@@ -43,10 +43,7 @@ describe(`Transaction signing`, () => {
         browser.context.waitForEvent('page'),
         browser.demo.openConnect(),
       ]);
-      const [response] = await Promise.all([
-        popup.waitForNavigation(),
-        popup.click(createTestSelector('account-account-1-0')),
-      ]);
+      const response = popup.click(createTestSelector('account-account-1-0'));
       if (response) console.log(response);
       await wallet.page.close();
       await demo.page.bringToFront();
@@ -93,10 +90,7 @@ describe(`Transaction signing`, () => {
         browser.context.waitForEvent('page'),
         browser.demo.openConnect(),
       ]);
-      await Promise.all([
-        popup.waitForNavigation(),
-        popup.click(createTestSelector('account-account-1-0')),
-      ]);
+      await popup.click(createTestSelector('account-account-1-0'));
       await wallet.page.close();
       await demo.page.bringToFront();
       const [txPage] = await Promise.all([

@@ -1,4 +1,4 @@
-import { memo, Suspense, useCallback, useEffect, useState } from 'react';
+import { memo, Suspense, useCallback, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { StacksTransaction } from '@stacks/transactions';
 import toast from 'react-hot-toast';
@@ -36,7 +36,7 @@ import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confir
 function SendTokensFormBase() {
   const navigate = useNavigate();
   const assets = useTransferableAssets();
-  const { showEditNonce, showNetworks } = useDrawers();
+  const { showEditNonce } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const [selectedAssetId, setSelectedAssetId] = useState<string>('');
@@ -53,10 +53,6 @@ function SendTokensFormBase() {
   const ledgerNavigate = useLedgerNavigate();
 
   useRouteHeader(<Header hideActions title="Send" onClose={() => navigate(RouteUrls.Home)} />);
-
-  useEffect(() => {
-    if (showNetworks) navigate(RouteUrls.Home);
-  }, [navigate, showNetworks]);
 
   const handleConfirmDrawerOnClose = useCallback(() => {
     setShowing(false);
