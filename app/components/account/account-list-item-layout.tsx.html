@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -138,7 +138,10 @@
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,6 +173,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,9 +217,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { truncateMiddle } from '@stacks/ui-utils';
-import { Box, Stack, color, Spinner, StackProps, Flex } from '@stacks/ui';
-import { FiCheck as IconCheck } from 'react-icons/fi';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AccountActiveCheckmark } from './account-active-checkmark';
+import { truncateMiddle } from '@stacks/ui-utils';
+import { Stack, color, Spinner, StackProps, Flex, useMediaQuery } from '@stacks/ui';
 &nbsp;
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
@@ -243,6 +249,8 @@ export function <span class="fstat-no" title="function not covered" >AccountList
     ...rest
   } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
+  const [isNarrowViewport] = <span class="cstat-no" title="statement not covered" >useMediaQuery('(max-width: 400px)');</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex
       width="100%"
@@ -256,9 +264,14 @@ export function <span class="fstat-no" title="function not covered" >AccountList
       &lt;Stack isInline alignItems="center" spacing="base"&gt;
         {avatar}
         &lt;Stack spacing="base-tight"&gt;
-          {accountName}
-          &lt;Stack alignItems="center" spacing="6px" isInline&gt;
-            &lt;Caption&gt;{truncateMiddle(account.address, 4)}&lt;/Caption&gt;
+          &lt;Flex&gt;
+            {accountName}
+            {isActive &amp;&amp; isNarrowViewport &amp;&amp; (
+              &lt;AccountActiveCheckmark index={account.index} ml="tight" /&gt;
+            )}
+          &lt;/Flex&gt;
+          &lt;Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap"&gt;
+            &lt;Caption&gt;{truncateMiddle(account.address, isNarrowViewport ? 3 : 4)}&lt;/Caption&gt;
             {balanceLabel}
           &lt;/Stack&gt;
         &lt;/Stack&gt;
@@ -266,22 +279,18 @@ export function <span class="fstat-no" title="function not covered" >AccountList
       {isLoading &amp;&amp; (
         &lt;Spinner
           position="absolute"
-          right="12px"
+          right={0}
           top="calc(50% - 8px)"
           color={color('text-caption')}
           size="18px"
         /&gt;
       )}
-      {isActive &amp;&amp; (
-        &lt;Box
+      {isActive &amp;&amp; !isNarrowViewport &amp;&amp; (
+        &lt;AccountActiveCheckmark
+          index={account.index}
           position="absolute"
-          right="12px"
+          right={0}
           top="calc(50% - 8px)"
-          as={IconCheck}
-          size="18px"
-          strokeWidth={2.5}
-          color={color('brand')}
-          data-testid={`account-checked-${account.index}`}
         /&gt;
       )}
       {children}
@@ -295,7 +304,7 @@ export function <span class="fstat-no" title="function not covered" >AccountList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-31T13:08:21.251Z
+                at 2022-11-03T10:40:45.373Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
