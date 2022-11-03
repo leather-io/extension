@@ -22,12 +22,12 @@ describe(baseCurrencyAmountInQuote.name, () => {
 
   test('it converts currency small amounts accurately', () => {
     const result = baseCurrencyAmountInQuote(tenMicroStx, mockAccurateStxMarketData);
-    expect(result.amount.toString()).toEqual('0.000003');
+    expect(result.amount.toString()).toEqual('0.0003');
   });
 
   test('it converts currency amounts accurately', () => {
     const result = baseCurrencyAmountInQuote(tenStx, mockAccurateStxMarketData);
-    expect(result.amount.toString()).toEqual('3');
+    expect(result.amount.toString()).toEqual('300');
   });
 });
 

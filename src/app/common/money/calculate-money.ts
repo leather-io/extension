@@ -15,7 +15,10 @@ export function baseCurrencyAmountInQuote(quantity: Money, { pair, price }: Mark
     );
 
   return createMoney(
-    convertAmountToBaseUnit(quantity).times(convertAmountToBaseUnit(price)),
+    convertAmountToFractionalUnit(
+      convertAmountToBaseUnit(quantity).times(convertAmountToBaseUnit(price)),
+      price.decimals
+    ),
     pair.quote
   );
 }
