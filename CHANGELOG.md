@@ -1,3 +1,25 @@
+## [3.22.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.22.0...v3.22.1) (2022-11-03)
+
+
+### Bug Fixes
+
+* **market-data:** conversion creating decimal money ([1557fe0](https://github.com/hirosystems/stacks-wallet-web/commit/1557fe011772dc110bb950f5765ff2a1b264319b))
+
+## [3.22.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.21.1...v3.22.0) (2022-11-03)
+
+
+### Features
+
+* dark theme, closes [#2701](https://github.com/hirosystems/stacks-wallet-web/issues/2701) ([6d43dad](https://github.com/hirosystems/stacks-wallet-web/commit/6d43dad07301a1ef6d0b21fdce943346e8f78449))
+
+
+### Bug Fixes
+
+* padding on switch acct list, closes [#2751](https://github.com/hirosystems/stacks-wallet-web/issues/2751) ([3a190e2](https://github.com/hirosystems/stacks-wallet-web/commit/3a190e231abb96b5db2c02d7594dda8518751f21))
+* reintroduces usd amounts, closes [#2756](https://github.com/hirosystems/stacks-wallet-web/issues/2756), [#2735](https://github.com/hirosystems/stacks-wallet-web/issues/2735) ([b9574a8](https://github.com/hirosystems/stacks-wallet-web/commit/b9574a8446c99243ccae08b4c66a7a2f116b6823))
+* remove unnecessary call to setShowSignOut ([ce7ad3c](https://github.com/hirosystems/stacks-wallet-web/commit/ce7ad3caa814abe7639030ebce44b3fbd90f74cb))
+* show spinner when activity is loading ([f9fbca3](https://github.com/hirosystems/stacks-wallet-web/commit/f9fbca3dcf3dc7762c611af7cc313cbc1d24bc56))
+
 ## [3.21.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.21.0...v3.21.1) (2022-10-31)
 
 
