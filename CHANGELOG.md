@@ -1,3 +1,10 @@
+## [3.22.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.22.0...v3.22.1) (2022-11-03)
+
+
+### Bug Fixes
+
+* **market-data:** conversion creating decimal money ([1557fe0](https://github.com/hirosystems/stacks-wallet-web/commit/1557fe011772dc110bb950f5765ff2a1b264319b))
+
 ## [3.22.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.21.1...v3.22.0) (2022-11-03)
 
 
