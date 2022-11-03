@@ -35,23 +35,20 @@ import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
 import { useHasStateRehydrated } from '@app/store';
+import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { OnboardingGate } from './onboarding-gate';
 
-export function AppRoutes() {
+function AppRoutesAfterAnalyticsConsentAnswered() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => window.close());
-
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
-
-  const hasStateRehydrated = useHasStateRehydrated();
-  if (!hasStateRehydrated) return <LoadingSpinner />;
 
   const settingsModalRoutes = (
     <>
@@ -200,4 +197,21 @@ export function AppRoutes() {
       </Route>
     </Routes>
   );
+}
+
+export function AppRoutes() {
+  const hasStateRehydrated = useHasStateRehydrated();
+  const hasResponded = useHasUserRespondedToAnalyticsConsent();
+
+  if (!hasStateRehydrated) return <LoadingSpinner />;
+
+  if (!hasResponded) {
+    return (
+      <Routes>
+        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+        <Route path="*" element={<Navigate replace to={RouteUrls.RequestDiagnostics} />} />
+      </Routes>
+    );
+  }
+  return <AppRoutesAfterAnalyticsConsentAnswered />;
 }
