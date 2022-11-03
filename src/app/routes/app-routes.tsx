@@ -36,6 +36,7 @@ import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-s
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 import { SelectNetwork } from '@app/pages/select-network/networks-drawer';
+import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
@@ -45,14 +46,23 @@ export function AppRoutes() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const analytics = useAnalytics();
+  const hasResponded = useHasUserRespondedToAnalyticsConsent();
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => window.close());
-
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
   const hasStateRehydrated = useHasStateRehydrated();
   if (!hasStateRehydrated) return <LoadingSpinner />;
+
+  if (!hasResponded) {
+    return (
+      <Routes>
+        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+        <Route path="*" element={<Navigate replace to={RouteUrls.RequestDiagnostics} />} />
+      </Routes>
+    );
+  }
 
   const settingsModalRoutes = (
     <>

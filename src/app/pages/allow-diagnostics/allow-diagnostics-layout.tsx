@@ -25,11 +25,10 @@ const ReasonToAllowDiagnostics: FC<ReasonToAllowDiagnosticsProps> = ({ text }) =
 
 interface AllowDiagnosticsLayoutProps {
   onUserAllowDiagnostics(): void;
-  onUserDenyDiagnosticsPermissions(): void;
+  onUserDenyDiagnostics(): void;
 }
 export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
-  const { onUserAllowDiagnostics, onUserDenyDiagnosticsPermissions } = props;
-
+  const { onUserAllowDiagnostics, onUserDenyDiagnostics } = props;
   return (
     <CenteredPageContainer>
       <Stack
@@ -66,7 +65,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
             fontSize="14px"
             mode="tertiary"
             ml="base"
-            onClick={() => onUserDenyDiagnosticsPermissions()}
+            onClick={() => onUserDenyDiagnostics()}
             type="button"
             variant="link"
             data-testid={OnboardingSelectors.AnalyticsDenyBtn}

@@ -7,6 +7,7 @@ import { logger } from '@shared/logger';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { IS_TEST_ENV } from '@shared/environment';
+import { useHasUserExplicitlyDeclinedAnalytics } from '@app/store/settings/settings.selectors';
 
 const IGNORED_PATH_REGEXPS = [/^\/$/];
 
@@ -22,6 +23,7 @@ export function useAnalytics() {
   const currentNetwork = useCurrentNetworkState();
   const location = useLocation();
   const { walletType } = useWalletType();
+  const hasDeclined = useHasUserExplicitlyDeclinedAnalytics();
 
   return useMemo(() => {
     const defaultProperties = {
@@ -38,6 +40,8 @@ export function useAnalytics() {
 
     return {
       async page(...args: PageParams) {
+        if (hasDeclined) return;
+
         const [category, name, properties, options, ...rest] = args;
         const prop = { ...defaultProperties, ...properties };
         const opts = { ...defaultOptions, ...options };
@@ -48,6 +52,8 @@ export function useAnalytics() {
         return analytics.page(category, name, prop, opts, ...rest).catch(logger.error);
       },
       async track(...args: EventParams) {
+        if (hasDeclined) return;
+
         const [eventName, properties, options, ...rest] = args;
         const prop = { ...defaultProperties, ...properties };
         const opts = { ...defaultOptions, ...options };
@@ -57,5 +63,5 @@ export function useAnalytics() {
         return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
       },
     };
-  }, [currentNetwork.name, currentNetwork.url, location.pathname, walletType]);
+  }, [currentNetwork.name, currentNetwork.url, location.pathname, walletType, hasDeclined]);
 }

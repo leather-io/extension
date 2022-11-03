@@ -7,13 +7,13 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { Header } from '@app/components/header';
 import { RouteUrls } from '@shared/route-urls';
 import { WelcomeLayout } from './welcome.layout';
-import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 export const WelcomePage = memo(() => {
-  const [hasAllowedDiagnostics] = useHasAllowedDiagnostics();
+  const hasResponded = useHasUserRespondedToAnalyticsConsent();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
@@ -34,7 +34,7 @@ export const WelcomePage = memo(() => {
   }, [keyActions, analytics, decodedAuthRequest, navigate]);
 
   useEffect(() => {
-    if (hasAllowedDiagnostics === undefined) navigate(RouteUrls.RequestDiagnostics);
+    if (!hasResponded) navigate(RouteUrls.RequestDiagnostics);
 
     return () => setIsGeneratingWallet(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
