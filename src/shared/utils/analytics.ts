@@ -1,44 +1,12 @@
 import { Analytics, AnalyticsBrowser } from '@segment/analytics-next';
-import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
 
-import { IS_PROD_ENV, IS_TEST_ENV, SEGMENT_WRITE_KEY, SENTRY_DSN } from '@shared/environment';
+import { IS_TEST_ENV, SEGMENT_WRITE_KEY } from '@shared/environment';
 import { logger } from '@shared/logger';
 
-import { userHasAllowedDiagnosticsKey } from './storage';
+const analyticsClient = new Promise<null | Analytics>(resolve => {
+  if (IS_TEST_ENV || !SEGMENT_WRITE_KEY) resolve(null);
 
-function checkUserHasGrantedPermission() {
-  return localStorage.getItem(userHasAllowedDiagnosticsKey) === 'true';
-}
-
-export let analytics: Analytics;
-
-export function initSentry() {
-  if (IS_PROD_ENV && !SENTRY_DSN) {
-    logger.info('Sentry init aborted: no dsn');
-    return;
-  }
-
-  Sentry.init({
-    dsn: SENTRY_DSN,
-    integrations: [new Integrations.BrowserTracing()],
-    tracesSampleRate: 0,
-    enabled: checkUserHasGrantedPermission(),
-    beforeSend(event) {
-      if (!checkUserHasGrantedPermission()) return null;
-      return event;
-    },
-  });
-}
-
-export function initSegment() {
-  if (IS_TEST_ENV || !SEGMENT_WRITE_KEY) return;
-
-  const hasPermission = checkUserHasGrantedPermission();
-
-  if (IS_PROD_ENV && !hasPermission) return;
-
-  return AnalyticsBrowser.standalone(SEGMENT_WRITE_KEY, {
+  void AnalyticsBrowser.standalone(SEGMENT_WRITE_KEY, {
     integrations: {
       'Segment.io': {
         deliveryStrategy: {
@@ -51,6 +19,18 @@ export function initSegment() {
       },
     },
   })
-    .then(res => (analytics = res))
-    .catch(error => logger.error('Unable to init segment', error));
+    .then(client => resolve(client))
+    .catch(error => {
+      logger.error('Unable to init segment', error);
+      resolve(null);
+    });
+});
+
+export function getAnalyticsClient() {
+  return analyticsClient;
+}
+
+export function initSentry() {
+  // TODO
+  // https://github.com/hirosystems/stacks-wallet-web/issues/2822
 }

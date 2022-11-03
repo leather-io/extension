@@ -5,10 +5,11 @@ import { EventParams, PageParams } from '@segment/analytics-next/dist/pkg/core/a
 
 import { IS_TEST_ENV } from '@shared/environment';
 import { logger } from '@shared/logger';
-import { analytics } from '@shared/utils/analytics';
+import { getAnalyticsClient } from '@shared/utils/analytics';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { useHasUserExplicitlyDeclinedAnalytics } from '@app/store/settings/settings.selectors';
 
 const IGNORED_PATH_REGEXPS = [/^\/$/];
 
@@ -24,6 +25,8 @@ export function useAnalytics() {
   const currentNetwork = useCurrentNetworkState();
   const location = useLocation();
   const { walletType } = useWalletType();
+
+  const hasDeclined = useHasUserExplicitlyDeclinedAnalytics();
 
   return useMemo(() => {
     const defaultProperties = {
@@ -45,9 +48,14 @@ export function useAnalytics() {
         const opts = { ...defaultOptions, ...options };
         logger.info(`Analytics page view: ${name}`, properties);
 
-        if (!analytics || IS_TEST_ENV) return;
+        const client = await getAnalyticsClient();
+
+        if (!client) return;
+        if (hasDeclined) return;
+        if (IS_TEST_ENV) return;
         if (typeof name === 'string' && isIgnoredPath(name)) return;
-        return analytics.page(category, name, prop, opts, ...rest).catch(logger.error);
+
+        return client.page(category, name, prop, opts, ...rest).catch(logger.error);
       },
       async track(...args: EventParams) {
         const [eventName, properties, options, ...rest] = args;
@@ -55,9 +63,20 @@ export function useAnalytics() {
         const opts = { ...defaultOptions, ...options };
         logger.info(`Analytics event: ${eventName}`, properties);
 
-        if (!analytics || IS_TEST_ENV) return;
-        return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
+        const client = await getAnalyticsClient();
+
+        if (!client) return;
+        if (hasDeclined) return;
+        if (IS_TEST_ENV) return;
+
+        return client.track(eventName, prop, opts, ...rest).catch(logger.error);
       },
     };
-  }, [currentNetwork.chain.stacks.url, currentNetwork.name, location.pathname, walletType]);
+  }, [
+    currentNetwork.chain.stacks.url,
+    currentNetwork.name,
+    location.pathname,
+    walletType,
+    hasDeclined,
+  ]);
 }

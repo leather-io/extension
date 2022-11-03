@@ -4,7 +4,7 @@ import {
   MESSAGE_SOURCE,
 } from '@shared/message-types';
 import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
-import { analytics } from '@shared/utils/analytics';
+import { getAnalyticsClient } from '@shared/utils/analytics';
 import { isValidUrl } from '@shared/utils/validate-url';
 
 interface FormatAuthResponseArgs {
@@ -56,7 +56,9 @@ export function finalizeAuthResponse({
   const origin = new URL(requestingOrigin);
 
   if (redirectUri.hostname !== origin.hostname) {
-    void analytics.track('auth_response_with_illegal_redirect_uri');
+    void getAnalyticsClient().then(
+      client => client && client.track('auth_response_with_illegal_redirect_uri')
+    );
     throw new Error('Cannot redirect to a different domain than the one requesting');
   }
 
