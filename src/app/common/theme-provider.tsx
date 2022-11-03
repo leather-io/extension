@@ -1,4 +1,8 @@
-import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import { store } from '@app/store';
+import { userSelectedThemeActions } from '@app/store/settings/settings.actions';
+import { useUserSelectedTheme } from '@app/store/settings/settings.selectors';
 
 export const themeLabelMap = {
   light: 'Light',
@@ -16,7 +20,7 @@ export const getThemeLabel = (theme: UserSelectedTheme) => {
 const ThemeContext = createContext<{
   theme: ComputedTheme;
   userSelectedTheme: UserSelectedTheme;
-  setUserSelectedTheme: Dispatch<SetStateAction<UserSelectedTheme>>;
+  setUserSelectedTheme: (theme: UserSelectedTheme) => void;
 }>({
   // These values are not used, but are set to satisfy the context's value type.
   theme: 'light',
@@ -27,12 +31,22 @@ const ThemeContext = createContext<{
 const getSystemTheme = () =>
   window.matchMedia('prefers-color-scheme: dark').matches ? 'dark' : 'light';
 
+function getComputedTheme(userSelectedTheme: UserSelectedTheme): ComputedTheme {
+  if (userSelectedTheme === 'system') return getSystemTheme();
+
+  return userSelectedTheme;
+}
+
+function setUserSelectedTheme(theme: UserSelectedTheme) {
+  store.dispatch(userSelectedThemeActions.setUserSelectedTheme(theme));
+}
+
 interface ThemeSwitcherProviderProps {
   children: JSX.Element | JSX.Element[];
 }
 export const ThemeSwitcherProvider = ({ children }: ThemeSwitcherProviderProps) => {
-  const [userSelectedTheme, setUserSelectedTheme] = useState<UserSelectedTheme>('system');
-  const [theme, setTheme] = useState<ComputedTheme>(() => getSystemTheme());
+  const userSelectedTheme = useUserSelectedTheme();
+  const [theme, setTheme] = useState<ComputedTheme>(() => getComputedTheme(userSelectedTheme));
 
   useEffect(() => {
     switch (userSelectedTheme) {
