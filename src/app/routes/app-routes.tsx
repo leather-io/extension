@@ -47,7 +47,6 @@ export function AppRoutes() {
 
   useOnWalletLock(() => navigate(RouteUrls.Unlock));
   useOnSignOut(() => window.close());
-
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
   const hasStateRehydrated = useHasStateRehydrated();
