@@ -7,6 +7,13 @@ export enum NonceTypes {
   undefinedNonce = 'undefined-nonce',
 }
 
+function confirmedTxsNoncesIncludesPossibleClientFallbackNonce(
+  clientFallbackNonce: number,
+  confirmedTransactions: Transaction[]
+) {
+  return confirmedTransactions.find(tx => tx.nonce === clientFallbackNonce);
+}
+
 function apiSuggestsImpossibleZeroNonceWithConfirmedTxs(
   confirmedTxsNonces: number[],
   possibleNextNonce: number
@@ -15,7 +22,9 @@ function apiSuggestsImpossibleZeroNonceWithConfirmedTxs(
 }
 
 function compareApiMissingNoncesWithPendingTxsNonces(
+  confirmedTransactions: Transaction[],
   detectedMissingNonces: number[],
+  lastConfirmedTxNonceIncremented: number,
   lastPendingTxNonceIncremented: number,
   pendingTxsNonces: number[],
   possibleNextNonce: number,
@@ -24,11 +33,23 @@ function compareApiMissingNoncesWithPendingTxsNonces(
   const remainingMissingNonces = detectedMissingNonces.filter(
     nonce => !pendingTxsNonces.includes(nonce)
   );
-  return remainingMissingNonces.length > 0
-    ? { nonce: Math.min(...remainingMissingNonces), nonceType: NonceTypes.apiSuggestedNonce }
-    : pendingTxsNoncesIncludesApiPossibleNextNonce
-    ? { nonce: lastPendingTxNonceIncremented, nonceType: NonceTypes.clientFallbackNonce }
-    : { nonce: possibleNextNonce, nonceType: NonceTypes.apiSuggestedNonce };
+  if (remainingMissingNonces.length > 0)
+    return { nonce: Math.min(...remainingMissingNonces), nonceType: NonceTypes.apiSuggestedNonce };
+  if (pendingTxsNoncesIncludesApiPossibleNextNonce) {
+    if (
+      // Check if suggesting the lastPendingTxNonceIncremented is actually already confirmed
+      confirmedTxsNoncesIncludesPossibleClientFallbackNonce(
+        lastPendingTxNonceIncremented,
+        confirmedTransactions
+      )
+    )
+      return { nonce: lastConfirmedTxNonceIncremented, nonceType: NonceTypes.clientFallbackNonce };
+    return {
+      nonce: lastPendingTxNonceIncremented,
+      nonceType: NonceTypes.clientFallbackNonce,
+    };
+  }
+  return { nonce: possibleNextNonce, nonceType: NonceTypes.apiSuggestedNonce };
 }
 
 function findAnyMissingPendingTxsNonces(pendingNonces: number[]) {
@@ -89,7 +110,9 @@ export function getNextNonce({
 
   if (apiReturnsMissingNoncesAndPendingTransactions) {
     return compareApiMissingNoncesWithPendingTxsNonces(
+      confirmedTransactions,
       detectedMissingNonces,
+      lastConfirmedTxNonceIncremented,
       lastPendingTxNonceIncremented,
       pendingTxsNonces,
       possibleNextNonce,
@@ -102,11 +125,19 @@ export function getNextNonce({
 
   if (apiReturnsPendingTransactionsWithPossibleNextNonce) {
     if (pendingTxsHasMissingNonces)
-      return {
-        nonce: firstPendingMissingNonce,
-        nonceType: NonceTypes.clientFallbackNonce,
-      };
-    return { nonce: lastPendingTxNonceIncremented, nonceType: NonceTypes.clientFallbackNonce };
+      return { nonce: firstPendingMissingNonce, nonceType: NonceTypes.clientFallbackNonce };
+    if (
+      // Check if suggesting the lastPendingTxNonceIncremented is actually already confirmed
+      confirmedTxsNoncesIncludesPossibleClientFallbackNonce(
+        lastPendingTxNonceIncremented,
+        confirmedTransactions
+      )
+    )
+      return { nonce: lastConfirmedTxNonceIncremented, nonceType: NonceTypes.clientFallbackNonce };
+    return {
+      nonce: lastPendingTxNonceIncremented,
+      nonceType: NonceTypes.clientFallbackNonce,
+    };
   }
 
   return { nonce: possibleNextNonce, nonceType: NonceTypes.apiSuggestedNonce };
