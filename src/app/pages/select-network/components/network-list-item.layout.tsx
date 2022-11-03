@@ -48,7 +48,7 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
           >
             {network.name}
           </Title>
-          <Caption>{getUrlHostname(network.url)}</Caption>
+          <Caption>{getUrlHostname(network.chain.stacks.url)}</Caption>
         </Stack>
         <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
       </Flex>

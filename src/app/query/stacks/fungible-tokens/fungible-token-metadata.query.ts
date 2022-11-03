@@ -40,7 +40,7 @@ export function useGetFungibleTokenMetadataQuery(
   const network = useCurrentNetworkState();
 
   return useQuery({
-    queryKey: ['get-ft-metadata', contractId, network.url],
+    queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
     queryFn: fetchUnanchoredAccountInfo(client)(contractId),
     ...queryOptions,
   });
@@ -54,7 +54,7 @@ export function useGetFungibleTokenMetadataListQuery(
 
   return useQueries({
     queries: contractIds.map(contractId => ({
-      queryKey: ['get-ft-metadata', contractId, network.url],
+      queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
       queryFn: fetchUnanchoredAccountInfo(client)(contractId),
       ...queryOptions,
     })),

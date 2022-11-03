@@ -16,7 +16,7 @@ const queryOptions = {
 
 export function useGetAccountTransactionsWithTransfersQuery() {
   const principal = useCurrentAccountStxAddressState();
-  const { url: networkUrl } = useCurrentNetworkState();
+  const { chain } = useCurrentNetworkState();
   const client = useStacksClient();
   const fetch = () => {
     if (!principal) return;
@@ -27,9 +27,9 @@ export function useGetAccountTransactionsWithTransfersQuery() {
   };
 
   return useQuery({
-    queryKey: ['account-txs-with-transfers', principal, networkUrl],
+    queryKey: ['account-txs-with-transfers', principal, chain.stacks.url],
     queryFn: fetch,
-    enabled: !!principal && !!networkUrl,
+    enabled: !!principal && !!chain.stacks.url,
     ...queryOptions,
   }) as UseQueryResult<AddressTransactionsWithTransfersListResponse, Error>;
 }

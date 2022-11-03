@@ -28,7 +28,7 @@ export function useAnalytics() {
   return useMemo(() => {
     const defaultProperties = {
       network: currentNetwork.name.toLowerCase(),
-      usingDefaultHiroApi: isHiroApiUrl(currentNetwork.url),
+      usingDefaultHiroApi: isHiroApiUrl(currentNetwork.chain.stacks.url),
       route: location.pathname,
       version: VERSION,
       walletType,
@@ -59,5 +59,5 @@ export function useAnalytics() {
         return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
       },
     };
-  }, [currentNetwork.name, currentNetwork.url, location.pathname, walletType]);
+  }, [currentNetwork.chain.stacks.url, currentNetwork.name, location.pathname, walletType]);
 }

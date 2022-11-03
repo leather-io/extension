@@ -24,7 +24,7 @@ export function useGetNonFungibleTokenHoldingsQuery(address?: string) {
   const network = useCurrentNetworkState();
 
   return useQuery({
-    queryKey: ['get-nft-holdings', address, network.url],
+    queryKey: ['get-nft-holdings', address, network.chain.stacks.url],
     queryFn: fetchNonFungibleTokenHoldings(client)(address),
     ...queryOptions,
   });
@@ -36,7 +36,7 @@ export function useGetNonFungibleTokenHoldingsListQuery(accounts?: AccountWithAd
 
   return useQueries({
     queries: (accounts || []).map(account => ({
-      queryKey: ['get-nft-holdings', account.address, network.url],
+      queryKey: ['get-nft-holdings', account.address, network.chain.stacks.url],
       queryFn: fetchNonFungibleTokenHoldings(client)(account.address),
       ...queryOptions,
     })),

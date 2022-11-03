@@ -18,7 +18,7 @@ export function useGetTransactionFeeEstimationQuery(
   const currentNetwork = useCurrentNetworkState();
 
   const fetchTransactionFeeEstimation = async () => {
-    const response = await fetcher(currentNetwork.url + '/v2/fees/transaction', {
+    const response = await fetcher(currentNetwork.chain.stacks.url + '/v2/fees/transaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

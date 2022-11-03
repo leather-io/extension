@@ -14,7 +14,7 @@ export function NetworkListItem({ networkId, onNetworkSelected }: NetworkListIte
   const networks = useNetworks();
 
   const network = networks[networkId] || defaultCurrentNetwork;
-  const isOnline = useNetworkStatus(network.url);
+  const isOnline = useNetworkStatus(network.chain.stacks.url);
 
   return (
     <NetworkListItemLayout
