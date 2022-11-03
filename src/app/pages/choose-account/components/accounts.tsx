@@ -23,6 +23,7 @@ import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -63,7 +64,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
   const { data: balances, isLoading: isBalanceLoading } = useAddressBalances(account.address);
-
+  const fiatValue = useStxMarketData();
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
   const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
@@ -95,7 +96,10 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
           isBalanceLoading ? (
             <AccountBalanceLoading />
           ) : balances ? (
-            <AccountBalanceCaption availableBalance={balances.availableStx} />
+            <AccountBalanceCaption
+              availableBalance={balances.availableStx}
+              marketData={fiatValue}
+            />
           ) : (
             <></>
           )

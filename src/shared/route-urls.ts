@@ -34,6 +34,7 @@ export enum RouteUrls {
   Receive = '/receive',
   Send = '/send-transaction',
   SignOutConfirm = '/sign-out',
+  ChangeTheme = '/change-theme',
   TransactionRequest = '/transaction',
   UnauthorizedRequest = '/unauthorized-request',
   ViewSecretKey = '/view-secret-key',

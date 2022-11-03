@@ -2,8 +2,9 @@ import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { calculateMeanAverage } from '@app/common/calculate-averages';
-import { createMoney } from '@shared/models/money.model';
+import { createMoney, currencydecimalsMap } from '@shared/models/money.model';
 import { createMarketData, createMarketPair, MarketData } from '@shared/models/market.model';
+import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 
 import {
   selectBinanceUsdPrice,
@@ -26,7 +27,8 @@ function pullPriceDataFromAvailableResponses(responses: MarketDataVendorWithPric
   return responses
     .filter(({ result }) => !!result)
     .map(({ result, selector: priceSelector }) => priceSelector(result))
-    .map(val => new BigNumber(val));
+    .map(val => new BigNumber(val))
+    .map(val => convertAmountToFractionalUnit(val, currencydecimalsMap.USD));
 }
 
 export function useStxMarketData(): MarketData {
@@ -41,6 +43,7 @@ export function useStxMarketData(): MarketData {
       { result: binance, selector: selectBinanceUsdPrice },
     ]);
     const meanStxPrice = calculateMeanAverage(stxPriceData);
-    return createMarketData(createMarketPair('STX', 'USD'), createMoney(meanStxPrice, 'STX'));
+
+    return createMarketData(createMarketPair('STX', 'USD'), createMoney(meanStxPrice, 'USD'));
   }, [binance, coincap, coingecko]);
 }

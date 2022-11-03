@@ -6,7 +6,7 @@ import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
-export function useAccountMempool(address: string) {
+export function useAccountMempoolQuery(address: string) {
   const client = useStacksClient();
   const submittedTransactions = useSubmittedTransactions();
   const submittedTransactionsActions = useSubmittedTransactionsActions();

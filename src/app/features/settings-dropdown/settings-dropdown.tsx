@@ -27,13 +27,8 @@ export function SettingsDropdown() {
   const { lockWallet, currentNetworkId, hasGeneratedWallet, wallet } = useWallet();
   const createAccount = useCreateAccount();
   const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
-  const {
-    setShowNetworks,
-    setShowSettings,
-    showSettings,
-    setShowSignOut,
-    setShowSwitchAccountsState,
-  } = useDrawers();
+  const { setShowNetworks, setShowSettings, showSettings, setShowSwitchAccountsState } =
+    useDrawers();
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
@@ -63,6 +58,7 @@ export function SettingsDropdown() {
             {key && key.type === 'ledger' && (
               <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(key.targetId)} />
             )}
+
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
                 data-testid={SettingsSelectors.SwitchAccount}
@@ -92,6 +88,15 @@ export function SettingsDropdown() {
                 </MenuItem>
               </>
             )}
+            <MenuItem
+              data-testid={SettingsSelectors.ToggleTheme}
+              onClick={wrappedCloseCallback(() => {
+                void analytics.track('change_theme_menu_item');
+                navigate(RouteUrls.ChangeTheme);
+              })}
+            >
+              Change theme
+            </MenuItem>
             {hasGeneratedWallet ? <Divider /> : null}
             <MenuItem
               data-testid={SettingsSelectors.ChangeNetworkAction}
@@ -105,6 +110,7 @@ export function SettingsDropdown() {
                 <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
               </Flex>
             </MenuItem>
+
             <Divider />
             {showAdvancedMenuOptions && (
               <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={showSettings} />
@@ -124,7 +130,6 @@ export function SettingsDropdown() {
             <MenuItem
               color={color('feedback-error')}
               onClick={wrappedCloseCallback(() => {
-                setShowSignOut(true);
                 navigate(RouteUrls.SignOutConfirm);
               })}
               data-testid="settings-sign-out"
