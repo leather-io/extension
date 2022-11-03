@@ -18,7 +18,7 @@ export function makeLocalDataKey(params: QueryKey): string {
 // LocalStorage keys kept across sign-in/signout sessions
 const PERSISTENT_LOCAL_DATA: string[] = [userHasAllowedDiagnosticsKey];
 
-export function clearSessionLocalData() {
+export function partiallyClearLocalStorage() {
   const backup = PERSISTENT_LOCAL_DATA.map((key: string) => [key, localStorage.getItem(key)]);
 
   localStorage.clear();

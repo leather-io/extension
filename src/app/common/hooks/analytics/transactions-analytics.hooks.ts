@@ -12,7 +12,8 @@ import { useAnalytics } from './use-analytics';
 
 function useIsFirstDeposit(stxBalance: AccountStxBalanceBigNumber | undefined): boolean {
   const currentNetwork = useCurrentNetworkState();
-  const hasStxDeposits = useAnalyticsHasStxDeposits()[currentNetwork.chainId];
+  const { chainId: stxChainId } = currentNetwork.chain.stacks;
+  const hasStxDeposits = useAnalyticsHasStxDeposits()[stxChainId];
   const hasZeroStx = useMemo(
     () => stxBalance?.total_received.amount.isEqualTo(0) || false,
     [stxBalance?.total_received]
@@ -22,12 +23,12 @@ function useIsFirstDeposit(stxBalance: AccountStxBalanceBigNumber | undefined): 
     if (hasZeroStx || !hasStxDeposits) {
       store.dispatch(
         analyticsActions.hasStxDeposits({
-          network: currentNetwork.chainId,
+          network: stxChainId,
           hasStxDeposits: !hasZeroStx,
         })
       );
     }
-  }, [hasZeroStx, hasStxDeposits, currentNetwork.chainId, stxBalance]);
+  }, [hasZeroStx, hasStxDeposits, stxChainId, stxBalance]);
   return !hasStxDeposits && !hasZeroStx;
 }
 

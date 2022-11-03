@@ -2,12 +2,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useWallet } from '@app/common/hooks/use-wallet';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
 import { SignOutConfirmLayout } from './sign-out-confirm-layout';
 
 export function SignOutConfirmDrawer() {
-  const { signOut } = useWallet();
+  const { signOut } = useKeyActions();
   const navigate = useNavigate();
 
   return (

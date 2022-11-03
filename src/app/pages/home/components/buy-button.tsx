@@ -33,7 +33,7 @@ export const BuyButton = () => {
   const hasFiatProviders = useHasFiatProviders();
   const currentNetwork = useCurrentNetworkState();
   if (!hasFiatProviders) return null;
-  if (currentNetwork.chainId !== ChainID.Mainnet) return null;
+  if (currentNetwork.chain.stacks.chainId !== ChainID.Mainnet) return null;
 
   return (
     <Suspense fallback={<BuyButtonFallback />}>

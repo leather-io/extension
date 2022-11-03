@@ -1,18 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { devToolsEnhancer } from '@redux-devtools/remote';
-import { AnyAction, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import { Action, AnyAction, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { atomWithStore } from 'jotai/redux';
 import {
   FLUSH,
   PAUSE,
   PERSIST,
   PURGE,
+  PersistConfig,
   REGISTER,
   REHYDRATE,
   persistReducer,
   persistStore,
 } from 'redux-persist';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
 
 import { IS_DEV_ENV } from '@shared/environment';
 
@@ -29,7 +31,20 @@ import { ExtensionStorage } from './utils/extension-storage';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
-const rootReducer = combineReducers({
+export interface RootState {
+  analytics: ReturnType<typeof analyticsSlice.reducer>;
+  chains: {
+    stx: ReturnType<typeof stxChainSlice.reducer>;
+  };
+  inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
+  keys: ReturnType<typeof keySlice.reducer>;
+  networks: ReturnType<typeof networksSlice.reducer>;
+  onboarding: ReturnType<typeof onboardingSlice.reducer>;
+  submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
+  settings: ReturnType<typeof settingsSlice.reducer>;
+}
+
+const appReducer = combineReducers({
   analytics: analyticsSlice.reducer,
   chains: combineReducers({
     stx: stxChainSlice.reducer,
@@ -42,7 +57,12 @@ const rootReducer = combineReducers({
   settings: settingsSlice.reducer,
 });
 
-const persistConfig = {
+function rootReducer(state: RootState | undefined, action: Action) {
+  if (action.type === 'keys/signOut') return appReducer(undefined, action);
+  return appReducer(state, action);
+}
+
+const persistConfig: PersistConfig<RootState> = {
   key: 'root',
   version: 1,
   storage,
@@ -75,8 +95,6 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof persistedReducer>;
-
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
 type AppDispatch = typeof store.dispatch & ((action: AppThunk) => void);
@@ -85,7 +103,7 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 
 export const storeAtom = atomWithStore(store);
 
-const selectHasRehydrated = (state: RootState) => state._persist.rehydrated;
+const selectHasRehydrated = (state: RootState & PersistPartial) => state._persist.rehydrated;
 
 export function useHasStateRehydrated() {
   return useSelector(selectHasRehydrated);

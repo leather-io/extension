@@ -173,7 +173,7 @@ export function useTransactionBroadcast() {
         serialized,
         txRaw,
         attachment,
-        networkUrl: network.url,
+        networkUrl: network.chain.stacks.url,
       });
 
       if (isString(result.txId)) {

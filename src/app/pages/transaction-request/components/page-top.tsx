@@ -14,13 +14,15 @@ function PageTopBase() {
   const transactionRequest = useTransactionRequestState();
   const { origin } = useDefaultRequestParams();
   const pageTitle = usePageTitle();
-  const { isTestnet, url } = useCurrentNetworkState();
+  const { isTestnet, chain } = useCurrentNetworkState();
 
   if (!transactionRequest) return null;
 
   const appName = transactionRequest?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = isTestnet ? ` using ${getUrlHostname(url)}${addPortSuffix(url)}` : '';
+  const testnetAddition = isTestnet
+    ? ` using ${getUrlHostname(chain.stacks.url)}${addPortSuffix(chain.stacks.url)}`
+    : '';
   const caption = appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;
 
   return (

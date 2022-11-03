@@ -24,7 +24,7 @@ import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
-import { SelectNetwork } from '@app/pages/select-network/networks-drawer';
+import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { SignatureRequest } from '@app/pages/signature-request/signature-request';

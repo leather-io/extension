@@ -10,8 +10,11 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 export const NetworkModeBadge = memo((props: FlexProps) => {
   const navigate = useNavigate();
-  const { chainId, name } = useCurrentNetworkState();
-  const isTestnetChain = useMemo(() => chainId === ChainID.Testnet, [chainId]);
+  const { chain, name } = useCurrentNetworkState();
+  const isTestnetChain = useMemo(
+    () => chain.stacks.chainId === ChainID.Testnet,
+    [chain.stacks.chainId]
+  );
 
   if (!isTestnetChain) return null;
 

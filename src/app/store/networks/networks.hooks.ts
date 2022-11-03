@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
 
-import { DefaultNetworkModes, NetworkConfiguration } from '@shared/constants';
+import { DefaultNetworkModes } from '@shared/constants';
 
 import { whenStxChainId } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
@@ -11,13 +11,14 @@ import { useInitialRouteSearchParams } from '@app/store/common/initial-route-sea
 
 import { networksActions } from './networks.actions';
 import { useCurrentNetwork, useNetworks } from './networks.selectors';
+import { PersistedNetworkConfiguration } from './networks.slice';
 import { findMatchingNetworkKey } from './networks.utils';
 
 export function useCurrentNetworkState() {
   const currentNetwork = useCurrentNetwork();
 
   return useMemo(() => {
-    const isTestnet = currentNetwork?.chainId === ChainID.Testnet;
+    const isTestnet = currentNetwork.chain.stacks.chainId === ChainID.Testnet;
     const mode = isTestnet ? DefaultNetworkModes.testnet : DefaultNetworkModes.mainnet;
     return { ...currentNetwork, isTestnet, mode };
   }, [currentNetwork]);
@@ -29,12 +30,12 @@ export function useCurrentStacksNetworkState(): StacksNetwork {
   return useMemo(() => {
     if (!currentNetwork) throw new Error('No current network');
 
-    const stacksNetwork = whenStxChainId(currentNetwork.chainId || 1)({
-      [ChainID.Mainnet]: new StacksMainnet({ url: currentNetwork.url }),
-      [ChainID.Testnet]: new StacksTestnet({ url: currentNetwork.url }),
+    const stacksNetwork = whenStxChainId(currentNetwork.chain.stacks.chainId || 1)({
+      [ChainID.Mainnet]: new StacksMainnet({ url: currentNetwork.chain.stacks.url }),
+      [ChainID.Testnet]: new StacksTestnet({ url: currentNetwork.chain.stacks.url }),
     });
 
-    stacksNetwork.bnsLookupUrl = currentNetwork.url || '';
+    stacksNetwork.bnsLookupUrl = currentNetwork.chain.stacks.url || '';
     return stacksNetwork;
   }, [currentNetwork]);
 }
@@ -44,7 +45,7 @@ export function useNetworksActions() {
 
   return useMemo(
     () => ({
-      addNetwork({ chainId, id, name, url }: NetworkConfiguration) {
+      addNetwork({ chainId, id, name, url }: PersistedNetworkConfiguration) {
         dispatch(networksActions.addNetwork({ chainId, id, name, url }));
         dispatch(networksActions.changeNetwork(id));
         return;
