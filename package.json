@@ -135,7 +135,7 @@
     "@reach/utils": "0.15.3",
     "@reach/visually-hidden": "0.15.2",
     "@reduxjs/toolkit": "1.8.4",
-    "@segment/analytics-next": "1.31.1",
+    "@segment/analytics-next": "1.46.0",
     "@sentry/react": "6.16.1",
     "@sentry/tracing": "6.16.1",
     "@stacks/auth": "5.0.1",

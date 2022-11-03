@@ -57,7 +57,7 @@ describe(`Onboarding integration tests`, () => {
     await wallet.page.click('text=Sign Out');
     await wallet.page.click(wallet.$signOutConfirmHasBackupCheckbox);
     await wallet.page.click(wallet.$signOutDeleteWalletBtn);
-    await wallet.waitForWelcomePage();
+    await wallet.page.waitForSelector(wallet.$analyticsDenyButton);
   });
 
   it('should route to unlock page if the wallet is locked', async () => {
