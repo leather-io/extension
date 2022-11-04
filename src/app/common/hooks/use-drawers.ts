@@ -7,24 +7,25 @@ import {
 } from '@app/store/ui/ui.hooks';
 
 export function useDrawers() {
-  const [showAccounts, setShowSwitchAccountsState] = useShowSwitchAccountsState();
-  const [showHighFeeConfirmation, setShowHighFeeConfirmation] = useShowHighFeeConfirmationState();
+  const [isShowingAccounts, setIsShowingSwitchAccountsState] = useShowSwitchAccountsState();
+  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] =
+    useShowHighFeeConfirmationState();
 
-  const [showSettings, setShowSettings] = useShowSettingsStore();
-  const [showEditNonce, setShowEditNonce] = useShowEditNonceState();
-  const [showTxSettingsCallback, setShowTxSettingsCallback] = useShowTxSettingsCallback();
+  const [isShowingSettings, setIsShowingSettings] = useShowSettingsStore();
+  const [isShowingEditNonce, setIsShowingEditNonce] = useShowEditNonceState();
+  const [isShowingTxSettingsCallback, setIsShowingTxSettingsCallback] = useShowTxSettingsCallback();
 
   return {
-    showAccounts,
-    setShowSwitchAccountsState,
-    showHighFeeConfirmation,
-    setShowHighFeeConfirmation,
+    isShowingAccounts,
+    setIsShowingSwitchAccountsState,
+    isShowingHighFeeConfirmation,
+    setIsShowingHighFeeConfirmation,
 
-    showSettings,
-    setShowSettings,
-    showEditNonce,
-    setShowEditNonce,
-    showTxSettingsCallback,
-    setShowTxSettingsCallback,
+    isShowingSettings,
+    setIsShowingSettings,
+    isShowingEditNonce,
+    setIsShowingEditNonce,
+    isShowingTxSettingsCallback,
+    setIsShowingTxSettingsCallback,
   };
 }

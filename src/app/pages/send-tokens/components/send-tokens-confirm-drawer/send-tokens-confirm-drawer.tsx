@@ -33,7 +33,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
   const { values } = useFormikContext<SendFormValues>();
   const unsignedTransaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
   const analytics = useAnalytics();
-  const { showEditNonce } = useDrawers();
+  const { isShowingEditNonce } = useDrawers();
 
   const convertStxToUsd = useConvertStxToFiatAmount();
 
@@ -54,7 +54,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
       title="Confirm transfer"
       isShowing={isShowing}
       onClose={onClose}
-      pauseOnClickOutside={showEditNonce}
+      pauseOnClickOutside={isShowingEditNonce}
     >
       <Stack pb="extra-loose" px="loose" spacing="base">
         <SendTokensConfirmDetails

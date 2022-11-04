@@ -8,11 +8,11 @@ import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-acco
 export const CurrentAccountAvatar = memo((props: BoxProps) => {
   const currentAccount = useCurrentAccount();
   const name = useCurrentAccountDisplayName();
-  const { setShowSwitchAccountsState } = useDrawers();
+  const { setIsShowingSwitchAccountsState } = useDrawers();
   if (!currentAccount) return null;
   return (
     <AccountAvatar
-      onClick={() => setShowSwitchAccountsState(true)}
+      onClick={() => setIsShowingSwitchAccountsState(true)}
       cursor="pointer"
       name={name}
       publicKey={currentAccount.stxPublicKey}

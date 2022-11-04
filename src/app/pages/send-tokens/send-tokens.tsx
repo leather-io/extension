@@ -34,7 +34,7 @@ import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confir
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
-  const { showEditNonce } = useDrawers();
+  const { isShowingEditNonce } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const [selectedAssetId, setSelectedAssetId] = useState<string>('');
@@ -134,7 +134,7 @@ function SendTokensFormBase() {
               ledger: <></>,
               software: (
                 <SendTokensSoftwareConfirmDrawer
-                  isShowing={isShowing && !showEditNonce}
+                  isShowing={isShowing && !isShowingEditNonce}
                   onClose={() => handleConfirmDrawerOnClose()}
                   onUserSelectBroadcastTransaction={async (
                     transaction: StacksTransaction | undefined
