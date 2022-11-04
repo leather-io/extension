@@ -19,6 +19,7 @@ describe('Buy tokens test', () => {
     browser = await setupBrowser();
     walletPage = await WalletPage.init(browser, RouteUrls.Onboarding);
     await walletPage.signIn(SECRET_KEY_2);
+    console.log('[DEBUGGING PR]: wallet page current url', walletPage.page.url());
     await walletPage.goToFundPage();
     fundPage = new FundPage(walletPage.page);
   }, BEFORE_EACH_TIMEOUT);
@@ -31,6 +32,7 @@ describe('Buy tokens test', () => {
 
   describe('Fiat provider', () => {
     it('should redirect to provider URL', async () => {
+      console.log('[DEBUGGING PR]: fund page current url', fundPage.page.url());
       await fundPage.waitForFiatProviderItem();
       const providerName = await fundPage.getFirstFastCheckoutProviderName();
       await fundPage.clickFirstFastCheckoutProviderItem();

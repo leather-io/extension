@@ -13,6 +13,7 @@ import { HomeActionButton } from './tx-button';
 import { SecondaryButton } from '@app/components/secondary-button';
 
 function BuyTxButton(props: ButtonProps) {
+  console.log('[DEBUGGING PR]: buy button rendered');
   return (
     <HomeActionButton
       data-testid={HomePageSelectors.BtnFundAccount}
@@ -24,18 +25,20 @@ function BuyTxButton(props: ButtonProps) {
   );
 }
 
-const BuyButtonFallback = memo(() => <BuyTxButton isDisabled />);
+/* const BuyButtonFallback = memo(() => <BuyTxButton isDisabled />); */
 
 export const BuyButton = () => {
   const navigate = useNavigate();
   const hasFiatProviders = useHasFiatProviders();
   const currentNetwork = useCurrentNetworkState();
-  if (!hasFiatProviders) return null;
-  if (currentNetwork.chainId !== ChainID.Mainnet) return null;
+  if (!hasFiatProviders) {
+    console.log('[DEBUGGING PR]: no fiat providers');
+    return null;
+  }
+  if (currentNetwork.chainId !== ChainID.Mainnet) {
+    console.log('[DEBUGGING PR]: wrong chain');
+    return null;
+  }
 
-  return (
-    <Suspense fallback={<BuyButtonFallback />}>
-      <BuyTxButton onClick={() => navigate(RouteUrls.Fund)} />
-    </Suspense>
-  );
+  return <BuyTxButton onClick={() => navigate(RouteUrls.Fund)} />;
 };
