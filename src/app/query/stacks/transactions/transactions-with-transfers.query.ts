@@ -6,10 +6,6 @@ import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { AddressTransactionsWithTransfersListResponse } from '@stacks/stacks-blockchain-api-types';
 
-enum AccountClientKeys {
-  TransactionsWithTransfersClient = 'account/TransactionsWithTransfersClient',
-}
-
 const queryOptions = {
   refetchInterval: QueryRefreshRates.MEDIUM,
   refetchOnMount: 'always',
@@ -30,9 +26,9 @@ export function useGetAccountTransactionsWithTransfersQuery() {
   };
 
   return useQuery({
-    queryKey: [AccountClientKeys.TransactionsWithTransfersClient, principal, networkUrl],
+    queryKey: ['account-txs-with-transfers', principal, networkUrl],
     queryFn: fetch,
-    enabled: !!principal || !!networkUrl,
+    enabled: !!principal && !!networkUrl,
     ...queryOptions,
   }) as UseQueryResult<AddressTransactionsWithTransfersListResponse, Error>;
 }
