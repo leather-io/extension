@@ -28,7 +28,7 @@ export function SettingsDropdown() {
   const { lockWallet, hasGeneratedWallet, wallet } = useWallet();
   const createAccount = useCreateAccount();
   const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
-  const { setShowSettings, showSettings, setShowSwitchAccountsState } = useDrawers();
+  const { setIsShowingSettings, isShowingSettings, setIsShowingSwitchAccountsState } = useDrawers();
   const currentNetworkId = useCurrentNetworkId();
   const navigate = useNavigate();
   const analytics = useAnalytics();
@@ -36,7 +36,7 @@ export function SettingsDropdown() {
   const key = useCurrentKeyDetails();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
 
-  const handleClose = useCallback(() => setShowSettings(false), [setShowSettings]);
+  const handleClose = useCallback(() => setIsShowingSettings(false), [setIsShowingSettings]);
 
   const wrappedCloseCallback = useCallback(
     (callback: () => void) => () => {
@@ -46,7 +46,7 @@ export function SettingsDropdown() {
     [handleClose]
   );
 
-  const isShowing = showSettings;
+  const isShowing = isShowingSettings;
 
   useOnClickOutside(ref, isShowing ? handleClose : null);
 
@@ -63,7 +63,7 @@ export function SettingsDropdown() {
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
                 data-testid={SettingsSelectors.SwitchAccount}
-                onClick={wrappedCloseCallback(() => setShowSwitchAccountsState(true))}
+                onClick={wrappedCloseCallback(() => setIsShowingSwitchAccountsState(true))}
               >
                 Switch account
               </MenuItem>
@@ -114,7 +114,10 @@ export function SettingsDropdown() {
 
             <Divider />
             {showAdvancedMenuOptions && (
-              <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={showSettings} />
+              <AdvancedMenuItems
+                closeHandler={wrappedCloseCallback}
+                settingsShown={isShowingSettings}
+              />
             )}
             {hasGeneratedWallet && walletType === 'software' && (
               <MenuItem

@@ -23,7 +23,7 @@ interface InsufficientFundsActionButtonsProps {
 }
 function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionButtonsProps) {
   const analytics = useAnalytics();
-  const { setShowSwitchAccountsState } = useDrawers();
+  const { setIsShowingSwitchAccountsState } = useDrawers();
 
   const onGetStx = () => {
     void analytics.track(eventName);
@@ -34,7 +34,7 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
   return (
     <>
       <PrimaryButton onClick={onGetStx}>Get STX</PrimaryButton>
-      <SecondaryButton onClick={() => setShowSwitchAccountsState(true)}>
+      <SecondaryButton onClick={() => setIsShowingSwitchAccountsState(true)}>
         Switch account
       </SecondaryButton>
     </>

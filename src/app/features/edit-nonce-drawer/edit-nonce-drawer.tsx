@@ -32,13 +32,13 @@ export function EditNonceDrawer() {
     useFormikContext<TransactionFormValues>();
   const [customNonce, setCustomNonce] = useState<number | string>();
   const { nonce } = useNextNonce();
-  const { showEditNonce, setShowEditNonce } = useDrawers();
+  const { isShowingEditNonce, setIsShowingEditNonce } = useDrawers();
   useShowEditNonceCleanupEffect();
 
   useEffect(() => {
-    if (showEditNonce) setCustomNonce(values.nonce);
+    if (isShowingEditNonce) setCustomNonce(values.nonce);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showEditNonce]);
+  }, [isShowingEditNonce]);
 
   useEffect(() => {
     if (isUndefined(values.nonce)) setFieldValue('nonce', nonce);
@@ -51,27 +51,29 @@ export function EditNonceDrawer() {
   const onSubmit = useCallback(async () => {
     validateField('nonce');
     if (!errors.nonce) {
-      setShowEditNonce(false);
+      setIsShowingEditNonce(false);
     }
-  }, [errors.nonce, setShowEditNonce, validateField]);
+  }, [errors.nonce, setIsShowingEditNonce, validateField]);
 
   const onClose = useCallback(() => {
     if (!values.nonce) setFieldValue('nonce', undefined);
     setFieldError('nonce', '');
     setFieldValue('nonce', customNonce);
-    setShowEditNonce(false);
-  }, [customNonce, setFieldError, setFieldValue, setShowEditNonce, values.nonce]);
+    setIsShowingEditNonce(false);
+  }, [customNonce, setFieldError, setFieldValue, setIsShowingEditNonce, values.nonce]);
 
   return (
     <ControlledDrawer
-      isShowing={!!showEditNonce}
+      isShowing={!!isShowingEditNonce}
       onClose={onClose}
       pauseOnClickOutside
       title="Edit nonce"
     >
       <Stack px="loose" spacing="loose" pb="extra-loose">
         <CustomFeeMessaging />
-        {showEditNonce && <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />}
+        {isShowingEditNonce && (
+          <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />
+        )}
       </Stack>
     </ControlledDrawer>
   );

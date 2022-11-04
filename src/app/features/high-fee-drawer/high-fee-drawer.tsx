@@ -8,21 +8,21 @@ import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import { HighFeeConfirmation } from './components/high-fee-confirmation';
 
 export function HighFeeDrawer(): JSX.Element {
-  const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
+  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
 
   useEffect(() => {
     return () => {
-      if (showHighFeeConfirmation) setShowHighFeeConfirmation(false);
+      if (isShowingHighFeeConfirmation) setIsShowingHighFeeConfirmation(false);
     };
-  }, [showHighFeeConfirmation, setShowHighFeeConfirmation]);
+  }, [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation]);
 
   return (
     <ControlledDrawer
       icon={<Box as={FiAlertTriangle} color={color('feedback-error')} size="36px" />}
-      isShowing={!!showHighFeeConfirmation}
-      onClose={() => setShowHighFeeConfirmation(false)}
+      isShowing={!!isShowingHighFeeConfirmation}
+      onClose={() => setIsShowingHighFeeConfirmation(false)}
     >
-      {showHighFeeConfirmation && <HighFeeConfirmation />}
+      {isShowingHighFeeConfirmation && <HighFeeConfirmation />}
     </ControlledDrawer>
   );
 }
