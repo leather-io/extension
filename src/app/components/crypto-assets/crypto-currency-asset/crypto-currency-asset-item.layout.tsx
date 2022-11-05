@@ -13,7 +13,7 @@ import { Caption, Text } from '@app/components/typography';
 
 import { SubBalance } from '../components/sub-balance';
 
-interface CryptoCurrencyAssetLayoutProps extends StackProps {
+interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
   caption: string;
   icon: JSX.Element;
@@ -21,8 +21,8 @@ interface CryptoCurrencyAssetLayoutProps extends StackProps {
   subBalance?: Money;
   title: string;
 }
-export const CryptoCurrencyAssetLayout = memo(
-  forwardRef((props: CryptoCurrencyAssetLayoutProps, ref) => {
+export const CryptoCurrencyAssetItemLayout = memo(
+  forwardRef((props: CryptoCurrencyAssetItemLayoutProps, ref) => {
     const { balance, caption, icon, isPressable, subBalance, title, ...rest } = props;
     const [component, bind] = usePressable(isPressable);
 

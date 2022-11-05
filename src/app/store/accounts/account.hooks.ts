@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
 
+import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
+
 import {
   accountsWithAddressState,
   hasCreatedAccountState,
@@ -38,6 +40,12 @@ export function useCurrentAccount() {
     if (typeof index === 'number' && !hasSwitched) return accounts[index];
     return accounts[accountIndex] as AccountWithAddress | undefined;
   }, [accountIndex, accounts, hasSwitched, signatureIndex, txIndex]);
+}
+
+// TODO: Needs to be handled with btc addresses work
+// Move account addresses state to redux?
+export function useCurrentAccountBtcAddressState() {
+  return BITCOIN_TEST_ADDRESS;
 }
 
 export function useCurrentAccountStxAddressState() {

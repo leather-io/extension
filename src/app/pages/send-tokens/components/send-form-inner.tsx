@@ -69,7 +69,7 @@ export function SendFormInner(props: SendFormInnerProps) {
     assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
   ) => {
     void analytics.track('select_asset_for_send');
-    const assetId = getFullyQualifiedStacksAssetName(assetBalance.asset);
+    const assetId = getFullyQualifiedStacksAssetName(assetBalance);
     onAssetIdSelected(assetId);
     setValues({
       ...values,

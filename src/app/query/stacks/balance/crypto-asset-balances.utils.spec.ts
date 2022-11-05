@@ -7,9 +7,9 @@ import { mergeStacksFungibleTokenAssetBalances } from './crypto-asset-balances.u
 
 const anchoredAssetBalances: StacksFungibleTokenAssetBalance[] = [
   {
+    blockchain: 'stacks',
     balance: createMoney(new BigNumber('2469135782'), 'CAT', 9),
     asset: {
-      blockchain: 'stacks',
       canTransfer: true,
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK7',
       contractAssetName: 'stella-token',
@@ -19,14 +19,14 @@ const anchoredAssetBalances: StacksFungibleTokenAssetBalance[] = [
       imageCanonicalUri: '',
       name: 'SteLLa the Cat',
       symbol: 'CAT',
-      type: 'fungible-token',
     },
     subBalance: createMoney(new BigNumber(0), 'CAT', 9),
+    type: 'fungible-token',
   },
   {
+    blockchain: 'stacks',
     balance: createMoney(new BigNumber('9469135782'), 'ALF', 9),
     asset: {
-      blockchain: 'stacks',
       canTransfer: true,
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK8',
       contractAssetName: 'alf-token',
@@ -36,17 +36,17 @@ const anchoredAssetBalances: StacksFungibleTokenAssetBalance[] = [
       imageCanonicalUri: '',
       name: 'Alf the Dog',
       symbol: 'ALF',
-      type: 'fungible-token',
     },
     subBalance: createMoney(new BigNumber(0), 'ALF', 9),
+    type: 'fungible-token',
   },
 ];
 
 const unanchoredAssetBalances: StacksFungibleTokenAssetBalance[] = [
   {
+    blockchain: 'stacks',
     balance: createMoney(new BigNumber('1469135782'), 'CAT', 9),
     asset: {
-      blockchain: 'stacks',
       canTransfer: true,
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK7',
       contractAssetName: 'stella-token',
@@ -56,14 +56,14 @@ const unanchoredAssetBalances: StacksFungibleTokenAssetBalance[] = [
       imageCanonicalUri: '',
       name: 'SteLLa the Cat',
       symbol: 'CAT',
-      type: 'fungible-token',
     },
     subBalance: createMoney(new BigNumber(0), 'CAT', 9),
+    type: 'fungible-token',
   },
   {
+    blockchain: 'stacks',
     balance: createMoney(new BigNumber('7000100702'), 'ALF', 9),
     asset: {
-      blockchain: 'stacks',
       canTransfer: true,
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK8',
       contractAssetName: 'alf-token',
@@ -73,9 +73,9 @@ const unanchoredAssetBalances: StacksFungibleTokenAssetBalance[] = [
       imageCanonicalUri: '',
       name: 'Alf the Dog',
       symbol: 'ALF',
-      type: 'fungible-token',
     },
     subBalance: createMoney(new BigNumber(0), 'ALF', 9),
+    type: 'fungible-token',
   },
 ];
 

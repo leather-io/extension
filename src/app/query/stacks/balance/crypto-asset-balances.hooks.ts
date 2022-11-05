@@ -116,7 +116,7 @@ export function useSelectedStacksCryptoAssetBalance(selectedAssetId: string) {
   return useMemo(
     () =>
       [stxCryptoCurrencyAssetBalance, ...stacksFtCryptoAssetBalances].find(
-        assetBalance => getFullyQualifiedStacksAssetName(assetBalance.asset) === selectedAssetId
+        assetBalance => getFullyQualifiedStacksAssetName(assetBalance) === selectedAssetId
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedAssetId]

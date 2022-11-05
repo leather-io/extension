@@ -9,8 +9,8 @@ export function useSelectedAssetBalance(assetId: string) {
 
   return useMemo(() => {
     const isStx =
-      selectedAssetBalance?.asset.blockchain === 'stacks' &&
-      selectedAssetBalance.asset.type === 'crypto-currency';
+      selectedAssetBalance?.blockchain === 'stacks' &&
+      selectedAssetBalance.type === 'crypto-currency';
 
     const stxBalance = stacksValue({
       value: selectedAssetBalance?.balance.amount || 0,

@@ -6,7 +6,7 @@ import { Box, Stack, StackProps } from '@stacks/ui';
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
-import { CryptoCurrencyAsset } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset';
+import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
@@ -43,10 +43,10 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
   return (
     <Stack pb="extra-loose" spacing="extra-loose" {...props}>
       {btcAssetBalance.balance.amount.isGreaterThan(0) && (
-        <CryptoCurrencyAsset assetBalance={btcAssetBalance} icon={<Box as={BtcIcon} />} />
+        <CryptoCurrencyAssetItem assetBalance={btcAssetBalance} icon={<Box as={BtcIcon} />} />
       )}
       {stxAssetBalance.balance.amount.isGreaterThan(0) && (
-        <CryptoCurrencyAsset assetBalance={stxAssetBalance} icon={<StxAvatar {...props} />} />
+        <CryptoCurrencyAssetItem assetBalance={stxAssetBalance} icon={<StxAvatar {...props} />} />
       )}
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
       <StacksNonFungibleTokenAssetList assetBalances={stacksNftAssetBalances} />
