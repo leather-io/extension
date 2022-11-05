@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonProps } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
+import { featureFlags } from '@shared/feature-flags';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -39,11 +40,19 @@ const SendButtonSuspense = () => {
       onClick={() =>
         whenWallet({
           ledger: () =>
-            whenPageMode({
-              full: () => navigate(RouteUrls.Send),
-              popup: () => openIndexPageInNewTab(RouteUrls.Send),
-            })(),
-          software: () => navigate(RouteUrls.Send),
+            featureFlags.bitcoinEnabled
+              ? whenPageMode({
+                  full: () => navigate(RouteUrls.SendCryptoAsset),
+                  popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
+                })()
+              : whenPageMode({
+                  full: () => navigate(RouteUrls.Send),
+                  popup: () => openIndexPageInNewTab(RouteUrls.Send),
+                })(),
+          software: () =>
+            featureFlags.bitcoinEnabled
+              ? navigate(RouteUrls.SendCryptoAsset)
+              : navigate(RouteUrls.Send),
         })()
       }
       isDisabled={isDisabled}

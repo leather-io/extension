@@ -1,4 +1,6 @@
+import { BITCOIN_ENABLED } from './environment';
+
 export const featureFlags = {
-  bitcoinEnabled: false,
+  bitcoinEnabled: BITCOIN_ENABLED,
   ledgerEnabled: true,
 };

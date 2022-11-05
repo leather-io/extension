@@ -12,6 +12,7 @@ import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asse
 
 interface StacksFungibleTokenAssetItemProps extends StackProps {
   assetBalance: StacksFungibleTokenAssetBalance;
+  isPressable?: boolean;
 }
 export const StacksFungibleTokenAssetItem = forwardRef(
   (props: StacksFungibleTokenAssetItemProps, ref) => {

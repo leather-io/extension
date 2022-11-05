@@ -6,14 +6,14 @@ export function createBitcoinCryptoCurrencyAssetTypeWrapper(
   balance: Money
 ): BitcoinCryptoCurrencyAssetBalance {
   return {
+    blockchain: 'bitcoin',
     balance,
     asset: {
-      blockchain: 'bitcoin',
       decimals: BTC_DECIMALS,
       hasMemo: true,
       name: 'Bitcoin',
       symbol: 'BTC',
-      type: 'crypto-currency',
     },
+    type: 'crypto-currency',
   };
 }

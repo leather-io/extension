@@ -19,16 +19,16 @@ export function createStacksCryptoCurrencyAssetTypeWrapper(
   subBalance: BigNumber
 ): StacksCryptoCurrencyAssetBalance {
   return {
+    blockchain: 'stacks',
     balance: createMoney(balance, 'STX'),
     asset: {
-      blockchain: 'stacks',
       decimals: STX_DECIMALS,
       hasMemo: true,
       name: 'Stacks',
       symbol: 'STX',
-      type: 'crypto-currency',
     },
     subBalance: createMoney(subBalance, 'STX'),
+    type: 'crypto-currency',
   };
 }
 
@@ -38,9 +38,9 @@ function createStacksFtCryptoAssetBalanceTypeWrapper(
 ): StacksFungibleTokenAssetBalance {
   const { address, contractName, assetName } = getAssetStringParts(key);
   return {
+    blockchain: 'stacks',
     balance: createMoney(balance, '', 0),
     asset: {
-      blockchain: 'stacks',
       canTransfer: false,
       contractAddress: address,
       contractAssetName: assetName,
@@ -50,9 +50,9 @@ function createStacksFtCryptoAssetBalanceTypeWrapper(
       imageCanonicalUri: '',
       name: '',
       symbol: '',
-      type: 'fungible-token',
     },
     subBalance: createMoney(new BigNumber(0), '', 0),
+    type: 'fungible-token',
   };
 }
 
@@ -62,16 +62,16 @@ function createStacksNftCryptoAssetBalanceTypeWrapper(
 ): StacksNonFungibleTokenAssetBalance {
   const { address, contractName, assetName } = getAssetStringParts(key);
   return {
+    blockchain: 'stacks',
     count: balance,
     asset: {
-      blockchain: 'stacks',
       contractAddress: address,
       contractAssetName: assetName,
       contractName,
       imageCanonicalUri: '',
       name: '',
-      type: 'non-fungible-token',
     },
+    type: 'non-fungible-token',
   };
 }
 
@@ -142,12 +142,10 @@ export function mergeStacksFungibleTokenAssetBalances(
   });
 }
 
-export function getStacksFungibleTokenCurrencyAsset(
+export function getStacksFungibleTokenCurrencyAssetBalance(
   selectedAssetBalance?: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
 ) {
-  return selectedAssetBalance &&
-    'contractAddress' in selectedAssetBalance.asset &&
-    selectedAssetBalance.asset.canTransfer
-    ? selectedAssetBalance.asset
+  return selectedAssetBalance?.type === 'fungible-token' && selectedAssetBalance.asset.canTransfer
+    ? selectedAssetBalance
     : undefined;
 }
