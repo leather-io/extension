@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.09% </span>
+                <span class="strong">30.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/119</span>
+                <span class='fraction'>37/121</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.38% </span>
+                <span class="strong">32.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/105</span>
+                <span class='fraction'>34/106</span>
             </div>
         
             
@@ -372,7 +372,14 @@
 <a name='L307'></a><a href='#L307'>307</a>
 <a name='L308'></a><a href='#L308'>308</a>
 <a name='L309'></a><a href='#L309'>309</a>
-<a name='L310'></a><a href='#L310'>310</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -640,10 +647,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -692,10 +702,12 @@ import {
 } from '@stacks/transactions';
 &nbsp;
 import { DefaultNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
-import { WalletBlockchains, WalletChainTypes } from '@shared/models/blockchain.model';
-&nbsp;
-import { AssetWithMeta } from './asset-types';
 import { logger } from '@shared/logger';
+import type { Blockchains } from '@shared/models/blockchain.model';
+import type {
+  StacksCryptoCurrencyAsset,
+  StacksFungibleTokenAsset,
+} from '@shared/models/crypto-asset.model';
 &nbsp;
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, <span class="fstat-no" title="function not covered" >ma</span>tch =&gt; <span class="cstat-no" title="statement not covered" >'-' + match.toLowerCase())</span>;
@@ -739,7 +751,7 @@ export function <span class="fstat-no" title="function not covered" >validateAnd
 }
 &nbsp;
 interface MakeTxExplorerLinkArgs {
-  blockchain: WalletChainTypes;
+  blockchain: Blockchains;
   mode: NetworkModes;
   suffix?: string;
   txid: string;
@@ -751,11 +763,11 @@ export function <span class="fstat-no" title="function not covered" >makeTxExplo
   txid,
 }: MakeTxExplorerLinkArgs) {
 <span class="cstat-no" title="statement not covered" >  switch (blockchain) {</span>
-    case WalletBlockchains.bitcoin:
+    case 'bitcoin':
 <span class="cstat-no" title="statement not covered" >      return `https://blockchain.com/btc${</span>
         mode === DefaultNetworkModes.mainnet ? '' : `-${mode}`
       }/tx/${txid}`;
-    case WalletBlockchains.stacks:
+    case 'stacks':
 <span class="cstat-no" title="statement not covered" >      return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;</span>
     default:
 <span class="cstat-no" title="statement not covered" >      return '';</span>
@@ -952,10 +964,13 @@ export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >getFullyQualifiedAssetName(</span>asset?: AssetWithMeta) {
-<span class="cstat-no" title="statement not covered" >  return asset</span>
-    ? `${formatContractId(asset.contractAddress, asset.contractName)}::${asset.name}`
-    : undefined;
+export function <span class="fstat-no" title="function not covered" >getFullyQualifiedStacksAssetName(</span>
+  asset: StacksCryptoCurrencyAsset | StacksFungibleTokenAsset
+) {
+<span class="cstat-no" title="statement not covered" >  if (asset.type === 'crypto-currency') <span class="cstat-no" title="statement not covered" >return '::stacks-token';</span></span>
+<span class="cstat-no" title="statement not covered" >  return `${formatContractId(asset.contractAddress, asset.contractName)}::${</span>
+    asset.contractAssetName
+  }`;
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >doesBrowserSupportWebUsbApi(</span>) {
@@ -997,7 +1012,7 @@ export function <span class="fstat-no" title="function not covered" >logAndThrow
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

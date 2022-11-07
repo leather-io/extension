@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -80,7 +80,14 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -90,6 +97,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,22 +108,29 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// @ts-nocheck
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
+import BigNumber from 'bignumber.js';
+&nbsp;
 import { sumNumbers } from '@app/common/utils';
-import { BTC_DECIMALS } from '@shared/constants';
+import { createMoney } from '@shared/models/money.model';
 &nbsp;
 import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
+import { createBitcoinCryptoCurrencyAssetTypeWrapper } from './address.utils';
 &nbsp;
-// TODO: Export when needed and remove ts-nocheck
-// TODO: Kill these and use query hook directly
-function <span class="fstat-no" title="function not covered" >useGetUtxosByAddress(</span>address: string) {
-<span class="cstat-no" title="statement not covered" >  return useGetUtxosByAddressQuery(address).data;</span>
+function <span class="fstat-no" title="function not covered" >useBitcoinBalance(</span>address: string) {
+  const utxos = <span class="cstat-no" title="statement not covered" >useGetUtxosByAddressQuery(address).data;</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!utxos) <span class="cstat-no" title="statement not covered" >return createMoney(new BigNumber(0), 'BTC');</span></span>
+<span class="cstat-no" title="statement not covered" >    return createMoney(sumNumbers(utxos.map(<span class="fstat-no" title="function not covered" >(u</span>txo: any) =&gt; <span class="cstat-no" title="statement not covered" >utxo.value)</span>), 'BTC');</span>
+  }, [utxos]);
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >useGetBalanceByAddress(</span>address: string) {
-  const utxos = <span class="cstat-no" title="statement not covered" >useGetUtxosByAddressQuery(address).data;</span>
-<span class="cstat-no" title="statement not covered" >  if (!utxos) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >  return sumNumbers(utxos.map(<span class="fstat-no" title="function not covered" >ut</span>xo =&gt; <span class="cstat-no" title="statement not covered" >utxo.value)</span>).shiftedBy(-BTC_DECIMALS);</span>
+export function <span class="fstat-no" title="function not covered" >useBitcoinCryptoCurrencyAssetBalance(</span>address: string) {
+  const balance = <span class="cstat-no" title="statement not covered" >useBitcoinBalance(address);</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return createBitcoinCryptoCurrencyAssetTypeWrapper(balance);</span>
+  }, [balance]);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -121,7 +139,7 @@ function <span class="fstat-no" title="function not covered" >useGetBalanceByAdd
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

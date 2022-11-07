@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
@@ -148,7 +148,27 @@
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,6 +188,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -176,6 +198,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -183,12 +207,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -196,8 +214,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -237,34 +265,44 @@
 import { useField } from 'formik';
 import { Box, color, Stack } from '@stacks/ui';
 &nbsp;
-import { AssetWithMeta } from '@app/common/asset-types';
-import { useTransferableAssets } from '@app/store/assets/asset.hooks';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import {
+  useStacksCryptoCurrencyAssetBalance,
+  useTransferableStacksFungibleTokenAssetBalances,
+} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import type {
+  StacksCryptoCurrencyAssetBalance,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
 &nbsp;
 import { AssetSearchField } from './asset-search-field';
 import { SelectedAsset } from './selected-asset';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >principalHasOnlyOneAsset(</span>assets: AssetWithMeta[]) {
-<span class="cstat-no" title="statement not covered" >  return assets.length === 1;</span>
+function <span class="fstat-no" title="function not covered" >principalHasNoFungibleTokenAssets(</span>assets: StacksFungibleTokenAssetBalance[]) {
+<span class="cstat-no" title="statement not covered" >  return assets.length === 0;</span>
 }
 &nbsp;
 interface AssetSearchProps {
   autoFocus?: boolean;
-  onSelectAsset(asset: AssetWithMeta): void;
+  onSelectAssetBalance(
+    assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
+  ): void;
 }
 export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-no" title="statement not covered" >memo(</span>
-<span class="fstat-no" title="function not covered" >  ({</span> autoFocus, onSelectAsset, ...rest }) =&gt; {
+<span class="fstat-no" title="function not covered" >  ({</span> autoFocus, onSelectAssetBalance, ...rest }) =&gt; {
     const [field, _, helpers] = <span class="cstat-no" title="statement not covered" >useField('assetId');</span>
-    const assets = <span class="cstat-no" title="statement not covered" >useTransferableAssets();</span>
+    const stxCryptoCurrencyAssetBalance = <span class="cstat-no" title="statement not covered" >useStacksCryptoCurrencyAssetBalance();</span>
+    const stacksFtAssetBalances = <span class="cstat-no" title="statement not covered" >useTransferableStacksFungibleTokenAssetBalances();</span>
+    const allAssetBalances = <span class="cstat-no" title="statement not covered" >[stxCryptoCurrencyAssetBalance, ...stacksFtAssetBalances];</span>
     const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
-    const { selectedAsset } = <span class="cstat-no" title="statement not covered" >useSelectedAsset(field.value);</span>
+    const { selectedAssetBalance } = <span class="cstat-no" title="statement not covered" >useSelectedAssetBalance(field.value);</span>
     const [searchInput, setSearchInput] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;('');</span>
-    const [assetItems, setAssetItems] = <span class="cstat-no" title="statement not covered" >useState(assets);</span>
+    const [assetBalanceItems, setAssetBalanceItems] = <span class="cstat-no" title="statement not covered" >useState(allAssetBalances);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (principalHasOnlyOneAsset(assets ?? [])) {</span>
-<span class="cstat-no" title="statement not covered" >        onSelectAsset(assets[0]);</span>
+<span class="cstat-no" title="statement not covered" >      if (principalHasNoFungibleTokenAssets(stacksFtAssetBalances)) {</span>
+<span class="cstat-no" title="statement not covered" >        onSelectAssetBalance(allAssetBalances[0]);</span>
       }
 <span class="cstat-no" title="statement not covered" >      return <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onClearSearch();</span></span>
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -272,20 +310,24 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
 &nbsp;
     const onClearSearch = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      setSearchInput('');</span>
-<span class="cstat-no" title="statement not covered" >      setAssetItems(assets);</span>
+<span class="cstat-no" title="statement not covered" >      setAssetBalanceItems(allAssetBalances);</span>
 <span class="cstat-no" title="statement not covered" >      helpers.setValue('');</span>
     };
 &nbsp;
     const onInputValueChange = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>alue: string | undefined) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (!value) {</span>
-<span class="cstat-no" title="statement not covered" >        setSearchInput('');</span>
+<span class="cstat-no" title="statement not covered" >        onClearSearch();</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
 <span class="cstat-no" title="statement not covered" >      setSearchInput(value);</span>
-<span class="cstat-no" title="statement not covered" >      setAssetItems(assets.filter(<span class="fstat-no" title="function not covered" >as</span>set =&gt; <span class="cstat-no" title="statement not covered" >asset.name.toLowerCase().includes(value.toLowerCase()))</span>);</span>
+<span class="cstat-no" title="statement not covered" >      setAssetBalanceItems(</span>
+        allAssetBalances.filter(<span class="fstat-no" title="function not covered" >as</span>setBalance =&gt;
+<span class="cstat-no" title="statement not covered" >          assetBalance.asset.name.toLowerCase().includes(value.toLowerCase())</span>
+        )
+      );
     };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!assets) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!allAssetBalances.length) {</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;Stack spacing="tight" {...rest}&gt;
           &lt;Box height="16px" width="68px" bg={color('bg-4')} borderRadius="8px" /&gt;
@@ -297,7 +339,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
 <span class="cstat-no" title="statement not covered" >    if (field.value) {</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;SelectedAsset
-          hideArrow={principalHasOnlyOneAsset(assets ?? [])}
+          hideArrow={principalHasNoFungibleTokenAssets(stacksFtAssetBalances)}
           onClearSearch={onClearSearch}
           {...rest}
         /&gt;
@@ -306,13 +348,13 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;AssetSearchField
-        assets={assetItems}
+        assetBalances={assetBalanceItems}
         autoFocus={autoFocus}
         hasStxBalance={!!availableStxBalance}
         onInputValueChange={onInputValueChange}
-        onSelectedItemChange={onSelectAsset}
+        onSelectedItemChange={onSelectAssetBalance}
         searchInput={searchInput}
-        selectedAsset={selectedAsset}
+        selectedAssetBalance={selectedAssetBalance}
         {...rest}
       /&gt;
     );
@@ -325,7 +367,7 @@ export const AssetSearch: React.FC&lt;AssetSearchProps&gt; = <span class="cstat-
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

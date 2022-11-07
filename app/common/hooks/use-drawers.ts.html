@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -94,14 +94,7 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,17 +104,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,37 +128,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
   useShowSwitchAccountsState,
   useShowHighFeeConfirmationState,
-  useShowNetworksStore,
   useShowSettingsStore,
-  useShowSignOut,
   useShowTxSettingsCallback,
   useShowEditNonceState,
 } from '@app/store/ui/ui.hooks';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useDrawers(</span>) {
-  const [showAccounts, setShowSwitchAccountsState] = <span class="cstat-no" title="statement not covered" >useShowSwitchAccountsState();</span>
-  const [showHighFeeConfirmation, setShowHighFeeConfirmation] = <span class="cstat-no" title="statement not covered" >useShowHighFeeConfirmationState();</span>
-  const [showNetworks, setShowNetworks] = <span class="cstat-no" title="statement not covered" >useShowNetworksStore();</span>
-  const [showSettings, setShowSettings] = <span class="cstat-no" title="statement not covered" >useShowSettingsStore();</span>
-  const [showEditNonce, setShowEditNonce] = <span class="cstat-no" title="statement not covered" >useShowEditNonceState();</span>
-  const [showTxSettingsCallback, setShowTxSettingsCallback] = <span class="cstat-no" title="statement not covered" >useShowTxSettingsCallback();</span>
-  const [showSignOut, setShowSignOut] = <span class="cstat-no" title="statement not covered" >useShowSignOut();</span>
+  const [isShowingAccounts, setIsShowingSwitchAccountsState] = <span class="cstat-no" title="statement not covered" >useShowSwitchAccountsState();</span>
+  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] =
+<span class="cstat-no" title="statement not covered" >    useShowHighFeeConfirmationState();</span>
+&nbsp;
+  const [isShowingSettings, setIsShowingSettings] = <span class="cstat-no" title="statement not covered" >useShowSettingsStore();</span>
+  const [isShowingEditNonce, setIsShowingEditNonce] = <span class="cstat-no" title="statement not covered" >useShowEditNonceState();</span>
+  const [isShowingTxSettingsCallback, setIsShowingTxSettingsCallback] = <span class="cstat-no" title="statement not covered" >useShowTxSettingsCallback();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
-    showAccounts,
-    setShowSwitchAccountsState,
-    showHighFeeConfirmation,
-    setShowHighFeeConfirmation,
-    showNetworks,
-    setShowNetworks,
-    showSettings,
-    setShowSettings,
-    showEditNonce,
-    setShowEditNonce,
-    showTxSettingsCallback,
-    setShowTxSettingsCallback,
-    showSignOut,
-    setShowSignOut,
+    isShowingAccounts,
+    setIsShowingSwitchAccountsState,
+    isShowingHighFeeConfirmation,
+    setIsShowingHighFeeConfirmation,
+&nbsp;
+    isShowingSettings,
+    setIsShowingSettings,
+    isShowingEditNonce,
+    setIsShowingEditNonce,
+    isShowingTxSettingsCallback,
+    setIsShowingTxSettingsCallback,
   };
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -178,7 +163,7 @@ export function <span class="fstat-no" title="function not covered" >useDrawers(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

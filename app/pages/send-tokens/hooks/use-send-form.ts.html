@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -143,7 +143,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,6 +162,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,9 +196,9 @@ import * as React from 'react';
 import { useFormikContext } from 'formik';
 &nbsp;
 import { microStxToStx } from '@app/common/stacks-utils';
-import { removeCommas } from '@app/common/token-utils';
+import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { SendFormValues } from '@shared/models/form.model';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 &nbsp;
@@ -206,12 +206,11 @@ export function <span class="fstat-no" title="function not covered" >useSendAmou
   const { setFieldValue, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SendFormValues&gt;();</span>
   const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
   const pendingTxsBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountMempoolTransactionsBalance();</span>
-  const { selectedAsset, balance } = <span class="cstat-no" title="statement not covered" >useSelectedAsset(values.assetId);</span>
-  const isStx = <span class="cstat-no" title="statement not covered" >selectedAsset?.type === 'stx';</span>
+  const { balance, isStx, selectedAssetBalance } = <span class="cstat-no" title="statement not covered" >useSelectedAssetBalance(values.assetId);</span>
 &nbsp;
   const handleSetSendMax = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (f</span>ee: number | string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!selectedAsset || !balance) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!selectedAssetBalance || !balance) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >      if (isStx &amp;&amp; fee) {</span>
         const stx = <span class="cstat-no" title="statement not covered" >microStxToStx(availableStxBalance?.minus(pendingTxsBalance) || 0).minus(fee);</span>
 <span class="cstat-no" title="statement not covered" >        if (stx.isLessThanOrEqualTo(0)) <span class="cstat-no" title="statement not covered" >return;</span></span>
@@ -220,18 +219,19 @@ export function <span class="fstat-no" title="function not covered" >useSendAmou
 <span class="cstat-no" title="statement not covered" >        if (balance) <span class="cstat-no" title="statement not covered" >setFieldValue('amount', removeCommas(balance));</span></span>
       }
     },
-    [selectedAsset, balance, isStx, availableStxBalance, pendingTxsBalance, setFieldValue]
+    [selectedAssetBalance, balance, isStx, availableStxBalance, pendingTxsBalance, setFieldValue]
   );
 &nbsp;
   const handleOnKeyDown = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (e</span>vent: React.KeyboardEvent&lt;HTMLInputElement&gt;) =&gt; {
       const hasDecimals =
-<span class="cstat-no" title="statement not covered" >        typeof selectedAsset?.meta?.decimals === 'number' &amp;&amp; selectedAsset?.meta.decimals !== 0;</span>
+<span class="cstat-no" title="statement not covered" >        typeof selectedAssetBalance?.asset.decimals === 'number' &amp;&amp;</span>
+        selectedAssetBalance.asset.decimals !== 0;
       const { key } = <span class="cstat-no" title="statement not covered" >event;</span>
       const value = <span class="cstat-no" title="statement not covered" >event.currentTarget.value;</span>
       // leading zeros
 <span class="cstat-no" title="statement not covered" >      if (</span>
-        selectedAsset?.type !== 'stx' &amp;&amp;
+        isStx &amp;&amp;
         // if no leading 0 of we don't know the status of decimals
         ((key === '0' &amp;&amp; value.length === 0 &amp;&amp; !hasDecimals) ||
           // only one leading zero allowed
@@ -240,7 +240,7 @@ export function <span class="fstat-no" title="function not covered" >useSendAmou
 <span class="cstat-no" title="statement not covered" >        return event.preventDefault();</span>
       // decimals check
 <span class="cstat-no" title="statement not covered" >      if (key === '.') {</span>
-<span class="cstat-no" title="statement not covered" >        if (!hasDecimals &amp;&amp; selectedAsset?.type !== 'stx') <span class="cstat-no" title="statement not covered" >return event.preventDefault();</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!hasDecimals &amp;&amp; !isStx) <span class="cstat-no" title="statement not covered" >return event.preventDefault();</span></span>
         const hasPeriod = <span class="cstat-no" title="statement not covered" >value.includes('.');</span>
         // only one period allowed
 <span class="cstat-no" title="statement not covered" >        if (hasPeriod &amp;&amp; key === '.') {</span>
@@ -248,7 +248,7 @@ export function <span class="fstat-no" title="function not covered" >useSendAmou
         }
       }
     },
-    [selectedAsset]
+    [isStx, selectedAssetBalance]
   );
 <span class="cstat-no" title="statement not covered" >  return {</span>
     handleSetSendMax,
@@ -262,7 +262,7 @@ export function <span class="fstat-no" title="function not covered" >useSendAmou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

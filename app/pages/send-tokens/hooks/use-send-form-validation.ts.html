@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/35</span>
+                <span class='fraction'>0/34</span>
             </div>
         
             
@@ -193,8 +193,7 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,10 +228,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -270,13 +265,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -343,7 +341,7 @@ import { useCallback, useMemo } from 'react';
 import { SendFormErrorMessages } from '@app/common/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { isNumber } from '@shared/utils';
@@ -358,25 +356,21 @@ export const useSendFormValidation = <span class="cstat-no" title="statement not
 }: UseSendFormValidationArgs) =&gt; {
   const { currentNetwork, currentAccountStxAddress } = <span class="cstat-no" title="statement not covered" >useWallet();</span>
   const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
-  const { selectedAsset, balanceBigNumber } = <span class="cstat-no" title="statement not covered" >useSelectedAsset(selectedAssetId);</span>
+  const { isStx, selectedAssetBalance } = <span class="cstat-no" title="statement not covered" >useSelectedAssetBalance(selectedAssetId);</span>
   const feeSchema = <span class="cstat-no" title="statement not covered" >useFeeSchema();</span>
-  const isSendingStx = <span class="cstat-no" title="statement not covered" >selectedAsset?.type === 'stx';</span>
 &nbsp;
-  // `selectedAsset` is in an atom's state, not the form, but we want to
-  // validate it at the same time, to call `setAssetError`. This is a dummy
-  // schema that we use to call this function at the same time as the rest
-  // of the form is validated
+  // TODO: Can this be removed?
   const selectedAssetSchema = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    ()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >      yup.mixed().test(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (!selectedAsset) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!selectedAssetBalance) {</span>
 <span class="cstat-no" title="statement not covered" >          setAssetError(SendFormErrorMessages.MustSelectAsset);</span>
         } else {
 <span class="cstat-no" title="statement not covered" >          setAssetError(undefined);</span>
         }
-<span class="cstat-no" title="statement not covered" >        return !!selectedAsset;</span>
+<span class="cstat-no" title="statement not covered" >        return !!selectedAssetBalance;</span>
       }),
-    [selectedAsset, setAssetError]
+    [selectedAssetBalance, setAssetError]
   );
 &nbsp;
   const stxAmountFormSchema = <span class="cstat-no" title="statement not covered" >useCallback(</span>
@@ -398,25 +392,28 @@ export const useSendFormValidation = <span class="cstat-no" title="statement not
 <span class="cstat-no" title="statement not covered" >      yup</span>
         .number()
         .test(<span class="fstat-no" title="function not covered" >(v</span>alue: unknown, context) =&gt; {
-<span class="cstat-no" title="statement not covered" >          if (!isNumber(value) || !selectedAsset || !selectedAsset.meta) <span class="cstat-no" title="statement not covered" >return false;</span></span>
-<span class="cstat-no" title="statement not covered" >          if (!selectedAsset.meta.decimals &amp;&amp; countDecimals(value) &gt; 0)</span>
+<span class="cstat-no" title="statement not covered" >          if (!isNumber(value) || !selectedAssetBalance) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+          const { symbol, decimals } = <span class="cstat-no" title="statement not covered" >selectedAssetBalance.asset;</span>
+<span class="cstat-no" title="statement not covered" >          if (!decimals &amp;&amp; countDecimals(value) &gt; 0)</span>
 <span class="cstat-no" title="statement not covered" >            return context.createError({</span>
               message: SendFormErrorMessages.DoesNotSupportDecimals,
             });
-<span class="cstat-no" title="statement not covered" >          if (countDecimals(value) &gt; selectedAsset.meta.decimals) {</span>
-            const { symbol, decimals } = <span class="cstat-no" title="statement not covered" >selectedAsset.meta;</span>
+<span class="cstat-no" title="statement not covered" >          if (countDecimals(value) &gt; decimals) {</span>
 <span class="cstat-no" title="statement not covered" >            return context.createError({ message: formatPrecisionError(symbol, decimals) });</span>
           }
 <span class="cstat-no" title="statement not covered" >          return true;</span>
         })
         .test({
-          message: formatInsufficientBalanceError(balanceBigNumber, selectedAsset?.meta?.symbol),
+          message: formatInsufficientBalanceError(
+            selectedAssetBalance?.balance.amount,
+            selectedAssetBalance?.asset.symbol
+          ),
 <span class="fstat-no" title="function not covered" >          te</span>st(value: unknown) {
-<span class="cstat-no" title="statement not covered" >            if (!isNumber(value) || !balanceBigNumber) <span class="cstat-no" title="statement not covered" >return false;</span></span>
-<span class="cstat-no" title="statement not covered" >            return new BigNumber(value).isLessThanOrEqualTo(balanceBigNumber);</span>
+<span class="cstat-no" title="statement not covered" >            if (!isNumber(value) || !selectedAssetBalance?.balance.amount) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+<span class="cstat-no" title="statement not covered" >            return new BigNumber(value).isLessThanOrEqualTo(selectedAssetBalance.balance.amount);</span>
           },
         }),
-    [balanceBigNumber, selectedAsset]
+    [selectedAssetBalance]
   );
 &nbsp;
   const amountSchema = <span class="cstat-no" title="statement not covered" >useCallback(</span>
@@ -425,8 +422,8 @@ export const useSendFormValidation = <span class="cstat-no" title="statement not
         .number()
         .required()
         .positive(SendFormErrorMessages.MustNotBeZero)
-        .concat(isSendingStx ? stxAmountFormSchema() : fungibleTokenSchema()),
-    [fungibleTokenSchema, isSendingStx, stxAmountFormSchema]
+        .concat(isStx ? stxAmountFormSchema() : fungibleTokenSchema()),
+    [fungibleTokenSchema, isStx, stxAmountFormSchema]
   );
 &nbsp;
   const recipientSchema = <span class="cstat-no" title="statement not covered" >useCallback(</span>
@@ -463,7 +460,7 @@ export const useSendFormValidation = <span class="cstat-no" title="statement not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

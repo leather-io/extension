@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/60</span>
+                <span class='fraction'>0/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>0/50</span>
             </div>
         
             
@@ -228,16 +228,7 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -288,13 +279,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -332,8 +318,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,7 +393,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, Suspense, useCallback, useEffect, useState } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, Suspense, useCallback, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { StacksTransaction } from '@stacks/transactions';
 import toast from 'react-hot-toast';
@@ -439,15 +423,13 @@ import {
 import { logger } from '@shared/logger';
 import { FeeType } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
-import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 &nbsp;
 import { SendFormInner } from './components/send-form-inner';
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >SendTokensFormBase(</span>) {
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const assets = <span class="cstat-no" title="statement not covered" >useTransferableAssets();</span>
-  const { showEditNonce, showNetworks } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
+  const { isShowingEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
   const [isShowing, setShowing] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [assetError, setAssetError] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;(undefined);</span>
   const [selectedAssetId, setSelectedAssetId] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;('');</span>
@@ -464,10 +446,6 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
   const ledgerNavigate = <span class="cstat-no" title="statement not covered" >useLedgerNavigate();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;Header hideActions title="Send" onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home)}</span> /&gt;);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (showNetworks) <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Home);</span></span>
-  }, [navigate, showNetworks]);
 &nbsp;
   const handleConfirmDrawerOnClose = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setShowing(false);</span>
@@ -505,8 +483,6 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
     },
     [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate]
   );
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (assets.length &lt; 1) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
   const initialValues: SendFormValues = <span class="cstat-no" title="statement not covered" >{</span>
     assetId: '',
@@ -553,7 +529,7 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
               ledger: &lt;&gt;&lt;/&gt;,
               software: (
                 &lt;SendTokensSoftwareConfirmDrawer
-                  isShowing={isShowing &amp;&amp; !showEditNonce}
+                  isShowing={isShowing &amp;&amp; !isShowingEditNonce}
                   onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >handleConfirmDrawerOnClose()}</span>
                   onUserSelectBroadcastTransaction={<span class="fstat-no" title="function not covered" >as</span>ync (
                     transaction: StacksTransaction | undefined
@@ -589,7 +565,7 @@ export const SendTokensForm = <span class="cstat-no" title="statement not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

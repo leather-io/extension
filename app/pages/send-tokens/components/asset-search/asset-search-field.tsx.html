@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -155,24 +155,13 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,6 +186,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,7 +237,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,27 +257,31 @@
 import { useCombobox } from 'downshift';
 import { Box, Text, Flex, Input } from '@stacks/ui';
 &nbsp;
-import { AssetWithMeta } from '@app/common/asset-types';
+import type {
+  StacksCryptoCurrencyAssetBalance,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 &nbsp;
 import { AssetSearchResults } from './asset-search-results';
 &nbsp;
 interface AssetSearchFieldProps {
-  assets: AssetWithMeta[];
+  assetBalances: (StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance)[];
   autoFocus?: boolean;
   hasStxBalance: boolean;
   onInputValueChange(value: string | undefined): void;
   onSelectedItemChange(item: any): void;
   searchInput: string;
-  selectedAsset: AssetWithMeta;
+  selectedAssetBalance?: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance;
 }
 export const AssetSearchField = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span></span>
-  assets,
+  assetBalances,
   autoFocus,
   hasStxBalance,
   onInputValueChange,
   onSelectedItemChange,
   searchInput,
-  selectedAsset,
+  selectedAssetBalance,
 }: AssetSearchFieldProps) =&gt; {
   const {
     isOpen,
@@ -283,13 +293,13 @@ export const AssetSearchField = <span class="cstat-no" title="statement not cove
     getItemProps,
     openMenu,
   } = <span class="cstat-no" title="statement not covered" >useCombobox({</span>
-    items: assets,
+    items: assetBalances,
     initialIsOpen: true,
     inputValue: searchInput,
     defaultIsOpen: false,
-    selectedItem: selectedAsset as any,
+    selectedItem: selectedAssetBalance as any,
     itemToString: <span class="fstat-no" title="function not covered" >it</span>em =&gt; {
-<span class="cstat-no" title="statement not covered" >      return item?.contractAddress || item?.name || '';</span>
+<span class="cstat-no" title="statement not covered" >      return item ? item.asset.name : '';</span>
     },
     onInputValueChange: <span class="fstat-no" title="function not covered" >({</span> inputValue }) =&gt; {
 <span class="cstat-no" title="statement not covered" >      onInputValueChange(inputValue);</span>
@@ -320,22 +330,21 @@ export const AssetSearchField = <span class="cstat-no" title="statement not cove
       &lt;Box width="100%" {...getComboboxProps({ ref: comboRef })}&gt;
         &lt;Input
           autoFocus={autoFocus}
-          data-testid={`asset-select`}
+          data-testid={SendFormSelectors.AssetSelect}
           onFocus={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >openMenu()}</span>
           placeholder="Search for an asset"
           width="100%"
           {...getInputProps()}
         /&gt;
+        &lt;AssetSearchResults
+          assetBalances={assetBalances}
+          getItemProps={getItemProps}
+          hasStxBalance={hasStxBalance}
+          highlightedIndex={highlightedIndex}
+          isOpen={isOpen}
+          {...getMenuProps()}
+        /&gt;
       &lt;/Box&gt;
-&nbsp;
-      &lt;AssetSearchResults
-        assets={assets}
-        getItemProps={getItemProps}
-        hasStxBalance={hasStxBalance}
-        highlightedIndex={highlightedIndex}
-        isOpen={isOpen}
-        {...getMenuProps()}
-      /&gt;
     &lt;/Flex&gt;
   );
 };
@@ -346,7 +355,7 @@ export const AssetSearchField = <span class="cstat-no" title="statement not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -152,17 +152,7 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,17 +210,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,18 +249,17 @@ import type {
   AccountBalanceStxKeys,
   AccountStxBalanceBigNumber,
   AddressBalanceResponse,
-} from '@shared/models/account-types';
+} from '@shared/models/account.model';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
-import { transformAssets } from '@app/store/assets/utils';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { createMoney, Money } from '@shared/models/money.model';
 &nbsp;
 import {
   useGetAccountBalanceQuery,
   useGetAnchoredAccountBalanceListQuery,
   useGetAnchoredAccountBalanceQuery,
 } from './balance.query';
-import { createMoney, Money } from '@shared/models/money.model';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >initAmountsAsMoney(</span>balances: AddressBalanceResponse): AccountBalanceResponseBigNumber {
   const stxMoney = <span class="cstat-no" title="statement not covered" >Object.fromEntries(</span>
@@ -315,20 +296,12 @@ export function <span class="fstat-no" title="function not covered" >useCurrentA
 <span class="cstat-no" title="statement not covered" >  return useAddressBalances(account?.address || '');</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useBaseAssetsUnanchored(</span>) {
-  const balances = <span class="cstat-no" title="statement not covered" >useCurrentAccountUnanchoredBalances();</span>
-<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return transformAssets(balances.data);</span>
-  }, [balances]);
-}
-&nbsp;
 function <span class="fstat-no" title="function not covered" >useAddressAnchoredBalances(</span>address: string) {
-  const { data: balances } = <span class="cstat-no" title="statement not covered" >useGetAnchoredAccountBalanceQuery(address, {</span>
+<span class="cstat-no" title="statement not covered" >  return useGetAnchoredAccountBalanceQuery(address, {</span>
     select: <span class="fstat-no" title="function not covered" >(r</span>esp: AddressBalanceResponse) =&gt; <span class="cstat-no" title="statement not covered" >initAmountsAsMoney(resp),</span>
     retryOnMount: true,
     keepPreviousData: false,
   });
-<span class="cstat-no" title="statement not covered" >  return balances;</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useCurrentAccountAnchoredBalances(</span>) {
@@ -336,8 +309,8 @@ export function <span class="fstat-no" title="function not covered" >useCurrentA
 <span class="cstat-no" title="statement not covered" >  return useAddressAnchoredBalances(account?.address || '');</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useAddressAnchoredAvailableStxBalance(</span>address: string) {
-  const balances = <span class="cstat-no" title="statement not covered" >useAddressAnchoredBalances(address);</span>
+function <span class="fstat-no" title="function not covered" >useAddressAnchoredAvailableStxBalance(</span>address: string) {
+  const { data: balances } = <span class="cstat-no" title="statement not covered" >useAddressAnchoredBalances(address);</span>
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!balances) <span class="cstat-no" title="statement not covered" >return new BigNumber(0);</span></span>
 <span class="cstat-no" title="statement not covered" >    return balances.stx.balance.amount.minus(balances.stx.locked.amount);</span>
@@ -364,7 +337,7 @@ export function <span class="fstat-no" title="function not covered" >useAllAccou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

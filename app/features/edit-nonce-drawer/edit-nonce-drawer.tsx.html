@@ -141,7 +141,9 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,6 +208,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,13 +257,13 @@ export function <span class="fstat-no" title="function not covered" >EditNonceDr
 <span class="cstat-no" title="statement not covered" >    useFormikContext&lt;TransactionFormValues&gt;();</span>
   const [customNonce, setCustomNonce] = <span class="cstat-no" title="statement not covered" >useState&lt;number | string&gt;();</span>
   const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
-  const { showEditNonce, setShowEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
+  const { isShowingEditNonce, setIsShowingEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
 <span class="cstat-no" title="statement not covered" >  useShowEditNonceCleanupEffect();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (showEditNonce) <span class="cstat-no" title="statement not covered" >setCustomNonce(values.nonce);</span></span>
+<span class="cstat-no" title="statement not covered" >    if (isShowingEditNonce) <span class="cstat-no" title="statement not covered" >setCustomNonce(values.nonce);</span></span>
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showEditNonce]);
+  }, [isShowingEditNonce]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (isUndefined(values.nonce)) <span class="cstat-no" title="statement not covered" >setFieldValue('nonce', nonce);</span></span>
@@ -272,27 +276,29 @@ export function <span class="fstat-no" title="function not covered" >EditNonceDr
   const onSubmit = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    validateField('nonce');</span>
 <span class="cstat-no" title="statement not covered" >    if (!errors.nonce) {</span>
-<span class="cstat-no" title="statement not covered" >      setShowEditNonce(false);</span>
+<span class="cstat-no" title="statement not covered" >      setIsShowingEditNonce(false);</span>
     }
-  }, [errors.nonce, setShowEditNonce, validateField]);
+  }, [errors.nonce, setIsShowingEditNonce, validateField]);
 &nbsp;
   const onClose = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!values.nonce) <span class="cstat-no" title="statement not covered" >setFieldValue('nonce', undefined);</span></span>
 <span class="cstat-no" title="statement not covered" >    setFieldError('nonce', '');</span>
 <span class="cstat-no" title="statement not covered" >    setFieldValue('nonce', customNonce);</span>
-<span class="cstat-no" title="statement not covered" >    setShowEditNonce(false);</span>
-  }, [customNonce, setFieldError, setFieldValue, setShowEditNonce, values.nonce]);
+<span class="cstat-no" title="statement not covered" >    setIsShowingEditNonce(false);</span>
+  }, [customNonce, setFieldError, setFieldValue, setIsShowingEditNonce, values.nonce]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ControlledDrawer
-      isShowing={!!showEditNonce}
+      isShowing={!!isShowingEditNonce}
       onClose={onClose}
       pauseOnClickOutside
       title="Edit nonce"
     &gt;
       &lt;Stack px="loose" spacing="loose" pb="extra-loose"&gt;
         &lt;CustomFeeMessaging /&gt;
-        {showEditNonce &amp;&amp; &lt;EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} /&gt;}
+        {isShowingEditNonce &amp;&amp; (
+          &lt;EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} /&gt;
+        )}
       &lt;/Stack&gt;
     &lt;/ControlledDrawer&gt;
   );
@@ -304,7 +310,7 @@ export function <span class="fstat-no" title="function not covered" >EditNonceDr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T16:38:52.883Z
+                at 2022-11-07T13:59:31.709Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
