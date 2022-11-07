@@ -190,6 +190,17 @@ function AppRoutesAfterUserHasConsented() {
           {ledgerMessageSigningRoutes}
         </Route>
         <Route
+          path={RouteUrls.ProfileUpdateRequest}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <ProfileUpdateRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        />
+
+        <Route
           path={RouteUrls.ViewSecretKey}
           element={
             <AccountGate>
