@@ -1,3 +1,24 @@
+## [3.23.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.22.1...v3.23.0) (2022-11-07)
+
+
+### Features
+
+* add btc to balance list ([c13e27f](https://github.com/hirosystems/stacks-wallet-web/commit/c13e27f96b9caa1fe5c4812c35c4171fb6a6cf2f))
+
+
+### Bug Fixes
+
+* **ledger:** failing to broadcast from send form ([25ba10c](https://github.com/hirosystems/stacks-wallet-web/commit/25ba10c210d2fd13f17583b2b4100a45339c1eba))
+* persist user selected theme, fixes [#2789](https://github.com/hirosystems/stacks-wallet-web/issues/2789) ([adabbaa](https://github.com/hirosystems/stacks-wallet-web/commit/adabbaa8a1ebea3ce1886de9cf3220fab3a93d53))
+
+
+### Internal
+
+* enable btc query with address ([404f904](https://github.com/hirosystems/stacks-wallet-web/commit/404f9042f1ba9b9b548da235e6bec5433e0d52cc))
+* network switcher ([708e638](https://github.com/hirosystems/stacks-wallet-web/commit/708e6386fd40d972c2f2240dd49ffeb767d6fa9b))
+* remove btc test address ([463bc17](https://github.com/hirosystems/stacks-wallet-web/commit/463bc17a7f31059f41863979d88350763290a0cf))
+* rename vars, closes [#2779](https://github.com/hirosystems/stacks-wallet-web/issues/2779) ([d2a7e17](https://github.com/hirosystems/stacks-wallet-web/commit/d2a7e1718b327fdc1267a71e50c0c48761103bb9))
+
 ## [3.22.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.22.0...v3.22.1) (2022-11-03)
 
 
