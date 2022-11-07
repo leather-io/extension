@@ -84,6 +84,7 @@ const config = {
     'content-script': path.join(SRC_ROOT_PATH, 'content-scripts', 'content-script.ts'),
     index: path.join(SRC_ROOT_PATH, 'app', 'index.tsx'),
     'decryption-worker': path.join(SRC_ROOT_PATH, 'shared/workers/decryption-worker.ts'),
+    debug: path.join(SRC_ROOT_PATH, '../scripts/debug.js'),
   },
   output: {
     path: DIST_ROOT_PATH,
@@ -181,6 +182,12 @@ const config = {
       template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'popup-center.html'),
       filename: 'popup-center.html',
       ...HTML_PROD_OPTIONS,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'debug.html'),
+      filename: 'debug.html',
+      title: 'Hiro Wallet—Debugger',
+      chunks: ['debug'],
     }),
     new GenerateJsonPlugin(
       'manifest.json',
