@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { store } from '@app/store';
-import { userSelectedThemeActions } from '@app/store/settings/settings.actions';
+import { settingsActions } from '@app/store/settings/settings.actions';
 import { useUserSelectedTheme } from '@app/store/settings/settings.selectors';
 
 export const themeLabelMap = {
@@ -38,7 +38,7 @@ function getComputedTheme(userSelectedTheme: UserSelectedTheme): ComputedTheme {
 }
 
 function setUserSelectedTheme(theme: UserSelectedTheme) {
-  store.dispatch(userSelectedThemeActions.setUserSelectedTheme(theme));
+  store.dispatch(settingsActions.setUserSelectedTheme(theme));
 }
 
 interface ThemeSwitcherProviderProps {
