@@ -6,12 +6,10 @@ import {
   loadingState,
   showSwitchAccountsState,
   showHighFeeConfirmationState,
-  showNetworksStore,
   showSettingsStore,
   tabState,
   showEditNonceState,
   showTxSettingsCallback,
-  showSignOut,
   routeHeaderState,
 } from './ui';
 
@@ -23,20 +21,12 @@ export function useShowSwitchAccountsState() {
   return useAtom(showSwitchAccountsState);
 }
 
-export function useShowNetworksStore() {
-  return useAtom(showNetworksStore);
-}
-
 export function useShowSettingsStore() {
   return useAtom(showSettingsStore);
 }
 
 export function useShowEditNonceState() {
   return useAtom(showEditNonceState);
-}
-
-export function useShowSignOut() {
-  return useAtom(showSignOut);
 }
 
 export function useShowTxSettingsCallback() {

@@ -1,10 +1,11 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery, UseQueryResult } from '@tanstack/react-query';
 import { RateLimiter } from 'limiter';
 
 import { isResponseCode } from '@app/common/network/is-response-code';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { StacksClient } from '@app/query/stacks/stacks-client';
+import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 
@@ -32,7 +33,9 @@ function fetchUnanchoredAccountInfo(client: StacksClient) {
   };
 }
 
-export function useGetFungibleTokenMetadataQuery(contractId: string) {
+export function useGetFungibleTokenMetadataQuery(
+  contractId: string
+): UseQueryResult<FungibleTokenMetadata> {
   const client = useStacksClient();
   const network = useCurrentNetworkState();
 
@@ -43,7 +46,9 @@ export function useGetFungibleTokenMetadataQuery(contractId: string) {
   });
 }
 
-export function useGetFungibleTokenMetadataListQuery(contractIds: string[]) {
+export function useGetFungibleTokenMetadataListQuery(
+  contractIds: string[]
+): UseQueryResult<FungibleTokenMetadata>[] {
   const client = useStacksClient();
   const network = useCurrentNetworkState();
 

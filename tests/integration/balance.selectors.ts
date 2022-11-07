@@ -1,5 +1,5 @@
 export enum BalanceSelectors {
-  StacksToken = 'Stacks Token',
+  StacksToken = 'Stacks',
   RocketToken = 'rocket-token',
   StellaToken = 'stella-token',
 }

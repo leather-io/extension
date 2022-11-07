@@ -5,7 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { SignOutConfirmLayout } from './sign-out-confirm-layout';
 
-export const SignOutConfirmDrawer = () => {
+export function SignOutConfirmDrawer() {
   const { signOut } = useWallet();
   const navigate = useNavigate();
 
@@ -15,9 +15,7 @@ export const SignOutConfirmDrawer = () => {
         navigate(RouteUrls.Onboarding);
         void signOut();
       }}
-      onUserSafelyReturnToHomepage={() => {
-        navigate(RouteUrls.Home);
-      }}
+      onUserSafelyReturnToHomepage={() => navigate('..')}
     />
   );
-};
+}

@@ -7,14 +7,14 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 export function ShowEditNonceAction() {
   const { isTestnet, name } = useCurrentNetworkState();
-  const { showEditNonce, setShowEditNonce } = useDrawers();
+  const { isShowingEditNonce, setIsShowingEditNonce } = useDrawers();
 
   return (
     <SpaceBetween>
       <Caption
         _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
         color={color('brand')}
-        onClick={() => setShowEditNonce(!showEditNonce)}
+        onClick={() => setIsShowingEditNonce(!isShowingEditNonce)}
       >
         Edit nonce
       </Caption>

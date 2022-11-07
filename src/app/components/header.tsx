@@ -21,7 +21,7 @@ interface HeaderProps extends FlexProps {
 }
 export const Header: React.FC<HeaderProps> = memo(props => {
   const { actionButton, hideActions, onClose, title, ...rest } = props;
-  const { showSettings, setShowSettings } = useDrawers();
+  const { isShowingSettings, setIsShowingSettings } = useDrawers();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -112,8 +112,8 @@ export const Header: React.FC<HeaderProps> = memo(props => {
             data-testid={SettingsSelectors.MenuBtn}
             iconSize="16px"
             icon={FiMoreHorizontal}
-            onMouseUp={showSettings ? undefined : () => setShowSettings(true)}
-            pointerEvents={showSettings ? 'none' : 'all'}
+            onMouseUp={isShowingSettings ? undefined : () => setIsShowingSettings(true)}
+            pointerEvents={isShowingSettings ? 'none' : 'all'}
           />
         )}
         {actionButton ? actionButton : null}

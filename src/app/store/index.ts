@@ -24,6 +24,7 @@ import { onboardingSlice } from './onboarding/onboarding.slice';
 import { analyticsSlice } from './analytics/analytics.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
 import { networksSlice } from './networks/networks.slice';
+import { settingsSlice } from './settings/settings.slice';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   networks: networksSlice.reducer,
   onboarding: onboardingSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
+  settings: settingsSlice.reducer,
 });
 
 const persistConfig = {
@@ -44,7 +46,7 @@ const persistConfig = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding'],
+  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding', 'settings'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

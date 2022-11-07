@@ -32,13 +32,14 @@ import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fe
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { ledgerTxSigningRoutes } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.routes';
 import { ledgerRequestKeysRoutes } from '@app/features/ledger/flows/request-keys/ledger-request-keys.routes';
+import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
+import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
+import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
+import { SelectNetwork } from '@app/pages/select-network/networks-drawer';
 
 import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { useOnSignOut } from './hooks/use-on-sign-out';
 import { OnboardingGate } from './onboarding-gate';
-import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
-import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
-import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 
 export function AppRoutes() {
   const { pathname } = useLocation();
@@ -52,6 +53,14 @@ export function AppRoutes() {
 
   const hasStateRehydrated = useHasStateRehydrated();
   if (!hasStateRehydrated) return <LoadingSpinner />;
+
+  const settingsModalRoutes = (
+    <>
+      <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+      <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
+      <Route path={RouteUrls.SelectNetwork} element={<SelectNetwork />} />
+    </>
+  );
 
   return (
     <Routes>
@@ -70,8 +79,7 @@ export function AppRoutes() {
             {ledgerTxSigningRoutes}
           </Route>
           <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
-          <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
-          <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
+          {settingsModalRoutes}
           {ledgerTxSigningRoutes}
         </Route>
         <Route
@@ -181,8 +189,12 @@ export function AppRoutes() {
               <ViewSecretKey />
             </AccountGate>
           }
-        />
-        <Route path={RouteUrls.Unlock} element={<Unlock />} />
+        >
+          {settingsModalRoutes}
+        </Route>
+        <Route path={RouteUrls.Unlock} element={<Unlock />}>
+          {settingsModalRoutes}
+        </Route>
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>

@@ -29,7 +29,7 @@ const defaultFeeEstimations: FeeEstimate[] = [
 function useTransactionFeeEstimation(
   estimatedLen: number | null,
   transactionPayload: string
-): UseQueryResult<TransactionFeeEstimation, Error> {
+): UseQueryResult<TransactionFeeEstimation> {
   return useGetTransactionFeeEstimationQuery(estimatedLen, transactionPayload);
 }
 
@@ -50,7 +50,7 @@ function useFeeEstimationsMinValues() {
 }
 
 function feeEstimationQueryFailedSilently(
-  feeEstimationResult: UseQueryResult<TransactionFeeEstimation, Error>
+  feeEstimationResult: UseQueryResult<TransactionFeeEstimation>
 ) {
   return !!(
     feeEstimationResult.data &&

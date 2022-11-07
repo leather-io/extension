@@ -2,10 +2,15 @@ import { memo } from 'react';
 import { useField } from 'formik';
 import { Box, ChevronIcon, Text, color, Stack, BoxProps } from '@stacks/ui';
 
-import { AssetAvatar } from '@app/components/stx-avatar';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { Caption } from '@app/components/typography';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
-import { gradientStringForAsset, imageCanonicalUriFromFtMetadata } from '@app/common/token-utils';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import {
+  getGradientString,
+  getImageCanonicalUri,
+} from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { getStacksFungibleTokenCurrencyAsset } from '@app/query/stacks/balance/crypto-asset-balances.utils';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface SelectedAssetItemProps extends BoxProps {
   hideArrow?: boolean;
@@ -14,11 +19,12 @@ interface SelectedAssetItemProps extends BoxProps {
 export const SelectedAssetItem = memo(
   ({ hideArrow, onClearSearch, ...rest }: SelectedAssetItemProps) => {
     const [field] = useField('assetId');
-    const { name, selectedAsset, ticker } = useSelectedAsset(field.value);
-    if (!selectedAsset) return null;
-    const isStx = name === 'Stacks Token';
-    const gradientString = gradientStringForAsset(selectedAsset);
-    const imageCanonicalUri = imageCanonicalUriFromFtMetadata(selectedAsset.meta);
+    const { isStx, name, selectedAssetBalance, ticker } = useSelectedAssetBalance(field.value);
+    const tokenCurrencyAsset = getStacksFungibleTokenCurrencyAsset(selectedAssetBalance);
+    const gradientString = tokenCurrencyAsset ? getGradientString(tokenCurrencyAsset) : '';
+    const imageCanonicalUri = tokenCurrencyAsset
+      ? getImageCanonicalUri(tokenCurrencyAsset.imageCanonicalUri, tokenCurrencyAsset.name)
+      : '';
 
     return (
       <Box
@@ -33,23 +39,23 @@ export const SelectedAssetItem = memo(
         {...rest}
       >
         <Stack spacing="base" alignItems="center" isInline>
-          <AssetAvatar
-            useStx={isStx}
+          <StacksAssetAvatar
+            color="white"
             gradientString={gradientString}
             imageCanonicalUri={imageCanonicalUri}
+            isStx={isStx}
             mr="tight"
             size="36px"
-            color="white"
           >
             {name?.[0]}
-          </AssetAvatar>
+          </StacksAssetAvatar>
           <Stack flexGrow={1}>
             <Text
               display="block"
               fontWeight="400"
               fontSize={2}
               color="ink.1000"
-              data-testid={'selected-asset-option'}
+              data-testid={SendFormSelectors.SelectedAssetOption}
             >
               {name}
             </Text>

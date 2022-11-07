@@ -1,17 +1,23 @@
-// @ts-nocheck
+import { useMemo } from 'react';
+import BigNumber from 'bignumber.js';
+
 import { sumNumbers } from '@app/common/utils';
-import { BTC_DECIMALS } from '@shared/constants';
+import { createMoney } from '@shared/models/money.model';
 
 import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
+import { createBitcoinCryptoCurrencyAssetTypeWrapper } from './address.utils';
 
-// TODO: Export when needed and remove ts-nocheck
-// TODO: Kill these and use query hook directly
-function useGetUtxosByAddress(address: string) {
-  return useGetUtxosByAddressQuery(address).data;
+function useBitcoinBalance(address: string) {
+  const utxos = useGetUtxosByAddressQuery(address).data;
+  return useMemo(() => {
+    if (!utxos) return createMoney(new BigNumber(0), 'BTC');
+    return createMoney(sumNumbers(utxos.map((utxo: any) => utxo.value)), 'BTC');
+  }, [utxos]);
 }
 
-function useGetBalanceByAddress(address: string) {
-  const utxos = useGetUtxosByAddressQuery(address).data;
-  if (!utxos) return;
-  return sumNumbers(utxos.map(utxo => utxo.value)).shiftedBy(-BTC_DECIMALS);
+export function useBitcoinCryptoCurrencyAssetBalance(address: string) {
+  const balance = useBitcoinBalance(address);
+  return useMemo(() => {
+    return createBitcoinCryptoCurrencyAssetTypeWrapper(balance);
+  }, [balance]);
 }

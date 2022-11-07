@@ -1,4 +1,4 @@
-import { memo, Suspense, useCallback, useEffect, useState } from 'react';
+import { memo, Suspense, useCallback, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { StacksTransaction } from '@stacks/transactions';
 import toast from 'react-hot-toast';
@@ -28,15 +28,13 @@ import {
 import { logger } from '@shared/logger';
 import { FeeType } from '@shared/models/fees-types';
 import { RouteUrls } from '@shared/route-urls';
-import { useTransferableAssets } from '@app/store/assets/asset.hooks';
 
 import { SendFormInner } from './components/send-form-inner';
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 
 function SendTokensFormBase() {
   const navigate = useNavigate();
-  const assets = useTransferableAssets();
-  const { showEditNonce, showNetworks } = useDrawers();
+  const { isShowingEditNonce } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const [selectedAssetId, setSelectedAssetId] = useState<string>('');
@@ -53,10 +51,6 @@ function SendTokensFormBase() {
   const ledgerNavigate = useLedgerNavigate();
 
   useRouteHeader(<Header hideActions title="Send" onClose={() => navigate(RouteUrls.Home)} />);
-
-  useEffect(() => {
-    if (showNetworks) navigate(RouteUrls.Home);
-  }, [navigate, showNetworks]);
 
   const handleConfirmDrawerOnClose = useCallback(() => {
     setShowing(false);
@@ -94,8 +88,6 @@ function SendTokensFormBase() {
     },
     [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate]
   );
-
-  if (assets.length < 1) return null;
 
   const initialValues: SendFormValues = {
     assetId: '',
@@ -142,7 +134,7 @@ function SendTokensFormBase() {
               ledger: <></>,
               software: (
                 <SendTokensSoftwareConfirmDrawer
-                  isShowing={isShowing && !showEditNonce}
+                  isShowing={isShowing && !isShowingEditNonce}
                   onClose={() => handleConfirmDrawerOnClose()}
                   onUserSelectBroadcastTransaction={async (
                     transaction: StacksTransaction | undefined

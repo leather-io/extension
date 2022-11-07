@@ -21,21 +21,22 @@ import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/ledger-utils';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
+import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { lockWallet, currentNetworkId, hasGeneratedWallet, wallet } = useWallet();
+  const { lockWallet, hasGeneratedWallet, wallet } = useWallet();
   const createAccount = useCreateAccount();
   const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
-  const { setShowNetworks, setShowSettings, showSettings, setShowSwitchAccountsState } =
-    useDrawers();
+  const { setIsShowingSettings, isShowingSettings, setIsShowingSwitchAccountsState } = useDrawers();
+  const currentNetworkId = useCurrentNetworkId();
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
   const key = useCurrentKeyDetails();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
 
-  const handleClose = useCallback(() => setShowSettings(false), [setShowSettings]);
+  const handleClose = useCallback(() => setIsShowingSettings(false), [setIsShowingSettings]);
 
   const wrappedCloseCallback = useCallback(
     (callback: () => void) => () => {
@@ -45,7 +46,7 @@ export function SettingsDropdown() {
     [handleClose]
   );
 
-  const isShowing = showSettings;
+  const isShowing = isShowingSettings;
 
   useOnClickOutside(ref, isShowing ? handleClose : null);
 
@@ -62,7 +63,7 @@ export function SettingsDropdown() {
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
                 data-testid={SettingsSelectors.SwitchAccount}
-                onClick={wrappedCloseCallback(() => setShowSwitchAccountsState(true))}
+                onClick={wrappedCloseCallback(() => setIsShowingSwitchAccountsState(true))}
               >
                 Switch account
               </MenuItem>
@@ -92,7 +93,7 @@ export function SettingsDropdown() {
               data-testid={SettingsSelectors.ToggleTheme}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('change_theme_menu_item');
-                navigate(RouteUrls.ChangeTheme);
+                navigate(RouteUrls.ChangeTheme, { relative: 'path' });
               })}
             >
               Change theme
@@ -102,7 +103,7 @@ export function SettingsDropdown() {
               data-testid={SettingsSelectors.ChangeNetworkAction}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('choose_to_change_network');
-                setShowNetworks(true);
+                navigate(RouteUrls.SelectNetwork, { relative: 'path' });
               })}
             >
               <Flex width="100%" alignItems="center" justifyContent="space-between">
@@ -113,7 +114,10 @@ export function SettingsDropdown() {
 
             <Divider />
             {showAdvancedMenuOptions && (
-              <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={showSettings} />
+              <AdvancedMenuItems
+                closeHandler={wrappedCloseCallback}
+                settingsShown={isShowingSettings}
+              />
             )}
             {hasGeneratedWallet && walletType === 'software' && (
               <MenuItem
@@ -129,9 +133,9 @@ export function SettingsDropdown() {
             )}
             <MenuItem
               color={color('feedback-error')}
-              onClick={wrappedCloseCallback(() => {
-                navigate(RouteUrls.SignOutConfirm);
-              })}
+              onClick={wrappedCloseCallback(() =>
+                navigate(RouteUrls.SignOutConfirm, { relative: 'path' })
+              )}
               data-testid="settings-sign-out"
             >
               Sign out

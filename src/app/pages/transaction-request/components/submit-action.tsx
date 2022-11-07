@@ -21,7 +21,7 @@ function BaseConfirmButton(props: ButtonProps): JSX.Element {
 
 export function SubmitAction() {
   const { handleSubmit, values, validateForm } = useFormikContext<TransactionFormValues>();
-  const { showHighFeeConfirmation, setShowHighFeeConfirmation } = useDrawers();
+  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { isLoading } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const error = useTransactionError();
 
@@ -31,7 +31,7 @@ export function SubmitAction() {
     // Check for errors before showing the high fee confirmation
     const formErrors = await validateForm();
     if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
-      return setShowHighFeeConfirmation(!showHighFeeConfirmation);
+      return setIsShowingHighFeeConfirmation(!isShowingHighFeeConfirmation);
     }
     handleSubmit();
   };

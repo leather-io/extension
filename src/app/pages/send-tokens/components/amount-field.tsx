@@ -3,14 +3,11 @@ import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import {
-  useBaseAssetsUnanchored,
-  useCurrentAccountUnanchoredBalances,
-} from '@app/query/stacks/balance/balance.hooks';
+import { useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { SendFormValues } from '@shared/models/form.model';
 import { ErrorLabel } from '@app/components/error-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { useSelectedAsset } from '@app/pages/send-tokens/hooks/use-selected-asset';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxButton } from './send-max-button';
@@ -25,9 +22,8 @@ function AmountFieldBase(props: AmountFieldProps) {
   const { error, value, ...rest } = props;
   const { handleChange, values } = useFormikContext<SendFormValues>();
   const analytics = useAnalytics();
-  const assets = useBaseAssetsUnanchored();
-  const balances = useCurrentAccountUnanchoredBalances();
-  const { selectedAsset, placeholder } = useSelectedAsset(values.assetId);
+  const ftAssetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata();
+  const { isStx, selectedAssetBalance, placeholder } = useSelectedAssetBalance(values.assetId);
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions();
 
   const handleSetSendMaxTracked = () => {
@@ -49,7 +45,7 @@ function AmountFieldBase(props: AmountFieldProps) {
             width="100%"
             placeholder={placeholder || 'Select an asset first'}
             min="0"
-            autoFocus={assets?.length === 1}
+            autoFocus={ftAssetBalances.length === 0}
             value={value === 0 ? '' : value}
             onKeyDown={handleOnKeyDown}
             onChange={handleChange}
@@ -57,11 +53,11 @@ function AmountFieldBase(props: AmountFieldProps) {
             name="amount"
             data-testid={SendFormSelectors.InputAmountField}
           />
-          {balances && selectedAsset ? (
+          {selectedAssetBalance && selectedAssetBalance.asset ? (
             <SendMaxButton
               fee={values.fee}
+              isStx={isStx}
               onClick={() => handleSetSendMaxTracked()}
-              selectedAsset={selectedAsset}
             />
           ) : null}
         </Box>

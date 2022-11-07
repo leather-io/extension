@@ -19,7 +19,6 @@ import {
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
-import { WalletBlockchains } from '@shared/models/blockchain.model';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
@@ -53,7 +52,7 @@ export const StacksTransactionItem = ({
   const openTxLink = () => {
     void analytics.track('view_transaction');
     handleOpenTxLink({
-      blockchain: WalletBlockchains.stacks,
+      blockchain: 'stacks',
       txid: transaction?.tx_id || transferDetails?.link || '',
     });
   };

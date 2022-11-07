@@ -9,7 +9,9 @@ const queryOptions = {
   cacheTime: staleTime,
 };
 
-export function useGetBitcoinTransactionsByAddressQuery(address: string) {
+export function useGetBitcoinTransactionsByAddressQuery(
+  address: string
+): UseQueryResult<BitcoinTransaction[]> {
   const client = useBitcoinClient();
 
   return useQuery({
@@ -17,5 +19,5 @@ export function useGetBitcoinTransactionsByAddressQuery(address: string) {
     queryKey: ['btc-txs-by-address', address],
     queryFn: () => client.addressApi.getTransactionsByAddress(address),
     ...queryOptions,
-  }) as UseQueryResult<BitcoinTransaction[], Error>;
+  });
 }

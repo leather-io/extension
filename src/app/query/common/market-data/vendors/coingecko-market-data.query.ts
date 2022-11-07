@@ -5,6 +5,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { marketDataQueryOptions } from '../market-data.query';
 
 const currencyNameMap: Record<CryptoCurrencies, string> = {
+  BTC: 'bitcoin',
   STX: 'blockstack',
 };
 

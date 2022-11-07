@@ -156,7 +156,7 @@ export function useSignTransactionSoftwareWallet() {
   );
 }
 
-export function useTransactionRequestBroadcast() {
+export function useTransactionBroadcast() {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
@@ -164,14 +164,6 @@ export function useTransactionRequestBroadcast() {
   const network = useCurrentNetworkState();
 
   return async ({ signedTx }: { signedTx: StacksTransaction }) => {
-    if (!requestToken || !tabId) {
-      logger.error(`Cannot broadcast transaction from transaction request`, {
-        requestToken,
-        tabId,
-      });
-      return;
-    }
-
     try {
       const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
       const result = await broadcastTransaction({
@@ -181,16 +173,20 @@ export function useTransactionRequestBroadcast() {
         attachment,
         networkUrl: network.url,
       });
+
       if (isString(result.txId)) {
         submittedTransactionsActions.newTransactionSubmitted({
           rawTx: result.txRaw,
           txId: result.txId,
         });
       }
+
       // If there's a request token, this means it's a transaction request
       // In which case we need to return to the app the results of the tx
       // Otherwise, it's a send form tx and we don't want to
-      finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
+      if (requestToken && tabId) {
+        finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
+      }
       return Promise.resolve();
     } catch (error) {
       return Promise.reject(error);
@@ -205,7 +201,7 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
   const account = useCurrentAccount();
-  const txBroadcast = useTransactionRequestBroadcast();
+  const txBroadcast = useTransactionBroadcast();
 
   return async (values: TransactionFormValues) => {
     if (!stacksTxBaseState) return;
@@ -233,15 +229,15 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
 
 interface PostConditionsOptions {
   contractAddress: string;
+  contractAssetName: string;
   contractName: string;
-  assetName: string;
   stxAddress: string;
   amount: string | number;
 }
 export function makePostCondition(options: PostConditionsOptions): PostCondition {
-  const { contractAddress, contractName, assetName, stxAddress, amount } = options;
+  const { contractAddress, contractAssetName, contractName, stxAddress, amount } = options;
 
-  const assetInfo = createAssetInfo(contractAddress, contractName, assetName);
+  const assetInfo = createAssetInfo(contractAddress, contractName, contractAssetName);
   return makeStandardFungiblePostCondition(
     stxAddress,
     FungibleConditionCode.Equal,
@@ -279,7 +275,7 @@ function useUnsignedStacksTransaction(values: TransactionFormValues) {
 }
 
 function isSendingFormSendingStx(assetId: string) {
-  return assetId === '.::Stacks Token';
+  return assetId === '::stacks-token';
 }
 
 export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
