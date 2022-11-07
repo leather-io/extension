@@ -22,7 +22,7 @@ import {
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { useTransactionRequestBroadcast } from '@app/store/transactions/transaction.hooks';
+import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 import { RouteUrls } from '@shared/route-urls';
 import { logger } from '@shared/logger';
 
@@ -37,7 +37,7 @@ export function LedgerSignTxContainer() {
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
   const account = useCurrentAccount();
-  const hwWalletTxBroadcast = useTransactionRequestBroadcast();
+  const hwWalletTxBroadcast = useTransactionBroadcast();
   const canUserCancelAction = useActionCancellableByUser();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
