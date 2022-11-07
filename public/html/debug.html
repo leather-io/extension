@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html class="mode__full-page light">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/assets/connect-logo/Stacks128w.png" />
+    <link href="/assets/base.css" rel="stylesheet" />
+  </head>
+  <body style="padding: 50px">
+    <form class="decrypt-mnemonic-form">
+      <fieldset>
+        <legend>Decrypt Hiro Wallet mnemonic</legend>
+        <p>
+          <label
+            >Encrypted Secret Key<br />
+            <input name="encryptedSecretKey" type="text"
+          /></label>
+        </p>
+
+        <p>
+          <label>
+            Salt<br />
+            <input name="salt" type="text" />
+          </label>
+        </p>
+        <p>
+          <label>
+            Password<br />
+            <input name="password" type="text" />
+          </label>
+        </p>
+        <button>Decrypt</button>
+      </fieldset>
+    </form>
+    <script src="browser-polyfill.js"></script>
+  </body>
+</html>
