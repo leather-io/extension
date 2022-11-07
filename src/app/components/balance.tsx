@@ -7,6 +7,7 @@ import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
 interface BalanceProps {
   address: string;
 }
+
 export function Balance(props: BalanceProps): JSX.Element | null {
   const { address } = props;
   const { data: balances } = useAddressBalances(address);
