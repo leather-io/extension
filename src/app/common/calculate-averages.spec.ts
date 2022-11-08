@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { calculateMeanAverage } from './calculate-averages';
 
 describe(calculateMeanAverage.name, () => {

@@ -1,5 +1,6 @@
-import { isFunction } from '@shared/utils';
 import { useEffect } from 'react';
+
+import { isFunction } from '@shared/utils';
 
 export function useOnMount(effect: () => void | (() => void)) {
   useEffect(() => {

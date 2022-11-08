@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import BigNumber from 'bignumber.js';
 
 import type {
@@ -7,10 +8,11 @@ import type {
   AccountStxBalanceBigNumber,
   AddressBalanceResponse,
 } from '@shared/models/account.model';
+import { Money, createMoney } from '@shared/models/money.model';
+
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { createMoney, Money } from '@shared/models/money.model';
 
 import {
   useGetAccountBalanceQuery,

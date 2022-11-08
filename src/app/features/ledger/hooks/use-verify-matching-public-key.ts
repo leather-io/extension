@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
+
 import StacksApp from '@zondax/ledger-stacks';
 
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+
 import { requestPublicKeyForStxAccount } from '../ledger-utils';
 import { useLedgerNavigate } from './use-ledger-navigate';
 

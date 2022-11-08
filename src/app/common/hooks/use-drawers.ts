@@ -1,9 +1,9 @@
 import {
-  useShowSwitchAccountsState,
+  useShowEditNonceState,
   useShowHighFeeConfirmationState,
   useShowSettingsStore,
+  useShowSwitchAccountsState,
   useShowTxSettingsCallback,
-  useShowEditNonceState,
 } from '@app/store/ui/ui.hooks';
 
 export function useDrawers() {

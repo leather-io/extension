@@ -1,5 +1,5 @@
-import { Box, BoxProps } from '@stacks/ui';
 import { keyframes } from '@emotion/react';
+import { Box, BoxProps } from '@stacks/ui';
 
 const shine = keyframes`
   0% {

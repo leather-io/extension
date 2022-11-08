@@ -1,7 +1,7 @@
-import { color, Stack } from '@stacks/ui';
+import { Stack, color } from '@stacks/ui';
 
-import { Title } from '@app/components/typography';
 import { Divider } from '@app/components/divider';
+import { Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { Row } from '@app/pages/transaction-request/components/row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';

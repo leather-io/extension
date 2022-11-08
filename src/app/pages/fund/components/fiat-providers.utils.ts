@@ -1,6 +1,3 @@
-import { generateOnRampURL } from '@coinbase/cbpay-js';
-
-import { ActiveFiatProvider } from '@app/query/stacks/hiro-config/hiro-config.query';
 import BinanceIcon from '@assets/images/fund/fiat-providers/binance-icon.png';
 import BlockchainComIcon from '@assets/images/fund/fiat-providers/blockchain.com-icon.png';
 import ByBitIcon from '@assets/images/fund/fiat-providers/bybit-icon.png';
@@ -12,7 +9,11 @@ import MoonPayIcon from '@assets/images/fund/fiat-providers/moonpay-icon.png';
 import OkcoinIcon from '@assets/images/fund/fiat-providers/okcoin-icon.png';
 import OkxIcon from '@assets/images/fund/fiat-providers/okx-icon.png';
 import TransakIcon from '@assets/images/fund/fiat-providers/transak-icon.png';
+import { generateOnRampURL } from '@coinbase/cbpay-js';
+
 import { COINBASE_APP_ID, MOONPAY_API_KEY, TRANSAK_API_KEY } from '@shared/environment';
+
+import { ActiveFiatProvider } from '@app/query/stacks/hiro-config/hiro-config.query';
 
 // Keys are set in wallet-config.json
 enum ActiveFiatProviders {

@@ -1,5 +1,5 @@
 import pino from 'pino';
-import { defer, mergeMap, Subject } from 'rxjs';
+import { Subject, defer, mergeMap } from 'rxjs';
 
 import { IS_TEST_ENV } from './environment';
 import { appendLogToBrowserStorage } from './logger-storage';

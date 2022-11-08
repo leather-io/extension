@@ -1,4 +1,5 @@
 import { isEven, isMultipleOf } from '@app/common/utils';
+
 import { AddressDisplayerLayout } from './address-displayer.layout';
 
 const isMultipleOfFour = isMultipleOf(4);

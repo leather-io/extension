@@ -1,11 +1,11 @@
-import { useQueries, useQuery, UseQueryResult } from '@tanstack/react-query';
+import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 import { RateLimiter } from 'limiter';
 
 import { isResponseCode } from '@app/common/network/is-response-code';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 

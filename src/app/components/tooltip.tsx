@@ -1,6 +1,7 @@
-import Tippy, { TippyProps } from '@tippyjs/react';
-import { Box, BoxProps } from '@stacks/ui';
 import { memo, useMemo } from 'react';
+
+import { Box, BoxProps } from '@stacks/ui';
+import Tippy, { TippyProps } from '@tippyjs/react';
 
 interface TooltipProps extends TippyProps {
   label?: TippyProps['content'];

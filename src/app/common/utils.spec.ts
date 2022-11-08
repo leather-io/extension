@@ -1,6 +1,8 @@
+import BigNumber from 'bignumber.js';
+
 import { getTicker, sumNumbers } from '@app/common/utils';
 import { extractPhraseFromString } from '@app/common/utils';
-import BigNumber from 'bignumber.js';
+
 import { countDecimals } from './utils';
 
 describe(countDecimals.name, () => {

@@ -1,14 +1,15 @@
 import {
-  addressToString,
   FungibleConditionCode,
   FungiblePostCondition,
   NonFungibleConditionCode,
   NonFungiblePostCondition,
-  parsePrincipalString,
   PostCondition,
   PostConditionType,
   STXPostCondition,
+  addressToString,
+  parsePrincipalString,
 } from '@stacks/transactions';
+
 import { stacksValue } from '@app/common/stacks-utils';
 import { postConditionFromString } from '@app/common/utils';
 

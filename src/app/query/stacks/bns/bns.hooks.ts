@@ -1,6 +1,9 @@
 import { useMemo } from 'react';
+
 import { logger } from '@shared/logger';
+
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
+
 import { useGetBnsNamesOwnedByAddress } from './bns.query';
 
 export function useCurrentAccountNames() {

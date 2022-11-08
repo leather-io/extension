@@ -1,5 +1,5 @@
-import { keyActions } from '@app/store/keys/key.actions';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { keyActions } from '@app/store/keys/key.actions';
 
 export function useOnSignOut(handler: () => void) {
   useOnMount(() => {

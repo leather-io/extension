@@ -1,7 +1,7 @@
-import { Box, color, Stack, transition } from '@stacks/ui';
+import { Box, Stack, color, transition } from '@stacks/ui';
+import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
 
 import { Caption, Title } from '@app/components/typography';
-import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
 
 interface FundAccountTileProps {
   attributes?: JSX.Element;

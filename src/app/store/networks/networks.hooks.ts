@@ -1,14 +1,16 @@
 import { useMemo } from 'react';
+
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
 
-import { whenStxChainId } from '@app/common/utils';
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 import { DefaultNetworkModes, NetworkConfiguration } from '@shared/constants';
-import { useAppDispatch } from '@app/store';
 
-import { useCurrentNetwork, useNetworks } from './networks.selectors';
+import { whenStxChainId } from '@app/common/utils';
+import { useAppDispatch } from '@app/store';
+import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
+
 import { networksActions } from './networks.actions';
+import { useCurrentNetwork, useNetworks } from './networks.selectors';
 import { findMatchingNetworkKey } from './networks.utils';
 
 export function useCurrentNetworkState() {

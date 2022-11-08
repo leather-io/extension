@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { BoxProps } from '@stacks/ui';
 
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';

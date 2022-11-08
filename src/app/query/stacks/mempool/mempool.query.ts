@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
 import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
+import { useQuery } from '@tanstack/react-query';
 
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 

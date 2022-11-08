@@ -1,8 +1,10 @@
 import { memo } from 'react';
-import { useFormikContext } from 'formik';
+
 import { Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
-import { ErrorLabel } from '@app/components/error-label';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useFormikContext } from 'formik';
+
+import { ErrorLabel } from '@app/components/error-label';
 
 interface FieldProps extends StackProps {
   value: string;

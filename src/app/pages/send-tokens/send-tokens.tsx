@@ -1,33 +1,35 @@
-import { memo, Suspense, useCallback, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { StacksTransaction } from '@stacks/transactions';
+import { Suspense, memo, useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Outlet, useNavigate } from 'react-router-dom';
+
+import { StacksTransaction } from '@stacks/transactions';
 import { Formik } from 'formik';
 
-import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { LoadingKeys } from '@app/common/hooks/use-loading';
-import { useDrawers } from '@app/common/hooks/use-drawers';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
+import { logger } from '@shared/logger';
+import { FeeType } from '@shared/models/fees-types';
 import { SendFormValues } from '@shared/models/form.model';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import { Header } from '@app/components/header';
+import { RouteUrls } from '@shared/route-urls';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
+import { LoadingKeys } from '@app/common/hooks/use-loading';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { Header } from '@app/components/header';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
 import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useGenerateSendFormUnsignedTx,
   useSendFormEstimatedUnsignedTxByteLengthState,
   useSendFormSerializedUnsignedTxPayloadState,
   useSignTransactionSoftwareWallet,
 } from '@app/store/transactions/transaction.hooks';
-import { logger } from '@shared/logger';
-import { FeeType } from '@shared/models/fees-types';
-import { RouteUrls } from '@shared/route-urls';
 
 import { SendFormInner } from './components/send-form-inner';
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';

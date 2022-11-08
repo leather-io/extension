@@ -1,6 +1,7 @@
 import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types/generated';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useQueries, useQuery } from '@tanstack/react-query';
+
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 export function useTransactionsById(txids: string[]) {
   const client = useStacksClient();

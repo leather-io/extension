@@ -1,9 +1,11 @@
 import { FiEyeOff, FiLock, FiRotateCcw } from 'react-icons/fi';
-import { Box, color, Stack } from '@stacks/ui';
 
-import { Caption } from '@app/components/typography';
-import { PrimaryButton } from '@app/components/primary-button';
+import { Box, Stack, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+
+import { PrimaryButton } from '@app/components/primary-button';
+import { Caption } from '@app/components/typography';
+
 interface BackUpSecretKeyLayoutProps {
   onBackedUpSecretKey(): void;
 }

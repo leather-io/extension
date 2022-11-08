@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 import { hideScrollbarStyle } from './hide-scrollbar';
 
 const maxWidth = '392px';

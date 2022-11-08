@@ -1,7 +1,10 @@
-import { Box, Flex, Stack, Text, color } from '@stacks/ui';
-import { Tooltip } from '@app/components/tooltip';
 import { FiInfo } from 'react-icons/fi';
+
+import { Box, Flex, Stack, Text, color } from '@stacks/ui';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+
+import { Tooltip } from '@app/components/tooltip';
+
 const pendingWaitingMessage =
   'This transaction is waiting to be confirmed. Depending on network congestion, this may take anywhere from a few minutes, to a couple of hours.';
 

@@ -8,8 +8,10 @@ import {
   getLogSizeInBytes,
 } from '@shared/logger-storage';
 import { isNumber } from '@shared/utils';
-import { Caption } from '@app/components/typography';
+
 import { Divider } from '@app/components/divider';
+import { Caption } from '@app/components/typography';
+
 import { SettingsMenuItem as MenuItem } from './settings-menu-item';
 
 const isAnEmptyLogsArrayByteThreshold = 7;

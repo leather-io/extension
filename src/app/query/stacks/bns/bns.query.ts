@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { StacksClient } from '@app/query/stacks/stacks-client';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 

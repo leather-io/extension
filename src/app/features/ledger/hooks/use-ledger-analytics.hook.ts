@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+
 import { getAppVersion } from '../ledger-utils';
 
 export function useLedgerAnalytics() {

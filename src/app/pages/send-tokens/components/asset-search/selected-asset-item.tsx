@@ -1,16 +1,17 @@
 import { memo } from 'react';
-import { useField } from 'formik';
-import { Box, ChevronIcon, Text, color, Stack, BoxProps } from '@stacks/ui';
 
-import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { Caption } from '@app/components/typography';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { Box, BoxProps, ChevronIcon, Stack, Text, color } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useField } from 'formik';
+
 import {
   getGradientString,
   getImageCanonicalUri,
 } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { Caption } from '@app/components/typography';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { getStacksFungibleTokenCurrencyAsset } from '@app/query/stacks/balance/crypto-asset-balances.utils';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface SelectedAssetItemProps extends BoxProps {
   hideArrow?: boolean;

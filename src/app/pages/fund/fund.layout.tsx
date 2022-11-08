@@ -1,12 +1,12 @@
-import { Box, color, Flex, Stack, useMediaQuery } from '@stacks/ui';
+import AddFunds from '@assets/images/fund/add-funds.png';
+import { Box, Flex, Stack, color, useMediaQuery } from '@stacks/ui';
 
-import { Text } from '@app/components/typography';
-import { PageTitle } from '@app/components/page-title';
 import {
   CENTERED_FULL_PAGE_MAX_WIDTH,
   DESKTOP_VIEWPORT_MIN_WIDTH,
 } from '@app/components/global-styles/full-page-styles';
-import AddFunds from '@assets/images/fund/add-funds.png';
+import { PageTitle } from '@app/components/page-title';
+import { Text } from '@app/components/typography';
 
 import { FiatProvidersList } from './components/fiat-providers-list';
 

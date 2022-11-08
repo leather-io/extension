@@ -1,5 +1,6 @@
-import { Box, color, Flex, Stack, Tooltip } from '@stacks/ui';
 import { FiInfo } from 'react-icons/fi';
+
+import { Box, Flex, Stack, Tooltip, color } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
 

@@ -1,9 +1,9 @@
-import { useGetAccountNonces } from '@app/query/stacks/nonce/account-nonces.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
+import { useGetAccountNonces } from '@app/query/stacks/nonce/account-nonces.query';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
-import { getNextNonce, NonceTypes } from './account-nonces.utils';
 import { useStacksConfirmedTransactions } from '../transactions/transactions-with-transfers.hooks';
+import { NonceTypes, getNextNonce } from './account-nonces.utils';
 
 export function useNextNonce() {
   const currentAccount = useCurrentAccount();

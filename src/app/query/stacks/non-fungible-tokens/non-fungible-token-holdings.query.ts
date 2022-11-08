@@ -1,9 +1,9 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 
-import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { StacksClient } from '@app/query/stacks/stacks-client';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 

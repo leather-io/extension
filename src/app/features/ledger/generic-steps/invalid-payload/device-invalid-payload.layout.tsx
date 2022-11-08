@@ -1,6 +1,8 @@
-import { Box, Button, color, Flex, Text } from '@stacks/ui';
 import LedgerWithRedOutline from '@assets/images/ledger/ledger-red-outline.png';
+import { Box, Button, Flex, Text, color } from '@stacks/ui';
+
 import { Title } from '@app/components/typography';
+
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
 interface LedgerDeviceInvalidPayloadLayoutProps {

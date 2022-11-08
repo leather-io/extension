@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 
+import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
 import { Tooltip } from '@app/components/tooltip';
 import { Title } from '@app/components/typography';
-import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
 
 interface TransactionTitleProps {
   title: string;

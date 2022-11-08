@@ -1,21 +1,23 @@
 import { useMemo } from 'react';
 
+import { UseQueryResult } from '@tanstack/react-query';
+
 import {
   FeeCalculationType,
   FeeEstimate,
   FeeEstimation,
   TransactionFeeEstimation,
 } from '@shared/models/fees-types';
+
+import { useGetTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 import {
   useConfigFeeEstimationsMaxEnabled,
   useConfigFeeEstimationsMaxValues,
   useConfigFeeEstimationsMinEnabled,
   useConfigFeeEstimationsMinValues,
 } from '@app/query/stacks/hiro-config/hiro-config.query';
-import { useGetTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 
 import { getDefaultSimulatedFeeEstimations, getFeeEstimationsWithCappedValues } from './fees.utils';
-import { UseQueryResult } from '@tanstack/react-query';
 
 const defaultFeesMaxValues = [500000, 750000, 2000000];
 const defaultFeesMinValues = [2500, 3000, 3500];

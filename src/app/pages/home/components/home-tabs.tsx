@@ -1,11 +1,12 @@
 import { Suspense } from 'react';
-import { Box, Stack, SlideFade, Flex } from '@stacks/ui';
+
+import { Box, Flex, SlideFade, Stack } from '@stacks/ui';
 import type { StackProps } from '@stacks/ui';
 
-import { Tabs } from '@app/components/tabs';
-import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
+import { LoadingSpinner } from '@app/components/loading-spinner';
+import { Tabs } from '@app/components/tabs';
 
 interface HomeTabsProps extends StackProps {
   balances: JSX.Element;

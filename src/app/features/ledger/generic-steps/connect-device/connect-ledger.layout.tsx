@@ -1,11 +1,11 @@
-import { lazy, Suspense } from 'react';
+import { Suspense, lazy } from 'react';
+
 import { Box } from '@stacks/ui';
 
 import { Divider } from '@app/components/divider';
-
+import { ExternalLink } from '@app/components/external-link';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
-import { ExternalLink } from '@app/components/external-link';
 
 import { LedgerConnectInstructionTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';

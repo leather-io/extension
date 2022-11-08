@@ -1,18 +1,20 @@
 import { useMemo } from 'react';
+
 import { Box, BoxProps } from '@stacks/ui';
 
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
-import { BtcIcon } from '@app/components/icons/btc-icon';
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
+import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
-import { getBitcoinTxCaption, getBitcoinTxValue } from './bitcoin-transaction.utils';
-import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
-import { BitcoinTransactionItemLayout } from './bitcoin-transaction-item.layout';
-import { BitcoinTransactionValue } from './bitcoin-transaction-value';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { BtcIcon } from '@app/components/icons/btc-icon';
+import { TransactionTitle } from '@app/components/transaction/transaction-title';
+
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
+import { BitcoinTransactionItemLayout } from './bitcoin-transaction-item.layout';
+import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
+import { BitcoinTransactionValue } from './bitcoin-transaction-value';
+import { getBitcoinTxCaption, getBitcoinTxValue } from './bitcoin-transaction.utils';
 
 interface BitcoinTransactionItemProps extends BoxProps {
   transaction?: BitcoinTransaction;

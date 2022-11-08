@@ -1,16 +1,18 @@
 import { Suspense, useMemo } from 'react';
-import { TransactionTypes } from '@stacks/connect';
-import { color, Flex } from '@stacks/ui';
-import { PostConditionMode } from '@stacks/transactions';
 
-import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { useTransactionPostConditions } from '@app/store/transactions/transaction.hooks';
-import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
+import { TransactionTypes } from '@stacks/connect';
+import { PostConditionMode } from '@stacks/transactions';
+import { Flex, color } from '@stacks/ui';
+
 import { IS_TEST_ENV } from '@shared/environment';
 
-import { StxPostCondition } from './stx-post-condition';
-import { PostConditionsList } from './post-conditions-list';
+import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { useTransactionPostConditions } from '@app/store/transactions/transaction.hooks';
+
 import { NoPostConditions } from './no-post-conditions';
+import { PostConditionsList } from './post-conditions-list';
+import { StxPostCondition } from './stx-post-condition';
 
 function PostConditionsSuspense(): JSX.Element | null {
   const postConditions = useTransactionPostConditions();

@@ -1,9 +1,9 @@
-import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import type { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
+import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const accountNoncesQueryOptions: UseQueryOptions = {
   refetchOnMount: 'always',

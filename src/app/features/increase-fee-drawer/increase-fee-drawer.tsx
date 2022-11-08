@@ -1,12 +1,14 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+
 import { Flex, Spinner, Stack } from '@stacks/ui';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Caption } from '@app/components/typography';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { RouteUrls } from '@shared/route-urls';
 
 import { IncreaseFeeForm } from './components/increase-fee-form';
 

@@ -1,30 +1,32 @@
 import { Suspense, useCallback } from 'react';
-import { useFormikContext } from 'formik';
-import { Box, Text, Stack } from '@stacks/ui';
 
-import { getFullyQualifiedStacksAssetName } from '@app/common/utils';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Box, Stack, Text } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useFormikContext } from 'formik';
+
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
+import { FeeEstimate } from '@shared/models/fees-types';
+import type { SendFormValues } from '@shared/models/form.model';
 import { isEmpty, isUndefined } from '@shared/utils';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDrawers } from '@app/common/hooks/use-drawers';
+import { getFullyQualifiedStacksAssetName } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
-import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { FeeRow } from '@app/components/fee-row/fee-row';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { PrimaryButton } from '@app/components/primary-button';
-import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
-import { AmountField } from '@app/pages/send-tokens/components/amount-field';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
-import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
-import { FeeEstimate } from '@shared/models/fees-types';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import type { SendFormValues } from '@shared/models/form.model';
+import { PrimaryButton } from '@app/components/primary-button';
+import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
+import { AmountField } from '@app/pages/send-tokens/components/amount-field';
+import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
+import { MemoField } from '@app/pages/send-tokens/components/memo-field';
+import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 
 import { SendFormMemoWarning } from './memo-warning';
 

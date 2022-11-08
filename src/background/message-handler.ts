@@ -1,10 +1,12 @@
+import { StacksMainnet } from '@stacks/network';
+import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
+import memoize from 'promise-memoize';
+
 import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
-import { StacksMainnet } from '@stacks/network';
-import { generateNewAccount, generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
-import memoize from 'promise-memoize';
+
 import { backupWalletSaltForGaia } from './backup-old-wallet-salt';
 
 function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {

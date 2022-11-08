@@ -1,29 +1,30 @@
-import { Suspense, memo, useState, useMemo } from 'react';
+import { Suspense, memo, useMemo, useState } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
-import { Box, BoxProps, color, FlexProps, Stack } from '@stacks/ui';
 
-import { Text, Title } from '@app/components/typography';
+import { Box, BoxProps, FlexProps, Stack, color } from '@stacks/ui';
+
+import { RouteUrls } from '@shared/route-urls';
+
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { useWallet } from '@app/common/hooks/use-wallet';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
+import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { useWallet } from '@app/common/hooks/use-wallet';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { slugify } from '@app/common/utils';
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
-
-import { usePressable } from '@app/components/item-hover';
 import {
   AccountBalanceCaption,
   AccountBalanceLoading,
 } from '@app/components/account/account-balance-caption';
-import { slugify } from '@app/common/utils';
-import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
-import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { useNavigate } from 'react-router-dom';
-import { RouteUrls } from '@shared/route-urls';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { usePressable } from '@app/components/item-hover';
+import { Text, Title } from '@app/components/typography';
 import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});

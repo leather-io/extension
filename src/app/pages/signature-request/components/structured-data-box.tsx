@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { sha256 } from 'sha.js';
-import { Box, color, Stack, Text } from '@stacks/ui';
+
 import {
   ChainID,
   ClarityValue,
+  TupleCV,
   cvToString,
   encodeStructuredData,
-  TupleCV,
 } from '@stacks/transactions';
+import { ClarityType } from '@stacks/transactions/dist/esm/clarity';
+import { Box, Stack, Text, color } from '@stacks/ui';
+import { sha256 } from 'sha.js';
 
 import { whenStxChainId } from '@app/common/utils';
-import { ClarityType } from '@stacks/transactions/dist/esm/clarity';
+
 import { ClarityValueListDisplayer } from './clarity-value-list';
 import { HashDrawer } from './hash-drawer';
 

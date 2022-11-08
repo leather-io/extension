@@ -1,20 +1,22 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import Transport from '@ledgerhq/hw-transport-webusb';
+import {
+  AddressVersion,
+  SingleSigSpendingCondition,
+  createMessageSignature,
+  deserializeTransaction,
+} from '@stacks/transactions';
+import { safeAwait } from '@stacks/ui';
 import StacksApp, { LedgerError, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
-import {
-  AddressVersion,
-  createMessageSignature,
-  deserializeTransaction,
-  SingleSigSpendingCondition,
-} from '@stacks/transactions';
+import { RouteUrls } from '@shared/route-urls';
 
 import { delay } from '@app/common/utils';
+
 import { LedgerTxSigningContext } from './flows/tx-signing/ledger-sign-tx.context';
-import { safeAwait } from '@stacks/ui';
-import { useLocation } from 'react-router-dom';
-import { RouteUrls } from '@shared/route-urls';
 
 export interface BaseLedgerOperationContext {
   latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;

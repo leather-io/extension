@@ -1,5 +1,7 @@
 import { memo } from 'react';
+
 import { Box, Flex } from '@stacks/ui';
+
 import { Body, Title } from '@app/components/typography';
 
 export const AccountListUnavailable = memo(() => (

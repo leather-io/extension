@@ -3,11 +3,11 @@ import { SignatureData } from '@stacks/connect';
 import { hashMessage } from '@stacks/encryption';
 import {
   ClarityValue,
+  StacksPrivateKey,
   getPublicKey,
   publicKeyToString,
   signMessageHashRsv,
   signStructuredData,
-  StacksPrivateKey,
 } from '@stacks/transactions';
 
 export function signMessage(message: string, privateKey: StacksPrivateKey): SignatureData {

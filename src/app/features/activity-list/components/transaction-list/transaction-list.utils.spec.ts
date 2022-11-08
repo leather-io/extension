@@ -1,8 +1,8 @@
-import dayjs from 'dayjs';
 import { AddressTransactionWithTransfers, Transaction } from '@stacks/stacks-blockchain-api-types';
+import dayjs from 'dayjs';
 
-import { createTxDateFormatList } from './transaction-list.utils';
 import { TransactionListBitcoinTx, TransactionListStacksTx } from './transaction-list.model';
+import { createTxDateFormatList } from './transaction-list.utils';
 
 function createFakeTx(tx: Partial<Transaction>) {
   return {

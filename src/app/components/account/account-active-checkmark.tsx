@@ -1,5 +1,6 @@
-import { Box, BoxProps, color } from '@stacks/ui';
 import { FiCheck as IconCheck } from 'react-icons/fi';
+
+import { Box, BoxProps, color } from '@stacks/ui';
 
 interface AccountActiveCheckmarkProps extends BoxProps {
   index: number;

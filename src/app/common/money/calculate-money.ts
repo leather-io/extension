@@ -1,10 +1,11 @@
 import { BigNumber } from 'bignumber.js';
 
-import { createMoney, Money } from '@shared/models/money.model';
-import { formatMarketPair, MarketData } from '@shared/models/market.model';
+import { MarketData, formatMarketPair } from '@shared/models/market.model';
+import { Money, createMoney } from '@shared/models/money.model';
+import { isNumber } from '@shared/utils';
+
 import { formatMoney } from './format-money';
 import { isMoney } from './is-money';
-import { isNumber } from '@shared/utils';
 
 export function baseCurrencyAmountInQuote(quantity: Money, { pair, price }: MarketData) {
   if (quantity.symbol !== pair.base)

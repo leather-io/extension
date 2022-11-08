@@ -1,6 +1,6 @@
-import { Title } from '@app/components/typography';
-
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+
+import { Title } from '@app/components/typography';
 
 interface BitcoinTransactionValueProps {
   children: string;

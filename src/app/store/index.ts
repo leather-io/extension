@@ -1,30 +1,31 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { atomWithStore } from 'jotai/redux';
+
 import { devToolsEnhancer } from '@redux-devtools/remote';
-import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { AnyAction, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import { atomWithStore } from 'jotai/redux';
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
 } from 'redux-persist';
 
 import { IS_DEV_ENV } from '@shared/environment';
 
-import { keySlice } from './keys/key.slice';
-import { stxChainSlice } from './chains/stx-chain.slice';
-import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
-import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
-import { ExtensionStorage } from './utils/extension-storage';
-import { onboardingSlice } from './onboarding/onboarding.slice';
 import { analyticsSlice } from './analytics/analytics.slice';
-import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
+import { stxChainSlice } from './chains/stx-chain.slice';
+import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
+import { keySlice } from './keys/key.slice';
 import { networksSlice } from './networks/networks.slice';
+import { onboardingSlice } from './onboarding/onboarding.slice';
 import { settingsSlice } from './settings/settings.slice';
+import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
+import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
+import { ExtensionStorage } from './utils/extension-storage';
 
 const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 

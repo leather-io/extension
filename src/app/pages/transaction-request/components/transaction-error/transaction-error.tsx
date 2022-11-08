@@ -1,4 +1,4 @@
-import { memo, Suspense, useEffect } from 'react';
+import { Suspense, memo, useEffect } from 'react';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';

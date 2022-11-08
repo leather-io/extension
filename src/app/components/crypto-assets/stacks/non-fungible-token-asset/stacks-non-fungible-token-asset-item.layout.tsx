@@ -1,13 +1,14 @@
 import { forwardRef, memo } from 'react';
-import BigNumber from 'bignumber.js';
-import { Box, Stack, StackProps } from '@stacks/ui';
 
-import { SpaceBetween } from '@app/components/space-between';
-import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { Caption, Text } from '@app/components/typography';
-import { usePressable } from '@app/components/item-hover';
-import { Tooltip } from '@app/components/tooltip';
+import { Box, Stack, StackProps } from '@stacks/ui';
+import BigNumber from 'bignumber.js';
+
 import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { usePressable } from '@app/components/item-hover';
+import { SpaceBetween } from '@app/components/space-between';
+import { Tooltip } from '@app/components/tooltip';
+import { Caption, Text } from '@app/components/typography';
 
 // TODO: This is temporarily a copy of the fungible token layout component
 // New designs for this will be implemented when the nft api endpoint is available

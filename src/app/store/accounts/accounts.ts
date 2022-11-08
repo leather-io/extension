@@ -1,10 +1,10 @@
-import { atom } from 'jotai';
-import { Account } from '@stacks/wallet-sdk';
 import { createStacksPublicKey, pubKeyfromPrivKey, publicKeyToAddress } from '@stacks/transactions';
+import { Account } from '@stacks/wallet-sdk';
+import { atom } from 'jotai';
 
-import { ledgerKeyState, softwareWalletState } from '@app/store/wallet/wallet';
 import { derivePublicKey } from '@app/common/derive-public-key';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
+import { ledgerKeyState, softwareWalletState } from '@app/store/wallet/wallet';
 
 import {
   AccountWithAddress,

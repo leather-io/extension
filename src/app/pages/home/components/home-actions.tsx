@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+
 import { Stack, StackProps } from '@stacks/ui';
 
 import { BuyButton } from './buy-button';

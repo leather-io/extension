@@ -1,20 +1,35 @@
 import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+
 import { Flex, Stack } from '@stacks/ui';
 import { Formik } from 'formik';
+import get from 'lodash.get';
 import * as yup from 'yup';
 
+import { FeeType } from '@shared/models/fees-types';
+import { TransactionFormValues } from '@shared/models/form.model';
+import { RouteUrls } from '@shared/route-urls';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
-import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { PageTop } from '@app/pages/transaction-request/components/page-top';
+import { PopupHeader } from '@app/features/current-account/popup-header';
+import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
+import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { ContractCallDetails } from '@app/pages/transaction-request/components/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/pages/transaction-request/components/contract-deploy-details/contract-deploy-details';
+import { PageTop } from '@app/pages/transaction-request/components/page-top';
+import { PostConditionModeWarning } from '@app/pages/transaction-request/components/post-condition-mode-warning';
 import { PostConditions } from '@app/pages/transaction-request/components/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
-import { PostConditionModeWarning } from '@app/pages/transaction-request/components/post-condition-mode-warning';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
+import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
@@ -22,23 +37,10 @@ import {
   useTxRequestEstimatedUnsignedTxByteLengthState,
   useTxRequestSerializedUnsignedTxPayloadState,
 } from '@app/store/transactions/transaction.hooks';
-import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { TransactionFormValues } from '@shared/models/form.model';
-import { FeeType } from '@shared/models/fees-types';
-import { PopupHeader } from '@app/features/current-account/popup-header';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { nonceSchema } from '@app/common/validation/nonce-schema';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
-import { RouteUrls } from '@shared/route-urls';
 
-import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
-import get from 'lodash.get';
+import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();

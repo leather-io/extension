@@ -1,19 +1,20 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { SuggestedFirstSteps as Steps } from '@shared/models/onboarding-types';
+import { RouteUrls } from '@shared/route-urls';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useAppDispatch } from '@app/store';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
-import { SuggestedFirstSteps as Steps } from '@shared/models/onboarding-types';
-import { RouteUrls } from '@shared/route-urls';
 
-import { SuggestedFirstStepsLayout } from './suggested-first-steps.layout';
 import { AddFundsStep } from './components/add-funds-step';
 import { BackUpSecretKeyStep } from './components/back-up-secret-key-step';
-import { ExploreAppsStep } from './components/explore-apps-step';
 import { BuyNftStep } from './components/buy-nft-step';
+import { ExploreAppsStep } from './components/explore-apps-step';
 import { useSuggestedFirstSteps } from './hooks/use-suggested-first-steps';
+import { SuggestedFirstStepsLayout } from './suggested-first-steps.layout';
 
 const eventName = 'select_next_step';
 const exploreAppsExternalRoute = 'https://www.stacks.co/explore/discover-apps#apps';

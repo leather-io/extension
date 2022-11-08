@@ -1,8 +1,9 @@
-import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
-import { WalletPage } from '@tests/page-objects/wallet.page';
-import { RouteUrls } from '@shared/route-urls';
 import { BalanceSelectors } from '@tests/integration/balance.selectors';
+import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
 import { SECRET_KEY_2 } from '@tests/mocks';
+import { WalletPage } from '@tests/page-objects/wallet.page';
+
+import { RouteUrls } from '@shared/route-urls';
 
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);

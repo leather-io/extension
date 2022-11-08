@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import { useAtom } from 'jotai';
-import { deserializeTransaction } from '@stacks/transactions';
 
-import { rawTxIdState } from '@app/store/transactions/raw';
+import { deserializeTransaction } from '@stacks/transactions';
+import { useAtom } from 'jotai';
+
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { rawTxIdState } from '@app/store/transactions/raw';
 
 export function useRawTxIdState() {
   return useAtom(rawTxIdState);

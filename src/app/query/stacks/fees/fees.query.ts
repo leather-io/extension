@@ -1,7 +1,8 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
+
+import { TransactionFeeEstimation } from '@shared/models/fees-types';
 
 import { fetcher } from '@app/common/api/wrapped-fetch';
-import { TransactionFeeEstimation } from '@shared/models/fees-types';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const staleTime = 5 * 60 * 1000; // 5 min

@@ -1,12 +1,14 @@
-import { Stack } from '@stacks/ui';
 import { memo } from 'react';
+
+import { Stack } from '@stacks/ui';
+
+import { isSignatureMessageType } from '@shared/signature/types';
 
 import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Caption, Title } from '@app/components/typography';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
-import { isSignatureMessageType } from '@shared/signature/types';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 function PageTopBase() {
   const { url, isTestnet } = useCurrentNetworkState();

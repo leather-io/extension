@@ -1,7 +1,10 @@
 // This is a wrapper component to provide default/mock data to various atoms
 import React, { StrictMode, Suspense } from 'react';
+
 import { Provider } from 'jotai';
+
 import { softwareWalletState } from '@app/store/wallet/wallet';
+
 import { TEST_WALLET } from './mocks';
 
 // This is a wrapper component to provide default/mock data to various atoms

@@ -1,17 +1,18 @@
 import { useMemo } from 'react';
 
+import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/onboarding-types';
+
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useAllAccountsAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import {
   useAccountsNonFungibleTokenHoldings,
   useNonFungibleTokenHoldings,
 } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
 import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import {
   useHideSuggestedFirstSteps,
   useSuggestedFirstStepsStatus,
 } from '@app/store/onboarding/onboarding.selectors';
-import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/onboarding-types';
-import { useAllAccountsAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 
 export function useSuggestedFirstSteps() {
   const accounts = useAccounts();

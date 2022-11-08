@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
+
 import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
-import { addressToString, FungiblePostCondition } from '@stacks/transactions';
+import { FungiblePostCondition, addressToString } from '@stacks/transactions';
 
 import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/stacks/post-condition.utils';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 
 import { useTransactionRequestState } from './requests.hooks';
 

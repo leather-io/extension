@@ -1,6 +1,7 @@
 import { SVGAttributes } from 'react';
+
+import { Box, Grid, color, transition } from '@stacks/ui';
 import { useHover } from 'use-events';
-import { Box, color, Grid, transition } from '@stacks/ui';
 
 interface IconBaseProps extends SVGAttributes<SVGElement> {
   children?: React.ReactNode;

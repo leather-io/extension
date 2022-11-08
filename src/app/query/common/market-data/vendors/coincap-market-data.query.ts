@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { marketDataQueryOptions } from '../market-data.query';
+
 import { logAndThrow } from '@app/common/utils';
+
+import { marketDataQueryOptions } from '../market-data.query';
 
 const currencyNameMap: Record<CryptoCurrencies, string> = {
   BTC: 'bitcoin',

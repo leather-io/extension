@@ -1,20 +1,22 @@
 import { useCallback } from 'react';
-import { useAtomValue } from 'jotai/utils';
+
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
   makeAuthResponse,
   updateWalletConfigWithApp,
 } from '@stacks/wallet-sdk';
+import { useAtomValue } from 'jotai/utils';
 
-import { gaiaUrl } from '@shared/constants';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
+import { gaiaUrl } from '@shared/constants';
+import { logger } from '@shared/logger';
+
+import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
+import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useAccounts } from '@app/store/accounts/account.hooks';
-import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';
-import { logger } from '@shared/logger';
 
 import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
 

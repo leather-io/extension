@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
-import { generateSecretKey, Wallet } from '@stacks/wallet-sdk';
 
-import { useAppDispatch } from '@app/store';
-import { clearSessionLocalData } from '@app/common/store-utils';
+import { Wallet, generateSecretKey } from '@stacks/wallet-sdk';
 
-import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
-import { keyActions } from '@app/store/keys/key.actions';
-import { useAnalytics } from './analytics/use-analytics';
-import { sendMessage } from '@shared/messages';
 import { InternalMethods } from '@shared/message-types';
+import { sendMessage } from '@shared/messages';
+
+import { clearSessionLocalData } from '@app/common/store-utils';
+import { useAppDispatch } from '@app/store';
+import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
+import { keyActions } from '@app/store/keys/key.actions';
+
+import { useAnalytics } from './analytics/use-analytics';
 
 export function useKeyActions() {
   const analytics = useAnalytics();

@@ -1,5 +1,6 @@
-import { Box, Button, color, Flex, Text } from '@stacks/ui';
 import LedgerTxRejected from '@assets/images/ledger/transaction-rejected.png';
+import { Box, Button, Flex, Text, color } from '@stacks/ui';
+
 import { LedgerTitle } from '../../components/ledger-title';
 
 interface LedgerOperationRejectedLayoutProps {

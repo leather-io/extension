@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { useWallet } from '@app/common/hooks/use-wallet';
 import {
   useCurrentAccount,

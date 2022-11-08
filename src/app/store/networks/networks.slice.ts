@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSlice, EntityId, PayloadAction } from '@reduxjs/toolkit';
+import { EntityId, PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
 import { DefaultNetworkConfigurationIds, NetworkConfiguration } from '@shared/constants';
 

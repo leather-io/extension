@@ -1,7 +1,9 @@
-import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
-import { Box, Flex, color, Text } from '@stacks/ui';
 import { useState } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
+
+import { Box, Flex, Text, color } from '@stacks/ui';
+
+import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
 export function RequestingTabClosedWarningMessage() {
   const [hasTabClosed, setHasTabClosed] = useState(false);

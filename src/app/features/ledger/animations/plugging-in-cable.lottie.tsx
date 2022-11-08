@@ -1,4 +1,5 @@
 import Lottie, { Options } from 'react-lottie';
+
 import { Box, BoxProps } from '@stacks/ui';
 
 import * as animationData from './plugging-in-cable.lottie.json';

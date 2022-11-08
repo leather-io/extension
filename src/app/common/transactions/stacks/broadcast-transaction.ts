@@ -1,8 +1,10 @@
 import { broadcastRawTransaction } from '@stacks/transactions';
+
 import { logger } from '@shared/logger';
-import { validateTxId } from '@app/common/validation/validate-tx-id';
-import { delay } from '@app/common/utils';
+
 import { getErrorMessage } from '@app/common/get-error-message';
+import { delay } from '@app/common/utils';
+import { validateTxId } from '@app/common/validation/validate-tx-id';
 
 async function simulateShortDelayToAvoidUndefinedTabId() {
   await delay(1000);

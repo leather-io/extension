@@ -3,10 +3,12 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { keySlice } from '@app/store/keys/key.slice';
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
+
+import { keySlice } from '@app/store/keys/key.slice';
+
 import { StxAndIdentityPublicKeys } from '../../ledger-utils';
 
 export function useTriggerLedgerDeviceRequestKeys() {

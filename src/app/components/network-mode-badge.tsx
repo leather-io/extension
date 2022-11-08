@@ -1,10 +1,12 @@
 import { memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { color, Flex, FlexProps, Text } from '@stacks/ui';
+
 import { ChainID } from '@stacks/transactions';
+import { Flex, FlexProps, Text, color } from '@stacks/ui';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { RouteUrls } from '@shared/route-urls';
 
 export const NetworkModeBadge = memo((props: FlexProps) => {
   const navigate = useNavigate();

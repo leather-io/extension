@@ -1,10 +1,12 @@
 import { FiCornerDownRight } from 'react-icons/fi';
+
 import { Box } from '@stacks/ui';
 import { color } from '@stacks/ui-utils';
 
-import { Text } from '@app/components/typography';
-import { ftDecimals } from '@app/common/stacks-utils';
 import type { Money } from '@shared/models/money.model';
+
+import { ftDecimals } from '@app/common/stacks-utils';
+import { Text } from '@app/components/typography';
 
 interface SubBalanceProps {
   balance: Money;

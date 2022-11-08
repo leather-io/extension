@@ -1,10 +1,11 @@
-import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { AddressTransactionsWithTransfersListResponse } from '@stacks/stacks-blockchain-api-types';
+import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
+
+import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
-import { AddressTransactionsWithTransfersListResponse } from '@stacks/stacks-blockchain-api-types';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const queryOptions = {
   refetchInterval: QueryRefreshRates.MEDIUM,

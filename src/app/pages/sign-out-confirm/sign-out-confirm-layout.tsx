@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { useFormik } from 'formik';
 
-import { Body, Caption } from '@app/components/typography';
 import { Box, Button, Flex, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { useFormik } from 'formik';
+
 import { useWalletType } from '@app/common/use-wallet-type';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { Body, Caption } from '@app/components/typography';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;

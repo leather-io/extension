@@ -1,27 +1,28 @@
 import { useCallback, useEffect } from 'react';
-import * as yup from 'yup';
-import { Formik } from 'formik';
-import BigNumber from 'bignumber.js';
 import { toast } from 'react-hot-toast';
+
 import { Stack } from '@stacks/ui';
+import BigNumber from 'bignumber.js';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
-import { microStxToStx, stacksValue, stxToMicroStx } from '@app/common/stacks-utils';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
-import { useFeeSchema } from '@app/common/validation/use-fee-schema';
+import { microStxToStx, stacksValue, stxToMicroStx } from '@app/common/stacks-utils';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Caption } from '@app/components/typography';
-import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
-import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
+import { Caption } from '@app/components/typography';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
+import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 
+import { useSelectedTx } from '../hooks/use-selected-tx';
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
-import { useSelectedTx } from '../hooks/use-selected-tx';
 
 export function IncreaseFeeForm(): JSX.Element | null {
   const refreshAccountData = useRefreshAllAccountData();

@@ -1,13 +1,14 @@
-import { chromium, ChromiumBrowserContext } from 'playwright';
-import { Page } from 'playwright-core';
-import { join } from 'path';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { WalletPage } from '@tests/page-objects/wallet.page';
 import { mkdtemp } from 'fs';
 import { tmpdir } from 'os';
+import { join } from 'path';
+import { ChromiumBrowserContext, chromium } from 'playwright';
+import { Page } from 'playwright-core';
 import { promisify } from 'util';
+
 import { setupMocks } from '../mocks';
 import { DemoPage } from '../page-objects/demo.page';
-import { WalletPage } from '@tests/page-objects/wallet.page';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 const makeTmpDir = promisify(mkdtemp);
 

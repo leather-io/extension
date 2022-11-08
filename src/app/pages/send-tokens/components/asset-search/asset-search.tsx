@@ -1,17 +1,19 @@
 import { memo, useEffect, useState } from 'react';
-import { useField } from 'formik';
-import { Box, color, Stack } from '@stacks/ui';
 
-import {
-  useStacksCryptoCurrencyAssetBalance,
-  useTransferableStacksFungibleTokenAssetBalances,
-} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { Box, Stack, color } from '@stacks/ui';
+import { useField } from 'formik';
+
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
+
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import {
+  useStacksCryptoCurrencyAssetBalance,
+  useTransferableStacksFungibleTokenAssetBalances,
+} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
 import { AssetSearchField } from './asset-search-field';
 import { SelectedAsset } from './selected-asset';

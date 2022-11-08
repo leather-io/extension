@@ -1,5 +1,6 @@
 import { FiAlertTriangle } from 'react-icons/fi';
-import { Box, color, Stack, StackProps, Text } from '@stacks/ui';
+
+import { Box, Stack, StackProps, Text, color } from '@stacks/ui';
 
 interface WarningLabelProps extends StackProps {
   children: string | JSX.Element | React.ReactNode | undefined;

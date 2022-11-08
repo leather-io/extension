@@ -1,14 +1,13 @@
 // @see https://github.com/bvaughn/react-error-boundary/blob/master/src/index.tsx
-
 import {
   Component,
   ComponentType,
   ErrorInfo,
   FunctionComponent,
-  isValidElement,
   PropsWithChildren,
   PropsWithRef,
   ReactElement,
+  isValidElement,
   useState,
 } from 'react';
 

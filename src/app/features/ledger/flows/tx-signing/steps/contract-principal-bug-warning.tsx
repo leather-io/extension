@@ -1,12 +1,15 @@
-import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
-import { Box, Button, Stack } from '@stacks/ui';
 import { useContext } from 'react';
-import { ledgerTxSigningContext } from '../ledger-sign-tx.context';
+
 import GenericErrorImg from '@assets/images/generic-error.png';
-import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
-import { Body } from '@app/components/typography';
+import { Box, Button, Stack } from '@stacks/ui';
+
 import { useLoading } from '@app/common/hooks/use-loading';
 import { delay } from '@app/common/utils';
+import { Body } from '@app/components/typography';
+import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
+import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
+
+import { ledgerTxSigningContext } from '../ledger-sign-tx.context';
 
 export function ContractPrincipalBugWarning() {
   const { hasUserSkippedBuggyAppWarning } = useContext(ledgerTxSigningContext);

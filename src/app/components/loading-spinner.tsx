@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { color, Flex, FlexProps, Spinner } from '@stacks/ui';
+
+import { Flex, FlexProps, Spinner, color } from '@stacks/ui';
 
 import { useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 

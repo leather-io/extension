@@ -1,9 +1,10 @@
-import { useQueries, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { UseQueryOptions, useQueries, useQuery } from '@tanstack/react-query';
 
-import { useStacksClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
 import type { AddressBalanceResponse } from '@shared/models/account.model';
-import type { AccountWithAddress } from '@app/store/accounts/account.models';
+
 import { StacksClient } from '@app/query/stacks/stacks-client';
+import type { AccountWithAddress } from '@app/store/accounts/account.models';
+import { useStacksClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 

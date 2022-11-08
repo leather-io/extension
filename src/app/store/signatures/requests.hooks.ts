@@ -1,14 +1,16 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
+import { isString } from '@shared/utils';
+
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import {
   getGenericSignaturePayloadFromToken,
   verifySignatureRequest,
 } from '@app/common/signature/requests';
 import { useAccounts } from '@app/store/accounts/account.hooks';
+
 import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
-import { isString } from '@shared/utils';
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 
 export function useSignatureRequestSearchParams() {
   const searchParams = useInitialRouteSearchParams();

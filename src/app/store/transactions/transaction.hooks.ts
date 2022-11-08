@@ -1,36 +1,35 @@
 import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import BN from 'bn.js';
 import toast from 'react-hot-toast';
+
 import { bytesToHex } from '@stacks/common';
+import { TransactionTypes } from '@stacks/connect';
 import {
-  createAssetInfo,
-  createStacksPrivateKey,
   FungibleConditionCode,
-  makeStandardFungiblePostCondition,
   PostCondition,
-  serializePayload,
   StacksTransaction,
   TransactionSigner,
+  createAssetInfo,
+  createStacksPrivateKey,
+  makeStandardFungiblePostCondition,
+  serializePayload,
 } from '@stacks/transactions';
+import BN from 'bn.js';
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
-import { stxToMicroStx } from '@app/common/stacks-utils';
-import { broadcastTransaction } from '@app/common/transactions/stacks/broadcast-transaction';
+import { logger } from '@shared/logger';
 import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
-import {
-  useStxTokenTransferUnsignedTxState,
-  useFtTokenTransferUnsignedTx,
-  useGenerateStxTokenTransferUnsignedTx,
-  useGenerateFtTokenTransferUnsignedTx,
-} from '@app/store/transactions/token-transfer.hooks';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import { TransactionTypes } from '@stacks/connect';
+import { isString, isUndefined } from '@shared/utils';
+
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { stxToMicroStx } from '@app/common/stacks-utils';
 import { validateStacksAddress } from '@app/common/stacks-utils';
+import { broadcastTransaction } from '@app/common/transactions/stacks/broadcast-transaction';
 import {
-  generateUnsignedTransaction,
   GenerateUnsignedTransactionOptions,
+  generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentAccount,
   useCurrentAccountStxAddressState,
@@ -40,13 +39,16 @@ import {
   useCurrentStacksNetworkState,
 } from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
-import { logger } from '@shared/logger';
-import { isString, isUndefined } from '@shared/utils';
+import {
+  useFtTokenTransferUnsignedTx,
+  useGenerateFtTokenTransferUnsignedTx,
+  useGenerateStxTokenTransferUnsignedTx,
+  useStxTokenTransferUnsignedTxState,
+} from '@app/store/transactions/token-transfer.hooks';
 
-import { prepareTxDetailsForBroadcast } from './transaction';
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
+import { prepareTxDetailsForBroadcast } from './transaction';
 
 export function useTransactionPostConditions() {
   return usePostConditionState();

@@ -1,4 +1,4 @@
-import { createWorker, WorkerScript } from '../workers';
+import { WorkerScript, createWorker } from '../workers';
 
 const worker = createWorker(WorkerScript.DecryptionWorker);
 interface GenerateEncryptionKeyArgs {

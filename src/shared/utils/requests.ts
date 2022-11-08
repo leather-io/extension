@@ -1,6 +1,6 @@
-import { decodeToken } from 'jsontokens';
 import { TransactionPayload } from '@stacks/connect';
 import { StacksNetwork } from '@stacks/network';
+import { decodeToken } from 'jsontokens';
 
 // We need this function because the latest changes
 // to `@stacks/network` had some undesired consequence.

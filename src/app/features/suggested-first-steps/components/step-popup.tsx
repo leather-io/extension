@@ -1,10 +1,11 @@
 import { FiArrowRight } from 'react-icons/fi';
-import { Box, color, Flex, Stack } from '@stacks/ui';
+
+import { Box, Flex, Stack, color } from '@stacks/ui';
 
 import { Tooltip } from '@app/components/tooltip';
 import { Body, Title } from '@app/components/typography';
 
-import { externalLinkInfo, StepIllustration } from './suggested-first-step';
+import { StepIllustration, externalLinkInfo } from './suggested-first-step';
 
 interface StepPopupProps {
   body: string;

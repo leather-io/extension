@@ -1,8 +1,9 @@
-import { logger } from '@shared/logger';
-import { gaiaUrl } from '@shared/constants';
-import { createWalletGaiaConfig, generateWallet } from '@stacks/wallet-sdk';
-import { GaiaHubConfig, uploadToGaiaHub } from '@stacks/storage';
 import { decryptContent, encryptContent, getPublicKeyFromPrivate } from '@stacks/encryption';
+import { GaiaHubConfig, uploadToGaiaHub } from '@stacks/storage';
+import { createWalletGaiaConfig, generateWallet } from '@stacks/wallet-sdk';
+
+import { gaiaUrl } from '@shared/constants';
+import { logger } from '@shared/logger';
 
 const walletSaltBackup = 'wallet-salt-backup';
 

@@ -1,7 +1,7 @@
-import { Box, BoxProps, color, Flex } from '@stacks/ui';
+import { Box, BoxProps, Flex, color } from '@stacks/ui';
 
-import { Title } from '@app/components/typography';
 import { CheckmarkIcon } from '@app/components/icons/checkmark-icon';
+import { Title } from '@app/components/typography';
 
 interface ThemeListItemProps extends BoxProps {
   themeLabel: string;

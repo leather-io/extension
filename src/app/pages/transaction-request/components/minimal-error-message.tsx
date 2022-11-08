@@ -1,11 +1,12 @@
-import { memo, Suspense } from 'react';
+import { Suspense, memo } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
-import { Box, color, Stack, StackProps } from '@stacks/ui';
+
+import { Box, Stack, StackProps, color } from '@stacks/ui';
+import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 import { Caption } from '@app/components/typography';
-import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
 function MinimalErrorMessageSuspense(props: StackProps) {
   const error = useTransactionError();

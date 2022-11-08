@@ -1,8 +1,21 @@
 import { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { LedgerError } from '@zondax/ledger-stacks';
 import toast from 'react-hot-toast';
+import { Outlet, useNavigate } from 'react-router-dom';
 
+import { LedgerError } from '@zondax/ledger-stacks';
+
+import { logger } from '@shared/logger';
+import { RouteUrls } from '@shared/route-urls';
+
+import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { delay } from '@app/common/utils';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import {
+  LedgerRequestKeysContext,
+  LedgerRequestKeysProvider,
+} from '@app/features/ledger/flows/request-keys/ledger-request-keys.context';
+import { useLedgerAnalytics } from '@app/features/ledger/hooks/use-ledger-analytics.hook';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import {
   doesLedgerStacksAppVersionSupportJwtAuth,
   getAppVersion,
@@ -11,19 +24,9 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { delay } from '@app/common/utils';
-import { RouteUrls } from '@shared/route-urls';
-import {
-  LedgerRequestKeysContext,
-  LedgerRequestKeysProvider,
-} from '@app/features/ledger/flows/request-keys/ledger-request-keys.context';
-import { logger } from '@shared/logger';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useTriggerLedgerDeviceRequestKeys } from './use-trigger-ledger-request-keys';
-import { useLedgerAnalytics } from '@app/features/ledger/hooks/use-ledger-analytics.hook';
-import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+
 import { pullKeysFromLedgerDevice } from './request-keys.utils';
+import { useTriggerLedgerDeviceRequestKeys } from './use-trigger-ledger-request-keys';
 
 export function LedgerRequestKeysContainer() {
   const navigate = useNavigate();

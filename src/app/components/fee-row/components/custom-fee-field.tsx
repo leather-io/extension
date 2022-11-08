@@ -1,13 +1,15 @@
 import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
+
+import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
-import { color, Input, InputGroup, Stack, StackProps } from '@stacks/ui';
+
+import { FeeEstimate } from '@shared/models/fees-types';
 
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { SendFormWarningMessages } from '@app/common/warning-messages';
 import { Caption } from '@app/components/typography';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { FeeEstimate } from '@shared/models/fees-types';
 
 interface CustomFeeFieldProps extends StackProps {
   fieldName: string;

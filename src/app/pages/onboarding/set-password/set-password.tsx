@@ -1,29 +1,32 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { debounce } from 'ts-debounce';
-import { Form, Formik } from 'formik';
-import * as yup from 'yup';
-import { Box, Stack, Text } from '@stacks/ui';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import SetPassword from '@assets/images/onboarding/set-password.png';
+import { Box, Stack, Text } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { Form, Formik } from 'formik';
+import { debounce } from 'ts-debounce';
+import * as yup from 'yup';
+
+import { RouteUrls } from '@shared/route-urls';
+import { isUndefined } from '@shared/utils';
+import { getWalletConfig } from '@shared/utils/wallet-config-helper';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { useWallet } from '@app/common/hooks/use-wallet';
 import {
   blankPasswordValidation,
   validatePassword,
 } from '@app/common/validation/validate-password';
-import { PrimaryButton } from '@app/components/primary-button';
-import { Caption } from '@app/components/typography';
-import { Header } from '@app/components/header';
-import { PageTitle } from '@app/components/page-title';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import SetPassword from '@assets/images/onboarding/set-password.png';
-import { RouteUrls } from '@shared/route-urls';
-import { isUndefined } from '@shared/utils';
-import { getWalletConfig } from '@shared/utils/wallet-config-helper';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { Header } from '@app/components/header';
+import { PageTitle } from '@app/components/page-title';
+import { PrimaryButton } from '@app/components/primary-button';
+import { Caption } from '@app/components/typography';
+
 import { PasswordField } from './components/password-field';
 
 interface SetPasswordFormValues {

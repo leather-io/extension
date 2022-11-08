@@ -1,6 +1,6 @@
+import BackUpSecretKey from '@assets/images/onboarding/back-up-secret-key.png';
 import { Box, Flex, Stack, useMediaQuery } from '@stacks/ui';
 
-import { Text } from '@app/components/typography';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import {
   CENTERED_FULL_PAGE_MAX_WIDTH,
@@ -8,7 +8,7 @@ import {
   ONBOARDING_PAGE_MAX_WIDTH,
 } from '@app/components/global-styles/full-page-styles';
 import { PageTitle } from '@app/components/page-title';
-import BackUpSecretKey from '@assets/images/onboarding/back-up-secret-key.png';
+import { Text } from '@app/components/typography';
 
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
 
