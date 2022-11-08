@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
+
 import BigNumber from 'bignumber.js';
 
-import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
+import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
+
+import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 import {
   useCurrentAccountAnchoredBalances,
   useCurrentAccountAvailableStxBalance,
@@ -16,7 +19,6 @@ import {
   createStacksCryptoCurrencyAssetTypeWrapper,
   mergeStacksFungibleTokenAssetBalances,
 } from './crypto-asset-balances.utils';
-import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 
 export function useStacksCryptoCurrencyAssetBalance() {
   const { data: balances } = useCurrentAccountUnanchoredBalances();

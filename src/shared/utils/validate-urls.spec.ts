@@ -1,5 +1,6 @@
 // @ts-ignore
 import bigListOfNaughtyStrings from 'blns';
+
 import { isValidUrl } from './validate-url';
 
 describe('isValidUrl', () => {

@@ -1,10 +1,10 @@
-import { RouteUrls } from '@shared/route-urls';
-
-import { SendPage } from '@tests/page-objects/send-form.page';
-import { WalletPage } from '@tests/page-objects/wallet.page';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
 import { APINetworkRecipientAddress, SECRET_KEY_2 } from '@tests/mocks';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SendPage } from '@tests/page-objects/send-form.page';
+import { WalletPage } from '@tests/page-objects/wallet.page';
+
+import { RouteUrls } from '@shared/route-urls';
 
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);

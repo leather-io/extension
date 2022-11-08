@@ -1,22 +1,23 @@
-import BN from 'bn.js';
 import {
   ContractCallPayload as ConnectContractCallPayload,
   ContractDeployPayload as ConnectContractDeployPayload,
   STXTransferPayload as ConnectSTXTransferPayload,
   TransactionTypes,
 } from '@stacks/connect';
+import { StacksNetwork } from '@stacks/network';
 import {
   AnchorMode,
   deserializeCV,
   makeUnsignedContractCall,
-  makeUnsignedSTXTokenTransfer,
   makeUnsignedContractDeploy,
+  makeUnsignedSTXTokenTransfer,
 } from '@stacks/transactions';
+import BN from 'bn.js';
 
 import { hexToBuff } from '@app/common/utils';
+
 import { getPostConditions } from './post-condition.utils';
 import { isTransactionTypeSupported } from './transaction.utils';
-import { StacksNetwork } from '@stacks/network';
 
 function initNonce(nonce?: number) {
   return nonce !== undefined ? new BN(nonce, 10) : undefined;

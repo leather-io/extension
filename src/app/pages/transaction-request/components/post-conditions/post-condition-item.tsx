@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
+
 import { TransactionTypes } from '@stacks/connect';
-import { addressToString, NonFungiblePostCondition, STXPostCondition } from '@stacks/transactions';
+import { NonFungiblePostCondition, STXPostCondition, addressToString } from '@stacks/transactions';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import {
@@ -11,8 +12,8 @@ import {
   getPostConditionTitle,
   getSymbolFromPostCondition,
 } from '@app/common/transactions/stacks/post-condition.utils';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { EventCard } from '@app/components/event-card';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 

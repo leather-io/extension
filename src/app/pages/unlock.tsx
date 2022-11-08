@@ -1,12 +1,11 @@
 import { Outlet, useNavigate } from 'react-router-dom';
+
 import { Stack } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-
-import { Header } from '@app/components/header';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import { Header } from '@app/components/header';
 import { RequestPassword } from '@app/components/request-password';
 
 export function Unlock() {

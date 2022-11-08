@@ -1,13 +1,15 @@
 import { forwardRef, memo } from 'react';
+
 import { Box, Stack, StackProps } from '@stacks/ui';
 
-import { SpaceBetween } from '@app/components/space-between';
-import { Caption, Text } from '@app/components/typography';
-import { usePressable } from '@app/components/item-hover';
-import { Tooltip } from '@app/components/tooltip';
-import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import type { Money } from '@shared/models/money.model';
+
+import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { ftDecimals } from '@app/common/stacks-utils';
+import { usePressable } from '@app/components/item-hover';
+import { SpaceBetween } from '@app/components/space-between';
+import { Tooltip } from '@app/components/tooltip';
+import { Caption, Text } from '@app/components/typography';
 
 import { SubBalance } from '../components/sub-balance';
 

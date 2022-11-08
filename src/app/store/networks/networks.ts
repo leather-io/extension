@@ -1,8 +1,9 @@
-import { atom } from 'jotai';
 import { Dictionary } from '@reduxjs/toolkit';
+import { atom } from 'jotai';
+
+import { NetworkConfiguration, defaultCurrentNetwork } from '@shared/constants';
 
 import { initialRouteSearchParams } from '@app/store/common/initial-route-search-params';
-import { defaultCurrentNetwork, NetworkConfiguration } from '@shared/constants';
 
 import { storeAtom } from '..';
 import { selectCurrentNetworkId, selectNetworks } from './networks.selectors';

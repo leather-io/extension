@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { BoxProps, color, Circle } from '@stacks/ui';
+
+import { BoxProps, Circle, color } from '@stacks/ui';
 
 import { useAccountGradient } from '@app/common/hooks/account/use-account-gradient';
 

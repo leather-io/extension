@@ -1,9 +1,11 @@
 import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
-import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { SwitchAccountListItem } from './switch-account-list-item';
 import { Box } from '@stacks/ui';
+
+import { AccountWithAddress } from '@app/store/accounts/account.models';
+
+import { SwitchAccountListItem } from './switch-account-list-item';
 
 const smallNumberOfAccountsToRenderWholeList = 10;
 

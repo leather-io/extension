@@ -1,3 +1,8 @@
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
+import { delay } from '@app/common/utils';
+
 import {
   ADDRESS_TXS_DATA,
   FEE_ESTIMATIONS_DATA,
@@ -15,9 +20,6 @@ import {
   V1_ADDRESS_DATA,
   V2_ACCOUNTS_DATA,
 } from './heystack/data';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-import { delay } from '@app/common/utils';
 
 enum GetRequests {
   v1Address = 'https://stacks-node-api.regtest.stacks.co/extended/v1/address/ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z/balances',

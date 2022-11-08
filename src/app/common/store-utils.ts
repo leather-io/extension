@@ -1,5 +1,5 @@
+import { QueryKey, hashQueryKey } from '@tanstack/react-query';
 import hash from 'object-hash';
-import { hashQueryKey, QueryKey } from '@tanstack/react-query';
 
 import { userHasAllowedDiagnosticsKey } from '@shared/utils/storage';
 

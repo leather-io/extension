@@ -1,31 +1,33 @@
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
-import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
-import { Box, BoxProps, color, Flex, Stack, Text, useMediaQuery } from '@stacks/ui';
-import { isPendingTx } from '@stacks/ui-utils';
 
+import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
+import { Box, BoxProps, Flex, Stack, Text, color, useMediaQuery } from '@stacks/ui';
+import { isPendingTx } from '@stacks/ui-utils';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+
+import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
+import { RouteUrls } from '@shared/route-urls';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
-import { whenPageMode } from '@app/common/utils';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Title } from '@app/components/typography';
-import { SpaceBetween } from '@app/components/space-between';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { usePressable } from '@app/components/item-hover';
 import {
   getTxCaption,
   getTxTitle,
   getTxValue,
 } from '@app/common/transactions/stacks/transaction.utils';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { whenPageMode } from '@app/common/utils';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { usePressable } from '@app/components/item-hover';
+import { SpaceBetween } from '@app/components/space-between';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
+import { Title } from '@app/components/typography';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { RouteUrls } from '@shared/route-urls';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
+import { IncreaseFeeButton } from './increase-fee-button';
 import { StacksTransactionIcon } from './stacks-transaction-icon';
 import { StacksTransactionStatus } from './stacks-transaction-status';
-import { IncreaseFeeButton } from './increase-fee-button';
 
 interface StacksTransactionItemProps extends BoxProps {
   transferDetails?: TxTransferDetails;

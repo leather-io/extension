@@ -1,8 +1,8 @@
 import { StacksTransaction } from '@stacks/transactions';
 import { Button, Stack } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface SendTokensConfirmActionsProps {
   onUserConfirmBroadcast: () => void;

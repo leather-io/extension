@@ -1,4 +1,5 @@
 import { AddressTokenOfferingLocked } from '@stacks/stacks-blockchain-api-types/generated';
+
 import type { Money } from './money.model';
 
 type SelectedKeys =

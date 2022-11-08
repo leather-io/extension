@@ -1,11 +1,13 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { StacksTransaction } from '@stacks/transactions';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { RouteUrls } from '@shared/route-urls';
 
 import { useSignTransactionSoftwareWallet } from './transaction.hooks';
 

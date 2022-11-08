@@ -1,24 +1,24 @@
-import { BigNumber } from 'bignumber.js';
-
+import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
-import {
-  addressFromVersionHash,
-  AddressHashMode,
-  addressHashModeToVersion,
-  addressToString,
-  AuthType,
-  StacksTransaction,
-  TransactionVersion,
-} from '@stacks/transactions';
 import {
   CoinbaseTransaction,
   TransactionEventFungibleAsset,
 } from '@stacks/stacks-blockchain-api-types';
+import {
+  AddressHashMode,
+  AuthType,
+  StacksTransaction,
+  TransactionVersion,
+  addressFromVersionHash,
+  addressHashModeToVersion,
+  addressToString,
+} from '@stacks/transactions';
 import { getContractName, truncateMiddle } from '@stacks/ui-utils';
+import { BigNumber } from 'bignumber.js';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
+
 import { stacksValue } from '@app/common/stacks-utils';
-import { bytesToHex } from '@stacks/common';
 
 export const statusFromTx = (tx: StacksTx): StacksTxStatus => {
   const { tx_status } = tx;

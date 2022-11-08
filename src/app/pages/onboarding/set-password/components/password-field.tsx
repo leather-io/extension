@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+
+import { Box, Button, Flex, Input, color } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { useField } from 'formik';
-import { Box, Button, color, Flex, Input } from '@stacks/ui';
 
 import { ValidatedPassword } from '@app/common/validation/validate-password';
 import { Caption } from '@app/components/typography';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
-import { PasswordStrengthIndicator } from './password-strength-indicator';
 import { getIndicatorsOfPasswordStrength } from './password-field.utils';
+import { PasswordStrengthIndicator } from './password-strength-indicator';
 
 interface PasswordFieldProps {
   strengthResult: ValidatedPassword;

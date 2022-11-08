@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import { Header } from '@app/components/header';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { Header } from '@app/components/header';
 
 import { GenericErrorLayout } from './generic-error.layout';
 

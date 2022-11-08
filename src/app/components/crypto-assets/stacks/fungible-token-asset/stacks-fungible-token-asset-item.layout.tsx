@@ -1,17 +1,19 @@
 import { forwardRef, memo } from 'react';
+
 import { Box, Stack, StackProps } from '@stacks/ui';
 
-import { ftDecimals } from '@app/common/stacks-utils';
-import { SpaceBetween } from '@app/components/space-between';
-import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { Text } from '@app/components/typography';
-import { usePressable } from '@app/components/item-hover';
-import { Tooltip } from '@app/components/tooltip';
-import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import type { Money } from '@shared/models/money.model';
 
-import { SubBalance } from '../../components/sub-balance';
+import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { ftDecimals } from '@app/common/stacks-utils';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { usePressable } from '@app/components/item-hover';
+import { SpaceBetween } from '@app/components/space-between';
+import { Tooltip } from '@app/components/tooltip';
+import { Text } from '@app/components/typography';
+
 import { AssetCaption } from '../../components/asset-caption';
+import { SubBalance } from '../../components/sub-balance';
 
 interface StacksFungibleTokenAssetItemLayoutProps extends StackProps {
   avatar: string;

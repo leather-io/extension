@@ -1,15 +1,16 @@
 import { useMemo } from 'react';
-import BigNumber from 'bignumber.js';
+
 import {
   MempoolTokenTransferTransaction,
   MempoolTransaction,
 } from '@stacks/stacks-blockchain-api-types';
+import BigNumber from 'bignumber.js';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 
 import { useAccountMempoolQuery } from './mempool.query';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
 const droppedCache = new Map();
 

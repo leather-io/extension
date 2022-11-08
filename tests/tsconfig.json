@@ -4,10 +4,7 @@
     "target": "ES2019",
     "noEmit": true,
     "rootDir": "../",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "include": [
-    "./**/*",
-    "../src/**/*",
-  ]
+  "include": ["./**/*", "../src/**/*"]
 }

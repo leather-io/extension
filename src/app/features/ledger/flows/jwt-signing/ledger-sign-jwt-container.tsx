@@ -1,35 +1,35 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+
+import { TransactionVersion, getAddressFromPublicKey } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
-import { getAddressFromPublicKey, TransactionVersion } from '@stacks/transactions';
 import get from 'lodash.get';
 
-import { delay } from '@app/common/utils';
+import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
+
+import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
+import { delay } from '@app/common/utils';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
   getAppVersion,
   prepareLedgerDeviceConnection,
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-
 import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
-import { useKeyActions } from '@app/common/hooks/use-key-actions';
-
-import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
-import { LedgerJwtSigningContext, LedgerJwtSigningProvider } from './ledger-sign-jwt.context';
 import {
   addSignatureToAuthResponseJwt,
   getSha256HashOfJwtAuthPayload,
   signLedgerJwtHash,
 } from './jwt-signing.utils';
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { LedgerJwtSigningContext, LedgerJwtSigningProvider } from './ledger-sign-jwt.context';
 
 export function LedgerSignJwtContainer() {
   const location = useLocation();

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { Stack, StackProps, color } from '@stacks/ui';
 
 import { HiroIcon } from './icons/hiro-icon';

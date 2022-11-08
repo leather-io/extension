@@ -8,7 +8,6 @@ import {
   DeviceBusy,
   UnsupportedBrowserLayout,
 } from '../../generic-steps';
-
 import { LedgerRequestKeysContainer } from './ledger-request-keys-container';
 import { ConnectLedgerRequestKeys } from './steps/connect-ledger-request-keys';
 

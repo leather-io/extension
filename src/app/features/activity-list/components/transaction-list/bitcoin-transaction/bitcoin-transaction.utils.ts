@@ -1,9 +1,10 @@
-import BigNumber from 'bignumber.js';
 import { truncateMiddle } from '@stacks/ui-utils';
+import BigNumber from 'bignumber.js';
 
-import { initBigNumber, sumNumbers } from '@app/common/utils';
 import { BTC_DECIMALS } from '@shared/constants';
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+
+import { initBigNumber, sumNumbers } from '@app/common/utils';
 
 const satToBtc = (sat: number | string | BigNumber) => {
   const satBigNumber = initBigNumber(sat);

@@ -1,15 +1,17 @@
 import { useSelector } from 'react-redux';
-import { createSelector, Dictionary } from '@reduxjs/toolkit';
+
+import { Dictionary, createSelector } from '@reduxjs/toolkit';
 
 import {
+  NetworkConfiguration,
   defaultCurrentNetwork,
   defaultNetworksKeyedById,
-  NetworkConfiguration,
 } from '@shared/constants';
+
 import { RootState } from '@app/store';
 
-import { networksAdapter } from './networks.slice';
 import { useRequestNetworkId } from './networks.hooks';
+import { networksAdapter } from './networks.slice';
 
 const selectNetworksSlice = (state: RootState) => state.networks;
 

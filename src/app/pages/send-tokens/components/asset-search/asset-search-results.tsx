@@ -1,13 +1,15 @@
 import { forwardRef } from 'react';
-import { Fade, color, Stack, StackProps } from '@stacks/ui';
 
-import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
-import { CryptoCurrencyAsset } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { Fade, Stack, StackProps, color } from '@stacks/ui';
+
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
+
+import { CryptoCurrencyAsset } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset';
+import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
 
 interface AssetSearchResultsProps extends StackProps {
   assetBalances: (StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance)[];

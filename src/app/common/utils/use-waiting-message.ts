@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
+
 import { useInterval } from './use-interval';
 
 // Keys are the seconds to wait before showing the message

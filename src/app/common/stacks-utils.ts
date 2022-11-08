@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
 
 import { NetworkConfiguration, STX_DECIMALS } from '@shared/constants';
+
 import { abbreviateNumber, initBigNumber } from '@app/common/utils';
 
 export const stacksValue = ({

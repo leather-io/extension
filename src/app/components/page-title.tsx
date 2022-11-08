@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import { BoxProps } from '@stacks/ui';
 
 import { Title } from '@app/components/typography';

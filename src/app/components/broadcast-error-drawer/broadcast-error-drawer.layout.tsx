@@ -1,6 +1,6 @@
-import { Flex, Box, Button } from '@stacks/ui';
-
 import GenericError from '@assets/images/generic-error.png';
+import { Box, Button, Flex } from '@stacks/ui';
+
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 
 import { Body, Title } from '../typography';

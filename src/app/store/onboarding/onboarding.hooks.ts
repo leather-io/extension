@@ -1,5 +1,6 @@
 import { useAtom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
+
 import { hasAllowedDiagnosticsState, secretKeyState, seedInputErrorState } from './onboarding';
 
 export function useSeedInputErrorState() {

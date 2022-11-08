@@ -1,5 +1,6 @@
 import { bytesToHex } from '@stacks/common';
 import { decrypt, encrypt } from '@stacks/wallet-sdk';
+
 import { generateEncryptionKey } from './generate-encryption-key';
 import { generateRandomHexString } from './generate-random-hex';
 

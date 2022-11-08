@@ -1,23 +1,18 @@
-//
-// This file is the entrypoint to the extension's background script
-// https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
 import * as Sentry from '@sentry/react';
-
-import { RouteUrls } from '@shared/route-urls';
-// import { addRefererHeaderRequestListener } from '@shared/add-referer-header';
 
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT, LegacyMessageFromContentScript } from '@shared/message-types';
-
-import { initContextMenuActions } from './init-context-menus';
-import { internalBackgroundMessageHandler } from './message-handler';
-import { backupOldWalletSalt } from './backup-old-wallet-salt';
+import { RouteUrls } from '@shared/route-urls';
+import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
+
+import { backupOldWalletSalt } from './backup-old-wallet-salt';
+import { initContextMenuActions } from './init-context-menus';
 import {
   handleLegacyExternalMethodFormat,
   inferLegacyMessage,
 } from './legacy-external-message-handler';
-import { initSentry } from '@shared/utils/analytics';
+import { internalBackgroundMessageHandler } from './message-handler';
 
 // void addRefererHeaderRequestListener();
 initSentry();

@@ -1,16 +1,18 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { RouteUrls } from '@shared/route-urls';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { Header } from '@app/components/header';
-import { RouteUrls } from '@shared/route-urls';
-import { WelcomeLayout } from './welcome.layout';
-import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { Header } from '@app/components/header';
+import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
+
+import { WelcomeLayout } from './welcome.layout';
 
 export const WelcomePage = memo(() => {
   const [hasAllowedDiagnostics] = useHasAllowedDiagnostics();

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { BoxProps, Text, color } from '@stacks/ui';
 
 export const SettingsMenuItem = memo((props: BoxProps) => {

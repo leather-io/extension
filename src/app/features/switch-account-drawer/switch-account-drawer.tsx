@@ -1,8 +1,9 @@
 import { memo } from 'react';
+
 import { Box } from '@stacks/ui';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import {
@@ -12,9 +13,9 @@ import {
 } from '@app/store/accounts/account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 
-import { SwitchAccountList } from './components/switch-account-list';
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { CreateAccountAction } from './components/create-account-action';
+import { SwitchAccountList } from './components/switch-account-list';
 
 export const SwitchAccountDrawer = memo(() => {
   const [isShowing, setShowSwitchAccountsState] = useShowSwitchAccountsState();

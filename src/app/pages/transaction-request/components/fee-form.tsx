@@ -1,12 +1,13 @@
 import { useFormikContext } from 'formik';
 
-import { LoadingRectangle } from '@app/components/loading-rectangle';
-import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';
-import { FeeRow } from '@app/components/fee-row/fee-row';
-import { MinimalErrorMessage } from '@app/pages/transaction-request/components/minimal-error-message';
-import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
 import { FeeEstimate } from '@shared/models/fees-types';
 import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
+
+import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';
+import { FeeRow } from '@app/components/fee-row/fee-row';
+import { LoadingRectangle } from '@app/components/loading-rectangle';
+import { MinimalErrorMessage } from '@app/pages/transaction-request/components/minimal-error-message';
+import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
 
 interface FeeFormProps {
   feeEstimations: FeeEstimate[];

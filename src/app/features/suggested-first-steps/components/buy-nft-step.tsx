@@ -1,7 +1,8 @@
-import BuyNftFull from '@assets/images/onboarding/steps/buy-nft-light.png';
+import BuyNftPopupDone from '@assets/images/onboarding/steps/buy-nft-light-done-sm.png';
 import BuyNftFullDone from '@assets/images/onboarding/steps/buy-nft-light-done.png';
 import BuyNftPopup from '@assets/images/onboarding/steps/buy-nft-light-sm.png';
-import BuyNftPopupDone from '@assets/images/onboarding/steps/buy-nft-light-done-sm.png';
+import BuyNftFull from '@assets/images/onboarding/steps/buy-nft-light.png';
+
 import { SuggestedFirstSteps } from '@shared/models/onboarding-types';
 
 import { SuggestedFirstStep } from './suggested-first-step';

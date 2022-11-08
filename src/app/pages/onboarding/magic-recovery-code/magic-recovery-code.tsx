@@ -1,16 +1,18 @@
 import { memo } from 'react';
-import { Formik, Form } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { Text, Button, Input, Stack, StackProps, Flex } from '@stacks/ui';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useMagicRecoveryCode } from '@app/common/hooks/auth/use-magic-recovery-code';
-import { ErrorLabel } from '@app/components/error-label';
-import { Caption } from '@app/components/typography';
-import { Header } from '@app/components/header';
-import { RouteUrls } from '@shared/route-urls';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { Button, Flex, Input, Stack, StackProps, Text } from '@stacks/ui';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { Form, Formik } from 'formik';
+
+import { RouteUrls } from '@shared/route-urls';
+
+import { useMagicRecoveryCode } from '@app/common/hooks/auth/use-magic-recovery-code';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { ErrorLabel } from '@app/components/error-label';
+import { Header } from '@app/components/header';
+import { Caption } from '@app/components/typography';
 
 const MagicRecoveryCodeForm: React.FC<StackProps> = memo(props => {
   const navigate = useNavigate();

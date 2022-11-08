@@ -1,13 +1,14 @@
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { Header } from '@app/components/header';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { RouteUrls } from '@shared/route-urls';
 
-import { FundLayout } from './fund.layout';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { Header } from '@app/components/header';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+
 import { SkipFundAccountButton } from './components/skip-fund-account-button';
+import { FundLayout } from './fund.layout';
 
 interface LocationStateProps {
   state: { showSkipButton: boolean };

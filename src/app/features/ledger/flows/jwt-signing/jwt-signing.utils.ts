@@ -1,6 +1,7 @@
 import StacksApp from '@zondax/ledger-stacks';
 import ecdsaFormat from 'ecdsa-sig-formatter';
 import { sha256 } from 'sha.js';
+
 import { getIdentityDerivationPath } from '../../ledger-utils';
 
 function reformatDerSignatureToJose(derSignature: Uint8Array) {

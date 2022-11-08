@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
+
 import BigNumber from 'bignumber.js';
 
-import { calculateMeanAverage } from '@app/common/calculate-averages';
+import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney, currencydecimalsMap } from '@shared/models/money.model';
-import { createMarketData, createMarketPair, MarketData } from '@shared/models/market.model';
+
+import { calculateMeanAverage } from '@app/common/calculate-averages';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 
 import {

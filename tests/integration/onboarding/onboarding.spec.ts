@@ -1,8 +1,9 @@
-import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
+import { RouteUrls } from '@shared/route-urls';
+
 import { MAGIC_RECOVERY_KEY, MAGIC_RECOVERY_PASSWORD, SECRET_KEY } from '../../mocks';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { SettingsSelectors } from '../settings.selectors';
-import { RouteUrls } from '@shared/route-urls';
+import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 
 jest.setTimeout(30_000);
 jest.retryTimes(process.env.CI ? 2 : 0);

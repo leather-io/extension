@@ -1,4 +1,5 @@
 import { FiFastForward } from 'react-icons/fi';
+
 import { Box, Button, color } from '@stacks/ui';
 
 interface IncreaseFeeButtonProps {

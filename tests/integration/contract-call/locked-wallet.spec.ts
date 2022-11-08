@@ -1,11 +1,12 @@
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SECRET_KEY_2 } from '@tests/mocks';
+import { Page } from 'playwright-core';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { BrowserDriver, createTestSelector, selectTestnet, setupBrowser } from '../utils';
-import { SECRET_KEY_2 } from '@tests/mocks';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { Page } from 'playwright-core';
 
 jest.setTimeout(60_0000);
 jest.retryTimes(process.env.CI ? 2 : 0);

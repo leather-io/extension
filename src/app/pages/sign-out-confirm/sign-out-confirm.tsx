@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { RouteUrls } from '@shared/route-urls';
+
+import { useWallet } from '@app/common/hooks/use-wallet';
 
 import { SignOutConfirmLayout } from './sign-out-confirm-layout';
 

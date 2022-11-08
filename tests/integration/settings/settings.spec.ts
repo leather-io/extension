@@ -1,8 +1,10 @@
-import { BrowserDriver, createTestSelector, randomString, setupBrowser } from '../utils';
-import { WalletPage } from '../../page-objects/wallet.page';
 import { RouteUrls } from '@shared/route-urls';
-import { SettingsSelectors } from '../settings.selectors';
+
 import { delay } from '@app/common/utils';
+
+import { WalletPage } from '../../page-objects/wallet.page';
+import { SettingsSelectors } from '../settings.selectors';
+import { BrowserDriver, createTestSelector, randomString, setupBrowser } from '../utils';
 
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);

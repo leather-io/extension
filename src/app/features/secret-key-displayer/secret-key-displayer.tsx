@@ -1,9 +1,12 @@
 import { memo, useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+
 import { useClipboard } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+
 import { SecretKeyDisplayerLayout } from './secret-key-displayer.layout';
 
 interface SecretKeyDisplayerProps {

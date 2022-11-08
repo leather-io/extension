@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import {
+  SuggestedFirstStepStatus,
   SuggestedFirstSteps,
   SuggestedFirstStepsStatus,
-  SuggestedFirstStepStatus,
 } from '@shared/models/onboarding-types';
 
 interface OnboardingState {

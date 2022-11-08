@@ -1,11 +1,13 @@
-import { useRef, useCallback, memo, ReactNode, Suspense } from 'react';
+import { ReactNode, Suspense, memo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { css } from '@emotion/react';
-import { Box, Flex, useEventListener, transition, FlexProps } from '@stacks/ui';
+import { Box, Flex, FlexProps, transition, useEventListener } from '@stacks/ui';
+
+import { noop } from '@shared/utils';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { hideScrollbarStyle } from '@app/components/global-styles/hide-scrollbar';
-import { noop } from '@shared/utils';
 
 import { DrawerHeader } from './components/drawer-header';
 

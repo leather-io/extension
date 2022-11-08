@@ -1,5 +1,5 @@
-import * as yup from 'yup';
 import { MEMO_MAX_LENGTH_BYTES } from '@stacks/transactions';
+import * as yup from 'yup';
 
 import { isString } from '@shared/utils';
 

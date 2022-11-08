@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 
+import type { Blockchains } from '@shared/models/blockchain.model';
+
 import { makeTxExplorerLink } from '@app/common/utils';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import type { Blockchains } from '@shared/models/blockchain.model';
 
 interface HandleOpenTxLinkArgs {
   blockchain: Blockchains;

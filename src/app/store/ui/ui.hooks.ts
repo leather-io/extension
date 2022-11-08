@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
+
 import { useAtom } from 'jotai';
 
 import {
   errorStackTraceState,
   loadingState,
-  showSwitchAccountsState,
+  routeHeaderState,
+  showEditNonceState,
   showHighFeeConfirmationState,
   showSettingsStore,
-  tabState,
-  showEditNonceState,
+  showSwitchAccountsState,
   showTxSettingsCallback,
-  routeHeaderState,
+  tabState,
 } from './ui';
 
 export function useShowHighFeeConfirmationState() {

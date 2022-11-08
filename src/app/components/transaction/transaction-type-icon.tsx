@@ -4,10 +4,12 @@ import {
   FiCode as IconCode,
   FiPlus as IconPlus,
 } from 'react-icons/fi';
+
+import { BoxProps, ColorsStringLiteral, color } from '@stacks/ui';
 import FunctionIcon from 'mdi-react/FunctionIcon';
-import { BoxProps, color, ColorsStringLiteral } from '@stacks/ui';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
+
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { statusFromTx } from '@app/common/transactions/stacks/transaction.utils';
 import { MicroblockIcon } from '@app/components/icons/microblock';

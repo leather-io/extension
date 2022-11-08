@@ -1,20 +1,22 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
 import { validateMnemonic } from 'bip39';
 
+import { RouteUrls } from '@shared/route-urls';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useLoading } from '@app/common/hooks/use-loading';
 import {
+  delay,
   extractPhraseFromPasteEvent,
   validateAndCleanRecoveryInput,
-  delay,
 } from '@app/common/utils';
-import { RouteUrls } from '@shared/route-urls';
-import { useLoading } from '@app/common/hooks/use-loading';
-import { useSeedInputErrorState } from '@app/store/onboarding/onboarding.hooks';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAppDispatch } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
+import { useSeedInputErrorState } from '@app/store/onboarding/onboarding.hooks';
 
 async function simulateShortDelayToAvoidImmediateNavigation() {
   await delay(600);

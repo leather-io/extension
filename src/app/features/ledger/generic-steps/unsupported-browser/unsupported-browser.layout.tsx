@@ -1,8 +1,8 @@
+import UnsupportedBrowserImg from '@assets/images/ledger/unsupported-browser.png';
 import { Box, Flex, Text } from '@stacks/ui';
 
-import UnsupportedBrowserImg from '@assets/images/ledger/unsupported-browser.png';
-
 import { ExternalLink } from '@app/components/external-link';
+
 import { LedgerTitle } from '../../components/ledger-title';
 
 export function UnsupportedBrowserLayout() {

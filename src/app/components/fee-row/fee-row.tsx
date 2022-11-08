@@ -1,27 +1,29 @@
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
-import { useField } from 'formik';
-import { Box, color, Stack, Text } from '@stacks/ui';
-import BigNumber from 'bignumber.js';
 
+import { Box, Stack, Text, color } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import BigNumber from 'bignumber.js';
+import { useField } from 'formik';
+
+import { FeeEstimate, FeeType } from '@shared/models/fees-types';
+import { createMoney } from '@shared/models/money.model';
+import { isNumber, isString } from '@shared/utils';
+
+import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { microStxToStx, stacksValue } from '@app/common/stacks-utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ErrorLabel } from '@app/components/error-label';
-import { Tooltip } from '@app/components/tooltip';
-import { WarningLabel } from '@app/components/warning-label';
 import { SpaceBetween } from '@app/components/space-between';
 import { SponsoredLabel } from '@app/components/sponsored-label';
+import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
-import { FeeEstimate, FeeType } from '@shared/models/fees-types';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { WarningLabel } from '@app/components/warning-label';
 
-import { TransactionFee } from './components/transaction-fee';
+import { CustomFeeField } from './components/custom-fee-field';
 import { FeeEstimateItem } from './components/fee-estimate-item';
 import { FeeEstimateSelect } from './components/fee-estimate-select';
-import { CustomFeeField } from './components/custom-fee-field';
-import { createMoney } from '@shared/models/money.model';
-import { isNumber, isString } from '@shared/utils';
-import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { TransactionFee } from './components/transaction-fee';
 
 const feesInfo =
   'Higher fees increase the likelihood of your transaction getting confirmed before others. Click to learn more.';

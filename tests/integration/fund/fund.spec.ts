@@ -1,9 +1,10 @@
+import { SECRET_KEY_2 } from '@tests/mocks';
+import { FundPage } from '@tests/page-objects/fund.page';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { WalletPage } from '../../page-objects/wallet.page';
 import { BrowserDriver, setupBrowser } from '../utils';
-import { SECRET_KEY_2 } from '@tests/mocks';
-import { FundPage } from '@tests/page-objects/fund.page';
 
 jest.setTimeout(60_0000);
 jest.retryTimes(process.env.CI ? 2 : 0);

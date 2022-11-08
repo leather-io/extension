@@ -1,11 +1,12 @@
-import { delay } from '@app/common/utils';
 import * as secp from '@noble/secp256k1';
 import StacksApp from '@zondax/ledger-stacks';
 
+import { delay } from '@app/common/utils';
+
 import {
+  StxAndIdentityPublicKeys,
   getIdentityDerivationPath,
   requestPublicKeyForStxAccount,
-  StxAndIdentityPublicKeys,
 } from '../../ledger-utils';
 
 function requestPublicKeyForIdentityAccount(app: StacksApp) {

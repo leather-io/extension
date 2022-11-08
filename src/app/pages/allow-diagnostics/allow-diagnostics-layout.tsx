@@ -1,13 +1,14 @@
 import { FC } from 'react';
 import { FiCheck } from 'react-icons/fi';
-import { Box, Button, Flex, color, Stack } from '@stacks/ui';
+
+import HelpUsImprove from '@assets/images/onboarding/help-us-improve.png';
+import { Box, Button, Flex, Stack, color } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Text, Title } from '@app/components/typography';
-import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import HelpUsImprove from '@assets/images/onboarding/help-us-improve.png';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;

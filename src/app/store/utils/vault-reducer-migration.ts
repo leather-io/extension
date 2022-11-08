@@ -1,6 +1,7 @@
 import deepMerge from 'deepmerge';
 
 import { logger } from '@shared/logger';
+
 import type { initialKeysState } from '../keys/key.slice';
 
 const hiroWalletSalt = 'stacks-wallet-salt';

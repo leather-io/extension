@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
+
 import { color, useMediaQuery } from '@stacks/ui';
 
+import type { MarketData } from '@shared/models/market.model';
+import type { Money } from '@shared/models/money.model';
+
+import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
+import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
 import { stacksValue } from '@app/common/stacks-utils';
 import { Caption, Text } from '@app/components/typography';
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import type { Money } from '@shared/models/money.model';
-import type { MarketData } from '@shared/models/market.model';
-import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
 
 interface AccountBalanceCaptionProps {
   availableBalance: Money;

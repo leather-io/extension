@@ -1,11 +1,11 @@
-import { RouteUrls } from '@shared/route-urls';
-
-import { WalletPage } from '@tests/page-objects/wallet.page';
+import { NetworkSelectors } from '@tests/integration/network.selectors';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
 import { SECRET_KEY_2 } from '@tests/mocks';
 import { NetworkPage } from '@tests/page-objects/network-page';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { NetworkSelectors } from '@tests/integration/network.selectors';
+import { WalletPage } from '@tests/page-objects/wallet.page';
+
+import { RouteUrls } from '@shared/route-urls';
 
 jest.setTimeout(60_0000);
 jest.retryTimes(process.env.CI ? 2 : 0);

@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { Box, Button, CodeBlock, color, Stack } from '@stacks/ui';
 
+import { Box, Button, CodeBlock, Stack, color } from '@stacks/ui';
+
+import { Prism } from '@app/common/clarity-prism';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import { Prism } from '@app/common/clarity-prism';
 import { Title } from '@app/components/typography';
 import { ErrorBoundary, FallbackProps, useErrorHandler } from '@app/features/errors/error-boundary';
 import { openGithubIssue } from '@app/features/errors/utils';

@@ -1,7 +1,8 @@
 import ConnectLedgerSuccess from '@assets/images/ledger/connect-ledger-success.png';
-import { LookingForLedgerLabel } from '../../components/looking-for-ledger-label';
+
 import { LedgerConnectInstructionTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
+import { LookingForLedgerLabel } from '../../components/looking-for-ledger-label';
 
 interface DeviceBusyLayoutProps {
   activityDescription: string;

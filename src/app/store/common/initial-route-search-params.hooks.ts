@@ -1,4 +1,5 @@
-import { useUpdateAtom, useAtomValue } from 'jotai/utils';
+import { useAtomValue, useUpdateAtom } from 'jotai/utils';
+
 import { initialRouteSearchParams } from './initial-route-search-params';
 
 export function useSetInitialRouteSearchParams() {

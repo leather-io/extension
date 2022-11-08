@@ -1,10 +1,12 @@
 import { useCallback } from 'react';
 import * as React from 'react';
+
 import { useFormikContext } from 'formik';
 
-import { microStxToStx } from '@app/common/stacks-utils';
-import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { SendFormValues } from '@shared/models/form.model';
+
+import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { microStxToStx } from '@app/common/stacks-utils';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';

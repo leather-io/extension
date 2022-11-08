@@ -1,16 +1,17 @@
 import { useMemo } from 'react';
+
 import { useAtom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
 
-import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
 import {
-  hasSwitchedAccountsState,
-  hasCreatedAccountState,
   accountsWithAddressState,
+  hasCreatedAccountState,
+  hasSwitchedAccountsState,
 } from '@app/store/accounts/accounts';
-import { currentAccountIndexState } from '@app/store/wallet/wallet';
-import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
+import { currentAccountIndexState } from '@app/store/wallet/wallet';
 
 import { AccountWithAddress } from './account.models';
 

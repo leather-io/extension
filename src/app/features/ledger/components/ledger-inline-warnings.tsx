@@ -1,5 +1,7 @@
-import { WarningLabel } from '@app/components/warning-label';
 import { Text } from '@stacks/ui';
+
+import { WarningLabel } from '@app/components/warning-label';
+
 import { isStacksLedgerAppClosed } from '../ledger-utils';
 
 interface CommonLedgerInlineWarningsProps {

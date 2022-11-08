@@ -1,13 +1,15 @@
 import { memo } from 'react';
+
 import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { SendFormValues } from '@shared/models/form.model';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@app/components/error-label';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxButton } from './send-max-button';

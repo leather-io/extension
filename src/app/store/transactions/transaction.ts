@@ -1,4 +1,3 @@
-import { atom } from 'jotai';
 import {
   AddressVersion,
   AuthType,
@@ -6,9 +5,10 @@ import {
   StacksTransaction,
   TransactionVersion,
 } from '@stacks/transactions';
+import { atom } from 'jotai';
 
-import { whenStxChainId } from '@app/common/utils';
 import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
+import { whenStxChainId } from '@app/common/utils';
 import { currentNetworkAtom } from '@app/store/networks/networks';
 
 export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {

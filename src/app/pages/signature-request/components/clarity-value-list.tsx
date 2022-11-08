@@ -1,6 +1,7 @@
-import { bytesToHex, bytesToAscii } from '@stacks/common';
+import { bytesToAscii, bytesToHex } from '@stacks/common';
 import { ClarityType, ClarityValue, cvToString } from '@stacks/transactions';
 import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/principalCV';
+
 import {
   TupleDisplayer,
   TupleNodeDisplayer,

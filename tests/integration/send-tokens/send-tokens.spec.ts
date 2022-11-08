@@ -1,13 +1,15 @@
-import { delay } from '@app/common/utils';
-import { RouteUrls } from '@shared/route-urls';
-import { SECRET_KEY_2 } from '@tests/mocks';
-import { SendFormErrorMessages } from '@app/common/error-messages';
 import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
+import { SECRET_KEY_2 } from '@tests/mocks';
+
+import { RouteUrls } from '@shared/route-urls';
+
+import { SendFormErrorMessages } from '@app/common/error-messages';
+import { delay } from '@app/common/utils';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 import { SettingsSelectors } from '../settings.selectors';
+import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);

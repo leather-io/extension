@@ -1,7 +1,8 @@
+import { Wallet } from '@stacks/wallet-sdk';
+
 import { DEFAULT_SERVER_TESTNET } from '@shared/constants';
 
 export { setupMocks } from './playwright-mocks';
-import { Wallet } from '@stacks/wallet-sdk';
 
 export const SECRET_KEY =
   'invite helmet save lion indicate chuckle world pride afford hard broom draft';

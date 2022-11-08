@@ -1,12 +1,15 @@
-import { Page } from 'playwright';
-import { WalletPage } from '@tests/page-objects/wallet.page';
-import { DemoPage } from '@tests/page-objects/demo.page';
-import { RouteUrls } from '@shared/route-urls';
+import { TokenTransferPayload, deserializeTransaction } from '@stacks/transactions';
 import { SECRET_KEY_2 } from '@tests/mocks';
+import { DemoPage } from '@tests/page-objects/demo.page';
 import { TransactionSigningPage } from '@tests/page-objects/transaction-signing.page';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
-import { deserializeTransaction, TokenTransferPayload } from '@stacks/transactions';
+import { WalletPage } from '@tests/page-objects/wallet.page';
+import { Page } from 'playwright';
+
+import { RouteUrls } from '@shared/route-urls';
+
 import { stxToMicroStx } from '@app/common/stacks-utils';
+
 import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
 
 jest.setTimeout(120_000);

@@ -1,9 +1,12 @@
 import { useCallback } from 'react';
+
 import { Flex, FlexProps } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { themeLabelMap, UserSelectedTheme, useThemeSwitcher } from '@app/common/theme-provider';
-import { ThemeListItem } from './theme-list-item';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
+
+import { ThemeListItem } from './theme-list-item';
 
 export const ThemeList = (props: FlexProps) => {
   const themes = Object.keys(themeLabelMap) as UserSelectedTheme[];

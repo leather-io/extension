@@ -1,8 +1,12 @@
 import { useMemo } from 'react';
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
-import { useDefaultRequestParams } from '../use-default-request-search-params';
+
 import { decodeToken } from 'jsontokens';
+
 import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
+
+import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
+
+import { useDefaultRequestParams } from '../use-default-request-search-params';
 
 function parseAuthRequestValues(authRequest: string | null, origin: string | null) {
   if (!authRequest || !origin) return;

@@ -1,9 +1,11 @@
-import { Box, BoxProps } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { Suspense } from 'react';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+
+import { Box, BoxProps } from '@stacks/ui';
 import { memoWithAs } from '@stacks/ui-core';
+import { truncateMiddle } from '@stacks/ui-utils';
+
 import { LoadingRectangle } from '@app/components/loading-rectangle';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 const CurrentStxAddressSuspense = memoWithAs((props: BoxProps) => {
   const currentAccount = useCurrentAccount();

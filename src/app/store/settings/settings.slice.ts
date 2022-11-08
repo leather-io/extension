@@ -1,5 +1,6 @@
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { UserSelectedTheme } from '@app/common/theme-provider';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface InitialState {
   userSelectedTheme: UserSelectedTheme;

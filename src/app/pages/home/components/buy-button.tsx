@@ -1,16 +1,18 @@
-import { memo, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Suspense, memo } from 'react';
 import { FiPlus } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+
 import { ChainID } from '@stacks/transactions';
 import { ButtonProps } from '@stacks/ui';
-
-import { useHasFiatProviders } from '@app/query/stacks/hiro-config/hiro-config.query';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
-import { HomeActionButton } from './tx-button';
+import { RouteUrls } from '@shared/route-urls';
+
 import { SecondaryButton } from '@app/components/secondary-button';
+import { useHasFiatProviders } from '@app/query/stacks/hiro-config/hiro-config.query';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+
+import { HomeActionButton } from './tx-button';
 
 function BuyTxButton(props: ButtonProps) {
   return (

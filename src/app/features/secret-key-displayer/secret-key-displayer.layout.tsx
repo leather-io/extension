@@ -1,12 +1,13 @@
 import { FiCopy } from 'react-icons/fi';
-import { Box, color, Stack } from '@stacks/ui';
 
-import { Text, Title } from '@app/components/typography';
-import { Link } from '@app/components/link';
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
+import { Box, Stack, color } from '@stacks/ui';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
+
+import { Link } from '@app/components/link';
+import { Text, Title } from '@app/components/typography';
 
 import { SecretKeyWord } from './components/secret-key-word';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 interface SecretKeyDisplayerLayoutProps {
   hasCopied: boolean;

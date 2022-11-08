@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
+
 import { isString } from '@shared/utils';
+
+import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 
 export function useDefaultRequestParams() {
   const params = useInitialRouteSearchParams();

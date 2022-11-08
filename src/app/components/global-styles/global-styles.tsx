@@ -1,12 +1,14 @@
 import { memo } from 'react';
+
 import { Global, css } from '@emotion/react';
 import { CSSReset } from '@stacks/ui';
 
-import { fullPageStyles } from './full-page-styles';
-import { popupStyles } from './popup-styles';
-import { popupCenterStyles } from './popup-center-styles';
-import { tippyStyles } from './tippy-styles';
 import { useThemeSwitcher } from '@app/common/theme-provider';
+
+import { fullPageStyles } from './full-page-styles';
+import { popupCenterStyles } from './popup-center-styles';
+import { popupStyles } from './popup-styles';
+import { tippyStyles } from './tippy-styles';
 
 export const GlobalStyles = memo(() => {
   const { theme } = useThemeSwitcher();

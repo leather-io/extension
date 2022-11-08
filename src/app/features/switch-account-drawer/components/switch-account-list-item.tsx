@@ -1,17 +1,17 @@
 import { memo } from 'react';
 
+import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceCaption } from '@app/components/account/account-balance-caption';
+import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { usePressable } from '@app/components/item-hover';
+import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { usePressable } from '@app/components/item-hover';
-import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 
-import { AccountName } from './account-name';
 import { AccountAvatarItem } from './account-avatar';
+import { AccountName } from './account-name';
 
 interface AccountBalanceLabelProps {
   address: string;

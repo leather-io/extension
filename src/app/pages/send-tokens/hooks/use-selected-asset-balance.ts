@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { getTicker } from '@app/common/utils';
 import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
+import { getTicker } from '@app/common/utils';
 import { useSelectedStacksCryptoAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
 export function useSelectedAssetBalance(assetId: string) {

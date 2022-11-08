@@ -1,14 +1,16 @@
-import { memo, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Suspense, memo } from 'react';
 import { FiArrowUp } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+
 import { ButtonProps } from '@stacks/ui';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
-import { PrimaryButton } from '@app/components/primary-button';
+
 import { useWalletType } from '@app/common/use-wallet-type';
-import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { whenPageMode } from '@app/common/utils';
-import { HomePageSelectors } from '@tests/page-objects/home.selectors';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { PrimaryButton } from '@app/components/primary-button';
 import {
   useStacksCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,

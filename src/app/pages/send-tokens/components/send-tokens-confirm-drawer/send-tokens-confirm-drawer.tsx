@@ -1,20 +1,22 @@
 import { useEffect, useMemo } from 'react';
-import { useFormikContext } from 'formik';
-import { Stack } from '@stacks/ui';
-import BigNumber from 'bignumber.js';
-import { StacksTransaction } from '@stacks/transactions';
-import { microStxToStx } from '@stacks/ui-utils';
 
-import { useDrawers } from '@app/common/hooks/use-drawers';
-import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
-import { SpaceBetween } from '@app/components/space-between';
-import { Caption } from '@app/components/typography';
-import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
-import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
+import { StacksTransaction } from '@stacks/transactions';
+import { Stack } from '@stacks/ui';
+import { microStxToStx } from '@stacks/ui-utils';
+import BigNumber from 'bignumber.js';
+import { useFormikContext } from 'formik';
+
 import { SendFormValues } from '@shared/models/form.model';
+import { createMoney } from '@shared/models/money.model';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
-import { createMoney } from '@shared/models/money.model';
+import { useDrawers } from '@app/common/hooks/use-drawers';
+import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
+import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
+import { SpaceBetween } from '@app/components/space-between';
+import { Caption } from '@app/components/typography';
+import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
 
 import { SendTokensConfirmActions } from './send-tokens-confirm-actions';
 import { SendTokensConfirmDetails } from './send-tokens-confirm-details';

@@ -1,9 +1,21 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+import { deserializeTransaction } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
+import { logger } from '@shared/logger';
+import { RouteUrls } from '@shared/route-urls';
+
+import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { delay } from '@app/common/utils';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import {
+  LedgerTxSigningContext,
+  LedgerTxSigningProvider,
+  createWaitForUserToSeeWarningScreen,
+} from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.context';
 import {
   getAppVersion,
   isVersionOfLedgerStacksAppWithContractPrincipalBug,
@@ -13,21 +25,11 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { deserializeTransaction } from '@stacks/transactions';
-import {
-  createWaitForUserToSeeWarningScreen,
-  LedgerTxSigningContext,
-  LedgerTxSigningProvider,
-} from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.context';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
-import { RouteUrls } from '@shared/route-urls';
-import { logger } from '@shared/logger';
 
-import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
+import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
 
 export function LedgerSignTxContainer() {

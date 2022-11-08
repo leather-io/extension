@@ -1,13 +1,14 @@
 import { useContext } from 'react';
-import { Box, color, Flex } from '@stacks/ui';
 
-import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
-import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
-import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
-import { LedgerScreenDetail } from '@app/features/ledger/components/ledger-screen-detail';
-import { ledgerJwtSigningContext } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.context';
-import { DeviceOperationApprovalStatus } from '@app/features/ledger/components/device-approval-status';
 import SignLedgerTransaction from '@assets/images/ledger/sign-ledger-transaction.png';
+import { Box, Flex, color } from '@stacks/ui';
+
+import { DeviceOperationApprovalStatus } from '@app/features/ledger/components/device-approval-status';
+import { LedgerScreenDetail } from '@app/features/ledger/components/ledger-screen-detail';
+import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
+import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
+import { ledgerJwtSigningContext } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.context';
+import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
 
 export function SignJwtHash() {
   const { jwtPayloadHash } = useContext(ledgerJwtSigningContext);

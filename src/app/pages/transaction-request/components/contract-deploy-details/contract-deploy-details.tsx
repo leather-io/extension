@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { CodeBlock, Stack, color, BoxProps } from '@stacks/ui';
+
+import { BoxProps, CodeBlock, Stack, color } from '@stacks/ui';
 
 import { Prism } from '@app/common/clarity-prism';
 import { useWallet } from '@app/common/hooks/use-wallet';
-import { Caption, Title } from '@app/components/typography';
 import { Divider } from '@app/components/divider';
+import { Caption, Title } from '@app/components/typography';
+import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
 import { Row } from '@app/pages/transaction-request/components/row';
-import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 function ContractCodeSection(): JSX.Element | null {

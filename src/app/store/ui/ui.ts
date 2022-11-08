@@ -1,5 +1,6 @@
-import { atomFamily, atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
+import { atomFamily, atomWithStorage } from 'jotai/utils';
+
 import { makeLocalDataKey } from '@app/common/store-utils';
 
 export const tabState = atomFamily(param => {

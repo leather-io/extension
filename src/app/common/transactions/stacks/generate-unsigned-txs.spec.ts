@@ -1,7 +1,7 @@
-import { decodeToken } from 'jsontokens';
 import { PostConditionMode } from '@stacks/transactions';
-
 import { generateContractCallToken } from '@tests/utils/transation-test-utils';
+import { decodeToken } from 'jsontokens';
+
 import { generateUnsignedTransaction } from './generate-unsigned-txs';
 
 describe('generated signed transactions', () => {

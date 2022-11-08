@@ -1,22 +1,24 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { Box, Stack, StackProps } from '@stacks/ui';
 
-import { CryptoCurrencyAsset } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset';
-import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
-import {
-  useStacksNonFungibleTokenAssetsUnanchored,
-  useStacksCryptoCurrencyAssetBalance,
-  useStacksFungibleTokenAssetBalances,
-} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import { BtcIcon } from '@app/components/icons/btc-icon';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
+import { CryptoCurrencyAsset } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset';
+import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { BtcIcon } from '@app/components/icons/btc-icon';
+import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import {
+  useStacksCryptoCurrencyAssetBalance,
+  useStacksFungibleTokenAssetBalances,
+  useStacksNonFungibleTokenAssetsUnanchored,
+} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+
+import { FundAccount } from './components/fund-account';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
 import { StacksNonFungibleTokenAssetList } from './components/stacks-non-fungible-token-asset-list';
-import { FundAccount } from './components/fund-account';
 
 interface BalancesListProps extends StackProps {
   address: string;

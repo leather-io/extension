@@ -1,12 +1,13 @@
 import type { ClipboardEvent } from 'react';
-import BigNumber from 'bignumber.js';
+
 import { hexToBytes } from '@stacks/common';
 import {
   BytesReader,
   ChainID,
-  deserializePostCondition,
   PostCondition,
+  deserializePostCondition,
 } from '@stacks/transactions';
+import BigNumber from 'bignumber.js';
 
 import { DefaultNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';

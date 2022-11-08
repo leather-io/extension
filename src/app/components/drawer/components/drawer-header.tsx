@@ -1,6 +1,7 @@
 import { FiArrowLeft, FiX as IconX } from 'react-icons/fi';
+
+import { Box, Flex } from '@stacks/ui';
 import { useHover } from 'use-events';
-import { Flex, Box } from '@stacks/ui';
 
 import { Caption, Title } from '@app/components/typography';
 

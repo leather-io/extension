@@ -1,13 +1,14 @@
 import ReactDOM from 'react-dom';
 
-import { persistAndRenderApp } from '@app/common/persistence';
-import { initSegment, initSentry } from '@shared/utils/analytics';
 import { InternalMethods } from '@shared/message-types';
+import { initSegment, initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
-import { inMemoryKeyActions } from './store/in-memory-key/in-memory-key.actions';
-import { store } from './store';
+import { persistAndRenderApp } from '@app/common/persistence';
+
 import { App } from './app';
+import { store } from './store';
+import { inMemoryKeyActions } from './store/in-memory-key/in-memory-key.actions';
 
 initSentry();
 void initSegment();

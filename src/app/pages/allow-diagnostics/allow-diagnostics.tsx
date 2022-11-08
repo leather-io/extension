@@ -1,11 +1,12 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { RouteUrls } from '@shared/route-urls';
 import { initSegment, initSentry } from '@shared/utils/analytics';
+
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
-import { RouteUrls } from '@shared/route-urls';
 
 import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
 

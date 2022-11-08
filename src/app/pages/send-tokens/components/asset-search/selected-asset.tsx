@@ -1,6 +1,7 @@
 import { memo } from 'react';
+
+import { Stack, StackProps, Text } from '@stacks/ui';
 import { useField } from 'formik';
-import { Text, Stack, StackProps } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';

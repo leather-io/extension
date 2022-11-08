@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { Box, ButtonProps, color } from '@stacks/ui';
 
+import { Box, ButtonProps, color } from '@stacks/ui';
 import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+
 import { isUndefined } from '@shared/utils';
 
 function SendMaxButtonAction(props: ButtonProps) {

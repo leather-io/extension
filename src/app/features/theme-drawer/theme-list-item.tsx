@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
+
 import { BoxProps } from '@stacks/ui';
 
-import { getThemeLabel, UserSelectedTheme } from '@app/common/theme-provider';
+import { UserSelectedTheme, getThemeLabel } from '@app/common/theme-provider';
+
 import { ThemeListItemLayout } from './theme-list-item-layout';
-import { useCallback } from 'react';
 
 interface ThemeListItemProps extends BoxProps {
   theme: UserSelectedTheme;

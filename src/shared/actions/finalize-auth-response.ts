@@ -1,11 +1,11 @@
-import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import {
   AuthenticationResponseMessage,
   ExternalMethods,
   MESSAGE_SOURCE,
 } from '@shared/message-types';
-import { isValidUrl } from '@shared/utils/validate-url';
+import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import { analytics } from '@shared/utils/analytics';
+import { isValidUrl } from '@shared/utils/validate-url';
 
 interface FormatAuthResponseArgs {
   request: string;

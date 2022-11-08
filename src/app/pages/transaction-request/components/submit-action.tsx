@@ -1,15 +1,17 @@
 import { Suspense } from 'react';
-import { useFormikContext } from 'formik';
+
 import { Button, ButtonProps } from '@stacks/ui';
+import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
-import { useDrawers } from '@app/common/hooks/use-drawers';
-import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { TransactionFormValues } from '@shared/models/form.model';
 import { isEmpty } from '@shared/utils';
+
+import { useDrawers } from '@app/common/hooks/use-drawers';
+import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@app/components/show-edit-nonce';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 
 function BaseConfirmButton(props: ButtonProps): JSX.Element {
   return (

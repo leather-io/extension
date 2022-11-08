@@ -1,12 +1,13 @@
-import { handlePostConditions } from '@app/common/transactions/stacks/post-condition.utils';
 import {
+  NonFungibleConditionCode,
   createAssetInfo,
   hexToCV,
   makeContractNonFungiblePostCondition,
   makeStandardNonFungiblePostCondition,
-  NonFungibleConditionCode,
   parsePrincipalString,
 } from '@stacks/transactions';
+
+import { handlePostConditions } from '@app/common/transactions/stacks/post-condition.utils';
 
 const SENDER_ADDRESS = 'ST2PABAF9FTAJYNFZH93XENAJ8FVY99RRM4DF2YCW';
 

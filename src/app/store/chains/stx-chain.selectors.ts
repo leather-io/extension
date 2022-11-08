@@ -1,12 +1,15 @@
-import { Wallet } from '@stacks/wallet-sdk';
 import { useAsync } from 'react-async-hook';
 import { useSelector } from 'react-redux';
+
+import { Wallet } from '@stacks/wallet-sdk';
 import memoize from 'promise-memoize';
+
+import { InternalMethods } from '@shared/message-types';
+import { RequestDerivedStxAccounts } from '@shared/messages';
 
 import { RootState } from '@app/store';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
-import { RequestDerivedStxAccounts } from '@shared/messages';
-import { InternalMethods } from '@shared/message-types';
+
 import { useDefaultWalletSecretKey } from '../in-memory-key/in-memory-key.selectors';
 
 const selectStxChain = (state: RootState) => state.chains.stx;

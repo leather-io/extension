@@ -3,16 +3,15 @@ import { Route } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import {
-  ConnectLedgerSuccessLayout,
   ConnectLedgerError,
-  UnsupportedBrowserLayout,
-  LedgerPublicKeyMismatch,
-  LedgerDisconnected,
+  ConnectLedgerSuccessLayout,
   DeviceBusy,
-  OperationRejected,
   LedgerDeviceInvalidPayload,
+  LedgerDisconnected,
+  LedgerPublicKeyMismatch,
+  OperationRejected,
+  UnsupportedBrowserLayout,
 } from '../../generic-steps';
-
 import { LedgerSignMsgContainer } from './ledger-sign-msg-container';
 import { ConnectLedgerSignMsg } from './steps/connect-ledger-sign-msg';
 import { SignLedgerMessage } from './steps/sign-ledger-message';

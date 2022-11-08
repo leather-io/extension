@@ -1,13 +1,15 @@
 import { useMemo } from 'react';
 
+import { ChainID } from '@stacks/transactions';
+
+import { BITCOIN_API_BASE_URL_MAINNET, BITCOIN_API_BASE_URL_TESTNET } from '@shared/constants';
+
 import { whenStxChainId } from '@app/common/utils';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { createStacksAnchoredConfig, createStacksUnanchoredConfig } from '@app/query/stacks/utils';
-import { BITCOIN_API_BASE_URL_MAINNET, BITCOIN_API_BASE_URL_TESTNET } from '@shared/constants';
 
 import { useCurrentNetworkState } from '../networks/networks.hooks';
-import { ChainID } from '@stacks/transactions';
 
 export function useBitcoinClient() {
   const network = useCurrentNetworkState();

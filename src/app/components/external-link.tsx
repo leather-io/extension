@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, BoxProps, color } from '@stacks/ui';
+
+import { BoxProps, Text, color } from '@stacks/ui';
 
 interface ExternalLinkProps extends BoxProps {
   href: string;

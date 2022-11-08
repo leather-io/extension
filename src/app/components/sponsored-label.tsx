@@ -1,5 +1,6 @@
 import { FiAlertCircle } from 'react-icons/fi';
-import { Box, color, Stack, Text } from '@stacks/ui';
+
+import { Box, Stack, Text, color } from '@stacks/ui';
 
 export function SponsoredLabel(): JSX.Element {
   return (
