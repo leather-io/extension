@@ -35,9 +35,9 @@ function Properties({ p }: { p: any }) {
         .filter(k => !k.startsWith('@'))
         .map(k => {
           return (
-            <div key={k} style={{ textIndent: '-1em', marginLeft: '1em' }}>
+            <Box key={k} textIndent="-1em" ml="loose">
               <span style={{ color: color('text-caption') }}>{k}:</span> <Value v={p[k]} />
-            </div>
+            </Box>
           );
         })}
     </>
@@ -46,22 +46,20 @@ function Properties({ p }: { p: any }) {
 
 export function ProfileBox({ profile }: { profile: Profile }): JSX.Element | null {
   return (
-    <>
-      <Box minHeight={'260px'}>
-        <Stack
-          border="4px solid"
-          paddingBottom={'8px'}
-          borderColor={color('border')}
-          borderRadius="20px"
-          backgroundColor={color('border')}
-        >
-          <Box py="loose" px="loose" spacing="loose" borderRadius="16px" backgroundColor={'white'}>
-            <Box spacing="base-tight">
-              <Properties p={profile._profile} />
-            </Box>
+    <Box minHeight={'260px'}>
+      <Stack
+        border="4px solid"
+        paddingBottom={'8px'}
+        borderColor={color('border')}
+        borderRadius="20px"
+        backgroundColor={color('border')}
+      >
+        <Box py="loose" px="loose" spacing="loose" borderRadius="16px" backgroundColor={'white'}>
+          <Box spacing="base-tight">
+            <Properties p={profile._profile} />
           </Box>
-        </Stack>
-      </Box>
-    </>
+        </Box>
+      </Stack>
+    </Box>
   );
 }
