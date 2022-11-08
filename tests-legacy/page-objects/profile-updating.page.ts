@@ -3,7 +3,6 @@ import { Page } from 'playwright-core';
 import { createTestSelector } from '../integration/utils';
 
 const selectors = {
-  //$pageContainer: createTestSelector(ProfileUpdatingSelectors.ProfileUpdaterPageContainer),
   $updateProfileBtn: createTestSelector(ProfileUpdatingSelectors.BtnUpdateProfile),
 };
 

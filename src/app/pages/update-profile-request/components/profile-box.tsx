@@ -1,5 +1,5 @@
 import { Profile } from '@stacks/profile';
-import { color, Stack } from '@stacks/ui';
+import { Box, color, Stack } from '@stacks/ui';
 
 function Value({ v }: { v: any }) {
   if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
@@ -47,7 +47,7 @@ function Properties({ p }: { p: any }) {
 export function ProfileBox({ profile }: { profile: Profile }): JSX.Element | null {
   return (
     <>
-      <Stack minHeight={'260px'}>
+      <Box minHeight={'260px'}>
         <Stack
           border="4px solid"
           paddingBottom={'8px'}
@@ -55,19 +55,13 @@ export function ProfileBox({ profile }: { profile: Profile }): JSX.Element | nul
           borderRadius="20px"
           backgroundColor={color('border')}
         >
-          <Stack
-            py="loose"
-            px="loose"
-            spacing="loose"
-            borderRadius="16px"
-            backgroundColor={'white'}
-          >
-            <Stack spacing="base-tight">
+          <Box py="loose" px="loose" spacing="loose" borderRadius="16px" backgroundColor={'white'}>
+            <Box spacing="base-tight">
               <Properties p={profile._profile} />
-            </Stack>
-          </Stack>
+            </Box>
+          </Box>
         </Stack>
-      </Stack>
+      </Box>
     </>
   );
 }
