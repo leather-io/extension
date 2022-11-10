@@ -38,7 +38,6 @@ export function useGetAccountBalanceQuery<T extends unknown = FetchAccountBalanc
     enabled: !!address,
     queryKey: ['get-address-stx-balance', address],
     queryFn: () => fetchAccountBalance(client)(address),
-    suspense: true,
     ...options,
   });
 }
@@ -52,7 +51,6 @@ export function useGetAnchoredAccountBalanceQuery<T extends unknown = FetchAccou
     enabled: !!address,
     queryKey: ['get-address-anchored-stx-balance', address],
     queryFn: () => fetchAccountBalance(client)(address),
-    suspense: true,
     retryOnMount: true,
     ...balanceQueryOptions,
     ...options,

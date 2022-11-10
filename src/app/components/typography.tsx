@@ -135,3 +135,11 @@ export const Caption = forwardRefWithAs<{ variant?: 'c1' | 'c2' | 'c3' } & BoxPr
     />
   )
 );
+
+export function CaptionSeparatorDot(props: BoxProps) {
+  return (
+    <Text color={color('text-caption')} fontSize="10px" {...props}>
+      •
+    </Text>
+  );
+}

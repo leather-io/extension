@@ -22,11 +22,14 @@ import {
 
 export function useStacksCryptoCurrencyAssetBalance() {
   const { data: balances } = useCurrentAccountUnanchoredBalances();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
   return useMemo(() => {
     const subBalance =
       balances?.stx.balance.amount.minus(balances.stx.locked.amount) ?? new BigNumber(0);
-    return createStacksCryptoCurrencyAssetTypeWrapper(availableStxBalance, subBalance);
+    return createStacksCryptoCurrencyAssetTypeWrapper(
+      availableStxBalance ?? new BigNumber(0),
+      subBalance
+    );
   }, [availableStxBalance, balances]);
 }
 

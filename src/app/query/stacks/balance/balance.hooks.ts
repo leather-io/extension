@@ -44,13 +44,6 @@ export function useCurrentAccountUnanchoredBalances() {
   return useAccountUnanchoredBalances(account?.address ?? '');
 }
 
-export function useBaseAssetsUnanchored() {
-  const account = useCurrentAccount();
-  return useGetAccountBalanceQuery(account?.address ?? '', {
-    select: resp => transformAssets(initAmountsAsMoney(resp)),
-  });
-}
-
 export function useCurrentAccountAnchoredBalances() {
   const account = useCurrentAccount();
   return useGetAnchoredAccountBalanceQuery(account?.address ?? '', {
@@ -58,7 +51,7 @@ export function useCurrentAccountAnchoredBalances() {
   });
 }
 
-export function useAddressAnchoredAvailableStxBalance(address: string) {
+function useAddressAnchoredAvailableStxBalance(address: string) {
   return useGetAnchoredAccountBalanceQuery(address, {
     select: resp => {
       const parsedResp = initAmountsAsMoney(resp);

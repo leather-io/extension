@@ -20,8 +20,8 @@ function fetchNonFungibleTokenHoldings(client: StacksClient) {
   };
 }
 
-type FetchNonFungibleTokenHoldingsResp = ReturnType<
-  ReturnType<typeof fetchNonFungibleTokenHoldings>
+type FetchNonFungibleTokenHoldingsResp = Awaited<
+  ReturnType<ReturnType<typeof fetchNonFungibleTokenHoldings>>
 >;
 
 export function useGetNonFungibleTokenHoldingsQuery<
@@ -38,7 +38,12 @@ export function useGetNonFungibleTokenHoldingsQuery<
   });
 }
 
-export function useGetNonFungibleTokenHoldingsListQuery(accounts?: AccountWithAddress[]) {
+export function useGetNonFungibleTokenHoldingsListQuery<
+  T extends unknown = FetchNonFungibleTokenHoldingsResp
+>(
+  accounts?: AccountWithAddress[],
+  options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>
+) {
   const client = useStacksClient();
   const network = useCurrentNetworkState();
 
@@ -47,6 +52,7 @@ export function useGetNonFungibleTokenHoldingsListQuery(accounts?: AccountWithAd
       queryKey: ['get-nft-holdings', account.address, network.chain.stacks.url],
       queryFn: () => fetchNonFungibleTokenHoldings(client)(account.address),
       ...queryOptions,
+      ...options,
     })),
   });
 }
