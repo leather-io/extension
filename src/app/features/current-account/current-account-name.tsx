@@ -18,7 +18,6 @@ function AccountNameTitle(props: BoxProps) {
       data-testid={SettingsSelectors.CurrentAccountDisplayName}
       fontSize={4}
       fontWeight={500}
-      lineHeight="1rem"
       {...props}
     />
   );
