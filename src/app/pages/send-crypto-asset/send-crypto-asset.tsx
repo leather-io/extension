@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import { useAllTransferableCryptoAssetBalances } from '@app/pages/send-crypto-asset/crypto-assets.hooks';
+import { useAllTransferableCryptoAssetBalances } from '@app/pages/send-crypto-asset/send-crypto-assets.hooks';
 
 import { CryptoAssetList } from './components/crypto-asset-list/crypto-asset-list';
 import { SendCryptoAssetLayout } from './send-crypto-asset.layout';

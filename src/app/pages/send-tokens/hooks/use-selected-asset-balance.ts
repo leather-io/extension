@@ -23,7 +23,7 @@ export function useSelectedAssetBalance(assetId: string) {
 
     const ticker = selectedAssetBalance
       ? selectedAssetBalance.asset.symbol || getTicker(selectedAssetBalance.asset.name)
-      : null;
+      : '';
 
     const hasDecimals =
       selectedAssetBalance?.asset.decimals && selectedAssetBalance.asset.decimals > 0;
