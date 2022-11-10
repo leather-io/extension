@@ -18,7 +18,7 @@ export function SendCryptoAssetForm() {
 
   switch (assetBalance.blockchain) {
     case 'bitcoin':
-      return <BitcoinCryptoCurrencySendForm assetBalance={assetBalance} />;
+      return <BitcoinCryptoCurrencySendForm />;
     case 'stacks':
       switch (assetBalance.type) {
         case 'crypto-currency':
