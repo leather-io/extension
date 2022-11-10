@@ -1,7 +1,7 @@
 import { Money } from '@shared/models/money.model';
 
-export function formatMoney({ amount, symbol }: Money) {
-  return `${amount.toString()} ${symbol}`;
+export function formatMoney({ amount, symbol, decimals }: Money) {
+  return `${amount.shiftedBy(-decimals).toString()} ${symbol}`;
 }
 
 export function i18nFormatCurrency(value: Money, locale = 'en-US') {
