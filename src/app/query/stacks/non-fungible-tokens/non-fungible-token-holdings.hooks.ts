@@ -9,9 +9,11 @@ import { useGetNonFungibleTokenHoldingsListQuery } from './non-fungible-token-ho
 export function useAccountsNonFungibleTokenHoldings(accounts?: AccountWithAddress[]) {
   const accountsNftHoldings = useGetNonFungibleTokenHoldingsListQuery(accounts);
 
-  return useMemo(() => {
-    return accountsNftHoldings.reduce((acc, nftHoldings) => {
-      return acc.plus(nftHoldings.data?.total || 0);
-    }, new BigNumber(0));
-  }, [accountsNftHoldings]);
+  return useMemo(
+    () =>
+      accountsNftHoldings.reduce((acc, nftHoldings) => {
+        return acc.plus(nftHoldings.data?.total || 0);
+      }, new BigNumber(0)),
+    [accountsNftHoldings]
+  );
 }

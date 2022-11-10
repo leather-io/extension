@@ -3,7 +3,10 @@ import { memo } from 'react';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { AccountBalanceCaption } from '@app/components/account/account-balance-caption';
+import {
+  AccountBalanceCaption,
+  AccountBalanceLoading,
+} from '@app/components/account/account-balance-caption';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
@@ -18,7 +21,10 @@ interface AccountBalanceLabelProps {
 }
 const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
   const stxMarketData = useStxMarketData();
-  const { data: balances } = useAccountUnanchoredBalances(address);
+  const { data: balances, isLoading } = useAccountUnanchoredBalances(address);
+
+  if (isLoading) return <AccountBalanceLoading />;
+
   if (!balances) return null;
 
   return (
