@@ -1,6 +1,6 @@
 import { forwardRef, memo } from 'react';
 
-import { Box, Stack, StackProps } from '@stacks/ui';
+import { Box, BoxProps, Stack } from '@stacks/ui';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -15,7 +15,7 @@ import { Text } from '@app/components/typography';
 import { AssetCaption } from '../../components/asset-caption';
 import { SubBalance } from '../../components/sub-balance';
 
-interface StacksFungibleTokenAssetItemLayoutProps extends StackProps {
+interface StacksFungibleTokenAssetItemLayoutProps extends BoxProps {
   avatar: string;
   balance: Money;
   caption: string;

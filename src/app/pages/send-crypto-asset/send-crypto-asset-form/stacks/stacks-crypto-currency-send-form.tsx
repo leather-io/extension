@@ -1,21 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { useTransferableCryptoAssetBalance } from '../../crypto-assets.hooks';
 
-import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
-import { RouteUrls } from '@shared/route-urls';
-
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { Header } from '@app/components/header';
-
-interface StacksCryptoCurrencySendFormProps {
-  assetBalance: AllTransferableCryptoAssetBalances;
-}
-// TODO: Placeholder form
-export function StacksCryptoCurrencySendForm({ assetBalance }: StacksCryptoCurrencySendFormProps) {
-  const navigate = useNavigate();
-  useRouteHeader(
-    <Header hideActions onClose={() => navigate(RouteUrls.SendCryptoAsset)} title={' '} />
+interface StacksCryptoCurrencySendFormProps {}
+export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormProps) {
+  const balance = useTransferableCryptoAssetBalance('STX');
+  return (
+    <>
+      STX Send Form <br />
+      <pre>{JSON.stringify(balance, null, 2)}</pre>
+    </>
   );
-  // eslint-disable-next-line no-console
-  console.log(assetBalance);
-  return <>{assetBalance.asset.symbol} Send Form</>;
 }

@@ -22,6 +22,7 @@ import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 interface UseSendFormValidationArgs {
@@ -33,7 +34,7 @@ export const useSendFormValidation = ({
   setAssetError,
 }: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
-  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
+  const { data: stacksBalances } = useCurrentAccountAnchoredBalances();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const feeSchema = useFeeSchema();
   const client = useStacksClient();
@@ -55,15 +56,15 @@ export const useSendFormValidation = ({
   const stxAmountFormSchema = useCallback(
     () =>
       stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS)).test({
-        message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
+        message: formatInsufficientBalanceError(stacksBalances?.stx.availableStx.amount, 'STX'),
         test(value: unknown) {
           const fee = stxToMicroStx(this.parent.fee);
-          if (!availableStxBalance || !isNumber(value)) return false;
-          const availableBalanceLessFee = availableStxBalance.minus(fee);
+          if (!stacksBalances || !isNumber(value)) return false;
+          const availableBalanceLessFee = stacksBalances?.stx.availableStx.amount.minus(fee);
           return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
         },
       }),
-    [availableStxBalance]
+    [stacksBalances]
   );
 
   const fungibleTokenSchema = useCallback(

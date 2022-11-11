@@ -27,7 +27,7 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
   const stxAssetBalance = useStacksCryptoCurrencyAssetBalance();
   const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(BITCOIN_TEST_ADDRESS);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalances();
-  const stacksNftAssetBalances = useStacksNonFungibleTokenAssetsUnanchored();
+  const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();
 
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);

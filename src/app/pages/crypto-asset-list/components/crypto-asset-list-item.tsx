@@ -5,16 +5,20 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 
-import { BlockchainFungibleTokenAssetItem } from './blockchain-fungible-token-asset-item';
 import { CryptoCurrencyAssetIcon } from './crypto-currency-asset-icon';
+import { FungibleTokenAssetItem } from './fungible-token-asset-item';
 
 interface CryptoAssetListItemProps {
   assetBalance: AllTransferableCryptoAssetBalances;
 }
 export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
   const { assetBalance } = props;
-  const { blockchain, type } = assetBalance;
+  const { blockchain, type, asset } = assetBalance;
   const navigate = useNavigate();
+
+  function navigateToSendForm() {
+    navigate(`${RouteUrls.SendCryptoAsset}/${asset.symbol.toLowerCase()}`);
+  }
 
   switch (type) {
     case 'crypto-currency':
@@ -23,15 +27,11 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
           assetBalance={assetBalance}
           icon={<CryptoCurrencyAssetIcon blockchain={blockchain} />}
           isPressable
-          onClick={() =>
-            navigate(`${RouteUrls.SendCryptoAsset}/${blockchain}/${type}`, {
-              state: { assetBalance },
-            })
-          }
+          onClick={navigateToSendForm}
         />
       );
     case 'fungible-token':
-      return <BlockchainFungibleTokenAssetItem assetBalance={assetBalance} />;
+      return <FungibleTokenAssetItem assetBalance={assetBalance} onClick={navigateToSendForm} />;
     default:
       return null;
   }

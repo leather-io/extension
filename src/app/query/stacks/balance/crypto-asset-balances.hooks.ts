@@ -5,13 +5,15 @@ import BigNumber from 'bignumber.js';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 import {
+  parseBalanceResponse,
   useCurrentAccountAnchoredBalances,
-  useCurrentAccountAvailableStxBalance,
   useCurrentAccountUnanchoredBalances,
 } from './balance.hooks';
+import { useGetAccountBalanceQuery } from './balance.query';
 import {
   addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance,
   convertFtBalancesToStacksFungibleTokenAssetBalanceType,
@@ -21,16 +23,17 @@ import {
 } from './crypto-asset-balances.utils';
 
 export function useStacksCryptoCurrencyAssetBalance() {
-  const { data: balances } = useCurrentAccountUnanchoredBalances();
-  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
-  return useMemo(() => {
-    const subBalance =
-      balances?.stx.balance.amount.minus(balances.stx.locked.amount) ?? new BigNumber(0);
-    return createStacksCryptoCurrencyAssetTypeWrapper(
-      availableStxBalance ?? new BigNumber(0),
-      subBalance
-    );
-  }, [availableStxBalance, balances]);
+  const { data: stacksUnanchoredBalances } = useCurrentAccountUnanchoredBalances();
+  const { data: stacksBalances } = useCurrentAccountAnchoredBalances();
+
+  return useMemo(
+    () =>
+      createStacksCryptoCurrencyAssetTypeWrapper(
+        stacksBalances?.stx.availableStx.amount ?? new BigNumber(0),
+        stacksUnanchoredBalances?.stx.availableStx.amount ?? new BigNumber(0)
+      ),
+    [stacksBalances, stacksUnanchoredBalances]
+  );
 }
 
 function useInitializedStacksFungibleTokenAssetBalancesAnchored() {
@@ -80,7 +83,6 @@ export function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(): Sta
   );
   return useMemo(
     () =>
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       initializedAssetBalances.map((assetBalance, i) => {
         const metadata = ftAssetsMetadata[i].data;
         if (!metadata) return assetBalance;
@@ -127,9 +129,9 @@ export function useSelectedStacksCryptoAssetBalance(selectedAssetId: string) {
 }
 
 export function useStacksNonFungibleTokenAssetsUnanchored() {
-  const { data: balances } = useCurrentAccountUnanchoredBalances();
-  return useMemo(() => {
-    if (!balances) return [];
-    return convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(balances);
-  }, [balances]);
+  const account = useCurrentAccount();
+  return useGetAccountBalanceQuery(account?.address ?? '', {
+    select: resp =>
+      convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(parseBalanceResponse(resp)),
+  });
 }
