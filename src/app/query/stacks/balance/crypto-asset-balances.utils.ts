@@ -76,10 +76,10 @@ function createStacksNftCryptoAssetBalanceTypeWrapper(
 }
 
 export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
-  balances: AccountBalanceResponseBigNumber
+  ftBalances: AccountBalanceResponseBigNumber['fungible_tokens']
 ) {
-  const assetBalances = Object.keys(balances.fungible_tokens).map(key => {
-    const balance = new BigNumber(balances.fungible_tokens[key].balance);
+  const assetBalances = Object.entries(ftBalances).map(([key, value]) => {
+    const balance = new BigNumber(value.balance);
     return createStacksFtCryptoAssetBalanceTypeWrapper(balance, key);
   });
   // Assets users have traded will persist in the api response
@@ -89,8 +89,8 @@ export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
 export function convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(
   balances: AccountBalanceResponseBigNumber
 ) {
-  const assetBalances = Object.keys(balances.non_fungible_tokens).map(key => {
-    const count = new BigNumber(balances.non_fungible_tokens[key].count);
+  const assetBalances = Object.entries(balances.non_fungible_tokens).map(([key, value]) => {
+    const count = new BigNumber(value.count);
     return createStacksNftCryptoAssetBalanceTypeWrapper(count, key);
   });
   return assetBalances.filter(assetBalance => !assetBalance?.count.isEqualTo(0));

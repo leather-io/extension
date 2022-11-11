@@ -10,7 +10,10 @@ import { Money, createMoney } from '@shared/models/money.model';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
 
-import { useGetAccountBalanceQuery, useGetAnchoredAccountBalanceQuery } from './balance.query';
+import {
+  useAnchoredStacksAccountBalanceQuery,
+  useStacksAccountBalanceQuery,
+} from './balance.query';
 
 export function parseBalanceResponse(balances: AddressBalanceResponse) {
   const stxMoney = Object.fromEntries(
@@ -28,19 +31,19 @@ export function parseBalanceResponse(balances: AddressBalanceResponse) {
   return { ...balances, stx };
 }
 
-export function useAccountUnanchoredBalances(address: string) {
-  return useGetAccountBalanceQuery(address, {
+export function useAccountUnanchoredStacksBalances(address: string) {
+  return useStacksAccountBalanceQuery(address, {
     select: resp => parseBalanceResponse(resp),
   });
 }
-export function useCurrentAccountUnanchoredBalances() {
+export function useCurrentAccountUnanchoredStacksBalances() {
   const account = useCurrentAccount();
-  return useAccountUnanchoredBalances(account?.address ?? '');
+  return useAccountUnanchoredStacksBalances(account?.address ?? '');
 }
 
 export function useCurrentAccountAnchoredBalances() {
   const account = useCurrentAccount();
-  return useGetAnchoredAccountBalanceQuery(account?.address ?? '', {
+  return useAnchoredStacksAccountBalanceQuery(account?.address ?? '', {
     select: resp => parseBalanceResponse(resp),
   });
 }
