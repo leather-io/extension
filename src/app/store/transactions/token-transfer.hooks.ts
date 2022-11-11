@@ -32,7 +32,6 @@ import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 
 import { useCurrentAccount } from '../accounts/account.hooks';
-import { bytesToHex } from '@stacks/common';
 
 function useMakeFungibleTokenTransfer(assetBalance?: StacksFungibleTokenAssetBalance) {
   const currentAccount = useCurrentAccount();
