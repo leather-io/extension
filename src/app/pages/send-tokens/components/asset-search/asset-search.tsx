@@ -9,7 +9,7 @@ import type {
 } from '@shared/models/crypto-asset-balance.model';
 
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import {
   useStacksCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
@@ -34,7 +34,7 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
     const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance();
     const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances();
     const allAssetBalances = [stxCryptoCurrencyAssetBalance, ...stacksFtAssetBalances];
-    const availableStxBalance = useCurrentAccountAvailableStxBalance();
+    const { data: balance } = useCurrentAccountAnchoredBalances();
     const { selectedAssetBalance } = useSelectedAssetBalance(field.value);
     const [searchInput, setSearchInput] = useState<string>('');
     const [assetBalanceItems, setAssetBalanceItems] = useState(allAssetBalances);
@@ -89,7 +89,7 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
       <AssetSearchField
         assetBalances={assetBalanceItems}
         autoFocus={autoFocus}
-        hasStxBalance={!!availableStxBalance}
+        hasStxBalance={!!balance?.stx.availableStx.amount.isGreaterThan(0)}
         onInputValueChange={onInputValueChange}
         onSelectedItemChange={onSelectAssetBalance}
         searchInput={searchInput}

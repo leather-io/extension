@@ -8,12 +8,12 @@ import { SendFormValues } from '@shared/models/form.model';
 import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { microStxToStx } from '@app/common/stacks-utils';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 
 export function useSendAmountFieldActions() {
   const { setFieldValue, values } = useFormikContext<SendFormValues>();
-  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
+  const { data: stacksBalances } = useCurrentAccountAnchoredBalances();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
   const { balance, isStx, selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
 
@@ -21,14 +21,16 @@ export function useSendAmountFieldActions() {
     (fee: number | string) => {
       if (!selectedAssetBalance || !balance) return;
       if (isStx && fee) {
-        const stx = microStxToStx(availableStxBalance?.minus(pendingTxsBalance) || 0).minus(fee);
+        const stx = microStxToStx(
+          stacksBalances?.stx.availableStx.amount.minus(pendingTxsBalance) || 0
+        ).minus(fee);
         if (stx.isLessThanOrEqualTo(0)) return;
         return setFieldValue('amount', stx.toNumber());
       } else {
         if (balance) setFieldValue('amount', removeCommas(balance));
       }
     },
-    [selectedAssetBalance, balance, isStx, availableStxBalance, pendingTxsBalance, setFieldValue]
+    [selectedAssetBalance, balance, isStx, stacksBalances, pendingTxsBalance, setFieldValue]
   );
 
   const handleOnKeyDown = useCallback(

@@ -10,32 +10,32 @@ import { Money } from './money.model';
 
 export interface BitcoinCryptoCurrencyAssetBalance {
   readonly blockchain: 'bitcoin';
-  asset: BitcoinCryptoCurrencyAsset;
-  balance: Money;
   readonly type: 'crypto-currency';
+  readonly asset: BitcoinCryptoCurrencyAsset;
+  readonly balance: Money;
 }
 
 export interface StacksCryptoCurrencyAssetBalance {
   readonly blockchain: 'stacks';
-  asset: StacksCryptoCurrencyAsset;
-  balance: Money;
-  subBalance: Money;
   readonly type: 'crypto-currency';
+  readonly asset: StacksCryptoCurrencyAsset;
+  readonly balance: Money;
+  readonly subBalance: Money;
 }
 
 export interface StacksFungibleTokenAssetBalance {
   readonly blockchain: 'stacks';
-  asset: StacksFungibleTokenAsset;
-  balance: Money;
-  subBalance: Money;
   readonly type: 'fungible-token';
+  readonly asset: StacksFungibleTokenAsset;
+  readonly balance: Money;
+  readonly subBalance: Money;
 }
 
 export interface StacksNonFungibleTokenAssetBalance {
   readonly blockchain: 'stacks';
-  asset: StacksNonFungibleTokenAsset;
-  count: BigNumber;
   readonly type: 'non-fungible-token';
+  readonly asset: StacksNonFungibleTokenAsset;
+  readonly count: BigNumber;
 }
 
 export type AllCryptoCurrencyAssetBalances =

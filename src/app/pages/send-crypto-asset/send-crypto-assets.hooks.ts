@@ -15,8 +15,14 @@ export function useAllTransferableCryptoAssetBalances(): AllTransferableCryptoAs
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
   const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance();
   const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances();
+
   return useMemo(
     () => [btcCryptoCurrencyAssetBalance, stxCryptoCurrencyAssetBalance, ...stacksFtAssetBalances],
     [btcCryptoCurrencyAssetBalance, stacksFtAssetBalances, stxCryptoCurrencyAssetBalance]
   );
+}
+
+export function useTransferableCryptoAssetBalance(currencySymbol: string) {
+  const allBalances = useAllTransferableCryptoAssetBalances();
+  return allBalances.find(balance => balance.asset.symbol === currencySymbol);
 }

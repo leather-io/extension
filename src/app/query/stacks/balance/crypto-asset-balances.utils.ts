@@ -21,6 +21,7 @@ export function createStacksCryptoCurrencyAssetTypeWrapper(
   return {
     blockchain: 'stacks',
     balance: createMoney(balance, 'STX'),
+    type: 'crypto-currency',
     asset: {
       decimals: STX_DECIMALS,
       hasMemo: true,
@@ -28,7 +29,6 @@ export function createStacksCryptoCurrencyAssetTypeWrapper(
       symbol: 'STX',
     },
     subBalance: createMoney(subBalance, 'STX'),
-    type: 'crypto-currency',
   };
 }
 
@@ -39,6 +39,7 @@ function createStacksFtCryptoAssetBalanceTypeWrapper(
   const { address, contractName, assetName } = getAssetStringParts(key);
   return {
     blockchain: 'stacks',
+    type: 'fungible-token',
     balance: createMoney(balance, '', 0),
     asset: {
       canTransfer: false,
@@ -52,7 +53,6 @@ function createStacksFtCryptoAssetBalanceTypeWrapper(
       symbol: '',
     },
     subBalance: createMoney(new BigNumber(0), '', 0),
-    type: 'fungible-token',
   };
 }
 
@@ -63,6 +63,7 @@ function createStacksNftCryptoAssetBalanceTypeWrapper(
   const { address, contractName, assetName } = getAssetStringParts(key);
   return {
     blockchain: 'stacks',
+    type: 'non-fungible-token',
     count: balance,
     asset: {
       contractAddress: address,
@@ -71,7 +72,6 @@ function createStacksNftCryptoAssetBalanceTypeWrapper(
       imageCanonicalUri: '',
       name: '',
     },
-    type: 'non-fungible-token',
   };
 }
 
