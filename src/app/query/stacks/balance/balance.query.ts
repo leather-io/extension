@@ -29,7 +29,7 @@ function fetchAccountBalance(client: StacksClient) {
 
 type FetchAccountBalanceResp = Awaited<ReturnType<ReturnType<typeof fetchAccountBalance>>>;
 
-export function useGetAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
+export function useStacksAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
   address: string,
   options?: AppUseQueryConfig<FetchAccountBalanceResp, T>
 ) {
@@ -42,7 +42,7 @@ export function useGetAccountBalanceQuery<T extends unknown = FetchAccountBalanc
   });
 }
 
-export function useGetAnchoredAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
+export function useAnchoredStacksAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
   address: string,
   options?: AppUseQueryConfig<FetchAccountBalanceResp, T>
 ) {
@@ -57,7 +57,7 @@ export function useGetAnchoredAccountBalanceQuery<T extends unknown = FetchAccou
   });
 }
 
-export function useGetAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
+export function useAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
   const client = useStacksClient();
 
   return useQueries({

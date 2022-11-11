@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 
 import { AccountStxBalanceBigNumber } from '@shared/models/account.model';
 
-import { useCurrentAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentAccountUnanchoredStacksBalances } from '@app/query/stacks/balance/balance.hooks';
 import { store } from '@app/store';
 import { analyticsActions } from '@app/store/analytics/analytics.actions';
 import { useAnalyticsHasStxDeposits } from '@app/store/analytics/analytics.selectors';
@@ -34,7 +34,7 @@ function useIsFirstDeposit(stxBalance: AccountStxBalanceBigNumber | undefined): 
 
 export function useTrackFirstDeposit() {
   const analytics = useAnalytics();
-  const { data: balances } = useCurrentAccountUnanchoredBalances();
+  const { data: balances } = useCurrentAccountUnanchoredStacksBalances();
   const firstDeposit = useIsFirstDeposit(balances?.stx);
   useEffect(() => {
     if (!firstDeposit || !balances) return;

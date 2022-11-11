@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 
 import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/onboarding-types';
 
-import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance/balance.query';
+import { useAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance/balance.query';
 import { useAccountsNonFungibleTokenHoldings } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
 import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.query';
 import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
@@ -15,7 +15,7 @@ import {
 } from '@app/store/onboarding/onboarding.selectors';
 
 function useAllAccountsAvailableStxBalance(accounts?: AccountWithAddress[]) {
-  const accountsBalances = useGetAnchoredAccountBalanceListQuery(accounts);
+  const accountsBalances = useAnchoredAccountBalanceListQuery(accounts);
   return useMemo(() => {
     return accountsBalances.reduce(
       (acc, balance) => acc.plus(balance.data?.stx.balance || 0),
