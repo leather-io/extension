@@ -10,7 +10,7 @@ import {
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAccountUnanchoredStacksBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useUnanchoredStacksBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 import { AccountAvatarItem } from './account-avatar';
@@ -21,7 +21,7 @@ interface AccountBalanceLabelProps {
 }
 const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
   const stxMarketData = useStxMarketData();
-  const { data: balances, isLoading } = useAccountUnanchoredStacksBalances(address);
+  const { data: balances, isLoading } = useUnanchoredStacksBalances(address);
 
   if (isLoading) return <AccountBalanceLoading />;
 

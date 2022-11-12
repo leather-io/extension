@@ -7,14 +7,20 @@ import {
   useStacksCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
+import {
+  useCurrentAccount,
+  useCurrentAccountBtcAddressState,
+} from '@app/store/accounts/account.hooks';
 
 export function useAllTransferableCryptoAssetBalances(): AllTransferableCryptoAssetBalances[] {
+  const account = useCurrentAccount();
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
-  const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance();
-  const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances();
+  const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance(account?.address ?? '');
+  const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(
+    account?.address ?? ''
+  );
 
   return useMemo(
     () => [btcCryptoCurrencyAssetBalance, stxCryptoCurrencyAssetBalance, ...stacksFtAssetBalances],
