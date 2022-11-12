@@ -10,8 +10,8 @@ import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 import {
   parseBalanceResponse,
-  useCurrentAccountAnchoredBalances,
-  useCurrentAccountUnanchoredStacksBalances,
+  useAnchoredStacksBalances,
+  useUnanchoredStacksBalances,
 } from './balance.hooks';
 import { useStacksAccountBalanceQuery } from './balance.query';
 import {
@@ -22,9 +22,9 @@ import {
   mergeStacksFungibleTokenAssetBalances,
 } from './crypto-asset-balances.utils';
 
-export function useStacksCryptoCurrencyAssetBalance() {
-  const { data: stacksUnanchoredBalances } = useCurrentAccountUnanchoredStacksBalances();
-  const { data: stacksBalances } = useCurrentAccountAnchoredBalances();
+export function useStacksCryptoCurrencyAssetBalance(address: string) {
+  const { data: stacksUnanchoredBalances } = useUnanchoredStacksBalances(address);
+  const { data: stacksBalances } = useAnchoredStacksBalances(address);
 
   return useMemo(
     () =>
@@ -36,24 +36,24 @@ export function useStacksCryptoCurrencyAssetBalance() {
   );
 }
 
-function useInitializedStacksFungibleTokenAssetBalancesAnchored() {
-  const { data: balances } = useCurrentAccountAnchoredBalances();
+function useInitializedStacksFungibleTokenAssetBalancesAnchored(address: string) {
+  const { data: balances } = useAnchoredStacksBalances(address);
   return useMemo(() => {
     if (!balances) return [];
     return convertFtBalancesToStacksFungibleTokenAssetBalanceType(balances.fungible_tokens);
   }, [balances]);
 }
 
-function useInitialzedStacksFungibleTokenAssetBalancesUnanchored() {
-  const { data: balances } = useCurrentAccountUnanchoredStacksBalances();
+export function useStacksFungibleTokenAssetBalancesUnanchored(address: string) {
+  const { data: balances } = useUnanchoredStacksBalances(address);
   return useMemo(() => {
     if (!balances) return [];
     return convertFtBalancesToStacksFungibleTokenAssetBalanceType(balances.fungible_tokens);
   }, [balances]);
 }
 
-function useStacksFungibleTokenAssetBalancesAnchoredWithMetadata() {
-  const initializedAssetBalances = useInitializedStacksFungibleTokenAssetBalancesAnchored();
+function useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address: string) {
+  const initializedAssetBalances = useInitializedStacksFungibleTokenAssetBalancesAnchored(address);
   const ftAssetsMetadata = useGetFungibleTokenMetadataListQuery(
     initializedAssetBalances.map(assetBalance =>
       formatContractId(assetBalance.asset.contractAddress, assetBalance.asset.contractName)
@@ -75,8 +75,10 @@ function useStacksFungibleTokenAssetBalancesAnchoredWithMetadata() {
 }
 
 // used in one place for length
-export function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(): StacksFungibleTokenAssetBalance[] {
-  const initializedAssetBalances = useInitialzedStacksFungibleTokenAssetBalancesUnanchored();
+function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
+  address: string
+): StacksFungibleTokenAssetBalance[] {
+  const initializedAssetBalances = useStacksFungibleTokenAssetBalancesUnanchored(address);
   const ftAssetsMetadata = useGetFungibleTokenMetadataListQuery(
     initializedAssetBalances.map(assetBalance =>
       formatContractId(assetBalance.asset.contractAddress, assetBalance.asset.contractName)
@@ -97,9 +99,10 @@ export function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(): Sta
   );
 }
 
-export function useStacksFungibleTokenAssetBalances() {
-  const anchoredAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata();
-  const unanchoredAssetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata();
+export function useStacksFungibleTokenAssetBalances(address: string) {
+  const anchoredAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
+  const unanchoredAssetBalances =
+    useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(address);
 
   return useMemo(
     () => mergeStacksFungibleTokenAssetBalances(anchoredAssetBalances, unanchoredAssetBalances),
@@ -107,8 +110,10 @@ export function useStacksFungibleTokenAssetBalances() {
   );
 }
 
-export function useTransferableStacksFungibleTokenAssetBalances(): StacksFungibleTokenAssetBalance[] {
-  const assetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata();
+export function useTransferableStacksFungibleTokenAssetBalances(
+  address: string
+): StacksFungibleTokenAssetBalance[] {
+  const assetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(address);
   return useMemo(
     () => assetBalances.filter(assetBalance => assetBalance.asset.canTransfer),
     [assetBalances]
@@ -116,8 +121,11 @@ export function useTransferableStacksFungibleTokenAssetBalances(): StacksFungibl
 }
 
 export function useSelectedStacksCryptoAssetBalance(selectedAssetId: string) {
-  const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance();
-  const stacksFtCryptoAssetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata();
+  const account = useCurrentAccount();
+  const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance(account?.address ?? '');
+  const stacksFtCryptoAssetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
+    account?.address ?? ''
+  );
 
   return useMemo(
     () =>
@@ -133,6 +141,8 @@ export function useStacksNonFungibleTokenAssetsUnanchored() {
   const account = useCurrentAccount();
   return useStacksAccountBalanceQuery(account?.address ?? '', {
     select: resp =>
-      convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(parseBalanceResponse(resp)),
+      convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(
+        parseBalanceResponse(resp).non_fungible_tokens
+      ),
   });
 }

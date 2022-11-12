@@ -24,9 +24,9 @@ interface BalancesListProps extends StackProps {
   address: string;
 }
 export const BalancesList = ({ address, ...props }: BalancesListProps) => {
-  const stxAssetBalance = useStacksCryptoCurrencyAssetBalance();
+  const stxAssetBalance = useStacksCryptoCurrencyAssetBalance(address);
   const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(BITCOIN_TEST_ADDRESS);
-  const stacksFtAssetBalances = useStacksFungibleTokenAssetBalances();
+  const stacksFtAssetBalances = useStacksFungibleTokenAssetBalances(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();
 

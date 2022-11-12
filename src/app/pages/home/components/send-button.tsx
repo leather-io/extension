@@ -16,6 +16,7 @@ import {
   useStacksCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 import { HomeActionButton } from './tx-button';
 
@@ -32,8 +33,9 @@ const SendTxButton = (props: ButtonProps) => (
 const SendButtonSuspense = () => {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
-  const stxCryptAssetBalance = useStacksCryptoCurrencyAssetBalance();
-  const ftAssets = useTransferableStacksFungibleTokenAssetBalances();
+  const account = useCurrentAccount();
+  const stxCryptAssetBalance = useStacksCryptoCurrencyAssetBalance(account?.address ?? '');
+  const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
   const isDisabled = !stxCryptAssetBalance && ftAssets?.length === 0;
   return (
     <SendTxButton

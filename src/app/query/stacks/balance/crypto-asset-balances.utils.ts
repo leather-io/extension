@@ -87,9 +87,9 @@ export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
 }
 
 export function convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(
-  balances: AccountBalanceResponseBigNumber
+  nftBalances: AccountBalanceResponseBigNumber['non_fungible_tokens']
 ) {
-  const assetBalances = Object.entries(balances.non_fungible_tokens).map(([key, value]) => {
+  const assetBalances = Object.entries(nftBalances).map(([key, value]) => {
     const count = new BigNumber(value.count);
     return createStacksNftCryptoAssetBalanceTypeWrapper(count, key);
   });

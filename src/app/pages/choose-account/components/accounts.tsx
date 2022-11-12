@@ -22,7 +22,7 @@ import { AccountListItemLayout } from '@app/components/account/account-list-item
 import { usePressable } from '@app/components/item-hover';
 import { Title } from '@app/components/typography';
 import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAccountUnanchoredStacksBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useUnanchoredStacksBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 
@@ -64,7 +64,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const [component, bind] = usePressable(true);
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
-  const { data: balances, isLoading: isBalanceLoading } = useAccountUnanchoredStacksBalances(
+  const { data: balances, isLoading: isBalanceLoading } = useUnanchoredStacksBalances(
     account.address
   );
   const stxMarketData = useStxMarketData();

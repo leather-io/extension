@@ -31,19 +31,23 @@ export function parseBalanceResponse(balances: AddressBalanceResponse) {
   return { ...balances, stx };
 }
 
-export function useAccountUnanchoredStacksBalances(address: string) {
+export function useUnanchoredStacksBalances(address: string) {
   return useStacksAccountBalanceQuery(address, {
     select: resp => parseBalanceResponse(resp),
   });
 }
 export function useCurrentAccountUnanchoredStacksBalances() {
   const account = useCurrentAccount();
-  return useAccountUnanchoredStacksBalances(account?.address ?? '');
+  return useUnanchoredStacksBalances(account?.address ?? '');
+}
+
+export function useAnchoredStacksBalances(address: string) {
+  return useAnchoredStacksAccountBalanceQuery(address, {
+    select: resp => parseBalanceResponse(resp),
+  });
 }
 
 export function useCurrentAccountAnchoredBalances() {
   const account = useCurrentAccount();
-  return useAnchoredStacksAccountBalanceQuery(account?.address ?? '', {
-    select: resp => parseBalanceResponse(resp),
-  });
+  return useAnchoredStacksBalances(account?.address ?? '');
 }
