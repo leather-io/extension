@@ -20,7 +20,6 @@ export interface StacksCryptoCurrencyAssetBalance {
   readonly type: 'crypto-currency';
   readonly asset: StacksCryptoCurrencyAsset;
   readonly balance: Money;
-  readonly subBalance: Money;
 }
 
 export interface StacksFungibleTokenAssetBalance {
@@ -28,7 +27,6 @@ export interface StacksFungibleTokenAssetBalance {
   readonly type: 'fungible-token';
   readonly asset: StacksFungibleTokenAsset;
   readonly balance: Money;
-  readonly subBalance: Money;
 }
 
 export interface StacksNonFungibleTokenAssetBalance {

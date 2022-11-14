@@ -7,7 +7,7 @@ import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/stacks/post-condition.utils';
-import { useFungibleTokenMetadata } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.hooks';
+import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 
 import { useTransactionRequestState } from './requests.hooks';
@@ -41,6 +41,6 @@ export function useAssetFromFungiblePostCondition(pc: FungiblePostCondition) {
   const contractAddress = addressToString(pc.assetInfo.address);
   const contractName = pc.assetInfo.contractName.content;
   const contractId = `${contractAddress}.${contractName}`;
-  const asset = useFungibleTokenMetadata(contractId);
+  const { data: asset } = useGetFungibleTokenMetadataQuery(contractId);
   return !asset || 'error' in asset ? undefined : asset;
 }

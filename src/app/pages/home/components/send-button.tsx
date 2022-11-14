@@ -13,7 +13,7 @@ import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { PrimaryButton } from '@app/components/primary-button';
 import {
-  useStacksCryptoCurrencyAssetBalance,
+  useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
@@ -34,7 +34,7 @@ const SendButtonSuspense = () => {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const account = useCurrentAccount();
-  const stxCryptAssetBalance = useStacksCryptoCurrencyAssetBalance(account?.address ?? '');
+  const stxCryptAssetBalance = useStacksAnchoredCryptoCurrencyAssetBalance(account?.address ?? '');
   const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
   const isDisabled = !stxCryptAssetBalance && ftAssets?.length === 0;
   return (

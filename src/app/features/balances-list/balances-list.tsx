@@ -11,8 +11,8 @@ import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-a
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import {
-  useStacksCryptoCurrencyAssetBalance,
-  useStacksFungibleTokenAssetBalances,
+  useStacksAnchoredCryptoCurrencyAssetBalance,
+  useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
   useStacksNonFungibleTokenAssetsUnanchored,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
@@ -24,13 +24,16 @@ interface BalancesListProps extends StackProps {
   address: string;
 }
 export const BalancesList = ({ address, ...props }: BalancesListProps) => {
-  const stxAssetBalance = useStacksCryptoCurrencyAssetBalance(address);
+  const { data: stxAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(address);
   const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(BITCOIN_TEST_ADDRESS);
-  const stacksFtAssetBalances = useStacksFungibleTokenAssetBalances(address);
+  const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();
 
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
+
+  // Better handle loading state
+  if (!stxAssetBalance) return null;
 
   const noAssets =
     btcAssetBalance.balance.amount.isEqualTo(0) &&

@@ -12,11 +12,9 @@ import type {
 import { createMoney } from '@shared/models/money.model';
 
 import { isTransferableStacksFungibleTokenAsset } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
-import { formatContractId } from '@app/common/utils';
 
 export function createStacksCryptoCurrencyAssetTypeWrapper(
-  balance: BigNumber,
-  subBalance: BigNumber
+  balance: BigNumber
 ): StacksCryptoCurrencyAssetBalance {
   return {
     blockchain: 'stacks',
@@ -28,7 +26,6 @@ export function createStacksCryptoCurrencyAssetTypeWrapper(
       name: 'Stacks',
       symbol: 'STX',
     },
-    subBalance: createMoney(subBalance, 'STX'),
   };
 }
 
@@ -52,7 +49,6 @@ function createStacksFtCryptoAssetBalanceTypeWrapper(
       name: '',
       symbol: '',
     },
-    subBalance: createMoney(new BigNumber(0), '', 0),
   };
 }
 
@@ -78,22 +74,26 @@ function createStacksNftCryptoAssetBalanceTypeWrapper(
 export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
   ftBalances: AccountBalanceResponseBigNumber['fungible_tokens']
 ) {
-  const assetBalances = Object.entries(ftBalances).map(([key, value]) => {
-    const balance = new BigNumber(value.balance);
-    return createStacksFtCryptoAssetBalanceTypeWrapper(balance, key);
-  });
-  // Assets users have traded will persist in the api response
-  return assetBalances.filter(assetBalance => !assetBalance?.balance.amount.isEqualTo(0));
+  return (
+    Object.entries(ftBalances)
+      .map(([key, value]) => {
+        const balance = new BigNumber(value.balance);
+        return createStacksFtCryptoAssetBalanceTypeWrapper(balance, key);
+      })
+      // Assets users have traded will persist in the api response
+      .filter(assetBalance => !assetBalance?.balance.amount.isEqualTo(0))
+  );
 }
 
 export function convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(
   nftBalances: AccountBalanceResponseBigNumber['non_fungible_tokens']
 ) {
-  const assetBalances = Object.entries(nftBalances).map(([key, value]) => {
-    const count = new BigNumber(value.count);
-    return createStacksNftCryptoAssetBalanceTypeWrapper(count, key);
-  });
-  return assetBalances.filter(assetBalance => !assetBalance?.count.isEqualTo(0));
+  return Object.entries(nftBalances)
+    .map(([key, value]) => {
+      const count = new BigNumber(value.count);
+      return createStacksNftCryptoAssetBalanceTypeWrapper(count, key);
+    })
+    .filter(assetBalance => !assetBalance?.count.isEqualTo(0));
 }
 
 export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
@@ -117,29 +117,6 @@ export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
       symbol: metadata.symbol,
     },
   };
-}
-
-export function mergeStacksFungibleTokenAssetBalances(
-  anchoredAssetBalances: StacksFungibleTokenAssetBalance[],
-  unanchoredAssetBalances: StacksFungibleTokenAssetBalance[]
-): StacksFungibleTokenAssetBalance[] {
-  return anchoredAssetBalances.map(anchoredAssetBalance => {
-    const anchoredContractId = formatContractId(
-      anchoredAssetBalance.asset.contractAddress,
-      anchoredAssetBalance.asset.contractAssetName
-    );
-    const unanchoredSameAssetBalance = unanchoredAssetBalances.find(
-      unanchoredAssetBalance =>
-        formatContractId(
-          unanchoredAssetBalance.asset.contractAddress,
-          unanchoredAssetBalance.asset.contractAssetName
-        ) === anchoredContractId
-    );
-    return {
-      ...anchoredAssetBalance,
-      subBalance: unanchoredSameAssetBalance?.balance ?? anchoredAssetBalance.balance,
-    };
-  });
 }
 
 export function getStacksFungibleTokenCurrencyAssetBalance(

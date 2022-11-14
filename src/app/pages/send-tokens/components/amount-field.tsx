@@ -26,7 +26,9 @@ function AmountFieldBase(props: AmountFieldProps) {
   const { handleChange, values } = useFormikContext<SendFormValues>();
   const analytics = useAnalytics();
   const account = useCurrentAccount();
-  const ftAssetBalances = useStacksFungibleTokenAssetBalancesUnanchored(account?.address ?? '');
+  const { data: ftAssetBalances = [] } = useStacksFungibleTokenAssetBalancesUnanchored(
+    account?.address ?? ''
+  );
   const { isStx, selectedAssetBalance, placeholder } = useSelectedAssetBalance(values.assetId);
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions();
 

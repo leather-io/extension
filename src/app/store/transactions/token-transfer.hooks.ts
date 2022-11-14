@@ -24,7 +24,7 @@ import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
-import { useSelectedStacksCryptoAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useStacksCryptoAssetBalanceByAssetId } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.utils';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
@@ -102,7 +102,7 @@ export function useStxTokenTransferUnsignedTxState(values?: SendFormValues) {
 export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
   const { nonce } = useNextNonce();
   const account = useCurrentAccount();
-  const selectedAssetBalance = useSelectedStacksCryptoAssetBalance(selectedAssetId);
+  const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);
   const tokenCurrencyAssetBalance =
     getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
   const assetTransferState = useMakeFungibleTokenTransfer(tokenCurrencyAssetBalance);
@@ -184,7 +184,7 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
 export function useFtTokenTransferUnsignedTx(selectedAssetId: string, values?: SendFormValues) {
   const generateTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
   const account = useCurrentAccount();
-  const selectedAssetBalance = useSelectedStacksCryptoAssetBalance(selectedAssetId);
+  const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);
   const tokenCurrencyAssetBalance =
     getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
   const assetTransferState = useMakeFungibleTokenTransfer(tokenCurrencyAssetBalance);

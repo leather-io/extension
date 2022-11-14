@@ -16,7 +16,7 @@ import { SecondaryButton } from '@app/components/secondary-button';
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';
 import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
@@ -56,7 +56,7 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
-  const { data: balance } = useCurrentAccountAnchoredBalances();
+  const { data: balance } = useCurrentStacksAccountAnchoredBalances();
 
   return (
     <ErrorMessage
