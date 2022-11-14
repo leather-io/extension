@@ -21,8 +21,7 @@ import {
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 interface UseSendFormValidationArgs {
@@ -34,7 +33,7 @@ export const useSendFormValidation = ({
   setAssetError,
 }: UseSendFormValidationArgs) => {
   const { currentNetwork, currentAccountStxAddress } = useWallet();
-  const { data: stacksBalances } = useCurrentAccountAnchoredBalances();
+  const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const feeSchema = useFeeSchema();
   const client = useStacksClient();

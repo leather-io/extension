@@ -8,12 +8,12 @@ import { SendFormValues } from '@shared/models/form.model';
 import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { microStxToStx } from '@app/common/stacks-utils';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 
 export function useSendAmountFieldActions() {
   const { setFieldValue, values } = useFormikContext<SendFormValues>();
-  const { data: stacksBalances } = useCurrentAccountAnchoredBalances();
+  const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
   const { balance, isStx, selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
 

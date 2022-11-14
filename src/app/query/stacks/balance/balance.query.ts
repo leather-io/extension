@@ -29,7 +29,7 @@ function fetchAccountBalance(client: StacksClient) {
 
 type FetchAccountBalanceResp = Awaited<ReturnType<ReturnType<typeof fetchAccountBalance>>>;
 
-export function useStacksAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
+export function useUnanchoredStacksAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
   address: string,
   options?: AppUseQueryConfig<FetchAccountBalanceResp, T>
 ) {

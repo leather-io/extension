@@ -9,9 +9,9 @@ import type {
 } from '@shared/models/crypto-asset-balance.model';
 
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import {
-  useStacksCryptoCurrencyAssetBalance,
+  useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
@@ -33,20 +33,24 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
   ({ autoFocus, onSelectAssetBalance, ...rest }) => {
     const [field, _, helpers] = useField('assetId');
     const account = useCurrentAccount();
-    const stxCryptoCurrencyAssetBalance = useStacksCryptoCurrencyAssetBalance(
+    const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(
       account?.address ?? ''
     );
     const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(
       account?.address ?? ''
     );
-    const allAssetBalances = [stxCryptoCurrencyAssetBalance, ...stacksFtAssetBalances];
-    const { data: balance } = useCurrentAccountAnchoredBalances();
+
+    const allAssetBalances = [stxCryptoCurrencyAssetBalance, ...stacksFtAssetBalances].filter(
+      balance => !!balance
+    ) as (StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance)[];
+
+    const { data: balance } = useCurrentStacksAccountAnchoredBalances();
     const { selectedAssetBalance } = useSelectedAssetBalance(field.value);
     const [searchInput, setSearchInput] = useState<string>('');
     const [assetBalanceItems, setAssetBalanceItems] = useState(allAssetBalances);
 
     useEffect(() => {
-      if (principalHasNoFungibleTokenAssets(stacksFtAssetBalances)) {
+      if (principalHasNoFungibleTokenAssets(stacksFtAssetBalances) && allAssetBalances[0]) {
         onSelectAssetBalance(allAssetBalances[0]);
       }
       return () => onClearSearch();
@@ -67,7 +71,7 @@ export const AssetSearch: React.FC<AssetSearchProps> = memo(
       setSearchInput(value);
       setAssetBalanceItems(
         allAssetBalances.filter(assetBalance =>
-          assetBalance.asset.name.toLowerCase().includes(value.toLowerCase())
+          assetBalance?.asset.name.toLowerCase().includes(value.toLowerCase())
         )
       );
     };

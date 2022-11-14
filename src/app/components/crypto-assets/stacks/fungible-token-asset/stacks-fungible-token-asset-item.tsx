@@ -12,12 +12,13 @@ import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asse
 
 interface StacksFungibleTokenAssetItemProps extends BoxProps {
   assetBalance: StacksFungibleTokenAssetBalance;
+  unanchoredAssetBalance?: StacksFungibleTokenAssetBalance;
   isPressable?: boolean;
 }
 export const StacksFungibleTokenAssetItem = forwardRef(
   (props: StacksFungibleTokenAssetItemProps, ref) => {
-    const { assetBalance, ...rest } = props;
-    const { asset, balance, subBalance } = assetBalance;
+    const { assetBalance, unanchoredAssetBalance, ...rest } = props;
+    const { asset, balance } = assetBalance;
     const { contractAddress, contractAssetName, contractName, name, symbol } = asset;
 
     const avatar = `${formatContractId(contractAddress, contractName)}::${contractAssetName}`;
@@ -35,7 +36,7 @@ export const StacksFungibleTokenAssetItem = forwardRef(
         data-testid={`asset-${name}`}
         imageCanonicalUri={imageCanonicalUri}
         ref={ref}
-        subBalance={subBalance}
+        subBalance={unanchoredAssetBalance}
         title={friendlyName}
         {...(rest as any)}
       />

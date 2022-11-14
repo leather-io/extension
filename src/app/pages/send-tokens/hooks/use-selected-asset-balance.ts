@@ -3,10 +3,10 @@ import { useMemo } from 'react';
 import { formatMoney } from '@app/common/money/format-money';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { getTicker } from '@app/common/utils';
-import { useSelectedStacksCryptoAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useStacksCryptoAssetBalanceByAssetId } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
 export function useSelectedAssetBalance(assetId: string) {
-  const selectedAssetBalance = useSelectedStacksCryptoAssetBalance(assetId);
+  const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(assetId);
 
   return useMemo(() => {
     const isStx =

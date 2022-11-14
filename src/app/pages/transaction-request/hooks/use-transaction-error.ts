@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -17,7 +17,7 @@ export function useTransactionError() {
   const { origin } = useDefaultRequestParams();
 
   const currentAccount = useCurrentAccount();
-  const { data: balances } = useCurrentAccountAnchoredBalances();
+  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;

@@ -1,4 +1,4 @@
-import { useTransferableCryptoAssetBalance } from '../../crypto-assets.hooks';
+import { useTransferableCryptoAssetBalance } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 
 interface StacksCryptoCurrencySendFormProps {}
 export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormProps) {

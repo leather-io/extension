@@ -15,7 +15,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { Caption } from '@app/components/typography';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
@@ -29,7 +29,7 @@ export function IncreaseFeeForm() {
   const tx = useSelectedTx();
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
-  const { data: balances } = useCurrentAccountAnchoredBalances();
+  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();

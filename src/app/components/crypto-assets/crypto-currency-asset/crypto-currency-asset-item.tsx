@@ -8,14 +8,13 @@ import { CryptoCurrencyAssetItemLayout } from './crypto-currency-asset-item.layo
 
 interface CryptoCurrencyAssetItemProps extends StackProps {
   assetBalance: AllCryptoCurrencyAssetBalances;
+  assetSubBalance?: AllCryptoCurrencyAssetBalances;
   icon: JSX.Element;
   isPressable?: boolean;
 }
 export const CryptoCurrencyAssetItem = forwardRef((props: CryptoCurrencyAssetItemProps, ref) => {
-  const { assetBalance, icon, isPressable, ...rest } = props;
+  const { assetBalance, assetSubBalance, icon, isPressable, ...rest } = props;
   const { balance, asset } = assetBalance;
-
-  const hasSubBalance = !!('subBalance' in assetBalance);
 
   return (
     <CryptoCurrencyAssetItemLayout
@@ -24,7 +23,7 @@ export const CryptoCurrencyAssetItem = forwardRef((props: CryptoCurrencyAssetIte
       icon={icon}
       isPressable={isPressable}
       ref={ref}
-      subBalance={hasSubBalance && assetBalance.subBalance}
+      subBalance={assetSubBalance?.balance}
       title={asset.name}
       {...(rest as any)}
     />

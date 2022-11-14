@@ -12,7 +12,7 @@ import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
 
 import {
   useAnchoredStacksAccountBalanceQuery,
-  useStacksAccountBalanceQuery,
+  useUnanchoredStacksAccountBalanceQuery,
 } from './balance.query';
 
 export function parseBalanceResponse(balances: AddressBalanceResponse) {
@@ -32,22 +32,22 @@ export function parseBalanceResponse(balances: AddressBalanceResponse) {
 }
 
 export function useUnanchoredStacksBalances(address: string) {
-  return useStacksAccountBalanceQuery(address, {
+  return useUnanchoredStacksAccountBalanceQuery(address, {
     select: resp => parseBalanceResponse(resp),
   });
 }
-export function useCurrentAccountUnanchoredStacksBalances() {
+export function useCurrentStacksAccountUnanchoredBalances() {
   const account = useCurrentAccount();
   return useUnanchoredStacksBalances(account?.address ?? '');
 }
 
-export function useAnchoredStacksBalances(address: string) {
+function useAnchoredStacksAccountBalances(address: string) {
   return useAnchoredStacksAccountBalanceQuery(address, {
     select: resp => parseBalanceResponse(resp),
   });
 }
 
-export function useCurrentAccountAnchoredBalances() {
+export function useCurrentStacksAccountAnchoredBalances() {
   const account = useCurrentAccount();
-  return useAnchoredStacksBalances(account?.address ?? '');
+  return useAnchoredStacksAccountBalances(account?.address ?? '');
 }

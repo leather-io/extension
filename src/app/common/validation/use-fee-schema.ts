@@ -9,13 +9,13 @@ import { formatInsufficientBalanceError, formatPrecisionError } from '@app/commo
 import { SendFormErrorMessages } from '@app/common/error-messages';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { stxAmountSchema } from '@app/common/validation/currency-schema';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 
 /**
  * @param amountToSend stx amount in µSTX
  */
 export const useFeeSchema = (amountToSend?: number) => {
-  const { data: balances } = useCurrentAccountAnchoredBalances();
+  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 
   return useCallback(
     () =>

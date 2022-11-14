@@ -2,14 +2,14 @@ export interface BitcoinCryptoCurrencyAsset {
   decimals: number;
   hasMemo: boolean;
   name: string;
-  symbol: string;
+  symbol: 'BTC';
 }
 
 export interface StacksCryptoCurrencyAsset {
   decimals: number;
   hasMemo: boolean;
   name: string;
-  symbol: string;
+  symbol: 'STX';
 }
 
 export interface StacksFungibleTokenAsset {

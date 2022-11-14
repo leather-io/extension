@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import { useCurrentAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 import { SkipFundAccountButton } from './components/skip-fund-account-button';
@@ -17,7 +17,7 @@ export function FundPage() {
   const { state } = useLocation() as FundPageLocationStateProps;
   const navigate = useNavigate();
   const currentAccount = useCurrentAccount();
-  const { data: balances } = useCurrentAccountAnchoredBalances();
+  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 
   const isOnboarding = state?.showSkipButton;
 
