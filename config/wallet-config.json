@@ -24,13 +24,6 @@
       "hasTradingFees": true,
       "name": "Transak"
     },
-    "okcoin": {
-      "availableRegions": "global",
-      "enabled": true,
-      "hasFastCheckoutProcess": true,
-      "hasTradingFees": true,
-      "name": "Okcoin"
-    },
     "binance": {
       "availableRegions": "global",
       "enabled": true,
