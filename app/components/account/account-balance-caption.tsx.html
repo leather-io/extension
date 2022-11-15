@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -120,17 +120,9 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,11 +152,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,14 +170,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,14 +178,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
-import { color, useMediaQuery } from '@stacks/ui';
 &nbsp;
-import { stacksValue } from '@app/common/stacks-utils';
-import { Caption, Text } from '@app/components/typography';
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import type { Money } from '@shared/models/money.model';
+import { useMediaQuery } from '@stacks/ui';
+&nbsp;
 import type { MarketData } from '@shared/models/market.model';
-import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
+import type { Money } from '@shared/models/money.model';
+&nbsp;
+import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
+import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { stacksValue } from '@app/common/stacks-utils';
+import { Caption, CaptionSeparatorDot } from '@app/components/typography';
 &nbsp;
 interface AccountBalanceCaptionProps {
   availableBalance: Money;
@@ -227,26 +209,16 @@ export function <span class="fstat-no" title="function not covered" >AccountBala
 &nbsp;
   const [hasSufficientLayoutWidth] = <span class="cstat-no" title="statement not covered" >useMediaQuery('(min-width: 320px)');</span>
 &nbsp;
-  const showFiatConversion =
-<span class="cstat-no" title="statement not covered" >    availableBalance.amount.isGreaterThan(0) &amp;&amp;</span>
-    marketData.price.amount.isPositive() &amp;&amp;
-    hasSufficientLayoutWidth;
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
-      &lt;Text color={color('text-caption')} fontSize="10px"&gt;
-        •
-      &lt;/Text&gt;
+      &lt;CaptionSeparatorDot /&gt;
+&nbsp;
       &lt;Caption&gt;{balance}&lt;/Caption&gt;
-      {showFiatConversion &amp;&amp; hasSufficientLayoutWidth &amp;&amp; (
+      {hasSufficientLayoutWidth &amp;&amp; (
         &lt;&gt;
-          &lt;Text color={color('text-caption')} fontSize="10px"&gt;
-            •
-          &lt;/Text&gt;
+          &lt;CaptionSeparatorDot /&gt;
           &lt;Caption&gt;
-            {formatDustUsdAmounts(
-              i18nFormatCurrency(baseCurrencyAmountInQuote(availableBalance, marketData))
-            )}
+            {i18nFormatCurrency(baseCurrencyAmountInQuote(availableBalance, marketData))}
           &lt;/Caption&gt;
         &lt;/&gt;
       )}
@@ -257,9 +229,7 @@ export function <span class="fstat-no" title="function not covered" >AccountBala
 export function <span class="fstat-no" title="function not covered" >AccountBalanceLoading(</span>) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
-      &lt;Text color={color('text-caption')} fontSize="10px"&gt;
-        •
-      &lt;/Text&gt;
+      &lt;CaptionSeparatorDot /&gt;
       &lt;Caption&gt;Loading…&lt;/Caption&gt;
     &lt;/&gt;
   );
@@ -271,7 +241,7 @@ export function <span class="fstat-no" title="function not covered" >AccountBala
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

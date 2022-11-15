@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -136,7 +136,19 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,6 +187,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,18 +228,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
+&nbsp;
 import { useAtom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
 &nbsp;
-import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
+import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
+&nbsp;
 import {
-  hasSwitchedAccountsState,
-  hasCreatedAccountState,
   accountsWithAddressState,
+  hasCreatedAccountState,
+  hasSwitchedAccountsState,
 } from '@app/store/accounts/accounts';
-import { currentAccountIndexState } from '@app/store/wallet/wallet';
-import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
+import { currentAccountIndexState } from '@app/store/wallet/wallet';
 &nbsp;
 import { AccountWithAddress } from './account.models';
 &nbsp;
@@ -248,6 +269,12 @@ export function <span class="fstat-no" title="function not covered" >useCurrentA
 <span class="cstat-no" title="statement not covered" >    if (typeof index === 'number' &amp;&amp; !hasSwitched) <span class="cstat-no" title="statement not covered" >return accounts[index];</span></span>
 <span class="cstat-no" title="statement not covered" >    return accounts[accountIndex] as AccountWithAddress | undefined;</span>
   }, [accountIndex, accounts, hasSwitched, signatureIndex, txIndex]);
+}
+&nbsp;
+// TODO: Needs to be handled with btc addresses work
+// Move account addresses state to redux?
+export function <span class="fstat-no" title="function not covered" >useCurrentAccountBtcAddressState(</span>) {
+<span class="cstat-no" title="statement not covered" >  return BITCOIN_TEST_ADDRESS;</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useCurrentAccountStxAddressState(</span>) {
@@ -289,7 +316,7 @@ export function <span class="fstat-no" title="function not covered" >useHasCreat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -139,7 +139,9 @@
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,20 +154,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -177,7 +172,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -217,18 +221,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 &nbsp;
-import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
-import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
-import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
-import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 &nbsp;
+import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
+import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
+import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
+import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
+&nbsp;
+import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
 import { NoAccountActivity } from './components/no-account-activity';
+import { PendingTransactionList } from './components/pending-transaction-list/pending-transaction-list';
 import { SubmittedTransactionList } from './components/submitted-transaction-list/submitted-transaction-list';
 import { TransactionList } from './components/transaction-list/transaction-list';
-import { PendingTransactionList } from './components/pending-transaction-list/pending-transaction-list';
-import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
 &nbsp;
 export const ActivityList = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
@@ -256,6 +261,7 @@ export const ActivityList = <span class="cstat-no" title="statement not covered"
 <span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >convertBitcoinTxsToListType(bitcoinTransactions),</span>
     [bitcoinTransactions]
   );
+&nbsp;
   const transactionListStacksTxs = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >    ()</span> =&gt; <span class="cstat-no" title="statement not covered" >convertStacksTxsToListType(stacksTransactionsWithTransfers?.results),</span>
     [stacksTransactionsWithTransfers]
@@ -298,7 +304,7 @@ export const ActivityList = <span class="cstat-no" title="statement not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

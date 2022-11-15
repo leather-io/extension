@@ -104,22 +104,15 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -132,6 +125,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -145,19 +149,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense, memo } from 'react';
 import { FiPlus } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+&nbsp;
 import { ChainID } from '@stacks/transactions';
 import { ButtonProps } from '@stacks/ui';
-&nbsp;
-import { useHasFiatProviders } from '@app/query/stacks/hiro-config/hiro-config.query';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { RouteUrls } from '@shared/route-urls';
 import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 &nbsp;
-import { HomeActionButton } from './tx-button';
+import { RouteUrls } from '@shared/route-urls';
+&nbsp;
 import { SecondaryButton } from '@app/components/secondary-button';
+import { useHasFiatProviders } from '@app/query/common/hiro-config/hiro-config.query';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+&nbsp;
+import { HomeActionButton } from './tx-button';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >BuyTxButton(</span>props: ButtonProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -178,7 +184,7 @@ export const BuyButton = <span class="cstat-no" title="statement not covered" ><
   const hasFiatProviders = <span class="cstat-no" title="statement not covered" >useHasFiatProviders();</span>
   const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
 <span class="cstat-no" title="statement not covered" >  if (!hasFiatProviders) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (currentNetwork.chainId !== ChainID.Mainnet) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (currentNetwork.chain.stacks.chainId !== ChainID.Mainnet) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Suspense fallback={&lt;BuyButtonFallback /&gt;}&gt;
@@ -193,7 +199,7 @@ export const BuyButton = <span class="cstat-no" title="statement not covered" ><
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

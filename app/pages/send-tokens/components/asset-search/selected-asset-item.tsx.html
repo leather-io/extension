@@ -142,7 +142,15 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,9 +172,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,18 +236,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
-import { useField } from 'formik';
-import { Box, ChevronIcon, Text, color, Stack, BoxProps } from '@stacks/ui';
 &nbsp;
-import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { Caption } from '@app/components/typography';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { Box, BoxProps, ChevronIcon, Stack, Text, color } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useField } from 'formik';
+&nbsp;
 import {
   getGradientString,
   getImageCanonicalUri,
 } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
-import { getStacksFungibleTokenCurrencyAsset } from '@app/query/stacks/balance/crypto-asset-balances.utils';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { Caption } from '@app/components/typography';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.utils';
 &nbsp;
 interface SelectedAssetItemProps extends BoxProps {
   hideArrow?: boolean;
@@ -243,10 +258,16 @@ export const SelectedAssetItem = <span class="cstat-no" title="statement not cov
 <span class="fstat-no" title="function not covered" >  ({</span> hideArrow, onClearSearch, ...rest }: SelectedAssetItemProps) =&gt; {
     const [field] = <span class="cstat-no" title="statement not covered" >useField('assetId');</span>
     const { isStx, name, selectedAssetBalance, ticker } = <span class="cstat-no" title="statement not covered" >useSelectedAssetBalance(field.value);</span>
-    const tokenCurrencyAsset = <span class="cstat-no" title="statement not covered" >getStacksFungibleTokenCurrencyAsset(selectedAssetBalance);</span>
-    const gradientString = <span class="cstat-no" title="statement not covered" >tokenCurrencyAsset ? getGradientString(tokenCurrencyAsset) : '';</span>
-    const imageCanonicalUri = <span class="cstat-no" title="statement not covered" >tokenCurrencyAsset</span>
-      ? getImageCanonicalUri(tokenCurrencyAsset.imageCanonicalUri, tokenCurrencyAsset.name)
+    const tokenCurrencyAssetBalance =
+<span class="cstat-no" title="statement not covered" >      getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);</span>
+    const gradientString = <span class="cstat-no" title="statement not covered" >tokenCurrencyAssetBalance</span>
+      ? getGradientString(tokenCurrencyAssetBalance.asset)
+      : '';
+    const imageCanonicalUri = <span class="cstat-no" title="statement not covered" >tokenCurrencyAssetBalance</span>
+      ? getImageCanonicalUri(
+          tokenCurrencyAssetBalance.asset.imageCanonicalUri,
+          tokenCurrencyAssetBalance.asset.name
+        )
       : '';
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
@@ -307,7 +328,7 @@ export const SelectedAssetItem = <span class="cstat-no" title="statement not cov
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/sign-out-confirm/sign-out-confirm-layout.tsx</title>
+    <title>Code coverage report for app/pages/sign-out-confirm/sign-out-confirm.layout.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/pages/sign-out-confirm</a> sign-out-confirm-layout.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/pages/sign-out-confirm</a> sign-out-confirm.layout.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -144,7 +144,18 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,6 +181,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,13 +246,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC } from 'react';
+&nbsp;
+import { Box, Button, Flex, Text, color } from '@stacks/ui';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { useFormik } from 'formik';
 &nbsp;
-import { Body, Caption } from '@app/components/typography';
-import { Box, Button, Flex, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { Body, Caption } from '@app/components/typography';
 &nbsp;
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
@@ -255,11 +276,20 @@ export const SignOutConfirmLayout: FC&lt;SignOutConfirmLayoutProps&gt; = <span c
       &lt;Box mx="loose" mb="extra-loose"&gt;
         &lt;form onChange={form.handleChange} onSubmit={form.handleSubmit}&gt;
           &lt;Body&gt;
-            When you sign out,
-            {whenWallet({
-              software: ` you'll need your Secret Key to sign back in. Only sign out if you've backed up your Secret Key.`,
-              ledger: ` you'll need to reconnect your Ledger to sign back into your wallet.`,
-            })}
+            &lt;p&gt;
+              When you sign out,
+              {whenWallet({
+                software: ` you'll need your Secret Key to sign back in. Only sign out if you've backed up your Secret Key.`,
+                ledger: ` you'll need to reconnect your Ledger to sign back into your wallet.`,
+              })}
+            &lt;/p&gt;
+            &lt;Text as="p" mt="loose" fontWeight="bold"&gt;
+              {whenWallet({
+                software:
+                  "⚠️ If you haven't backed up your Secret Key, you will loose all your funds.",
+                ledger: '',
+              })}
+            &lt;/Text&gt;
           &lt;/Body&gt;
 &nbsp;
           &lt;Flex
@@ -313,7 +343,7 @@ export const SignOutConfirmLayout: FC&lt;SignOutConfirmLayoutProps&gt; = <span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

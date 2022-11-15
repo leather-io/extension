@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -104,24 +104,20 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,6 +127,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,8 +153,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 &nbsp;
+import { formatMoney } from '@app/common/money/format-money';
+import { ftDecimals } from '@app/common/stacks-utils';
 import { getTicker } from '@app/common/utils';
-import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
 import { useSelectedStacksCryptoAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSelectedAssetBalance(</span>assetId: string) {
@@ -156,28 +163,30 @@ export function <span class="fstat-no" title="function not covered" >useSelected
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
     const isStx =
-<span class="cstat-no" title="statement not covered" >      selectedAssetBalance?.asset.blockchain === 'stacks' &amp;&amp;</span>
-      selectedAssetBalance.asset.type === 'crypto-currency';
+<span class="cstat-no" title="statement not covered" >      selectedAssetBalance?.blockchain === 'stacks' &amp;&amp;</span>
+      selectedAssetBalance.type === 'crypto-currency';
 &nbsp;
-    const stxBalance = <span class="cstat-no" title="statement not covered" >stacksValue({</span>
-      value: selectedAssetBalance?.balance.amount || 0,
-      withTicker: false,
-    });
+    const formattedSelectedAssetBalance = <span class="cstat-no" title="statement not covered" >selectedAssetBalance?.balance</span>
+      ? formatMoney(selectedAssetBalance.balance)
+      : '';
 &nbsp;
     const ftBalance = <span class="cstat-no" title="statement not covered" >selectedAssetBalance?.asset.decimals</span>
       ? ftDecimals(selectedAssetBalance.balance.amount, selectedAssetBalance.asset.decimals)
       : selectedAssetBalance?.balance.amount.toFormat();
+&nbsp;
     const ticker = <span class="cstat-no" title="statement not covered" >selectedAssetBalance</span>
       ? selectedAssetBalance.asset.symbol || getTicker(selectedAssetBalance.asset.name)
       : null;
+&nbsp;
     const hasDecimals =
 <span class="cstat-no" title="statement not covered" >      selectedAssetBalance?.asset.decimals &amp;&amp; selectedAssetBalance.asset.decimals &gt; 0;</span>
+&nbsp;
     const placeholder = <span class="cstat-no" title="statement not covered" >`0${</span>
-      hasDecimals ? `.${'0'.repeat(isStx ? 6 : selectedAssetBalance.asset.decimals || 0)}` : ''
+      hasDecimals ? `.${'0'.repeat(selectedAssetBalance.asset.decimals ?? 0)}` : ''
     } ${ticker}`;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return {</span>
-      balance: stxBalance || ftBalance,
+      balance: formattedSelectedAssetBalance || ftBalance,
       isStx,
       name: selectedAssetBalance?.asset.name,
       placeholder,
@@ -193,7 +202,7 @@ export function <span class="fstat-no" title="function not covered" >useSelected
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

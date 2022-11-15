@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.09% </span>
+                <span class="strong">10% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/11</span>
+                <span class='fraction'>1/10</span>
             </div>
         
             
@@ -214,8 +214,8 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -365,13 +365,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getAssetStringParts } from '@stacks/ui-utils';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+import { getAssetStringParts } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
-import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
 &nbsp;
-import { isTransferableStacksFungibleTokenAsset } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { STX_DECIMALS } from '@shared/constants';
 import type { AccountBalanceResponseBigNumber } from '@shared/models/account.model';
 import type {
   StacksCryptoCurrencyAssetBalance,
@@ -379,7 +377,8 @@ import type {
   StacksNonFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
 import { createMoney } from '@shared/models/money.model';
-import { STX_DECIMALS } from '@shared/constants';
+&nbsp;
+import { isTransferableStacksFungibleTokenAsset } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { formatContractId } from '@app/common/utils';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >createStacksCryptoCurrencyAssetTypeWrapper(</span>
@@ -387,16 +386,16 @@ export function <span class="fstat-no" title="function not covered" >createStack
   subBalance: BigNumber
 ): StacksCryptoCurrencyAssetBalance {
 <span class="cstat-no" title="statement not covered" >  return {</span>
+    blockchain: 'stacks',
     balance: createMoney(balance, 'STX'),
     asset: {
-      blockchain: 'stacks',
       decimals: STX_DECIMALS,
       hasMemo: true,
       name: 'Stacks',
       symbol: 'STX',
-      type: 'crypto-currency',
     },
     subBalance: createMoney(subBalance, 'STX'),
+    type: 'crypto-currency',
   };
 }
 &nbsp;
@@ -406,9 +405,9 @@ function <span class="fstat-no" title="function not covered" >createStacksFtCryp
 ): StacksFungibleTokenAssetBalance {
   const { address, contractName, assetName } = <span class="cstat-no" title="statement not covered" >getAssetStringParts(key);</span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
+    blockchain: 'stacks',
     balance: createMoney(balance, '', 0),
     asset: {
-      blockchain: 'stacks',
       canTransfer: false,
       contractAddress: address,
       contractAssetName: assetName,
@@ -418,9 +417,9 @@ function <span class="fstat-no" title="function not covered" >createStacksFtCryp
       imageCanonicalUri: '',
       name: '',
       symbol: '',
-      type: 'fungible-token',
     },
     subBalance: createMoney(new BigNumber(0), '', 0),
+    type: 'fungible-token',
   };
 }
 &nbsp;
@@ -430,16 +429,16 @@ function <span class="fstat-no" title="function not covered" >createStacksNftCry
 ): StacksNonFungibleTokenAssetBalance {
   const { address, contractName, assetName } = <span class="cstat-no" title="statement not covered" >getAssetStringParts(key);</span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
+    blockchain: 'stacks',
     count: balance,
     asset: {
-      blockchain: 'stacks',
       contractAddress: address,
       contractAssetName: assetName,
       contractName,
       imageCanonicalUri: '',
       name: '',
-      type: 'non-fungible-token',
     },
+    type: 'non-fungible-token',
   };
 }
 &nbsp;
@@ -510,13 +509,11 @@ export function mergeStacksFungibleTokenAssetBalances(
   });
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >getStacksFungibleTokenCurrencyAsset(</span>
+export function <span class="fstat-no" title="function not covered" >getStacksFungibleTokenCurrencyAssetBalance(</span>
   selectedAssetBalance?: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
 ) {
-<span class="cstat-no" title="statement not covered" >  return selectedAssetBalance &amp;&amp;</span>
-    'contractAddress' in selectedAssetBalance.asset &amp;&amp;
-    selectedAssetBalance.asset.canTransfer
-    ? selectedAssetBalance.asset
+<span class="cstat-no" title="statement not covered" >  return selectedAssetBalance?.type === 'fungible-token' &amp;&amp; selectedAssetBalance.asset.canTransfer</span>
+    ? selectedAssetBalance
     : undefined;
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -526,7 +523,7 @@ export function <span class="fstat-no" title="function not covered" >getStacksFu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

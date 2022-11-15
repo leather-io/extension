@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -130,7 +130,18 @@
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,6 +166,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,30 +215,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
 &nbsp;
+import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { AccountBalanceCaption } from '@app/components/account/account-balance-caption';
-import { useAddressBalances } from '@app/query/stacks/balance/balance.hooks';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { usePressable } from '@app/components/item-hover';
-import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
+import {
+  AccountBalanceCaption,
+  AccountBalanceLoading,
+} from '@app/components/account/account-balance-caption';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { usePressable } from '@app/components/item-hover';
+import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 &nbsp;
-import { AccountName } from './account-name';
 import { AccountAvatarItem } from './account-avatar';
+import { AccountName } from './account-name';
 &nbsp;
 interface AccountBalanceLabelProps {
   address: string;
 }
 const AccountBalanceLabel = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> address }: AccountBalanceLabelProps) =&gt; {</span>
-  const { data: balances } = <span class="cstat-no" title="statement not covered" >useAddressBalances(address);</span>
   const stxMarketData = <span class="cstat-no" title="statement not covered" >useStxMarketData();</span>
+  const { data: balances, isLoading } = <span class="cstat-no" title="statement not covered" >useAccountUnanchoredBalances(address);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (isLoading) <span class="cstat-no" title="statement not covered" >return &lt;AccountBalanceLoading /&gt;;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!balances) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;AccountBalanceCaption availableBalance={balances.availableStx} marketData={stxMarketData} /&gt;
+    &lt;AccountBalanceCaption
+      availableBalance={balances.stx.availableStx}
+      marketData={stxMarketData}
+    /&gt;
   );
 });
 &nbsp;
@@ -271,7 +295,7 @@ export const SwitchAccountListItem = <span class="cstat-no" title="statement not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

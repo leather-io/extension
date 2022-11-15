@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -193,7 +193,14 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,6 +227,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -324,11 +334,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
+&nbsp;
 import BigNumber from 'bignumber.js';
 &nbsp;
-import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 &nbsp;
+import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
+&nbsp;
+import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 import {
   useCurrentAccountAnchoredBalances,
   useCurrentAccountAvailableStxBalance,
@@ -341,15 +354,17 @@ import {
   createStacksCryptoCurrencyAssetTypeWrapper,
   mergeStacksFungibleTokenAssetBalances,
 } from './crypto-asset-balances.utils';
-import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useStacksCryptoCurrencyAssetBalance(</span>) {
   const { data: balances } = <span class="cstat-no" title="statement not covered" >useCurrentAccountUnanchoredBalances();</span>
-  const availableStxBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
+  const { data: availableStxBalance } = <span class="cstat-no" title="statement not covered" >useCurrentAccountAvailableStxBalance();</span>
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
     const subBalance =
 <span class="cstat-no" title="statement not covered" >      balances?.stx.balance.amount.minus(balances.stx.locked.amount) ?? new BigNumber(0);</span>
-<span class="cstat-no" title="statement not covered" >    return createStacksCryptoCurrencyAssetTypeWrapper(availableStxBalance, subBalance);</span>
+<span class="cstat-no" title="statement not covered" >    return createStacksCryptoCurrencyAssetTypeWrapper(</span>
+      availableStxBalance ?? new BigNumber(0),
+      subBalance
+    );
   }, [availableStxBalance, balances]);
 }
 &nbsp;
@@ -439,7 +454,7 @@ export function <span class="fstat-no" title="function not covered" >useSelected
 <span class="cstat-no" title="statement not covered" >  return useMemo(</span>
 <span class="fstat-no" title="function not covered" >    ()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >      [stxCryptoCurrencyAssetBalance, ...stacksFtCryptoAssetBalances].find(</span>
-<span class="fstat-no" title="function not covered" >        as</span>setBalance =&gt; <span class="cstat-no" title="statement not covered" >getFullyQualifiedStacksAssetName(assetBalance.asset) === selectedAssetId</span>
+<span class="fstat-no" title="function not covered" >        as</span>setBalance =&gt; <span class="cstat-no" title="statement not covered" >getFullyQualifiedStacksAssetName(assetBalance) === selectedAssetId</span>
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedAssetId]
@@ -460,7 +475,7 @@ export function <span class="fstat-no" title="function not covered" >useStacksNo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-07T13:59:35.299Z
+                at 2022-11-15T12:16:12.233Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
