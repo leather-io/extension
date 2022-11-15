@@ -1,6 +1,5 @@
-import { forwardRef, memo } from 'react';
-
 import { Box, Stack, StackProps } from '@stacks/ui';
+import { forwardRefWithAs } from '@stacks/ui-core';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -21,8 +20,8 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   subBalance?: Money;
   title: string;
 }
-export const CryptoCurrencyAssetItemLayout = memo(
-  forwardRef((props: CryptoCurrencyAssetItemLayoutProps, ref) => {
+export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
+  (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
     const { balance, caption, icon, isPressable, subBalance, title, ...rest } = props;
     const [component, bind] = usePressable(isPressable);
 
@@ -68,5 +67,5 @@ export const CryptoCurrencyAssetItemLayout = memo(
         {component}
       </Box>
     );
-  })
+  }
 );

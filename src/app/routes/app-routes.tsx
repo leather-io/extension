@@ -26,7 +26,7 @@ import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
-import { SendCryptoAssetForm } from '@app/pages/send-crypto-asset/send-crypto-asset-form/send-crypto-asset-form';
+import { SendCryptoAssetForm } from '@app/pages/send-crypto-asset/send-crypto-asset-form';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { SignatureRequest } from '@app/pages/signature-request/signature-request';
