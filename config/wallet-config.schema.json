@@ -65,7 +65,6 @@
         "gateIo": { "$ref": "#/$defs/provider" },
         "kuCoin": { "$ref": "#/$defs/provider" },
         "moonPay": { "$ref": "#/$defs/provider" },
-        "okcoin": { "$ref": "#/$defs/provider" },
         "okx": { "$ref": "#/$defs/provider" },
         "transak": { "$ref": "#/$defs/provider" }
       }
