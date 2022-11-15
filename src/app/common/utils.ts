@@ -89,7 +89,7 @@ export function truncateString(str: string, maxLength: number) {
   return str.slice(0, maxLength) + '...';
 }
 
-export function isMultipleOf(multiple: number) {
+function isMultipleOf(multiple: number) {
   return (num: number) => num % multiple === 0;
 }
 

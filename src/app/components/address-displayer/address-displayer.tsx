@@ -1,22 +1,15 @@
-import { isEven, isMultipleOf } from '@app/common/utils';
+import { isEven } from '@app/common/utils';
 
 import { AddressDisplayerLayout } from './address-displayer.layout';
 
-const isMultipleOfFour = isMultipleOf(4);
-
 function groupByFour(text: string) {
-  const initialValue = { result: [] as string[][], tmp: [] as string[] };
+  const result = [];
 
-  const textGrouper = ({ result, tmp }: typeof initialValue, letter: string, index: number) => {
-    tmp.push(letter);
-    if (isMultipleOfFour(index + 1)) {
-      result.push(tmp);
-      tmp = [];
-    }
-    return { result, tmp };
-  };
+  for (let i = 0; i < text.length; i += 4) {
+    result.push(text.slice(i, i + 4));
+  }
 
-  return [...text].reduce(textGrouper, initialValue).result;
+  return result;
 }
 
 interface AddressDisplayerProps {
@@ -27,7 +20,7 @@ export function AddressDisplayer({ address }: AddressDisplayerProps) {
     <>
       {groupByFour(address).map((letterGroup, index) => (
         <AddressDisplayerLayout key={index} isEven={isEven(index + 1)}>
-          {letterGroup.join('')}
+          {letterGroup}
         </AddressDisplayerLayout>
       ))}
     </>
