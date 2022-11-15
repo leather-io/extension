@@ -1,6 +1,7 @@
 import { formatAuthResponse } from '@shared/actions/finalize-auth-response';
 import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature';
 import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature';
+import { parseEnvVar } from '@shared/environment';
 import {
   ExternalMethods,
   InternalMethods,
@@ -13,7 +14,7 @@ import { getCoreApiUrl, getPayloadFromToken } from '@shared/utils/requests';
 
 import { popupCenter } from './popup-center';
 
-const IS_TEST_ENV = process.env.TEST_ENV === 'true';
+const IS_TEST_ENV = parseEnvVar(process.env.TEST_ENV);
 
 //
 // Playwright does not currently support Chrome extension popup testing:

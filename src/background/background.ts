@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/react';
 
+import { parseEnvVar } from '@shared/environment';
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT, LegacyMessageFromContentScript } from '@shared/message-types';
 import { RouteUrls } from '@shared/route-urls';
@@ -20,7 +21,7 @@ initContextMenuActions();
 backupOldWalletSalt();
 warnUsersAboutDevToolsDangers();
 
-const IS_TEST_ENV = process.env.TEST_ENV === 'true';
+const IS_TEST_ENV = parseEnvVar(process.env.TEST_ENV);
 
 chrome.runtime.onInstalled.addListener(details => {
   Sentry.wrap(async () => {
