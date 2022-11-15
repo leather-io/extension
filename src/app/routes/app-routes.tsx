@@ -65,9 +65,7 @@ function AppRoutesAfterUserHasConsented() {
           path={RouteUrls.Home}
           element={
             <AccountGate>
-              <Suspense fallback={<></>}>
-                <Home />
-              </Suspense>
+              <Home />
             </AccountGate>
           }
         >
