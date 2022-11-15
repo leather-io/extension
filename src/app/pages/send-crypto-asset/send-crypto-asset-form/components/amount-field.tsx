@@ -4,9 +4,9 @@ import { useField } from 'formik';
 import { amountInputId, maxInputContainerWidth, useFontResizer } from './use-font-resizer';
 
 interface AmountFieldProps {
-  sendAllButton: JSX.Element;
+  rightInputOverlay: JSX.Element;
 }
-export function AmountField({ sendAllButton }: AmountFieldProps) {
+export function AmountField({ rightInputOverlay }: AmountFieldProps) {
   const [field] = useField('amount');
   const { inputFontSize } = useFontResizer();
 
@@ -40,7 +40,7 @@ export function AmountField({ sendAllButton }: AmountFieldProps) {
         </Flex>
         {/* TODO: Add errors with validations */}
       </Flex>
-      {sendAllButton}
+      {rightInputOverlay}
     </Stack>
   );
 }

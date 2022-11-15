@@ -13,9 +13,7 @@ export function FungibleTokenAssetItem(props: FungibleTokenAssetItemProps) {
 
   switch (blockchain) {
     case 'stacks':
-      return (
-        <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable {...(rest as any)} />
-      );
+      return <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable {...rest} />;
     default:
       return null;
   }

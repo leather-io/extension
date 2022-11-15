@@ -1,9 +1,9 @@
-import { forwardRef } from 'react';
-
 import { BoxProps } from '@stacks/ui';
+import { forwardRefWithAs } from '@stacks/ui-core';
 import { getAssetName } from '@stacks/ui-utils';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
+import { Money } from '@shared/models/money.model';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { formatContractId, getTicker } from '@app/common/utils';
@@ -12,10 +12,10 @@ import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asse
 
 interface StacksFungibleTokenAssetItemProps extends BoxProps {
   assetBalance: StacksFungibleTokenAssetBalance;
-  unanchoredAssetBalance?: StacksFungibleTokenAssetBalance;
+  unanchoredAssetBalance?: Money;
   isPressable?: boolean;
 }
-export const StacksFungibleTokenAssetItem = forwardRef(
+export const StacksFungibleTokenAssetItem = forwardRefWithAs(
   (props: StacksFungibleTokenAssetItemProps, ref) => {
     const { assetBalance, unanchoredAssetBalance, ...rest } = props;
     const { asset, balance } = assetBalance;
@@ -38,7 +38,7 @@ export const StacksFungibleTokenAssetItem = forwardRef(
         ref={ref}
         subBalance={unanchoredAssetBalance}
         title={friendlyName}
-        {...(rest as any)}
+        {...rest}
       />
     );
   }
