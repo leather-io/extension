@@ -2,9 +2,10 @@ import type { ContractCallPayload } from '@stacks/connect';
 import type { ContractInterfaceFunction } from '@stacks/rpc-client';
 
 import { logger } from '@shared/logger';
+
+import { formatContractId } from '@app/common/utils';
 import { useGetContractInterface } from '@app/query/stacks/contract/contract.query';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { formatContractId } from '@app/common/utils';
 
 export function useContractInterface(transactionRequest: ContractCallPayload | null) {
   return useGetContractInterface(transactionRequest).data;

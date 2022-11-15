@@ -1,4 +1,5 @@
 import React, { cloneElement, isValidElement } from 'react';
+
 import { Box, BoxProps } from '@stacks/ui';
 
 function Hr(props: BoxProps) {

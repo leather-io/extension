@@ -1,4 +1,4 @@
-import { BoxProps, Box } from '@stacks/ui';
+import { Box, BoxProps } from '@stacks/ui';
 
 export function WalletTypeLedgerIcon(props: BoxProps) {
   return (

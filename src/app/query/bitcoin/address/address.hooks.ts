@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
+
 import BigNumber from 'bignumber.js';
 
-import { sumNumbers } from '@app/common/utils';
 import { createMoney } from '@shared/models/money.model';
 
-import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
+import { sumNumbers } from '@app/common/utils';
+
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from './address.utils';
+import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
 
 function useBitcoinBalance(address: string) {
   const utxos = useGetUtxosByAddressQuery(address).data;

@@ -1,9 +1,12 @@
 import { createContext } from 'react';
+
 import { StacksTransaction } from '@stacks/transactions';
 
 import { noop } from '@shared/utils';
-import { BaseLedgerOperationContext } from '../../ledger-utils';
+
 import { createWaitableAction } from '@app/common/utils/create-waitable-action';
+
+import { BaseLedgerOperationContext } from '../../ledger-utils';
 
 export function createWaitForUserToSeeWarningScreen() {
   return createWaitableAction<'ignored-warning' | 'cancelled-operation'>();

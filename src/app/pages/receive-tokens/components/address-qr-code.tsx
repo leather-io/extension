@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
+
+import { Box, Flex, FlexProps, color } from '@stacks/ui';
 import { createQR } from '@vkontakte/vk-qr';
-import { Box, color, Flex, FlexProps } from '@stacks/ui';
 
 export const QrCode = memo(({ principal, ...rest }: { principal: string } & FlexProps) => {
   const qrSvg = useMemo(

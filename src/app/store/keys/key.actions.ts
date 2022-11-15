@@ -1,17 +1,18 @@
+import { StacksMainnet } from '@stacks/network';
 import { generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
 
-import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { gaiaUrl } from '@shared/constants';
+import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
+import { InternalMethods } from '@shared/message-types';
+import { sendMessage } from '@shared/messages';
+
 import { AppThunk } from '@app/store';
 
 import { stxChainSlice } from '../chains/stx-chain.slice';
-import { defaultKeyId, keySlice } from './key.slice';
-import { selectCurrentKey } from './key.selectors';
-import { sendMessage } from '@shared/messages';
-import { InternalMethods } from '@shared/message-types';
-import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
-import { StacksMainnet } from '@stacks/network';
+import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
+import { selectCurrentKey } from './key.selectors';
+import { defaultKeyId, keySlice } from './key.slice';
 
 async function restoredWalletHighestGeneratedAccountIndex(secretKey: string) {
   try {

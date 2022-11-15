@@ -1,6 +1,7 @@
-import { Page } from 'playwright-core';
-import { createTestSelector } from '../integration/utils';
 import { NetworkSelectors } from '@tests/integration/network.selectors';
+import { Page } from 'playwright-core';
+
+import { createTestSelector } from '../integration/utils';
 
 const selectors = {
   $networkName: createTestSelector(NetworkSelectors.NetworkName),

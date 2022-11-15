@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import get from 'lodash.get';
 
 export function useHasApprovedOperation() {

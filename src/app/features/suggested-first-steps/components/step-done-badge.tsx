@@ -1,8 +1,9 @@
 import { FiCheck } from 'react-icons/fi';
-import { color, Stack } from '@stacks/ui';
+
+import { Stack, color } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 import { Caption } from '@app/components/typography';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 export function StepDoneBadge() {
   return (

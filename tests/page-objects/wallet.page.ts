@@ -1,19 +1,19 @@
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 import { Page } from 'playwright-core';
 
 import { RouteUrls } from '@shared/route-urls';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-import { HomePageSelectors } from '@tests/page-objects/home.selectors';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
 
 import {
-  createTestSelector,
-  wait,
   BrowserDriver,
+  createTestSelector,
   randomString,
   timeDifference,
+  wait,
 } from '../integration/utils';
-import { WalletPageSelectors } from './wallet.selectors';
 import { FundPageSelectors } from './fund.selectors';
+import { WalletPageSelectors } from './wallet.selectors';
 
 // TODO: This Page needs to be cleaned up -> create a HomePage?
 // Should we create one Page for each route?

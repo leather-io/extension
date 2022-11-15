@@ -1,15 +1,17 @@
 import { Outlet } from 'react-router-dom';
-import { Box, color, Flex } from '@stacks/ui';
 
+import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
+import { Box, Flex, color } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+
+import { featureFlags } from '@shared/feature-flags';
+
+import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ONBOARDING_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { Caption, Text } from '@app/components/typography';
 import { Link } from '@app/components/link';
 import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
-import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-import { featureFlags } from '@shared/feature-flags';
+import { Caption, Text } from '@app/components/typography';
 
 const WelcomeIllustration = () => (
   <Box

@@ -1,15 +1,17 @@
-import { color, Box, Stack, StackProps, useClipboard } from '@stacks/ui';
-import { Caption } from '@app/components/typography';
 import { memo } from 'react';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { Tooltip } from '@app/components/tooltip';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { FiCopy } from 'react-icons/fi';
+
+import { Box, Stack, StackProps, color, useClipboard } from '@stacks/ui';
+import { truncateMiddle } from '@stacks/ui-utils';
+import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Tooltip } from '@app/components/tooltip';
+import { Caption } from '@app/components/typography';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
-import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountNamesQuery } from '@app/query/stacks/bns/bns.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 const AccountBnsAddress = memo(() => {
   const currentAccountNamesQuery = useCurrentAccountNamesQuery();

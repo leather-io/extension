@@ -6,16 +6,15 @@ import {
   ConnectLedgerError,
   ConnectLedgerSuccessLayout,
   DeviceBusy,
+  LedgerDeviceInvalidPayload,
   LedgerDisconnected,
   LedgerPublicKeyMismatch,
   OperationRejected,
   UnsupportedBrowserLayout,
-  LedgerDeviceInvalidPayload,
 } from '../../generic-steps';
-
 import { LedgerSignTxContainer } from './ledger-sign-tx-container';
-import { ConnectLedgerSignTx } from './steps/connect-ledger-sign-tx';
 import { ApproveSignLedgerTx } from './steps/approve-sign-ledger-tx';
+import { ConnectLedgerSignTx } from './steps/connect-ledger-sign-tx';
 import { ContractPrincipalBugWarning } from './steps/contract-principal-bug-warning';
 
 export const ledgerTxSigningRoutes = (

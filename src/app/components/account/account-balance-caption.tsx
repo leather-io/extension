@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
-import { color, useMediaQuery } from '@stacks/ui';
 
-import { stacksValue } from '@app/common/stacks-utils';
-import { Caption, Text } from '@app/components/typography';
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import type { Money } from '@shared/models/money.model';
+import { useMediaQuery } from '@stacks/ui';
+
 import type { MarketData } from '@shared/models/market.model';
-import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
+import type { Money } from '@shared/models/money.model';
+
+import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
+import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { stacksValue } from '@app/common/stacks-utils';
+import { Caption, CaptionSeparatorDot } from '@app/components/typography';
 
 interface AccountBalanceCaptionProps {
   availableBalance: Money;
@@ -28,26 +30,16 @@ export function AccountBalanceCaption({
 
   const [hasSufficientLayoutWidth] = useMediaQuery('(min-width: 320px)');
 
-  const showFiatConversion =
-    availableBalance.amount.isGreaterThan(0) &&
-    marketData.price.amount.isPositive() &&
-    hasSufficientLayoutWidth;
-
   return (
     <>
-      <Text color={color('text-caption')} fontSize="10px">
-        •
-      </Text>
+      <CaptionSeparatorDot />
+
       <Caption>{balance}</Caption>
-      {showFiatConversion && hasSufficientLayoutWidth && (
+      {hasSufficientLayoutWidth && (
         <>
-          <Text color={color('text-caption')} fontSize="10px">
-            •
-          </Text>
+          <CaptionSeparatorDot />
           <Caption>
-            {formatDustUsdAmounts(
-              i18nFormatCurrency(baseCurrencyAmountInQuote(availableBalance, marketData))
-            )}
+            {i18nFormatCurrency(baseCurrencyAmountInQuote(availableBalance, marketData))}
           </Caption>
         </>
       )}
@@ -58,9 +50,7 @@ export function AccountBalanceCaption({
 export function AccountBalanceLoading() {
   return (
     <>
-      <Text color={color('text-caption')} fontSize="10px">
-        •
-      </Text>
+      <CaptionSeparatorDot />
       <Caption>Loading…</Caption>
     </>
   );

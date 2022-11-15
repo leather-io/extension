@@ -1,5 +1,5 @@
-import { QueryClient } from '@tanstack/react-query';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
+import { QueryClient } from '@tanstack/react-query';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 
 import { PERSISTENCE_CACHE_TIME } from '@shared/constants';

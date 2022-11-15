@@ -1,22 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-import { Text, Input, Stack, color, Box, useMediaQuery } from '@stacks/ui';
+
+import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
+import { Box, Input, Stack, Text, color, useMediaQuery } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 import { Form, Formik } from 'formik';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { ErrorLabel } from '@app/components/error-label';
-import { Header } from '@app/components/header';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { PrimaryButton } from '@app/components/primary-button';
-import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
-import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
 import { RouteUrls } from '@shared/route-urls';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-import { PageTitle } from '@app/components/page-title';
-import { Title } from '@app/components/typography';
+
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { ErrorLabel } from '@app/components/error-label';
 import {
   CENTERED_FULL_PAGE_MAX_WIDTH,
   DESKTOP_VIEWPORT_MIN_WIDTH,
 } from '@app/components/global-styles/full-page-styles';
+import { Header } from '@app/components/header';
+import { PageTitle } from '@app/components/page-title';
+import { PrimaryButton } from '@app/components/primary-button';
+import { Title } from '@app/components/typography';
+import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 
 export const SignIn = () => {
   const { onPaste, submitMnemonicForm, error, isLoading, ref } = useSignIn();

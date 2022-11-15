@@ -1,8 +1,10 @@
 import { Suspense } from 'react';
+
 import { Button, Stack } from '@stacks/ui';
 
-import { EditNonceField } from './edit-nonce-field';
 import { PrimaryButton } from '@app/components/primary-button';
+
+import { EditNonceField } from './edit-nonce-field';
 
 function EditNonceFormFallback() {
   return (

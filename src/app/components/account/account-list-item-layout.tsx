@@ -1,10 +1,11 @@
-import { AccountActiveCheckmark } from './account-active-checkmark';
+import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { Stack, color, Spinner, StackProps, Flex, useMediaQuery } from '@stacks/ui';
-
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+
 import { Caption } from '@app/components/typography';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
+
+import { AccountActiveCheckmark } from './account-active-checkmark';
 
 interface AccountListItemLayoutProps extends StackProps {
   isLoading: boolean;

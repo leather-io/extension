@@ -1,8 +1,8 @@
-import { getAppPrivateKey, Wallet } from '@stacks/wallet-sdk';
 import { TransactionPayload } from '@stacks/connect';
-import { decodeToken, TokenVerifier } from 'jsontokens';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
-import { getAddressFromPrivateKey, TransactionVersion } from '@stacks/transactions';
+import { TransactionVersion, getAddressFromPrivateKey } from '@stacks/transactions';
+import { Wallet, getAppPrivateKey } from '@stacks/wallet-sdk';
+import { TokenVerifier, decodeToken } from 'jsontokens';
 
 function getTransactionVersionFromRequest(tx: TransactionPayload) {
   const { network } = tx;

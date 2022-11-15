@@ -1,4 +1,4 @@
-import { Svg, BoxProps } from '@stacks/ui';
+import { BoxProps, Svg } from '@stacks/ui';
 
 export const StxIcon = (props: BoxProps) => (
   <Svg height="39" width="39" fill="none" viewBox="0 0 39 39" {...props}>

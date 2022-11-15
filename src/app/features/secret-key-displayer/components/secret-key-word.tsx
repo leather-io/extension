@@ -1,7 +1,7 @@
 import { Box, color } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 import { Text } from '@app/components/typography';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 interface SecretKeyWordProps {
   word: string;

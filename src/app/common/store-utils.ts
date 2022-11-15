@@ -1,7 +1,5 @@
+import { QueryKey, hashQueryKey } from '@tanstack/react-query';
 import hash from 'object-hash';
-import { hashQueryKey, QueryKey } from '@tanstack/react-query';
-
-import { userHasAllowedDiagnosticsKey } from '@shared/utils/storage';
 
 export function textToBytes(content: string) {
   return new TextEncoder().encode(content);
@@ -16,9 +14,9 @@ export function makeLocalDataKey(params: QueryKey): string {
 }
 
 // LocalStorage keys kept across sign-in/signout sessions
-const PERSISTENT_LOCAL_DATA: string[] = [userHasAllowedDiagnosticsKey];
+const PERSISTENT_LOCAL_DATA: string[] = [];
 
-export function clearSessionLocalData() {
+export function partiallyClearLocalStorage() {
   const backup = PERSISTENT_LOCAL_DATA.map((key: string) => [key, localStorage.getItem(key)]);
 
   localStorage.clear();

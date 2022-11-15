@@ -1,11 +1,12 @@
-import { color, Box, Flex } from '@stacks/ui';
-
 import SignLedgerTransaction from '@assets/images/ledger/sign-ledger-transaction.png';
+import { Box, Flex, color } from '@stacks/ui';
+
 import { DividerSeparator } from '@app/components/divider-separator';
+
+import { DeviceOperationApprovalStatus } from '../../components/device-approval-status';
+import { LedgerScreenDetail } from '../../components/ledger-screen-detail';
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
-import { LedgerScreenDetail } from '../../components/ledger-screen-detail';
-import { DeviceOperationApprovalStatus } from '../../components/device-approval-status';
 
 interface ApproveLedgerOperationLayoutProps {
   description: string;

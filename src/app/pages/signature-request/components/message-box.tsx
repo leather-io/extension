@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
 import { bytesToHex } from '@stacks/common';
 import { hashMessage } from '@stacks/encryption';
-import { Box, color, Stack, Text } from '@stacks/ui';
-import { useEffect, useState } from 'react';
+import { Box, Stack, Text, color } from '@stacks/ui';
+
 import { HashDrawer } from './hash-drawer';
 
 interface MessageBoxProps {

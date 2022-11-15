@@ -1,23 +1,24 @@
 import { memo } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { PopupHeader } from '@app/features/current-account/popup-header';
 import {
   isSignatureMessageType,
   isStructuredMessage,
   isUtf8Message,
 } from '@shared/signature/types';
+
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { WarningLabel } from '@app/components/warning-label';
+import { PopupHeader } from '@app/features/current-account/popup-header';
+import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import {
   useIsSignatureRequestValid,
   useSignatureRequestSearchParams,
 } from '@app/store/signatures/requests.hooks';
-import { WarningLabel } from '@app/components/warning-label';
-import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
-import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
 import { SignatureRequestMessageContent } from './components/message-content';
 import { SignatureRequestLayout } from './components/signature-request.layout';
+import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
 
 function SignatureRequestBase() {
   const validSignatureRequest = useIsSignatureRequestValid();

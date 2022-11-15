@@ -1,6 +1,7 @@
-import { Box, Button, Stack } from '@stacks/ui';
-import { PrimaryButton } from '@app/components/primary-button';
 import LedgerDisconnected from '@assets/images/ledger/ledger-disconnected.png';
+import { Box, Button, Stack } from '@stacks/ui';
+
+import { PrimaryButton } from '@app/components/primary-button';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';

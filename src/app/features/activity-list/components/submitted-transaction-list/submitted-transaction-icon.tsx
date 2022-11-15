@@ -1,11 +1,12 @@
-import { addressToString, PayloadType, StacksTransaction } from '@stacks/transactions';
+import { PayloadType, StacksTransaction, addressToString } from '@stacks/transactions';
 import { BoxProps, DynamicColorCircle } from '@stacks/ui';
 
-import { StxIcon } from '@app/components/icons/stx-icon';
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
-import { TransactionTypeIcon } from '@app/components/transaction/transaction-type-icon';
+import { StxIcon } from '@app/components/icons/stx-icon';
 import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
+import { TransactionTypeIcon } from '@app/components/transaction/transaction-type-icon';
 
 interface SubmittedTransactionIconProps extends BoxProps {
   transaction: StacksTransaction;

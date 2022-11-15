@@ -1,14 +1,16 @@
 import {
+  Wallet,
   createWalletGaiaConfig,
   generateNewAccount,
   updateWalletConfig,
-  Wallet,
 } from '@stacks/wallet-sdk';
 
 import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { saveWalletConfigLocally } from '@shared/utils/wallet-config-helper';
+
 import { AppThunk } from '@app/store';
+
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { stxChainSlice } from './stx-chain.slice';
 

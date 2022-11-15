@@ -1,12 +1,18 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { EventParams, PageParams } from '@segment/analytics-next/dist/pkg/core/arguments-resolver';
 
-import { analytics } from '@shared/utils/analytics';
+import {
+  EventParams,
+  PageParams,
+} from '@segment/analytics-next/dist/types/core/arguments-resolver';
+
+import { IS_TEST_ENV } from '@shared/environment';
 import { logger } from '@shared/logger';
+import { analytics } from '@shared/utils/analytics';
+
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { IS_TEST_ENV } from '@shared/environment';
+import { useHasUserExplicitlyDeclinedAnalytics } from '@app/store/settings/settings.selectors';
 
 const IGNORED_PATH_REGEXPS = [/^\/$/];
 
@@ -23,10 +29,12 @@ export function useAnalytics() {
   const location = useLocation();
   const { walletType } = useWalletType();
 
+  const hasDeclined = useHasUserExplicitlyDeclinedAnalytics();
+
   return useMemo(() => {
     const defaultProperties = {
       network: currentNetwork.name.toLowerCase(),
-      usingDefaultHiroApi: isHiroApiUrl(currentNetwork.url),
+      usingDefaultHiroApi: isHiroApiUrl(currentNetwork.chain.stacks.url),
       route: location.pathname,
       version: VERSION,
       walletType,
@@ -43,8 +51,11 @@ export function useAnalytics() {
         const opts = { ...defaultOptions, ...options };
         logger.info(`Analytics page view: ${name}`, properties);
 
-        if (!analytics || IS_TEST_ENV) return;
+        if (!analytics) return;
+        if (hasDeclined) return;
+        if (IS_TEST_ENV) return;
         if (typeof name === 'string' && isIgnoredPath(name)) return;
+
         return analytics.page(category, name, prop, opts, ...rest).catch(logger.error);
       },
       async track(...args: EventParams) {
@@ -53,9 +64,18 @@ export function useAnalytics() {
         const opts = { ...defaultOptions, ...options };
         logger.info(`Analytics event: ${eventName}`, properties);
 
-        if (!analytics || IS_TEST_ENV) return;
+        if (!analytics) return;
+        if (hasDeclined) return;
+        if (IS_TEST_ENV) return;
+
         return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
       },
     };
-  }, [currentNetwork.name, currentNetwork.url, location.pathname, walletType]);
+  }, [
+    currentNetwork.chain.stacks.url,
+    currentNetwork.name,
+    location.pathname,
+    walletType,
+    hasDeclined,
+  ]);
 }

@@ -1,7 +1,8 @@
 import { Stack } from '@stacks/ui';
 
-import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
+
+import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
 
 interface StacksFtCryptoAssetsProps {
   assetBalances: StacksFungibleTokenAssetBalance[];

@@ -1,14 +1,17 @@
-import { memo, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Suspense, memo } from 'react';
 import { FiArrowUp } from 'react-icons/fi';
-import { ButtonProps } from '@stacks/ui';
+import { useNavigate } from 'react-router-dom';
 
-import { RouteUrls } from '@shared/route-urls';
-import { PrimaryButton } from '@app/components/primary-button';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { whenPageMode } from '@app/common/utils';
+import { ButtonProps } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/page-objects/home.selectors';
+
+import { featureFlags } from '@shared/feature-flags';
+import { RouteUrls } from '@shared/route-urls';
+
+import { useWalletType } from '@app/common/use-wallet-type';
+import { whenPageMode } from '@app/common/utils';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { PrimaryButton } from '@app/components/primary-button';
 import {
   useStacksCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
@@ -37,11 +40,19 @@ const SendButtonSuspense = () => {
       onClick={() =>
         whenWallet({
           ledger: () =>
-            whenPageMode({
-              full: () => navigate(RouteUrls.Send),
-              popup: () => openIndexPageInNewTab(RouteUrls.Send),
-            })(),
-          software: () => navigate(RouteUrls.Send),
+            featureFlags.bitcoinEnabled
+              ? whenPageMode({
+                  full: () => navigate(RouteUrls.SendCryptoAsset),
+                  popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
+                })()
+              : whenPageMode({
+                  full: () => navigate(RouteUrls.Send),
+                  popup: () => openIndexPageInNewTab(RouteUrls.Send),
+                })(),
+          software: () =>
+            featureFlags.bitcoinEnabled
+              ? navigate(RouteUrls.SendCryptoAsset)
+              : navigate(RouteUrls.Send),
         })()
       }
       isDisabled={isDisabled}

@@ -1,6 +1,8 @@
-import { createMarketData, createMarketPair, MarketData } from '@shared/models/market.model';
-import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import BigNumber from 'bignumber.js';
+
+import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
+import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
+
 import { baseCurrencyAmountInQuote, convertAmountToFractionalUnit } from './calculate-money';
 
 const tenMicroStx = createMoney(10, 'STX');

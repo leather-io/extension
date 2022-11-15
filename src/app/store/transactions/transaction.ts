@@ -1,4 +1,3 @@
-import { atom } from 'jotai';
 import {
   AddressVersion,
   AuthType,
@@ -6,9 +5,10 @@ import {
   StacksTransaction,
   TransactionVersion,
 } from '@stacks/transactions';
+import { atom } from 'jotai';
 
-import { whenStxChainId } from '@app/common/utils';
 import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
+import { whenStxChainId } from '@app/common/utils';
 import { currentNetworkAtom } from '@app/store/networks/networks';
 
 export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
@@ -23,7 +23,7 @@ export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
 }
 
 export const transactionNetworkVersionState = atom(get => {
-  const chainId = get(currentNetworkAtom)?.chainId;
+  const chainId = get(currentNetworkAtom)?.chain.stacks.chainId;
 
   const defaultChainId = TransactionVersion.Testnet;
   if (!chainId) return defaultChainId;
@@ -35,7 +35,7 @@ export const transactionNetworkVersionState = atom(get => {
 });
 
 export const addressNetworkVersionState = atom(get => {
-  const chainId = get(currentNetworkAtom)?.chainId;
+  const chainId = get(currentNetworkAtom)?.chain.stacks.chainId;
   return whenStxChainId(chainId)({
     [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
     [ChainID.Testnet]: AddressVersion.TestnetSingleSig,

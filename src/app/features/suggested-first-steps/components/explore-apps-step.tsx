@@ -1,7 +1,8 @@
-import ExploreAppsFull from '@assets/images/onboarding/steps/explore-apps-light.png';
+import ExploreAppsPopupDone from '@assets/images/onboarding/steps/explore-apps-light-done-sm.png';
 import ExploreAppsFullDone from '@assets/images/onboarding/steps/explore-apps-light-done.png';
 import ExploreAppsPopup from '@assets/images/onboarding/steps/explore-apps-light-sm.png';
-import ExploreAppsPopupDone from '@assets/images/onboarding/steps/explore-apps-light-done-sm.png';
+import ExploreAppsFull from '@assets/images/onboarding/steps/explore-apps-light.png';
+
 import { SuggestedFirstSteps } from '@shared/models/onboarding-types';
 
 import { SuggestedFirstStep } from './suggested-first-step';

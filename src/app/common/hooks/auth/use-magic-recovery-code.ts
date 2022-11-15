@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { decrypt } from '@stacks/wallet-sdk';
+
+import { RouteUrls } from '@shared/route-urls';
+
+import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { useWallet } from '@app/common/hooks/use-wallet';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { RouteUrls } from '@shared/route-urls';
-import { decrypt } from '@stacks/wallet-sdk';
-import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { delay } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
+import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 
 function pullMagicRecoveryCodeFromParams(urlSearchParams: URLSearchParams) {
   return urlSearchParams.get('magicRecoveryCode');

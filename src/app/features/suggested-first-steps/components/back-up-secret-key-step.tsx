@@ -1,7 +1,8 @@
-import BackUpSecretKeyFull from '@assets/images/onboarding/steps/backup-key-light.png';
+import BackUpSecretKeyPopupDone from '@assets/images/onboarding/steps/backup-key-light-done-sm.png';
 import BackUpSecretKeyFullDone from '@assets/images/onboarding/steps/backup-key-light-done.png';
 import BackUpSecretKeyPopup from '@assets/images/onboarding/steps/backup-key-light-sm.png';
-import BackUpSecretKeyPopupDone from '@assets/images/onboarding/steps/backup-key-light-done-sm.png';
+import BackUpSecretKeyFull from '@assets/images/onboarding/steps/backup-key-light.png';
+
 import { SuggestedFirstSteps } from '@shared/models/onboarding-types';
 
 import { SuggestedFirstStep } from './suggested-first-step';

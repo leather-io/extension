@@ -1,17 +1,18 @@
 import { useMemo } from 'react';
 
-import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
-import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
-import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
-import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 
+import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
+import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
+import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
+import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
+
+import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
 import { NoAccountActivity } from './components/no-account-activity';
+import { PendingTransactionList } from './components/pending-transaction-list/pending-transaction-list';
 import { SubmittedTransactionList } from './components/submitted-transaction-list/submitted-transaction-list';
 import { TransactionList } from './components/transaction-list/transaction-list';
-import { PendingTransactionList } from './components/pending-transaction-list/pending-transaction-list';
-import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
 
 export const ActivityList = () => {
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
@@ -39,6 +40,7 @@ export const ActivityList = () => {
     () => convertBitcoinTxsToListType(bitcoinTransactions),
     [bitcoinTransactions]
   );
+
   const transactionListStacksTxs = useMemo(
     () => convertStacksTxsToListType(stacksTransactionsWithTransfers?.results),
     [stacksTransactionsWithTransfers]

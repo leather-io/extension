@@ -1,15 +1,17 @@
 import { useState } from 'react';
+
 import { Button, Stack } from '@stacks/ui';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { createDelay } from '@app/common/utils';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 import { logger } from '@shared/logger';
 import { SignatureMessage } from '@shared/signature/types';
 import { isString } from '@shared/utils';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { createDelay } from '@app/common/utils';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 import { useSignMessageSoftwareWallet } from '../sign-message.hooks';
 

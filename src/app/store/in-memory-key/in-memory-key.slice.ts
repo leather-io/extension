@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { defaultKeyId, keySlice } from '../keys/key.slice';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { logger } from '@shared/logger';
+
+import { defaultKeyId, keySlice } from '../keys/key.slice';
 
 interface InMemoryKeyState {
   hasRestoredKeys: boolean;

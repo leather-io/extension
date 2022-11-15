@@ -1,9 +1,11 @@
-import { Box, BoxProps, color, Flex, Stack } from '@stacks/ui';
-
-import { Caption, Title } from '@app/components/typography';
-import { getUrlHostname } from '@app/common/utils';
+import { Box, BoxProps, Flex, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
+
 import { NetworkConfiguration } from '@shared/constants';
+
+import { getUrlHostname } from '@app/common/utils';
+import { Caption, Title } from '@app/components/typography';
+
 import { NetworkStatusIndicator } from './network-status-indicator';
 
 interface NetworkListItemLayoutProps extends BoxProps {
@@ -46,7 +48,7 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
           >
             {network.name}
           </Title>
-          <Caption>{getUrlHostname(network.url)}</Caption>
+          <Caption>{getUrlHostname(network.chain.stacks.url)}</Caption>
         </Stack>
         <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
       </Flex>

@@ -1,8 +1,10 @@
-import { BrowserDriver, createTestSelector, randomString, setupBrowser } from '../utils';
-import { WalletPage } from '../../page-objects/wallet.page';
 import { RouteUrls } from '@shared/route-urls';
-import { SettingsSelectors } from '../settings.selectors';
+
 import { delay } from '@app/common/utils';
+
+import { WalletPage } from '../../page-objects/wallet.page';
+import { SettingsSelectors } from '../settings.selectors';
+import { BrowserDriver, createTestSelector, randomString, setupBrowser } from '../utils';
 
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
@@ -87,6 +89,7 @@ describe(`Settings integration tests`, () => {
     await wallet.page.click(createTestSelector(SettingsSelectors.SignOutListItem));
     await wallet.page.click(wallet.$signOutConfirmHasBackupCheckbox);
     await wallet.page.click(wallet.$signOutDeleteWalletBtn);
+    await wallet.clickDenyAnalytics();
     await wallet.clickSignIn();
     await wallet.enterSecretKey(secretKey);
     const password = randomString(15);

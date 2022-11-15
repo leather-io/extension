@@ -1,6 +1,6 @@
 export interface SendFormValues {
-  assetId: string;
   amount: number | string;
+  assetId: string;
   fee: number | string;
   feeType: string;
   recipient: string;

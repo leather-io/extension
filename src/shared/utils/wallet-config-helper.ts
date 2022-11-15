@@ -1,8 +1,9 @@
-import { setToLocalstorageIfDefined } from '@shared/utils/storage';
 import { WalletConfig } from '@stacks/wallet-sdk';
-import { createWalletGaiaConfig, getOrCreateWalletConfig, Wallet } from '@stacks/wallet-sdk';
+import { Wallet, createWalletGaiaConfig, getOrCreateWalletConfig } from '@stacks/wallet-sdk';
+
 import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
+import { setToLocalstorageIfDefined } from '@shared/utils/storage';
 
 export function saveWalletConfigLocally(walletConfig: WalletConfig) {
   setToLocalstorageIfDefined('walletConfig', JSON.stringify(walletConfig));

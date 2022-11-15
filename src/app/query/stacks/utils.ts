@@ -1,7 +1,8 @@
 import { Configuration, Middleware, RequestContext } from '@stacks/blockchain-api-client';
 
-import { fetcher as fetchApi } from '@app/common/api/wrapped-fetch';
 import { MICROBLOCKS_ENABLED } from '@shared/constants';
+
+import { fetcher as fetchApi } from '@app/common/api/wrapped-fetch';
 
 const unanchoredStacksMiddleware: Middleware = {
   pre: (context: RequestContext) => {

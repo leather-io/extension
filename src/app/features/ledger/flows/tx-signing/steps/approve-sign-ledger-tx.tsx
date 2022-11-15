@@ -1,14 +1,14 @@
 import { useContext, useMemo } from 'react';
-import { cvToString, PayloadType } from '@stacks/transactions';
+
+import { PayloadType, cvToString } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
 import { microStxToStx } from '@app/common/stacks-utils';
-
-import { ledgerTxSigningContext } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.context';
-import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
-import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-transfer';
+import { ledgerTxSigningContext } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.context';
+import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
+import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 const sipTenTransferArguments = ['Amount', 'Sender', 'To', 'Memo'];
 

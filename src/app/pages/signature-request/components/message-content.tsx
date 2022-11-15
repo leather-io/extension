@@ -1,6 +1,9 @@
-import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
-import { SignatureMessageType } from '@shared/signature/types';
 import { ChainID } from '@stacks/common';
+
+import { SignatureMessageType } from '@shared/signature/types';
+
+import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
+
 import { MessageBox } from './message-box';
 import { Disclaimer } from './message-signing-disclaimer';
 import { NetworkRow } from './network-row';

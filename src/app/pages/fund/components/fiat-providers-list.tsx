@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+
 import { Grid } from '@stacks/ui';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -7,8 +10,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import {
   useActiveFiatProviders,
   useHasFiatProviders,
-} from '@app/query/stacks/hiro-config/hiro-config.query';
-import { RouteUrls } from '@shared/route-urls';
+} from '@app/query/common/hiro-config/hiro-config.query';
 
 import { FiatProviderItem } from './fiat-provider-item';
 import { activeFiatProviderIcons, getProviderUrl } from './fiat-providers.utils';

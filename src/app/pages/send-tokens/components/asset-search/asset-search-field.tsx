@@ -1,12 +1,13 @@
 import { useRef } from 'react';
+
+import { Box, Flex, Input, Text } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 import { useCombobox } from 'downshift';
-import { Box, Text, Flex, Input } from '@stacks/ui';
 
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { AssetSearchResults } from './asset-search-results';
 

@@ -1,14 +1,17 @@
-import { useState, useCallback, FormEvent } from 'react';
-import { Box, color, Input, Stack } from '@stacks/ui';
+import { FormEvent, useCallback, useState } from 'react';
+
 import UnlockSession from '@assets/images/unlock-session.png';
-import { Text } from '@app/components/typography';
-import { PageTitle } from '@app/components/page-title';
-import { useWaitingMessage, WaitingMessages } from '@app/common/utils/use-waiting-message';
-import { useWallet } from '@app/common/hooks/use-wallet';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Box, Input, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { buildEnterKeyEvent } from './link';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useWallet } from '@app/common/hooks/use-wallet';
+import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
+import { PageTitle } from '@app/components/page-title';
+import { Text } from '@app/components/typography';
+
 import { ErrorLabel } from './error-label';
+import { buildEnterKeyEvent } from './link';
 import { PrimaryButton } from './primary-button';
 
 const waitingMessages: WaitingMessages = {

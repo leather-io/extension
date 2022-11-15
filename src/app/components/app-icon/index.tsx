@@ -1,7 +1,7 @@
 import { Box, BoxProps } from '@stacks/ui';
 
-import { Image } from '@app/components/image';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
+import { Image } from '@app/components/image';
 
 export const AppIcon = (props: BoxProps) => {
   const { name, icon } = useAppDetails();

@@ -1,12 +1,13 @@
 import dayjs from 'dayjs';
 
+import { isUndefined } from '@shared/utils';
+
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@app/common/date-utils';
 import {
   TransactionListBitcoinTx,
   TransactionListStacksTx,
   TransactionListTxs,
 } from '@app/features/activity-list/components/transaction-list/transaction-list.model';
-import { isUndefined } from '@shared/utils';
 
 export function getTransactionId(listTx: TransactionListTxs) {
   switch (listTx.blockchain) {

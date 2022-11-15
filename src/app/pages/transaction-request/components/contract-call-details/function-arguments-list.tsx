@@ -1,4 +1,5 @@
-import { memo, Suspense } from 'react';
+import { Suspense, memo } from 'react';
+
 import { Stack, StackProps } from '@stacks/ui';
 
 import { Divider } from '@app/components/divider';

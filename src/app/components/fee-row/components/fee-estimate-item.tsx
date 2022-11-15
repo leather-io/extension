@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { FiCheck, FiChevronDown } from 'react-icons/fi';
-import { color, Stack } from '@stacks/ui';
+
+import { Stack, color } from '@stacks/ui';
 
 import { SpaceBetween } from '@app/components/space-between';
 import { Caption } from '@app/components/typography';

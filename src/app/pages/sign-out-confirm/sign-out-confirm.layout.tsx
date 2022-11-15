@@ -1,11 +1,12 @@
 import { FC } from 'react';
+
+import { Box, Button, Flex, Text, color } from '@stacks/ui';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
 import { useFormik } from 'formik';
 
-import { Body, Caption } from '@app/components/typography';
-import { Box, Button, Flex, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { Body, Caption } from '@app/components/typography';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
@@ -28,11 +29,20 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
       <Box mx="loose" mb="extra-loose">
         <form onChange={form.handleChange} onSubmit={form.handleSubmit}>
           <Body>
-            When you sign out,
-            {whenWallet({
-              software: ` you'll need your Secret Key to sign back in. Only sign out if you've backed up your Secret Key.`,
-              ledger: ` you'll need to reconnect your Ledger to sign back into your wallet.`,
-            })}
+            <p>
+              When you sign out,
+              {whenWallet({
+                software: ` you'll need your Secret Key to sign back in. Only sign out if you've backed up your Secret Key.`,
+                ledger: ` you'll need to reconnect your Ledger to sign back into your wallet.`,
+              })}
+            </p>
+            <Text as="p" mt="loose" fontWeight="bold">
+              {whenWallet({
+                software:
+                  "⚠️ If you haven't backed up your Secret Key, you will loose all your funds.",
+                ledger: '',
+              })}
+            </Text>
           </Body>
 
           <Flex

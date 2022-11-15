@@ -1,22 +1,24 @@
 import { memo } from 'react';
 import { Navigate } from 'react-router-dom';
+
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
-import { color, Stack, Fade, Flex } from '@stacks/ui';
+import { Fade, Flex, Stack, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
-import { stacksValue } from '@app/common/stacks-utils';
-import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { useDrawers } from '@app/common/hooks/use-drawers';
-import { Caption } from '@app/components/typography';
-import { SpaceBetween } from '@app/components/space-between';
-import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
-import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { RouteUrls } from '@shared/route-urls';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { stacksValue } from '@app/common/stacks-utils';
 import { PrimaryButton } from '@app/components/primary-button';
 import { SecondaryButton } from '@app/components/secondary-button';
+import { SpaceBetween } from '@app/components/space-between';
+import { Caption } from '@app/components/typography';
+import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;
@@ -54,7 +56,7 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
 
   return (
     <ErrorMessage

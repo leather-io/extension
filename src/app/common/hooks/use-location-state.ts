@@ -1,6 +1,8 @@
-import { useLocation } from 'react-router-dom';
-import get from 'lodash.get';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import get from 'lodash.get';
+
 import { isUndefined } from '@shared/utils';
 
 export function useLocationState(propName: string): string | undefined;

@@ -1,9 +1,10 @@
-import { AvailableRegions } from '@app/query/stacks/hiro-config/hiro-config.query';
 import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
 
+import { AvailableRegions } from '@app/query/common/hiro-config/hiro-config.query';
+
 import { FastCheckoutBadge } from './fast-checkout-badge';
-import { ZeroPercentFeesBadge } from './zero-percent-fees-badge';
 import { FundAccountTile } from './fund-account-tile';
+import { ZeroPercentFeesBadge } from './zero-percent-fees-badge';
 
 const availableInsideUnitedStatesDescription = 'Available only inside of the US';
 const availableOutsideUnitedStatesDescription = 'Available only outside of the US';

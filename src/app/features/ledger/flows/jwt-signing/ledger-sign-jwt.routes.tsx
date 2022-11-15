@@ -9,7 +9,6 @@ import {
   LedgerDisconnected,
   OperationRejected,
 } from '../../generic-steps';
-
 import { LedgerSignJwtContainer } from './ledger-sign-jwt-container';
 import { ConnectLedgerSignJwt } from './steps/connect-ledger-sign-jwt';
 import { SignJwtHash } from './steps/sign-jwt-hash';

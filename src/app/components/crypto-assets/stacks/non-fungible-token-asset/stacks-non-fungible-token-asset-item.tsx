@@ -1,10 +1,12 @@
 import { forwardRef } from 'react';
+
 import { StackProps } from '@stacks/ui';
 import { getAssetName } from '@stacks/ui-utils';
 
 import type { StacksNonFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
-import { formatContractId } from '@app/common/utils';
+
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { formatContractId } from '@app/common/utils';
 
 import { StacksNonFungibleTokenAssetItemLayout } from './stacks-non-fungible-token-asset-item.layout';
 

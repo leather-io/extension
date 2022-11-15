@@ -1,17 +1,16 @@
 import { useMemo } from 'react';
 
-import {
-  useAccountsNonFungibleTokenHoldings,
-  useNonFungibleTokenHoldings,
-} from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
-import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/onboarding-types';
+
 import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useAllAccountsAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useAccountsNonFungibleTokenHoldings } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
+import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.query';
+import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
 import {
   useHideSuggestedFirstSteps,
   useSuggestedFirstStepsStatus,
 } from '@app/store/onboarding/onboarding.selectors';
-import { SuggestedFirstSteps, SuggestedFirstStepStatus } from '@shared/models/onboarding-types';
-import { useAllAccountsAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 
 export function useSuggestedFirstSteps() {
   const accounts = useAccounts();
@@ -19,7 +18,9 @@ export function useSuggestedFirstSteps() {
   const hasHiddenSuggestedFirstSteps = useHideSuggestedFirstSteps();
   const stepsStatus = useSuggestedFirstStepsStatus();
   const availableStxBalance = useCurrentAccountAvailableStxBalance();
-  const nonFungibleTokenHoldings = useNonFungibleTokenHoldings(currentAccount?.address);
+  const { data: nonFungibleTokenHoldings } = useGetNonFungibleTokenHoldingsQuery(
+    currentAccount?.address
+  );
 
   const firstFiveAccounts = accounts?.slice(0, 5);
   const accountsAvailableStxBalance = useAllAccountsAvailableStxBalance(firstFiveAccounts);

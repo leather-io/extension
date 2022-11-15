@@ -1,20 +1,21 @@
 import type { ClipboardEvent } from 'react';
-import BigNumber from 'bignumber.js';
+
 import { hexToBytes } from '@stacks/common';
 import {
   BytesReader,
   ChainID,
-  deserializePostCondition,
   PostCondition,
+  deserializePostCondition,
 } from '@stacks/transactions';
+import BigNumber from 'bignumber.js';
 
 import { DefaultNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
-import type {
-  StacksCryptoCurrencyAsset,
-  StacksFungibleTokenAsset,
-} from '@shared/models/crypto-asset.model';
+import {
+  StacksCryptoCurrencyAssetBalance,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -272,12 +273,13 @@ export function formatContractId(address: string, name: string) {
 }
 
 export function getFullyQualifiedStacksAssetName(
-  asset: StacksCryptoCurrencyAsset | StacksFungibleTokenAsset
+  assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
 ) {
-  if (asset.type === 'crypto-currency') return '::stacks-token';
-  return `${formatContractId(asset.contractAddress, asset.contractName)}::${
-    asset.contractAssetName
-  }`;
+  if (assetBalance.type === 'crypto-currency') return '::stacks-token';
+  return `${formatContractId(
+    assetBalance.asset.contractAddress,
+    assetBalance.asset.contractName
+  )}::${assetBalance.asset.contractAssetName}`;
 }
 
 export function doesBrowserSupportWebUsbApi() {

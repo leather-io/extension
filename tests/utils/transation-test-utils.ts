@@ -1,14 +1,13 @@
-import { ContractCallOptions, makeContractCallToken, UserData } from '@stacks/connect';
+import { ContractCallOptions, UserData, makeContractCallToken } from '@stacks/connect';
+import { StacksTestnet } from '@stacks/network';
 import {
-  PostConditionMode,
-  makeStandardFungiblePostCondition,
   FungibleConditionCode,
+  PostConditionMode,
   createAssetInfo,
+  makeStandardFungiblePostCondition,
   serializePostCondition,
 } from '@stacks/transactions';
 import BN from 'bn.js';
-
-import { StacksTestnet } from '@stacks/network';
 
 (window as any).fetch = jest.fn(() => ({
   text: () => Promise.resolve(1),

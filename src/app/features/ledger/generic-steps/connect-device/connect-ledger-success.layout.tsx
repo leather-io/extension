@@ -1,7 +1,8 @@
 import ConnectLedgerSuccess from '@assets/images/ledger/connect-ledger-success.png';
-import { LedgerSuccessLabel } from '../../components/success-label';
+
 import { LedgerConnectInstructionTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
+import { LedgerSuccessLabel } from '../../components/success-label';
 
 export function ConnectLedgerSuccessLayout() {
   return (

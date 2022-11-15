@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
+
 import BigNumber from 'bignumber.js';
 
-import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
+import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
+
+import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 import {
   useCurrentAccountAnchoredBalances,
   useCurrentAccountAvailableStxBalance,
@@ -16,15 +19,17 @@ import {
   createStacksCryptoCurrencyAssetTypeWrapper,
   mergeStacksFungibleTokenAssetBalances,
 } from './crypto-asset-balances.utils';
-import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 
 export function useStacksCryptoCurrencyAssetBalance() {
   const { data: balances } = useCurrentAccountUnanchoredBalances();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
   return useMemo(() => {
     const subBalance =
       balances?.stx.balance.amount.minus(balances.stx.locked.amount) ?? new BigNumber(0);
-    return createStacksCryptoCurrencyAssetTypeWrapper(availableStxBalance, subBalance);
+    return createStacksCryptoCurrencyAssetTypeWrapper(
+      availableStxBalance ?? new BigNumber(0),
+      subBalance
+    );
   }, [availableStxBalance, balances]);
 }
 
@@ -114,7 +119,7 @@ export function useSelectedStacksCryptoAssetBalance(selectedAssetId: string) {
   return useMemo(
     () =>
       [stxCryptoCurrencyAssetBalance, ...stacksFtCryptoAssetBalances].find(
-        assetBalance => getFullyQualifiedStacksAssetName(assetBalance.asset) === selectedAssetId
+        assetBalance => getFullyQualifiedStacksAssetName(assetBalance) === selectedAssetId
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedAssetId]

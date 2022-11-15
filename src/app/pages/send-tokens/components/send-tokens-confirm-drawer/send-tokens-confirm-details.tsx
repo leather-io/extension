@@ -1,12 +1,12 @@
 import { Flex, StackProps } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 import { getIconString } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { EventCard } from '@app/components/event-card';
 import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
-import { getStacksFungibleTokenCurrencyAsset } from '@app/query/stacks/balance/crypto-asset-balances.utils';
 
 interface SendTokensConfirmDetailsProps extends StackProps {
   amount: number | string;
@@ -17,8 +17,9 @@ export function SendTokensConfirmDetails(props: SendTokensConfirmDetailsProps): 
   const { amount, assetId, recipient, ...rest } = props;
   const { selectedAssetBalance, ticker } = useSelectedAssetBalance(assetId);
   const currentAccount = useCurrentAccount();
-  const tokenCurrencyAsset = getStacksFungibleTokenCurrencyAsset(selectedAssetBalance);
-  const icon = tokenCurrencyAsset ? getIconString(tokenCurrencyAsset) : '';
+  const tokenCurrencyAssetBalance =
+    getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
+  const icon = tokenCurrencyAssetBalance ? getIconString(tokenCurrencyAssetBalance.asset) : '';
 
   return (
     <Flex

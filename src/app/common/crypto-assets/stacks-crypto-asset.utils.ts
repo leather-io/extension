@@ -1,7 +1,8 @@
-import { abbreviateNumber } from '@app/common/utils';
+import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
 import { isUndefined } from '@shared/utils';
 import { isValidUrl } from '@shared/utils/validate-url';
-import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
+
+import { abbreviateNumber } from '@app/common/utils';
 
 import { convertUnicodeToAscii } from '../string-utils';
 

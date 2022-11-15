@@ -1,9 +1,9 @@
-import { Flex, FlexProps } from '@stacks/ui';
-
-import { Caption } from '@app/components/typography';
 import NoFunds from '@assets/images/no-funds.png';
+import { Flex, FlexProps } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+
 import { SecondaryButton } from '@app/components/secondary-button';
+import { Caption } from '@app/components/typography';
 
 interface FundAccountProps extends FlexProps {
   onFundAccount(): void;

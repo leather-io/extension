@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
-import { Box, color, Stack } from '@stacks/ui';
 
+import { Box, Stack, color } from '@stacks/ui';
+
+import { Balance } from '@app/components/balance';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { CurrentStxAddress } from '@app/features/current-account/current-stx-address';
-
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { Balance } from '@app/components/balance';
 
 interface PopupHeaderLayoutProps {
   children: React.ReactNode;

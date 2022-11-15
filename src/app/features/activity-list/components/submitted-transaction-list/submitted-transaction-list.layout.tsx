@@ -1,6 +1,7 @@
 import { ReactNode, useMemo } from 'react';
+
 import { deserializeTransaction } from '@stacks/transactions';
-import { color, Stack, Text } from '@stacks/ui';
+import { Stack, Text, color } from '@stacks/ui';
 
 import { SubmittedTransactionItem } from '@app/features/activity-list/components/submitted-transaction-list/submitted-transaction-item';
 import { SubmittedTransaction } from '@app/store/submitted-transactions/submitted-transactions.slice';

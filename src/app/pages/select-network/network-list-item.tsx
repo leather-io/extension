@@ -1,7 +1,7 @@
-import { useNetworkStatus } from '@app/query/stacks/network/network.hooks';
-
-import { useCurrentNetworkId, useNetworks } from '@app/store/networks/networks.selectors';
 import { defaultCurrentNetwork } from '@shared/constants';
+
+import { useNetworkStatus } from '@app/query/stacks/network/network.hooks';
+import { useCurrentNetworkId, useNetworks } from '@app/store/networks/networks.selectors';
 
 import { NetworkListItemLayout } from './components/network-list-item.layout';
 
@@ -14,7 +14,7 @@ export function NetworkListItem({ networkId, onNetworkSelected }: NetworkListIte
   const networks = useNetworks();
 
   const network = networks[networkId] || defaultCurrentNetwork;
-  const isOnline = useNetworkStatus(network.url);
+  const isOnline = useNetworkStatus(network.chain.stacks.url);
 
   return (
     <NetworkListItemLayout

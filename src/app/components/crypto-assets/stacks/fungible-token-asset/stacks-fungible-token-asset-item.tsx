@@ -1,15 +1,18 @@
 import { forwardRef } from 'react';
+
 import { StackProps } from '@stacks/ui';
 import { getAssetName } from '@stacks/ui-utils';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
-import { formatContractId, getTicker } from '@app/common/utils';
+
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { formatContractId, getTicker } from '@app/common/utils';
 
 import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asset-item.layout';
 
 interface StacksFungibleTokenAssetItemProps extends StackProps {
   assetBalance: StacksFungibleTokenAssetBalance;
+  isPressable?: boolean;
 }
 export const StacksFungibleTokenAssetItem = forwardRef(
   (props: StacksFungibleTokenAssetItemProps, ref) => {

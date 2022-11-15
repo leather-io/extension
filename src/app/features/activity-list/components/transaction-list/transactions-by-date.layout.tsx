@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { Box, color, Stack, Text } from '@stacks/ui';
+
+import { Box, Stack, Text, color } from '@stacks/ui';
 
 interface TransactionByDateLayoutProps {
   children: ReactNode;

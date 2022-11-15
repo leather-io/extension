@@ -1,9 +1,10 @@
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
-import { color, Text } from '@stacks/ui';
+import { Text, color } from '@stacks/ui';
 import { isPendingTx } from '@stacks/ui-utils';
 
-import { Tooltip } from '@app/components/tooltip';
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+
+import { Tooltip } from '@app/components/tooltip';
 
 import { PendingLabel } from '../transaction/pending-label';
 

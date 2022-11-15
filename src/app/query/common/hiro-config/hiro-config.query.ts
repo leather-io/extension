@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
+import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { BRANCH_NAME } from '@shared/environment';
 import { isUndefined } from '@shared/utils';
-import get from 'lodash.get';
 
 export interface HiroMessage {
   title: string;

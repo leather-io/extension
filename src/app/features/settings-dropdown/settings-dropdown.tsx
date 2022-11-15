@@ -1,27 +1,30 @@
 import { useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, SlideFade, color, Flex } from '@stacks/ui';
 
-import { Caption } from '@app/components/typography';
+import { Box, Flex, SlideFade, color } from '@stacks/ui';
+import { SettingsSelectors } from '@tests/integration/settings.selectors';
+
+import { RouteUrls } from '@shared/route-urls';
+
+import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useWallet } from '@app/common/hooks/use-wallet';
-import { useDrawers } from '@app/common/hooks/use-drawers';
-import { RouteUrls } from '@shared/route-urls';
+import { useWalletType } from '@app/common/use-wallet-type';
 import { Divider } from '@app/components/divider';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
-import { useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { Overlay } from '@app/components/overlay';
+import { Caption } from '@app/components/typography';
+import { useHasCreatedAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
+
+import { extractDeviceNameFromKnownTargetIds } from '../ledger/ledger-utils';
+import { AdvancedMenuItems } from './components/advanced-menu-items';
+import { LedgerDeviceItemRow } from './components/ledger-item-row';
 import { SettingsMenuItem as MenuItem } from './components/settings-menu-item';
 import { MenuWrapper } from './components/settings-menu-wrapper';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { LedgerDeviceItemRow } from './components/ledger-item-row';
-import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
-import { extractDeviceNameFromKnownTargetIds } from '../ledger/ledger-utils';
-import { useModifierKey } from '@app/common/hooks/use-modifier-key';
-import { AdvancedMenuItems } from './components/advanced-menu-items';
-import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);

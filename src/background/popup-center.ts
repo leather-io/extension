@@ -1,5 +1,6 @@
-import { POPUP_CENTER_HEIGHT, POPUP_CENTER_WIDTH } from '@shared/constants';
 import type { Windows } from 'webextension-polyfill';
+
+import { POPUP_CENTER_HEIGHT, POPUP_CENTER_WIDTH } from '@shared/constants';
 
 interface PopupOptions {
   url?: string;

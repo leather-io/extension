@@ -1,11 +1,13 @@
 import { Dispatch, SetStateAction, useRef } from 'react';
-import { color, Fade, Stack } from '@stacks/ui';
+
+import { Fade, Stack, color } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+
+import { FeeEstimate, FeeType } from '@shared/models/fees-types';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { FeeType, FeeEstimate } from '@shared/models/fees-types';
 
 import { FeeEstimateItem } from './fee-estimate-item';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
 
 interface FeeEstimateSelectProps {
   items: FeeEstimate[];

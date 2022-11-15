@@ -5,18 +5,18 @@
  https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#contentScripts
  */
 import {
+  AuthenticationRequestEvent,
+  DomEventName,
+  SignatureRequestEvent,
+  TransactionRequestEvent,
+} from '@shared/inpage-types';
+import {
   CONTENT_SCRIPT_PORT,
   ExternalMethods,
   LegacyMessageFromContentScript,
   LegacyMessageToContentScript,
   MESSAGE_SOURCE,
 } from '@shared/message-types';
-import {
-  AuthenticationRequestEvent,
-  DomEventName,
-  SignatureRequestEvent,
-  TransactionRequestEvent,
-} from '@shared/inpage-types';
 import { RouteUrls } from '@shared/route-urls';
 import { getEventSourceWindow } from '@shared/utils/get-event-source-window';
 

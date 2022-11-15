@@ -1,17 +1,19 @@
 import { forwardRef, memo } from 'react';
+
 import { Box, Stack, StackProps } from '@stacks/ui';
 
-import { SpaceBetween } from '@app/components/space-between';
-import { Caption, Text } from '@app/components/typography';
-import { usePressable } from '@app/components/item-hover';
-import { Tooltip } from '@app/components/tooltip';
-import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import type { Money } from '@shared/models/money.model';
+
+import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { ftDecimals } from '@app/common/stacks-utils';
+import { usePressable } from '@app/components/item-hover';
+import { SpaceBetween } from '@app/components/space-between';
+import { Tooltip } from '@app/components/tooltip';
+import { Caption, Text } from '@app/components/typography';
 
 import { SubBalance } from '../components/sub-balance';
 
-interface CryptoCurrencyAssetLayoutProps extends StackProps {
+interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
   caption: string;
   icon: JSX.Element;
@@ -19,8 +21,8 @@ interface CryptoCurrencyAssetLayoutProps extends StackProps {
   subBalance?: Money;
   title: string;
 }
-export const CryptoCurrencyAssetLayout = memo(
-  forwardRef((props: CryptoCurrencyAssetLayoutProps, ref) => {
+export const CryptoCurrencyAssetItemLayout = memo(
+  forwardRef((props: CryptoCurrencyAssetItemLayoutProps, ref) => {
     const { balance, caption, icon, isPressable, subBalance, title, ...rest } = props;
     const [component, bind] = usePressable(isPressable);
 

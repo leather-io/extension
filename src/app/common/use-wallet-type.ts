@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 
 type WalletType = 'ledger' | 'software';

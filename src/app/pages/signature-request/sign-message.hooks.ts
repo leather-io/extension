@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
-import { ClarityValue, createStacksPrivateKey, TupleCV } from '@stacks/transactions';
 
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { ClarityValue, TupleCV, createStacksPrivateKey } from '@stacks/transactions';
+
 import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { isString } from '@shared/utils';
+
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 export function useSignMessageSoftwareWallet() {
   const account = useCurrentAccount();

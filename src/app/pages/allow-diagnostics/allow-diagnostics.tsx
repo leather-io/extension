@@ -1,37 +1,49 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { initSegment, initSentry } from '@shared/utils/analytics';
-import { Header } from '@app/components/header';
-import { useHasAllowedDiagnostics } from '@app/store/onboarding/onboarding.hooks';
 import { RouteUrls } from '@shared/route-urls';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { Header } from '@app/components/header';
+import { settingsActions } from '@app/store/settings/settings.actions';
 
 import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
 
 export const AllowDiagnosticsPage = () => {
   const navigate = useNavigate();
-  const [, setHasAllowedDiagnostics] = useHasAllowedDiagnostics();
+  const dispatch = useDispatch();
+  const analytics = useAnalytics();
+  const { pathname } = useLocation();
+
+  useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
   useRouteHeader(<Header hideActions />);
 
-  const goToOnboardingAndSetDiagnosticsPermissionTo = useCallback(
-    (areDiagnosticsAllowed: boolean | undefined) => {
-      if (typeof areDiagnosticsAllowed === undefined) return;
-      setHasAllowedDiagnostics(areDiagnosticsAllowed);
-      if (areDiagnosticsAllowed) {
-        initSentry();
-        void initSegment();
-      }
+  const setDiagnosticsPermissionsAndGoToOnboarding = useCallback(
+    (areDiagnosticsAllowed: boolean) => {
+      dispatch(settingsActions.setHasAllowedAnalytics(areDiagnosticsAllowed));
+
       navigate(RouteUrls.Onboarding);
     },
-    [navigate, setHasAllowedDiagnostics]
+    [navigate, dispatch]
   );
 
   return (
     <AllowDiagnosticsLayout
-      onUserDenyDiagnosticsPermissions={() => goToOnboardingAndSetDiagnosticsPermissionTo(false)}
-      onUserAllowDiagnostics={() => goToOnboardingAndSetDiagnosticsPermissionTo(true)}
+      onUserDenyDiagnostics={() => {
+        void analytics.track('respond_diagnostics_consent', {
+          areDiagnosticsAllowed: false,
+        });
+        setDiagnosticsPermissionsAndGoToOnboarding(false);
+      }}
+      onUserAllowDiagnostics={() => {
+        void analytics.track('respond_diagnostics_consent', {
+          areDiagnosticsAllowed: true,
+        });
+        setDiagnosticsPermissionsAndGoToOnboarding(true);
+      }}
     />
   );
 };

@@ -1,11 +1,11 @@
-import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import {
   AuthenticationResponseMessage,
   ExternalMethods,
   MESSAGE_SOURCE,
 } from '@shared/message-types';
-import { isValidUrl } from '@shared/utils/validate-url';
+import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import { analytics } from '@shared/utils/analytics';
+import { isValidUrl } from '@shared/utils/validate-url';
 
 interface FormatAuthResponseArgs {
   request: string;
@@ -56,7 +56,7 @@ export function finalizeAuthResponse({
   const origin = new URL(requestingOrigin);
 
   if (redirectUri.hostname !== origin.hostname) {
-    void analytics.track('auth_response_with_illegal_redirect_uri');
+    analytics?.track('auth_response_with_illegal_redirect_uri');
     throw new Error('Cannot redirect to a different domain than the one requesting');
   }
 

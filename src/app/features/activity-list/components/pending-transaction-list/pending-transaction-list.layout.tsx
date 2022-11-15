@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { color, Stack, Text } from '@stacks/ui';
+
+import { Stack, Text, color } from '@stacks/ui';
 
 interface PendingTransactionListLayoutProps {
   children: ReactNode;

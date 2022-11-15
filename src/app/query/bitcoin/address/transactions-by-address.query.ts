@@ -1,7 +1,8 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
+
+import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
 const staleTime = 15 * 60 * 1000;
 

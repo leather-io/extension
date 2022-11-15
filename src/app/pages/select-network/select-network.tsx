@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
-import { NetworkListLayout } from '@app/pages/select-network/components/network-list.layout';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { NetworkListLayout } from '@app/pages/select-network/components/network-list.layout';
 import { NetworkListItem } from '@app/pages/select-network/network-list-item';
-import { useNetworks } from '@app/store/networks/networks.selectors';
-import { AddNetworkButton } from './components/add-network-button';
 import { useNetworksActions } from '@app/store/networks/networks.hooks';
+import { useNetworks } from '@app/store/networks/networks.selectors';
+
+import { AddNetworkButton } from './components/add-network-button';
 
 export function SelectNetwork() {
   const navigate = useNavigate();

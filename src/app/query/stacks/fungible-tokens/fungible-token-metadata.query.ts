@@ -1,11 +1,11 @@
-import { useQueries, useQuery, UseQueryResult } from '@tanstack/react-query';
+import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 import { RateLimiter } from 'limiter';
 
 import { isResponseCode } from '@app/common/network/is-response-code';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
 
@@ -40,7 +40,7 @@ export function useGetFungibleTokenMetadataQuery(
   const network = useCurrentNetworkState();
 
   return useQuery({
-    queryKey: ['get-ft-metadata', contractId, network.url],
+    queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
     queryFn: fetchUnanchoredAccountInfo(client)(contractId),
     ...queryOptions,
   });
@@ -54,7 +54,7 @@ export function useGetFungibleTokenMetadataListQuery(
 
   return useQueries({
     queries: contractIds.map(contractId => ({
-      queryKey: ['get-ft-metadata', contractId, network.url],
+      queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
       queryFn: fetchUnanchoredAccountInfo(client)(contractId),
       ...queryOptions,
     })),

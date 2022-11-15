@@ -1,9 +1,10 @@
-import { Page } from 'playwright-core';
-import { createTestSelector } from '../integration/utils';
-import { SendFormSelectors } from './send-form.selectors';
+import { AssetSelectors } from '@tests/integration/asset.selectors';
 import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
 import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
-import { AssetSelectors } from '@tests/integration/asset.selectors';
+import { Page } from 'playwright-core';
+
+import { createTestSelector } from '../integration/utils';
+import { SendFormSelectors } from './send-form.selectors';
 
 const selectors = {
   $btnSendMaxBalance: createTestSelector(SendFormSelectors.BtnSendMaxBalance),

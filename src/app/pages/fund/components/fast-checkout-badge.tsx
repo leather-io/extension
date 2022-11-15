@@ -1,6 +1,7 @@
 import { FiZap } from 'react-icons/fi';
 
-import { color, Stack } from '@stacks/ui';
+import { Stack, color } from '@stacks/ui';
+
 import { Caption } from '@app/components/typography';
 
 export function FastCheckoutBadge() {

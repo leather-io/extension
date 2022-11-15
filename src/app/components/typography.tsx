@@ -1,6 +1,5 @@
-import { BoxProps, color, Text as BaseText } from '@stacks/ui';
+import { Text as BaseText, BoxProps, color } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
-import capsize from 'capsize';
 
 const interMetrics = {
   capHeight: 2048,
@@ -17,54 +16,54 @@ const openSauceMetrics = {
   unitsPerEm: 2048,
 };
 
-const h1 = capsize({
+const h1 = {
   fontMetrics: openSauceMetrics,
   fontSize: 24,
   leading: 32,
-});
+};
 
 // B2
-const h2 = capsize({
+const h2 = {
   fontMetrics: openSauceMetrics,
   fontSize: 18,
   leading: 28,
-});
+};
 // B3
-const h3 = capsize({
+const h3 = {
   fontMetrics: openSauceMetrics,
   fontSize: 16,
   leading: 24,
-});
+};
 // C1
-const h4 = capsize({
+const h4 = {
   fontMetrics: openSauceMetrics,
   fontSize: 14,
   leading: 20,
-});
+};
 // C2
-const h5 = capsize({
+const h5 = {
   fontMetrics: openSauceMetrics,
   fontSize: 12,
   leading: 16,
-});
+};
 
-const c1 = capsize({
+const c1 = {
   fontMetrics: interMetrics,
   fontSize: 14,
   leading: 20,
-});
+};
 
-const c2 = capsize({
+const c2 = {
   fontMetrics: interMetrics,
   fontSize: 12,
   leading: 16,
-});
+};
 
-const c3 = capsize({
+const c3 = {
   fontMetrics: interMetrics,
   fontSize: 10,
   leading: 16,
-});
+};
 
 const captionStyles = (variant?: 'c1' | 'c2' | 'c3') => {
   switch (variant) {
@@ -97,35 +96,19 @@ const titleStyles = (as: Headings) => {
   }
 };
 
-interface TitleProps extends BoxProps {
-  /** Removes ::before pseudoelement inserted by capsize */
-  removeBeforePseudoElement?: boolean;
-}
-export const Title = forwardRefWithAs<TitleProps, Headings>(
-  ({ removeBeforePseudoElement, ...restProps }, ref) => {
-    // This is to prevent tall graphemes (like emojis, some chinese characters,
-    // and others) getting cut off by pseudoelements inserted by capsize, which
-    // is due for removal:
-    // https://github.com/hirosystems/stacks-wallet-web/issues/2344
-    const styleObject = removeBeforePseudoElement
-      ? { ...titleStyles(restProps.as), ['::before']: undefined }
-      : titleStyles(restProps.as);
-
-    return (
-      <BaseText
-        userSelect="none"
-        letterSpacing="-0.01em"
-        fontFamily="'Open Sauce One'"
-        fontWeight="500"
-        color={color('text-title')}
-        ref={ref}
-        display="block"
-        css={styleObject}
-        {...restProps}
-      />
-    );
-  }
-);
+export const Title = forwardRefWithAs<BoxProps, Headings>((props, ref) => (
+  <BaseText
+    userSelect="none"
+    letterSpacing="-0.01em"
+    fontFamily="'Open Sauce One'"
+    fontWeight="500"
+    color={color('text-title')}
+    ref={ref}
+    display="block"
+    css={titleStyles(props.as)}
+    {...props}
+  />
+));
 
 export const Text = forwardRefWithAs<BoxProps, 'span'>((props, ref) => (
   <BaseText
@@ -152,3 +135,11 @@ export const Caption = forwardRefWithAs<{ variant?: 'c1' | 'c2' | 'c3' } & BoxPr
     />
   )
 );
+
+export function CaptionSeparatorDot(props: BoxProps) {
+  return (
+    <Text color={color('text-caption')} fontSize="10px" {...props}>
+      •
+    </Text>
+  );
+}

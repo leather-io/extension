@@ -1,6 +1,7 @@
-import { Flex, Box, Text } from '@stacks/ui';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { useState } from 'react';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+
+import { Box, Flex, Text } from '@stacks/ui';
 
 interface ShowHashButtonProps {
   expanded: boolean;

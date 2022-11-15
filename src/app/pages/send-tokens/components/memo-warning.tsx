@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { Flex, Box, color, Text } from '@stacks/ui';
 import { FiInfo } from 'react-icons/fi';
+
+import { Box, Flex, Text, color } from '@stacks/ui';
 
 interface MemoWarningProps {
   symbol: string;

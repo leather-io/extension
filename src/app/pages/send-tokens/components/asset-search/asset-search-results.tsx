@@ -1,13 +1,15 @@
 import { forwardRef } from 'react';
-import { Fade, color, Stack, StackProps } from '@stacks/ui';
 
-import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
-import { CryptoCurrencyAsset } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { Fade, Stack, StackProps, color } from '@stacks/ui';
+
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
+
+import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
+import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
 
 interface AssetSearchResultsProps extends StackProps {
   assetBalances: (StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance)[];
@@ -52,12 +54,11 @@ export const AssetSearchResults = forwardRef(
           >
             {assetBalances.map((assetBalance, index) => {
               const isStx =
-                assetBalance.asset.blockchain === 'stacks' &&
-                assetBalance.asset.type === 'crypto-currency';
+                assetBalance.blockchain === 'stacks' && assetBalance.type === 'crypto-currency';
               if (isStx && !hasStxBalance) return null;
               if (isStx)
                 return (
-                  <CryptoCurrencyAsset
+                  <CryptoCurrencyAssetItem
                     assetBalance={assetBalance}
                     data-testid={assetBalance.asset.symbol}
                     highlighted={highlightedIndex === index ? 'ink.150' : 'white'}

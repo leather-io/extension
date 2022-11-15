@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
 import { logger } from '@shared/logger';
+
 import { ApproveLedgerOperationLayout } from '../../../generic-steps';
 import { useHasApprovedOperation } from '../../../hooks/use-has-approved-transaction';
 import { ledgerMsgSigningContext } from '../ledger-sign-msg.context';

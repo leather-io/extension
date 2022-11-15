@@ -1,6 +1,7 @@
 import { FiAlertCircle } from 'react-icons/fi';
+
 import { PostConditionMode } from '@stacks/transactions';
-import { Box, color, Flex, Text } from '@stacks/ui';
+import { Box, Flex, Text, color } from '@stacks/ui';
 
 import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
 

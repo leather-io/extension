@@ -1,7 +1,7 @@
+import NoActivity from '@assets/images/no-activity.png';
 import { Stack } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
-import NoActivity from '@assets/images/no-activity.png';
 
 export function NoAccountActivity() {
   return (

@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { useField, useFormikContext } from 'formik';
-import { Button, Stack } from '@stacks/ui';
 
-import { stxToMicroStx } from '@app/common/stacks-utils';
+import { Button, Stack } from '@stacks/ui';
+import { useField, useFormikContext } from 'formik';
+
+import { RouteUrls } from '@shared/route-urls';
+
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import { stxToMicroStx } from '@app/common/stacks-utils';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { RouteUrls } from '@shared/route-urls';
 
 interface IncreaseFeeActionsProps {
   currentFee: number;

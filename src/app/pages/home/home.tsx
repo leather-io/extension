@@ -1,27 +1,26 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+
 import { Flex, Stack } from '@stacks/ui';
-
-import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { Header } from '@app/components/header';
-import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
-import { ActivityList } from '@app/features/activity-list/activity-list';
-import { BalancesList } from '@app/features/balances-list/balances-list';
-import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
-
-import { HomeActions } from '@app/pages/home/components/home-actions';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
+
+import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
+import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import { Header } from '@app/components/header';
+import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
+import { ActivityList } from '@app/features/activity-list/activity-list';
+import { BalancesList } from '@app/features/balances-list/balances-list';
+import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
+import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
+import { HomeActions } from '@app/pages/home/components/home-actions';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
-import { HomeTabs } from './components/home-tabs';
-
-import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
-import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 import { CurrentAccount } from './components/account-area';
+import { HomeTabs } from './components/home-tabs';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();

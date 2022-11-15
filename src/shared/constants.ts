@@ -1,6 +1,7 @@
 import { ChainID } from '@stacks/transactions';
 
 import { IS_TEST_ENV } from './environment';
+import { Blockchains } from './models/blockchain.model';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
@@ -31,11 +32,28 @@ export enum DefaultNetworkConfigurationIds {
 
 export type DefaultNetworkConfigurations = keyof typeof DefaultNetworkConfigurationIds;
 
-export interface NetworkConfiguration {
-  chainId: ChainID;
-  id: DefaultNetworkConfigurations;
-  name: string;
+interface BaseChainConfig {
+  blockchain: Blockchains;
+}
+
+interface BitcoinChainConfig extends BaseChainConfig {
+  blockchain: 'bitcoin';
   url: string;
+}
+
+interface StacksChainConfig extends BaseChainConfig {
+  blockchain: 'stacks';
+  url: string;
+  chainId: ChainID;
+}
+
+export interface NetworkConfiguration {
+  name: string;
+  id: DefaultNetworkConfigurations;
+  chain: {
+    bitcoin: BitcoinChainConfig;
+    stacks: StacksChainConfig;
+  };
 }
 
 export enum DefaultNetworkModes {
@@ -53,27 +71,63 @@ export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/ap
 
 export const BITCOIN_TEST_ADDRESS = '';
 
-export const defaultCurrentNetwork = {
-  chainId: ChainID.Mainnet,
+const networkMainnet: NetworkConfiguration = {
   id: DefaultNetworkConfigurationIds.mainnet,
   name: 'Mainnet',
-  url: DEFAULT_SERVER_MAINNET,
-} as const;
+  chain: {
+    stacks: {
+      blockchain: 'stacks',
+      chainId: ChainID.Mainnet,
+      url: DEFAULT_SERVER_MAINNET,
+    },
+    bitcoin: {
+      blockchain: 'bitcoin',
+      url: BITCOIN_API_BASE_URL_MAINNET,
+    },
+  },
+};
 
-export const defaultNetworksKeyedById = {
-  [DefaultNetworkConfigurationIds.mainnet]: defaultCurrentNetwork,
-  [DefaultNetworkConfigurationIds.testnet]: {
-    chainId: ChainID.Testnet,
-    id: DefaultNetworkConfigurationIds.testnet,
-    name: 'Testnet',
-    url: DEFAULT_SERVER_TESTNET,
+const networkTestnet: NetworkConfiguration = {
+  id: DefaultNetworkConfigurationIds.testnet,
+  name: 'Testnet',
+  chain: {
+    stacks: {
+      blockchain: 'stacks',
+      chainId: ChainID.Testnet,
+      url: DEFAULT_SERVER_TESTNET,
+    },
+    bitcoin: {
+      blockchain: 'bitcoin',
+      url: BITCOIN_API_BASE_URL_TESTNET,
+    },
   },
-  [DefaultNetworkConfigurationIds.devnet]: {
-    chainId: ChainID.Testnet,
-    id: DefaultNetworkConfigurationIds.devnet,
-    name: 'Devnet',
-    url: 'http://localhost:3999',
+};
+
+const networkDevnet: NetworkConfiguration = {
+  id: DefaultNetworkConfigurationIds.devnet,
+  name: 'Devnet',
+  chain: {
+    stacks: {
+      blockchain: 'stacks',
+      chainId: ChainID.Testnet,
+      url: 'http://localhost:3999',
+    },
+    bitcoin: {
+      blockchain: 'bitcoin',
+      url: BITCOIN_API_BASE_URL_TESTNET,
+    },
   },
+};
+
+export const defaultCurrentNetwork: NetworkConfiguration = networkMainnet;
+
+export const defaultNetworksKeyedById: Record<
+  DefaultNetworkConfigurationIds,
+  NetworkConfiguration
+> = {
+  [DefaultNetworkConfigurationIds.mainnet]: networkMainnet,
+  [DefaultNetworkConfigurationIds.testnet]: networkTestnet,
+  [DefaultNetworkConfigurationIds.devnet]: networkDevnet,
 };
 
 export enum QueryRefreshRates {

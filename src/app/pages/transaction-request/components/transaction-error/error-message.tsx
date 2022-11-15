@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
-import { Box, color, Stack, StackProps } from '@stacks/ui';
+
+import { Box, Stack, StackProps, color } from '@stacks/ui';
 
 import { Caption, Text } from '@app/components/typography';
 

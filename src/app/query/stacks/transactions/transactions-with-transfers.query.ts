@@ -1,14 +1,11 @@
-import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { AddressTransactionsWithTransfersListResponse } from '@stacks/stacks-blockchain-api-types';
+import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
+
+import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
-import { AddressTransactionsWithTransfersListResponse } from '@stacks/stacks-blockchain-api-types';
-
-enum AccountClientKeys {
-  TransactionsWithTransfersClient = 'account/TransactionsWithTransfersClient',
-}
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const queryOptions = {
   refetchInterval: QueryRefreshRates.MEDIUM,
@@ -19,7 +16,7 @@ const queryOptions = {
 
 export function useGetAccountTransactionsWithTransfersQuery() {
   const principal = useCurrentAccountStxAddressState();
-  const { url: networkUrl } = useCurrentNetworkState();
+  const { chain } = useCurrentNetworkState();
   const client = useStacksClient();
   const fetch = () => {
     if (!principal) return;
@@ -30,9 +27,9 @@ export function useGetAccountTransactionsWithTransfersQuery() {
   };
 
   return useQuery({
-    queryKey: [AccountClientKeys.TransactionsWithTransfersClient, principal, networkUrl],
+    queryKey: ['account-txs-with-transfers', principal, chain.stacks.url],
     queryFn: fetch,
-    enabled: !!principal || !!networkUrl,
+    enabled: !!principal && !!chain.stacks.url,
     ...queryOptions,
   }) as UseQueryResult<AddressTransactionsWithTransfersListResponse, Error>;
 }

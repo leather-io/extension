@@ -1,12 +1,12 @@
+import { Account, Wallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
-import { Wallet, Account } from '@stacks/wallet-sdk';
 
 import { textToBytes } from '@app/common/store-utils';
 
 import { storeAtom } from '..';
+import { accountsWithAddressState } from '../accounts/accounts';
 import { deriveWalletWithAccounts } from '../chains/stx-chain.selectors';
 import { defaultKeyId } from '../keys/key.slice';
-import { accountsWithAddressState } from '../accounts/accounts';
 
 export const softwareWalletState = atom(async get => {
   const store = get(storeAtom);

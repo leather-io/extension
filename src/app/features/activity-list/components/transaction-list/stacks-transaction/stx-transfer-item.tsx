@@ -1,14 +1,16 @@
 import { FiArrowDown, FiArrowUp } from 'react-icons/fi';
+
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import { stacksValue } from '@app/common/stacks-utils';
-import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { getTxCaption } from '@app/common/transactions/stacks/transaction.utils';
 import {
   StxTransfer,
   TxTransferDetails,
 } from '@shared/models/transactions/stacks-transaction.model';
+
+import { stacksValue } from '@app/common/stacks-utils';
+import { getTxCaption } from '@app/common/transactions/stacks/transaction.utils';
+import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
 

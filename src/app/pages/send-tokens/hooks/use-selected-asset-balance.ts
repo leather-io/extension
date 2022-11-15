@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
+import { formatMoney } from '@app/common/money/format-money';
+import { ftDecimals } from '@app/common/stacks-utils';
 import { getTicker } from '@app/common/utils';
-import { ftDecimals, stacksValue } from '@app/common/stacks-utils';
 import { useSelectedStacksCryptoAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
 export function useSelectedAssetBalance(assetId: string) {
@@ -9,28 +10,30 @@ export function useSelectedAssetBalance(assetId: string) {
 
   return useMemo(() => {
     const isStx =
-      selectedAssetBalance?.asset.blockchain === 'stacks' &&
-      selectedAssetBalance.asset.type === 'crypto-currency';
+      selectedAssetBalance?.blockchain === 'stacks' &&
+      selectedAssetBalance.type === 'crypto-currency';
 
-    const stxBalance = stacksValue({
-      value: selectedAssetBalance?.balance.amount || 0,
-      withTicker: false,
-    });
+    const formattedSelectedAssetBalance = selectedAssetBalance?.balance
+      ? formatMoney(selectedAssetBalance.balance)
+      : '';
 
     const ftBalance = selectedAssetBalance?.asset.decimals
       ? ftDecimals(selectedAssetBalance.balance.amount, selectedAssetBalance.asset.decimals)
       : selectedAssetBalance?.balance.amount.toFormat();
+
     const ticker = selectedAssetBalance
       ? selectedAssetBalance.asset.symbol || getTicker(selectedAssetBalance.asset.name)
       : null;
+
     const hasDecimals =
       selectedAssetBalance?.asset.decimals && selectedAssetBalance.asset.decimals > 0;
+
     const placeholder = `0${
-      hasDecimals ? `.${'0'.repeat(isStx ? 6 : selectedAssetBalance.asset.decimals || 0)}` : ''
+      hasDecimals ? `.${'0'.repeat(selectedAssetBalance.asset.decimals ?? 0)}` : ''
     } ${ticker}`;
 
     return {
-      balance: stxBalance || ftBalance,
+      balance: formattedSelectedAssetBalance || ftBalance,
       isStx,
       name: selectedAssetBalance?.asset.name,
       placeholder,

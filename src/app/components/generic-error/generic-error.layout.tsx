@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
-import { Box, Flex, Text, color, Button } from '@stacks/ui';
+
+import GenericError from '@assets/images/generic-error.png';
+import { Box, Button, Flex, Text, color } from '@stacks/ui';
 
 import { Title } from '@app/components/typography';
-import GenericError from '@assets/images/generic-error.png';
 
 interface ErrorProps {
   body: string;

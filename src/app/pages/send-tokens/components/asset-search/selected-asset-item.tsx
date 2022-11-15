@@ -1,16 +1,17 @@
 import { memo } from 'react';
-import { useField } from 'formik';
-import { Box, ChevronIcon, Text, color, Stack, BoxProps } from '@stacks/ui';
 
-import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { Caption } from '@app/components/typography';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { Box, BoxProps, ChevronIcon, Stack, Text, color } from '@stacks/ui';
+import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { useField } from 'formik';
+
 import {
   getGradientString,
   getImageCanonicalUri,
 } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
-import { getStacksFungibleTokenCurrencyAsset } from '@app/query/stacks/balance/crypto-asset-balances.utils';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { Caption } from '@app/components/typography';
+import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.utils';
 
 interface SelectedAssetItemProps extends BoxProps {
   hideArrow?: boolean;
@@ -20,10 +21,16 @@ export const SelectedAssetItem = memo(
   ({ hideArrow, onClearSearch, ...rest }: SelectedAssetItemProps) => {
     const [field] = useField('assetId');
     const { isStx, name, selectedAssetBalance, ticker } = useSelectedAssetBalance(field.value);
-    const tokenCurrencyAsset = getStacksFungibleTokenCurrencyAsset(selectedAssetBalance);
-    const gradientString = tokenCurrencyAsset ? getGradientString(tokenCurrencyAsset) : '';
-    const imageCanonicalUri = tokenCurrencyAsset
-      ? getImageCanonicalUri(tokenCurrencyAsset.imageCanonicalUri, tokenCurrencyAsset.name)
+    const tokenCurrencyAssetBalance =
+      getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
+    const gradientString = tokenCurrencyAssetBalance
+      ? getGradientString(tokenCurrencyAssetBalance.asset)
+      : '';
+    const imageCanonicalUri = tokenCurrencyAssetBalance
+      ? getImageCanonicalUri(
+          tokenCurrencyAssetBalance.asset.imageCanonicalUri,
+          tokenCurrencyAssetBalance.asset.name
+        )
       : '';
 
     return (

@@ -1,14 +1,14 @@
 import { StacksTransaction } from '@stacks/transactions';
-import { Box, BoxProps, color, Stack } from '@stacks/ui';
+import { Box, BoxProps, Stack, color } from '@stacks/ui';
 
-import { usePressable } from '@app/components/item-hover';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
+import { usePressable } from '@app/components/item-hover';
 import { SpaceBetween } from '@app/components/space-between';
-import { Caption, Title } from '@app/components/typography';
 import { Tooltip } from '@app/components/tooltip';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
+import { Caption, Title } from '@app/components/typography';
 import { SubmittedTransactionIcon } from '@app/features/activity-list/components/submitted-transaction-list/submitted-transaction-icon';
-import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';
 

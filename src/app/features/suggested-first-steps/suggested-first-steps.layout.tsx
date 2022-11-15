@@ -1,10 +1,11 @@
 import { FiX } from 'react-icons/fi';
-import { Circle, color, Flex, Grid, GridProps, Stack } from '@stacks/ui';
+
+import { Circle, Flex, Grid, GridProps, Stack, color } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { SpaceBetween } from '@app/components/space-between';
 import { Text, Title } from '@app/components/typography';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
 
 interface SuggestedFirstStepsLayoutProps extends GridProps {
   onDismissSteps(): void;

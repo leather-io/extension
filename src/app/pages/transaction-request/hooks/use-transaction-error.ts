@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
-import BigNumber from 'bignumber.js';
-import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 
+import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
+import BigNumber from 'bignumber.js';
+
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 export function useTransactionError() {
@@ -16,7 +17,7 @@ export function useTransactionError() {
   const { origin } = useDefaultRequestParams();
 
   const currentAccount = useCurrentAccount();
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;

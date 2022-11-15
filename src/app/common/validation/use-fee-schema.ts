@@ -1,19 +1,21 @@
 import { useCallback } from 'react';
+
 import BigNumber from 'bignumber.js';
 
 import { STX_DECIMALS } from '@shared/constants';
-import { stxAmountSchema } from '@app/common/validation/currency-schema';
+import { isNumber } from '@shared/utils';
+
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { SendFormErrorMessages } from '@app/common/error-messages';
-import { isNumber } from '@shared/utils';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 import { stxToMicroStx } from '@app/common/stacks-utils';
+import { stxAmountSchema } from '@app/common/validation/currency-schema';
+import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
 
 /**
  * @param amountToSend stx amount in µSTX
  */
 export const useFeeSchema = (amountToSend?: number) => {
-  const availableStxBalance = useCurrentAccountAvailableStxBalance();
+  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
 
   return useCallback(
     () =>

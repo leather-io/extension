@@ -1,4 +1,5 @@
 import { useSecretKeyState } from '@app/store/onboarding/onboarding.hooks';
+
 import { useAuthRequestParams } from './use-auth-request-params';
 
 export function useOnboardingState() {

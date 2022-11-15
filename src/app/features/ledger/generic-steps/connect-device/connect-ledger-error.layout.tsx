@@ -1,12 +1,14 @@
 import { FiCircle } from 'react-icons/fi';
-import { Box, color, Flex, Stack } from '@stacks/ui';
 
-import { Caption } from '@app/components/typography';
 import ConnectLedgerError from '@assets/images/ledger/connect-ledger-error.png';
+import { Box, Flex, Stack, color } from '@stacks/ui';
+
 import { ErrorLabel } from '@app/components/error-label';
-import { PrimaryButton } from '@app/components/primary-button';
 import { Link } from '@app/components/link';
+import { PrimaryButton } from '@app/components/primary-button';
+import { Caption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
+
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 

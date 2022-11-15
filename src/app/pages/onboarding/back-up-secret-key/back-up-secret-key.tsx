@@ -2,6 +2,7 @@ import { memo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
+
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
