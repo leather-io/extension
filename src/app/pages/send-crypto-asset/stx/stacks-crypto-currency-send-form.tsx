@@ -4,8 +4,9 @@ import { Form, Formik } from 'formik';
 interface StacksCryptoCurrencySendFormProps {}
 export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormProps) {
   const initialValues = {
-    amount: null,
-    recipient: null,
+    amount: '',
+    symbol: '',
+    recipient: '',
     fee: null,
   };
 

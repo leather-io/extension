@@ -2,11 +2,13 @@ import { Form, Formik } from 'formik';
 
 import { logger } from '@shared/logger';
 
+import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
 
-import { AmountField } from '../send-crypto-asset-form/components/amount-field';
-import { SendAllButton } from '../send-crypto-asset-form/components/send-all-button';
+import { AmountField } from '../components/amount-field';
+import { FormFields } from '../components/form-fields';
+import { SendAllButton } from '../components/send-all-button';
 
 interface BitcoinCryptoCurrencySendFormProps {}
 export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormProps) {
@@ -17,8 +19,9 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
 
   const initialValues = {
-    amount: null,
-    recipient: null,
+    amount: '',
+    symbol: '',
+    recipient: '',
     fee: null,
   };
 
@@ -27,20 +30,15 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       <Form>
-        <legend>BTC Send Form</legend>
         <fieldset>
           <AmountField rightInputOverlay={<SendAllButton />} />
-
-          <label>
-            Recipient
-            <input type="text" />
-          </label>
-          <label>
+          <FormFields assetBalance={btcCryptoCurrencyAssetBalance} icon={<BtcIcon />} />
+          {/* <label>
             Fee (in sats)
             <input type="number" />
-          </label>
+          </label> */}
         </fieldset>
-        <button>Send BTC</button>
+        {/* <button>Send BTC</button> */}
       </Form>
     </Formik>
   );

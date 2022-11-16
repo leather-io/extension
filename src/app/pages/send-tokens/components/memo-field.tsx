@@ -29,11 +29,11 @@ export const MemoField = memo(({ value, error, ...props }: FieldProps) => {
           onChange={handleChange}
           placeholder="Enter an message (optional)"
           autoComplete="off"
-          data-testid={SendFormSelectors.MemoField}
+          data-testid={SendFormSelectors.InputMemoField}
         />
       </InputGroup>
       {error && (
-        <ErrorLabel data-testid={SendFormSelectors.MemoFieldErrorLabel}>
+        <ErrorLabel data-testid={SendFormSelectors.InputMemoFieldErrorLabel}>
           <Text textStyle="caption">{error}</Text>
         </ErrorLabel>
       )}
