@@ -26,9 +26,9 @@ import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
-import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 
 import { SendFormMemoWarning } from './memo-warning';
+import { RecipientField } from './recipient-field/recipient-field';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
