@@ -15,6 +15,8 @@ import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
+import { RecipientAccountDrawer } from './recipient-account-drawer';
+
 interface RecipientField extends StackProps {
   error?: string;
   value: string;
@@ -27,7 +29,16 @@ function RecipientFieldBase(props: RecipientField) {
   const client = useStacksClientUnanchored();
   const [resolvedBnsAddress, setResolvedBnsAddress] = useState('');
   const { onCopy, hasCopied } = useClipboard(resolvedBnsAddress);
+  const [isShowing, setIsShowing] = useState(false);
   const analytics = useAnalytics();
+
+  const closeAccountsDrawer = () => {
+    setIsShowing(false);
+  };
+
+  const showAccountsDrawer = () => {
+    setIsShowing(true);
+  };
 
   const copyToClipboard = () => {
     void analytics.track('copy_resolved_address_to_clipboard');
@@ -52,6 +63,7 @@ function RecipientFieldBase(props: RecipientField) {
         >
           Recipient
         </Text>
+        <RecipientAccountDrawer isShowing={isShowing} closeAccountsDrawer={closeAccountsDrawer} />
         <Input
           display="block"
           type="string"
@@ -79,6 +91,9 @@ function RecipientFieldBase(props: RecipientField) {
           data-testid={SendFormSelectors.InputRecipientField}
         />
       </InputGroup>
+      <Caption cursor="pointer" onClick={showAccountsDrawer}>
+        Transfer between my account
+      </Caption>
       {Boolean(resolvedBnsAddress) && (
         <Stack isInline spacing="tight">
           <Caption display="inline" data-testid={SendFormSelectors.ResolvedBnsAddressPreview}>
