@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack, StackProps } from '@stacks/ui';
+import { HomePageSelectors } from '@tests/page-objects/home.selectors';
 
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
@@ -44,7 +45,12 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
   if (noAssets) return <FundAccount onFundAccount={handleFundAccount} {...props} />;
 
   return (
-    <Stack pb="extra-loose" spacing="extra-loose" {...props}>
+    <Stack
+      pb="extra-loose"
+      spacing="extra-loose"
+      data-testid={HomePageSelectors.BalancesList}
+      {...props}
+    >
       {btcAssetBalance.balance.amount.isGreaterThan(0) && (
         <CryptoCurrencyAssetItem assetBalance={btcAssetBalance} icon={<Box as={BtcIcon} />} />
       )}
