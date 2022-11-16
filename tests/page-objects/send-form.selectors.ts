@@ -7,8 +7,8 @@ export enum SendFormSelectors {
   InputRecipientField = 'input-recipient-field',
   InputRecipientFieldErrorLabel = 'input-recipient-field-error-label',
 
-  MemoField = 'memo-field',
-  MemoFieldErrorLabel = 'memo-field-error-label',
+  InputMemoField = 'memo-field',
+  InputMemoFieldErrorLabel = 'memo-field-error-label',
 
   FeeEstimateSelect = 'fee-estimate-select',
   LowFeeOption = 'low-fee',

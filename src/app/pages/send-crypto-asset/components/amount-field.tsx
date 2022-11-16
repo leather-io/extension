@@ -1,7 +1,7 @@
 import { Box, Flex, Stack, Text, color } from '@stacks/ui';
 import { useField } from 'formik';
 
-import { amountInputId, maxInputContainerWidth, useFontResizer } from './use-font-resizer';
+import { amountInputId, maxInputContainerWidth, useFontResizer } from '../hooks/use-font-resizer';
 
 interface AmountFieldProps {
   rightInputOverlay: JSX.Element;

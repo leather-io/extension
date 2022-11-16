@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 
@@ -10,13 +10,6 @@ export const maxInputContainerWidth = 344;
 
 export function useFontResizer() {
   const [inputFontSize, setInputFontSize] = useState(maxFontSize + 'px');
-
-  useOnMount(() => {
-    const input = document.getElementById(amountInputId);
-    if (!input) return;
-
-    input.style.fontSize = maxFontSize + 'px';
-  });
 
   const onChange = useCallback(event => {
     const el = event.target;
@@ -31,12 +24,16 @@ export function useFontResizer() {
     }
   }, []);
 
-  useEffect(() => {
-    document.addEventListener('input', onChange);
+  useOnMount(() => {
+    const input = document.getElementById(amountInputId);
+    if (!input) return;
+    input.addEventListener('input', onChange);
+    input.style.fontSize = maxFontSize + 'px';
+    onChange({ target: input });
     return () => {
       document.removeEventListener('input', onChange);
     };
-  }, [onChange]);
+  });
 
   return { inputFontSize };
 }
