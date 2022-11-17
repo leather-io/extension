@@ -5,43 +5,20 @@ import { useFormikContext } from 'formik';
 import { SendFormValues } from '@shared/models/form.model';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import {
-  AccountBalanceCaption,
-  AccountBalanceLoading,
-} from '@app/components/account/account-balance-caption';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { AccountAvatarItem } from '@app/features/switch-account-drawer/components/account-avatar';
 import { AccountName } from '@app/features/switch-account-drawer/components/account-name';
-import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 
-interface AccountBalanceLabelProps {
-  address: string;
-}
-const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
-  const stxMarketData = useStxMarketData();
-  const { data: balances, isLoading } = useAccountUnanchoredBalances(address);
 
-  if (isLoading) return <AccountBalanceLoading />;
-
-  if (!balances) return null;
-
-  return (
-    <AccountBalanceCaption
-      availableBalance={balances.stx.availableStx}
-      marketData={stxMarketData}
-    />
-  );
-});
-
-interface SwitchAccountListItemProps {
+interface RecipientAccountListItemProps {
   account: AccountWithAddress;
   handleClose(): void;
 }
 export const RecipientAccountListItem = memo(
-  ({ account, handleClose }: SwitchAccountListItemProps) => {
+  ({ account, handleClose }: RecipientAccountListItemProps) => {
     const [component, bind] = usePressable(true);
     const name = useAccountDisplayName(account);
     const { setFieldValue } = useFormikContext<SendFormValues>();

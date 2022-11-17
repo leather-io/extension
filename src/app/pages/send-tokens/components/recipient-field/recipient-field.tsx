@@ -91,7 +91,13 @@ function RecipientFieldBase(props: RecipientField) {
           data-testid={SendFormSelectors.InputRecipientField}
         />
       </InputGroup>
-      <Caption cursor="pointer" onClick={showAccountsDrawer}>
+      <Caption
+        as="button"
+        textAlign="left"
+        onClick={showAccountsDrawer}
+        _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
+        color={color('brand')}
+      >
         Transfer between my account
       </Caption>
       {Boolean(resolvedBnsAddress) && (
