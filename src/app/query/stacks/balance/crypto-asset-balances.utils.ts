@@ -18,8 +18,8 @@ export function createStacksCryptoCurrencyAssetTypeWrapper(
 ): StacksCryptoCurrencyAssetBalance {
   return {
     blockchain: 'stacks',
-    balance: createMoney(balance, 'STX'),
     type: 'crypto-currency',
+    balance: createMoney(balance, 'STX'),
     asset: {
       decimals: STX_DECIMALS,
       hasMemo: true,

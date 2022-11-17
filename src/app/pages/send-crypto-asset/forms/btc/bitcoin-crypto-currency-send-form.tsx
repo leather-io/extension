@@ -1,20 +1,27 @@
+import { useNavigate } from 'react-router-dom';
+
 import { Form, Formik } from 'formik';
 
 import { logger } from '@shared/logger';
+import { RouteUrls } from '@shared/route-urls';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
 
-import { AmountField } from '../components/amount-field';
-import { FormFields } from '../components/form-fields';
-import { SendAllButton } from '../components/send-all-button';
+import { AmountField } from '../../components/amount-field';
+import { FormFieldsLayout } from '../../components/form-fields.layout';
+import { MemoField } from '../../components/memo-field';
+import { RecipientField } from '../../components/recipient-field';
+import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SendAllButton } from '../../components/send-all-button';
 
 interface BitcoinCryptoCurrencySendFormProps {}
 export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormProps) {
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
+  const navigate = useNavigate();
 
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
 
@@ -32,13 +39,17 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
       <Form>
         <fieldset>
           <AmountField rightInputOverlay={<SendAllButton />} />
-          <FormFields assetBalance={btcCryptoCurrencyAssetBalance} icon={<BtcIcon />} />
-          {/* <label>
-            Fee (in sats)
-            <input type="number" />
-          </label> */}
+          <FormFieldsLayout>
+            <SelectedAssetField
+              icon={<BtcIcon />}
+              name={btcCryptoCurrencyAssetBalance.asset.name}
+              onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
+              symbol="BTC"
+            />
+            <RecipientField />
+            <MemoField />
+          </FormFieldsLayout>
         </fieldset>
-        {/* <button>Send BTC</button> */}
       </Form>
     </Formik>
   );

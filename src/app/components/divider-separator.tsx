@@ -6,7 +6,10 @@ function Hr(props: BoxProps) {
   return <Box as="hr" width="100%" backgroundColor="#DCDDE2" {...props} />;
 }
 
-export function DividerSeparator({ children }: { children: React.ReactNode }) {
+interface DividerSeparatorProps extends BoxProps {
+  children: React.ReactNode;
+}
+export function DividerSeparator({ children, ...props }: DividerSeparatorProps) {
   const parsedChildren = Array.isArray(children) ? children : [children];
 
   return (
@@ -18,7 +21,7 @@ export function DividerSeparator({ children }: { children: React.ReactNode }) {
             cloneElement(child, {
               key: index,
             }),
-            <Hr my="base-loose" key={index.toString() + '-hr'} />,
+            <Hr {...props} key={index.toString() + '-hr'} />,
           ];
         })
         .filter((_value, index, array) => index !== array.length - 1)}
