@@ -8,12 +8,13 @@ export function RecipientField({}: RecipientFieldProps) {
   const [field] = useField('recipient');
 
   return (
-    <Flex flexDirection="column" px="base">
+    <Flex as="label" htmlFor="recipient" flexDirection="column" p="base" py="loose">
       <Text color={color('text-caption')} fontSize={0} mb="2px">
         To
       </Text>
       <Input
         _focus={{ border: 'none' }}
+        id="recipient"
         autoComplete="off"
         border="none"
         data-testid={SendFormSelectors.InputRecipientField}
@@ -21,7 +22,7 @@ export function RecipientField({}: RecipientFieldProps) {
         fontSize={2}
         height="24px"
         p="none"
-        type="string"
+        type="input"
         width="100%"
         placeholder="Address or name"
         {...field}
@@ -29,3 +30,4 @@ export function RecipientField({}: RecipientFieldProps) {
     </Flex>
   );
 }
+// border="1px solid red"

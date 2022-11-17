@@ -6,10 +6,10 @@ import { isString } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 
-import { StacksFungibleTokenSendForm } from './:fungible-token/stacks-fungible-token-send-form';
-import { BitcoinCryptoCurrencySendForm } from './btc/bitcoin-crypto-currency-send-form';
 import { SendCryptoAssetLayout } from './components/send-crypto-asset.layout';
-import { StacksCryptoCurrencySendForm } from './stx/stacks-crypto-currency-send-form';
+import { StacksFungibleTokenSendForm } from './forms/:fungible-token/stacks-fungible-token-send-form';
+import { BitcoinCryptoCurrencySendForm } from './forms/btc/bitcoin-crypto-currency-send-form';
+import { StacksCryptoCurrencySendForm } from './forms/stx/stacks-crypto-currency-send-form';
 
 export function SendCryptoAssetForm() {
   const { symbol } = useParams();

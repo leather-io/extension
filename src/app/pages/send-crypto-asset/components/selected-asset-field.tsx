@@ -1,4 +1,4 @@
-import { ChevronIcon, Flex, Text } from '@stacks/ui';
+import { Flex, Text } from '@stacks/ui';
 import { Field, useField } from 'formik';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
@@ -7,8 +7,8 @@ import { SpaceBetween } from '@app/components/space-between';
 interface SelectedAssetFieldProps {
   icon: JSX.Element;
   name: string;
-  onClickAssetGoBack(): void;
   symbol: string;
+  onClickAssetGoBack(): void;
 }
 export function SelectedAssetField({
   icon,
@@ -18,13 +18,19 @@ export function SelectedAssetField({
 }: SelectedAssetFieldProps) {
   const [, , helpers] = useField('symbol');
 
-  useOnMount(() => {
-    helpers.setValue(symbol);
-  });
+  useOnMount(() => helpers.setValue(symbol));
 
   return (
     <Field as="div" name="symbol">
-      <SpaceBetween cursor="pointer" onClick={onClickAssetGoBack} px="base">
+      <SpaceBetween
+        as="button"
+        type="button"
+        cursor="pointer"
+        onClick={onClickAssetGoBack}
+        py="loose"
+        px="base"
+        width="100%"
+      >
         <Flex alignItems="center">
           {icon}
           <Text ml="tight" mr="extra-tight">
@@ -32,8 +38,6 @@ export function SelectedAssetField({
           </Text>
           <Text>({symbol})</Text>
         </Flex>
-        {/* TODO: Do we need this if doing the same thing as header back arrow? */}
-        <ChevronIcon size="24px" direction="right" opacity={0.7} />
       </SpaceBetween>
     </Field>
   );

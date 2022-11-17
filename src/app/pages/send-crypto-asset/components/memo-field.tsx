@@ -7,12 +7,13 @@ export function MemoField({}: MemoFieldProps) {
   const [field] = useField('memo');
 
   return (
-    <Flex flexDirection="column" px="base">
+    <Flex as="label" htmlFor="memo" flexDirection="column" p="base" py="loose">
       <Text color={color('text-caption')} fontSize={0} mb="2px">
         Memo
       </Text>
       <Input
         _focus={{ border: 'none' }}
+        id="memo"
         autoComplete="off"
         border="none"
         data-testid={SendFormSelectors.InputMemoField}

@@ -33,7 +33,7 @@ export function ApproveLedgerOperationLayout(props: ApproveLedgerOperationLayout
         py="extra-loose"
         width="100%"
       >
-        <DividerSeparator>
+        <DividerSeparator my="base-loose">
           {details.map(([title, value, tooltipLabel]) => (
             <LedgerScreenDetail key={value} title={title} tooltipLabel={tooltipLabel}>
               {value}
