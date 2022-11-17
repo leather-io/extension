@@ -15,7 +15,9 @@ export const ThemeList = (props: FlexProps) => {
 
   const handleThemeSelected = useCallback(
     (theme: UserSelectedTheme) => {
-      void analytics.track(`theme_selected_${theme}`);
+      void analytics.track(`select_theme`, {
+        theme,
+      });
       setUserSelectedTheme(theme);
     },
     [analytics, setUserSelectedTheme]
