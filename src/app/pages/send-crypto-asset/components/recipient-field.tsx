@@ -8,7 +8,7 @@ export function RecipientField({}: RecipientFieldProps) {
   const [field] = useField('recipient');
 
   return (
-    <Flex as="label" htmlFor="recipient" flexDirection="column" p="base" py="loose">
+    <Flex as="label" htmlFor="recipient" flexDirection="column" p="base" py="base">
       <Text color={color('text-caption')} fontSize={0} mb="2px">
         To
       </Text>
