@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
 
+import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
@@ -14,6 +15,7 @@ import { SelectedAssetField } from '../../components/selected-asset-field';
 interface StacksCryptoCurrencySendFormProps {}
 export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormProps) {
   const navigate = useNavigate();
+
   const initialValues = {
     amount: '',
     symbol: '',
@@ -21,7 +23,9 @@ export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormPro
     fee: null,
   };
 
-  function onSubmit() {}
+  function onSubmit(values: any) {
+    logger.debug('stx submitted', values);
+  }
 
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>

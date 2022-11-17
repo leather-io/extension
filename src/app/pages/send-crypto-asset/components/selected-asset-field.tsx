@@ -27,7 +27,7 @@ export function SelectedAssetField({
         type="button"
         cursor="pointer"
         onClick={onClickAssetGoBack}
-        py="loose"
+        py="base"
         px="base"
         width="100%"
       >

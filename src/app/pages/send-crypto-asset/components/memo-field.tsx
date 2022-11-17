@@ -7,7 +7,7 @@ export function MemoField({}: MemoFieldProps) {
   const [field] = useField('memo');
 
   return (
-    <Flex as="label" htmlFor="memo" flexDirection="column" p="base" py="loose">
+    <Flex as="label" htmlFor="memo" flexDirection="column" p="base" py="base">
       <Text color={color('text-caption')} fontSize={0} mb="2px">
         Memo
       </Text>
