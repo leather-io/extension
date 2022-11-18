@@ -1,7 +1,12 @@
 import { Box, Flex, Stack, Text, color } from '@stacks/ui';
 import { useField } from 'formik';
 
-import { amountInputId, maxInputContainerWidth, useFontResizer } from '../hooks/use-font-resizer';
+import {
+  amountInputId,
+  assetSymbolId,
+  maxInputContainerWidth,
+  useFontResizer,
+} from '../hooks/use-font-resizer';
 
 interface AmountFieldProps {
   symbol: string;
@@ -9,7 +14,7 @@ interface AmountFieldProps {
 }
 export function AmountField({ symbol, rightInputOverlay }: AmountFieldProps) {
   const [field] = useField('amount');
-  const { inputFontSize } = useFontResizer();
+  const { inputFontSize, symbolTextWidth } = useFontResizer();
 
   return (
     <Stack alignItems="center" spacing="48px">
@@ -19,24 +24,27 @@ export function AmountField({ symbol, rightInputOverlay }: AmountFieldProps) {
         justifyContent="center"
         width={`${maxInputContainerWidth}px`}
       >
-        <Flex flexBasis="50%">
-          <Box
-            as="input"
-            id={amountInputId}
-            caretColor={color('accent')}
-            flexGrow={1}
-            maxLength={10} // TODO: Replace with asset decimals + 3?
-            outline="0px solid transparent"
-            placeholder="0"
-            pr="base-tight"
-            textAlign="right"
-            width="100%"
-            wordWrap="normal"
-            {...field}
-          />
-          {/* TODO: Replace with asset symbol */}
-          <Text flexShrink={2} fontSize={inputFontSize} width="100%">
-            {symbol}
+        <Flex flexGrow={1} justifyContent="flex-end">
+          <Box textAlign="right" width={`${symbolTextWidth}px`}>
+            <Box
+              as="input"
+              id={amountInputId}
+              caretColor={color('accent')}
+              fontSize="48px"
+              maxLength={10} // TODO: Replace with asset decimals + 3?
+              outline="0px solid transparent"
+              placeholder="0"
+              pr="base-tight"
+              textAlign="right"
+              width="100%"
+              wordWrap="normal"
+              {...field}
+            />
+          </Box>
+        </Flex>
+        <Flex flexGrow={1} flexShrink={2}>
+          <Text display="block" fontSize={inputFontSize} id={assetSymbolId}>
+            {symbol.toUpperCase()}
           </Text>
         </Flex>
         {/* TODO: Add errors with validations */}
