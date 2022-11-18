@@ -6,9 +6,10 @@ import { Caption } from '@app/components/typography';
 interface TextInputFieldProps {
   name: string;
   label: string;
+  lastChild?: boolean;
   placeholder: string;
 }
-export function TextInputField({ name, label, placeholder }: TextInputFieldProps) {
+export function TextInputField({ name, label, lastChild, placeholder }: TextInputFieldProps) {
   const [field, meta] = useField(name);
 
   const showError = meta.error && meta.touched;
@@ -19,6 +20,8 @@ export function TextInputField({ name, label, placeholder }: TextInputFieldProps
           content: '""',
           position: 'absolute',
           border: '2px solid #F7CDCA',
+          borderBottomLeftRadius: lastChild ? '16px' : 'unset',
+          borderBottomRightRadius: lastChild ? '16px' : 'unset',
           left: '-1px',
           right: '-1px',
           top: '-1px',

@@ -36,7 +36,7 @@ export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormPro
             symbol="STX"
           />
           <RecipientField />
-          <MemoField />
+          <MemoField lastChild />
         </FormFieldsLayout>
         <FormErrors />
         <PreviewButton />

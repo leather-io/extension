@@ -61,7 +61,7 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
             symbol="BTC"
           />
           <RecipientField />
-          <MemoField />
+          <MemoField lastChild />
         </FormFieldsLayout>
         <FormErrors />
         <PreviewButton />
