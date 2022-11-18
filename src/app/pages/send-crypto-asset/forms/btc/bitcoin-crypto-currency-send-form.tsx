@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
+import { getAddressInfo } from 'bitcoin-address-validation';
 import { Form, Formik } from 'formik';
+import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
@@ -15,6 +17,7 @@ import { MemoField } from '../../components/memo-field';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
+import { amountFieldValidator } from '../../validators/amount-validators';
 
 interface BitcoinCryptoCurrencySendFormProps {}
 export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormProps) {
@@ -29,13 +32,30 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
     amount: '',
     symbol: '',
     recipient: '',
+    memo: '',
     fee: null,
   };
 
-  function onSubmit() {}
+  function onSubmit() {
+    console.log('form submit');
+  }
+
+  const validationSchema = yup.object({
+    amount: amountFieldValidator,
+    recipient: yup.string().test(input => {
+      if (!input) return false;
+      try {
+        const addressInfo = getAddressInfo(input);
+        console.log(addressInfo);
+        return addressInfo.bech32;
+      } catch (e) {
+        return false;
+      }
+    }),
+  });
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
       <Form>
         <fieldset>
           <AmountField rightInputOverlay={<SendAllButton />} />
@@ -50,6 +70,7 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
             <MemoField />
           </FormFieldsLayout>
         </fieldset>
+        <button type="submit">Submit</button>
       </Form>
     </Formik>
   );
