@@ -29,7 +29,6 @@ export function useFontResizer() {
     if (!input) return;
     input.addEventListener('input', onChange);
     input.style.fontSize = maxFontSize + 'px';
-    onChange({ target: input });
     return () => {
       document.removeEventListener('input', onChange);
     };
