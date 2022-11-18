@@ -166,6 +166,7 @@
     "assert": "2.0.0",
     "base64url": "3.0.1",
     "bignumber.js": "9.0.2",
+    "bitcoin-address-validation": "2.2.1",
     "bitcoinjs-lib": "5.2.0",
     "bn.js": "5.2.0",
     "c32check": "1.1.3",
