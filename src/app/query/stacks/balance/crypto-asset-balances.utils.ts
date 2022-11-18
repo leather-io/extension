@@ -31,14 +31,15 @@ export function createStacksCryptoCurrencyAssetTypeWrapper(
 
 function createStacksFtCryptoAssetBalanceTypeWrapper(
   balance: BigNumber,
-  key: string
+  contractId: string
 ): StacksFungibleTokenAssetBalance {
-  const { address, contractName, assetName } = getAssetStringParts(key);
+  const { address, contractName, assetName } = getAssetStringParts(contractId);
   return {
     blockchain: 'stacks',
     type: 'fungible-token',
     balance: createMoney(balance, '', 0),
     asset: {
+      contractId,
       canTransfer: false,
       contractAddress: address,
       contractAssetName: assetName,

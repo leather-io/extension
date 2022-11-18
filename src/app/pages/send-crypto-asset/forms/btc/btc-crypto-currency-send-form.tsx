@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
+import { btcAmountSchema } from '@app/common/validation/currency-schema';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
@@ -20,7 +21,6 @@ import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
 import { createDefaultInitialFormValues } from '../../form-utils';
-import { amountFieldValidator } from '../../validators/amount-validators';
 
 interface BitcoinCryptoCurrencySendFormProps {}
 export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormProps) {
@@ -32,7 +32,6 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
 
   const initialValues = createDefaultInitialFormValues({
-    symbol: '',
     memo: '',
     fee: null,
   });
@@ -42,7 +41,7 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
   }
 
   const validationSchema = yup.object({
-    amount: amountFieldValidator,
+    amount: btcAmountSchema('Bitcoin can only be units of one-hundred million'),
     recipient: yup.string().test((input, context) => {
       if (!input) return false;
       if (!validate(input)) return context.createError({ message: 'Invalid bitcoin address' });
@@ -53,7 +52,7 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
       <Form>
-        <AmountField rightInputOverlay={<SendAllButton />} />
+        <AmountField symbol="BTC" rightInputOverlay={<SendAllButton />} />
         <FormFieldsLayout>
           <SelectedAssetField
             icon={<BtcIcon />}

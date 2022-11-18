@@ -14,6 +14,7 @@ export interface StacksCryptoCurrencyAsset {
 
 export interface StacksFungibleTokenAsset {
   canTransfer: boolean;
+  contractId: string;
   contractAddress: string;
   contractAssetName: string;
   contractName: string;

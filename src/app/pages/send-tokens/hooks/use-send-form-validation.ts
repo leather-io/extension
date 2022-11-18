@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { STX_DECIMALS } from '@shared/constants';
+import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
@@ -24,6 +25,63 @@ import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-select
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
+function makeStacksFungibleTokenSchema(balance: Money) {
+  const { amount, symbol, decimals } = balance;
+  return yup
+    .number()
+    .test((value: unknown, context) => {
+      if (!isNumber(value)) return false;
+      if (!decimals && countDecimals(value) > 0)
+        return context.createError({
+          message: SendFormErrorMessages.DoesNotSupportDecimals,
+        });
+      if (countDecimals(value) > decimals) {
+        return context.createError({ message: formatPrecisionError(symbol, decimals) });
+      }
+      return true;
+    })
+    .test({
+      message: formatInsufficientBalanceError(amount, symbol),
+      test(value: unknown) {
+        if (!isNumber(value) || !amount) return false;
+        return new BigNumber(value).isLessThanOrEqualTo(amount);
+      },
+    });
+}
+
+export function useFungibleTokenAmountSchema(selectedAssetId: string) {
+  const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
+
+  return useCallback(
+    () =>
+      yup
+        .number()
+        .test((value: unknown, context) => {
+          if (!isNumber(value) || !selectedAssetBalance) return false;
+          const { symbol, decimals } = selectedAssetBalance.asset;
+          if (!decimals && countDecimals(value) > 0)
+            return context.createError({
+              message: SendFormErrorMessages.DoesNotSupportDecimals,
+            });
+          if (countDecimals(value) > decimals) {
+            return context.createError({ message: formatPrecisionError(symbol, decimals) });
+          }
+          return true;
+        })
+        .test({
+          message: formatInsufficientBalanceError(
+            selectedAssetBalance?.balance.amount,
+            selectedAssetBalance?.asset.symbol
+          ),
+          test(value: unknown) {
+            if (!isNumber(value) || !selectedAssetBalance?.balance.amount) return false;
+            return new BigNumber(value).isLessThanOrEqualTo(selectedAssetBalance.balance.amount);
+          },
+        }),
+    [selectedAssetBalance]
+  );
+}
+
 interface UseSendFormValidationArgs {
   selectedAssetId: string;
   setAssetError(error: string | undefined): void;
@@ -35,6 +93,7 @@ export const useSendFormValidation = ({
   const { currentNetwork, currentAccountStxAddress } = useWallet();
   const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
+  const fungibleTokenSchema = useFungibleTokenAmountSchema(selectedAssetId);
   const feeSchema = useFeeSchema();
   const client = useStacksClient();
 
@@ -64,35 +123,6 @@ export const useSendFormValidation = ({
         },
       }),
     [stacksBalances]
-  );
-
-  const fungibleTokenSchema = useCallback(
-    () =>
-      yup
-        .number()
-        .test((value: unknown, context) => {
-          if (!isNumber(value) || !selectedAssetBalance) return false;
-          const { symbol, decimals } = selectedAssetBalance.asset;
-          if (!decimals && countDecimals(value) > 0)
-            return context.createError({
-              message: SendFormErrorMessages.DoesNotSupportDecimals,
-            });
-          if (countDecimals(value) > decimals) {
-            return context.createError({ message: formatPrecisionError(symbol, decimals) });
-          }
-          return true;
-        })
-        .test({
-          message: formatInsufficientBalanceError(
-            selectedAssetBalance?.balance.amount,
-            selectedAssetBalance?.asset.symbol
-          ),
-          test(value: unknown) {
-            if (!isNumber(value) || !selectedAssetBalance?.balance.amount) return false;
-            return new BigNumber(value).isLessThanOrEqualTo(selectedAssetBalance.balance.amount);
-          },
-        }),
-    [selectedAssetBalance]
   );
 
   const amountSchema = useCallback(

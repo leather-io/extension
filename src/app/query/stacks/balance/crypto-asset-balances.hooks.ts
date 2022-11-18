@@ -98,6 +98,12 @@ export function useTransferableStacksFungibleTokenAssetBalances(
   );
 }
 
+/**
+ * Use caution with this hook, is incredibly expensive. To get an asset's
+ * balance, we query all balances metadata (possibly hundreds) and then search
+ * the results.
+ * @deprecated
+ */
 export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId: string) {
   const account = useCurrentAccount();
 
