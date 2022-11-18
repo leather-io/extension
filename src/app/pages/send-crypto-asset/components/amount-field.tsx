@@ -4,9 +4,10 @@ import { useField } from 'formik';
 import { amountInputId, maxInputContainerWidth, useFontResizer } from '../hooks/use-font-resizer';
 
 interface AmountFieldProps {
+  symbol: string;
   rightInputOverlay: JSX.Element;
 }
-export function AmountField({ rightInputOverlay }: AmountFieldProps) {
+export function AmountField({ symbol, rightInputOverlay }: AmountFieldProps) {
   const [field] = useField('amount');
   const { inputFontSize } = useFontResizer();
 
@@ -35,7 +36,7 @@ export function AmountField({ rightInputOverlay }: AmountFieldProps) {
           />
           {/* TODO: Replace with asset symbol */}
           <Text flexShrink={2} fontSize={inputFontSize} width="100%">
-            BTC
+            {symbol}
           </Text>
         </Flex>
         {/* TODO: Add errors with validations */}

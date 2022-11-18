@@ -16,8 +16,8 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
   const { blockchain, type, asset } = assetBalance;
   const navigate = useNavigate();
 
-  function navigateToSendForm() {
-    navigate(`${RouteUrls.SendCryptoAsset}/${asset.symbol.toLowerCase()}`);
+  function navigateToSendForm(state?: object) {
+    navigate(`${RouteUrls.SendCryptoAsset}/${asset.symbol.toLowerCase()}`, { state });
   }
 
   switch (type) {
@@ -31,7 +31,12 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
         />
       );
     case 'fungible-token':
-      return <FungibleTokenAssetItem assetBalance={assetBalance} onClick={navigateToSendForm} />;
+      return (
+        <FungibleTokenAssetItem
+          assetBalance={assetBalance}
+          onClick={() => navigateToSendForm({ contractId: assetBalance.asset.contractId })}
+        />
+      );
     default:
       return null;
   }

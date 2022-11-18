@@ -22,6 +22,7 @@ describe(isFtNameLikeStx.name, () => {
 describe(isTransferableStacksFungibleTokenAsset.name, () => {
   test('assets with a name, symbol and decimals are allowed to be transferred', () => {
     const asset: StacksFungibleTokenAsset = {
+      contractId: '',
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK7',
       contractAssetName: 'stella-token',
       contractName: 'stella-the-cat',
@@ -37,6 +38,7 @@ describe(isTransferableStacksFungibleTokenAsset.name, () => {
 
   test('a token with no decimals is transferable', () => {
     const asset: StacksFungibleTokenAsset = {
+      contractId: '',
       contractAddress: 'ST6G7N19FKNW24XH5JQ5P5WR1DN10QWMKQSPSTK7',
       contractAssetName: 'stella-token',
       contractName: 'stella-the-cat',
