@@ -18,7 +18,7 @@ Object.keys(compilerOptions.paths).forEach(key => {
 });
 
 module.exports = {
-  setupFilesAfterEnv: ['./tests/jest-unit.setup.js'],
+  setupFilesAfterEnv: ['./tests-legacy/jest-unit.setup.js'],
   collectCoverage: true,
   coverageReporters: ['html', 'json-summary'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
@@ -27,7 +27,7 @@ module.exports = {
     'ts-jest': {
       // https://huafu.github.io/ts-jest/user/config/diagnostics
       diagnostics: false,
-      tsconfig: '<rootDir>/tests/tsconfig.json',
+      tsconfig: '<rootDir>/tests-legacy/tsconfig.json',
     },
     VERSION: version,
   },
@@ -37,7 +37,7 @@ module.exports = {
     ...pathNames,
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
   },
-  roots: ['<rootDir>/tests', '<rootDir>/src'],
+  roots: ['<rootDir>/tests-legacy', '<rootDir>/src'],
   preset: 'ts-jest',
   testMatch: ['**/?(*.)+(spec).(js|ts|tsx)'],
   testRunner: 'jest-circus/runner',

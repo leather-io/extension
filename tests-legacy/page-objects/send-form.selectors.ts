@@ -34,4 +34,8 @@ export enum SendFormSelectors {
   StellaTokenOption = 'asset-stella-token',
 
   OptionAccount1 = 'account-account-1-0',
+
+  ResolvedBnsAddressPreview = 'resolved-bns-address-preview',
+  ResolvedBnsAddressHoverInfoIcon = 'resolved-bns-address-hover-info-icon',
+  ResolvedBnsAddressCopyToClipboard = 'resolved-bns-address-copy-to-clipboard',
 }

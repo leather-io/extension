@@ -81,7 +81,9 @@ function RecipientFieldBase(props: RecipientField) {
       </InputGroup>
       {Boolean(resolvedBnsAddress) && (
         <Stack isInline spacing="tight">
-          <Caption display="inline">{truncateMiddle(resolvedBnsAddress, 4)}</Caption>
+          <Caption display="inline" data-testid={SendFormSelectors.ResolvedBnsAddressPreview}>
+            {truncateMiddle(resolvedBnsAddress, 4)}
+          </Caption>
           <Tooltip label={resolvedBnsAddress} placement="bottom">
             <Stack display="inline-flex">
               <Box
@@ -90,6 +92,7 @@ function RecipientFieldBase(props: RecipientField) {
                 as={FiInfo}
                 color={color('text-caption')}
                 size="14px"
+                data-testid={SendFormSelectors.ResolvedBnsAddressHoverInfoIcon}
               />
             </Stack>
           </Tooltip>
@@ -101,6 +104,7 @@ function RecipientFieldBase(props: RecipientField) {
                 size="12px"
                 color={color('text-caption')}
                 as={FiCopy}
+                data-testid={SendFormSelectors.ResolvedBnsAddressCopyToClipboard}
               />
             </Stack>
           </Tooltip>

@@ -29,13 +29,15 @@
       "@inpage/*": ["inpage/*"],
       "@app/*": ["app/*"],
       "@tests/*": ["../tests/*"],
-      "@tests": ["../tests"]
+      "@tests": ["../tests"],
+      "@tests-new/*": ["../tests-legacy/*"],
+      "@tests-new": ["../tests-legacy"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "types": ["jest", "chrome", "@emotion/react/types/css-prop"]
   },
-  "include": ["./src/**/*", "./tests/**/*"],
+  "include": ["./src/**/*", "./tests/**/*", "./tests-legacy/**/*", "./scripts-ts/**/*"],
   "exclude": ["test-app"]
 }
