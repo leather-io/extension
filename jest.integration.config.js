@@ -7,6 +7,6 @@ module.exports = {
     '^.+\\.tsx?$': '@swc-node/jest',
   },
   testTimeout: 60000,
-  globalSetup: '<rootDir>/tests/global-setup.ts',
-  globalTeardown: '<rootDir>/tests/global-teardown.ts',
+  globalSetup: '<rootDir>/tests-legacy/global-setup.ts',
+  globalTeardown: '<rootDir>/tests-legacy/global-teardown.ts',
 };

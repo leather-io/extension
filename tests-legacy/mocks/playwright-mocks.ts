@@ -1,4 +1,4 @@
-import { BrowserContext } from 'playwright-core';
+import { BrowserContext } from 'playwright';
 
 export const setupMocks = async (context: BrowserContext) => {
   await context.route('https://test-registrar.blockstack.org/register', route => {
