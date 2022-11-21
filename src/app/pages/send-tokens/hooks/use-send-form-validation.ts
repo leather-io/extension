@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { STX_DECIMALS } from '@shared/constants';
-import { Money } from '@shared/models/money.model';
+import { Money, createMoney } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
@@ -51,33 +51,8 @@ function makeStacksFungibleTokenSchema(balance: Money) {
 
 export function useFungibleTokenAmountSchema(selectedAssetId: string) {
   const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
-
   return useCallback(
-    () =>
-      yup
-        .number()
-        .test((value: unknown, context) => {
-          if (!isNumber(value) || !selectedAssetBalance) return false;
-          const { symbol, decimals } = selectedAssetBalance.asset;
-          if (!decimals && countDecimals(value) > 0)
-            return context.createError({
-              message: SendFormErrorMessages.DoesNotSupportDecimals,
-            });
-          if (countDecimals(value) > decimals) {
-            return context.createError({ message: formatPrecisionError(symbol, decimals) });
-          }
-          return true;
-        })
-        .test({
-          message: formatInsufficientBalanceError(
-            selectedAssetBalance?.balance.amount,
-            selectedAssetBalance?.asset.symbol
-          ),
-          test(value: unknown) {
-            if (!isNumber(value) || !selectedAssetBalance?.balance.amount) return false;
-            return new BigNumber(value).isLessThanOrEqualTo(selectedAssetBalance.balance.amount);
-          },
-        }),
+    () => makeStacksFungibleTokenSchema(selectedAssetBalance?.balance ?? createMoney(0, 'STX')),
     [selectedAssetBalance]
   );
 }
