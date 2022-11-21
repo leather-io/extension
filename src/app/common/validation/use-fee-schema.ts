@@ -7,9 +7,10 @@ import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { SendFormErrorMessages } from '@app/common/error-messages';
-import { stxToMicroStx } from '@app/common/stacks-utils';
 import { stxAmountSchema } from '@app/common/validation/currency-schema';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+
+import { stxToMicroStx } from '../money/unit-conversion';
 
 /**
  * @param amountToSend stx amount in µSTX

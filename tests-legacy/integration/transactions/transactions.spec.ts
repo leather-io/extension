@@ -8,7 +8,7 @@ import { Page } from 'playwright';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { stxToMicroStx } from '@app/common/stacks-utils';
+import { stxToMicroStx } from '@app/common/money/unit-conversion';
 
 import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
 

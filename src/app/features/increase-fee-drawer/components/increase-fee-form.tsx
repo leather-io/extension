@@ -7,7 +7,8 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
-import { microStxToStx, stacksValue, stxToMicroStx } from '@app/common/stacks-utils';
+import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
+import { stacksValue } from '@app/common/stacks-utils';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
