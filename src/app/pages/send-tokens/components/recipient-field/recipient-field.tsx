@@ -11,6 +11,7 @@ import { SendFormValues } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@app/components/error-label';
+import { SpaceBetween } from '@app/components/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
@@ -53,16 +54,25 @@ function RecipientFieldBase(props: RecipientField) {
   return (
     <Stack width="100%" {...rest}>
       <InputGroup flexDirection="column">
-        <Text
-          as="label"
-          display="block"
-          mb="tight"
-          fontSize={1}
-          fontWeight="500"
-          htmlFor="recipientAddressOrBnsName"
-        >
-          Recipient
-        </Text>
+        <SpaceBetween mb="tight">
+          <Text
+            as="label"
+            display="block"
+            fontSize={1}
+            fontWeight="500"
+            htmlFor="recipientAddressOrBnsName"
+          >
+            Recipient
+          </Text>
+          <Caption
+            as="button"
+            onClick={showAccountsDrawer}
+            _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
+            color={color('brand')}
+          >
+            Choose account
+          </Caption>
+        </SpaceBetween>
         <RecipientAccountDrawer isShowing={isShowing} closeAccountsDrawer={closeAccountsDrawer} />
         <Input
           display="block"
@@ -91,15 +101,6 @@ function RecipientFieldBase(props: RecipientField) {
           data-testid={SendFormSelectors.InputRecipientField}
         />
       </InputGroup>
-      <Caption
-        as="button"
-        textAlign="left"
-        onClick={showAccountsDrawer}
-        _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
-        color={color('brand')}
-      >
-        Transfer between my account
-      </Caption>
       {Boolean(resolvedBnsAddress) && (
         <Stack isInline spacing="tight">
           <Caption display="inline" data-testid={SendFormSelectors.ResolvedBnsAddressPreview}>
