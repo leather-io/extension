@@ -1,10 +1,10 @@
 import { BigNumber } from 'bignumber.js';
 
 import { DEFAULT_FEE_RATE } from '@shared/constants';
-import { FeeEstimate } from '@shared/models/fees-types';
+import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 export function getFeeEstimationsWithCappedValues(
-  feeEstimations: FeeEstimate[],
+  feeEstimations: StacksFeeEstimate[],
   feeEstimationsMaxValues: number[] | undefined,
   feeEstimationsMinValues: number[] | undefined
 ) {
@@ -13,12 +13,12 @@ export function getFeeEstimationsWithCappedValues(
       feeEstimationsMaxValues &&
       new BigNumber(feeEstimation.fee).isGreaterThan(feeEstimationsMaxValues[index])
     ) {
-      return { fee: feeEstimationsMaxValues[index], fee_rate: 0 };
+      return { fee: feeEstimationsMaxValues[index], feeRate: 0 };
     } else if (
       feeEstimationsMinValues &&
       new BigNumber(feeEstimation.fee).isLessThan(feeEstimationsMinValues[index])
     ) {
-      return { fee: feeEstimationsMinValues[index], fee_rate: 0 };
+      return { fee: feeEstimationsMinValues[index], feeRate: 0 };
     } else {
       return feeEstimation;
     }
@@ -31,11 +31,13 @@ function calculateFeeFromFeeRate(txBytes: number, feeRate: number) {
 
 const marginFromDefaultFeeDecimalPercent = 0.1;
 
-export function getDefaultSimulatedFeeEstimations(estimatedByteLength: number): FeeEstimate[] {
+export function getDefaultSimulatedFeeEstimations(
+  estimatedByteLength: number
+): StacksFeeEstimate[] {
   const fee = calculateFeeFromFeeRate(estimatedByteLength, DEFAULT_FEE_RATE);
   return [
-    { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
-    { fee: fee.toNumber(), fee_rate: 0 },
-    { fee: fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent).toNumber(), fee_rate: 0 },
+    { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), feeRate: 0 },
+    { fee: fee.toNumber(), feeRate: 0 },
+    { fee: fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent).toNumber(), feeRate: 0 },
   ];
 }

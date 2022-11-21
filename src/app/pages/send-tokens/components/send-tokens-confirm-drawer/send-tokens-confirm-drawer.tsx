@@ -2,7 +2,6 @@ import { useEffect, useMemo } from 'react';
 
 import { StacksTransaction } from '@stacks/transactions';
 import { Stack } from '@stacks/ui';
-import { microStxToStx } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
@@ -12,6 +11,7 @@ import { createMoney } from '@shared/models/money.model';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { microStxToStx } from '@app/common/money/unit-conversion';
 import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 import { SpaceBetween } from '@app/components/space-between';

@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 
-import { stxToMicroStx } from '@stacks/ui-utils';
 import * as yup from 'yup';
 
 import { STX_DECIMALS } from '@shared/constants';
@@ -23,6 +22,8 @@ import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+
+import { stxToMicroStx } from '../money/unit-conversion';
 
 export function useFungibleTokenAmountSchema(selectedAssetId: string) {
   const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);

@@ -19,7 +19,8 @@ import {
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 import type { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
 
-import { ftUnshiftDecimals, stxToMicroStx } from '@app/common/stacks-utils';
+import { stxToMicroStx } from '@app/common/money/unit-conversion';
+import { ftUnshiftDecimals } from '@app/common/stacks-utils';
 import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,

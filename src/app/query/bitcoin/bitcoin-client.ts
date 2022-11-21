@@ -30,12 +30,29 @@ class AddressApi {
   }
 }
 
+class FeeEstimatesApi {
+  configuration: Configuration;
+
+  constructor(configuration: Configuration) {
+    this.configuration = configuration;
+  }
+
+  async getFeeEstimates() {
+    return fetchBitcoinData({
+      errorMsg: 'No fee estimates fetched',
+      url: `${this.configuration.baseUrl}/fee-estimates`,
+    });
+  }
+}
+
 export class BitcoinClient {
   configuration: Configuration;
   addressApi: AddressApi;
+  feeEstimatesApi: FeeEstimatesApi;
 
   constructor(basePath: string) {
     this.configuration = new Configuration(basePath);
     this.addressApi = new AddressApi(this.configuration);
+    this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
   }
 }

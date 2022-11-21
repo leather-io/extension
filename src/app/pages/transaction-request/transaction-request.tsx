@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import get from 'lodash.get';
 import * as yup from 'yup';
 
-import { FeeType } from '@shared/models/fees-types';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { TransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -29,7 +29,7 @@ import { PostConditionModeWarning } from '@app/pages/transaction-request/compone
 import { PostConditions } from '@app/pages/transaction-request/components/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
+import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
@@ -48,7 +48,7 @@ function TransactionRequestBase() {
   const handleBroadcastTransaction = useSoftwareWalletTransactionRequestBroadcast();
   const txByteLength = useTxRequestEstimatedUnsignedTxByteLengthState();
   const txPayload = useTxRequestSerializedUnsignedTxPayloadState();
-  const feeEstimations = useFeeEstimations(txByteLength, txPayload);
+  const feeEstimations = useStacksFeeEstimations(txByteLength, txPayload);
   const feeSchema = useFeeSchema();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
@@ -94,7 +94,7 @@ function TransactionRequestBase() {
 
   const initialValues: TransactionFormValues = {
     fee: '',
-    feeType: FeeType[FeeType.Middle],
+    feeType: FeeTypes[FeeTypes.Middle],
     nonce: '',
   };
 

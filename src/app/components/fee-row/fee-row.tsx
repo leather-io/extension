@@ -6,12 +6,14 @@ import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selector
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
-import { FeeEstimate, FeeType } from '@shared/models/fees-types';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
+import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { isNumber, isString } from '@shared/utils';
 
 import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
-import { microStxToStx, stacksValue } from '@app/common/stacks-utils';
+import { microStxToStx } from '@app/common/money/unit-conversion';
+import { stacksValue } from '@app/common/stacks-utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ErrorLabel } from '@app/components/error-label';
 import { SpaceBetween } from '@app/components/space-between';
@@ -30,7 +32,7 @@ const feesInfo =
 const url = 'https://hiro.so/questions/fee-estimates';
 
 interface FeeRowProps {
-  feeEstimations: FeeEstimate[];
+  feeEstimations: StacksFeeEstimate[];
   feeFieldName: string;
   feeTypeFieldName: string;
   isSponsored: boolean;
@@ -41,7 +43,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [, _, feeTypeHelper] = useField(feeTypeFieldName);
   const [fieldWarning, setFieldWarning] = useState<string | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(FeeType.Middle);
+  const [selected, setSelected] = useState(FeeTypes.Middle);
   const [isCustom, setIsCustom] = useState(false);
 
   const convertStxToUsd = useConvertStxToFiatAmount();
@@ -55,8 +57,8 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   useEffect(() => {
     // Set it to the middle estimation on mount
     if (!feeInput.value && !isCustom) {
-      feeHelper.setValue(microStxToStx(feeEstimations[FeeType.Middle].fee).toNumber());
-      feeTypeHelper.setValue(FeeType[FeeType.Middle]);
+      feeHelper.setValue(microStxToStx(feeEstimations[FeeTypes.Middle].fee).toNumber());
+      feeTypeHelper.setValue(FeeTypes[FeeTypes.Middle]);
     }
     if (isSponsored) {
       feeHelper.setValue(0);
@@ -68,8 +70,8 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const handleSelectedItem = useCallback(
     (index: number) => {
       if (selected !== index) setSelected(index);
-      feeTypeHelper.setValue(FeeType[index]);
-      if (index === FeeType.Custom) {
+      feeTypeHelper.setValue(FeeTypes[index]);
+      if (index === FeeTypes.Custom) {
         feeHelper.setValue('');
         setIsCustom(true);
       } else {
@@ -122,7 +124,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
         {isCustom ? (
           <CustomFeeField
             fieldName={feeFieldName}
-            lowFeeEstimate={feeEstimations[FeeType.Low]}
+            lowFeeEstimate={feeEstimations[FeeTypes.Low]}
             setFieldWarning={setFieldWarning}
           />
         ) : (

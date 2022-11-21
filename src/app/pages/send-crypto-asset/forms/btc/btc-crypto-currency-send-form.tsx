@@ -9,6 +9,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { btcAmountSchema } from '@app/common/validation/currency-schema';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useBitcoinFeeEstimations } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
 
 import { AmountField } from '../../components/amount-field';
@@ -27,9 +28,12 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
+  // TODO: Replace hardcoded number here (200) with the tx byte length
+  const { data: btcFeeEstimations } = useBitcoinFeeEstimations(200);
   const navigate = useNavigate();
 
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
+  logger.debug('btc fees', btcFeeEstimations);
 
   const initialValues = createDefaultInitialFormValues({
     memo: '',

@@ -2,12 +2,8 @@ import { useMemo } from 'react';
 
 import { UseQueryResult } from '@tanstack/react-query';
 
-import {
-  FeeCalculationType,
-  FeeEstimate,
-  FeeEstimation,
-  TransactionFeeEstimation,
-} from '@shared/models/fees-types';
+import { FeeCalculationTypes, FeeEstimations } from '@shared/models/fees/_fees.model';
+import { StacksFeeEstimate, StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 
 import {
   useConfigFeeEstimationsMaxEnabled,
@@ -22,16 +18,16 @@ import { getDefaultSimulatedFeeEstimations, getFeeEstimationsWithCappedValues } 
 const defaultFeesMaxValues = [500000, 750000, 2000000];
 const defaultFeesMinValues = [2500, 3000, 3500];
 
-const defaultFeeEstimations: FeeEstimate[] = [
-  { fee: defaultFeesMinValues[0], fee_rate: 0 },
-  { fee: defaultFeesMinValues[1], fee_rate: 0 },
-  { fee: defaultFeesMinValues[2], fee_rate: 0 },
+const defaultFeeEstimations: StacksFeeEstimate[] = [
+  { fee: defaultFeesMinValues[0], feeRate: 0 },
+  { fee: defaultFeesMinValues[1], feeRate: 0 },
+  { fee: defaultFeesMinValues[2], feeRate: 0 },
 ];
 
 function useTransactionFeeEstimation(
   estimatedLen: number | null,
   transactionPayload: string
-): UseQueryResult<TransactionFeeEstimation> {
+): UseQueryResult<StacksTxFeeEstimation> {
   return useGetTransactionFeeEstimationQuery(estimatedLen, transactionPayload);
 }
 
@@ -52,7 +48,7 @@ function useFeeEstimationsMinValues() {
 }
 
 function feeEstimationQueryFailedSilently(
-  feeEstimationResult: UseQueryResult<TransactionFeeEstimation>
+  feeEstimationResult: UseQueryResult<StacksTxFeeEstimation>
 ) {
   return !!(
     feeEstimationResult.data &&
@@ -61,22 +57,27 @@ function feeEstimationQueryFailedSilently(
   );
 }
 
-export function useFeeEstimations(txByteLength: number | null, txPayload: string) {
+export function useStacksFeeEstimations(txByteLength: number | null, txPayload: string) {
   const feeEstimationsMaxValues = useFeeEstimationsMaxValues();
   const feeEstimationsMinValues = useFeeEstimationsMinValues();
   const result = useTransactionFeeEstimation(txByteLength, txPayload);
   const { data: txFeeEstimation, isError, isLoading } = result;
 
-  return useMemo<FeeEstimation>(() => {
+  return useMemo<FeeEstimations>(() => {
     const feeEstimations = txFeeEstimation?.estimations;
 
     if (!isLoading && isError) {
-      return { estimates: defaultFeeEstimations, calculation: FeeCalculationType.Default };
+      return {
+        blockchain: 'stacks',
+        estimates: defaultFeeEstimations,
+        calculation: FeeCalculationTypes.Default,
+      };
     }
     if (txByteLength && feeEstimationQueryFailedSilently(result)) {
       return {
+        blockchain: 'stacks',
         estimates: getDefaultSimulatedFeeEstimations(txByteLength),
-        calculation: FeeCalculationType.DefaultSimulated,
+        calculation: FeeCalculationTypes.DefaultSimulated,
       };
     }
     if (feeEstimations?.length) {
@@ -86,11 +87,16 @@ export function useFeeEstimations(txByteLength: number | null, txPayload: string
         feeEstimationsMinValues
       );
       return {
+        blockchain: 'stacks',
         estimates: feeEstimationsWithCappedValues,
-        calculation: FeeCalculationType.FeesCapped,
+        calculation: FeeCalculationTypes.FeesCapped,
       };
     }
-    return { estimates: feeEstimations ?? [], calculation: FeeCalculationType.Api };
+    return {
+      blockchain: 'stacks',
+      estimates: feeEstimations ?? [],
+      calculation: FeeCalculationTypes.Api,
+    };
   }, [
     feeEstimationsMaxValues,
     feeEstimationsMinValues,
