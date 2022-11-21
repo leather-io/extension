@@ -8,7 +8,7 @@ import type {
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
 
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,

@@ -6,9 +6,9 @@ import * as yup from 'yup';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useFungibleTokenAmountSchema } from '@app/common/hooks/use-send-form-validation';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
-import { useFungibleTokenAmountSchema } from '@app/pages/send-tokens/hooks/use-send-form-validation';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
 
 import { AmountField } from '../../components/amount-field';
@@ -19,6 +19,7 @@ import { PreviewButton } from '../../components/preview-button';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { createDefaultInitialFormValues } from '../../form-utils';
+import { stxAddressValidator } from '../../validators/recipient-validators';
 import { useStacksFtParams } from './use-stacks-ft-params';
 
 interface StacksFungibleTokenSendFormProps {
@@ -43,6 +44,7 @@ export function StacksFungibleTokenSendForm({ symbol }: StacksFungibleTokenSendF
 
   const validationSchema = yup.object({
     amount: ftAmountSchema(),
+    recipient: stxAddressValidator(),
   });
 
   logger.debug('info', ftMetadata, validationSchema);
