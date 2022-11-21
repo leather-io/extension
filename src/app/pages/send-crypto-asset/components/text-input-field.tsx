@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { Flex, Input, color } from '@stacks/ui';
 import { useField } from 'formik';
 
@@ -14,22 +15,6 @@ export function TextInputField({ name, label, lastChild, placeholder }: TextInpu
 
   const showError = meta.error && meta.touched;
 
-  const errorProps = showError
-    ? ({
-        _before: {
-          content: '""',
-          position: 'absolute',
-          border: '2px solid #F7CDCA',
-          borderBottomLeftRadius: lastChild ? '16px' : 'unset',
-          borderBottomRightRadius: lastChild ? '16px' : 'unset',
-          left: '-1px',
-          right: '-1px',
-          top: '-1px',
-          bottom: '-1px',
-        },
-      } as const)
-    : {};
-
   return (
     <Flex
       as="label"
@@ -38,7 +23,22 @@ export function TextInputField({ name, label, lastChild, placeholder }: TextInpu
       p="base"
       py="base"
       position="relative"
-      {...errorProps}
+      _before={{
+        content: '""',
+        position: 'absolute',
+        border: `2px solid ${showError ? '#F7CDCA' : 'transparent'}`,
+        borderBottomLeftRadius: lastChild ? '16px' : 'unset',
+        borderBottomRightRadius: lastChild ? '16px' : 'unset',
+        left: '-1px',
+        right: '-1px',
+        top: '-1px',
+        bottom: '-1px',
+      }}
+      css={css`
+        :has(:focus)::before {
+          border: 2px solid #bfc6ff;
+        }
+      `}
     >
       <Caption
         color={showError ? '#C83532' : color('text-caption')}

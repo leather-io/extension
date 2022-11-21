@@ -8,9 +8,9 @@ import {
   getGradientString,
   getImageCanonicalUri,
 } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { Caption } from '@app/components/typography';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.utils';
 
 interface SelectedAssetItemProps extends BoxProps {

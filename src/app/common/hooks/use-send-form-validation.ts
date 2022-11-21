@@ -1,17 +1,17 @@
 import { useCallback, useMemo } from 'react';
 
 import { stxToMicroStx } from '@stacks/ui-utils';
-import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { STX_DECIMALS } from '@shared/constants';
-import { Money, createMoney } from '@shared/models/money.model';
+import { createMoney } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { SendFormErrorMessages } from '@app/common/error-messages';
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { useWallet } from '@app/common/hooks/use-wallet';
-import { countDecimals } from '@app/common/utils';
+import { makeStacksFungibleTokenSchema } from '@app/common/validation/amount-schema';
 import { stxAmountSchema } from '@app/common/validation/currency-schema';
 import { nonceSchema } from '@app/common/validation/nonce-schema';
 import {
@@ -21,33 +21,8 @@ import {
 } from '@app/common/validation/stx-address-schema';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
-
-function makeStacksFungibleTokenSchema(balance: Money) {
-  const { amount, symbol, decimals } = balance;
-  return yup
-    .number()
-    .test((value: unknown, context) => {
-      if (!isNumber(value)) return false;
-      if (!decimals && countDecimals(value) > 0)
-        return context.createError({
-          message: SendFormErrorMessages.DoesNotSupportDecimals,
-        });
-      if (countDecimals(value) > decimals) {
-        return context.createError({ message: formatPrecisionError(symbol, decimals) });
-      }
-      return true;
-    })
-    .test({
-      message: formatInsufficientBalanceError(amount, symbol),
-      test(value: unknown) {
-        if (!isNumber(value) || !amount) return false;
-        return new BigNumber(value).isLessThanOrEqualTo(amount);
-      },
-    });
-}
 
 export function useFungibleTokenAmountSchema(selectedAssetId: string) {
   const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
@@ -61,7 +36,7 @@ interface UseSendFormValidationArgs {
   selectedAssetId: string;
   setAssetError(error: string | undefined): void;
 }
-export const useSendFormValidation = ({
+export const useStacksSendFormValidation = ({
   selectedAssetId,
   setAssetError,
 }: UseSendFormValidationArgs) => {

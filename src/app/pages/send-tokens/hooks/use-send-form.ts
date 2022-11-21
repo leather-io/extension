@@ -6,8 +6,8 @@ import { useFormikContext } from 'formik';
 import { SendFormValues } from '@shared/models/form.model';
 
 import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { microStxToStx } from '@app/common/stacks-utils';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 

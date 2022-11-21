@@ -7,8 +7,8 @@ import { useFormikContext } from 'formik';
 import { SendFormValues } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { ErrorLabel } from '@app/components/error-label';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 import { useStacksFungibleTokenAssetBalancesUnanchored } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 

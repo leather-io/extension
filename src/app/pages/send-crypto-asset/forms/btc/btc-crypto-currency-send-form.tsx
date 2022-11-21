@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import { validate } from 'bitcoin-address-validation';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -21,6 +20,7 @@ import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
 import { createDefaultInitialFormValues } from '../../form-utils';
+import { btcAddressValidator } from '../../validators/recipient-validators';
 
 interface BitcoinCryptoCurrencySendFormProps {}
 export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormProps) {
@@ -42,11 +42,7 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
 
   const validationSchema = yup.object({
     amount: btcAmountSchema('Bitcoin can only be units of one-hundred million'),
-    recipient: yup.string().test((input, context) => {
-      if (!input) return false;
-      if (!validate(input)) return context.createError({ message: 'Invalid bitcoin address' });
-      return true;
-    }),
+    recipient: btcAddressValidator(),
   });
 
   return (

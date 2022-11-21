@@ -7,8 +7,8 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 
 import { SendCryptoAssetLayout } from './components/send-crypto-asset.layout';
-import { StacksFungibleTokenSendForm } from './forms/:fungible-token/stacks-fungible-token-send-form';
 import { BitcoinCryptoCurrencySendForm } from './forms/btc/btc-crypto-currency-send-form';
+import { StacksFungibleTokenSendForm } from './forms/stx-sip10/stacks-fungible-token-send-form';
 import { StacksCryptoCurrencySendForm } from './forms/stx/stx-crypto-currency-send-form';
 
 export function SendCryptoAssetForm() {
