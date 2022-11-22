@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -26,7 +26,7 @@ export function useGetBnsNamesOwnedByAddress<T extends unknown = BnsNameFetcherR
   address: string,
   options?: AppUseQueryConfig<BnsNameFetcherResp, T>
 ) {
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   return useQuery({
     enabled: address !== '',
     queryKey: ['bns-names-by-address', address],

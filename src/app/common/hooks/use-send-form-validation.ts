@@ -22,7 +22,7 @@ import {
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
 import { transactionMemoSchema } from '@app/common/validation/validate-memo';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 export function useFungibleTokenAmountSchema(selectedAssetId: string) {
   const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
@@ -45,7 +45,7 @@ export const useStacksSendFormValidation = ({
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const fungibleTokenSchema = useFungibleTokenAmountSchema(selectedAssetId);
   const feeSchema = useFeeSchema();
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
 
   // TODO: Can this be removed?
   const selectedAssetSchema = useCallback(

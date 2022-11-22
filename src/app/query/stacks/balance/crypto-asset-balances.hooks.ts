@@ -26,6 +26,14 @@ export function useStacksAnchoredCryptoCurrencyAssetBalance(address: string) {
       ),
   });
 }
+export function useStacksUnanchoredCryptoCurrencyAssetBalance(address: string) {
+  return useUnanchoredStacksAccountBalanceQuery(address, {
+    select: resp =>
+      createStacksCryptoCurrencyAssetTypeWrapper(
+        parseBalanceResponse(resp).stx.availableStx.amount
+      ),
+  });
+}
 
 function useStacksFungibleTokenAssetBalancesAnchored(address: string) {
   return useAnchoredStacksAccountBalanceQuery(address, {

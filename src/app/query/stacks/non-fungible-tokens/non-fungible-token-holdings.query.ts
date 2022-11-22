@@ -3,7 +3,7 @@ import { useQueries, useQuery } from '@tanstack/react-query';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const staleTime = 15 * 60 * 1000; // 15 min
@@ -27,7 +27,7 @@ type FetchNonFungibleTokenHoldingsResp = Awaited<
 export function useGetNonFungibleTokenHoldingsQuery<
   T extends unknown = FetchNonFungibleTokenHoldingsResp
 >(address?: string, options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>) {
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
 
   return useQuery({
@@ -44,7 +44,7 @@ export function useGetNonFungibleTokenHoldingsListQuery<
   accounts?: AccountWithAddress[],
   options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>
 ) {
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
 
   return useQueries({

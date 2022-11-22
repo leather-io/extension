@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 
 import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-types';
 
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 export function useGetContractInterface(transactionRequest: ContractCallPayload | null) {
-  const { smartContractsApi } = useStacksClient();
+  const { smartContractsApi } = useStacksClientUnanchored();
 
   const fetchContractInterface = () => {
     if (!transactionRequest || transactionRequest?.txType !== TransactionTypes.ContractCall) return;
