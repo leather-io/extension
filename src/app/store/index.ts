@@ -8,7 +8,6 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
-  PersistConfig,
   REGISTER,
   REHYDRATE,
   persistReducer,
@@ -17,6 +16,7 @@ import {
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 
 import { IS_DEV_ENV } from '@shared/environment';
+import { persistConfig } from '@shared/storage';
 
 import { analyticsSlice } from './analytics/analytics.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
@@ -27,9 +27,6 @@ import { onboardingSlice } from './onboarding/onboarding.slice';
 import { settingsSlice } from './settings/settings.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
-import { ExtensionStorage } from './utils/extension-storage';
-
-const storage = new ExtensionStorage(chrome.storage.local, chrome.runtime);
 
 export interface RootState {
   analytics: ReturnType<typeof analyticsSlice.reducer>;
@@ -61,14 +58,6 @@ function rootReducer(state: RootState | undefined, action: Action) {
   if (action.type === 'keys/signOut') return appReducer(undefined, action);
   return appReducer(state, action);
 }
-
-const persistConfig: PersistConfig<RootState> = {
-  key: 'root',
-  version: 1,
-  storage,
-  serialize: true,
-  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding', 'settings'],
-};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
