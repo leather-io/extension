@@ -50,13 +50,21 @@ supports Chromium and Firefox browsers. When you run `yarn dev`, it will compile
 
 ## Testing
 
-Several testing scripts are available in [`package.json`](./package.json). Make sure to first run
+Several testing scripts are available in [`package.json`](./package.json).
+
+The integration tests expect the extension to be built prior to running. The extension can be built for tests with the command below.
 
 ```bash
 yarn build:test
 ```
 
-before running tests.
+The integration tests use Playwright, which requires the system to have the browsers it needs. The following command installs everything Playwright needs.
+
+```bash
+yarn playwright install --with-deps
+```
+
+Note that the installed browsers are tied to the version of Playwright being used, and it may be necessary to run the above command again in some situations, such as when upgrading Playwright or switching branches. [Read the documentation for more information](https://playwright.dev/docs/cli#install-system-dependencies).
 
 ## Production
 
