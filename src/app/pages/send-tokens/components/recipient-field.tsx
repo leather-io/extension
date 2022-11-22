@@ -4,7 +4,7 @@ import { FiCopy, FiInfo } from 'react-icons/fi';
 
 import { Box, Input, InputGroup, Stack, StackProps, Text, useClipboard } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
 import { SendFormValues } from '@shared/models/form.model';

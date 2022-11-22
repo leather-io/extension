@@ -1,5 +1,5 @@
-import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
-import { SECRET_KEY_2 } from '@tests/mocks';
+import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
+import { SECRET_KEY_2 } from '@tests-legacy/mocks';
 
 import { RouteUrls } from '@shared/route-urls';
 

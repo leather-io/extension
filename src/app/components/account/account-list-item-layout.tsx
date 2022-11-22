@@ -1,6 +1,6 @@
 import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { Caption } from '@app/components/typography';
 import { AccountWithAddress } from '@app/store/accounts/account.models';

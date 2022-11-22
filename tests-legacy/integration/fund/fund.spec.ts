@@ -1,5 +1,5 @@
-import { SECRET_KEY_2 } from '@tests/mocks';
-import { FundPage } from '@tests/page-objects/fund.page';
+import { SECRET_KEY_2 } from '@tests-legacy/mocks';
+import { FundPage } from '@tests-legacy/page-objects/fund.page';
 
 import { RouteUrls } from '@shared/route-urls';
 

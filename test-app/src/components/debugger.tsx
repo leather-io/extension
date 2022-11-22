@@ -35,9 +35,9 @@ import {
   stacksTestnetNetwork as network,
   stacksTestnetNetwork,
 } from '@common/utils';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 
-import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { WalletPageSelectors } from '@tests-legacy/page-objects/wallet.selectors';
 import { ExplorerLink } from './explorer-link';
 
 export const Debugger = () => {

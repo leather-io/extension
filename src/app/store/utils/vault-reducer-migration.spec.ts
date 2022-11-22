@@ -1,4 +1,4 @@
-import { LocalStorageMock } from '@tests/mocks/localStorage-mock';
+import { LocalStorageMock } from '@tests-legacy/mocks/localStorage-mock';
 
 import { defaultKeyId } from '../keys/key.slice';
 import { migrateVaultReducerStoreToNewStateStructure } from './vault-reducer-migration';

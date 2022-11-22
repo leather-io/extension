@@ -1,4 +1,4 @@
-import { NetworkSelectors } from '@tests/integration/network.selectors';
+import { NetworkSelectors } from '@tests-legacy/integration/network.selectors';
 import { Page } from 'playwright-core';
 
 import { createTestSelector } from '../integration/utils';

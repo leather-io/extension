@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex, Stack, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { NetworkConfiguration } from '@shared/constants';
 

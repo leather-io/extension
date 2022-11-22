@@ -1,7 +1,7 @@
-import { BalanceSelectors } from '@tests/integration/balance.selectors';
-import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
-import { SECRET_KEY_2 } from '@tests/mocks';
-import { WalletPage } from '@tests/page-objects/wallet.page';
+import { BalanceSelectors } from '@tests-legacy/integration/balance.selectors';
+import { BrowserDriver, createTestSelector, setupBrowser } from '@tests-legacy/integration/utils';
+import { SECRET_KEY_2 } from '@tests-legacy/mocks';
+import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
 
 import { RouteUrls } from '@shared/route-urls';
 

@@ -1,6 +1,6 @@
 import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
-import { setupHeystackEnv } from '@tests/mocks/heystack';
+import { setupHeystackEnv } from '@tests-legacy/mocks/heystack';
 
 import { NonceTypes, getNextNonce } from './account-nonces.utils';
 

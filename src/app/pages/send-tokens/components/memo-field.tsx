@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
 import { ErrorLabel } from '@app/components/error-label';

@@ -5,7 +5,7 @@ import {
   addressToString,
   deserializeTransaction,
 } from '@stacks/transactions';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 

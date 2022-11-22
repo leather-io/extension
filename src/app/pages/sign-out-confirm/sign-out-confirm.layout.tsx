@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { useFormik } from 'formik';
 
 import { useWalletType } from '@app/common/use-wallet-type';

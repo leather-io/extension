@@ -3,7 +3,7 @@ import { FiCheck } from 'react-icons/fi';
 
 import HelpUsImprove from '@assets/images/onboarding/help-us-improve.png';
 import { Box, Button, Flex, Stack, color } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';

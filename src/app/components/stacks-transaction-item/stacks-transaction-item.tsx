@@ -3,7 +3,7 @@ import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Box, BoxProps, Flex, Stack, Text, color, useMediaQuery } from '@stacks/ui';
 import { isPendingTx } from '@stacks/ui-utils';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';

@@ -29,9 +29,7 @@
       "@inpage/*": ["inpage/*"],
       "@app/*": ["app/*"],
       "@tests/*": ["../tests/*"],
-      "@tests": ["../tests"],
-      "@tests-new/*": ["../tests-legacy/*"],
-      "@tests-new": ["../tests-legacy"]
+      "@tests-legacy/*": ["../tests-legacy/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

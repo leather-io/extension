@@ -1,6 +1,6 @@
 import { Flex, StackProps } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { getIconString } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
