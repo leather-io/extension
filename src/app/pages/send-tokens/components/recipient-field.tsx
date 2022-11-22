@@ -13,7 +13,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@app/components/error-label';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 interface RecipientField extends StackProps {
   error?: string;
@@ -24,7 +24,7 @@ interface RecipientField extends StackProps {
 function RecipientFieldBase(props: RecipientField) {
   const { error, value, ...rest } = props;
   const { handleChange, values, setFieldValue } = useFormikContext<SendFormValues>();
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const [resolvedBnsAddress, setResolvedBnsAddress] = useState('');
   const { onCopy, hasCopied } = useClipboard(resolvedBnsAddress);
   const analytics = useAnalytics();

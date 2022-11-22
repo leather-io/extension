@@ -2,12 +2,12 @@ import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { useQuery } from '@tanstack/react-query';
 
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 export function useAccountMempoolQuery(address: string) {
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const submittedTransactions = useSubmittedTransactions();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
 

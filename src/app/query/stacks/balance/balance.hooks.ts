@@ -31,7 +31,7 @@ export function parseBalanceResponse(balances: AddressBalanceResponse) {
   return { ...balances, stx };
 }
 
-export function useUnanchoredStacksBalances(address: string) {
+function useUnanchoredStacksBalances(address: string) {
   return useUnanchoredStacksAccountBalanceQuery(address, {
     select: resp => parseBalanceResponse(resp),
   });
@@ -41,7 +41,7 @@ export function useCurrentStacksAccountUnanchoredBalances() {
   return useUnanchoredStacksBalances(account?.address ?? '');
 }
 
-function useAnchoredStacksAccountBalances(address: string) {
+export function useAnchoredStacksAccountBalances(address: string) {
   return useAnchoredStacksAccountBalanceQuery(address, {
     select: resp => parseBalanceResponse(resp),
   });

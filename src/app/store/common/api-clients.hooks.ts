@@ -23,7 +23,7 @@ export function useBitcoinClient() {
 }
 
 // Unanchored by default (microblocks)
-export function useStacksClient() {
+export function useStacksClientUnanchored() {
   const network = useCurrentNetworkState();
 
   return useMemo(() => {

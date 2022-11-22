@@ -4,7 +4,7 @@ import { useAsync } from 'react-async-hook';
 import { deserializeTransaction } from '@stacks/transactions';
 import { useAtom } from 'jotai';
 
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { rawTxIdState } from '@app/store/transactions/raw';
 
 export function useRawTxIdState() {
@@ -15,7 +15,7 @@ const rawTxCache = new Map();
 
 function useRawTxState() {
   const [txId] = useRawTxIdState();
-  const { transactionsApi } = useStacksClient();
+  const { transactionsApi } = useStacksClientUnanchored();
 
   return useAsync(async () => {
     if (!txId) return;

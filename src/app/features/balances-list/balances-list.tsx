@@ -15,6 +15,7 @@ import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
   useStacksNonFungibleTokenAssetsUnanchored,
+  useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
 import { FundAccount } from './components/fund-account';
@@ -26,6 +27,7 @@ interface BalancesListProps extends StackProps {
 }
 export const BalancesList = ({ address, ...props }: BalancesListProps) => {
   const { data: stxAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(address);
+  const { data: stxUnachoredAssetBalance } = useStacksUnanchoredCryptoCurrencyAssetBalance(address);
   const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(BITCOIN_TEST_ADDRESS);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
@@ -34,11 +36,12 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
 
   // Better handle loading state
-  if (!stxAssetBalance) return null;
+  if (!stxAssetBalance || !stxUnachoredAssetBalance) return null;
 
   const noAssets =
     btcAssetBalance.balance.amount.isEqualTo(0) &&
     stxAssetBalance.balance.amount.isEqualTo(0) &&
+    stxUnachoredAssetBalance.balance.amount.isEqualTo(0) &&
     stacksFtAssetBalances.length === 0 &&
     stacksNftAssetBalances.length === 0;
 
@@ -54,8 +57,13 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
       {btcAssetBalance.balance.amount.isGreaterThan(0) && (
         <CryptoCurrencyAssetItem assetBalance={btcAssetBalance} icon={<Box as={BtcIcon} />} />
       )}
-      {stxAssetBalance.balance.amount.isGreaterThan(0) && (
-        <CryptoCurrencyAssetItem assetBalance={stxAssetBalance} icon={<StxAvatar {...props} />} />
+      {(stxAssetBalance.balance.amount.isGreaterThan(0) ||
+        stxUnachoredAssetBalance.balance.amount.isGreaterThan(0)) && (
+        <CryptoCurrencyAssetItem
+          assetBalance={stxAssetBalance}
+          assetSubBalance={stxUnachoredAssetBalance}
+          icon={<StxAvatar {...props} />}
+        />
       )}
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
       <StacksNonFungibleTokenAssetList assetBalances={stacksNftAssetBalances} />
