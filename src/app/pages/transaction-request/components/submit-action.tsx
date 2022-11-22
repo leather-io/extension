@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import { Button, ButtonProps } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';

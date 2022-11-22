@@ -1,8 +1,8 @@
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
-import { APINetworkRecipientAddress, SECRET_KEY_2 } from '@tests/mocks';
-import { SendPage } from '@tests/page-objects/send-form.page';
-import { WalletPage } from '@tests/page-objects/wallet.page';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { BrowserDriver, createTestSelector, setupBrowser } from '@tests-legacy/integration/utils';
+import { APINetworkRecipientAddress, SECRET_KEY_2 } from '@tests-legacy/mocks';
+import { SendPage } from '@tests-legacy/page-objects/send-form.page';
+import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
 
 import { RouteUrls } from '@shared/route-urls';
 

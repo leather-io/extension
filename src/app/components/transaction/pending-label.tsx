@@ -1,7 +1,7 @@
 import { FiInfo } from 'react-icons/fi';
 
 import { Box, Flex, Stack, Text, color } from '@stacks/ui';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { Tooltip } from '@app/components/tooltip';
 

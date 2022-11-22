@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { TEST_ACCOUNTS_WITH_ADDRESS } from '@tests/mocks';
-import { ProviderWithTestWallet } from '@tests/state-utils';
+import { TEST_ACCOUNTS_WITH_ADDRESS } from '@tests-legacy/mocks';
+import { ProviderWithTestWallet } from '@tests-legacy/state-utils';
 import { useAtomValue } from 'jotai/utils';
 
 import { accountsWithAddressState, softwareAccountsState } from '@app/store/accounts/accounts';

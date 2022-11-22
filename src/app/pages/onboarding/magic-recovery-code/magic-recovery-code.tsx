@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, Flex, Input, Stack, StackProps, Text } from '@stacks/ui';
-import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { WalletPageSelectors } from '@tests-legacy/page-objects/wallet.selectors';
 import { Form, Formik } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';

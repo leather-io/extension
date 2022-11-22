@@ -1,5 +1,5 @@
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { WalletPage } from '@tests/page-objects/wallet.page';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
 import { mkdtemp } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';

@@ -1,6 +1,6 @@
-import { AssetSelectors } from '@tests/integration/asset.selectors';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
-import { WalletPageSelectors } from '@tests/page-objects/wallet.selectors';
+import { AssetSelectors } from '@tests-legacy/integration/asset.selectors';
+import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
+import { WalletPageSelectors } from '@tests-legacy/page-objects/wallet.selectors';
 import { Page } from 'playwright-core';
 
 import { createTestSelector } from '../integration/utils';

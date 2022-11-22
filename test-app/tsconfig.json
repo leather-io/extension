@@ -32,11 +32,18 @@
       "@containers/*": ["./containers/*"],
       "@common/*": ["./common/*"],
       "@cards/*": ["./components/cards/*"],
-      "@tests/*": ["../../tests/*"]
+      "@tests/*": ["../../tests/*"],
+      "@tests-legacy/*": ["../../tests-legacy/*"]
     },
     "baseUrl": "./src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["./src/**/*", "./tests/**/*", "./components/**/*", "./common/**/*"]
+  "include": [
+    "./src/**/*",
+    "./tests-legacy/**/*",
+    "./tests/**/*",
+    "./components/**/*",
+    "./common/**/*"
+  ]
 }

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack, StackProps } from '@stacks/ui';
-import { HomePageSelectors } from '@tests/page-objects/home.selectors';
+import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
 
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';

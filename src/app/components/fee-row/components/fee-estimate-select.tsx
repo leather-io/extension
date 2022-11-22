@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useRef } from 'react';
 
 import { Fade, Stack, color } from '@stacks/ui';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { FeeEstimate, FeeType } from '@shared/models/fees-types';
 

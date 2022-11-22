@@ -1,9 +1,9 @@
-import { NetworkSelectors } from '@tests/integration/network.selectors';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { BrowserDriver, createTestSelector, setupBrowser } from '@tests/integration/utils';
-import { SECRET_KEY_2 } from '@tests/mocks';
-import { NetworkPage } from '@tests/page-objects/network-page';
-import { WalletPage } from '@tests/page-objects/wallet.page';
+import { NetworkSelectors } from '@tests-legacy/integration/network.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { BrowserDriver, createTestSelector, setupBrowser } from '@tests-legacy/integration/utils';
+import { SECRET_KEY_2 } from '@tests-legacy/mocks';
+import { NetworkPage } from '@tests-legacy/page-objects/network-page';
+import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
 
 import { RouteUrls } from '@shared/route-urls';
 

@@ -3,7 +3,7 @@ import { FiArrowUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { ButtonProps } from '@stacks/ui';
-import { HomePageSelectors } from '@tests/page-objects/home.selectors';
+import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
 
 import { featureFlags } from '@shared/feature-flags';
 import { RouteUrls } from '@shared/route-urls';

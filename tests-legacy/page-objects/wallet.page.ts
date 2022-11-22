@@ -1,6 +1,6 @@
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { HomePageSelectors } from '@tests/page-objects/home.selectors';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
 import { Page } from 'playwright-core';
 
 import { RouteUrls } from '@shared/route-urls';

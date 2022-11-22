@@ -1,5 +1,5 @@
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
-import { SECRET_KEY_2 } from '@tests/mocks';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SECRET_KEY_2 } from '@tests-legacy/mocks';
 import { Page } from 'playwright-core';
 
 import { RouteUrls } from '@shared/route-urls';

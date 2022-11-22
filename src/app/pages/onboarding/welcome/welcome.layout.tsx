@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
 import { Box, Flex, color } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 
 import { featureFlags } from '@shared/feature-flags';
 

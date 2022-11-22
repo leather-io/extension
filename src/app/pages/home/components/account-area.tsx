@@ -3,7 +3,7 @@ import { FiCopy } from 'react-icons/fi';
 
 import { Box, Stack, StackProps, color, useClipboard } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { UserAreaSelectors } from '@tests/integration/user-area.selectors';
+import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Tooltip } from '@app/components/tooltip';

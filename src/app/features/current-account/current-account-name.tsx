@@ -2,7 +2,7 @@ import { Suspense, memo } from 'react';
 
 import { BoxProps } from '@stacks/ui';
 import { memoWithAs } from '@stacks/ui-core';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { truncateString } from '@app/common/utils';

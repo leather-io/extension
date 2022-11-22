@@ -1,7 +1,7 @@
 import { Suspense, useCallback } from 'react';
 
 import { Box, Stack, Text } from '@stacks/ui';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';

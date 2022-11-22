@@ -2,7 +2,7 @@ import { FiCopy } from 'react-icons/fi';
 
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
 import { Box, Stack, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { Link } from '@app/components/link';
 import { Text, Title } from '@app/components/typography';
