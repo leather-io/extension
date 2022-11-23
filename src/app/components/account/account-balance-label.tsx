@@ -5,14 +5,14 @@ import {
   AccountBalanceLoading,
 } from '@app/components/account/account-balance-caption';
 import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useUnanchoredStacksBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
 
 interface AccountBalanceLabelProps {
   address: string;
 }
 export const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
   const stxMarketData = useStxMarketData();
-  const { data: balances, isLoading } = useUnanchoredStacksBalances(address);
+  const { data: balances, isLoading } = useAnchoredStacksAccountBalances(address);
 
   if (isLoading) return <AccountBalanceLoading />;
 

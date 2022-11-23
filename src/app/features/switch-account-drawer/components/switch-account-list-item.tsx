@@ -3,37 +3,13 @@ import { memo } from 'react';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
-import {
-  AccountBalanceCaption,
-  AccountBalanceLoading,
-} from '@app/components/account/account-balance-caption';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 import { AccountAvatarItem } from './account-avatar';
 import { AccountName } from './account-name';
-
-interface AccountBalanceLabelProps {
-  address: string;
-}
-const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
-  const stxMarketData = useStxMarketData();
-  const { data: balances, isLoading } = useAnchoredStacksAccountBalances(address);
-
-  if (isLoading) return <AccountBalanceLoading />;
-
-  if (!balances) return null;
-
-  return (
-    <AccountBalanceCaption
-      availableBalance={balances.stx.availableStx}
-      marketData={stxMarketData}
-    />
-  );
-});
+import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 
 interface SwitchAccountListItemProps {
   account: AccountWithAddress;
