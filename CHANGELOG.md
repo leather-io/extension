@@ -1,3 +1,21 @@
+## [3.25.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.24.0...v3.25.0) (2022-11-16)
+
+
+### Features
+
+* send form amount field ([c8621bc](https://github.com/hirosystems/stacks-wallet-web/commit/c8621bce93394e76558b67175179f46a7e6cba4c))
+* support bns recipients, closes [#1840](https://github.com/hirosystems/stacks-wallet-web/issues/1840) ([6dae61e](https://github.com/hirosystems/stacks-wallet-web/commit/6dae61ee5b8b59c06036178774c43d156b2783d5))
+
+
+### Bug Fixes
+
+* missing address chars, closes [#2860](https://github.com/hirosystems/stacks-wallet-web/issues/2860) ([793f90a](https://github.com/hirosystems/stacks-wallet-web/commit/793f90ad2a74ab227eaba269d06bf0f2f6373340))
+
+
+### Internal
+
+* remove unused suspense ([4cab35f](https://github.com/hirosystems/stacks-wallet-web/commit/4cab35fcfd2f1912c4c7018135c78ccb73e009fc))
+
 ## [3.24.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.23.0...v3.24.0) (2022-11-15)
 
 
