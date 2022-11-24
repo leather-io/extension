@@ -1,9 +1,9 @@
 import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated/models/AddressNonces';
 import { AddressBalanceResponse } from '@stacks/stacks-blockchain-api-types';
 import {
-  TokenTransferPayload,
   addressToString,
   deserializeTransaction,
+  isTokenTransferPayload,
 } from '@stacks/transactions';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
@@ -83,8 +83,9 @@ test('recipient address matches resolved bns name', async ({ page, extensionId }
   if (serializedTx === null) throw new Error('Expected `serializedTx` to not be `null`.');
   const tx = deserializeTransaction(serializedTx);
 
-  // May be able to avoid type assertion if following PR merged,
-  // https://github.com/hirosystems/stacks.js/pull/1395
-  const payload = tx.payload as TokenTransferPayload;
+  const payload = tx.payload;
+  if (!isTokenTransferPayload(payload))
+    throw new Error('Expected `payload` to be of type `TransferTokenPayload`.');
+
   test.expect(addressToString(payload.recipient.address)).toEqual(address);
 });

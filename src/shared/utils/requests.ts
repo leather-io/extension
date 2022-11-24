@@ -11,7 +11,7 @@ import { decodeToken } from 'jsontokens';
 // and `_coreApiUrl` is a private value.
 // To support both `@stacks/network` versions a dev may be using
 // we look for both possible networks defined
-export function getCoreApiUrl(network: StacksNetwork): string {
+export function getCoreApiUrl(network: Pick<StacksNetwork, 'coreApiUrl'>): string {
   if (network.coreApiUrl) return network.coreApiUrl;
   if ((network as any)._coreApiUrl) return (network as any)._coreApiUrl;
   return '';
