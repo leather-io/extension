@@ -91,6 +91,13 @@ export function useFeeEstimations(txByteLength: number | null, txPayload: string
       };
     }
     return { estimates: feeEstimations ?? [], calculation: FeeCalculationType.Api };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [txByteLength, txFeeEstimation]);
+  }, [
+    feeEstimationsMaxValues,
+    feeEstimationsMinValues,
+    isError,
+    isLoading,
+    result,
+    txByteLength,
+    txFeeEstimation?.estimations,
+  ]);
 }

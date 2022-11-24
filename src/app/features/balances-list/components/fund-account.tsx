@@ -1,6 +1,6 @@
 import NoFunds from '@assets/images/no-funds.png';
 import { Flex, FlexProps } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 
 import { SecondaryButton } from '@app/components/secondary-button';
 import { Caption } from '@app/components/typography';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { useFormik } from 'formik';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -39,7 +39,7 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
             <Text as="p" mt="loose" fontWeight="bold">
               {whenWallet({
                 software:
-                  "⚠️ If you haven't backed up your Secret Key, you will loose all your funds.",
+                  "⚠️ If you haven't backed up your Secret Key, you will lose all your funds.",
                 ledger: '',
               })}
             </Text>

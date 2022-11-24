@@ -3,8 +3,8 @@ import { FiArrowLeft, FiMoreHorizontal } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, FlexProps, IconButton, Stack, Text, color, useMediaQuery } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { BRANCH } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';

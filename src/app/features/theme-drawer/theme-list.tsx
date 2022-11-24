@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { Flex, FlexProps } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
@@ -15,7 +15,9 @@ export const ThemeList = (props: FlexProps) => {
 
   const handleThemeSelected = useCallback(
     (theme: UserSelectedTheme) => {
-      void analytics.track(`theme_selected_${theme}`);
+      void analytics.track(`select_theme`, {
+        theme,
+      });
       setUserSelectedTheme(theme);
     },
     [analytics, setUserSelectedTheme]

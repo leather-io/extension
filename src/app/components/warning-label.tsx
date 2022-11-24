@@ -3,7 +3,7 @@ import { FiAlertTriangle } from 'react-icons/fi';
 import { Box, Stack, StackProps, Text, color } from '@stacks/ui';
 
 interface WarningLabelProps extends StackProps {
-  children: string | JSX.Element | React.ReactNode | undefined;
+  children: React.ReactNode | undefined;
 }
 export function WarningLabel({ children, ...rest }: WarningLabelProps): JSX.Element {
   return (

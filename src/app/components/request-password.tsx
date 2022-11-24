@@ -2,7 +2,7 @@ import { FormEvent, useCallback, useState } from 'react';
 
 import UnlockSession from '@assets/images/unlock-session.png';
 import { Box, Input, Stack, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWallet } from '@app/common/hooks/use-wallet';

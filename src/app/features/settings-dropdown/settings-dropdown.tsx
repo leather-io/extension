@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Flex, SlideFade, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests/integration/settings.selectors';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 

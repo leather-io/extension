@@ -1,7 +1,7 @@
 import { Suspense, useCallback } from 'react';
 
 import { Box, Stack, Text } from '@stacks/ui';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
@@ -15,6 +15,7 @@ import { isEmpty, isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { getFullyQualifiedStacksAssetName } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -26,7 +27,6 @@ import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
 import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 
 import { SendFormMemoWarning } from './memo-warning';
 

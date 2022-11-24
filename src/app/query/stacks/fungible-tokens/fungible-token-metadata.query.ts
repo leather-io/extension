@@ -4,7 +4,7 @@ import { RateLimiter } from 'limiter';
 
 import { isResponseCode } from '@app/common/network/is-response-code';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
@@ -36,7 +36,7 @@ function fetchUnanchoredAccountInfo(client: StacksClient) {
 export function useGetFungibleTokenMetadataQuery(
   contractId: string
 ): UseQueryResult<FungibleTokenMetadata> {
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
 
   return useQuery({
@@ -49,7 +49,7 @@ export function useGetFungibleTokenMetadataQuery(
 export function useGetFungibleTokenMetadataListQuery(
   contractIds: string[]
 ): UseQueryResult<FungibleTokenMetadata>[] {
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
 
   return useQueries({

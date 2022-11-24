@@ -1,6 +1,6 @@
 import { forwardRef, memo } from 'react';
 
-import { Box, Stack, StackProps } from '@stacks/ui';
+import { Box, BoxProps, Stack } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 
 import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
@@ -12,7 +12,7 @@ import { Caption, Text } from '@app/components/typography';
 
 // TODO: This is temporarily a copy of the fungible token layout component
 // New designs for this will be implemented when the nft api endpoint is available
-interface StacksNonFungibleTokenAssetItemLayoutProps extends StackProps {
+interface StacksNonFungibleTokenAssetItemLayoutProps extends BoxProps {
   avatar: string;
   caption: string;
   count: BigNumber;

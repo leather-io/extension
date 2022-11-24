@@ -1,6 +1,5 @@
-import { forwardRef, memo } from 'react';
-
-import { Box, Stack, StackProps } from '@stacks/ui';
+import { Box, BoxProps, Stack } from '@stacks/ui';
+import { forwardRefWithAs } from '@stacks/ui-core';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -15,7 +14,7 @@ import { Text } from '@app/components/typography';
 import { AssetCaption } from '../../components/asset-caption';
 import { SubBalance } from '../../components/sub-balance';
 
-interface StacksFungibleTokenAssetItemLayoutProps extends StackProps {
+interface StacksFungibleTokenAssetItemLayoutProps extends BoxProps {
   avatar: string;
   balance: Money;
   caption: string;
@@ -24,8 +23,8 @@ interface StacksFungibleTokenAssetItemLayoutProps extends StackProps {
   subBalance?: Money;
   title: string;
 }
-export const StacksFungibleTokenAssetItemLayout = memo(
-  forwardRef((props: StacksFungibleTokenAssetItemLayoutProps, ref) => {
+export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
+  (props: StacksFungibleTokenAssetItemLayoutProps, ref) => {
     const { avatar, balance, caption, imageCanonicalUri, isPressable, subBalance, title, ...rest } =
       props;
     const [component, bind] = usePressable(isPressable);
@@ -81,5 +80,5 @@ export const StacksFungibleTokenAssetItemLayout = memo(
         {component}
       </Box>
     );
-  })
+  }
 );

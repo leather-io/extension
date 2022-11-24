@@ -4,7 +4,7 @@ import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query
 import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const queryOptions = {
@@ -17,7 +17,7 @@ const queryOptions = {
 export function useGetAccountTransactionsWithTransfersQuery() {
   const principal = useCurrentAccountStxAddressState();
   const { chain } = useCurrentNetworkState();
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const fetch = () => {
     if (!principal) return;
     return client.accountsApi.getAccountTransactionsWithTransfers({

@@ -1,6 +1,6 @@
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
-import { STX_TRANSFER_TX_REQUEST, TEST_WALLET } from '@tests/mocks';
-import { generateContractCallToken } from '@tests/utils/transation-test-utils';
+import { STX_TRANSFER_TX_REQUEST, TEST_WALLET } from '@tests-legacy/mocks';
+import { generateContractCallToken } from '@tests-legacy/utils/transation-test-utils';
 
 import { UNAUTHORIZED_TX_REQUEST, verifyTxRequest } from './requests';
 

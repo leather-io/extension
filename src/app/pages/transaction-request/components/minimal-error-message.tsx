@@ -2,7 +2,7 @@ import { Suspense, memo } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 
 import { Box, Stack, StackProps, color } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 
 import { Caption } from '@app/components/typography';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';

@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: set-dirs
-        working-directory: ./tests/integration
+        working-directory: ./tests-legacy/integration
         run: echo "::set-output name=dir::$( ls -d */ | xargs -0 | sed 's/\///' | jq -R -s -c 'split("\n")[:-2]')"
 
   test-integration:
@@ -69,7 +69,7 @@ jobs:
               --config=./jest.integration.config.js \
               --detectOpenHandles \
               --forceExit \
-              --testPathPattern=./tests/integration/${{ matrix.dir }}/*
+              --testPathPattern=./tests-legacy/integration/${{ matrix.dir }}/*
 
       - name: Upload traces
         uses: actions/upload-artifact@v2

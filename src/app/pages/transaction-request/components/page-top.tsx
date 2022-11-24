@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { Stack } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests/page-objects/transaction-signing.selectors';
+import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';

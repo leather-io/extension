@@ -5,17 +5,17 @@ import { AddressBalanceResponse } from '@shared/models/account.model';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import type { AccountWithAddress } from '@app/store/accounts/account.models';
-import { useStacksClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
+import {
+  useStacksClientAnchored,
+  useStacksClientUnanchored,
+} from '@app/store/common/api-clients.hooks';
 
-const staleTime = 15 * 60 * 1000; // 15 min
+const staleTime = 1 * 60 * 1000; // 1min
 
 const balanceQueryOptions = {
-  keepPreviousData: false,
   staleTime,
-  cacheTime: 0,
+  keepPreviousData: false,
   refetchOnMount: true,
-  refetchInterval: false,
-  refetchOnReconnect: false,
 } as const;
 
 function fetchAccountBalance(client: StacksClient) {
@@ -29,36 +29,38 @@ function fetchAccountBalance(client: StacksClient) {
 
 type FetchAccountBalanceResp = Awaited<ReturnType<ReturnType<typeof fetchAccountBalance>>>;
 
-export function useGetAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
+export function useUnanchoredStacksAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
   address: string,
   options?: AppUseQueryConfig<FetchAccountBalanceResp, T>
 ) {
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   return useQuery({
     enabled: !!address,
     queryKey: ['get-address-stx-balance', address],
     queryFn: () => fetchAccountBalance(client)(address),
-    ...options,
-  });
-}
-
-export function useGetAnchoredAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
-  address: string,
-  options?: AppUseQueryConfig<FetchAccountBalanceResp, T>
-) {
-  const client = useStacksClientAnchored();
-  return useQuery({
-    enabled: !!address,
-    queryKey: ['get-address-anchored-stx-balance', address],
-    queryFn: () => fetchAccountBalance(client)(address),
-    retryOnMount: true,
     ...balanceQueryOptions,
     ...options,
   });
 }
 
-export function useGetAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
-  const client = useStacksClient();
+export function useAnchoredStacksAccountBalanceQuery<T extends unknown = FetchAccountBalanceResp>(
+  address: string,
+  options?: AppUseQueryConfig<FetchAccountBalanceResp, T>
+) {
+  const client = useStacksClientAnchored();
+
+  return useQuery({
+    enabled: !!address,
+    queryKey: ['get-address-anchored-stx-balance', address],
+    queryFn: () => fetchAccountBalance(client)(address),
+
+    ...balanceQueryOptions,
+    ...options,
+  });
+}
+
+export function useAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
+  const client = useStacksClientAnchored();
 
   return useQueries({
     queries: (accounts ?? []).map(account => ({

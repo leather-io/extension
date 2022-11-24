@@ -15,13 +15,13 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { useStacksSendFormValidation } from '@app/common/hooks/use-send-form-validation';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { Header } from '@app/components/header';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useSendFormValidation } from '@app/pages/send-tokens/hooks/use-send-form-validation';
 import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
@@ -41,7 +41,7 @@ function SendTokensFormBase() {
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const [selectedAssetId, setSelectedAssetId] = useState<string>('');
   const { setActiveTabActivity } = useHomeTabs();
-  const sendFormSchema = useSendFormValidation({ selectedAssetId, setAssetError });
+  const sendFormSchema = useStacksSendFormValidation({ selectedAssetId, setAssetError });
   const generateTx = useGenerateSendFormUnsignedTx(selectedAssetId);
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const txByteLength = useSendFormEstimatedUnsignedTxByteLengthState(selectedAssetId);

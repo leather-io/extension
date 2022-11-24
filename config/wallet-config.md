@@ -27,9 +27,7 @@ A message targeting all versions is referred to with the key `global`. The JSON 
     ]
   },
   "activeFiatProviders": {
-    "transak": { "name": "transak", "enabled": true },
-     "okcoin": { "name": "okcoin", "enabled": false }
+    "transak": { "name": "transak", "enabled": true }
   }
 }
-
 ```

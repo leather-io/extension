@@ -15,7 +15,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { Caption } from '@app/components/typography';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
@@ -29,7 +29,7 @@ export function IncreaseFeeForm() {
   const tx = useSelectedTx();
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
-  const { data: stxBalance } = useCurrentAccountAvailableStxBalance();
+  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();
@@ -88,8 +88,11 @@ export function IncreaseFeeForm() {
           {tx && <StacksTransactionItem position="relative" transaction={tx} zIndex={99} />}
           <Stack spacing="base">
             <IncreaseFeeField currentFee={fee} />
-            {stxBalance && (
-              <Caption>Balance: {stacksValue({ value: stxBalance, fixedDecimals: true })}</Caption>
+            {balances?.stx.availableStx.amount && (
+              <Caption>
+                Balance:{' '}
+                {stacksValue({ value: balances?.stx.availableStx.amount, fixedDecimals: true })}
+              </Caption>
             )}
           </Stack>
           <IncreaseFeeActions currentFee={fee} />

@@ -1,0 +1,42 @@
+name: Playwright Tests
+env:
+  CI: true
+  WALLET_ENVIRONMENT: testing
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: yarn
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+      - name: Build extension in test mode
+        run: yarn build:test
+      - name: Run Playwright tests
+        # Playwright can only test extensions in headed mode, see
+        # https://playwright.dev/docs/chrome-extensions. To run a browser in
+        # headed mode, a display server is necessary. However, this job runs on
+        # an Ubuntu worker without a display server.
+        #
+        # The `xvfb-run` utility,
+        # https://manpages.ubuntu.com/manpages/xenial/man1/xvfb-run.1.html,
+        # provides a virtual X display server to the process it runs, allowing
+        # processes that require a display server to run in environments where
+        # one is not available.
+        run: xvfb-run yarn playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

@@ -9,36 +9,36 @@ import { formatInsufficientBalanceError, formatPrecisionError } from '@app/commo
 import { SendFormErrorMessages } from '@app/common/error-messages';
 import { stxToMicroStx } from '@app/common/stacks-utils';
 import { stxAmountSchema } from '@app/common/validation/currency-schema';
-import { useCurrentAccountAvailableStxBalance } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 
 /**
  * @param amountToSend stx amount in µSTX
  */
 export const useFeeSchema = (amountToSend?: number) => {
-  const { data: availableStxBalance } = useCurrentAccountAvailableStxBalance();
+  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 
   return useCallback(
     () =>
       stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS))
         .test({
-          message: formatInsufficientBalanceError(availableStxBalance, 'STX'),
+          message: formatInsufficientBalanceError(balances?.stx.availableStx.amount, 'STX'),
           test(fee: unknown) {
-            if (!availableStxBalance || !isNumber(fee)) return false;
-            return availableStxBalance.isGreaterThanOrEqualTo(stxToMicroStx(fee));
+            if (!balances?.stx.availableStx.amount || !isNumber(fee)) return false;
+            return balances?.stx.availableStx.amount.isGreaterThanOrEqualTo(stxToMicroStx(fee));
           },
         })
         .test((fee: unknown, context) => {
-          if (!availableStxBalance || !isNumber(fee)) return false;
+          if (!balances?.stx.availableStx.amount || !isNumber(fee)) return false;
           // Don't test when value is undefined
           if (amountToSend === undefined) return true;
           const amountWithFee = new BigNumber(amountToSend).plus(stxToMicroStx(fee));
-          if (amountWithFee.isGreaterThan(availableStxBalance)) {
+          if (amountWithFee.isGreaterThan(balances?.stx.availableStx.amount)) {
             return context.createError({
               message: SendFormErrorMessages.AdjustedFeeExceedsBalance,
             });
           }
           return true;
         }),
-    [amountToSend, availableStxBalance]
+    [amountToSend, balances?.stx.availableStx.amount]
   );
 };

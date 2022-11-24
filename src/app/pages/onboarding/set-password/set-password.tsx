@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import SetPassword from '@assets/images/onboarding/set-password.png';
 import { Box, Stack, Text } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 import { Form, Formik } from 'formik';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';

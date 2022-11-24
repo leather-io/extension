@@ -3,8 +3,8 @@ import { memo } from 'react';
 import { Stack, StackProps, Text } from '@stacks/ui';
 import { useField } from 'formik';
 
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { Caption } from '@app/components/typography';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
 
 import { SelectedAssetItem } from './selected-asset-item';
 

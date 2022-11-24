@@ -1,5 +1,5 @@
 import { Button } from '@stacks/ui';
-import { FundPageSelectors } from '@tests/page-objects/fund.selectors';
+import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
 
 interface SkipFundAccountButton {
   onSkipFundAccount(): void;

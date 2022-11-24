@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
 import { Box, Input, Stack, Text, color, useMediaQuery } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 import { Form, Formik } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';

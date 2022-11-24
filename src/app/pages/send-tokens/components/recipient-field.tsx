@@ -4,7 +4,7 @@ import { FiCopy, FiInfo } from 'react-icons/fi';
 
 import { Box, Input, InputGroup, Stack, StackProps, Text, useClipboard } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
 import { SendFormValues } from '@shared/models/form.model';
@@ -13,7 +13,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@app/components/error-label';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
-import { useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 interface RecipientField extends StackProps {
   error?: string;
@@ -24,7 +24,7 @@ interface RecipientField extends StackProps {
 function RecipientFieldBase(props: RecipientField) {
   const { error, value, ...rest } = props;
   const { handleChange, values, setFieldValue } = useFormikContext<SendFormValues>();
-  const client = useStacksClient();
+  const client = useStacksClientUnanchored();
   const [resolvedBnsAddress, setResolvedBnsAddress] = useState('');
   const { onCopy, hasCopied } = useClipboard(resolvedBnsAddress);
   const analytics = useAnalytics();
@@ -81,7 +81,9 @@ function RecipientFieldBase(props: RecipientField) {
       </InputGroup>
       {Boolean(resolvedBnsAddress) && (
         <Stack isInline spacing="tight">
-          <Caption display="inline">{truncateMiddle(resolvedBnsAddress, 4)}</Caption>
+          <Caption display="inline" data-testid={SendFormSelectors.ResolvedBnsAddressPreview}>
+            {truncateMiddle(resolvedBnsAddress, 4)}
+          </Caption>
           <Tooltip label={resolvedBnsAddress} placement="bottom">
             <Stack display="inline-flex">
               <Box
@@ -90,6 +92,7 @@ function RecipientFieldBase(props: RecipientField) {
                 as={FiInfo}
                 color={color('text-caption')}
                 size="14px"
+                data-testid={SendFormSelectors.ResolvedBnsAddressHoverInfoIcon}
               />
             </Stack>
           </Tooltip>
@@ -101,6 +104,7 @@ function RecipientFieldBase(props: RecipientField) {
                 size="12px"
                 color={color('text-caption')}
                 as={FiCopy}
+                data-testid={SendFormSelectors.ResolvedBnsAddressCopyToClipboard}
               />
             </Stack>
           </Tooltip>

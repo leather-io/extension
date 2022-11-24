@@ -1,15 +1,16 @@
 import { memo } from 'react';
 
 import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
-import { SendFormSelectors } from '@tests/page-objects/send-form.selectors';
+import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
 import { SendFormValues } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { ErrorLabel } from '@app/components/error-label';
-import { useSelectedAssetBalance } from '@app/pages/send-tokens/hooks/use-selected-asset-balance';
-import { useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useStacksFungibleTokenAssetBalancesUnanchored } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxButton } from './send-max-button';
@@ -24,7 +25,10 @@ function AmountFieldBase(props: AmountFieldProps) {
   const { error, value, ...rest } = props;
   const { handleChange, values } = useFormikContext<SendFormValues>();
   const analytics = useAnalytics();
-  const ftAssetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata();
+  const account = useCurrentAccount();
+  const { data: ftAssetBalances = [] } = useStacksFungibleTokenAssetBalancesUnanchored(
+    account?.address ?? ''
+  );
   const { isStx, selectedAssetBalance, placeholder } = useSelectedAssetBalance(values.assetId);
   const { handleOnKeyDown, handleSetSendMax } = useSendAmountFieldActions();
 

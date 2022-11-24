@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { Caption } from '@app/components/typography';
-import { useAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
 
 interface BalanceProps {
   address: string;
 }
 export function Balance(props: BalanceProps) {
   const { address } = props;
-  const { data: balances } = useAccountUnanchoredBalances(address);
+  const { data: balances } = useAnchoredStacksAccountBalances(address);
 
   const balance = useMemo(
     () =>

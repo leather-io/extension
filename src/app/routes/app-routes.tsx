@@ -16,6 +16,7 @@ import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 import { AddNetwork } from '@app/pages/add-network/add-network';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
+import { SendCryptoAsset } from '@app/pages/crypto-asset-list/send-crypto-asset';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
@@ -25,7 +26,7 @@ import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
-import { sendCryptoAssetRoutes } from '@app/pages/send-crypto-asset/send-crypto-asset.routes';
+import { SendCryptoAssetForm } from '@app/pages/send-crypto-asset/send-crypto-asset-form';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { SignatureRequest } from '@app/pages/signature-request/signature-request';
@@ -137,7 +138,6 @@ function AppRoutesAfterUserHasConsented() {
         >
           <Route path={RouteUrls.FundReceive} element={<ReceiveTokens />} />
         </Route>
-        {sendCryptoAssetRoutes}
         <Route
           path={RouteUrls.Send}
           element={
@@ -151,6 +151,18 @@ function AppRoutesAfterUserHasConsented() {
           {ledgerTxSigningRoutes}
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
+        <Route
+          path={RouteUrls.SendCryptoAsset}
+          element={
+            <AccountGate>
+              <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
+                <SendCryptoAsset />
+              </Suspense>
+            </AccountGate>
+          }
+        />
+        <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />} />
+        <Route path={RouteUrls.SendCryptoAssetFormConfirmation} element={<>confirmation</>} />
         <Route
           path={RouteUrls.TransactionRequest}
           element={
