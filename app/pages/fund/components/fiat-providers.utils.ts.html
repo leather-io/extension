@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/7</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -161,21 +161,7 @@
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
 <a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,7 +205,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,13 +217,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,8 +246,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -291,7 +267,6 @@ import CryptoComIcon from '@assets/images/fund/fiat-providers/crypto.com-icon.pn
 import GateIoIcon from '@assets/images/fund/fiat-providers/gate.io-icon.png';
 import KuCoinIcon from '@assets/images/fund/fiat-providers/kucoin-icon.png';
 import MoonPayIcon from '@assets/images/fund/fiat-providers/moonpay-icon.png';
-import OkcoinIcon from '@assets/images/fund/fiat-providers/okcoin-icon.png';
 import OkxIcon from '@assets/images/fund/fiat-providers/okx-icon.png';
 import TransakIcon from '@assets/images/fund/fiat-providers/transak-icon.png';
 import { generateOnRampURL } from '@coinbase/cbpay-js';
@@ -310,7 +285,6 @@ enum ActiveFiatProviders {
   GateIo = 'gateIo',
   KuCoin = 'kuCoin',
   MoonPay = 'moonPay',
-  Okcoin = 'okcoin',
   Okx = 'okx',
   Transak = 'transak',
 }
@@ -324,7 +298,6 @@ export const activeFiatProviderIcons: Record&lt;ActiveFiatProvider['name'], stri
   [ActiveFiatProviders.GateIo]: GateIoIcon,
   [ActiveFiatProviders.KuCoin]: KuCoinIcon,
   [ActiveFiatProviders.MoonPay]: MoonPayIcon,
-  [ActiveFiatProviders.Okcoin]: OkcoinIcon,
   [ActiveFiatProviders.Okx]: OkxIcon,
   [ActiveFiatProviders.Transak]: TransakIcon,
 };
@@ -344,13 +317,6 @@ function <span class="fstat-no" title="function not covered" >makeCoinbaseUrl(</
 &nbsp;
 function <span class="fstat-no" title="function not covered" >makeMoonPayUrl(</span>address: string) {
 <span class="cstat-no" title="statement not covered" >  return `https://buy.moonpay.com?apiKey=${MOONPAY_API_KEY}&amp;currencyCode=stx&amp;walletAddress=${address}`;</span>
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >makeOkcoinUrl(</span>address: string) {
-  const successBackLink = <span class="cstat-no" title="statement not covered" >encodeURI(`https://explorer.stacks.co/address/${address}?chain=mainnet`);</span>
-  const thirdPartyLink = <span class="cstat-no" title="statement not covered" >encodeURI('https://hiro.so');</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return `https://www.okcoin.com/bridge/thirdBridge?isThirdBridge=1&amp;partnerId=10002&amp;crypto=STX&amp;address=${address}&amp;thirdPartyName=Hiro&amp;fiatAmount=100&amp;currency=USD&amp;successBackLink=${successBackLink}&amp;thirdPartyLink=${thirdPartyLink}`;</span>
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >makeTransakUrl(</span>address: string) {
@@ -385,8 +351,6 @@ export function <span class="fstat-no" title="function not covered" >getProvider
 <span class="cstat-no" title="statement not covered" >      return makeCoinbaseUrl(address);</span>
     case ActiveFiatProviders.MoonPay:
 <span class="cstat-no" title="statement not covered" >      return makeMoonPayUrl(address);</span>
-    case ActiveFiatProviders.Okcoin:
-<span class="cstat-no" title="statement not covered" >      return makeOkcoinUrl(address);</span>
     case ActiveFiatProviders.Transak:
 <span class="cstat-no" title="statement not covered" >      return makeTransakUrl(address);</span>
     default:
@@ -400,7 +364,7 @@ export function <span class="fstat-no" title="function not covered" >getProvider
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-16T11:48:57.931Z
+                at 2022-11-24T09:32:06.375Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

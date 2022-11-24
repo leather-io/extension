@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -86,7 +86,19 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,6 +110,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,10 +124,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as yup from 'yup';
 &nbsp;
-import { STX_DECIMALS } from '@shared/constants';
+import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
 import { isNumber } from '@shared/utils';
 &nbsp;
 import { countDecimals } from '@app/common/utils';
@@ -120,17 +144,29 @@ function <span class="fstat-no" title="function not covered" >curencyAmountSchem
 <span class="cstat-no" title="statement not covered" >  return yup.number().positive('Amount must be positive').typeError('Currency be a number');</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >stxAmountSchema(</span>errorMsg: string) {
+function <span class="fstat-no" title="function not covered" >currencyPrecisionValidatorFactory(</span>
+  symbol: string,
+  precision: number,
+  errorMessage: string
+) {
 <span class="cstat-no" title="statement not covered" >  return curencyAmountSchema()</span>
-    .required('Enter an amount of STX')
-    .typeError('Amount of STX must be a number')
+    .required(`Enter an amount of ${symbol}`)
+    .typeError(`Amount of ${symbol} must be a number`)
     .test({
-      message: errorMsg,
+      message: errorMessage,
 <span class="fstat-no" title="function not covered" >      te</span>st(value: unknown) {
 <span class="cstat-no" title="statement not covered" >        if (!isNumber(value)) <span class="cstat-no" title="statement not covered" >return false;</span></span>
-<span class="cstat-no" title="statement not covered" >        return countDecimals(value) &lt;= STX_DECIMALS;</span>
+<span class="cstat-no" title="statement not covered" >        return countDecimals(value) &lt;= precision;</span>
       },
     });
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >stxAmountSchema(</span>errorMsg: string) {
+<span class="cstat-no" title="statement not covered" >  return currencyPrecisionValidatorFactory('STX', STX_DECIMALS, errorMsg);</span>
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >btcAmountSchema(</span>errorMsg: string) {
+<span class="cstat-no" title="statement not covered" >  return currencyPrecisionValidatorFactory('BTC', BTC_DECIMALS, errorMsg);</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -139,7 +175,7 @@ export function <span class="fstat-no" title="function not covered" >stxAmountSc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-16T11:48:57.931Z
+                at 2022-11-24T09:32:06.375Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -118,7 +118,26 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,6 +168,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,9 +181,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,6 +211,7 @@
 import { useNavigate } from 'react-router-dom';
 &nbsp;
 import { Box, Stack, StackProps } from '@stacks/ui';
+import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
 &nbsp;
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
@@ -186,9 +221,10 @@ import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-a
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import {
-  useStacksCryptoCurrencyAssetBalance,
-  useStacksFungibleTokenAssetBalances,
+  useStacksAnchoredCryptoCurrencyAssetBalance,
+  useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
   useStacksNonFungibleTokenAssetsUnanchored,
+  useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 &nbsp;
 import { FundAccount } from './components/fund-account';
@@ -199,29 +235,44 @@ interface BalancesListProps extends StackProps {
   address: string;
 }
 export const BalancesList = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> address, ...props }: BalancesListProps) =&gt; {</span>
-  const stxAssetBalance = <span class="cstat-no" title="statement not covered" >useStacksCryptoCurrencyAssetBalance();</span>
+  const { data: stxAssetBalance } = <span class="cstat-no" title="statement not covered" >useStacksAnchoredCryptoCurrencyAssetBalance(address);</span>
+  const { data: stxUnachoredAssetBalance } = <span class="cstat-no" title="statement not covered" >useStacksUnanchoredCryptoCurrencyAssetBalance(address);</span>
   const btcAssetBalance = <span class="cstat-no" title="statement not covered" >useBitcoinCryptoCurrencyAssetBalance(BITCOIN_TEST_ADDRESS);</span>
-  const stacksFtAssetBalances = <span class="cstat-no" title="statement not covered" >useStacksFungibleTokenAssetBalances();</span>
-  const stacksNftAssetBalances = <span class="cstat-no" title="statement not covered" >useStacksNonFungibleTokenAssetsUnanchored();</span>
+  const stacksFtAssetBalances = <span class="cstat-no" title="statement not covered" >useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);</span>
+  const { data: stacksNftAssetBalances = <span class="branch-0 cbranch-no" title="branch not covered" >[] </span>} = <span class="cstat-no" title="statement not covered" >useStacksNonFungibleTokenAssetsUnanchored();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
   const handleFundAccount = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(RouteUrls.Fund),</span> [navigate]);</span>
 &nbsp;
+  // Better handle loading state
+<span class="cstat-no" title="statement not covered" >  if (!stxAssetBalance || !stxUnachoredAssetBalance) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+&nbsp;
   const noAssets =
 <span class="cstat-no" title="statement not covered" >    btcAssetBalance.balance.amount.isEqualTo(0) &amp;&amp;</span>
     stxAssetBalance.balance.amount.isEqualTo(0) &amp;&amp;
+    stxUnachoredAssetBalance.balance.amount.isEqualTo(0) &amp;&amp;
     stacksFtAssetBalances.length === 0 &amp;&amp;
     stacksNftAssetBalances.length === 0;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (noAssets) <span class="cstat-no" title="statement not covered" >return &lt;FundAccount onFundAccount={handleFundAccount} {...props} /&gt;;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack pb="extra-loose" spacing="extra-loose" {...props}&gt;
+    &lt;Stack
+      pb="extra-loose"
+      spacing="extra-loose"
+      data-testid={HomePageSelectors.BalancesList}
+      {...props}
+    &gt;
       {btcAssetBalance.balance.amount.isGreaterThan(0) &amp;&amp; (
         &lt;CryptoCurrencyAssetItem assetBalance={btcAssetBalance} icon={&lt;Box as={BtcIcon} /&gt;} /&gt;
       )}
-      {stxAssetBalance.balance.amount.isGreaterThan(0) &amp;&amp; (
-        &lt;CryptoCurrencyAssetItem assetBalance={stxAssetBalance} icon={&lt;StxAvatar {...props} /&gt;} /&gt;
+      {(stxAssetBalance.balance.amount.isGreaterThan(0) ||
+        stxUnachoredAssetBalance.balance.amount.isGreaterThan(0)) &amp;&amp; (
+        &lt;CryptoCurrencyAssetItem
+          assetBalance={stxAssetBalance}
+          assetSubBalance={stxUnachoredAssetBalance}
+          icon={&lt;StxAvatar {...props} /&gt;}
+        /&gt;
       )}
       &lt;StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} /&gt;
       &lt;StacksNonFungibleTokenAssetList assetBalances={stacksNftAssetBalances} /&gt;
@@ -235,7 +286,7 @@ export const BalancesList = <span class="cstat-no" title="statement not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-16T11:48:57.931Z
+                at 2022-11-24T09:32:06.375Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

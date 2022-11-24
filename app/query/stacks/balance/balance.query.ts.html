@@ -133,18 +133,11 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,13 +148,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,7 +169,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,17 +214,17 @@ import { AddressBalanceResponse } from '@shared/models/account.model';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import type { AccountWithAddress } from '@app/store/accounts/account.models';
-import { useStacksClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
+import {
+  useStacksClientAnchored,
+  useStacksClientUnanchored,
+} from '@app/store/common/api-clients.hooks';
 &nbsp;
-const staleTime = <span class="cstat-no" title="statement not covered" >15 * 60 * 1000;</span> // 15 min
+const staleTime = <span class="cstat-no" title="statement not covered" >1 * 60 * 1000;</span> // 1min
 &nbsp;
 const balanceQueryOptions = <span class="cstat-no" title="statement not covered" >{</span>
-  keepPreviousData: false,
   staleTime,
-  cacheTime: 0,
+  keepPreviousData: false,
   refetchOnMount: true,
-  refetchInterval: false,
-  refetchOnReconnect: false,
 } as const;
 &nbsp;
 function <span class="fstat-no" title="function not covered" >fetchAccountBalance(</span>client: StacksClient) {
@@ -234,36 +238,38 @@ function <span class="fstat-no" title="function not covered" >fetchAccountBalanc
 &nbsp;
 type FetchAccountBalanceResp = Awaited&lt;ReturnType&lt;ReturnType&lt;typeof fetchAccountBalance&gt;&gt;&gt;;
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGetAccountBalanceQuery&lt;</span>T extends unknown = FetchAccountBalanceResp&gt;(
+export function <span class="fstat-no" title="function not covered" >useUnanchoredStacksAccountBalanceQuery&lt;</span>T extends unknown = FetchAccountBalanceResp&gt;(
   address: string,
   options?: AppUseQueryConfig&lt;FetchAccountBalanceResp, T&gt;
 ) {
-  const client = <span class="cstat-no" title="statement not covered" >useStacksClient();</span>
+  const client = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
 <span class="cstat-no" title="statement not covered" >  return useQuery({</span>
     enabled: !!address,
     queryKey: ['get-address-stx-balance', address],
     queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchAccountBalance(client)(address),</span>
-    ...options,
-  });
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useGetAnchoredAccountBalanceQuery&lt;</span>T extends unknown = FetchAccountBalanceResp&gt;(
-  address: string,
-  options?: AppUseQueryConfig&lt;FetchAccountBalanceResp, T&gt;
-) {
-  const client = <span class="cstat-no" title="statement not covered" >useStacksClientAnchored();</span>
-<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
-    enabled: !!address,
-    queryKey: ['get-address-anchored-stx-balance', address],
-    queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchAccountBalance(client)(address),</span>
-    retryOnMount: true,
     ...balanceQueryOptions,
     ...options,
   });
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGetAnchoredAccountBalanceListQuery(</span>accounts?: AccountWithAddress[]) {
-  const client = <span class="cstat-no" title="statement not covered" >useStacksClient();</span>
+export function <span class="fstat-no" title="function not covered" >useAnchoredStacksAccountBalanceQuery&lt;</span>T extends unknown = FetchAccountBalanceResp&gt;(
+  address: string,
+  options?: AppUseQueryConfig&lt;FetchAccountBalanceResp, T&gt;
+) {
+  const client = <span class="cstat-no" title="statement not covered" >useStacksClientAnchored();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
+    enabled: !!address,
+    queryKey: ['get-address-anchored-stx-balance', address],
+    queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchAccountBalance(client)(address),</span>
+&nbsp;
+    ...balanceQueryOptions,
+    ...options,
+  });
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useAnchoredAccountBalanceListQuery(</span>accounts?: AccountWithAddress[]) {
+  const client = <span class="cstat-no" title="statement not covered" >useStacksClientAnchored();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
     queries: (accounts ?? []).map(<span class="fstat-no" title="function not covered" >ac</span>count =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
@@ -280,7 +286,7 @@ export function <span class="fstat-no" title="function not covered" >useGetAncho
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-16T11:48:57.931Z
+                at 2022-11-24T09:32:06.375Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
