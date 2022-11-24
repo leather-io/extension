@@ -5,6 +5,8 @@ import {
   deserializeTransaction,
   isTokenTransferPayload,
 } from '@stacks/transactions';
+import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -50,25 +52,25 @@ test('recipient address matches resolved bns name', async ({ page, extensionId }
 
   await page.goto(`chrome-extension://${extensionId}/index.html`);
 
-  await page.getByTestId('analytics-deny-btn').click();
+  await page.getByTestId(OnboardingSelectors.AnalyticsDenyBtn).click();
   await page.waitForURL('**' + RouteUrls.Onboarding);
 
-  await page.getByTestId('sign-up-btn').click();
+  await page.getByTestId(OnboardingSelectors.SignUpBtn).click();
   await page.waitForURL('**' + RouteUrls.BackUpSecretKey);
 
-  await page.getByTestId('back-up-secret-key-btn').click();
+  await page.getByTestId(OnboardingSelectors.BackUpSecretKeyBtn).click();
   await page.waitForURL('**' + RouteUrls.SetPassword);
 
-  await page.getByTestId('set-or-enter-password-input').fill('my_s3cret_p@ssw0r4');
-  await page.getByTestId('set-password-btn').click();
+  await page.getByTestId(OnboardingSelectors.NewPasswordInput).fill('my_s3cret_p@ssw0r4');
+  await page.getByTestId(OnboardingSelectors.SetPasswordBtn).click();
   await page.waitForURL('**' + RouteUrls.Home);
 
-  await page.getByTestId('btn-send-tokens').click();
+  await page.getByTestId(HomePageSelectors.BtnSendTokens).click();
   await page.waitForURL('**' + RouteUrls.Send);
 
-  await page.getByTestId('input-amount-field').fill('1');
-  await page.getByTestId('input-recipient-field').fill(bnsName);
-  await page.getByTestId('memo-field').click();
+  await page.getByTestId(SendFormSelectors.InputAmountField).fill('1');
+  await page.getByTestId(SendFormSelectors.InputRecipientField).fill(bnsName);
+  await page.getByTestId(SendFormSelectors.InputMemoField).click();
   await page.getByTestId(SendFormSelectors.ResolvedBnsAddressPreview).waitFor();
   await page.getByTestId(SendFormSelectors.ResolvedBnsAddressHoverInfoIcon).hover();
   await page.getByText(address).waitFor();
