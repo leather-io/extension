@@ -37,6 +37,8 @@ export function useAuthRequestParams() {
     const authRequest = params.get('authRequest');
     const authDetails = parseAuthRequestValues(authRequest, origin);
 
+    console.log({ authRequest, authDetails, origin, tabId });
+
     return { origin, tabId, authRequest, authDetails };
   }, [origin, params, tabId]);
 }

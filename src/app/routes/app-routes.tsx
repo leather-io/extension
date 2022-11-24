@@ -118,9 +118,7 @@ function AppRoutesAfterUserHasConsented() {
           path={RouteUrls.ChooseAccount}
           element={
             <AccountGate>
-              <Suspense fallback={<></>}>
-                <ChooseAccount />
-              </Suspense>
+              <ChooseAccount />
             </AccountGate>
           }
         >

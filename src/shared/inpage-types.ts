@@ -8,19 +8,27 @@ export enum DomEventName {
   transactionRequest = 'stacksTransactionRequest',
 }
 
-export interface AuthenticationRequestEventDetails {
+interface BaseDetails {
+  /**
+   * Use to capture the URL of the app that initiated a flow to be used in the
+   * flow's analytics.
+   */
+  referringAppDomain?: string;
+}
+
+export interface AuthenticationRequestEventDetails extends BaseDetails {
   authenticationRequest: string;
 }
 
 export type AuthenticationRequestEvent = CustomEvent<AuthenticationRequestEventDetails>;
 
-export interface SignatureRequestEventDetails {
+export interface SignatureRequestEventDetails extends BaseDetails {
   signatureRequest: string;
 }
 
 export type SignatureRequestEvent = CustomEvent<SignatureRequestEventDetails>;
 
-export interface TransactionRequestEventDetails {
+export interface TransactionRequestEventDetails extends BaseDetails {
   transactionRequest: string;
 }
 
