@@ -1,5 +1,6 @@
 export enum SettingsSelectors {
   ToggleTheme = 'change-theme',
+  GetSupport = 'get-support',
   MenuBtn = 'menu-btn',
   NetworkListItem = 'network-list-item',
   ChangeNetworkAction = 'settings-change-network',

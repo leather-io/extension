@@ -104,7 +104,7 @@ export function SettingsDropdown() {
               Change theme
             </MenuItem>
             <MenuItem
-              data-testid={SettingsSelectors.ToggleTheme}
+              data-testid={SettingsSelectors.GetSupport}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_get_support_menu_item');
                 openInNewTab(
