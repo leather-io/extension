@@ -7,6 +7,7 @@ import {
 } from '@segment/analytics-next/dist/types/core/arguments-resolver';
 
 import { IS_TEST_ENV } from '@shared/environment';
+import { flow, referringAppDomain } from '@shared/initial-params';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
@@ -38,6 +39,8 @@ export function useAnalytics() {
       route: location.pathname,
       version: VERSION,
       walletType,
+      ...(flow && { flow }),
+      ...(referringAppDomain && { referringAppDomain }),
     };
 
     const defaultOptions = {

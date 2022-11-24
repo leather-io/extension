@@ -68,6 +68,7 @@ export function useRequestNetworkId() {
   return useMemo(() => {
     const coreApiUrl = params.get('coreApiUrl');
     const networkChainId = params.get('networkChainId');
+    console.log({ coreApiUrl, networkChainId });
     return findMatchingNetworkKey({ coreApiUrl, networkChainId, networks });
   }, [networks, params]);
 }

@@ -21,6 +21,7 @@ export function useSignatureRequestSearchParams() {
 
     const messageType = searchParams.get('messageType');
 
+    console.log({ requestToken, messageType });
     return {
       tabId: isString(tabId) ? parseInt(tabId, 10) : tabId,
       requestToken,
