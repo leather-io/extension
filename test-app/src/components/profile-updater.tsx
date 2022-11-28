@@ -4,7 +4,7 @@ import { stacksMainnetNetwork } from '@common/utils';
 import { openProfileUpdateRequestPopup } from '@stacks/connect';
 import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
 import { StacksNetwork } from '@stacks/network';
-import { ProfileTabSelectors } from '@tests/integration/profile/profile-test-app.selectors';
+import { ProfileTabSelectors } from '@tests-legacy/integration/profile/profile-test-app.selectors';
 import { useAuth } from '@common/use-auth';
 
 export const ProfileTab = () => {
