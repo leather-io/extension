@@ -1,10 +1,10 @@
 import { Page } from 'playwright';
-import { WalletPage } from '@tests/page-objects/wallet.page';
-import { DemoPage } from '@tests/page-objects/demo.page';
+import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
+import { DemoPage } from '@tests-legacy/page-objects/demo.page';
+import { ProfileUpdatingPage } from '@tests-legacy/page-objects/profile-updating.page';
 import { RouteUrls } from '@shared/route-urls';
 import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
-import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
-import { ProfileUpdatingPage } from '@tests/page-objects/profile-updating.page';
+import { ProfileUpdatingSelectors } from './profile-updating.selector';
 import { ProfileTabSelectors } from './profile-test-app.selectors';
 
 jest.setTimeout(120_000);

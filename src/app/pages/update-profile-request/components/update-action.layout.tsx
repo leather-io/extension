@@ -1,5 +1,5 @@
 import { Button, Stack } from '@stacks/ui';
-import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
+import { ProfileUpdatingSelectors } from '@tests-legacy/integration/profile/profile-updating.selector';
 
 interface UpdateActionProfileProps {
   onUpdateProfile: () => Promise<void>;

@@ -1,4 +1,4 @@
-import { ProfileUpdatingSelectors } from '@tests/integration/profile/profile-updating.selector';
+import { ProfileUpdatingSelectors } from '@tests-legacy/integration/profile/profile-updating.selector';
 import { Page } from 'playwright-core';
 import { createTestSelector } from '../integration/utils';
 
