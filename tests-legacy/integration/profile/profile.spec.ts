@@ -67,11 +67,7 @@ describe(`Profile updating`, () => {
         browser.context.waitForEvent('page'),
         browser.demo.openConnect(),
       ]);
-      const [response] = await Promise.all([
-        popup.waitForNavigation(),
-        popup.click(createTestSelector('account-account-1-0')),
-      ]);
-      if (response) console.log(response);
+      await popup.click(createTestSelector('account-account-1-0'));
       await wallet.page.close();
       await demo.page.bringToFront();
       await demo.page.click('text=Profile');
