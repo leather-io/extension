@@ -1,4 +1,5 @@
 import { DisclaimerLayout } from '@app/components/disclaimer';
+
 interface DisclaimerProps {
   appName?: string;
 }

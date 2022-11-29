@@ -1,11 +1,12 @@
-import { decodeToken, TokenVerifier } from 'jsontokens';
-
-import { isString } from '@shared/utils';
 import { ProfileUpdatePayload } from '@stacks/connect';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
-import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
 import { Person } from '@stacks/profile';
+import { getAppPrivateKey } from '@stacks/wallet-sdk';
+import { TokenVerifier, decodeToken } from 'jsontokens';
+
+import { isString } from '@shared/utils';
+
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 
 export function getProfileDataContentFromToken(requestToken: string): ProfileUpdatePayload {
   const token = decodeToken(requestToken);

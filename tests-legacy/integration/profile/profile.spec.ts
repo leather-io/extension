@@ -1,11 +1,13 @@
-import { Page } from 'playwright';
-import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
 import { DemoPage } from '@tests-legacy/page-objects/demo.page';
 import { ProfileUpdatingPage } from '@tests-legacy/page-objects/profile-updating.page';
+import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
+import { Page } from 'playwright';
+
 import { RouteUrls } from '@shared/route-urls';
+
 import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } from '../utils';
-import { ProfileUpdatingSelectors } from './profile-updating.selector';
 import { ProfileTabSelectors } from './profile-test-app.selectors';
+import { ProfileUpdatingSelectors } from './profile-updating.selector';
 
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);

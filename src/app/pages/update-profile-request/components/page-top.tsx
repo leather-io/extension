@@ -1,15 +1,15 @@
-import { Flex, Stack } from '@stacks/ui';
 import { memo } from 'react';
 
-import { addPortSuffix, getUrlHostname, whenStxChainId } from '@app/common/utils';
-import { Caption, Title } from '@app/components/typography';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { ChainID } from '@stacks/transactions';
-import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
+import { Flex, Stack } from '@stacks/ui';
+
 import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
+import { addPortSuffix, getUrlHostname } from '@app/common/utils';
+import { Caption, Title } from '@app/components/typography';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
 
 function PageTopBase() {
-  const network = useCurrentNetwork();
+  const { isTestnet, chain } = useCurrentNetworkState();
   const { origin, requestToken } = useProfileUpdateRequestSearchParams();
   if (!requestToken) return null;
   const profileUpdaterPayload = getProfileDataContentFromToken(requestToken);
@@ -17,10 +17,9 @@ function PageTopBase() {
 
   const appName = profileUpdaterPayload?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = whenStxChainId(network.chainId)({
-    [ChainID.Testnet]: ` using ${getUrlHostname(network.url)}${addPortSuffix(network.url)}`,
-    [ChainID.Mainnet]: '',
-  });
+  const testnetAddition = isTestnet
+    ? ` using ${getUrlHostname(chain.stacks.url)}${addPortSuffix(chain.stacks.url)}`
+    : '';
   const caption = appName
     ? `Requested by "${appName}"${originAddition}${testnetAddition}`
     : 'Request by an unknown app';

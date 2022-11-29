@@ -1,5 +1,6 @@
 import { ProfileUpdatingSelectors } from '@tests-legacy/integration/profile/profile-updating.selector';
 import { Page } from 'playwright-core';
+
 import { createTestSelector } from '../integration/utils';
 
 const selectors = {
@@ -9,7 +10,11 @@ const selectors = {
 export class ProfileUpdatingPage {
   selectors = selectors;
 
-  constructor(public page: Page) {}
+  page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
 
   async select(selector: keyof typeof selectors) {
     return this.page.$(selectors[selector]);

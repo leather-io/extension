@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
+
+import { useAuth } from '@common/use-auth';
 import { stacksMainnetNetwork } from '@common/utils';
 import { openProfileUpdateRequestPopup } from '@stacks/connect';
-import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
 import { StacksNetwork } from '@stacks/network';
+import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
+import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
 import { ProfileTabSelectors } from '@tests-legacy/integration/profile/profile-test-app.selectors';
-import { useAuth } from '@common/use-auth';
 
 export const ProfileTab = () => {
   const name = 'Name ' + new Date().getTime().toString();

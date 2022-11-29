@@ -1,8 +1,9 @@
+import { ChainID } from '@stacks/common';
+import { Person } from '@stacks/profile';
+
 import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 import { DisclaimerLayout } from '@app/components/disclaimer';
 import { NetworkRow } from '@app/components/network-row';
-import { ChainID } from '@stacks/common';
-import { Person } from '@stacks/profile';
 
 import { ProfileBox } from './profile-box';
 import { UpdateAction } from './update-action';

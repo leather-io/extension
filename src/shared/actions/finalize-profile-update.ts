@@ -1,9 +1,10 @@
+import { PublicProfile } from '@stacks/profile';
+
 import {
   ExternalMethods,
   MESSAGE_SOURCE,
   ProfileUpdateResponseMessage,
 } from '@shared/message-types';
-import { PublicProfile } from '@stacks/profile';
 
 interface FormatProfileUpdateResponseArgs {
   request: string;

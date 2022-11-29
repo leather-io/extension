@@ -1,22 +1,25 @@
 import { useCallback, useState } from 'react';
 
+import { ProfileUpdatePayload } from '@stacks/connect';
+import { createFetchFn } from '@stacks/network';
+import { PublicPersonProfile } from '@stacks/profile';
+import {
+  DEFAULT_PROFILE,
+  Profile as WalletSdkProfile,
+  fetchAccountProfileUrl,
+  fetchProfileFromUrl,
+  signAndUploadProfile,
+} from '@stacks/wallet-sdk';
+
+import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
+import { gaiaUrl } from '@shared/constants';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
 import { useWalletState } from '@app/store/wallet/wallet.hooks';
-import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
-import { gaiaUrl } from '@shared/constants';
-import { Profile, PublicPersonProfile } from '@stacks/profile';
-import { createFetchFn } from '@stacks/network';
-import {
-  DEFAULT_PROFILE,
-  fetchAccountProfileUrl,
-  fetchProfileFromUrl,
-  signAndUploadProfile,
-  Profile as WalletSdkProfile,
-} from '@stacks/wallet-sdk';
+
 import { UpdateActionLayout } from './update-action.layout';
-import { ProfileUpdatePayload } from '@stacks/connect';
 
 function useUpdateProfileSoftwareWallet() {
   const account = useCurrentAccount();
@@ -47,7 +50,7 @@ function useUpdateProfileSoftwareWallet() {
         account,
         gaiaHubUrl: gaiaUrl,
       });
-      return updatedProfile;
+      return updatedProfile as PublicPersonProfile;
     },
     [account, wallet]
   );

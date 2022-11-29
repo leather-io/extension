@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { verifyProfileUpdateRequest } from '@app/common/profiles/requests';
+
 import { useAccounts } from '../accounts/account.hooks';
 
 export function useIsProfileUpdateRequestValid() {

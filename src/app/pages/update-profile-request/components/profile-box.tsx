@@ -1,5 +1,5 @@
 import { Profile } from '@stacks/profile';
-import { Box, color, Stack } from '@stacks/ui';
+import { Box, Stack, color } from '@stacks/ui';
 
 function Value({ v }: { v: any }) {
   if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
