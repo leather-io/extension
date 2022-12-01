@@ -105,7 +105,6 @@ export async function handleLegacyExternalMethodFormat(
         ['authRequest', payload],
         ['flow', ExternalMethods.authenticationRequest],
       ];
-      if (port.sender?.origin) otherParams.push(['referringAppDomain', port.sender.origin]);
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, otherParams);
 
       const { id } = await triggerRequestWindowOpen(RouteUrls.ChooseAccount, urlParams);
@@ -124,7 +123,6 @@ export async function handleLegacyExternalMethodFormat(
         ...getNetworkParamsFromPayload(payload),
         ['flow', ExternalMethods.transactionRequest],
       ];
-      if (port.sender?.origin) otherParams.push(['referringAppDomain', port.sender.origin]);
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, otherParams);
 
       const { id } = await triggerRequestWindowOpen(RouteUrls.TransactionRequest, urlParams);
@@ -144,7 +142,6 @@ export async function handleLegacyExternalMethodFormat(
         ...getNetworkParamsFromPayload(payload),
         ['flow', ExternalMethods.signatureRequest],
       ];
-      if (port.sender?.origin) otherParams.push(['referringAppDomain', port.sender.origin]);
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, otherParams);
 
       const { id } = await triggerRequestWindowOpen(RouteUrls.SignatureRequest, urlParams);
@@ -163,7 +160,6 @@ export async function handleLegacyExternalMethodFormat(
         ['messageType', 'structured'],
         ['flow', ExternalMethods.structuredDataSignatureRequest],
       ];
-      if (port.sender?.origin) otherParams.push(['referringAppDomain', port.sender.origin]);
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, otherParams);
 
       const { id } = await triggerRequestWindowOpen(RouteUrls.SignatureRequest, urlParams);
