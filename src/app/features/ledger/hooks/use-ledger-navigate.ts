@@ -7,7 +7,6 @@ import { StacksTransaction } from '@stacks/transactions';
 import { RouteUrls } from '@shared/route-urls';
 
 import { immediatelyAttemptLedgerConnection } from './use-when-reattempt-ledger-connection';
-import { bytesToHex } from '@stacks/common';
 
 export function useLedgerNavigate() {
   const navigate = useNavigate();

@@ -16,7 +16,6 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { bytesToHex } from '@stacks/common';
 
 const timeForApiToUpdate = 250;
 
