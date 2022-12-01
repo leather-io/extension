@@ -5,9 +5,9 @@ import { ChainID } from '@stacks/transactions';
 
 import { DefaultNetworkModes } from '@shared/constants';
 
+import { initialSearchParams } from '@app/common/initial-search-params';
 import { whenStxChainId } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
 
 import { networksActions } from './networks.actions';
 import { useCurrentNetwork, useNetworks } from './networks.selectors';
@@ -63,12 +63,10 @@ export function useNetworksActions() {
 
 export function useRequestNetworkId() {
   const networks = useNetworks();
-  const params = useInitialRouteSearchParams();
 
   return useMemo(() => {
-    const coreApiUrl = params.get('coreApiUrl');
-    const networkChainId = params.get('networkChainId');
-    console.log({ coreApiUrl, networkChainId });
+    const coreApiUrl = initialSearchParams.get('coreApiUrl');
+    const networkChainId = initialSearchParams.get('networkChainId');
     return findMatchingNetworkKey({ coreApiUrl, networkChainId, networks });
-  }, [networks, params]);
+  }, [networks]);
 }

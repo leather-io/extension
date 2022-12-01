@@ -7,10 +7,10 @@ import {
 } from '@segment/analytics-next/dist/types/core/arguments-resolver';
 
 import { IS_TEST_ENV } from '@shared/environment';
-import { flow, referringAppDomain } from '@shared/initial-params';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
+import { flow, origin } from '@app/common/initial-search-params';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useHasUserExplicitlyDeclinedAnalytics } from '@app/store/settings/settings.selectors';
@@ -40,7 +40,7 @@ export function useAnalytics() {
       version: VERSION,
       walletType,
       ...(flow && { flow }),
-      ...(referringAppDomain && { referringAppDomain }),
+      ...(origin && { origin }),
     };
 
     const defaultOptions = {

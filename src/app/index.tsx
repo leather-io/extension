@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom';
 
-import '@shared/initial-params';
 import { InternalMethods } from '@shared/message-types';
 import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
