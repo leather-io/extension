@@ -22,7 +22,6 @@ import {
   useCurrentStacksNetworkState,
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
-import { removeTrailingSlash } from '@app/common/url-join';
 
 interface AddNetworkFormValues {
   key: string;

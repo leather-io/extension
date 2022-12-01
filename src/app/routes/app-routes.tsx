@@ -33,6 +33,7 @@ import { SignatureRequest } from '@app/pages/signature-request/signature-request
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
+import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
 import { useHasStateRehydrated } from '@app/store';

@@ -3,10 +3,10 @@ import { ChainID } from '@stacks/common';
 import { SignatureMessageType } from '@shared/signature/types';
 
 import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
+import { NetworkRow } from '@app/components/network-row';
 
 import { MessageBox } from './message-box';
 import { Disclaimer } from './message-signing-disclaimer';
-import { NetworkRow } from './network-row';
 import { SignAction } from './sign-action';
 
 interface SignatureRequestMessageContentProps {
