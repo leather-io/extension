@@ -1,3 +1,27 @@
+## [3.27.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.26.0...v3.27.0) (2022-12-05)
+
+
+### Features
+
+* add get help menu item, closes [#2823](https://github.com/hirosystems/stacks-wallet-web/issues/2823) ([6e13f4c](https://github.com/hirosystems/stacks-wallet-web/commit/6e13f4c22a2e81c6d46c9e8b3584fb82696a88e9))
+* add option to easily transfer within same wallet ([f1b6ac6](https://github.com/hirosystems/stacks-wallet-web/commit/f1b6ac67cae96819ec1e6c377975d7771f3be85a))
+* allow tracking app initiating wallet flow, closes [#2904](https://github.com/hirosystems/stacks-wallet-web/issues/2904) ([d533d43](https://github.com/hirosystems/stacks-wallet-web/commit/d533d43057652cc2d926f886cbf1f5eb9dc1a27f))
+* bitcoin fees query ([9451f89](https://github.com/hirosystems/stacks-wallet-web/commit/9451f89461234e61ccf220e3f4bb3a7c1e217e87))
+
+
+### Bug Fixes
+
+* close other frames when wallet locks ([8788e01](https://github.com/hirosystems/stacks-wallet-web/commit/8788e010b9504f1cfa5c8f2c619af19da240dbc8))
+* re-enable sentry, closes 2822 ([23776d4](https://github.com/hirosystems/stacks-wallet-web/commit/23776d43b316152ed17e8bc0d5eac220da359cc4))
+* use existing data-testid values ([5194c20](https://github.com/hirosystems/stacks-wallet-web/commit/5194c20dc9084acfc655e532978b9a9ee7105a16))
+
+
+### Internal
+
+* add window.open lint rule ([0ed015b](https://github.com/hirosystems/stacks-wallet-web/commit/0ed015bee8d1b39c3564136d9c9488468ad55585))
+* reading search params outside react ([4e8d3dd](https://github.com/hirosystems/stacks-wallet-web/commit/4e8d3ddbc7f7adc6444ce7a16f787ecd89e86d46))
+* use type assertion ([1ac3fba](https://github.com/hirosystems/stacks-wallet-web/commit/1ac3fbad7bea0214a09182cbfa2bc6e4d1341a7d))
+
 ## [3.26.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.25.0...v3.26.0) (2022-11-24)
 
 
