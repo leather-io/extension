@@ -10,7 +10,7 @@ import { backupOldWalletSalt } from './backup-old-wallet-salt';
 import { initContextMenuActions } from './init-context-menus';
 import {
   handleLegacyExternalMethodFormat,
-  inferLegacyMessage,
+  isLegacyMessage,
 } from './legacy-external-message-handler';
 import { internalBackgroundMessageHandler } from './message-handler';
 
@@ -48,7 +48,7 @@ chrome.runtime.onConnect.addListener(port =>
       if (!originUrl)
         return logger.error('Message reached background script without a corresponding origin');
 
-      if (inferLegacyMessage(message)) {
+      if (isLegacyMessage(message)) {
         void handleLegacyExternalMethodFormat(message, port);
         return;
       }

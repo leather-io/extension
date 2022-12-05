@@ -4,7 +4,8 @@ import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import BigNumber from 'bignumber.js';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
-import { microStxToStx, validateStacksAddress } from '@app/common/stacks-utils';
+import { microStxToStx } from '@app/common/money/unit-conversion';
+import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';

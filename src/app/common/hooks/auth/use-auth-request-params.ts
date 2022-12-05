@@ -4,7 +4,7 @@ import { decodeToken } from 'jsontokens';
 
 import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
+import { initialSearchParams } from '@app/common/initial-search-params';
 
 import { useDefaultRequestParams } from '../use-default-request-search-params';
 
@@ -30,13 +30,12 @@ function parseAuthRequestValues(authRequest: string | null, origin: string | nul
 }
 
 export function useAuthRequestParams() {
-  const params = useInitialRouteSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
 
   return useMemo(() => {
-    const authRequest = params.get('authRequest');
+    const authRequest = initialSearchParams.get('authRequest');
     const authDetails = parseAuthRequestValues(authRequest, origin);
 
     return { origin, tabId, authRequest, authDetails };
-  }, [origin, params, tabId]);
+  }, [origin, tabId]);
 }

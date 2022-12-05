@@ -6,7 +6,7 @@ import { StacksTransaction } from '@stacks/transactions';
 import { Formik } from 'formik';
 
 import { logger } from '@shared/logger';
-import { FeeType } from '@shared/models/fees-types';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { SendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -22,7 +22,7 @@ import { Header } from '@app/components/header';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
+import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useGenerateSendFormUnsignedTx,
@@ -46,7 +46,7 @@ function SendTokensFormBase() {
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const txByteLength = useSendFormEstimatedUnsignedTxByteLengthState(selectedAssetId);
   const txPayload = useSendFormSerializedUnsignedTxPayloadState(selectedAssetId);
-  const feeEstimations = useFeeEstimations(txByteLength, txPayload);
+  const feeEstimations = useStacksFeeEstimations(txByteLength, txPayload);
   const { nonce } = useNextNonce();
   const analytics = useAnalytics();
   const { whenWallet } = useWalletType();
@@ -95,7 +95,7 @@ function SendTokensFormBase() {
     assetId: '',
     amount: '',
     fee: '',
-    feeType: FeeType[FeeType.Middle],
+    feeType: FeeTypes[FeeTypes.Middle],
     memo: '',
     nonce,
     recipientAddressOrBnsName: '',

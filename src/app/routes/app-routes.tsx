@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -44,10 +44,10 @@ import { OnboardingGate } from './onboarding-gate';
 
 function AppRoutesAfterUserHasConsented() {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
+
   const analytics = useAnalytics();
 
-  useOnWalletLock(() => navigate(RouteUrls.Unlock));
+  useOnWalletLock(() => window.close());
   useOnSignOut(() => window.close());
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
@@ -118,9 +118,7 @@ function AppRoutesAfterUserHasConsented() {
           path={RouteUrls.ChooseAccount}
           element={
             <AccountGate>
-              <Suspense fallback={<></>}>
-                <ChooseAccount />
-              </Suspense>
+              <ChooseAccount />
             </AccountGate>
           }
         >

@@ -1,6 +1,6 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
-import { TransactionFeeEstimation } from '@shared/models/fees-types';
+import { StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 
 import { fetcher } from '@app/common/api/wrapped-fetch';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -27,7 +27,7 @@ export function useGetTransactionFeeEstimationQuery(
       }),
     });
     const data = await response.json();
-    return data as TransactionFeeEstimation;
+    return data as StacksTxFeeEstimation;
   };
 
   return useQuery({
@@ -35,5 +35,5 @@ export function useGetTransactionFeeEstimationQuery(
     queryFn: fetchTransactionFeeEstimation,
     enabled: transactionPayload !== '',
     ...feeEstimationsQueryOptions,
-  }) as UseQueryResult<TransactionFeeEstimation>;
+  }) as UseQueryResult<StacksTxFeeEstimation>;
 }

@@ -6,6 +6,8 @@ import { NetworkConfiguration, STX_DECIMALS } from '@shared/constants';
 
 import { abbreviateNumber, initBigNumber } from '@app/common/utils';
 
+import { microStxToStx } from './money/unit-conversion';
+
 export const stacksValue = ({
   value,
   fixedDecimals = true,
@@ -28,11 +30,6 @@ export const stacksValue = ({
   }${withTicker ? ' STX' : ''}`;
 };
 
-export const microStxToStx = (mStx: number | string | BigNumber) => {
-  const microStacks = initBigNumber(mStx);
-  return microStacks.shiftedBy(-STX_DECIMALS);
-};
-
 export const ftDecimals = (value: number | string | BigNumber, decimals: number) => {
   const amount = initBigNumber(value);
   return amount
@@ -44,11 +41,6 @@ export const ftDecimals = (value: number | string | BigNumber, decimals: number)
 export const ftUnshiftDecimals = (value: number | string | BigNumber, decimals: number) => {
   const amount = initBigNumber(value);
   return amount.shiftedBy(decimals).toString(10);
-};
-
-export const stxToMicroStx = (stx: number | string | BigNumber) => {
-  const stxBN = initBigNumber(stx);
-  return stxBN.shiftedBy(STX_DECIMALS);
 };
 
 export const validateStacksAddress = (stacksAddress: string): boolean => {

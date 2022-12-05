@@ -22,7 +22,7 @@ import { SendFormValues, TransactionFormValues } from '@shared/models/form.model
 import { isString, isUndefined } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
-import { stxToMicroStx } from '@app/common/stacks-utils';
+import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { broadcastTransaction } from '@app/common/transactions/stacks/broadcast-transaction';
 import {

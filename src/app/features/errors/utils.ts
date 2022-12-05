@@ -1,3 +1,5 @@
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+
 function makeStackTraceSection(stackTrace: string | null) {
   if (!stackTrace) return;
   return `
@@ -42,5 +44,5 @@ ${makeStackTraceSection(stackTrace)}
   issueParams.set('labels', issueLabels);
   issueParams.set('body', issueBody);
 
-  window.open(githubUrl.toString(), '_blank');
+  openInNewTab(githubUrl.toString());
 };

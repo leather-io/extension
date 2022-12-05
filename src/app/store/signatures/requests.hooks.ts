@@ -4,22 +4,19 @@ import { useAsync } from 'react-async-hook';
 import { isString } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { initialSearchParams } from '@app/common/initial-search-params';
 import {
   getGenericSignaturePayloadFromToken,
   verifySignatureRequest,
 } from '@app/common/signature/requests';
 import { useAccounts } from '@app/store/accounts/account.hooks';
 
-import { useInitialRouteSearchParams } from '../common/initial-route-search-params.hooks';
-
 export function useSignatureRequestSearchParams() {
-  const searchParams = useInitialRouteSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
 
   return useMemo(() => {
-    const requestToken = searchParams.get('request');
-
-    const messageType = searchParams.get('messageType');
+    const requestToken = initialSearchParams.get('request');
+    const messageType = initialSearchParams.get('messageType');
 
     return {
       tabId: isString(tabId) ? parseInt(tabId, 10) : tabId,
@@ -27,7 +24,7 @@ export function useSignatureRequestSearchParams() {
       origin,
       messageType,
     };
-  }, [origin, searchParams, tabId]);
+  }, [origin, tabId]);
 }
 
 function useSignatureRequestState() {

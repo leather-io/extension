@@ -9,7 +9,7 @@ import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
-import { FeeEstimate } from '@shared/models/fees-types';
+import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 import type { SendFormValues } from '@shared/models/form.model';
 import { isEmpty, isUndefined } from '@shared/utils';
 
@@ -26,13 +26,13 @@ import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
-import { RecipientField } from '@app/pages/send-tokens/components/recipient-field';
 
 import { SendFormMemoWarning } from './memo-warning';
+import { RecipientField } from './recipient-field/recipient-field';
 
 interface SendFormInnerProps {
   assetError: string | undefined;
-  feeEstimations: FeeEstimate[];
+  feeEstimations: StacksFeeEstimate[];
   onAssetIdSelected(assetId: string): void;
   nonce: number | undefined;
 }

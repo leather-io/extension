@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 
-import { FeeEstimate } from '@shared/models/fees-types';
+import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
 
 import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';
@@ -10,7 +10,7 @@ import { MinimalErrorMessage } from '@app/pages/transaction-request/components/m
 import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
 
 interface FeeFormProps {
-  feeEstimations: FeeEstimate[];
+  feeEstimations: StacksFeeEstimate[];
 }
 export function FeeForm({ feeEstimations }: FeeFormProps) {
   const { values } = useFormikContext<SendFormValues | TransactionFormValues>();

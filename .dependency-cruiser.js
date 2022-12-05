@@ -30,7 +30,11 @@ module.exports = {
       comment: 'One script context must not depend on another',
       severity: 'error',
       from: { path: '(^src/)([^/]+)/' },
-      to: { path: '^$1', pathNot: ['$1$2', '^src/shared'] },
+      to: {
+        path: '^$1',
+        pathNot: ['$1$2', '^src/shared'],
+        dependencyTypesNot: ['type-only'],
+      },
     },
     {
       name: 'only-import-state-via-hooks',

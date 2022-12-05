@@ -2,11 +2,10 @@ import { useMemo } from 'react';
 
 import { getPayloadFromToken } from '@shared/utils/requests';
 
-import { useInitialRouteSearchParams } from '@app/store/common/initial-route-search-params.hooks';
+import { initialSearchParams } from '@app/common/initial-search-params';
 
 export function useTransactionRequest() {
-  const params = useInitialRouteSearchParams();
-  return params.get('request');
+  return initialSearchParams.get('request');
 }
 
 export function useTransactionRequestState() {

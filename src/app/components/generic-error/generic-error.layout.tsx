@@ -47,17 +47,7 @@ export function GenericErrorLayout(props: ErrorProps) {
       >
         {helpTextList}
         <Box as="li" mt="base">
-          Still stuck? Reach out to{' '}
-          <Text
-            as="button"
-            color={color('accent')}
-            onClick={() => {
-              window.open('mailto:support@hiro.so');
-              window.close();
-            }}
-          >
-            support@hiro.so
-          </Text>
+          Still stuck? Reach out to support@hiro.so
         </Box>
       </Box>
       <Button fontSize="14px" mt="base-tight" onClick={onClose} p="base" variant="link">

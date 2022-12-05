@@ -10,6 +10,7 @@ import { IS_TEST_ENV } from '@shared/environment';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
+import { flow, origin } from '@app/common/initial-search-params';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useHasUserExplicitlyDeclinedAnalytics } from '@app/store/settings/settings.selectors';
@@ -38,6 +39,8 @@ export function useAnalytics() {
       route: location.pathname,
       version: VERSION,
       walletType,
+      ...(flow && { flow }),
+      ...(origin && { origin }),
     };
 
     const defaultOptions = {

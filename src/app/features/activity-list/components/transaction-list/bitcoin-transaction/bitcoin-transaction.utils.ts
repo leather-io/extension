@@ -1,15 +1,9 @@
 import { truncateMiddle } from '@stacks/ui-utils';
-import BigNumber from 'bignumber.js';
 
-import { BTC_DECIMALS } from '@shared/constants';
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
-import { initBigNumber, sumNumbers } from '@app/common/utils';
-
-const satToBtc = (sat: number | string | BigNumber) => {
-  const satBigNumber = initBigNumber(sat);
-  return satBigNumber.shiftedBy(-BTC_DECIMALS);
-};
+import { satToBtc } from '@app/common/money/unit-conversion';
+import { sumNumbers } from '@app/common/utils';
 
 export const getBitcoinTxCaption = (transaction?: BitcoinTransaction) =>
   transaction ? truncateMiddle(transaction.txid, 4) : '';

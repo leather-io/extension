@@ -11,9 +11,12 @@ import { SendFormValues } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@app/components/error-label';
+import { SpaceBetween } from '@app/components/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+
+import { RecipientAccountDrawer } from './recipient-account-drawer';
 
 interface RecipientField extends StackProps {
   error?: string;
@@ -27,7 +30,16 @@ function RecipientFieldBase(props: RecipientField) {
   const client = useStacksClientUnanchored();
   const [resolvedBnsAddress, setResolvedBnsAddress] = useState('');
   const { onCopy, hasCopied } = useClipboard(resolvedBnsAddress);
+  const [isShowing, setIsShowing] = useState(false);
   const analytics = useAnalytics();
+
+  const closeAccountsDrawer = () => {
+    setIsShowing(false);
+  };
+
+  const showAccountsDrawer = () => {
+    setIsShowing(true);
+  };
 
   const copyToClipboard = () => {
     void analytics.track('copy_resolved_address_to_clipboard');
@@ -42,16 +54,26 @@ function RecipientFieldBase(props: RecipientField) {
   return (
     <Stack width="100%" {...rest}>
       <InputGroup flexDirection="column">
-        <Text
-          as="label"
-          display="block"
-          mb="tight"
-          fontSize={1}
-          fontWeight="500"
-          htmlFor="recipientAddressOrBnsName"
-        >
-          Recipient
-        </Text>
+        <SpaceBetween mb="tight">
+          <Text
+            as="label"
+            display="block"
+            fontSize={1}
+            fontWeight="500"
+            htmlFor="recipientAddressOrBnsName"
+          >
+            Recipient
+          </Text>
+          <Caption
+            as="button"
+            onClick={showAccountsDrawer}
+            _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
+            color={color('brand')}
+          >
+            Choose account
+          </Caption>
+        </SpaceBetween>
+        <RecipientAccountDrawer isShowing={isShowing} closeAccountsDrawer={closeAccountsDrawer} />
         <Input
           display="block"
           type="string"

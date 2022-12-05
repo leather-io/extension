@@ -36,6 +36,7 @@ function useUnanchoredStacksBalances(address: string) {
     select: resp => parseBalanceResponse(resp),
   });
 }
+
 export function useCurrentStacksAccountUnanchoredBalances() {
   const account = useCurrentAccount();
   return useUnanchoredStacksBalances(account?.address ?? '');

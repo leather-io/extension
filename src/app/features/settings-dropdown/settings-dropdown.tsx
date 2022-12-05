@@ -1,7 +1,8 @@
 import { useCallback, useRef } from 'react';
+import { FiExternalLink } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Flex, SlideFade, color } from '@stacks/ui';
+import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -13,6 +14,7 @@ import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Divider } from '@app/components/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
@@ -100,6 +102,20 @@ export function SettingsDropdown() {
               })}
             >
               Change theme
+            </MenuItem>
+            <MenuItem
+              data-testid={SettingsSelectors.GetSupport}
+              onClick={wrappedCloseCallback(() => {
+                void analytics.track('click_get_support_menu_item');
+                openInNewTab(
+                  'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet'
+                );
+              })}
+            >
+              <Stack isInline>
+                <Box>Get support</Box>
+                <FiExternalLink />
+              </Stack>
             </MenuItem>
             {hasGeneratedWallet ? <Divider /> : null}
             <MenuItem

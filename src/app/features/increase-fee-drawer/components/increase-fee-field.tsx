@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { Input, InputGroup, Stack, Text } from '@stacks/ui';
-import { microStxToStx, stxToMicroStx } from '@stacks/ui-utils';
 import { useField } from 'formik';
 
+import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 import { ErrorLabel } from '@app/components/error-label';
 
 import { FeeMultiplier } from './fee-multiplier';
@@ -19,7 +19,7 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): JSX.Element {
   const showResetMultiplier = useMemo(() => {
     if (modified) return true;
     if (!currentFee) return false;
-    return stxToMicroStx(field.value) !== currentFee;
+    return stxToMicroStx(field.value).toNumber() !== currentFee;
   }, [currentFee, modified, field.value]);
 
   const onSelectMultiplier = useCallback(
