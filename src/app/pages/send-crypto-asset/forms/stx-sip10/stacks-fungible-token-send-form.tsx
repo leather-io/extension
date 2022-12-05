@@ -4,12 +4,16 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useFungibleTokenAmountSchema } from '@app/common/hooks/use-send-form-validation';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { FeesRow } from '@app/components/fees-row/fees-row';
+import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
+import { useFtTokenTransferUnsignedTx } from '@app/store/transactions/token-transfer.hooks';
 
 import { AmountField } from '../../components/amount-field';
 import { FormErrors } from '../../components/form-errors';
@@ -32,10 +36,13 @@ export function StacksFungibleTokenSendForm({ symbol }: StacksFungibleTokenSendF
     pullContractIdFromIdentity(contractId)
   );
   const ftAmountSchema = useFungibleTokenAmountSchema(contractId);
+  const unsignedTx = useFtTokenTransferUnsignedTx(contractId);
+  const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
 
   const initialValues = createDefaultInitialFormValues({
     symbol: '',
-    fee: null,
+    fee: 0,
+    feeType: FeeTypes.Unknown,
   });
 
   function onSubmit(values: any) {
@@ -64,6 +71,7 @@ export function StacksFungibleTokenSendForm({ symbol }: StacksFungibleTokenSendF
             <RecipientField />
             <MemoField />
           </FormFieldsLayout>
+          <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
           <FormErrors />
           <PreviewButton />
           <pre>{JSON.stringify(form, null, 2)}</pre>

@@ -4,10 +4,14 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { stxAmountSchema } from '@app/common/validation/currency-schema';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { FeesRow } from '@app/components/fees-row/fees-row';
+import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
+import { useStxTokenTransferUnsignedTxState } from '@app/store/transactions/token-transfer.hooks';
 
 import { FormErrors } from '../../components/form-errors';
 import { FormFieldsLayout } from '../../components/form-fields.layout';
@@ -20,8 +24,13 @@ import { createDefaultInitialFormValues } from '../../form-utils';
 interface StacksCryptoCurrencySendFormProps {}
 export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormProps) {
   const navigate = useNavigate();
+  const unsignedTx = useStxTokenTransferUnsignedTxState();
+  const { data: stxFees } = useCalculateStacksTxFees(unsignedTx);
 
-  const initialValues = createDefaultInitialFormValues({ fee: null });
+  const initialValues = createDefaultInitialFormValues({
+    fee: 0,
+    feeType: FeeTypes.Unknown,
+  });
 
   const validationSchema = yup.object({
     amount: stxAmountSchema('test error msg'),
@@ -46,6 +55,7 @@ export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormPro
             <RecipientField />
             <MemoField lastChild />
           </FormFieldsLayout>
+          <FeesRow fees={stxFees} isSponsored={false} mt="base" />
           <FormErrors />
           <PreviewButton />
           <pre>{JSON.stringify(form, null, 2)}</pre>

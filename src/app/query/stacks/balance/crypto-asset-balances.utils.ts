@@ -103,7 +103,11 @@ export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
 ) {
   return {
     ...assetBalance,
-    balance: createMoney(assetBalance.balance.amount, metadata.symbol ?? '', metadata.decimals),
+    balance: createMoney(
+      assetBalance.balance.amount,
+      metadata.symbol ?? '',
+      metadata.decimals ?? 0
+    ),
     asset: {
       ...assetBalance.asset,
       canTransfer: isTransferableStacksFungibleTokenAsset(assetBalance.asset),

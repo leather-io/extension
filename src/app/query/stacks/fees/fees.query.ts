@@ -1,43 +1,63 @@
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 
 import { fetcher } from '@app/common/api/wrapped-fetch';
+import { AppUseQueryConfig } from '@app/query/query-config';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { useHiroApiRateLimiter } from '../rate-limiter';
+import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 
-const staleTime = 5 * 60 * 1000; // 5 min
+interface FetchTransactionFeeEstimationArgs {
+  currentNetwork: any;
+  estimatedLen: number | null;
+  limiter: RateLimiter;
+  transactionPayload: string;
+}
+function fetchTransactionFeeEstimation({
+  currentNetwork,
+  estimatedLen,
+  limiter,
+  transactionPayload,
+}: FetchTransactionFeeEstimationArgs) {
+  return async () => {
+    await limiter.removeTokens(1);
+    const resp = await fetcher(currentNetwork.chain.stacks.url + '/v2/fees/transaction', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        estimated_len: estimatedLen,
+        transaction_payload: transactionPayload,
+      }),
+    });
+    const data = await resp.json();
+    return data as StacksTxFeeEstimation;
+  };
+}
 
-const feeEstimationsQueryOptions = {
-  staleTime,
-} as const;
+type FetchTransactionFeeEstimationResp = Awaited<
+  ReturnType<ReturnType<typeof fetchTransactionFeeEstimation>>
+>;
 
-export function useGetTransactionFeeEstimationQuery(
+export function useGetStacksTransactionFeeEstimationQuery<
+  T extends unknown = FetchTransactionFeeEstimationResp
+>(
   estimatedLen: number | null,
-  transactionPayload: string
+  transactionPayload: string,
+  options?: AppUseQueryConfig<FetchTransactionFeeEstimationResp, T>
 ) {
   const currentNetwork = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
 
-  const fetchTransactionFeeEstimation = async () => {
-    await limiter.removeTokens(1);
-    const response = await fetcher(currentNetwork.chain.stacks.url + '/v2/fees/transaction', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        transaction_payload: transactionPayload,
-        estimated_len: estimatedLen,
-      }),
-    });
-    const data = await response.json();
-    return data as StacksTxFeeEstimation;
-  };
-
   return useQuery({
-    queryKey: ['transaction-fee-estimation', transactionPayload],
-    queryFn: fetchTransactionFeeEstimation,
     enabled: transactionPayload !== '',
-    ...feeEstimationsQueryOptions,
-  }) as UseQueryResult<StacksTxFeeEstimation>;
+    queryKey: ['stacks-tx-fee-estimation', transactionPayload],
+    queryFn: fetchTransactionFeeEstimation({
+      currentNetwork,
+      estimatedLen,
+      limiter,
+      transactionPayload,
+    }),
+    ...options,
+  });
 }

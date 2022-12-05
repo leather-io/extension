@@ -1,22 +1,33 @@
+import { bytesToHex } from '@stacks/common';
+import { StacksTransaction, serializePayload } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
 import { DEFAULT_FEE_RATE } from '@shared/constants';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
+import { Money, createMoney } from '@shared/models/money.model';
+
+export function getEstimatedUnsignedStacksTxByteLength(transaction: StacksTransaction) {
+  return transaction.serialize().byteLength;
+}
+
+export function getSerializedUnsignedStacksTxPayload(transaction: StacksTransaction) {
+  return bytesToHex(serializePayload(transaction.payload));
+}
 
 export function getFeeEstimationsWithCappedValues(
   feeEstimations: StacksFeeEstimate[],
-  feeEstimationsMaxValues: number[] | undefined,
-  feeEstimationsMinValues: number[] | undefined
+  feeEstimationsMaxValues: Money[] | undefined,
+  feeEstimationsMinValues: Money[] | undefined
 ) {
   return feeEstimations.map((feeEstimation, index) => {
     if (
       feeEstimationsMaxValues &&
-      new BigNumber(feeEstimation.fee).isGreaterThan(feeEstimationsMaxValues[index])
+      feeEstimation.fee.amount.isGreaterThan(feeEstimationsMaxValues[index].amount)
     ) {
       return { fee: feeEstimationsMaxValues[index], feeRate: 0 };
     } else if (
       feeEstimationsMinValues &&
-      new BigNumber(feeEstimation.fee).isLessThan(feeEstimationsMinValues[index])
+      feeEstimation.fee.amount.isLessThan(feeEstimationsMinValues[index].amount)
     ) {
       return { fee: feeEstimationsMinValues[index], feeRate: 0 };
     } else {
@@ -36,8 +47,14 @@ export function getDefaultSimulatedFeeEstimations(
 ): StacksFeeEstimate[] {
   const fee = calculateFeeFromFeeRate(estimatedByteLength, DEFAULT_FEE_RATE);
   return [
-    { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), feeRate: 0 },
-    { fee: fee.toNumber(), feeRate: 0 },
-    { fee: fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent).toNumber(), feeRate: 0 },
+    {
+      fee: createMoney(fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent), 'STX'),
+      feeRate: 0,
+    },
+    { fee: createMoney(fee, 'STX'), feeRate: 0 },
+    {
+      fee: createMoney(fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent), 'STX'),
+      feeRate: 0,
+    },
   ];
 }

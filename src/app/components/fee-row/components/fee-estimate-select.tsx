@@ -3,15 +3,15 @@ import { Dispatch, SetStateAction, useRef } from 'react';
 import { Fade, Stack, color } from '@stacks/ui';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
+import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
-import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 
 import { FeeEstimateItem } from './fee-estimate-item';
 
 interface FeeEstimateSelectProps {
-  items: StacksFeeEstimate[];
+  items: StacksFeeEstimateLegacy[];
   onClick: (index: number) => void;
   selected: number;
   setIsOpen: Dispatch<SetStateAction<boolean>>;

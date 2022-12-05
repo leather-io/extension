@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 
-import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
-import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
+import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
+import { TransactionFormValues } from '@shared/models/form.model';
 
 import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';
 import { FeeRow } from '@app/components/fee-row/fee-row';
@@ -10,12 +10,13 @@ import { MinimalErrorMessage } from '@app/pages/transaction-request/components/m
 import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
 
 interface FeeFormProps {
-  feeEstimations: StacksFeeEstimate[];
+  feeEstimations: StacksFeeEstimateLegacy[];
 }
+// TODO: The new FeesRow component should be used here when the legacy
+// send form, and the legacy fee row, are removed.
 export function FeeForm({ feeEstimations }: FeeFormProps) {
-  const { values } = useFormikContext<SendFormValues | TransactionFormValues>();
-  const assetId = 'assetId' in values ? values.assetId : '';
-  const transaction = useUnsignedPrepareTransactionDetails(assetId, values);
+  const { values } = useFormikContext<TransactionFormValues>();
+  const transaction = useUnsignedPrepareTransactionDetails(values);
 
   const isSponsored = transaction ? isTxSponsored(transaction) : false;
 
