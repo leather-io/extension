@@ -29,7 +29,7 @@ import { PostConditionModeWarning } from '@app/pages/transaction-request/compone
 import { PostConditions } from '@app/pages/transaction-request/components/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
+import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees-legacy';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import BigNumber from 'bignumber.js';
 
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney, currencydecimalsMap } from '@shared/models/money.model';
 
@@ -33,10 +34,10 @@ function pullPriceDataFromAvailableResponses(responses: MarketDataVendorWithPric
     .map(val => convertAmountToFractionalUnit(val, currencydecimalsMap.USD));
 }
 
-export function useStxMarketData(): MarketData {
-  const { data: coingecko } = useCoinGeckoMarketDataQuery('STX');
-  const { data: coincap } = useCoincapMarketDataQuery('STX');
-  const { data: binance } = useBinanceMarketDataQuery('STX');
+export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketData {
+  const { data: coingecko } = useCoinGeckoMarketDataQuery(currency);
+  const { data: coincap } = useCoincapMarketDataQuery(currency);
+  const { data: binance } = useBinanceMarketDataQuery(currency);
 
   return useMemo(() => {
     const stxPriceData = pullPriceDataFromAvailableResponses([
@@ -46,6 +47,6 @@ export function useStxMarketData(): MarketData {
     ]);
     const meanStxPrice = calculateMeanAverage(stxPriceData);
 
-    return createMarketData(createMarketPair('STX', 'USD'), createMoney(meanStxPrice, 'USD'));
-  }, [binance, coincap, coingecko]);
+    return createMarketData(createMarketPair(currency, 'USD'), createMoney(meanStxPrice, 'USD'));
+  }, [binance, coincap, coingecko, currency]);
 }

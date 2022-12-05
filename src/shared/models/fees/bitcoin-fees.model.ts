@@ -1,4 +1,6 @@
 // Source: https://github.com/Blockstream/esplora/blob/master/API.md#fee-estimates
+import { Money } from '../money.model';
+
 // Returned as fee rates
 export interface BitcoinFeeEstimates {
   '1': number;
@@ -32,6 +34,6 @@ export interface BitcoinFeeEstimates {
 }
 
 export interface BitcoinFeeEstimate {
-  fee: number;
+  fee: Money;
   feeRate: number;
 }

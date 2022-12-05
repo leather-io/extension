@@ -7,6 +7,7 @@ export enum FeeTypes {
   Middle,
   High,
   Custom,
+  Unknown,
 }
 
 export enum FeeCalculationTypes {
@@ -16,7 +17,7 @@ export enum FeeCalculationTypes {
   FeesCapped = 'fees-capped',
 }
 
-export interface FeeEstimations {
+export interface Fees {
   blockchain: Blockchains;
   estimates: BitcoinFeeEstimate[] | StacksFeeEstimate[];
   calculation: FeeCalculationTypes;

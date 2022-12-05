@@ -182,6 +182,7 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
   );
 }
 
+// TODO: Refactor when remove legacy send form?
 export function useFtTokenTransferUnsignedTx(selectedAssetId: string, values?: SendFormValues) {
   const generateTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
   const account = useCurrentAccount();

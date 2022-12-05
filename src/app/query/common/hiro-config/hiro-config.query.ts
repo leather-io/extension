@@ -3,6 +3,7 @@ import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { BRANCH_NAME } from '@shared/environment';
+import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
 export interface HiroMessage {
@@ -52,7 +53,7 @@ async function fetchHiroMessages(): Promise<HiroConfig> {
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 
-function useRemoteHiroConfig() {
+export function useRemoteHiroConfig() {
   const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
@@ -96,7 +97,7 @@ export function useConfigFeeEstimationsMaxValues() {
   if (typeof config?.feeEstimationsMinMax === 'undefined') return;
   if (!config.feeEstimationsMinMax.maxValues) return;
   if (!Array.isArray(config.feeEstimationsMinMax.maxValues)) return;
-  return config.feeEstimationsMinMax.maxValues;
+  return config.feeEstimationsMinMax.maxValues.map(value => createMoney(value, 'STX'));
 }
 
 export function useConfigFeeEstimationsMinEnabled() {
@@ -110,5 +111,5 @@ export function useConfigFeeEstimationsMinValues() {
   if (typeof config?.feeEstimationsMinMax === 'undefined') return;
   if (!config.feeEstimationsMinMax.minValues) return;
   if (!Array.isArray(config.feeEstimationsMinMax.minValues)) return;
-  return config.feeEstimationsMinMax.minValues;
+  return config.feeEstimationsMinMax.minValues.map(value => createMoney(value, 'STX'));
 }

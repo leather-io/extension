@@ -22,7 +22,7 @@ import { Header } from '@app/components/header';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees.hooks';
+import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees-legacy';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useGenerateSendFormUnsignedTx,

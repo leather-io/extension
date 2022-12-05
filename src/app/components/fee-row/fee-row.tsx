@@ -6,12 +6,12 @@ import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selector
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
+import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
-import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { isNumber, isString } from '@shared/utils';
 
-import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { stacksValue } from '@app/common/stacks-utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -32,11 +32,15 @@ const feesInfo =
 const url = 'https://hiro.so/questions/fee-estimates';
 
 interface FeeRowProps {
-  feeEstimations: StacksFeeEstimate[];
+  feeEstimations: StacksFeeEstimateLegacy[];
   feeFieldName: string;
   feeTypeFieldName: string;
   isSponsored: boolean;
 }
+/**
+ * Refactored with new send form; remove with legacy send form.
+ * @deprecated
+ */
 export function FeeRow(props: FeeRowProps): JSX.Element {
   const { feeEstimations, feeFieldName, isSponsored, feeTypeFieldName } = props;
   const [feeInput, feeMeta, feeHelper] = useField(feeFieldName);
@@ -46,7 +50,7 @@ export function FeeRow(props: FeeRowProps): JSX.Element {
   const [selected, setSelected] = useState(FeeTypes.Middle);
   const [isCustom, setIsCustom] = useState(false);
 
-  const convertStxToUsd = useConvertStxToFiatAmount();
+  const convertStxToUsd = useConvertCryptoCurrencyToFiatAmount('STX');
 
   const feeInUsd = useMemo(() => {
     if (!isNumber(feeInput.value) && !isString(feeInput.value)) return null;

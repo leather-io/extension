@@ -94,21 +94,15 @@ function useUnsignedStacksTransactionBaseState() {
   }, [account, options, payload, stxAddress, transaction]);
 }
 
-export function useUnsignedPrepareTransactionDetails(
-  selectedAssetId: string,
-  values: SendFormValues | TransactionFormValues
-) {
+export function useUnsignedPrepareTransactionDetails(values: TransactionFormValues) {
   const unsignedStacksTransaction = useUnsignedStacksTransaction(values);
-  const sendFormUnsignedTx = useSendFormUnsignedTxPreviewState(
-    selectedAssetId,
-    values as SendFormValues
-  );
-  return useMemo(
-    () => unsignedStacksTransaction || sendFormUnsignedTx,
-    [sendFormUnsignedTx, unsignedStacksTransaction]
-  );
+  return useMemo(() => unsignedStacksTransaction, [unsignedStacksTransaction]);
 }
 
+/**
+ * Refactored with new send form; remove with legacy send form.
+ * @deprecated
+ */
 export function useSendFormSerializedUnsignedTxPayloadState(
   selectedAssetId: string,
   values?: SendFormValues
@@ -118,6 +112,10 @@ export function useSendFormSerializedUnsignedTxPayloadState(
   return bytesToHex(serializePayload(transaction.payload));
 }
 
+/**
+ * Refactored with new send form; remove with legacy send form.
+ * @deprecated
+ */
 export function useSendFormEstimatedUnsignedTxByteLengthState(
   selectedAssetId: string,
   values?: SendFormValues
@@ -127,12 +125,20 @@ export function useSendFormEstimatedUnsignedTxByteLengthState(
   return transaction.serialize().byteLength;
 }
 
+/**
+ * Refactor and remove with new fees row component.
+ * @deprecated
+ */
 export function useTxRequestSerializedUnsignedTxPayloadState() {
   const { transaction } = useUnsignedStacksTransactionBaseState();
   if (!transaction) return '';
   return bytesToHex(serializePayload(transaction.payload));
 }
 
+/**
+ * Refactor and remove with new fees row component.
+ * @deprecated
+ */
 export function useTxRequestEstimatedUnsignedTxByteLengthState() {
   const { transaction } = useUnsignedStacksTransactionBaseState();
   if (!transaction) return null;
@@ -291,6 +297,10 @@ export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
   );
 }
 
+/**
+ * Refactored with new send form; remove with legacy send form.
+ * @deprecated
+ */
 export function useSendFormUnsignedTxPreviewState(
   selectedAssetId: string,
   values?: SendFormValues

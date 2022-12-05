@@ -272,6 +272,10 @@ export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
 }
 
+/**
+ * Refactored with new send form; remove with legacy send form.
+ * @deprecated
+ */
 export function getFullyQualifiedStacksAssetName(
   assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
 ) {

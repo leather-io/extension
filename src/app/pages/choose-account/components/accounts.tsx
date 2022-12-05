@@ -21,7 +21,7 @@ import {
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { Title } from '@app/components/typography';
-import { useStxMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
 import { AccountWithAddress } from '@app/store/accounts/account.models';
@@ -67,7 +67,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const { data: balances, isLoading: isBalanceLoading } = useAnchoredStacksAccountBalances(
     account.address
   );
-  const stxMarketData = useStxMarketData();
+  const stxMarketData = useCryptoCurrencyMarketData('STX');
 
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 

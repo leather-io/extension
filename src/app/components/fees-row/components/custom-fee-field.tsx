@@ -1,30 +1,28 @@
-import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
+import { FormEvent, useCallback } from 'react';
 
 import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
-import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
-import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
+import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { SendFormWarningMessages } from '@app/common/warning-messages';
 import { Caption } from '@app/components/typography';
 
 interface CustomFeeFieldProps extends StackProps {
-  fieldName: string;
-  lowFeeEstimate: StacksFeeEstimateLegacy;
-  setFieldWarning: Dispatch<SetStateAction<string | undefined>>;
+  lowFeeEstimate: StacksFeeEstimate;
+  setFieldWarning(value: string): void;
 }
 export function CustomFeeField(props: CustomFeeFieldProps) {
-  const { fieldName, lowFeeEstimate, setFieldWarning, ...rest } = props;
-  const [input, meta, helpers] = useField(fieldName);
+  const { lowFeeEstimate, setFieldWarning, ...rest } = props;
+  const [input, meta, helpers] = useField('fee');
 
   const checkFieldWarning = useCallback(
     (value: string) => {
       if (meta.error) return setFieldWarning('');
       const fee = stxToMicroStx(value);
-      if (new BigNumber(lowFeeEstimate.fee).isGreaterThan(fee)) {
+      if (lowFeeEstimate.fee.amount.isGreaterThan(fee)) {
         return setFieldWarning(SendFormWarningMessages.AdjustedFeeBelowLowestEstimate);
       }
       return setFieldWarning('');
