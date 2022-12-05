@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/features/switch-account-drawer/components/account-name.tsx</title>
+    <title>Code coverage report for app/query/bitcoin/fees/fee-estimates.query.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/features/switch-account-drawer/components</a> account-name.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/query/bitcoin/fees</a> fee-estimates.query.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -84,7 +84,25 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -93,10 +111,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -105,27 +121,62 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery } from '@tanstack/react-query';
 &nbsp;
-import { BoxProps } from '@stacks/ui';
+import { BitcoinFeeEstimates } from '@shared/models/fees/bitcoin-fees.model';
 &nbsp;
-import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { Title } from '@app/components/typography';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { AppUseQueryConfig } from '@app/query/query-config';
+import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 &nbsp;
-const AccountNameLayout = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> children }) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >  &lt;Title fontSize={2} lineHeight="1rem" fontWeight="400"&gt;</span>
-    {children}
-  &lt;/Title&gt;
-));
+import { BitcoinClient } from '../bitcoin-client';
 &nbsp;
-interface AccountNameProps extends BoxProps {
-  account: AccountWithAddress;
+const staleTime = <span class="cstat-no" title="statement not covered" >15 * 60 * 1000;</span>
+&nbsp;
+const queryOptions = <span class="cstat-no" title="statement not covered" >{</span>
+  cacheTime: staleTime,
+};
+&nbsp;
+function <span class="fstat-no" title="function not covered" >fetchBitcoinFeeEstimates(</span>client: BitcoinClient) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
+    const resp = <span class="cstat-no" title="statement not covered" >(await client.feeEstimatesApi.getFeeEstimates()) as BitcoinFeeEstimates;</span>
+<span class="cstat-no" title="statement not covered" >    return resp;</span>
+  };
 }
-export const AccountName = <span class="cstat-no" title="statement not covered" >memo(<span class="fstat-no" title="function not covered" >({</span> account }: AccountNameProps) =&gt; {</span>
-  const name = <span class="cstat-no" title="statement not covered" >useAccountDisplayName(account);</span>
-<span class="cstat-no" title="statement not covered" >  return &lt;AccountNameLayout&gt;{name}&lt;/AccountNameLayout&gt;;</span>
-});
+&nbsp;
+type FetchBitcoinFeeEstimatesResp = Awaited&lt;
+  ReturnType&lt;ReturnType&lt;typeof fetchBitcoinFeeEstimates&gt;&gt;
+&gt;;
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useGetBitcoinFeeEstimatesQuery&lt;</span>T extends unknown = FetchBitcoinFeeEstimatesResp&gt;(
+  options?: AppUseQueryConfig&lt;FetchBitcoinFeeEstimatesResp, T&gt;
+) {
+  const client = <span class="cstat-no" title="statement not covered" >useBitcoinClient();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
+    queryKey: ['bitcoin-fee-estimates'],
+    queryFn: fetchBitcoinFeeEstimates(client),
+    ...queryOptions,
+    ...options,
+  });
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -133,7 +184,7 @@ export const AccountName = <span class="cstat-no" title="statement not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-24T09:33:14.234Z
+                at 2022-12-05T14:13:04.909Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

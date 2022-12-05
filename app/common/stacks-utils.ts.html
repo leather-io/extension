@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.74% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/27</span>
+                <span class='fraction'>7/21</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.74% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/27</span>
+                <span class='fraction'>7/21</span>
             </div>
         
             
@@ -125,15 +125,9 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,21 +158,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -211,6 +195,8 @@ import { NetworkConfiguration, STX_DECIMALS } from '@shared/constants';
 &nbsp;
 import { abbreviateNumber, initBigNumber } from '@app/common/utils';
 &nbsp;
+import { microStxToStx } from './money/unit-conversion';
+&nbsp;
 export const stacksValue = ({
   value,
   fixedDecimals = true,
@@ -233,11 +219,6 @@ export const stacksValue = ({
   }${withTicker ? ' STX' : ''}`;
 };
 &nbsp;
-export const microStxToStx = (mStx: number | string | BigNumber) =&gt; {
-  const microStacks = initBigNumber(mStx);
-  return microStacks.shiftedBy(-STX_DECIMALS);
-};
-&nbsp;
 export const ftDecimals = <span class="fstat-no" title="function not covered" >(v</span>alue: number | string | BigNumber, decimals: number) =&gt; {
   const amount = <span class="cstat-no" title="statement not covered" >initBigNumber(value);</span>
 <span class="cstat-no" title="statement not covered" >  return amount</span>
@@ -249,11 +230,6 @@ export const ftDecimals = <span class="fstat-no" title="function not covered" >(
 export const ftUnshiftDecimals = <span class="fstat-no" title="function not covered" >(v</span>alue: number | string | BigNumber, decimals: number) =&gt; {
   const amount = <span class="cstat-no" title="statement not covered" >initBigNumber(value);</span>
 <span class="cstat-no" title="statement not covered" >  return amount.shiftedBy(decimals).toString(10);</span>
-};
-&nbsp;
-export const stxToMicroStx = <span class="fstat-no" title="function not covered" >(s</span>tx: number | string | BigNumber) =&gt; {
-  const stxBN = <span class="cstat-no" title="statement not covered" >initBigNumber(stx);</span>
-<span class="cstat-no" title="statement not covered" >  return stxBN.shiftedBy(STX_DECIMALS);</span>
 };
 &nbsp;
 export const validateStacksAddress = <span class="fstat-no" title="function not covered" >(s</span>tacksAddress: string): boolean =&gt; {
@@ -280,7 +256,7 @@ export function <span class="fstat-no" title="function not covered" >validateAdd
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-24T09:33:14.234Z
+                at 2022-12-05T14:13:04.909Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

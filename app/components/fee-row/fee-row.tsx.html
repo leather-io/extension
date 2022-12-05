@@ -214,7 +214,11 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -373,12 +377,14 @@ import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selector
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 &nbsp;
-import { FeeEstimate, FeeType } from '@shared/models/fees-types';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
+import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { isNumber, isString } from '@shared/utils';
 &nbsp;
 import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
-import { microStxToStx, stacksValue } from '@app/common/stacks-utils';
+import { microStxToStx } from '@app/common/money/unit-conversion';
+import { stacksValue } from '@app/common/stacks-utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ErrorLabel } from '@app/components/error-label';
 import { SpaceBetween } from '@app/components/space-between';
@@ -397,7 +403,7 @@ const feesInfo =
 const url = <span class="cstat-no" title="statement not covered" >'https://hiro.so/questions/fee-estimates';</span>
 &nbsp;
 interface FeeRowProps {
-  feeEstimations: FeeEstimate[];
+  feeEstimations: StacksFeeEstimate[];
   feeFieldName: string;
   feeTypeFieldName: string;
   isSponsored: boolean;
@@ -408,7 +414,7 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
   const [, _, feeTypeHelper] = <span class="cstat-no" title="statement not covered" >useField(feeTypeFieldName);</span>
   const [fieldWarning, setFieldWarning] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;(undefined);</span>
   const [isOpen, setIsOpen] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-  const [selected, setSelected] = <span class="cstat-no" title="statement not covered" >useState(FeeType.Middle);</span>
+  const [selected, setSelected] = <span class="cstat-no" title="statement not covered" >useState(FeeTypes.Middle);</span>
   const [isCustom, setIsCustom] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
 &nbsp;
   const convertStxToUsd = <span class="cstat-no" title="statement not covered" >useConvertStxToFiatAmount();</span>
@@ -422,8 +428,8 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
     // Set it to the middle estimation on mount
 <span class="cstat-no" title="statement not covered" >    if (!feeInput.value &amp;&amp; !isCustom) {</span>
-<span class="cstat-no" title="statement not covered" >      feeHelper.setValue(microStxToStx(feeEstimations[FeeType.Middle].fee).toNumber());</span>
-<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(FeeType[FeeType.Middle]);</span>
+<span class="cstat-no" title="statement not covered" >      feeHelper.setValue(microStxToStx(feeEstimations[FeeTypes.Middle].fee).toNumber());</span>
+<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(FeeTypes[FeeTypes.Middle]);</span>
     }
 <span class="cstat-no" title="statement not covered" >    if (isSponsored) {</span>
 <span class="cstat-no" title="statement not covered" >      feeHelper.setValue(0);</span>
@@ -435,8 +441,8 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
   const handleSelectedItem = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (i</span>ndex: number) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (selected !== index) <span class="cstat-no" title="statement not covered" >setSelected(index);</span></span>
-<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(FeeType[index]);</span>
-<span class="cstat-no" title="statement not covered" >      if (index === FeeType.Custom) {</span>
+<span class="cstat-no" title="statement not covered" >      feeTypeHelper.setValue(FeeTypes[index]);</span>
+<span class="cstat-no" title="statement not covered" >      if (index === FeeTypes.Custom) {</span>
 <span class="cstat-no" title="statement not covered" >        feeHelper.setValue('');</span>
 <span class="cstat-no" title="statement not covered" >        setIsCustom(true);</span>
       } else {
@@ -489,7 +495,7 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
         {isCustom ? (
           &lt;CustomFeeField
             fieldName={feeFieldName}
-            lowFeeEstimate={feeEstimations[FeeType.Low]}
+            lowFeeEstimate={feeEstimations[FeeTypes.Low]}
             setFieldWarning={setFieldWarning}
           /&gt;
         ) : (
@@ -523,7 +529,7 @@ export function <span class="fstat-no" title="function not covered" >FeeRow(</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-24T09:33:14.234Z
+                at 2022-12-05T14:13:04.909Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
