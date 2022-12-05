@@ -39,7 +39,6 @@ export function useUnanchoredStacksAccountBalanceQuery<T extends unknown = Fetch
   return useQuery({
     queryKey: ['get-address-stx-balance', address],
     queryFn: () => fetchAccountBalance(client, limiter)(address),
-    suspense: true,
     ...balanceQueryOptions,
     ...options,
   });
@@ -56,7 +55,6 @@ export function useAnchoredStacksAccountBalanceQuery<T extends unknown = FetchAc
     enabled: !!address,
     queryKey: ['get-address-anchored-stx-balance', address],
     queryFn: () => fetchAccountBalance(client, limiter)(address),
-    suspense: true,
     ...balanceQueryOptions,
     ...options,
   });
