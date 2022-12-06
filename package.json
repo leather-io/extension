@@ -146,6 +146,7 @@
     "@stacks/connect-ui": "5.0.6-alpha.9dbc1e2.0",
     "@stacks/encryption": "6.0.0",
     "@stacks/network": "6.0.0",
+    "@stacks/profile": "6.0.0",
     "@stacks/rpc-client": "1.0.3",
     "@stacks/storage": "6.0.0",
     "@stacks/transactions": "6.0.0",
