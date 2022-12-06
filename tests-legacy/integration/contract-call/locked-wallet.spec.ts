@@ -36,6 +36,7 @@ describe('Locked wallet test', () => {
     sendForm = new SendPage(latestPage);
     await sendForm.waitForPreview('$account1');
     await sendForm.clickFirstAccount();
+    await mainPage.page.waitForTimeout(5_000);
   }, BEFORE_EACH_TIMEOUT);
 
   afterEach(async () => {
