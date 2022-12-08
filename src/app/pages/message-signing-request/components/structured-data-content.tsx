@@ -1,7 +1,5 @@
 import { ChainID } from '@stacks/common';
 
-import { SignatureMessageType } from '@shared/signature/types';
-
 import { getStructuredDataPayloadFromToken } from '@app/common/signature/requests';
 
 import { Disclaimer } from './message-signing-disclaimer';
@@ -11,12 +9,11 @@ import { StructuredDataBox } from './structured-data-box';
 
 interface SignatureRequestStructuredDataContentProps {
   requestToken: string;
-  messageType: SignatureMessageType;
 }
 export function SignatureRequestStructuredDataContent(
   props: SignatureRequestStructuredDataContentProps
 ) {
-  const { requestToken, messageType } = props;
+  const { requestToken } = props;
   const signatureRequest = getStructuredDataPayloadFromToken(requestToken);
   const { domain, message, network } = signatureRequest;
   const appName = signatureRequest.appDetails?.name;
@@ -24,7 +21,7 @@ export function SignatureRequestStructuredDataContent(
     <>
       <StructuredDataBox message={message} domain={domain} />
       <NetworkRow chainId={network?.chainId ?? ChainID.Testnet} />
-      <SignAction message={message} messageType={messageType} domain={domain} />
+      <SignAction message={message} messageType="structured" domain={domain} />
       <hr />
       <Disclaimer appName={appName} />
     </>

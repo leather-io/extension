@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
-import { StacksTransaction } from '@stacks/transactions';
+import { ClarityValue, StacksTransaction } from '@stacks/transactions';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -27,10 +27,17 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignMessageStep(message: string, goBack?: boolean) {
+      toConnectAndSignUtf8MessageStep(message: string, goBack?: boolean) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: !goBack,
-          state: { goBack, message },
+          state: { goBack, type: 'utf8', message },
+        });
+      },
+
+      toConnectAndSignStructuredMessageStep(domain: ClarityValue, message: ClarityValue) {
+        return navigate(RouteUrls.ConnectLedger, {
+          replace: true,
+          state: { type: 'structured', domain, message },
         });
       },
 

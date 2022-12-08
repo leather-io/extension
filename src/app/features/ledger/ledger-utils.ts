@@ -98,6 +98,13 @@ export function signLedgerUtf8Message(app: StacksApp) {
     app.sign_msg(getStxDerivationPath(accountIndex), payload);
 }
 
+export function signLedgerStructuredMessage(app: StacksApp) {
+  return async (domain: string, payload: string, accountIndex: number) => {
+    console.log('signing', { domain, payload });
+    return app.sign_structured_msg(getStxDerivationPath(accountIndex), domain, payload);
+  };
+}
+
 export function signTransactionWithSignature(transaction: string, signatureVRS: Buffer) {
   const deserialzedTx = deserializeTransaction(transaction);
   const spendingCondition = createMessageSignature(signatureVRS.toString('hex'));

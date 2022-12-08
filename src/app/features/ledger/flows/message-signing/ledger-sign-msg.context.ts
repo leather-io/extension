@@ -1,11 +1,12 @@
 import { createContext } from 'react';
 
+import { SignedMessage } from '@shared/signature/signature-types';
 import { noop } from '@shared/utils';
 
 import { BaseLedgerOperationContext } from '../../ledger-utils';
 
 export interface LedgerMessageSigningContext extends BaseLedgerOperationContext {
-  message: string | undefined;
+  message: SignedMessage | undefined;
   signMessage(): Promise<void> | void;
 }
 

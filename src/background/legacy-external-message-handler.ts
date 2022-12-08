@@ -120,8 +120,8 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.transactionRequest: {
       const otherParams: OtherParams = [
         ['request', payload],
-        ...getNetworkParamsFromPayload(payload),
         ['flow', ExternalMethods.transactionRequest],
+        ...getNetworkParamsFromPayload(payload),
       ];
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, otherParams);
 
@@ -139,8 +139,8 @@ export async function handleLegacyExternalMethodFormat(
       const otherParams: OtherParams = [
         ['request', payload],
         ['messageType', 'utf8'],
-        ...getNetworkParamsFromPayload(payload),
         ['flow', ExternalMethods.signatureRequest],
+        ...getNetworkParamsFromPayload(payload),
       ];
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, otherParams);
 
@@ -159,6 +159,7 @@ export async function handleLegacyExternalMethodFormat(
         ['request', payload],
         ['messageType', 'structured'],
         ['flow', ExternalMethods.structuredDataSignatureRequest],
+        ...getNetworkParamsFromPayload(payload),
       ];
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, otherParams);
 
