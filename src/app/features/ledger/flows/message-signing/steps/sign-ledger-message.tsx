@@ -1,13 +1,12 @@
 import { useContext } from 'react';
 
-import { cvToString } from '@stacks/transactions';
-
 import { logger } from '@shared/logger';
 import { whenSignedMessageOfType } from '@shared/signature/signature-types';
 
 import { ApproveLedgerOperationLayout } from '../../../generic-steps';
 import { useHasApprovedOperation } from '../../../hooks/use-has-approved-transaction';
 import { ledgerMsgSigningContext } from '../ledger-sign-msg.context';
+import { cvToDisplay, deriveStructuredMessageHash } from '../message-signing.utils';
 
 export function SignLedgerMessage() {
   const { message } = useContext(ledgerMsgSigningContext);
@@ -26,16 +25,26 @@ export function SignLedgerMessage() {
         status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
       />
     ),
-    structured: domain => (
-      <ApproveLedgerOperationLayout
-        description="Sign structured data on your Ledger"
-        details={[
-          ['Chain ID', cvToString(domain.data['chain-id'])],
-          ['Name', cvToString(domain.data.name)],
-          ['Version', cvToString(domain.data.version)],
-        ]}
-        status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
-      />
-    ),
+    structured: (domain, message) => {
+      const ledgerFirstHashPageInView = 34;
+      const hash = deriveStructuredMessageHash({ domain, message });
+      const [hashPart1, hashPart2] = [
+        hash.slice(0, ledgerFirstHashPageInView),
+        hash.slice(ledgerFirstHashPageInView),
+      ];
+      return (
+        <ApproveLedgerOperationLayout
+          description="Sign structured data on your Ledger"
+          details={[
+            ['Chain ID', cvToDisplay(domain.data['chain-id'])],
+            ['Name', cvToDisplay(domain.data.name)],
+            ['Version', cvToDisplay(domain.data.version)],
+            ['Message hash [1/2]', hashPart1],
+            ['Message hash [2/2]', hashPart2],
+          ]}
+          status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
+        />
+      );
+    },
   }) as JSX.Element;
 }
