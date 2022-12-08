@@ -1,6 +1,7 @@
+import { sha256 } from '@noble/hashes/sha256';
+import { bytesToHex } from '@stacks/common';
 import StacksApp from '@zondax/ledger-stacks';
 import ecdsaFormat from 'ecdsa-sig-formatter';
-import { sha256 } from 'sha.js';
 
 import { getIdentityDerivationPath } from '../../ledger-utils';
 
@@ -17,7 +18,7 @@ export function addSignatureToAuthResponseJwt(authResponse: string, signature: U
 }
 
 export function getSha256HashOfJwtAuthPayload(payload: string) {
-  return new sha256().update(payload).digest('hex');
+  return bytesToHex(sha256(payload));
 }
 
 export function signLedgerJwtHash(app: StacksApp) {

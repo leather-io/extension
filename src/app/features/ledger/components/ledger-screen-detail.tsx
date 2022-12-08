@@ -34,9 +34,7 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
         )}
       </Caption>
       <Flex alignItems="center" mt="base">
-        <Text overflowWrap="break-word" maxWidth={['280px', '360px']}>
-          {children}
-        </Text>
+        <Text overflowWrap="break-word">{children}</Text>
       </Flex>
     </Flex>
   );
