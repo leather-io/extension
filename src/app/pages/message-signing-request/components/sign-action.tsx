@@ -4,7 +4,7 @@ import { Button, Stack } from '@stacks/ui';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { logger } from '@shared/logger';
-import { SignedMessage, whenSignedMessage } from '@shared/signature/signature-types';
+import { SignedMessage, whenSignedMessageOfType } from '@shared/signature/signature-types';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -12,7 +12,7 @@ import { createDelay } from '@app/common/utils';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
-import { useMessageSignerSoftwareWallet } from '../message-signing.hooks';
+import { useMessageSignerSoftwareWallet } from '../message-signing.utils';
 
 const improveUxWithShortDelayAsSigningIsSoFast = createDelay(1000);
 
@@ -44,10 +44,10 @@ export function SignAction(message: SignedMessage) {
       setIsLoading(false);
       finalizeMessageSignature({ requestPayload: requestToken, tabId, data: messageSignature });
     },
+
     async ledger() {
       void analytics.track('request_signature_sign', { type: 'ledger' });
-
-      whenSignedMessage(message)({
+      whenSignedMessageOfType(message)({
         utf8(msg) {
           ledgerNavigate.toConnectAndSignUtf8MessageStep(msg);
         },
@@ -55,8 +55,6 @@ export function SignAction(message: SignedMessage) {
           ledgerNavigate.toConnectAndSignStructuredMessageStep(domain, msg);
         },
       });
-
-      return;
     },
   });
 

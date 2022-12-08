@@ -17,10 +17,10 @@ export function useLedgerAnalytics() {
       transactionSignedOnLedgerRejected() {
         void analytics.track('ledger_transaction_signed_rejected');
       },
-      utf8MessageSignedOnLedgerSuccessfully() {
+      messageSignedOnLedgerSuccessfully() {
         void analytics.track('ledger_message_signed_approved');
       },
-      utf8MessageSignedOnLedgerRejected() {
+      messageSignedOnLedgerRejected() {
         void analytics.track('ledger_message_signed_rejected');
       },
       publicKeysPulledFromLedgerSuccessfully() {

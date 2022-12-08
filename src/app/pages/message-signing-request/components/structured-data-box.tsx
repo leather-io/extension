@@ -1,38 +1,22 @@
 import { useEffect, useState } from 'react';
 
-import {
-  ChainID,
-  ClarityValue,
-  TupleCV,
-  cvToString,
-  encodeStructuredData,
-} from '@stacks/transactions';
-import { ClarityType } from '@stacks/transactions/dist/esm/clarity';
+import { ClarityValue } from '@stacks/transactions';
 import { Box, Stack, Text, color } from '@stacks/ui';
-import { sha256 } from 'sha.js';
 
-import { whenStxChainId } from '@app/common/utils';
+import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 
+import {
+  chainIdToDisplay,
+  cvToDisplay,
+  deriveStructuredMessageHash,
+} from '../message-signing.utils';
 import { ClarityValueListDisplayer } from './clarity-value-list';
 import { HashDrawer } from './hash-drawer';
 
-function cvToDisplay(cv: ClarityValue): string {
-  return cvToString(cv).replaceAll('"', '');
-}
-
-function chainIdToDisplay(chainIdCv: ClarityValue): string {
-  if (chainIdCv.type !== ClarityType.UInt) return '';
-  const chainIdString = cvToString(chainIdCv);
-  const chainId = parseInt(chainIdString.replace('u', ''));
-  if (!Object.values(ChainID).includes(chainId)) return '';
-
-  return whenStxChainId(chainId as ChainID)({
-    [ChainID.Testnet]: 'Testnet',
-    [ChainID.Mainnet]: 'Mainnet',
-  });
-}
-
-export function StructuredDataBox(props: { message: ClarityValue; domain: TupleCV }) {
+export function StructuredDataBox(props: {
+  message: ClarityValue;
+  domain: StructuredMessageDataDomain;
+}) {
   const { message, domain } = props;
 
   const [hash, setHash] = useState<string | undefined>();
@@ -41,10 +25,7 @@ export function StructuredDataBox(props: { message: ClarityValue; domain: TupleC
   const [domainChainName, setDomainChainName] = useState<string | undefined>();
 
   useEffect(() => {
-    const messageHash = new sha256()
-      .update(encodeStructuredData({ message, domain }))
-      .digest('hex');
-    setHash(messageHash);
+    setHash(deriveStructuredMessageHash({ message, domain }));
   }, [message, domain]);
 
   useEffect(() => {

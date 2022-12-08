@@ -58,7 +58,7 @@ export function IncreaseFeeForm() {
           await replaceByFee(rawTx);
         },
         ledger: () => {
-          ledgerNavigate.toConnectAndSignTransactionStep(rawTx, true);
+          ledgerNavigate.toConnectAndSignTransactionStep(rawTx);
         },
       })();
     },

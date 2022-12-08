@@ -2,35 +2,14 @@ import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
-import {
-  ClarityAbiType,
-  ClarityType,
-  ClarityValue,
-  bufferCV,
-  contractPrincipalCV,
-  falseCV,
-  intCV,
-  listCV,
-  noneCV,
-  parseToCV,
-  responseErrorCV,
-  responseOkCV,
-  serializeCV,
-  someCV,
-  standardPrincipalCV,
-  trueCV,
-  uintCV,
-} from '@stacks/transactions';
-import { stringCV } from '@stacks/transactions/dist/clarity/types/stringCV';
-import { stringAsciiCV, stringUtf8CV, tupleCV } from '@stacks/transactions/dist/esm/clarity';
-import { LedgerError } from '@zondax/ledger-stacks';
+import { serializeCV } from '@stacks/transactions';
+import { LedgerError, ResponseSign } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { logger } from '@shared/logger';
-import { SignedMessage, whenSignedMessage } from '@shared/signature/signature-types';
+import { SignedMessage, whenSignedMessageOfType } from '@shared/signature/signature-types';
 
-import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { delay } from '@app/common/utils';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
@@ -43,6 +22,7 @@ import {
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
@@ -51,14 +31,27 @@ import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matchin
 import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
 import { useSignedMessageType } from './use-message-type';
 
-export function LedgerSignMsgContainer() {
+interface LedgerSignMsgData {
+  account: AccountWithAddress;
+  unsignedMessage: SignedMessage;
+}
+interface LedgerSignMsgDataProps {
+  children({ account, unsignedMessage }: LedgerSignMsgData): JSX.Element;
+}
+function LedgerSignMsgData({ children }: LedgerSignMsgDataProps) {
+  const account = useCurrentAccount();
+  const unsignedMessage = useSignedMessageType();
+  if (!unsignedMessage || !account) return null;
+  return children({ account, unsignedMessage });
+}
+
+type LedgerSignMsgProps = LedgerSignMsgData;
+function LedgerSignMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   useScrollLock(true);
 
   const location = useLocation();
-
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
-  const account = useCurrentAccount();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();
   const { tabId, requestToken } = useSignatureRequestSearchParams();
 
@@ -67,11 +60,7 @@ export function LedgerSignMsgContainer() {
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
-  const unsignedMessage = useSignedMessageType();
-  if (unsignedMessage === null) return null;
-
   async function signMessage() {
-    if (!account || !unsignedMessage) return;
     const stacksApp = await prepareLedgerDeviceConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
@@ -100,32 +89,19 @@ export function LedgerSignMsgContainer() {
       await delay(1000);
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
-      async function signLedgerMessage(msg: SignedMessage) {
-        // if (msg.messageType === 'utf8') {
-        //   const resp = await signLedgerUtf8Message(stacksApp)(msg, account.index);
-        // }
+      const resp = await whenSignedMessageOfType<ResponseSign>(unsignedMessage)({
+        async utf8(msg) {
+          return signLedgerUtf8Message(stacksApp)(msg, account.index);
+        },
+        async structured(domain, msg) {
+          return signLedgerStructuredMessage(stacksApp)(
+            bytesToHex(serializeCV(domain)),
+            bytesToHex(serializeCV(msg)),
+            account.index
+          );
+        },
+      });
 
-        return whenSignedMessage(msg)({
-          utf8(msg) {
-            return signLedgerUtf8Message(stacksApp)(msg, account.index);
-          },
-          structured(domain, msg) {},
-        });
-      }
-
-      const resp = signLedgerMessage(unsignedMessage);
-
-      // const parsedDomain = bytesToHex(serializeCV(domain as unknown as ClarityValue));
-      // const parsedMessage = bytesToHex(serializeCV(message as unknown as ClarityValue));
-      // console.log({ parsedDomain, parsedMessage });
-
-      // const resp = await signLedgerStructuredMessage(stacksApp)(
-      //   parsedDomain,
-      //   parsedMessage,
-      //   account.index
-      // );
-      // console.log(resp);
-      // const resp = await signLedgerUtf8Message(stacksApp)(message, account.index);
       // Assuming here that public keys are wrong. Alternatively, we may want
       // to proactively check the key before signing
       if (resp.returnCode === LedgerError.DataIsInvalid) {
@@ -135,7 +111,7 @@ export function LedgerSignMsgContainer() {
 
       if (resp.returnCode === LedgerError.TransactionRejected) {
         ledgerNavigate.toOperationRejectedStep(`Message signing operation rejected`);
-        ledgerAnalytics.utf8MessageSignedOnLedgerRejected();
+        ledgerAnalytics.messageSignedOnLedgerRejected();
         finalizeMessageSignature({ requestPayload: requestToken, tabId, data: 'cancel' });
         return;
       }
@@ -145,7 +121,7 @@ export function LedgerSignMsgContainer() {
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       await delay(1000);
 
-      ledgerAnalytics.utf8MessageSignedOnLedgerSuccessfully();
+      ledgerAnalytics.messageSignedOnLedgerSuccessfully();
 
       finalizeMessageSignature({
         requestPayload: requestToken,
@@ -158,16 +134,11 @@ export function LedgerSignMsgContainer() {
 
       await stacksApp.transport.close();
     } catch (e) {
-      console.log(e);
       ledgerNavigate.toDeviceDisconnectStep();
     }
   }
 
   const allowUserToGoBack = get(location.state, 'goBack');
-
-  const onCancelConnectLedger = allowUserToGoBack
-    ? ledgerNavigate.cancelLedgerActionAndReturnHome
-    : ledgerNavigate.cancelLedgerAction;
 
   const ledgerContextValue: LedgerMessageSigningContext = {
     message: unsignedMessage,
@@ -182,7 +153,7 @@ export function LedgerSignMsgContainer() {
         enableGoBack={allowUserToGoBack}
         isShowing
         isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
-        onClose={onCancelConnectLedger}
+        onClose={ledgerNavigate.cancelLedgerAction}
         pauseOnClickOutside
         waitingOnPerformedActionMessage="Ledger device in use"
       >
@@ -190,4 +161,8 @@ export function LedgerSignMsgContainer() {
       </BaseDrawer>
     </LedgerMsgSigningProvider>
   );
+}
+
+export function LedgerSignMsgContainer() {
+  return <LedgerSignMsgData>{props => <LedgerSignMsg {...props} />}</LedgerSignMsgData>;
 }

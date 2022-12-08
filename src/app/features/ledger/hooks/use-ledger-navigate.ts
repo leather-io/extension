@@ -20,17 +20,17 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignTransactionStep(transaction: StacksTransaction, goBack?: boolean) {
+      toConnectAndSignTransactionStep(transaction: StacksTransaction) {
         return navigate(RouteUrls.ConnectLedger, {
-          replace: !goBack,
-          state: { goBack, tx: bytesToHex(transaction.serialize()) },
+          replace: true,
+          state: { tx: bytesToHex(transaction.serialize()) },
         });
       },
 
-      toConnectAndSignUtf8MessageStep(message: string, goBack?: boolean) {
+      toConnectAndSignUtf8MessageStep(message: string) {
         return navigate(RouteUrls.ConnectLedger, {
-          replace: !goBack,
-          state: { goBack, type: 'utf8', message },
+          replace: true,
+          state: { type: 'utf8', message },
         });
       },
 
@@ -83,7 +83,7 @@ export function useLedgerNavigate() {
       },
 
       cancelLedgerAction() {
-        return navigate('..');
+        return navigate('..', { relative: 'path' });
       },
 
       cancelLedgerActionAndReturnHome() {

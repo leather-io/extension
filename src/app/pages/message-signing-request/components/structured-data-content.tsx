@@ -10,10 +10,9 @@ import { StructuredDataBox } from './structured-data-box';
 interface SignatureRequestStructuredDataContentProps {
   requestToken: string;
 }
-export function SignatureRequestStructuredDataContent(
-  props: SignatureRequestStructuredDataContentProps
-) {
-  const { requestToken } = props;
+export function SignatureRequestStructuredDataContent({
+  requestToken,
+}: SignatureRequestStructuredDataContentProps) {
   const signatureRequest = getStructuredDataPayloadFromToken(requestToken);
   const { domain, message, network } = signatureRequest;
   const appName = signatureRequest.appDetails?.name;

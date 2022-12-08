@@ -1,8 +1,12 @@
-import { ClarityValue, TupleCV } from '@stacks/transactions';
-
-import { isString } from '@shared/utils';
+import { ClarityValue, StringAsciiCV, TupleCV, UIntCV } from '@stacks/transactions';
 
 type SignedMessageType = 'utf8' | 'structured';
+
+export type StructuredMessageDataDomain = TupleCV<{
+  name: StringAsciiCV;
+  version: StringAsciiCV;
+  'chain-id': UIntCV;
+}>;
 
 interface AbstractSignedMessage {
   messageType: SignedMessageType;
@@ -13,10 +17,10 @@ interface SignedMessageUtf8 extends AbstractSignedMessage {
   message: string;
 }
 
-interface SignedMessageStructured extends AbstractSignedMessage {
+export interface SignedMessageStructured extends AbstractSignedMessage {
   messageType: 'structured';
   message: ClarityValue;
-  domain: TupleCV;
+  domain: StructuredMessageDataDomain;
 }
 
 export type SignedMessage = SignedMessageUtf8 | SignedMessageStructured;
@@ -26,6 +30,7 @@ export function isStructuredMessageType(
 ): messageType is 'structured' {
   return messageType === 'structured';
 }
+
 export function isUtf8MessageType(messageType: SignedMessageType): messageType is 'utf8' {
   return messageType === 'utf8';
 }
@@ -34,26 +39,14 @@ export function isSignedMessageType(messageType: unknown): messageType is Signed
   return typeof messageType === 'string' && ['utf8', 'structured'].includes(messageType);
 }
 
-type WhenSignedMessageTypeArgs<T> = Record<SignedMessageType, T>;
-export function whenSignedMessageType(msgType: SignedMessageType) {
-  return <T>(arg: WhenSignedMessageTypeArgs<T>) => arg[msgType];
+interface WhenSigningMessageArgs<T> {
+  utf8(message: string): Promise<T> | T;
+  structured(domain: StructuredMessageDataDomain, message: ClarityValue): Promise<T> | T;
 }
-
-interface WhenSignedMessageArgs {
-  utf8(message: string): void;
-  structured(domain: TupleCV, message: ClarityValue): void;
-}
-export function whenSignedMessage(msg: SignedMessage) {
-  return ({ utf8, structured }: WhenSignedMessageArgs) => {
-    if (msg.messageType === 'utf8') utf8(msg.message);
-    if (msg.messageType === 'structured') structured(msg.domain, msg.message);
+export function whenSignedMessageOfType<T>(msg: SignedMessage) {
+  return ({ utf8, structured }: WhenSigningMessageArgs<T | Promise<T>>) => {
+    if (msg.messageType === 'utf8') return utf8(msg.message);
+    if (msg.messageType === 'structured') return structured(msg.domain, msg.message);
+    throw new Error('Message can only be either `utf8` or `structured`');
   };
-}
-
-export function inferSignedMessageType(
-  message: string | ClarityValue,
-  domain?: TupleCV
-): SignedMessageType {
-  if (!domain && isString(message)) return 'utf8';
-  return 'structured';
 }
