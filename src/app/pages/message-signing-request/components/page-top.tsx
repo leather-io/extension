@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Stack } from '@stacks/ui';
 
-import { isSignatureMessageType } from '@shared/signature/types';
+import { isSignedMessageType } from '@shared/signature/signature-types';
 
 import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
@@ -14,7 +14,7 @@ function PageTopBase() {
   const { chain, isTestnet } = useCurrentNetworkState();
   const { origin, requestToken, messageType } = useSignatureRequestSearchParams();
   if (!requestToken) return null;
-  if (!isSignatureMessageType(messageType)) return null;
+  if (!isSignedMessageType(messageType)) return null;
   const signatureRequest = getSignaturePayloadFromToken(requestToken);
   if (!signatureRequest) return null;
 

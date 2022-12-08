@@ -19,6 +19,7 @@ import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { SendCryptoAsset } from '@app/pages/crypto-asset-list/send-crypto-asset';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
+import { MessageSigningRequest } from '@app/pages/message-signing-request/message-signing-request';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
@@ -29,7 +30,6 @@ import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { SendCryptoAssetForm } from '@app/pages/send-crypto-asset/send-crypto-asset-form';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
-import { SignatureRequest } from '@app/pages/signature-request/signature-request';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
@@ -180,7 +180,7 @@ function AppRoutesAfterUserHasConsented() {
           element={
             <AccountGate>
               <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <SignatureRequest />
+                <MessageSigningRequest />
               </Suspense>
             </AccountGate>
           }

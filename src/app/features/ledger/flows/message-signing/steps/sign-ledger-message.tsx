@@ -15,11 +15,13 @@ export function SignLedgerMessage() {
     return null;
   }
 
-  return (
-    <ApproveLedgerOperationLayout
-      description="Sign message on your Ledger"
-      details={[['Message', message]]}
-      status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
-    />
-  );
+  // return (
+  //   <ApproveLedgerOperationLayout
+  //     description="Sign message on your Ledger"
+  //     details={[['Message', message]]}
+  //     status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
+  //   />
+  // );
+
+  return 'test page';
 }

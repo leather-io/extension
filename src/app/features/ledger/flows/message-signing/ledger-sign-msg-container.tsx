@@ -1,12 +1,34 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { signatureVrsToRsv } from '@stacks/common';
+import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
+import {
+  ClarityAbiType,
+  ClarityType,
+  ClarityValue,
+  bufferCV,
+  contractPrincipalCV,
+  falseCV,
+  intCV,
+  listCV,
+  noneCV,
+  parseToCV,
+  responseErrorCV,
+  responseOkCV,
+  serializeCV,
+  someCV,
+  standardPrincipalCV,
+  trueCV,
+  uintCV,
+} from '@stacks/transactions';
+import { stringCV } from '@stacks/transactions/dist/clarity/types/stringCV';
+import { stringAsciiCV, stringUtf8CV, tupleCV } from '@stacks/transactions/dist/esm/clarity';
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { logger } from '@shared/logger';
+import { SignedMessage, whenSignedMessage } from '@shared/signature/signature-types';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
@@ -15,6 +37,7 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
   getAppVersion,
   prepareLedgerDeviceConnection,
+  signLedgerStructuredMessage,
   signLedgerUtf8Message,
   useActionCancellableByUser,
   useLedgerResponseState,
@@ -26,6 +49,7 @@ import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
 import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
+import { useSignedMessageType } from './use-message-type';
 
 export function LedgerSignMsgContainer() {
   useScrollLock(true);
@@ -34,7 +58,6 @@ export function LedgerSignMsgContainer() {
 
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
-  const message = useLocationStateWithCache('message');
   const account = useCurrentAccount();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();
   const { tabId, requestToken } = useSignatureRequestSearchParams();
@@ -44,8 +67,11 @@ export function LedgerSignMsgContainer() {
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
-  const signMessage = async () => {
-    if (!account) return;
+  const unsignedMessage = useSignedMessageType();
+  if (unsignedMessage === null) return null;
+
+  async function signMessage() {
+    if (!account || !unsignedMessage) return;
     const stacksApp = await prepareLedgerDeviceConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
@@ -72,9 +98,34 @@ export function LedgerSignMsgContainer() {
     try {
       ledgerNavigate.toConnectionSuccessStep();
       await delay(1000);
-      if (!message) throw new Error('No message to sign');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
-      const resp = await signLedgerUtf8Message(stacksApp)(message, account.index);
+
+      async function signLedgerMessage(msg: SignedMessage) {
+        // if (msg.messageType === 'utf8') {
+        //   const resp = await signLedgerUtf8Message(stacksApp)(msg, account.index);
+        // }
+
+        return whenSignedMessage(msg)({
+          utf8(msg) {
+            return signLedgerUtf8Message(stacksApp)(msg, account.index);
+          },
+          structured(domain, msg) {},
+        });
+      }
+
+      const resp = signLedgerMessage(unsignedMessage);
+
+      // const parsedDomain = bytesToHex(serializeCV(domain as unknown as ClarityValue));
+      // const parsedMessage = bytesToHex(serializeCV(message as unknown as ClarityValue));
+      // console.log({ parsedDomain, parsedMessage });
+
+      // const resp = await signLedgerStructuredMessage(stacksApp)(
+      //   parsedDomain,
+      //   parsedMessage,
+      //   account.index
+      // );
+      // console.log(resp);
+      // const resp = await signLedgerUtf8Message(stacksApp)(message, account.index);
       // Assuming here that public keys are wrong. Alternatively, we may want
       // to proactively check the key before signing
       if (resp.returnCode === LedgerError.DataIsInvalid) {
@@ -107,9 +158,10 @@ export function LedgerSignMsgContainer() {
 
       await stacksApp.transport.close();
     } catch (e) {
+      console.log(e);
       ledgerNavigate.toDeviceDisconnectStep();
     }
-  };
+  }
 
   const allowUserToGoBack = get(location.state, 'goBack');
 
@@ -118,7 +170,7 @@ export function LedgerSignMsgContainer() {
     : ledgerNavigate.cancelLedgerAction;
 
   const ledgerContextValue: LedgerMessageSigningContext = {
-    message,
+    message: unsignedMessage,
     signMessage,
     latestDeviceResponse,
     awaitingDeviceConnection,

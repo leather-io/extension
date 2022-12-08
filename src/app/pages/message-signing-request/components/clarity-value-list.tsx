@@ -53,7 +53,7 @@ export function ClarityValueListDisplayer(props: ClarityValueListDisplayerProps)
       return (
         <TupleDisplayer isRoot={isRoot}>
           {Object.entries(val.data).map(([key, value]) => (
-            <TupleNodeDisplayer clarityType={value.type}>
+            <TupleNodeDisplayer clarityType={value.type} key={key}>
               <TupleNodeLabelDisplayer>{key}:</TupleNodeLabelDisplayer>
               <TupleNodeValueDisplayer>
                 <ClarityValueListDisplayer val={value} encoding="tryAscii" isRoot={false} />
