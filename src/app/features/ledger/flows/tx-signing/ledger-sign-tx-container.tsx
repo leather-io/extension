@@ -145,9 +145,6 @@ export function LedgerSignTxContainer() {
   };
 
   const allowUserToGoBack = get(location.state, 'goBack');
-  const onCancelConnectLedger = allowUserToGoBack
-    ? ledgerNavigate.cancelLedgerActionAndReturnHome
-    : ledgerNavigate.cancelLedgerAction;
 
   const ledgerContextValue: LedgerTxSigningContext = {
     transaction: unsignedTransaction ? deserializeTransaction(unsignedTransaction) : null,
@@ -163,7 +160,7 @@ export function LedgerSignTxContainer() {
         enableGoBack={allowUserToGoBack}
         isShowing
         isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
-        onClose={onCancelConnectLedger}
+        onClose={ledgerNavigate.cancelLedgerAction}
         pauseOnClickOutside
         waitingOnPerformedActionMessage="Ledger device in use"
       >
