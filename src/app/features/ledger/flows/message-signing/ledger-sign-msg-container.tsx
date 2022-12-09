@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
 import { serializeCV } from '@stacks/transactions';
-import { LedgerError, ResponseSign } from '@zondax/ledger-stacks';
+import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
@@ -89,7 +89,7 @@ function LedgerSignMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
       await delay(1000);
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
-      const resp = await whenSignedMessageOfType<ResponseSign>(unsignedMessage)({
+      const resp = await whenSignedMessageOfType(unsignedMessage)({
         async utf8(msg) {
           return signLedgerUtf8Message(stacksApp)(msg, account.index);
         },

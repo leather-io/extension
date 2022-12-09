@@ -46,5 +46,5 @@ export function SignLedgerMessage() {
         />
       );
     },
-  }) as JSX.Element;
+  });
 }

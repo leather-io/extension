@@ -39,12 +39,12 @@ export function isSignedMessageType(messageType: unknown): messageType is Signed
   return typeof messageType === 'string' && ['utf8', 'structured'].includes(messageType);
 }
 
-interface WhenSigningMessageArgs<T> {
-  utf8(message: string): Promise<T> | T;
-  structured(domain: StructuredMessageDataDomain, message: ClarityValue): Promise<T> | T;
+interface WhenSignedMessageOfType<T> {
+  utf8(message: string): T;
+  structured(domain: StructuredMessageDataDomain, message: ClarityValue): T;
 }
-export function whenSignedMessageOfType<T>(msg: SignedMessage) {
-  return ({ utf8, structured }: WhenSigningMessageArgs<T | Promise<T>>) => {
+export function whenSignedMessageOfType(msg: SignedMessage) {
+  return <T>({ utf8, structured }: WhenSignedMessageOfType<T>) => {
     if (msg.messageType === 'utf8') return utf8(msg.message);
     if (msg.messageType === 'structured') return structured(msg.domain, msg.message);
     throw new Error('Message can only be either `utf8` or `structured`');
