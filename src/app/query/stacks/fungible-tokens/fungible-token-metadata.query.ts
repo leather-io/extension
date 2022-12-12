@@ -1,7 +1,6 @@
 import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 
-import { isResponseCode } from '@app/common/network/is-response-code';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -21,14 +20,10 @@ const queryOptions = {
   retryDelay: 2 * 60 * 1000,
 } as const;
 
-const is404 = isResponseCode(404);
-
 function fetchUnanchoredAccountInfo(client: StacksClient, limiter: RateLimiter) {
   return (contractId: string) => async () => {
     await limiter.removeTokens(1);
-    return client.fungibleTokensApi
-      .getContractFtMetadata({ contractId })
-      .catch(error => (is404(error) ? null : error));
+    return client.fungibleTokensApi.getContractFtMetadata({ contractId });
   };
 }
 
