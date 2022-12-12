@@ -1,3 +1,68 @@
+## [3.27.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.26.0...v3.27.0) (2022-12-05)
+
+
+### Features
+
+* add get help menu item, closes [#2823](https://github.com/hirosystems/stacks-wallet-web/issues/2823) ([6e13f4c](https://github.com/hirosystems/stacks-wallet-web/commit/6e13f4c22a2e81c6d46c9e8b3584fb82696a88e9))
+* add option to easily transfer within same wallet ([f1b6ac6](https://github.com/hirosystems/stacks-wallet-web/commit/f1b6ac67cae96819ec1e6c377975d7771f3be85a))
+* allow tracking app initiating wallet flow, closes [#2904](https://github.com/hirosystems/stacks-wallet-web/issues/2904) ([d533d43](https://github.com/hirosystems/stacks-wallet-web/commit/d533d43057652cc2d926f886cbf1f5eb9dc1a27f))
+* bitcoin fees query ([9451f89](https://github.com/hirosystems/stacks-wallet-web/commit/9451f89461234e61ccf220e3f4bb3a7c1e217e87))
+
+
+### Bug Fixes
+
+* close other frames when wallet locks ([8788e01](https://github.com/hirosystems/stacks-wallet-web/commit/8788e010b9504f1cfa5c8f2c619af19da240dbc8))
+* re-enable sentry, closes 2822 ([23776d4](https://github.com/hirosystems/stacks-wallet-web/commit/23776d43b316152ed17e8bc0d5eac220da359cc4))
+* use existing data-testid values ([5194c20](https://github.com/hirosystems/stacks-wallet-web/commit/5194c20dc9084acfc655e532978b9a9ee7105a16))
+
+
+### Internal
+
+* add window.open lint rule ([0ed015b](https://github.com/hirosystems/stacks-wallet-web/commit/0ed015bee8d1b39c3564136d9c9488468ad55585))
+* reading search params outside react ([4e8d3dd](https://github.com/hirosystems/stacks-wallet-web/commit/4e8d3ddbc7f7adc6444ce7a16f787ecd89e86d46))
+* use type assertion ([1ac3fba](https://github.com/hirosystems/stacks-wallet-web/commit/1ac3fbad7bea0214a09182cbfa2bc6e4d1341a7d))
+
+## [3.26.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.25.0...v3.26.0) (2022-11-24)
+
+
+### Features
+
+* send form amount field ([ab3a10a](https://github.com/hirosystems/stacks-wallet-web/commit/ab3a10a5c69def2b4c3c56c048bfdaaa9098cff5))
+* send form details ([b6a54bb](https://github.com/hirosystems/stacks-wallet-web/commit/b6a54bb0ef82a737e7681983a3975b9296b4b0bc))
+* support bns recipients, closes [#1840](https://github.com/hirosystems/stacks-wallet-web/issues/1840) ([55bf5ef](https://github.com/hirosystems/stacks-wallet-web/commit/55bf5ef0459b2bfc38a4231115c33e53f05ee0d4))
+
+
+### Bug Fixes
+
+* amount input in extension ([9b31782](https://github.com/hirosystems/stacks-wallet-web/commit/9b31782a5b2263519853204e8eb46914eda74c7f))
+* **balances:** query correct balance, show microblock balance, closes [#2898](https://github.com/hirosystems/stacks-wallet-web/issues/2898) ([da58732](https://github.com/hirosystems/stacks-wallet-web/commit/da58732c087d5d65852aeff3e1d67f9000c00d7e))
+* missing address chars, closes [#2860](https://github.com/hirosystems/stacks-wallet-web/issues/2860) ([95bee55](https://github.com/hirosystems/stacks-wallet-web/commit/95bee55811093ab22bc7c187ff97128f2cfb943f))
+* theme analytics, closes [#2799](https://github.com/hirosystems/stacks-wallet-web/issues/2799) ([8c85177](https://github.com/hirosystems/stacks-wallet-web/commit/8c851777009cd326c983ad44f0c0464c714cd88f))
+* typo ([f5f68f3](https://github.com/hirosystems/stacks-wallet-web/commit/f5f68f3e767d7a89725e73f020e1866272b7efe6))
+
+
+### Internal
+
+* add error handling to form ([fb19774](https://github.com/hirosystems/stacks-wallet-web/commit/fb19774740d3e42d4f88aff0b5331547b22b05a1))
+* base forms for all currencies ([3eec893](https://github.com/hirosystems/stacks-wallet-web/commit/3eec8938d204263319af7979f18fff70355972c2))
+* be explicit about address, allow reuse for non-current account ([153b961](https://github.com/hirosystems/stacks-wallet-web/commit/153b9611a8e55fbb07bcc1c49243e51e7d4379fc))
+* form field error styles ([7ebe8c9](https://github.com/hirosystems/stacks-wallet-web/commit/7ebe8c9ffa1992b46e2e70741cf7366b5d36a00d))
+* home page with facade pattern ([c1bbd29](https://github.com/hirosystems/stacks-wallet-web/commit/c1bbd299e4b0d5bcce9e81bdd41552abd7a7392f))
+* improve errors, add focus state ([0d193af](https://github.com/hirosystems/stacks-wallet-web/commit/0d193aff8db47a836f191f28fb7ad67ea0c2493f))
+* init new integration tests ([5de2613](https://github.com/hirosystems/stacks-wallet-web/commit/5de2613315d4dccbc94281a3f4041fc839743a5e))
+* initial test forms ([601c4a8](https://github.com/hirosystems/stacks-wallet-web/commit/601c4a88741ac1584d8efb1c773b77aa7237039e))
+* initial value helper, inline error ([15fe88d](https://github.com/hirosystems/stacks-wallet-web/commit/15fe88da412580be23ea6ac3e282c6e088374104))
+* react query pattern, form routes ([7860ee9](https://github.com/hirosystems/stacks-wallet-web/commit/7860ee9aa5eee970a192c39d2ef231c8a6be6367))
+* remove coupling of balances types, subBalance ([de94f2c](https://github.com/hirosystems/stacks-wallet-web/commit/de94f2cc55b3ca459539cddb268f8072deac2bf6))
+* remove okcoin ([b34e214](https://github.com/hirosystems/stacks-wallet-web/commit/b34e2143b0c24c8a1e45a03bedc6b094a0cb9f15))
+* remove unused suspense ([8369e32](https://github.com/hirosystems/stacks-wallet-web/commit/8369e328a2a9eb14f05ba3e165359c49003f582f))
+* rename existing tests as legacy ([7b97265](https://github.com/hirosystems/stacks-wallet-web/commit/7b97265b440db2c0b730a3742d911a37ea80f816))
+* rename original balance queries with stx naming ([1770e3d](https://github.com/hirosystems/stacks-wallet-web/commit/1770e3d215d09a1141a1a8e6dfbda550834cd2e3))
+* semantic form elements ([6f9b123](https://github.com/hirosystems/stacks-wallet-web/commit/6f9b123cc967784e6d921d21e0d73089f02afb4b))
+* tightens rules against orphan files ([950569a](https://github.com/hirosystems/stacks-wallet-web/commit/950569a3659f23e84021df5fe8f05b4e6e6217ce))
+* use factory fn ([b43159a](https://github.com/hirosystems/stacks-wallet-web/commit/b43159a25729814cbffa0cba4debb80e392f62d2))
+* validation schemas ([3cd15c5](https://github.com/hirosystems/stacks-wallet-web/commit/3cd15c5705eced4954cd235d38440af6ba4bce2a))
+
 ## [3.25.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.24.0...v3.25.0) (2022-11-16)
 
 
