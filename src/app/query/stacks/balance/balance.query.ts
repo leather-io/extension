@@ -34,8 +34,9 @@ export function useUnanchoredStacksAccountBalanceQuery<T extends unknown = Fetch
   address: string,
   options?: AppUseQueryConfig<FetchAccountBalanceResp, T>
 ) {
-  const limiter = useHiroApiRateLimiter();
   const client = useStacksClientUnanchored();
+  const limiter = useHiroApiRateLimiter();
+
   return useQuery({
     queryKey: ['get-address-stx-balance', address],
     queryFn: () => fetchAccountBalance(client, limiter)(address),

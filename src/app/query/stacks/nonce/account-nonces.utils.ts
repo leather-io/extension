@@ -7,6 +7,11 @@ export enum NonceTypes {
   undefinedNonce = 'undefined-nonce',
 }
 
+interface NextNonce {
+  nonce?: number;
+  nonceType: NonceTypes;
+}
+
 function confirmedTxsNoncesIncludesPossibleClientFallbackNonce(
   clientFallbackNonce: number,
   confirmedTransactions: Transaction[]
@@ -63,18 +68,20 @@ function findAnyMissingPendingTxsNonces(pendingNonces: number[]) {
   return missingNonces;
 }
 
-interface GetNextNonceArgs {
-  addressNonces: AddressNonces;
+interface ParseAccountNoncesResponseArgs {
+  addressNonces?: AddressNonces;
   confirmedTransactions: Transaction[];
   pendingTransactions: MempoolTransaction[];
   senderAddress: string;
 }
-export function getNextNonce({
+export function parseAccountNoncesResponse({
   addressNonces,
   confirmedTransactions,
   pendingTransactions,
   senderAddress,
-}: GetNextNonceArgs) {
+}: ParseAccountNoncesResponseArgs): NextNonce {
+  if (!addressNonces) return { nonce: undefined, nonceType: NonceTypes.undefinedNonce };
+
   const detectedMissingNonces = addressNonces.detected_missing_nonces;
   const lastExecutedNonce = addressNonces.last_executed_tx_nonce;
   const possibleNextNonce = addressNonces.possible_next_nonce;

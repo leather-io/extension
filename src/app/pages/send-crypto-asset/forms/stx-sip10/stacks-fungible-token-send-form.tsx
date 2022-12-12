@@ -1,18 +1,23 @@
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
+import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useFungibleTokenAmountSchema } from '@app/common/hooks/use-send-form-validation';
 import { pullContractIdFromIdentity } from '@app/common/utils';
+import { makeStacksFungibleTokenSchema } from '@app/common/validation/amount-schema';
+import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { FeesRow } from '@app/components/fees-row/fees-row';
+import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useFtTokenTransferUnsignedTx } from '@app/store/transactions/token-transfer.hooks';
 
 import { AmountField } from '../../components/amount-field';
@@ -31,18 +36,20 @@ interface StacksFungibleTokenSendFormProps {
 }
 export function StacksFungibleTokenSendForm({ symbol }: StacksFungibleTokenSendFormProps) {
   const navigate = useNavigate();
+  const { data: nextNonce } = useNextNonce();
   const { contractId } = useStacksFtParams();
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(
     pullContractIdFromIdentity(contractId)
   );
-  const ftAmountSchema = useFungibleTokenAmountSchema(contractId);
+  const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
   const unsignedTx = useFtTokenTransferUnsignedTx(contractId);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
 
   const initialValues = createDefaultInitialFormValues({
     symbol: '',
-    fee: 0,
+    fee: '',
     feeType: FeeTypes.Unknown,
+    nonce: nextNonce?.nonce,
   });
 
   function onSubmit(values: any) {
@@ -50,8 +57,11 @@ export function StacksFungibleTokenSendForm({ symbol }: StacksFungibleTokenSendF
   }
 
   const validationSchema = yup.object({
-    amount: ftAmountSchema(),
+    amount: makeStacksFungibleTokenSchema(
+      assetBalance ? assetBalance.balance : createMoney(0, 'STX')
+    ),
     recipient: stxAddressValidator(),
+    nonce: nonceSchema,
   });
 
   logger.debug('info', ftMetadata, validationSchema);
@@ -74,7 +84,12 @@ export function StacksFungibleTokenSendForm({ symbol }: StacksFungibleTokenSendF
           <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
           <FormErrors />
           <PreviewButton />
+          <EditNonceButton
+            onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
+            my={['loose', 'base']}
+          />
           <pre>{JSON.stringify(form, null, 2)}</pre>
+          <Outlet />
         </Form>
       )}
     </Formik>

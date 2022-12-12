@@ -31,15 +31,19 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
-  // TODO: Replace hardcoded number here (200) with the tx byte length
-  const { data: btcFees } = useBitcoinFees(200);
+  /*
+    TODO: Replace hardcoded median (226) with the tx byte length?
+    Median source: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees
+    tx size = in*180 + out*34 + 10 plus or minus 'in'
+  */
+  const { data: btcFees } = useBitcoinFees(226);
 
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
   logger.debug('btc fees', btcFees);
 
   const initialValues = createDefaultInitialFormValues({
     memo: '',
-    fee: 0,
+    fee: '',
     feeType: FeeTypes.Unknown,
   });
 

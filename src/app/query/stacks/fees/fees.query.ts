@@ -8,19 +8,8 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 
-interface FetchTransactionFeeEstimationArgs {
-  currentNetwork: any;
-  estimatedLen: number | null;
-  limiter: RateLimiter;
-  transactionPayload: string;
-}
-function fetchTransactionFeeEstimation({
-  currentNetwork,
-  estimatedLen,
-  limiter,
-  transactionPayload,
-}: FetchTransactionFeeEstimationArgs) {
-  return async () => {
+function fetchTransactionFeeEstimation(currentNetwork: any, limiter: RateLimiter) {
+  return async (estimatedLen: number | null, transactionPayload: string) => {
     await limiter.removeTokens(1);
     const resp = await fetcher(currentNetwork.chain.stacks.url + '/v2/fees/transaction', {
       method: 'POST',
@@ -52,12 +41,8 @@ export function useGetStacksTransactionFeeEstimationQuery<
   return useQuery({
     enabled: transactionPayload !== '',
     queryKey: ['stacks-tx-fee-estimation', transactionPayload],
-    queryFn: fetchTransactionFeeEstimation({
-      currentNetwork,
-      estimatedLen,
-      limiter,
-      transactionPayload,
-    }),
+    queryFn: () =>
+      fetchTransactionFeeEstimation(currentNetwork, limiter)(estimatedLen, transactionPayload),
     ...options,
   });
 }

@@ -41,9 +41,10 @@ export enum RouteUrls {
   SignatureRequest = '/signature',
 
   // Modal routes
-  SignOutConfirm = 'sign-out',
   ChangeTheme = 'change-theme',
+  EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
+  SignOutConfirm = 'sign-out',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',

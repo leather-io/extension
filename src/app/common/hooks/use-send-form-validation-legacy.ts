@@ -25,7 +25,7 @@ import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 import { stxToMicroStx } from '../money/unit-conversion';
 
-export function useFungibleTokenAmountSchema(selectedAssetId: string) {
+function useFungibleTokenAmountSchema(selectedAssetId: string) {
   const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   return useCallback(
     () => makeStacksFungibleTokenSchema(selectedAssetBalance?.balance ?? createMoney(0, 'STX')),
@@ -37,7 +37,8 @@ interface UseSendFormValidationArgs {
   selectedAssetId: string;
   setAssetError(error: string | undefined): void;
 }
-export const useStacksSendFormValidation = ({
+// TODO: Remove legacy send form validation
+export const useStacksSendFormValidationLegacy = ({
   selectedAssetId,
   setAssetError,
 }: UseSendFormValidationArgs) => {

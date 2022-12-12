@@ -44,7 +44,7 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
 
   useEffect(() => {
     if (hasFeeEstimates && !feeField.value && !isCustom) {
-      feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[FeeTypes.Middle].fee).toNumber());
+      feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[FeeTypes.Middle].fee).toString());
       feeTypeHelper.setValue(FeeTypes[FeeTypes.Middle]);
     }
     if (isSponsored) {
@@ -65,7 +65,7 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
       feeTypeHelper.setValue(FeeTypes[index]);
       if (index === FeeTypes.Custom) feeHelper.setValue('');
       else
-        fees && feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[index].fee).toNumber());
+        fees && feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[index].fee).toString());
       setFieldWarning('');
       setIsSelectVisible(false);
     },

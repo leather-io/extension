@@ -10,7 +10,6 @@ import { createMoney } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
@@ -35,7 +34,6 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
   const { values } = useFormikContext<SendFormValues>();
   const unsignedTransaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
   const analytics = useAnalytics();
-  const { isShowingEditNonce } = useDrawers();
 
   const convertStxToUsd = useConvertCryptoCurrencyToFiatAmount('STX');
 
@@ -52,12 +50,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
   if (!isShowing || !unsignedTransaction || !values) return null;
 
   return (
-    <BaseDrawer
-      title="Confirm transfer"
-      isShowing={isShowing}
-      onClose={onClose}
-      pauseOnClickOutside={isShowingEditNonce}
-    >
+    <BaseDrawer title="Confirm transfer" isShowing={isShowing} onClose={onClose}>
       <Stack pb="extra-loose" px="loose" spacing="base">
         <SendTokensConfirmDetails
           amount={values.amount}

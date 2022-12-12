@@ -1,4 +1,5 @@
 import { Suspense, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack, Text } from '@stacks/ui';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
@@ -11,18 +12,19 @@ import type {
 } from '@shared/models/crypto-asset-balance.model';
 import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
 import type { SendFormValues } from '@shared/models/form.model';
+import { RouteUrls } from '@shared/route-urls';
 import { isEmpty, isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { getFullyQualifiedStacksAssetName } from '@app/common/utils';
+import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { ErrorLabel } from '@app/components/error-label';
 import { FeeRow } from '@app/components/fee-row/fee-row';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { PrimaryButton } from '@app/components/primary-button';
-import { ShowEditNonceAction } from '@app/components/show-edit-nonce';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
@@ -31,16 +33,16 @@ import { SendFormMemoWarning } from './memo-warning';
 import { RecipientField } from './recipient-field/recipient-field';
 
 interface SendFormInnerProps {
-  assetError: string | undefined;
+  assetError?: string;
   feeEstimations: StacksFeeEstimateLegacy[];
   onAssetIdSelected(assetId: string): void;
-  nonce: number | undefined;
+  nonce?: number;
 }
 export function SendFormInner(props: SendFormInnerProps) {
   const { assetError, feeEstimations, onAssetIdSelected, nonce } = props;
   const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
     useFormikContext<SendFormValues>();
-
+  const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
   const analytics = useAnalytics();
@@ -126,9 +128,7 @@ export function SendFormInner(props: SendFormInnerProps) {
           Preview
         </PrimaryButton>
       </Box>
-      <Box mb={['loose', 'unset']}>
-        <ShowEditNonceAction />
-      </Box>
+      <EditNonceButton onEditNonce={() => navigate(RouteUrls.EditNonce)} mb={['loose', 'unset']} />
     </Stack>
   );
 }

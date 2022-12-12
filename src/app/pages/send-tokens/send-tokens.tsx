@@ -11,15 +11,14 @@ import { SendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useStacksSendFormValidation } from '@app/common/hooks/use-send-form-validation';
+import { useStacksSendFormValidationLegacy } from '@app/common/hooks/use-send-form-validation-legacy';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { Header } from '@app/components/header';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees-legacy';
@@ -34,20 +33,20 @@ import {
 import { SendFormInner } from './components/send-form-inner';
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 
+// TODO: Remove legacy send form
 function SendTokensFormBase() {
   const navigate = useNavigate();
-  const { isShowingEditNonce } = useDrawers();
   const [isShowing, setShowing] = useState(false);
   const [assetError, setAssetError] = useState<string | undefined>(undefined);
   const [selectedAssetId, setSelectedAssetId] = useState<string>('');
   const { setActiveTabActivity } = useHomeTabs();
-  const sendFormSchema = useStacksSendFormValidation({ selectedAssetId, setAssetError });
+  const sendFormSchema = useStacksSendFormValidationLegacy({ selectedAssetId, setAssetError });
   const generateTx = useGenerateSendFormUnsignedTx(selectedAssetId);
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const txByteLength = useSendFormEstimatedUnsignedTxByteLengthState(selectedAssetId);
   const txPayload = useSendFormSerializedUnsignedTxPayloadState(selectedAssetId);
   const feeEstimations = useStacksFeeEstimations(txByteLength, txPayload);
-  const { nonce } = useNextNonce();
+  const { data: nextNonce } = useNextNonce();
   const analytics = useAnalytics();
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
@@ -97,7 +96,7 @@ function SendTokensFormBase() {
     fee: '',
     feeType: FeeTypes[FeeTypes.Middle],
     memo: '',
-    nonce,
+    nonce: nextNonce?.nonce,
     recipientAddressOrBnsName: '',
     recipient: '',
   };
@@ -126,18 +125,20 @@ function SendTokensFormBase() {
         {props => (
           <>
             <Suspense fallback={<></>}>
-              <SendFormInner
-                assetError={assetError}
-                feeEstimations={feeEstimations.estimates}
-                onAssetIdSelected={assetId => setSelectedAssetId(assetId)}
-                nonce={nonce}
-              />
+              <NonceSetter>
+                <SendFormInner
+                  assetError={assetError}
+                  feeEstimations={feeEstimations.estimates}
+                  onAssetIdSelected={assetId => setSelectedAssetId(assetId)}
+                  nonce={nextNonce?.nonce}
+                />
+              </NonceSetter>
             </Suspense>
             {whenWallet({
               ledger: <></>,
               software: (
                 <SendTokensSoftwareConfirmDrawer
-                  isShowing={isShowing && !isShowingEditNonce}
+                  isShowing={isShowing}
                   onClose={() => handleConfirmDrawerOnClose()}
                   onUserSelectBroadcastTransaction={async (
                     transaction: StacksTransaction | undefined
@@ -155,12 +156,11 @@ function SendTokensFormBase() {
                 />
               ),
             })}
-            <EditNonceDrawer />
             <HighFeeDrawer />
+            <Outlet />
           </>
         )}
       </Formik>
-      <Outlet />
     </>
   );
 }

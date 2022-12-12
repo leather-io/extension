@@ -1,18 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
-import { TransactionFormValues } from '@shared/models/form.model';
-import { isUndefined } from '@shared/utils';
+import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
 
-import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import { useShowEditNonceCleanupEffect } from '@app/store/ui/ui.hooks';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 
@@ -30,21 +28,13 @@ const CustomFeeMessaging = () => {
 };
 
 export function EditNonceDrawer() {
-  const { errors, setFieldError, setFieldValue, validateField, values } =
-    useFormikContext<TransactionFormValues>();
-  const [customNonce, setCustomNonce] = useState<number | string>();
-  const { nonce } = useNextNonce();
-  const { isShowingEditNonce, setIsShowingEditNonce } = useDrawers();
-  useShowEditNonceCleanupEffect();
+  const { errors, setFieldError, setFieldValue, validateField, values } = useFormikContext<
+    SendFormValues | TransactionFormValues
+  >();
+  const [loadedNextNonce, setLoadedNextNonce] = useState<number | string>();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isShowingEditNonce) setCustomNonce(values.nonce);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isShowingEditNonce]);
-
-  useEffect(() => {
-    if (isUndefined(values.nonce)) setFieldValue('nonce', nonce);
-  }, [nonce, setFieldValue, values.nonce]);
+  useOnMount(() => setLoadedNextNonce(values.nonce));
 
   const onBlur = useCallback(() => {
     validateField('nonce');
@@ -52,31 +42,22 @@ export function EditNonceDrawer() {
 
   const onSubmit = useCallback(async () => {
     validateField('nonce');
-    if (!errors.nonce) {
-      setIsShowingEditNonce(false);
-    }
-  }, [errors.nonce, setIsShowingEditNonce, validateField]);
+    if (!errors.nonce) navigate(-1);
+  }, [errors.nonce, navigate, validateField]);
 
   const onClose = useCallback(() => {
     if (!values.nonce) setFieldValue('nonce', undefined);
     setFieldError('nonce', '');
-    setFieldValue('nonce', customNonce);
-    setIsShowingEditNonce(false);
-  }, [customNonce, setFieldError, setFieldValue, setIsShowingEditNonce, values.nonce]);
+    setFieldValue('nonce', loadedNextNonce);
+    navigate(-1);
+  }, [loadedNextNonce, navigate, setFieldError, setFieldValue, values.nonce]);
 
   return (
-    <ControlledDrawer
-      isShowing={!!isShowingEditNonce}
-      onClose={onClose}
-      pauseOnClickOutside
-      title="Edit nonce"
-    >
-      <Stack px="loose" spacing="loose" pb="extra-loose">
+    <BaseDrawer isShowing onClose={onClose} pauseOnClickOutside title="Edit nonce">
+      <Stack pb="extra-loose" px="loose" spacing="loose">
         <CustomFeeMessaging />
-        {isShowingEditNonce && (
-          <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />
-        )}
+        <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />
       </Stack>
-    </ControlledDrawer>
+    </BaseDrawer>
   );
 }
