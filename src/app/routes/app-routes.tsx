@@ -7,6 +7,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { FullPageWithHeaderLoadingSpinner, LoadingSpinner } from '@app/components/loading-spinner';
 import { Container } from '@app/features/container/container';
+import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
@@ -147,6 +148,7 @@ function AppRoutesAfterUserHasConsented() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route
@@ -159,7 +161,9 @@ function AppRoutesAfterUserHasConsented() {
             </AccountGate>
           }
         />
-        <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />} />
+        <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />}>
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
+        </Route>
         <Route path={RouteUrls.SendCryptoAssetFormConfirmation} element={<>confirmation</>} />
         <Route
           path={RouteUrls.TransactionRequest}
@@ -172,6 +176,7 @@ function AppRoutesAfterUserHasConsented() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />

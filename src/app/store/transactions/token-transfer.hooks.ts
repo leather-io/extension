@@ -54,7 +54,7 @@ function useMakeFungibleTokenTransfer(assetBalance?: StacksFungibleTokenAssetBal
 }
 
 export function useGenerateStxTokenTransferUnsignedTx() {
-  const { nonce } = useNextNonce();
+  const { data: nextNonce } = useNextNonce();
   const network = useCurrentStacksNetworkState();
   const account = useCurrentAccount();
 
@@ -64,7 +64,7 @@ export function useGenerateStxTokenTransferUnsignedTx() {
 
       const options: GenerateUnsignedTransactionOptions = {
         publicKey: account.stxPublicKey,
-        nonce: Number(values?.nonce) ?? nonce,
+        nonce: Number(values?.nonce) ?? nextNonce?.nonce,
         fee: stxToMicroStx(values?.fee || 0).toNumber(),
         txData: {
           txType: TransactionTypes.STXTransfer,
@@ -82,26 +82,26 @@ export function useGenerateStxTokenTransferUnsignedTx() {
       };
       return generateUnsignedTransaction(options);
     },
-    [network, account, nonce]
+    [account, nextNonce?.nonce, network]
   );
 }
 
 export function useStxTokenTransferUnsignedTxState(values?: SendFormValues) {
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
-  const { nonce } = useNextNonce();
+  const { data: nextNonce } = useNextNonce();
   const network = useCurrentStacksNetworkState();
   const account = useCurrentAccount();
 
   const tx = useAsync(
     async () => generateTx(values ?? undefined),
-    [values, network, account, nonce]
+    [values, network, account, nextNonce]
   );
 
   return tx.result;
 }
 
 export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
-  const { nonce } = useNextNonce();
+  const { data: nextNonce } = useNextNonce();
   const account = useCurrentAccount();
   const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);
   const tokenCurrencyAssetBalance =
@@ -173,12 +173,12 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
         },
         fee: stxToMicroStx(values?.fee || 0).toNumber(),
         publicKey: account.stxPublicKey,
-        nonce: Number(values?.nonce) ?? nonce,
+        nonce: Number(values?.nonce) ?? nextNonce?.nonce,
       } as const;
 
       return generateUnsignedTransaction(options);
     },
-    [account, assetTransferState, nonce]
+    [account, assetTransferState, nextNonce?.nonce]
   );
 }
 

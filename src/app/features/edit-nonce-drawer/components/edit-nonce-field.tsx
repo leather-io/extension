@@ -6,7 +6,7 @@ import { useField } from 'formik';
 import { ErrorLabel } from '@app/components/error-label';
 
 interface EditNonceFieldProps extends StackProps {
-  onBlur?(): void;
+  onBlur(): void;
 }
 export const EditNonceField = memo((props: EditNonceFieldProps) => {
   const { onBlur } = props;

@@ -10,7 +10,6 @@ import { isEmpty } from '@shared/utils';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { ShowEditNonceAction, ShowEditNoncePlaceholder } from '@app/components/show-edit-nonce';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
 function BaseConfirmButton(props: ButtonProps): JSX.Element {
@@ -39,20 +38,15 @@ export function SubmitAction() {
   };
 
   return (
-    <>
-      <Suspense fallback={<BaseConfirmButton isLoading isDisabled />}>
-        <BaseConfirmButton
-          data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
-          isDisabled={isDisabled}
-          isLoading={isLoading}
-          onClick={onConfirmTransaction}
-        >
-          Confirm
-        </BaseConfirmButton>
-      </Suspense>
-      <Suspense fallback={<ShowEditNoncePlaceholder />}>
-        <ShowEditNonceAction />
-      </Suspense>
-    </>
+    <Suspense fallback={<BaseConfirmButton isLoading isDisabled />}>
+      <BaseConfirmButton
+        data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
+        isDisabled={isDisabled}
+        isLoading={isLoading}
+        onClick={onConfirmTransaction}
+      >
+        Confirm
+      </BaseConfirmButton>
+    </Suspense>
   );
 }

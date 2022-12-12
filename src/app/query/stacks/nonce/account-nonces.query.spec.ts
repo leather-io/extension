@@ -2,9 +2,9 @@ import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
 import { setupHeystackEnv } from '@tests-legacy/mocks/heystack';
 
-import { NonceTypes, getNextNonce } from './account-nonces.utils';
+import { NonceTypes, parseAccountNoncesResponse } from './account-nonces.utils';
 
-describe(getNextNonce, () => {
+describe(parseAccountNoncesResponse, () => {
   setupHeystackEnv();
   const senderAddress = 'ST2PHCPANVT8DVPSY5W2ZZ81M285Q5Z8Y6DQMZE7Z';
 
@@ -17,7 +17,7 @@ describe(getNextNonce, () => {
     };
     const confirmedTransactions: Transaction[] = [];
     const pendingTransactions: MempoolTransaction[] = [];
-    const { nonce, nonceType } = getNextNonce({
+    const { nonce, nonceType } = parseAccountNoncesResponse({
       addressNonces,
       confirmedTransactions,
       pendingTransactions,
@@ -36,7 +36,7 @@ describe(getNextNonce, () => {
     };
     const confirmedTransactions: Transaction[] = [];
     const pendingTransactions: MempoolTransaction[] = [];
-    const { nonce, nonceType } = getNextNonce({
+    const { nonce, nonceType } = parseAccountNoncesResponse({
       addressNonces,
       confirmedTransactions,
       pendingTransactions,
@@ -55,7 +55,7 @@ describe(getNextNonce, () => {
     };
     const confirmedTransactions: Transaction[] = [];
     const pendingTransactions: MempoolTransaction[] = [];
-    const { nonce, nonceType } = getNextNonce({
+    const { nonce, nonceType } = parseAccountNoncesResponse({
       addressNonces,
       confirmedTransactions,
       pendingTransactions,
@@ -74,7 +74,7 @@ describe(getNextNonce, () => {
     };
     const confirmedTransactions: Transaction[] = [];
     const pendingTransactions: MempoolTransaction[] = [];
-    const { nonce, nonceType } = getNextNonce({
+    const { nonce, nonceType } = parseAccountNoncesResponse({
       addressNonces,
       confirmedTransactions,
       pendingTransactions,
@@ -93,7 +93,7 @@ describe(getNextNonce, () => {
     };
     const confirmedTransactions: Transaction[] = [];
     const pendingTransactions: MempoolTransaction[] = [];
-    const { nonce, nonceType } = getNextNonce({
+    const { nonce, nonceType } = parseAccountNoncesResponse({
       addressNonces,
       confirmedTransactions,
       pendingTransactions,
@@ -132,7 +132,7 @@ describe(getNextNonce, () => {
         nonce: 72,
       },
     ];
-    const { nonce, nonceType } = getNextNonce({
+    const { nonce, nonceType } = parseAccountNoncesResponse({
       addressNonces,
       confirmedTransactions,
       pendingTransactions,
@@ -151,7 +151,7 @@ describe(getNextNonce, () => {
     };
     const confirmedTransactions: Transaction[] = [];
     const pendingTransactions: MempoolTransaction[] = [];
-    const { nonce: nonce1, nonceType: nonceType1 } = getNextNonce({
+    const { nonce: nonce1, nonceType: nonceType1 } = parseAccountNoncesResponse({
       addressNonces: addressNonces1,
       confirmedTransactions,
       pendingTransactions,
@@ -166,7 +166,7 @@ describe(getNextNonce, () => {
       last_mempool_tx_nonce: 74,
       possible_next_nonce: 75,
     };
-    const { nonce: nonce2, nonceType: nonceType2 } = getNextNonce({
+    const { nonce: nonce2, nonceType: nonceType2 } = parseAccountNoncesResponse({
       addressNonces: addressNonces2,
       confirmedTransactions,
       pendingTransactions,

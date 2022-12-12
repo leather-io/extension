@@ -60,7 +60,7 @@ function useTransactionAttachment() {
 
 function useUnsignedStacksTransactionBaseState() {
   const network = useCurrentStacksNetworkState();
-  const { nonce } = useNextNonce();
+  const { data: nextNonce } = useNextNonce();
   const stxAddress = useCurrentAccountStxAddressState();
   const payload = useTransactionRequestState();
   const postConditions = useTransactionPostConditions();
@@ -70,15 +70,15 @@ function useUnsignedStacksTransactionBaseState() {
     () => ({
       fee: 0,
       publicKey: account?.stxPublicKey,
-      nonce: nonce || 0,
+      nonce: nextNonce?.nonce ?? 0,
       txData: { ...payload, postConditions, network },
     }),
-    [account?.stxPublicKey, network, nonce, payload, postConditions]
+    [account?.stxPublicKey, network, nextNonce?.nonce, payload, postConditions]
   );
 
   const transaction = useAsync(async () => {
     return generateUnsignedTransaction(options as GenerateUnsignedTransactionOptions);
-  }, [account, nonce, payload, stxAddress]).result;
+  }, [account, nextNonce?.nonce, payload, stxAddress]).result;
 
   return useMemo(() => {
     if (!account || !payload || !stxAddress) return { transaction: undefined, options };
@@ -203,7 +203,7 @@ export function useTransactionBroadcast() {
 }
 
 export function useSoftwareWalletTransactionRequestBroadcast() {
-  const { nonce } = useNextNonce();
+  const { data: nextNonce } = useNextNonce();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
   const { tabId } = useDefaultRequestParams();
@@ -217,7 +217,7 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
     const unsignedStacksTransaction = await generateUnsignedTransaction({
       ...options,
       fee: stxToMicroStx(values.fee).toNumber(),
-      nonce: Number(values.nonce) ?? nonce,
+      nonce: Number(values.nonce) ?? nextNonce?.nonce,
     });
 
     if (!account || !requestToken || !unsignedStacksTransaction) {
@@ -256,19 +256,19 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
 
 export function useGenerateUnsignedStacksTransaction() {
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
-  const { nonce } = useNextNonce();
+  const { data: nextNonce } = useNextNonce();
 
   return useCallback(
     (values: TransactionFormValues) => {
-      if (!stacksTxBaseState || isUndefined(nonce)) return undefined;
+      if (!stacksTxBaseState || isUndefined(nextNonce?.nonce)) return undefined;
       const { options } = stacksTxBaseState as any;
       return generateUnsignedTransaction({
         ...options,
         fee: stxToMicroStx(values.fee).toNumber(),
-        nonce: Number(values.nonce) ?? nonce,
+        nonce: Number(values.nonce) ?? nextNonce?.nonce,
       });
     },
-    [nonce, stacksTxBaseState]
+    [nextNonce?.nonce, stacksTxBaseState]
   );
 }
 
