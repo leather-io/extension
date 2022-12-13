@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -152,7 +152,14 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,6 +174,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,7 +259,7 @@
 import { useNavigate } from 'react-router-dom';
 &nbsp;
 import { bytesToHex } from '@stacks/common';
-import { StacksTransaction } from '@stacks/transactions';
+import { ClarityValue, StacksTransaction } from '@stacks/transactions';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
@@ -263,17 +277,24 @@ export function <span class="fstat-no" title="function not covered" >useLedgerNa
         });
       },
 &nbsp;
-<span class="fstat-no" title="function not covered" >      to</span>ConnectAndSignTransactionStep(transaction: StacksTransaction, goBack?: boolean) {
+<span class="fstat-no" title="function not covered" >      to</span>ConnectAndSignTransactionStep(transaction: StacksTransaction) {
 <span class="cstat-no" title="statement not covered" >        return navigate(RouteUrls.ConnectLedger, {</span>
-          replace: !goBack,
-          state: { goBack, tx: bytesToHex(transaction.serialize()) },
+          replace: true,
+          state: { tx: bytesToHex(transaction.serialize()) },
         });
       },
 &nbsp;
-<span class="fstat-no" title="function not covered" >      to</span>ConnectAndSignMessageStep(message: string, goBack?: boolean) {
+<span class="fstat-no" title="function not covered" >      to</span>ConnectAndSignUtf8MessageStep(message: string) {
 <span class="cstat-no" title="statement not covered" >        return navigate(RouteUrls.ConnectLedger, {</span>
-          replace: !goBack,
-          state: { goBack, message },
+          replace: true,
+          state: { type: 'utf8', message },
+        });
+      },
+&nbsp;
+<span class="fstat-no" title="function not covered" >      to</span>ConnectAndSignStructuredMessageStep(domain: ClarityValue, message: ClarityValue) {
+<span class="cstat-no" title="statement not covered" >        return navigate(RouteUrls.ConnectLedger, {</span>
+          replace: true,
+          state: { type: 'structured', domain, message },
         });
       },
 &nbsp;
@@ -319,7 +340,7 @@ export function <span class="fstat-no" title="function not covered" >useLedgerNa
       },
 &nbsp;
 <span class="fstat-no" title="function not covered" >      ca</span>ncelLedgerAction() {
-<span class="cstat-no" title="statement not covered" >        return navigate('..');</span>
+<span class="cstat-no" title="statement not covered" >        return navigate('..', { relative: 'path' });</span>
       },
 &nbsp;
 <span class="fstat-no" title="function not covered" >      ca</span>ncelLedgerActionAndReturnHome() {
@@ -337,7 +358,7 @@ export function <span class="fstat-no" title="function not covered" >useLedgerNa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

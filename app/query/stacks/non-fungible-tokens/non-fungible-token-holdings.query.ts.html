@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -121,26 +121,12 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,6 +137,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -167,6 +176,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,6 +197,8 @@ import { AccountWithAddress } from '@app/store/accounts/account.models';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 &nbsp;
+import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+&nbsp;
 const staleTime = <span class="cstat-no" title="statement not covered" >15 * 60 * 1000;</span> // 15 min
 &nbsp;
 const queryOptions = <span class="cstat-no" title="statement not covered" >{</span>
@@ -194,9 +206,10 @@ const queryOptions = <span class="cstat-no" title="statement not covered" >{</sp
   staleTime,
 } as const;
 &nbsp;
-function <span class="fstat-no" title="function not covered" >fetchNonFungibleTokenHoldings(</span>client: StacksClient) {
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(a</span>ddress?: string) =&gt; {</span>
+function <span class="fstat-no" title="function not covered" >fetchNonFungibleTokenHoldings(</span>client: StacksClient, limiter: RateLimiter) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >as</span>ync (address?: string) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!address) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
 <span class="cstat-no" title="statement not covered" >    return client.nonFungibleTokensApi.getNftHoldings({ principal: address, limit: 50 });</span>
   };
 }
@@ -210,10 +223,11 @@ export function <span class="fstat-no" title="function not covered" >useGetNonFu
 &gt;(address?: string, options?: AppUseQueryConfig&lt;FetchNonFungibleTokenHoldingsResp, T&gt;) {
   const client = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
+  const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQuery({</span>
     queryKey: ['get-nft-holdings', address, network.chain.stacks.url],
-    queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchNonFungibleTokenHoldings(client)(address),</span>
+    queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchNonFungibleTokenHoldings(client, limiter)(address),</span>
     ...queryOptions,
     ...options,
   });
@@ -227,11 +241,12 @@ export function <span class="fstat-no" title="function not covered" >useGetNonFu
 ) {
   const client = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
+  const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
     queries: (accounts ?? []).map(<span class="fstat-no" title="function not covered" >ac</span>count =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
       queryKey: ['get-nft-holdings', account.address, network.chain.stacks.url],
-      queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchNonFungibleTokenHoldings(client)(account.address),</span>
+      queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchNonFungibleTokenHoldings(client, limiter)(account.address),</span>
       ...queryOptions,
       ...options,
     })),
@@ -244,7 +259,7 @@ export function <span class="fstat-no" title="function not covered" >useGetNonFu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -134,7 +134,11 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,6 +158,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,37 +202,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,12 +219,14 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 &nbsp;
 import { logger } from '@shared/logger';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { btcAmountSchema } from '@app/common/validation/currency-schema';
+import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
-import { useBitcoinFeeEstimations } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useBitcoinFees } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
 &nbsp;
 import { AmountField } from '../../components/amount-field';
@@ -232,19 +242,20 @@ import { btcAddressValidator } from '../../validators/recipient-validators';
 &nbsp;
 interface BitcoinCryptoCurrencySendFormProps {}
 export function <span class="fstat-no" title="function not covered" >BitcoinCryptoCurrencySendForm(</span>{}: BitcoinCryptoCurrencySendFormProps) {
+  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const currentAccountBtcAddress = <span class="cstat-no" title="statement not covered" >useCurrentAccountBtcAddressState();</span>
   const btcCryptoCurrencyAssetBalance =
 <span class="cstat-no" title="statement not covered" >    useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);</span>
   // TODO: Replace hardcoded number here (200) with the tx byte length
-  const { data: btcFeeEstimations } = <span class="cstat-no" title="statement not covered" >useBitcoinFeeEstimations(200);</span>
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+  const { data: btcFees } = <span class="cstat-no" title="statement not covered" >useBitcoinFees(200);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  logger.debug('btc balance', btcCryptoCurrencyAssetBalance);</span>
-<span class="cstat-no" title="statement not covered" >  logger.debug('btc fees', btcFeeEstimations);</span>
+<span class="cstat-no" title="statement not covered" >  logger.debug('btc fees', btcFees);</span>
 &nbsp;
   const initialValues = <span class="cstat-no" title="statement not covered" >createDefaultInitialFormValues({</span>
     memo: '',
-    fee: null,
+    fee: 0,
+    feeType: FeeTypes.Unknown,
   });
 &nbsp;
   function <span class="fstat-no" title="function not covered" >onSubmit(</span>) {
@@ -270,6 +281,7 @@ export function <span class="fstat-no" title="function not covered" >BitcoinCryp
           &lt;RecipientField /&gt;
           &lt;MemoField lastChild /&gt;
         &lt;/FormFieldsLayout&gt;
+        &lt;FeesRow fees={btcFees} isSponsored={false} mt="base" /&gt;
         &lt;FormErrors /&gt;
         &lt;PreviewButton /&gt;
       &lt;/Form&gt;
@@ -283,7 +295,7 @@ export function <span class="fstat-no" title="function not covered" >BitcoinCryp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

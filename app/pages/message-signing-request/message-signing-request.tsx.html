@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/signature-request/signature-request.tsx</title>
+    <title>Code coverage report for app/pages/message-signing-request/message-signing-request.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/pages/signature-request</a> signature-request.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/pages/message-signing-request</a> message-signing-request.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -114,14 +114,7 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,19 +165,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
-import { Outlet } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet } from 'react-router-dom';
 &nbsp;
 import {
-  isSignatureMessageType,
-  isStructuredMessage,
-  isUtf8Message,
-} from '@shared/signature/types';
+  isSignedMessageType,
+  isStructuredMessageType,
+  isUtf8MessageType,
+} from '@shared/signature/signature-types';
 &nbsp;
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { WarningLabel } from '@app/components/warning-label';
@@ -196,10 +183,10 @@ import {
 } from '@app/store/signatures/requests.hooks';
 &nbsp;
 import { SignatureRequestMessageContent } from './components/message-content';
-import { SignatureRequestLayout } from './components/signature-request.layout';
+import { MessageSigningRequestLayout } from './components/signature-request.layout';
 import { SignatureRequestStructuredDataContent } from './components/structured-data-content';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >SignatureRequestBase(</span>) {
+export function <span class="fstat-no" title="function not covered" >MessageSigningRequest(</span>) {
   const validSignatureRequest = <span class="cstat-no" title="statement not covered" >useIsSignatureRequestValid();</span>
   const { requestToken, messageType } = <span class="cstat-no" title="statement not covered" >useSignatureRequestSearchParams();</span>
 &nbsp;
@@ -207,33 +194,28 @@ function <span class="fstat-no" title="function not covered" >SignatureRequestBa
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnOriginTabClose(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >window.close())</span>;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!isSignatureMessageType(messageType)) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!isSignedMessageType(messageType)) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!requestToken || !messageType) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;SignatureRequestLayout&gt;
+    &lt;MessageSigningRequestLayout&gt;
       {!validSignatureRequest &amp;&amp; (
         &lt;WarningLabel&gt;
           Signing messages can have unintended consequences. Only sign messages from trusted
           sources.
         &lt;/WarningLabel&gt;
       )}
-      {isUtf8Message(messageType) &amp;&amp; (
-        &lt;SignatureRequestMessageContent requestToken={requestToken} messageType={messageType} /&gt;
+      {isUtf8MessageType(messageType) &amp;&amp; (
+        &lt;SignatureRequestMessageContent requestToken={requestToken} /&gt;
       )}
-      {isStructuredMessage(messageType) &amp;&amp; (
-        &lt;SignatureRequestStructuredDataContent
-          requestToken={requestToken}
-          messageType={messageType}
-        /&gt;
+      {isStructuredMessageType(messageType) &amp;&amp; (
+        &lt;SignatureRequestStructuredDataContent requestToken={requestToken} /&gt;
       )}
       &lt;Outlet /&gt;
-    &lt;/SignatureRequestLayout&gt;
+    &lt;/MessageSigningRequestLayout&gt;
   );
 }
-&nbsp;
-export const SignatureRequest = <span class="cstat-no" title="statement not covered" >memo(SignatureRequestBase);</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -241,7 +223,7 @@ export const SignatureRequest = <span class="cstat-no" title="statement not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

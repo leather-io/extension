@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -106,9 +106,37 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,25 +177,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BigNumber } from 'bignumber.js';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { bytesToHex } from '@stacks/common';
+import { StacksTransaction, serializePayload } from '@stacks/transactions';
+import { BigNumber } from 'bignumber.js';
 &nbsp;
 import { DEFAULT_FEE_RATE } from '@shared/constants';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
+import { Money, createMoney } from '@shared/models/money.model';
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >getEstimatedUnsignedStacksTxByteLength(</span>transaction: StacksTransaction) {
+<span class="cstat-no" title="statement not covered" >  return transaction.serialize().byteLength;</span>
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >getSerializedUnsignedStacksTxPayload(</span>transaction: StacksTransaction) {
+<span class="cstat-no" title="statement not covered" >  return bytesToHex(serializePayload(transaction.payload));</span>
+}
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >getFeeEstimationsWithCappedValues(</span>
   feeEstimations: StacksFeeEstimate[],
-  feeEstimationsMaxValues: number[] | undefined,
-  feeEstimationsMinValues: number[] | undefined
+  feeEstimationsMaxValues: Money[] | undefined,
+  feeEstimationsMinValues: Money[] | undefined
 ) {
 <span class="cstat-no" title="statement not covered" >  return feeEstimations.map(<span class="fstat-no" title="function not covered" >(f</span>eeEstimation, index) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (</span>
       feeEstimationsMaxValues &amp;&amp;
-      new BigNumber(feeEstimation.fee).isGreaterThan(feeEstimationsMaxValues[index])
+      feeEstimation.fee.amount.isGreaterThan(feeEstimationsMaxValues[index].amount)
     ) {
 <span class="cstat-no" title="statement not covered" >      return { fee: feeEstimationsMaxValues[index], feeRate: 0 };</span>
     } else <span class="cstat-no" title="statement not covered" >if (</span>
       feeEstimationsMinValues &amp;&amp;
-      new BigNumber(feeEstimation.fee).isLessThan(feeEstimationsMinValues[index])
+      feeEstimation.fee.amount.isLessThan(feeEstimationsMinValues[index].amount)
     ) {
 <span class="cstat-no" title="statement not covered" >      return { fee: feeEstimationsMinValues[index], feeRate: 0 };</span>
     } else {
@@ -187,9 +232,15 @@ export function <span class="fstat-no" title="function not covered" >getDefaultS
 ): StacksFeeEstimate[] {
   const fee = <span class="cstat-no" title="statement not covered" >calculateFeeFromFeeRate(estimatedByteLength, DEFAULT_FEE_RATE);</span>
 <span class="cstat-no" title="statement not covered" >  return [</span>
-    { fee: fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent).toNumber(), feeRate: 0 },
-    { fee: fee.toNumber(), feeRate: 0 },
-    { fee: fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent).toNumber(), feeRate: 0 },
+    {
+      fee: createMoney(fee.multipliedBy(1 - marginFromDefaultFeeDecimalPercent), 'STX'),
+      feeRate: 0,
+    },
+    { fee: createMoney(fee, 'STX'), feeRate: 0 },
+    {
+      fee: createMoney(fee.multipliedBy(1 + marginFromDefaultFeeDecimalPercent), 'STX'),
+      feeRate: 0,
+    },
   ];
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -199,7 +250,7 @@ export function <span class="fstat-no" title="function not covered" >getDefaultS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

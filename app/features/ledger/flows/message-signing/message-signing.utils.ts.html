@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/signature-request/components/message-content.tsx</title>
+    <title>Code coverage report for app/features/ledger/flows/message-signing/message-signing.utils.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/signature-request/components</a> message-content.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">app/features/ledger/flows/message-signing</a> message-signing.utils.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -94,8 +94,12 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,11 +116,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,36 +132,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChainID } from '@stacks/common';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { sha256 } from '@noble/hashes/sha256';
+import { bytesToHex } from '@stacks/common';
+import {
+  ChainID,
+  ClarityType,
+  ClarityValue,
+  cvToString,
+  encodeStructuredData,
+} from '@stacks/transactions';
 &nbsp;
-import { SignatureMessageType } from '@shared/signature/types';
+import { SignedMessageStructured } from '@shared/signature/signature-types';
 &nbsp;
-import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
+import { whenStxChainId } from '@app/common/utils';
 &nbsp;
-import { MessageBox } from './message-box';
-import { Disclaimer } from './message-signing-disclaimer';
-import { NetworkRow } from './network-row';
-import { SignAction } from './sign-action';
-&nbsp;
-interface SignatureRequestMessageContentProps {
-  requestToken: string;
-  messageType: SignatureMessageType;
+export function <span class="fstat-no" title="function not covered" >cvToDisplay(</span>cv: ClarityValue): string {
+<span class="cstat-no" title="statement not covered" >  return cvToString(cv).replaceAll('"', '');</span>
 }
-export function <span class="fstat-no" title="function not covered" >SignatureRequestMessageContent(</span>props: SignatureRequestMessageContentProps) {
-  const { requestToken, messageType } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
-  const signatureRequest = <span class="cstat-no" title="statement not covered" >getSignaturePayloadFromToken(requestToken);</span>
-  const { message, network } = <span class="cstat-no" title="statement not covered" >signatureRequest;</span>
-  const appName = <span class="cstat-no" title="statement not covered" >signatureRequest.appDetails?.name;</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;MessageBox message={message} /&gt;
-      &lt;NetworkRow chainId={network?.chainId ?? ChainID.Testnet} /&gt;
-      &lt;SignAction message={message} messageType={messageType} /&gt;
-      &lt;hr /&gt;
-      &lt;Disclaimer appName={appName} /&gt;
-    &lt;/&gt;
-  );
+export function <span class="fstat-no" title="function not covered" >chainIdToDisplay(</span>chainIdCv: ClarityValue): string {
+<span class="cstat-no" title="statement not covered" >  if (chainIdCv.type !== ClarityType.UInt) <span class="cstat-no" title="statement not covered" >return '';</span></span>
+  const chainIdString = <span class="cstat-no" title="statement not covered" >cvToString(chainIdCv);</span>
+  const chainId = <span class="cstat-no" title="statement not covered" >parseInt(chainIdString.replace('u', ''));</span>
+<span class="cstat-no" title="statement not covered" >  if (!Object.values(ChainID).includes(chainId)) <span class="cstat-no" title="statement not covered" >return '';</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return whenStxChainId(chainId as ChainID)({</span>
+    [ChainID.Testnet]: 'Testnet',
+    [ChainID.Mainnet]: 'Mainnet',
+  });
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >deriveStructuredMessageHash(</span>{
+  domain,
+  message,
+}: Omit&lt;SignedMessageStructured, 'messageType'&gt;) {
+<span class="cstat-no" title="statement not covered" >  return bytesToHex(sha256(encodeStructuredData({ message, domain })));</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -163,16 +178,16 @@ export function <span class="fstat-no" title="function not covered" >SignatureRe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

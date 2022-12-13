@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">13.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/16</span>
+                <span class='fraction'>2/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.66% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/15</span>
+                <span class='fraction'>2/14</span>
             </div>
         
             
@@ -119,13 +119,7 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,7 +132,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,15 +140,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,7 +153,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,7 +166,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,14 +177,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
-import { RateLimiter } from 'limiter';
 &nbsp;
-import { isResponseCode } from '@app/common/network/is-response-code';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 &nbsp;
-const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
+import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 &nbsp;
 const staleTime = 12 * 60 * 60 * 1000;
 &nbsp;
@@ -211,14 +197,10 @@ const queryOptions = {
   retryDelay: 2 * 60 * 1000,
 } as const;
 &nbsp;
-const is404 = isResponseCode(404);
-&nbsp;
-function <span class="fstat-no" title="function not covered" >fetchUnanchoredAccountInfo(</span>client: StacksClient) {
+function <span class="fstat-no" title="function not covered" >fetchUnanchoredAccountInfo(</span>client: StacksClient, limiter: RateLimiter) {
 <span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(c</span>ontractId: string) =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
-<span class="cstat-no" title="statement not covered" >    return client.fungibleTokensApi</span>
-      .getContractFtMetadata({ contractId })
-      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; (<span class="cstat-no" title="statement not covered" >is404(error) ? null : error)</span>);
+<span class="cstat-no" title="statement not covered" >    return client.fungibleTokensApi.getContractFtMetadata({ contractId });</span>
   };
 }
 &nbsp;
@@ -227,10 +209,10 @@ export function <span class="fstat-no" title="function not covered" >useGetFungi
 ): UseQueryResult&lt;FungibleTokenMetadata&gt; {
   const client = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
-&nbsp;
+  const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
 <span class="cstat-no" title="statement not covered" >  return useQuery({</span>
     queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-    queryFn: fetchUnanchoredAccountInfo(client)(contractId),
+    queryFn: fetchUnanchoredAccountInfo(client, limiter)(contractId),
     ...queryOptions,
   });
 }
@@ -240,11 +222,11 @@ export function <span class="fstat-no" title="function not covered" >useGetFungi
 ): UseQueryResult&lt;FungibleTokenMetadata&gt;[] {
   const client = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
-&nbsp;
+  const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
     queries: contractIds.map(<span class="fstat-no" title="function not covered" >co</span>ntractId =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
       queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-      queryFn: fetchUnanchoredAccountInfo(client)(contractId),
+      queryFn: fetchUnanchoredAccountInfo(client, limiter)(contractId),
       ...queryOptions,
     })),
   });
@@ -256,7 +238,7 @@ export function <span class="fstat-no" title="function not covered" >useGetFungi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

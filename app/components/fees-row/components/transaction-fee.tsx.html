@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/signature-request/components/structured-data-content.tsx</title>
+    <title>Code coverage report for app/components/fees-row/components/transaction-fee.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/signature-request/components</a> structured-data-content.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/components/fees-row/components</a> transaction-fee.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -86,18 +86,7 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,50 +103,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChainID } from '@stacks/common';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Tooltip } from '@stacks/ui';
+import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 &nbsp;
-import { SignatureMessageType } from '@shared/signature/types';
+import { CryptoCurrencies } from '@shared/models/currencies.model';
+import { Money } from '@shared/models/money.model';
 &nbsp;
-import { getStructuredDataPayloadFromToken } from '@app/common/signature/requests';
+import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
+import { Caption } from '@app/components/typography';
 &nbsp;
-import { Disclaimer } from './message-signing-disclaimer';
-import { NetworkRow } from './network-row';
-import { SignAction } from './sign-action';
-import { StructuredDataBox } from './structured-data-box';
-&nbsp;
-interface SignatureRequestStructuredDataContentProps {
-  requestToken: string;
-  messageType: SignatureMessageType;
+interface TransactionFeeProps {
+  fee: string | number;
+  feeCurrencySymbol: CryptoCurrencies;
+  usdAmount: Money | null;
 }
-export function <span class="fstat-no" title="function not covered" >SignatureRequestStructuredDataContent(</span>
-  props: SignatureRequestStructuredDataContentProps
-) {
-  const { requestToken, messageType } = <span class="cstat-no" title="statement not covered" >props;</span>
-  const signatureRequest = <span class="cstat-no" title="statement not covered" >getStructuredDataPayloadFromToken(requestToken);</span>
-  const { domain, message, network } = <span class="cstat-no" title="statement not covered" >signatureRequest;</span>
-  const appName = <span class="cstat-no" title="statement not covered" >signatureRequest.appDetails?.name;</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;StructuredDataBox message={message} domain={domain} /&gt;
-      &lt;NetworkRow chainId={network?.chainId ?? ChainID.Testnet} /&gt;
-      &lt;SignAction message={message} messageType={messageType} domain={domain} /&gt;
-      &lt;hr /&gt;
-      &lt;Disclaimer appName={appName} /&gt;
-    &lt;/&gt;
+export function <span class="fstat-no" title="function not covered" >TransactionFee(</span>{ fee, feeCurrencySymbol, usdAmount }: TransactionFeeProps) {
+  const feeLabel = (
+<span class="cstat-no" title="statement not covered" >    &lt;Caption data-testid={TransactionSigningSelectors.FeeToBePaidLabel}&gt;</span>
+      {fee} {feeCurrencySymbol}
+    &lt;/Caption&gt;
   );
+<span class="cstat-no" title="statement not covered" >  if (!usdAmount || usdAmount.amount.isNaN()) <span class="cstat-no" title="statement not covered" >return feeLabel;</span></span>
+<span class="cstat-no" title="statement not covered" >  return &lt;Tooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}&gt;{feeLabel}&lt;/Tooltip&gt;;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -166,7 +139,7 @@ export function <span class="fstat-no" title="function not covered" >SignatureRe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

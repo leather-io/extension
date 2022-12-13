@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/signature-request/components/message-signing-disclaimer.tsx</title>
+    <title>Code coverage report for app/pages/message-signing-request/components/structured-data-content.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/signature-request/components</a> message-signing-disclaimer.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/message-signing-request/components</a> structured-data-content.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -101,6 +101,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,42 +117,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box } from '@stacks/ui';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChainID } from '@stacks/common';
 &nbsp;
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Link } from '@app/components/link';
-import { Caption } from '@app/components/typography';
+import { getStructuredDataPayloadFromToken } from '@app/common/signature/requests';
 &nbsp;
-interface DisclaimerProps {
-  appName?: string;
+import { Disclaimer } from './message-signing-disclaimer';
+import { NetworkRow } from './network-row';
+import { SignAction } from './sign-action';
+import { StructuredDataBox } from './structured-data-box';
+&nbsp;
+interface SignatureRequestStructuredDataContentProps {
+  requestToken: string;
 }
-export function <span class="fstat-no" title="function not covered" >Disclaimer(</span>{ appName }: DisclaimerProps) {
+export function <span class="fstat-no" title="function not covered" >SignatureRequestStructuredDataContent(</span>{
+  requestToken,
+}: SignatureRequestStructuredDataContentProps) {
+  const signatureRequest = <span class="cstat-no" title="statement not covered" >getStructuredDataPayloadFromToken(requestToken);</span>
+  const { domain, message, network } = <span class="cstat-no" title="statement not covered" >signatureRequest;</span>
+  const appName = <span class="cstat-no" title="statement not covered" >signatureRequest.appDetails?.name;</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box&gt;
-      &lt;Caption&gt;
-        By signing this message, you are authorizing {appName ?? 'the app'} to do something specific
-        on your behalf. Only sign messages that you understand from apps that you trust.
-        &lt;Link
-          display="inline"
-          fontSize="14px"
-          onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >openInNewTab('https://docs.hiro.so/build-apps/message-signing')}</span>
-        &gt;
-          {' '}
-          Learn more
-        &lt;/Link&gt;
-        .
-      &lt;/Caption&gt;
-    &lt;/Box&gt;
+    &lt;&gt;
+      &lt;StructuredDataBox message={message} domain={domain} /&gt;
+      &lt;NetworkRow chainId={network?.chainId ?? ChainID.Testnet} /&gt;
+      &lt;SignAction message={message} messageType="structured" domain={domain} /&gt;
+      &lt;hr /&gt;
+      &lt;Disclaimer appName={appName} /&gt;
+    &lt;/&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -154,7 +154,7 @@ export function <span class="fstat-no" title="function not covered" >Disclaimer(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-05T14:15:31.700Z
+                at 2022-12-13T14:22:05.506Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
