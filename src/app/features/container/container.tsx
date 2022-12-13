@@ -5,7 +5,7 @@ import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 import { ContainerLayout } from './container.layout';
 
 export function Container() {
-  const [routeHeader, _] = useRouteHeaderState();
+  const [routeHeader] = useRouteHeaderState();
 
   return (
     <ContainerLayout header={routeHeader}>

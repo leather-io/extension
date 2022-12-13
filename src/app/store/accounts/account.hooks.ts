@@ -60,7 +60,6 @@ export function useTransactionAccountIndex() {
   const accounts = useAtomValue(accountsWithAddressState);
   const txPayload = useTransactionRequestState();
   const txAddress = txPayload?.stxAddress;
-
   return useMemo(() => {
     if (txAddress && accounts) {
       return accounts.findIndex(account => account.address === txAddress); // selected account

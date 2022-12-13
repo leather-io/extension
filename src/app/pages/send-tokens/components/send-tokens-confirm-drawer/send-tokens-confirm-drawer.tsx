@@ -9,7 +9,7 @@ import { SendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useConvertStxToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
@@ -37,7 +37,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
   const analytics = useAnalytics();
   const { isShowingEditNonce } = useDrawers();
 
-  const convertStxToUsd = useConvertStxToFiatAmount();
+  const convertStxToUsd = useConvertCryptoCurrencyToFiatAmount('STX');
 
   const feeInUsd = useMemo(
     () => convertStxToUsd(getFeeWithDefaultOfZero(unsignedTransaction)),
@@ -65,7 +65,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
           recipient={values.recipient}
         />
         <SpaceBetween>
-          <Caption>Fees</Caption>
+          <Caption>Fee</Caption>
           <Caption>
             <TransactionFee
               fee={getFeeWithDefaultOfZero(unsignedTransaction).amount.toString()}

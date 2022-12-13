@@ -1,13 +1,11 @@
 import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
-import { RateLimiter } from 'limiter';
 
-import { isResponseCode } from '@app/common/network/is-response-code';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 250 });
+import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 
 const staleTime = 12 * 60 * 60 * 1000;
 
@@ -22,14 +20,10 @@ const queryOptions = {
   retryDelay: 2 * 60 * 1000,
 } as const;
 
-const is404 = isResponseCode(404);
-
-function fetchUnanchoredAccountInfo(client: StacksClient) {
+function fetchUnanchoredAccountInfo(client: StacksClient, limiter: RateLimiter) {
   return (contractId: string) => async () => {
     await limiter.removeTokens(1);
-    return client.fungibleTokensApi
-      .getContractFtMetadata({ contractId })
-      .catch(error => (is404(error) ? null : error));
+    return client.fungibleTokensApi.getContractFtMetadata({ contractId });
   };
 }
 
@@ -38,10 +32,10 @@ export function useGetFungibleTokenMetadataQuery(
 ): UseQueryResult<FungibleTokenMetadata> {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
-
+  const limiter = useHiroApiRateLimiter();
   return useQuery({
     queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-    queryFn: fetchUnanchoredAccountInfo(client)(contractId),
+    queryFn: fetchUnanchoredAccountInfo(client, limiter)(contractId),
     ...queryOptions,
   });
 }
@@ -51,11 +45,11 @@ export function useGetFungibleTokenMetadataListQuery(
 ): UseQueryResult<FungibleTokenMetadata>[] {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
-
+  const limiter = useHiroApiRateLimiter();
   return useQueries({
     queries: contractIds.map(contractId => ({
       queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-      queryFn: fetchUnanchoredAccountInfo(client)(contractId),
+      queryFn: fetchUnanchoredAccountInfo(client, limiter)(contractId),
       ...queryOptions,
     })),
   });

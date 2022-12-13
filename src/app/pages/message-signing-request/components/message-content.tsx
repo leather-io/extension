@@ -1,7 +1,5 @@
 import { ChainID } from '@stacks/common';
 
-import { SignatureMessageType } from '@shared/signature/types';
-
 import { getSignaturePayloadFromToken } from '@app/common/signature/requests';
 
 import { MessageBox } from './message-box';
@@ -11,10 +9,9 @@ import { SignAction } from './sign-action';
 
 interface SignatureRequestMessageContentProps {
   requestToken: string;
-  messageType: SignatureMessageType;
 }
 export function SignatureRequestMessageContent(props: SignatureRequestMessageContentProps) {
-  const { requestToken, messageType } = props;
+  const { requestToken } = props;
 
   const signatureRequest = getSignaturePayloadFromToken(requestToken);
   const { message, network } = signatureRequest;
@@ -23,7 +20,7 @@ export function SignatureRequestMessageContent(props: SignatureRequestMessageCon
     <>
       <MessageBox message={message} />
       <NetworkRow chainId={network?.chainId ?? ChainID.Testnet} />
-      <SignAction message={message} messageType={messageType} />
+      <SignAction message={message} messageType="utf8" />
       <hr />
       <Disclaimer appName={appName} />
     </>

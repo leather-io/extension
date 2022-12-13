@@ -25,7 +25,6 @@ test('get support menu item takes user to support page', async ({ page, extensio
   await page.getByTestId(OnboardingSelectors.SetPasswordBtn).click();
   await page.waitForURL('**' + RouteUrls.Home);
 
-  /* await page.pause(); */
   await page.getByTestId(FundPageSelectors.BtnSkipFundAccount).click();
   await page.getByTestId(SettingsSelectors.MenuBtn).click();
 

@@ -6,12 +6,16 @@ import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
+import { useHiroApiRateLimiter } from '../rate-limiter';
+
 export function useAccountMempoolQuery(address: string) {
   const client = useStacksClientUnanchored();
   const submittedTransactions = useSubmittedTransactions();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
+  const limiter = useHiroApiRateLimiter();
 
-  function accountMempoolFetcher() {
+  async function accountMempoolFetcher() {
+    await limiter.removeTokens(1);
     return client.transactionsApi.getAddressMempoolTransactions({ address, limit: 50 });
   }
 

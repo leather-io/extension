@@ -5,7 +5,7 @@ import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selector
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
-import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
+import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { SendFormWarningMessages } from '@app/common/warning-messages';
@@ -13,7 +13,7 @@ import { Caption } from '@app/components/typography';
 
 interface CustomFeeFieldProps extends StackProps {
   fieldName: string;
-  lowFeeEstimate: StacksFeeEstimate;
+  lowFeeEstimate: StacksFeeEstimateLegacy;
   setFieldWarning: Dispatch<SetStateAction<string | undefined>>;
 }
 export function CustomFeeField(props: CustomFeeFieldProps) {

@@ -2,10 +2,10 @@ import { Stack } from '@stacks/ui';
 
 import { PageTop } from './page-top';
 
-interface SignatureRequestLayoutProps {
+interface MessageSigningRequestLayoutProps {
   children: React.ReactNode;
 }
-export function SignatureRequestLayout({ children }: SignatureRequestLayoutProps) {
+export function MessageSigningRequestLayout({ children }: MessageSigningRequestLayoutProps) {
   return (
     <Stack px={['loose', 'unset']} spacing="loose" width="100%">
       <PageTop />

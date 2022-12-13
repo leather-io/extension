@@ -7,6 +7,8 @@ import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.ho
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
+import { useHiroApiRateLimiter } from '../rate-limiter';
+
 const queryOptions = {
   refetchInterval: QueryRefreshRates.MEDIUM,
   refetchOnMount: 'always',
@@ -18,17 +20,20 @@ export function useGetAccountTransactionsWithTransfersQuery() {
   const principal = useCurrentAccountStxAddressState();
   const { chain } = useCurrentNetworkState();
   const client = useStacksClientUnanchored();
-  const fetch = () => {
+  const limiter = useHiroApiRateLimiter();
+
+  async function fetchAccountTxsWithTransfers() {
     if (!principal) return;
+    await limiter.removeTokens(1);
     return client.accountsApi.getAccountTransactionsWithTransfers({
       principal,
       limit: DEFAULT_LIST_LIMIT,
     });
-  };
+  }
 
   return useQuery({
     queryKey: ['account-txs-with-transfers', principal, chain.stacks.url],
-    queryFn: fetch,
+    queryFn: fetchAccountTxsWithTransfers,
     enabled: !!principal && !!chain.stacks.url,
     ...queryOptions,
   }) as UseQueryResult<AddressTransactionsWithTransfersListResponse, Error>;

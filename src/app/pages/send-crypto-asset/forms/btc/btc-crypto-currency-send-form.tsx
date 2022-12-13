@@ -4,12 +4,14 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
+import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { btcAmountSchema } from '@app/common/validation/currency-schema';
+import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
-import { useBitcoinFeeEstimations } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useBitcoinFees } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
 
 import { AmountField } from '../../components/amount-field';
@@ -25,19 +27,20 @@ import { btcAddressValidator } from '../../validators/recipient-validators';
 
 interface BitcoinCryptoCurrencySendFormProps {}
 export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormProps) {
+  const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
   // TODO: Replace hardcoded number here (200) with the tx byte length
-  const { data: btcFeeEstimations } = useBitcoinFeeEstimations(200);
-  const navigate = useNavigate();
+  const { data: btcFees } = useBitcoinFees(200);
 
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
-  logger.debug('btc fees', btcFeeEstimations);
+  logger.debug('btc fees', btcFees);
 
   const initialValues = createDefaultInitialFormValues({
     memo: '',
-    fee: null,
+    fee: 0,
+    feeType: FeeTypes.Unknown,
   });
 
   function onSubmit() {
@@ -63,6 +66,7 @@ export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormP
           <RecipientField />
           <MemoField lastChild />
         </FormFieldsLayout>
+        <FeesRow fees={btcFees} isSponsored={false} mt="base" />
         <FormErrors />
         <PreviewButton />
       </Form>

@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Text } from '@stacks/ui';
-import {
-  stacksMainnetNetwork,
-  stacksTestnetNetwork as network,
-  stacksTestnetNetwork,
-} from '@common/utils';
-import { SignatureData } from '@stacks/connect';
 
 import {
+  stacksTestnetNetwork as network,
+  stacksMainnetNetwork,
+  stacksTestnetNetwork,
+} from '@common/utils';
+import { sha256 } from '@noble/hashes/sha256';
+import { bytesToHex } from '@noble/hashes/utils';
+import { SignatureData } from '@stacks/connect';
+import { useConnect } from '@stacks/connect-react';
+import { hashMessage, verifyMessageSignatureRsv } from '@stacks/encryption';
+import { StacksNetwork } from '@stacks/network';
+import {
+  ClarityValue,
+  TupleCV,
   bufferCVFromString,
   contractPrincipalCV,
+  encodeStructuredData,
   falseCV,
   intCV,
   listCV,
@@ -23,14 +30,8 @@ import {
   trueCV,
   tupleCV,
   uintCV,
-  ClarityValue,
-  encodeStructuredData,
-  TupleCV,
 } from '@stacks/transactions';
-import { useConnect } from '@stacks/connect-react';
-import { hashMessage, verifyMessageSignatureRsv } from '@stacks/encryption';
-import { sha256 } from 'sha.js';
-import { StacksNetwork } from '@stacks/network';
+import { Box, Button, Text } from '@stacks/ui';
 
 export const Signature = () => {
   const [signature, setSignature] = useState<SignatureData | undefined>();
@@ -90,7 +91,7 @@ export const Signature = () => {
   useEffect(() => {
     if (!signatureStructured || !currentStructuredData) return;
     const message = encodeStructuredData(currentStructuredData);
-    const messageHash = new sha256().update(message).digest('hex');
+    const messageHash = bytesToHex(sha256(message));
     const verified = verifyMessageSignatureRsv({
       ...signatureStructured,
       message: Buffer.from(messageHash, 'hex'),

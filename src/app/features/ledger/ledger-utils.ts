@@ -9,7 +9,7 @@ import {
   deserializeTransaction,
 } from '@stacks/transactions';
 import { safeAwait } from '@stacks/ui';
-import StacksApp, { LedgerError, ResponseVersion } from '@zondax/ledger-stacks';
+import StacksApp, { LedgerError, ResponseSign, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -94,8 +94,13 @@ export function signLedgerTransaction(app: StacksApp) {
 }
 
 export function signLedgerUtf8Message(app: StacksApp) {
-  return async (payload: string, accountIndex: number) =>
+  return async (payload: string, accountIndex: number): Promise<ResponseSign> =>
     app.sign_msg(getStxDerivationPath(accountIndex), payload);
+}
+
+export function signLedgerStructuredMessage(app: StacksApp) {
+  return async (domain: string, payload: string, accountIndex: number): Promise<ResponseSign> =>
+    app.sign_structured_msg(getStxDerivationPath(accountIndex), domain, payload);
 }
 
 export function signTransactionWithSignature(transaction: string, signatureVRS: Buffer) {

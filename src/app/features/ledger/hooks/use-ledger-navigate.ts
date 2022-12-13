@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
-import { StacksTransaction } from '@stacks/transactions';
+import { ClarityValue, StacksTransaction } from '@stacks/transactions';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -20,17 +20,24 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignTransactionStep(transaction: StacksTransaction, goBack?: boolean) {
+      toConnectAndSignTransactionStep(transaction: StacksTransaction) {
         return navigate(RouteUrls.ConnectLedger, {
-          replace: !goBack,
-          state: { goBack, tx: bytesToHex(transaction.serialize()) },
+          replace: true,
+          state: { tx: bytesToHex(transaction.serialize()) },
         });
       },
 
-      toConnectAndSignMessageStep(message: string, goBack?: boolean) {
+      toConnectAndSignUtf8MessageStep(message: string) {
         return navigate(RouteUrls.ConnectLedger, {
-          replace: !goBack,
-          state: { goBack, message },
+          replace: true,
+          state: { type: 'utf8', message },
+        });
+      },
+
+      toConnectAndSignStructuredMessageStep(domain: ClarityValue, message: ClarityValue) {
+        return navigate(RouteUrls.ConnectLedger, {
+          replace: true,
+          state: { type: 'structured', domain, message },
         });
       },
 
@@ -76,7 +83,7 @@ export function useLedgerNavigate() {
       },
 
       cancelLedgerAction() {
-        return navigate('..');
+        return navigate('..', { relative: 'path' });
       },
 
       cancelLedgerActionAndReturnHome() {

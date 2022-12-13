@@ -1,13 +1,10 @@
-import {
-  CommonSignaturePayload,
-  SignaturePayload,
-  StructuredDataSignaturePayload,
-} from '@stacks/connect';
+import { CommonSignaturePayload, SignaturePayload } from '@stacks/connect';
 import { getPublicKeyFromPrivate } from '@stacks/encryption';
 import { deserializeCV } from '@stacks/transactions';
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { TokenInterface, TokenVerifier, decodeToken } from 'jsontokens';
 
+import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 import { isString } from '@shared/utils';
 
 import { AccountWithAddress } from '@app/store/accounts/account.models';
@@ -22,9 +19,7 @@ export function getSignaturePayloadFromToken(requestToken: string): SignaturePay
   return token.payload as unknown as SignaturePayload;
 }
 
-export function getStructuredDataPayloadFromToken(
-  requestToken: string
-): StructuredDataSignaturePayload {
+export function getStructuredDataPayloadFromToken(requestToken: string) {
   const token = decodeToken(requestToken);
   if (isString(token.payload)) throw new Error('error decoding json token');
 
@@ -36,7 +31,7 @@ export function getStructuredDataPayloadFromToken(
   return {
     ...(result as unknown as CommonSignaturePayload),
     message: deserializeCV(Buffer.from(result.message, 'hex')),
-    domain: deserializeCV(Buffer.from(result.domain, 'hex')),
+    domain: deserializeCV(Buffer.from(result.domain, 'hex')) as StructuredMessageDataDomain,
   };
 }
 
