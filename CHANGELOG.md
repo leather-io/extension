@@ -1,3 +1,28 @@
+## [3.28.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.27.0...v3.28.0) (2022-12-13)
+
+
+### Features
+
+* **ledger:** support sip18, closes [#2827](https://github.com/hirosystems/stacks-wallet-web/issues/2827) ([6f32662](https://github.com/hirosystems/stacks-wallet-web/commit/6f32662361c183655a50a53f702c856b5579af1f))
+
+
+### Bug Fixes
+
+* add hiro api-wide rate limiting ([d3c06ba](https://github.com/hirosystems/stacks-wallet-web/commit/d3c06badbd59605f653e6810cf669a6c6899f4b2))
+* bad error catching, closes [#2931](https://github.com/hirosystems/stacks-wallet-web/issues/2931) ([43daf15](https://github.com/hirosystems/stacks-wallet-web/commit/43daf15b04ec35f5f7fd62e306df8d2653368767))
+* increase test delay for flaky test ([64fdb5a](https://github.com/hirosystems/stacks-wallet-web/commit/64fdb5af4745d23ca9985b7d49416a4a3cee737d))
+* remove suspense ([e2b2c24](https://github.com/hirosystems/stacks-wallet-web/commit/e2b2c245c9a1364cdb2ee107e160ad287b6b2b68))
+
+
+### Internal
+
+* fees component for bitcoin ([b2661ee](https://github.com/hirosystems/stacks-wallet-web/commit/b2661eeb4bb9fa7cb9419432f9823cf98d57323c))
+* improve when fn types ([694c607](https://github.com/hirosystems/stacks-wallet-web/commit/694c60711b3f8245a09966f7653f758572aa17cf))
+* message signature feature ([9ed7d71](https://github.com/hirosystems/stacks-wallet-web/commit/9ed7d71854ff847185a0f12c68aae819af3b3c63))
+* remove leftover comment ([7eaffbd](https://github.com/hirosystems/stacks-wallet-web/commit/7eaffbd1639d06d7d416ff1d9b4abcfe3789e410))
+* remove sha.js in favour of nobel hashes ([b032deb](https://github.com/hirosystems/stacks-wallet-web/commit/b032debbcde50a2312c830c821acd05636543f05))
+* use ratelimiter built-in time syntax ([da56375](https://github.com/hirosystems/stacks-wallet-web/commit/da563759ff25d7614d082e5e9d8eb219e0608a68))
+
 ## [3.27.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.26.0...v3.27.0) (2022-12-05)
 
 
