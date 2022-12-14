@@ -14,7 +14,7 @@ interface SelectedAssetProps extends StackProps {
 }
 export const SelectedAsset = memo(({ hideArrow, onClearSearch, ...rest }: SelectedAssetProps) => {
   const [field] = useField('assetId');
-  const { balance } = useSelectedAssetBalance(field.value);
+  const { balanceFormatted: balance } = useSelectedAssetBalance(field.value);
 
   return (
     <Stack spacing="base-loose" flexDirection="column" {...rest}>

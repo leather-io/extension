@@ -6,7 +6,7 @@ import { abbreviateNumber } from '@app/common/utils';
 
 import { convertUnicodeToAscii } from '../string-utils';
 
-export function removeCommas(amountWithCommas: string) {
+function removeCommas(amountWithCommas: string) {
   return amountWithCommas.replace(/,/g, '');
 }
 
