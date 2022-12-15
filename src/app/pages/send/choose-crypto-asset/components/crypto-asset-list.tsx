@@ -1,7 +1,7 @@
 import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
-import { CryptoAssetListItem } from './components/crypto-asset-list-item';
-import { CryptoAssetListLayout } from './components/crypto-asset-list.layout';
+import { CryptoAssetListItem } from './crypto-asset-list-item';
+import { CryptoAssetListLayout } from './crypto-asset-list.layout';
 
 interface CryptoAssetListProps {
   cryptoAssetBalances: AllTransferableCryptoAssetBalances[];

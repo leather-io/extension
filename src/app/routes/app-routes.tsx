@@ -17,7 +17,6 @@ import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 import { AddNetwork } from '@app/pages/add-network/add-network';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
-import { SendCryptoAsset } from '@app/pages/crypto-asset-list/send-crypto-asset';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
 import { MessageSigningRequest } from '@app/pages/message-signing-request/message-signing-request';
@@ -28,8 +27,9 @@ import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
-import { SendCryptoAssetForm } from '@app/pages/send-crypto-asset/send-crypto-asset-form';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
+import { ChooseCryptoAsset } from '@app/pages/send/choose-crypto-asset/choose-crypto-asset';
+import { SendCryptoAssetForm } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
@@ -157,7 +157,7 @@ function AppRoutesAfterUserHasConsented() {
           element={
             <AccountGate>
               <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
-                <SendCryptoAsset />
+                <ChooseCryptoAsset />
               </Suspense>
             </AccountGate>
           }

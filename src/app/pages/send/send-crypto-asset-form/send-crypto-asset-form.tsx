@@ -6,10 +6,10 @@ import { isString } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 
-import { SendCryptoAssetLayout } from './components/send-crypto-asset.layout';
-import { BitcoinCryptoCurrencySendForm } from './forms/btc/btc-crypto-currency-send-form';
+import { ChooseCryptoAssetLayout } from './components/send-crypto-asset.layout';
+import { BtcCryptoCurrencySendForm } from './forms/btc/btc-crypto-currency-send-form';
 import { StacksFungibleTokenSendForm } from './forms/stx-sip10/stacks-fungible-token-send-form';
-import { StacksCryptoCurrencySendForm } from './forms/stx/stx-crypto-currency-send-form';
+import { StxCryptoCurrencySendForm } from './forms/stx/stx-crypto-currency-send-form';
 
 export function SendCryptoAssetForm() {
   const { symbol } = useParams();
@@ -26,10 +26,10 @@ export function SendCryptoAssetForm() {
   const content = (() => {
     switch (symbol) {
       case 'btc':
-        return <BitcoinCryptoCurrencySendForm />;
+        return <BtcCryptoCurrencySendForm />;
 
       case 'stx':
-        return <StacksCryptoCurrencySendForm />;
+        return <StxCryptoCurrencySendForm />;
 
       // Currently the only other currencies we support are Stacks SIP-10 FTs. This
       // routing logic will need to be updated on addition of new chain tokens
@@ -38,5 +38,5 @@ export function SendCryptoAssetForm() {
     }
   })();
 
-  return <SendCryptoAssetLayout>{content}</SendCryptoAssetLayout>;
+  return <ChooseCryptoAssetLayout>{content}</ChooseCryptoAssetLayout>;
 }
