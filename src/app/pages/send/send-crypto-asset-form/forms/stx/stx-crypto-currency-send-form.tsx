@@ -25,8 +25,8 @@ import { SelectedAssetField } from '../../components/selected-asset-field';
 import { createDefaultInitialFormValues } from '../../form-utils';
 import { stxAddressValidator } from '../../validators/recipient-validators';
 
-interface StacksCryptoCurrencySendFormProps {}
-export function StacksCryptoCurrencySendForm({}: StacksCryptoCurrencySendFormProps) {
+interface StxCryptoCurrencySendFormProps {}
+export function StxCryptoCurrencySendForm({}: StxCryptoCurrencySendFormProps) {
   const navigate = useNavigate();
   const { data: nextNonce } = useNextNonce();
   const unsignedTx = useStxTokenTransferUnsignedTxState();

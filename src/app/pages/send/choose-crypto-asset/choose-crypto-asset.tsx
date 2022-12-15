@@ -6,18 +6,18 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { Header } from '@app/components/header';
 
-import { SendCryptoAssetLayout } from './components/send-crypto-asset.layout';
-import { CryptoAssetList } from './crypto-asset-list';
+import { ChooseCryptoAssetLayout } from './components/choose-crypto-asset.layout';
+import { CryptoAssetList } from './components/crypto-asset-list';
 
-export function SendCryptoAsset() {
+export function ChooseCryptoAsset() {
   const navigate = useNavigate();
   const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
 
   useRouteHeader(<Header hideActions onClose={() => navigate(RouteUrls.Home)} title=" " />);
 
   return (
-    <SendCryptoAssetLayout>
+    <ChooseCryptoAssetLayout>
       <CryptoAssetList cryptoAssetBalances={allTransferableCryptoAssetBalances} />
-    </SendCryptoAssetLayout>
+    </ChooseCryptoAssetLayout>
   );
 }
