@@ -25,8 +25,8 @@ import { SendAllButton } from '../../components/send-all-button';
 import { createDefaultInitialFormValues } from '../../form-utils';
 import { btcAddressValidator } from '../../validators/recipient-validators';
 
-interface BitcoinCryptoCurrencySendFormProps {}
-export function BitcoinCryptoCurrencySendForm({}: BitcoinCryptoCurrencySendFormProps) {
+interface BtcCryptoCurrencySendFormProps {}
+export function BtcCryptoCurrencySendForm({}: BtcCryptoCurrencySendFormProps) {
   const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =

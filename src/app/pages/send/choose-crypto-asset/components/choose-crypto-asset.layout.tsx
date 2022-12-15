@@ -3,7 +3,7 @@ import { Flex, StackProps } from '@stacks/ui';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { PageTitle } from '@app/components/page-title';
 
-export function SendCryptoAssetLayout({ children }: StackProps) {
+export function ChooseCryptoAssetLayout({ children }: StackProps) {
   return (
     <Flex
       alignItems={['left', 'center']}

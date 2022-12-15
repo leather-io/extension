@@ -22,6 +22,7 @@ export function SelectedAssetField({
 
   return (
     <Field as="div" name="symbol">
+      {/* TODO: Should this still be clickable if there is no arrow icon? Remove SpaceBetween? */}
       <SpaceBetween
         as="button"
         type="button"
