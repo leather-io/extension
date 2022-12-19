@@ -76,6 +76,7 @@ const aliases = {
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
   'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
 };
+
 const config = {
   entry: {
     background: path.join(SRC_ROOT_PATH, 'background', 'background.ts'),
@@ -218,7 +219,7 @@ const config = {
   ],
 };
 
-module.exports = smp.wrap(config);
+module.exports = config;
 
 if (IS_PROD) {
   module.exports.plugins.push(
