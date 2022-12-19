@@ -74,7 +74,6 @@ const aliases = {
   '@stacks/storage': '@stacks/storage/dist/esm',
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
-
   'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
 };
 const config = {
@@ -116,19 +115,11 @@ const config = {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'esbuild-loader',
-            options: {
-              loader: 'tsx',
-              target: 'esnext',
-            },
-          },
-          {
-            loader: 'babel-loader',
-          },
-        ],
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'tsx',
+          target: 'es2015',
+        },
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
