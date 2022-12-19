@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -126,28 +126,7 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,21 +156,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -200,8 +171,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -220,28 +189,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useEffect, useState } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 &nbsp;
 import { Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 &nbsp;
-import { TransactionFormValues } from '@shared/models/form.model';
-import { isUndefined } from '@shared/utils';
+import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
 &nbsp;
-import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
+import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import { useShowEditNonceCleanupEffect } from '@app/store/ui/ui.hooks';
 &nbsp;
 import { EditNonceForm } from './components/edit-nonce-form';
 &nbsp;
@@ -259,21 +219,13 @@ const CustomFeeMessaging = <span class="cstat-no" title="statement not covered" 
 };
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >EditNonceDrawer(</span>) {
-  const { errors, setFieldError, setFieldValue, validateField, values } =
-<span class="cstat-no" title="statement not covered" >    useFormikContext&lt;TransactionFormValues&gt;();</span>
-  const [customNonce, setCustomNonce] = <span class="cstat-no" title="statement not covered" >useState&lt;number | string&gt;();</span>
-  const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
-  const { isShowingEditNonce, setIsShowingEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
-<span class="cstat-no" title="statement not covered" >  useShowEditNonceCleanupEffect();</span>
+  const { errors, setFieldError, setFieldValue, validateField, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;</span>
+    SendFormValues | TransactionFormValues
+  &gt;();
+  const [loadedNextNonce, setLoadedNextNonce] = <span class="cstat-no" title="statement not covered" >useState&lt;number | string&gt;();</span>
+  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (isShowingEditNonce) <span class="cstat-no" title="statement not covered" >setCustomNonce(values.nonce);</span></span>
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isShowingEditNonce]);
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (isUndefined(values.nonce)) <span class="cstat-no" title="statement not covered" >setFieldValue('nonce', nonce);</span></span>
-  }, [nonce, setFieldValue, values.nonce]);
+<span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setLoadedNextNonce(values.nonce))</span>;</span>
 &nbsp;
   const onBlur = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    validateField('nonce');</span>
@@ -281,32 +233,23 @@ export function <span class="fstat-no" title="function not covered" >EditNonceDr
 &nbsp;
   const onSubmit = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    validateField('nonce');</span>
-<span class="cstat-no" title="statement not covered" >    if (!errors.nonce) {</span>
-<span class="cstat-no" title="statement not covered" >      setIsShowingEditNonce(false);</span>
-    }
-  }, [errors.nonce, setIsShowingEditNonce, validateField]);
+<span class="cstat-no" title="statement not covered" >    if (!errors.nonce) <span class="cstat-no" title="statement not covered" >navigate(-1);</span></span>
+  }, [errors.nonce, navigate, validateField]);
 &nbsp;
   const onClose = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!values.nonce) <span class="cstat-no" title="statement not covered" >setFieldValue('nonce', undefined);</span></span>
 <span class="cstat-no" title="statement not covered" >    setFieldError('nonce', '');</span>
-<span class="cstat-no" title="statement not covered" >    setFieldValue('nonce', customNonce);</span>
-<span class="cstat-no" title="statement not covered" >    setIsShowingEditNonce(false);</span>
-  }, [customNonce, setFieldError, setFieldValue, setIsShowingEditNonce, values.nonce]);
+<span class="cstat-no" title="statement not covered" >    setFieldValue('nonce', loadedNextNonce);</span>
+<span class="cstat-no" title="statement not covered" >    navigate(-1);</span>
+  }, [loadedNextNonce, navigate, setFieldError, setFieldValue, values.nonce]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;ControlledDrawer
-      isShowing={!!isShowingEditNonce}
-      onClose={onClose}
-      pauseOnClickOutside
-      title="Edit nonce"
-    &gt;
-      &lt;Stack px="loose" spacing="loose" pb="extra-loose"&gt;
+    &lt;BaseDrawer isShowing onClose={onClose} pauseOnClickOutside title="Edit nonce"&gt;
+      &lt;Stack pb="extra-loose" px="loose" spacing="loose"&gt;
         &lt;CustomFeeMessaging /&gt;
-        {isShowingEditNonce &amp;&amp; (
-          &lt;EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} /&gt;
-        )}
+        &lt;EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} /&gt;
       &lt;/Stack&gt;
-    &lt;/ControlledDrawer&gt;
+    &lt;/BaseDrawer&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -316,7 +259,7 @@ export function <span class="fstat-no" title="function not covered" >EditNonceDr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-13T14:23:05.978Z
+                at 2022-12-19T17:45:59.163Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

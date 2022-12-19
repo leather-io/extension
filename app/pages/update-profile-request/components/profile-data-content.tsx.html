@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/components/show-edit-nonce.tsx</title>
+    <title>Code coverage report for app/pages/update-profile-request/components/profile-data-content.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">app/components</a> show-edit-nonce.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/update-profile-request/components</a> profile-data-content.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -103,17 +103,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,41 +111,52 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { color } from '@stacks/ui';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChainID } from '@stacks/common';
+import { Person } from '@stacks/profile';
 &nbsp;
-import { useDrawers } from '@app/common/hooks/use-drawers';
-import { SpaceBetween } from '@app/components/space-between';
-import { Caption } from '@app/components/typography';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
+import { DisclaimerLayout } from '@app/components/disclaimer';
+import { NetworkRow } from '@app/components/network-row';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >ShowEditNonceAction(</span>) {
-  const { isTestnet, name } = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
-  const { isShowingEditNonce, setIsShowingEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
+import { ProfileBox } from './profile-box';
+import { UpdateAction } from './update-action';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;SpaceBetween&gt;
-      &lt;Caption
-        _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
-        color={color('brand')}
-        onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setIsShowingEditNonce(!isShowingEditNonce)}</span>
-      &gt;
-        Edit nonce
-      &lt;/Caption&gt;
-      &lt;Caption color="currentColor"&gt;{isTestnet ? name : 'Mainnet'}&lt;/Caption&gt;
-    &lt;/SpaceBetween&gt;
-  );
+interface ProfileDataContentProps {
+  requestToken: string;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >ShowEditNoncePlaceholder(</span>): JSX.Element {
+export function <span class="fstat-no" title="function not covered" >ProfileDataContent(</span>props: ProfileDataContentProps) {
+  const { requestToken } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const profileUpdateRequest = <span class="cstat-no" title="statement not covered" >getProfileDataContentFromToken(requestToken);</span>
+  const person = <span class="cstat-no" title="statement not covered" >new Person(profileUpdateRequest.profile);</span>
+  const { network } = <span class="cstat-no" title="statement not covered" >profileUpdateRequest;</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Caption _hover={{ cursor: 'not-allowed' }} color={color('brand')}&gt;
-      Loading...
-    &lt;/Caption&gt;
+    &lt;&gt;
+      &lt;ProfileBox profile={person} /&gt;
+      &lt;NetworkRow chainId={network?.chainId ?? ChainID.Testnet} /&gt;
+      &lt;UpdateAction profileUpdaterPayload={profileUpdateRequest} /&gt;
+      &lt;hr /&gt;
+      &lt;DisclaimerLayout
+        disclaimerText={`This update will overwrite any values in your public profile with the included property names.`}
+        learnMoreUrl="https://docs.hiro.so/build-apps/transaction-signing#get-the-users-stacks-address"
+      /&gt;
+    &lt;/&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -166,16 +166,16 @@ export function <span class="fstat-no" title="function not covered" >ShowEditNon
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-13T14:23:05.978Z
+                at 2022-12-19T17:45:59.163Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     

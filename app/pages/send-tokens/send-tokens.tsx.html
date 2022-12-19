@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>0/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/50</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
@@ -283,7 +283,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -362,25 +361,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -412,15 +412,14 @@ import { SendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useStacksSendFormValidation } from '@app/common/hooks/use-send-form-validation';
+import { useStacksSendFormValidationLegacy } from '@app/common/hooks/use-send-form-validation-legacy';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { Header } from '@app/components/header';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees-legacy';
@@ -435,20 +434,20 @@ import {
 import { SendFormInner } from './components/send-form-inner';
 import { SendTokensSoftwareConfirmDrawer } from './components/send-tokens-confirm-drawer/send-tokens-confirm-drawer';
 &nbsp;
+// TODO: Remove legacy send form
 function <span class="fstat-no" title="function not covered" >SendTokensFormBase(</span>) {
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const { isShowingEditNonce } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
   const [isShowing, setShowing] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [assetError, setAssetError] = <span class="cstat-no" title="statement not covered" >useState&lt;string | undefined&gt;(undefined);</span>
   const [selectedAssetId, setSelectedAssetId] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;('');</span>
   const { setActiveTabActivity } = <span class="cstat-no" title="statement not covered" >useHomeTabs();</span>
-  const sendFormSchema = <span class="cstat-no" title="statement not covered" >useStacksSendFormValidation({ selectedAssetId, setAssetError });</span>
+  const sendFormSchema = <span class="cstat-no" title="statement not covered" >useStacksSendFormValidationLegacy({ selectedAssetId, setAssetError });</span>
   const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateSendFormUnsignedTx(selectedAssetId);</span>
   const signSoftwareWalletTx = <span class="cstat-no" title="statement not covered" >useSignTransactionSoftwareWallet();</span>
   const txByteLength = <span class="cstat-no" title="statement not covered" >useSendFormEstimatedUnsignedTxByteLengthState(selectedAssetId);</span>
   const txPayload = <span class="cstat-no" title="statement not covered" >useSendFormSerializedUnsignedTxPayloadState(selectedAssetId);</span>
   const feeEstimations = <span class="cstat-no" title="statement not covered" >useStacksFeeEstimations(txByteLength, txPayload);</span>
-  const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const ledgerNavigate = <span class="cstat-no" title="statement not covered" >useLedgerNavigate();</span>
@@ -498,7 +497,7 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
     fee: '',
     feeType: FeeTypes[FeeTypes.Middle],
     memo: '',
-    nonce,
+    nonce: nextNonce?.nonce,
     recipientAddressOrBnsName: '',
     recipient: '',
   };
@@ -527,18 +526,20 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
         {<span class="fstat-no" title="function not covered" >pr</span>ops =&gt; (
 <span class="cstat-no" title="statement not covered" >          &lt;&gt;</span>
             &lt;Suspense fallback={&lt;&gt;&lt;/&gt;}&gt;
-              &lt;SendFormInner
-                assetError={assetError}
-                feeEstimations={feeEstimations.estimates}
-                onAssetIdSelected={<span class="fstat-no" title="function not covered" >as</span>setId =&gt; <span class="cstat-no" title="statement not covered" >setSelectedAssetId(assetId)}</span>
-                nonce={nonce}
-              /&gt;
+              &lt;NonceSetter&gt;
+                &lt;SendFormInner
+                  assetError={assetError}
+                  feeEstimations={feeEstimations.estimates}
+                  onAssetIdSelected={<span class="fstat-no" title="function not covered" >as</span>setId =&gt; <span class="cstat-no" title="statement not covered" >setSelectedAssetId(assetId)}</span>
+                  nonce={nextNonce?.nonce}
+                /&gt;
+              &lt;/NonceSetter&gt;
             &lt;/Suspense&gt;
             {whenWallet({
               ledger: &lt;&gt;&lt;/&gt;,
               software: (
                 &lt;SendTokensSoftwareConfirmDrawer
-                  isShowing={isShowing &amp;&amp; !isShowingEditNonce}
+                  isShowing={isShowing}
                   onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >handleConfirmDrawerOnClose()}</span>
                   onUserSelectBroadcastTransaction={<span class="fstat-no" title="function not covered" >as</span>ync (
                     transaction: StacksTransaction | undefined
@@ -556,12 +557,11 @@ function <span class="fstat-no" title="function not covered" >SendTokensFormBase
                 /&gt;
               ),
             })}
-            &lt;EditNonceDrawer /&gt;
             &lt;HighFeeDrawer /&gt;
+            &lt;Outlet /&gt;
           &lt;/&gt;
         )}
       &lt;/Formik&gt;
-      &lt;Outlet /&gt;
     &lt;/&gt;
   );
 }
@@ -574,7 +574,7 @@ export const SendTokensForm = <span class="cstat-no" title="statement not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-13T14:23:05.978Z
+                at 2022-12-19T17:45:59.163Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

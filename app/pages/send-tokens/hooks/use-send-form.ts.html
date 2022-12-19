@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/35</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -131,7 +131,12 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,6 +166,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,8 +216,8 @@ import { useFormikContext } from 'formik';
 &nbsp;
 import { SendFormValues } from '@shared/models/form.model';
 &nbsp;
-import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
@@ -216,22 +226,27 @@ export function <span class="fstat-no" title="function not covered" >useSendAmou
   const { setFieldValue, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SendFormValues&gt;();</span>
   const { data: stacksBalances } = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAnchoredBalances();</span>
   const pendingTxsBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountMempoolTransactionsBalance();</span>
-  const { balance, isStx, selectedAssetBalance } = <span class="cstat-no" title="statement not covered" >useSelectedAssetBalance(values.assetId);</span>
+  const { isStx, selectedAssetBalance } = <span class="cstat-no" title="statement not covered" >useSelectedAssetBalance(values.assetId);</span>
 &nbsp;
   const handleSetSendMax = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (f</span>ee: number | string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!selectedAssetBalance || !balance) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!selectedAssetBalance) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >      if (isStx &amp;&amp; fee) {</span>
         const stx = <span class="cstat-no" title="statement not covered" >microStxToStx(</span>
           stacksBalances?.stx.availableStx.amount.minus(pendingTxsBalance) || 0
         ).minus(fee);
 <span class="cstat-no" title="statement not covered" >        if (stx.isLessThanOrEqualTo(0)) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >        return setFieldValue('amount', stx.toNumber());</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        if (balance) <span class="cstat-no" title="statement not covered" >setFieldValue('amount', removeCommas(balance));</span></span>
       }
+<span class="cstat-no" title="statement not covered" >      setFieldValue('amount', convertAmountToBaseUnit(selectedAssetBalance.balance).toString());</span>
     },
-    [selectedAssetBalance, balance, isStx, stacksBalances, pendingTxsBalance, setFieldValue]
+    [
+      selectedAssetBalance,
+      isStx,
+      setFieldValue,
+      stacksBalances?.stx.availableStx.amount,
+      pendingTxsBalance,
+    ]
   );
 &nbsp;
   const handleOnKeyDown = <span class="cstat-no" title="statement not covered" >useCallback(</span>
@@ -274,7 +289,7 @@ export function <span class="fstat-no" title="function not covered" >useSendAmou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-13T14:23:05.978Z
+                at 2022-12-19T17:45:59.163Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

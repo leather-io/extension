@@ -757,7 +757,7 @@ function <span class="fstat-no" title="function not covered" >useTransactionAtta
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useUnsignedStacksTransactionBaseState(</span>) {
   const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
-  const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const stxAddress = <span class="cstat-no" title="statement not covered" >useCurrentAccountStxAddressState();</span>
   const payload = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
   const postConditions = <span class="cstat-no" title="statement not covered" >useTransactionPostConditions();</span>
@@ -767,15 +767,15 @@ function <span class="fstat-no" title="function not covered" >useUnsignedStacksT
 <span class="fstat-no" title="function not covered" >    ()</span> =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
       fee: 0,
       publicKey: account?.stxPublicKey,
-      nonce: nonce || 0,
+      nonce: nextNonce?.nonce ?? 0,
       txData: { ...payload, postConditions, network },
     }),
-    [account?.stxPublicKey, network, nonce, payload, postConditions]
+    [account?.stxPublicKey, network, nextNonce?.nonce, payload, postConditions]
   );
 &nbsp;
   const transaction = <span class="cstat-no" title="statement not covered" >useAsync(<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    return generateUnsignedTransaction(options as GenerateUnsignedTransactionOptions);</span>
-  }, [account, nonce, payload, stxAddress]).result;
+  }, [account, nextNonce?.nonce, payload, stxAddress]).result;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!account || !payload || !stxAddress) <span class="cstat-no" title="statement not covered" >return { transaction: undefined, options };</span></span>
@@ -900,7 +900,7 @@ export function <span class="fstat-no" title="function not covered" >useTransact
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSoftwareWalletTransactionRequestBroadcast(</span>) {
-  const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const signSoftwareWalletTx = <span class="cstat-no" title="statement not covered" >useSignTransactionSoftwareWallet();</span>
   const stacksTxBaseState = <span class="cstat-no" title="statement not covered" >useUnsignedStacksTransactionBaseState();</span>
   const { tabId } = <span class="cstat-no" title="statement not covered" >useDefaultRequestParams();</span>
@@ -914,7 +914,7 @@ export function <span class="fstat-no" title="function not covered" >useSoftware
     const unsignedStacksTransaction = <span class="cstat-no" title="statement not covered" >await generateUnsignedTransaction({</span>
       ...options,
       fee: stxToMicroStx(values.fee).toNumber(),
-      nonce: Number(values.nonce) ?? nonce,
+      nonce: Number(values.nonce) ?? nextNonce?.nonce,
     });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!account || !requestToken || !unsignedStacksTransaction) {</span>
@@ -953,19 +953,19 @@ export function <span class="fstat-no" title="function not covered" >makePostCon
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useGenerateUnsignedStacksTransaction(</span>) {
   const stacksTxBaseState = <span class="cstat-no" title="statement not covered" >useUnsignedStacksTransactionBaseState();</span>
-  const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (v</span>alues: TransactionFormValues) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!stacksTxBaseState || isUndefined(nonce)) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!stacksTxBaseState || isUndefined(nextNonce?.nonce)) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
       const { options } = <span class="cstat-no" title="statement not covered" >stacksTxBaseState as any;</span>
 <span class="cstat-no" title="statement not covered" >      return generateUnsignedTransaction({</span>
         ...options,
         fee: stxToMicroStx(values.fee).toNumber(),
-        nonce: Number(values.nonce) ?? nonce,
+        nonce: Number(values.nonce) ?? nextNonce?.nonce,
       });
     },
-    [nonce, stacksTxBaseState]
+    [nextNonce?.nonce, stacksTxBaseState]
   );
 }
 &nbsp;
@@ -1018,7 +1018,7 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-13T14:23:05.978Z
+                at 2022-12-19T17:45:59.163Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

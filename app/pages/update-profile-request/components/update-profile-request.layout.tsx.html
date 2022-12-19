@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/pages/transaction-request/components/tx-request-form-nonce-setter.tsx</title>
+    <title>Code coverage report for app/pages/update-profile-request/components/update-profile-request.layout.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/transaction-request/components</a> tx-request-form-nonce-setter.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">app/pages/update-profile-request/components</a> update-profile-request.layout.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -78,18 +78,7 @@
 <a name='L13'></a><a href='#L13'>13</a>
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L16'></a><a href='#L16'>16</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,36 +87,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ReactNode, useEffect } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Stack } from '@stacks/ui';
 &nbsp;
-import { useFormikContext } from 'formik';
+import { PageTop } from './page-top';
 &nbsp;
-import { TransactionFormValues } from '@shared/models/form.model';
-&nbsp;
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-&nbsp;
-interface TxRequestFormNonceSetterProps {
-  children: ReactNode;
+interface ProfileUpdateRequestLayoutProps {
+  children: React.ReactNode;
 }
-export function <span class="fstat-no" title="function not covered" >TxRequestFormNonceSetter(</span>{ children }: TxRequestFormNonceSetterProps) {
-  const { setFieldValue, touched, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;TransactionFormValues&gt;();</span>
-  const { nonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!touched.nonce &amp;&amp; values.nonce !== nonce) <span class="cstat-no" title="statement not covered" >setFieldValue('nonce', nonce);</span></span>
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nonce]);
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return &lt;&gt;{children}&lt;/&gt;;</span>
+export function <span class="fstat-no" title="function not covered" >ProfileUpdateRequestLayout(</span>{ children }: ProfileUpdateRequestLayoutProps) {
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;Stack px={['loose', 'unset']} spacing="loose" width="100%"&gt;
+      &lt;PageTop /&gt;
+      {children}
+    &lt;/Stack&gt;
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -136,7 +115,7 @@ export function <span class="fstat-no" title="function not covered" >TxRequestFo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-13T14:23:05.978Z
+                at 2022-12-19T17:45:59.163Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

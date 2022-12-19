@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -99,7 +99,39 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,67 +141,62 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
-import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 &nbsp;
+import { AppUseQueryConfig } from '@app/query/query-config';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 &nbsp;
-import { useHiroApiRateLimiter } from '../rate-limiter';
+import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { StacksClient } from '../stacks-client';
 &nbsp;
-const accountNoncesQueryOptions: UseQueryOptions = <span class="cstat-no" title="statement not covered" >{</span>
+const accountNoncesQueryOptions = <span class="cstat-no" title="statement not covered" >{</span>
   refetchOnMount: 'always',
   refetchOnReconnect: 'always',
   refetchOnWindowFocus: 'always',
-};
+} as const;
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGetAccountNonces(</span>) {
-  const principal = <span class="cstat-no" title="statement not covered" >useCurrentAccountStxAddressState();</span>
-  const network = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
-  const { accountsApi } = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
-  const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
-&nbsp;
-  const fetchAccountNonces = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
+function <span class="fstat-no" title="function not covered" >fetchAccountNonces(</span>client: StacksClient, limiter: RateLimiter) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >as</span>ync (principal: string) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!principal) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
-<span class="cstat-no" title="statement not covered" >    return accountsApi.getAccountNonces({</span>
+<span class="cstat-no" title="statement not covered" >    return client.accountsApi.getAccountNonces({</span>
       principal,
     }) as Promise&lt;AddressNonces&gt;;
   };
+}
+&nbsp;
+type FetchAccountNoncesResp = Awaited&lt;ReturnType&lt;ReturnType&lt;typeof fetchAccountNonces&gt;&gt;&gt;;
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useGetAccountNoncesQuery&lt;</span>T extends unknown = FetchAccountNoncesResp&gt;(
+  options?: AppUseQueryConfig&lt;FetchAccountNoncesResp, T&gt;
+) {
+  const principal = <span class="cstat-no" title="statement not covered" >useCurrentAccountStxAddressState();</span>
+  const network = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
+  const client = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
+  const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQuery({</span>
-    queryKey: ['account-nonces', principal, network],
-    queryFn: fetchAccountNonces,
     enabled: !!principal,
+    queryKey: ['account-nonces', principal, network],
+    queryFn: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >fetchAccountNonces(client, limiter)(principal),</span>
     ...accountNoncesQueryOptions,
-  }) as UseQueryResult&lt;AddressNonces, Error&gt;;
+    ...options,
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -178,7 +205,7 @@ export function <span class="fstat-no" title="function not covered" >useGetAccou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-13T14:23:05.978Z
+                at 2022-12-19T17:45:59.163Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
