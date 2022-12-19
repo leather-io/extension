@@ -17,7 +17,7 @@ export function createTestSelector<T extends string>(name: T): `[data-testid="${
 }
 
 export function getCurrentTestName() {
-  return expect.getState().currentTestName.replaceAll(' ', '-');
+  return expect.getState().currentTestName?.replaceAll(' ', '-');
 }
 
 export function randomString(len: number) {
