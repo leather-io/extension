@@ -42,7 +42,6 @@ module.exports = {
   testMatch: ['**/?(*.)+(spec).(js|ts|tsx)'],
   testRunner: 'jest-circus/runner',
   transform: {
-    '^.+\\.tsx?$': 'babel-jest',
     '^.+\\.(j|t)sx?$': '@swc-node/jest',
   },
   cacheDirectory: '<rootDir>/.jest-cache',
