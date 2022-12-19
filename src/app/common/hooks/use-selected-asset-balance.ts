@@ -33,7 +33,7 @@ export function useSelectedAssetBalance(assetId: string) {
     } ${ticker}`;
 
     return {
-      balance: formattedSelectedAssetBalance || ftBalance,
+      balanceFormatted: formattedSelectedAssetBalance || ftBalance,
       isStx,
       name: selectedAssetBalance?.asset.name,
       placeholder,

@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
-
 import { useAtom } from 'jotai';
 
 import {
   errorStackTraceState,
   loadingState,
   routeHeaderState,
-  showEditNonceState,
   showHighFeeConfirmationState,
   showSettingsStore,
   showSwitchAccountsState,
@@ -26,10 +23,6 @@ export function useShowSettingsStore() {
   return useAtom(showSettingsStore);
 }
 
-export function useShowEditNonceState() {
-  return useAtom(showEditNonceState);
-}
-
 export function useShowTxSettingsCallback() {
   return useAtom(showTxSettingsCallback);
 }
@@ -44,15 +37,6 @@ export function useTabState(key: string) {
 
 export function useErrorStackTraceState() {
   return useAtom(errorStackTraceState);
-}
-
-export function useShowEditNonceCleanupEffect() {
-  const [showNonce, setShowNonce] = useShowEditNonceState();
-  useEffect(() => {
-    return () => {
-      if (showNonce) setShowNonce(false);
-    };
-  }, [showNonce, setShowNonce]);
 }
 
 export function useRouteHeaderState() {

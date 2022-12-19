@@ -96,6 +96,17 @@ function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
   );
 }
 
+export function useStacksFungibleTokenAssetBalance(contractId: string) {
+  const account = useCurrentAccount();
+  const assetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
+    account?.address ?? ''
+  );
+  return useMemo(() => {
+    if (!assetBalances.length) return;
+    return assetBalances.find(assetBalance => assetBalance.asset.contractId === contractId);
+  }, [assetBalances, contractId]);
+}
+
 export function useTransferableStacksFungibleTokenAssetBalances(
   address: string
 ): StacksFungibleTokenAssetBalance[] {
@@ -110,6 +121,8 @@ export function useTransferableStacksFungibleTokenAssetBalances(
  * Use caution with this hook, is incredibly expensive. To get an asset's
  * balance, we query all balances metadata (possibly hundreds) and then search
  * the results.
+ *
+ * Remove with legacy send form.
  * @deprecated
  */
 export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId: string) {
@@ -124,7 +137,7 @@ export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId: string) {
 
   return useMemo(
     () => {
-      if (!stxCryptoCurrencyAssetBalance) return undefined;
+      if (!stxCryptoCurrencyAssetBalance) return;
       return [stxCryptoCurrencyAssetBalance, ...stacksFtCryptoAssetBalances].find(
         assetBalance => getFullyQualifiedStacksAssetName(assetBalance) === selectedAssetId
       );

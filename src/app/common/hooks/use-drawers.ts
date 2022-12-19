@@ -1,5 +1,4 @@
 import {
-  useShowEditNonceState,
   useShowHighFeeConfirmationState,
   useShowSettingsStore,
   useShowSwitchAccountsState,
@@ -12,7 +11,6 @@ export function useDrawers() {
     useShowHighFeeConfirmationState();
 
   const [isShowingSettings, setIsShowingSettings] = useShowSettingsStore();
-  const [isShowingEditNonce, setIsShowingEditNonce] = useShowEditNonceState();
   const [isShowingTxSettingsCallback, setIsShowingTxSettingsCallback] = useShowTxSettingsCallback();
 
   return {
@@ -20,11 +18,8 @@ export function useDrawers() {
     setIsShowingSwitchAccountsState,
     isShowingHighFeeConfirmation,
     setIsShowingHighFeeConfirmation,
-
     isShowingSettings,
     setIsShowingSettings,
-    isShowingEditNonce,
-    setIsShowingEditNonce,
     isShowingTxSettingsCallback,
     setIsShowingTxSettingsCallback,
   };

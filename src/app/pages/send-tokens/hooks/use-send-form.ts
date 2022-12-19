@@ -5,8 +5,8 @@ import { useFormikContext } from 'formik';
 
 import { SendFormValues } from '@shared/models/form.model';
 
-import { removeCommas } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
@@ -15,22 +15,27 @@ export function useSendAmountFieldActions() {
   const { setFieldValue, values } = useFormikContext<SendFormValues>();
   const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
-  const { balance, isStx, selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
+  const { isStx, selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
 
   const handleSetSendMax = useCallback(
     (fee: number | string) => {
-      if (!selectedAssetBalance || !balance) return;
+      if (!selectedAssetBalance) return;
       if (isStx && fee) {
         const stx = microStxToStx(
           stacksBalances?.stx.availableStx.amount.minus(pendingTxsBalance) || 0
         ).minus(fee);
         if (stx.isLessThanOrEqualTo(0)) return;
         return setFieldValue('amount', stx.toNumber());
-      } else {
-        if (balance) setFieldValue('amount', removeCommas(balance));
       }
+      setFieldValue('amount', convertAmountToBaseUnit(selectedAssetBalance.balance).toString());
     },
-    [selectedAssetBalance, balance, isStx, stacksBalances, pendingTxsBalance, setFieldValue]
+    [
+      selectedAssetBalance,
+      isStx,
+      setFieldValue,
+      stacksBalances?.stx.availableStx.amount,
+      pendingTxsBalance,
+    ]
   );
 
   const handleOnKeyDown = useCallback(

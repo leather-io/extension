@@ -39,11 +39,13 @@ export enum RouteUrls {
   // Locked wallet route
   Unlock = '/unlock',
   SignatureRequest = '/signature',
+  ProfileUpdateRequest = '/update-profile',
 
   // Modal routes
-  SignOutConfirm = 'sign-out',
   ChangeTheme = 'change-theme',
+  EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
+  SignOutConfirm = 'sign-out',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',

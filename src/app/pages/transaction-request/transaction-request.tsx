@@ -17,8 +17,9 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { nonceSchema } from '@app/common/validation/nonce-schema';
 import { useFeeSchema } from '@app/common/validation/use-fee-schema';
+import { EditNonceButton } from '@app/components/edit-nonce-button';
+import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/current-account/popup-header';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -30,6 +31,7 @@ import { PostConditions } from '@app/pages/transaction-request/components/post-c
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees-legacy';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
@@ -40,7 +42,6 @@ import {
 
 import { FeeForm } from './components/fee-form';
 import { SubmitAction } from './components/submit-action';
-import { TxRequestFormNonceSetter } from './components/tx-request-form-nonce-setter';
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
@@ -54,6 +55,7 @@ function TransactionRequestBase() {
   const { walletType } = useWalletType();
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const ledgerNavigate = useLedgerNavigate();
+  const { data: nextNonce } = useNextNonce();
   const navigate = useNavigate();
 
   useRouteHeader(<PopupHeader />);
@@ -95,7 +97,7 @@ function TransactionRequestBase() {
   const initialValues: TransactionFormValues = {
     fee: '',
     feeType: FeeTypes[FeeTypes.Middle],
-    nonce: '',
+    nonce: nextNonce?.nonce,
   };
 
   return (
@@ -118,16 +120,18 @@ function TransactionRequestBase() {
           validationSchema={validationSchema}
         >
           {() => (
-            <TxRequestFormNonceSetter>
-              <FeeForm feeEstimations={feeEstimations.estimates} />
-              <SubmitAction />
-              <EditNonceDrawer />
-              <HighFeeDrawer />
-            </TxRequestFormNonceSetter>
+            <>
+              <NonceSetter>
+                <FeeForm feeEstimations={feeEstimations.estimates} />
+                <SubmitAction />
+                <EditNonceButton onEditNonce={() => navigate(RouteUrls.EditNonce)} />
+                <HighFeeDrawer />
+              </NonceSetter>
+              <Outlet />
+            </>
           )}
         </Formik>
       </Stack>
-      <Outlet />
     </Flex>
   );
 }

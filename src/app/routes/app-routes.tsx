@@ -7,6 +7,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { FullPageWithHeaderLoadingSpinner, LoadingSpinner } from '@app/components/loading-spinner';
 import { Container } from '@app/features/container/container';
+import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
@@ -33,6 +34,7 @@ import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confi
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
+import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
 import { useHasStateRehydrated } from '@app/store';
@@ -147,6 +149,7 @@ function AppRoutesAfterUserHasConsented() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route
@@ -159,7 +162,9 @@ function AppRoutesAfterUserHasConsented() {
             </AccountGate>
           }
         />
-        <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />} />
+        <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />}>
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
+        </Route>
         <Route path={RouteUrls.SendCryptoAssetFormConfirmation} element={<>confirmation</>} />
         <Route
           path={RouteUrls.TransactionRequest}
@@ -172,6 +177,7 @@ function AppRoutesAfterUserHasConsented() {
           }
         >
           {ledgerTxSigningRoutes}
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
@@ -187,6 +193,17 @@ function AppRoutesAfterUserHasConsented() {
         >
           {ledgerMessageSigningRoutes}
         </Route>
+        <Route
+          path={RouteUrls.ProfileUpdateRequest}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <ProfileUpdateRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        />
+
         <Route
           path={RouteUrls.ViewSecretKey}
           element={

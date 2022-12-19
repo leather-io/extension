@@ -7,12 +7,6 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 import { BitcoinClient } from '../bitcoin-client';
 
-const staleTime = 15 * 60 * 1000;
-
-const queryOptions = {
-  cacheTime: staleTime,
-};
-
 function fetchBitcoinFeeEstimates(client: BitcoinClient) {
   return async () => {
     const resp = (await client.feeEstimatesApi.getFeeEstimates()) as BitcoinFeeEstimates;
@@ -24,6 +18,8 @@ type FetchBitcoinFeeEstimatesResp = Awaited<
   ReturnType<ReturnType<typeof fetchBitcoinFeeEstimates>>
 >;
 
+// https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees
+// Possible alt api if needed: https://bitcoinfees.earn.com/api
 export function useGetBitcoinFeeEstimatesQuery<T extends unknown = FetchBitcoinFeeEstimatesResp>(
   options?: AppUseQueryConfig<FetchBitcoinFeeEstimatesResp, T>
 ) {
@@ -32,7 +28,6 @@ export function useGetBitcoinFeeEstimatesQuery<T extends unknown = FetchBitcoinF
   return useQuery({
     queryKey: ['bitcoin-fee-estimates'],
     queryFn: fetchBitcoinFeeEstimates(client),
-    ...queryOptions,
     ...options,
   });
 }

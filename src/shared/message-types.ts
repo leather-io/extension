@@ -1,4 +1,5 @@
 import { FinishedTxPayload, SignatureData, SponsoredFinishedTxPayload } from '@stacks/connect';
+import { PublicProfile } from '@stacks/profile';
 
 export const MESSAGE_SOURCE = 'stacks-wallet' as const;
 
@@ -13,6 +14,8 @@ export enum ExternalMethods {
   signatureResponse = 'signatureResponse',
   structuredDataSignatureRequest = 'structuredDataSignatureRequest',
   structuredDataSignatureResponse = 'structuredDataSignatureResponse',
+  profileUpdateRequest = 'profileUpdateRequest',
+  profileUpdateResponse = 'profileUpdateResponse',
 }
 
 export enum InternalMethods {
@@ -64,6 +67,16 @@ type StructuredDataSignatureRequestMessage = Message<
   string
 >;
 
+type ProfileUpdateRequestMessage = Message<ExternalMethods.profileUpdateRequest, string>;
+
+export type ProfileUpdateResponseMessage = Message<
+  ExternalMethods.profileUpdateResponse,
+  {
+    profileUpdateRequest: string;
+    profileUpdateResponse: PublicProfile | string;
+  }
+>;
+
 type TransactionRequestMessage = Message<ExternalMethods.transactionRequest, string>;
 
 export type TxResult = SponsoredFinishedTxPayload | FinishedTxPayload;
@@ -80,9 +93,11 @@ export type LegacyMessageFromContentScript =
   | AuthenticationRequestMessage
   | TransactionRequestMessage
   | SignatureRequestMessage
-  | StructuredDataSignatureRequestMessage;
+  | StructuredDataSignatureRequestMessage
+  | ProfileUpdateRequestMessage;
 
 export type LegacyMessageToContentScript =
   | AuthenticationResponseMessage
   | TransactionResponseMessage
-  | SignatureResponseMessage;
+  | SignatureResponseMessage
+  | ProfileUpdateResponseMessage;
