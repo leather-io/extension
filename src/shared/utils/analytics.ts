@@ -43,6 +43,7 @@ export function initSentry() {
     integrations: [new BrowserTracing()],
     tracesSampleRate: 1.0,
     environment: WALLET_ENVIRONMENT,
+    autoSessionTracking: false,
     async beforeSend(event) {
       const state = (await getStoredState(persistConfig)) as RootState;
       const hasAllowedAnalytics = state.settings.hasAllowedAnalytics;
@@ -50,6 +51,8 @@ export function initSentry() {
       if (!hasAllowedAnalytics) return null;
 
       delete event.user?.ip_address;
+      delete event.extra?.ip_address;
+
       return event;
     },
   });
