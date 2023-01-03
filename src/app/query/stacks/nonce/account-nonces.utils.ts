@@ -90,7 +90,7 @@ export function parseAccountNoncesResponse({
   const pendingTxsNonces = pendingTransactions
     .filter(tx => tx.sender_address === senderAddress)
     ?.map(tx => tx.nonce);
-  const lastPendingTxNonce = pendingTransactions[0]?.nonce;
+  const lastPendingTxNonce = pendingTxsNonces[0];
   const confirmedTxsNonces = confirmedTransactions
     .filter(tx => tx.sender_address === senderAddress)
     ?.map(tx => tx.nonce);
@@ -101,12 +101,13 @@ export function parseAccountNoncesResponse({
   const firstPendingMissingNonce = pendingTxsMissingNonces.sort()[0];
 
   const hasApiMissingNonces = detectedMissingNonces?.length > 0;
-  const hasPendingTxs = pendingTransactions?.length > 0;
+  const hasPendingTxsNonces = pendingTxsNonces.length > 0;
   const pendingTxsHasMissingNonces = pendingTxsMissingNonces.length > 0;
-  const apiReturnsMissingNoncesAndPendingTransactions = hasApiMissingNonces && hasPendingTxs;
-  const apiReturnsMissingNoncesButNoPendingTransactions = hasApiMissingNonces && !hasPendingTxs;
+  const apiReturnsMissingNoncesAndPendingTransactions = hasApiMissingNonces && hasPendingTxsNonces;
+  const apiReturnsMissingNoncesButNoPendingTransactions =
+    hasApiMissingNonces && !hasPendingTxsNonces;
   const apiReturnsPendingTransactionsWithPossibleNextNonce =
-    hasPendingTxs && pendingTxsNoncesIncludesApiPossibleNextNonce;
+    hasPendingTxsNonces && pendingTxsNoncesIncludesApiPossibleNextNonce;
   const lastExecutedNonceIsNotTheFirstMissingNonce = lastExecutedNonce !== firstMissingNonce;
 
   if (apiSuggestsImpossibleZeroNonceWithConfirmedTxs(confirmedTxsNonces, possibleNextNonce))
