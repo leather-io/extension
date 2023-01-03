@@ -122,6 +122,18 @@ const config = {
           target: 'es2015',
         },
       },
+      // Babel is only required for some css-in-js features Additional plugins
+      // should not be used. Favour esbuild configuration.
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['@emotion'],
+          },
+        },
+      },
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
