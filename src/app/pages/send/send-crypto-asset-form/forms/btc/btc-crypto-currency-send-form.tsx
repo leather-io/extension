@@ -7,7 +7,10 @@ import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { btcAmountSchema } from '@app/common/validation/currency-schema';
+import { formatPrecisionError } from '@app/common/error-formatters';
+import { btcAddressValidator } from '@app/common/validation/forms/address-validators';
+import { btcAmountValidator } from '@app/common/validation/forms/currency-validators';
+import { btcFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
@@ -23,7 +26,6 @@ import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
 import { createDefaultInitialFormValues } from '../../form-utils';
-import { btcAddressValidator } from '../../validators/recipient-validators';
 
 interface BtcCryptoCurrencySendFormProps {}
 export function BtcCryptoCurrencySendForm({}: BtcCryptoCurrencySendFormProps) {
@@ -52,12 +54,20 @@ export function BtcCryptoCurrencySendForm({}: BtcCryptoCurrencySendFormProps) {
   }
 
   const validationSchema = yup.object({
-    amount: btcAmountSchema('Bitcoin can only be units of one-hundred million'),
+    amount: btcAmountValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance)),
     recipient: btcAddressValidator(),
+    fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
   });
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validateOnBlur={false}
+      validateOnChange={false}
+      validateOnMount={false}
+      validationSchema={validationSchema}
+    >
       <Form>
         <AmountField symbol="BTC" rightInputOverlay={<SendAllButton />} />
         <FormFieldsLayout>

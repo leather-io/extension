@@ -33,15 +33,24 @@ function parseBitcoinFeeEstimatesResponse({
     blockchain: 'bitcoin',
     estimates: [
       {
-        fee: createMoney(new BigNumber(feeEstimates['1']).multipliedBy(txByteLength), 'BTC'),
+        fee: createMoney(
+          new BigNumber(feeEstimates['1']).multipliedBy(txByteLength).decimalPlaces(0, 6),
+          'BTC'
+        ),
         feeRate: feeEstimates['1'],
       },
       {
-        fee: createMoney(new BigNumber(feeEstimates['5']).multipliedBy(txByteLength), 'BTC'),
+        fee: createMoney(
+          new BigNumber(feeEstimates['5']).multipliedBy(txByteLength).decimalPlaces(0, 6),
+          'BTC'
+        ),
         feeRate: feeEstimates['5'],
       },
       {
-        fee: createMoney(new BigNumber(feeEstimates['10']).multipliedBy(txByteLength), 'BTC'),
+        fee: createMoney(
+          new BigNumber(feeEstimates['10']).multipliedBy(txByteLength).decimalPlaces(0, 6),
+          'BTC'
+        ),
         feeRate: feeEstimates['10'],
       },
     ],
