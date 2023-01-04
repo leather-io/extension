@@ -10,7 +10,7 @@ function isTxMemoValid(memo: string) {
   return !exceedsMaxLengthBytes(memo, MEMO_MAX_LENGTH_BYTES);
 }
 
-export function transactionMemoSchema(errorMsg: string) {
+export function stxMemoValidator(errorMsg: string) {
   return yup.string().test({
     message: errorMsg,
     test(value: unknown) {

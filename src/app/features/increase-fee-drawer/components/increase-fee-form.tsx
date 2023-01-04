@@ -11,7 +11,7 @@ import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion'
 import { stacksValue } from '@app/common/stacks-utils';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
-import { useFeeSchema } from '@app/common/validation/use-fee-schema';
+import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { Caption } from '@app/components/typography';
@@ -32,7 +32,6 @@ export function IncreaseFeeForm() {
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
-  const feeSchema = useFeeSchema();
   const rawTx = useRawDeserializedTxState();
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
@@ -82,7 +81,7 @@ export function IncreaseFeeForm() {
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
-      validationSchema={yup.object({ fee: feeSchema() })}
+      validationSchema={yup.object({ fee: stxFeeValidator(balances?.stx.availableStx) })}
     >
       {() => (
         <Stack spacing="extra-loose">

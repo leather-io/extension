@@ -6,19 +6,20 @@ import { initBigNumber } from '../utils';
 
 function fractionalUnitToUnit(decimals: number) {
   return (unit: number | string | BigNumber) => {
-    const satBigNumber = initBigNumber(unit);
-    return satBigNumber.shiftedBy(-decimals);
+    const unitBigNumber = initBigNumber(unit);
+    return unitBigNumber.shiftedBy(-decimals);
   };
 }
 
 function unitToFractionalUnit(decimals: number) {
   return (unit: number | string | BigNumber) => {
-    const satBigNumber = initBigNumber(unit);
-    return satBigNumber.shiftedBy(decimals);
+    const unitBigNumber = initBigNumber(unit);
+    return unitBigNumber.shiftedBy(decimals);
   };
 }
 
 export const satToBtc = fractionalUnitToUnit(BTC_DECIMALS);
+export const btcToSat = unitToFractionalUnit(BTC_DECIMALS);
 
 export const microStxToStx = fractionalUnitToUnit(STX_DECIMALS);
 export const stxToMicroStx = unitToFractionalUnit(STX_DECIMALS);

@@ -1,6 +1,8 @@
 import { Box, Flex, Stack, Text, color } from '@stacks/ui';
 import { useField } from 'formik';
 
+import { ErrorLabel } from '@app/components/error-label';
+
 import {
   amountInputId,
   assetSymbolId,
@@ -13,11 +15,11 @@ interface AmountFieldProps {
   rightInputOverlay: JSX.Element;
 }
 export function AmountField({ symbol, rightInputOverlay }: AmountFieldProps) {
-  const [field] = useField('amount');
+  const [field, meta] = useField('amount');
   const { inputFontSize, symbolTextWidth } = useFontResizer();
 
   return (
-    <Stack alignItems="center" spacing="48px">
+    <Stack alignItems="center" spacing={meta.error ? 'base' : '48px'}>
       <Flex
         alignItems="center"
         height="55px"
@@ -47,8 +49,8 @@ export function AmountField({ symbol, rightInputOverlay }: AmountFieldProps) {
             {symbol.toUpperCase()}
           </Text>
         </Flex>
-        {/* TODO: Add errors with validations */}
       </Flex>
+      {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
       {rightInputOverlay}
     </Stack>
   );

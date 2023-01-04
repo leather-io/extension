@@ -79,6 +79,7 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
       feeField={
         isCustom ? (
           <CustomFeeField
+            feeCurrencySymbol={feeCurrencySymbol}
             lowFeeEstimate={fees.estimates[FeeTypes.Low]}
             setFieldWarning={(value: string) => setFieldWarning(value)}
           />

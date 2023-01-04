@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const nonceSchema = yup
+export const nonceValidator = yup
   .number()
   .integer()
   .min(0, 'Nonce must be zero or more')

@@ -6,8 +6,6 @@ import { SponsoredLabel } from '@app/components/sponsored-label';
 import { Caption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
 
-import { FeeError } from './fee-error';
-
 interface FeesRowLayoutProps extends StackProps {
   feeField: JSX.Element;
   fieldWarning?: string;
@@ -27,7 +25,6 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
         </Stack>
         {feeField}
       </SpaceBetween>
-      {meta.error && <FeeError />}
       {isSponsored && <SponsoredLabel />}
       {!meta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
     </Stack>
