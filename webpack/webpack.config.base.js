@@ -116,21 +116,21 @@ const config = {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'tsx',
-          target: 'es2015',
-        },
-      },
-      // Babel is only required for some css-in-js features Additional plugins
-      // should not be used. Favour esbuild configuration.
-      {
-        test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: ['@emotion'],
+            presets: [
+              '@babel/preset-typescript',
+              [
+                '@babel/preset-react',
+                {
+                  runtime: 'automatic',
+                  importSource: '@emotion/react',
+                },
+              ],
+            ],
+            plugins: ['@emotion', IS_DEV && require.resolve('react-refresh/babel')].filter(Boolean),
           },
         },
       },
