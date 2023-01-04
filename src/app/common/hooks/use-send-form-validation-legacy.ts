@@ -2,33 +2,32 @@ import { useCallback, useMemo } from 'react';
 
 import * as yup from 'yup';
 
-import { STX_DECIMALS } from '@shared/constants';
 import { createMoney } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
-import { SendFormErrorMessages } from '@app/common/error-messages';
+import { FormErrorMessages } from '@app/common/error-messages';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { useWallet } from '@app/common/hooks/use-wallet';
-import { makeStacksFungibleTokenSchema } from '@app/common/validation/amount-schema';
-import { stxAmountSchema } from '@app/common/validation/currency-schema';
-import { nonceSchema } from '@app/common/validation/nonce-schema';
 import {
   stxAddressNetworkValidatorFactory,
-  stxAddressSchema,
+  stxAddressValidator,
   stxNotCurrentAddressValidatorFactory,
-} from '@app/common/validation/stx-address-schema';
-import { useFeeSchema } from '@app/common/validation/use-fee-schema';
-import { transactionMemoSchema } from '@app/common/validation/validate-memo';
+} from '@app/common/validation/forms/address-validators';
+import { stxAmountValidator } from '@app/common/validation/forms/currency-validators';
+import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
+import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 import { stxToMicroStx } from '../money/unit-conversion';
+import { stacksFungibleTokenValidator } from '../validation/forms/amount-validators';
+import { stxFeeValidator } from '../validation/forms/fee-validators';
 
 function useFungibleTokenAmountSchema(selectedAssetId: string) {
   const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   return useCallback(
-    () => makeStacksFungibleTokenSchema(selectedAssetBalance?.balance ?? createMoney(0, 'STX')),
+    () => stacksFungibleTokenValidator(selectedAssetBalance?.balance ?? createMoney(0, 'STX')),
     [selectedAssetBalance]
   );
 }
@@ -46,15 +45,16 @@ export const useStacksSendFormValidationLegacy = ({
   const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const fungibleTokenSchema = useFungibleTokenAmountSchema(selectedAssetId);
-  const feeSchema = useFeeSchema();
   const client = useStacksClientUnanchored();
+
+  const availableStxBalance = stacksBalances?.stx.availableStx;
 
   // TODO: Can this be removed?
   const selectedAssetSchema = useCallback(
     () =>
       yup.mixed().test(() => {
         if (!selectedAssetBalance) {
-          setAssetError(SendFormErrorMessages.MustSelectAsset);
+          setAssetError(FormErrorMessages.MustSelectAsset);
         } else {
           setAssetError(undefined);
         }
@@ -65,8 +65,8 @@ export const useStacksSendFormValidationLegacy = ({
 
   const stxAmountFormSchema = useCallback(
     () =>
-      stxAmountSchema(formatPrecisionError('STX', STX_DECIMALS)).test({
-        message: formatInsufficientBalanceError(stacksBalances?.stx.availableStx.amount, 'STX'),
+      stxAmountValidator(formatPrecisionError(availableStxBalance)).test({
+        message: formatInsufficientBalanceError(availableStxBalance),
         test(value: unknown) {
           const fee = stxToMicroStx(this.parent.fee);
           if (!stacksBalances || !isNumber(value)) return false;
@@ -74,34 +74,34 @@ export const useStacksSendFormValidationLegacy = ({
           return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
         },
       }),
-    [stacksBalances]
+    [availableStxBalance, stacksBalances]
   );
 
-  const amountSchema = useCallback(
+  const amountValidator = useCallback(
     () =>
       yup
         .number()
         .required()
-        .positive(SendFormErrorMessages.MustNotBeZero)
+        .positive(FormErrorMessages.MustNotBeZero)
         .concat(isStx ? stxAmountFormSchema() : fungibleTokenSchema()),
     [fungibleTokenSchema, isStx, stxAmountFormSchema]
   );
 
-  const addressSchema = stxAddressSchema(SendFormErrorMessages.InvalidAddress)
+  const addressValidator = stxAddressValidator(FormErrorMessages.InvalidAddress)
     .test({
-      message: SendFormErrorMessages.IncorrectAddressMode,
+      message: FormErrorMessages.IncorrectNetworkAddress,
       test: stxAddressNetworkValidatorFactory(currentNetwork),
     })
     .test({
-      message: SendFormErrorMessages.SameAddress,
+      message: FormErrorMessages.SameAddress,
       test: stxNotCurrentAddressValidatorFactory(currentAccountStxAddress || ''),
     });
 
-  const recipientAddressOrBnsNameSchema = yup.string().test({
+  const recipientAddressOrBnsNameValidator = yup.string().test({
     name: 'recipientAddressOrBnsName',
     test: async value => {
       try {
-        await addressSchema.validate(value);
+        await addressValidator.validate(value);
         return true;
       } catch (e) {}
       try {
@@ -114,19 +114,25 @@ export const useStacksSendFormValidationLegacy = ({
     },
   });
 
-  const recipientSchema = addressSchema;
+  const recipientValidator = addressValidator;
 
   return useMemo(
     () =>
       yup.object({
-        amount: amountSchema(),
-        fee: feeSchema(),
-        memo: transactionMemoSchema(SendFormErrorMessages.MemoExceedsLimit),
-        nonce: nonceSchema,
-        recipient: recipientSchema,
-        recipientAddressOrBnsName: recipientAddressOrBnsNameSchema,
+        amount: amountValidator(),
+        fee: stxFeeValidator(availableStxBalance),
+        memo: stxMemoValidator(FormErrorMessages.MemoExceedsLimit),
+        nonce: nonceValidator,
+        recipient: recipientValidator,
+        recipientAddressOrBnsName: recipientAddressOrBnsNameValidator,
         selectedAsset: selectedAssetSchema(),
       }),
-    [recipientAddressOrBnsNameSchema, amountSchema, feeSchema, recipientSchema, selectedAssetSchema]
+    [
+      amountValidator,
+      availableStxBalance,
+      recipientValidator,
+      recipientAddressOrBnsNameValidator,
+      selectedAssetSchema,
+    ]
   );
 };

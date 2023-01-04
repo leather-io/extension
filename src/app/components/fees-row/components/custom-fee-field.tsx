@@ -4,6 +4,7 @@ import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useField } from 'formik';
 
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
@@ -11,11 +12,12 @@ import { SendFormWarningMessages } from '@app/common/warning-messages';
 import { Caption } from '@app/components/typography';
 
 interface CustomFeeFieldProps extends StackProps {
+  feeCurrencySymbol: CryptoCurrencies;
   lowFeeEstimate: StacksFeeEstimate;
   setFieldWarning(value: string): void;
 }
 export function CustomFeeField(props: CustomFeeFieldProps) {
-  const { lowFeeEstimate, setFieldWarning, ...rest } = props;
+  const { feeCurrencySymbol, lowFeeEstimate, setFieldWarning, ...rest } = props;
   const [input, meta, helpers] = useField('fee');
 
   const checkFieldWarning = useCallback(
@@ -40,7 +42,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
         width="130px"
       >
         <Caption as="label" htmlFor="fee" position="absolute" right={2} zIndex={999}>
-          STX
+          {feeCurrencySymbol}
         </Caption>
         <Input
           autoComplete="off"
@@ -57,8 +59,8 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
             // with the low fee warning present.
             checkFieldWarning(evt.currentTarget.value);
           }}
-          paddingRight="38px"
-          placeholder="0.000000"
+          pr="38px"
+          placeholder="0"
           textAlign="right"
           type="number"
           value={input.value}

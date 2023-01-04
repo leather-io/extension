@@ -15,8 +15,8 @@ import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { nonceSchema } from '@app/common/validation/nonce-schema';
-import { useFeeSchema } from '@app/common/validation/use-fee-schema';
+import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
+import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -30,6 +30,7 @@ import { PostConditionModeWarning } from '@app/pages/transaction-request/compone
 import { PostConditions } from '@app/pages/transaction-request/components/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees-legacy';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -50,10 +51,10 @@ function TransactionRequestBase() {
   const txByteLength = useTxRequestEstimatedUnsignedTxByteLengthState();
   const txPayload = useTxRequestSerializedUnsignedTxPayloadState();
   const feeEstimations = useStacksFeeEstimations(txByteLength, txPayload);
-  const feeSchema = useFeeSchema();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
+  const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const ledgerNavigate = useLedgerNavigate();
   const { data: nextNonce } = useNextNonce();
   const navigate = useNavigate();
@@ -91,7 +92,10 @@ function TransactionRequestBase() {
   if (!transactionRequest) return null;
 
   const validationSchema = !transactionRequest.sponsored
-    ? yup.object({ fee: feeSchema(), nonce: nonceSchema })
+    ? yup.object({
+        fee: stxFeeValidator(stacksBalances?.stx.availableStx),
+        nonce: nonceValidator,
+      })
     : null;
 
   const initialValues: TransactionFormValues = {

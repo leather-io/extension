@@ -3,7 +3,8 @@ import { SECRET_KEY_2 } from '@tests-legacy/mocks';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { SendFormErrorMessages } from '@app/common/error-messages';
+import { formatErrorWithSymbol } from '@app/common/error-formatters';
+import { FormErrorMessages } from '@app/common/error-messages';
 import { delay } from '@app/common/utils';
 
 import { SendPage } from '../../page-objects/send-form.page';
@@ -106,7 +107,7 @@ describe(`Send tokens flow`, () => {
       await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
-      expect(errorMessage).toContain('The address is for the incorrect Stacks network');
+      expect(errorMessage).toContain(FormErrorMessages.IncorrectNetworkAddress);
     });
 
     it('validates that the address used is invalid', async () => {
@@ -117,7 +118,7 @@ describe(`Send tokens flow`, () => {
       await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
-      expect(errorMessage).toContain(SendFormErrorMessages.InvalidAddress);
+      expect(errorMessage).toContain(FormErrorMessages.InvalidAddress);
     });
 
     it('validates that the address is same as sender', async () => {
@@ -128,7 +129,7 @@ describe(`Send tokens flow`, () => {
       await sendForm.page.waitForSelector(sendForm.getSelector('$stxAddressFieldError'));
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$stxAddressFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
-      expect(errorMessage).toContain(SendFormErrorMessages.SameAddress);
+      expect(errorMessage).toContain(FormErrorMessages.SameAddress);
     });
 
     it('validates that the amount must be number', async () => {
@@ -138,7 +139,7 @@ describe(`Send tokens flow`, () => {
       await sendForm.clickPreviewTxBtn();
       const errorMsgElement = await sendForm.page.$$(sendForm.getSelector('$amountFieldError'));
       const errorMessage = await errorMsgElement[0].innerText();
-      expect(errorMessage).toContain(SendFormErrorMessages.MustBeNumber);
+      expect(errorMessage).toContain(formatErrorWithSymbol('STX', FormErrorMessages.MustBeNumber));
     });
 
     it('validates against a negative amount of tokens', async () => {
