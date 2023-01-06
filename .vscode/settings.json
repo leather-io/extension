@@ -1,3 +1,4 @@
 {
-  "prettier.documentSelectors": ["src/**/*.{ts,tsx}", "*.{js,json}"]
+  "prettier.documentSelectors": ["src/**/*.{ts,tsx}", "*.{js,json}"],
+  "vitest.include": ["src/**/*.spec.ts"]
 }

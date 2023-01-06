@@ -34,13 +34,11 @@ describe('Bitcoin bech32 (P2WPKH address derivation', () => {
     ];
 
     describe.each(accounts)('bitcoinjs-lib implementation', account => {
-      describe(account.path, () => {
-        const address = derivePayToWitnessPublicKeyHashAddressFromXpub(
-          account.extended_public_key,
-          0
-        );
-        test('bech 32 address', () => expect(address).toEqual(account.zeroIndexChildAddress));
-      });
+      const address = derivePayToWitnessPublicKeyHashAddressFromXpub(
+        account.extended_public_key,
+        0
+      );
+      test('bech 32 address', () => expect(address).toEqual(account.zeroIndexChildAddress));
     });
   });
 });

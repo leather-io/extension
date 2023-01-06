@@ -1,5 +1,5 @@
 import { HDKey } from '@scure/bip32';
-import * as bitcoin from 'bitcoinjs-lib';
+import * as btc from 'micro-btc-signer';
 
 function deriveBip32KeychainFromExtendedPublicKey(xpub: string) {
   return HDKey.fromExtendedKey(xpub);
@@ -8,5 +8,5 @@ function deriveBip32KeychainFromExtendedPublicKey(xpub: string) {
 export function derivePayToWitnessPublicKeyHashAddressFromXpub(xpub: string, index: number) {
   const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
   const zeroAddressIndex = keychain.deriveChild(0).deriveChild(index);
-  return bitcoin.payments.p2wpkh({ pubkey: Buffer.from(zeroAddressIndex.publicKey!) }).address;
+  return btc.p2wpkh(zeroAddressIndex.publicKey!).address;
 }

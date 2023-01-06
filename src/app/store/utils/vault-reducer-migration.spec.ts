@@ -1,9 +1,10 @@
 import { LocalStorageMock } from '@tests-legacy/mocks/localStorage-mock';
+import { vi } from 'vitest';
 
 import { defaultKeyId } from '../keys/key.slice';
 import { migrateVaultReducerStoreToNewStateStructure } from './vault-reducer-migration';
 
-(global as any).localStorage = new LocalStorageMock();
+(globalThis as any).localStorage = new LocalStorageMock();
 
 describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
   describe('no migration needed scenario', () => {
@@ -20,7 +21,7 @@ describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
     });
 
     test('that it reads localstorage wallet values', () => {
-      jest.spyOn(global.localStorage.__proto__, 'getItem');
+      vi.spyOn(global.localStorage.__proto__, 'getItem');
 
       migrateVaultReducerStoreToNewStateStructure({} as any);
 
@@ -45,7 +46,7 @@ describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
 
     // This functionality should be re-added, post a successful launch of the wallet refactor
     test.skip('it removes the existing existing localStorage values', () => {
-      jest.spyOn(global.localStorage.__proto__, 'removeItem');
+      vi.spyOn(global.localStorage.__proto__, 'removeItem');
       migrateVaultReducerStoreToNewStateStructure({} as any);
       expect(localStorage.removeItem).toHaveBeenCalledWith('stacks-wallet-salt');
       expect(localStorage.removeItem).toHaveBeenCalledWith('stacks-wallet-encrypted-key');
