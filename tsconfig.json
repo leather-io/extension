@@ -34,7 +34,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["jest", "chrome", "@emotion/react/types/css-prop"]
+    "types": ["jest", "vitest/globals", "chrome", "@emotion/react/types/css-prop"]
   },
   "include": ["./src/**/*", "./tests/**/*", "./tests-legacy/**/*", "./scripts-ts/**/*"],
   "exclude": ["test-app"]

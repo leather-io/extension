@@ -8,8 +8,9 @@ import {
   serializePostCondition,
 } from '@stacks/transactions';
 import BN from 'bn.js';
+import { vi } from 'vitest';
 
-(window as any).fetch = jest.fn(() => ({
+(window as any).fetch = vi.fn(() => ({
   text: () => Promise.resolve(1),
   ok: true,
 }));
