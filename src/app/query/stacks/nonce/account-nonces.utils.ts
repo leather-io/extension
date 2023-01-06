@@ -1,7 +1,7 @@
 import { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 import { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
 
-export enum NonceTypes {
+enum NonceTypes {
   apiSuggestedNonce = 'api-suggested-nonce',
   clientFallbackNonce = 'client-fallback-nonce',
   undefinedNonce = 'undefined-nonce',

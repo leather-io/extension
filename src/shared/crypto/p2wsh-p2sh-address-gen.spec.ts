@@ -2,7 +2,7 @@ import { sha256 } from '@noble/hashes/sha256';
 import { base58check } from '@scure/base';
 import { HDKey } from '@scure/bip32';
 import { hashP2WPKH } from '@stacks/transactions';
-import bip32Factory from 'bip32';
+import { BIP32Factory } from 'bip32';
 import * as bip39 from 'bip39';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as ecc from 'tiny-secp256k1';
@@ -19,7 +19,7 @@ import {
 } from './p2wsh-p2sh-address-gen';
 
 describe('Bitcoin SegWit (P2WPKH-P2SH) address generation', () => {
-  const bip32 = bip32Factory(ecc);
+  const bip32 = BIP32Factory(ecc);
   //
   // https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.spec.ts
   describe('Sanity check tests copied from `bitcoinjs-lib` vs other libs', () => {
