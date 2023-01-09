@@ -1,3 +1,20 @@
+## [3.29.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.28.0...v3.29.0) (2022-12-19)
+
+
+### Features
+
+* add support for update-profile request ([17e624d](https://github.com/hirosystems/stacks-wallet-web/commit/17e624d54cdb6951b50ceb521b5bf7a3b7700167))
+
+
+### Bug Fixes
+
+* send max, closes [#2922](https://github.com/hirosystems/stacks-wallet-web/issues/2922) ([7942615](https://github.com/hirosystems/stacks-wallet-web/commit/7942615d6c32846cfd0982f11685b579515c8eab))
+
+
+### Internal
+
+* edit nonce ([34084b9](https://github.com/hirosystems/stacks-wallet-web/commit/34084b9f5f185c724bc59c5c8ee6142c6babb69b))
+
 ## [3.28.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.27.0...v3.28.0) (2022-12-13)
 
 
