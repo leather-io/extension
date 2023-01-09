@@ -10,7 +10,7 @@ import {
 } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
-import { getCoreApiUrl, getPayloadFromToken } from '@shared/utils/requests';
+import { getPayloadFromToken } from '@shared/utils/requests';
 
 import { popupCenter } from './popup-center';
 
@@ -87,9 +87,8 @@ async function triggerRequestWindowOpen(path: RouteUrls, urlParams: URLSearchPar
 function getNetworkParamsFromPayload(payload: string): [string, string][] {
   const { network } = getPayloadFromToken(payload);
   if (!network) return [];
-  const developerDefinedApiUrl = getCoreApiUrl(network);
   return [
-    ['coreApiUrl', developerDefinedApiUrl],
+    ['coreApiUrl', network.coreApiUrl],
     ['networkChainId', network.chainId.toString()],
   ];
 }
