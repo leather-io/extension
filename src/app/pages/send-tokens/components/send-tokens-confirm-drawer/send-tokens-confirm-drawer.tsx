@@ -5,7 +5,7 @@ import { Stack } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
-import { SendFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -31,8 +31,8 @@ interface SendTokensSoftwareConfirmDrawerProps extends BaseDrawerProps {
 }
 export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirmDrawerProps) {
   const { isShowing, onClose, onUserSelectBroadcastTransaction } = props;
-  const { values } = useFormikContext<SendFormValues>();
-  const unsignedTransaction = useSendFormUnsignedTxPreviewState(values.assetId, values);
+  const { values } = useFormikContext<StacksSendFormValues>();
+  const unsignedTransaction = useSendFormUnsignedTxPreviewState(values.assetId ?? '', values);
   const analytics = useAnalytics();
 
   const convertStxToUsd = useConvertCryptoCurrencyToFiatAmount('STX');
@@ -54,7 +54,7 @@ export function SendTokensSoftwareConfirmDrawer(props: SendTokensSoftwareConfirm
       <Stack pb="extra-loose" px="loose" spacing="base">
         <SendTokensConfirmDetails
           amount={values.amount}
-          assetId={values.assetId}
+          assetId={values.assetId ?? ''}
           recipient={values.recipient}
         />
         <SpaceBetween>

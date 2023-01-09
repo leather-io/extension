@@ -17,7 +17,7 @@ import {
 } from '@stacks/transactions';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
-import type { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
+import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { ftUnshiftDecimals } from '@app/common/stacks-utils';
@@ -59,7 +59,7 @@ export function useGenerateStxTokenTransferUnsignedTx() {
   const account = useCurrentAccount();
 
   return useCallback(
-    async (values?: SendFormValues) => {
+    async (values?: StacksSendFormValues) => {
       if (!account) return;
 
       const options: GenerateUnsignedTransactionOptions = {
@@ -82,11 +82,11 @@ export function useGenerateStxTokenTransferUnsignedTx() {
       };
       return generateUnsignedTransaction(options);
     },
-    [account, nextNonce?.nonce, network]
+    [account, nextNonce, network]
   );
 }
 
-export function useStxTokenTransferUnsignedTxState(values?: SendFormValues) {
+export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues) {
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
   const { data: nextNonce } = useNextNonce();
   const network = useCurrentStacksNetworkState();
@@ -109,7 +109,7 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
   const assetTransferState = useMakeFungibleTokenTransfer(tokenCurrencyAssetBalance);
 
   return useCallback(
-    async (values?: SendFormValues | TransactionFormValues) => {
+    async (values?: StacksSendFormValues | StacksTransactionFormValues) => {
       if (!assetTransferState || !account) return;
 
       const {
@@ -178,12 +178,15 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
 
       return generateUnsignedTransaction(options);
     },
-    [account, assetTransferState, nextNonce?.nonce]
+    [account, assetTransferState, nextNonce]
   );
 }
 
 // TODO: Refactor when remove legacy send form?
-export function useFtTokenTransferUnsignedTx(selectedAssetId: string, values?: SendFormValues) {
+export function useFtTokenTransferUnsignedTx(
+  selectedAssetId: string,
+  values?: StacksSendFormValues
+) {
   const generateTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
   const account = useCurrentAccount();
   const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);

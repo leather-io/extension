@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 
 import { useFormikContext } from 'formik';
 
-import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 
@@ -11,7 +11,7 @@ interface NonceSetterProps {
 }
 export function NonceSetter({ children }: NonceSetterProps) {
   const { setFieldValue, touched, values } = useFormikContext<
-    SendFormValues | TransactionFormValues
+    StacksSendFormValues | StacksTransactionFormValues
   >();
   const { data: nextNonce } = useNextNonce();
 

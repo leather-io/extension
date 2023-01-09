@@ -1,7 +1,7 @@
 import { Button, Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
-import { TransactionFormValues } from '@shared/models/form.model';
+import { StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -11,7 +11,7 @@ import { Caption, Title } from '@app/components/typography';
 const url = 'https://hiro.so/questions/fee-estimates';
 
 export function HighFeeConfirmation(): JSX.Element | null {
-  const { handleSubmit, values } = useFormikContext<TransactionFormValues>();
+  const { handleSubmit, values } = useFormikContext<StacksTransactionFormValues>();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
 
   return (

@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
-import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
+import { isUndefined } from '@shared/utils';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 
@@ -29,12 +31,19 @@ const CustomFeeMessaging = () => {
 
 export function EditNonceDrawer() {
   const { errors, setFieldError, setFieldValue, validateField, values } = useFormikContext<
-    SendFormValues | TransactionFormValues
+    StacksSendFormValues | StacksTransactionFormValues
   >();
+  const { data: nextNonce } = useNextNonce();
   const [loadedNextNonce, setLoadedNextNonce] = useState<number | string>();
   const navigate = useNavigate();
 
-  useOnMount(() => setLoadedNextNonce(values.nonce));
+  useOnMount(() => {
+    // Make sure the nonce value is set when the form is launched bc at times
+    // the next nonce is slow to load and is undefined when the initial
+    // form values are set by the send form
+    if (isUndefined(values.nonce)) setFieldValue('nonce', nextNonce?.nonce);
+    setLoadedNextNonce(values.nonce);
+  });
 
   const onBlur = useCallback(() => {
     validateField('nonce');

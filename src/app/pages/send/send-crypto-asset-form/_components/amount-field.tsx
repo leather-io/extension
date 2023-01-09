@@ -8,7 +8,7 @@ import {
   assetSymbolId,
   maxInputContainerWidth,
   useFontResizer,
-} from '../hooks/use-font-resizer';
+} from '../_hooks/use-font-resizer';
 
 interface AmountFieldProps {
   symbol: string;
@@ -19,7 +19,7 @@ export function AmountField({ symbol, rightInputOverlay }: AmountFieldProps) {
   const { inputFontSize, symbolTextWidth } = useFontResizer();
 
   return (
-    <Stack alignItems="center" spacing={meta.error ? 'base' : '48px'}>
+    <Stack alignItems="center" spacing={['base', meta.error ? 'base' : '48px']}>
       <Flex
         alignItems="center"
         height="55px"

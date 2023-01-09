@@ -37,7 +37,7 @@ export function SelectedAssetField({
           <Text ml="tight" mr="extra-tight">
             {name}
           </Text>
-          <Text>({symbol})</Text>
+          <Text>({symbol.toUpperCase()})</Text>
         </Flex>
       </SpaceBetween>
     </Field>

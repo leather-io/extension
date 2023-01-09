@@ -5,9 +5,11 @@ import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
+import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
+import { useWalletType } from '@app/common/use-wallet-type';
 import { btcAddressValidator } from '@app/common/validation/forms/address-validators';
 import { btcAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { btcFeeValidator } from '@app/common/validation/forms/fee-validators';
@@ -17,22 +19,22 @@ import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address
 import { useBitcoinFees } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
 
-import { AmountField } from '../../components/amount-field';
-import { FormErrors } from '../../components/form-errors';
-import { FormFieldsLayout } from '../../components/form-fields.layout';
-import { MemoField } from '../../components/memo-field';
-import { PreviewButton } from '../../components/preview-button';
-import { RecipientField } from '../../components/recipient-field';
-import { SelectedAssetField } from '../../components/selected-asset-field';
-import { SendAllButton } from '../../components/send-all-button';
-import { createDefaultInitialFormValues } from '../../form-utils';
+import { AmountField } from '../_components/amount-field';
+import { FormErrors } from '../_components/form-errors';
+import { FormFieldsLayout } from '../_components/form-fields.layout';
+import { MemoField } from '../_components/memo-field';
+import { PreviewButton } from '../_components/preview-button';
+import { RecipientField } from '../_components/recipient-field';
+import { SelectedAssetField } from '../_components/selected-asset-field';
+import { SendAllButton } from '../_components/send-all-button';
+import { createDefaultInitialFormValues } from '../send-form.utils';
 
-interface BtcCryptoCurrencySendFormProps {}
-export function BtcCryptoCurrencySendForm({}: BtcCryptoCurrencySendFormProps) {
+export function BtcCryptoCurrencySendForm() {
   const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
+  const { whenWallet } = useWalletType();
   /*
     TODO: Replace hardcoded median (226) with the tx byte length?
     Median source: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees
@@ -43,15 +45,15 @@ export function BtcCryptoCurrencySendForm({}: BtcCryptoCurrencySendFormProps) {
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
   logger.debug('btc fees', btcFees);
 
-  const initialValues = createDefaultInitialFormValues({
-    memo: '',
+  const initialValues: BitcoinSendFormValues = createDefaultInitialFormValues({
+    amount: '',
     fee: '',
-    feeType: FeeTypes.Unknown,
+    feeCurrency: 'BTC',
+    feeType: FeeTypes[FeeTypes.Unknown],
+    memo: '',
+    recipient: '',
+    symbol: '',
   });
-
-  function onSubmit() {
-    logger.debug('form submit');
-  }
 
   const validationSchema = yup.object({
     amount: btcAmountValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance)),
@@ -59,10 +61,20 @@ export function BtcCryptoCurrencySendForm({}: BtcCryptoCurrencySendFormProps) {
     fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
   });
 
+  // TODO: Placeholder function
+  async function previewTransaction(values: BitcoinSendFormValues) {
+    logger.debug('btc form values', values);
+
+    whenWallet({
+      software: () => {},
+      ledger: () => {},
+    })();
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={async values => await previewTransaction(values)}
       validateOnBlur={false}
       validateOnChange={false}
       validateOnMount={false}

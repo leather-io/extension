@@ -10,6 +10,8 @@ export const amountInputId = 'amount-input';
 export const assetSymbolId = 'asset-symbol';
 export const maxInputContainerWidth = 344;
 
+// TODO: This really isn't working consistently
+// Will need to revisit handling different symbols
 const waitForSymbolToLoad = createDelay(500);
 
 export function useFontResizer() {
@@ -37,13 +39,14 @@ export function useFontResizer() {
 
   useOnMount(() => {
     const input = document.getElementById(amountInputId);
-    const symbol = document.getElementById(assetSymbolId);
-    if (!input || !symbol) return;
+    if (!input) return;
 
     input.addEventListener('input', onChange);
 
     const getSymbolTextWidth = async () => {
       await waitForSymbolToLoad();
+      const symbol = document.getElementById(assetSymbolId);
+      if (!symbol) return;
       setSymbolTextWidth(symbol.offsetWidth + 4);
     };
     void getSymbolTextWidth();

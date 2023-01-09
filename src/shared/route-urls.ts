@@ -50,5 +50,7 @@ export enum RouteUrls {
   // Send crypto asset routes
   SendCryptoAsset = '/send',
   SendCryptoAssetForm = '/send/:symbol',
-  SendCryptoAssetFormConfirmation = '/send/:symbol/confirmation',
+  SendBtcCryptoCurrencyConfirmation = '/send/btc/confirmation',
+  SendStxCryptoCurrencyConfirmation = '/send/stx/confirmation',
+  SendStacksSip10Confirmation = '/send/:symbol/confirmation',
 }

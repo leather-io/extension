@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
-import { SendFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -90,10 +90,11 @@ function SendTokensFormBase() {
     [broadcastTransactionFn, handleConfirmDrawerOnClose, navigate]
   );
 
-  const initialValues: SendFormValues = {
+  const initialValues: StacksSendFormValues = {
     assetId: '',
     amount: '',
     fee: '',
+    feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Middle],
     memo: '',
     nonce: nextNonce?.nonce,
