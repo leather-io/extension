@@ -1,36 +1,40 @@
 import { ReactNode } from 'react';
-import { FiAlertTriangle } from 'react-icons/fi';
+import { FiAlertCircle } from 'react-icons/fi';
 
 import { Box, Flex, Stack, StackProps, Text, color } from '@stacks/ui';
 
-interface WarningLabelProps extends StackProps {
+import { Caption } from './typography';
+
+interface InfoLabelProps extends StackProps {
   children: ReactNode | undefined;
+  title: string;
 }
-export function WarningLabel({ children, ...rest }: WarningLabelProps) {
+export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {
   return (
     <Flex width="100%" {...rest}>
       <Stack
-        alignItems="center"
-        bg="#FFF5EB"
+        alignItems="start"
+        bg="#F5F5F7"
         borderRadius="10px"
         minHeight="48px"
-        isInline
         px="base"
         py="base-tight"
+        spacing="tight"
       >
         <Box
           _hover={{ cursor: 'pointer' }}
-          as={FiAlertTriangle}
-          color={color('feedback-alert')}
+          as={FiAlertCircle}
+          color={color('accent')}
           size="16px"
           minWidth="min-content"
           alignSelf="flex-start"
           position="relative"
           top="2px"
         />
-        <Text color="#242629" fontSize="12px" lineHeight="1.5">
-          {children}
+        <Text color="#242629" fontSize={1} fontWeight={500} lineHeight="1.5">
+          {title}
         </Text>
+        <Caption lineHeight="1.5">{children}</Caption>
       </Stack>
     </Flex>
   );

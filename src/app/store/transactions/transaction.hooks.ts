@@ -18,7 +18,7 @@ import BN from 'bn.js';
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
-import { SendFormValues, TransactionFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 import { isString, isUndefined } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -94,7 +94,7 @@ function useUnsignedStacksTransactionBaseState() {
   }, [account, options, payload, stxAddress, transaction]);
 }
 
-export function useUnsignedPrepareTransactionDetails(values: TransactionFormValues) {
+export function useUnsignedPrepareTransactionDetails(values: StacksTransactionFormValues) {
   const unsignedStacksTransaction = useUnsignedStacksTransaction(values);
   return useMemo(() => unsignedStacksTransaction, [unsignedStacksTransaction]);
 }
@@ -105,7 +105,7 @@ export function useUnsignedPrepareTransactionDetails(values: TransactionFormValu
  */
 export function useSendFormSerializedUnsignedTxPayloadState(
   selectedAssetId: string,
-  values?: SendFormValues
+  values?: StacksSendFormValues
 ) {
   const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return '';
@@ -118,7 +118,7 @@ export function useSendFormSerializedUnsignedTxPayloadState(
  */
 export function useSendFormEstimatedUnsignedTxByteLengthState(
   selectedAssetId: string,
-  values?: SendFormValues
+  values?: StacksSendFormValues
 ) {
   const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
   if (!transaction) return null;
@@ -211,7 +211,7 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
   const account = useCurrentAccount();
   const txBroadcast = useTransactionBroadcast();
 
-  return async (values: TransactionFormValues) => {
+  return async (values: StacksTransactionFormValues) => {
     if (!stacksTxBaseState) return;
     const { options } = stacksTxBaseState as any;
     const unsignedStacksTransaction = await generateUnsignedTransaction({
@@ -259,7 +259,7 @@ export function useGenerateUnsignedStacksTransaction() {
   const { data: nextNonce } = useNextNonce();
 
   return useCallback(
-    (values: TransactionFormValues) => {
+    (values: StacksTransactionFormValues) => {
       if (!stacksTxBaseState || isUndefined(nextNonce?.nonce)) return undefined;
       const { options } = stacksTxBaseState as any;
       return generateUnsignedTransaction({
@@ -272,7 +272,7 @@ export function useGenerateUnsignedStacksTransaction() {
   );
 }
 
-function useUnsignedStacksTransaction(values: TransactionFormValues) {
+function useUnsignedStacksTransaction(values: StacksTransactionFormValues) {
   const generateTx = useGenerateUnsignedStacksTransaction();
 
   const tx = useAsync(async () => {
@@ -303,7 +303,7 @@ export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
  */
 export function useSendFormUnsignedTxPreviewState(
   selectedAssetId: string,
-  values?: SendFormValues
+  values?: StacksSendFormValues
 ) {
   const isSendingStx = isSendingFormSendingStx(selectedAssetId);
   const stxTokenTransferUnsignedTx = useStxTokenTransferUnsignedTxState(values);

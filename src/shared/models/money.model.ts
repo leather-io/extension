@@ -5,7 +5,7 @@ import { isUndefined } from '@shared/utils';
 
 import type { Currencies } from './currencies.model';
 
-type NumType = BigNumber | number;
+export type NumType = BigNumber | number;
 
 export interface Money {
   readonly amount: BigNumber;

@@ -11,7 +11,7 @@ import type {
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
 import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
-import type { SendFormValues } from '@shared/models/form.model';
+import type { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { isEmpty, isUndefined } from '@shared/utils';
 
@@ -41,7 +41,7 @@ interface SendFormInnerProps {
 export function SendFormInner(props: SendFormInnerProps) {
   const { assetError, feeEstimations, onAssetIdSelected, nonce } = props;
   const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
-    useFormikContext<SendFormValues>();
+    useFormikContext<StacksSendFormValues>();
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);

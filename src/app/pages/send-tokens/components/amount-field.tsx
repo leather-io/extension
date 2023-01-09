@@ -4,7 +4,7 @@ import { Box, Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
-import { SendFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
@@ -23,7 +23,7 @@ interface AmountFieldProps extends StackProps {
 // TODO: this should use a new "Field" component (with inline label like in figma)
 function AmountFieldBase(props: AmountFieldProps) {
   const { error, value, ...rest } = props;
-  const { handleChange, values } = useFormikContext<SendFormValues>();
+  const { handleChange, values } = useFormikContext<StacksSendFormValues>();
   const analytics = useAnalytics();
   const account = useCurrentAccount();
   const { data: ftAssetBalances = [] } = useStacksFungibleTokenAssetBalancesUnanchored(
