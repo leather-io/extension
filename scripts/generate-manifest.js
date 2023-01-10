@@ -42,7 +42,7 @@ const manifest = {
   },
   content_scripts: [
     {
-      js: ['browser-polyfill.js', 'content-script.js'],
+      js: ['content-script.js'],
       matches: ['*://*/*'],
       all_frames: true,
     },
