@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const config = require('./webpack.config.base');
-const package = require('../package.json');
+const packageJson = require('../package.json');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const webpack = require('webpack');
 
 const shouldMinify = JSON.parse(process.env.MINIFY_PRODUCTION_BUILD || false);
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
@@ -37,6 +38,15 @@ config.optimization = {
 
 config.plugins = [
   ...config.plugins,
+  new webpack.SourceMapDevToolPlugin({
+    // These entry points are excuted in an app's context. If we generate source
+    // maps for them, the browser attempts to load them from the inaccessible
+    // `chrome-extension://` protocol, throwing console errors. To prevent
+    // these, we do not generate source maps for these files. Otherwise, these
+    // `SourceMapDevToolPlugin` options emulate the `devtool: source-map` config
+    exclude: [/inpage/, /content\-script/],
+    filename: '[file].map',
+  }),
   ...(sentryAuthToken
     ? [
         new SentryWebpackPlugin({
@@ -50,12 +60,12 @@ config.plugins = [
           // and needs the `project:releases` and `org:read` scopes
           authToken: sentryAuthToken,
 
-          release: package.version,
+          release: packageJson.version,
         }),
       ]
     : []),
 ];
 
-config.devtool = 'source-map';
+config.devtool = false;
 
 module.exports = config;
