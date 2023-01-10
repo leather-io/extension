@@ -1,3 +1,26 @@
+## [3.30.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.29.0...v3.30.0) (2023-01-10)
+
+
+### Features
+
+* misc sentry improvements ([9cc0507](https://github.com/hirosystems/stacks-wallet-web/commit/9cc0507520bec87e4063c94c8c957d215ee44997))
+
+
+### Bug Fixes
+
+* dev source maps ([b73b63a](https://github.com/hirosystems/stacks-wallet-web/commit/b73b63a5ed7746993a37c6430801a344e2e7adcc))
+* emotion styles broken ([22c97c4](https://github.com/hirosystems/stacks-wallet-web/commit/22c97c49fa00875e6fc0e7687df4d1e8697f5605))
+* emotion styles broken ([aa24db4](https://github.com/hirosystems/stacks-wallet-web/commit/aa24db4900886eb95477e3eb1f3ec8e11c094943))
+* pending tx nonce ([fbc73bc](https://github.com/hirosystems/stacks-wallet-web/commit/fbc73bc9749d0436a8195836a2e90228a1cb24b3))
+* unit tests ([78e09d0](https://github.com/hirosystems/stacks-wallet-web/commit/78e09d0e4647849e8b04828a67e648dcd1de3395))
+
+
+### Internal
+
+* attempt removing babel ([f9deba9](https://github.com/hirosystems/stacks-wallet-web/commit/f9deba9afc2c6d42596ed6b246a974732eb0c332))
+* form validation ([474d57b](https://github.com/hirosystems/stacks-wallet-web/commit/474d57b29b2e4da8c3534765d9ba05a6b126b717))
+* new send form file structure ([d544a3f](https://github.com/hirosystems/stacks-wallet-web/commit/d544a3f665df41710829f201c0564e5831b34ee3))
+
 ## [3.29.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.28.0...v3.29.0) (2022-12-19)
 
 
