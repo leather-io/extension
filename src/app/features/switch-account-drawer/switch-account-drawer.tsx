@@ -3,7 +3,6 @@ import { memo } from 'react';
 import { Box } from '@stacks/ui';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import {
@@ -21,7 +20,6 @@ export const SwitchAccountDrawer = memo(() => {
   const [isShowing, setShowSwitchAccountsState] = useShowSwitchAccountsState();
   const accounts = useAccounts();
   const currentAccountIndex = useCurrentAccountIndex();
-  const analytics = useAnalytics();
   const createAccount = useCreateAccount();
   const [, setHasCreatedAccount] = useHasCreatedAccount();
   const { whenWallet } = useWalletType();
@@ -29,7 +27,6 @@ export const SwitchAccountDrawer = memo(() => {
   const onClose = () => setShowSwitchAccountsState(false);
 
   const onCreateAccount = () => {
-    void analytics.track('choose_to_create_account');
     void createAccount();
     setHasCreatedAccount(true);
     setShowSwitchAccountsState(false);
