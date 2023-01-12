@@ -1,33 +1,36 @@
 import { useCallback } from 'react';
 
-import { useWallet } from '@app/common/hooks/use-wallet';
 import {
+  useAccounts,
   useCurrentAccount,
   useHasSwitchedAccounts,
   useTransactionAccountIndex,
   useTransactionNetworkVersion,
 } from '@app/store/accounts/account.hooks';
 
+import { useTrackSwitchAccount } from '../analytics/use-track-switch-account';
+import { useKeyActions } from '../use-key-actions';
+
 const TIMEOUT = 350;
 
-export const useSwitchAccount = (callback?: () => void) => {
-  const { switchAccount } = useWallet();
+export function useSwitchAccount(callback?: () => void) {
+  const { switchAccount } = useKeyActions();
   const currentAccount = useCurrentAccount();
+  const accounts = useAccounts();
   const txIndex = useTransactionAccountIndex();
   const transactionVersion = useTransactionNetworkVersion();
   const [hasSwitched, setHasSwitched] = useHasSwitchedAccounts();
+  const trackSwitchAccount = useTrackSwitchAccount();
 
   const handleSwitchAccount = useCallback(
-    async index => {
-      if (typeof txIndex === 'number') setHasSwitched(true);
-      await switchAccount(index);
-      if (callback) {
-        window.setTimeout(() => {
-          callback();
-        }, TIMEOUT);
-      }
+    async (index: number) => {
+      setHasSwitched(true);
+      switchAccount(index);
+      if (callback) setTimeout(() => callback(), TIMEOUT);
+      if (!accounts) return;
+      void trackSwitchAccount(accounts[index].address, index);
     },
-    [txIndex, setHasSwitched, switchAccount, callback]
+    [setHasSwitched, switchAccount, callback, accounts, trackSwitchAccount]
   );
 
   const getIsActive = useCallback(
@@ -39,4 +42,4 @@ export const useSwitchAccount = (callback?: () => void) => {
   );
 
   return { handleSwitchAccount, getIsActive, transactionVersion };
-};
+}
