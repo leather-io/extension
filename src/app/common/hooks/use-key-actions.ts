@@ -38,6 +38,7 @@ export function useKeyActions() {
       },
 
       switchAccount(index: number) {
+        void analytics.track('switch_account', { index });
         return dispatch(stxChainActions.switchAccount(index));
       },
 
