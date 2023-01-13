@@ -17,7 +17,7 @@ export function shouldNavigateToUnlockWalletPage(currentInMemorySecretKey?: stri
 interface AccountGateProps {
   children?: ReactNode;
 }
-export const AccountGate = ({ children }: AccountGateProps) => {
+export function AccountGate({ children }: AccountGateProps) {
   const currentKeyDetails = useCurrentKeyDetails();
   const currentInMemorySecretKey = useDefaultWalletSecretKey();
 
@@ -30,4 +30,4 @@ export const AccountGate = ({ children }: AccountGateProps) => {
     return <Navigate to={RouteUrls.Unlock} />;
 
   return <>{children}</>;
-};
+}

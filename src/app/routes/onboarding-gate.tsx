@@ -10,6 +10,10 @@ function hasAlreadyMadeWalletAndPlaintextKeyInMemory(encryptedKey?: string, inMe
   return !!encryptedKey && !!inMemoryKey;
 }
 
+function keyDetailsExistsWalletAlreadyCreatedSoPreventOnboarding(keyDetails: unknown) {
+  return !!keyDetails;
+}
+
 interface OnboardingGateProps {
   children: ReactNode;
 }
@@ -23,6 +27,9 @@ export const OnboardingGate = ({ children }: OnboardingGateProps) => {
   ) {
     return <Navigate to={RouteUrls.Home} />;
   }
+
+  if (keyDetailsExistsWalletAlreadyCreatedSoPreventOnboarding(keyDetails))
+    return <Navigate to={RouteUrls.Unlock} />;
 
   return <>{children}</>;
 };

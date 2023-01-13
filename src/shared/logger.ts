@@ -36,7 +36,7 @@ type LoggerFnApi = (msg: string, ...args: any[]) => void;
 
 // Pino offers a handful of APIs to log messages. Here we enforce a single one,
 // described by `LoggerFnApi`
-export const logger: Record<string, LoggerFnApi> = {
+export const logger: Record<'debug' | 'info' | 'warn' | 'error', LoggerFnApi> = {
   debug(...args) {
     pinoLogger.debug(...args);
   },

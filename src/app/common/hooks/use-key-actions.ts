@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { Wallet, generateSecretKey } from '@stacks/wallet-sdk';
 
+import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { clearChromeStorage } from '@shared/storage';
@@ -11,12 +12,14 @@ import { useAppDispatch } from '@app/store';
 import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { keyActions } from '@app/store/keys/key.actions';
+import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 
 import { useAnalytics } from './analytics/use-analytics';
 
 export function useKeyActions() {
   const analytics = useAnalytics();
   const dispatch = useAppDispatch();
+  const defaultKeyDetails = useCurrentKeyDetails();
 
   return useMemo(
     () => ({
@@ -25,6 +28,10 @@ export function useKeyActions() {
       },
 
       generateWalletKey() {
+        if (!!defaultKeyDetails) {
+          logger.warn('Cannot generate new wallet when wallet already exists');
+          return;
+        }
         const secretKey = generateSecretKey(256);
         sendMessage({
           method: InternalMethods.ShareInMemoryKeyToBackground,
