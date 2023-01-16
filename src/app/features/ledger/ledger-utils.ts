@@ -54,7 +54,7 @@ export interface StxAndIdentityPublicKeys {
 
 async function connectLedger() {
   const transport = await Transport.create();
-  return new StacksApp(transport);
+  return new StacksApp(transport as any);
 }
 
 export async function getAppVersion(app: StacksApp) {
