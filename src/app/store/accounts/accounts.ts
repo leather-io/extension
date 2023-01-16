@@ -12,7 +12,7 @@ import {
   SoftwareWalletAccountWithAddress,
 } from './account.models';
 
-export const softwareAccountsState = atom<Account[] | undefined>(get => {
+const softwareAccountsState = atom<Account[] | undefined>(get => {
   const wallet = get(softwareStacksWalletState);
   if (!wallet) return undefined;
   return wallet.accounts;

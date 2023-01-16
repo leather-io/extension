@@ -30,7 +30,7 @@ export function useTransactionError() {
     if (transactionRequest.txType === TransactionTypes.ContractCall) {
       if (!validateStacksAddress(transactionRequest.contractAddress))
         return TransactionErrorReason.InvalidContractAddress;
-      if (contractInterface?.isError) return TransactionErrorReason.NoContract;
+      if ((contractInterface as any)?.isError) return TransactionErrorReason.NoContract;
     }
 
     if (balances) {
