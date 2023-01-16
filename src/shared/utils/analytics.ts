@@ -40,8 +40,16 @@ export function initSentry() {
 
   Sentry.init({
     dsn: SENTRY_DSN,
-    integrations: [new BrowserTracing()],
-    tracesSampleRate: 1.0,
+    integrations: [
+      new BrowserTracing({
+        traceFetch: false,
+        traceXHR: false,
+        startTransactionOnLocationChange: false,
+        startTransactionOnPageLoad: false,
+        markBackgroundTransactions: false,
+      }),
+    ],
+    tracesSampleRate: 1,
     environment: WALLET_ENVIRONMENT,
     autoSessionTracking: false,
     async beforeSend(event) {
