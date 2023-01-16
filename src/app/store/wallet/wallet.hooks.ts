@@ -18,10 +18,10 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useAccounts } from '@app/store/accounts/account.hooks';
 
-import { encryptedSecretKeyState, secretKeyState, walletState } from './wallet';
+import { encryptedSecretKeyState, secretKeyState, stacksWalletState } from './wallet';
 
-export function useWalletState() {
-  return useAtomValue(walletState);
+export function useStxWalletState() {
+  return useAtomValue(stacksWalletState);
 }
 
 export function useSecretKey() {
@@ -35,7 +35,7 @@ export function useEncryptedSecretKeyState() {
 export function useFinishSignInCallback() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
   const keyActions = useKeyActions();
-  const wallet = useWalletState();
+  const wallet = useStxWalletState();
   const { walletType } = useWalletType();
   const accounts = useAccounts();
   const { origin, tabId } = useAuthRequestParams();

@@ -47,7 +47,7 @@ const setWalletEncryptionPassword = (password: string): AppThunk => {
 
     dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
     dispatch(
-      keySlice.actions.createNewSoftwareWalletComplete({
+      keySlice.actions.createNewStacksSoftwareWalletComplete({
         type: 'software',
         id: defaultKeyId,
         salt,

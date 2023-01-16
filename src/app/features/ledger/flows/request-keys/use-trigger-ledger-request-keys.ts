@@ -22,7 +22,7 @@ export function useTriggerLedgerDeviceRequestKeys() {
       },
       completeLedgerDeviceOnboarding(publicKeys: StxAndIdentityPublicKeys[], targetId: string) {
         dispatch(
-          keySlice.actions.createLedgerWallet({
+          keySlice.actions.createNewStacksLedgerWallet({
             type: 'ledger',
             id: 'default',
             targetId,
