@@ -7,11 +7,13 @@ import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-l
 import { persistAndRenderApp } from '@app/common/persistence';
 
 import { App } from './app';
+import { setDebugOnGlobal } from './debug';
 import { store } from './store';
 import { inMemoryKeyActions } from './store/in-memory-key/in-memory-key.actions';
 
 initSentry();
 warnUsersAboutDevToolsDangers();
+setDebugOnGlobal();
 
 declare global {
   interface Window {
