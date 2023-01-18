@@ -23,7 +23,7 @@ export async function clearBrowserStorageLogs(): Promise<void> {
   return new Promise(resolve => storageAdapter.set({ [logStorageKey]: [] }, () => resolve()));
 }
 
-async function getLogsFromBrowserStorage(): Promise<LogItem[]> {
+export async function getLogsFromBrowserStorage(): Promise<LogItem[]> {
   return new Promise(resolve =>
     storageAdapter.get([logStorageKey], ({ logs }) => resolve(Array.isArray(logs) ? logs : []))
   );
@@ -44,8 +44,3 @@ export async function appendLogToBrowserStorage(logEvent: pino.LogEvent): Promis
     )
   );
 }
-
-// This method is set on the global object, so that users can be asked to copy
-// information, even when the app has crashed and the advanced user features are
-// inaccessible
-(globalThis as any).printDiagnosticInfo = getLogsFromBrowserStorage;
