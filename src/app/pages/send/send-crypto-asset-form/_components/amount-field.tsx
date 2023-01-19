@@ -1,43 +1,68 @@
-import { FormEvent, useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { useField } from 'formik';
+
+import { STX_DECIMALS } from '@shared/constants';
+import { Money } from '@shared/models/money.model';
 
 import { ErrorLabel } from '@app/components/error-label';
 
 const maxFontSize = 48;
 const minFontSize = 22;
+const maxLengthDefault = STX_DECIMALS + 1; // + 1 for decimal char
+
+interface GetAmountModifiedFontSize {
+  amount: string;
+  fontSize: number;
+  fontSizeModifier: number;
+  maxFontSize: number;
+  symbol: string;
+}
+function getAmountModifiedFontSize(props: GetAmountModifiedFontSize) {
+  const { fontSize, fontSizeModifier, maxFontSize, amount, symbol } = props;
+  const convertedAmountFontSize = amount.length * fontSizeModifier;
+  return amount.length > symbol.length
+    ? Math.ceil(fontSize - convertedAmountFontSize)
+    : maxFontSize;
+}
 
 interface AmountFieldProps {
-  decimals: number;
-  symbol: string;
-  rightInputOverlay: JSX.Element;
+  balance: Money;
+  bottomInputOverlay: JSX.Element;
 }
-export function AmountField({ decimals, symbol, rightInputOverlay }: AmountFieldProps) {
-  const [field, meta, helpers] = useField('amount');
+export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
+  const [field, meta] = useField('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
   const [previousTextLength, setPreviousTextLength] = useState(1);
 
-  const maxLength = decimals === 0 ? 8 : decimals + 1; // + 1 for decimal char
-  const addOrSubtractFromFontSize = (maxFontSize - minFontSize) / maxLength;
+  const { decimals, symbol } = balance;
+  const maxLength = decimals === 0 ? maxLengthDefault : decimals + 1;
+  const fontSizeModifier = (maxFontSize - minFontSize) / maxLength;
 
-  // TODO: Needs formula if using ft decimals to determine max length
-  const onChangeAmount = useCallback(
-    (evt: FormEvent<HTMLInputElement>) => {
-      const value = evt.currentTarget.value;
-      if (value.length === symbol.length) setFontSize(maxFontSize);
-      if (value.length > symbol.length && previousTextLength > value.length) {
-        const textSize = Math.ceil(fontSize + addOrSubtractFromFontSize);
-        fontSize < maxFontSize && setFontSize(textSize);
-      } else if (value.length > symbol.length && previousTextLength < value.length) {
-        const textSize = Math.ceil(fontSize - addOrSubtractFromFontSize);
-        fontSize > 22 && setFontSize(textSize);
-      }
-      setPreviousTextLength(value.length);
-      helpers.setValue(value);
-    },
-    [addOrSubtractFromFontSize, fontSize, helpers, previousTextLength, symbol.length]
-  );
+  useEffect(() => {
+    // Typing
+    if (field.value.length === symbol.length) setFontSize(maxFontSize);
+    if (field.value.length > symbol.length && previousTextLength > field.value.length) {
+      const textSize = Math.ceil(fontSize + fontSizeModifier);
+      fontSize < maxFontSize && setFontSize(textSize);
+    } else if (field.value.length > symbol.length && previousTextLength < field.value.length) {
+      const textSize = Math.ceil(fontSize - fontSizeModifier);
+      fontSize > 22 && setFontSize(textSize);
+    }
+    // Copy/paste
+    if (field.value.length > symbol.length && field.value.length > previousTextLength + 2) {
+      const modifiedFontSize = getAmountModifiedFontSize({
+        amount: field.value,
+        fontSize,
+        fontSizeModifier,
+        maxFontSize,
+        symbol,
+      });
+      setFontSize(modifiedFontSize < minFontSize ? minFontSize : modifiedFontSize);
+    }
+    setPreviousTextLength(field.value.length);
+  }, [field.value, fontSize, fontSizeModifier, previousTextLength, symbol]);
 
   return (
     <Stack alignItems="center" spacing={['base', meta.error ? 'base' : '48px']}>
@@ -49,20 +74,18 @@ export function AmountField({ decimals, symbol, rightInputOverlay }: AmountField
           fontSize={fontSize + 'px'}
           height="100%"
           maxLength={9}
-          name="amount"
-          onChange={onChangeAmount}
           placeholder="0"
           px="none"
           textAlign="right"
           width={!field.value.length ? '1ch' : previousTextLength + 'ch'}
-          value={field.value}
+          {...field}
         />
         <Text fontSize={fontSize + 'px'} pl="tight">
           {symbol.toUpperCase()}
         </Text>
       </Flex>
       {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
-      {rightInputOverlay}
+      {bottomInputOverlay}
     </Stack>
   );
 }
