@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
+import { BTC_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
@@ -80,8 +81,8 @@ export function BtcCryptoCurrencySendForm() {
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Form>
-        <AmountField symbol="BTC" rightInputOverlay={<SendAllButton />} />
+      <Form style={{ width: '100%' }}>
+        <AmountField decimals={BTC_DECIMALS} symbol="BTC" rightInputOverlay={<SendAllButton />} />
         <FormFieldsLayout>
           <SelectedAssetField
             icon={<BtcIcon />}

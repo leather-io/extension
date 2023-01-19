@@ -1,6 +1,6 @@
 import { FormEvent, memo } from 'react';
 
-import { Input, InputGroup, Stack, StackProps, Text } from '@stacks/ui';
+import { Input, Stack, StackProps, Text } from '@stacks/ui';
 import { useField } from 'formik';
 
 import { ErrorLabel } from '@app/components/error-label';
@@ -14,21 +14,19 @@ export const EditNonceField = memo((props: EditNonceFieldProps) => {
 
   return (
     <Stack width="100%" {...props}>
-      <InputGroup flexDirection="column">
-        <Input
-          autoComplete="off"
-          display="block"
-          name="nonce"
-          onBlur={onBlur}
-          onChange={(evt: FormEvent<HTMLInputElement>) => {
-            helpers.setValue(evt.currentTarget.value);
-          }}
-          placeholder="Enter a custom nonce"
-          type="number"
-          value={field.value}
-          width="100%"
-        />
-      </InputGroup>
+      <Input
+        autoComplete="off"
+        display="block"
+        name="nonce"
+        onBlur={onBlur}
+        onChange={(evt: FormEvent<HTMLInputElement>) => {
+          helpers.setValue(evt.currentTarget.value);
+        }}
+        placeholder="Enter a custom nonce"
+        type="number"
+        value={field.value}
+        width="100%"
+      />
       {meta.error && (
         <ErrorLabel>
           <Text textStyle="caption">{meta.error}</Text>

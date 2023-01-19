@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
+import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -39,6 +40,7 @@ import { MemoField } from '../_components/memo-field';
 import { PreviewButton } from '../_components/preview-button';
 import { RecipientField } from '../_components/recipient-field';
 import { SelectedAssetField } from '../_components/selected-asset-field';
+import { SendAllButton } from '../_components/send-all-button';
 import { useHighFeeWarning } from '../_hooks/use-high-fee-warning';
 import { useSendFormNavigate } from '../_hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues } from '../send-form.utils';
@@ -120,8 +122,12 @@ export function StacksSip10FungibleTokenSendForm({
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Form>
-        <AmountField symbol={symbol.toUpperCase()} rightInputOverlay={<></>} />
+      <Form style={{ width: '100%' }}>
+        <AmountField
+          decimals={assetBalance?.balance.decimals ?? STX_DECIMALS}
+          symbol={symbol.toUpperCase()}
+          rightInputOverlay={<SendAllButton />}
+        />
         <FormFieldsLayout>
           <SelectedAssetField
             icon={<StxAvatar />}

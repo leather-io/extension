@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
+import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -99,8 +100,8 @@ export function StxCryptoCurrencySendForm() {
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Form>
-        <AmountField symbol="STX" rightInputOverlay={<SendAllButton />} />
+      <Form style={{ width: '100%' }}>
+        <AmountField decimals={STX_DECIMALS} symbol="STX" rightInputOverlay={<SendAllButton />} />
         <FormFieldsLayout>
           <SelectedAssetField
             icon={<StxAvatar />}
