@@ -1,15 +1,17 @@
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-import { BTC_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
+import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { btcAddressValidator } from '@app/common/validation/forms/address-validators';
 import { btcAmountValidator } from '@app/common/validation/forms/currency-validators';
@@ -42,6 +44,12 @@ export function BtcCryptoCurrencySendForm() {
     tx size = in*180 + out*34 + 10 plus or minus 'in'
   */
   const { data: btcFees } = useBitcoinFees(226);
+
+  const availableBtcBalance = btcCryptoCurrencyAssetBalance.balance ?? createMoney(0, 'STX');
+  const sendAllBalance = useMemo(
+    () => convertAmountToBaseUnit(availableBtcBalance),
+    [availableBtcBalance]
+  );
 
   logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
   logger.debug('btc fees', btcFees);
@@ -81,22 +89,32 @@ export function BtcCryptoCurrencySendForm() {
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Form style={{ width: '100%' }}>
-        <AmountField decimals={BTC_DECIMALS} symbol="BTC" rightInputOverlay={<SendAllButton />} />
-        <FormFieldsLayout>
-          <SelectedAssetField
-            icon={<BtcIcon />}
-            name={btcCryptoCurrencyAssetBalance.asset.name}
-            onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
-            symbol="BTC"
+      {props => (
+        <Form style={{ width: '100%' }}>
+          <AmountField
+            balance={availableBtcBalance}
+            bottomInputOverlay={
+              <SendAllButton
+                balance={availableBtcBalance}
+                sendAllBalance={sendAllBalance.minus(props.values.fee).toString()}
+              />
+            }
           />
-          <RecipientField />
-          <MemoField lastChild />
-        </FormFieldsLayout>
-        <FeesRow fees={btcFees} isSponsored={false} mt="base" />
-        <FormErrors />
-        <PreviewButton />
-      </Form>
+          <FormFieldsLayout>
+            <SelectedAssetField
+              icon={<BtcIcon />}
+              name={btcCryptoCurrencyAssetBalance.asset.name}
+              onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
+              symbol="BTC"
+            />
+            <RecipientField />
+            <MemoField lastChild />
+          </FormFieldsLayout>
+          <FeesRow fees={btcFees} isSponsored={false} mt="base" />
+          <FormErrors />
+          <PreviewButton />
+        </Form>
+      )}
     </Formik>
   );
 }

@@ -1,9 +1,9 @@
+import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -11,6 +11,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { FormErrorMessages } from '@app/common/error-messages';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { stxAddressValidator } from '@app/common/validation/forms/address-validators';
@@ -68,9 +69,16 @@ export function StacksSip10FungibleTokenSendForm({
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
 
+  const availableTokenBalance = assetBalance?.balance ?? createMoney(0, 'STX');
+  const sendAllBalance = useMemo(
+    () => convertAmountToBaseUnit(availableTokenBalance),
+    [availableTokenBalance]
+  );
+
   logger.debug('info', ftMetadata);
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
+    amount: '',
     fee: '',
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Unknown],
@@ -124,9 +132,13 @@ export function StacksSip10FungibleTokenSendForm({
     >
       <Form style={{ width: '100%' }}>
         <AmountField
-          decimals={assetBalance?.balance.decimals ?? STX_DECIMALS}
-          symbol={symbol.toUpperCase()}
-          rightInputOverlay={<SendAllButton />}
+          balance={availableTokenBalance}
+          bottomInputOverlay={
+            <SendAllButton
+              balance={availableTokenBalance}
+              sendAllBalance={sendAllBalance.toString()}
+            />
+          }
         />
         <FormFieldsLayout>
           <SelectedAssetField

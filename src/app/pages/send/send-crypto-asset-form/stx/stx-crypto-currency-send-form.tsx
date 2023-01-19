@@ -1,16 +1,18 @@
+import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
+import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { FormErrorMessages } from '@app/common/error-messages';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { stxAddressValidator } from '@app/common/validation/forms/address-validators';
 import { stxAmountValidator } from '@app/common/validation/forms/currency-validators';
@@ -24,6 +26,7 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
+import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useGenerateStxTokenTransferUnsignedTx,
@@ -50,13 +53,19 @@ export function StxCryptoCurrencySendForm() {
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx);
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
+  const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
 
-  const availableStxBalance = balances?.stx.availableStx;
+  const availableStxBalance = balances?.stx.availableStx ?? createMoney(0, 'STX');
+  const sendAllBalance = useMemo(
+    () => convertAmountToBaseUnit(availableStxBalance).minus(pendingTxsBalance),
+    [availableStxBalance, pendingTxsBalance]
+  );
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
+    amount: '',
     fee: '',
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Unknown],
@@ -100,25 +109,38 @@ export function StxCryptoCurrencySendForm() {
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Form style={{ width: '100%' }}>
-        <AmountField decimals={STX_DECIMALS} symbol="STX" rightInputOverlay={<SendAllButton />} />
-        <FormFieldsLayout>
-          <SelectedAssetField
-            icon={<StxAvatar />}
-            name="Stacks"
-            onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
-            symbol="STX"
+      {props => (
+        <Form style={{ width: '100%' }}>
+          <AmountField
+            balance={availableStxBalance}
+            bottomInputOverlay={
+              <SendAllButton
+                balance={availableStxBalance}
+                sendAllBalance={sendAllBalance.minus(props.values.fee).toString()}
+              />
+            }
           />
-          <RecipientField />
-          <MemoField lastChild />
-        </FormFieldsLayout>
-        <FeesRow fees={stxFees} isSponsored={false} mt="base" />
-        <FormErrors />
-        <PreviewButton />
-        <EditNonceButton onEditNonce={() => navigate(RouteUrls.EditNonce)} my={['loose', 'base']} />
-        <HighFeeDrawer />
-        <Outlet />
-      </Form>
+          <FormFieldsLayout>
+            <SelectedAssetField
+              icon={<StxAvatar />}
+              name="Stacks"
+              onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
+              symbol="STX"
+            />
+            <RecipientField />
+            <MemoField lastChild />
+          </FormFieldsLayout>
+          <FeesRow fees={stxFees} isSponsored={false} mt="base" />
+          <FormErrors />
+          <PreviewButton />
+          <EditNonceButton
+            onEditNonce={() => navigate(RouteUrls.EditNonce)}
+            my={['loose', 'base']}
+          />
+          <HighFeeDrawer />
+          <Outlet />
+        </Form>
+      )}
     </Formik>
   );
 }
