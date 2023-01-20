@@ -2,11 +2,11 @@ import { useMemo } from 'react';
 
 import BigNumber from 'bignumber.js';
 
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 import { useGetNonFungibleTokenHoldingsListQuery } from './non-fungible-token-holdings.query';
 
-export function useAccountsNonFungibleTokenHoldings(accounts?: AccountWithAddress[]) {
+export function useAccountsNonFungibleTokenHoldings(accounts?: WalletAccount[]) {
   const accountsNftHoldings = useGetNonFungibleTokenHoldingsListQuery(accounts);
 
   return useMemo(

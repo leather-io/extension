@@ -22,7 +22,7 @@ import {
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
@@ -32,7 +32,7 @@ import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-
 import { useSignedMessageType } from './use-message-type';
 
 interface LedgerSignMsgData {
-  account: AccountWithAddress;
+  account: WalletAccount;
   unsignedMessage: SignedMessage;
 }
 interface LedgerSignMsgDataProps {

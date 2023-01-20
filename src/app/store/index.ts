@@ -77,6 +77,7 @@ export const store = configureStore({
           hostname: 'localhost',
           port: 8000,
           realtime: true,
+          suppressConnectErrors: false,
         }),
       ]
     : [],
