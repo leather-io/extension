@@ -6,13 +6,13 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 import { AccountAvatarItem } from '../../../components/account/account-avatar';
 import { AccountName } from '../../../components/account/account-name';
 
 interface SwitchAccountListItemProps {
-  account: AccountWithAddress;
+  account: WalletAccount;
   handleClose(): void;
 }
 export const SwitchAccountListItem = memo(

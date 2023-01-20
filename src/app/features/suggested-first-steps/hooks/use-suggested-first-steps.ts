@@ -8,13 +8,13 @@ import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance
 import { useAccountsNonFungibleTokenHoldings } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
 import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.query';
 import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 import {
   useHideSuggestedFirstSteps,
   useSuggestedFirstStepsStatus,
 } from '@app/store/onboarding/onboarding.selectors';
 
-function useAllAccountsAvailableStxBalance(accounts?: AccountWithAddress[]) {
+function useAllAccountsAvailableStxBalance(accounts?: WalletAccount[]) {
   const accountsBalances = useGetAnchoredAccountBalanceListQuery(accounts);
   return useMemo(() => {
     return accountsBalances.reduce(

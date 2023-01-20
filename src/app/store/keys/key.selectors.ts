@@ -6,10 +6,10 @@ import { RootState } from '@app/store';
 
 import { defaultKeyId } from './key.slice';
 
-const selectWalletSlice = (state: RootState) => state.keys;
+export const selectKeysSlice = (state: RootState) => state.keys;
 
 export const selectCurrentKey = createSelector(
-  selectWalletSlice,
+  selectKeysSlice,
   state => state.entities[defaultKeyId]
 );
 

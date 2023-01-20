@@ -5,7 +5,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '..';
 import { defaultKeyId } from '../keys/key.slice';
 
-const selectInMemoryKey = (state: RootState) => state.inMemoryKeys;
+export const selectInMemoryKey = (state: RootState) => state.inMemoryKeys;
 
 export const selectDefaultWalletKey = createSelector(
   selectInMemoryKey,

@@ -1,43 +1,29 @@
 import { createStacksPublicKey, pubKeyfromPrivKey, publicKeyToAddress } from '@stacks/transactions';
-import { Account } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
 import { derivePublicKey } from '@app/common/derive-public-key';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
-import { ledgerKeyState, softwareStacksWalletState } from '@app/store/wallet/wallet';
+import { selectLedgerKey, softwareStacksWalletState } from '@app/store/wallet/wallet';
 
-import {
-  AccountWithAddress,
-  LedgerAccountWithAddress,
-  SoftwareWalletAccountWithAddress,
-} from './account.models';
+import { storeAtom } from '..';
+import { HardwareWalletAccount, SoftwareWalletAccount, WalletAccount } from './account.models';
 
-const softwareAccountsState = atom<Account[] | undefined>(get => {
+const softwareAccountsState = atom<SoftwareWalletAccount[] | undefined>(get => {
   const wallet = get(softwareStacksWalletState);
+  const addressVersion = get(addressNetworkVersionState);
   if (!wallet) return undefined;
-  return wallet.accounts;
+  return wallet.accounts.map(account => {
+    const address = publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));
+    const stxPublicKey = derivePublicKey(account.stxPrivateKey);
+    const dataPublicKey = derivePublicKey(account.dataPrivateKey);
+    return { ...account, type: 'software', address, stxPublicKey, dataPublicKey };
+  });
 });
 
-// map through the accounts and get the address for the current network mode (testnet|mainnet)
-const softwareAccountsWithAddressState = atom<SoftwareWalletAccountWithAddress[] | undefined>(
-  get => {
-    const accounts = get(softwareAccountsState);
-    const addressVersion = get(addressNetworkVersionState);
-    if (!accounts) return undefined;
-    return accounts.map(account => {
-      const address = publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));
-      const stxPublicKey = derivePublicKey(account.stxPrivateKey);
-      const dataPublicKey = derivePublicKey(account.dataPrivateKey);
-      return { ...account, type: 'software', address, stxPublicKey, dataPublicKey };
-    });
-  }
-);
-
-const ledgerAccountsWithAddressState = atom<LedgerAccountWithAddress[] | undefined>(get => {
-  const ledgerWallet = get(ledgerKeyState);
+const ledgerAccountsState = atom<HardwareWalletAccount[] | undefined>(get => {
+  const ledgerWallet = selectLedgerKey(get(storeAtom));
   const addressVersion = get(addressNetworkVersionState);
   if (!ledgerWallet) return undefined;
-
   return ledgerWallet.publicKeys.map((publicKeys, index) => {
     const address = publicKeyToAddress(
       addressVersion,
@@ -53,9 +39,9 @@ const ledgerAccountsWithAddressState = atom<LedgerAccountWithAddress[] | undefin
   });
 });
 
-export const accountsWithAddressState = atom<AccountWithAddress[] | undefined>(get => {
-  const ledgerAccounts = get(ledgerAccountsWithAddressState);
-  const softwareAccounts = get(softwareAccountsWithAddressState);
+export const accountsWithAddressState = atom<WalletAccount[] | undefined>(get => {
+  const ledgerAccounts = get(ledgerAccountsState);
+  const softwareAccounts = get(softwareAccountsState);
   return ledgerAccounts ? ledgerAccounts : softwareAccounts;
 });
 

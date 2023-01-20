@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useAtom, useAtomValue } from 'jotai';
 
@@ -12,9 +13,9 @@ import {
 import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
-import { currentAccountIndexState } from '@app/store/wallet/wallet';
+import { selectCurrentAccountIndex } from '@app/store/wallet/wallet';
 
-import { AccountWithAddress } from './account.models';
+import { WalletAccount } from './account.models';
 
 export function useAccounts() {
   return useAtomValue(accountsWithAddressState);
@@ -37,7 +38,7 @@ export function useCurrentAccount() {
     const index = txIndex ?? signatureIndex;
     if (!accounts) return undefined;
     if (typeof index === 'number' && !hasSwitched) return accounts[index];
-    return accounts[accountIndex] as AccountWithAddress | undefined;
+    return accounts[accountIndex] as WalletAccount | undefined;
   }, [accountIndex, accounts, hasSwitched, signatureIndex, txIndex]);
 }
 
@@ -52,7 +53,7 @@ export function useCurrentAccountStxAddressState() {
 }
 
 export function useCurrentAccountIndex() {
-  return useAtomValue(currentAccountIndexState);
+  return useSelector(selectCurrentAccountIndex);
 }
 
 export function useTransactionAccountIndex() {

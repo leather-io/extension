@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { Account, Wallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
@@ -5,31 +6,29 @@ import { textToBytes } from '@app/common/store-utils';
 
 import { storeAtom } from '..';
 import { accountsWithAddressState } from '../accounts/accounts';
-import { deriveWalletWithAccounts } from '../chains/stx-chain.selectors';
+import { deriveWalletWithAccounts, selectStacksChain } from '../chains/stx-chain.selectors';
+import { selectInMemoryKey } from '../in-memory-key/in-memory-key.selectors';
+import { selectKeysSlice } from '../keys/key.selectors';
 import { defaultKeyId } from '../keys/key.slice';
 
-export const encryptedSecretKeyState = atom(get => {
-  const store = get(storeAtom);
-  const defaultKey = store.keys.entities[defaultKeyId];
+export const selectEncryptedSecretKey = createSelector(selectKeysSlice, state => {
+  const defaultKey = state.entities[defaultKeyId];
   if (!defaultKey || defaultKey.type !== 'software') return;
   return defaultKey.encryptedSecretKey;
 });
 
-export const currentAccountIndexState = atom(get => {
-  const store = get(storeAtom);
-  return store.chains.stx[defaultKeyId].currentAccountIndex;
+export const selectCurrentAccountIndex = createSelector(selectStacksChain, state => {
+  return state[defaultKeyId].currentAccountIndex;
 });
 
-export const secretKeyState = atom(get => {
-  const store = get(storeAtom);
-  return store.inMemoryKeys.keys.default ? textToBytes(store.inMemoryKeys.keys.default) : undefined;
+export const selectSecretKey = createSelector(selectInMemoryKey, inMemKeys => {
+  return inMemKeys.keys.default ? textToBytes(inMemKeys.keys.default) : undefined;
 });
 
-export const ledgerKeyState = atom(get => {
-  const store = get(storeAtom);
-  if (!store.keys.entities.default) return;
-  if (store.keys.entities.default.type !== 'ledger') return;
-  return store.keys.entities.default;
+export const selectLedgerKey = createSelector(selectKeysSlice, keys => {
+  if (!keys.entities.default) return;
+  if (keys.entities.default.type !== 'ledger') return;
+  return keys.entities.default;
 });
 
 export const softwareStacksWalletState = atom(async get => {

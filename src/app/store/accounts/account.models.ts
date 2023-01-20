@@ -1,16 +1,16 @@
-import { Account } from '@stacks/wallet-sdk';
+import type { Account } from '@stacks/wallet-sdk';
 
 import type { AccountBalanceStxKeys } from '@shared/models/account.model';
 
 // Extending the `Account` type from `@stacks/wallet-sdk`
-export type SoftwareWalletAccountWithAddress = Account & {
+export type SoftwareWalletAccount = Account & {
   type: 'software';
   address: string;
   stxPublicKey: string;
   dataPublicKey: string;
 };
 
-export interface LedgerAccountWithAddress {
+export interface HardwareWalletAccount {
   type: 'ledger';
   address: string;
   index: number;
@@ -18,7 +18,7 @@ export interface LedgerAccountWithAddress {
   dataPublicKey: string;
 }
 
-export type AccountWithAddress = SoftwareWalletAccountWithAddress | LedgerAccountWithAddress;
+export type WalletAccount = SoftwareWalletAccount | HardwareWalletAccount;
 
 export const accountBalanceStxKeys: AccountBalanceStxKeys[] = [
   'balance',

@@ -14,7 +14,6 @@ import {
 } from './legacy-external-message-handler';
 import { internalBackgroundMessageHandler } from './message-handler';
 
-// void addRefererHeaderRequestListener();
 initSentry();
 initContextMenuActions();
 backupOldWalletSalt();
