@@ -11885,10 +11885,15 @@ jose@4.11.1:
   resolved "https://registry.yarnpkg.com/jose/-/jose-4.11.1.tgz#8f7443549befe5bddcf4bae664a9cbc1a62da4fa"
   integrity sha512-YRv4Tk/Wlug8qicwqFNFVEZSdbROCHRAC6qu/i0dyNKr5JQdoa2pIGoS04lLO/jXQX7Z9omoNewYIVIxqZBd9Q==
 
-jotai@1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.5.3.tgz#0157f962c6cd7d28389f9606a1eefebf223801ed"
-  integrity sha512-iD8MkbehxTjfRUtIJJdyQcjbAe2MqjW1+oFc5lvfgRjLHwjRQyWnZC3gdGAOQCOqUSPZHOBGgWyP/8gBDckaNQ==
+jotai-redux@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jotai-redux/-/jotai-redux-0.1.0.tgz#20e0967be73d4650c05cd49e8c58d4923e92db82"
+  integrity sha512-5pI9CtSKRJL1Bp2wLiS4VXshBgDaoiJmBZFo2x04HKuBdfTYKbV/CJcITbzSGyajtNc9gzj0Sjpq3XGlg0x86w==
+
+jotai@1.13.1:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.13.1.tgz#20cc46454cbb39096b12fddfa635b873b3668236"
+  integrity sha512-RUmH1S4vLsG3V6fbGlKzGJnLrDcC/HNb5gH2AeA9DzuJknoVxSGvvg8OBB7lke+gDc4oXmdVsaKn/xDUhWZ0vw==
 
 joycon@^3.0.1:
   version "3.1.1"
