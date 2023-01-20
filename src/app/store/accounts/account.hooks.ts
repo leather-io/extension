@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
-import { useAtom } from 'jotai';
-import { useAtomValue } from 'jotai/utils';
+import { useAtom, useAtomValue } from 'jotai';
 
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 

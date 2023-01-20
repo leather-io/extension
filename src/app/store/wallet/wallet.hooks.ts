@@ -6,7 +6,7 @@ import {
   makeAuthResponse,
   updateWalletConfigWithApp,
 } from '@stacks/wallet-sdk';
-import { useAtomValue } from 'jotai/utils';
+import { useAtomValue } from 'jotai';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { gaiaUrl } from '@shared/constants';

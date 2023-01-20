@@ -1,5 +1,4 @@
-import { useAtom } from 'jotai';
-import { useAtomValue } from 'jotai/utils';
+import { useAtom, useAtomValue } from 'jotai';
 
 import { secretKeyState, seedInputErrorState } from './onboarding';
 

@@ -25,7 +25,7 @@ export const secretKeyState = atom(get => {
   return store.inMemoryKeys.keys.default ? textToBytes(store.inMemoryKeys.keys.default) : undefined;
 });
 
-export const ledgerKeyState = atom(async get => {
+export const ledgerKeyState = atom(get => {
   const store = get(storeAtom);
   if (!store.keys.entities.default) return;
   if (store.keys.entities.default.type !== 'ledger') return;
