@@ -19,7 +19,13 @@ export function AmountField({ symbol, rightInputOverlay }: AmountFieldProps) {
   const { inputFontSize, symbolTextWidth } = useFontResizer();
 
   return (
+<<<<<<<< HEAD:src/app/pages/send/send-crypto-asset-form/_components/amount-field.tsx
     <Stack alignItems="center" spacing={['base', meta.error ? 'base' : '48px']}>
+|||||||| d62440114:src/app/pages/send-crypto-asset/components/amount-field.tsx
+    <Stack alignItems="center" spacing="48px">
+========
+    <Stack alignItems="center" spacing={meta.error ? 'base' : '48px'}>
+>>>>>>>> origin/main:src/app/pages/send/send-crypto-asset-form/components/amount-field.tsx
       <Flex
         alignItems="center"
         height="55px"
