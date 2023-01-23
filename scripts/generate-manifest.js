@@ -24,7 +24,7 @@ const manifest = {
   },
   web_accessible_resources: ['inpage.js'],
   browser_action: {
-    default_title: 'Stacks',
+    default_title: 'Hiro Wallet',
     default_popup: 'popup.html',
   },
   commands: {
