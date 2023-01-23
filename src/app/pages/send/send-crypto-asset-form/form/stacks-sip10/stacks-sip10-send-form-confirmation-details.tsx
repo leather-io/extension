@@ -13,9 +13,9 @@ import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 import { Caption } from '@app/components/typography';
 
-import { ConfirmationDetail } from '../_components/confirmation/components/confirmation-detail';
-import { ConfirmationDetailsLayout } from '../_components/confirmation/components/confirmation-details.layout';
-import { convertToMoneyTypeWithDefaultOfZero } from '../_components/confirmation/send-form-confirmation.utils';
+import { ConfirmationDetail } from '../../components/confirmation/components/confirmation-detail';
+import { ConfirmationDetailsLayout } from '../../components/confirmation/components/confirmation-details.layout';
+import { convertToMoneyTypeWithDefaultOfZero } from '../../components/confirmation/send-form-confirmation.utils';
 
 interface StacksSip10SendFormConfirmationDetailsProps {
   decimals: number;

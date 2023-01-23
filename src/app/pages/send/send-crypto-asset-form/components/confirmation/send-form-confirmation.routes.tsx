@@ -2,9 +2,9 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { BtcSendFormConfirmation } from '../../btc/btc-send-form-confirmation';
-import { StacksSip10SendFormConfirmation } from '../../stacks-sip10/stacks-sip10-send-form-confirmation';
-import { StxSendFormConfirmation } from '../../stx/stx-send-form-confirmation';
+import { BtcSendFormConfirmation } from '../../form/btc/btc-send-form-confirmation';
+import { StacksSip10SendFormConfirmation } from '../../form/stacks-sip10/stacks-sip10-send-form-confirmation';
+import { StxSendFormConfirmation } from '../../form/stx/stx-send-form-confirmation';
 import { SendFormConfirmationContainer } from './send-form-confirmation-container';
 
 export const sendFormConfirmationRoutes = (

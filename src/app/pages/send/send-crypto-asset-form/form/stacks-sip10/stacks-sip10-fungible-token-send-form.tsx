@@ -9,19 +9,25 @@ import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+import { isUndefined } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
+import { useWallet } from '@app/common/hooks/use-wallet';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { pullContractIdFromIdentity } from '@app/common/utils';
-import { stxAddressValidator } from '@app/common/validation/forms/address-validators';
 import { stacksFungibleTokenValidator } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
+import {
+  stxRecipientAddressOrBnsNameValidator,
+  stxRecipientValidator,
+} from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { FeesRow } from '@app/components/fees-row/fees-row';
+import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
@@ -29,22 +35,23 @@ import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/cr
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import {
   useFtTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
 
-import { AmountField } from '../_components/amount-field';
-import { FormErrors } from '../_components/form-errors';
-import { FormFieldsLayout } from '../_components/form-fields.layout';
-import { MemoField } from '../_components/memo-field';
-import { PreviewButton } from '../_components/preview-button';
-import { RecipientField } from '../_components/recipient-field';
-import { SelectedAssetField } from '../_components/selected-asset-field';
-import { SendAllButton } from '../_components/send-all-button';
-import { useHighFeeWarning } from '../_hooks/use-high-fee-warning';
-import { useSendFormNavigate } from '../_hooks/use-send-form-navigate';
-import { createDefaultInitialFormValues } from '../send-form.utils';
+import { AmountField } from '../../components/amount-field';
+import { FormErrors } from '../../components/form-errors';
+import { FormFieldsLayout } from '../../components/form-fields.layout';
+import { MemoField } from '../../components/memo-field';
+import { PreviewButton } from '../../components/preview-button';
+import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SendAllButton } from '../../components/send-all-button';
+import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
+import { useHighFeeWarning } from '../../hooks/use-high-fee-warning';
+import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
+import { createDefaultInitialFormValues } from '../../send-form.utils';
 import { useStacksFtParams } from './use-stacks-ft-params';
 
 interface StacksSip10FungibleTokenSendFormProps {
@@ -65,7 +72,9 @@ export function StacksSip10FungibleTokenSendForm({
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const generateTx = useGenerateFtTokenTransferUnsignedTx(contractId);
+  const { currentNetwork, currentAccountStxAddress } = useWallet();
   const { whenWallet } = useWalletType();
+  const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
 
@@ -93,7 +102,12 @@ export function StacksSip10FungibleTokenSendForm({
     amount: stacksFungibleTokenValidator(
       assetBalance ? assetBalance.balance : createMoney(0, 'STX')
     ),
-    recipient: stxAddressValidator(FormErrorMessages.InvalidAddress),
+    recipient: stxRecipientValidator(currentAccountStxAddress, currentNetwork),
+    recipientAddressOrBnsName: stxRecipientAddressOrBnsNameValidator({
+      client,
+      currentAddress: currentAccountStxAddress,
+      currentNetwork,
+    }),
     fee: stxFeeValidator(balances?.stx.availableStx),
     memo: stxMemoValidator(FormErrorMessages.MemoExceedsLimit),
     nonce: nonceValidator,
@@ -130,36 +144,49 @@ export function StacksSip10FungibleTokenSendForm({
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Form style={{ width: '100%' }}>
-        <AmountField
-          balance={availableTokenBalance}
-          bottomInputOverlay={
-            <SendAllButton
+      {props => (
+        <NonceSetter>
+          <Form style={{ width: '100%' }}>
+            <AmountField
               balance={availableTokenBalance}
-              sendAllBalance={sendAllBalance.toString()}
+              bottomInputOverlay={
+                <SendAllButton
+                  balance={availableTokenBalance}
+                  sendAllBalance={sendAllBalance.toString()}
+                />
+              }
             />
-          }
-        />
-        <FormFieldsLayout>
-          <SelectedAssetField
-            icon={<StxAvatar />}
-            name={symbol}
-            onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
-            symbol={symbol}
-          />
-          <RecipientField />
-          <MemoField />
-        </FormFieldsLayout>
-        <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
-        <FormErrors />
-        <PreviewButton />
-        <EditNonceButton
-          onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
-          my={['loose', 'base']}
-        />
-        <HighFeeDrawer />
-        <Outlet />
-      </Form>
+            <FormFieldsLayout>
+              <SelectedAssetField
+                icon={<StxAvatar />}
+                name={symbol}
+                onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
+                symbol={symbol}
+              />
+              <StacksRecipientField contractId={contractId} />
+              <MemoField />
+            </FormFieldsLayout>
+            <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
+            <FormErrors />
+            <PreviewButton
+              isDisabled={
+                !(
+                  props.values.amount &&
+                  props.values.recipient &&
+                  props.values.fee &&
+                  !isUndefined(props.values.nonce)
+                )
+              }
+            />
+            <EditNonceButton
+              onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
+              my={['loose', 'base']}
+            />
+            <HighFeeDrawer />
+            <Outlet />
+          </Form>
+        </NonceSetter>
+      )}
     </Formik>
   );
 }
