@@ -22,15 +22,15 @@ import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address
 import { useBitcoinFees } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
 
-import { AmountField } from '../_components/amount-field';
-import { FormErrors } from '../_components/form-errors';
-import { FormFieldsLayout } from '../_components/form-fields.layout';
-import { MemoField } from '../_components/memo-field';
-import { PreviewButton } from '../_components/preview-button';
-import { RecipientField } from '../_components/recipient-field';
-import { SelectedAssetField } from '../_components/selected-asset-field';
-import { SendAllButton } from '../_components/send-all-button';
-import { createDefaultInitialFormValues } from '../send-form.utils';
+import { AmountField } from '../../components/amount-field';
+import { FormErrors } from '../../components/form-errors';
+import { FormFieldsLayout } from '../../components/form-fields.layout';
+import { MemoField } from '../../components/memo-field';
+import { PreviewButton } from '../../components/preview-button';
+import { RecipientField } from '../../components/recipient-field';
+import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SendAllButton } from '../../components/send-all-button';
+import { createDefaultInitialFormValues } from '../../send-form.utils';
 
 export function BtcCryptoCurrencySendForm() {
   const navigate = useNavigate();
@@ -112,7 +112,9 @@ export function BtcCryptoCurrencySendForm() {
           </FormFieldsLayout>
           <FeesRow fees={btcFees} isSponsored={false} mt="base" />
           <FormErrors />
-          <PreviewButton />
+          <PreviewButton
+            isDisabled={!(props.values.amount && props.values.recipient && props.values.fee)}
+          />
         </Form>
       )}
     </Formik>

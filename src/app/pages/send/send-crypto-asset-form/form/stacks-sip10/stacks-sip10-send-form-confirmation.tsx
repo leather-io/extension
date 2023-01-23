@@ -4,9 +4,9 @@ import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
 
-import { ConfirmationButton } from '../_components/confirmation/components/confirmation-button';
-import { ConfirmationInfoLabel } from '../_components/confirmation/components/confirmation-info-label';
-import { useStacksBroadcastTransaction } from '../_hooks/use-stacks-broadcast-transaction';
+import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
+import { ConfirmationInfoLabel } from '../../components/confirmation/components/confirmation-info-label';
+import { useStacksBroadcastTransaction } from '../../family/stacks/hooks/use-stacks-broadcast-transaction';
 import { StacksSip10SendFormConfirmationDetails } from './stacks-sip10-send-form-confirmation-details';
 
 export function StacksSip10SendFormConfirmation() {

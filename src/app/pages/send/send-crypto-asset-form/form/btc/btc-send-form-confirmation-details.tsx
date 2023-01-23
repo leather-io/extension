@@ -6,9 +6,9 @@ import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transact
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 
-import { ConfirmationDetail } from '../_components/confirmation/components/confirmation-detail';
-import { ConfirmationDetailsLayout } from '../_components/confirmation/components/confirmation-details.layout';
-import { convertToMoneyTypeWithDefaultOfZero } from '../_components/confirmation/send-form-confirmation.utils';
+import { ConfirmationDetail } from '../../components/confirmation/components/confirmation-detail';
+import { ConfirmationDetailsLayout } from '../../components/confirmation/components/confirmation-details.layout';
+import { convertToMoneyTypeWithDefaultOfZero } from '../../components/confirmation/send-form-confirmation.utils';
 
 // TODO: Placeholder details
 interface BtcSendFormConfirmationDetailsProps {

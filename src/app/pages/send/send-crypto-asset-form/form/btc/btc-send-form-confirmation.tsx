@@ -1,5 +1,5 @@
-import { ConfirmationButton } from '../_components/confirmation/components/confirmation-button';
-import { ConfirmationInfoLabel } from '../_components/confirmation/components/confirmation-info-label';
+import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
+import { ConfirmationInfoLabel } from '../../components/confirmation/components/confirmation-info-label';
 import { BtcSendFormConfirmationDetails } from './btc-send-form-confirmation-details';
 
 export function BtcSendFormConfirmation() {
