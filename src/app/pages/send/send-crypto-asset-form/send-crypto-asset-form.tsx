@@ -7,6 +7,7 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 
 import { SendCryptoAssetFormLayout } from './_components/send-crypto-asset-form.layout';
+import { BtcCryptoCurrencySendForm } from './btc/btc-crypto-currency-send-form';
 import { StacksSip10FungibleTokenSendForm } from './stacks-sip10/stacks-sip10-fungible-token-send-form';
 import { StxCryptoCurrencySendForm } from './stx/stx-crypto-currency-send-form';
 
@@ -25,7 +26,7 @@ export function SendCryptoAssetForm() {
   const content = (() => {
     switch (symbol) {
       case 'btc':
-        return <StxCryptoCurrencySendForm />;
+        return <BtcCryptoCurrencySendForm />;
 
       case 'stx':
         return <StxCryptoCurrencySendForm />;
