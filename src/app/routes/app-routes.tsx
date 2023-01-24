@@ -29,6 +29,7 @@ import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { ChooseCryptoAsset } from '@app/pages/send/choose-crypto-asset/choose-crypto-asset';
+import { sendFormConfirmationRoutes } from '@app/pages/send/send-crypto-asset-form/_components/confirmation/send-form-confirmation.routes';
 import { SendCryptoAssetForm } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
@@ -165,7 +166,7 @@ function AppRoutesAfterUserHasConsented() {
         <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />}>
           <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
         </Route>
-        <Route path={RouteUrls.SendCryptoAssetFormConfirmation} element={<>confirmation</>} />
+        {sendFormConfirmationRoutes}
         <Route
           path={RouteUrls.TransactionRequest}
           element={

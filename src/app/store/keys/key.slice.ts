@@ -28,16 +28,16 @@ export const keySlice = createSlice({
   name: 'keys',
   initialState: migrateVaultReducerStoreToNewStateStructure(initialKeysState),
   reducers: {
-    createNewSoftwareWalletComplete(state, action: PayloadAction<KeyConfigSoftware>) {
+    createNewStacksSoftwareWalletComplete(state, action: PayloadAction<KeyConfigSoftware>) {
+      keyAdapter.addOne(state, action.payload);
+    },
+
+    createNewStacksLedgerWallet(state, action: PayloadAction<KeyConfigLedger>) {
       keyAdapter.addOne(state, action.payload);
     },
 
     signOut(state) {
       keyAdapter.removeOne(state, defaultKeyId);
-    },
-
-    createLedgerWallet(state, action: PayloadAction<KeyConfigLedger>) {
-      keyAdapter.addOne(state, action.payload);
     },
   },
 });

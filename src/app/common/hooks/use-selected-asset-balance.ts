@@ -5,7 +5,8 @@ import { ftDecimals } from '@app/common/stacks-utils';
 import { getTicker } from '@app/common/utils';
 import { useStacksCryptoAssetBalanceByAssetId } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 
-export function useSelectedAssetBalance(assetId: string) {
+// TODO: Remove with legacy send form
+export function useSelectedAssetBalance(assetId?: string) {
   const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(assetId);
 
   return useMemo(() => {

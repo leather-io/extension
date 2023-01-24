@@ -125,7 +125,7 @@ export function useTransferableStacksFungibleTokenAssetBalances(
  * Remove with legacy send form.
  * @deprecated
  */
-export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId: string) {
+export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId?: string) {
   const account = useCurrentAccount();
 
   const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(

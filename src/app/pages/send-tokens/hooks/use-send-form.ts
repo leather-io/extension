@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { useFormikContext } from 'formik';
 
-import { SendFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
@@ -12,7 +12,7 @@ import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balan
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 
 export function useSendAmountFieldActions() {
-  const { setFieldValue, values } = useFormikContext<SendFormValues>();
+  const { setFieldValue, values } = useFormikContext<StacksSendFormValues>();
   const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(values.assetId);

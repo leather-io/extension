@@ -17,13 +17,13 @@ import { gaiaUrl } from '@shared/constants';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
-import { useWalletState } from '@app/store/wallet/wallet.hooks';
+import { useStxWalletState } from '@app/store/wallet/wallet.hooks';
 
 import { UpdateActionLayout } from './update-action.layout';
 
 function useUpdateProfileSoftwareWallet() {
   const account = useCurrentAccount();
-  const wallet = useWalletState();
+  const wallet = useStxWalletState();
 
   return useCallback(
     async (publicProfile: PublicPersonProfile) => {

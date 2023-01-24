@@ -4,7 +4,7 @@ import { atom } from 'jotai';
 
 import { derivePublicKey } from '@app/common/derive-public-key';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
-import { ledgerKeyState, softwareWalletState } from '@app/store/wallet/wallet';
+import { ledgerKeyState, softwareStacksWalletState } from '@app/store/wallet/wallet';
 
 import {
   AccountWithAddress,
@@ -12,8 +12,8 @@ import {
   SoftwareWalletAccountWithAddress,
 } from './account.models';
 
-export const softwareAccountsState = atom<Account[] | undefined>(get => {
-  const wallet = get(softwareWalletState);
+const softwareAccountsState = atom<Account[] | undefined>(get => {
+  const wallet = get(softwareStacksWalletState);
   if (!wallet) return undefined;
   return wallet.accounts;
 });

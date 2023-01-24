@@ -1,13 +1,14 @@
+import { ReactNode } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 
-import { Box, Stack, StackProps, Text, color } from '@stacks/ui';
+import { Box, Flex, Stack, StackProps, Text, color } from '@stacks/ui';
 
 interface WarningLabelProps extends StackProps {
-  children: React.ReactNode | undefined;
+  children: ReactNode | undefined;
 }
-export function WarningLabel({ children, ...rest }: WarningLabelProps): JSX.Element {
+export function WarningLabel({ children, ...rest }: WarningLabelProps) {
   return (
-    <Stack width="100%" fontSize="12px" {...rest}>
+    <Flex width="100%" {...rest}>
       <Stack
         alignItems="center"
         bg="#FFF5EB"
@@ -27,10 +28,10 @@ export function WarningLabel({ children, ...rest }: WarningLabelProps): JSX.Elem
           position="relative"
           top="2px"
         />
-        <Text color="#242629" fontSize="inherit" lineHeight="1.5">
+        <Text color="#242629" fontSize="12px" lineHeight="1.5">
           {children}
         </Text>
       </Stack>
-    </Stack>
+    </Flex>
   );
 }

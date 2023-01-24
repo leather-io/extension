@@ -7,7 +7,7 @@ import { color, truncateMiddle } from '@stacks/ui-utils';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
-import { SendFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@app/components/error-label';
@@ -26,7 +26,7 @@ interface RecipientField extends StackProps {
 // TODO: this should use a new "Field" component (with inline label like in figma)
 function RecipientFieldBase(props: RecipientField) {
   const { error, value, ...rest } = props;
-  const { handleChange, values, setFieldValue } = useFormikContext<SendFormValues>();
+  const { handleChange, values, setFieldValue } = useFormikContext<StacksSendFormValues>();
   const client = useStacksClientUnanchored();
   const [resolvedBnsAddress, setResolvedBnsAddress] = useState('');
   const { onCopy, hasCopied } = useClipboard(resolvedBnsAddress);

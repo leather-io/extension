@@ -37,7 +37,6 @@ export const WelcomePage = memo(() => {
 
   useEffect(() => {
     if (!hasResponded) navigate(RouteUrls.RequestDiagnostics);
-
     return () => setIsGeneratingWallet(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

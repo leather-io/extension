@@ -5,7 +5,7 @@ import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transact
 import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
-import { TransactionFormValues } from '@shared/models/form.model';
+import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { isEmpty } from '@shared/utils';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -21,7 +21,7 @@ function BaseConfirmButton(props: ButtonProps): JSX.Element {
 }
 
 export function SubmitAction() {
-  const { handleSubmit, values, validateForm } = useFormikContext<TransactionFormValues>();
+  const { handleSubmit, values, validateForm } = useFormikContext<StacksTransactionFormValues>();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { isLoading } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const error = useTransactionError();

@@ -17,6 +17,7 @@ const initialState: InMemoryKeyState = {
 export const inMemoryKeySlice = createSlice({
   name: 'inMemoryKey',
   initialState,
+
   reducers: {
     generateWalletKey(state, action: PayloadAction<string>) {
       if (state.keys[defaultKeyId]) {
@@ -38,9 +39,10 @@ export const inMemoryKeySlice = createSlice({
       state.keys = {};
     },
   },
-  extraReducers: {
-    [keySlice.actions.signOut.toString()](state) {
+
+  extraReducers: builder => {
+    builder.addCase(keySlice.actions.signOut.toString(), state => {
       state.keys = {};
-    },
+    });
   },
 });

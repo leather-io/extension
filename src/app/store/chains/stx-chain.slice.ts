@@ -17,6 +17,7 @@ const initialState: Record<string, StxChainKeyState> = {
 export const stxChainSlice = createSlice({
   name: 'stxChain',
   initialState,
+
   reducers: {
     switchAccount(state, action: PayloadAction<number>) {
       state.default.currentAccountIndex = action.payload;
@@ -29,10 +30,11 @@ export const stxChainSlice = createSlice({
       state.default.highestAccountIndex = action.payload;
     },
   },
-  extraReducers: {
-    [keySlice.actions.signOut.toString()]: state => {
+
+  extraReducers: builder => {
+    builder.addCase(keySlice.actions.signOut.toString(), state => {
       state.default.highestAccountIndex = 0;
       state.default.currentAccountIndex = 0;
-    },
+    });
   },
 });

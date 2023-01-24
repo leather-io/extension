@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { useFormikContext } from 'formik';
 
-import { SendFormValues } from '@shared/models/form.model';
+import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { AccountAvatarItem } from '@app/components/account/account-avatar';
@@ -20,7 +20,7 @@ export const RecipientAccountListItem = memo(
   ({ account, handleClose }: RecipientAccountListItemProps) => {
     const [component, bind] = usePressable(true);
     const name = useAccountDisplayName(account);
-    const { setFieldValue } = useFormikContext<SendFormValues>();
+    const { setFieldValue } = useFormikContext<StacksSendFormValues>();
 
     const handleClick = () => {
       setFieldValue('recipientAddressOrBnsName', account.address);

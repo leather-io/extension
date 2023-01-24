@@ -1,15 +1,27 @@
-export interface SendFormValues {
+export interface BitcoinSendFormValues {
   amount: number | string;
-  assetId: string;
   fee: number | string;
   feeType: string;
-  recipient: string;
-  recipientAddressOrBnsName: string;
   memo: string;
-  nonce?: number | string;
+  recipient: string;
+  symbol: string;
 }
 
-export interface TransactionFormValues {
+// TODO: Remove assetId and optional symbol with legacy send form
+export interface StacksSendFormValues {
+  amount: number | string;
+  assetId?: string;
+  fee: number | string;
+  feeCurrency: string;
+  feeType: string;
+  memo: string;
+  nonce?: number | string;
+  recipient: string;
+  recipientAddressOrBnsName: string;
+  symbol?: string;
+}
+
+export interface StacksTransactionFormValues {
   fee: number | string;
   feeType: string;
   nonce?: number | string;

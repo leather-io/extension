@@ -7,7 +7,7 @@ import get from 'lodash.get';
 import * as yup from 'yup';
 
 import { FeeTypes } from '@shared/models/fees/_fees.model';
-import { TransactionFormValues } from '@shared/models/form.model';
+import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -65,7 +65,7 @@ function TransactionRequestBase() {
     void analytics.track('view_transaction_signing'), [analytics];
   });
 
-  const onSubmit = async (values: TransactionFormValues) => {
+  const onSubmit = async (values: StacksTransactionFormValues) => {
     if (walletType === 'ledger') {
       const tx = await generateUnsignedTx(values);
       if (!tx) return;
@@ -98,7 +98,7 @@ function TransactionRequestBase() {
       })
     : null;
 
-  const initialValues: TransactionFormValues = {
+  const initialValues: StacksTransactionFormValues = {
     fee: '',
     feeType: FeeTypes[FeeTypes.Middle],
     nonce: nextNonce?.nonce,

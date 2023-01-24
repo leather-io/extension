@@ -94,9 +94,9 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
 
       - name: Install packages
         uses: ./.github/actions/provision
@@ -105,6 +105,9 @@ jobs:
       - name: Build project
         env:
           IS_PUBLISHING: true
+          # We only add the sentry auth token for chrome, as we don't want to
+          # create a duplicate release during the ff build
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: yarn build
 
       - name: Build extension
@@ -143,9 +146,9 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
 
       - name: Install packages
         uses: ./.github/actions/provision

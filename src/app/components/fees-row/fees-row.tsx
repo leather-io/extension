@@ -4,7 +4,6 @@ import { StackProps } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { FeeTypes, Fees } from '@shared/models/fees/_fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { isNumber, isString } from '@shared/utils';
@@ -25,6 +24,7 @@ interface FeeRowProps extends StackProps {
 export function FeesRow(props: FeeRowProps): JSX.Element {
   const { fees, isSponsored, ...rest } = props;
   const [feeField, _, feeHelper] = useField('fee');
+  const [feeCurrencyField] = useField('feeCurrency');
   const [feeTypeField, __, feeTypeHelper] = useField('feeType');
   const [fieldWarning, setFieldWarning] = useState<string | undefined>(undefined);
   const [isSelectVisible, setIsSelectVisible] = useState(false);
@@ -33,7 +33,7 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
   const selectedItem = Number(FeeTypes[feeTypeField.value]);
 
   const hasFeeEstimates = fees?.estimates.length;
-  const feeCurrencySymbol = fees?.estimates[0].fee.symbol as CryptoCurrencies;
+  const feeCurrencySymbol = feeCurrencyField.value;
   const convertCryptoCurrencyToUsd = useConvertCryptoCurrencyToFiatAmount(feeCurrencySymbol);
 
   const feeInUsd = useMemo(() => {

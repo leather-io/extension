@@ -8,7 +8,31 @@ import { accountsWithAddressState } from '../accounts/accounts';
 import { deriveWalletWithAccounts } from '../chains/stx-chain.selectors';
 import { defaultKeyId } from '../keys/key.slice';
 
-export const softwareWalletState = atom(async get => {
+export const encryptedSecretKeyState = atom(get => {
+  const store = get(storeAtom);
+  const defaultKey = store.keys.entities[defaultKeyId];
+  if (!defaultKey || defaultKey.type !== 'software') return;
+  return defaultKey.encryptedSecretKey;
+});
+
+export const currentAccountIndexState = atom(get => {
+  const store = get(storeAtom);
+  return store.chains.stx[defaultKeyId].currentAccountIndex;
+});
+
+export const secretKeyState = atom(get => {
+  const store = get(storeAtom);
+  return store.inMemoryKeys.keys.default ? textToBytes(store.inMemoryKeys.keys.default) : undefined;
+});
+
+export const ledgerKeyState = atom(async get => {
+  const store = get(storeAtom);
+  if (!store.keys.entities.default) return;
+  if (store.keys.entities.default.type !== 'ledger') return;
+  return store.keys.entities.default;
+});
+
+export const softwareStacksWalletState = atom(async get => {
   const store = get(storeAtom);
   const defaultKey = store.keys.entities[defaultKeyId];
   const defaultInMemoryKey = store.inMemoryKeys.keys[defaultKeyId];
@@ -36,15 +60,13 @@ export const softwareWalletState = atom(async get => {
 // Here, we mock the `Wallet` type for hardware wallets. Setting all the crypto
 // values to an empty string, and only including the properties we do have
 // access to.
-// ts-unused-exports:disable-next-line
-export const ledgerWalletState = atom(get => {
+const ledgerStacksWalletState = atom(get => {
   const store = get(storeAtom);
   const accounts = get(accountsWithAddressState);
   const defaultKey = store.keys.entities[defaultKeyId];
 
   if (!defaultKey) return;
   if (defaultKey.type !== 'ledger') return;
-
   const wallet: Wallet = {
     salt: '',
     rootKey: '',
@@ -55,32 +77,8 @@ export const ledgerWalletState = atom(get => {
   return wallet;
 });
 
-export const walletState = atom(get => {
-  const softwareWallet = get(softwareWalletState);
-  const ledgerWallet = get(ledgerWalletState);
+export const stacksWalletState = atom(get => {
+  const softwareWallet = get(softwareStacksWalletState);
+  const ledgerWallet = get(ledgerStacksWalletState);
   return softwareWallet ? softwareWallet : ledgerWallet;
-});
-
-export const ledgerKeyState = atom(async get => {
-  const store = get(storeAtom);
-  if (!store.keys.entities.default) return;
-  if (store.keys.entities.default.type !== 'ledger') return;
-  return store.keys.entities.default;
-});
-
-export const encryptedSecretKeyState = atom(get => {
-  const store = get(storeAtom);
-  const defaultKey = store.keys.entities[defaultKeyId];
-  if (!defaultKey || defaultKey.type !== 'software') return;
-  return defaultKey.encryptedSecretKey;
-});
-
-export const currentAccountIndexState = atom(get => {
-  const store = get(storeAtom);
-  return store.chains.stx[defaultKeyId].currentAccountIndex;
-});
-
-export const secretKeyState = atom(get => {
-  const store = get(storeAtom);
-  return store.inMemoryKeys.keys.default ? textToBytes(store.inMemoryKeys.keys.default) : undefined;
 });
