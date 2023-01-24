@@ -1,3 +1,45 @@
+## [3.31.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.30.0...v3.31.0) (2023-01-24)
+
+
+### Features
+
+* misc sentry improvements ([5ea0119](https://github.com/hirosystems/stacks-wallet-web/commit/5ea01195d25e12038d235e4820130c88897664c6))
+* send form confirmation ([12e4de4](https://github.com/hirosystems/stacks-wallet-web/commit/12e4de40661c8b1c5ee405d3ac0442ab0a198fa4))
+
+
+### Bug Fixes
+
+* **analytics:** track switching account, closes [#2994](https://github.com/hirosystems/stacks-wallet-web/issues/2994) ([d5a2536](https://github.com/hirosystems/stacks-wallet-web/commit/d5a2536dacca6e527f99e3bd7e58d690ff7e87a2))
+* dev source maps ([39a6f90](https://github.com/hirosystems/stacks-wallet-web/commit/39a6f903d53e0e10813ecf1bac33bddf123c13b2))
+* emotion styles broken ([a92cd27](https://github.com/hirosystems/stacks-wallet-web/commit/a92cd276a66bd0f65122138364177664e6c6e0b8))
+* emotion styles broken ([67f809c](https://github.com/hirosystems/stacks-wallet-web/commit/67f809cd004cc00cca05a834dd92864f1f0021fd))
+* ext icon tooltip, closes [#2967](https://github.com/hirosystems/stacks-wallet-web/issues/2967) ([dd3b240](https://github.com/hirosystems/stacks-wallet-web/commit/dd3b240745b3da6c1cc6f64260f1d3e83f8a1644))
+* **packaging:** prevent unresolvable sourcemap logs, closes [#2964](https://github.com/hirosystems/stacks-wallet-web/issues/2964) ([c886e4d](https://github.com/hirosystems/stacks-wallet-web/commit/c886e4dd17c9e514ccf9ca9d4a67a445290649bb))
+* pending tx nonce ([a60cb6f](https://github.com/hirosystems/stacks-wallet-web/commit/a60cb6fcc8755587cbf124893b07e5ce34f9023b))
+* prevent onboarding when wallet exists, closes [#2997](https://github.com/hirosystems/stacks-wallet-web/issues/2997) ([2ef4bd9](https://github.com/hirosystems/stacks-wallet-web/commit/2ef4bd9a69042649e8abc79005f0eb02a7b70d56))
+* **sentry:** remove some transaction logs ([bea316a](https://github.com/hirosystems/stacks-wallet-web/commit/bea316a466ad1b55d7cae1a15948c2be710b46e9))
+* track sentry releases, source maps, closes [#2915](https://github.com/hirosystems/stacks-wallet-web/issues/2915), [#2914](https://github.com/hirosystems/stacks-wallet-web/issues/2914) ([febde6a](https://github.com/hirosystems/stacks-wallet-web/commit/febde6a3a39d92b93776745fdc9cea7b637622fb))
+* unit tests ([281736d](https://github.com/hirosystems/stacks-wallet-web/commit/281736d45b9bd7099b2da4c6d1508ca7aad5a1dd))
+
+
+### Internal
+
+* add hasStx property to switch account event ([efbf87e](https://github.com/hirosystems/stacks-wallet-web/commit/efbf87e6f500e616243158a9336a9c7eb8e501ea))
+* alt implementation, query cache ([a7dc71b](https://github.com/hirosystems/stacks-wallet-web/commit/a7dc71bb7ce797bdd102a90073cae69a1bdbe51f))
+* attempt removing babel ([0cdedb1](https://github.com/hirosystems/stacks-wallet-web/commit/0cdedb1dcc8537e1f18feb5145598172b1d6d814))
+* batch update deps ([aa72dd7](https://github.com/hirosystems/stacks-wallet-web/commit/aa72dd770dedb736d2ff3b1cc133d5ff13f916c6))
+* fix failed merge ([669f8a4](https://github.com/hirosystems/stacks-wallet-web/commit/669f8a41e95b08b075df6c1897163488342f50cb))
+* fix failed merge 2 ([7dead89](https://github.com/hirosystems/stacks-wallet-web/commit/7dead898fad7ac1dd9bc934bd97a35492d3b4ee8))
+* fix failed merge yarn lock ([d3eafec](https://github.com/hirosystems/stacks-wallet-web/commit/d3eafecffa2bda748a9be0595efa3f1e82ae013a))
+* fix failed merge yarnlock ([b5e60a8](https://github.com/hirosystems/stacks-wallet-web/commit/b5e60a8c114cb7b42e30f028b6f9c49d0b62ca11))
+* form validation ([cc6ec1a](https://github.com/hirosystems/stacks-wallet-web/commit/cc6ec1ad9c529e670470290b897010c11a4432a9))
+* new send form file structure ([58c564e](https://github.com/hirosystems/stacks-wallet-web/commit/58c564ef693fb522b765dad95880a291b53fb1fa))
+* remove coreApiUrl getter ([001dad3](https://github.com/hirosystems/stacks-wallet-web/commit/001dad382a965859e326a05a152f98217eaac60d))
+* rename specify stx specific atoms ([c61dc9f](https://github.com/hirosystems/stacks-wallet-web/commit/c61dc9f7c63e0814b83db9e28d21e29f07caa17b))
+* test removing all resolutions ([3790e69](https://github.com/hirosystems/stacks-wallet-web/commit/3790e694ed7e34b34dcac02bad03d4e3ee4cec1b))
+* upgrade @redux/toolkit ([5b3e8c0](https://github.com/hirosystems/stacks-wallet-web/commit/5b3e8c0a3895d164768b6b5f81218e5c59a5aabb))
+* upgrade misc. packages ([0f65e56](https://github.com/hirosystems/stacks-wallet-web/commit/0f65e564634012d308c5e1a9b8b6208559cdbc50))
+
 ## [3.30.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.29.0...v3.30.0) (2023-01-10)
 
 
