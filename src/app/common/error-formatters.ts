@@ -1,9 +1,7 @@
 import { Money } from '@shared/models/money.model';
+import { isFunction } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
-import { initBigNumber } from '@app/common/utils';
-
-import { microStxToStx, satToBtc } from './money/unit-conversion';
 
 export function formatErrorWithSymbol(symbol: string, error: string) {
   return error.replace('{symbol}', symbol);
@@ -15,24 +13,16 @@ export function formatPrecisionError(num?: Money) {
   return formatErrorWithSymbol(num.symbol, error).replace('{decimals}', String(num.decimals));
 }
 
-export function formatInsufficientBalanceError(num?: Money) {
-  if (!num) return FormErrorMessages.CannotDetermineBalance;
-  const amount = initBigNumber(num.amount);
-  const isAmountLessThanZero = amount.lt(0);
-  let formattedAmount = '';
+export function formatInsufficientBalanceError(
+  sum?: Money,
+  formatterFn?: (amount: Money) => string
+) {
+  if (!sum) return FormErrorMessages.CannotDetermineBalance;
+  const isAmountLessThanZero = sum.amount.lt(0);
 
-  switch (num.symbol) {
-    case 'BTC':
-      formattedAmount = satToBtc(amount).toString();
-      break;
-    case 'STX':
-      formattedAmount = microStxToStx(amount).toString();
-      break;
-    default:
-      formattedAmount = amount.toString(10);
-      break;
-  }
+  const formattedAmount = isFunction(formatterFn) ? formatterFn(sum) : sum.amount.toString(10);
+
   return `${FormErrorMessages.InsufficientBalance} ${
     isAmountLessThanZero ? '0' : formattedAmount
-  } ${num.symbol}`;
+  } ${sum.symbol}`;
 }
