@@ -11,7 +11,7 @@ import {
   stxAmountValidator,
 } from '@app/common/validation/forms/currency-validators';
 
-import { btcToSat, stxToMicroStx } from '../../money/unit-conversion';
+import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '../../money/unit-conversion';
 
 interface FeeValidatorFactoryArgs {
   availableBalance?: Money;
@@ -24,7 +24,9 @@ function feeValidatorFactory({
   validator,
 }: FeeValidatorFactoryArgs) {
   return validator(formatPrecisionError(availableBalance)).test({
-    message: formatInsufficientBalanceError(availableBalance),
+    message: formatInsufficientBalanceError(availableBalance, sum =>
+      moneyToBaseUnit(sum).toString()
+    ),
     test(fee: unknown) {
       if (!availableBalance || !isNumber(fee)) return false;
       return availableBalance.amount.isGreaterThanOrEqualTo(unitConverter(fee));

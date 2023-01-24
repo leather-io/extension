@@ -20,7 +20,7 @@ import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
-import { stxToMicroStx } from '../money/unit-conversion';
+import { microStxToStx, stxToMicroStx } from '../money/unit-conversion';
 import { stacksFungibleTokenValidator } from '../validation/forms/amount-validators';
 import { stxFeeValidator } from '../validation/forms/fee-validators';
 
@@ -66,7 +66,9 @@ export const useStacksSendFormValidationLegacy = ({
   const stxAmountFormSchema = useCallback(
     () =>
       stxAmountValidator(formatPrecisionError(availableStxBalance)).test({
-        message: formatInsufficientBalanceError(availableStxBalance),
+        message: formatInsufficientBalanceError(availableStxBalance, sum =>
+          microStxToStx(sum.amount).toString()
+        ),
         test(value: unknown) {
           const fee = stxToMicroStx(this.parent.fee);
           if (!stacksBalances || !isNumber(value)) return false;

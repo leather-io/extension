@@ -4,6 +4,8 @@ import * as yup from 'yup';
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
+import { microStxToStx } from '@app/common/money/unit-conversion';
+
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
 import { countDecimals } from '../../utils';
@@ -24,7 +26,7 @@ export function stacksFungibleTokenValidator(balance: Money) {
       return true;
     })
     .test({
-      message: formatInsufficientBalanceError(balance),
+      message: formatInsufficientBalanceError(balance, sum => microStxToStx(sum.amount).toString()),
       test(value) {
         if (!isNumber(value) || !amount) return false;
         return new BigNumber(value).isLessThanOrEqualTo(amount);
