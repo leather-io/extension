@@ -52,9 +52,7 @@ export function AppErrorBoundary({ children }: HasChildren) {
   const handleOnError = useErrorHandler();
   return (
     <ErrorBoundary
-      onReset={() => {
-        window.location.reload();
-      }}
+      onReset={() => window.location.reload()}
       FallbackComponent={ErrorFallback}
       onError={handleOnError}
     >

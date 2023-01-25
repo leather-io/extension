@@ -1,4 +1,4 @@
-import Lottie, { Options } from 'react-lottie';
+import LottieRaw, { Options } from 'react-lottie';
 
 import { Box, BoxProps } from '@stacks/ui';
 
@@ -12,6 +12,8 @@ const options: Options = {
     preserveAspectRatio: 'xMidYMid slice',
   },
 };
+
+const Lottie = LottieRaw as any;
 
 // Required for interop with `React.lazy`
 // ts-unused-exports:disable-next-line

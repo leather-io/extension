@@ -67,7 +67,7 @@ export function usePsbtRequest() {
   }, [analytics, requestToken, tabId]);
 
   const signPsbtAtIndex = useCallback(
-    (allowedSighash, idx, tx) => {
+    (allowedSighash: btc.SignatureHash[], idx: number, tx: btc.Transaction) => {
       try {
         signNativeSegwitTxAtIndex({ allowedSighash, idx, tx });
       } catch (e1) {
@@ -90,7 +90,7 @@ export function usePsbtRequest() {
     const indexOrIndexes = psbtPayload?.signAtIndex;
     const allowedSighash = psbtPayload?.allowedSighash;
 
-    if (!isUndefined(indexOrIndexes)) {
+    if (!isUndefined(indexOrIndexes) && !isUndefined(allowedSighash)) {
       if (Array.isArray(indexOrIndexes) && indexOrIndexes.length) {
         indexOrIndexes.map(idx => {
           signPsbtAtIndex(allowedSighash, idx, tx);

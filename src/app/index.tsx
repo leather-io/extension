@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { InternalMethods } from '@shared/message-types';
 import { initSentry } from '@shared/utils/analytics';
@@ -35,7 +35,8 @@ async function checkForInMemoryKeys() {
 
 async function renderApp() {
   await checkForInMemoryKeys();
-  return ReactDOM.render(<App />, document.getElementById('app'));
+  const container = document.getElementById('app');
+  return createRoot(container!).render(<App />);
 }
 
 void persistAndRenderApp(renderApp);

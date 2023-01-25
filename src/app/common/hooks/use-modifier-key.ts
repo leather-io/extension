@@ -6,7 +6,7 @@ export function useModifierKey(key: 'alt' | 'control', delay = 0) {
   const [isPressed, setIsPressed] = useState(false);
 
   const keydownFn = useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (key === 'alt' && event.altKey) {
         timer = window.setTimeout(() => setIsPressed(true), delay);
       }
@@ -18,7 +18,7 @@ export function useModifierKey(key: 'alt' | 'control', delay = 0) {
   );
 
   const keyupFn = useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (key === 'alt' && !event.altKey) {
         clearTimeout(timer);
         setIsPressed(false);
@@ -37,7 +37,7 @@ export function useModifierKey(key: 'alt' | 'control', delay = 0) {
     return () => {
       clearTimeout(timer);
       document.removeEventListener('keydown', keydownFn);
-      document.removeEventListener('keyupFn', keyupFn);
+      document.removeEventListener('keyup', keyupFn);
     };
   }, [keydownFn, keyupFn]);
 

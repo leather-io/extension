@@ -72,7 +72,7 @@ export function SetPasswordPage() {
   );
 
   const onSubmit = useCallback(
-    async ({ password }) => {
+    async ({ password }: SetPasswordFormValues) => {
       if (!password) return;
       setLoading(true);
       if (strengthResult.meetsAllStrengthRequirements) {
