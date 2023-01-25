@@ -6,7 +6,10 @@ import { useAccountDisplayName } from '@app/common/hooks/account/use-account-nam
 import { Title } from '@app/components/typography';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
-const AccountNameLayout = memo(({ children }) => (
+interface AccountNameLayoutProps {
+  children: React.ReactNode;
+}
+const AccountNameLayout = memo(({ children }: AccountNameLayoutProps) => (
   <Title fontSize={2} lineHeight="1rem" fontWeight="400">
     {children}
   </Title>
