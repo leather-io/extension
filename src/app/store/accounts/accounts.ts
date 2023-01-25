@@ -1,7 +1,7 @@
 import { createStacksPublicKey, pubKeyfromPrivKey, publicKeyToAddress } from '@stacks/transactions';
 import { atom } from 'jotai';
 
-import { derivePublicKey } from '@app/common/derive-public-key';
+import { derivePublicKey } from '@app/common/keychain/keychain';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
 import { selectLedgerKey, softwareStacksWalletState } from '@app/store/wallet/wallet';
 
