@@ -16,7 +16,6 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
   // Here we only want the resulting `Wallet` objects, but the API
   // requires a password (so it can also return an encrypted key)
   const wallet = await generateWallet({ secretKey, password: '' });
-
   let walWithAccounts = wallet;
   for (let i = 0; i < highestAccountIndex; i++) {
     walWithAccounts = generateNewAccount(walWithAccounts);

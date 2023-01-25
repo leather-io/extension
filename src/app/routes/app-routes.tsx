@@ -139,6 +139,7 @@ function AppRoutesAfterUserHasConsented() {
           }
         >
           <Route path={RouteUrls.FundReceive} element={<ReceiveTokens />} />
+          {settingsModalRoutes}
         </Route>
         <Route
           path={RouteUrls.Send}
@@ -223,6 +224,7 @@ function AppRoutesAfterUserHasConsented() {
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {settingsModalRoutes}
         </Route>
+
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>

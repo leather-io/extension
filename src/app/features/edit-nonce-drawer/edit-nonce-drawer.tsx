@@ -45,9 +45,7 @@ export function EditNonceDrawer() {
     [contractId, navigate]
   );
 
-  const onBlur = useCallback(() => {
-    validateField('nonce');
-  }, [validateField]);
+  const onBlur = useCallback(() => validateField('nonce'), [validateField]);
 
   const onSubmit = useCallback(async () => {
     validateField('nonce');
