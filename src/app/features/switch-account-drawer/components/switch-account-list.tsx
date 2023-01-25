@@ -3,7 +3,7 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from '@stacks/ui';
 
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 import { SwitchAccountListItem } from './switch-account-list-item';
 
@@ -11,7 +11,7 @@ const smallNumberOfAccountsToRenderWholeList = 10;
 
 interface SwitchAccountListProps {
   handleClose: () => void;
-  accounts: AccountWithAddress[];
+  accounts: WalletAccount[];
   currentAccountIndex: number;
 }
 export const SwitchAccountList = memo(

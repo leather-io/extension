@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { devToolsEnhancer } from '@redux-devtools/remote';
 import { Action, AnyAction, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
-import { atomWithStore } from 'jotai/redux';
+import { atomWithStore } from 'jotai-redux';
 import {
   FLUSH,
   PAUSE,
@@ -77,6 +77,7 @@ export const store = configureStore({
           hostname: 'localhost',
           port: 8000,
           realtime: true,
+          suppressConnectErrors: false,
         }),
       ]
     : [],

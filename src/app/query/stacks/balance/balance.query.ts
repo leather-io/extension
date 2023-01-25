@@ -4,7 +4,7 @@ import { AddressBalanceResponse } from '@shared/models/account.model';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 import {
   useStacksClientAnchored,
   useStacksClientUnanchored,
@@ -61,7 +61,7 @@ export function useAnchoredStacksAccountBalanceQuery<T extends unknown = FetchAc
   });
 }
 
-export function useGetAnchoredAccountBalanceListQuery(accounts?: AccountWithAddress[]) {
+export function useGetAnchoredAccountBalanceListQuery(accounts?: WalletAccount[]) {
   const client = useStacksClientAnchored();
   const limiter = useHiroApiRateLimiter();
 

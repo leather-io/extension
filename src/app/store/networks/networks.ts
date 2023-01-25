@@ -9,6 +9,7 @@ import { storeAtom } from '..';
 import { selectCurrentNetworkId, selectNetworks } from './networks.selectors';
 import { findMatchingNetworkKey } from './networks.utils';
 
+/** @deprecated */
 export const currentNetworkAtom = atom(get => {
   const store = get(storeAtom);
   const coreApiUrl = initialSearchParams.get('coreApiUrl');

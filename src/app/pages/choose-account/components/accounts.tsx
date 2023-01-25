@@ -24,13 +24,13 @@ import { Title } from '@app/components/typography';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
 interface AccountTitlePlaceholderProps extends BoxProps {
-  account: AccountWithAddress;
+  account: WalletAccount;
 }
 const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
   const name = `Account ${account?.index + 1}`;
@@ -42,7 +42,7 @@ const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderPr
 };
 
 interface AccountTitleProps extends BoxProps {
-  account: AccountWithAddress;
+  account: WalletAccount;
   name: string;
 }
 const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
@@ -56,7 +56,7 @@ const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
 interface ChooseAccountItemProps extends FlexProps {
   selectedAddress?: string | null;
   isLoading: boolean;
-  account: AccountWithAddress;
+  account: WalletAccount;
   onSelectAccount(index: number): void;
 }
 const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {

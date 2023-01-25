@@ -10,10 +10,10 @@ import { AccountBalanceLabel } from '@app/components/account/account-balance-lab
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { AccountName } from '@app/components/account/account-name';
 import { usePressable } from '@app/components/item-hover';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 interface RecipientAccountListItemProps {
-  account: AccountWithAddress;
+  account: WalletAccount;
   handleClose(): void;
 }
 export const RecipientAccountListItem = memo(

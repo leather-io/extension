@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 import {
   createWalletGaiaConfig,
@@ -6,7 +7,7 @@ import {
   makeAuthResponse,
   updateWalletConfigWithApp,
 } from '@stacks/wallet-sdk';
-import { useAtomValue } from 'jotai/utils';
+import { useAtomValue } from 'jotai';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { gaiaUrl } from '@shared/constants';
@@ -18,24 +19,24 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useAccounts } from '@app/store/accounts/account.hooks';
 
-import { encryptedSecretKeyState, secretKeyState, stacksWalletState } from './wallet';
+import { selectEncryptedSecretKey, selectSecretKey, stacksWalletState } from './wallet';
 
-export function useStxWalletState() {
+export function useStacksWalletState() {
   return useAtomValue(stacksWalletState);
 }
 
 export function useSecretKey() {
-  return useAtomValue(secretKeyState);
+  return useSelector(selectSecretKey);
 }
 
 export function useEncryptedSecretKeyState() {
-  return useAtomValue(encryptedSecretKeyState);
+  return useSelector(selectEncryptedSecretKey);
 }
 
 export function useFinishSignInCallback() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
   const keyActions = useKeyActions();
-  const wallet = useStxWalletState();
+  const wallet = useStacksWalletState();
   const { walletType } = useWalletType();
   const accounts = useAccounts();
   const { origin, tabId } = useAuthRequestParams();

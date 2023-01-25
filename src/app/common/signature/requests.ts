@@ -7,7 +7,7 @@ import { TokenInterface, TokenVerifier, decodeToken } from 'jsontokens';
 import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 import { isString } from '@shared/utils';
 
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 export function getGenericSignaturePayloadFromToken(requestToken: string): CommonSignaturePayload {
   const token = decodeToken(requestToken);
@@ -61,7 +61,7 @@ const UNAUTHORIZED_SIGNATURE_REQUEST =
  */
 interface VerifySignatureRequestArgs {
   requestToken: string;
-  accounts: AccountWithAddress[];
+  accounts: WalletAccount[];
   appDomain: string;
 }
 export async function verifySignatureRequest({

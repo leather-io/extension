@@ -3,14 +3,14 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { Caption } from '@app/components/typography';
-import { AccountWithAddress } from '@app/store/accounts/account.models';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 import { AccountActiveCheckmark } from './account-active-checkmark';
 
 interface AccountListItemLayoutProps extends StackProps {
   isLoading: boolean;
   isActive: boolean;
-  account: AccountWithAddress;
+  account: WalletAccount;
   accountName: JSX.Element;
   avatar: JSX.Element;
   balanceLabel: JSX.Element;

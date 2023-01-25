@@ -3,11 +3,11 @@ import { toast } from 'react-hot-toast';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useGeneratedCurrentWallet } from '@app/store/chains/stx-chain.selectors';
+import { useStacksWalletState } from '@app/store/wallet/wallet.hooks';
 
 export function useCreateAccount() {
   const { createNewAccount } = useKeyActions();
-  const wallet = useGeneratedCurrentWallet();
+  const wallet = useStacksWalletState();
   const analytics = useAnalytics();
 
   return useCallback(() => {
