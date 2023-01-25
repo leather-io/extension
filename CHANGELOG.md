@@ -1,3 +1,11 @@
+## [3.31.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.31.0...v3.31.1) (2023-01-25)
+
+
+### Internal
+
+* derive accounts without gaia operation ([e5d726c](https://github.com/hirosystems/stacks-wallet-web/commit/e5d726c3585ec895c03d2bb88cbf94ecb89c36fc))
+* upgrade jotai ([6203f9b](https://github.com/hirosystems/stacks-wallet-web/commit/6203f9bad06ffe0d5036132aca97534c977eb8a1))
+
 ## [3.31.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.30.0...v3.31.0) (2023-01-24)
 
 
