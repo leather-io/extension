@@ -267,7 +267,7 @@
     "bip39": "3.0.4",
     "blns": "2.0.4",
     "browserslist": "4.21.4",
-    "chrome-webstore-upload-cli": "1.2.1",
+    "chrome-webstore-upload-cli": "2.1.0",
     "clean-webpack-plugin": "4.0.0",
     "concurrently": "7.6.0",
     "conventional-changelog-conventionalcommits": "5.0.0",
