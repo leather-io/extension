@@ -1,17 +1,24 @@
-import { StacksMainnet } from '@stacks/network';
-import { generateWallet, restoreWalletAccounts } from '@stacks/wallet-sdk';
+import { fetchWalletConfig, generateWallet } from '@stacks/wallet-sdk';
+import { connectToGaiaHubWithConfig, getHubInfo } from '@stacks/wallet-sdk';
 
-import { gaiaUrl } from '@shared/constants';
+import { gaiaUrl as gaiaHubUrl } from '@shared/constants';
 
+// This function repliactes behaviour  wrapped in the `restoreWalletAccounts`
+// method of wallet-sdk. It checks for BNS names on Gaia-persisted accounts,
+// resulting in a huge number of requests when called by a wallet with many
+// accounts. Here, we only care to find the number of accounts a user has
+// generated, with no other side effects.
 export async function checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey: string) {
   try {
-    // Don't need, nor return, encrypted wallet value, so a legit password isn't
-    // needed. Ideally `@stacks/wallet-sdk` should be updated so that the encrypt
-    // function is a separate method
     const wallet = await generateWallet({ secretKey, password: '' });
-    const network = new StacksMainnet();
-    const restoredWallet = await restoreWalletAccounts({ wallet, gaiaHubUrl: gaiaUrl, network });
-    return restoredWallet.accounts.length - 1;
+    const hubInfo = await getHubInfo(gaiaHubUrl);
+    const currentGaiaConfig = connectToGaiaHubWithConfig({
+      hubInfo,
+      privateKey: wallet.configPrivateKey,
+      gaiaHubUrl,
+    });
+    const resp = await fetchWalletConfig({ wallet, gaiaHubConfig: currentGaiaConfig });
+    return resp?.accounts.length ? resp.accounts.length - 1 : 0;
   } catch (e) {
     return 0;
   }

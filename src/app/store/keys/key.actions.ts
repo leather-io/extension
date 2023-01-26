@@ -43,13 +43,12 @@ function setWalletEncryptionPassword(args: { password: string; client: StacksCli
     // update the highest known account index that the wallet generates. This
     // action is performed outside this Promise's execution, as it may be slow,
     // and the user shouldn't have to wait before being directed to homepage.
+    logger.info('Initiating recursive account activity lookup');
     void recurseAccountsForActivity({
       async doesAddressHaveActivityFn(index) {
         const address = getStacksAddressByIndex(secretKey, AddressVersion.MainnetSingleSig)(index);
         const hasBal = await doesStacksAddressHaveBalance(address);
         const hasNames = await doesStacksAddressHaveBnsName(address);
-        // eslint-disable-next-line no-console
-        console.log({ index, address, hasBal, hasNames });
         return hasBal || hasNames;
       },
     }).then(recursiveActivityIndex => {
