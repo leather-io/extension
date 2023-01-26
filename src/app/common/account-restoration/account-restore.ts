@@ -13,11 +13,11 @@ function minNumberOfAccountsNotChecked(num: number) {
 }
 
 function anyOfLastCheckedAccountsHaveActivity(arr: AccountIndexActivityCheckHistory[]) {
-  return arr.slice(history.length - numOfEmptyAccountsToCheck).some(ob => ob.hasActivity);
+  return arr.slice(arr.length - numOfEmptyAccountsToCheck).some(check => check.hasActivity);
 }
 
 function returnHighestIndex(arr: AccountIndexActivityCheckHistory[]) {
-  return Math.max(0, ...arr.filter(ob => ob.hasActivity).map(ob => ob.index));
+  return Math.max(0, ...arr.filter(check => check.hasActivity).map(check => check.index));
 }
 
 async function recurseUntilGeneratorDone(generator: AsyncGenerator): Promise<any> {
@@ -29,6 +29,14 @@ async function recurseUntilGeneratorDone(generator: AsyncGenerator): Promise<any
 interface RecurseAccountsForActivityArgs {
   doesAddressHaveActivityFn(index: number): Promise<boolean>;
 }
+
+/**
+ * Used to recursively look for account activity. The use case is that, when
+ * restoring an account, we want to know how many accounts to generate. This
+ * function makes no assumption as to what consitutes an active account. It
+ * takes a function that returns a boolean. If true, it means that the account
+ * at the given index is considered to have activity.
+ */
 export async function recurseAccountsForActivity({
   doesAddressHaveActivityFn,
 }: RecurseAccountsForActivityArgs): Promise<number> {

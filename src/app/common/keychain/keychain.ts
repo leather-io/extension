@@ -21,8 +21,7 @@ function mnemonicToRootNode(secretKey: string) {
 export function getStacksAddressByIndex(secretKey: string, addressVersion: AddressVersion) {
   return (index: number) => {
     const accountPrivateKey = createStacksPrivateKey(
-      // Typecast fixed in https://github.com/hirosystems/stacks.js/pull/1434
-      deriveStxPrivateKey({ rootNode: mnemonicToRootNode(secretKey) as any, index })
+      deriveStxPrivateKey({ rootNode: mnemonicToRootNode(secretKey), index })
     );
     const pubKey = getPublicKey(accountPrivateKey);
     return publicKeyToAddress(addressVersion, pubKey);
