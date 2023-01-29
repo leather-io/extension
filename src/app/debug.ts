@@ -2,6 +2,7 @@ import { featureFlags } from '@shared/feature-flags';
 import { getLogsFromBrowserStorage } from '@shared/logger-storage';
 
 import { store } from './store';
+import { stxChainSlice } from './store/chains/stx-chain.slice';
 
 declare global {
   interface Window {
@@ -19,6 +20,9 @@ const debug = {
   },
   logStore() {
     return store.getState();
+  },
+  setHighestAccountIndex(index: number) {
+    store.dispatch(stxChainSlice.actions.restoreAccountIndex(index));
   },
 };
 
