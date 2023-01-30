@@ -7,8 +7,8 @@ import {
 } from '@shared/models/account.model';
 import { Money, createMoney } from '@shared/models/money.model';
 
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { accountBalanceStxKeys } from '@app/store/accounts/account.models';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { accountBalanceStxKeys } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import {
   useAnchoredStacksAccountBalanceQuery,

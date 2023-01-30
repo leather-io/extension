@@ -14,7 +14,6 @@ import { isEmpty, isUndefined } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { pullContractIdFromIdentity } from '@app/common/utils';
@@ -37,7 +36,9 @@ import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/cr
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import {
   useFtTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
@@ -68,12 +69,15 @@ export function StacksSip10FungibleTokenSendForm({
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(
     pullContractIdFromIdentity(contractId)
   );
+  logger.debug('info', ftMetadata);
+
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
   const unsignedTx = useFtTokenTransferUnsignedTx(contractId);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const generateTx = useGenerateFtTokenTransferUnsignedTx(contractId);
-  const { currentNetwork, currentAccountStxAddress } = useWallet();
+  const currentAccountStxAddress = useCurrentAccountStxAddressState();
+  const currentNetwork = useCurrentNetwork();
   const { whenWallet } = useWalletType();
   const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
@@ -84,8 +88,6 @@ export function StacksSip10FungibleTokenSendForm({
     () => convertAmountToBaseUnit(availableTokenBalance),
     [availableTokenBalance]
   );
-
-  logger.debug('info', ftMetadata);
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
     amount: '',

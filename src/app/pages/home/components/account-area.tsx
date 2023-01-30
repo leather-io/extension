@@ -11,7 +11,7 @@ import { Caption } from '@app/components/typography';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { useCurrentAccountNamesQuery } from '@app/query/stacks/bns/bns.hooks';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 const AccountBnsAddress = memo(() => {
   const currentAccountNamesQuery = useCurrentAccountNamesQuery();

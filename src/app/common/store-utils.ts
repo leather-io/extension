@@ -1,14 +1,6 @@
 import { QueryKey, hashQueryKey } from '@tanstack/react-query';
 import hash from 'object-hash';
 
-export function textToBytes(content: string) {
-  return new TextEncoder().encode(content);
-}
-
-export function bytesToText(buffer: Uint8Array) {
-  return new TextDecoder().decode(buffer);
-}
-
 export function makeLocalDataKey(params: QueryKey): string {
   return hash(hashQueryKey([params, VERSION]));
 }

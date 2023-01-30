@@ -6,7 +6,7 @@ import { BuyButton } from './buy-button';
 import { ReceiveButton } from './receive-button';
 import { SendButton } from './send-button';
 
-export const HomeActions = (props: StackProps) => {
+export function HomeActions(props: StackProps) {
   return (
     <Suspense fallback={<></>}>
       <Stack isInline mt={['base', 'base', 'unset']} spacing="base-tight" {...props}>
@@ -16,4 +16,4 @@ export const HomeActions = (props: StackProps) => {
       </Stack>
     </Suspense>
   );
-};
+}

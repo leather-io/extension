@@ -6,7 +6,7 @@ import { getIconString } from '@app/common/crypto-assets/stacks-crypto-asset.uti
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { EventCard } from '@app/components/event-card';
 import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.utils';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 interface SendTokensConfirmDetailsProps extends StackProps {
   amount: number | string;

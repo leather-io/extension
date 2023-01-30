@@ -5,6 +5,8 @@ import { HDKey } from '@scure/bip32';
 import { mnemonicToSeed } from '@scure/bip39';
 import * as bitcoin from 'bitcoinjs-lib';
 
+import { NetworkModes } from '@shared/constants';
+
 export async function deriveBtcBip49SeedFromMnemonic(mnemonic: string) {
   return mnemonicToSeed(mnemonic);
 }
@@ -16,7 +18,7 @@ export function deriveRootBtcKeychain(seed: Uint8Array) {
 // ts-unused-exports:disable-next-line
 export async function deriveBtcPayment(
   publicKey: Uint8Array | Buffer,
-  defaultNetwork: 'mainnet' | 'testnet' = 'mainnet'
+  defaultNetwork: NetworkModes = 'mainnet'
 ) {
   const pubkey = Buffer.isBuffer(publicKey) ? publicKey : Buffer.from(publicKey);
   const network = defaultNetwork === 'mainnet' ? undefined : bitcoin.networks.testnet;
@@ -37,13 +39,11 @@ export function decodeCompressedWifPrivateKey(key: string) {
   return compressedWifFormatPrivateKey.slice(1, compressedWifFormatPrivateKey.length - 1);
 }
 
-type BitcoinNetwork = 'mainnet' | 'testnet';
-
 // https://en.bitcoin.it/wiki/List_of_address_prefixes
 const payToScriptHashMainnetPrefix = 0x05;
 export const payToScriptHashTestnetPrefix = 0xc4;
 
-const payToScriptHashPrefixMap: Record<BitcoinNetwork, number> = {
+const payToScriptHashPrefixMap: Record<NetworkModes, number> = {
   mainnet: payToScriptHashMainnetPrefix,
   testnet: payToScriptHashTestnetPrefix,
 };
@@ -65,13 +65,13 @@ export function makePayToScriptHashAddressBytes(keyHash: Uint8Array) {
   return hash160(redeemScript);
 }
 
-export function makePayToScriptHashAddress(addressBytes: Uint8Array, network: BitcoinNetwork) {
+export function makePayToScriptHashAddress(addressBytes: Uint8Array, network: NetworkModes) {
   const networkByte = payToScriptHashPrefixMap[network];
   const addressWithPrefix = Uint8Array.from([networkByte, ...addressBytes]);
   return base58check(sha256).encode(addressWithPrefix);
 }
 
-export function publicKeyToPayToScriptHashAddress(publicKey: Uint8Array, network: BitcoinNetwork) {
+export function publicKeyToPayToScriptHashAddress(publicKey: Uint8Array, network: NetworkModes) {
   const hash = makePayToScriptHashKeyHash(publicKey);
   const addrBytes = makePayToScriptHashAddressBytes(hash);
   return makePayToScriptHashAddress(addrBytes, network);

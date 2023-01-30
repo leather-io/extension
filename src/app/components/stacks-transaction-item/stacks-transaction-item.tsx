@@ -22,7 +22,7 @@ import { usePressable } from '@app/components/item-hover';
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { Title } from '@app/components/typography';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 
 import { IncreaseFeeButton } from './increase-fee-button';

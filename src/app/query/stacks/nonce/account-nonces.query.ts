@@ -2,7 +2,7 @@ import type { AddressNonces } from '@stacks/blockchain-api-client/lib/generated'
 import { useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 

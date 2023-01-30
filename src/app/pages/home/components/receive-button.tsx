@@ -10,7 +10,7 @@ import { QrCodeIcon } from '@app/components/qr-code-icon';
 
 import { HomeActionButton } from './tx-button';
 
-export const ReceiveButton = (props: ButtonProps) => {
+export function ReceiveButton(props: ButtonProps) {
   const navigate = useNavigate();
 
   return (
@@ -23,4 +23,4 @@ export const ReceiveButton = (props: ButtonProps) => {
       {...props}
     />
   );
-};
+}

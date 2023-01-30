@@ -14,7 +14,6 @@ import { isEmpty, isUndefined } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { stxAmountValidator } from '@app/common/validation/forms/amount-validators';
@@ -35,7 +34,9 @@ import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balan
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import {
   useGenerateStxTokenTransferUnsignedTx,
   useStxTokenTransferUnsignedTxState,
@@ -61,7 +62,8 @@ export function StxCryptoCurrencySendForm() {
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
-  const { currentNetwork, currentAccountStxAddress } = useWallet();
+  const currentAccountStxAddress = useCurrentAccountStxAddressState();
+  const currentNetwork = useCurrentNetworkState();
   const { whenWallet } = useWalletType();
   const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
