@@ -5,7 +5,7 @@ import { Box, Input, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useWallet } from '@app/common/hooks/use-wallet';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { PageTitle } from '@app/components/page-title';
 import { Text } from '@app/components/typography';
@@ -28,7 +28,7 @@ interface RequestPasswordProps {
 export function RequestPassword({ title, caption, onSuccess }: RequestPasswordProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { unlockWallet } = useWallet();
+  const { unlockWallet } = useKeyActions();
   const analytics = useAnalytics();
   const [isRunning, waitingMessage, startWaitingMessage, stopWaitingMessage] =
     useWaitingMessage(waitingMessages);

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 import { parseBalanceResponse } from './balance.hooks';

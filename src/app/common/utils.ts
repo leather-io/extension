@@ -17,6 +17,10 @@ import {
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
 
+export function createNullArrayOfLength(length: number) {
+  return new Array(length).fill(null);
+}
+
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
 }

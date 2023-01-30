@@ -10,9 +10,9 @@ import FunctionIcon from 'mdi-react/FunctionIcon';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { statusFromTx } from '@app/common/transactions/stacks/transaction.utils';
 import { MicroblockIcon } from '@app/components/icons/microblock';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { TransactionTypeIconWrapper } from './transaction-type-icon-wrapper';
 
@@ -61,7 +61,7 @@ interface TransactionTypeIconProps extends BoxProps {
   transaction: StacksTx;
 }
 export function TransactionTypeIcon({ transaction, ...rest }: TransactionTypeIconProps) {
-  const { currentAccountStxAddress } = useWallet();
+  const currentAccountStxAddress = useCurrentAccountStxAddressState();
   const Icon = IconForTx(transaction, currentAccountStxAddress);
 
   if (

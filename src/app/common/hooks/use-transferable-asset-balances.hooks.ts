@@ -7,16 +7,14 @@ import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import {
-  useCurrentAccount,
-  useCurrentAccountBtcAddressState,
-} from '@app/store/accounts/account.hooks';
+import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useAllTransferableCryptoAssetBalances(): AllTransferableCryptoAssetBalances[] {
   const account = useCurrentAccount();
-  const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
-  const btcCryptoCurrencyAssetBalance =
-    useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
+  // const currentAccountBtcAddress = useCurrentBtcAccount();
+  const currentBtcAddress = useCurrentBtcAccountAddressIndexZero();
+  const btcCryptoCurrencyAssetBalance = useBitcoinCryptoCurrencyAssetBalance(currentBtcAddress);
   const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(
     account?.address ?? ''
   );

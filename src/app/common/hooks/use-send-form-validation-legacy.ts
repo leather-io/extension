@@ -8,7 +8,6 @@ import { isNumber } from '@shared/utils';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import {
   stxAddressNetworkValidatorFactory,
   stxAddressValidator,
@@ -18,7 +17,9 @@ import { stxCurrencyAmountValidator } from '@app/common/validation/forms/currenc
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { microStxToStx, stxToMicroStx } from '../money/unit-conversion';
 import { stacksFungibleTokenAmountValidator } from '../validation/forms/amount-validators';
@@ -42,7 +43,8 @@ export const useStacksSendFormValidationLegacy = ({
   selectedAssetId,
   setAssetError,
 }: UseSendFormValidationArgs) => {
-  const { currentNetwork, currentAccountStxAddress } = useWallet();
+  const currentAccountStxAddress = useCurrentAccountStxAddressState();
+  const currentNetwork = useCurrentNetworkState();
   const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const { isStx, selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   const fungibleTokenSchema = useFungibleTokenAmountSchema(selectedAssetId);

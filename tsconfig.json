@@ -6,7 +6,7 @@
     "jsx": "react-jsx",
     "sourceMap": true,
     "removeComments": true,
-    "noEmit": false,
+    "noEmit": true,
     "importHelpers": true,
     "downlevelIteration": true,
     "strict": true,

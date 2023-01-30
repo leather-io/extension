@@ -12,10 +12,11 @@ import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
 import { getWalletConfig } from '@shared/utils/wallet-config-helper';
 
+import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import {
   blankPasswordValidation,
   validatePassword,
@@ -26,6 +27,7 @@ import { Header } from '@app/components/header';
 import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
+import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
 import { PasswordField } from './components/password-field';
 
@@ -38,7 +40,9 @@ const setPasswordFormValues: SetPasswordFormValues = { password: '', confirmPass
 export const SetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
-  const { finishSignIn, setPassword, wallet } = useWallet();
+  const wallet = useStacksWallet();
+  const { setPassword } = useKeyActions();
+  const finishSignIn = useFinishAuthRequest();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
