@@ -6,7 +6,7 @@ import { Box } from '@stacks/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { useAccounts } from '@app/store/accounts/account.hooks';
+import { useAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useStacksFtParams } from '../../form/stacks-sip10/use-stacks-ft-params';
 import { AccountListItem } from './account-list-item';

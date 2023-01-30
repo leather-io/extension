@@ -18,7 +18,7 @@ import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinFees } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCurrentAccountBtcAddressState } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountBtcAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
 import { FormErrors } from '../../components/form-errors';
@@ -31,7 +31,7 @@ import { SendAllButton } from '../../components/send-all-button';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
 
 export function BtcCryptoCurrencySendForm() {
-  const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
+  const currentAccountBtcAddress = useCurrentAccountBtcAddress();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
   const { whenWallet } = useWalletType();

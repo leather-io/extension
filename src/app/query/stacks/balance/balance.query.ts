@@ -4,7 +4,7 @@ import { AddressBalanceResponse } from '@shared/models/account.model';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { WalletAccount } from '@app/store/accounts/account.models';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import {
   useStacksClientAnchored,
   useStacksClientUnanchored,
@@ -62,7 +62,7 @@ export function useAnchoredStacksAccountBalanceQuery<T extends unknown = FetchAc
   });
 }
 
-export function useGetAnchoredAccountBalanceListQuery(accounts?: WalletAccount[]) {
+export function useGetAnchoredAccountBalanceListQuery(accounts?: StacksAccount[]) {
   const client = useStacksClientAnchored();
   const limiter = useHiroApiRateLimiter();
 

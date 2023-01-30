@@ -7,7 +7,7 @@ import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { CurrentStxAddress } from '@app/features/current-account/current-stx-address';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 interface PopupHeaderLayoutProps {
   children: React.ReactNode;

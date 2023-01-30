@@ -10,7 +10,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Text, Title } from '@app/components/typography';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { QrCode } from './components/address-qr-code';
 

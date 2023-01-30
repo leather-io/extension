@@ -6,7 +6,7 @@ import { TokenVerifier, decodeToken } from 'jsontokens';
 
 import { isString } from '@shared/utils';
 
-import { WalletAccount } from '@app/store/accounts/account.models';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 export function getProfileDataContentFromToken(requestToken: string): ProfileUpdatePayload {
   const token = decodeToken(requestToken);
@@ -40,7 +40,7 @@ const UNAUTHORIZED_PROFILE_UPDATE_REQUEST =
  */
 interface VerifyProfileUpdateRequestArgs {
   requestToken: string;
-  accounts: WalletAccount[];
+  accounts: StacksAccount[];
   appDomain: string;
 }
 export async function verifyProfileUpdateRequest({

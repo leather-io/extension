@@ -16,7 +16,7 @@ import { pullContractIdFromIdentity } from '@app/common/utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
 

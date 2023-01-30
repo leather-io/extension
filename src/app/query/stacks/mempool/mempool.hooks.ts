@@ -8,7 +8,7 @@ import BigNumber from 'bignumber.js';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useAccountMempoolQuery } from './mempool.query';
 

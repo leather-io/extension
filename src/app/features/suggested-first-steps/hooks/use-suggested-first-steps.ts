@@ -7,14 +7,17 @@ import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/on
 import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance/balance.query';
 import { useAccountsNonFungibleTokenHoldings } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
 import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.query';
-import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
-import { WalletAccount } from '@app/store/accounts/account.models';
+import {
+  useAccounts,
+  useCurrentAccount,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import {
   useHideSuggestedFirstSteps,
   useSuggestedFirstStepsStatus,
 } from '@app/store/onboarding/onboarding.selectors';
 
-function useAllAccountsAvailableStxBalance(accounts?: WalletAccount[]) {
+function useAllAccountsAvailableStxBalance(accounts?: StacksAccount[]) {
   const accountsBalances = useGetAnchoredAccountBalanceListQuery(accounts);
   return useMemo(() => {
     return accountsBalances.reduce(
