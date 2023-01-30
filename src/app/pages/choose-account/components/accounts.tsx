@@ -7,10 +7,10 @@ import { Box, BoxProps, FlexProps, Stack, Text, color } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
@@ -23,14 +23,17 @@ import { usePressable } from '@app/components/item-hover';
 import { Title } from '@app/components/typography';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
-import { useAccounts, useHasCreatedAccount } from '@app/store/accounts/account.hooks';
-import { WalletAccount } from '@app/store/accounts/account.models';
+import {
+  useAccounts,
+  useHasCreatedAccount,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
 interface AccountTitlePlaceholderProps extends BoxProps {
-  account: WalletAccount;
+  account: StacksAccount;
 }
 const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
   const name = `Account ${account?.index + 1}`;
@@ -42,7 +45,7 @@ const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderPr
 };
 
 interface AccountTitleProps extends BoxProps {
-  account: WalletAccount;
+  account: StacksAccount;
   name: string;
 }
 const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
@@ -56,7 +59,7 @@ const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
 interface ChooseAccountItemProps extends FlexProps {
   selectedAddress?: string | null;
   isLoading: boolean;
-  account: WalletAccount;
+  account: StacksAccount;
   onSelectAccount(index: number): void;
 }
 const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
@@ -142,7 +145,7 @@ const AddAccountAction = memo(() => {
 });
 
 export const ChooseAccountsList = memo(() => {
-  const { finishSignIn } = useWallet();
+  const finishSignIn = useFinishAuthRequest();
   const { whenWallet } = useWalletType();
   const accounts = useAccounts();
   const navigate = useNavigate();

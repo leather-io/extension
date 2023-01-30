@@ -8,7 +8,7 @@ import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-acco
 import { truncateString } from '@app/common/utils';
 import { Tooltip } from '@app/components/tooltip';
 import { Title } from '@app/components/typography';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 function AccountNameTitle(props: BoxProps) {
   return (

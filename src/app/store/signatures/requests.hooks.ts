@@ -9,7 +9,7 @@ import {
   getGenericSignaturePayloadFromToken,
   verifySignatureRequest,
 } from '@app/common/signature/requests';
-import { useAccounts } from '@app/store/accounts/account.hooks';
+import { useAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useSignatureRequestSearchParams() {
   const { origin, tabId } = useDefaultRequestParams();

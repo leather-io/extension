@@ -12,7 +12,8 @@ import { BalancesList } from '@app/features/balances-list/balances-list';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
-import { WalletAccount } from '@app/store/accounts/account.models';
+import { useAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
@@ -24,7 +25,7 @@ export function Home() {
 }
 
 interface HomeContainerProps {
-  account: WalletAccount;
+  account: StacksAccount;
 }
 function HomeContainer({ account }: HomeContainerProps) {
   const { decodedAuthRequest } = useOnboardingState();
@@ -37,6 +38,10 @@ function HomeContainer({ account }: HomeContainerProps) {
       <Header />
     </>
   );
+
+  const x = useAccounts();
+  // eslint-disable-next-line no-console
+  console.log(x);
 
   useEffect(() => {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);

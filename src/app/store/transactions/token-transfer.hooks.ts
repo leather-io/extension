@@ -31,7 +31,7 @@ import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 
-import { useCurrentAccount } from '../accounts/account.hooks';
+import { useCurrentAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
 
 function useMakeFungibleTokenTransfer(assetBalance?: StacksFungibleTokenAssetBalance) {
   const currentAccount = useCurrentAccount();

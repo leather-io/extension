@@ -9,7 +9,7 @@ import {
   useAccounts,
   useCurrentAccountIndex,
   useHasCreatedAccount,
-} from '@app/store/accounts/account.hooks';
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 
 import { AccountListUnavailable } from './components/account-list-unavailable';

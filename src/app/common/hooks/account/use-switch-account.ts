@@ -6,7 +6,7 @@ import {
   useHasSwitchedAccounts,
   useTransactionAccountIndex,
   useTransactionNetworkVersion,
-} from '@app/store/accounts/account.hooks';
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useTrackSwitchAccount } from '../analytics/use-track-switch-account';
 import { useKeyActions } from '../use-key-actions';

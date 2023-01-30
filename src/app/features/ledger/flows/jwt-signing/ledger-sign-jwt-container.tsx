@@ -21,7 +21,10 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
+import {
+  useAccounts,
+  useCurrentAccount,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import {

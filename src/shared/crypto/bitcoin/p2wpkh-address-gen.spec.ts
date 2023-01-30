@@ -1,4 +1,4 @@
-import { derivePayToWitnessPublicKeyHashAddressFromXpub } from './p2wpkh-address-gen';
+import { deriveNativeSegWitAddressFromXpub } from './p2wpkh-address-gen';
 
 describe('Bitcoin bech32 (P2WPKH address derivation', () => {
   describe('from extended public key', () => {
@@ -34,10 +34,7 @@ describe('Bitcoin bech32 (P2WPKH address derivation', () => {
     ];
 
     describe.each(accounts)('bitcoinjs-lib implementation', account => {
-      const address = derivePayToWitnessPublicKeyHashAddressFromXpub(
-        account.extended_public_key,
-        0
-      );
+      const address = deriveNativeSegWitAddressFromXpub(account.extended_public_key, 0);
       test('bech 32 address', () => expect(address).toEqual(account.zeroIndexChildAddress));
     });
   });

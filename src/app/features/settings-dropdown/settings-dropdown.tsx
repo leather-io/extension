@@ -10,15 +10,19 @@ import { RouteUrls } from '@shared/route-urls';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Divider } from '@app/components/layout/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
-import { useHasCreatedAccount } from '@app/store/accounts/account.hooks';
+import {
+  useCurrentAccount,
+  useHasCreatedAccount,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksWallet } from '@app/store/keys/blockchain/stacks-keychain';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
@@ -30,7 +34,9 @@ import { MenuWrapper } from './components/settings-menu-wrapper';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { lockWallet, hasGeneratedWallet, wallet } = useWallet();
+  const hasGeneratedWallet = !!useCurrentAccount();
+  const wallet = useStacksWallet();
+  const { lockWallet } = useKeyActions();
   const createAccount = useCreateAccount();
   const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
   const { setIsShowingSettings, isShowingSettings, setIsShowingSwitchAccountsState } = useDrawers();

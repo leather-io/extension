@@ -5,7 +5,7 @@ import { ClarityValue, TupleCV, createStacksPrivateKey } from '@stacks/transacti
 import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { isString } from '@shared/utils';
 
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useMessageSignerSoftwareWallet() {
   const account = useCurrentAccount();

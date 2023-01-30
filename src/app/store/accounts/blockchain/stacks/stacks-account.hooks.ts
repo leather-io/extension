@@ -3,19 +3,17 @@ import { useSelector } from 'react-redux';
 
 import { useAtom, useAtomValue } from 'jotai';
 
-import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
-
 import {
   accountsWithAddressState,
   hasCreatedAccountState,
   hasSwitchedAccountsState,
-} from '@app/store/accounts/accounts';
+} from '@app/store/accounts/blockchain/stacks/stacks-accounts';
 import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
-import { selectCurrentAccountIndex } from '@app/store/wallet/wallet';
 
-import { WalletAccount } from './account.models';
+import { selectCurrentAccountIndex } from '../../../keys/key.selectors';
+import type { StacksAccount } from './stacks-account.models';
 
 export function useAccounts() {
   return useAtomValue(accountsWithAddressState);
@@ -38,14 +36,8 @@ export function useCurrentAccount() {
     const index = txIndex ?? signatureIndex;
     if (!accounts) return undefined;
     if (typeof index === 'number' && !hasSwitched) return accounts[index];
-    return accounts[accountIndex] as WalletAccount | undefined;
+    return accounts[accountIndex] as StacksAccount | undefined;
   }, [accountIndex, accounts, hasSwitched, signatureIndex, txIndex]);
-}
-
-// TODO: Needs to be handled with btc addresses work
-// Move account addresses state to redux?
-export function useCurrentAccountBtcAddressState() {
-  return BITCOIN_TEST_ADDRESS;
 }
 
 export function useCurrentAccountStxAddressState() {

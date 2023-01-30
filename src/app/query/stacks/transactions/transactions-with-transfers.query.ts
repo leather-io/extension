@@ -3,7 +3,7 @@ import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query
 
 import { DEFAULT_LIST_LIMIT, QueryRefreshRates } from '@shared/constants';
 
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/account.hooks';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 

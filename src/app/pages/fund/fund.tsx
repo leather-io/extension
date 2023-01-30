@@ -5,7 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { SkipFundAccountButton } from './components/skip-fund-account-button';
 import { FundLayout } from './fund.layout';

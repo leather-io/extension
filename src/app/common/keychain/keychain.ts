@@ -13,7 +13,7 @@ export function derivePublicKey(key: string) {
   return publicKeyToString(getPublicKey(createStacksPrivateKey(key)));
 }
 
-function mnemonicToRootNode(secretKey: string) {
+export function mnemonicToRootNode(secretKey: string) {
   const seed = mnemonicToSeedSync(secretKey);
   return HDKey.fromMasterSeed(seed);
 }
