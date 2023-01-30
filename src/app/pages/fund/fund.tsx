@@ -4,6 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
+import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';
 
@@ -34,7 +35,7 @@ export function FundPage() {
     />
   );
 
-  if (!currentAccount) return null;
+  if (!currentAccount || !balances) return <FullPageLoadingSpinner />;
 
   if (isOnboarding && balances?.stx.availableStx.amount.isGreaterThan(0))
     return <Navigate to={RouteUrls.Home} />;

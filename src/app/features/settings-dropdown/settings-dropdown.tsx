@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -67,7 +68,7 @@ export function SettingsDropdown() {
 
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
-                data-testid={SettingsSelectors.SwitchAccount}
+                data-testid={SettingsMenuSelectors.SwitchAccountMenuItem}
                 onClick={wrappedCloseCallback(() => setIsShowingSwitchAccountsState(true))}
               >
                 Switch account
@@ -104,7 +105,7 @@ export function SettingsDropdown() {
               Change theme
             </MenuItem>
             <MenuItem
-              data-testid={SettingsSelectors.GetSupport}
+              data-testid={SettingsMenuSelectors.GetSupportMenuItem}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_get_support_menu_item');
                 openInNewTab(

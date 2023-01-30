@@ -1,6 +1,9 @@
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
-import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
+import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
+import { FundPageSelectors } from '@tests/selectors/fund.selectors';
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 import { Page } from 'playwright-core';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -12,7 +15,6 @@ import {
   timeDifference,
   wait,
 } from '../integration/utils';
-import { FundPageSelectors } from './fund.selectors';
 import { WalletPageSelectors } from './wallet.selectors';
 
 // TODO: This Page needs to be cleaned up -> create a HomePage?
@@ -21,22 +23,22 @@ export class WalletPage {
   static url = 'http://localhost:8081/index.html#';
   $signUpButton = createTestSelector(OnboardingSelectors.SignUpBtn);
   $signInButton = createTestSelector(OnboardingSelectors.SignInLink);
-  $analyticsAllowButton = createTestSelector(OnboardingSelectors.AnalyticsAllowBtn);
-  $analyticsDenyButton = createTestSelector(OnboardingSelectors.AnalyticsDenyBtn);
+  $analyticsAllowButton = createTestSelector(OnboardingSelectors.AllowAnalyticsBtn);
+  $analyticsDenyButton = createTestSelector(OnboardingSelectors.DenyAnalyticsBtn);
   $homePageContainer = createTestSelector(HomePageSelectors.HomePageContainer);
   $secretKey = createTestSelector(OnboardingSelectors.SecretKey);
   $buttonSignInKeyContinue = createTestSelector(OnboardingSelectors.SignInBtn);
   setPasswordDone = createTestSelector(OnboardingSelectors.SetPasswordBtn);
   $passwordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
   $newPasswordInput = createTestSelector(OnboardingSelectors.NewPasswordInput);
-  $sendTokenBtn = createTestSelector(HomePageSelectors.BtnSendTokens);
-  $fundAccountBtn = createTestSelector(HomePageSelectors.BtnFundAccount);
+  $sendTokenBtn = createTestSelector(HomePageSelectors.SendCryptoAssetBtn);
+  $fundAccountBtn = createTestSelector(HomePageSelectorsLegacy.BtnFundAccount);
   $confirmBackedUpSecretKey = createTestSelector(OnboardingSelectors.BackUpSecretKeyBtn);
   $password = 'mysecretreallylongpassword';
-  $settingsButton = createTestSelector(SettingsSelectors.MenuBtn);
+  $settingsButton = createTestSelector(SettingsMenuSelectors.SettingsMenuBtn);
   $contractCallButton = createTestSelector('btn-contract-call');
   $settingsViewSecretKey = createTestSelector(SettingsSelectors.ViewSecretKeyListItem);
-  $homePageBalancesList = createTestSelector(HomePageSelectors.BalancesList);
+  $homePageBalancesList = createTestSelector(HomePageSelectorsLegacy.BalancesList);
   $createAccountButton = createTestSelector(SettingsSelectors.CreateAccountBtn);
   $statusMessage = createTestSelector(WalletPageSelectors.StatusMessage);
   $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
@@ -52,7 +54,7 @@ export class WalletPage {
   $suggestedStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
   $suggestedStepDoneBadge = createTestSelector(OnboardingSelectors.StepItemDone);
   $noAssetsFundAccountLink = createTestSelector(OnboardingSelectors.NoAssetsFundAccountLink);
-  $skipFundAccountBtn = createTestSelector(FundPageSelectors.BtnSkipFundAccount);
+  $skipFundAccountBtn = createTestSelector(FundPageSelectors.SkipFundAccountBtn);
 
   page: Page;
 

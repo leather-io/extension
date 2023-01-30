@@ -15,5 +15,5 @@ export interface StacksTxFeeEstimation {
   estimated_cost: Object;
   estimated_cost_scalar: number;
   estimations: Estimation[];
-  error: string;
+  error?: string;
 }

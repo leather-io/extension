@@ -4,16 +4,34 @@ import * as yup from 'yup';
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
-import { microStxToStx } from '@app/common/money/unit-conversion';
+import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
 import { countDecimals } from '../../utils';
+import { stxCurrencyAmountValidator } from './currency-validators';
 
-export function stacksFungibleTokenValidator(balance: Money) {
+function amountValidator() {
+  return yup.number().required().positive(FormErrorMessages.MustNotBeZero);
+}
+
+export function stxAmountValidator(availableBalance: Money) {
+  return stxCurrencyAmountValidator(formatPrecisionError(availableBalance)).test({
+    message: formatInsufficientBalanceError(availableBalance, sum =>
+      microStxToStx(sum.amount).toString()
+    ),
+    test(value: unknown) {
+      const fee = stxToMicroStx(this.parent.fee);
+      if (!availableBalance || !isNumber(value)) return false;
+      const availableBalanceLessFee = availableBalance.amount.minus(fee);
+      return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
+    },
+  });
+}
+
+export function stacksFungibleTokenAmountValidator(balance: Money) {
   const { amount, decimals } = balance;
-  return yup
-    .number()
+  return amountValidator()
     .test((value, context) => {
       if (!isNumber(value)) return false;
       if (!decimals && countDecimals(value) > 0)

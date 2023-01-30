@@ -1,5 +1,6 @@
 import { Flex, StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
+import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 
 import { Money } from '@shared/models/money.model';
 
@@ -29,11 +30,22 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
     const amount = balance.decimals
       ? ftDecimals(balance.amount, balance.decimals || 0)
       : balance.amount.toString();
+    const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
+      '{symbol}',
+      balance.symbol.toLowerCase()
+    );
     const formattedBalance = getFormattedBalance(amount);
     const isUnanchored = !!(subBalance && !balance.amount.isEqualTo(subBalance.amount));
 
     return (
-      <Flex as={isPressable ? 'button' : 'div'} outline={0} ref={ref} {...rest} {...bind}>
+      <Flex
+        as={isPressable ? 'button' : 'div'}
+        data-testid={dataTestId}
+        outline={0}
+        ref={ref}
+        {...rest}
+        {...bind}
+      >
         <Flag img={icon} align="middle" width="100%">
           <SpaceBetween width="100%">
             <Text>{title}</Text>

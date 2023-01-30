@@ -1,7 +1,7 @@
 import { FiArrowRight } from 'react-icons/fi';
 
 import { Box, Flex, Stack, color } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import { Link } from '@app/components/link';
 import { Tooltip } from '@app/components/tooltip';

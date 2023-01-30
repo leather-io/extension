@@ -1,7 +1,7 @@
 import { FiCheck } from 'react-icons/fi';
 
 import { Stack, color } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import { Caption } from '@app/components/typography';
 

@@ -1,5 +1,5 @@
 import { Box, color } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import { Text } from '@app/components/typography';
 

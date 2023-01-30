@@ -1,5 +1,7 @@
+// TODO: Remove with legacy send form
 import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 import { SECRET_KEY_2 } from '@tests-legacy/mocks';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -9,7 +11,6 @@ import { delay } from '@app/common/utils';
 
 import { SendPage } from '../../page-objects/send-form.page';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { SettingsSelectors } from '../settings.selectors';
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 
 jest.setTimeout(120_000);
@@ -47,7 +48,7 @@ describe(`Send tokens flow`, () => {
     // Skipping while we hide the settings menu on the send form
     it.skip('does not set a fee below zero, when the account balance is 0 STX', async () => {
       await walletPage.clickSettingsButton();
-      await walletPage.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
+      await walletPage.page.click(createTestSelector(SettingsMenuSelectors.SwitchAccountMenuItem));
       await walletPage.page.click(createTestSelector('switch-account-item-1'));
       await sendForm.clickSendMaxBtn();
       const amount = await sendForm.getAmountFieldValue();

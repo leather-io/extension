@@ -11,12 +11,11 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
 
-import { formatPrecisionError } from '@app/common/error-formatters';
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { stxAmountValidator } from '@app/common/validation/forms/currency-validators';
+import { stxAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import {
@@ -86,7 +85,7 @@ export function StxCryptoCurrencySendForm() {
   });
 
   const validationSchema = yup.object({
-    amount: stxAmountValidator(formatPrecisionError(availableStxBalance)),
+    amount: stxAmountValidator(availableStxBalance),
     recipient: stxRecipientValidator(currentAccountStxAddress, currentNetwork),
     recipientAddressOrBnsName: stxRecipientAddressOrBnsNameValidator({
       client,
@@ -136,12 +135,7 @@ export function StxCryptoCurrencySendForm() {
               }
             />
             <FormFieldsLayout>
-              <SelectedAssetField
-                icon={<StxAvatar />}
-                name="Stacks"
-                onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
-                symbol="STX"
-              />
+              <SelectedAssetField icon={<StxAvatar />} name="Stacks" symbol="STX" />
               <StacksRecipientField />
               <MemoField lastChild />
             </FormFieldsLayout>

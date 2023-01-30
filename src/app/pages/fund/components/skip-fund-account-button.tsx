@@ -1,5 +1,5 @@
 import { Button } from '@stacks/ui';
-import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
+import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 
 interface SkipFundAccountButton {
   onSkipFundAccount(): void;
@@ -12,7 +12,7 @@ export function SkipFundAccountButton({ onSkipFundAccount }: SkipFundAccountButt
       borderColor="#DCDDE2"
       borderRadius="10px"
       boxShadow="none"
-      data-testid={FundPageSelectors.BtnSkipFundAccount}
+      data-testid={FundPageSelectors.SkipFundAccountBtn}
       height="32px"
       onClick={onSkipFundAccount}
       mode="tertiary"

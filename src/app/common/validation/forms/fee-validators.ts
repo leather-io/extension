@@ -7,8 +7,8 @@ import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import {
-  btcAmountValidator,
-  stxAmountValidator,
+  btcCurrencyAmountValidator,
+  stxCurrencyAmountValidator,
 } from '@app/common/validation/forms/currency-validators';
 
 import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '../../money/unit-conversion';
@@ -38,7 +38,7 @@ export function btcFeeValidator(availableBalance?: Money) {
   return feeValidatorFactory({
     availableBalance,
     unitConverter: btcToSat,
-    validator: btcAmountValidator,
+    validator: btcCurrencyAmountValidator,
   });
 }
 
@@ -46,6 +46,6 @@ export function stxFeeValidator(availableBalance?: Money) {
   return feeValidatorFactory({
     availableBalance,
     unitConverter: stxToMicroStx,
-    validator: stxAmountValidator,
+    validator: stxCurrencyAmountValidator,
   });
 }

@@ -1,3 +1,5 @@
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { delay } from '@app/common/utils';
@@ -55,7 +57,7 @@ describe(`Settings integration tests`, () => {
     for (let i = 0; i < numOfAccountsToTest; i++) {
       await wallet.waitForSettingsButton();
       await wallet.clickSettingsButton();
-      await wallet.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
+      await wallet.page.click(createTestSelector(SettingsMenuSelectors.SwitchAccountMenuItem));
       await delay(500);
       await wallet.page.click(createTestSelector(`switch-account-item-${i}`));
       await wallet.page.waitForSelector(

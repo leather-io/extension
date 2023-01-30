@@ -16,7 +16,7 @@ import { useWallet } from '@app/common/hooks/use-wallet';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { pullContractIdFromIdentity } from '@app/common/utils';
-import { stacksFungibleTokenValidator } from '@app/common/validation/forms/amount-validators';
+import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import {
@@ -99,9 +99,7 @@ export function StacksSip10FungibleTokenSendForm({
   });
 
   const validationSchema = yup.object({
-    amount: stacksFungibleTokenValidator(
-      assetBalance ? assetBalance.balance : createMoney(0, 'STX')
-    ),
+    amount: stacksFungibleTokenAmountValidator(availableTokenBalance),
     recipient: stxRecipientValidator(currentAccountStxAddress, currentNetwork),
     recipientAddressOrBnsName: stxRecipientAddressOrBnsNameValidator({
       client,
@@ -157,12 +155,7 @@ export function StacksSip10FungibleTokenSendForm({
               }
             />
             <FormFieldsLayout>
-              <SelectedAssetField
-                icon={<StxAvatar />}
-                name={symbol}
-                onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
-                symbol={symbol}
-              />
+              <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
               <StacksRecipientField contractId={contractId} />
               <MemoField />
             </FormFieldsLayout>

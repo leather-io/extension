@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 
 import { Box, Flex } from '@stacks/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { FormikContextType, useFormikContext } from 'formik';
 
 import { ErrorLabel } from '@app/components/error-label';
@@ -34,7 +35,12 @@ export function FormErrors() {
   return firstError && shouldDisplayErrors(form) ? (
     <AnimateHeight duration={400} easing="ease-out" height={showHide}>
       <Flex height={openHeight + 'px'}>
-        <ErrorLabel alignSelf="center">{firstError?.[1]}</ErrorLabel>
+        <ErrorLabel
+          alignSelf="center"
+          data-testid={SendCryptoAssetSelectors.FormFieldInputErrorLabel}
+        >
+          {firstError?.[1]}
+        </ErrorLabel>
       </Flex>
     </AnimateHeight>
   ) : (

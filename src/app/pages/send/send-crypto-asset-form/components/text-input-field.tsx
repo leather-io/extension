@@ -5,6 +5,7 @@ import { useField } from 'formik';
 import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface TextInputFieldProps {
+  dataTestId: string;
   name: string;
   label: string;
   labelAction?: string;
@@ -15,6 +16,7 @@ interface TextInputFieldProps {
   topInputOverlay?: JSX.Element;
 }
 export function TextInputField({
+  dataTestId,
   name,
   label,
   labelAction,
@@ -81,6 +83,7 @@ export function TextInputField({
       </SpaceBetween>
       <Input
         _focus={{ border: 'none' }}
+        data-testid={dataTestId}
         id={name}
         autoComplete="off"
         border="none"

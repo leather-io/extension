@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { ButtonProps } from '@stacks/ui';
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -14,10 +15,11 @@ export const ReceiveButton = (props: ButtonProps) => {
 
   return (
     <HomeActionButton
-      icon={QrCodeIcon}
-      onClick={() => navigate(RouteUrls.Receive)}
-      label="Receive"
       buttonComponent={PrimaryButton}
+      data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
+      icon={QrCodeIcon}
+      label="Receive"
+      onClick={() => navigate(RouteUrls.Receive)}
       {...props}
     />
   );
