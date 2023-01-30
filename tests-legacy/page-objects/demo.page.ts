@@ -1,4 +1,4 @@
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { BrowserContext, Page } from 'playwright-core';
 
 import { createTestSelector } from '../integration/utils';

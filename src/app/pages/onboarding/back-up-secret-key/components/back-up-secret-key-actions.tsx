@@ -1,7 +1,7 @@
 import { FiEyeOff, FiLock, FiRotateCcw } from 'react-icons/fi';
 
 import { Box, Stack, color } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';

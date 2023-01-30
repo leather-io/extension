@@ -10,11 +10,7 @@ export function CryptoAssetList({ cryptoAssetBalances }: CryptoAssetListProps) {
   return (
     <CryptoAssetListLayout>
       {cryptoAssetBalances.map(assetBalance => (
-        <CryptoAssetListItem
-          assetBalance={assetBalance}
-          data-testid={assetBalance.asset.symbol}
-          key={assetBalance.asset.name}
-        />
+        <CryptoAssetListItem assetBalance={assetBalance} key={assetBalance.asset.name} />
       ))}
     </CryptoAssetListLayout>
   );

@@ -1,5 +1,5 @@
 import { Tooltip } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
+import { FeesSelectors } from '@tests/selectors/fees.selectors';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -14,7 +14,7 @@ interface TransactionFeeProps {
 }
 export function TransactionFee({ fee, feeCurrencySymbol, usdAmount }: TransactionFeeProps) {
   const feeLabel = (
-    <Caption data-testid={TransactionSigningSelectors.FeeToBePaidLabel}>
+    <Caption data-testid={FeesSelectors.FeeToBePaidLabel}>
       {fee} {feeCurrencySymbol}
     </Caption>
   );

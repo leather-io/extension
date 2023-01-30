@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack, StackProps } from '@stacks/ui';
-import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
+import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 
 import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
@@ -51,7 +51,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
     <Stack
       pb="extra-loose"
       spacing="extra-loose"
-      data-testid={HomePageSelectors.BalancesList}
+      data-testid={HomePageSelectorsLegacy.BalancesList}
       {...props}
     >
       {btcAssetBalance.balance.amount.isGreaterThan(0) && (

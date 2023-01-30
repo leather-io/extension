@@ -1,6 +1,7 @@
 import { SVGAttributes } from 'react';
 
 import { Box, Grid, color, transition } from '@stacks/ui';
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { useHover } from 'use-events';
 
 interface IconBaseProps extends SVGAttributes<SVGElement> {
@@ -26,6 +27,7 @@ export function HeaderActionButton(props: HeaderActionButtonProps) {
         color: color('text-title'),
         cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
       }}
+      data-testid={HomePageSelectors.DrawerHeaderActionBtn}
       borderRadius="100%"
       color={color('text-caption')}
       onClick={isWaitingOnPerformedAction ? undefined : onAction}

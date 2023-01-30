@@ -1,3 +1,5 @@
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+
 import { TextInputField } from './text-input-field';
 
 interface RecipientFieldProps {
@@ -12,12 +14,13 @@ export function RecipientField({
 }: RecipientFieldProps) {
   return (
     <TextInputField
-      name="recipientAddressOrBnsName"
+      dataTestId={SendCryptoAssetSelectors.RecipientFieldInput}
       label="To"
       labelAction="Choose account"
-      placeholder="Address or name"
+      name="recipientAddressOrBnsName"
       onBlur={onBlur}
       onClickLabelAction={onClickLabelAction}
+      placeholder="Address or name"
       topInputOverlay={topInputOverlay}
     />
   );

@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
@@ -8,13 +7,12 @@ import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
-import { RouteUrls } from '@shared/route-urls';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { btcAddressValidator } from '@app/common/validation/forms/address-validators';
-import { btcAmountValidator } from '@app/common/validation/forms/currency-validators';
+import { btcCurrencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { btcFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
@@ -33,7 +31,6 @@ import { SendAllButton } from '../../components/send-all-button';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
 
 export function BtcCryptoCurrencySendForm() {
-  const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentAccountBtcAddressState();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
@@ -65,7 +62,7 @@ export function BtcCryptoCurrencySendForm() {
   });
 
   const validationSchema = yup.object({
-    amount: btcAmountValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance)),
+    amount: btcCurrencyAmountValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance)),
     recipient: btcAddressValidator(),
     fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
   });
@@ -104,7 +101,6 @@ export function BtcCryptoCurrencySendForm() {
             <SelectedAssetField
               icon={<BtcIcon />}
               name={btcCryptoCurrencyAssetBalance.asset.name}
-              onClickAssetGoBack={() => navigate(RouteUrls.SendCryptoAsset)}
               symbol="BTC"
             />
             <RecipientField />
