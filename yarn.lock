@@ -1654,7 +1654,7 @@
   resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.2.29.tgz#7f29e9a108aaf789600dd36e8442fe89ab41a815"
   integrity sha512-bEBrkTWbDAs/PB4IdRg4CtU750oBRytXHK/wC2oIDkgKZqnt76nACSooQQuHF11mK5k43f/IgFUMO5t5quRPVA==
 
-"@noble/hashes@1.1.5", "@noble/hashes@^1.0.0", "@noble/hashes@^1.1.2", "@noble/hashes@~1.1.1", "@noble/hashes@~1.1.3":
+"@noble/hashes@1.1.5", "@noble/hashes@^1.0.0", "@noble/hashes@^1.1.2", "@noble/hashes@^1.1.3", "@noble/hashes@~1.1.1", "@noble/hashes@~1.1.3":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.1.5.tgz#1a0377f3b9020efe2fae03290bd2a12140c95c11"
   integrity sha512-LTMZiiLc+V4v1Yi16TD6aX2gmtKszNye0pQgbaLqkvhIqP7nVsSaJsWloGQjJfJ8offaoP5GtX3yY5swbcJxxQ==
@@ -3540,7 +3540,7 @@
     readable-stream "^3.6.0"
     url "^0.11.0"
 
-"@stacks/encryption@6.1.1", "@stacks/encryption@^6.1.1":
+"@stacks/encryption@6.1.1", "@stacks/encryption@^6.1.0", "@stacks/encryption@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-6.1.1.tgz#0f6c3c5110250e74746d687b3b7c03b2badd4a97"
   integrity sha512-tS0Foo83h1ixwxCAbFh3uX0Hty3b3EFcqOb62udgBFlDmsjBD9Pld8t+ApKLTwiad6YhRu6rW+hDAJmhYQToMw==
@@ -3569,7 +3569,7 @@
     eslint-plugin-import ">=2.23.3"
     eslint-plugin-prettier "4.0.0"
 
-"@stacks/network@6.1.1", "@stacks/network@^6.1.1":
+"@stacks/network@6.1.1", "@stacks/network@^6.1.0", "@stacks/network@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/network/-/network-6.1.1.tgz#b6b01a8045375a055bb6e5598f4ff68da2d722a8"
   integrity sha512-FXOujmszG/NkYKDVDRmPLmfSQJvcSfvucXLOq6SkkTOohxFgQrT7cgAydmEwBWDiEoPsuYPlE0grppcUYIO8rQ==
@@ -3614,7 +3614,7 @@
   dependencies:
     prettier "2.4.1"
 
-"@stacks/profile@6.1.1", "@stacks/profile@^6.1.1":
+"@stacks/profile@6.1.1", "@stacks/profile@^6.1.0", "@stacks/profile@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-6.1.1.tgz#f956837a9a8d2360100a478fb55be7be3c94c83c"
   integrity sha512-r+cDdafKBkUUXtfGSo1MrzK090dqoJgJZaNUmkvoSW1V7b5sX1qkWx1zQJ/C74XOqBex1A6GAaVS62hnMC6E1w==
@@ -3663,7 +3663,7 @@
     base64-js "^1.5.1"
     jsontokens "^4.0.1"
 
-"@stacks/transactions@6.1.1", "@stacks/transactions@^6.1.1":
+"@stacks/transactions@6.1.1", "@stacks/transactions@^6.1.0", "@stacks/transactions@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-6.1.1.tgz#f686a560a78280f1ae148443d0ba78d8665f10f9"
   integrity sha512-RyM4Y+UWXpz/seMa9B6MDqpneW+PFdcHIeF36p8X+N1b5yBJardg6LdI7VWn5KG4hKofYttwaVTIjotKYGRIRw==
@@ -5734,6 +5734,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-dom@17.0.2":
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.2.tgz#35654cf6c49ae162d5bc90843d5437dc38008d43"
+  integrity sha512-Icd9KEgdnFfJs39KyRyr0jQ7EKhq8U6CcHRMGAS45fp5qgUvxL3ujUCfWFttUK2UErqZNj97t9gsVPNAqcwoCg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-lottie@1.2.6":
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/@types/react-lottie/-/react-lottie-1.2.6.tgz#4f351dfdf5f93a46a3a9714fbb319f1e0f030eaf"
@@ -5772,13 +5779,12 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.0.26":
-  version "18.0.27"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.27.tgz#d9425abe187a00f8a5ec182b010d4fd9da703b71"
-  integrity sha512-3vtRKHgVxu3Jp9t718R9BuzoD4NcQ8YJ5XRzsSKxNDiDonD2MXIT1TmSkenxuCycZJoQT5d2vE8LwWJxBC1gmA==
+"@types/react@*", "@types/react@17.0.2", "@types/react@^18.0.26":
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
+  integrity sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
   dependencies:
     "@types/prop-types" "*"
-    "@types/scheduler" "*"
     csstype "^3.0.2"
 
 "@types/react@17.0.37":
@@ -15440,6 +15446,13 @@ scheduler@^0.23.0:
   integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
   dependencies:
     loose-envify "^1.1.0"
+
+schema-inspector@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/schema-inspector/-/schema-inspector-2.0.1.tgz#6f3ae9763414439bf30b17b7fc53553884d489ef"
+  integrity sha512-lqR4tOVfoqf9Z8cgX/zvXuWPnTWCqrc4WSgeSPDDc1bWbMABaqdSTY98xj7iRKHOIRtKjc4M8EWCgUu5ASlHkg==
+  dependencies:
+    async "~2.6.3"
 
 schema-inspector@2.0.2, schema-inspector@^2.0.2:
   version "2.0.2"
