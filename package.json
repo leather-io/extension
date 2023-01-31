@@ -267,7 +267,7 @@
     "bip39": "3.0.4",
     "blns": "2.0.4",
     "browserslist": "4.21.4",
-    "chrome-webstore-upload-cli": "1.2.1",
+    "chrome-webstore-upload-cli": "2.1.0",
     "clean-webpack-plugin": "4.0.0",
     "concurrently": "7.6.0",
     "conventional-changelog-conventionalcommits": "5.0.0",
@@ -317,7 +317,9 @@
     "webpack-hot-middleware": "2.25.3"
   },
   "resolutions": {
-    "**/**/socket.io-parser": "4.2.1"
+    "**/**/socket.io-parser": "4.2.1",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
   },
   "keywords": [
     "blockstack",
