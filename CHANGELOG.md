@@ -1,3 +1,21 @@
+## [3.32.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.31.1...v3.32.0) (2023-01-31)
+
+
+### Features
+
+* send all with font resizing ([5073378](https://github.com/hirosystems/stacks-wallet-web/commit/50733788fd35d0ffeb990da287e13645d1738dfe))
+* update new recipient field ([251cd27](https://github.com/hirosystems/stacks-wallet-web/commit/251cd27230814b135843ad8d9e2c0f08730b65e6))
+
+
+### Internal
+
+* account restore logic ([d688d8f](https://github.com/hirosystems/stacks-wallet-web/commit/d688d8f7cf00e19fcd490a388e45eed40acb6cbb))
+* add debug fn to help account index issue ([208a9ac](https://github.com/hirosystems/stacks-wallet-web/commit/208a9ac8ab6a76f81e6731846d3da7ab1121d8ea))
+* add debug tool ([b1408fd](https://github.com/hirosystems/stacks-wallet-web/commit/b1408fd8f7625fd2bded49f4dee1a28c9720d63c))
+* amount field auto scaling ([fe1c804](https://github.com/hirosystems/stacks-wallet-web/commit/fe1c80462cbbd8956776c640d1e24ccf2776c471))
+* avoid millions of bns lookups, check config directly ([259b524](https://github.com/hirosystems/stacks-wallet-web/commit/259b5242171fbb7e9b6305ba318e48787bd45ad6))
+* make error currency agnostic ([c9652bb](https://github.com/hirosystems/stacks-wallet-web/commit/c9652bbbf7305cdd65c044a786d0f30e381f5fc8))
+
 ## [3.31.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.31.0...v3.31.1) (2023-01-25)
 
 
