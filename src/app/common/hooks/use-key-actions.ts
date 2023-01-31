@@ -10,6 +10,7 @@ import { clearChromeStorage } from '@shared/storage';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
 import { useAppDispatch } from '@app/store';
 import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
+import { useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { keyActions } from '@app/store/keys/key.actions';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
@@ -20,11 +21,12 @@ export function useKeyActions() {
   const analytics = useAnalytics();
   const dispatch = useAppDispatch();
   const defaultKeyDetails = useCurrentKeyDetails();
+  const client = useStacksClientAnchored();
 
   return useMemo(
     () => ({
       async setPassword(password: string) {
-        return dispatch(keyActions.setWalletEncryptionPassword(password));
+        return dispatch(keyActions.setWalletEncryptionPassword({ password, client }));
       },
 
       generateWalletKey() {
@@ -65,6 +67,6 @@ export function useKeyActions() {
         return dispatch(inMemoryKeyActions.lockWallet());
       },
     }),
-    [analytics, dispatch]
+    [analytics, client, defaultKeyDetails, dispatch]
   );
 }

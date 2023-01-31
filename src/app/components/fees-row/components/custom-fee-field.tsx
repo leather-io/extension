@@ -18,7 +18,7 @@ interface CustomFeeFieldProps extends StackProps {
 }
 export function CustomFeeField(props: CustomFeeFieldProps) {
   const { feeCurrencySymbol, lowFeeEstimate, setFieldWarning, ...rest } = props;
-  const [input, meta, helpers] = useField('fee');
+  const [field, meta, helpers] = useField('fee');
 
   const checkFieldWarning = useCallback(
     (value: string) => {
@@ -63,7 +63,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           placeholder="0"
           textAlign="right"
           type="number"
-          value={input.value}
+          value={field.value}
         />
       </InputGroup>
     </Stack>
