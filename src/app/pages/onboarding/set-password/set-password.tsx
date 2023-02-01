@@ -27,7 +27,7 @@ import { Header } from '@app/components/header';
 import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
-import { useStacksWallet } from '@app/store/keys/blockchain/stacks-keychain';
+import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
 import { PasswordField } from './components/password-field';
 

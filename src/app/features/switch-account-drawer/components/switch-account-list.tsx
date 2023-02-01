@@ -7,8 +7,6 @@ import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-acco
 
 import { SwitchAccountListItem } from './switch-account-list-item';
 
-const smallNumberOfAccountsToRenderWholeList = 10;
-
 interface SwitchAccountListProps {
   handleClose: () => void;
   accounts: StacksAccount[];
@@ -16,18 +14,6 @@ interface SwitchAccountListProps {
 }
 export const SwitchAccountList = memo(
   ({ accounts, currentAccountIndex, handleClose }: SwitchAccountListProps) => {
-    if (accounts.length <= smallNumberOfAccountsToRenderWholeList) {
-      return (
-        <>
-          {accounts.map(account => (
-            <Box key={account.address} mx={['base-loose', 'extra-loose']}>
-              <SwitchAccountListItem handleClose={handleClose} account={account} />
-            </Box>
-          ))}
-        </>
-      );
-    }
-
     return (
       <Virtuoso
         initialTopMostItemIndex={currentAccountIndex}

@@ -16,7 +16,7 @@ import { gaiaUrl } from '@shared/constants';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useStacksWallet } from '@app/store/keys/blockchain/stacks-keychain';
+import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
 
 import { UpdateActionLayout } from './update-action.layout';

@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
 
-import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
-
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
+import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
@@ -14,9 +13,10 @@ import { PendingTransactionList } from './components/pending-transaction-list/pe
 import { SubmittedTransactionList } from './components/submitted-transaction-list/submitted-transaction-list';
 import { TransactionList } from './components/transaction-list/transaction-list';
 
-export const ActivityList = () => {
+export function ActivityList() {
+  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
-    useGetBitcoinTransactionsByAddressQuery(BITCOIN_TEST_ADDRESS);
+    useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
   const {
     isInitialLoading: isInitialLoadingStacksTransactions,
     data: stacksTransactionsWithTransfers,
@@ -75,4 +75,4 @@ export const ActivityList = () => {
       )}
     </>
   );
-};
+}

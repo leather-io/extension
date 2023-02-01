@@ -18,11 +18,9 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Divider } from '@app/components/layout/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
-import {
-  useCurrentAccount,
-  useHasCreatedAccount,
-} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useStacksWallet } from '@app/store/keys/blockchain/stacks-keychain';
+import { useHasCreatedAccount } from '@app/store/accounts/account';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 

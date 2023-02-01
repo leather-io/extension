@@ -7,6 +7,17 @@ class Configuration {
     this.baseUrl = baseUrl;
   }
 }
+interface UtxoResponseItem {
+  txid: string;
+  vout: number;
+  status: {
+    confirmed: boolean;
+    block_height: number;
+    block_hash: string;
+    block_time: number;
+  };
+  value: number;
+}
 
 class AddressApi {
   configuration: Configuration;
@@ -22,7 +33,7 @@ class AddressApi {
     });
   }
 
-  async getUtxosByAddress(address: string) {
+  async getUtxosByAddress(address: string): Promise<UtxoResponseItem[]> {
     return fetchBitcoinData({
       errorMsg: 'No UTXOs fetched',
       url: `${this.configuration.baseUrl}/address/${address}/utxo`,

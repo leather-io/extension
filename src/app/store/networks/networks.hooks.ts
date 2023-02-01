@@ -1,18 +1,17 @@
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
 
 import { DefaultNetworkModes } from '@shared/constants';
 
-import { initialSearchParams } from '@app/common/initial-search-params';
 import { whenStxChainId } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 
 import { networksActions } from './networks.actions';
-import { useCurrentNetwork, useNetworks } from './networks.selectors';
+import { selectAppRequestedNetworkId, useCurrentNetwork } from './networks.selectors';
 import { PersistedNetworkConfiguration } from './networks.slice';
-import { findMatchingNetworkKey } from './networks.utils';
 
 export function useCurrentNetworkState() {
   const currentNetwork = useCurrentNetwork();
@@ -61,12 +60,6 @@ export function useNetworksActions() {
   );
 }
 
-export function useRequestNetworkId() {
-  const networks = useNetworks();
-
-  return useMemo(() => {
-    const coreApiUrl = initialSearchParams.get('coreApiUrl');
-    const networkChainId = initialSearchParams.get('networkChainId');
-    return findMatchingNetworkKey({ coreApiUrl, networkChainId, networks });
-  }, [networks]);
+export function useAppRequestedNetworkId() {
+  return useSelector(selectAppRequestedNetworkId);
 }

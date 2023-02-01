@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useStacksWallet } from '@app/store/keys/blockchain/stacks-keychain';
+import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
 export function useCreateAccount() {
   const { createNewAccount } = useKeyActions();

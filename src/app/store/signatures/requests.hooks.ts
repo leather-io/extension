@@ -9,7 +9,7 @@ import {
   getGenericSignaturePayloadFromToken,
   verifySignatureRequest,
 } from '@app/common/signature/requests';
-import { useAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useSignatureRequestSearchParams() {
   const { origin, tabId } = useDefaultRequestParams();
@@ -37,7 +37,7 @@ function useSignatureRequestState() {
 
 export function useSignatureRequestAccountIndex() {
   const signaturePayload = useSignatureRequestState();
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
 
   if (!signaturePayload?.stxAddress) return;
   const { stxAddress } = signaturePayload;
@@ -49,7 +49,7 @@ export function useSignatureRequestAccountIndex() {
 }
 
 export function useIsSignatureRequestValid() {
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
   const { origin, requestToken } = useSignatureRequestSearchParams();
 
   return useAsync(async () => {

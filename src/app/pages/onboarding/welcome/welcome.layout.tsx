@@ -4,8 +4,6 @@ import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
 import { Box, Flex, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 
-import { featureFlags } from '@shared/feature-flags';
-
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ONBOARDING_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Link } from '@app/components/link';
@@ -13,23 +11,25 @@ import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption, Text } from '@app/components/typography';
 
-const WelcomeIllustration = () => (
-  <Box
-    aria-label="Abstract illustration highlighting crypto symbology"
-    backgroundColor={color('border')}
-    backgroundImage={`url(${ExploreStacks})`}
-    backgroundPosition={[null, null, 'center']}
-    backgroundPositionY={['-137px', '-187px', 'center']}
-    backgroundRepeat="no-repeat"
-    backgroundSize={['cover', null, null, '80%']}
-    borderRadius="16px"
-    height={['155px', '220px', '675px']}
-    maxHeight="675px"
-    maxWidth={['auto', 'auto', '518px']}
-    overflow="hidden"
-    width="100%"
-  />
-);
+function WelcomeIllustration() {
+  return (
+    <Box
+      aria-label="Abstract illustration highlighting crypto symbology"
+      backgroundColor={color('border')}
+      backgroundImage={`url(${ExploreStacks})`}
+      backgroundPosition={[null, null, 'center']}
+      backgroundPositionY={['-137px', '-187px', 'center']}
+      backgroundRepeat="no-repeat"
+      backgroundSize={['cover', null, null, '80%']}
+      borderRadius="16px"
+      height={['155px', '220px', '675px']}
+      maxHeight="675px"
+      maxWidth={['auto', 'auto', '518px']}
+      overflow="hidden"
+      width="100%"
+    />
+  );
+}
 
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
@@ -93,16 +93,11 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
                 onClick={onRestoreWallet}
               >
                 Sign in with Secret Key
+              </Link>{' '}
+              or{' '}
+              <Link fontSize="inherit" onClick={onSelectConnectLedger}>
+                connect your Ledger
               </Link>
-              {featureFlags.ledgerEnabled && (
-                <>
-                  {' '}
-                  or{' '}
-                  <Link fontSize="inherit" onClick={onSelectConnectLedger}>
-                    connect your Ledger
-                  </Link>
-                </>
-              )}
             </Box>
           </Flex>
         </Flex>

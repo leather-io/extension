@@ -2,15 +2,17 @@ import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
-import { Caption } from '@app/components/typography';
-import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { useBitcoinFeature } from '@app/common/hooks/use-bitcoin-feature';
+import { Caption, CaptionSeparatorDot } from '@app/components/typography';
 
 import { AccountActiveCheckmark } from './account-active-checkmark';
 
 interface AccountListItemLayoutProps extends StackProps {
   isLoading: boolean;
   isActive: boolean;
-  account: StacksAccount;
+  index: number;
+  stxAddress: string;
+  btcAddress: string;
   accountName: JSX.Element;
   avatar: JSX.Element;
   balanceLabel: JSX.Element;
@@ -18,9 +20,11 @@ interface AccountListItemLayoutProps extends StackProps {
 }
 export function AccountListItemLayout(props: AccountListItemLayoutProps) {
   const {
-    account,
+    index,
     isLoading,
     isActive,
+    stxAddress,
+    btcAddress,
     accountName,
     avatar,
     balanceLabel,
@@ -30,12 +34,12 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
   } = props;
 
   const [isNarrowViewport] = useMediaQuery('(max-width: 400px)');
-
+  const { isBitcoinEnabled } = useBitcoinFeature();
   return (
     <Flex
       width="100%"
-      key={`account-${account.index}`}
-      data-testid={SettingsSelectors.AccountIndex.replace('[index]', `${account.index}`)}
+      key={`account-${index}`}
+      data-testid={SettingsSelectors.AccountIndex.replace('[index]', `${index}`)}
       cursor="pointer"
       position="relative"
       onClick={onSelectAccount}
@@ -46,12 +50,16 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
         <Stack spacing="base-tight">
           <Flex>
             {accountName}
-            {isActive && isNarrowViewport && (
-              <AccountActiveCheckmark index={account.index} ml="tight" />
-            )}
+            {isActive && isNarrowViewport && <AccountActiveCheckmark index={index} ml="tight" />}
           </Flex>
           <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
-            <Caption>{truncateMiddle(account.address, isNarrowViewport ? 3 : 4)}</Caption>
+            <Caption>{truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}</Caption>
+            {isBitcoinEnabled && (
+              <>
+                <CaptionSeparatorDot />
+                <Caption>{truncateMiddle(btcAddress, 5)}</Caption>
+              </>
+            )}
             {balanceLabel}
           </Stack>
         </Stack>
@@ -66,12 +74,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
         />
       )}
       {isActive && !isNarrowViewport && (
-        <AccountActiveCheckmark
-          index={account.index}
-          position="absolute"
-          right={0}
-          top="calc(50% - 8px)"
-        />
+        <AccountActiveCheckmark index={index} position="absolute" right={0} top="calc(50% - 8px)" />
       )}
       {children}
     </Flex>

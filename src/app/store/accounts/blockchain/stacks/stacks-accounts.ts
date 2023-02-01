@@ -3,7 +3,7 @@ import { atom } from 'jotai';
 
 import { derivePublicKey } from '@app/common/keychain/keychain';
 import { storeAtom } from '@app/store';
-import { softwareStacksWalletState } from '@app/store/keys/blockchain/stacks-keychain';
+import { softwareStacksWalletState } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 import { selectLedgerKey } from '@app/store/keys/key.selectors';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
 
@@ -44,14 +44,8 @@ const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
   });
 });
 
-export const accountsWithAddressState = atom<StacksAccount[] | undefined>(get => {
+export const stacksAccountState = atom<StacksAccount[] | undefined>(get => {
   const ledgerAccounts = get(ledgerAccountsState);
   const softwareAccounts = get(softwareAccountsState);
   return ledgerAccounts ? ledgerAccounts : softwareAccounts;
 });
-
-// This is only used when there is a pending transaction request and
-// the user switches accounts during the signing process
-export const hasSwitchedAccountsState = atom<boolean>(false);
-
-export const hasCreatedAccountState = atom<boolean>(false);

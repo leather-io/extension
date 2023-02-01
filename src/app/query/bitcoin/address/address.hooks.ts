@@ -13,7 +13,7 @@ function useBitcoinBalance(address: string) {
   const utxos = useGetUtxosByAddressQuery(address).data;
   return useMemo(() => {
     if (!utxos) return createMoney(new BigNumber(0), 'BTC');
-    return createMoney(sumNumbers(utxos.map((utxo: any) => utxo.value)), 'BTC');
+    return createMoney(sumNumbers(utxos.map(utxo => utxo.value)), 'BTC');
   }, [utxos]);
 }
 

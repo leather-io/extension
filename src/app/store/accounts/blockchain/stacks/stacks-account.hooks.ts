@@ -1,22 +1,17 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
 
-import {
-  accountsWithAddressState,
-  hasCreatedAccountState,
-  hasSwitchedAccountsState,
-} from '@app/store/accounts/blockchain/stacks/stacks-accounts';
+import { stacksAccountState } from '@app/store/accounts/blockchain/stacks/stacks-accounts';
 import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
 
-import { selectCurrentAccountIndex } from '../../../keys/key.selectors';
+import { hasSwitchedAccountsState, useCurrentAccountIndex } from '../../account';
 import type { StacksAccount } from './stacks-account.models';
 
-export function useAccounts() {
-  return useAtomValue(accountsWithAddressState);
+export function useStacksAccounts() {
+  return useAtomValue(stacksAccountState);
 }
 
 // Comment below from original atom. This pattern encourages view level
@@ -30,7 +25,7 @@ export function useCurrentAccount() {
   const signatureIndex = useSignatureRequestAccountIndex();
   // ⚠️ to refactor, we should not just continually add new conditionals here
   const hasSwitched = useAtomValue(hasSwitchedAccountsState);
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
 
   return useMemo(() => {
     const index = txIndex ?? signatureIndex;
@@ -44,12 +39,8 @@ export function useCurrentAccountStxAddressState() {
   return useCurrentAccount()?.address ?? '';
 }
 
-export function useCurrentAccountIndex() {
-  return useSelector(selectCurrentAccountIndex);
-}
-
 export function useTransactionAccountIndex() {
-  const accounts = useAtomValue(accountsWithAddressState);
+  const accounts = useAtomValue(stacksAccountState);
   const txPayload = useTransactionRequestState();
   const txAddress = txPayload?.stxAddress;
   return useMemo(() => {
@@ -62,12 +53,4 @@ export function useTransactionAccountIndex() {
 
 export function useTransactionNetworkVersion() {
   return useAtomValue(transactionNetworkVersionState);
-}
-
-export function useHasSwitchedAccounts() {
-  return useAtom(hasSwitchedAccountsState);
-}
-
-export function useHasCreatedAccount() {
-  return useAtom(hasCreatedAccountState);
 }

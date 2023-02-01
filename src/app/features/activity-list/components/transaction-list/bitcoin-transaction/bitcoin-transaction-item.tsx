@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 
 import { Box, BoxProps } from '@stacks/ui';
 
-import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
+import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionItemLayout } from './bitcoin-transaction-item.layout';
@@ -20,10 +20,11 @@ interface BitcoinTransactionItemProps extends BoxProps {
   transaction?: BitcoinTransaction;
 }
 export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransactionItemProps) {
+  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
   const { handleOpenTxLink } = useExplorerLink();
   const analytics = useAnalytics();
   const caption = useMemo(() => getBitcoinTxCaption(transaction), [transaction]);
-  const value = useMemo(() => getBitcoinTxValue(BITCOIN_TEST_ADDRESS, transaction), [transaction]);
+  const value = useMemo(() => getBitcoinTxValue(bitcoinAddress, transaction), [transaction]);
 
   if (!transaction) return null;
 

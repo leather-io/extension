@@ -1,13 +1,30 @@
-import { Account, Wallet } from '@stacks/wallet-sdk';
+import {
+  AddressVersion,
+  createStacksPrivateKey,
+  getPublicKey,
+  publicKeyToAddress,
+} from '@stacks/transactions';
+import { Account, Wallet, deriveStxPrivateKey } from '@stacks/wallet-sdk';
 import { atom, useAtomValue } from 'jotai';
 
 import { analytics } from '@shared/utils/analytics';
 
+import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { storeAtom } from '@app/store';
-import { accountsWithAddressState } from '@app/store/accounts/blockchain/stacks/stacks-accounts';
+import { stacksAccountState } from '@app/store/accounts/blockchain/stacks/stacks-accounts';
 import { deriveWalletWithAccounts } from '@app/store/chains/stx-chain.selectors';
 
-import { defaultKeyId } from '../key.slice';
+import { defaultKeyId } from '../../../keys/key.slice';
+
+export function getStacksAddressByIndex(secretKey: string, addressVersion: AddressVersion) {
+  return (index: number) => {
+    const accountPrivateKey = createStacksPrivateKey(
+      deriveStxPrivateKey({ rootNode: mnemonicToRootNode(secretKey), index })
+    );
+    const pubKey = getPublicKey(accountPrivateKey);
+    return publicKeyToAddress(addressVersion, pubKey);
+  };
+}
 
 export const softwareStacksWalletState = atom(async get => {
   const store = get(storeAtom);
@@ -47,7 +64,7 @@ export const softwareStacksWalletState = atom(async get => {
 // access to.
 const ledgerStacksWalletState = atom(get => {
   const store = get(storeAtom);
-  const accounts = get(accountsWithAddressState);
+  const accounts = get(stacksAccountState);
   const defaultKey = store.keys.entities[defaultKeyId];
 
   if (!defaultKey || defaultKey.type !== 'ledger') return;

@@ -8,8 +8,8 @@ import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance
 import { useAccountsNonFungibleTokenHoldings } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
 import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.query';
 import {
-  useAccounts,
   useCurrentAccount,
+  useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import {
@@ -28,7 +28,7 @@ function useAllAccountsAvailableStxBalance(accounts?: StacksAccount[]) {
 }
 
 export function useSuggestedFirstSteps() {
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
   const currentAccount = useCurrentAccount();
   const hasHiddenSuggestedFirstSteps = useHideSuggestedFirstSteps();
   const stepsStatus = useSuggestedFirstStepsStatus();
