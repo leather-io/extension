@@ -1,8 +1,6 @@
-import { memo } from 'react';
-
 import { Flex, transition } from '@stacks/ui';
 
-export const Overlay = memo(() => {
+export function Overlay() {
   return (
     <Flex
       alignItems={['flex-end', 'center', 'center']}
@@ -19,4 +17,4 @@ export const Overlay = memo(() => {
       zIndex={1000}
     />
   );
-});
+}
