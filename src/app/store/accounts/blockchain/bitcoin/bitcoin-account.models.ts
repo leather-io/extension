@@ -1,6 +1,5 @@
-interface SoftwareBitcoinAccount {
+export interface SoftwareBitcoinAccount {
   type: 'software';
-  path: string;
   xpub: string;
   index: number;
 }
@@ -13,4 +12,5 @@ interface HardwareBitcoinAccount {
   xpub: string;
 }
 
+// ts-unused-exports:disable-next-line
 export type BitcoinAccount = SoftwareBitcoinAccount | HardwareBitcoinAccount;

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { Flex, FlexProps, Spinner, color } from '@stacks/ui';
 
-import { useHasCreatedAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useHasCreatedAccount } from '@app/store/accounts/account';
 
 export function LoadingSpinner(props: FlexProps) {
   return (

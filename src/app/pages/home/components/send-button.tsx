@@ -20,23 +20,25 @@ import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-
 
 import { HomeActionButton } from './tx-button';
 
-const SendTxButton = (props: ButtonProps) => (
-  <HomeActionButton
-    data-testid={HomePageSelectors.SendCryptoAssetBtn}
-    icon={FiArrowUp}
-    label="Send"
-    buttonComponent={PrimaryButton}
-    {...props}
-  />
-);
+function SendTxButton(props: ButtonProps) {
+  return (
+    <HomeActionButton
+      data-testid={HomePageSelectors.SendCryptoAssetBtn}
+      icon={FiArrowUp}
+      label="Send"
+      buttonComponent={PrimaryButton}
+      {...props}
+    />
+  );
+}
 
-const SendButtonSuspense = () => {
+function SendButtonSuspense() {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const account = useCurrentAccount();
-  const stxCryptAssetBalance = useStacksAnchoredCryptoCurrencyAssetBalance(account?.address ?? '');
+  const stxAssetBalance = useStacksAnchoredCryptoCurrencyAssetBalance(account?.address ?? '');
   const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
-  const isDisabled = !stxCryptAssetBalance && ftAssets?.length === 0;
+  const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
   return (
     <SendTxButton
       onClick={() =>
@@ -60,12 +62,14 @@ const SendButtonSuspense = () => {
       isDisabled={isDisabled}
     />
   );
-};
+}
 
 const SendButtonFallback = memo(() => <SendTxButton isDisabled />);
 
-export const SendButton = () => (
-  <Suspense fallback={<SendButtonFallback />}>
-    <SendButtonSuspense />
-  </Suspense>
-);
+export function SendButton() {
+  return (
+    <Suspense fallback={<SendButtonFallback />}>
+      <SendButtonSuspense />
+    </Suspense>
+  );
+}

@@ -23,10 +23,8 @@ import { usePressable } from '@app/components/item-hover';
 import { Title } from '@app/components/typography';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
-import {
-  useAccounts,
-  useHasCreatedAccount,
-} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useHasCreatedAccount } from '@app/store/accounts/account';
+import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 const loadingProps = { color: '#A1A7B3' };
@@ -147,7 +145,7 @@ const AddAccountAction = memo(() => {
 export const ChooseAccountsList = memo(() => {
   const finishSignIn = useFinishAuthRequest();
   const { whenWallet } = useWalletType();
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
   const navigate = useNavigate();
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
 

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Stack, StackProps } from '@stacks/ui';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 
-import { BITCOIN_TEST_ADDRESS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
@@ -17,6 +16,7 @@ import {
   useStacksNonFungibleTokenAssetsUnanchored,
   useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
 import { FundAccount } from './components/fund-account';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
@@ -28,7 +28,8 @@ interface BalancesListProps extends StackProps {
 export function BalancesList({ address, ...props }: BalancesListProps) {
   const { data: stxAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(address);
   const { data: stxUnachoredAssetBalance } = useStacksUnanchoredCryptoCurrencyAssetBalance(address);
-  const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(BITCOIN_TEST_ADDRESS);
+  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
+  const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(bitcoinAddress);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();

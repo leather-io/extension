@@ -12,7 +12,10 @@ import { BalancesList } from '@app/features/balances-list/balances-list';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
-import { useAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import {
+  useCurrentBtcAccount,
+  useCurrentBtcAccountAddressIndexZero,
+} from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { CurrentAccount } from './components/account-area';
@@ -39,9 +42,12 @@ function HomeContainer({ account }: HomeContainerProps) {
     </>
   );
 
-  const x = useAccounts();
+  const x = useCurrentBtcAccount();
+  const address = useCurrentBtcAccountAddressIndexZero();
   // eslint-disable-next-line no-console
-  console.log(x);
+  console.log({ ...x, address });
+
+  // console.log(useCurrentNetwork());
 
   useEffect(() => {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);

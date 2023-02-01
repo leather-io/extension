@@ -15,15 +15,15 @@ import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-pa
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useStacksWallet } from '@app/store/keys/blockchain/stacks-keychain';
+import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
 export function useFinishAuthRequest() {
   const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
   const keyActions = useKeyActions();
   const wallet = useStacksWallet();
   const { walletType } = useWalletType();
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
   const { origin, tabId } = useAuthRequestParams();
 
   return useCallback(
