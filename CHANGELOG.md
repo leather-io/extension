@@ -1,3 +1,10 @@
+## [3.32.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.1...v3.32.2) (2023-02-01)
+
+
+### Bug Fixes
+
+* convert Icon to named fn ([f02a242](https://github.com/hirosystems/stacks-wallet-web/commit/f02a242e4133822b8ef4e60b9fabfa753aa21339))
+
 ## [3.32.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.0...v3.32.1) (2023-02-01)
 
 
