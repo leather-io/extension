@@ -29,7 +29,7 @@ const colorFromTx = (tx: StacksTx): ColorsStringLiteral => {
   return colorMap[statusFromTx(tx)] ?? 'feedback-error';
 };
 
-const IconForTx = (tx: StacksTx, currentAccountStxAddress: string | undefined) => {
+function IconForTx(tx: StacksTx, currentAccountStxAddress: string | undefined) {
   const isSent = tx.sender_address === currentAccountStxAddress;
 
   const tokenTransferIcon = (tx: StacksTx) => {
@@ -55,7 +55,7 @@ const IconForTx = (tx: StacksTx, currentAccountStxAddress: string | undefined) =
     poison_microblock: null,
   };
   return iconMap[tx.tx_type];
-};
+}
 
 interface TransactionTypeIconProps extends BoxProps {
   transaction: StacksTx;
