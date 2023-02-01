@@ -1,3 +1,17 @@
+## [3.32.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.0...v3.32.1) (2023-02-01)
+
+
+### Bug Fixes
+
+* chore commits to release ([4e5621d](https://github.com/hirosystems/stacks-wallet-web/commit/4e5621dce3938e3c51a7366682a265551cc98964))
+* convert to named fn ([9d770ed](https://github.com/hirosystems/stacks-wallet-web/commit/9d770ed575c3de01df00051737160861c22c71f8))
+
+
+### Internal
+
+* don't publish chore packages ([8bc53d9](https://github.com/hirosystems/stacks-wallet-web/commit/8bc53d92f6193403e9c6dc65534eedff61a9c80d))
+* package updates ([340fcde](https://github.com/hirosystems/stacks-wallet-web/commit/340fcde357043013bd369a7aacc9acb813a5c6f1))
+
 ## [3.32.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.31.1...v3.32.0) (2023-01-31)
 
 
