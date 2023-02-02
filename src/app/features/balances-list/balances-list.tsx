@@ -25,7 +25,7 @@ import { StacksNonFungibleTokenAssetList } from './components/stacks-non-fungibl
 interface BalancesListProps extends StackProps {
   address: string;
 }
-export const BalancesList = ({ address, ...props }: BalancesListProps) => {
+export function BalancesList({ address, ...props }: BalancesListProps) {
   const { data: stxAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(address);
   const { data: stxUnachoredAssetBalance } = useStacksUnanchoredCryptoCurrencyAssetBalance(address);
   const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(BITCOIN_TEST_ADDRESS);
@@ -69,4 +69,4 @@ export const BalancesList = ({ address, ...props }: BalancesListProps) => {
       <StacksNonFungibleTokenAssetList assetBalances={stacksNftAssetBalances} />
     </Stack>
   );
-};
+}
