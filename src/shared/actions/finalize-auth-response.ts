@@ -56,7 +56,7 @@ export function finalizeAuthResponse({
   const origin = new URL(requestingOrigin);
 
   if (redirectUri.hostname !== origin.hostname) {
-    analytics?.track('auth_response_with_illegal_redirect_uri');
+    void analytics?.track('auth_response_with_illegal_redirect_uri');
     throw new Error('Cannot redirect to a different domain than the one requesting');
   }
 
