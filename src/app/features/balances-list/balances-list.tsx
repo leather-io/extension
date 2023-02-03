@@ -17,6 +17,7 @@ import {
   useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 import { FundAccount } from './components/fund-account';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
@@ -33,6 +34,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();
+  const bitcoinEnabled = useBitcoinFeature();
 
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
 
@@ -55,7 +57,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       data-testid={HomePageSelectors.BalancesList}
       {...props}
     >
-      {btcAssetBalance.balance.amount.isGreaterThan(0) && (
+      {btcAssetBalance.balance.amount.isGreaterThan(0) && bitcoinEnabled && (
         <CryptoCurrencyAssetItem assetBalance={btcAssetBalance} icon={<Box as={BtcIcon} />} />
       )}
       {(stxAssetBalance.balance.amount.isGreaterThan(0) ||

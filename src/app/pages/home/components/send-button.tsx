@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonProps } from '@stacks/ui';
 import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
 
-import { featureFlags } from '@shared/feature-flags';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -17,6 +16,7 @@ import {
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 import { HomeActionButton } from './tx-button';
 
@@ -39,12 +39,13 @@ function SendButtonSuspense() {
   const stxAssetBalance = useStacksAnchoredCryptoCurrencyAssetBalance(account?.address ?? '');
   const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
   const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
+  const isBitcoinEnabled = useBitcoinFeature();
   return (
     <SendTxButton
       onClick={() =>
         whenWallet({
           ledger: () =>
-            featureFlags.bitcoinEnabled
+            isBitcoinEnabled
               ? whenPageMode({
                   full: () => navigate(RouteUrls.SendCryptoAsset),
                   popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
@@ -54,9 +55,7 @@ function SendButtonSuspense() {
                   popup: () => openIndexPageInNewTab(RouteUrls.Send),
                 })(),
           software: () =>
-            featureFlags.bitcoinEnabled
-              ? navigate(RouteUrls.SendCryptoAsset)
-              : navigate(RouteUrls.Send),
+            isBitcoinEnabled ? navigate(RouteUrls.SendCryptoAsset) : navigate(RouteUrls.Send),
         })()
       }
       isDisabled={isDisabled}

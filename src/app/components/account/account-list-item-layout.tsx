@@ -2,8 +2,8 @@ import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
-import { useBitcoinFeature } from '@app/common/hooks/use-bitcoin-feature';
 import { Caption, CaptionSeparatorDot } from '@app/components/typography';
+import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 import { AccountActiveCheckmark } from './account-active-checkmark';
 
@@ -34,7 +34,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
   } = props;
 
   const [isNarrowViewport] = useMediaQuery('(max-width: 400px)');
-  const { isBitcoinEnabled } = useBitcoinFeature();
+  const isBitcoinEnabled = useBitcoinFeature();
   return (
     <Flex
       width="100%"
