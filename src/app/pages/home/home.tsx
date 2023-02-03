@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { ActivityList } from '@app/features/activity-list/activity-list';
@@ -12,10 +12,6 @@ import { BalancesList } from '@app/features/balances-list/balances-list';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
-import {
-  useCurrentBtcAccount,
-  useCurrentBtcAccountAddressIndexZero,
-} from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { CurrentAccount } from './components/account-area';
@@ -42,17 +38,9 @@ function HomeContainer({ account }: HomeContainerProps) {
     </>
   );
 
-  const x = useCurrentBtcAccount();
-  const address = useCurrentBtcAccountAddressIndexZero();
-  // eslint-disable-next-line no-console
-  console.log({ ...x, address });
-
-  // console.log(useCurrentNetwork());
-
-  useEffect(() => {
+  useOnMount(() => {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <HomeLayout

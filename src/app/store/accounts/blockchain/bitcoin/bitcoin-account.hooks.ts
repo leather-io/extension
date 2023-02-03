@@ -26,7 +26,7 @@ function useBitcoinAccountAtIndex(index: number) {
   return useMemo(() => deriveNativeSegWitAccount(keychain(index))(index), [keychain, index]);
 }
 
-export function useCurrentBtcAccount() {
+function useCurrentBtcAccount() {
   const currentAccountIndex = useCurrentAccountIndex();
   return useBitcoinAccountAtIndex(currentAccountIndex);
 }
