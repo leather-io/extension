@@ -1,3 +1,5 @@
+## [3.32.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.2...v3.32.3) (2023-02-03)
+
 ## [3.32.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.1...v3.32.2) (2023-02-01)
 
 
