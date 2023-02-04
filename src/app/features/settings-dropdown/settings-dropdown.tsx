@@ -15,7 +15,7 @@ import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Divider } from '@app/components/divider';
+import { Divider } from '@app/components/layout/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
 import { useHasCreatedAccount } from '@app/store/accounts/account.hooks';

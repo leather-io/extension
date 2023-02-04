@@ -11,7 +11,7 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ErrorLabel } from '@app/components/error-label';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';

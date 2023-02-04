@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { Flex, Input, Text, color } from '@stacks/ui';
 import { useField } from 'formik';
 
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface TextInputFieldProps {
   name: string;
