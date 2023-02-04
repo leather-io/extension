@@ -30,6 +30,8 @@ export enum RouteUrls {
   FundReceive = '/fund/receive',
   IncreaseFee = '/increase-fee',
   Receive = '/receive',
+  ReceiveStx = '/receive/stx',
+  ReceiveBtc = '/receive/btc',
   Send = '/send-transaction',
 
   TransactionRequest = '/transaction',
