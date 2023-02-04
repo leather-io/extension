@@ -9,6 +9,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
@@ -39,7 +40,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
 
   // Better handle loading state
-  if (!stxAssetBalance || !stxUnachoredAssetBalance) return null;
+  if (!stxAssetBalance || !stxUnachoredAssetBalance) return <LoadingSpinner />;
 
   const noAssets =
     btcAssetBalance.balance.amount.isEqualTo(0) &&

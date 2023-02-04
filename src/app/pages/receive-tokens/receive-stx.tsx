@@ -8,25 +8,24 @@ import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-
 
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
-// ts-unused-exports:disable-next-line
-export function ReceiveTokens() {
+export function ReceiveStxModal() {
   const currentAccount = useCurrentAccount();
   const analytics = useAnalytics();
   const { onCopy } = useClipboard(currentAccount?.address ?? '');
   const accountName = useCurrentAccountDisplayName();
 
-  const copyToClipboard = () => {
+  function copyToClipboard() {
     void analytics.track('copy_address_to_clipboard');
     toast.success('Copied to clipboard!');
     onCopy();
-  };
+  }
 
   if (!currentAccount) return null;
 
   return (
     <ReceiveTokensLayout
-      accountName={accountName}
       address={currentAccount.address}
+      accountName={accountName}
       onCopyAddressToClipboard={copyToClipboard}
     />
   );
