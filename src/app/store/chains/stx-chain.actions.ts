@@ -3,7 +3,7 @@ import { AppThunk } from '@app/store';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { stxChainSlice } from './stx-chain.slice';
 
-export const createNewAccount = (): AppThunk => {
+export function createNewAccount(): AppThunk {
   return async (dispatch, getState) => {
     const secretKey = selectDefaultWalletKey(getState());
     if (!secretKey) {
@@ -11,6 +11,6 @@ export const createNewAccount = (): AppThunk => {
     }
     dispatch(stxChainSlice.actions.createNewAccount());
   };
-};
+}
 
 export const stxChainActions = stxChainSlice.actions;

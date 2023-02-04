@@ -24,6 +24,7 @@ import { Title } from '@app/components/typography';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useHasCreatedAccount } from '@app/store/accounts/account';
+import { useBtcAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
@@ -68,6 +69,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const { data: balances, isLoading: isBalanceLoading } = useAnchoredStacksAccountBalances(
     account.address
   );
+  const btcAddress = useBtcAccountIndexAddressIndexZero(account.index);
   const stxMarketData = useCryptoCurrencyMarketData('STX');
 
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
@@ -79,7 +81,8 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
     // virtualised list library
     <Box pb="loose">
       <AccountListItemLayout
-        account={account}
+        stxAddress={account.address}
+        btcAddress={btcAddress}
         accountName={
           <Suspense
             fallback={
@@ -105,9 +108,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
               availableBalance={balances.stx.availableStx}
               marketData={stxMarketData}
             />
-          ) : (
-            <></>
-          )
+          ) : null
         }
         isLoading={isLoading}
         onSelectAccount={() => onSelectAccount(account.index)}

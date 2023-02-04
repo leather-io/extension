@@ -13,6 +13,7 @@ export function StacksRecipientField(props: { contractId?: string }) {
 
   return (
     <RecipientField
+      name="recipientAddressOrBnsName"
       onBlur={getBnsAddress}
       onClickLabelAction={() =>
         navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { state: { contractId } })
