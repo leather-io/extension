@@ -3,7 +3,7 @@ import { Stack, StackProps, Text } from '@stacks/ui';
 import { isValidUrl } from '@shared/utils/validate-url';
 
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface AssetItemProps extends StackProps {
   iconString: string;

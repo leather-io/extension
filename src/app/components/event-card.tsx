@@ -3,7 +3,7 @@ import { FiMoreHorizontal } from 'react-icons/fi';
 import { Box, IconButton, Stack, Text, color } from '@stacks/ui';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
 import { TxAssetItem } from './tx-asset-item';

@@ -4,7 +4,7 @@ import { Circle, Flex, Grid, GridProps, Stack, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
 
 import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Text, Title } from '@app/components/typography';
 
 interface SuggestedFirstStepsLayoutProps extends GridProps {

@@ -2,7 +2,7 @@ import { Flex, Text } from '@stacks/ui';
 import { Field, useField } from 'formik';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface SelectedAssetFieldProps {
   icon: JSX.Element;

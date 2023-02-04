@@ -3,7 +3,7 @@ import { FiCheck, FiChevronDown } from 'react-icons/fi';
 
 import { Stack, color } from '@stacks/ui';
 
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
 const labels = ['Low', 'Standard', 'High', 'Custom'];

@@ -1,6 +1,6 @@
 import { Stack, StackProps, Text } from '@stacks/ui';
 
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
 import { PrincipalValue } from './principal-value';

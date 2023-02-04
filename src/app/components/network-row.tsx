@@ -2,7 +2,7 @@ import { ChainID } from '@stacks/transactions';
 import { Box } from '@stacks/ui';
 
 import { whenStxChainId } from '@app/common/utils';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
 interface NetworkRowProps {

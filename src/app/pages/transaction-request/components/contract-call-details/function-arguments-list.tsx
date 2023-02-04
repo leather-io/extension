@@ -2,7 +2,7 @@ import { Suspense, memo } from 'react';
 
 import { Stack, StackProps } from '@stacks/ui';
 
-import { Divider } from '@app/components/divider';
+import { Divider } from '@app/components/layout/divider';
 import { Caption } from '@app/components/typography';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
