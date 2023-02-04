@@ -83,7 +83,7 @@ export const store = configureStore({
           suppressConnectErrors: false,
         }),
       ]
-    : [],
+    : undefined,
 });
 
 export const persistor = persistStore(store);
