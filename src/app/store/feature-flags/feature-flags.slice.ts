@@ -62,6 +62,6 @@ function useFeatureFlags() {
 
 export function useBitcoinFeature() {
   const network = useCurrentNetwork();
-  const bitcoinEnabled = useFeatureFlags().bitcoin.isEnabled();
-  return network.chain.bitcoin.network === 'testnet' && bitcoinEnabled;
+  const featureFlags = useFeatureFlags();
+  return network.chain.bitcoin.network === 'testnet' && featureFlags.bitcoin.isEnabled();
 }
