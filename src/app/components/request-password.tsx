@@ -21,7 +21,7 @@ const waitingMessages: WaitingMessages = {
 };
 
 interface RequestPasswordProps {
-  onSuccess(password: string): void;
+  onSuccess(): void;
   title?: string;
   caption?: string;
 }
@@ -40,7 +40,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
     setError('');
     try {
       await unlockWallet(password);
-      onSuccess?.(password);
+      onSuccess?.();
     } catch (error) {
       setError('The password you entered is invalid');
     }
