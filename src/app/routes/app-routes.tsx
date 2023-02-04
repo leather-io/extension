@@ -25,7 +25,8 @@ import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/mag
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { ReceiveTokens } from '@app/pages/receive-tokens/receive-tokens';
+import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
+import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { ChooseCryptoAsset } from '@app/pages/send/choose-crypto-asset/choose-crypto-asset';
@@ -77,7 +78,9 @@ function AppRoutesAfterUserHasConsented() {
           <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
             {ledgerTxSigningRoutes}
           </Route>
-          <Route path={RouteUrls.Receive} element={<ReceiveTokens />} />
+          <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
+          <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+          <Route path={RouteUrls.ReceiveBtc} element={<ReceiveModal />} />
           {settingsModalRoutes}
           {ledgerTxSigningRoutes}
         </Route>
@@ -138,7 +141,7 @@ function AppRoutesAfterUserHasConsented() {
             </AccountGate>
           }
         >
-          <Route path={RouteUrls.FundReceive} element={<ReceiveTokens />} />
+          <Route path={RouteUrls.FundReceive} element={<ReceiveModal />} />
           {settingsModalRoutes}
         </Route>
         <Route
