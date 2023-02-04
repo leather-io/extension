@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
@@ -7,6 +8,7 @@ import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
+import { RouteUrls } from '@shared/route-urls';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
@@ -31,6 +33,7 @@ import { SendAllButton } from '../../components/send-all-button';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
 
 export function BtcCryptoCurrencySendForm() {
+  const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
@@ -103,7 +106,10 @@ export function BtcCryptoCurrencySendForm() {
               name={btcCryptoCurrencyAssetBalance.asset.name}
               symbol="BTC"
             />
-            <RecipientField />
+            <RecipientField
+              name="recipient"
+              onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
+            />
             <MemoField lastChild />
           </FormFieldsLayout>
           <FeesRow fees={btcFees} isSponsored={false} mt="base" />
@@ -111,6 +117,7 @@ export function BtcCryptoCurrencySendForm() {
           <PreviewButton
             isDisabled={!(props.values.amount && props.values.recipient && props.values.fee)}
           />
+          <Outlet />
         </Form>
       )}
     </Formik>
