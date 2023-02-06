@@ -2,6 +2,8 @@ import { createSelector } from '@reduxjs/toolkit';
 import { Account, Wallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
+import { analytics } from '@shared/utils/analytics';
+
 import { textToBytes } from '@app/common/store-utils';
 
 import { storeAtom } from '..';
@@ -37,7 +39,15 @@ export const softwareStacksWalletState = atom(async get => {
   const defaultInMemoryKey = store.inMemoryKeys.keys[defaultKeyId];
   if (!defaultInMemoryKey || !defaultKey) return;
   if (defaultKey.type !== 'software') return;
-  return deriveWalletWithAccounts(defaultInMemoryKey, store.chains.stx.default.highestAccountIndex);
+  const { highestAccountIndex, currentAccountIndex } = store.chains.stx.default;
+  const accountsToRender = Math.max(
+    store.chains.stx.default.highestAccountIndex,
+    store.chains.stx.default.currentAccountIndex
+  );
+  if (currentAccountIndex > highestAccountIndex) {
+    void analytics?.track('illegal_wallet_state_current_index_higher_than_highest');
+  }
+  return deriveWalletWithAccounts(defaultInMemoryKey, accountsToRender);
 });
 
 //
