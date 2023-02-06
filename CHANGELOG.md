@@ -1,3 +1,15 @@
+## [3.32.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.3...v3.32.4) (2023-02-06)
+
+
+### Bug Fixes
+
+* delayed home loading ([7844bec](https://github.com/hirosystems/stacks-wallet-web/commit/7844bec132818d69121cb17125a2f1132b0c8183))
+
+
+### Internal
+
+* upgrade deps ([d00b798](https://github.com/hirosystems/stacks-wallet-web/commit/d00b7985b7bf9bf21f0192ce058cc04f3ec9d653))
+
 ## [3.32.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.2...v3.32.3) (2023-02-03)
 
 ## [3.32.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.1...v3.32.2) (2023-02-01)
