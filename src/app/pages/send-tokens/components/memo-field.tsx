@@ -8,12 +8,13 @@ import { ErrorLabel } from '@app/components/error-label';
 
 interface FieldProps extends StackProps {
   value: string;
+  isMemoRequired?: boolean;
   error?: string;
 }
 // TODO: this should use a new "Field" component (with inline label like in figma)
-export const MemoField = memo(({ value, error, ...props }: FieldProps) => {
+export const MemoField = memo(({ value, error, isMemoRequired, ...props }: FieldProps) => {
   const { handleChange } = useFormikContext();
-
+  const placeholder = `Enter a message${isMemoRequired ? '' : ' (optional)'}`;
   return (
     <Stack width="100%" {...props}>
       <InputGroup flexDirection="column">
@@ -27,7 +28,7 @@ export const MemoField = memo(({ value, error, ...props }: FieldProps) => {
           name="memo"
           value={value}
           onChange={handleChange}
-          placeholder="Enter an message (optional)"
+          placeholder={placeholder}
           autoComplete="off"
           data-testid={SendFormSelectors.InputMemoField}
         />

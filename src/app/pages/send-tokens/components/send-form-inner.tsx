@@ -1,4 +1,4 @@
-import { Suspense, useCallback } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack, Text } from '@stacks/ui';
@@ -6,6 +6,7 @@ import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selector
 import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
+import { logger } from '@shared/logger';
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
@@ -45,6 +46,9 @@ export function SendFormInner(props: SendFormInnerProps) {
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
+  const [mandatoryMemoAddresses, setMandatoryMemoAddresses] = useState<string[]>([]);
+  const [isMemoRequired, setIsMemoRequired] = useState(false);
+
   const analytics = useAnalytics();
 
   const onSubmit = useCallback(async () => {
@@ -67,6 +71,44 @@ export function SendFormInner(props: SendFormInnerProps) {
     values.recipient,
   ]);
 
+  useEffect(() => {
+    void fetchMandatoryMemoAddresses();
+  }, []);
+
+  useEffect(() => {
+    if (mandatoryMemoAddresses.includes(values.recipient)) {
+      setIsMemoRequired(true);
+      return;
+    }
+    setIsMemoRequired(false);
+  }, [values.recipient, mandatoryMemoAddresses]);
+
+  async function fetchMandatoryMemoAddresses() {
+    try {
+      const response = await fetch('https://stacksonchain.com/api/v2/run', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `select sender_address as address
+            from transactions tx
+            join stxop.accounts bal on (account = sender_address)
+            --where tx_type = 'token transfer'
+            where type_id = 0
+            group by 1
+            having count(*) >= 100 and count(distinct token_transfer_recipient_address) >= 10
+            limit 100
+          `,
+        }),
+      });
+      const { columns } = await response.json();
+      setMandatoryMemoAddresses(columns.address);
+    } catch (e) {
+      logger.error('sendForm error', e);
+    }
+  }
+
   const onSelectAssetBalance = (
     assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
   ) => {
@@ -84,7 +126,11 @@ export function SendFormInner(props: SendFormInnerProps) {
   };
 
   const hasValues =
-    values.amount && values.recipient !== '' && values.fee && !isUndefined(values.nonce);
+    values.amount &&
+    values.recipient !== '' &&
+    values.fee &&
+    !isUndefined(values.nonce) &&
+    !(!values.memo && isMemoRequired);
 
   return (
     <Stack
@@ -99,9 +145,14 @@ export function SendFormInner(props: SendFormInnerProps) {
         <AmountField error={errors.amount} value={values.amount || 0} />
       </Suspense>
       <RecipientField error={errors.recipient} value={values.recipientAddressOrBnsName} />
-      {selectedAssetBalance?.asset.hasMemo && <MemoField value={values.memo} error={errors.memo} />}
+      {selectedAssetBalance?.asset.hasMemo && (
+        <MemoField value={values.memo} error={errors.memo} isMemoRequired={isMemoRequired} />
+      )}
       {selectedAssetBalance?.asset.hasMemo && selectedAssetBalance?.asset.symbol && (
-        <SendFormMemoWarning symbol={selectedAssetBalance?.asset.symbol} />
+        <SendFormMemoWarning
+          symbol={selectedAssetBalance?.asset.symbol}
+          isMemoRequired={isMemoRequired}
+        />
       )}
       {feeEstimations.length ? (
         <FeeRow
