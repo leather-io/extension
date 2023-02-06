@@ -44,8 +44,7 @@ describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
       });
     });
 
-    // This functionality should be re-added, post a successful launch of the wallet refactor
-    test.skip('it removes the existing existing localStorage values', () => {
+    test('it removes the existing localStorage values', () => {
       vi.spyOn(global.localStorage.__proto__, 'removeItem');
       migrateVaultReducerStoreToNewStateStructure({} as any);
       expect(localStorage.removeItem).toHaveBeenCalledWith('stacks-wallet-salt');
