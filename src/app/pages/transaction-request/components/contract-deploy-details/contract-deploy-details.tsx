@@ -31,7 +31,6 @@ function ContractCodeSection(): JSX.Element | null {
 
   return (
     <CodeBlock
-      maxWidth="379px"
       overflow="auto"
       border="4px solid"
       borderColor={color('border')}
