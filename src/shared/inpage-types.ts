@@ -1,5 +1,5 @@
 /**
- * Inpage Script (Stacks Provider) <-> Content Script
+ * Inpage Script (StacksProvider) <-> Content Script
  */
 export enum DomEventName {
   authenticationRequest = 'stacksAuthenticationRequest',

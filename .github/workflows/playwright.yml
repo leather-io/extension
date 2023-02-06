@@ -1,27 +1,48 @@
 name: Playwright Tests
-env:
-  CI: true
-  WALLET_ENVIRONMENT: testing
+
 on:
   push:
     branches: [dev, main]
   pull_request:
     branches: [dev, main]
+
+env:
+  CI: true
+  WALLET_ENVIRONMENT: testing
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'yarn'
+
       - name: Install dependencies
         run: yarn
-      - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
+
+      - name: Cache playwright binaries
+        uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+
+      - name: Install Playwright deps
+        run: yarn playwright install chrome
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+
       - name: Build extension in test mode
         run: yarn build:test
+
       - name: Run Playwright tests
         # Playwright can only test extensions in headed mode, see
         # https://playwright.dev/docs/chrome-extensions. To run a browser in
@@ -34,6 +55,7 @@ jobs:
         # processes that require a display server to run in environments where
         # one is not available.
         run: xvfb-run yarn playwright test
+
       - uses: actions/upload-artifact@v3
         if: always()
         with:
