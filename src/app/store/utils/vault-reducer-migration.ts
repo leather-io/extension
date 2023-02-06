@@ -26,6 +26,8 @@ export function migrateVaultReducerStoreToNewStateStructure(initialState: typeof
         },
       },
     };
+    localStorage.removeItem(hiroWalletSalt);
+    localStorage.removeItem(hiroWalletEncryptionKey);
     return deepMerge(initialState, migratedState);
   }
   return initialState;
