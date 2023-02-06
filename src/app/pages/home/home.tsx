@@ -12,13 +12,21 @@ import { BalancesList } from '@app/features/balances-list/balances-list';
 import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
+import { WalletAccount } from '@app/store/accounts/account.models';
 
 import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
 import { HomeLayout } from './components/home.layout';
-import { HomeContainer } from './home.container';
+import { HomeLoader } from './home.loader';
 
 export function Home() {
+  return <HomeLoader>{account => <HomeContainer account={account} />}</HomeLoader>;
+}
+
+interface HomeContainerProps {
+  account: WalletAccount;
+}
+function HomeContainer({ account }: HomeContainerProps) {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
   useTrackFirstDeposit();
@@ -36,20 +44,13 @@ export function Home() {
   }, []);
 
   return (
-    <HomeContainer>
-      {account => (
-        <HomeLayout
-          suggestedFirstSteps={<SuggestedFirstSteps />}
-          currentAccount={<CurrentAccount />}
-          actions={<HomeActions />}
-        >
-          <HomeTabs
-            balances={<BalancesList address={account.address} />}
-            activity={<ActivityList />}
-          />
-          <Outlet />
-        </HomeLayout>
-      )}
-    </HomeContainer>
+    <HomeLayout
+      suggestedFirstSteps={<SuggestedFirstSteps />}
+      currentAccount={<CurrentAccount />}
+      actions={<HomeActions />}
+    >
+      <HomeTabs balances={<BalancesList address={account.address} />} activity={<ActivityList />} />
+      <Outlet />
+    </HomeLayout>
   );
 }
