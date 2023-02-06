@@ -40,7 +40,7 @@ export function finalizeTxSignature({ requestPayload, data, tabId }: FinalizeTxS
     // My own testing shows that `sendMessage` doesn't throw yet users have
     // reported these errors. Tracking here to see if we are able to detect this
     // happening.
-    analytics?.track('finalize_tx_signature_error_thrown', { data: e });
+    void analytics?.track('finalize_tx_signature_error_thrown', { data: e });
     logger.error('Error in finalising tx signature', e);
   }
 }

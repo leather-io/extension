@@ -12,6 +12,7 @@ env:
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY }}
   TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
   WALLET_ENVIRONMENT: production
+  IS_PUBLISHING: true
 
 jobs:
   pre-run:
@@ -34,9 +35,10 @@ jobs:
         id: extract_version
         uses: Saionaro/extract-package-version@v1.1.1
 
+      - name: Print version
+        run: echo ${{ steps.extract_version.outputs.version }}
+
       - name: Build project
-        env:
-          IS_PUBLISHING: true
         run: yarn build
 
       - uses: actions/upload-artifact@v2
@@ -104,7 +106,6 @@ jobs:
 
       - name: Build project
         env:
-          IS_PUBLISHING: true
           # We only add the sentry auth token for chrome, as we don't want to
           # create a duplicate release during the ff build
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -117,7 +118,7 @@ jobs:
         continue-on-error: true
         id: publish-chrome
         run: |
-          yarn chrome-webstore-upload publish --source stacks-wallet-chromium.zip
+          yarn chrome-webstore-upload upload --auto-publish --source stacks-wallet-chromium.zip
           echo "::set-output name=publish_status::${?}"
         env:
           EXTENSION_ID: ${{ secrets.CHROME_APP_ID }}
@@ -155,8 +156,7 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
 
       - name: Build project
-        env:
-          IS_PUBLISHING: true
+
         run: yarn build
 
       - name: Build extension
