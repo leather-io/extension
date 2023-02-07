@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Wallet, generateSecretKey } from '@stacks/wallet-sdk';
+import { generateSecretKey } from '@stacks/wallet-sdk';
 
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
@@ -50,8 +50,8 @@ export function useKeyActions() {
         return dispatch(stxChainActions.switchAccount(index));
       },
 
-      async createNewAccount(wallet: Wallet) {
-        return dispatch(createNewAccount(wallet));
+      async createNewAccount() {
+        return dispatch(createNewAccount());
       },
 
       async signOut() {
