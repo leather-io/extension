@@ -14,6 +14,7 @@ import { useCurrentAccountNamesQuery } from '@app/query/stacks/bns/bns.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useBtcAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 const AccountBnsAddress = memo(() => {
   const currentAccountNamesQuery = useCurrentAccountNamesQuery();
@@ -31,7 +32,11 @@ const AccountBnsAddress = memo(() => {
   return (
     <>
       <Caption>{bnsName}</Caption>
-      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy BNS name'}>
+      <Tooltip
+        hideOnClick={false}
+        label={hasCopied ? 'Copied!' : 'Copy BNS name'}
+        placement="right"
+      >
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
@@ -53,6 +58,7 @@ const AccountAddress = memo((props: StackProps) => {
   const btcAddress = useBtcAccountIndexAddressIndexZero(accountIndex);
   const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
   const analytics = useAnalytics();
+  const isBitcoinEnabled = useBitcoinFeature();
 
   const copyToClipboard = () => {
     void analytics.track('copy_address_to_clipboard');
@@ -62,7 +68,11 @@ const AccountAddress = memo((props: StackProps) => {
   return currentAccount ? (
     <Stack isInline {...props}>
       <Caption>{truncateMiddle(currentAccount.address, 4)}</Caption>
-      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy Stacks address'}>
+      <Tooltip
+        hideOnClick={false}
+        label={hasCopied ? 'Copied!' : 'Copy Stacks address'}
+        placement="right"
+      >
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
@@ -74,22 +84,31 @@ const AccountAddress = memo((props: StackProps) => {
           />
         </Stack>
       </Tooltip>
-      <Caption>{truncateMiddle(btcAddress, 4)}</Caption>
-      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy Bitcoin address'}>
-        <Stack>
-          <Box
-            _hover={{ cursor: 'pointer' }}
-            onClick={copyToClipboard}
-            size="12px"
-            color={color('text-caption')}
-            data-testid={UserAreaSelectors.AccountCopyAddress}
-            as={FiCopy}
-          />
-        </Stack>
-      </Tooltip>
+      {isBitcoinEnabled ? (
+        <>
+          <Caption>{truncateMiddle(btcAddress, 4)}</Caption>
+          <Tooltip
+            hideOnClick={false}
+            label={hasCopied ? 'Copied!' : 'Copy Bitcoin address'}
+            placement="right"
+          >
+            <Stack>
+              <Box
+                _hover={{ cursor: 'pointer' }}
+                onClick={copyToClipboard}
+                size="12px"
+                color={color('text-caption')}
+                data-testid={UserAreaSelectors.AccountCopyAddress}
+                as={FiCopy}
+              />
+            </Stack>
+          </Tooltip>
+        </>
+      ) : null}
     </Stack>
   ) : null;
 });
+
 export const CurrentAccount = memo((props: StackProps) => {
   const currentAccount = useCurrentAccount();
   if (!currentAccount) return null;
