@@ -2,9 +2,10 @@ import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
-import { Caption, CaptionSeparatorDot } from '@app/components/typography';
+import { Caption } from '@app/components/typography';
 import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
+import { CaptionDotSeparator } from '../caption-dot-separator';
 import { AccountActiveCheckmark } from './account-active-checkmark';
 
 interface AccountListItemLayoutProps extends StackProps {
@@ -13,9 +14,9 @@ interface AccountListItemLayoutProps extends StackProps {
   index: number;
   stxAddress: string;
   btcAddress: string;
-  accountName: JSX.Element;
-  avatar: JSX.Element;
-  balanceLabel: JSX.Element;
+  accountName: React.ReactNode;
+  avatar: React.ReactNode;
+  balanceLabel: React.ReactNode;
   onSelectAccount(): void;
 }
 export function AccountListItemLayout(props: AccountListItemLayoutProps) {
@@ -35,6 +36,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
 
   const [isNarrowViewport] = useMediaQuery('(max-width: 400px)');
   const isBitcoinEnabled = useBitcoinFeature();
+
   return (
     <Flex
       width="100%"
@@ -53,14 +55,11 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
             {isActive && isNarrowViewport && <AccountActiveCheckmark index={index} ml="tight" />}
           </Flex>
           <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
-            <Caption>{truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}</Caption>
-            {isBitcoinEnabled && (
-              <>
-                <CaptionSeparatorDot />
-                <Caption>{truncateMiddle(btcAddress, 5)}</Caption>
-              </>
-            )}
-            {balanceLabel}
+            <CaptionDotSeparator>
+              <Caption>{truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}</Caption>
+              {isBitcoinEnabled && <Caption>{truncateMiddle(btcAddress, 5)}</Caption>}
+              {balanceLabel}
+            </CaptionDotSeparator>
           </Stack>
         </Stack>
       </Stack>
