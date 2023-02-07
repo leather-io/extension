@@ -5,8 +5,7 @@ import { Box, Stack, Text } from '@stacks/ui';
 import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 import { useFormikContext } from 'formik';
 
-import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
-import { logger } from '@shared/logger';
+import { CEX_ADDRESSES, HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
@@ -29,6 +28,7 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
+import { useExchangeAddressesQuery } from '@app/query/stacks/cex-addresses/cex-addresses.query';
 
 import { SendFormMemoWarning } from './memo-warning';
 import { RecipientField } from './recipient-field/recipient-field';
@@ -46,8 +46,8 @@ export function SendFormInner(props: SendFormInnerProps) {
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
-  const [mandatoryMemoAddresses, setMandatoryMemoAddresses] = useState<string[]>([]);
-
+  const [mandatoryMemoAddresses, setMandatoryMemoAddresses] = useState<string[]>(CEX_ADDRESSES);
+  const { data: cexAddresses } = useExchangeAddressesQuery();
   const analytics = useAnalytics();
 
   const onSubmit = useCallback(async () => {
@@ -71,44 +71,18 @@ export function SendFormInner(props: SendFormInnerProps) {
   ]);
 
   useEffect(() => {
-    void fetchMandatoryMemoAddresses();
-  }, []);
+    setMandatoryMemoAddresses([...mandatoryMemoAddresses, ...cexAddresses]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cexAddresses]);
 
   useEffect(() => {
-    if (mandatoryMemoAddresses.includes(values.recipient)) {
+    if (mandatoryMemoAddresses.includes(values.recipientAddressOrBnsName)) {
       setFieldValue('isMemoRequired', true);
       return;
     }
     setFieldValue('isMemoRequired', false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.recipient, mandatoryMemoAddresses]);
-
-  async function fetchMandatoryMemoAddresses() {
-    try {
-      const response = await fetch('https://stacksonchain.com/api/v2/run', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `select sender_address as address
-            from transactions tx
-            join stxop.accounts bal on (account = sender_address)
-            --where tx_type = 'token transfer'
-            where type_id = 0
-            group by 1
-            having count(*) >= 100 and count(distinct token_transfer_recipient_address) >= 10
-            limit 100
-          `,
-        }),
-      });
-      const { columns } = await response.json();
-      console.log('columns', columns);
-      setMandatoryMemoAddresses(columns.address);
-    } catch (e) {
-      logger.error('sendForm error', e);
-    }
-  }
+  }, [values.recipientAddressOrBnsName, mandatoryMemoAddresses]);
 
   const onSelectAssetBalance = (
     assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
