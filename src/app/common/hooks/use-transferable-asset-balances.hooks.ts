@@ -12,7 +12,6 @@ import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-
 
 export function useAllTransferableCryptoAssetBalances(): AllTransferableCryptoAssetBalances[] {
   const account = useCurrentAccount();
-  // const currentAccountBtcAddress = useCurrentBtcAccount();
   const currentBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance = useBitcoinCryptoCurrencyAssetBalance(currentBtcAddress);
   const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(

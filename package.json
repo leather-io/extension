@@ -185,7 +185,6 @@
     "mdi-react": "7.5.0",
     "micro-btc-signer": "0.3.0",
     "object-hash": "3.0.0",
-    "observable-hooks": "4.2.1",
     "pino": "8.8.0",
     "prismjs": "1.29.0",
     "promise-memoize": "1.2.1",
