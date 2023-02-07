@@ -29,7 +29,11 @@ const AccountBnsAddress = memo(() => {
   return (
     <>
       <Caption>{bnsName}</Caption>
-      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy BNS name'}>
+      <Tooltip
+        placement="right"
+        hideOnClick={false}
+        label={hasCopied ? 'Copied!' : 'Copy BNS name'}
+      >
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
@@ -57,7 +61,7 @@ const AccountAddress = memo((props: StackProps) => {
   return currentAccount ? (
     <Stack isInline {...props}>
       <Caption>{truncateMiddle(currentAccount.address, 4)}</Caption>
-      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy address'}>
+      <Tooltip placement="right" hideOnClick={false} label={hasCopied ? 'Copied!' : 'Copy address'}>
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
