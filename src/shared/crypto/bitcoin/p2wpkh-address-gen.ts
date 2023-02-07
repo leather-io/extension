@@ -22,7 +22,7 @@ export function deriveNativeSegWitAccountFromHdKey(keychain: HDKey, network: Net
   return (index: number) => keychain.derive(getNativeSegWitAccountDerivationPath(network, index));
 }
 
-function deriveBip32KeychainFromExtendedPublicKey(xpub: string) {
+export function deriveBip32KeychainFromExtendedPublicKey(xpub: string) {
   return HDKey.fromExtendedKey(xpub);
 }
 

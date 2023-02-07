@@ -1,3 +1,5 @@
+import { fetcher } from '@app/common/api/wrapped-fetch';
+
 import { fetchBitcoinData } from './utils';
 
 class Configuration {
@@ -56,14 +58,33 @@ class FeeEstimatesApi {
   }
 }
 
+class TransactionsApi {
+  configuration: Configuration;
+
+  constructor(configuration: Configuration) {
+    this.configuration = configuration;
+  }
+
+  async postRawTransaction(rawTx: string) {
+    const resp = await fetcher(`${this.configuration.baseUrl}/tx`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: rawTx,
+    });
+    return await resp.json();
+  }
+}
+
 export class BitcoinClient {
   configuration: Configuration;
   addressApi: AddressApi;
   feeEstimatesApi: FeeEstimatesApi;
+  transactionsApi: TransactionsApi;
 
   constructor(basePath: string) {
     this.configuration = new Configuration(basePath);
     this.addressApi = new AddressApi(this.configuration);
     this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
+    this.transactionsApi = new TransactionsApi(this.configuration);
   }
 }

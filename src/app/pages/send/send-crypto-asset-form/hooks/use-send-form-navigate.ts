@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
 
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
 interface ConfirmationRouteState {
@@ -25,10 +24,10 @@ export function useSendFormNavigate() {
 
   return useMemo(
     () => ({
-      toConfirmAndSignBtcTransaction(tx: BitcoinTransaction) {
+      toConfirmAndSignBtcTransaction(tx: string) {
         return navigate(`${RouteUrls.SendCryptoAsset}/btc/confirmation`, {
           state: {
-            tx: `${tx}`, // TODO: Serialize bitcoin tx
+            tx,
           } as ConfirmationRouteState,
         });
       },

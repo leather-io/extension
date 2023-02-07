@@ -176,6 +176,7 @@
     "dayjs": "1.11.7",
     "downshift": "6.1.7",
     "ecdsa-sig-formatter": "1.0.11",
+    "ecpair": "2.1.0",
     "formik": "2.2.9",
     "jotai": "1.13.1",
     "jotai-redux": "0.1.0",

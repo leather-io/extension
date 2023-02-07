@@ -30,20 +30,24 @@ import { PreviewButton } from '../../components/preview-button';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
+import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
+import { useGenerateBitcoinRawTx } from './use-generate-bitcoin-raw-tx';
 
 export function BtcCryptoCurrencySendForm() {
   const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
-  const { whenWallet } = useWalletType();
+  const generateTx = useGenerateBitcoinRawTx();
   /*
     TODO: Replace hardcoded median (226) with the tx byte length?
     Median source: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees
     tx size = in*180 + out*34 + 10 plus or minus 'in'
   */
   const { data: btcFees } = useBitcoinFees(226);
+  const { whenWallet } = useWalletType();
+  const sendFormNavigate = useSendFormNavigate();
 
   const availableBtcBalance = btcCryptoCurrencyAssetBalance.balance ?? createMoney(0, 'STX');
   const sendAllBalance = useMemo(
@@ -74,8 +78,11 @@ export function BtcCryptoCurrencySendForm() {
   async function previewTransaction(values: BitcoinSendFormValues) {
     logger.debug('btc form values', values);
 
+    const tx = generateTx(values);
+    if (!tx) return logger.error('Attempted to generate raw tx, but no tx exists');
+
     whenWallet({
-      software: () => {},
+      software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(tx),
       ledger: () => {},
     })();
   }

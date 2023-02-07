@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 
 import { HDKey } from '@scure/bip32';
 
-import { deriveNativeSegWitReceiveAddressIndexFromXpub } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import {
+  deriveBip32KeychainFromExtendedPublicKey,
+  deriveNativeSegWitReceiveAddressIndexFromXpub,
+} from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { SoftwareBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.models';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -52,4 +55,10 @@ export function useCurrentBtcAccountAddressIndexZero() {
 export function useBtcAccountIndexAddressIndexZero(accountIndex: number) {
   const { xpub } = useBitcoinAccountAtIndex(accountIndex);
   return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub);
+}
+
+export function useBitcoinPublicKey() {
+  const { xpub } = useCurrentBtcAccount();
+  const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
+  return keychain.publicKey;
 }
