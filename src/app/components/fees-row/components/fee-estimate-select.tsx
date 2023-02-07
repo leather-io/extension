@@ -6,13 +6,13 @@ import { FeeEstimateSelectLayout } from './fee-estimate-select.layout';
 
 interface FeeEstimateSelectProps {
   isVisible: boolean;
-  items: BitcoinFeeEstimate[] | StacksFeeEstimate[];
+  estimate: BitcoinFeeEstimate[] | StacksFeeEstimate[];
   onSelectItem(index: number): void;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
 }
 export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
-  const { isVisible, items, onSelectItem, onSetIsSelectVisible, selectedItem } = props;
+  const { isVisible, estimate, onSelectItem, onSetIsSelectVisible, selectedItem } = props;
 
   return (
     <FeeEstimateSelectLayout
@@ -21,11 +21,11 @@ export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
       onSetIsSelectVisible={onSetIsSelectVisible}
       selectedItem={selectedItem}
     >
-      {items.map((item, index) => (
+      {estimate.map((estimate, index) => (
         <FeeEstimateItem
           index={index}
           isVisible={isVisible}
-          key={item.fee.amount.toNumber()}
+          key={estimate.fee.amount.toNumber()}
           onSelectItem={onSelectItem}
           selectedItem={selectedItem}
         />
