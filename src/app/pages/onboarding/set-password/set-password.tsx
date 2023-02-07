@@ -10,7 +10,6 @@ import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
-import { getWalletConfig } from '@shared/utils/wallet-config-helper';
 
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -52,12 +51,6 @@ export const SetPasswordPage = () => {
   useEffect(() => {
     void analytics.page('view', '/set-password');
   }, [analytics]);
-
-  useEffect(() => {
-    // Proactively fetch the gaia wallet config
-    if (!wallet) return;
-    void getWalletConfig(wallet);
-  }, [wallet]);
 
   const submit = useCallback(
     async (password: string) => {
