@@ -31,7 +31,7 @@ export function FormErrors() {
 
   const [firstError] = Object.entries(form.errors).filter(omitAmountErrorsAsDisplayedElsewhere);
 
-  return firstError && shouldDisplayErrors(form) ? (
+  return firstError?.[1] && shouldDisplayErrors(form) ? (
     <AnimateHeight duration={400} easing="ease-out" height={showHide}>
       <Flex height={openHeight + 'px'}>
         <ErrorLabel alignSelf="center">{firstError?.[1]}</ErrorLabel>

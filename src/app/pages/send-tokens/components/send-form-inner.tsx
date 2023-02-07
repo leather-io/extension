@@ -43,7 +43,7 @@ export function SendFormInner(props: SendFormInnerProps) {
   const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
     useFormikContext<StacksSendFormValues>();
   const navigate = useNavigate();
-  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
+  const { setIsShowingHighFeeConfirmation } = useDrawers();
   const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
   const analytics = useAnalytics();
 
@@ -52,15 +52,15 @@ export function SendFormInner(props: SendFormInnerProps) {
       // We need to check for errors here before we show the high fee confirmation
       const formErrors = await validateForm();
       if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
-        return setIsShowingHighFeeConfirmation(!isShowingHighFeeConfirmation);
+        return setIsShowingHighFeeConfirmation(true);
       }
+      setIsShowingHighFeeConfirmation(false);
       handleSubmit();
     }
   }, [
     handleSubmit,
     selectedAssetBalance,
     setIsShowingHighFeeConfirmation,
-    isShowingHighFeeConfirmation,
     validateForm,
     values.amount,
     values.fee,

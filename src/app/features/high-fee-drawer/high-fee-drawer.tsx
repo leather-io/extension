@@ -20,7 +20,7 @@ export function HighFeeDrawer(): JSX.Element {
   return (
     <ControlledDrawer
       icon={<Box as={FiAlertTriangle} color={color('feedback-error')} size="36px" />}
-      isShowing={!!isShowingHighFeeConfirmation}
+      isShowing={isShowingHighFeeConfirmation}
       onClose={() => setIsShowingHighFeeConfirmation(false)}
     >
       {isShowingHighFeeConfirmation && <HighFeeConfirmation />}
