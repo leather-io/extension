@@ -1,3 +1,10 @@
+## [3.32.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.4...v3.32.5) (2023-02-07)
+
+
+### Bug Fixes
+
+* case where current account index higher than highest ([73cf157](https://github.com/hirosystems/stacks-wallet-web/commit/73cf157071b5f5c56fd74730dd5a68c8ba545f8e))
+
 ## [3.32.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.3...v3.32.4) (2023-02-06)
 
 
