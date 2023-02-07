@@ -1,9 +1,13 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { HDKey } from '@scure/bip32';
+import * as btc from 'micro-btc-signer';
 
-import { deriveNativeSegWitReceiveAddressIndexFromXpub } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import {
+  deriveBip32KeychainFromExtendedPublicKey,
+  deriveNativeSegWitReceiveAddressIndexAddress,
+} from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { SoftwareBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.models';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -35,7 +39,7 @@ function useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub: string) {
   const network = useCurrentNetwork();
   return useMemo(
     () =>
-      deriveNativeSegWitReceiveAddressIndexFromXpub({
+      deriveNativeSegWitReceiveAddressIndexAddress({
         xpub,
         index: firstAccountIndex,
         network: network.chain.bitcoin.network,
@@ -46,10 +50,33 @@ function useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub: string) {
 
 export function useCurrentBtcAccountAddressIndexZero() {
   const { xpub } = useCurrentBtcAccount();
-  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub);
+  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub) as string;
 }
 
 export function useBtcAccountIndexAddressIndexZero(accountIndex: number) {
   const { xpub } = useBitcoinAccountAtIndex(accountIndex);
-  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub);
+  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub) as string;
+}
+
+function useCurrentBitcoinAccountKeychain() {
+  const { xpub } = useCurrentBtcAccount();
+  const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
+  if (!keychain.publicKey) throw new Error('No public key for given keychain');
+  if (!keychain.pubKeyHash) throw new Error('No pub key hash for given keychain');
+  return keychain;
+}
+
+// Concept of current address index won't exist with privacy mode
+export function useCurrentBitcoinAddressIndexKeychain() {
+  const keychain = useCurrentBitcoinAccountKeychain();
+  return keychain.deriveChild(0).deriveChild(0);
+}
+
+export function useSignBitcoinTx() {
+  const index = useCurrentAccountIndex();
+  const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain)(index);
+  return useCallback(
+    (tx: btc.Transaction) => tx.sign(keychain.deriveChild(0).deriveChild(0).privateKey!),
+    [keychain]
+  );
 }

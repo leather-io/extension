@@ -1,12 +1,9 @@
 import { fetchBitcoinData } from './utils';
 
 class Configuration {
-  baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  }
+  constructor(public baseUrl: string) {}
 }
+
 interface UtxoResponseItem {
   txid: string;
   vout: number;
@@ -20,11 +17,7 @@ interface UtxoResponseItem {
 }
 
 class AddressApi {
-  configuration: Configuration;
-
-  constructor(configuration: Configuration) {
-    this.configuration = configuration;
-  }
+  constructor(public configuration: Configuration) {}
 
   async getTransactionsByAddress(address: string) {
     return fetchBitcoinData({
@@ -42,11 +35,7 @@ class AddressApi {
 }
 
 class FeeEstimatesApi {
-  configuration: Configuration;
-
-  constructor(configuration: Configuration) {
-    this.configuration = configuration;
-  }
+  constructor(public configuration: Configuration) {}
 
   async getFeeEstimates() {
     return fetchBitcoinData({
@@ -56,14 +45,30 @@ class FeeEstimatesApi {
   }
 }
 
+class TransactionsApi {
+  constructor(public configuration: Configuration) {}
+
+  async broadcastTransaction(tx: string) {
+    return fetch(`${this.configuration.baseUrl}/tx`, {
+      method: 'POST',
+      body: tx,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+}
+
 export class BitcoinClient {
   configuration: Configuration;
   addressApi: AddressApi;
   feeEstimatesApi: FeeEstimatesApi;
+  transactionsApi: TransactionsApi;
 
   constructor(basePath: string) {
     this.configuration = new Configuration(basePath);
     this.addressApi = new AddressApi(this.configuration);
     this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
+    this.transactionsApi = new TransactionsApi(this.configuration);
   }
 }
