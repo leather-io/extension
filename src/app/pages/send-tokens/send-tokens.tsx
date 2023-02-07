@@ -100,6 +100,7 @@ function SendTokensFormBase() {
     nonce: nextNonce?.nonce,
     recipientAddressOrBnsName: '',
     recipient: '',
+    isMemoRequired: false,
   };
 
   return (

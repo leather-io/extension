@@ -14,7 +14,7 @@ interface FieldProps extends StackProps {
 // TODO: this should use a new "Field" component (with inline label like in figma)
 export const MemoField = memo(({ value, error, isMemoRequired, ...props }: FieldProps) => {
   const { handleChange } = useFormikContext();
-  const placeholder = `Enter a message${isMemoRequired ? '' : ' (optional)'}`;
+  const placeholder = `Enter a message${isMemoRequired ? ' (possibly required)' : ' (optional)'}`;
   return (
     <Stack width="100%" {...props}>
       <InputGroup flexDirection="column">

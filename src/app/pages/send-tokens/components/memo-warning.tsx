@@ -9,7 +9,7 @@ interface MemoWarningProps {
 }
 export const SendFormMemoWarning: FC<MemoWarningProps> = ({ symbol, isMemoRequired }) => {
   const warningText = isMemoRequired
-    ? 'We detected an address that is likely owned by a Centralized Exchange, a memo is mandatory.'
+    ? `⚠️ Important: You may need to include a memo when sending to this address. If you don't, your deposit may fail to get processed by the recipient successfully`
     : `Be sure to include the memo they provided so the ${symbol} is credited to your account`;
   return (
     <Box background={color('bg-alt')} py="base" px="base-loose" borderRadius="10px">

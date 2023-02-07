@@ -19,6 +19,7 @@ export interface StacksSendFormValues {
   recipient: string;
   recipientAddressOrBnsName: string;
   symbol?: string;
+  isMemoRequired: false;
 }
 
 export interface StacksTransactionFormValues {

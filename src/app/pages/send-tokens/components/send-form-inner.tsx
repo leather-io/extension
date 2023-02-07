@@ -41,13 +41,12 @@ interface SendFormInnerProps {
 }
 export function SendFormInner(props: SendFormInnerProps) {
   const { assetError, feeEstimations, onAssetIdSelected, nonce } = props;
-  const { handleSubmit, values, setValues, errors, setFieldError, validateForm } =
+  const { handleSubmit, values, setValues, errors, setFieldError, validateForm, setFieldValue } =
     useFormikContext<StacksSendFormValues>();
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
   const [mandatoryMemoAddresses, setMandatoryMemoAddresses] = useState<string[]>([]);
-  const [isMemoRequired, setIsMemoRequired] = useState(false);
 
   const analytics = useAnalytics();
 
@@ -77,10 +76,11 @@ export function SendFormInner(props: SendFormInnerProps) {
 
   useEffect(() => {
     if (mandatoryMemoAddresses.includes(values.recipient)) {
-      setIsMemoRequired(true);
+      setFieldValue('isMemoRequired', true);
       return;
     }
-    setIsMemoRequired(false);
+    setFieldValue('isMemoRequired', false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.recipient, mandatoryMemoAddresses]);
 
   async function fetchMandatoryMemoAddresses() {
@@ -103,6 +103,7 @@ export function SendFormInner(props: SendFormInnerProps) {
         }),
       });
       const { columns } = await response.json();
+      console.log('columns', columns);
       setMandatoryMemoAddresses(columns.address);
     } catch (e) {
       logger.error('sendForm error', e);
@@ -126,11 +127,7 @@ export function SendFormInner(props: SendFormInnerProps) {
   };
 
   const hasValues =
-    values.amount &&
-    values.recipient !== '' &&
-    values.fee &&
-    !isUndefined(values.nonce) &&
-    !(!values.memo && isMemoRequired);
+    values.amount && values.recipient !== '' && values.fee && !isUndefined(values.nonce);
 
   return (
     <Stack
@@ -146,12 +143,12 @@ export function SendFormInner(props: SendFormInnerProps) {
       </Suspense>
       <RecipientField error={errors.recipient} value={values.recipientAddressOrBnsName} />
       {selectedAssetBalance?.asset.hasMemo && (
-        <MemoField value={values.memo} error={errors.memo} isMemoRequired={isMemoRequired} />
+        <MemoField value={values.memo} error={errors.memo} isMemoRequired={values.isMemoRequired} />
       )}
       {selectedAssetBalance?.asset.hasMemo && selectedAssetBalance?.asset.symbol && (
         <SendFormMemoWarning
           symbol={selectedAssetBalance?.asset.symbol}
-          isMemoRequired={isMemoRequired}
+          isMemoRequired={values.isMemoRequired}
         />
       )}
       {feeEstimations.length ? (
