@@ -1,3 +1,17 @@
+## [3.33.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.5...v3.33.0) (2023-02-07)
+
+
+### Features
+
+* add request feature to setting menu ([427ad10](https://github.com/hirosystems/stacks-wallet-web/commit/427ad1050e84b2ea6945dd1186dda195db9e1efd))
+* fetch BNSx names on mainnet ([8c573f2](https://github.com/hirosystems/stacks-wallet-web/commit/8c573f25b6e3c657cd4a4f8f5d0a0258809f7560))
+* new send form tests ([15da6b8](https://github.com/hirosystems/stacks-wallet-web/commit/15da6b8656ec5f78e8f9005d34d6e272dca35ec4))
+
+
+### Internal
+
+* create reusable flag layout component ([cb4e47d](https://github.com/hirosystems/stacks-wallet-web/commit/cb4e47ddff1521b66022b828c0fda26a513fa6a8))
+
 ## [3.32.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.4...v3.32.5) (2023-02-07)
 
 
