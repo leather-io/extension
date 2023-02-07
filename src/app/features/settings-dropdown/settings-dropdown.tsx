@@ -117,6 +117,17 @@ export function SettingsDropdown() {
                 <FiExternalLink />
               </Stack>
             </MenuItem>
+            <MenuItem
+              onClick={wrappedCloseCallback(() => {
+                void analytics.track('click_request_feature_menu_item');
+                openInNewTab('https://hirowallet.canny.io/feature-requests');
+              })}
+            >
+              <Stack isInline>
+                <Box>Request feature</Box>
+                <FiExternalLink />
+              </Stack>
+            </MenuItem>
             {hasGeneratedWallet ? <Divider /> : null}
             <MenuItem
               data-testid={SettingsSelectors.ChangeNetworkAction}
