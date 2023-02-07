@@ -39,6 +39,7 @@ export const selectCurrentNetworkId = createSelector(
 export const selectAppRequestedNetworkId = createSelector(selectNetworks, networks => {
   const coreApiUrl = initialSearchParams.get('coreApiUrl');
   const networkChainId = initialSearchParams.get('networkChainId');
+  // console.log({ coreApiUrl, networkChainId });
   return findMatchingNetworkKey({ coreApiUrl, networkChainId, networks });
 });
 
