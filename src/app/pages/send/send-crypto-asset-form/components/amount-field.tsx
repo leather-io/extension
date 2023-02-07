@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Flex, Input, Stack, Text, color } from '@stacks/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
 import { STX_DECIMALS } from '@shared/constants';
@@ -71,6 +72,7 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
           _focus={{ border: 'none' }}
           border="none"
           caretColor={color('accent')}
+          data-testid={SendCryptoAssetSelectors.AmountFieldInput}
           fontSize={fontSize + 'px'}
           height="100%"
           maxLength={9}
@@ -84,7 +86,11 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
           {symbol.toUpperCase()}
         </Text>
       </Flex>
-      {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
+      {meta.error && (
+        <ErrorLabel data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}>
+          {meta.error}
+        </ErrorLabel>
+      )}
       {bottomInputOverlay}
     </Stack>
   );

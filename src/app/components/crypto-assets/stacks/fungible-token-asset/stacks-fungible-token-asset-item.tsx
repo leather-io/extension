@@ -1,6 +1,7 @@
 import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { getAssetName } from '@stacks/ui-utils';
+import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 import { Money } from '@shared/models/money.model';
@@ -22,6 +23,10 @@ export const StacksFungibleTokenAssetItem = forwardRefWithAs(
     const { contractAddress, contractAssetName, contractName, name, symbol } = asset;
 
     const avatar = `${formatContractId(contractAddress, contractName)}::${contractAssetName}`;
+    const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
+      '{symbol}',
+      symbol.toLowerCase()
+    );
     const friendlyName =
       name ||
       (contractAssetName.includes('::') ? getAssetName(contractAssetName) : contractAssetName);
@@ -33,7 +38,7 @@ export const StacksFungibleTokenAssetItem = forwardRefWithAs(
         avatar={avatar}
         balance={balance}
         caption={caption}
-        data-testid={`asset-${name}`}
+        data-testid={dataTestId}
         imageCanonicalUri={imageCanonicalUri}
         ref={ref}
         subBalance={unanchoredAssetBalance}

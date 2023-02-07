@@ -1,6 +1,7 @@
 import { AssetSelectors } from '@tests-legacy/integration/asset.selectors';
 import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 import { WalletPageSelectors } from '@tests-legacy/page-objects/wallet.selectors';
+import { FeesSelectors } from '@tests/selectors/fees.selectors';
 import { Page } from 'playwright-core';
 
 import { createTestSelector } from '../integration/utils';
@@ -15,7 +16,7 @@ const selectors = {
   $stxAddressField: createTestSelector(SendFormSelectors.InputRecipientField),
   $stxAddressFieldError: createTestSelector(SendFormSelectors.InputRecipientFieldErrorLabel),
   $feeEstimateSelect: createTestSelector(SendFormSelectors.FeeEstimateSelect),
-  $customFeeField: createTestSelector(SendFormSelectors.InputCustomFeeField),
+  $customFeeField: createTestSelector(FeesSelectors.CustomFeeFieldInput),
   $previewBtn: createTestSelector(SendFormSelectors.BtnPreviewSendTx),
   $confirmDetails: createTestSelector(SendFormSelectors.ConfirmDetails),
   $stxTokenOption: createTestSelector(SendFormSelectors.StxTokenOption),

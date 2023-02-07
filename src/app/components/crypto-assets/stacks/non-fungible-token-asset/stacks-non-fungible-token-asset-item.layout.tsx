@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { usePressable } from '@app/components/item-hover';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption, Text } from '@app/components/typography';
 

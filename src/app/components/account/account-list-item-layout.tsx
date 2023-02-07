@@ -1,6 +1,6 @@
 import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { Caption } from '@app/components/typography';
 import { WalletAccount } from '@app/store/accounts/account.models';
@@ -35,7 +35,10 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     <Flex
       width="100%"
       key={`account-${account.index}`}
-      data-testid={SettingsSelectors.AccountIndex.replace('[index]', `${account.index}`)}
+      data-testid={SettingsMenuSelectors.SwitchAccountItemIndex.replace(
+        '[index]',
+        `${account.index}`
+      )}
       cursor="pointer"
       position="relative"
       onClick={onSelectAccount}

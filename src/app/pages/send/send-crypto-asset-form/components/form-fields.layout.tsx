@@ -1,6 +1,6 @@
 import { Flex } from '@stacks/ui';
 
-import { DividerSeparator } from '@app/components/divider-separator';
+import { DividerSeparator } from '@app/components/layout/divider-separator';
 
 interface FormFieldsProps {
   children: React.ReactNode;

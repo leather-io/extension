@@ -4,7 +4,7 @@ import { Stack, color } from '@stacks/ui';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { formatContractId } from '@app/common/utils';
-import { Divider } from '@app/components/divider';
+import { Divider } from '@app/components/layout/divider';
 import { Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';

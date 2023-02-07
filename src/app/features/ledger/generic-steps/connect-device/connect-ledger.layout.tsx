@@ -2,8 +2,8 @@ import { Suspense, lazy } from 'react';
 
 import { Box } from '@stacks/ui';
 
-import { Divider } from '@app/components/divider';
 import { ExternalLink } from '@app/components/external-link';
+import { Divider } from '@app/components/layout/divider';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
 

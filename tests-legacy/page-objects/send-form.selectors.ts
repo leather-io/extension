@@ -1,3 +1,4 @@
+// TODO: Remove with legacy send form
 export enum SendFormSelectors {
   BtnSendMaxBalance = 'btn-send-max-balance',
 
@@ -16,7 +17,6 @@ export enum SendFormSelectors {
   StandardFeeOption = 'standard-fee',
   CustomFeeOption = 'custom-fee',
 
-  InputCustomFeeField = 'input-custom-fee-field',
   InputCustomFeeFieldErrorLabel = 'input-custom-fee-field-error-label',
   InputCustomFeeFieldError = 'input-custom-fee-field-error',
 

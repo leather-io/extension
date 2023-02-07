@@ -3,8 +3,8 @@ import { FiArrowLeft, FiMoreHorizontal } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, FlexProps, IconButton, Stack, Text, color, useMediaQuery } from '@stacks/ui';
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { BRANCH } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
@@ -111,7 +111,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
           <IconButton
             _hover={{ color: color('text-title') }}
             color={color('text-caption')}
-            data-testid={SettingsSelectors.MenuBtn}
+            data-testid={SettingsMenuSelectors.SettingsMenuBtn}
             iconSize="16px"
             icon={FiMoreHorizontal}
             onMouseUp={isShowingSettings ? undefined : () => setIsShowingSettings(true)}

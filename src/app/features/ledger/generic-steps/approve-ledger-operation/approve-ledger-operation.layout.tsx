@@ -1,7 +1,7 @@
 import SignLedgerTransaction from '@assets/images/ledger/sign-ledger-transaction.png';
 import { Box, Flex, color } from '@stacks/ui';
 
-import { DividerSeparator } from '@app/components/divider-separator';
+import { DividerSeparator } from '@app/components/layout/divider-separator';
 
 import { DeviceOperationApprovalStatus } from '../../components/device-approval-status';
 import { LedgerScreenDetail } from '../../components/ledger-screen-detail';
