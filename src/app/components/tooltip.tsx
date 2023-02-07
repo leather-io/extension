@@ -18,7 +18,7 @@ export const Tooltip = memo(({ label, labelProps = {}, children, ...rest }: Tool
   );
   if (!label) return <>{children}</>;
   return (
-    <Tippy content={content} trigger="mouseenter" hideOnClick={undefined} {...rest}>
+    <Tippy content={content} trigger="mouseenter" hideOnClick={false} {...rest}>
       {children}
     </Tippy>
   );
