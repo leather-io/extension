@@ -19,7 +19,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { usePressable } from '@app/components/item-hover';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { Title } from '@app/components/typography';
 import { useCurrentAccount } from '@app/store/accounts/account.hooks';

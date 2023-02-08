@@ -1,10 +1,7 @@
 export enum SettingsSelectors {
   ToggleTheme = 'change-theme',
-  GetSupport = 'get-support',
-  MenuBtn = 'menu-btn',
   NetworkListItem = 'network-list-item',
   ChangeNetworkAction = 'settings-change-network',
-  SwitchAccount = 'switch-account',
   CurrentNetwork = 'current-network',
   CreateAccountBtn = 'create-account-button',
   CurrentAccountDisplayName = 'current-account-display-name',
@@ -15,7 +12,6 @@ export enum SettingsSelectors {
   BtnSignOutReturnToHomeScreen = 'btn-sign-out-return-to-home-screen',
   BtnSignOutActuallyDeleteWallet = 'btn-sign-out-actually-delete-wallet',
   LockListItem = 'settings-lock',
-  AccountIndex = 'switch-account-item-[index]',
   EnterPasswordInput = 'password-input',
   UnlockWalletBtn = 'unlock-wallet-btn',
   BtnAddNetwork = 'btn-add-network',

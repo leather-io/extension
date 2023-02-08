@@ -4,7 +4,7 @@ import { Box, BoxProps, Stack, color } from '@stacks/ui';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { usePressable } from '@app/components/item-hover';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { Caption, Title } from '@app/components/typography';

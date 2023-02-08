@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { ButtonProps } from '@stacks/ui';
-import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
+import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -17,7 +17,7 @@ import { HomeActionButton } from './tx-button';
 function BuyTxButton(props: ButtonProps) {
   return (
     <HomeActionButton
-      data-testid={HomePageSelectors.BtnFundAccount}
+      data-testid={HomePageSelectorsLegacy.BtnFundAccount}
       icon={FiPlus}
       label="Buy"
       buttonComponent={SecondaryButton}

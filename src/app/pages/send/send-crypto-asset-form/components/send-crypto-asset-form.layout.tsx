@@ -1,4 +1,5 @@
 import { Flex } from '@stacks/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
@@ -9,6 +10,7 @@ export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayou
   return (
     <Flex
       alignItems="center"
+      data-testid={SendCryptoAssetSelectors.SendFormContainer}
       flexDirection="column"
       justifyContent="center"
       mt={['unset', '48px']}

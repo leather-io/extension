@@ -1,8 +1,18 @@
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+
 import { TextInputField } from './text-input-field';
 
 interface MemoFieldProps {
   lastChild?: boolean;
 }
 export function MemoField({}: MemoFieldProps) {
-  return <TextInputField name="memo" label="Memo" lastChild placeholder="Optional message" />;
+  return (
+    <TextInputField
+      dataTestId={SendCryptoAssetSelectors.MemoFieldInput}
+      label="Memo"
+      lastChild
+      name="memo"
+      placeholder="Optional message"
+    />
+  );
 }

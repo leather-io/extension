@@ -1,7 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
 
 import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
-import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
+import { FeesSelectors } from '@tests/selectors/fees.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
@@ -48,7 +48,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           autoComplete="off"
           borderRadius="8px"
           color={color('text-caption')}
-          data-testid={SendFormSelectors.InputCustomFeeField}
+          data-testid={FeesSelectors.CustomFeeFieldInput}
           display="block"
           height="32px"
           name="fee"

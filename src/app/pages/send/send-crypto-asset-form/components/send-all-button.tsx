@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 import { Button } from '@stacks/ui';
 import { ButtonProps } from '@stacks/ui';
-import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
 import { Money } from '@shared/models/money.model';
@@ -43,7 +43,7 @@ export function SendAllButton({ balance, sendAllBalance, ...props }: SendAllButt
   return (
     <Button
       borderRadius="12px"
-      data-testid={SendFormSelectors.BtnSendMaxBalance}
+      data-testid={SendCryptoAssetSelectors.SendAllBtn}
       fontSize={0}
       height="32px"
       onClick={onSendAll}
