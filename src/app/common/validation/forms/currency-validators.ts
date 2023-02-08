@@ -32,10 +32,10 @@ function currencyPrecisionValidatorFactory(
   );
 }
 
-export function btcAmountValidator(errorMsg: string) {
+export function btcCurrencyAmountValidator(errorMsg: string) {
   return currencyPrecisionValidatorFactory('BTC', BTC_DECIMALS, errorMsg);
 }
 
-export function stxAmountValidator(errorMsg: string) {
+export function stxCurrencyAmountValidator(errorMsg: string) {
   return currencyPrecisionValidatorFactory('STX', STX_DECIMALS, errorMsg);
 }

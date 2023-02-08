@@ -1,7 +1,7 @@
 import { Box, Flex, Stack } from '@stacks/ui';
 
 import { usePressable } from '@app/components/item-hover';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface BitcoinTransactionItemLayoutProps {
   openTxLink(): void;

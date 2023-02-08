@@ -1,8 +1,8 @@
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { BrowserDriver, createTestSelector, setupBrowser } from '@tests-legacy/integration/utils';
 import { APINetworkRecipientAddress, SECRET_KEY_2 } from '@tests-legacy/mocks';
 import { SendPage } from '@tests-legacy/page-objects/send-form.page';
 import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -22,7 +22,7 @@ describe('Confirm transfer of tokens with decimals', () => {
     await walletPage.signIn(SECRET_KEY_2);
     await walletPage.waitForSettingsButton();
     await walletPage.clickSettingsButton();
-    await walletPage.page.click(createTestSelector(SettingsSelectors.SwitchAccount));
+    await walletPage.page.click(createTestSelector(SettingsMenuSelectors.SwitchAccountMenuItem));
     await walletPage.page.click(createTestSelector(`switch-account-item-1`));
     await walletPage.page.waitForTimeout(3000);
 

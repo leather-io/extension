@@ -1,3 +1,36 @@
+## [3.33.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.5...v3.33.0) (2023-02-07)
+
+
+### Features
+
+* add request feature to setting menu ([427ad10](https://github.com/hirosystems/stacks-wallet-web/commit/427ad1050e84b2ea6945dd1186dda195db9e1efd))
+* fetch BNSx names on mainnet ([8c573f2](https://github.com/hirosystems/stacks-wallet-web/commit/8c573f25b6e3c657cd4a4f8f5d0a0258809f7560))
+* new send form tests ([15da6b8](https://github.com/hirosystems/stacks-wallet-web/commit/15da6b8656ec5f78e8f9005d34d6e272dca35ec4))
+
+
+### Internal
+
+* create reusable flag layout component ([cb4e47d](https://github.com/hirosystems/stacks-wallet-web/commit/cb4e47ddff1521b66022b828c0fda26a513fa6a8))
+
+## [3.32.5](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.4...v3.32.5) (2023-02-07)
+
+
+### Bug Fixes
+
+* case where current account index higher than highest ([73cf157](https://github.com/hirosystems/stacks-wallet-web/commit/73cf157071b5f5c56fd74730dd5a68c8ba545f8e))
+
+## [3.32.4](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.3...v3.32.4) (2023-02-06)
+
+
+### Bug Fixes
+
+* delayed home loading ([7844bec](https://github.com/hirosystems/stacks-wallet-web/commit/7844bec132818d69121cb17125a2f1132b0c8183))
+
+
+### Internal
+
+* upgrade deps ([d00b798](https://github.com/hirosystems/stacks-wallet-web/commit/d00b7985b7bf9bf21f0192ce058cc04f3ec9d653))
+
 ## [3.32.3](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.2...v3.32.3) (2023-02-03)
 
 ## [3.32.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.1...v3.32.2) (2023-02-01)

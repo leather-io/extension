@@ -2,36 +2,21 @@ import { Flex, Text } from '@stacks/ui';
 import { Field, useField } from 'formik';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface SelectedAssetFieldProps {
   icon: JSX.Element;
   name: string;
   symbol: string;
-  onClickAssetGoBack(): void;
 }
-export function SelectedAssetField({
-  icon,
-  name,
-  onClickAssetGoBack,
-  symbol,
-}: SelectedAssetFieldProps) {
+export function SelectedAssetField({ icon, name, symbol }: SelectedAssetFieldProps) {
   const [, , helpers] = useField('symbol');
 
   useOnMount(() => helpers.setValue(symbol));
 
   return (
     <Field as="div" name="symbol">
-      {/* TODO: Should this still be clickable if there is no arrow icon? Remove SpaceBetween? */}
-      <SpaceBetween
-        as="button"
-        type="button"
-        cursor="pointer"
-        onClick={onClickAssetGoBack}
-        py="base"
-        px="base"
-        width="100%"
-      >
+      <SpaceBetween as="button" type="button" cursor="pointer" py="base" px="base" width="100%">
         <Flex alignItems="center">
           {icon}
           <Text ml="tight" mr="extra-tight">

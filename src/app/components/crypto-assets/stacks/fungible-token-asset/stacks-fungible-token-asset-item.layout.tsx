@@ -7,7 +7,7 @@ import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-ass
 import { ftDecimals } from '@app/common/stacks-utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { usePressable } from '@app/components/item-hover';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Text } from '@app/components/typography';
 

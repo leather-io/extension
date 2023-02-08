@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -15,7 +16,7 @@ import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Divider } from '@app/components/divider';
+import { Divider } from '@app/components/layout/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
 import { useHasCreatedAccount } from '@app/store/accounts/account.hooks';
@@ -67,7 +68,7 @@ export function SettingsDropdown() {
 
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
-                data-testid={SettingsSelectors.SwitchAccount}
+                data-testid={SettingsMenuSelectors.SwitchAccountMenuItem}
                 onClick={wrappedCloseCallback(() => setIsShowingSwitchAccountsState(true))}
               >
                 Switch account
@@ -104,7 +105,7 @@ export function SettingsDropdown() {
               Change theme
             </MenuItem>
             <MenuItem
-              data-testid={SettingsSelectors.GetSupport}
+              data-testid={SettingsMenuSelectors.GetSupportMenuItem}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_get_support_menu_item');
                 openInNewTab(
@@ -114,6 +115,17 @@ export function SettingsDropdown() {
             >
               <Stack isInline>
                 <Box>Get support</Box>
+                <FiExternalLink />
+              </Stack>
+            </MenuItem>
+            <MenuItem
+              onClick={wrappedCloseCallback(() => {
+                void analytics.track('click_request_feature_menu_item');
+                openInNewTab('https://hirowallet.canny.io/feature-requests');
+              })}
+            >
+              <Stack isInline>
+                <Box>Request feature</Box>
                 <FiExternalLink />
               </Stack>
             </MenuItem>

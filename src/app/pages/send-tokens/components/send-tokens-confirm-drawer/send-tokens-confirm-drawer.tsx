@@ -13,7 +13,7 @@ import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-conv
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { BaseDrawer, BaseDrawerProps } from '@app/components/drawer/base-drawer';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 import { useSendFormUnsignedTxPreviewState } from '@app/store/transactions/transaction.hooks';
 

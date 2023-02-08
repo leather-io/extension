@@ -3,6 +3,7 @@ import { FiCopy } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Button, Flex, color, useClipboard } from '@stacks/ui';
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -44,7 +45,14 @@ export const ReceiveTokens = () => {
               {accountName}
             </Title>
           )}
-          <Flex maxWidth="280px" flexWrap="wrap" justifyContent="center" lineHeight={1.8} mt="base">
+          <Flex
+            data-testid={HomePageSelectors.AddressDisplayer}
+            flexWrap="wrap"
+            justifyContent="center"
+            lineHeight={1.8}
+            maxWidth="280px"
+            mt="base"
+          >
             <AddressDisplayer address={currentAccount.address} />
           </Flex>
           <Button

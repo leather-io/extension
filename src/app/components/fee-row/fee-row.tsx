@@ -16,7 +16,7 @@ import { microStxToStx } from '@app/common/money/unit-conversion';
 import { stacksValue } from '@app/common/stacks-utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ErrorLabel } from '@app/components/error-label';
-import { SpaceBetween } from '@app/components/space-between';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { SponsoredLabel } from '@app/components/sponsored-label';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';

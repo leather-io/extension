@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Text, Box, ButtonGroup } from '@stacks/ui';
+
 import { useConnect } from '@stacks/connect-react';
-import { OnboardingSelectors } from '@tests-legacy/integration/onboarding/onboarding.selectors';
+import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 export const Auth: React.FC = () => {
   const { doOpenAuth } = useConnect();

@@ -14,20 +14,21 @@ import {
   stxAddressValidator,
   stxNotCurrentAddressValidatorFactory,
 } from '@app/common/validation/forms/address-validators';
-import { stxAmountValidator } from '@app/common/validation/forms/currency-validators';
+import { stxCurrencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 import { microStxToStx, stxToMicroStx } from '../money/unit-conversion';
-import { stacksFungibleTokenValidator } from '../validation/forms/amount-validators';
+import { stacksFungibleTokenAmountValidator } from '../validation/forms/amount-validators';
 import { stxFeeValidator } from '../validation/forms/fee-validators';
 
 function useFungibleTokenAmountSchema(selectedAssetId: string) {
   const { selectedAssetBalance } = useSelectedAssetBalance(selectedAssetId);
   return useCallback(
-    () => stacksFungibleTokenValidator(selectedAssetBalance?.balance ?? createMoney(0, 'STX')),
+    () =>
+      stacksFungibleTokenAmountValidator(selectedAssetBalance?.balance ?? createMoney(0, 'STX')),
     [selectedAssetBalance]
   );
 }
@@ -65,7 +66,7 @@ export const useStacksSendFormValidationLegacy = ({
 
   const stxAmountFormSchema = useCallback(
     () =>
-      stxAmountValidator(formatPrecisionError(availableStxBalance)).test({
+      stxCurrencyAmountValidator(formatPrecisionError(availableStxBalance)).test({
         message: formatInsufficientBalanceError(availableStxBalance, sum =>
           microStxToStx(sum.amount).toString()
         ),

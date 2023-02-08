@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Flex, Stack } from '@stacks/ui';
-import { HomePageSelectors } from '@tests-legacy/page-objects/home.selectors';
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
