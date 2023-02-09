@@ -28,7 +28,6 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { AmountField } from '@app/pages/send-tokens/components/amount-field';
 import { AssetSearch } from '@app/pages/send-tokens/components/asset-search/asset-search';
 import { MemoField } from '@app/pages/send-tokens/components/memo-field';
-import { useExchangeAddressesQuery } from '@app/query/stacks/cex-addresses/cex-addresses.query';
 
 import { SendFormMemoWarning } from './memo-warning';
 import { RecipientField } from './recipient-field/recipient-field';
@@ -46,8 +45,6 @@ export function SendFormInner(props: SendFormInnerProps) {
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { selectedAssetBalance } = useSelectedAssetBalance(values.assetId);
-  const [mandatoryMemoAddresses, setMandatoryMemoAddresses] = useState<string[]>(CEX_ADDRESSES);
-  const { data: cexAddresses } = useExchangeAddressesQuery();
   const analytics = useAnalytics();
 
   const onSubmit = useCallback(async () => {
@@ -71,18 +68,13 @@ export function SendFormInner(props: SendFormInnerProps) {
   ]);
 
   useEffect(() => {
-    setMandatoryMemoAddresses([...mandatoryMemoAddresses, ...cexAddresses]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cexAddresses]);
-
-  useEffect(() => {
-    if (mandatoryMemoAddresses.includes(values.recipientAddressOrBnsName)) {
+    if (CEX_ADDRESSES.includes(values.recipientAddressOrBnsName)) {
       setFieldValue('isMemoRequired', true);
       return;
     }
     setFieldValue('isMemoRequired', false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.recipientAddressOrBnsName, mandatoryMemoAddresses]);
+  }, [values.recipientAddressOrBnsName]);
 
   const onSelectAssetBalance = (
     assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
