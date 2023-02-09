@@ -4,14 +4,16 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
+import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isUndefined } from '@shared/utils';
+import { isEmpty, isUndefined } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
+import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useWallet } from '@app/common/hooks/use-wallet';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -49,7 +51,6 @@ import { PreviewButton } from '../../components/preview-button';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
-import { useHighFeeWarning } from '../../hooks/use-high-fee-warning';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
 import { useStacksFtParams } from './use-stacks-ft-params';
@@ -61,7 +62,7 @@ export function StacksSip10FungibleTokenSendForm({
   symbol,
 }: StacksSip10FungibleTokenSendFormProps) {
   const navigate = useNavigate();
-  const shouldFormShowHighFeeWarning = useHighFeeWarning();
+  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { data: nextNonce } = useNextNonce();
   const { contractId } = useStacksFtParams();
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(
@@ -117,10 +118,13 @@ export function StacksSip10FungibleTokenSendForm({
   ) {
     // Validate and check high fee warning first
     const formErrors = formikHelpers.validateForm();
-    shouldFormShowHighFeeWarning(formErrors, values);
+    if (!isShowingHighFeeConfirmation && isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
+      return setIsShowingHighFeeConfirmation(true);
+    }
 
     const tx = await generateTx(values);
-    if (!tx) return logger.error('Attempted to sign tx, but no tx exists');
+    if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
+
     whenWallet({
       software: () =>
         sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
