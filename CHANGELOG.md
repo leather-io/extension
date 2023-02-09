@@ -1,3 +1,11 @@
+## [3.33.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.33.0...v3.33.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* remove localstorage data when migrated ([7da7c21](https://github.com/hirosystems/stacks-wallet-web/commit/7da7c21c3d46f6ff16bc3a3e6de9e029130998c1))
+* send form bugs ([c965bc2](https://github.com/hirosystems/stacks-wallet-web/commit/c965bc20b1a677cf12c72e5e15ee8ba69a9971b5))
+
 ## [3.33.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.5...v3.33.0) (2023-02-07)
 
 
