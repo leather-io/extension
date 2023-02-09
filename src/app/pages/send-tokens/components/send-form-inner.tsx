@@ -101,7 +101,11 @@ export function SendFormInner(props: SendFormInnerProps) {
   };
 
   const hasValues =
-    values.amount && values.recipient !== '' && values.fee && !isUndefined(values.nonce);
+    values.amount &&
+    values.recipient !== '' &&
+    values.fee &&
+    !isUndefined(values.nonce) &&
+    !(!values.memo && values.isMemoRequired);
 
   return (
     <Stack
