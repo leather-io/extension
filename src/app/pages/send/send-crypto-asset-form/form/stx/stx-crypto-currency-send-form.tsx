@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
+import { HIGH_FEE_AMOUNT_STX, STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -71,7 +71,11 @@ export function StxCryptoCurrencySendForm() {
 
   const availableStxBalance = balances?.stx.availableStx ?? createMoney(0, 'STX');
   const sendAllBalance = useMemo(
-    () => convertAmountToBaseUnit(availableStxBalance).minus(pendingTxsBalance),
+    () =>
+      convertAmountToBaseUnit(
+        availableStxBalance.amount.minus(pendingTxsBalance.amount),
+        STX_DECIMALS
+      ),
     [availableStxBalance, pendingTxsBalance]
   );
 

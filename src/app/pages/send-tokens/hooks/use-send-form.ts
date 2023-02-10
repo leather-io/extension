@@ -22,7 +22,7 @@ export function useSendAmountFieldActions() {
       if (!selectedAssetBalance) return;
       if (isStx && fee) {
         const stx = microStxToStx(
-          stacksBalances?.stx.availableStx.amount.minus(pendingTxsBalance) || 0
+          stacksBalances?.stx.availableStx.amount.minus(pendingTxsBalance.amount) || 0
         ).minus(fee);
         if (stx.isLessThanOrEqualTo(0)) return;
         return setFieldValue('amount', stx.toNumber());
