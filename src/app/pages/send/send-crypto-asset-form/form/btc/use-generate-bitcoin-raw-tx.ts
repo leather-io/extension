@@ -33,17 +33,17 @@ export function useGenerateBitcoinRawTx() {
       if (!utxos) return;
       if (!feeRate) return;
 
+      // console.log(utxos);
       const networkMode = getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
 
       try {
         const tx = new btc.Transaction();
 
-        const { inputs, outputs } = coinselect(
+        const { inputs, outputs, fee } = coinselect(
           utxos,
           [{ address: values.recipient, value: btcToSat(values.amount).toNumber() }],
           feeRate.estimates[1].feeRate
         );
-        // console.log({ inputs, outputs, fee });
 
         if (!inputs) throw new Error('No inputs to sign');
         if (!outputs) throw new Error('No outputs to sign');
@@ -74,7 +74,7 @@ export function useGenerateBitcoinRawTx() {
         });
         signTx(tx);
         tx.finalize();
-        return tx.hex;
+        return { hex: tx.hex, fee };
       } catch (e) {
         logger.error('Error signing bitcoin transaction', e);
         return null;

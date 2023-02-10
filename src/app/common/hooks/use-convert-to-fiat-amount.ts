@@ -9,6 +9,7 @@ import { baseCurrencyAmountInQuote } from '../money/calculate-money';
 
 export function useConvertCryptoCurrencyToFiatAmount(currency: CryptoCurrencies) {
   const cryptoCurrencyMarketData = useCryptoCurrencyMarketData(currency);
+
   return useCallback(
     (value: Money) => baseCurrencyAmountInQuote(value, cryptoCurrencyMarketData),
     [cryptoCurrencyMarketData]

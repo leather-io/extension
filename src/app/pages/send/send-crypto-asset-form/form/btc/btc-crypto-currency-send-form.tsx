@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
+import { BTC_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
@@ -19,6 +20,7 @@ import { btcFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useBitcoinPendingTransactionsBalance } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useBitcoinFeeRatesInVbytes } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
@@ -39,6 +41,7 @@ export function BtcCryptoCurrencySendForm() {
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
+  const pendingTxsBalance = useBitcoinPendingTransactionsBalance();
   const generateTx = useGenerateBitcoinRawTx();
 
   /*
@@ -52,12 +55,13 @@ export function BtcCryptoCurrencySendForm() {
 
   const availableBtcBalance = btcCryptoCurrencyAssetBalance.balance ?? createMoney(0, 'STX');
   const sendAllBalance = useMemo(
-    () => convertAmountToBaseUnit(availableBtcBalance),
-    [availableBtcBalance]
+    () =>
+      convertAmountToBaseUnit(
+        availableBtcBalance.amount.minus(pendingTxsBalance.amount),
+        BTC_DECIMALS
+      ),
+    [availableBtcBalance, pendingTxsBalance]
   );
-
-  logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
-  logger.debug('btc fees', btcFees);
 
   const initialValues: BitcoinSendFormValues = createDefaultInitialFormValues({
     amount: '',
@@ -75,15 +79,16 @@ export function BtcCryptoCurrencySendForm() {
     fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
   });
 
-  // TODO: Placeholder function
   async function previewTransaction(values: BitcoinSendFormValues) {
     logger.debug('btc form values', values);
 
-    const tx = generateTx(values);
-    if (!tx) return logger.error('Attempted to generate raw tx, but no tx exists');
+    const resp = generateTx(values);
+    if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
+
+    const { hex, fee } = resp;
 
     whenWallet({
-      software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(tx, values.recipient),
+      software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(hex, values.recipient, fee),
       ledger: () => {},
     })();
   }
@@ -120,7 +125,7 @@ export function BtcCryptoCurrencySendForm() {
             />
             <MemoField lastChild />
           </FormFieldsLayout>
-          <FeesRow fees={btcFees} isSponsored={false} mt="base" />
+          <FeesRow fees={btcFees} isSponsored={false} allowCustom={false} mt="base" />
           <FormErrors />
           <PreviewButton
             isDisabled={!(props.values.amount && props.values.recipient && props.values.fee)}

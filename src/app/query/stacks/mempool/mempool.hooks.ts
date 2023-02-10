@@ -6,6 +6,8 @@ import {
 } from '@stacks/stacks-blockchain-api-types';
 import BigNumber from 'bignumber.js';
 
+import { createMoney } from '@shared/models/money.model';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -59,15 +61,17 @@ export function useCurrentAccountMempool() {
 }
 
 export function useCurrentAccountMempoolTransactionsBalance() {
+  const address = useCurrentAccountStxAddressState();
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
+
   const tokenTransferTxsBalance = (
     pendingTransactions.filter(
-      tx => tx.tx_type === 'token_transfer'
+      tx => tx.tx_type === 'token_transfer' && tx.sender_address === address
     ) as unknown as MempoolTokenTransferTransaction[]
   ).reduce((acc, tx) => acc.plus(tx.token_transfer.amount), new BigNumber(0));
   const pendingTxsFeesBalance = pendingTransactions.reduce(
     (acc, tx) => acc.plus(tx.fee_rate),
     new BigNumber(0)
   );
-  return tokenTransferTxsBalance.plus(pendingTxsFeesBalance);
+  return createMoney(tokenTransferTxsBalance.plus(pendingTxsFeesBalance), 'STX');
 }

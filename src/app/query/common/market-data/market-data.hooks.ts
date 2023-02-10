@@ -40,12 +40,12 @@ export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketD
   const { data: binance } = useBinanceMarketDataQuery(currency);
 
   return useMemo(() => {
-    const stxPriceData = pullPriceDataFromAvailableResponses([
+    const priceData = pullPriceDataFromAvailableResponses([
       { result: coingecko, selector: selectCoingeckoUsdPrice },
       { result: coincap, selector: selectCoincapUsdPrice },
       { result: binance, selector: selectBinanceUsdPrice },
     ]);
-    const meanStxPrice = calculateMeanAverage(stxPriceData);
+    const meanStxPrice = calculateMeanAverage(priceData);
 
     return createMarketData(createMarketPair(currency, 'USD'), createMoney(meanStxPrice, 'USD'));
   }, [binance, coincap, coingecko, currency]);
