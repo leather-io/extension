@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useBitcoinPendingTransactions } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
@@ -17,6 +18,7 @@ export function ActivityList() {
   const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
     useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
+  const bitcoinPendingTxs = useBitcoinPendingTransactions();
   const {
     isInitialLoading: isInitialLoadingStacksTransactions,
     data: stacksTransactionsWithTransfers,
@@ -32,10 +34,6 @@ export function ActivityList() {
     isInitialLoadingStacksTransactions ||
     isInitialLoadingStacksPendingTransactions;
 
-  const bitcoinPendingTxs = useMemo(
-    () => (bitcoinTransactions ?? []).filter(tx => !tx.status.confirmed),
-    [bitcoinTransactions]
-  );
   const transactionListBitcoinTxs = useMemo(
     () => convertBitcoinTxsToListType(bitcoinTransactions),
     [bitcoinTransactions]

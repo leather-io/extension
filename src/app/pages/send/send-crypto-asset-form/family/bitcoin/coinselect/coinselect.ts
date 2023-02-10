@@ -1,6 +1,7 @@
 // @ts-ignore
 import coinselection from 'coinselect';
 
+// ts-unused-exports:disable-next-line
 export interface Input {
   txid: string;
   vout: number;
@@ -13,6 +14,7 @@ export interface Input {
   value: number;
 }
 
+// ts-unused-exports:disable-next-line
 export interface Output {
   address?: string;
   value: number;
