@@ -3,7 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
+import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+
+import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
 import { useBitcoinBroadcastTransaction } from '../../family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
@@ -14,6 +17,8 @@ export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
   const tx = get(location.state, 'tx');
   const recipient = get(location.state, 'recipient');
+  const fee = get(location.state, 'fee');
+  const { setActiveTabActivity } = useHomeTabs();
 
   const { bitcoinDeserializedRawTransaction, bitcoinBroadcastTransaction } =
     useBitcoinBroadcastTransaction(tx);
@@ -23,12 +28,14 @@ export function BtcSendFormConfirmation() {
       <BtcSendFormConfirmationDetails
         unsignedTx={bitcoinDeserializedRawTransaction}
         recipient={recipient}
+        fee={createMoney(fee, 'BTC')}
       />
       <ConfirmationButton
         onClick={async () => {
           const result = await bitcoinBroadcastTransaction();
           logger.info(result);
           navigate(RouteUrls.Home);
+          setActiveTabActivity();
         }}
       />
     </>
