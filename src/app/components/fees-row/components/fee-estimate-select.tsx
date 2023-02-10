@@ -1,3 +1,4 @@
+import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinFeeEstimate } from '@shared/models/fees/bitcoin-fees.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
@@ -10,14 +11,15 @@ interface FeeEstimateSelectProps {
   onSelectItem(index: number): void;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
+  allowCustom: boolean;
 }
 export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
-  const { isVisible, estimate, onSelectItem, onSetIsSelectVisible, selectedItem } = props;
+  const { isVisible, estimate, onSelectItem, onSetIsSelectVisible, selectedItem, allowCustom } =
+    props;
 
   return (
     <FeeEstimateSelectLayout
       isVisible={isVisible}
-      onSelectItem={onSelectItem}
       onSetIsSelectVisible={onSetIsSelectVisible}
       selectedItem={selectedItem}
     >
@@ -30,6 +32,14 @@ export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
           selectedItem={selectedItem}
         />
       ))}
+      {allowCustom && (
+        <FeeEstimateItem
+          index={FeeTypes.Custom}
+          isVisible={isVisible}
+          onSelectItem={onSelectItem}
+          selectedItem={selectedItem}
+        />
+      )}
     </FeeEstimateSelectLayout>
   );
 }

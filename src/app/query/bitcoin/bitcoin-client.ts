@@ -48,6 +48,10 @@ class FeeEstimatesApi {
 class TransactionsApi {
   constructor(public configuration: Configuration) {}
 
+  async getBitcoinTransaction(txid: string) {
+    return fetch(`${this.configuration.baseUrl}/tx/${txid}`).then(res => res.json());
+  }
+
   async broadcastTransaction(tx: string) {
     return fetch(`${this.configuration.baseUrl}/tx`, {
       method: 'POST',

@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import * as btc from 'micro-btc-signer';
 
+import { Money } from '@shared/models/money.model';
+
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 
@@ -13,9 +15,10 @@ import { convertToMoneyTypeWithDefaultOfZero } from '../../components/confirmati
 interface BtcSendFormConfirmationDetailsProps {
   unsignedTx: ReturnType<typeof btc.RawTx.decode>;
   recipient: string;
+  fee: Money;
 }
 export function BtcSendFormConfirmationDetails(props: BtcSendFormConfirmationDetailsProps) {
-  const { unsignedTx, recipient } = props;
+  const { unsignedTx, recipient, fee } = props;
 
   const convertFeeToUsd = useConvertCryptoCurrencyToFiatAmount('BTC');
 
@@ -23,7 +26,6 @@ export function BtcSendFormConfirmationDetails(props: BtcSendFormConfirmationDet
     'BTC',
     new BigNumber(unsignedTx.outputs[0].amount.toString())
   );
-  const fee = convertToMoneyTypeWithDefaultOfZero('BTC', 0);
 
   const feeInUsd = useMemo(() => convertFeeToUsd(fee), [convertFeeToUsd, fee]);
 
