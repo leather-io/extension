@@ -1,50 +1,65 @@
 import { useCallback } from 'react';
 
-import * as bitcoin from 'bitcoinjs-lib';
-import { ECPairFactory } from 'ecpair';
-import * as ecc from 'tiny-secp256k1';
+import { hexToBytes } from '@stacks/common';
+import { coinselection } from 'coinselection-ts';
+import * as btc from 'micro-btc-signer';
 
+import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
+import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
-import { btcToSat } from '@app/common/money/unit-conversion';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import {
-  useBitcoinPublicKey,
+  useCurrentBitcoinAddressIndexKeychain,
   useCurrentBtcAccountAddressIndexZero,
+  useSignBitcoinTx,
 } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
-const ECPair = ECPairFactory(ecc);
-
-const validator = (pubkey: Buffer, msghash: Buffer, signature: Buffer): boolean =>
-  ECPair.fromPublicKey(pubkey).verify(msghash, signature);
-
-// Following examples here: https://github.com/bitcoinjs/bitcoinjs-lib
 export function useGenerateBitcoinRawTx() {
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const utxos = useGetUtxosByAddressQuery(currentAccountBtcAddress).data;
-  const publicKey = useBitcoinPublicKey();
+  const currentAddressIndexKeychain = useCurrentBitcoinAddressIndexKeychain();
+  const signTx = useSignBitcoinTx();
 
   return useCallback(
-    (values: BitcoinSendFormValues) => {
+    function (values: BitcoinSendFormValues) {
       if (!utxos) return;
+      try {
+        const tx = new btc.Transaction();
+        // TODO: Only use inputs needed
 
-      const psbt = new bitcoin.Psbt();
-      const signer = ECPair.fromPublicKey(Buffer.from(publicKey ?? ''));
+        const s = coinselection(utxos, [{ value: Number(values.amount) }], 1, 10);
+        logger.debug('coinsel', s);
 
-      // TODO: Only use inputs needed
-      utxos.map(utxo => {
-        psbt.addInput({ hash: utxo.txid, index: utxo.vout });
-        psbt.signInput(0, signer);
-        psbt.validateSignaturesOfInput(0, validator);
-      });
-      psbt.finalizeAllInputs();
-      psbt.addOutput({
-        address: values.recipient,
-        value: btcToSat(values.amount).toNumber(),
-      });
-      // TODO: Add fee
-      return psbt.extractTransaction().toHex();
+        [utxos[0]].forEach(utxo => {
+          const p2wpkh = btc.p2wpkh(
+            currentAddressIndexKeychain.publicKey!,
+            getBtcSignerLibNetworkByMode('testnet')
+          );
+          // console.log(p2wpkh);
+          tx.addInput({
+            txid: hexToBytes(utxo.txid),
+            index: utxo.vout,
+            witnessUtxo: {
+              // script = 0014 + pubKeyHash
+              script: p2wpkh.script,
+              amount: BigInt(utxo.value),
+            },
+          });
+          tx.addOutputAddress(
+            values.recipient,
+            // temp 2% fee
+            BigInt(utxo.value * 0.98),
+            getBtcSignerLibNetworkByMode('testnet')
+          );
+        });
+        signTx(tx);
+        tx.finalize();
+        return tx.hex;
+      } catch (e) {
+        return null;
+      }
     },
-    [publicKey, utxos]
+    [currentAddressIndexKeychain, signTx, utxos]
   );
 }

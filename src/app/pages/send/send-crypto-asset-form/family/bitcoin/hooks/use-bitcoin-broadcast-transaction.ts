@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 
-import * as bitcoin from 'bitcoinjs-lib';
+import { hexToBytes } from '@stacks/common';
+import * as btc from 'micro-btc-signer';
 
 export function useBitcoinBroadcastTransaction(tx: string) {
   return useMemo(() => {
-    const psbt = bitcoin.Psbt.fromHex(tx);
+    const psbt = btc.RawTx.decode(hexToBytes(tx));
 
     function broadcastTransaction() {
       // TODO: Use new post query to broadcast raw tx

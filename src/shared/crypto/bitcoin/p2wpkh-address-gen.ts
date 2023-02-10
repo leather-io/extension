@@ -26,18 +26,30 @@ export function deriveBip32KeychainFromExtendedPublicKey(xpub: string) {
   return HDKey.fromExtendedKey(xpub);
 }
 
-interface DeriveNativeSegWitReceiveAddressIndexFromXpubArgs {
+interface DeriveNativeSegWitReceiveAddressIndexKeychainArgs {
   xpub: string;
   index: number;
   network: NetworkModes;
 }
-export function deriveNativeSegWitReceiveAddressIndexFromXpub({
+function deriveNativeSegWitReceiveAddressIndexKeychain({
   xpub,
   index,
   network,
-}: DeriveNativeSegWitReceiveAddressIndexFromXpubArgs) {
+}: DeriveNativeSegWitReceiveAddressIndexKeychainArgs) {
   const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
   const zeroAddressIndex = keychain.deriveChild(0).deriveChild(index);
-  return btc.p2wpkh(zeroAddressIndex.publicKey!, getBtcSignerLibNetworkByMode(network))
-    .address as string;
+  return btc.p2wpkh(zeroAddressIndex.publicKey!, getBtcSignerLibNetworkByMode(network));
+}
+
+interface DeriveNativeSegWitReceiveAddressIndexAddressArgs {
+  xpub: string;
+  index: number;
+  network: NetworkModes;
+}
+export function deriveNativeSegWitReceiveAddressIndexAddress({
+  xpub,
+  index,
+  network,
+}: DeriveNativeSegWitReceiveAddressIndexAddressArgs) {
+  return deriveNativeSegWitReceiveAddressIndexKeychain({ xpub, index, network }).address;
 }

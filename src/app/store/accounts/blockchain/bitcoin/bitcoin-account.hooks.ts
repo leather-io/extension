@@ -1,11 +1,12 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { HDKey } from '@scure/bip32';
+import * as btc from 'micro-btc-signer';
 
 import {
   deriveBip32KeychainFromExtendedPublicKey,
-  deriveNativeSegWitReceiveAddressIndexFromXpub,
+  deriveNativeSegWitReceiveAddressIndexAddress,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { SoftwareBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.models';
@@ -38,7 +39,7 @@ function useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub: string) {
   const network = useCurrentNetwork();
   return useMemo(
     () =>
-      deriveNativeSegWitReceiveAddressIndexFromXpub({
+      deriveNativeSegWitReceiveAddressIndexAddress({
         xpub,
         index: firstAccountIndex,
         network: network.chain.bitcoin.network,
@@ -49,16 +50,19 @@ function useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub: string) {
 
 export function useCurrentBtcAccountAddressIndexZero() {
   const { xpub } = useCurrentBtcAccount();
-  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub);
+  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub) as string;
 }
 
 export function useBtcAccountIndexAddressIndexZero(accountIndex: number) {
   const { xpub } = useBitcoinAccountAtIndex(accountIndex);
-  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub);
+  return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub) as string;
 }
 
-export function useBitcoinPublicKey() {
-  const { xpub } = useCurrentBtcAccount();
-  const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
-  return keychain.publicKey;
+export function useSignBitcoinTx() {
+  const index = useCurrentAccountIndex();
+  const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain)(index);
+  return useCallback(
+    (tx: btc.Transaction) => tx.sign(keychain.deriveChild(0).deriveChild(0).privateKey!),
+    [keychain]
+  );
 }

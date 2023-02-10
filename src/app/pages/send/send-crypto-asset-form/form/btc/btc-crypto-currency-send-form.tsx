@@ -40,6 +40,7 @@ export function BtcCryptoCurrencySendForm() {
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
   const generateTx = useGenerateBitcoinRawTx();
+
   /*
     TODO: Replace hardcoded median (226) with the tx byte length?
     Median source: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees

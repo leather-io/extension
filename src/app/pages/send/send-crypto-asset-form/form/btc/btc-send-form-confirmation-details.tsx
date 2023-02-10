@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 
-import { Psbt } from 'bitcoinjs-lib';
+import * as btc from 'micro-btc-signer';
 
 import { logger } from '@shared/logger';
 
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { sumNumbers } from '@app/common/utils';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 
 import { ConfirmationDetail } from '../../components/confirmation/components/confirmation-detail';
@@ -13,7 +14,7 @@ import { convertToMoneyTypeWithDefaultOfZero } from '../../components/confirmati
 
 // TODO: Extract details from unsigned tx
 interface BtcSendFormConfirmationDetailsProps {
-  unsignedTx: Psbt;
+  unsignedTx: ReturnType<typeof btc.RawTx.decode>;
 }
 export function BtcSendFormConfirmationDetails(props: BtcSendFormConfirmationDetailsProps) {
   const { unsignedTx } = props;
@@ -21,7 +22,10 @@ export function BtcSendFormConfirmationDetails(props: BtcSendFormConfirmationDet
 
   const convertFeeToUsd = useConvertCryptoCurrencyToFiatAmount('BTC');
 
-  const amount = convertToMoneyTypeWithDefaultOfZero('BTC', 0);
+  const amount = convertToMoneyTypeWithDefaultOfZero(
+    'BTC',
+    sumNumbers(unsignedTx.outputs.map(output => Number(output.amount)))
+  );
   const fee = convertToMoneyTypeWithDefaultOfZero('BTC', 0);
   const recipient = '';
 
