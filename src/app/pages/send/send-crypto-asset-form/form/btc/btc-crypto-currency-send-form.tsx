@@ -19,7 +19,7 @@ import { btcFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
-import { useBitcoinFees } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useBitcoinFeeRatesInVbytes } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
@@ -46,7 +46,7 @@ export function BtcCryptoCurrencySendForm() {
     Median source: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees
     tx size = in*180 + out*34 + 10 plus or minus 'in'
   */
-  const { data: btcFees } = useBitcoinFees(226);
+  const { data: btcFees } = useBitcoinFeeRatesInVbytes();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
 
@@ -83,7 +83,7 @@ export function BtcCryptoCurrencySendForm() {
     if (!tx) return logger.error('Attempted to generate raw tx, but no tx exists');
 
     whenWallet({
-      software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(tx),
+      software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(tx, values.recipient),
       ledger: () => {},
     })();
   }

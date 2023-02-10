@@ -86,10 +86,6 @@ const config = {
     'decryption-worker': path.join(SRC_ROOT_PATH, 'shared/workers/decryption-worker.ts'),
     debug: path.join(SRC_ROOT_PATH, '../scripts/debug.js'),
   },
-  experiments: {
-    asyncWebAssembly: true,
-    syncWebAssembly: true,
-  },
   output: {
     path: DIST_ROOT_PATH,
     chunkFilename: !IS_DEV ? '[name].[contenthash:8].chunk.js' : IS_DEV && '[name].chunk.js',
@@ -159,7 +155,6 @@ const config = {
       },
       {
         test: /\.wasm$/,
-        exclude: /tiny-secp256k1/,
         // Tells WebPack that this module should be included as
         // base64-encoded binary file and not as code
         loader: 'base64-loader',

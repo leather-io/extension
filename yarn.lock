@@ -7780,12 +7780,10 @@ codemirror@^5.65.4:
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.11.tgz#c818edc3274788c008f636520c5490a1f7009b4f"
   integrity sha512-Gp62g2eKSCHYt10axmGhKq3WoJSvVpvhXmowNq7pZdRVowwtvBR/hi2LSP5srtctKkRT33T6/n8Kv1UGp7JW4A==
 
-coinselection-ts@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/coinselection-ts/-/coinselection-ts-2.0.1.tgz#fab4ee0dd9a419522d20ae435bedb97a258c4c7f"
-  integrity sha512-r85UZ+8AhJXUZpmZVqx1AoD2B0U8LXaudLhKLXTGxrF/NmYrhw7AEZ9dvG9VAteMBkfWFznxbIkubsZHn5pkig==
-  dependencies:
-    typescript "^4.2.3"
+coinselect@3.1.13:
+  version "3.1.13"
+  resolved "https://registry.yarnpkg.com/coinselect/-/coinselect-3.1.13.tgz#b88c7f9659ed4891d1f1d0c894105b1c10ef89a1"
+  integrity sha512-iJOrKH/7N9gX0jRkxgOHuGjvzvoxUMSeylDhH1sHn+CjLjdin5R0Hz2WEBu/jrZV5OrHcm+6DMzxwu9zb5mSZg==
 
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
@@ -16661,7 +16659,7 @@ typeforce@^1.11.3, typeforce@^1.11.5:
   resolved "https://registry.yarnpkg.com/typeforce/-/typeforce-1.18.0.tgz#d7416a2c5845e085034d70fcc5b6cc4a90edbfdc"
   integrity sha512-7uc1O8h1M1g0rArakJdf0uLRSSgFcYexrVoKo+bzJd32gd4gDy2L/Z+8/FjPnU9ydY3pEnVPtr9FyscYY60K1g==
 
-typescript@4.9.5, typescript@^4.1.2, typescript@^4.2.3:
+typescript@4.9.5, typescript@^4.1.2:
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==

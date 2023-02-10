@@ -34,6 +34,6 @@ export interface BitcoinFeeEstimates {
 }
 
 export interface BitcoinFeeEstimate {
-  fee: Money;
   feeRate: number;
+  fee: Money;
 }

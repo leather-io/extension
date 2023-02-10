@@ -58,6 +58,20 @@ export function useBtcAccountIndexAddressIndexZero(accountIndex: number) {
   return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub) as string;
 }
 
+function useCurrentBitcoinAccountKeychain() {
+  const { xpub } = useCurrentBtcAccount();
+  const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
+  if (!keychain.publicKey) throw new Error('No public key for given keychain');
+  if (!keychain.pubKeyHash) throw new Error('No pub key hash for given keychain');
+  return keychain;
+}
+
+// Concept of current address index won't exist with privacy mode
+export function useCurrentBitcoinAddressIndexKeychain() {
+  const keychain = useCurrentBitcoinAccountKeychain();
+  return keychain.deriveChild(0).deriveChild(0);
+}
+
 export function useSignBitcoinTx() {
   const index = useCurrentAccountIndex();
   const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain)(index);

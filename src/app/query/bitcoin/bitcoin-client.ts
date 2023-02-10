@@ -1,14 +1,9 @@
-import { fetcher } from '@app/common/api/wrapped-fetch';
-
 import { fetchBitcoinData } from './utils';
 
 class Configuration {
-  baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  }
+  constructor(public baseUrl: string) {}
 }
+
 interface UtxoResponseItem {
   txid: string;
   vout: number;
@@ -22,11 +17,7 @@ interface UtxoResponseItem {
 }
 
 class AddressApi {
-  configuration: Configuration;
-
-  constructor(configuration: Configuration) {
-    this.configuration = configuration;
-  }
+  constructor(public configuration: Configuration) {}
 
   async getTransactionsByAddress(address: string) {
     return fetchBitcoinData({
@@ -44,11 +35,7 @@ class AddressApi {
 }
 
 class FeeEstimatesApi {
-  configuration: Configuration;
-
-  constructor(configuration: Configuration) {
-    this.configuration = configuration;
-  }
+  constructor(public configuration: Configuration) {}
 
   async getFeeEstimates() {
     return fetchBitcoinData({
@@ -59,19 +46,16 @@ class FeeEstimatesApi {
 }
 
 class TransactionsApi {
-  configuration: Configuration;
+  constructor(public configuration: Configuration) {}
 
-  constructor(configuration: Configuration) {
-    this.configuration = configuration;
-  }
-
-  async postRawTransaction(rawTx: string) {
-    const resp = await fetcher(`${this.configuration.baseUrl}/tx`, {
+  async broadcastTransaction(tx: string) {
+    return fetch(`${this.configuration.baseUrl}/tx`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: rawTx,
+      body: tx,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
     });
-    return await resp.json();
   }
 }
 

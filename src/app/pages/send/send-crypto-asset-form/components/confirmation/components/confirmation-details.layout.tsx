@@ -21,7 +21,7 @@ export function ConfirmationDetailsLayout(props: ConfirmationDetailsLayoutProps)
         textAlign="center"
         width="100%"
       >
-        {convertAmountToBaseUnit(amount).toString()} {amount.symbol.toUpperCase()}
+        {convertAmountToBaseUnit(amount).toFormat()} {amount.symbol.toUpperCase()}
       </Text>
       <Stack fontSize={1} px="extra-tight" spacing="base" width="100%">
         {children}

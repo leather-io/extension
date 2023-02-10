@@ -24,10 +24,11 @@ export function useSendFormNavigate() {
 
   return useMemo(
     () => ({
-      toConfirmAndSignBtcTransaction(tx: string) {
+      toConfirmAndSignBtcTransaction(tx: string, recipient: string) {
         return navigate(`${RouteUrls.SendCryptoAsset}/btc/confirmation`, {
           state: {
             tx,
+            recipient,
           } as ConfirmationRouteState,
         });
       },

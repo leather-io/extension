@@ -96,7 +96,7 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
       selectInput={
         <FeeEstimateSelect
           isVisible={isSelectVisible}
-          items={fees.estimates}
+          estimate={fees.estimates}
           onSelectItem={handleSelectFeeEstimateOrCustomField}
           onSetIsSelectVisible={(value: boolean) => setIsSelectVisible(value)}
           selectedItem={selectedItem}

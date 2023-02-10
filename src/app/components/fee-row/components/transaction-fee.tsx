@@ -10,9 +10,7 @@ interface TransactionFeeProps {
   usdAmount: Money | null;
 }
 export function TransactionFee({ fee, usdAmount }: TransactionFeeProps) {
-  const feeLabel = (
-    <span data-testid={TransactionSigningSelectors.FeeToBePaidLabel}>{fee} STX</span>
-  );
+  const feeLabel = <span data-testid={TransactionSigningSelectors.FeeToBePaidLabel}>{fee}</span>;
   if (!usdAmount || usdAmount.amount.isNaN()) return feeLabel;
   return <Tooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}>{feeLabel}</Tooltip>;
 }
