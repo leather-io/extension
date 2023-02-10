@@ -21,20 +21,26 @@ export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {
         py="base-tight"
         spacing="tight"
       >
-        <Box
-          _hover={{ cursor: 'pointer' }}
-          as={FiAlertCircle}
-          color={color('accent')}
-          size="16px"
-          minWidth="min-content"
-          alignSelf="flex-start"
-          position="relative"
-          top="2px"
-        />
-        <Text color="#242629" fontSize={1} fontWeight={500} lineHeight="1.5">
-          {title}
-        </Text>
-        <Caption lineHeight="1.5">{children}</Caption>
+        <Flex>
+          <Box
+            _hover={{ cursor: 'pointer' }}
+            as={FiAlertCircle}
+            color={color('accent')}
+            size="16px"
+            minWidth="min-content"
+            alignSelf="flex-start"
+            position="relative"
+            top="2px"
+            marginRight={2}
+          />
+          <Box>
+            <Text color="#242629" fontSize={1} fontWeight={500} lineHeight="1.5">
+              {title}
+            </Text>
+
+            <Caption lineHeight="1.5">{children}</Caption>
+          </Box>
+        </Flex>
       </Stack>
     </Flex>
   );

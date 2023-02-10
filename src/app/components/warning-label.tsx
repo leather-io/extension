@@ -5,8 +5,9 @@ import { Box, Flex, Stack, StackProps, Text, color } from '@stacks/ui';
 
 interface WarningLabelProps extends StackProps {
   children: ReactNode | undefined;
+  title?: string;
 }
-export function WarningLabel({ children, ...rest }: WarningLabelProps) {
+export function WarningLabel({ title, children, ...rest }: WarningLabelProps) {
   return (
     <Flex width="100%" {...rest}>
       <Stack
@@ -28,9 +29,16 @@ export function WarningLabel({ children, ...rest }: WarningLabelProps) {
           position="relative"
           top="2px"
         />
-        <Text color="#242629" fontSize="12px" lineHeight="1.5">
-          {children}
-        </Text>
+        <Box>
+          {title && (
+            <Text color="#242629" fontSize={1} fontWeight={500} lineHeight="1.5" marginBottom={1}>
+              {title}
+            </Text>
+          )}
+          <Text color="#242629" fontSize="12px" lineHeight="1.5">
+            {children}
+          </Text>
+        </Box>
       </Stack>
     </Flex>
   );
