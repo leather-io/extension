@@ -8,7 +8,6 @@ import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
@@ -81,15 +80,6 @@ export function SettingsDropdown() {
             )}
             {hasGeneratedWallet && walletType === 'software' && (
               <>
-                <MenuItem
-                  data-testid={SettingsSelectors.CreateAccountBtn}
-                  onClick={wrappedCloseCallback(() => {
-                    void createAccount();
-                    setHasCreatedAccount(true);
-                  })}
-                >
-                  Create an account
-                </MenuItem>
                 <MenuItem
                   data-testid={SettingsSelectors.ViewSecretKeyListItem}
                   onClick={wrappedCloseCallback(() => {
