@@ -6,6 +6,7 @@ import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/addr
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
 import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
@@ -28,6 +29,7 @@ export function ActivityList() {
     transactions: stacksPendingTransactions,
   } = useStacksPendingTransactions();
   const submittedTransactions = useSubmittedTransactions();
+  const isBitcoinEnabled = useBitcoinFeature();
 
   const isInitialLoading =
     isInitialLoadingBitcoinTransactions ||
@@ -61,13 +63,13 @@ export function ActivityList() {
       {hasSubmittedTransactions && <SubmittedTransactionList txs={submittedTransactions} />}
       {hasPendingTransactions && (
         <PendingTransactionList
-          bitcoinTxs={bitcoinPendingTxs}
+          bitcoinTxs={isBitcoinEnabled ? bitcoinPendingTxs : []}
           stacksTxs={stacksPendingTransactions}
         />
       )}
       {hasTransactions && (
         <TransactionList
-          bitcoinTxs={transactionListBitcoinTxs}
+          bitcoinTxs={isBitcoinEnabled ? transactionListBitcoinTxs : []}
           stacksTxs={transactionListStacksTxs}
         />
       )}
