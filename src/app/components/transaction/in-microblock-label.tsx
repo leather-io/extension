@@ -6,7 +6,7 @@ import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selector
 import { Tooltip } from '@app/components/tooltip';
 
 const inMicroblockMessage =
-  'This transaction is currently in microblock, waiting for its associated anchor block to be approved.';
+  'This transaction is currently in a microblock, which increases the chances of inclusion in the next anchor block.';
 
 export function InMicroblockLabel() {
   return (
