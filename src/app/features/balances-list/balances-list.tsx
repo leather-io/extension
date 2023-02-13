@@ -35,7 +35,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();
-  const bitcoinEnabled = useBitcoinFeature();
+  const isBitcoinEnabled = useBitcoinFeature();
 
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
 
@@ -58,7 +58,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       data-testid={HomePageSelectorsLegacy.BalancesList}
       {...props}
     >
-      {btcAssetBalance.balance.amount.isGreaterThan(0) && bitcoinEnabled && (
+      {btcAssetBalance.balance.amount.isGreaterThan(0) && isBitcoinEnabled && (
         <CryptoCurrencyAssetItem assetBalance={btcAssetBalance} icon={<Box as={BtcIcon} />} />
       )}
       {(stxAssetBalance.balance.amount.isGreaterThan(0) ||
