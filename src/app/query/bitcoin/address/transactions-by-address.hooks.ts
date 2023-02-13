@@ -10,6 +10,7 @@ import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-addre
 export function useBitcoinPendingTransactions() {
   const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
   const { data: bitcoinTransactions } = useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
+  // TODO: use useQuery select method
   return useMemo(
     () => (bitcoinTransactions ?? []).filter(tx => !tx.status.confirmed),
     [bitcoinTransactions]

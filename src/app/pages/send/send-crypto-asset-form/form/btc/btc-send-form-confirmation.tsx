@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
@@ -19,6 +20,7 @@ export function BtcSendFormConfirmation() {
   const recipient = get(location.state, 'recipient');
   const fee = get(location.state, 'fee');
   const { setActiveTabActivity } = useHomeTabs();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { bitcoinDeserializedRawTransaction, bitcoinBroadcastTransaction } =
     useBitcoinBroadcastTransaction(tx);
@@ -31,8 +33,11 @@ export function BtcSendFormConfirmation() {
         fee={createMoney(fee, 'BTC')}
       />
       <ConfirmationButton
+        isLoading={isLoading}
         onClick={async () => {
+          setIsLoading(true);
           const result = await bitcoinBroadcastTransaction();
+          setIsLoading(false);
           logger.info(result);
           navigate(RouteUrls.Home);
           setActiveTabActivity();
