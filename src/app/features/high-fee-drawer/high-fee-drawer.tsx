@@ -8,7 +8,8 @@ import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 
 import { HighFeeConfirmation } from './components/high-fee-confirmation';
 
-export function HighFeeDrawer(): JSX.Element {
+export function HighFeeDrawer(props: { learnMoreUrl: string }) {
+  const { learnMoreUrl } = props;
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export function HighFeeDrawer(): JSX.Element {
       isShowing={isShowingHighFeeConfirmation}
       onClose={() => setIsShowingHighFeeConfirmation(false)}
     >
-      {isShowingHighFeeConfirmation && <HighFeeConfirmation />}
+      {isShowingHighFeeConfirmation && <HighFeeConfirmation learnMoreUrl={learnMoreUrl} />}
     </ControlledDrawer>
   );
 }
