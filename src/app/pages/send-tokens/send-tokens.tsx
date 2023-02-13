@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { StacksTransaction } from '@stacks/transactions';
 import { Formik } from 'formik';
 
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -157,7 +158,7 @@ function SendTokensFormBase() {
                 />
               ),
             })}
-            <HighFeeDrawer />
+            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </>
         )}

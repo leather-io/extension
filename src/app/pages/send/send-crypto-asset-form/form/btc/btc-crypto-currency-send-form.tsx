@@ -1,17 +1,23 @@
 import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import { BTC_DECIMALS } from '@shared/constants';
+import {
+  BTC_DECIMALS,
+  HIGH_FEE_AMOUNT_BTC,
+  HIGH_FEE_WARNING_LEARN_MORE_URL_BTC,
+} from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+import { isEmpty } from '@shared/utils';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
+import { useDrawers } from '@app/common/hooks/use-drawers';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { btcAddressValidator } from '@app/common/validation/forms/address-validators';
@@ -19,6 +25,7 @@ import { btcCurrencyAmountValidator } from '@app/common/validation/forms/currenc
 import { btcFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { BtcIcon } from '@app/components/icons/btc-icon';
+import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinPendingTransactionsBalance } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useBitcoinFeeRatesInVbytes } from '@app/query/bitcoin/fees/fee-estimates.hooks';
@@ -38,6 +45,7 @@ import { useGenerateBitcoinRawTx } from './use-generate-bitcoin-raw-tx';
 
 export function BtcCryptoCurrencySendForm() {
   const navigate = useNavigate();
+  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
@@ -79,8 +87,16 @@ export function BtcCryptoCurrencySendForm() {
     fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
   });
 
-  async function previewTransaction(values: BitcoinSendFormValues) {
+  async function previewTransaction(
+    values: BitcoinSendFormValues,
+    formikHelpers: FormikHelpers<BitcoinSendFormValues>
+  ) {
     logger.debug('btc form values', values);
+    // Validate and check high fee warning first
+    const formErrors = await formikHelpers.validateForm();
+    if (!isShowingHighFeeConfirmation && isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_BTC) {
+      return setIsShowingHighFeeConfirmation(true);
+    }
 
     const resp = generateTx(values);
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
@@ -96,7 +112,7 @@ export function BtcCryptoCurrencySendForm() {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={async values => await previewTransaction(values)}
+      onSubmit={async (values, formikHelpers) => await previewTransaction(values, formikHelpers)}
       validateOnBlur={false}
       validateOnChange={false}
       validateOnMount={false}
@@ -130,6 +146,7 @@ export function BtcCryptoCurrencySendForm() {
           <PreviewButton
             isDisabled={!(props.values.amount && props.values.recipient && props.values.fee)}
           />
+          <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
           <Outlet />
         </Form>
       )}

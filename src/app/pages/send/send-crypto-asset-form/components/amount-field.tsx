@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
@@ -9,9 +9,10 @@ import { Money } from '@shared/models/money.model';
 
 import { ErrorLabel } from '@app/components/error-label';
 
+const amountInputId = 'amount-input';
 const maxFontSize = 48;
 const minFontSize = 22;
-const maxLengthDefault = STX_DECIMALS + 1; // + 1 for decimal char
+const maxLengthDefault = STX_DECIMALS + 2; // + 1 for decimal char
 
 interface GetAmountModifiedFontSize {
   amount: string;
@@ -38,7 +39,7 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
   const [previousTextLength, setPreviousTextLength] = useState(1);
 
   const { decimals, symbol } = balance;
-  const maxLength = decimals === 0 ? maxLengthDefault : decimals + 1;
+  const maxLength = decimals === 0 ? maxLengthDefault : decimals + 2;
   const fontSizeModifier = (maxFontSize - minFontSize) / maxLength;
 
   useEffect(() => {
@@ -65,8 +66,17 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
     setPreviousTextLength(field.value.length);
   }, [field.value, fontSize, fontSizeModifier, previousTextLength, symbol]);
 
+  const onClickFocusInput = useCallback(() => {
+    document.getElementById(amountInputId)?.focus();
+  }, []);
+
   return (
-    <Stack alignItems="center" spacing={['base', meta.error ? 'base' : '48px']}>
+    <Stack
+      alignItems="center"
+      onClick={onClickFocusInput}
+      px="extra-loose"
+      spacing={['base', meta.error ? 'base' : '48px']}
+    >
       <Flex alignItems="center" height="55px" justifyContent="center">
         <Input
           _focus={{ border: 'none' }}
@@ -75,7 +85,8 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
           data-testid={SendCryptoAssetSelectors.AmountFieldInput}
           fontSize={fontSize + 'px'}
           height="100%"
-          maxLength={9}
+          id={amountInputId}
+          maxLength={maxLength}
           placeholder="0"
           px="none"
           textAlign="right"
