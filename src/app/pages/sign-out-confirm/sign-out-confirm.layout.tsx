@@ -18,7 +18,10 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
   const { whenWallet, walletType } = useWalletType();
 
   const form = useFormik({
-    initialValues: { confirmBackup: whenWallet({ ledger: true, software: false }) },
+    initialValues: {
+      confirmBackup: whenWallet({ ledger: true, software: false }),
+      confirmPasswordDisable: whenWallet({ ledger: true, software: false }),
+    },
     onSubmit() {
       onUserDeleteWallet();
     },
@@ -61,6 +64,24 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
             </Box>
             <Caption userSelect="none">I've backed up my Secret Key</Caption>
           </Flex>
+          <Flex
+            as="label"
+            alignItems="center"
+            mt="tight"
+            display={walletType === 'software' ? 'flex' : 'none'}
+          >
+            <Box mr="tight">
+              <input
+                type="checkbox"
+                name="confirmPasswordDisable"
+                defaultChecked={form.values.confirmPasswordDisable}
+                data-testid={SettingsSelectors.SignOutConfirmHasBackupCheckbox}
+              />
+            </Box>
+            <Caption userSelect="none">
+              I understand my password will no longer work for accessing my wallet upon signing out
+            </Caption>
+          </Flex>
           <Flex mt="loose">
             <Button
               flex={1}
@@ -78,7 +99,7 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
               mode="primary"
               background={color('feedback-error')}
               _hover={{ background: color('feedback-error') }}
-              isDisabled={!form.values.confirmBackup}
+              isDisabled={!(form.values.confirmBackup && form.values.confirmPasswordDisable)}
               data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
             >
               Sign out
