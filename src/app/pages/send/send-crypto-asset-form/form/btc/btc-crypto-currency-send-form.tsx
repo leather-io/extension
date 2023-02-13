@@ -63,9 +63,6 @@ export function BtcCryptoCurrencySendForm() {
     [availableBtcBalance, pendingTxsBalance]
   );
 
-  logger.debug('btc balance', btcCryptoCurrencyAssetBalance);
-  logger.debug('btc fees', btcFees);
-
   const initialValues: BitcoinSendFormValues = createDefaultInitialFormValues({
     amount: '',
     fee: '',
@@ -82,15 +79,16 @@ export function BtcCryptoCurrencySendForm() {
     fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
   });
 
-  // TODO: Placeholder function
   async function previewTransaction(values: BitcoinSendFormValues) {
     logger.debug('btc form values', values);
 
-    const tx = generateTx(values);
-    if (!tx) return logger.error('Attempted to generate raw tx, but no tx exists');
+    const resp = generateTx(values);
+    if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
+
+    const { hex, fee } = resp;
 
     whenWallet({
-      software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(tx, values.recipient),
+      software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(hex, values.recipient, fee),
       ledger: () => {},
     })();
   }
