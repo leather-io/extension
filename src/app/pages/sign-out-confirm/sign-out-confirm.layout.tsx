@@ -87,7 +87,8 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
               />
             </Box>
             <Caption userSelect="none">
-              I understand that after signing out my current password can no longer be used to unlock the wallet
+              I understand and confirm that after signing out my current password can no longer be
+              used to unlock the wallet
             </Caption>
           </Flex>
           <Flex mt="loose">
