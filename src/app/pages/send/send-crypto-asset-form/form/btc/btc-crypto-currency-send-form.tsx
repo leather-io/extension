@@ -125,7 +125,7 @@ export function BtcCryptoCurrencySendForm() {
             />
             <MemoField lastChild />
           </FormFieldsLayout>
-          <FeesRow fees={btcFees} isSponsored={false} mt="base" />
+          <FeesRow fees={btcFees} isSponsored={false} allowCustom={false} mt="base" />
           <FormErrors />
           <PreviewButton
             isDisabled={!(props.values.amount && props.values.recipient && props.values.fee)}
