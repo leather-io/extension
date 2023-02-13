@@ -1,11 +1,14 @@
+import { BnsNamesOwnByAddressResponse } from '@stacks/stacks-blockchain-api-types';
 import { useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { fetchNamesForAddress } from './bns.utils';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -18,10 +21,16 @@ const bnsQueryOptions = {
   refetchOnReconnect: false,
 } as const;
 
-function getBnsNameFetcherFactory(client: StacksClient, limiter: RateLimiter) {
+type BnsNameFetcher = (address: string) => Promise<BnsNamesOwnByAddressResponse>;
+
+function getBnsNameFetcherFactory(
+  client: StacksClient,
+  limiter: RateLimiter,
+  isTestnet: boolean
+): BnsNameFetcher {
   return async (address: string) => {
     await limiter.removeTokens(1);
-    return client.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
+    return fetchNamesForAddress(client, address, isTestnet);
   };
 }
 
@@ -33,10 +42,11 @@ export function useGetBnsNamesOwnedByAddress<T extends unknown = BnsNameFetcherR
 ) {
   const client = useStacksClientUnanchored();
   const limiter = useHiroApiRateLimiter();
+  const { isTestnet } = useCurrentNetworkState();
   return useQuery({
     enabled: address !== '',
     queryKey: [QueryPrefixes.BnsNamesByAddress, address],
-    queryFn: () => getBnsNameFetcherFactory(client, limiter)(address),
+    queryFn: () => getBnsNameFetcherFactory(client, limiter, isTestnet)(address),
     ...bnsQueryOptions,
     ...options,
   });
