@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
+import { HIGH_FEE_AMOUNT_STX, HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -181,7 +181,7 @@ export function StacksSip10FungibleTokenSendForm({
               onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
               my={['loose', 'base']}
             />
-            <HighFeeDrawer />
+            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </Form>
         </NonceSetter>

@@ -1,6 +1,7 @@
 export interface BitcoinSendFormValues {
   amount: number | string;
   fee: number | string;
+  feeCurrency: string;
   feeType: string;
   memo: string;
   recipient: string;
@@ -23,6 +24,7 @@ export interface StacksSendFormValues {
 
 export interface StacksTransactionFormValues {
   fee: number | string;
+  feeCurrency: string;
   feeType: string;
   nonce?: number | string;
 }
