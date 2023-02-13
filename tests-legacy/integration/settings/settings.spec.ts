@@ -90,6 +90,7 @@ describe(`Settings integration tests`, () => {
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.SignOutListItem));
     await wallet.page.click(wallet.$signOutConfirmHasBackupCheckbox);
+    await wallet.page.click(wallet.$signOutConfirmPasswordDisable);
     await wallet.page.click(wallet.$signOutDeleteWalletBtn);
     await wallet.clickDenyAnalytics();
     await wallet.clickSignIn();
