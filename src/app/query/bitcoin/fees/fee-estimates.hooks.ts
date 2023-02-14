@@ -22,33 +22,30 @@ import { useGetBitcoinFeeEstimatesQuery } from './fee-estimates.query';
 
 interface ParseBitcoinFeeEstimatesResponseArgs {
   feeEstimates: BitcoinFeeEstimates;
-  txByteLength: number;
 }
 function parseBitcoinFeeEstimatesResponse({
   feeEstimates,
-  txByteLength,
 }: ParseBitcoinFeeEstimatesResponseArgs): Fees {
-  // TODO: What block confirmations do we want to target here for low, middle, and high?
   return {
     blockchain: 'bitcoin',
     estimates: [
       {
         fee: createMoney(
-          new BigNumber(feeEstimates['1']).multipliedBy(txByteLength).decimalPlaces(0, 6),
+          new BigNumber(feeEstimates['1']).decimalPlaces(0, BigNumber.ROUND_HALF_EVEN),
           'BTC'
         ),
         feeRate: feeEstimates['1'],
       },
       {
         fee: createMoney(
-          new BigNumber(feeEstimates['5']).multipliedBy(txByteLength).decimalPlaces(0, 6),
+          new BigNumber(feeEstimates['5']).decimalPlaces(0, BigNumber.ROUND_HALF_EVEN),
           'BTC'
         ),
         feeRate: feeEstimates['5'],
       },
       {
         fee: createMoney(
-          new BigNumber(feeEstimates['10']).multipliedBy(txByteLength).decimalPlaces(0, 6),
+          new BigNumber(feeEstimates['10']).decimalPlaces(0, BigNumber.ROUND_HALF_EVEN),
           'BTC'
         ),
         feeRate: feeEstimates['10'],
@@ -58,9 +55,9 @@ function parseBitcoinFeeEstimatesResponse({
   };
 }
 
-export function useBitcoinFees(txByteLength: number) {
+export function useBitcoinFeeRatesInVbytes() {
   return useGetBitcoinFeeEstimatesQuery({
     onError: err => logger.error('Error getting bitcoin fee estimates', { err }),
-    select: resp => parseBitcoinFeeEstimatesResponse({ feeEstimates: resp, txByteLength }),
+    select: resp => parseBitcoinFeeEstimatesResponse({ feeEstimates: resp }),
   });
 }

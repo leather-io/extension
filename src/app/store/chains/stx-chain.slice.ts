@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { keySlice } from '../keys/key.slice';
+import { defaultKeyId, keySlice } from '../keys/key.slice';
 
 interface StxChainKeyState {
   highestAccountIndex: number;
@@ -8,7 +8,7 @@ interface StxChainKeyState {
 }
 
 const initialState: Record<string, StxChainKeyState> = {
-  default: {
+  [defaultKeyId]: {
     highestAccountIndex: 0,
     currentAccountIndex: 0,
   },

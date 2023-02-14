@@ -25,7 +25,7 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';

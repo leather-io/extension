@@ -69,9 +69,13 @@
         "transak": { "$ref": "#/$defs/provider" }
       }
     },
+    "bitcoinFeatureEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not the use of bitcoin is enabled in the wallet"
+    },
     "feeEstimations": {
       "type": "object",
-      "description": "All the active fiat onramp providers that will be displayed in the wallet",
+      "description": "Stacks fee estimations",
       "additionalProperties": false,
       "properties": {
         "maxValuesEnabled": {
@@ -80,7 +84,7 @@
         },
         "maxValues": {
           "type": "array",
-          "description": "Low, middle and high max values for fee estimations",
+          "description": "Low, middle, and high max values for fee estimations",
           "minItems": 3,
           "maxItems": 3,
           "items": {
@@ -94,7 +98,7 @@
         },
         "minValues": {
           "type": "array",
-          "description": "Low, middle and high min values for fee estimations",
+          "description": "Low, middle, and high min values for fee estimations",
           "minItems": 3,
           "maxItems": 3,
           "items": {

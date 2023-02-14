@@ -6,13 +6,14 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { WalletAccount } from '@app/store/accounts/account.models';
+import { useBtcAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { AccountAvatarItem } from '../../../components/account/account-avatar';
 import { AccountName } from '../../../components/account/account-name';
 
 interface SwitchAccountListItemProps {
-  account: WalletAccount;
+  account: StacksAccount;
   handleClose(): void;
 }
 export const SwitchAccountListItem = memo(
@@ -21,6 +22,8 @@ export const SwitchAccountListItem = memo(
     const { handleSwitchAccount, getIsActive } = useSwitchAccount(handleClose);
     const [component, bind] = usePressable(true);
     const name = useAccountDisplayName(account);
+
+    const btcAddress = useBtcAccountIndexAddressIndexZero(account.index);
 
     const handleClick = async () => {
       setIsLoading();
@@ -32,7 +35,9 @@ export const SwitchAccountListItem = memo(
 
     return (
       <AccountListItemLayout
-        account={account}
+        index={account.index}
+        stxAddress={account.address}
+        btcAddress={btcAddress}
         isLoading={isLoading}
         isActive={getIsActive(account.index)}
         avatar={

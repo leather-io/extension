@@ -2,13 +2,18 @@ import { createStacksPublicKey, pubKeyfromPrivKey, publicKeyToAddress } from '@s
 import { atom } from 'jotai';
 
 import { derivePublicKey } from '@app/common/keychain/keychain';
+import { storeAtom } from '@app/store';
+import { softwareStacksWalletState } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
+import { selectLedgerKey } from '@app/store/keys/key.selectors';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
-import { selectLedgerKey, softwareStacksWalletState } from '@app/store/wallet/wallet';
 
-import { storeAtom } from '..';
-import { HardwareWalletAccount, SoftwareWalletAccount, WalletAccount } from './account.models';
+import {
+  HardwareStacksAccount,
+  SoftwareStacksAccount,
+  StacksAccount,
+} from './stacks-account.models';
 
-const softwareAccountsState = atom<SoftwareWalletAccount[] | undefined>(get => {
+const softwareAccountsState = atom<SoftwareStacksAccount[] | undefined>(get => {
   const wallet = get(softwareStacksWalletState);
   const addressVersion = get(addressNetworkVersionState);
   if (!wallet) return undefined;
@@ -20,7 +25,7 @@ const softwareAccountsState = atom<SoftwareWalletAccount[] | undefined>(get => {
   });
 });
 
-const ledgerAccountsState = atom<HardwareWalletAccount[] | undefined>(get => {
+const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
   const ledgerWallet = selectLedgerKey(get(storeAtom));
   const addressVersion = get(addressNetworkVersionState);
   if (!ledgerWallet) return undefined;
@@ -39,14 +44,8 @@ const ledgerAccountsState = atom<HardwareWalletAccount[] | undefined>(get => {
   });
 });
 
-export const accountsWithAddressState = atom<WalletAccount[] | undefined>(get => {
+export const stacksAccountState = atom<StacksAccount[] | undefined>(get => {
   const ledgerAccounts = get(ledgerAccountsState);
   const softwareAccounts = get(softwareAccountsState);
   return ledgerAccounts ? ledgerAccounts : softwareAccounts;
 });
-
-// This is only used when there is a pending transaction request and
-// the user switches accounts during the signing process
-export const hasSwitchedAccountsState = atom<boolean>(false);
-
-export const hasCreatedAccountState = atom<boolean>(false);

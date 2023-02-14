@@ -8,7 +8,10 @@ export const gaiaUrl = 'https://hub.blockstack.org';
 export const POPUP_CENTER_WIDTH = 442;
 export const POPUP_CENTER_HEIGHT = 646;
 
+export const HIGH_FEE_AMOUNT_BTC = 0.001;
 export const HIGH_FEE_AMOUNT_STX = 5;
+export const HIGH_FEE_WARNING_LEARN_MORE_URL_BTC = 'https://bitcoinfees.earn.com/';
+export const HIGH_FEE_WARNING_LEARN_MORE_URL_STX = 'https://hiro.so/questions/fee-estimates';
 
 export const DEFAULT_FEE_RATE = 400;
 
@@ -39,6 +42,7 @@ interface BaseChainConfig {
 interface BitcoinChainConfig extends BaseChainConfig {
   blockchain: 'bitcoin';
   url: string;
+  network: NetworkModes;
 }
 
 interface StacksChainConfig extends BaseChainConfig {
@@ -69,8 +73,6 @@ export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co
 export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
 export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
 
-export const BITCOIN_TEST_ADDRESS = '';
-
 const networkMainnet: NetworkConfiguration = {
   id: DefaultNetworkConfigurationIds.mainnet,
   name: 'Mainnet',
@@ -82,6 +84,7 @@ const networkMainnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
+      network: 'mainnet',
       url: BITCOIN_API_BASE_URL_MAINNET,
     },
   },
@@ -98,6 +101,7 @@ const networkTestnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
+      network: 'testnet',
       url: BITCOIN_API_BASE_URL_TESTNET,
     },
   },
@@ -114,6 +118,7 @@ const networkDevnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
+      network: 'testnet',
       url: BITCOIN_API_BASE_URL_TESTNET,
     },
   },
@@ -129,12 +134,5 @@ export const defaultNetworksKeyedById: Record<
   [DefaultNetworkConfigurationIds.testnet]: networkTestnet,
   [DefaultNetworkConfigurationIds.devnet]: networkDevnet,
 };
-
-export enum QueryRefreshRates {
-  VERY_SLOW = 120_000,
-  SLOW = 30_000,
-  MEDIUM = 10_000,
-  FAST = 3_500,
-}
 
 export const DEFAULT_LIST_LIMIT = 50;

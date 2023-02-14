@@ -16,7 +16,7 @@ import {
 } from '@app/common/transactions/stacks/post-condition.utils';
 import { EventCard } from '@app/components/event-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 

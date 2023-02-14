@@ -18,12 +18,11 @@ const url = 'https://hiro.so/questions/fee-estimates';
 interface FeeEstimateSelectLayoutProps {
   children: ReactNode;
   isVisible: boolean;
-  onSelectItem(index: number): void;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
 }
 export function FeeEstimateSelectLayout(props: FeeEstimateSelectLayoutProps) {
-  const { children, isVisible, onSelectItem, onSetIsSelectVisible, selectedItem } = props;
+  const { children, isVisible, onSetIsSelectVisible, selectedItem } = props;
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(ref, () => onSetIsSelectVisible(false));
@@ -55,12 +54,6 @@ export function FeeEstimateSelectLayout(props: FeeEstimateSelectLayoutProps) {
               zIndex={9999}
             >
               {children}
-              <FeeEstimateItem
-                index={FeeTypes.Custom}
-                isVisible={isVisible}
-                onSelectItem={onSelectItem}
-                selectedItem={selectedItem}
-              />
             </Stack>
           )}
         </Fade>

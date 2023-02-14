@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom';
 
 import { Flex, Stack, Text } from '@stacks/ui';
 
+import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { AppIcon } from '@app/components/app-icon';
 import { Header } from '@app/components/header';
 import { Title } from '@app/components/typography';
@@ -14,7 +14,7 @@ import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
 export const ChooseAccount = memo(() => {
   const { name: appName } = useAppDetails();
-  const { cancelAuthentication } = useWallet();
+  const cancelAuthentication = useCancelAuthRequest();
 
   useRouteHeader(<Header hideActions />);
   useOnOriginTabClose(() => window.close());

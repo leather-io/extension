@@ -7,7 +7,6 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
 import { Money } from '@shared/models/money.model';
-import { isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
@@ -17,28 +16,20 @@ interface SendAllButtonProps extends ButtonProps {
 }
 export function SendAllButton({ balance, sendAllBalance, ...props }: SendAllButtonProps) {
   const [, _, amountFieldHelpers] = useField('amount');
-  const [feeField] = useField('fee');
+  // const [feeField] = useField('fee');
   const analytics = useAnalytics();
 
   const onSendAll = useCallback(() => {
-    if (isUndefined(feeField.value)) return toast.error('Loading fee, try again');
-    if (!feeField.value)
-      return toast.error(
-        `A fee must be set to calculate max ${balance.symbol.toUpperCase()} transfer amount`
-      );
+    // if (isUndefined(feeField.value)) return toast.error('Loading fee, try again');
+    // if (!feeField.value)
+    //   return toast.error(
+    //     `A fee must be set to calculate max ${balance.symbol.toUpperCase()} transfer amount`
+    //   );
 
     void analytics.track('select_maximum_amount_for_send');
     if (balance.amount.isLessThanOrEqualTo(0)) return toast.error(`Zero balance`);
-
     return amountFieldHelpers.setValue(sendAllBalance);
-  }, [
-    amountFieldHelpers,
-    analytics,
-    balance.amount,
-    balance.symbol,
-    feeField.value,
-    sendAllBalance,
-  ]);
+  }, [amountFieldHelpers, analytics, balance.amount, sendAllBalance]);
 
   return (
     <Button

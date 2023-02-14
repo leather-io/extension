@@ -21,7 +21,10 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { useAccounts, useCurrentAccount } from '@app/store/accounts/account.hooks';
+import {
+  useCurrentAccount,
+  useStacksAccounts,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import {
@@ -37,7 +40,7 @@ export function LedgerSignJwtContainer() {
   useScrollLock(true);
 
   const activeAccount = useCurrentAccount();
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
 
   const keyActions = useKeyActions();
   const canUserCancelAction = useActionCancellableByUser();

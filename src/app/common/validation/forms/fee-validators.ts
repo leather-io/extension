@@ -34,6 +34,7 @@ function feeValidatorFactory({
   });
 }
 
+// ts-unused-exports:disable-next-line
 export function btcFeeValidator(availableBalance?: Money) {
   return feeValidatorFactory({
     availableBalance,

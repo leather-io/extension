@@ -15,9 +15,7 @@ export function SendCryptoAssetForm() {
   const { symbol } = useParams();
   const navigate = useNavigate();
 
-  useRouteHeader(
-    <Header hideActions onClose={() => navigate(RouteUrls.SendCryptoAsset)} title="Send" />
-  );
+  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} title="Send" />);
 
   if (!isString(symbol)) {
     return <Navigate to={RouteUrls.SendCryptoAsset} />;

@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Stack, color } from '@stacks/ui';
@@ -17,7 +17,7 @@ import { Text } from '@app/components/typography';
 import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 
-export const ViewSecretKey = memo(() => {
+export function ViewSecretKey() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const defaultWalletSecretKey = useDefaultWalletSecretKey();
@@ -62,4 +62,4 @@ export const ViewSecretKey = memo(() => {
       </Stack>
     </CenteredPageContainer>
   );
-});
+}

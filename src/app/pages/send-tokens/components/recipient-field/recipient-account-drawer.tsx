@@ -5,7 +5,7 @@ import { Box } from '@stacks/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { useAccounts } from '@app/store/accounts/account.hooks';
+import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { RecipientAccountListItem } from './recipient-account-list-item';
 
@@ -19,7 +19,7 @@ interface RecipientAccountDrawerProps {
 export const RecipientAccountDrawer = memo(
   ({ isShowing, closeAccountsDrawer }: RecipientAccountDrawerProps) => {
     const { whenWallet } = useWalletType();
-    const accounts = useAccounts();
+    const accounts = useStacksAccounts();
 
     return accounts && isShowing ? (
       <BaseDrawer title="My accounts" isShowing={isShowing} onClose={closeAccountsDrawer}>

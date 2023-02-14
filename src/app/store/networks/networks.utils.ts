@@ -64,6 +64,7 @@ export function transformNetworkStateToMultichainStucture(
               },
               bitcoin: {
                 blockchain: 'bitcoin',
+                network: ChainID[chainId].toLowerCase(),
                 url: whenStxChainId(chainId)({
                   [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
                   [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,

@@ -9,13 +9,17 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
-import { DefaultNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
+import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
 import {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
+
+export function createNullArrayOfLength(length: number) {
+  return new Array(length).fill(null);
+}
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -72,9 +76,7 @@ export function makeTxExplorerLink({
 }: MakeTxExplorerLinkArgs) {
   switch (blockchain) {
     case 'bitcoin':
-      return `https://blockchain.com/btc${
-        mode === DefaultNetworkModes.mainnet ? '' : `-${mode}`
-      }/tx/${txid}`;
+      return `https://blockstream.info/${mode === 'testnet' ? 'testnet/' : ''}tx/${txid}`;
     case 'stacks':
       return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
     default:

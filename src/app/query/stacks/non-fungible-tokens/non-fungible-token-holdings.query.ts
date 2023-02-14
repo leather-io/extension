@@ -2,7 +2,7 @@ import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { WalletAccount } from '@app/store/accounts/account.models';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -44,7 +44,7 @@ export function useGetNonFungibleTokenHoldingsQuery<
 
 export function useGetNonFungibleTokenHoldingsListQuery<
   T extends unknown = FetchNonFungibleTokenHoldingsResp
->(accounts?: WalletAccount[], options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>) {
+>(accounts?: StacksAccount[], options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>) {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();

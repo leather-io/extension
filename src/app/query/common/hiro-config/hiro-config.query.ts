@@ -41,6 +41,7 @@ interface FeeEstimationsConfig {
 interface HiroConfig {
   messages: any;
   activeFiatProviders?: Record<string, ActiveFiatProvider>;
+  bitcoinFeatureEnabled: boolean;
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
@@ -84,6 +85,12 @@ export function useHasFiatProviders() {
     activeProviders &&
     Object.keys(activeProviders).reduce((acc, key) => activeProviders[key].enabled || acc, false)
   );
+}
+
+// ts-unused-exports:disable-next-line
+export function useConfigBitcoinFeatureEnabled() {
+  const config = useRemoteHiroConfig();
+  return config?.bitcoinFeatureEnabled;
 }
 
 export function useConfigFeeEstimationsMaxEnabled() {
