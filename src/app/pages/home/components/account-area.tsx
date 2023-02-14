@@ -11,6 +11,8 @@ import { Caption } from '@app/components/typography';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { useCurrentAccountNamesQuery } from '@app/query/stacks/bns/bns.hooks';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useBtcAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 const AccountBnsAddress = memo(() => {
@@ -47,8 +49,11 @@ const AccountBnsAddress = memo(() => {
 
 const AccountAddress = memo((props: StackProps) => {
   const currentAccount = useCurrentAccount();
+  const accountIndex = useCurrentAccountIndex();
+  const btcAddress = useBtcAccountIndexAddressIndexZero(accountIndex);
   const { onCopy, hasCopied } = useClipboard(currentAccount?.address || '');
   const analytics = useAnalytics();
+
   const copyToClipboard = () => {
     void analytics.track('copy_address_to_clipboard');
     onCopy();
@@ -57,7 +62,20 @@ const AccountAddress = memo((props: StackProps) => {
   return currentAccount ? (
     <Stack isInline {...props}>
       <Caption>{truncateMiddle(currentAccount.address, 4)}</Caption>
-      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy address'}>
+      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy Stacks address'}>
+        <Stack>
+          <Box
+            _hover={{ cursor: 'pointer' }}
+            onClick={copyToClipboard}
+            size="12px"
+            color={color('text-caption')}
+            data-testid={UserAreaSelectors.AccountCopyAddress}
+            as={FiCopy}
+          />
+        </Stack>
+      </Tooltip>
+      <Caption>{truncateMiddle(btcAddress, 4)}</Caption>
+      <Tooltip placement="right" label={hasCopied ? 'Copied!' : 'Copy Bitcoin address'}>
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}
