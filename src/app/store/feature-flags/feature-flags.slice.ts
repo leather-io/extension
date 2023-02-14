@@ -5,6 +5,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { BITCOIN_ENABLED } from '@shared/environment';
 
+import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { RootState } from '..';
@@ -61,7 +62,12 @@ function useFeatureFlags() {
 }
 
 export function useBitcoinFeature() {
+  const { whenWallet } = useWalletType();
   const network = useCurrentNetwork();
   const featureFlags = useFeatureFlags();
-  return network.chain.bitcoin.network === 'testnet' || featureFlags.bitcoin.isEnabled();
+
+  return whenWallet({
+    ledger: false,
+    software: network.chain.bitcoin.network === 'testnet' || featureFlags.bitcoin.isEnabled(),
+  });
 }

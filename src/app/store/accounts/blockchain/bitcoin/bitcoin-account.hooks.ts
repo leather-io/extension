@@ -8,14 +8,25 @@ import {
   deriveBip32KeychainFromExtendedPublicKey,
   deriveNativeSegWitReceiveAddressIndexAddress,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import { isUndefined } from '@shared/utils';
 
-import { SoftwareBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.models';
+import {
+  HardwareBitcoinAccount,
+  SoftwareBitcoinAccount,
+} from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.models';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import { selectSoftwareBitcoinNativeSegWitKeychain } from './bitcoin-keychain';
 
 const firstAccountIndex = 0;
+
+const tempHardwareAccountForTesting: HardwareBitcoinAccount = {
+  type: 'ledger',
+  index: 0,
+  path: '',
+  xpub: '',
+};
 
 function deriveNativeSegWitAccount(keychain: HDKey) {
   return (index: number): SoftwareBitcoinAccount => ({
@@ -27,7 +38,11 @@ function deriveNativeSegWitAccount(keychain: HDKey) {
 
 function useBitcoinAccountAtIndex(index: number) {
   const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain);
-  return useMemo(() => deriveNativeSegWitAccount(keychain(index))(index), [keychain, index]);
+  return useMemo(() => {
+    // TODO: Remove with bitcoin Ledger integration
+    if (isUndefined(keychain)) return tempHardwareAccountForTesting;
+    return deriveNativeSegWitAccount(keychain(index))(index);
+  }, [keychain, index]);
 }
 
 function useCurrentBtcAccount() {
@@ -61,7 +76,7 @@ export function useBtcAccountIndexAddressIndexZero(accountIndex: number) {
 function useCurrentBitcoinAccountKeychain() {
   const { xpub } = useCurrentBtcAccount();
   const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
-  if (!keychain.publicKey) throw new Error('No public key for given keychain');
+  if (!keychain?.publicKey) throw new Error('No public key for given keychain');
   if (!keychain.pubKeyHash) throw new Error('No pub key hash for given keychain');
   return keychain;
 }
@@ -74,9 +89,12 @@ export function useCurrentBitcoinAddressIndexKeychain() {
 
 export function useSignBitcoinTx() {
   const index = useCurrentAccountIndex();
-  const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain)(index);
+  const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain)?.(index);
   return useCallback(
-    (tx: btc.Transaction) => tx.sign(keychain.deriveChild(0).deriveChild(0).privateKey!),
+    (tx: btc.Transaction) => {
+      if (isUndefined(keychain)) return;
+      tx.sign(keychain.deriveChild(0).deriveChild(0).privateKey!);
+    },
     [keychain]
   );
 }

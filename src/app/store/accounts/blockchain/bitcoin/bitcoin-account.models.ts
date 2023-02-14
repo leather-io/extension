@@ -5,7 +5,7 @@ export interface SoftwareBitcoinAccount {
 }
 
 // TODO: complete with bitcoin ledger support
-interface HardwareBitcoinAccount {
+export interface HardwareBitcoinAccount {
   type: 'ledger';
   path: string;
   index: number;
