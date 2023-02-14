@@ -137,6 +137,7 @@ export function BtcCryptoCurrencySendForm() {
               symbol="BTC"
             />
             <RecipientField
+              labelAction="Choose account"
               name="recipient"
               onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
             />

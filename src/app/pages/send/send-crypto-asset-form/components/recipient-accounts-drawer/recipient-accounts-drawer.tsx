@@ -20,7 +20,7 @@ export const RecipientAccountsDrawer = memo(() => {
   const navigate = useNavigate();
 
   const onGoBack = useCallback(
-    () => navigate('..', { state: { contractId } }),
+    () => navigate('..', { replace: true, state: { contractId } }),
     [contractId, navigate]
   );
 
