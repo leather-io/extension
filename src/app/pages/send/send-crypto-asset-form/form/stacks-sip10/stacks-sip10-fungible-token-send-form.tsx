@@ -94,13 +94,11 @@ export function StacksSip10FungibleTokenSendForm({
   );
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
-    amount: '',
     fee: '',
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Unknown],
     memo: '',
     nonce: nextNonce?.nonce,
-    recipient: '',
     recipientAddressOrBnsName: '',
     symbol,
   });
