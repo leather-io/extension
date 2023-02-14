@@ -21,6 +21,7 @@ export function TextInputField({
   label,
   labelAction,
   lastChild,
+  onBlur,
   onClickLabelAction,
   placeholder,
   topInputOverlay,
@@ -95,6 +96,10 @@ export function TextInputField({
         type="input"
         width="100%"
         {...field}
+        onBlur={e => {
+          onBlur?.();
+          field.onBlur(e);
+        }}
       />
     </Flex>
   );
