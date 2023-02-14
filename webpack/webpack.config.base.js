@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const { version: _version } = require('../package.json');
 const generateManifest = require('../scripts/generate-manifest');
 
+const { execSync } = require('child_process');
 const Dotenv = require('dotenv-webpack');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -25,6 +26,16 @@ const BRANCH = process.env.GITHUB_REF;
 const IS_DEV = NODE_ENV === 'development';
 const IS_PROD = !IS_DEV;
 const MAIN_BRANCH = 'refs/heads/main';
+
+// https://stackoverflow.com/a/69167552
+function executeGitCommand(command) {
+  return execSync(command)
+    .toString('utf8')
+    .replace(/[\n\r\s]+$/, '');
+}
+
+const BRANCH_NAME = executeGitCommand('git rev-parse --abbrev-ref HEAD');
+process.env.BRANCH_NAME = BRANCH_NAME;
 
 // For non main branch builds, add a random number
 const getVersionWithRandomSuffix = ref => {
