@@ -40,6 +40,7 @@ function SendButtonSuspense() {
   const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
   const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
   const isBitcoinEnabled = useBitcoinFeature();
+
   return (
     <SendTxButton
       onClick={() =>
