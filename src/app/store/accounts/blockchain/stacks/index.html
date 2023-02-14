@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/app/store/wallet</title>
+    <title>Code coverage report for src/app/store/accounts/blockchain/stacks</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> src/app/store/wallet</h1>
+        <h1><a href="../../../../../../index.html">All files</a> src/app/store/accounts/blockchain/stacks</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/42</span>
+                <span class='fraction'>6/75</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">8.95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/35</span>
+                <span class='fraction'>6/67</span>
             </div>
         
             
@@ -79,18 +79,48 @@
 </tr>
 </thead>
 <tbody><tr>
-	<td class="file low" data-value="wallet.ts"><a href="wallet.ts.html">wallet.ts</a></td>
-	<td data-value="16.66" class="pic low">
-	<div class="chart"><div class="cover-fill" style="width: 16%"></div><div class="cover-empty" style="width: 84%"></div></div>
+	<td class="file low" data-value="stacks-account.hooks.ts"><a href="stacks-account.hooks.ts.html">stacks-account.hooks.ts</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
 	</td>
-	<td data-value="16.66" class="pct low">16.66%</td>
-	<td data-value="42" class="abs low">7/42</td>
 	<td data-value="0" class="pct low">0%</td>
-	<td data-value="24" class="abs low">0/24</td>
+	<td data-value="23" class="abs low">0/23</td>
 	<td data-value="0" class="pct low">0%</td>
-	<td data-value="7" class="abs low">0/7</td>
-	<td data-value="20" class="pct low">20%</td>
-	<td data-value="35" class="abs low">7/35</td>
+	<td data-value="14" class="abs low">0/14</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="8" class="abs low">0/8</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="20" class="abs low">0/20</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="stacks-accounts.ts"><a href="stacks-accounts.ts.html">stacks-accounts.ts</a></td>
+	<td data-value="13.63" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 13%"></div><div class="cover-empty" style="width: 87%"></div></div>
+	</td>
+	<td data-value="13.63" class="pct low">13.63%</td>
+	<td data-value="22" class="abs low">3/22</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="6" class="abs low">0/6</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="5" class="abs low">0/5</td>
+	<td data-value="15" class="pct low">15%</td>
+	<td data-value="20" class="abs low">3/20</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="stacks-keychain.ts"><a href="stacks-keychain.ts.html">stacks-keychain.ts</a></td>
+	<td data-value="10" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 10%"></div><div class="cover-empty" style="width: 90%"></div></div>
+	</td>
+	<td data-value="10" class="pct low">10%</td>
+	<td data-value="30" class="abs low">3/30</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="14" class="abs low">0/14</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="6" class="abs low">0/6</td>
+	<td data-value="11.11" class="pct low">11.11%</td>
+	<td data-value="27" class="abs low">3/27</td>
 	</tr>
 
 </tbody>
@@ -101,16 +131,16 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-09T18:44:58.618Z
+                at 2023-02-14T11:25:23.808Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     
