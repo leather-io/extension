@@ -11,6 +11,10 @@ import { ConfirmationDetail } from '../../components/confirmation/components/con
 import { ConfirmationDetailsLayout } from '../../components/confirmation/components/confirmation-details.layout';
 import { convertToMoneyTypeWithDefaultOfZero } from '../../components/confirmation/send-form-confirmation.utils';
 
+function removeTrailingNullCharacters(s: string) {
+  return s.replace(/\0*$/g, '');
+}
+
 interface StxSendFormConfirmationDetailsProps {
   unsignedTx: StacksTransaction;
 }
@@ -19,6 +23,8 @@ export function StxSendFormConfirmationDetails(props: StxSendFormConfirmationDet
 
   const convertFeeToUsd = useConvertCryptoCurrencyToFiatAmount('STX');
   const payload = unsignedTx.payload as TokenTransferPayload;
+  const memoContent = payload?.memo?.content ?? ''; // Due to typecast above, using conditional chaining to be on safe
+  const memoDisplayText = removeTrailingNullCharacters(memoContent) || 'No memo';
 
   const amount = convertToMoneyTypeWithDefaultOfZero('STX', Number(payload.amount));
   const fee = convertToMoneyTypeWithDefaultOfZero(
@@ -33,7 +39,7 @@ export function StxSendFormConfirmationDetails(props: StxSendFormConfirmationDet
     <ConfirmationDetailsLayout amount={amount}>
       <ConfirmationDetail detail="Token" value="Stacks" />
       <ConfirmationDetail detail="To" value={recipient} />
-      <ConfirmationDetail detail="Memo" value={payload.memo.content ?? 'No memo'} />
+      <ConfirmationDetail detail="Memo" value={memoDisplayText} />
       <ConfirmationDetail
         detail="Fee"
         value={
