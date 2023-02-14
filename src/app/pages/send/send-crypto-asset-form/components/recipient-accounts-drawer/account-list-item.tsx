@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { useFormikContext } from 'formik';
 
-import { StacksSendFormValues } from '@shared/models/form.model';
+import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { AccountAvatarItem } from '@app/components/account/account-avatar';
@@ -18,15 +18,18 @@ interface AccountListItemProps {
   onClose(): void;
 }
 export const AccountListItem = memo(({ account, onClose }: AccountListItemProps) => {
-  const { setFieldValue } = useFormikContext<StacksSendFormValues>();
+  const { setFieldValue, values } = useFormikContext<
+    BitcoinSendFormValues | StacksSendFormValues
+  >();
   const [component, bind] = usePressable(true);
   const name = useAccountDisplayName(account);
 
   const btcAddress = useBtcAccountIndexAddressIndexZero(account.index);
 
   const onSelectAccount = () => {
-    setFieldValue('recipient', account.address);
-    setFieldValue('recipientAddressOrBnsName', account.address);
+    const isBitcoin = values.symbol === 'BTC';
+    setFieldValue('recipient', isBitcoin ? btcAddress : account.address);
+    !isBitcoin && setFieldValue('recipientAddressOrBnsName', account.address);
     onClose();
   };
 
