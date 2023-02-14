@@ -1,3 +1,26 @@
+## [3.34.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.33.1...v3.34.0) (2023-02-14)
+
+
+### Features
+
+* add bitcoin feature to wallet config ([73bb4e3](https://github.com/hirosystems/stacks-wallet-web/commit/73bb4e3f64a6131a2408b4e3014eb3932e0b0145))
+* send bitcoin tx ([1b29f88](https://github.com/hirosystems/stacks-wallet-web/commit/1b29f88d05500b15f51d2a942ff591d2b663bbef))
+
+
+### Bug Fixes
+
+* branch name env variable ([afad562](https://github.com/hirosystems/stacks-wallet-web/commit/afad56246612ff4bc16074b8e75d27668b115126))
+* kill gaia update on create account ([1c7fc13](https://github.com/hirosystems/stacks-wallet-web/commit/1c7fc13ca839d8f25fe49e6c31568e71905c48cd))
+* send all with pending txs ([41ec042](https://github.com/hirosystems/stacks-wallet-web/commit/41ec0420f025be32c54620dc5a646291b08dd208))
+* send form amount ([1a533cc](https://github.com/hirosystems/stacks-wallet-web/commit/1a533cc60f6965b71c42b9b105224e1a57854be4))
+
+
+### Internal
+
+* remove localStorage wallet config ([2271968](https://github.com/hirosystems/stacks-wallet-web/commit/2271968cae8d46e07a6b20f031e910c1d27ed097))
+* rushed changes for testnet support ([06a8cb4](https://github.com/hirosystems/stacks-wallet-web/commit/06a8cb4dcdbd88d70af14cc78f43ea1ad8b15014))
+* store structure ([9dc1b27](https://github.com/hirosystems/stacks-wallet-web/commit/9dc1b270561f2b01b5d8a45f98b7a7ff75c0b183))
+
 ## [3.33.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.33.0...v3.33.1) (2023-02-09)
 
 
