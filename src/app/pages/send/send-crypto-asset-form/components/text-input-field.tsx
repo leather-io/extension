@@ -83,6 +83,7 @@ export function TextInputField({
       </SpaceBetween>
       <Input
         _focus={{ border: 'none' }}
+        spellCheck="false"
         data-testid={dataTestId}
         id={name}
         autoComplete="off"

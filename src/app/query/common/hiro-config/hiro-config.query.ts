@@ -87,6 +87,7 @@ export function useHasFiatProviders() {
   );
 }
 
+// ts-unused-exports:disable-next-line
 export function useConfigBitcoinFeatureEnabled() {
   const config = useRemoteHiroConfig();
   return config?.bitcoinFeatureEnabled;

@@ -22,19 +22,17 @@ import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { btcAddressValidator } from '@app/common/validation/forms/address-validators';
 import { btcCurrencyAmountValidator } from '@app/common/validation/forms/currency-validators';
-import { btcFeeValidator } from '@app/common/validation/forms/fee-validators';
-import { FeesRow } from '@app/components/fees-row/fees-row';
+import { ExternalLink } from '@app/components/external-link';
 import { BtcIcon } from '@app/components/icons/btc-icon';
+import { WarningLabel } from '@app/components/warning-label';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinPendingTransactionsBalance } from '@app/query/bitcoin/address/transactions-by-address.hooks';
-import { useBitcoinFeeRatesInVbytes } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
 import { FormErrors } from '../../components/form-errors';
 import { FormFieldsLayout } from '../../components/form-fields.layout';
-import { MemoField } from '../../components/memo-field';
 import { PreviewButton } from '../../components/preview-button';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -57,7 +55,6 @@ export function BtcCryptoCurrencySendForm() {
     Median source: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees
     tx size = in*180 + out*34 + 10 plus or minus 'in'
   */
-  const { data: btcFees } = useBitcoinFeeRatesInVbytes();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
 
@@ -84,7 +81,7 @@ export function BtcCryptoCurrencySendForm() {
   const validationSchema = yup.object({
     amount: btcCurrencyAmountValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance)),
     recipient: btcAddressValidator(),
-    fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
+    // fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
   });
 
   async function previewTransaction(
@@ -125,7 +122,11 @@ export function BtcCryptoCurrencySendForm() {
             bottomInputOverlay={
               <SendAllButton
                 balance={availableBtcBalance}
-                sendAllBalance={sendAllBalance.minus(props.values.fee).toString()}
+                // sendAllBalance={sendAllBalance.minus(props.values.fee).toString()}
+                sendAllBalance={sendAllBalance
+                  .multipliedBy(0.99)
+                  .decimalPlaces(BTC_DECIMALS)
+                  .toString()}
               />
             }
           />
@@ -139,13 +140,16 @@ export function BtcCryptoCurrencySendForm() {
               name="recipient"
               onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
             />
-            <MemoField lastChild />
           </FormFieldsLayout>
-          <FeesRow fees={btcFees} isSponsored={false} allowCustom={false} mt="base" />
+          {/* <FeesRow fees={btcFees} isSponsored={false} allowCustom={false} mt="base" /> */}
+          <WarningLabel mt="base-loose" width="100%">
+            This is a Bitcoin testnet transaction. Funds have no value.{' '}
+            <ExternalLink href="https://coinfaucet.eu/en/btc-testnet">
+              Get testnet BTC here ↗
+            </ExternalLink>
+          </WarningLabel>
           <FormErrors />
-          <PreviewButton
-            isDisabled={!(props.values.amount && props.values.recipient && props.values.fee)}
-          />
+          <PreviewButton isDisabled={!(props.values.amount && props.values.recipient)} />
           <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
           <Outlet />
         </Form>

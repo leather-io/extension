@@ -15,7 +15,7 @@ export function ConfirmationDetailsLayout(props: ConfirmationDetailsLayoutProps)
     <Box data-testid={SendCryptoAssetSelectors.ConfirmationDetails} mb="extra-loose" width="100%">
       <Text
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAmountAndSymbol}
-        fontSize="48px"
+        fontSize="40px"
         fontWeight={500}
         mb="48px"
         textAlign="center"

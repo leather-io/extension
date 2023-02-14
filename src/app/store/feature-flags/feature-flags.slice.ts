@@ -5,7 +5,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { BITCOIN_ENABLED } from '@shared/environment';
 
-import { useConfigBitcoinFeatureEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { RootState } from '..';
@@ -62,12 +61,7 @@ function useFeatureFlags() {
 }
 
 export function useBitcoinFeature() {
-  const isConfigBitcoinFeatureEnabled = useConfigBitcoinFeatureEnabled();
   const network = useCurrentNetwork();
   const featureFlags = useFeatureFlags();
-  return (
-    isConfigBitcoinFeatureEnabled &&
-    network.chain.bitcoin.network === 'testnet' &&
-    featureFlags.bitcoin.isEnabled()
-  );
+  return network.chain.bitcoin.network === 'testnet' || featureFlags.bitcoin.isEnabled();
 }
