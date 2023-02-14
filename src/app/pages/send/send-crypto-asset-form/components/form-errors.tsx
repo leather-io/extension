@@ -30,9 +30,13 @@ export function FormErrors() {
     setShowHide(closedHeight);
   }, [form]);
 
-  const [firstError] = Object.entries(form.errors).filter(omitAmountErrorsAsDisplayedElsewhere);
+  const [firstError] =
+    Object.entries(form.errors).filter(omitAmountErrorsAsDisplayedElsewhere) ?? [];
 
-  return firstError?.[1] && shouldDisplayErrors(form) ? (
+  const [field, message] = firstError ?? [];
+  const isFirstErrorFieldTouched = (form.touched as any)[field];
+
+  return message && isFirstErrorFieldTouched && shouldDisplayErrors(form) ? (
     <AnimateHeight duration={400} easing="ease-out" height={showHide}>
       <Flex height={openHeight + 'px'}>
         <ErrorLabel
