@@ -13,6 +13,7 @@ function fetchBitcoinTransaction(client: BitcoinClient) {
 
 type FetchBitcoinTransaction = Awaited<ReturnType<ReturnType<typeof fetchBitcoinTransaction>>>;
 
+// ts-unused-exports:disable-next-line
 export function useGetBitcoinTransaction<T extends unknown = FetchBitcoinTransaction>(
   txid: string,
   options?: AppUseQueryConfig<FetchBitcoinTransaction, T>

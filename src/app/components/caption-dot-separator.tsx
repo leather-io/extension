@@ -10,7 +10,7 @@ export function CaptionDotSeparator({ children }: CaptionDotSeparatorProps) {
   const content = parsedChildren
     .flatMap((child, index) => {
       if (!isValidElement(child)) return null;
-      return [cloneElement(child, { key: index }), <CaptionSeparatorDot key={index + 1} />];
+      return [cloneElement(child, { key: index }), <CaptionSeparatorDot key={index + 'dot'} />];
     })
     .filter(val => val !== null)
     .slice(0, -1);
