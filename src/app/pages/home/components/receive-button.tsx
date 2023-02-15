@@ -13,7 +13,7 @@ import { HomeActionButton } from './tx-button';
 
 export function ReceiveButton(props: ButtonProps) {
   const navigate = useNavigate();
-  const bitcoinFeature = useBitcoinFeature();
+  const isBitcoinEnabled = useBitcoinFeature();
 
   return (
     <HomeActionButton
@@ -21,7 +21,7 @@ export function ReceiveButton(props: ButtonProps) {
       data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
       icon={QrCodeIcon}
       label="Receive"
-      onClick={() => navigate(bitcoinFeature ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
+      onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
       {...props}
     />
   );

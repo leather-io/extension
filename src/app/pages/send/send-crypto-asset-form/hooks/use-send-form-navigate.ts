@@ -26,6 +26,7 @@ export function useSendFormNavigate() {
     () => ({
       toConfirmAndSignBtcTransaction(tx: string, recipient: string, fee: number) {
         return navigate(`${RouteUrls.SendCryptoAsset}/btc/confirmation`, {
+          replace: true,
           state: {
             tx,
             recipient,
@@ -35,6 +36,7 @@ export function useSendFormNavigate() {
       },
       toConfirmAndSignStxTransaction(tx: StacksTransaction) {
         return navigate(`${RouteUrls.SendCryptoAsset}/stx/confirmation`, {
+          replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
           } as ConfirmationRouteState,
@@ -47,6 +49,7 @@ export function useSendFormNavigate() {
         tx,
       }: ConfirmationRouteStacksSip10Args) {
         return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/confirmation`, {
+          replace: true,
           state: {
             decimals,
             token: name,

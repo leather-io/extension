@@ -13,10 +13,13 @@ export function StacksRecipientField(props: { contractId?: string }) {
 
   return (
     <RecipientField
+      labelAction="Choose account"
       name="recipientAddressOrBnsName"
       onBlur={getBnsAddress}
       onClickLabelAction={() =>
-        navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { state: { contractId } })
+        navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, {
+          state: { contractId },
+        })
       }
       topInputOverlay={
         !!bnsAddress ? <RecipientFieldBnsAddress bnsAddress={bnsAddress} /> : undefined
