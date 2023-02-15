@@ -36,7 +36,7 @@ import { FormFieldsLayout } from '../../components/form-fields.layout';
 import { PreviewButton } from '../../components/preview-button';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
-import { SendAllButton } from '../../components/send-all-button';
+// import { SendAllButton } from '../../components/send-all-button';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
 import { useGenerateBitcoinRawTx } from './use-generate-bitcoin-raw-tx';
@@ -67,6 +67,7 @@ export function BtcCryptoCurrencySendForm() {
       ),
     [availableBtcBalance, pendingTxsBalance]
   );
+  logger.debug('send all', sendAllBalance);
 
   const initialValues: BitcoinSendFormValues = createDefaultInitialFormValues({
     amount: '',
@@ -119,16 +120,16 @@ export function BtcCryptoCurrencySendForm() {
         <Form style={{ width: '100%' }}>
           <AmountField
             balance={availableBtcBalance}
-            bottomInputOverlay={
-              <SendAllButton
-                balance={availableBtcBalance}
-                // sendAllBalance={sendAllBalance.minus(props.values.fee).toString()}
-                sendAllBalance={sendAllBalance
-                  .multipliedBy(0.99)
-                  .decimalPlaces(BTC_DECIMALS)
-                  .toString()}
-              />
-            }
+            // bottomInputOverlay={
+            //   <SendAllButton
+            //     balance={availableBtcBalance}
+            //     // sendAllBalance={sendAllBalance.minus(props.values.fee).toString()}
+            //     sendAllBalance={sendAllBalance
+            //       .multipliedBy(0.99)
+            //       .decimalPlaces(BTC_DECIMALS)
+            //       .toString()}
+            //   />
+            // }
           />
           <FormFieldsLayout>
             <SelectedAssetField
