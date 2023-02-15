@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { Flex, Input, Stack, Text, color } from '@stacks/ui';
+import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
@@ -31,7 +31,7 @@ function getAmountModifiedFontSize(props: GetAmountModifiedFontSize) {
 
 interface AmountFieldProps {
   balance: Money;
-  bottomInputOverlay: JSX.Element;
+  bottomInputOverlay?: JSX.Element;
 }
 export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
   const [field, meta] = useField('amount');
@@ -102,7 +102,7 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
           {meta.error}
         </ErrorLabel>
       )}
-      {bottomInputOverlay}
+      {bottomInputOverlay ?? <Box size="36px" />}
     </Stack>
   );
 }
