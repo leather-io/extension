@@ -142,6 +142,8 @@ function AppRoutesAfterUserHasConsented() {
           }
         >
           <Route path={RouteUrls.FundReceive} element={<ReceiveModal />} />
+          <Route path={RouteUrls.FundReceiveStx} element={<ReceiveStxModal />} />
+          <Route path={RouteUrls.FundReceiveBtc} element={<ReceiveModal />} />
           {settingsModalRoutes}
         </Route>
         <Route
