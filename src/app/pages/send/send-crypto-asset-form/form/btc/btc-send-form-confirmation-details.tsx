@@ -6,6 +6,7 @@ import * as btc from 'micro-btc-signer';
 import { Money } from '@shared/models/money.model';
 
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { formatMoney } from '@app/common/money/format-money';
 import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 
 import { ConfirmationDetail } from '../../components/confirmation/components/confirmation-detail';
@@ -35,7 +36,7 @@ export function BtcSendFormConfirmationDetails(props: BtcSendFormConfirmationDet
       <ConfirmationDetail detail="To" value={recipient} />
       <ConfirmationDetail
         detail="Fee"
-        value={<TransactionFee fee={fee.amount.toString()} usdAmount={feeInUsd} />}
+        value={<TransactionFee fee={formatMoney(fee)} usdAmount={feeInUsd} />}
       />
     </ConfirmationDetailsLayout>
   );

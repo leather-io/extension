@@ -14,7 +14,7 @@ export function useBitcoinBroadcastTransaction(tx: string) {
 
     async function broadcastTransaction() {
       const resp = await client.transactionsApi.broadcastTransaction(tx);
-      // simulate broadcast to allow mempool refresh
+      // simulate slower broadcast time to allow mempool refresh
       await delay(2000);
       if (!resp.ok) throw new Error(resp.statusText);
       return resp.text();

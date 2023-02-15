@@ -37,6 +37,8 @@ import { FormFieldsLayout } from '../../components/form-fields.layout';
 import { PreviewButton } from '../../components/preview-button';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SendAllButton } from '../../components/send-all-button';
+import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 // import { SendAllButton } from '../../components/send-all-button';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
@@ -50,6 +52,8 @@ export function BtcCryptoCurrencySendForm() {
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
   const pendingTxsBalance = useBitcoinPendingTransactionsBalance();
   const generateTx = useGenerateBitcoinRawTx();
+
+  const calcMaxSpend = useCalculateMaxBitcoinSpend();
 
   /*
     TODO: Replace hardcoded median (226) with the tx byte length?
@@ -71,12 +75,10 @@ export function BtcCryptoCurrencySendForm() {
   logger.debug('send all', sendAllBalance);
 
   const initialValues: BitcoinSendFormValues = createDefaultInitialFormValues({
-    amount: '',
     fee: '',
     feeCurrency: 'BTC',
-    feeType: FeeTypes[FeeTypes.Unknown],
+    feeType: FeeTypes[FeeTypes.Middle],
     memo: '',
-    recipient: '',
     symbol: '',
   });
 
@@ -121,16 +123,14 @@ export function BtcCryptoCurrencySendForm() {
         <Form style={{ width: '100%' }}>
           <AmountField
             balance={availableBtcBalance}
-            // bottomInputOverlay={
-            //   <SendAllButton
-            //     balance={availableBtcBalance}
-            //     // sendAllBalance={sendAllBalance.minus(props.values.fee).toString()}
-            //     sendAllBalance={sendAllBalance
-            //       .multipliedBy(0.99)
-            //       .decimalPlaces(BTC_DECIMALS)
-            //       .toString()}
-            //   />
-            // }
+            bottomInputOverlay={
+              <SendAllButton
+                balance={availableBtcBalance}
+                sendAllBalance={
+                  calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
+                }
+              />
+            }
           />
           <FormFieldsLayout>
             <SelectedAssetField
@@ -155,6 +155,11 @@ export function BtcCryptoCurrencySendForm() {
               Get testnet BTC here ↗
             </ExternalLink>
           </WarningLabel>
+          {/* <Fees/Row fees={btcFees} isSponsored={false} allowCustom={false} mt="base" /> */}
+          {/* <Flex justifyContent="space-between" mt="base">
+            <Caption>Fee</Caption>
+            <Caption>{calcFee(props.values.amount)?.toString()}</Caption>
+          </Flex> */}
           <FormErrors />
           <PreviewButton isDisabled={!(props.values.amount && props.values.recipient)} />
           <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
