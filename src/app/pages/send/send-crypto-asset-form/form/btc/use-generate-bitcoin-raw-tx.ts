@@ -26,7 +26,8 @@ export function useGenerateBitcoinRawTx() {
   const signTx = useSignBitcoinTx();
   const network = useCurrentNetwork();
   const { data: feeRate } = useBitcoinFeeRatesInVbytes();
-
+  console.log('here', currentAddressIndexKeychain);
+  console.log('address', currentAccountBtcAddress);
   return useCallback(
     (values: BitcoinSendFormValues) => {
       if (!utxos) return;
@@ -34,7 +35,7 @@ export function useGenerateBitcoinRawTx() {
 
       // console.log(utxos);
       const networkMode = getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
-
+      console.log('amount', values.amount);
       try {
         const tx = new btc.Transaction();
 
@@ -75,6 +76,7 @@ export function useGenerateBitcoinRawTx() {
         tx.finalize();
         return { hex: tx.hex, fee };
       } catch (e) {
+        console.log('error', e);
         logger.error('Error signing bitcoin transaction', e);
         return null;
       }

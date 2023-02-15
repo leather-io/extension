@@ -28,6 +28,8 @@ export enum RouteUrls {
   ChooseAccount = '/choose-account',
   Fund = '/fund',
   FundReceive = '/fund/receive',
+  FundReceiveStx = '/fund/receive/stx',
+  FundReceiveBtc = '/fund/receive/btc',
   IncreaseFee = '/increase-fee',
   Receive = '/receive',
   ReceiveStx = '/receive/stx',
