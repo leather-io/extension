@@ -1,3 +1,4 @@
+import { ChainID } from '@stacks/transactions';
 import * as yup from 'yup';
 
 import { NetworkConfiguration } from '@shared/constants';
@@ -5,6 +6,7 @@ import { NetworkConfiguration } from '@shared/constants';
 import { FormErrorMessages } from '@app/common/error-messages';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 
+import { fetchNameOwner } from '../../../query/stacks/bns/bns.utils';
 import {
   notCurrentAddressValidator,
   stxAddressNetworkValidatorFactory,
@@ -41,9 +43,9 @@ export function stxRecipientAddressOrBnsNameValidator({
         return true;
       } catch (e) {}
       try {
-        const res = await client.namesApi.getNameInfo({ name: value ?? '' });
-        if (typeof res.address !== 'string' || res.address.length === 0) return false;
-        return true;
+        const isTestnet = currentNetwork.chain.stacks.chainId === ChainID.Testnet;
+        const owner = await fetchNameOwner(client, value ?? '', isTestnet);
+        return owner !== null;
       } catch (e) {
         return false;
       }
