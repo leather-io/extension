@@ -8,6 +8,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
+import { useCurrentBitcoinAddress } from '@app/query/bitcoin/address/address.hooks';
 
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
 import { useBitcoinBroadcastTransaction } from '../../family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
@@ -21,6 +22,7 @@ export function BtcSendFormConfirmation() {
   const fee = get(location.state, 'fee');
   const { setActiveTabActivity } = useHomeTabs();
   const [isLoading, setIsLoading] = useState(false);
+  const { refetch } = useCurrentBitcoinAddress();
 
   const { bitcoinDeserializedRawTransaction, bitcoinBroadcastTransaction } =
     useBitcoinBroadcastTransaction(tx);
@@ -39,6 +41,7 @@ export function BtcSendFormConfirmation() {
           const result = await bitcoinBroadcastTransaction();
           setIsLoading(false);
           logger.info(result);
+          await refetch();
           navigate(RouteUrls.Home);
           setActiveTabActivity();
         }}

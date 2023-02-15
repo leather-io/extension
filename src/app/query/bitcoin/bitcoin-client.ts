@@ -4,7 +4,7 @@ class Configuration {
   constructor(public baseUrl: string) {}
 }
 
-interface UtxoResponseItem {
+export interface UtxoResponseItem {
   txid: string;
   vout: number;
   status: {
@@ -34,13 +34,32 @@ class AddressApi {
   }
 }
 
+interface FeeEstimateEarnApiResponse {
+  fastestFee: number;
+  halfHourFee: number;
+  hourFee: number;
+}
+interface FeeEstimateMempoolSpaceApi {
+  fastestFee: number;
+  halfHourFee: number;
+  hourFee: number;
+  economyFee: number;
+  minimumFee: number;
+}
 class FeeEstimatesApi {
   constructor(public configuration: Configuration) {}
 
-  async getFeeEstimates() {
+  async getFeeEstimatesFromEarnApi(): Promise<FeeEstimateEarnApiResponse> {
     return fetchBitcoinData({
       errorMsg: 'No fee estimates fetched',
-      url: `${this.configuration.baseUrl}/fee-estimates`,
+      url: `https://bitcoinfees.earn.com/api/v1/fees/recommended`,
+    });
+  }
+
+  async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeEstimateMempoolSpaceApi> {
+    return fetchBitcoinData({
+      errorMsg: 'No fee estimates fetched',
+      url: ` https://mempool.space/api/v1/fees/recommended`,
     });
   }
 }

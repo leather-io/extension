@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { BitcoinFeeEstimates } from '@shared/models/fees/bitcoin-fees.model';
-
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
@@ -9,8 +7,7 @@ import { BitcoinClient } from '../bitcoin-client';
 
 function fetchBitcoinFeeEstimates(client: BitcoinClient) {
   return async () => {
-    const resp = (await client.feeEstimatesApi.getFeeEstimates()) as BitcoinFeeEstimates;
-    return resp;
+    return client.feeEstimatesApi.getFeeEstimatesFromMempoolSpaceApi();
   };
 }
 
@@ -24,10 +21,12 @@ export function useGetBitcoinFeeEstimatesQuery<T extends unknown = FetchBitcoinF
   options?: AppUseQueryConfig<FetchBitcoinFeeEstimatesResp, T>
 ) {
   const client = useBitcoinClient();
-
   return useQuery({
     queryKey: ['bitcoin-fee-estimates'],
     queryFn: fetchBitcoinFeeEstimates(client),
+    staleTime: 1000 * 60 * 3,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
     ...options,
   });
 }

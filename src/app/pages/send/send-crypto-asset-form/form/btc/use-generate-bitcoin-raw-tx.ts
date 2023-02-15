@@ -4,12 +4,11 @@ import { hexToBytes } from '@stacks/common';
 import * as btc from 'micro-btc-signer';
 
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
-import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
-import { useBitcoinFeeRatesInVbytes } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import {
   useCurrentBitcoinAddressIndexKeychain,
   useCurrentBtcAccountAddressIndexZero,
@@ -17,32 +16,35 @@ import {
 } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { coinselect } from '../../family/bitcoin/coinselect/coinselect';
+import { determineUtxosForSpend } from '../../family/bitcoin/coinselect/local-coin-selection';
 
 export function useGenerateBitcoinRawTx() {
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
-  const utxos = useGetUtxosByAddressQuery(currentAccountBtcAddress).data;
+  const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const currentAddressIndexKeychain = useCurrentBitcoinAddressIndexKeychain();
   const signTx = useSignBitcoinTx();
   const network = useCurrentNetwork();
-  const { data: feeRate } = useBitcoinFeeRatesInVbytes();
+  const { data: feeRate } = useBitcoinFeeRate();
 
   return useCallback(
     (values: BitcoinSendFormValues) => {
       if (!utxos) return;
       if (!feeRate) return;
 
-      // console.log(utxos);
       const networkMode = getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
 
       try {
         const tx = new btc.Transaction();
 
-        const { inputs, outputs, fee } = coinselect(
+        const { inputs, outputs, fee } = determineUtxosForSpend({
           utxos,
-          [{ address: values.recipient, value: btcToSat(values.amount).toNumber() }],
-          feeRate.estimates[1].feeRate
-        );
+          recipient: values.recipient,
+          amount: btcToSat(values.amount).toNumber(),
+          feeRate: feeRate.fastestFee,
+        });
+
+        // eslint-disable-next-line no-console
+        console.log('coinselect', { inputs, outputs, fee });
 
         if (!inputs) throw new Error('No inputs to sign');
         if (!outputs) throw new Error('No outputs to sign');
@@ -75,7 +77,8 @@ export function useGenerateBitcoinRawTx() {
         tx.finalize();
         return { hex: tx.hex, fee };
       } catch (e) {
-        logger.error('Error signing bitcoin transaction', e);
+        // eslint-disable-next-line no-console
+        console.log('Error signing bitcoin transaction', e);
         return null;
       }
     },

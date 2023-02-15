@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js';
 import { createMoney } from '@shared/models/money.model';
 
 import { sumNumbers } from '@app/common/utils';
+import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from './address.utils';
 import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
@@ -22,4 +23,14 @@ export function useBitcoinCryptoCurrencyAssetBalance(address: string) {
   return useMemo(() => {
     return createBitcoinCryptoCurrencyAssetTypeWrapper(balance);
   }, [balance]);
+}
+
+export function useCurrentBitcoinAddress() {
+  const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
+  return useGetUtxosByAddressQuery(currentAccountBtcAddress);
+}
+
+export function useCurrentBitcoinAddressBalance() {
+  const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
+  return useBitcoinBalance(currentAccountBtcAddress);
 }

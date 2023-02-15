@@ -23,6 +23,9 @@ export function useGetBitcoinTransaction<T extends unknown = FetchBitcoinTransac
     queryKey: ['bitcoin-transaction', txid],
     queryFn: () => fetchBitcoinTransaction(client)(txid),
     staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
     ...options,
   });
 }
