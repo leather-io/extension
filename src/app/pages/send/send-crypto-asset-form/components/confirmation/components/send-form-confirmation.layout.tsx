@@ -9,10 +9,9 @@ export function SendFormConfirmationLayout({ children }: StackProps) {
       flexGrow={1}
       flexDirection="column"
       justifyContent="start"
-      mb="loose"
-      minHeight={['70vh', '90vh']}
       maxWidth={['unset', 'unset', CENTERED_FULL_PAGE_MAX_WIDTH]}
       mt={['36px', '36px', '48px']}
+      pb="extra-loose"
       px="loose"
     >
       {children}

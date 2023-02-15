@@ -16,6 +16,7 @@ export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayou
       mt={['unset', '48px']}
       maxWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
       minWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
+      pb="extra-loose"
       px={['loose', 'unset']}
     >
       {children}
