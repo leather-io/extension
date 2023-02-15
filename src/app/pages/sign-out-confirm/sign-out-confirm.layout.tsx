@@ -46,14 +46,6 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
                 ledger: '',
               })}
             </Text>
-
-            <Text as="p" mt="tight" fontWeight="bold">
-              {whenWallet({
-                software:
-                  '⚠️ After signing out, your current password can no longer be used to unlock the wallet. You get to set a new password when you recreate your wallet with the original seed.',
-                ledger: '',
-              })}
-            </Text>
           </Body>
 
           <Flex
@@ -87,8 +79,7 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
               />
             </Box>
             <Caption userSelect="none">
-              I understand and confirm that after signing out my current password can no longer be
-              used to unlock the wallet
+              I understand my password will no longer work for accessing my wallet upon signing out
             </Caption>
           </Flex>
           <Flex mt="loose">
