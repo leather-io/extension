@@ -1,3 +1,14 @@
+## [3.34.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.0...v3.34.1) (2023-02-15)
+
+
+### Bug Fixes
+
+* add btc address to account header ([4c1616d](https://github.com/hirosystems/stacks-wallet-web/commit/4c1616d4b745290c46a36394c331b1b8f669446b))
+* disable bitcoin for ledger ([f2e8005](https://github.com/hirosystems/stacks-wallet-web/commit/f2e8005eb15fefdf5fe85b7be8e77b9dfb652d3a))
+* null char in memo field ([ff56e76](https://github.com/hirosystems/stacks-wallet-web/commit/ff56e7612f6bc3d83df15c37b4ee709c63a79750))
+* recipient choose account ([174ee8e](https://github.com/hirosystems/stacks-wallet-web/commit/174ee8ea3d245d80ab1d0eb0c1eaabf4ae6fa0c9))
+* tooltip hiding after click ([e53add6](https://github.com/hirosystems/stacks-wallet-web/commit/e53add65133d3c82b48f894387a5f1978a1b6a17))
+
 ## [3.34.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.33.1...v3.34.0) (2023-02-14)
 
 
