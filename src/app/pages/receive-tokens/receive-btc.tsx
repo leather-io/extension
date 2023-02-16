@@ -4,13 +4,13 @@ import { useClipboard } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useBtcAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
 export function ReceiveBtcModal() {
   const accountIndex = useCurrentAccountIndex();
-  const btcAddress = useBtcAccountIndexAddressIndexZero(accountIndex);
+  const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex);
   const analytics = useAnalytics();
   const { onCopy } = useClipboard(btcAddress);
 

@@ -17,7 +17,7 @@ import {
   useStacksNonFungibleTokenAssetsUnanchored,
   useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 import { FundAccount } from './components/fund-account';
@@ -30,7 +30,7 @@ interface BalancesListProps extends StackProps {
 export function BalancesList({ address, ...props }: BalancesListProps) {
   const { data: stxAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(address);
   const { data: stxUnachoredAssetBalance } = useStacksUnanchoredCryptoCurrencyAssetBalance(address);
-  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(bitcoinAddress);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();

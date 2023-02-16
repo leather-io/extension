@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { createMoney } from '@shared/models/money.model';
 
 import { sumNumbers } from '@app/common/utils';
-import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-address.query';
 
 export function useBitcoinPendingTransactions() {
-  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: bitcoinTransactions } = useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
   // TODO: use useQuery select method
   return useMemo(
@@ -19,7 +19,7 @@ export function useBitcoinPendingTransactions() {
 
 // ts-unused-exports:disable-next-line
 export function useBitcoinPendingTransactionsBalance() {
-  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const pendingTransactions = useBitcoinPendingTransactions();
 
   return useMemo(
