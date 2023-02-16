@@ -1,7 +1,7 @@
-import validate from 'bitcoin-address-validation';
+import validate, { Network } from 'bitcoin-address-validation';
 import * as yup from 'yup';
 
-import { NetworkConfiguration } from '@shared/constants';
+import { NetworkConfiguration, NetworkModes } from '@shared/constants';
 import { isString } from '@shared/utils';
 
 import { validateAddressChain, validateStacksAddress } from '@app/common/stacks-utils';
@@ -18,6 +18,13 @@ export function btcAddressValidator() {
         });
       return true;
     });
+}
+
+export function btcAddressNetworkValidatorFactory(network: NetworkModes) {
+  return (value?: string) => {
+    if (!isString(value)) return false;
+    return validate(value, network as Network);
+  };
 }
 
 export function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfiguration) {
