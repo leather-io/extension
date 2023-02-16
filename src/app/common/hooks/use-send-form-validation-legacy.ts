@@ -13,7 +13,10 @@ import {
   stxAddressValidator,
   stxNotCurrentAddressValidatorFactory,
 } from '@app/common/validation/forms/address-validators';
-import { stxCurrencyAmountValidator } from '@app/common/validation/forms/currency-validators';
+import {
+  currencyAmountValidator,
+  stxAmountPrecisionValidator,
+} from '@app/common/validation/forms/currency-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
@@ -68,17 +71,22 @@ export const useStacksSendFormValidationLegacy = ({
 
   const stxAmountFormSchema = useCallback(
     () =>
-      stxCurrencyAmountValidator(formatPrecisionError(availableStxBalance)).test({
-        message: formatInsufficientBalanceError(availableStxBalance, sum =>
-          microStxToStx(sum.amount).toString()
+      yup
+        .number()
+        .concat(currencyAmountValidator())
+        .concat(
+          stxAmountPrecisionValidator(formatPrecisionError(availableStxBalance)).test({
+            message: formatInsufficientBalanceError(availableStxBalance, sum =>
+              microStxToStx(sum.amount).toString()
+            ),
+            test(value: unknown) {
+              const fee = stxToMicroStx(this.parent.fee);
+              if (!stacksBalances || !isNumber(value)) return false;
+              const availableBalanceLessFee = stacksBalances?.stx.availableStx.amount.minus(fee);
+              return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
+            },
+          })
         ),
-        test(value: unknown) {
-          const fee = stxToMicroStx(this.parent.fee);
-          if (!stacksBalances || !isNumber(value)) return false;
-          const availableBalanceLessFee = stacksBalances?.stx.availableStx.amount.minus(fee);
-          return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
-        },
-      }),
     [availableStxBalance, stacksBalances]
   );
 

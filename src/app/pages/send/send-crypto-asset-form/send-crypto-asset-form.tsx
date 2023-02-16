@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { isString } from '@shared/utils';
 
 import { SendCryptoAssetFormLayout } from './components/send-crypto-asset-form.layout';
-import { BtcCryptoCurrencySendForm } from './form/btc/btc-crypto-currency-send-form';
+import { BtcCryptoCurrencySendForm } from './form/btc/btc-send-form';
 import { StacksSip10FungibleTokenSendForm } from './form/stacks-sip10/stacks-sip10-fungible-token-send-form';
 import { StxCryptoCurrencySendForm } from './form/stx/stx-crypto-currency-send-form';
 

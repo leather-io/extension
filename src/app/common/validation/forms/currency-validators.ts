@@ -7,7 +7,7 @@ import { formatErrorWithSymbol } from '@app/common/error-formatters';
 import { FormErrorMessages } from '@app/common/error-messages';
 import { countDecimals } from '@app/common/utils';
 
-function currencyAmountValidator() {
+export function currencyAmountValidator() {
   return yup.number().positive('Amount must be positive').typeError('Currency be a number');
 }
 
@@ -17,7 +17,8 @@ function currencyPrecisionValidatorFactory(
   errorMessage: string
 ) {
   return (
-    currencyAmountValidator()
+    yup
+      .number()
       // TODO: Isn't this repeating validation checks for required (positive) and type?
       // Why are these duplicated here?
       .required(formatErrorWithSymbol(symbol, FormErrorMessages.AmountRequired))
@@ -32,10 +33,10 @@ function currencyPrecisionValidatorFactory(
   );
 }
 
-export function btcCurrencyAmountValidator(errorMsg: string) {
+export function btcAmountPrecisionValidator(errorMsg: string) {
   return currencyPrecisionValidatorFactory('BTC', BTC_DECIMALS, errorMsg);
 }
 
-export function stxCurrencyAmountValidator(errorMsg: string) {
+export function stxAmountPrecisionValidator(errorMsg: string) {
   return currencyPrecisionValidatorFactory('STX', STX_DECIMALS, errorMsg);
 }
