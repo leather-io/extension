@@ -10,19 +10,19 @@ import { btcToSat } from '@app/common/money/unit-conversion';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import {
-  useCurrentBitcoinAddressIndexKeychain,
-  useCurrentBtcAccountAddressIndexZero,
-  useSignBitcoinTx,
-} from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+  useCurrentBitcoinNativeSegwitAddressIndexKeychain,
+  useCurrentBtcNativeSegwitAccountAddressIndexZero,
+  useSignBitcoinNativeSegwitTx,
+} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { determineUtxosForSpend } from '../../family/bitcoin/coinselect/local-coin-selection';
 
 export function useGenerateSignedBitcoinTx() {
-  const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
-  const currentAddressIndexKeychain = useCurrentBitcoinAddressIndexKeychain();
-  const signTx = useSignBitcoinTx();
+  const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexKeychain();
+  const signTx = useSignBitcoinNativeSegwitTx();
   const network = useCurrentNetwork();
   const { data: feeRate } = useBitcoinFeeRate();
 

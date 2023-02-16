@@ -15,7 +15,7 @@ import {
 } from '@app/common/validation/forms/address-validators';
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
-import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
@@ -23,7 +23,7 @@ import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-raw-tx';
 
 export function useBtcSendForm() {
   const currentNetwork = useCurrentNetwork();
-  const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();

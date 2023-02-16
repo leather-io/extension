@@ -8,12 +8,12 @@ import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCurrentBitcoinAddressBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { BtcSizeFeeEstimator } from '../fees/tx-size-calculator';
 
 export function useCalculateMaxBitcoinSpend() {
-  const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const balance = useCurrentBitcoinAddressBalance();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const { data: feeRate } = useBitcoinFeeRate();

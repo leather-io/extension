@@ -15,13 +15,13 @@ import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
 import { QrCodeIcon } from '@app/components/qr-code-icon';
 import { Body, Caption } from '@app/components/typography';
-import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function ReceiveModal() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const btcAddress = useCurrentBtcAccountAddressIndexZero();
+  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { onCopy: onCopyBitcoin } = useClipboard(btcAddress);
 
   const stxAddress = useCurrentAccountStxAddressState();
