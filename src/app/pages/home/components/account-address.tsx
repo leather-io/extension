@@ -1,10 +1,11 @@
 import { FiCopy } from 'react-icons/fi';
 
-import { Box, Stack, Tooltip, useClipboard } from '@stacks/ui';
+import { Box, Stack, useClipboard } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
 import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
 
 interface AccountAddressProps {
