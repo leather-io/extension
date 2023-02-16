@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { color } from '@stacks/ui-utils';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
@@ -146,7 +147,11 @@ export function BtcCryptoCurrencySendForm() {
           {/* <FeesRow fees={btcFees} isSponsored={false} allowCustom={false} mt="base" /> */}
           <WarningLabel mt="base-loose" width="100%">
             This is a Bitcoin testnet transaction. Funds have no value.{' '}
-            <ExternalLink href="https://coinfaucet.eu/en/btc-testnet">
+            <ExternalLink
+              href="https://coinfaucet.eu/en/btc-testnet"
+              color={color('text-body')}
+              textDecoration="underline"
+            >
               Get testnet BTC here ↗
             </ExternalLink>
           </WarningLabel>
