@@ -9,14 +9,21 @@ import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion'
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
 import { countDecimals } from '../../utils';
-import { stxCurrencyAmountValidator } from './currency-validators';
+import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
 function amountValidator() {
   return yup.number().required().positive(FormErrorMessages.MustNotBeZero);
 }
 
-export function stxAmountValidator(availableBalance: Money) {
-  return stxCurrencyAmountValidator(formatPrecisionError(availableBalance)).test({
+export function stxAmountValidator() {
+  return yup
+    .number()
+    .concat(currencyAmountValidator())
+    .concat(stxAmountPrecisionValidator(formatPrecisionError()));
+}
+
+export function stxAvailableBalanceValidator(availableBalance: Money) {
+  return yup.number().test({
     message: formatInsufficientBalanceError(availableBalance, sum =>
       microStxToStx(sum.amount).toString()
     ),

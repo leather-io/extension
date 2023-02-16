@@ -7,7 +7,7 @@ import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockc
 
 import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-address.query';
 
-function useBitcoinPendingTransactions() {
+export function useBitcoinPendingTransactions() {
   const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
   const { data: bitcoinTransactions } = useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
   // TODO: use useQuery select method
@@ -17,6 +17,7 @@ function useBitcoinPendingTransactions() {
   );
 }
 
+// ts-unused-exports:disable-next-line
 export function useBitcoinPendingTransactionsBalance() {
   const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
   const pendingTransactions = useBitcoinPendingTransactions();

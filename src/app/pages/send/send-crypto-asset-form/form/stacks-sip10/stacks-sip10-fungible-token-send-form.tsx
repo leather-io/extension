@@ -55,7 +55,7 @@ import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { createDefaultInitialFormValues } from '../../send-form.utils';
+import { createDefaultInitialFormValues, defaultFormikProps } from '../../send-form.utils';
 import { useStacksFtRouteState } from './use-stacks-ft-params';
 
 interface StacksSip10FungibleTokenSendFormProps {
@@ -147,10 +147,8 @@ export function StacksSip10FungibleTokenSendForm({
     <Formik
       initialValues={initialValues}
       onSubmit={async (values, formikHelpers) => await previewTransaction(values, formikHelpers)}
-      validateOnBlur={false}
-      validateOnChange={false}
-      validateOnMount={false}
       validationSchema={validationSchema}
+      {...defaultFormikProps}
     >
       {props => (
         <NonceSetter>
