@@ -21,7 +21,10 @@ import { formatPrecisionError } from '@app/common/error-formatters';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { btcAddressValidator } from '@app/common/validation/forms/address-validators';
+import {
+  btcAddressNetworkValidatorFactory,
+  btcAddressValidator,
+} from '@app/common/validation/forms/address-validators';
 import { btcCurrencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { ExternalLink } from '@app/components/external-link';
 import { BtcIcon } from '@app/components/icons/btc-icon';
@@ -30,6 +33,7 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinPendingTransactionsBalance } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { AmountField } from '../../components/amount-field';
 import { FormErrors } from '../../components/form-errors';
@@ -39,7 +43,6 @@ import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
-// import { SendAllButton } from '../../components/send-all-button';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
 import { useGenerateBitcoinRawTx } from './use-generate-bitcoin-raw-tx';
@@ -82,10 +85,14 @@ export function BtcCryptoCurrencySendForm() {
     symbol: '',
   });
 
+  const network = useCurrentNetwork();
+
   const validationSchema = yup.object({
     amount: btcCurrencyAmountValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance)),
-    recipient: btcAddressValidator(),
-    // fee: btcFeeValidator(btcCryptoCurrencyAssetBalance.balance),
+    recipient: btcAddressValidator().test({
+      test: btcAddressNetworkValidatorFactory(network.chain.bitcoin.network),
+      message: 'Bitcoin address targets wrong network',
+    }),
   });
 
   async function previewTransaction(
