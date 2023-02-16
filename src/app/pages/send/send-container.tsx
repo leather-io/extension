@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 
 import { Flex, color } from '@stacks/ui';
 
@@ -6,7 +6,7 @@ import { whenPageMode } from '@app/common/utils';
 
 export function SendContainer() {
   return whenPageMode({
-    full: () => (
+    full: (
       <Flex
         alignItems="start"
         borderWidth="1px"
@@ -20,10 +20,6 @@ export function SendContainer() {
         <Outlet />
       </Flex>
     ),
-    popup: () => (
-      <>
-        <Outlet />
-      </>
-    ),
-  })();
+    popup: <Outlet />,
+  });
 }
