@@ -20,7 +20,7 @@ test.describe('send crypto asset', () => {
   //   await globalPage.setupAndUseApiCalls(extensionId);
   //   await onboardingPage.signInExistingUser();
 
-  //   testAddress = await homePage.getAddress();
+  //   testAddress = await homePage.getReceiveStxAddress();
   //   await homePage.drawerActionButton.click();
 
   //   await homePage.sendButton.click();

@@ -15,7 +15,7 @@ export function ReceiveStxModal() {
   const accountName = useCurrentAccountDisplayName();
 
   function copyToClipboard() {
-    void analytics.track('copy_address_to_clipboard');
+    void analytics.track('copy_stx_address_to_clipboard');
     toast.success('Copied to clipboard!');
     onCopy();
   }
@@ -27,6 +27,7 @@ export function ReceiveStxModal() {
       address={currentAccount.address}
       accountName={accountName}
       onCopyAddressToClipboard={copyToClipboard}
+      title="Stacks address"
     />
   );
 }
