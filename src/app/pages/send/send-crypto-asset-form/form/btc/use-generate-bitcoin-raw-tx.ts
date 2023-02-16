@@ -18,7 +18,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { determineUtxosForSpend } from '../../family/bitcoin/coinselect/local-coin-selection';
 
-export function useGenerateBitcoinRawTx() {
+export function useGenerateSignedBitcoinTx() {
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const currentAddressIndexKeychain = useCurrentBitcoinAddressIndexKeychain();

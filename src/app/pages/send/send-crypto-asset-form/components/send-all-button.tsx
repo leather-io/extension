@@ -16,7 +16,7 @@ interface SendAllButtonProps extends ButtonProps {
 }
 export function SendAllButton({ balance, sendAllBalance, ...props }: SendAllButtonProps) {
   const [, _, amountFieldHelpers] = useField('amount');
-  // const [feeField] = useField('fee');
+
   const analytics = useAnalytics();
 
   const onSendAll = useCallback(() => {

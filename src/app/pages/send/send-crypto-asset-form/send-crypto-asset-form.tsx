@@ -1,10 +1,7 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 import { isString } from '@shared/utils';
-
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { Header } from '@app/components/header';
 
 import { SendCryptoAssetFormLayout } from './components/send-crypto-asset-form.layout';
 import { BtcCryptoCurrencySendForm } from './form/btc/btc-crypto-currency-send-form';
@@ -13,9 +10,6 @@ import { StxCryptoCurrencySendForm } from './form/stx/stx-crypto-currency-send-f
 
 export function SendCryptoAssetForm() {
   const { symbol } = useParams();
-  const navigate = useNavigate();
-
-  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} title="Send" />);
 
   if (!isString(symbol)) {
     return <Navigate to={RouteUrls.SendCryptoAsset} />;

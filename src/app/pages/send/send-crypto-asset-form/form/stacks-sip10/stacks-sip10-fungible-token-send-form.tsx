@@ -14,6 +14,7 @@ import { isEmpty, isUndefined } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { pullContractIdFromIdentity } from '@app/common/utils';
@@ -28,6 +29,7 @@ import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { FeesRow } from '@app/components/fees-row/fees-row';
+import { Header } from '@app/components/header';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -54,7 +56,7 @@ import { SendAllButton } from '../../components/send-all-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
-import { useStacksFtParams } from './use-stacks-ft-params';
+import { useStacksFtRouteState } from './use-stacks-ft-params';
 
 interface StacksSip10FungibleTokenSendFormProps {
   symbol: string;
@@ -65,7 +67,7 @@ export function StacksSip10FungibleTokenSendForm({
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { data: nextNonce } = useNextNonce();
-  const { contractId } = useStacksFtParams();
+  const { contractId } = useStacksFtRouteState();
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(
     pullContractIdFromIdentity(contractId)
   );
@@ -82,6 +84,8 @@ export function StacksSip10FungibleTokenSendForm({
   const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
+
+  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} title="Send" />);
 
   const availableTokenBalance = assetBalance?.balance ?? createMoney(0, 'STX');
   const sendAllBalance = useMemo(
