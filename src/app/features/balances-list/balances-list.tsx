@@ -20,6 +20,7 @@ import {
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
+import { Collectibles } from '../collectibles/collectibles';
 import { FundAccount } from './components/fund-account';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
 import { StacksNonFungibleTokenAssetList } from './components/stacks-non-fungible-token-asset-list';
@@ -71,6 +72,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       )}
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
       <StacksNonFungibleTokenAssetList assetBalances={stacksNftAssetBalances} />
+      <Collectibles />
     </Stack>
   );
 }
