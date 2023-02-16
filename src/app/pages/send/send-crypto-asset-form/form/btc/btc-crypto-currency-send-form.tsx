@@ -1,25 +1,19 @@
-import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { color } from '@stacks/ui-utils';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import {
-  BTC_DECIMALS,
-  HIGH_FEE_AMOUNT_BTC,
-  HIGH_FEE_WARNING_LEARN_MORE_URL_BTC,
-} from '@shared/constants';
+import { HIGH_FEE_AMOUNT_BTC, HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
-import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { isEmpty } from '@shared/utils';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidatorFactory,
@@ -27,11 +21,11 @@ import {
 } from '@app/common/validation/forms/address-validators';
 import { btcCurrencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { ExternalLink } from '@app/components/external-link';
+import { Header } from '@app/components/header';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { WarningLabel } from '@app/components/warning-label';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
-import { useBitcoinPendingTransactionsBalance } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -44,40 +38,28 @@ import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendAllButton } from '../../components/send-all-button';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
+import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
-import { useGenerateBitcoinRawTx } from './use-generate-bitcoin-raw-tx';
+import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-raw-tx';
 
 export function BtcCryptoCurrencySendForm() {
+  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} title="Send" />);
+
   const navigate = useNavigate();
+  const routeState = useSendFormRouteState();
+  const sendFormNavigate = useSendFormNavigate();
+
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
+  const { whenWallet } = useWalletType();
+
   const currentAccountBtcAddress = useCurrentBtcAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance =
     useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
-  const pendingTxsBalance = useBitcoinPendingTransactionsBalance();
-  const generateTx = useGenerateBitcoinRawTx();
-
+  const generateTx = useGenerateSignedBitcoinTx();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
 
-  /*
-    TODO: Replace hardcoded median (226) with the tx byte length?
-    Median source: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc#transaction-fees
-    tx size = in*180 + out*34 + 10 plus or minus 'in'
-  */
-  const { whenWallet } = useWalletType();
-  const sendFormNavigate = useSendFormNavigate();
-
-  const availableBtcBalance = btcCryptoCurrencyAssetBalance.balance ?? createMoney(0, 'STX');
-  const sendAllBalance = useMemo(
-    () =>
-      convertAmountToBaseUnit(
-        availableBtcBalance.amount.minus(pendingTxsBalance.amount),
-        BTC_DECIMALS
-      ),
-    [availableBtcBalance, pendingTxsBalance]
-  );
-  logger.debug('send all', sendAllBalance);
-
   const initialValues: BitcoinSendFormValues = createDefaultInitialFormValues({
+    ...routeState,
     fee: '',
     feeCurrency: 'BTC',
     feeType: FeeTypes[FeeTypes.Middle],
@@ -129,10 +111,10 @@ export function BtcCryptoCurrencySendForm() {
       {props => (
         <Form style={{ width: '100%' }}>
           <AmountField
-            balance={availableBtcBalance}
+            balance={btcCryptoCurrencyAssetBalance.balance}
             bottomInputOverlay={
               <SendAllButton
-                balance={availableBtcBalance}
+                balance={btcCryptoCurrencyAssetBalance.balance}
                 sendAllBalance={
                   calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
                 }
@@ -151,7 +133,6 @@ export function BtcCryptoCurrencySendForm() {
               onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
             />
           </FormFieldsLayout>
-          {/* <FeesRow fees={btcFees} isSponsored={false} allowCustom={false} mt="base" /> */}
           <WarningLabel mt="base-loose" width="100%">
             This is a Bitcoin testnet transaction. Funds have no value.{' '}
             <ExternalLink
@@ -162,7 +143,6 @@ export function BtcCryptoCurrencySendForm() {
               Get testnet BTC here ↗
             </ExternalLink>
           </WarningLabel>
-          {/* <Fees/Row fees={btcFees} isSponsored={false} allowCustom={false} mt="base" /> */}
           {/* <Flex justifyContent="space-between" mt="base">
             <Caption>Fee</Caption>
             <Caption>{calcFee(props.values.amount)?.toString()}</Caption>

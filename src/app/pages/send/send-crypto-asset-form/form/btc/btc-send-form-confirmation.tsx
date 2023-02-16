@@ -8,10 +8,14 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { satToBtc } from '@app/common/money/unit-conversion';
+import { Header } from '@app/components/header';
 import { useCurrentBitcoinAddress } from '@app/query/bitcoin/address/address.hooks';
 
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
 import { useBitcoinBroadcastTransaction } from '../../family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
+import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { BtcSendFormConfirmationDetails } from './btc-send-form-confirmation-details';
 
 export function BtcSendFormConfirmation() {
@@ -26,6 +30,23 @@ export function BtcSendFormConfirmation() {
 
   const { bitcoinDeserializedRawTransaction, bitcoinBroadcastTransaction } =
     useBitcoinBroadcastTransaction(tx);
+
+  const nav = useSendFormNavigate();
+
+  useRouteHeader(
+    <Header
+      hideActions
+      onClose={() =>
+        nav.backToSendForm({
+          recipient,
+          amount: satToBtc(
+            bitcoinDeserializedRawTransaction.outputs[0].amount.toString()
+          ).toString(),
+        })
+      }
+      title="Confirm transaction"
+    />
+  );
 
   return (
     <>

@@ -14,10 +14,11 @@ import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isEmpty, isUndefined } from '@shared/utils';
+import { isEmpty } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { stxAmountValidator } from '@app/common/validation/forms/amount-validators';
@@ -31,6 +32,7 @@ import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { FeesRow } from '@app/components/fees-row/fees-row';
+import { Header } from '@app/components/header';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -72,6 +74,8 @@ export function StxCryptoCurrencySendForm() {
   const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
+
+  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} title="Send" />);
 
   const availableStxBalance = balances?.stx.availableStx ?? createMoney(0, 'STX');
   const sendAllBalance = useMemo(
@@ -155,16 +159,7 @@ export function StxCryptoCurrencySendForm() {
             </FormFieldsLayout>
             <FeesRow fees={stxFees} isSponsored={false} mt="base" />
             <FormErrors />
-            <PreviewButton
-              isDisabled={
-                !(
-                  props.values.amount &&
-                  props.values.recipient &&
-                  props.values.fee &&
-                  !isUndefined(props.values.nonce)
-                )
-              }
-            />
+            <PreviewButton isDisabled={!props.isValid} />
             <EditNonceButton
               onEditNonce={() => navigate(RouteUrls.EditNonce)}
               my={['loose', 'base']}

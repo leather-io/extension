@@ -7,7 +7,7 @@ import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockc
 
 import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-address.query';
 
-export function useBitcoinPendingTransactions() {
+function useBitcoinPendingTransactions() {
   const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
   const { data: bitcoinTransactions } = useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
   // TODO: use useQuery select method

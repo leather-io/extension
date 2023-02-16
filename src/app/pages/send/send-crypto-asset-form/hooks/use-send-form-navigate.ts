@@ -24,8 +24,11 @@ export function useSendFormNavigate() {
 
   return useMemo(
     () => ({
+      backToSendForm(state: any) {
+        return navigate('../', { relative: 'path', replace: true, state });
+      },
       toConfirmAndSignBtcTransaction(tx: string, recipient: string, fee: number) {
-        return navigate(`${RouteUrls.SendCryptoAsset}/btc/confirmation`, {
+        return navigate(RouteUrls.SendBtcCryptoCurrencyConfirmation, {
           replace: true,
           state: {
             tx,
@@ -35,7 +38,7 @@ export function useSendFormNavigate() {
         });
       },
       toConfirmAndSignStxTransaction(tx: StacksTransaction) {
-        return navigate(`${RouteUrls.SendCryptoAsset}/stx/confirmation`, {
+        return navigate(RouteUrls.SendStxCryptoCurrencyConfirmation, {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
@@ -48,7 +51,7 @@ export function useSendFormNavigate() {
         symbol,
         tx,
       }: ConfirmationRouteStacksSip10Args) {
-        return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/confirmation`, {
+        return navigate(RouteUrls.SendStacksSip10Confirmation.replace(':symbol', symbol), {
           replace: true,
           state: {
             decimals,
