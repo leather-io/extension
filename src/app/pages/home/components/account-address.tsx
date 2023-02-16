@@ -1,12 +1,11 @@
 import { FiCopy } from 'react-icons/fi';
 
-import { Box, Stack, useClipboard } from '@stacks/ui';
+import { Box, Stack, Text, useClipboard } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
 import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Tooltip } from '@app/components/tooltip';
-import { Caption } from '@app/components/typography';
 
 interface AccountAddressProps {
   address: string;
@@ -23,7 +22,9 @@ export function AccountAddress({ address, label }: AccountAddressProps) {
 
   return (
     <>
-      <Caption>{truncateMiddle(address, 4)}</Caption>
+      <Text color={color('text-caption')} fontSize={['12px', '14px']}>
+        {truncateMiddle(address, 4)}
+      </Text>
       <Tooltip hideOnClick={false} label={hasCopied ? 'Copied!' : label} placement="right">
         <Stack>
           <Box

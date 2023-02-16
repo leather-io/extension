@@ -4,6 +4,7 @@ import { TextInputField } from './text-input-field';
 
 interface RecipientFieldProps {
   labelAction: string;
+  lastChild?: boolean;
   name: string;
   onBlur?(): void;
   onClickLabelAction?(): void;
@@ -11,6 +12,7 @@ interface RecipientFieldProps {
 }
 export function RecipientField({
   labelAction,
+  lastChild,
   name,
   onBlur,
   onClickLabelAction,
@@ -21,6 +23,7 @@ export function RecipientField({
       dataTestId={SendCryptoAssetSelectors.RecipientFieldInput}
       label="To"
       labelAction={labelAction}
+      lastChild={lastChild}
       name={name}
       onBlur={onBlur}
       onClickLabelAction={onClickLabelAction}

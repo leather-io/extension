@@ -27,7 +27,7 @@ import { createDefaultInitialFormValues, defaultFormikProps } from '../../send-f
 import { TestnetBtcMessage } from './components/testnet-btc-message';
 import { useBtcSendForm } from './use-btc-send-form';
 
-export function BtcCryptoCurrencySendForm() {
+export function BtcSendForm() {
   useRouteHeader(<Header hideActions onClose={() => navigate(-1)} title="Send" />);
 
   const navigate = useNavigate();
@@ -78,6 +78,7 @@ export function BtcCryptoCurrencySendForm() {
             />
             <RecipientField
               labelAction="Choose account"
+              lastChild
               name="recipient"
               onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
             />
