@@ -43,7 +43,7 @@ export const FiatProvidersList = (props: FiatProvidersProps) => {
       templateColumns="repeat(auto-fill, minmax(270px, 1fr))"
       width="100%"
     >
-      <ReceiveStxItem onReceiveStx={() => navigate(RouteUrls.FundReceive)} />
+      <ReceiveStxItem onReceiveStx={() => navigate(RouteUrls.FundReceiveStx)} />
       {Object.entries(activeProviders).map(([providerKey, providerValue]) => {
         const providerUrl = getProviderUrl({
           address,

@@ -75,6 +75,7 @@ export function useGenerateBitcoinRawTx() {
         tx.finalize();
         return { hex: tx.hex, fee };
       } catch (e) {
+        // console.log('error', e);
         logger.error('Error signing bitcoin transaction', e);
         return null;
       }
