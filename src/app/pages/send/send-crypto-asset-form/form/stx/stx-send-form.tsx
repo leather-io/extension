@@ -62,7 +62,7 @@ import { StacksRecipientField } from '../../family/stacks/components/stacks-reci
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues, defaultFormikProps } from '../../send-form.utils';
 
-export function StxCryptoCurrencySendForm() {
+export function StxSendForm() {
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { data: nextNonce } = useNextNonce();
@@ -141,7 +141,7 @@ export function StxCryptoCurrencySendForm() {
     >
       {props => (
         <NonceSetter>
-          <Form style={{ width: '100%' }}>
+          <Form>
             <AmountField
               balance={availableStxBalance}
               bottomInputOverlay={

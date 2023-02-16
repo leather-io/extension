@@ -7,7 +7,7 @@ import { FormErrorMessages } from '@app/common/error-messages';
 
 import { test } from '../../fixtures/fixtures';
 
-test.describe('send crypto asset', () => {
+test.describe('send stx', () => {
   let testAddress: string;
 
   // TODO: Remove with legacy send form

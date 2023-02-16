@@ -28,7 +28,7 @@ export function useSendFormNavigate() {
         return navigate('../', { relative: 'path', replace: true, state });
       },
       toConfirmAndSignBtcTransaction(tx: string, recipient: string, fee: number) {
-        return navigate(RouteUrls.SendBtcCryptoCurrencyConfirmation, {
+        return navigate(RouteUrls.SendBtcConfirmation, {
           replace: true,
           state: {
             tx,
@@ -38,7 +38,7 @@ export function useSendFormNavigate() {
         });
       },
       toConfirmAndSignStxTransaction(tx: StacksTransaction) {
-        return navigate(RouteUrls.SendStxCryptoCurrencyConfirmation, {
+        return navigate(RouteUrls.SendStxConfirmation, {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
