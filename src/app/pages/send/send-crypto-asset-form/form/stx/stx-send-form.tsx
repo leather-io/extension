@@ -160,7 +160,7 @@ export function StxSendForm() {
             </FormFieldsLayout>
             <FeesRow fees={stxFees} isSponsored={false} mt="base" />
             <FormErrors />
-            <PreviewButton isDisabled={!props.isValid} />
+            <PreviewButton />
             <SpaceBetween>
               <AvailableBalance availableBalance={availableStxBalance} />
               <EditNonceButton
