@@ -3,10 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
 
-import { logger } from '@shared/logger';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { satToBtc } from '@app/common/money/unit-conversion';
@@ -28,11 +28,12 @@ export function BtcSendFormConfirmation() {
   const { setActiveTabActivity } = useHomeTabs();
   const [isLoading, setIsLoading] = useState(false);
   const { refetch } = useCurrentBitcoinAddress();
-
-  const { bitcoinDeserializedRawTransaction, bitcoinBroadcastTransaction } =
-    useBitcoinBroadcastTransaction(tx);
+  const analytics = useAnalytics();
+  const { psbt, broadcastTransaction } = useBitcoinBroadcastTransaction(tx);
 
   const nav = useSendFormNavigate();
+
+  const transferAmount = satToBtc(psbt.outputs[0].amount.toString()).toString();
 
   useRouteHeader(
     <Header
@@ -40,9 +41,7 @@ export function BtcSendFormConfirmation() {
       onClose={() =>
         nav.backToSendForm({
           recipient,
-          amount: satToBtc(
-            bitcoinDeserializedRawTransaction.outputs[0].amount.toString()
-          ).toString(),
+          amount: transferAmount,
         })
       }
       title="Confirm transaction"
@@ -52,20 +51,28 @@ export function BtcSendFormConfirmation() {
   return (
     <SendFormConfirmationLayout>
       <BtcSendFormConfirmationDetails
-        unsignedTx={bitcoinDeserializedRawTransaction}
+        unsignedTx={psbt}
         recipient={recipient}
         fee={createMoney(fee, 'BTC')}
       />
       <ConfirmationButton
         isLoading={isLoading}
         onClick={async () => {
-          setIsLoading(true);
-          const result = await bitcoinBroadcastTransaction();
-          setIsLoading(false);
-          logger.info(result);
-          await refetch();
-          navigate(RouteUrls.Home);
-          setActiveTabActivity();
+          try {
+            setIsLoading(true);
+            await broadcastTransaction();
+            void analytics.track('bitcoin_broadcast_tx_successful', {
+              amount: transferAmount,
+              fee,
+            });
+            await refetch();
+            navigate(RouteUrls.Home);
+            setActiveTabActivity();
+          } catch (e) {
+            nav.toErrorPage(e);
+          } finally {
+            setIsLoading(false);
+          }
         }}
       />
     </SendFormConfirmationLayout>

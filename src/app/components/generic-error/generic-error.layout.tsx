@@ -1,21 +1,21 @@
 import { ReactNode } from 'react';
 
 import GenericError from '@assets/images/generic-error.png';
-import { Box, Button, Flex, Text, color } from '@stacks/ui';
+import { Box, Button, Flex, FlexProps, Text, color } from '@stacks/ui';
 
 import { Title } from '@app/components/typography';
 
-interface ErrorProps {
+interface GenericErrorProps extends FlexProps {
   body: string;
   helpTextList: ReactNode[];
   onClose(): void;
   title: string;
 }
-export function GenericErrorLayout(props: ErrorProps) {
-  const { body, helpTextList, onClose, title } = props;
+export function GenericErrorLayout(props: GenericErrorProps) {
+  const { body, helpTextList, onClose, title, ...rest } = props;
 
   return (
-    <Flex alignItems="center" flexDirection="column" px={['loose', 'unset']} width="100%">
+    <Flex alignItems="center" flexDirection="column" px={['loose', 'unset']} width="100%" {...rest}>
       <Box mt="loose">
         <img src={GenericError} width="106px" />
       </Box>
