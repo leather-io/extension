@@ -37,6 +37,10 @@ function useDeriveTaprootAccountIndexAddressIndexZero(xpub: string) {
   );
 }
 
+export function useKeychain() {
+  return useSelector(selectSoftwareBitcoinTaprootKeychain);
+}
+
 // ts-unused-exports:disable-next-line
 export function useCurrentTaprootAccountAddressIndexZero() {
   const { xpub } = useCurrentBitcoinTaprootAccount();
