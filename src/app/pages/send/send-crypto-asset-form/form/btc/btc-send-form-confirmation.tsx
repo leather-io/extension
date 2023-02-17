@@ -14,6 +14,7 @@ import { Header } from '@app/components/header';
 import { useCurrentBitcoinAddress } from '@app/query/bitcoin/address/address.hooks';
 
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
+import { SendFormConfirmationLayout } from '../../components/confirmation/components/send-form-confirmation.layout';
 import { useBitcoinBroadcastTransaction } from '../../family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { BtcSendFormConfirmationDetails } from './btc-send-form-confirmation-details';
@@ -49,7 +50,7 @@ export function BtcSendFormConfirmation() {
   );
 
   return (
-    <>
+    <SendFormConfirmationLayout>
       <BtcSendFormConfirmationDetails
         unsignedTx={bitcoinDeserializedRawTransaction}
         recipient={recipient}
@@ -67,6 +68,6 @@ export function BtcSendFormConfirmation() {
           setActiveTabActivity();
         }}
       />
-    </>
+    </SendFormConfirmationLayout>
   );
 }

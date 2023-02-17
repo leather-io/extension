@@ -30,11 +30,7 @@ import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
-import { ChooseCryptoAsset } from '@app/pages/send/choose-crypto-asset/choose-crypto-asset';
-import { SendContainer } from '@app/pages/send/send-container';
-import { sendFormConfirmationRoutes } from '@app/pages/send/send-crypto-asset-form/components/confirmation/send-form-confirmation.routes';
-import { RecipientAccountsDrawer } from '@app/pages/send/send-crypto-asset-form/components/recipient-accounts-drawer/recipient-accounts-drawer';
-import { SendCryptoAssetForm } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form';
+import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
@@ -162,26 +158,9 @@ function AppRoutesAfterUserHasConsented() {
           <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
-        <Route element={<SendContainer />}>
-          <Route
-            path={RouteUrls.SendCryptoAsset}
-            element={
-              <AccountGate>
-                <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
-                  <ChooseCryptoAsset />
-                </Suspense>
-              </AccountGate>
-            }
-          />
-          <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />}>
-            <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-            <Route
-              path={RouteUrls.SendCryptoAssetFormRecipientAccounts}
-              element={<RecipientAccountsDrawer />}
-            />
-          </Route>
-          {sendFormConfirmationRoutes}
-        </Route>
+
+        {sendCryptoAssetFormRoutes}
+
         <Route
           path={RouteUrls.TransactionRequest}
           element={

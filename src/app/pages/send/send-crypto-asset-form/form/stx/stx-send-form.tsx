@@ -36,7 +36,6 @@ import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-a
 import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { Header } from '@app/components/header';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -53,16 +52,16 @@ import {
 } from '@app/store/transactions/token-transfer.hooks';
 
 import { AmountField } from '../../components/amount-field';
-import { AvailableBalance } from '../../components/available-balance';
 import { FormErrors } from '../../components/form-errors';
 import { FormFieldsLayout } from '../../components/form-fields.layout';
 import { MemoField } from '../../components/memo-field';
 import { PreviewButton } from '../../components/preview-button';
 import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendMaxButton } from '../../components/send-max-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { createDefaultInitialFormValues, defaultFormikProps } from '../../send-form.utils';
+import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 
 export function StxSendForm() {
   const navigate = useNavigate();
@@ -135,44 +134,43 @@ export function StxSendForm() {
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={async (values, formikHelpers) => await previewTransaction(values, formikHelpers)}
-      validationSchema={validationSchema}
-      {...defaultFormikProps}
-    >
-      {props => (
-        <NonceSetter>
-          <Form>
-            <AmountField
-              balance={availableStxBalance}
-              bottomInputOverlay={
-                <SendMaxButton
-                  balance={availableStxBalance}
-                  sendMaxBalance={sendMaxBalance.minus(props.values.fee).toString()}
-                />
-              }
-            />
-            <FormFieldsLayout>
-              <SelectedAssetField icon={<StxAvatar />} name="Stacks" symbol="STX" />
-              <StacksRecipientField />
-              <MemoField lastChild />
-            </FormFieldsLayout>
-            <FeesRow fees={stxFees} isSponsored={false} mt="base" />
-            <FormErrors />
-            <PreviewButton />
-            <SpaceBetween>
-              <AvailableBalance availableBalance={availableStxBalance} />
+    <SendCryptoAssetFormLayout>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={async (values, formikHelpers) => await previewTransaction(values, formikHelpers)}
+        validationSchema={validationSchema}
+        {...defaultSendFormFormikProps}
+      >
+        {props => (
+          <NonceSetter>
+            <Form>
+              <AmountField
+                balance={availableStxBalance}
+                bottomInputOverlay={
+                  <SendMaxButton
+                    balance={availableStxBalance}
+                    sendMaxBalance={sendMaxBalance.minus(props.values.fee).toString()}
+                  />
+                }
+              />
+              <FormFieldsLayout>
+                <SelectedAssetField icon={<StxAvatar />} name="Stacks" symbol="STX" />
+                <StacksRecipientField />
+                <MemoField lastChild />
+              </FormFieldsLayout>
+              <FeesRow fees={stxFees} isSponsored={false} mt="base" />
+              <FormErrors />
+              <PreviewButton isDisabled={!props.isValid} />
               <EditNonceButton
                 onEditNonce={() => navigate(RouteUrls.EditNonce)}
                 my={['loose', 'base']}
               />
-            </SpaceBetween>
-            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-            <Outlet />
-          </Form>
-        </NonceSetter>
-      )}
-    </Formik>
+              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+              <Outlet />
+            </Form>
+          </NonceSetter>
+        )}
+      </Formik>
+    </SendCryptoAssetFormLayout>
   );
 }

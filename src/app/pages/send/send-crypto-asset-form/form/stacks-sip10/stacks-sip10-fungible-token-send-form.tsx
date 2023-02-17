@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
@@ -10,7 +10,7 @@ import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isEmpty } from '@shared/utils';
+import { isEmpty, isString, isUndefined } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -30,7 +30,6 @@ import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-a
 import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { Header } from '@app/components/header';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -48,24 +47,20 @@ import {
 } from '@app/store/transactions/token-transfer.hooks';
 
 import { AmountField } from '../../components/amount-field';
-import { AvailableBalance } from '../../components/available-balance';
 import { FormErrors } from '../../components/form-errors';
 import { FormFieldsLayout } from '../../components/form-fields.layout';
 import { MemoField } from '../../components/memo-field';
 import { PreviewButton } from '../../components/preview-button';
 import { SelectedAssetField } from '../../components/selected-asset-field';
-import { SendMaxButton } from '../../components/send-max-button';
+import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { createDefaultInitialFormValues, defaultFormikProps } from '../../send-form.utils';
+import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { useStacksFtRouteState } from './use-stacks-ft-params';
 
-interface StacksSip10FungibleTokenSendFormProps {
-  symbol: string;
-}
-export function StacksSip10FungibleTokenSendForm({
-  symbol,
-}: StacksSip10FungibleTokenSendFormProps) {
+export function StacksSip10FungibleTokenSendForm({}) {
+  const { symbol } = useParams();
+
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { data: nextNonce } = useNextNonce();
@@ -136,50 +131,63 @@ export function StacksSip10FungibleTokenSendForm({
         sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
           decimals: assetBalance?.balance.decimals,
           name: assetBalance?.asset.name,
-          symbol,
           tx,
         }),
       ledger: () => ledgerNavigate.toConnectAndSignTransactionStep(tx),
     })();
   }
 
+  if (!isString(symbol)) {
+    return <Navigate to={RouteUrls.SendCryptoAsset} />;
+  }
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={async (values, formikHelpers) => await previewTransaction(values, formikHelpers)}
-      validationSchema={validationSchema}
-      {...defaultFormikProps}
-    >
-      <NonceSetter>
-        <Form style={{ width: '100%' }}>
-          <AmountField
-            balance={availableTokenBalance}
-            bottomInputOverlay={
-              <SendMaxButton
+    <SendCryptoAssetFormLayout>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={async (values, formikHelpers) => await previewTransaction(values, formikHelpers)}
+        validationSchema={validationSchema}
+        {...defaultSendFormFormikProps}
+      >
+        {props => (
+          <NonceSetter>
+            <Form style={{ width: '100%' }}>
+              <AmountField
                 balance={availableTokenBalance}
-                sendMaxBalance={sendMaxBalance.toString()}
+                bottomInputOverlay={
+                  <SendAllButton
+                    balance={availableTokenBalance}
+                    sendAllBalance={sendAllBalance.toString()}
+                  />
+                }
               />
-            }
-          />
-          <FormFieldsLayout>
-            <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
-            <StacksRecipientField contractId={contractId} />
-            <MemoField />
-          </FormFieldsLayout>
-          <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
-          <FormErrors />
-          <PreviewButton />
-          <SpaceBetween>
-            <AvailableBalance availableBalance={availableTokenBalance} />
-            <EditNonceButton
-              onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
-              my={['loose', 'base']}
-            />
-          </SpaceBetween>
-          <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-          <Outlet />
-        </Form>
-      </NonceSetter>
-    </Formik>
+              <FormFieldsLayout>
+                <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
+                <StacksRecipientField contractId={contractId} />
+                <MemoField />
+              </FormFieldsLayout>
+              <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
+              <FormErrors />
+              <PreviewButton
+                isDisabled={
+                  !(
+                    props.values.amount &&
+                    props.values.recipient &&
+                    props.values.fee &&
+                    !isUndefined(props.values.nonce)
+                  )
+                }
+              />
+              <EditNonceButton
+                onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
+                my={['loose', 'base']}
+              />
+              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+              <Outlet />
+            </Form>
+          </NonceSetter>
+        )}
+      </Formik>
+    </SendCryptoAssetFormLayout>
   );
 }

@@ -2,7 +2,7 @@ export function createDefaultInitialFormValues<T extends Record<string, unknown>
   return { amount: '', recipient: '', ...obj };
 }
 
-export const defaultFormikProps = {
+export const defaultSendFormFormikProps = {
   validateOnChange: false,
   validateOnMount: false,
 } as const;
