@@ -15,7 +15,6 @@ export function SendContainer() {
         maxHeight="90vh"
         maxWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
         minWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
-        pb="loose"
       >
         <Outlet />
       </Flex>

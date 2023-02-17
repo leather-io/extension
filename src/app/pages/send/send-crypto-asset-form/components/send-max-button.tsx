@@ -10,16 +10,16 @@ import { Money } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
-interface SendAllButtonProps extends ButtonProps {
+interface SendMaxButtonProps extends ButtonProps {
   balance: Money;
-  sendAllBalance: string;
+  sendMaxBalance: string;
 }
-export function SendAllButton({ balance, sendAllBalance, ...props }: SendAllButtonProps) {
+export function SendMaxButton({ balance, sendMaxBalance, ...props }: SendMaxButtonProps) {
   const [, _, amountFieldHelpers] = useField('amount');
 
   const analytics = useAnalytics();
 
-  const onSendAll = useCallback(() => {
+  const onSendMax = useCallback(() => {
     // if (isUndefined(feeField.value)) return toast.error('Loading fee, try again');
     // if (!feeField.value)
     //   return toast.error(
@@ -28,23 +28,23 @@ export function SendAllButton({ balance, sendAllBalance, ...props }: SendAllButt
 
     void analytics.track('select_maximum_amount_for_send');
     if (balance.amount.isLessThanOrEqualTo(0)) return toast.error(`Zero balance`);
-    return amountFieldHelpers.setValue(sendAllBalance);
-  }, [amountFieldHelpers, analytics, balance.amount, sendAllBalance]);
+    return amountFieldHelpers.setValue(sendMaxBalance);
+  }, [amountFieldHelpers, analytics, balance.amount, sendMaxBalance]);
 
   return (
     <Button
-      borderRadius="12px"
-      data-testid={SendCryptoAssetSelectors.SendAllBtn}
+      borderRadius="10px"
+      data-testid={SendCryptoAssetSelectors.SendMaxBtn}
       fontSize={0}
       height="32px"
-      onClick={onSendAll}
+      onClick={onSendMax}
       mode="tertiary"
-      px="tight"
+      px="base-tight"
       type="button"
-      width="70px"
+      width="fit-content"
       {...props}
     >
-      Send all
+      Send max
     </Button>
   );
 }

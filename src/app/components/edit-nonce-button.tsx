@@ -9,7 +9,6 @@ export function EditNonceButton({ onEditNonce, ...props }: EditNonceButtonProps)
   return (
     <Caption
       _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
-      alignSelf="start"
       as="button"
       color={color('brand')}
       onClick={onEditNonce}

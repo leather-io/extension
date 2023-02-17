@@ -17,7 +17,7 @@ export class SendPage {
       .getByTestId(CryptoAssetSelectors.CryptoAssetListItem.replace('{symbol}', 'btc'))
       .click();
     await this.page.waitForURL('**' + `${RouteUrls.SendCryptoAsset}/btc`);
-    await this.page.getByTestId(SendCryptoAssetSelectors.SendFormContainer).waitFor();
+    await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
   }
 
   async selectStxAndGoToSendForm() {
@@ -26,6 +26,6 @@ export class SendPage {
       .getByTestId(CryptoAssetSelectors.CryptoAssetListItem.replace('{symbol}', 'stx'))
       .click();
     await this.page.waitForURL('**' + `${RouteUrls.SendCryptoAsset}/stx`);
-    await this.page.getByTestId(SendCryptoAssetSelectors.SendFormContainer).waitFor();
+    await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
   }
 }

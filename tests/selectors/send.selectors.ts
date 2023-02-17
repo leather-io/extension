@@ -11,6 +11,6 @@ export enum SendCryptoAssetSelectors {
   ResolvedBnsAddressPreview = 'resolved-bns-address-preview',
   ResolvedBnsAddressHoverInfoIcon = 'resolved-bns-address-hover-info-icon',
   ResolvedBnsAddressCopyToClipboard = 'resolved-bns-address-copy-to-clipboard',
-  SendAllBtn = 'send-all-btn',
-  SendFormContainer = 'send-form-container',
+  SendForm = 'send-form',
+  SendMaxBtn = 'send-max-btn',
 }
