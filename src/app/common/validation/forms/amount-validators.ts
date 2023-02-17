@@ -4,15 +4,57 @@ import * as yup from 'yup';
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
-import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
+import {
+  btcToSat,
+  microStxToStx,
+  satToBtc,
+  stxToMicroStx,
+} from '@app/common/money/unit-conversion';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
 import { countDecimals } from '../../utils';
 import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
+const minSpendAmountInSats = 6000;
+
 function amountValidator() {
   return yup.number().required().positive(FormErrorMessages.MustNotBeZero);
+}
+
+interface BtcInsufficientBalanceValidatorArgs {
+  recipient: string;
+  calcMaxSpend(recipient: string): {
+    spendableBitcoin: BigNumber;
+  };
+}
+export function btcInsufficientBalanceValidator({
+  recipient,
+  calcMaxSpend,
+}: BtcInsufficientBalanceValidatorArgs) {
+  return yup.number().test({
+    message: 'Insufficient funds',
+    test(value) {
+      if (!value) return false;
+      const maxSpend = calcMaxSpend(recipient);
+      if (!maxSpend) return false;
+      const desiredSpend = new BigNumber(value);
+      if (desiredSpend.isGreaterThan(maxSpend.spendableBitcoin)) return false;
+      return true;
+    },
+  });
+}
+
+export function btcMinimumSpendValidator() {
+  return yup.number().test({
+    message: `Minimum is ${satToBtc(minSpendAmountInSats)}`,
+    test(value) {
+      if (!value) return false;
+      const desiredSpend = btcToSat(value);
+      if (desiredSpend.isLessThan(minSpendAmountInSats)) return false;
+      return true;
+    },
+  });
 }
 
 export function stxAmountValidator() {
