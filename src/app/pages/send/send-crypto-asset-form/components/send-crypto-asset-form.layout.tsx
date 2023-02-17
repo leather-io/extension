@@ -7,10 +7,10 @@ interface SendCryptoAssetFormLayoutProps {
 export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayoutProps) {
   return (
     <Box
-      data-testid={SendCryptoAssetSelectors.SendFormContainer}
+      data-testid={SendCryptoAssetSelectors.SendForm}
       mt={['unset', '48px']}
       width="100%"
-      pb="extra-loose"
+      pb="base"
       px="loose"
     >
       {children}

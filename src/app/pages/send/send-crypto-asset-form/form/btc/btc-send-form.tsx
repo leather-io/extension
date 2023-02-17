@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { Box } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
@@ -15,12 +16,13 @@ import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
+import { AvailableBalance } from '../../components/available-balance';
 import { FormErrors } from '../../components/form-errors';
 import { FormFieldsLayout } from '../../components/form-fields.layout';
 import { PreviewButton } from '../../components/preview-button';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
-import { SendAllButton } from '../../components/send-all-button';
+import { SendMaxButton } from '../../components/send-max-button';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultFormikProps } from '../../send-form.utils';
@@ -62,9 +64,9 @@ export function BtcSendForm() {
           <AmountField
             balance={btcCryptoCurrencyAssetBalance.balance}
             bottomInputOverlay={
-              <SendAllButton
+              <SendMaxButton
                 balance={btcCryptoCurrencyAssetBalance.balance}
-                sendAllBalance={
+                sendMaxBalance={
                   calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
                 }
               />
@@ -88,6 +90,9 @@ export function BtcSendForm() {
 
           <FormErrors />
           <PreviewButton />
+          <Box my="base">
+            <AvailableBalance availableBalance={btcCryptoCurrencyAssetBalance.balance} />
+          </Box>
           <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
           <Outlet />
         </Form>

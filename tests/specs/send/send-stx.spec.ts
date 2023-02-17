@@ -29,7 +29,7 @@ test.describe('send stx', () => {
 
   test.describe('send form input fields', () => {
     test('send all button sets available balance minus fee', async ({ page }) => {
-      await page.getByTestId(SendCryptoAssetSelectors.SendAllBtn).click();
+      await page.getByTestId(SendCryptoAssetSelectors.SendMaxBtn).click();
       const inputValue = await page
         .getByTestId(SendCryptoAssetSelectors.AmountFieldInput)
         .inputValue();
