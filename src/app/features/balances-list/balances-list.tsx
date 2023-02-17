@@ -10,7 +10,7 @@ import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-cu
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
@@ -32,7 +32,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const { data: stxAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(address);
   const { data: stxUnachoredAssetBalance } = useStacksUnanchoredCryptoCurrencyAssetBalance(address);
   const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcAssetBalance = useBitcoinCryptoCurrencyAssetBalance(bitcoinAddress);
+  const btcAssetBalance = useBitcoinAssetBalance(bitcoinAddress);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();

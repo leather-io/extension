@@ -18,7 +18,7 @@ function useBitcoinBalance(address: string) {
   }, [utxos]);
 }
 
-export function useBitcoinCryptoCurrencyAssetBalance(address: string) {
+export function useBitcoinAssetBalance(address: string) {
   const balance = useBitcoinBalance(address);
   return useMemo(() => {
     return createBitcoinCryptoCurrencyAssetTypeWrapper(balance);

@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import BigNumber from 'bignumber.js';
 import { getAddressInfo, validate } from 'bitcoin-address-validation';
 
 import { createMoney } from '@shared/models/money.model';
@@ -19,8 +20,14 @@ export function useCalculateMaxBitcoinSpend() {
   const { data: feeRate } = useBitcoinFeeRate();
 
   return useCallback(
-    (address = '') => {
-      if (!utxos || !feeRate) return;
+    (address: string = '') => {
+      if (!utxos || !feeRate)
+        return {
+          spendAllFee: 0,
+          amount: createMoney(0, 'BTC'),
+          spendableBitcoin: new BigNumber(0),
+        };
+
       const txSizer = new BtcSizeFeeEstimator();
       const addressInfo = validate(address) ? getAddressInfo(address) : null;
       const addressTypeWithFallback = addressInfo ? addressInfo.type : 'p2wpkh';

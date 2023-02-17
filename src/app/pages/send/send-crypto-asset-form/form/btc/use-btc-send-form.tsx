@@ -1,4 +1,6 @@
-import { FormikHelpers } from 'formik';
+import { useRef } from 'react';
+
+import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
 import { HIGH_FEE_AMOUNT_BTC } from '@shared/constants';
@@ -14,30 +16,44 @@ import {
   btcAddressValidator,
 } from '@app/common/validation/forms/address-validators';
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
-import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { btcInsufficientBalanceValidator } from '@app/common/validation/forms/currency-validators';
+import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
+import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-raw-tx';
 
 export function useBtcSendForm() {
+  const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
+
   const currentNetwork = useCurrentNetwork();
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcCryptoCurrencyAssetBalance =
-    useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
+  const btcCryptoCurrencyAssetBalance = useBitcoinAssetBalance(currentAccountBtcAddress);
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
   const generateTx = useGenerateSignedBitcoinTx();
+  const calcMaxSpend = useCalculateMaxBitcoinSpend();
 
   return {
+    formRef,
+
     currentNetwork,
 
     validationSchema: yup.object({
-      amount: btcAmountPrecisionValidator(
-        formatPrecisionError(btcCryptoCurrencyAssetBalance.balance)
-      ),
+      amount: yup
+        .number()
+        .concat(
+          btcAmountPrecisionValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance))
+        )
+        .concat(
+          btcInsufficientBalanceValidator({
+            recipient: formRef.current?.values.recipient ?? '',
+            calcMaxSpend,
+          })
+        ),
       recipient: yup
         .string()
         .concat(btcAddressValidator())
