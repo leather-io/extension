@@ -19,7 +19,7 @@ import { defaultKeyId } from '../../../keys/key.slice';
 export function getStacksAddressByIndex(secretKey: string, addressVersion: AddressVersion) {
   return (index: number) => {
     const accountPrivateKey = createStacksPrivateKey(
-      deriveStxPrivateKey({ rootNode: mnemonicToRootNode(secretKey), index })
+      deriveStxPrivateKey({ rootNode: mnemonicToRootNode(secretKey) as any, index })
     );
     const pubKey = getPublicKey(accountPrivateKey);
     return publicKeyToAddress(addressVersion, pubKey);

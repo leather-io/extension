@@ -41,9 +41,13 @@ export function ActivityList() {
     [bitcoinTransactions]
   );
 
+  const pendingTransactionIds = stacksPendingTransactions.map(tx => tx.tx_id);
   const transactionListStacksTxs = useMemo(
-    () => convertStacksTxsToListType(stacksTransactionsWithTransfers?.results),
-    [stacksTransactionsWithTransfers]
+    () =>
+      convertStacksTxsToListType(stacksTransactionsWithTransfers?.results).filter(
+        ({ transaction }) => !pendingTransactionIds.includes(transaction.tx.tx_id)
+      ),
+    [stacksTransactionsWithTransfers, pendingTransactionIds]
   );
 
   const hasSubmittedTransactions = submittedTransactions.length > 0;

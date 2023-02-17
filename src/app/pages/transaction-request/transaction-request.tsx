@@ -108,7 +108,7 @@ function TransactionRequestBase() {
 
   return (
     <Flex alignItems="center" flexDirection="column" width="100%">
-      <Stack px="loose" spacing="loose">
+      <Stack px="loose" spacing="loose" width="100%">
         <PageTop />
         <RequestingTabClosedWarningMessage />
         <PostConditionModeWarning />

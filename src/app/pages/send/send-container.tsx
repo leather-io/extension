@@ -1,20 +1,20 @@
 import { Outlet } from 'react-router-dom';
 
-import { Flex, color } from '@stacks/ui';
+import { Flex } from '@stacks/ui';
 
 import { whenPageMode } from '@app/common/utils';
+import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
 export function SendContainer() {
   return whenPageMode({
     full: (
       <Flex
-        alignItems="start"
-        borderWidth="1px"
-        borderColor={color('border')}
-        borderRadius="16px"
-        justifyContent="center"
+        border={['unset', '1px solid']}
+        borderColor={['unset', '#DCDDE2']}
+        borderRadius={['unset', '16px']}
         maxHeight="90vh"
-        minWidth="480px"
+        maxWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
+        minWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
         pb="loose"
       >
         <Outlet />

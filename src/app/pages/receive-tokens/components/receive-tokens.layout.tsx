@@ -12,15 +12,16 @@ import { QrCode } from './address-qr-code';
 
 interface ReceiveTokensLayoutProps {
   address: string;
-  accountName: string;
+  accountName?: string;
   onCopyAddressToClipboard(address: string): void;
+  title: string;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
-  const { address, accountName, onCopyAddressToClipboard } = props;
+  const { address, accountName, onCopyAddressToClipboard, title } = props;
   const navigate = useNavigate();
 
   return (
-    <BaseDrawer title="Receive" isShowing onClose={() => navigate(-1)}>
+    <BaseDrawer title={title} isShowing onClose={() => navigate(-1)}>
       <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
         <Text color={color('text-caption')} mb="tight" textAlign="left">
           Share your account's unique address to receive tokens or collectibles. Including a memo is

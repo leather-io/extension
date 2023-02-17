@@ -1,11 +1,11 @@
 import { FiCopy } from 'react-icons/fi';
 
-import { Box, Flex, Tooltip, useClipboard } from '@stacks/ui';
+import { Box, Button, Text, useClipboard } from '@stacks/ui';
 import { color, truncateMiddle } from '@stacks/ui-utils';
 import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { Caption } from '@app/components/typography';
+import { Tooltip } from '@app/components/tooltip';
 
 interface AccountAddressProps {
   address: string;
@@ -23,8 +23,10 @@ export function AccountAddress({ address, label }: AccountAddressProps) {
   return (
     <>
       <Tooltip hideOnClick={false} label={hasCopied ? 'Copied!' : label} placement="right">
-        <Flex onClick={copyToClipboard} cursor="pointer">
-          <Caption mr="8px">{truncateMiddle(address, 4)}</Caption>
+        <Button onClick={copyToClipboard}>
+          <Text color={color('text-caption')} fontSize={['12px', '14px']}>
+            {truncateMiddle(address, 4)}
+          </Text>
           <Box
             _hover={{ cursor: 'pointer' }}
             size="12px"
@@ -32,7 +34,7 @@ export function AccountAddress({ address, label }: AccountAddressProps) {
             data-testid={UserAreaSelectors.AccountCopyAddress}
             as={FiCopy}
           />
-        </Flex>
+        </Button>
       </Tooltip>
     </>
   );

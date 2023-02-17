@@ -66,6 +66,7 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
     setPreviousTextLength(field.value.length);
   }, [field.value, fontSize, fontSizeModifier, previousTextLength, symbol]);
 
+  // TODO: could be implemented with html using padded label element
   const onClickFocusInput = useCallback(() => {
     document.getElementById(amountInputId)?.focus();
   }, []);
@@ -97,7 +98,7 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
           {symbol.toUpperCase()}
         </Text>
       </Flex>
-      {meta.error && (
+      {meta.error && meta.touched && (
         <ErrorLabel data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}>
           {meta.error}
         </ErrorLabel>

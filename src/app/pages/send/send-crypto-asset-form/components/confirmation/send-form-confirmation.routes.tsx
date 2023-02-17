@@ -9,14 +9,8 @@ import { SendFormConfirmationContainer } from './send-form-confirmation-containe
 
 export const sendFormConfirmationRoutes = (
   <Route element={<SendFormConfirmationContainer />}>
-    <Route
-      path={RouteUrls.SendBtcCryptoCurrencyConfirmation}
-      element={<BtcSendFormConfirmation />}
-    />
-    <Route
-      path={RouteUrls.SendStxCryptoCurrencyConfirmation}
-      element={<StxSendFormConfirmation />}
-    />
+    <Route path={RouteUrls.SendBtcConfirmation} element={<BtcSendFormConfirmation />} />
+    <Route path={RouteUrls.SendStxConfirmation} element={<StxSendFormConfirmation />} />
     <Route
       path={RouteUrls.SendStacksSip10Confirmation}
       element={<StacksSip10SendFormConfirmation />}

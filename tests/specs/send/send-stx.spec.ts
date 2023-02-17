@@ -7,7 +7,7 @@ import { FormErrorMessages } from '@app/common/error-messages';
 
 import { test } from '../../fixtures/fixtures';
 
-test.describe('send crypto asset', () => {
+test.describe('send stx', () => {
   let testAddress: string;
 
   // TODO: Remove with legacy send form
@@ -20,7 +20,7 @@ test.describe('send crypto asset', () => {
   //   await globalPage.setupAndUseApiCalls(extensionId);
   //   await onboardingPage.signInExistingUser();
 
-  //   testAddress = await homePage.getAddress();
+  //   testAddress = await homePage.getReceiveStxAddress();
   //   await homePage.drawerActionButton.click();
 
   //   await homePage.sendButton.click();

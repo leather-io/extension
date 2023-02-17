@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { truncateMiddle } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 import * as btc from 'micro-btc-signer';
 
@@ -33,7 +34,7 @@ export function BtcSendFormConfirmationDetails(props: BtcSendFormConfirmationDet
   return (
     <ConfirmationDetailsLayout amount={amount}>
       <ConfirmationDetail detail="Token" value="Bitcoin" />
-      <ConfirmationDetail detail="To" value={recipient} />
+      <ConfirmationDetail detail="To" value={truncateMiddle(recipient, 4)} />
       <ConfirmationDetail
         detail="Fee"
         value={<TransactionFee fee={formatMoney(fee)} usdAmount={feeInUsd} />}
