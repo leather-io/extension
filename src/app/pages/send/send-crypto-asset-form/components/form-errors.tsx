@@ -12,7 +12,12 @@ function omitAmountErrorsAsDisplayedElsewhere([key]: [string, unknown]) {
 }
 
 function shouldDisplayErrors(form: FormikContextType<unknown>) {
-  return Object.values(form.touched).includes(true) && Object.keys(form.errors).length;
+  return (
+    Object.entries(form.touched)
+      .filter(omitAmountErrorsAsDisplayedElsewhere)
+      .map(([_key, value]) => value)
+      .includes(true) && Object.keys(form.errors).length
+  );
 }
 
 const closedHeight = 24;
