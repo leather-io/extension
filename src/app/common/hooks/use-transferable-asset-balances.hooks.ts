@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
-import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
@@ -13,7 +13,7 @@ import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-
 export function useAllTransferableCryptoAssetBalances(): AllTransferableCryptoAssetBalances[] {
   const account = useCurrentAccount();
   const currentBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcCryptoCurrencyAssetBalance = useBitcoinCryptoCurrencyAssetBalance(currentBtcAddress);
+  const btcCryptoCurrencyAssetBalance = useBitcoinAssetBalance(currentBtcAddress);
   const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(
     account?.address ?? ''
   );

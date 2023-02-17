@@ -4,15 +4,13 @@ import { Box } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
-import { FeeTypes } from '@shared/models/fees/_fees.model';
-import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { useBitcoinCryptoCurrencyAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
@@ -36,36 +34,27 @@ export function BtcSendForm() {
   const routeState = useSendFormRouteState();
 
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcCryptoCurrencyAssetBalance =
-    useBitcoinCryptoCurrencyAssetBalance(currentAccountBtcAddress);
+  const btcBalance = useBitcoinAssetBalance(currentAccountBtcAddress);
 
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
 
-  const { validationSchema, currentNetwork, previewTransaction } = useBtcSendForm();
-
-  const initialValues: BitcoinSendFormValues = createDefaultInitialFormValues({
-    ...routeState,
-    fee: '',
-    feeCurrency: 'BTC',
-    feeType: FeeTypes[FeeTypes.Middle],
-    memo: '',
-    symbol: '',
-  });
+  const { validationSchema, currentNetwork, formRef, previewTransaction } = useBtcSendForm();
 
   return (
     <Formik
-      initialValues={initialValues}
       onSubmit={previewTransaction}
+      initialValues={createDefaultInitialFormValues(routeState)}
       validationSchema={validationSchema}
+      innerRef={formRef}
       {...defaultFormikProps}
     >
       {props => (
         <Form>
           <AmountField
-            balance={btcCryptoCurrencyAssetBalance.balance}
+            balance={btcBalance.balance}
             bottomInputOverlay={
               <SendMaxButton
-                balance={btcCryptoCurrencyAssetBalance.balance}
+                balance={btcBalance.balance}
                 sendMaxBalance={
                   calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
                 }
@@ -73,11 +62,7 @@ export function BtcSendForm() {
             }
           />
           <FormFieldsLayout>
-            <SelectedAssetField
-              icon={<BtcIcon />}
-              name={btcCryptoCurrencyAssetBalance.asset.name}
-              symbol="BTC"
-            />
+            <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
             <RecipientField
               labelAction="Choose account"
               lastChild
@@ -91,7 +76,7 @@ export function BtcSendForm() {
           <FormErrors />
           <PreviewButton />
           <Box my="base">
-            <AvailableBalance availableBalance={btcCryptoCurrencyAssetBalance.balance} />
+            <AvailableBalance availableBalance={btcBalance.balance} />
           </Box>
           <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
           <Outlet />
