@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
 
-import { RouteUrls } from '@shared/route-urls';
-
 interface ConfirmationRouteState {
   decimals?: number;
   token?: string;
@@ -15,7 +13,6 @@ interface ConfirmationRouteState {
 interface ConfirmationRouteStacksSip10Args {
   decimals?: number;
   name?: string;
-  symbol: string;
   tx: StacksTransaction;
 }
 
@@ -28,7 +25,7 @@ export function useSendFormNavigate() {
         return navigate('../', { relative: 'path', replace: true, state });
       },
       toConfirmAndSignBtcTransaction(tx: string, recipient: string, fee: number) {
-        return navigate(RouteUrls.SendBtcConfirmation, {
+        return navigate('confirm', {
           replace: true,
           state: {
             tx,
@@ -38,7 +35,7 @@ export function useSendFormNavigate() {
         });
       },
       toConfirmAndSignStxTransaction(tx: StacksTransaction) {
-        return navigate(RouteUrls.SendStxConfirmation, {
+        return navigate('confirm', {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
@@ -48,10 +45,9 @@ export function useSendFormNavigate() {
       toConfirmAndSignStacksSip10Transaction({
         decimals,
         name,
-        symbol,
         tx,
       }: ConfirmationRouteStacksSip10Args) {
-        return navigate(RouteUrls.SendStacksSip10Confirmation.replace(':symbol', symbol), {
+        return navigate('confirm', {
           replace: true,
           state: {
             decimals,

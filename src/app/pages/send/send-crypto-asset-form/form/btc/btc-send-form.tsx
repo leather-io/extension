@@ -20,10 +20,11 @@ import { FormFieldsLayout } from '../../components/form-fields.layout';
 import { PreviewButton } from '../../components/preview-button';
 import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendMaxButton } from '../../components/send-max-button';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
-import { createDefaultInitialFormValues, defaultFormikProps } from '../../send-form.utils';
+import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { TestnetBtcMessage } from './components/testnet-btc-message';
 import { useBtcSendForm } from './use-btc-send-form';
 
@@ -41,47 +42,46 @@ export function BtcSendForm() {
   const { validationSchema, currentNetwork, formRef, previewTransaction } = useBtcSendForm();
 
   return (
-    <Formik
-      onSubmit={previewTransaction}
-      initialValues={createDefaultInitialFormValues(routeState)}
-      validationSchema={validationSchema}
-      innerRef={formRef}
-      {...defaultFormikProps}
-    >
-      {props => (
-        <Form>
-          <AmountField
-            balance={btcBalance.balance}
-            bottomInputOverlay={
-              <SendMaxButton
-                balance={btcBalance.balance}
-                sendMaxBalance={
-                  calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
-                }
-              />
-            }
-          />
-          <FormFieldsLayout>
-            <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
-            <RecipientField
-              labelAction="Choose account"
-              lastChild
-              name="recipient"
-              onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
+    <SendCryptoAssetFormLayout>
+      <Formik
+        initialValues={createDefaultInitialFormValues(routeState)}
+        onSubmit={previewTransaction}
+        validationSchema={validationSchema}
+        innerRef={formRef}
+        {...defaultSendFormFormikProps}
+      >
+        {props => (
+          <Form>
+            <AmountField
+              balance={btcBalance.balance}
+              bottomInputOverlay={
+                <SendMaxButton
+                  balance={btcBalance.balance}
+                  sendMaxBalance={
+                    calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
+                  }
+                />
+              }
             />
-          </FormFieldsLayout>
-
-          {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
-
-          <FormErrors />
-          <PreviewButton />
-          <Box my="base">
-            <AvailableBalance availableBalance={btcBalance.balance} />
-          </Box>
-          <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
-          <Outlet />
-        </Form>
-      )}
-    </Formik>
+            <FormFieldsLayout>
+              <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
+              <RecipientField
+                labelAction="Choose account"
+                name="recipient"
+                onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
+              />
+            </FormFieldsLayout>
+            {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
+            <FormErrors />
+            <PreviewButton />
+            <Box my="base">
+              <AvailableBalance availableBalance={btcBalance.balance} />
+            </Box>
+            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
+            <Outlet />
+          </Form>
+        )}
+      </Formik>
+    </SendCryptoAssetFormLayout>
   );
 }
