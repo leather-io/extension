@@ -20,11 +20,11 @@ export const AccountAddresses = memo((props: StackProps) => {
 
   return currentAccount ? (
     <Stack isInline {...props}>
-      <AccountAddress address={currentAccount.address} label="Copy Stacks addres" />
+      <AccountAddress address={currentAccount.address} label="Copy Stacks address" />
       {isBitcoinEnabled ? (
         <AccountAddress address={btcAddress} label="Copy Bitcoin address" />
       ) : null}
-      {bnsName ? <AccountAddress address={bnsName} label="Copy BNS addres" /> : null}
+      {bnsName ? <AccountAddress address={bnsName} label="Copy BNS address" /> : null}
     </Stack>
   ) : null;
 });
