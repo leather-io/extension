@@ -10,7 +10,7 @@ import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isEmpty, isUndefined } from '@shared/utils';
+import { isEmpty } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -150,47 +150,36 @@ export function StacksSip10FungibleTokenSendForm({
       validationSchema={validationSchema}
       {...defaultFormikProps}
     >
-      {props => (
-        <NonceSetter>
-          <Form style={{ width: '100%' }}>
-            <AmountField
-              balance={availableTokenBalance}
-              bottomInputOverlay={
-                <SendMaxButton
-                  balance={availableTokenBalance}
-                  sendMaxBalance={sendMaxBalance.toString()}
-                />
-              }
-            />
-            <FormFieldsLayout>
-              <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
-              <StacksRecipientField contractId={contractId} />
-              <MemoField />
-            </FormFieldsLayout>
-            <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
-            <FormErrors />
-            <PreviewButton
-              isDisabled={
-                !(
-                  props.values.amount &&
-                  props.values.recipient &&
-                  props.values.fee &&
-                  !isUndefined(props.values.nonce)
-                )
-              }
-            />
-            <SpaceBetween>
-              <AvailableBalance availableBalance={availableTokenBalance} />
-              <EditNonceButton
-                onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
-                my={['loose', 'base']}
+      <NonceSetter>
+        <Form style={{ width: '100%' }}>
+          <AmountField
+            balance={availableTokenBalance}
+            bottomInputOverlay={
+              <SendMaxButton
+                balance={availableTokenBalance}
+                sendMaxBalance={sendMaxBalance.toString()}
               />
-            </SpaceBetween>
-            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-            <Outlet />
-          </Form>
-        </NonceSetter>
-      )}
+            }
+          />
+          <FormFieldsLayout>
+            <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
+            <StacksRecipientField contractId={contractId} />
+            <MemoField />
+          </FormFieldsLayout>
+          <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
+          <FormErrors />
+          <PreviewButton />
+          <SpaceBetween>
+            <AvailableBalance availableBalance={availableTokenBalance} />
+            <EditNonceButton
+              onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
+              my={['loose', 'base']}
+            />
+          </SpaceBetween>
+          <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+          <Outlet />
+        </Form>
+      </NonceSetter>
     </Formik>
   );
 }
