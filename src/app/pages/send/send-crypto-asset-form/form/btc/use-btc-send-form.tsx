@@ -26,7 +26,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-raw-tx';
+import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-tx';
 
 export function useBtcSendForm() {
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);

@@ -10,7 +10,7 @@ import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isEmpty, isString, isUndefined } from '@shared/utils';
+import { isEmpty, isString } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -53,6 +53,7 @@ import { MemoField } from '../../components/memo-field';
 import { PreviewButton } from '../../components/preview-button';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
+import { SendMaxButton } from '../../components/send-max-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
@@ -149,15 +150,15 @@ export function StacksSip10FungibleTokenSendForm({}) {
         validationSchema={validationSchema}
         {...defaultSendFormFormikProps}
       >
-        {props => (
+        {() => (
           <NonceSetter>
             <Form style={{ width: '100%' }}>
               <AmountField
                 balance={availableTokenBalance}
                 bottomInputOverlay={
-                  <SendAllButton
+                  <SendMaxButton
                     balance={availableTokenBalance}
-                    sendAllBalance={sendAllBalance.toString()}
+                    sendMaxBalance={sendMaxBalance.toString()}
                   />
                 }
               />
@@ -168,16 +169,7 @@ export function StacksSip10FungibleTokenSendForm({}) {
               </FormFieldsLayout>
               <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
               <FormErrors />
-              <PreviewButton
-                isDisabled={
-                  !(
-                    props.values.amount &&
-                    props.values.recipient &&
-                    props.values.fee &&
-                    !isUndefined(props.values.nonce)
-                  )
-                }
-              />
+              <PreviewButton />
               <EditNonceButton
                 onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
                 my={['loose', 'base']}

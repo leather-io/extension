@@ -56,6 +56,9 @@ export function useSendFormNavigate() {
           } as ConfirmationRouteState,
         });
       },
+      toErrorPage(error: unknown) {
+        return navigate('../error', { relative: 'path', replace: true, state: { error } });
+      },
     }),
     [navigate]
   );

@@ -7,6 +7,7 @@ import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinne
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { AccountGate } from '@app/routes/account-gate';
 
+import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
 import { SendContainer } from '../send-container';
 import { RecipientAccountsDrawer } from './components/recipient-accounts-drawer/recipient-accounts-drawer';
@@ -43,6 +44,7 @@ export const sendCryptoAssetFormRoutes = (
       {recipientAccountsDrawerRoute}
     </Route>
     <Route path="/send/btc/confirm" element={<BtcSendFormConfirmation />} />
+    <Route path="/send/btc/error" element={<BroadcastError />} />
 
     <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
       {editNonceDrawerRoute}

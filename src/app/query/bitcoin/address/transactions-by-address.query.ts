@@ -15,9 +15,8 @@ export function useGetBitcoinTransactionsByAddressQuery(
     enabled: !!address,
     queryKey: ['btc-txs-by-address', address],
     queryFn: () => client.addressApi.getTransactionsByAddress(address),
-    cacheTime: staleTime,
+    staleTime,
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
     refetchOnReconnect: false,
   });
 }
