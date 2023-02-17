@@ -15,8 +15,11 @@ import {
   btcAddressNetworkValidator,
   btcAddressValidator,
 } from '@app/common/validation/forms/address-validators';
+import {
+  btcInsufficientBalanceValidator,
+  btcMinimumSpendValidator,
+} from '@app/common/validation/forms/amount-validators';
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
-import { btcInsufficientBalanceValidator } from '@app/common/validation/forms/currency-validators';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -50,10 +53,13 @@ export function useBtcSendForm() {
         )
         .concat(
           btcInsufficientBalanceValidator({
+            // TODO: investigate yup features for cross-field validation
+            // to prevent need to access form via ref
             recipient: formRef.current?.values.recipient ?? '',
             calcMaxSpend,
           })
-        ),
+        )
+        .concat(btcMinimumSpendValidator()),
       recipient: yup
         .string()
         .concat(btcAddressValidator())
