@@ -4,12 +4,12 @@ import { Stack, StackProps } from '@stacks/ui';
 
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { AccountAddresses } from './account-addresses';
 
 export const CurrentAccount = memo((props: StackProps) => {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   if (!currentAccount) return null;
   return (
     <Stack spacing="base-tight" alignItems="center" isInline {...props}>

@@ -7,7 +7,7 @@ import {
 } from '@shared/models/account.model';
 import { Money, createMoney } from '@shared/models/money.model';
 
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import {
@@ -38,7 +38,7 @@ function useUnanchoredStacksBalances(address: string) {
 }
 
 export function useCurrentStacksAccountUnanchoredBalances() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   return useUnanchoredStacksBalances(account?.address ?? '');
 }
 
@@ -49,6 +49,6 @@ export function useAnchoredStacksAccountBalances(address: string) {
 }
 
 export function useCurrentStacksAccountAnchoredBalances() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   return useAnchoredStacksAccountBalances(account?.address ?? '');
 }

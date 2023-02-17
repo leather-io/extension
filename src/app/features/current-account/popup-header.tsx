@@ -7,7 +7,7 @@ import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { CurrentStxAddress } from '@app/features/current-account/current-stx-address';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 interface PopupHeaderLayoutProps {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ function PopupHeaderLayout({ children }: PopupHeaderLayoutProps) {
 }
 
 function PopupHeaderSuspense() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   return <PopupHeaderLayout>{account && <Balance address={account.address} />}</PopupHeaderLayout>;
 }
 

@@ -16,8 +16,7 @@ const queryOptions = {
   refetchOnMount: false,
   refetchInterval: false,
   refetchOnReconnect: false,
-  retry: 2,
-  retryDelay: 2 * 60 * 1000,
+  retry: 0,
 } as const;
 
 function fetchUnanchoredAccountInfo(client: StacksClient, limiter: RateLimiter) {

@@ -7,6 +7,7 @@ export function PreviewButton(props: ButtonProps) {
 
   return (
     <Button
+      type="button"
       borderRadius="10px"
       data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
       height="48px"

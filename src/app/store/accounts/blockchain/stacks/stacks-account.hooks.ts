@@ -19,7 +19,7 @@ export function useStacksAccounts() {
 //   This contains the state of the current account:
 //   could be the account associated with an in-process transaction request
 //   or the last selected / first account of the user
-export function useCurrentAccount() {
+export function useCurrentStacksAccount() {
   const accountIndex = useCurrentAccountIndex();
   const txIndex = useTransactionAccountIndex();
   const signatureIndex = useSignatureRequestAccountIndex();
@@ -36,7 +36,7 @@ export function useCurrentAccount() {
 }
 
 export function useCurrentAccountStxAddressState() {
-  return useCurrentAccount()?.address ?? '';
+  return useCurrentStacksAccount()?.address ?? '';
 }
 
 export function useTransactionAccountIndex() {

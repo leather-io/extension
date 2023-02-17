@@ -12,7 +12,7 @@ export const queryClient = new QueryClient({
     queries: {
       cacheTime: PERSISTENCE_CACHE_TIME,
       // https://tanstack.com/query/v4/docs/guides/testing#turn-off-retries
-      retry: !IS_TEST_ENV,
+      retry: IS_TEST_ENV ? false : 3,
     },
   },
 });

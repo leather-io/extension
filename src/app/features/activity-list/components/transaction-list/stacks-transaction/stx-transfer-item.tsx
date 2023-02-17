@@ -10,7 +10,7 @@ import {
 import { stacksValue } from '@app/common/stacks-utils';
 import { getTxCaption } from '@app/common/transactions/stacks/transaction.utils';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
 
@@ -19,7 +19,7 @@ interface StxTransferItemProps {
   parentTx: AddressTransactionWithTransfers;
 }
 export const StxTransferItem = ({ stxTransfer, parentTx }: StxTransferItemProps) => {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const isOriginator = stxTransfer.sender === currentAccount?.address;
 
   const caption = getTxCaption(parentTx.tx) ?? '';

@@ -25,7 +25,7 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
@@ -38,7 +38,7 @@ export function LedgerSignTxContainer() {
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const hwWalletTxBroadcast = useTransactionBroadcast();
   const canUserCancelAction = useActionCancellableByUser();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();

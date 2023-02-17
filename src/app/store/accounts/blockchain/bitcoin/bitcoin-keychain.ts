@@ -2,11 +2,10 @@ import { createSelector } from '@reduxjs/toolkit';
 import { HDKey } from '@scure/bip32';
 
 import { NetworkModes } from '@shared/constants';
-import { deriveTaprootAccountFromHdKey } from '@shared/crypto/bitcoin/p2tr-address-gen';
+import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
-  deriveIndexZeroKeychainFromAccount,
-  deriveNativeSegWitAccountFromHdKey,
-  getNativeSegWitAddressIndexZero,
+  deriveNativeSegWitAccountKeychain,
+  getNativeSegWitAddressIndex,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
@@ -33,17 +32,15 @@ function bitcoinKeychainSelectorFactory(
 export function getNativeSegwitAddressFromMnemonic(secretKey: string) {
   return (index: number) => {
     const rootNode = mnemonicToRootNode(secretKey);
-    const account = deriveIndexZeroKeychainFromAccount(
-      deriveNativeSegWitAccountFromHdKey(rootNode, 'mainnet')(index)
-    );
-    return getNativeSegWitAddressIndexZero(account, 'mainnet');
+    const account = deriveNativeSegWitAccountKeychain(rootNode, 'mainnet')(index);
+    return getNativeSegWitAddressIndex(account, 'mainnet');
   };
 }
 
 export const selectSoftwareBitcoinNativeSegWitKeychain = bitcoinKeychainSelectorFactory(
-  deriveNativeSegWitAccountFromHdKey
+  deriveNativeSegWitAccountKeychain
 );
 
 export const selectSoftwareBitcoinTaprootKeychain = bitcoinKeychainSelectorFactory(
-  deriveTaprootAccountFromHdKey
+  deriveTaprootAccountFromRootKeychain
 );
