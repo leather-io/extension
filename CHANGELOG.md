@@ -1,3 +1,15 @@
+## [3.34.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.1...v3.34.2) (2023-02-16)
+
+
+### Bug Fixes
+
+* prod btc address from fund page receive ([ca01c28](https://github.com/hirosystems/stacks-wallet-web/commit/ca01c280ef70d2c52d056a6d40e23141e683bac1))
+
+
+### Internal
+
+* remove logs ([4091543](https://github.com/hirosystems/stacks-wallet-web/commit/4091543b8088949eb33add3e88b5674cf6d3bd97))
+
 ## [3.34.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.0...v3.34.1) (2023-02-15)
 
 
