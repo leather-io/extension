@@ -1,12 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import { HDKey } from '@scure/bip32';
 import * as btc from 'micro-btc-signer';
 
-import {
-  deriveBip32KeychainFromExtendedPublicKey,
-  deriveNativeSegWitReceiveAddressIndex,
-} from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { deriveNativeSegWitReceiveAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { isUndefined } from '@shared/utils';
 
 import {
@@ -56,7 +55,7 @@ export function useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex: num
 
 function useCurrentBitcoinNativeSegwitAccountKeychain() {
   const { xpub } = useCurrentBitcoinNativeSegwitAccount();
-  const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
+  const keychain = HDKey.fromExtendedKey(xpub);
   if (!keychain?.publicKey) throw new Error('No public key for given keychain');
   if (!keychain.pubKeyHash) throw new Error('No pub key hash for given keychain');
   return keychain;
@@ -65,7 +64,7 @@ function useCurrentBitcoinNativeSegwitAccountKeychain() {
 // Concept of current address index won't exist with privacy mode
 export function useCurrentBitcoinNativeSegwitAddressIndexKeychain() {
   const keychain = useCurrentBitcoinNativeSegwitAccountKeychain();
-  return keychain.deriveChild(0).deriveChild(0);
+  return deriveAddressIndexZeroFromAccount(keychain);
 }
 
 export function useSignBitcoinNativeSegwitTx() {
@@ -74,7 +73,7 @@ export function useSignBitcoinNativeSegwitTx() {
   return useCallback(
     (tx: btc.Transaction) => {
       if (isUndefined(keychain)) return;
-      tx.sign(keychain.deriveChild(0).deriveChild(0).privateKey!);
+      tx.sign(deriveAddressIndexZeroFromAccount(keychain).privateKey!);
     },
     [keychain]
   );

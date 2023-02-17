@@ -7,7 +7,7 @@ import {
   useCurrentAccountNames,
   useGetAccountNamesByAddressQuery,
 } from '@app/query/stacks/bns/bns.hooks';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 const parseIfValidPunycode = (s: string) => {
@@ -19,7 +19,7 @@ const parseIfValidPunycode = (s: string) => {
 };
 
 export function useCurrentAccountDisplayName() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const { data: names = [] } = useCurrentAccountNames();
 
   return useMemo(() => {

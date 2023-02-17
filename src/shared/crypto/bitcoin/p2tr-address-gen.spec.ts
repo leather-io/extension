@@ -1,10 +1,12 @@
-import * as secp from '@noble/secp256k1';
 import { HDKey } from '@scure/bip32';
 import { mnemonicToSeedSync } from '@scure/bip39';
 import { SECRET_KEY } from '@tests-legacy/mocks';
-import * as btc from 'micro-btc-signer';
 
-import { getBtcSignerLibNetworkByMode } from './bitcoin.network';
+import { deriveAddressIndexKeychainFromAccount } from './bitcoin.utils';
+import {
+  deriveTaprootAccountFromRootKeychain,
+  getTaprootAddressIndexFromAccount,
+} from './p2tr-address-gen';
 
 // Source:
 // generated in Sparrow with same secret key used in tests
@@ -21,15 +23,14 @@ describe('taproot address gen', () => {
   test.each(addresses)('should generate taproot addresses', address => {
     const keychain = HDKey.fromMasterSeed(mnemonicToSeedSync(SECRET_KEY));
     const index = addresses.indexOf(address);
-    const accountZero = keychain.derive(`m/86'/1'/0'/0/${index}`);
+    const accountZeroKeychain = deriveTaprootAccountFromRootKeychain(keychain, 'testnet')(0);
 
-    if (!accountZero.privateKey) throw new Error('No private key found');
-
-    const addressIndex = btc.p2tr(
-      secp.schnorr.getPublicKey(accountZero.privateKey),
-      undefined,
-      getBtcSignerLibNetworkByMode('testnet')
+    const addressIndexDetails = getTaprootAddressIndexFromAccount(
+      deriveAddressIndexKeychainFromAccount(accountZeroKeychain)(index),
+      'testnet'
     );
-    expect(addressIndex.address).toEqual(address);
+    if (!accountZeroKeychain.privateKey) throw new Error('No private key found');
+
+    expect(addressIndexDetails.address).toEqual(address);
   });
 });

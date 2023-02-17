@@ -16,7 +16,7 @@ import {
 } from '@app/common/transactions/stacks/post-condition.utils';
 import { EventCard } from '@app/components/event-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
@@ -29,7 +29,7 @@ function FungiblePostConditionItemSuspense(
   props: FungiblePostConditionItemProps
 ): JSX.Element | null {
   const { isLast, pc } = props;
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const pendingTransaction = useTransactionRequestState();
   // Use token meta data if available
   const asset = useAssetFromFungiblePostCondition(pc);

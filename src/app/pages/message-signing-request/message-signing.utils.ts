@@ -5,10 +5,10 @@ import { ClarityValue, TupleCV, createStacksPrivateKey } from '@stacks/transacti
 import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { isString } from '@shared/utils';
 
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useMessageSignerSoftwareWallet() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   return useCallback(
     ({ message, domain }: { message: string | ClarityValue; domain?: TupleCV }) => {
       if (!account || account.type === 'ledger') return null;

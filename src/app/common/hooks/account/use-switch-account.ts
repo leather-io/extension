@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { useHasSwitchedAccounts } from '@app/store/accounts/account';
 import {
-  useCurrentAccount,
+  useCurrentStacksAccount,
   useStacksAccounts,
   useTransactionAccountIndex,
   useTransactionNetworkVersion,
@@ -15,7 +15,7 @@ const TIMEOUT = 350;
 
 export function useSwitchAccount(callback?: () => void) {
   const { switchAccount } = useKeyActions();
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const accounts = useStacksAccounts();
   const txIndex = useTransactionAccountIndex();
   const transactionVersion = useTransactionNetworkVersion();

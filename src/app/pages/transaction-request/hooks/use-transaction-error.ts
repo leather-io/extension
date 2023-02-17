@@ -9,7 +9,7 @@ import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 export function useTransactionError() {
@@ -17,7 +17,7 @@ export function useTransactionError() {
   const contractInterface = useContractInterface(transactionRequest as ContractCallPayload);
   const { origin } = useDefaultRequestParams();
 
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 
   return useMemo<TransactionErrorReason | void>(() => {

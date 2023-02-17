@@ -32,6 +32,8 @@ export enum RouteUrls {
   FundReceiveBtc = '/fund/receive/btc',
   IncreaseFee = '/increase-fee',
   Receive = '/receive',
+  ReceiveCollectible = '/receive/collectible',
+  ReceiveCollectibleOrdinal = '/receive/collectible/ordinal',
   ReceiveStx = '/receive/stx',
   ReceiveBtc = '/receive/btc',
   Send = '/send-transaction',

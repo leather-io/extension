@@ -4,13 +4,13 @@ import { useClipboard } from '@stacks/ui';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
 // ts-unused-exports:disable-next-line
 export function ReceiveTokens() {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const analytics = useAnalytics();
   const { onCopy } = useClipboard(currentAccount?.address ?? '');
   const accountName = useCurrentAccountDisplayName();
