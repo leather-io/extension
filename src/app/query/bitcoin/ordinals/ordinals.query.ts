@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { ordApiXyzGetInscriptionByAddressSchema } from './utils';
 
 export function useGetOrdinalsQuery() {
   // TODO: although this hook returns a btc address, it's not the correct one for ordinals.
-  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
 
   return useQuery(['ordinals', bitcoinAddress] as const, async ({ queryKey }) => {
     const [_, address] = queryKey;
