@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import get from 'lodash.get';
 import * as yup from 'yup';
 
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -100,13 +101,14 @@ function TransactionRequestBase() {
 
   const initialValues: StacksTransactionFormValues = {
     fee: '',
+    feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Middle],
     nonce: nextNonce?.nonce,
   };
 
   return (
     <Flex alignItems="center" flexDirection="column" width="100%">
-      <Stack px="loose" spacing="loose">
+      <Stack px="loose" spacing="loose" width="100%">
         <PageTop />
         <RequestingTabClosedWarningMessage />
         <PostConditionModeWarning />
@@ -129,7 +131,7 @@ function TransactionRequestBase() {
                 <FeeForm feeEstimations={feeEstimations.estimates} />
                 <SubmitAction />
                 <EditNonceButton onEditNonce={() => navigate(RouteUrls.EditNonce)} />
-                <HighFeeDrawer />
+                <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
               </NonceSetter>
               <Outlet />
             </>

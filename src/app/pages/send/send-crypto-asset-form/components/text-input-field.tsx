@@ -26,7 +26,7 @@ export function TextInputField({
   placeholder,
   topInputOverlay,
 }: TextInputFieldProps) {
-  const [field, meta, helpers] = useField(name);
+  const [field, meta] = useField(name);
 
   const showError = meta.error && meta.touched;
 
@@ -83,6 +83,7 @@ export function TextInputField({
       </SpaceBetween>
       <Input
         _focus={{ border: 'none' }}
+        spellCheck="false"
         data-testid={dataTestId}
         id={name}
         autoComplete="off"
@@ -90,13 +91,15 @@ export function TextInputField({
         display="block"
         fontSize={1}
         height="24px"
-        onBlur={onBlur}
-        onChange={evt => helpers.setValue(evt.currentTarget.value)}
         p="none"
         placeholder={placeholder}
         type="input"
-        value={field.value}
         width="100%"
+        {...field}
+        onBlur={e => {
+          onBlur?.();
+          field.onBlur(e);
+        }}
       />
     </Flex>
   );

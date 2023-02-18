@@ -7,10 +7,10 @@ import { sendMessage } from '@shared/messages';
 
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
-import { getStacksAddressByIndex } from '@app/common/keychain/keychain';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';
 
+import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-keychain';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';

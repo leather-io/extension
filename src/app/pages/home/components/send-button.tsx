@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonProps } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
-import { featureFlags } from '@shared/feature-flags';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -16,33 +15,38 @@ import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 import { HomeActionButton } from './tx-button';
 
-const SendTxButton = (props: ButtonProps) => (
-  <HomeActionButton
-    data-testid={HomePageSelectors.SendCryptoAssetBtn}
-    icon={FiArrowUp}
-    label="Send"
-    buttonComponent={PrimaryButton}
-    {...props}
-  />
-);
+function SendTxButton(props: ButtonProps) {
+  return (
+    <HomeActionButton
+      data-testid={HomePageSelectors.SendCryptoAssetBtn}
+      icon={FiArrowUp}
+      label="Send"
+      buttonComponent={PrimaryButton}
+      {...props}
+    />
+  );
+}
 
-const SendButtonSuspense = () => {
+function SendButtonSuspense() {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const account = useCurrentAccount();
-  const stxCryptAssetBalance = useStacksAnchoredCryptoCurrencyAssetBalance(account?.address ?? '');
+  const stxAssetBalance = useStacksAnchoredCryptoCurrencyAssetBalance(account?.address ?? '');
   const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
-  const isDisabled = !stxCryptAssetBalance && ftAssets?.length === 0;
+  const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
+  const isBitcoinEnabled = useBitcoinFeature();
+
   return (
     <SendTxButton
       onClick={() =>
         whenWallet({
           ledger: () =>
-            featureFlags.bitcoinEnabled
+            isBitcoinEnabled
               ? whenPageMode({
                   full: () => navigate(RouteUrls.SendCryptoAsset),
                   popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
@@ -52,20 +56,20 @@ const SendButtonSuspense = () => {
                   popup: () => openIndexPageInNewTab(RouteUrls.Send),
                 })(),
           software: () =>
-            featureFlags.bitcoinEnabled
-              ? navigate(RouteUrls.SendCryptoAsset)
-              : navigate(RouteUrls.Send),
+            isBitcoinEnabled ? navigate(RouteUrls.SendCryptoAsset) : navigate(RouteUrls.Send),
         })()
       }
       isDisabled={isDisabled}
     />
   );
-};
+}
 
 const SendButtonFallback = memo(() => <SendTxButton isDisabled />);
 
-export const SendButton = () => (
-  <Suspense fallback={<SendButtonFallback />}>
-    <SendButtonSuspense />
-  </Suspense>
-);
+export function SendButton() {
+  return (
+    <Suspense fallback={<SendButtonFallback />}>
+      <SendButtonSuspense />
+    </Suspense>
+  );
+}

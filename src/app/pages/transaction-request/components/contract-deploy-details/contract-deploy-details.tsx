@@ -3,17 +3,22 @@ import { useState } from 'react';
 import { BoxProps, CodeBlock, Stack, color } from '@stacks/ui';
 
 import { Prism } from '@app/common/clarity-prism';
-import { useWallet } from '@app/common/hooks/use-wallet';
 import { Divider } from '@app/components/layout/divider';
 import { Caption, Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
 import { Row } from '@app/pages/transaction-request/components/row';
+import {
+  useCurrentAccount,
+  useCurrentAccountStxAddressState,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 function ContractCodeSection(): JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
-  const { currentAccount, currentAccountStxAddress } = useWallet();
+
+  const currentAccount = useCurrentAccount();
+  const currentAccountStxAddress = useCurrentAccountStxAddressState();
 
   if (
     !transactionRequest ||
@@ -26,7 +31,6 @@ function ContractCodeSection(): JSX.Element | null {
 
   return (
     <CodeBlock
-      maxWidth="379px"
       overflow="auto"
       border="4px solid"
       borderColor={color('border')}
@@ -62,7 +66,8 @@ function TabButton(props: TabButtonProps): JSX.Element {
 
 export function ContractDeployDetails(): JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
-  const { currentAccount, currentAccountStxAddress } = useWallet();
+  const currentAccount = useCurrentAccount();
+  const currentAccountStxAddress = useCurrentAccountStxAddressState();
   const [tab, setTab] = useState<'details' | 'code'>('details');
 
   if (

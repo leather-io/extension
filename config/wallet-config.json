@@ -74,6 +74,7 @@
       "name": "OKX"
     }
   },
+  "bitcoinFeatureEnabled": true,
   "feeEstimations": {
     "maxValues": [500000, 750000, 2000000],
     "maxValuesEnabled": false,

@@ -68,5 +68,23 @@ module.exports = {
         'no-console': [0],
       },
     },
+    {
+      files: ['src/**/*'],
+      excludedFiles: 'src/app/store/**',
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: 'react-redux',
+                importNames: ['useSelector'],
+                message: 'Selectors must be expored from the store via a hook',
+              },
+            ],
+          },
+        ],
+      },
+    },
   ],
 };

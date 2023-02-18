@@ -33,7 +33,7 @@ import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentAccount,
   useCurrentAccountStxAddressState,
-} from '@app/store/accounts/account.hooks';
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   useCurrentNetworkState,
   useCurrentStacksNetworkState,

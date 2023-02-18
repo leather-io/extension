@@ -28,8 +28,12 @@ export enum RouteUrls {
   ChooseAccount = '/choose-account',
   Fund = '/fund',
   FundReceive = '/fund/receive',
+  FundReceiveStx = '/fund/receive/stx',
+  FundReceiveBtc = '/fund/receive/btc',
   IncreaseFee = '/increase-fee',
   Receive = '/receive',
+  ReceiveStx = '/receive/stx',
+  ReceiveBtc = '/receive/btc',
   Send = '/send-transaction',
 
   TransactionRequest = '/transaction',
@@ -51,7 +55,7 @@ export enum RouteUrls {
   SendCryptoAsset = '/send',
   SendCryptoAssetForm = '/send/:symbol',
   SendCryptoAssetFormRecipientAccounts = 'recipient-accounts',
-  SendBtcCryptoCurrencyConfirmation = '/send/btc/confirmation',
-  SendStxCryptoCurrencyConfirmation = '/send/stx/confirmation',
-  SendStacksSip10Confirmation = '/send/:symbol/confirmation',
+  SendBtcConfirmation = '/send/btc/confirm',
+  SendStxConfirmation = '/send/stx/confirm',
+  SendStacksSip10Confirmation = '/send/:symbol/confirm',
 }

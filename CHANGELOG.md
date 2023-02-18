@@ -1,3 +1,57 @@
+## [3.34.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.1...v3.34.2) (2023-02-16)
+
+
+### Bug Fixes
+
+* prod btc address from fund page receive ([ca01c28](https://github.com/hirosystems/stacks-wallet-web/commit/ca01c280ef70d2c52d056a6d40e23141e683bac1))
+
+
+### Internal
+
+* remove logs ([4091543](https://github.com/hirosystems/stacks-wallet-web/commit/4091543b8088949eb33add3e88b5674cf6d3bd97))
+
+## [3.34.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.0...v3.34.1) (2023-02-15)
+
+
+### Bug Fixes
+
+* add btc address to account header ([4c1616d](https://github.com/hirosystems/stacks-wallet-web/commit/4c1616d4b745290c46a36394c331b1b8f669446b))
+* disable bitcoin for ledger ([f2e8005](https://github.com/hirosystems/stacks-wallet-web/commit/f2e8005eb15fefdf5fe85b7be8e77b9dfb652d3a))
+* null char in memo field ([ff56e76](https://github.com/hirosystems/stacks-wallet-web/commit/ff56e7612f6bc3d83df15c37b4ee709c63a79750))
+* recipient choose account ([174ee8e](https://github.com/hirosystems/stacks-wallet-web/commit/174ee8ea3d245d80ab1d0eb0c1eaabf4ae6fa0c9))
+* tooltip hiding after click ([e53add6](https://github.com/hirosystems/stacks-wallet-web/commit/e53add65133d3c82b48f894387a5f1978a1b6a17))
+
+## [3.34.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.33.1...v3.34.0) (2023-02-14)
+
+
+### Features
+
+* add bitcoin feature to wallet config ([73bb4e3](https://github.com/hirosystems/stacks-wallet-web/commit/73bb4e3f64a6131a2408b4e3014eb3932e0b0145))
+* send bitcoin tx ([1b29f88](https://github.com/hirosystems/stacks-wallet-web/commit/1b29f88d05500b15f51d2a942ff591d2b663bbef))
+
+
+### Bug Fixes
+
+* branch name env variable ([afad562](https://github.com/hirosystems/stacks-wallet-web/commit/afad56246612ff4bc16074b8e75d27668b115126))
+* kill gaia update on create account ([1c7fc13](https://github.com/hirosystems/stacks-wallet-web/commit/1c7fc13ca839d8f25fe49e6c31568e71905c48cd))
+* send all with pending txs ([41ec042](https://github.com/hirosystems/stacks-wallet-web/commit/41ec0420f025be32c54620dc5a646291b08dd208))
+* send form amount ([1a533cc](https://github.com/hirosystems/stacks-wallet-web/commit/1a533cc60f6965b71c42b9b105224e1a57854be4))
+
+
+### Internal
+
+* remove localStorage wallet config ([2271968](https://github.com/hirosystems/stacks-wallet-web/commit/2271968cae8d46e07a6b20f031e910c1d27ed097))
+* rushed changes for testnet support ([06a8cb4](https://github.com/hirosystems/stacks-wallet-web/commit/06a8cb4dcdbd88d70af14cc78f43ea1ad8b15014))
+* store structure ([9dc1b27](https://github.com/hirosystems/stacks-wallet-web/commit/9dc1b270561f2b01b5d8a45f98b7a7ff75c0b183))
+
+## [3.33.1](https://github.com/hirosystems/stacks-wallet-web/compare/v3.33.0...v3.33.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* remove localstorage data when migrated ([7da7c21](https://github.com/hirosystems/stacks-wallet-web/commit/7da7c21c3d46f6ff16bc3a3e6de9e029130998c1))
+* send form bugs ([c965bc2](https://github.com/hirosystems/stacks-wallet-web/commit/c965bc20b1a677cf12c72e5e15ee8ba69a9971b5))
+
 ## [3.33.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.32.5...v3.33.0) (2023-02-07)
 
 

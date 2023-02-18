@@ -5,10 +5,10 @@ import { useSearchParams } from 'react-router-dom';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { verifyProfileUpdateRequest } from '@app/common/profiles/requests';
 
-import { useAccounts } from '../accounts/account.hooks';
+import { useStacksAccounts } from '../accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useIsProfileUpdateRequestValid() {
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
   const { origin, requestToken } = useProfileUpdateRequestSearchParams();
 
   return useAsync(async () => {

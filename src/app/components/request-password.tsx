@@ -5,7 +5,7 @@ import { Box, Input, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useWallet } from '@app/common/hooks/use-wallet';
+import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { PageTitle } from '@app/components/page-title';
 import { Text } from '@app/components/typography';
@@ -21,14 +21,14 @@ const waitingMessages: WaitingMessages = {
 };
 
 interface RequestPasswordProps {
-  onSuccess(password: string): void;
+  onSuccess(): void;
   title?: string;
   caption?: string;
 }
 export function RequestPassword({ title, caption, onSuccess }: RequestPasswordProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { unlockWallet } = useWallet();
+  const { unlockWallet } = useKeyActions();
   const analytics = useAnalytics();
   const [isRunning, waitingMessage, startWaitingMessage, stopWaitingMessage] =
     useWaitingMessage(waitingMessages);
@@ -40,7 +40,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
     setError('');
     try {
       await unlockWallet(password);
-      onSuccess?.(password);
+      onSuccess?.();
     } catch (error) {
       setError('The password you entered is invalid');
     }

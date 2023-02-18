@@ -4,11 +4,7 @@ import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transact
 
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
-const staleTime = 15 * 60 * 1000;
-
-const queryOptions = {
-  cacheTime: staleTime,
-};
+const staleTime = 30 * 1000;
 
 export function useGetBitcoinTransactionsByAddressQuery(
   address: string
@@ -19,6 +15,8 @@ export function useGetBitcoinTransactionsByAddressQuery(
     enabled: !!address,
     queryKey: ['btc-txs-by-address', address],
     queryFn: () => client.addressApi.getTransactionsByAddress(address),
-    ...queryOptions,
+    staleTime,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 }

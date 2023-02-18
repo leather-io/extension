@@ -12,7 +12,12 @@ function omitAmountErrorsAsDisplayedElsewhere([key]: [string, unknown]) {
 }
 
 function shouldDisplayErrors(form: FormikContextType<unknown>) {
-  return Object.values(form.touched).includes(true) && Object.keys(form.errors).length;
+  return (
+    Object.entries(form.touched)
+      .filter(omitAmountErrorsAsDisplayedElsewhere)
+      .map(([_key, value]) => value)
+      .includes(true) && Object.keys(form.errors).length
+  );
 }
 
 const closedHeight = 24;
@@ -30,9 +35,13 @@ export function FormErrors() {
     setShowHide(closedHeight);
   }, [form]);
 
-  const [firstError] = Object.entries(form.errors).filter(omitAmountErrorsAsDisplayedElsewhere);
+  const [firstError] =
+    Object.entries(form.errors).filter(omitAmountErrorsAsDisplayedElsewhere) ?? [];
 
-  return firstError && shouldDisplayErrors(form) ? (
+  const [field, message] = firstError ?? [];
+  const isFirstErrorFieldTouched = (form.touched as any)[field];
+
+  return message && isFirstErrorFieldTouched && shouldDisplayErrors(form) ? (
     <AnimateHeight duration={400} easing="ease-out" height={showHide}>
       <Flex height={openHeight + 'px'}>
         <ErrorLabel

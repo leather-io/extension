@@ -64,6 +64,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           textAlign="right"
           type="number"
           value={input.value}
+          autoFocus={true}
         />
       </InputGroup>
     </Stack>

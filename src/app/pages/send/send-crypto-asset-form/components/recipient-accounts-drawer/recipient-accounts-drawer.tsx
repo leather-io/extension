@@ -6,21 +6,21 @@ import { Box } from '@stacks/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { useAccounts } from '@app/store/accounts/account.hooks';
+import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { useStacksFtParams } from '../../form/stacks-sip10/use-stacks-ft-params';
+import { useStacksFtRouteState } from '../../form/stacks-sip10/use-stacks-ft-params';
 import { AccountListItem } from './account-list-item';
 
 const smallNumberOfAccountsToRenderWholeList = 10;
 
 export const RecipientAccountsDrawer = memo(() => {
-  const { contractId } = useStacksFtParams();
+  const { contractId } = useStacksFtRouteState();
   const { whenWallet } = useWalletType();
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
   const navigate = useNavigate();
 
   const onGoBack = useCallback(
-    () => navigate('..', { state: { contractId } }),
+    () => navigate('..', { replace: true, state: { contractId } }),
     [contractId, navigate]
   );
 

@@ -20,7 +20,7 @@ async function fetchCoingeckoMarketData(currency: CryptoCurrencies) {
 }
 
 export function selectCoingeckoUsdPrice(resp: any) {
-  return resp?.blockstack?.usd;
+  return (Object.values(resp)[0] as any)?.usd;
 }
 
 export function useCoinGeckoMarketDataQuery(currency: CryptoCurrencies) {

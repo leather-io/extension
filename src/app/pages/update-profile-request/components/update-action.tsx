@@ -15,15 +15,15 @@ import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
 import { gaiaUrl } from '@shared/constants';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useCurrentAccount } from '@app/store/accounts/account.hooks';
+import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
-import { useStacksWalletState } from '@app/store/wallet/wallet.hooks';
 
 import { UpdateActionLayout } from './update-action.layout';
 
 function useUpdateProfileSoftwareWallet() {
   const account = useCurrentAccount();
-  const wallet = useStacksWalletState();
+  const wallet = useStacksWallet();
 
   return useCallback(
     async (publicProfile: PublicPersonProfile) => {

@@ -5,11 +5,8 @@ import { Box } from '@stacks/ui';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
-import {
-  useAccounts,
-  useCurrentAccountIndex,
-  useHasCreatedAccount,
-} from '@app/store/accounts/account.hooks';
+import { useCurrentAccountIndex, useHasCreatedAccount } from '@app/store/accounts/account';
+import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 
 import { AccountListUnavailable } from './components/account-list-unavailable';
@@ -18,7 +15,7 @@ import { SwitchAccountList } from './components/switch-account-list';
 
 export const SwitchAccountDrawer = memo(() => {
   const [isShowing, setShowSwitchAccountsState] = useShowSwitchAccountsState();
-  const accounts = useAccounts();
+  const accounts = useStacksAccounts();
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
   const [, setHasCreatedAccount] = useHasCreatedAccount();

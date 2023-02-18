@@ -79,7 +79,7 @@ export function useSignIn() {
       }
 
       await simulateShortDelayToAvoidImmediateNavigation();
-      toast.success('Secret Key valid');
+
       dispatch(inMemoryKeyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
       dispatch(onboardingActions.hideSuggestedFirstSteps(true));
       void analytics.track('submit_valid_secret_key');

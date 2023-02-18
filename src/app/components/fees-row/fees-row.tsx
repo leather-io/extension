@@ -19,10 +19,11 @@ import { TransactionFee } from './components/transaction-fee';
 
 interface FeeRowProps extends StackProps {
   fees?: Fees;
+  allowCustom?: boolean;
   isSponsored: boolean;
 }
 export function FeesRow(props: FeeRowProps): JSX.Element {
-  const { fees, isSponsored, ...rest } = props;
+  const { fees, isSponsored, allowCustom = true, ...rest } = props;
   const [feeField, _, feeHelper] = useField('fee');
   const [feeCurrencyField] = useField('feeCurrency');
   const [feeTypeField, __, feeTypeHelper] = useField('feeType');
@@ -95,8 +96,9 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
       isSponsored={isSponsored}
       selectInput={
         <FeeEstimateSelect
+          allowCustom={allowCustom}
           isVisible={isSelectVisible}
-          items={fees.estimates}
+          estimate={fees.estimates}
           onSelectItem={handleSelectFeeEstimateOrCustomField}
           onSetIsSelectVisible={(value: boolean) => setIsSelectVisible(value)}
           selectedItem={selectedItem}
