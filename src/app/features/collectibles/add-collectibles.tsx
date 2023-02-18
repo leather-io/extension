@@ -1,10 +1,15 @@
 import { FiPlus } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 import { Box, Text, color } from '@stacks/ui';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { Caption } from '@app/components/typography';
 
 export function AddCollectibles() {
+  const navigate = useNavigate();
+
   return (
     <Box>
       <Box pb="base">
@@ -16,10 +21,7 @@ export function AddCollectibles() {
           }}
         >
           <Box
-            onClick={() => {
-              // TODO
-              alert('TODO Add collectible');
-            }}
+            onClick={() => navigate(RouteUrls.ReceiveCollectible)}
             borderRadius="12px"
             backgroundColor="#EEF2FB" // NOTE: color not yet available from `@stacks/ui`.
             sx={{
