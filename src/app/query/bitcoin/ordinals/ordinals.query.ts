@@ -6,7 +6,6 @@ import * as btc from 'micro-btc-signer';
 import { NetworkConfiguration, NetworkModes } from '@shared/constants';
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
