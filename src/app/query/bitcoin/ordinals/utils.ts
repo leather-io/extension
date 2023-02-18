@@ -47,3 +47,15 @@ export const ordApiXyzGetTransactionOutput = yup
     inscriptions: yup.string().required(),
   })
   .required();
+
+/**
+ * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data
+ * that is not currently used by the app may be returned by this endpoint.
+ *
+ * See API docs, https://ordapi.xyz/
+ */
+export const ordApiXyzGetTransactionOutput = yup
+  .object({
+    inscriptions: yup.string().required(),
+  })
+  .required();
