@@ -8,9 +8,10 @@ import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.net
 
 import { useKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { ordApiXyzGetInscriptionByAddressSchema } from './utils';
+import { ordApiXyzGetInscriptionByInscriptionSchema, ordApiXyzGetTransactionOutput } from './utils';
 
 const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
 
@@ -31,13 +32,18 @@ function getTaprootAddress(index: number, key: HDKey, network: NetworkConfigurat
     getBtcSignerLibNetworkByMode(network.id as NetworkModes)
   );
 
-  return address.address;
+  const addressString = address.address;
+  if (!addressString) {
+    throw new Error('Expected address to be defined.');
+  }
+  return addressString;
 }
 
 export function useGetOrdinalsQuery() {
   const network = useCurrentNetwork();
   const account = useCurrentAccount();
   const keychain = useKeychain();
+  const client = useBitcoinClient();
 
   return useQuery(
     ['ordinals', account, keychain, network] as const,
@@ -49,44 +55,68 @@ export function useGetOrdinalsQuery() {
       let index = 0;
       const foundOrdinals: { title: string; content: string; preview: string }[] = [];
 
+      // What is this loop doing?
+      //
+      // 1. We query a generic blockchain API (blockstream) to get unspent transactions for the address and cherrypick the first to appear
+      // 2. Then we pass that tx_hash to https://ordapi.xyz/output/:id to get the inscription ID
+      // 3. Then we use the inscription ID to query https://ordapi.xyz/inscription/:id for the inscription metadata
+
       while (
         currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
       ) {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // TODO: look into optimizing throttling
-
         const address = getTaprootAddress(index, keychain(0), network);
 
-        const responseOrdApi = await fetch(`https://ordapi.xyz/address/${address}`);
-        if (!responseOrdApi.ok) {
-          throw new Error(`Failed to fetch ordinal info for address ${address}`);
-        }
+        // 1.
+        const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
 
-        const parsedResponse = await responseOrdApi.json();
-
-        const validatedResData =
-          ordApiXyzGetInscriptionByAddressSchema.validateSync(parsedResponse);
-
-        if (hasNoOrdinals(validatedResData)) {
+        if (hasNoOrdinals(unspentTransactions)) {
           currentNumberOfAddressesWithoutOrdinals += 1;
           index += 1;
           // eslint-disable-next-line no-console
           console.log('Fresh address with no ordinals: ', address);
-          break;
+          continue;
         }
 
-        currentNumberOfAddressesWithoutOrdinals = 0;
+        currentNumberOfAddressesWithoutOrdinals = 0; // TODO: is this in right place still?
 
-        const filteredOrdinals = validatedResData.filter(entry => {
-          return ['image/webp', 'image/jpeg'].includes(entry['content type']);
-        });
-        const data = filteredOrdinals.map(i => ({
-          title: i.title,
-          content: `https://ordinals.com${i.content}`,
-          preview: `https://ordinals.com${i.preview}`,
-        }));
-        foundOrdinals.concat(data);
+        // 2.
+        const responseOrdApiOutput = await fetch(
+          `https://ordapi.xyz/output/${unspentTransactions[0].txid}:0`
+        );
+        if (!responseOrdApiOutput.ok) {
+          throw new Error(`Failed to fetch ordinal info for address ${address}`);
+        }
+
+        const parsedResponseOrdApiOutput = await responseOrdApiOutput.json();
+
+        const validatedResDataOrdApiOutput = ordApiXyzGetTransactionOutput.validateSync(
+          parsedResponseOrdApiOutput
+        );
+
+        // 3.
+        const responseOrdApiInscriptions = await fetch(
+          `https://ordapi.xyz${validatedResDataOrdApiOutput.inscriptions}`
+        );
+        if (!responseOrdApiInscriptions.ok) {
+          throw new Error(`Failed to fetch ordinal info for address ${address}`);
+        }
+
+        const parsedResponseInscriptions = await responseOrdApiInscriptions.json();
+
+        const validatedResDataOrdApiInscriptions =
+          ordApiXyzGetInscriptionByInscriptionSchema.validateSync(parsedResponseInscriptions);
+
+        if (validatedResDataOrdApiInscriptions['content type'].startsWith('image/')) {
+          foundOrdinals.push({
+            title: validatedResDataOrdApiInscriptions.title,
+            content: `https://ordinals.com${validatedResDataOrdApiInscriptions.content}`,
+            preview: `https://ordinals.com${validatedResDataOrdApiInscriptions.preview}`,
+          });
+        }
         index += 1;
       }
+
+      console.log('DATA: ', foundOrdinals);
 
       return foundOrdinals;
     },
