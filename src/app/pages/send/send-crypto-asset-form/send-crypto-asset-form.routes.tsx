@@ -11,6 +11,7 @@ import { AccountGate } from '@app/routes/account-gate';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
+import { SendBtcDisabled } from '../choose-crypto-asset/components/send-btc-disabled';
 import { SendContainer } from '../send-container';
 import { RecipientAccountsDrawer } from './components/recipient-accounts-drawer/recipient-accounts-drawer';
 import { BtcSendForm } from './form/btc/btc-send-form';
@@ -49,6 +50,7 @@ export const sendCryptoAssetFormRoutes = (
       {recipientAccountsDrawerRoute}
     </Route>
     <Route path="/send/btc/confirm" element={<BtcSendFormConfirmation />} />
+    <Route path="/send/btc/disabled" element={<SendBtcDisabled />} />
     <Route path="/send/btc/error" element={<BroadcastError />} />
 
     <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
