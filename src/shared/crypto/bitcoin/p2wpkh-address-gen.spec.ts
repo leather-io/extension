@@ -36,7 +36,6 @@ describe('Bitcoin bech32 (P2WPKH address derivation', () => {
     describe.each(accounts)('Account', account => {
       const keychain = deriveNativeSegWitReceiveAddressIndex({
         xpub: account.extended_public_key,
-        index: 0,
         network: 'mainnet',
       });
       test('bech 32 address', () =>

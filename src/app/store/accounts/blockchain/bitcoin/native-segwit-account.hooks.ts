@@ -18,8 +18,6 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { useCurrentAccountIndex } from '../../account';
 import { selectSoftwareBitcoinNativeSegWitKeychain } from './bitcoin-keychain';
 
-const firstAccountIndex = 0;
-
 function useBitcoinNativeSegwitAccount(index: number) {
   const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain);
   return useMemo(() => {
@@ -40,7 +38,6 @@ function useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub: string) {
     () =>
       deriveNativeSegWitReceiveAddressIndex({
         xpub,
-        index: firstAccountIndex,
         network: network.chain.bitcoin.network,
       }),
     [xpub, network]

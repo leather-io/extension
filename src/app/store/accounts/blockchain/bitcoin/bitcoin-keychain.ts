@@ -3,7 +3,11 @@ import { HDKey } from '@scure/bip32';
 
 import { NetworkModes } from '@shared/constants';
 import { deriveTaprootAccountFromHdKey } from '@shared/crypto/bitcoin/p2tr-address-gen';
-import { deriveNativeSegWitAccountFromHdKey } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import {
+  deriveIndexZeroKeychainFromAccount,
+  deriveNativeSegWitAccountFromHdKey,
+  getNativeSegWitAddressIndexZero,
+} from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { selectInMemoryKey } from '@app/store/in-memory-key/in-memory-key.selectors';
@@ -24,6 +28,16 @@ function bitcoinKeychainSelectorFactory(
       return keychainFn(mnemonicToRootNode(inMemKey.keys.default), network.chain.bitcoin.network);
     }
   );
+}
+
+export function getNativeSegwitAddressFromMnemonic(secretKey: string) {
+  return (index: number) => {
+    const rootNode = mnemonicToRootNode(secretKey);
+    const account = deriveIndexZeroKeychainFromAccount(
+      deriveNativeSegWitAccountFromHdKey(rootNode, 'mainnet')(index)
+    );
+    return getNativeSegWitAddressIndexZero(account, 'mainnet');
+  };
 }
 
 export const selectSoftwareBitcoinNativeSegWitKeychain = bitcoinKeychainSelectorFactory(
