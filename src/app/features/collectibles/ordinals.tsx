@@ -41,7 +41,7 @@ export function Ordinals({ query }: OrdinalsProps) {
                 <Box pb="base">
                   <Box
                     onClick={() => openInNewTab(ordinal.infoUrl)}
-                    borderRadius="12px"
+                    borderRadius="16px"
                     sx={{ overflow: 'hidden' }}
                     _hover={{ cursor: 'pointer' }}
                   >
@@ -52,7 +52,7 @@ export function Ordinals({ query }: OrdinalsProps) {
                     />
                   </Box>
                 </Box>
-                <Box pb="base-tight">
+                <Box pb="base-tight" pl="tight">
                   <Text pb="extra-tight" fontWeight="500" color={color('text-body')}>
                     {ordinal.title}
                   </Text>
@@ -75,8 +75,8 @@ export function Ordinals({ query }: OrdinalsProps) {
                     }}
                   >
                     <Box
-                      onClick={() => openInNewTab('#test')}
-                      borderRadius="12px"
+                      onClick={() => openInNewTab(ordinal.infoUrl)}
+                      borderRadius="16px"
                       backgroundColor="black" // NOTE: color not yet available from `@stacks/ui`.
                       sx={{
                         position: 'absolute',
@@ -94,7 +94,7 @@ export function Ordinals({ query }: OrdinalsProps) {
                     </Box>
                   </Box>
                 </Box>
-                <Box pb="base-tight">
+                <Box pb="base-tight" pl="tight">
                   <Text pb="extra-tight" fontWeight="500" color={color('text-body')}>
                     {ordinal.title}
                   </Text>

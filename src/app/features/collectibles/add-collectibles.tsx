@@ -22,7 +22,7 @@ export function AddCollectibles() {
         >
           <Box
             onClick={() => navigate(RouteUrls.ReceiveCollectible)}
-            borderRadius="12px"
+            borderRadius="16px"
             backgroundColor="#EEF2FB" // NOTE: color not yet available from `@stacks/ui`.
             sx={{
               position: 'absolute',
@@ -40,7 +40,7 @@ export function AddCollectibles() {
           </Box>
         </Box>
       </Box>
-      <Box pb="base-tight">
+      <Box pb="base-tight" pl="tight">
         <Text pb="extra-tight" fontWeight="500" color={color('text-body')}>
           Add new
         </Text>
