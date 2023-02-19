@@ -1,4 +1,4 @@
-function openNewTabWithWallet() {
+export function openNewTabWithWallet() {
   return chrome.tabs.create({ url: 'index.html' });
 }
 
