@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { Ordinals } from '@app/features/collectibles/ordinals';
 import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
