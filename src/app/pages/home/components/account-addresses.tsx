@@ -1,6 +1,7 @@
 import { memo } from 'react';
 
 import { Stack, StackProps } from '@stacks/ui';
+import { truncateMiddle } from '@stacks/ui-utils';
 
 import { useCurrentAccountNamesQuery } from '@app/query/stacks/bns/bns.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
@@ -20,11 +21,21 @@ export const AccountAddresses = memo((props: StackProps) => {
 
   return currentAccount ? (
     <Stack isInline {...props}>
-      <AccountAddress address={currentAccount.address} label="Copy Stacks address" />
+      <AccountAddress
+        address={currentAccount.address}
+        addressLabel={truncateMiddle(currentAccount.address, 4)}
+        label="Copy Stacks address"
+      />
       {isBitcoinEnabled ? (
-        <AccountAddress address={btcAddress} label="Copy Bitcoin address" />
+        <AccountAddress
+          address={btcAddress}
+          addressLabel={truncateMiddle(btcAddress, 4)}
+          label="Copy Bitcoin address"
+        />
       ) : null}
-      {bnsName ? <AccountAddress address={bnsName} label="Copy BNS address" /> : null}
+      {bnsName ? (
+        <AccountAddress address={bnsName} addressLabel={bnsName} label="Copy BNS address" />
+      ) : null}
     </Stack>
   ) : null;
 });
