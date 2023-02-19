@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
-import { BRANCH_NAME } from '@shared/environment';
+import { BRANCH_NAME, IS_DEV_ENV } from '@shared/environment';
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
@@ -41,11 +41,11 @@ interface FeeEstimationsConfig {
 interface HiroConfig {
   messages: any;
   activeFiatProviders?: Record<string, ActiveFiatProvider>;
-  bitcoinFeatureEnabled: boolean;
+  bitcoinEnabled: boolean;
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const defaultBranch = 'main';
+const defaultBranch = IS_DEV_ENV ? 'dev' : 'main';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
   BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
@@ -87,10 +87,9 @@ export function useHasFiatProviders() {
   );
 }
 
-// ts-unused-exports:disable-next-line
-export function useConfigBitcoinFeatureEnabled() {
+export function useConfigBitcoinEnabled() {
   const config = useRemoteHiroConfig();
-  return config?.bitcoinFeatureEnabled;
+  return config?.bitcoinEnabled;
 }
 
 export function useConfigFeeEstimationsMaxEnabled() {

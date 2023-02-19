@@ -1,9 +1,15 @@
 import { ReactNode } from 'react';
+import { FiExternalLink } from 'react-icons/fi';
 
 import GenericError from '@assets/images/generic-error.png';
-import { Box, Button, Flex, FlexProps, Text, color } from '@stacks/ui';
+import { Box, Button, Flex, FlexProps, Stack, Text, color } from '@stacks/ui';
 
+import { whenPageMode } from '@app/common/utils';
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Title } from '@app/components/typography';
+
+const supportUrl =
+  'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet';
 
 interface GenericErrorProps extends FlexProps {
   body: string;
@@ -43,11 +49,20 @@ export function GenericErrorLayout(props: GenericErrorProps) {
         pl="40px"
         pr="loose"
         pt="tight"
+        textAlign="left"
         width="100%"
       >
         {helpTextList}
-        <Box as="li" mt="base">
-          Still stuck? Reach out to support@hiro.so
+        <Box as="li" mt="base" textAlign="left">
+          <Stack alignItems="center" isInline>
+            {whenPageMode({
+              full: <Text>Still stuck? Reach out to our support team</Text>,
+              popup: <Text>Still stuck? Reach out to support</Text>,
+            })}
+            <Box as="button" onClick={() => openInNewTab(supportUrl)}>
+              <FiExternalLink />
+            </Box>
+          </Stack>
         </Box>
       </Box>
       <Button fontSize="14px" mt="base-tight" onClick={onClose} p="base" variant="link">

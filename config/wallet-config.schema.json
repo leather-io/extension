@@ -69,7 +69,7 @@
         "transak": { "$ref": "#/$defs/provider" }
       }
     },
-    "bitcoinFeatureEnabled": {
+    "bitcoinEnabled": {
       "type": "boolean",
       "description": "Determines whether or not the use of bitcoin is enabled in the wallet"
     },
