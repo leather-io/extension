@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
+import { Box, Flex, SlideFade, Stack, color, useMediaQuery } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
@@ -24,6 +24,7 @@ import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
+import { openNewTabWithWallet } from '@background/init-context-menus';
 
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
@@ -45,6 +46,7 @@ export function SettingsDropdown() {
   const { walletType } = useWalletType();
   const key = useCurrentKeyDetails();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
+  const [isNarrowViewport] = useMediaQuery('(max-width: 400px)');
 
   const handleClose = useCallback(() => setIsShowingSettings(false), [setIsShowingSettings]);
 
@@ -69,7 +71,14 @@ export function SettingsDropdown() {
             {key && key.type === 'ledger' && (
               <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(key.targetId)} />
             )}
-
+            {isNarrowViewport && (
+              <MenuItem
+                data-testid={SettingsMenuSelectors.OpenWalletInNewTab}
+                onClick={openNewTabWithWallet}
+              >
+                Open in new tab
+              </MenuItem>
+            )}
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
                 data-testid={SettingsMenuSelectors.SwitchAccountMenuItem}
