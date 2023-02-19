@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { Ordinals } from '@app/features/collectibles/ordinals';
 import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -13,6 +14,49 @@ import {
 
 const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
 
+/**
+ * Ordinals contain arbitrary data. When retrieving an ordinal, we should
+ * classify it into one of the types below, indicating that it is handled
+ * appropriately. Ordinals of types not ready to be handled by the app should be
+ * classified as `Other`.
+ */
+export enum OrdinalType {
+  Image = 'IMAGE',
+  Other = 'OTHER',
+}
+interface BaseOrdinalInfo {
+  /**
+   * The kind of ordinal as classified by this app. Different kinds of ordinals
+   * require different treatment (e.g., images vs documents).
+   */
+  type: OrdinalType;
+
+  /**
+   * Title which can be rendered in the UI alongside the ordinal.
+   */
+  title: string;
+
+  /**
+   * A link to a detailed techincal description about the ordinal.
+   */
+  infoUrl: string;
+}
+interface ImageOrdinalInfo extends BaseOrdinalInfo {
+  /**
+   * A URL of where the image can be downloaded from.
+   */
+  type: OrdinalType.Image;
+  content: string;
+}
+interface OtherOrdinalInfo extends BaseOrdinalInfo {
+  /**
+   * A URL of where the image can be downloaded from.
+   */
+  type: OrdinalType.Other;
+}
+
+type OrdinalInfo = ImageOrdinalInfo | OtherOrdinalInfo;
+
 export function useGetOrdinalsQuery() {
   const network = useCurrentNetwork();
   const keychain = useCurrentTaprootAccountKeychain();
@@ -24,8 +68,7 @@ export function useGetOrdinalsQuery() {
     async () => {
       let currentNumberOfAddressesWithoutOrdinals = 0;
       let index = 0;
-      // TODO: extract to type
-      const foundOrdinals: { title: string; content: string; preview: string }[] = [];
+      const foundOrdinals: OrdinalInfo[] = [];
 
       // What is this loop doing?
       //
@@ -78,11 +121,28 @@ export function useGetOrdinalsQuery() {
         const validatedResDataOrdApiInscriptions =
           ordApiXyzGetInscriptionByInscriptionSchema.validateSync(parsedResponseInscriptions);
 
+        // TODO: this if/else contains some repetition and works due to the
+        // limited amount of ordinal types currently supported. Perhaps worth
+        // converting to switch when new ordinal types are supported and
+        // extracting reusable code from each branch.
         if (validatedResDataOrdApiInscriptions['content type'].startsWith('image/')) {
           foundOrdinals.push({
+            type: OrdinalType.Image,
             title: validatedResDataOrdApiInscriptions.title,
+            infoUrl: `https://ordinals.com${validatedResDataOrdApiInscriptions.content}`.replace(
+              'content',
+              'inscription'
+            ),
             content: `https://ordinals.com${validatedResDataOrdApiInscriptions.content}`,
-            preview: `https://ordinals.com${validatedResDataOrdApiInscriptions.preview}`,
+          });
+        } else {
+          foundOrdinals.push({
+            type: OrdinalType.Other,
+            title: validatedResDataOrdApiInscriptions.title,
+            infoUrl: `https://ordinals.com${validatedResDataOrdApiInscriptions.content}`.replace(
+              'content',
+              'inscription'
+            ),
           });
         }
         index += 1;
