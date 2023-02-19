@@ -6,6 +6,8 @@ import { BRANCH_NAME, IS_DEV_ENV } from '@shared/environment';
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
+import { useWalletType } from '@app/common/use-wallet-type';
+
 export interface HiroMessage {
   title: string;
   text: string;
@@ -89,13 +91,21 @@ export function useHasFiatProviders() {
 }
 
 export function useConfigBitcoinEnabled() {
+  const { whenWallet } = useWalletType();
   const config = useRemoteHiroConfig();
-  return config?.bitcoinEnabled ?? true;
+  return whenWallet({
+    ledger: false,
+    software: config?.bitcoinEnabled ?? true,
+  });
 }
 
 export function useConfigBitcoinSendEnabled() {
+  const { whenWallet } = useWalletType();
   const config = useRemoteHiroConfig();
-  return config?.bitcoinSendEnabled ?? true;
+  return whenWallet({
+    ledger: false,
+    software: config?.bitcoinSendEnabled ?? true,
+  });
 }
 
 export function useConfigFeeEstimationsMaxEnabled() {
