@@ -1,4 +1,3 @@
-export const BITCOIN_ENABLED = process.env.BITCOIN_ENABLED;
 export const BRANCH = process.env.GITHUB_REF;
 export const BRANCH_NAME = process.env.GITHUB_HEAD_REF;
 export const COINBASE_APP_ID = process.env.COINBASE_APP_ID ?? '';

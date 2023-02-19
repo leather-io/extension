@@ -3,7 +3,7 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { Caption } from '@app/components/typography';
-import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
+import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { AccountActiveCheckmark } from './account-active-checkmark';
@@ -35,7 +35,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
   } = props;
 
   const [isNarrowViewport] = useMediaQuery('(max-width: 400px)');
-  const isBitcoinEnabled = useBitcoinFeature();
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   return (
     <Flex

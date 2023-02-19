@@ -4,7 +4,6 @@ import { FiExternalLink } from 'react-icons/fi';
 import GenericError from '@assets/images/generic-error.png';
 import { Box, Button, Flex, FlexProps, Stack, Text, color } from '@stacks/ui';
 
-import { whenPageMode } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Title } from '@app/components/typography';
 
@@ -55,10 +54,7 @@ export function GenericErrorLayout(props: GenericErrorProps) {
         {helpTextList}
         <Box as="li" mt="base" textAlign="left">
           <Stack alignItems="center" isInline>
-            {whenPageMode({
-              full: <Text>Still stuck? Reach out to our support team</Text>,
-              popup: <Text>Still stuck? Reach out to support</Text>,
-            })}
+            <Text>Reach out to our support team</Text>
             <Box as="button" onClick={() => openInNewTab(supportUrl)}>
               <FiExternalLink />
             </Box>

@@ -20,7 +20,6 @@ import { persistConfig } from '@shared/storage';
 
 import { analyticsSlice } from './analytics/analytics.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
-import { featureFlagSlice } from './feature-flags/feature-flags.slice';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { keySlice } from './keys/key.slice';
 import { networksSlice } from './networks/networks.slice';
@@ -34,7 +33,6 @@ export interface RootState {
   chains: {
     stx: ReturnType<typeof stxChainSlice.reducer>;
   };
-  featureFlags: ReturnType<typeof featureFlagSlice.reducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
   keys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
@@ -48,7 +46,6 @@ const appReducer = combineReducers({
   chains: combineReducers({
     stx: stxChainSlice.reducer,
   }),
-  featureFlags: featureFlagSlice.reducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
   keys: keySlice.reducer,
   networks: networksSlice.reducer,
