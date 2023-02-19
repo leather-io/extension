@@ -70,4 +70,4 @@ export const MAGIC_RECOVERY_KEY =
 
 export const MAGIC_RECOVERY_PASSWORD = 'test202020';
 
-export const APINetworkRecipientAddress = 'SPJ2XRD8PNGVAMX9GFJSP00A7Y0H9Z5WE39NE5XP';
+// export const APINetworkRecipientAddress = 'SPJ2XRD8PNGVAMX9GFJSP00A7Y0H9Z5WE39NE5XP';

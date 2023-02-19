@@ -4,12 +4,12 @@ import { StacksTransaction, TokenTransferPayload, addressToString } from '@stack
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
-import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
-import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
+import { formatMoney } from '@app/common/money/format-money';
 
 import { ConfirmationDetail } from '../../components/confirmation/components/confirmation-detail';
 import { ConfirmationDetailsLayout } from '../../components/confirmation/components/confirmation-details.layout';
 import { convertToMoneyTypeWithDefaultOfZero } from '../../components/confirmation/send-form-confirmation.utils';
+import { TransactionFee } from '../../components/transaction-fee';
 
 function removeTrailingNullCharacters(s: string) {
   return s.replace(/\0*$/g, '');
@@ -42,9 +42,7 @@ export function StxSendFormConfirmationDetails(props: StxSendFormConfirmationDet
       <ConfirmationDetail detail="Memo" value={memoDisplayText} />
       <ConfirmationDetail
         detail="Fee"
-        value={
-          <TransactionFee fee={convertAmountToBaseUnit(fee).toString()} usdAmount={feeInUsd} />
-        }
+        value={<TransactionFee fee={formatMoney(fee)} usdAmount={feeInUsd} />}
       />
       <ConfirmationDetail detail="Nonce" value={String(unsignedTx.auth.spendingCondition.nonce)} />
     </ConfirmationDetailsLayout>

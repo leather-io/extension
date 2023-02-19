@@ -143,6 +143,7 @@ export const debug = async (page: Page) => {
   });
 };
 
+// ts-unused-exports:disable-next-line
 export const selectTestnet = async (wallet: WalletPage) => {
   await wallet.clickSettingsButton();
   await wallet.page.click(createTestSelector(SettingsSelectors.ChangeNetworkAction));

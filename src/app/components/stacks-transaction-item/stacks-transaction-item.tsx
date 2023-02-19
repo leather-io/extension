@@ -3,7 +3,6 @@ import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Box, BoxProps, Flex, Stack, Text, color, useMediaQuery } from '@stacks/ui';
 import { isPendingTx } from '@stacks/ui-utils';
-import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -101,11 +100,7 @@ export const StacksTransactionItem = ({
         <Flex flexDirection="column" flexGrow={1} minWidth="0px">
           <SpaceBetween spacing="extra-loose">
             <TransactionTitle title={title} />
-            {value && (
-              <Title data-testid={SendFormSelectors.SentTokenValue} fontWeight="normal">
-                {value}
-              </Title>
-            )}
+            {value && <Title fontWeight="normal">{value}</Title>}
           </SpaceBetween>
           <SpaceBetween minHeight="loose" minWidth="0px" mt="extra-tight">
             <Stack alignItems="center" isInline>

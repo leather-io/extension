@@ -5,7 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
-import { FullPageWithHeaderLoadingSpinner, LoadingSpinner } from '@app/components/loading-spinner';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
@@ -29,7 +29,6 @@ import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
 import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
-import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
@@ -143,20 +142,6 @@ function AppRoutesAfterUserHasConsented() {
           <Route path={RouteUrls.FundReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.FundReceiveBtc} element={<ReceiveBtcModal />} />
           {settingsModalRoutes}
-        </Route>
-        <Route
-          path={RouteUrls.Send}
-          element={
-            <AccountGate>
-              <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
-                <SendTokensForm />
-              </Suspense>
-            </AccountGate>
-          }
-        >
-          {ledgerTxSigningRoutes}
-          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
 
         {sendCryptoAssetFormRoutes}

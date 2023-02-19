@@ -1,20 +1,19 @@
 import { useFormikContext } from 'formik';
 
-import { StacksFeeEstimateLegacy } from '@shared/models/fees/_fees-legacy.model';
+import { Fees } from '@shared/models/fees/_fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';
-import { FeeRow } from '@app/components/fee-row/fee-row';
+import { FeesRow } from '@app/components/fees-row/fees-row';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { MinimalErrorMessage } from '@app/pages/transaction-request/components/minimal-error-message';
 import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
 
 interface FeeFormProps {
-  feeEstimations: StacksFeeEstimateLegacy[];
+  fees?: Fees;
 }
-// TODO: The new FeesRow component should be used here when the legacy
-// send form, and the legacy fee row, are removed.
-export function FeeForm({ feeEstimations }: FeeFormProps) {
+
+export function FeeForm({ fees }: FeeFormProps) {
   const { values } = useFormikContext<StacksTransactionFormValues>();
   const transaction = useUnsignedPrepareTransactionDetails(values);
 
@@ -22,13 +21,8 @@ export function FeeForm({ feeEstimations }: FeeFormProps) {
 
   return (
     <>
-      {feeEstimations.length ? (
-        <FeeRow
-          feeEstimations={feeEstimations}
-          feeFieldName="fee"
-          feeTypeFieldName="feeType"
-          isSponsored={isSponsored}
-        />
+      {fees?.estimates.length ? (
+        <FeesRow allowCustom fees={fees} isSponsored={isSponsored} />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}

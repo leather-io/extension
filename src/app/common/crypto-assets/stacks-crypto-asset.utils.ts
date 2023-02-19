@@ -31,16 +31,6 @@ export function getImageCanonicalUri(imageCanonicalUri: string, name: string) {
     : '';
 }
 
-export function getGradientString(asset: StacksFungibleTokenAsset) {
-  return `${asset.contractAddress}.${asset.contractName}::${asset.name}`;
-}
-
-export function getIconString(asset: StacksFungibleTokenAsset) {
-  const imageUri = getImageCanonicalUri(asset.imageCanonicalUri, asset.name);
-  if (imageUri) return imageUri;
-  return getGradientString(asset);
-}
-
 export function isTransferableStacksFungibleTokenAsset(asset: StacksFungibleTokenAsset) {
   return !isUndefined(asset.decimals) && !isUndefined(asset.name) && !isUndefined(asset.symbol);
 }

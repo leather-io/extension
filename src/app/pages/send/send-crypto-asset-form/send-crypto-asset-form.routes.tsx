@@ -3,8 +3,10 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { ledgerTxSigningRoutes } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.routes';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';
@@ -26,6 +28,9 @@ const recipientAccountsDrawerRoute = (
 );
 
 const editNonceDrawerRoute = <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />;
+const broadcastErrorDrawerRoute = (
+  <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+);
 
 export const sendCryptoAssetFormRoutes = (
   <Route element={<SendContainer />}>
@@ -47,13 +52,17 @@ export const sendCryptoAssetFormRoutes = (
     <Route path="/send/btc/error" element={<BroadcastError />} />
 
     <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
+      {broadcastErrorDrawerRoute}
       {editNonceDrawerRoute}
+      {ledgerTxSigningRoutes}
       {recipientAccountsDrawerRoute}
     </Route>
     <Route path="/send/stx/confirm" element={<StxSendFormConfirmation />} />
 
     <Route path={RouteUrls.SendCryptoAssetForm} element={<StacksSip10FungibleTokenSendForm />}>
+      {broadcastErrorDrawerRoute}
       {editNonceDrawerRoute}
+      {ledgerTxSigningRoutes}
       {recipientAccountsDrawerRoute}
     </Route>
     <Route path="/send/:symbol/confirm" element={<StacksSip10SendFormConfirmation />} />

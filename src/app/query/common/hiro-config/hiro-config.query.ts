@@ -54,7 +54,7 @@ async function fetchHiroMessages(): Promise<HiroConfig> {
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 
-export function useRemoteHiroConfig() {
+function useRemoteHiroConfig() {
   const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so

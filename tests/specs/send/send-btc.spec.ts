@@ -4,19 +4,14 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { test } from '../../fixtures/fixtures';
 
 test.describe('send btc', () => {
-  // TODO: Remove with legacy send form
-  test.beforeEach(async () => {
-    test.skip();
+  // TODO: Don't run these if we disable bitcoin sending
+  test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    await onboardingPage.signInExistingUser();
+
+    await homePage.sendButton.click();
+    await sendPage.selectBtcAndGoToSendForm();
   });
-
-  // TODO: Use with mainnet bitcoin
-  // test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
-  //   await globalPage.setupAndUseApiCalls(extensionId);
-  //   await onboardingPage.signInExistingUser();
-
-  //   await homePage.sendButton.click();
-  //   await sendPage.selectBtcAndGoToSendForm();
-  // });
 
   test.describe('btc send form', () => {
     test('can preview and send btc', async ({ page }) => {
