@@ -42,6 +42,7 @@ interface HiroConfig {
   messages: any;
   activeFiatProviders?: Record<string, ActiveFiatProvider>;
   bitcoinEnabled: boolean;
+  bitcoinSendEnabled: boolean;
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
@@ -89,7 +90,12 @@ export function useHasFiatProviders() {
 
 export function useConfigBitcoinEnabled() {
   const config = useRemoteHiroConfig();
-  return config?.bitcoinEnabled;
+  return config?.bitcoinEnabled ?? true;
+}
+
+export function useConfigBitcoinSendEnabled() {
+  const config = useRemoteHiroConfig();
+  return config?.bitcoinSendEnabled ?? true;
 }
 
 export function useConfigFeeEstimationsMaxEnabled() {
