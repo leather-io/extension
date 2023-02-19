@@ -59,7 +59,7 @@ async function fetchHiroMessages(): Promise<HiroConfig> {
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 
-export function useRemoteHiroConfig() {
+function useRemoteHiroConfig() {
   const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
@@ -92,7 +92,6 @@ export function useHasFiatProviders() {
   );
 }
 
-// ts-unused-exports:disable-next-line
 export function useConfigBitcoinEnabled() {
   const { whenWallet } = useWalletType();
   const config = useRemoteHiroConfig();
@@ -102,7 +101,6 @@ export function useConfigBitcoinEnabled() {
   });
 }
 
-// ts-unused-exports:disable-next-line
 export function useConfigBitcoinSendEnabled() {
   const { whenWallet } = useWalletType();
   const config = useRemoteHiroConfig();

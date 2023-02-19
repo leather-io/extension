@@ -1,7 +1,6 @@
 import { FiInfo } from 'react-icons/fi';
 
 import { Box, Flex, Stack, Text, color } from '@stacks/ui';
-import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { Tooltip } from '@app/components/tooltip';
 
@@ -11,12 +10,7 @@ const pendingWaitingMessage =
 export function PendingLabel() {
   return (
     <Flex alignItems="center">
-      <Text
-        color={color('feedback-alert')}
-        data-testid={SendFormSelectors.PendingStatus}
-        fontSize={0}
-        mr="2px"
-      >
+      <Text color={color('feedback-alert')} fontSize={0} mr="2px">
         Pending
       </Text>
       <Tooltip label={pendingWaitingMessage} placement="bottom">

@@ -1,7 +1,6 @@
 import { FiMoreHorizontal } from 'react-icons/fi';
 
 import { Box, IconButton, Stack, Text, color } from '@stacks/ui';
-import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
@@ -26,7 +25,7 @@ export function EventCard(props: EventCardProps): JSX.Element {
     <>
       <Stack p="base-loose" spacing="base-loose">
         <SpaceBetween position="relative">
-          <Text fontSize={2} fontWeight={500} data-testid={SendFormSelectors.TransferMessage}>
+          <Text fontSize={2} fontWeight={500}>
             {title}
           </Text>
           {actions && (

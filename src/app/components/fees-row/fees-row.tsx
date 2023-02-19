@@ -35,6 +35,7 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
 
   const hasFeeEstimates = fees?.estimates.length;
   const feeCurrencySymbol = feeCurrencyField.value;
+
   const convertCryptoCurrencyToUsd = useConvertCryptoCurrencyToFiatAmount(feeCurrencySymbol);
 
   const feeInUsd = useMemo(() => {

@@ -10,22 +10,16 @@ import { test } from '../../fixtures/fixtures';
 test.describe('send stx', () => {
   let testAddress: string;
 
-  // TODO: Remove with legacy send form
-  test.beforeEach(async () => {
-    test.skip();
+  test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    await onboardingPage.signInExistingUser();
+
+    testAddress = await homePage.getReceiveStxAddress();
+    await homePage.drawerActionButton.click();
+
+    await homePage.sendButton.click();
+    await sendPage.selectStxAndGoToSendForm();
   });
-
-  // TODO: Use with new send form
-  // test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
-  //   await globalPage.setupAndUseApiCalls(extensionId);
-  //   await onboardingPage.signInExistingUser();
-
-  //   testAddress = await homePage.getReceiveStxAddress();
-  //   await homePage.drawerActionButton.click();
-
-  //   await homePage.sendButton.click();
-  //   await sendPage.selectStxAndGoToSendForm();
-  // });
 
   test.describe('send form input fields', () => {
     test('send all button sets available balance minus fee', async ({ page }) => {

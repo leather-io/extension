@@ -1,3 +1,4 @@
+import { FeesSelectors } from '@tests/selectors/fees.selectors';
 import { Page } from 'playwright-core';
 
 import { createTestSelector } from '../integration/utils';
@@ -5,7 +6,7 @@ import { TransactionSigningSelectors } from './transaction-signing.selectors';
 
 const selectors = {
   $pageContainer: createTestSelector(TransactionSigningSelectors.TxSigningPageContainer),
-  $feeToBePaidLabel: createTestSelector(TransactionSigningSelectors.FeeToBePaidLabel),
+  $feeToBePaidLabel: createTestSelector(FeesSelectors.FeeToBePaidLabel),
   $broadcastTxBtn: createTestSelector(TransactionSigningSelectors.BtnConfirmTransaction),
 };
 

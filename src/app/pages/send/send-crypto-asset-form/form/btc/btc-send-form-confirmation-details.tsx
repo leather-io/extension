@@ -8,11 +8,11 @@ import { Money } from '@shared/models/money.model';
 
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { formatMoney } from '@app/common/money/format-money';
-import { TransactionFee } from '@app/components/fee-row/components/transaction-fee';
 
 import { ConfirmationDetail } from '../../components/confirmation/components/confirmation-detail';
 import { ConfirmationDetailsLayout } from '../../components/confirmation/components/confirmation-details.layout';
 import { convertToMoneyTypeWithDefaultOfZero } from '../../components/confirmation/send-form-confirmation.utils';
+import { TransactionFee } from '../../components/transaction-fee';
 
 interface BtcSendFormConfirmationDetailsProps {
   unsignedTx: ReturnType<typeof btc.RawTx.decode>;
