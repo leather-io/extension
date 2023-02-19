@@ -5,10 +5,10 @@ import { memoWithAs } from '@stacks/ui-core';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { LoadingRectangle } from '@app/components/loading-rectangle';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 const CurrentStxAddressSuspense = memoWithAs((props: BoxProps) => {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   if (!currentAccount) return null;
   return <Box {...props}>{truncateMiddle(currentAccount.address, 4)}</Box>;
 });

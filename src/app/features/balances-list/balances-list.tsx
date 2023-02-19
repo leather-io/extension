@@ -6,6 +6,7 @@ import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selecto
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useWalletType } from '@app/common/use-wallet-type';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
@@ -37,6 +38,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();
   const isBitcoinEnabled = useBitcoinFeature();
+  const { whenWallet } = useWalletType();
 
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
 
@@ -72,7 +74,8 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       )}
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
       <StacksNonFungibleTokenAssetList assetBalances={stacksNftAssetBalances} />
-      <Collectibles />
+
+      {whenWallet({ software: <Collectibles />, ledger: null })}
     </Stack>
   );
 }

@@ -31,8 +31,8 @@ import {
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
-  useCurrentAccount,
   useCurrentAccountStxAddressState,
+  useCurrentStacksAccount,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   useCurrentNetworkState,
@@ -64,7 +64,7 @@ function useUnsignedStacksTransactionBaseState() {
   const stxAddress = useCurrentAccountStxAddressState();
   const payload = useTransactionRequestState();
   const postConditions = useTransactionPostConditions();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
 
   const options = useMemo(
     () => ({
@@ -146,7 +146,7 @@ export function useTxRequestEstimatedUnsignedTxByteLengthState() {
 }
 
 export function useSignTransactionSoftwareWallet() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   return useCallback(
     (tx: StacksTransaction) => {
       if (account?.type !== 'software') {
@@ -208,7 +208,7 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const txBroadcast = useTransactionBroadcast();
 
   return async (values: StacksTransactionFormValues) => {

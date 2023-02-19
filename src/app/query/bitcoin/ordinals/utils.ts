@@ -3,8 +3,9 @@ import { HDKey } from '@scure/bip32';
 import * as btc from 'micro-btc-signer';
 import * as yup from 'yup';
 
-import { NetworkConfiguration, NetworkModes } from '@shared/constants';
+import { NetworkModes } from '@shared/constants';
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
+import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
 
 /**
  * Schema of data used from the `GET https://ordapi.xyz/address/:address` endpoint. Additional data
@@ -58,22 +59,23 @@ export function hasOrdinals(data: Array<unknown>) {
   return data.length !== 0;
 }
 
-export function getTaprootAddress(index: number, key: HDKey, network: NetworkConfiguration) {
-  const account = key.derive(`m/86'/1'/0'/0/${index}`);
+export function getTaprootAddress(index: number, key: HDKey, network: NetworkModes) {
+  if (key.depth !== DerivationPathDepth.Account)
+    throw new Error('Expects keychain to be on the account index');
 
-  if (!account.privateKey) {
+  const addressIndex = key.deriveChild(0).deriveChild(index);
+
+  if (!addressIndex.privateKey) {
     throw new Error('Expected privateKey to be defined.');
   }
 
-  const address = btc.p2tr(
-    secp.schnorr.getPublicKey(account.privateKey),
+  const payment = btc.p2tr(
+    secp.schnorr.getPublicKey(addressIndex.privateKey),
     undefined,
-    getBtcSignerLibNetworkByMode(network.id as NetworkModes)
+    getBtcSignerLibNetworkByMode(network)
   );
 
-  const addressString = address.address;
-  if (!addressString) {
-    throw new Error('Expected address to be defined.');
-  }
-  return addressString;
+  if (!payment.address) throw new Error('Expected address to be defined.');
+
+  return payment.address;
 }

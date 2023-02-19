@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -16,18 +15,16 @@ const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
 
 export function useGetOrdinalsQuery() {
   const network = useCurrentNetwork();
-  const account = useCurrentAccount();
-  const keychain = useKeychain();
+  const keychain = useCurrentTaprootAccountKeychain();
   const client = useBitcoinClient();
 
   return useQuery(
-    ['ordinals', account, keychain, network, client] as const,
-    async ({ queryKey }) => {
-      const [_, __, keychain, network, client] = queryKey;
-      if (!keychain) throw new Error('Expected keychain to be provided.');
-
+    // Only scan for ordinals for the current account
+    ['ordinals', keychain.pubKeyHash, network.id] as const,
+    async () => {
       let currentNumberOfAddressesWithoutOrdinals = 0;
       let index = 0;
+      // TODO: extract to type
       const foundOrdinals: { title: string; content: string; preview: string }[] = [];
 
       // What is this loop doing?
@@ -39,7 +36,7 @@ export function useGetOrdinalsQuery() {
       while (
         currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
       ) {
-        const address = getTaprootAddress(index, keychain(0), network);
+        const address = getTaprootAddress(index, keychain, network.chain.bitcoin.network);
 
         // 1.
         const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
@@ -93,6 +90,6 @@ export function useGetOrdinalsQuery() {
 
       return foundOrdinals;
     },
-    { enabled: Boolean(account) }
+    { enabled: Boolean(keychain) }
   );
 }

@@ -14,7 +14,7 @@ import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { AssetSearchField } from './asset-search-field';
 import { SelectedAsset } from './selected-asset';
@@ -32,7 +32,7 @@ interface AssetSearchProps {
 export const AssetSearch: React.FC<AssetSearchProps> = memo(
   ({ autoFocus, onSelectAssetBalance, ...rest }) => {
     const [field, _, helpers] = useField('assetId');
-    const account = useCurrentAccount();
+    const account = useCurrentStacksAccount();
     const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(
       account?.address ?? ''
     );

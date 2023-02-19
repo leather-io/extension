@@ -10,7 +10,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { ErrorLabel } from '@app/components/error-label';
 import { useStacksFungibleTokenAssetBalancesUnanchored } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useSendAmountFieldActions } from '../hooks/use-send-form';
 import { SendMaxButton } from './send-max-button';
@@ -25,7 +25,7 @@ function AmountFieldBase(props: AmountFieldProps) {
   const { error, value, ...rest } = props;
   const { handleChange, values } = useFormikContext<StacksSendFormValues>();
   const analytics = useAnalytics();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const { data: ftAssetBalances = [] } = useStacksFungibleTokenAssetBalancesUnanchored(
     account?.address ?? ''
   );

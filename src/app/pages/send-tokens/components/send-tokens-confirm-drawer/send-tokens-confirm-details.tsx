@@ -6,7 +6,7 @@ import { getIconString } from '@app/common/crypto-assets/stacks-crypto-asset.uti
 import { useSelectedAssetBalance } from '@app/common/hooks/use-selected-asset-balance';
 import { EventCard } from '@app/components/event-card';
 import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.utils';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 interface SendTokensConfirmDetailsProps extends StackProps {
   amount: number | string;
@@ -16,7 +16,7 @@ interface SendTokensConfirmDetailsProps extends StackProps {
 export function SendTokensConfirmDetails(props: SendTokensConfirmDetailsProps): JSX.Element {
   const { amount, assetId, recipient, ...rest } = props;
   const { selectedAssetBalance, ticker } = useSelectedAssetBalance(assetId);
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const tokenCurrencyAssetBalance =
     getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
   const icon = tokenCurrencyAssetBalance ? getIconString(tokenCurrencyAssetBalance.asset) : '';

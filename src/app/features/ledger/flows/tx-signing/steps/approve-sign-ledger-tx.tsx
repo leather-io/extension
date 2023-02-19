@@ -8,7 +8,7 @@ import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-trans
 import { ledgerTxSigningContext } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
 import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 const sipTenTransferArguments = ['Amount', 'Sender', 'To', 'Memo'];
 
@@ -23,7 +23,7 @@ function formatTooltipLabel(amount: bigint) {
 
 export function ApproveSignLedgerTx() {
   const { transaction } = useContext(ledgerTxSigningContext);
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const hasApprovedOperation = useHasApprovedOperation();
 
   const transactionDetails: [string, string, string?][] = useMemo(() => {

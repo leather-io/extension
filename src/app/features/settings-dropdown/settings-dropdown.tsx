@@ -20,7 +20,7 @@ import { Divider } from '@app/components/layout/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
 import { useHasCreatedAccount } from '@app/store/accounts/account';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
@@ -33,7 +33,7 @@ import { MenuWrapper } from './components/settings-menu-wrapper';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const hasGeneratedWallet = !!useCurrentAccount();
+  const hasGeneratedWallet = !!useCurrentStacksAccount();
   const wallet = useStacksWallet();
   const { lockWallet } = useKeyActions();
   const createAccount = useCreateAccount();

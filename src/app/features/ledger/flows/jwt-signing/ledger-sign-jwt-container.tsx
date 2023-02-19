@@ -22,7 +22,7 @@ import {
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
 import {
-  useCurrentAccount,
+  useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -39,7 +39,7 @@ export function LedgerSignJwtContainer() {
   const ledgerNavigate = useLedgerNavigate();
   useScrollLock(true);
 
-  const activeAccount = useCurrentAccount();
+  const activeAccount = useCurrentStacksAccount();
   const accounts = useStacksAccounts();
 
   const keyActions = useKeyActions();
