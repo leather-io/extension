@@ -3,16 +3,10 @@ import { TEST_ACCOUNT_1_BTC_ADDRESS, TEST_ACCOUNT_1_STX_ADDRESS } from '@tests/m
 import { test } from '../../fixtures/fixtures';
 
 test.describe('onboarding existing user', () => {
-  // TODO: Remove with mainnet bitcoin
-  test.beforeEach(async () => {
-    test.skip();
+  test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    await onboardingPage.signInExistingUser();
   });
-
-  // TODO: Use with mainnet bitcoin
-  // test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
-  //   await globalPage.setupAndUseApiCalls(extensionId);
-  //   await onboardingPage.signInExistingUser();
-  // });
 
   test('restoring a wallet generates the correct bitcoin segwit address', async ({ homePage }) => {
     const testAddress = await homePage.getReceiveBtcAddress();

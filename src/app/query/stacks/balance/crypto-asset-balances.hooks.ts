@@ -41,7 +41,7 @@ function useStacksFungibleTokenAssetBalancesAnchored(address: string) {
   });
 }
 
-export function useStacksFungibleTokenAssetBalancesUnanchored(address: string) {
+function useStacksFungibleTokenAssetBalancesUnanchored(address: string) {
   return useUnanchoredStacksAccountBalanceQuery(address, {
     select: resp => convertFtBalancesToStacksFungibleTokenAssetBalanceType(resp.fungible_tokens),
   });

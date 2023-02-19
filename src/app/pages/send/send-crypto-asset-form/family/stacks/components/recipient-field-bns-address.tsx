@@ -3,7 +3,7 @@ import { FiCopy, FiInfo } from 'react-icons/fi';
 
 import { Box, Stack, Text, Tooltip, color, useClipboard } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
@@ -26,7 +26,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
     <Stack isInline spacing="tight" zIndex={999}>
       <Text
         color={color('text-caption')}
-        data-testid={SendFormSelectors.ResolvedBnsAddressPreview}
+        data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressPreview}
         fontSize={0}
       >
         {truncateMiddle(bnsAddress, 4)}
@@ -37,7 +37,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
             _hover={{ cursor: 'pointer' }}
             as={FiInfo}
             color={color('text-caption')}
-            data-testid={SendFormSelectors.ResolvedBnsAddressHoverInfoIcon}
+            data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressHoverInfoIcon}
             onMouseOver={onHover}
             size="12px"
           />
@@ -49,7 +49,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
             _hover={{ cursor: 'pointer' }}
             as={FiCopy}
             color={color('text-caption')}
-            data-testid={SendFormSelectors.ResolvedBnsAddressCopyToClipboard}
+            data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressCopyToClipboard}
             onClick={copyToClipboard}
             size="12px"
           />
