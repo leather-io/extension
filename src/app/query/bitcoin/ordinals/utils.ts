@@ -5,6 +5,7 @@ import * as yup from 'yup';
 
 import { NetworkModes } from '@shared/constants';
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
+import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
 
 /**
@@ -59,11 +60,11 @@ export function hasOrdinals(data: Array<unknown>) {
   return data.length !== 0;
 }
 
-export function getTaprootAddress(index: number, key: HDKey, network: NetworkModes) {
-  if (key.depth !== DerivationPathDepth.Account)
+export function getTaprootAddress(index: number, keychain: HDKey, network: NetworkModes) {
+  if (keychain.depth !== DerivationPathDepth.Account)
     throw new Error('Expects keychain to be on the account index');
 
-  const addressIndex = key.deriveChild(0).deriveChild(index);
+  const addressIndex = deriveAddressIndexKeychainFromAccount(keychain)(index);
 
   if (!addressIndex.privateKey) {
     throw new Error('Expected privateKey to be defined.');
