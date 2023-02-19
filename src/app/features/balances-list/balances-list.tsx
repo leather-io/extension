@@ -11,6 +11,7 @@ import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-a
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
@@ -18,7 +19,6 @@ import {
   useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { FundAccount } from './components/fund-account';
@@ -36,7 +36,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const navigate = useNavigate();
-  const isBitcoinEnabled = useBitcoinFeature();
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   const handleFundAccount = useCallback(() => navigate(RouteUrls.Fund), [navigate]);
 

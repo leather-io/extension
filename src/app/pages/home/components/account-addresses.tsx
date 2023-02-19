@@ -3,11 +3,11 @@ import { memo } from 'react';
 import { Stack, StackProps } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
+import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import { useCurrentAccountNamesQuery } from '@app/query/stacks/bns/bns.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 
 import { AccountAddress } from './account-address';
 
@@ -16,7 +16,7 @@ export const AccountAddresses = memo((props: StackProps) => {
   const accountIndex = useCurrentAccountIndex();
   const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex);
   const currentAccountNamesQuery = useCurrentAccountNamesQuery();
-  const isBitcoinEnabled = useBitcoinFeature();
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
   const bnsName = currentAccountNamesQuery.data?.names[0];
 
   return currentAccount ? (

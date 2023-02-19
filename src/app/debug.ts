@@ -4,7 +4,6 @@ import { getLogsFromBrowserStorage } from '@shared/logger-storage';
 
 import { store } from './store';
 import { stxChainSlice } from './store/chains/stx-chain.slice';
-import { featureFlagSlice } from './store/feature-flags/feature-flags.slice';
 
 declare global {
   interface Window {
@@ -13,16 +12,6 @@ declare global {
 }
 
 const debug = {
-  setBitcoinFeature(val: boolean) {
-    const flag = val ? 'enabled' : 'disabled';
-    toast[val ? 'success' : 'error']('Bitcoin feature ' + flag);
-    store.dispatch(
-      featureFlagSlice.actions.enableFeature({
-        feature: 'bitcoin',
-        mode: val ? 'enabled' : 'disabled',
-      })
-    );
-  },
   printDiagnosticInfo() {
     // eslint-disable-next-line no-console
     void getLogsFromBrowserStorage().then(logs => console.log(JSON.stringify(logs)));

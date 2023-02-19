@@ -3,10 +3,10 @@ import { useMemo } from 'react';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBitcoinPendingTransactions } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
+import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
@@ -29,7 +29,7 @@ export function ActivityList() {
     transactions: stacksPendingTransactions,
   } = useStacksPendingTransactions();
   const submittedTransactions = useSubmittedTransactions();
-  const isBitcoinEnabled = useBitcoinFeature();
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   const isInitialLoading =
     isInitialLoadingBitcoinTransactions ||
