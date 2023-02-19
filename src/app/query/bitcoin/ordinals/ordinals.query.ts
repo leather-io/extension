@@ -1,43 +1,18 @@
-import * as secp from '@noble/secp256k1';
-import { HDKey } from '@scure/bip32';
 import { useQuery } from '@tanstack/react-query';
-import * as btc from 'micro-btc-signer';
-
-import { NetworkConfiguration, NetworkModes } from '@shared/constants';
-import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 
 import { useKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { ordApiXyzGetInscriptionByInscriptionSchema, ordApiXyzGetTransactionOutput } from './utils';
+import {
+  getTaprootAddress,
+  hasOrdinals,
+  ordApiXyzGetInscriptionByInscriptionSchema,
+  ordApiXyzGetTransactionOutput,
+} from './utils';
 
 const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
-
-function hasNoOrdinals(data: Array<unknown>) {
-  return data.length === 0;
-}
-
-function getTaprootAddress(index: number, key: HDKey, network: NetworkConfiguration) {
-  const account = key.derive(`m/86'/1'/0'/0/${index}`);
-
-  if (!account.privateKey) {
-    throw new Error('Expected privateKey to be defined.');
-  }
-
-  const address = btc.p2tr(
-    secp.schnorr.getPublicKey(account.privateKey),
-    undefined,
-    getBtcSignerLibNetworkByMode(network.id as NetworkModes)
-  );
-
-  const addressString = address.address;
-  if (!addressString) {
-    throw new Error('Expected address to be defined.');
-  }
-  return addressString;
-}
 
 export function useGetOrdinalsQuery() {
   const network = useCurrentNetwork();
@@ -46,9 +21,9 @@ export function useGetOrdinalsQuery() {
   const client = useBitcoinClient();
 
   return useQuery(
-    ['ordinals', account, keychain, network] as const,
+    ['ordinals', account, keychain, network, client] as const,
     async ({ queryKey }) => {
-      const [_, __, keychain, network] = queryKey;
+      const [_, __, keychain, network, client] = queryKey;
       if (!keychain) throw new Error('Expected keychain to be provided.');
 
       let currentNumberOfAddressesWithoutOrdinals = 0;
@@ -69,7 +44,7 @@ export function useGetOrdinalsQuery() {
         // 1.
         const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
 
-        if (hasNoOrdinals(unspentTransactions)) {
+        if (!hasOrdinals(unspentTransactions)) {
           currentNumberOfAddressesWithoutOrdinals += 1;
           index += 1;
           // eslint-disable-next-line no-console
@@ -77,7 +52,7 @@ export function useGetOrdinalsQuery() {
           continue;
         }
 
-        currentNumberOfAddressesWithoutOrdinals = 0; // TODO: is this in right place still?
+        currentNumberOfAddressesWithoutOrdinals = 0;
 
         // 2.
         const responseOrdApiOutput = await fetch(
@@ -115,8 +90,6 @@ export function useGetOrdinalsQuery() {
         }
         index += 1;
       }
-
-      console.log('DATA: ', foundOrdinals);
 
       return foundOrdinals;
     },

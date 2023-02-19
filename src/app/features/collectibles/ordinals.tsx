@@ -9,9 +9,7 @@ interface OrdinalsProps {
   query: ReturnType<typeof useGetOrdinalsQuery>;
 }
 export function Ordinals({ query }: OrdinalsProps) {
-  const { isLoading, isError, data, error } = query;
-
-  console.log('TEMP error log', error);
+  const { isLoading, isError, data } = query;
 
   if (isLoading) return null;
 
