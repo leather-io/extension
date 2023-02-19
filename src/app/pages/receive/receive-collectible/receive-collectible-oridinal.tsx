@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Button, Flex, Stack, color, useClipboard } from '@stacks/ui';
 
@@ -11,14 +11,12 @@ import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Text, Title } from '@app/components/typography';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function ReceiveCollectibleOrdinal() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
-  // TODO: Replace with taproot address
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const { onCopy } = useClipboard(btcAddress);
+  const { state } = useLocation();
+  const { onCopy } = useClipboard(state.btcAddress);
 
   function copyToClipboard() {
     void analytics.track('copy_btc_taproot_address_to_clipboard');

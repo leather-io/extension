@@ -90,6 +90,11 @@ export function useGetOrdinalsQuery() {
 
       return foundOrdinals;
     },
-    { enabled: Boolean(keychain) }
+    {
+      enabled: Boolean(keychain),
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 5 * 60 * 1000,
+    }
   );
 }

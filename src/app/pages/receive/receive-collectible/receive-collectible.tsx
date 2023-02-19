@@ -51,7 +51,9 @@ export function ReceiveCollectible() {
                     isDisabled={isLoading || isError}
                     borderRadius="10px"
                     mode="tertiary"
-                    onClick={() => navigate(RouteUrls.ReceiveCollectibleOrdinal)}
+                    onClick={() =>
+                      navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddress } })
+                    }
                   >
                     <FiCopy />
                   </Button>
