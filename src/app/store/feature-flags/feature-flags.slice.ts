@@ -6,7 +6,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { BITCOIN_ENABLED } from '@shared/environment';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { RootState } from '..';
 
@@ -40,7 +39,8 @@ interface FeatureFlag {
   isDisabled(): boolean;
 }
 
-function useFeatureFlags() {
+// ts-unused-exports:disable-next-line
+export function useFeatureFlags() {
   const flags = useSelector(selectFeatureFlags);
   return useMemo(
     () =>
@@ -63,11 +63,9 @@ function useFeatureFlags() {
 
 export function useBitcoinFeature() {
   const { whenWallet } = useWalletType();
-  const network = useCurrentNetwork();
-  const featureFlags = useFeatureFlags();
 
   return whenWallet({
     ledger: false,
-    software: network.chain.bitcoin.network === 'testnet' || featureFlags.bitcoin.isEnabled(),
+    software: true,
   });
 }
