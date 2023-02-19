@@ -47,7 +47,7 @@ export function Ordinals({ query }: OrdinalsProps) {
                   >
                     <img
                       key={ordinal.content}
-                      src={ordinal.content.replace('content', 'inscription')}
+                      src={ordinal.content}
                       style={{ aspectRatio: '1 / 1', objectFit: 'cover' }}
                     />
                   </Box>
