@@ -7,9 +7,11 @@ import { sendMessage } from '@shared/messages';
 
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
+import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';
 
+import { getNativeSegwitAddressFromMnemonic } from '../accounts/blockchain/bitcoin/bitcoin-keychain';
 import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-keychain';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
@@ -17,8 +19,12 @@ import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
 import { selectCurrentKey } from './key.selectors';
 import { defaultKeyId, keySlice } from './key.slice';
 
-function setWalletEncryptionPassword(args: { password: string; client: StacksClient }): AppThunk {
-  const { password, client } = args;
+function setWalletEncryptionPassword(args: {
+  password: string;
+  stxClient: StacksClient;
+  btcClient: BitcoinClient;
+}): AppThunk {
+  const { password, stxClient, btcClient } = args;
 
   return async (dispatch, getState) => {
     const secretKey = selectDefaultWalletKey(getState());
@@ -29,13 +35,21 @@ function setWalletEncryptionPassword(args: { password: string; client: StacksCli
       await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
 
     async function doesStacksAddressHaveBalance(address: string) {
-      const resp = await client.accountsApi.getAccountBalance({ principal: address });
+      const resp = await stxClient.accountsApi.getAccountBalance({ principal: address });
       return Number(resp.stx.balance) > 0;
     }
 
     async function doesStacksAddressHaveBnsName(address: string) {
-      const resp = await client.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
+      const resp = await stxClient.namesApi.getNamesOwnedByAddress({
+        address,
+        blockchain: 'stacks',
+      });
       return resp.names.length > 0;
+    }
+
+    async function doesBitcoinAddressHaveBalance(address: string) {
+      const resp = await btcClient.addressApi.getUtxosByAddress(address);
+      return resp.length > 0;
     }
 
     // Performs a recursive check for account activity. When activity is found
@@ -46,10 +60,17 @@ function setWalletEncryptionPassword(args: { password: string; client: StacksCli
     logger.info('Initiating recursive account activity lookup');
     void recurseAccountsForActivity({
       async doesAddressHaveActivityFn(index) {
-        const address = getStacksAddressByIndex(secretKey, AddressVersion.MainnetSingleSig)(index);
-        const hasBal = await doesStacksAddressHaveBalance(address);
-        const hasNames = await doesStacksAddressHaveBnsName(address);
-        return hasBal || hasNames;
+        const stxAddress = getStacksAddressByIndex(
+          secretKey,
+          AddressVersion.MainnetSingleSig
+        )(index);
+        const hasStxBalance = await doesStacksAddressHaveBalance(stxAddress);
+        const hasNames = await doesStacksAddressHaveBnsName(stxAddress);
+
+        const btcAddress = getNativeSegwitAddressFromMnemonic(secretKey)(index);
+        const hasBtcBalance = await doesBitcoinAddressHaveBalance(btcAddress.address!);
+        // TODO: add inscription check here also?
+        return hasStxBalance || hasNames || hasBtcBalance;
       },
     }).then(recursiveActivityIndex => {
       if (recursiveActivityIndex <= legacyAccountActivityLookup) return;
