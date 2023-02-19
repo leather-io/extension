@@ -13,14 +13,14 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Caption } from '@app/components/typography';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+
+import { useNextFreshTaprootAddressQuery } from './use-next-fresh-taproot-address';
 
 export function ReceiveCollectible() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  // TODO: Replace with taproot address
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const { isLoading, isError, data: btcAddress } = useNextFreshTaprootAddressQuery();
 
   const stxAddress = useCurrentAccountStxAddressState();
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
@@ -39,11 +39,16 @@ export function ReceiveCollectible() {
             <Flex justifyContent="space-between">
               <Box>
                 Ordinal inscription
-                <Caption mt="2px">{truncateMiddle(btcAddress, 6)}</Caption>
+                {isLoading ? (
+                  <Caption mt="2px">Loading...</Caption>
+                ) : (
+                  !isError && <Caption mt="2px">{truncateMiddle(btcAddress, 6)}</Caption>
+                )}
               </Box>
               <Stack>
                 <Box>
                   <Button
+                    isDisabled={isLoading || isError}
                     borderRadius="10px"
                     mode="tertiary"
                     onClick={() => navigate(RouteUrls.ReceiveCollectibleOrdinal)}
