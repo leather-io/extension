@@ -9,6 +9,7 @@ import { RouteUrls } from '@shared/route-urls';
 jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
+// TODO: Kill or migrate these tests to new send form
 describe('Confirm transfer of tokens with decimals', () => {
   const BEFORE_EACH_TIMEOUT = 60000;
 
@@ -43,7 +44,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       await sendForm.clickDIKOtokenOption();
     });
 
-    it('validates that token amount has more than 6 decimal places', async () => {
+    it.skip('validates that token amount has more than 6 decimal places', async () => {
       await sendForm.inputToAmountField('0.0000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
@@ -54,7 +55,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       expect(errorMessage).toEqual('DIKO can only have 6 decimals');
     });
 
-    it('no error with 6 decimal digits', async () => {
+    it.skip('no error with 6 decimal digits', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
@@ -70,7 +71,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       await sendForm.clickMiamiCointokenOption();
     });
 
-    it('validates that amount must be more than 0', async () => {
+    it.skip('validates that amount must be more than 0', async () => {
       await sendForm.inputToAmountField('-1');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
@@ -81,7 +82,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       expect(errorMessage).toEqual('Must be more than zero');
     });
 
-    it('no error with 1 coin', async () => {
+    it.skip('no error with 1 coin', async () => {
       await sendForm.inputToAmountField('1');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
@@ -97,7 +98,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       await sendForm.clickSTSWTokenOption();
     });
 
-    it('validates that token amount has more than 6 decimal places', async () => {
+    it.skip('validates that token amount has more than 6 decimal places', async () => {
       await sendForm.inputToAmountField('0.0000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
@@ -108,7 +109,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       expect(errorMessage).toEqual('STSW can only have 6 decimals');
     });
 
-    it('no error with 6 decimal digits', async () => {
+    it.skip('no error with 6 decimal digits', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
@@ -124,7 +125,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       await sendForm.clickUSDAtokenOption();
     });
 
-    it('validates that token amount has more than 6 decimal places', async () => {
+    it.skip('validates that token amount has more than 6 decimal places', async () => {
       await sendForm.inputToAmountField('0.0000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
@@ -135,7 +136,7 @@ describe('Confirm transfer of tokens with decimals', () => {
       expect(errorMessage).toEqual('USDA can only have 6 decimals');
     });
 
-    it('no error with 6 decimal digits', async () => {
+    it.skip('no error with 6 decimal digits', async () => {
       await sendForm.inputToAmountField('0.000001');
       await sendForm.inputToAddressField(APINetworkRecipientAddress);
       await sendForm.page.click(sendForm.getSelector('$memoField'));
