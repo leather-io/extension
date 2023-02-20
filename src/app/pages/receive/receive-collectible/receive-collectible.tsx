@@ -13,9 +13,8 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Caption } from '@app/components/typography';
+import { useNextFreshTaprootAddressQuery } from '@app/query/bitcoin/ordinals/use-next-fresh-taproot-address.query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-
-import { useNextFreshTaprootAddressQuery } from './use-next-fresh-taproot-address';
 
 export function ReceiveCollectible() {
   const analytics = useAnalytics();
