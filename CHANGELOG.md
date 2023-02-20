@@ -1,3 +1,16 @@
+## [4.0.2](https://github.com/hirosystems/stacks-wallet-web/compare/v4.0.1...v4.0.2) (2023-02-20)
+
+
+### Bug Fixes
+
+* ordinal caching ([641c3b2](https://github.com/hirosystems/stacks-wallet-web/commit/641c3b2a94295137d04b6b66ef9100b896667253))
+
+
+### Internal
+
+* move query file location ([c36fb1c](https://github.com/hirosystems/stacks-wallet-web/commit/c36fb1c21dc0c18e94f08d88c4de9c9aae9d37f5))
+* ordinal modal ([44ee0db](https://github.com/hirosystems/stacks-wallet-web/commit/44ee0db2798ad64a3974310131b4788bb9d548f7))
+
 ## [4.0.1](https://github.com/hirosystems/stacks-wallet-web/compare/v4.0.0...v4.0.1) (2023-02-20)
 
 
