@@ -33,10 +33,10 @@ function bitcoinKeychainSelectorFactory(
 export function getNativeSegwitAddressFromMnemonic(secretKey: string) {
   return (index: number) => {
     const rootNode = mnemonicToRootNode(secretKey);
-    const account = deriveIndexZeroKeychainFromAccount(
+    const addressIndexKeychain = deriveIndexZeroKeychainFromAccount(
       deriveNativeSegWitAccountFromHdKey(rootNode, 'mainnet')(index)
     );
-    return getNativeSegWitAddressIndexZero(account, 'mainnet');
+    return getNativeSegWitAddressIndexZero(addressIndexKeychain, 'mainnet');
   };
 }
 
