@@ -69,9 +69,13 @@
         "transak": { "$ref": "#/$defs/provider" }
       }
     },
-    "bitcoinFeatureEnabled": {
+    "bitcoinEnabled": {
       "type": "boolean",
       "description": "Determines whether or not the use of bitcoin is enabled in the wallet"
+    },
+    "bitcoinSendEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not the use of sending bitcoin is enabled in the wallet"
     },
     "feeEstimations": {
       "type": "object",
