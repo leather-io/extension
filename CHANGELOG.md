@@ -1,3 +1,69 @@
+## [4.0.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.2...v4.0.0) (2023-02-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* This release introduces bitcoin support to the Hiro Wallet
+
+### Features
+
+* add autofocus on custom fees input ([55b10a0](https://github.com/hirosystems/stacks-wallet-web/commit/55b10a075cf1cd7b20c70edc780e8b3d0289a08a))
+* add error page ([6c9beb4](https://github.com/hirosystems/stacks-wallet-web/commit/6c9beb44035749022cc0dfe1a8cd3634b3ae248e))
+* add new tab menu item in narrow viewport ([d80a766](https://github.com/hirosystems/stacks-wallet-web/commit/d80a7669cbfc86347f7e47350fdaaa6302301797))
+* add ordinal support ([ea972aa](https://github.com/hirosystems/stacks-wallet-web/commit/ea972aa2e994d94dc311bb3c013295f4098efe62))
+* add taproot keychain ([ba07bd1](https://github.com/hirosystems/stacks-wallet-web/commit/ba07bd14392da0d90193abf719769a92938b2b96))
+* display ordinals ([abf428b](https://github.com/hirosystems/stacks-wallet-web/commit/abf428b32e8f0104ad75167ab09435734a4fb76c))
+* make address clickable to copy ([cf70d81](https://github.com/hirosystems/stacks-wallet-web/commit/cf70d81491ea4d1e7b53fd89c37bc683f09502ec))
+* minimum spend validator to btc ([6bf331b](https://github.com/hirosystems/stacks-wallet-web/commit/6bf331b465241ec7c667412236071b7f84d2b4d7))
+* modify user messages feature, closes [#3094](https://github.com/hirosystems/stacks-wallet-web/issues/3094) ([299f182](https://github.com/hirosystems/stacks-wallet-web/commit/299f1822f17d50f5c7900c41762e0d32f63be445))
+* remove successful sign in toast ([3aaf4e6](https://github.com/hirosystems/stacks-wallet-web/commit/3aaf4e6d66b660a546dd83655b47b3fc0bb9940c))
+* send btc disabled kill switch ([85961e7](https://github.com/hirosystems/stacks-wallet-web/commit/85961e7598c893e6244a93458b49a71fb13b0664))
+* ui improvement ([6c08582](https://github.com/hirosystems/stacks-wallet-web/commit/6c085829461917b8d8550e9558b50ac86f60d868))
+* validate insufficient funds ([e41b908](https://github.com/hirosystems/stacks-wallet-web/commit/e41b908d28a9e1770bac9e8eae1d9f884dac908e))
+* wallet config bitcoin feature flag ([fc83541](https://github.com/hirosystems/stacks-wallet-web/commit/fc835414d60c93676d581b312b342790c9dc10bb))
+
+
+### Bug Fixes
+
+* add bitcoin activity to account restore flow ([9e53c3c](https://github.com/hirosystems/stacks-wallet-web/commit/9e53c3cc836a448ca841b939672dac20f4fe6d84))
+* add wait to btc test ([312895f](https://github.com/hirosystems/stacks-wallet-web/commit/312895f018013cefccedcd44f37e16e7e3792441))
+* address label ([6072214](https://github.com/hirosystems/stacks-wallet-web/commit/607221445e301314ef43861fdc137d6bd8690c73))
+* avoid working outside of formik, dedupe is valid logic, closes [#3117](https://github.com/hirosystems/stacks-wallet-web/issues/3117) ([cb02514](https://github.com/hirosystems/stacks-wallet-web/commit/cb02514a6ce84e55749cbf098045103ce6e795e4))
+* codeBlock component width in contract deploy flow ([dab711e](https://github.com/hirosystems/stacks-wallet-web/commit/dab711ed0ccc8277b49f127bfd7a3b48cd348f63))
+* copy account address ([f558508](https://github.com/hirosystems/stacks-wallet-web/commit/f5585081a7f5564ff8734bcfba44debdadb0da47))
+* form errors on blur ([2fd28fd](https://github.com/hirosystems/stacks-wallet-web/commit/2fd28fd970522c2e13d53bc6f8385a9f7e7962dc))
+* improve empty address detection ([9c4ffdd](https://github.com/hirosystems/stacks-wallet-web/commit/9c4ffddee2e13351791f4e67a87cc8e3dc2c6531))
+* lower fetch time ([72317f1](https://github.com/hirosystems/stacks-wallet-web/commit/72317f11ba07d8be295f6f056f664c2e9c77c249))
+* merge conflicts from main ([d473bdc](https://github.com/hirosystems/stacks-wallet-web/commit/d473bdc4e93941446debbf31acd8d07f7ed74fac))
+* negative amount err ([2126eaf](https://github.com/hirosystems/stacks-wallet-web/commit/2126eaf105b37eb2c024aad82a8b4e0b97b9a237))
+* persist amount/recipient going to from send form ([8fedf52](https://github.com/hirosystems/stacks-wallet-web/commit/8fedf529f77e887ce4a96e5691e1d43fd8c6a59e))
+* preview button disabling ([fd76fae](https://github.com/hirosystems/stacks-wallet-web/commit/fd76fae3ed450e3992d9df031affbde84b935868))
+* prod btc address from fund page receive ([84d1e1b](https://github.com/hirosystems/stacks-wallet-web/commit/84d1e1b145117e46deb1c357d0bbb3f3dbcd50da))
+* remove empty state, closes [#3206](https://github.com/hirosystems/stacks-wallet-web/issues/3206) ([921a25e](https://github.com/hirosystems/stacks-wallet-web/commit/921a25e6ba61eb13d4f81aed23de019193d3550b))
+* set system theme ([2885269](https://github.com/hirosystems/stacks-wallet-web/commit/28852695fd5b018778b9a884cd568ccc1fb9c5e5))
+* temp hide btc send all ([f513e09](https://github.com/hirosystems/stacks-wallet-web/commit/f513e097f962c522e9bceeba39e2d964dfc93120))
+* tests ([98b12eb](https://github.com/hirosystems/stacks-wallet-web/commit/98b12ebdb5c02be51fddd20641df21e9bd65ab40))
+* transaction duplication ([4421099](https://github.com/hirosystems/stacks-wallet-web/commit/44210991e441a35716b349af0c712d078c6e4b8d))
+* typecheck failure in ordinals query ([09a8697](https://github.com/hirosystems/stacks-wallet-web/commit/09a86970e5f41f651d055214d8ac85e9dca76ede))
+* uninvert imgs, closes [#3208](https://github.com/hirosystems/stacks-wallet-web/issues/3208) ([65afa4e](https://github.com/hirosystems/stacks-wallet-web/commit/65afa4e6ed3883878cf5ca83c5ac80f69a01b118))
+* validate addresses against network, closes [#3161](https://github.com/hirosystems/stacks-wallet-web/issues/3161) ([83664da](https://github.com/hirosystems/stacks-wallet-web/commit/83664daaf5720bec81649d0be932801f8fb07542))
+
+
+### Internal
+
+* add config changes to dev ([0ca785b](https://github.com/hirosystems/stacks-wallet-web/commit/0ca785bc9442c89ae6d46bf4bae06261281b44de))
+* add send container to full page ([d4a5ded](https://github.com/hirosystems/stacks-wallet-web/commit/d4a5ded980f804220307de89909ac3f636ed4754))
+* facade hook for form, reorg validators ([4e6a523](https://github.com/hirosystems/stacks-wallet-web/commit/4e6a523427d39fb7b62969d634f6e7fdc0edaeaf))
+* fix import, unwrap fns ([ce914ac](https://github.com/hirosystems/stacks-wallet-web/commit/ce914ac9220497ac982ace638512ec16334a6ce3))
+* fix tests ([7a56a1e](https://github.com/hirosystems/stacks-wallet-web/commit/7a56a1e8068a1bca7b95ad9a16faae4edd323639))
+* form routing ([fc5996b](https://github.com/hirosystems/stacks-wallet-web/commit/fc5996bf981a32d695669fecb4d83fc299edc8c7))
+* improve logic to calculate bitcoin fee ([c8099e9](https://github.com/hirosystems/stacks-wallet-web/commit/c8099e99e6445032bf76797c2204a531e2acf356))
+* kill old send form and tests ([3847d7e](https://github.com/hirosystems/stacks-wallet-web/commit/3847d7e4e3970002d231fd5e82a2965cf2d09cdd))
+* remove bitcoin msg ([cde1661](https://github.com/hirosystems/stacks-wallet-web/commit/cde1661d0d96d9f2762603bbf7fd8ab3b1184d01))
+* send max and add available balance ([2055e9c](https://github.com/hirosystems/stacks-wallet-web/commit/2055e9c0df884544fc82824a3047d27fdceaf67f))
+* settings menu open in new tab ([6d266d4](https://github.com/hirosystems/stacks-wallet-web/commit/6d266d4dfaad6bda532b4a0920eb8be09e16804a))
+* upgrade crypto deps ([048b3e4](https://github.com/hirosystems/stacks-wallet-web/commit/048b3e4a9c22aa4ce17b01e1fcd88a1b5a98e4d2))
+
 ## [3.34.2](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.1...v3.34.2) (2023-02-16)
 
 
