@@ -2,9 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
-import { BRANCH_NAME } from '@shared/environment';
+import { BRANCH_NAME, IS_DEV_ENV, WALLET_ENVIRONMENT } from '@shared/environment';
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
+
+import { useWalletType } from '@app/common/use-wallet-type';
 
 export interface HiroMessage {
   title: string;
@@ -41,11 +43,14 @@ interface FeeEstimationsConfig {
 interface HiroConfig {
   messages: any;
   activeFiatProviders?: Record<string, ActiveFiatProvider>;
-  bitcoinFeatureEnabled: boolean;
+  bitcoinEnabled: boolean;
+  bitcoinSendEnabled: boolean;
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const defaultBranch = 'main';
+// TODO: BRANCH_NAME is not working here for config changes on PR branches
+// Playwright tests fail with config changes not on main
+const defaultBranch = IS_DEV_ENV || WALLET_ENVIRONMENT === 'testing' ? 'dev' : 'main';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
   BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
@@ -88,9 +93,23 @@ export function useHasFiatProviders() {
 }
 
 // ts-unused-exports:disable-next-line
-export function useConfigBitcoinFeatureEnabled() {
+export function useConfigBitcoinEnabled() {
+  const { whenWallet } = useWalletType();
   const config = useRemoteHiroConfig();
-  return config?.bitcoinFeatureEnabled;
+  return whenWallet({
+    ledger: false,
+    software: config?.bitcoinEnabled ?? true,
+  });
+}
+
+// ts-unused-exports:disable-next-line
+export function useConfigBitcoinSendEnabled() {
+  const { whenWallet } = useWalletType();
+  const config = useRemoteHiroConfig();
+  return whenWallet({
+    ledger: false,
+    software: config?.bitcoinSendEnabled ?? true,
+  });
 }
 
 export function useConfigFeeEstimationsMaxEnabled() {
