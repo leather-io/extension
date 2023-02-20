@@ -21,6 +21,7 @@ export function StacksRecipientField(props: { contractId?: string }) {
           state: { contractId },
         })
       }
+      placeholder="Address or name"
       topInputOverlay={
         !!bnsAddress ? <RecipientFieldBnsAddress bnsAddress={bnsAddress} /> : undefined
       }
