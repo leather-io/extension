@@ -71,6 +71,7 @@ export function BtcSendForm() {
                 labelAction="Choose account"
                 name="recipient"
                 onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
+                placeholder="Address"
               />
             </FormFieldsLayout>
             {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}

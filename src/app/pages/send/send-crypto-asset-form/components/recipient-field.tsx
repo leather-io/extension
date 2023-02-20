@@ -8,6 +8,7 @@ interface RecipientFieldProps {
   name: string;
   onBlur?(): void;
   onClickLabelAction?(): void;
+  placeholder: string;
   topInputOverlay?: JSX.Element;
 }
 export function RecipientField({
@@ -16,6 +17,7 @@ export function RecipientField({
   name,
   onBlur,
   onClickLabelAction,
+  placeholder,
   topInputOverlay,
 }: RecipientFieldProps) {
   return (
@@ -27,7 +29,7 @@ export function RecipientField({
       name={name}
       onBlur={onBlur}
       onClickLabelAction={onClickLabelAction}
-      placeholder="Address or name"
+      placeholder={placeholder}
       topInputOverlay={topInputOverlay}
     />
   );
