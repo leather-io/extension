@@ -8,9 +8,14 @@ import { isUndefined } from '@shared/utils';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 
+import localConfig from '../../../../../config/wallet-config.json';
+
 export interface HiroMessage {
+  id: string;
   title: string;
   text: string;
+  img?: string;
+  imgWidth?: string;
   purpose: 'error' | 'info' | 'warning';
   publishedAt: string;
   dismissible: boolean;
@@ -56,6 +61,7 @@ const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG
 }/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
+  if (!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') return localConfig as HiroConfig;
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 

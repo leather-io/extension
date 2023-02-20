@@ -15,13 +15,25 @@ const selectHasUserExplicitlyDeclinedAnalytics = createSelector(
   selectSettings,
   state => state.hasAllowedAnalytics === false
 );
+
 export function useHasUserExplicitlyDeclinedAnalytics() {
   return useSelector(selectHasUserExplicitlyDeclinedAnalytics);
 }
+
 const selectHasUserRespondedToAnalyticsConsent = createSelector(
   selectSettings,
   state => state.hasAllowedAnalytics !== null
 );
+
 export function useHasUserRespondedToAnalyticsConsent() {
   return useSelector(selectHasUserRespondedToAnalyticsConsent);
+}
+
+const selectDismissedMessageIds = createSelector(
+  selectSettings,
+  state => state.dismissedMessages ?? []
+);
+
+export function useDismissedMessageIds() {
+  return useSelector(selectDismissedMessageIds);
 }

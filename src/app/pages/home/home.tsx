@@ -9,7 +9,7 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { BalancesList } from '@app/features/balances-list/balances-list';
-import { HiroMessages } from '@app/features/hiro-messages/hiro-messages';
+import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
@@ -33,7 +33,7 @@ function HomeContainer({ account }: HomeContainerProps) {
 
   useRouteHeader(
     <>
-      <HiroMessages mx="tight" />
+      <InAppMessages />
       <Header />
     </>
   );
