@@ -37,10 +37,13 @@ export function useCalculateMaxBitcoinSpend() {
         [`${addressTypeWithFallback}_output_count`]: 2,
       });
       const fee = Math.ceil(size.txVBytes * feeRate.fastestFee);
+
+      const spendableAmount = BigNumber.max(0, balance.amount.minus(fee));
+
       return {
         spendAllFee: fee,
-        amount: createMoney(balance.amount.minus(fee), 'BTC'),
-        spendableBitcoin: satToBtc(balance.amount.minus(fee)),
+        amount: createMoney(spendableAmount, 'BTC'),
+        spendableBitcoin: satToBtc(spendableAmount),
       };
     },
     [balance.amount, feeRate, utxos]
