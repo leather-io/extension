@@ -11,14 +11,12 @@ import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-conf
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
-  useStacksNonFungibleTokenAssetsUnanchored,
   useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
-import { StacksNonFungibleTokenAssetList } from './components/stacks-non-fungible-token-asset-list';
 
 interface BalancesListProps extends StackProps {
   address: string;
@@ -29,7 +27,6 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcAssetBalance = useBitcoinAssetBalance(bitcoinAddress);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
-  const { data: stacksNftAssetBalances = [] } = useStacksNonFungibleTokenAssetsUnanchored();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const { whenWallet } = useWalletType();
 
@@ -54,8 +51,6 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       />
 
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
-      <StacksNonFungibleTokenAssetList assetBalances={stacksNftAssetBalances} />
-
       {whenWallet({ software: <Collectibles />, ledger: null })}
     </Stack>
   );

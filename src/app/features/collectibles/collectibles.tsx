@@ -4,20 +4,22 @@ import { Caption } from '@app/components/typography';
 import { useGetOrdinalsQuery } from '@app/query/bitcoin/ordinals/ordinals.query';
 
 import { AddCollectibles } from './add-collectibles';
+import { StacksCryptoAssets } from './components/stacks-crypto-assets';
 import { Ordinals } from './ordinals';
 
 export function Collectibles() {
-  const query = useGetOrdinalsQuery();
+  const ordinalsQuery = useGetOrdinalsQuery();
 
   return (
     <Box>
       <Caption pb="base-loose">Collectibles</Caption>
       <Grid
-        gap={['16px', '16px', '48px']}
+        gap={['base', 'base', '48px']}
         templateColumns={['repeat(2, 2fr)', 'repeat(2, 2fr)', 'repeat(3, 1fr)']}
       >
         <AddCollectibles />
-        <Ordinals query={query} />
+        <Ordinals query={ordinalsQuery} />
+        <StacksCryptoAssets />
       </Grid>
     </Box>
   );
