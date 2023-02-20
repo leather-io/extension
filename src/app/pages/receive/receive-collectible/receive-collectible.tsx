@@ -26,7 +26,7 @@ export function ReceiveCollectible() {
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
 
   function copyToClipboard(copyHandler: () => void) {
-    void analytics.track('copy_address_to_clipboard');
+    void analytics.track('select_nft_to_add_new_collectible');
     toast.success('Copied to clipboard!');
     copyHandler();
   }
@@ -51,9 +51,10 @@ export function ReceiveCollectible() {
                     isDisabled={isLoading || isError}
                     borderRadius="10px"
                     mode="tertiary"
-                    onClick={() =>
-                      navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddress } })
-                    }
+                    onClick={() => {
+                      analytics.track('select_inscription_to_add_new_collectible');
+                      navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddress } });
+                    }}
                   >
                     <FiCopy />
                   </Button>
@@ -72,7 +73,9 @@ export function ReceiveCollectible() {
                   <Button
                     borderRadius="10px"
                     mode="tertiary"
-                    onClick={() => copyToClipboard(onCopyStacks)}
+                    onClick={() => {
+                      copyToClipboard(onCopyStacks);
+                    }}
                   >
                     <FiCopy />
                   </Button>

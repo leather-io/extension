@@ -5,6 +5,8 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import {
+  OrdApiXyzGetInscriptionByInscriptionSchema,
+  OrdApiXyzGetTransactionOutput,
   getTaprootAddress,
   hasOrdinals,
   ordApiXyzGetInscriptionByInscriptionSchema,
@@ -94,56 +96,75 @@ export function useGetOrdinalsQuery() {
         currentNumberOfAddressesWithoutOrdinals = 0;
 
         // 2.
-        const responseOrdApiOutput = await fetch(
-          `https://ordapi.xyz/output/${unspentTransactions[0].txid}:0`
+        const responseOrdApiOutput = await Promise.all(
+          unspentTransactions.map(transaction =>
+            fetch(`https://ordapi.xyz/output/${transaction.txid}:0`)
+          )
         );
-        if (!responseOrdApiOutput.ok) {
-          throw new Error(`Failed to fetch ordinal info for address ${address}`);
-        }
 
-        const parsedResponseOrdApiOutput = await responseOrdApiOutput.json();
+        const successfullResponsesOrdApiOutput = responseOrdApiOutput.filter(res => res.ok);
 
-        const validatedResDataOrdApiOutput = ordApiXyzGetTransactionOutput.validateSync(
-          parsedResponseOrdApiOutput
+        const parsedResponsesOrdApiOutput = await Promise.all(
+          successfullResponsesOrdApiOutput.map(res => res.json())
         );
+
+        const validatedResDataOrdApiOutput = (
+          await Promise.allSettled(
+            parsedResponsesOrdApiOutput.map(res => ordApiXyzGetTransactionOutput.validate(res))
+          )
+        )
+          .filter(
+            (p): p is PromiseFulfilledResult<OrdApiXyzGetTransactionOutput> =>
+              p.status === 'fulfilled'
+          )
+          .map(p => p.value);
 
         // 3.
-        const responseOrdApiInscriptions = await fetch(
-          `https://ordapi.xyz${validatedResDataOrdApiOutput.inscriptions}`
+        const responseOrdApiInscriptions = await Promise.all(
+          validatedResDataOrdApiOutput.map(res => fetch(`https://ordapi.xyz${res.inscriptions}`))
         );
-        if (!responseOrdApiInscriptions.ok) {
-          throw new Error(`Failed to fetch ordinal info for address ${address}`);
-        }
 
-        const parsedResponseInscriptions = await responseOrdApiInscriptions.json();
+        const successfullResponseOrdApiInscriptions = responseOrdApiInscriptions.filter(
+          res => res.ok
+        );
 
-        const validatedResDataOrdApiInscriptions =
-          ordApiXyzGetInscriptionByInscriptionSchema.validateSync(parsedResponseInscriptions);
+        const parsedResponseInscriptions = await Promise.all(
+          successfullResponseOrdApiInscriptions.map(res => res.json())
+        );
 
-        // TODO: this if/else contains some repetition and works due to the
-        // limited amount of ordinal types currently supported. Perhaps worth
-        // converting to switch when new ordinal types are supported and
-        // extracting reusable code from each branch.
-        if (validatedResDataOrdApiInscriptions['content type'].startsWith('image/')) {
-          foundOrdinals.push({
-            type: OrdinalType.Image,
-            title: validatedResDataOrdApiInscriptions.title,
-            infoUrl: `https://ordinals.com${validatedResDataOrdApiInscriptions.content}`.replace(
-              'content',
-              'inscription'
-            ),
-            content: `https://ordinals.com${validatedResDataOrdApiInscriptions.content}`,
-          });
-        } else {
-          foundOrdinals.push({
-            type: OrdinalType.Other,
-            title: validatedResDataOrdApiInscriptions.title,
-            infoUrl: `https://ordinals.com${validatedResDataOrdApiInscriptions.content}`.replace(
-              'content',
-              'inscription'
-            ),
-          });
-        }
+        const validatedResDataOrdApiInscriptions = (
+          await Promise.allSettled(
+            parsedResponseInscriptions.map(res =>
+              ordApiXyzGetInscriptionByInscriptionSchema.validate(res)
+            )
+          )
+        )
+          .filter(
+            (p): p is PromiseFulfilledResult<OrdApiXyzGetInscriptionByInscriptionSchema> =>
+              p.status === 'fulfilled'
+          )
+          .map(p => p.value);
+
+        validatedResDataOrdApiInscriptions.forEach(data => {
+          // TODO: this if/else contains some repetition and works due to the
+          // limited amount of ordinal types currently supported. Perhaps worth
+          // converting to switch when new ordinal types are supported and
+          // extracting reusable code from each branch.
+          if (data['content type'].startsWith('image/')) {
+            foundOrdinals.push({
+              type: OrdinalType.Image,
+              title: data.title,
+              infoUrl: `https://ordinals.com${data.content}`.replace('content', 'inscription'),
+              content: `https://ordinals.com${data.content}`,
+            });
+          } else {
+            foundOrdinals.push({
+              type: OrdinalType.Other,
+              title: data.title,
+              infoUrl: `https://ordinals.com${data.content}`.replace('content', 'inscription'),
+            });
+          }
+        });
         index += 1;
       }
 

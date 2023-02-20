@@ -21,7 +21,14 @@ export function BaseCollectible({
   children,
 }: BaseCollectibleProps) {
   return (
-    <Box>
+    <Box
+      tabindex="0"
+      onKeyDown={e => {
+        if (['Space', 'Enter'].includes(e.code)) {
+          onClick();
+        }
+      }}
+    >
       <Box pb="base">
         <Box
           sx={{
