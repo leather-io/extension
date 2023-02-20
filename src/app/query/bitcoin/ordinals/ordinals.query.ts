@@ -172,9 +172,9 @@ export function useGetOrdinalsQuery() {
     },
     {
       enabled: Boolean(keychain),
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
       refetchOnMount: false,
-      staleTime: 5 * 60 * 1000,
+      staleTime: 10 * 1000,
     }
   );
 }
