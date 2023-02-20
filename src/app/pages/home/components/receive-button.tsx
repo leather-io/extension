@@ -7,13 +7,13 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { PrimaryButton } from '@app/components/primary-button';
 import { QrCodeIcon } from '@app/components/qr-code-icon';
-import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
+import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 
 import { HomeActionButton } from './tx-button';
 
 export function ReceiveButton(props: ButtonProps) {
   const navigate = useNavigate();
-  const isBitcoinEnabled = useBitcoinFeature();
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   return (
     <HomeActionButton

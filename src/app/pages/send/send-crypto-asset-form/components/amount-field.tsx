@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { Flex, Input, Stack, Text, color } from '@stacks/ui';
+import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
@@ -31,7 +31,7 @@ function getAmountModifiedFontSize(props: GetAmountModifiedFontSize) {
 
 interface AmountFieldProps {
   balance: Money;
-  bottomInputOverlay: JSX.Element;
+  bottomInputOverlay?: JSX.Element;
 }
 export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
   const [field, meta] = useField('amount');
@@ -66,6 +66,7 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
     setPreviousTextLength(field.value.length);
   }, [field.value, fontSize, fontSizeModifier, previousTextLength, symbol]);
 
+  // TODO: could be implemented with html using padded label element
   const onClickFocusInput = useCallback(() => {
     document.getElementById(amountInputId)?.focus();
   }, []);
@@ -97,12 +98,12 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
           {symbol.toUpperCase()}
         </Text>
       </Flex>
-      {meta.error && (
+      {meta.error && meta.touched && (
         <ErrorLabel data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}>
           {meta.error}
         </ErrorLabel>
       )}
-      {bottomInputOverlay}
+      {bottomInputOverlay ?? <Box size="36px" />}
     </Stack>
   );
 }

@@ -29,7 +29,7 @@ const ThemeContext = createContext<{
 });
 
 const getSystemTheme = () =>
-  window.matchMedia('prefers-color-scheme: dark').matches ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
 function getComputedTheme(userSelectedTheme: UserSelectedTheme): ComputedTheme {
   if (userSelectedTheme === 'system') return getSystemTheme();

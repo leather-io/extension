@@ -8,7 +8,7 @@ import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-acco
 import { truncateString } from '@app/common/utils';
 import { Tooltip } from '@app/components/tooltip';
 import { Title } from '@app/components/typography';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 function AccountNameTitle(props: BoxProps) {
   return (
@@ -23,7 +23,7 @@ function AccountNameTitle(props: BoxProps) {
 }
 
 const AccountNameSuspense = memo((props: BoxProps) => {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const name = useCurrentAccountDisplayName();
   if (!currentAccount || typeof currentAccount.index === 'undefined') return null;
   const nameCharLimit = 18;

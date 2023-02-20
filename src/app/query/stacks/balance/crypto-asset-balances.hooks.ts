@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
 import { parseBalanceResponse } from './balance.hooks';
@@ -41,7 +41,7 @@ function useStacksFungibleTokenAssetBalancesAnchored(address: string) {
   });
 }
 
-export function useStacksFungibleTokenAssetBalancesUnanchored(address: string) {
+function useStacksFungibleTokenAssetBalancesUnanchored(address: string) {
   return useUnanchoredStacksAccountBalanceQuery(address, {
     select: resp => convertFtBalancesToStacksFungibleTokenAssetBalanceType(resp.fungible_tokens),
   });
@@ -97,7 +97,7 @@ function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
 }
 
 export function useStacksFungibleTokenAssetBalance(contractId: string) {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const assetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
     account?.address ?? ''
   );
@@ -126,7 +126,7 @@ export function useTransferableStacksFungibleTokenAssetBalances(
  * @deprecated
  */
 export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId?: string) {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
 
   const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(
     account?.address ?? ''
@@ -148,7 +148,7 @@ export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId?: string) {
 }
 
 export function useStacksNonFungibleTokenAssetsUnanchored() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   return useUnanchoredStacksAccountBalanceQuery(account?.address ?? '', {
     select: resp =>
       convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(

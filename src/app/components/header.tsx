@@ -6,7 +6,7 @@ import { Box, Flex, FlexProps, IconButton, Stack, Text, color, useMediaQuery } f
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
-import { BRANCH } from '@shared/environment';
+import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       case 'preview':
         return `v${VERSION}`;
       case 'feature':
-        return BRANCH;
+        return `${BRANCH_NAME}#${COMMIT_SHA?.slice(0, 8)}`;
       case 'development':
         return 'dev';
       default:

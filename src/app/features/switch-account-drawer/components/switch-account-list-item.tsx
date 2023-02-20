@@ -6,7 +6,7 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { useBtcAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
+import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { AccountAvatarItem } from '../../../components/account/account-avatar';
@@ -23,7 +23,7 @@ export const SwitchAccountListItem = memo(
     const [component, bind] = usePressable(true);
     const name = useAccountDisplayName(account);
 
-    const btcAddress = useBtcAccountIndexAddressIndexZero(account.index);
+    const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(account.index);
 
     const handleClick = async () => {
       setIsLoading();

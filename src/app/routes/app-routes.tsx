@@ -5,7 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
-import { FullPageWithHeaderLoadingSpinner, LoadingSpinner } from '@app/components/loading-spinner';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
@@ -25,14 +25,13 @@ import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/mag
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
 import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
+import { ReceiveCollectible } from '@app/pages/receive/receive-collectible/receive-collectible';
+import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
-import { SendTokensForm } from '@app/pages/send-tokens/send-tokens';
-import { ChooseCryptoAsset } from '@app/pages/send/choose-crypto-asset/choose-crypto-asset';
-import { sendFormConfirmationRoutes } from '@app/pages/send/send-crypto-asset-form/components/confirmation/send-form-confirmation.routes';
-import { RecipientAccountsDrawer } from '@app/pages/send/send-crypto-asset-form/components/recipient-accounts-drawer/recipient-accounts-drawer';
-import { SendCryptoAssetForm } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form';
+import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
@@ -79,8 +78,13 @@ function AppRoutesAfterUserHasConsented() {
             {ledgerTxSigningRoutes}
           </Route>
           <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
+          <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectible />} />
+          <Route
+            path={RouteUrls.ReceiveCollectibleOrdinal}
+            element={<ReceiveCollectibleOrdinal />}
+          />
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
-          <Route path={RouteUrls.ReceiveBtc} element={<ReceiveModal />} />
+          <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
           {settingsModalRoutes}
           {ledgerTxSigningRoutes}
         </Route>
@@ -143,41 +147,12 @@ function AppRoutesAfterUserHasConsented() {
         >
           <Route path={RouteUrls.FundReceive} element={<ReceiveModal />} />
           <Route path={RouteUrls.FundReceiveStx} element={<ReceiveStxModal />} />
-          <Route path={RouteUrls.FundReceiveBtc} element={<ReceiveModal />} />
+          <Route path={RouteUrls.FundReceiveBtc} element={<ReceiveBtcModal />} />
           {settingsModalRoutes}
         </Route>
-        <Route
-          path={RouteUrls.Send}
-          element={
-            <AccountGate>
-              <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
-                <SendTokensForm />
-              </Suspense>
-            </AccountGate>
-          }
-        >
-          {ledgerTxSigningRoutes}
-          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
-        </Route>
-        <Route
-          path={RouteUrls.SendCryptoAsset}
-          element={
-            <AccountGate>
-              <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
-                <ChooseCryptoAsset />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route path={RouteUrls.SendCryptoAssetForm} element={<SendCryptoAssetForm />}>
-          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-          <Route
-            path={RouteUrls.SendCryptoAssetFormRecipientAccounts}
-            element={<RecipientAccountsDrawer />}
-          />
-        </Route>
-        {sendFormConfirmationRoutes}
+
+        {sendCryptoAssetFormRoutes}
+
         <Route
           path={RouteUrls.TransactionRequest}
           element={

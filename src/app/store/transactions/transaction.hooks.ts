@@ -2,7 +2,6 @@ import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 import toast from 'react-hot-toast';
 
-import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
   FungibleConditionCode,
@@ -12,13 +11,12 @@ import {
   createAssetInfo,
   createStacksPrivateKey,
   makeStandardFungiblePostCondition,
-  serializePayload,
 } from '@stacks/transactions';
 import BN from 'bn.js';
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
-import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
+import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { isString, isUndefined } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -31,20 +29,14 @@ import {
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
-  useCurrentAccount,
   useCurrentAccountStxAddressState,
+  useCurrentStacksAccount,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   useCurrentNetworkState,
   useCurrentStacksNetworkState,
 } from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import {
-  useFtTokenTransferUnsignedTx,
-  useGenerateFtTokenTransferUnsignedTx,
-  useGenerateStxTokenTransferUnsignedTx,
-  useStxTokenTransferUnsignedTxState,
-} from '@app/store/transactions/token-transfer.hooks';
 
 import { usePostConditionState } from './post-conditions.hooks';
 import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
@@ -58,13 +50,13 @@ function useTransactionAttachment() {
   return useTransactionRequestState()?.attachment;
 }
 
-function useUnsignedStacksTransactionBaseState() {
+export function useUnsignedStacksTransactionBaseState() {
   const network = useCurrentStacksNetworkState();
   const { data: nextNonce } = useNextNonce();
   const stxAddress = useCurrentAccountStxAddressState();
   const payload = useTransactionRequestState();
   const postConditions = useTransactionPostConditions();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
 
   const options = useMemo(
     () => ({
@@ -99,54 +91,8 @@ export function useUnsignedPrepareTransactionDetails(values: StacksTransactionFo
   return useMemo(() => unsignedStacksTransaction, [unsignedStacksTransaction]);
 }
 
-/**
- * Refactored with new send form; remove with legacy send form.
- * @deprecated
- */
-export function useSendFormSerializedUnsignedTxPayloadState(
-  selectedAssetId: string,
-  values?: StacksSendFormValues
-) {
-  const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
-  if (!transaction) return '';
-  return bytesToHex(serializePayload(transaction.payload));
-}
-
-/**
- * Refactored with new send form; remove with legacy send form.
- * @deprecated
- */
-export function useSendFormEstimatedUnsignedTxByteLengthState(
-  selectedAssetId: string,
-  values?: StacksSendFormValues
-) {
-  const transaction = useSendFormUnsignedTxPreviewState(selectedAssetId, values);
-  if (!transaction) return null;
-  return transaction.serialize().byteLength;
-}
-
-/**
- * Refactor and remove with new fees row component.
- * @deprecated
- */
-export function useTxRequestSerializedUnsignedTxPayloadState() {
-  const { transaction } = useUnsignedStacksTransactionBaseState();
-  if (!transaction) return '';
-  return bytesToHex(serializePayload(transaction.payload));
-}
-
-/**
- * Refactor and remove with new fees row component.
- * @deprecated
- */
-export function useTxRequestEstimatedUnsignedTxByteLengthState() {
-  const { transaction } = useUnsignedStacksTransactionBaseState();
-  if (!transaction) return null;
-  return transaction.serialize().byteLength;
-}
-
 export function useSignTransactionSoftwareWallet() {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   return useCallback(
     (tx: StacksTransaction) => {
       if (account?.type !== 'software') {
@@ -208,7 +154,7 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const txBroadcast = useTransactionBroadcast();
 
   return async (values: StacksTransactionFormValues) => {
@@ -280,37 +226,4 @@ function useUnsignedStacksTransaction(values: StacksTransactionFormValues) {
   }, [values]);
 
   return tx.result;
-}
-
-function isSendingFormSendingStx(assetId: string) {
-  return assetId === '::stacks-token';
-}
-
-export function useGenerateSendFormUnsignedTx(selectedAssetId: string) {
-  const isSendingStx = isSendingFormSendingStx(selectedAssetId);
-  const stxTokenTransferUnsignedTx = useGenerateStxTokenTransferUnsignedTx();
-  const ftTokenTransferUnsignedTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
-
-  return useMemo(
-    () => (isSendingStx ? stxTokenTransferUnsignedTx : ftTokenTransferUnsignedTx),
-    [ftTokenTransferUnsignedTx, isSendingStx, stxTokenTransferUnsignedTx]
-  );
-}
-
-/**
- * Refactored with new send form; remove with legacy send form.
- * @deprecated
- */
-export function useSendFormUnsignedTxPreviewState(
-  selectedAssetId: string,
-  values?: StacksSendFormValues
-) {
-  const isSendingStx = isSendingFormSendingStx(selectedAssetId);
-  const stxTokenTransferUnsignedTx = useStxTokenTransferUnsignedTxState(values);
-  const ftTokenTransferUnsignedTx = useFtTokenTransferUnsignedTx(selectedAssetId, values);
-
-  return useMemo(
-    () => (isSendingStx ? stxTokenTransferUnsignedTx : ftTokenTransferUnsignedTx),
-    [ftTokenTransferUnsignedTx, isSendingStx, stxTokenTransferUnsignedTx]
-  );
 }

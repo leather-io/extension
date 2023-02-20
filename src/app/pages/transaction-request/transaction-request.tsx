@@ -32,14 +32,13 @@ import { PostConditions } from '@app/pages/transaction-request/components/post-c
 import { StxTransferDetails } from '@app/pages/transaction-request/components/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
-import { useStacksFeeEstimations } from '@app/query/stacks/fees/fees-legacy';
+import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
   useSoftwareWalletTransactionRequestBroadcast,
-  useTxRequestEstimatedUnsignedTxByteLengthState,
-  useTxRequestSerializedUnsignedTxPayloadState,
+  useUnsignedStacksTransactionBaseState,
 } from '@app/store/transactions/transaction.hooks';
 
 import { FeeForm } from './components/fee-form';
@@ -49,9 +48,8 @@ function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
   const handleBroadcastTransaction = useSoftwareWalletTransactionRequestBroadcast();
-  const txByteLength = useTxRequestEstimatedUnsignedTxByteLengthState();
-  const txPayload = useTxRequestSerializedUnsignedTxPayloadState();
-  const feeEstimations = useStacksFeeEstimations(txByteLength, txPayload);
+  const unsignedTx = useUnsignedStacksTransactionBaseState();
+  const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
@@ -84,7 +82,7 @@ function TransactionRequestBase() {
     }
 
     void analytics.track('submit_fee_for_transaction', {
-      calculation: feeEstimations.calculation,
+      calculation: stxFees?.calculation,
       fee: values.fee,
       type: values.feeType,
     });
@@ -108,7 +106,7 @@ function TransactionRequestBase() {
 
   return (
     <Flex alignItems="center" flexDirection="column" width="100%">
-      <Stack px="loose" spacing="loose">
+      <Stack px="loose" spacing="loose" width="100%">
         <PageTop />
         <RequestingTabClosedWarningMessage />
         <PostConditionModeWarning />
@@ -128,7 +126,7 @@ function TransactionRequestBase() {
           {() => (
             <>
               <NonceSetter>
-                <FeeForm feeEstimations={feeEstimations.estimates} />
+                <FeeForm fees={stxFees} />
                 <SubmitAction />
                 <EditNonceButton onEditNonce={() => navigate(RouteUrls.EditNonce)} />
                 <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />

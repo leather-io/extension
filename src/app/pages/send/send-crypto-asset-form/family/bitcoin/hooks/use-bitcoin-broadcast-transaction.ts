@@ -14,15 +14,12 @@ export function useBitcoinBroadcastTransaction(tx: string) {
 
     async function broadcastTransaction() {
       const resp = await client.transactionsApi.broadcastTransaction(tx);
-      // simulate broadcast to allow mempool refresh
-      await delay(2000);
-      if (!resp.ok) throw new Error(resp.statusText);
+      // simulate slower broadcast time to allow mempool refresh
+      await delay(700);
+      if (!resp.ok) throw new Error(await resp.text());
       return resp.text();
     }
 
-    return {
-      bitcoinDeserializedRawTransaction: psbt,
-      bitcoinBroadcastTransaction: broadcastTransaction,
-    };
-  }, [client, tx]);
+    return { psbt, broadcastTransaction };
+  }, [client.transactionsApi, tx]);
 }

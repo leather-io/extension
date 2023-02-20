@@ -6,6 +6,7 @@ import { logger } from '@shared/logger';
 
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
 import { ConfirmationInfoLabel } from '../../components/confirmation/components/confirmation-info-label';
+import { SendFormConfirmationLayout } from '../../components/confirmation/components/send-form-confirmation.layout';
 import { useStacksBroadcastTransaction } from '../../family/stacks/hooks/use-stacks-broadcast-transaction';
 import { StacksSip10SendFormConfirmationDetails } from './stacks-sip10-send-form-confirmation-details';
 
@@ -24,7 +25,7 @@ export function StacksSip10SendFormConfirmation() {
   }
 
   return (
-    <>
+    <SendFormConfirmationLayout>
       <StacksSip10SendFormConfirmationDetails
         decimals={get(location.state, 'decimals')}
         symbol={symbol}
@@ -35,6 +36,6 @@ export function StacksSip10SendFormConfirmation() {
       <ConfirmationButton
         onClick={() => stacksBroadcastTransaction(stacksDeserializedTransaction)}
       />
-    </>
+    </SendFormConfirmationLayout>
   );
 }

@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
@@ -15,12 +15,13 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { whenPageMode } from '@app/common/utils';
+import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Divider } from '@app/components/layout/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
 import { useHasCreatedAccount } from '@app/store/accounts/account';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
@@ -33,7 +34,7 @@ import { MenuWrapper } from './components/settings-menu-wrapper';
 
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const hasGeneratedWallet = !!useCurrentAccount();
+  const hasGeneratedWallet = !!useCurrentStacksAccount();
   const wallet = useStacksWallet();
   const { lockWallet } = useKeyActions();
   const createAccount = useCreateAccount();
@@ -45,6 +46,7 @@ export function SettingsDropdown() {
   const { walletType } = useWalletType();
   const key = useCurrentKeyDetails();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
+  const location = useLocation();
 
   const handleClose = useCallback(() => setIsShowingSettings(false), [setIsShowingSettings]);
 
@@ -69,7 +71,6 @@ export function SettingsDropdown() {
             {key && key.type === 'ledger' && (
               <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(key.targetId)} />
             )}
-
             {wallet && wallet?.accounts?.length > 1 && (
               <MenuItem
                 data-testid={SettingsMenuSelectors.SwitchAccountMenuItem}
@@ -108,6 +109,20 @@ export function SettingsDropdown() {
             >
               Change theme
             </MenuItem>
+            {whenPageMode({
+              full: null,
+              popup: (
+                <MenuItem
+                  data-testid={SettingsMenuSelectors.OpenWalletInNewTab}
+                  onClick={() => openIndexPageInNewTab(location.pathname)}
+                >
+                  <Stack isInline>
+                    <Box>Open in new tab</Box>
+                    <FiExternalLink />
+                  </Stack>
+                </MenuItem>
+              ),
+            })}
             <MenuItem
               data-testid={SettingsMenuSelectors.GetSupportMenuItem}
               onClick={wrappedCloseCallback(() => {

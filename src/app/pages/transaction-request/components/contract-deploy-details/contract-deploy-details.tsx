@@ -9,15 +9,15 @@ import { AttachmentRow } from '@app/pages/transaction-request/components/attachm
 import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
 import { Row } from '@app/pages/transaction-request/components/row';
 import {
-  useCurrentAccount,
   useCurrentAccountStxAddressState,
+  useCurrentStacksAccount,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 function ContractCodeSection(): JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
 
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const currentAccountStxAddress = useCurrentAccountStxAddressState();
 
   if (
@@ -31,7 +31,6 @@ function ContractCodeSection(): JSX.Element | null {
 
   return (
     <CodeBlock
-      maxWidth="379px"
       overflow="auto"
       border="4px solid"
       borderColor={color('border')}
@@ -67,7 +66,7 @@ function TabButton(props: TabButtonProps): JSX.Element {
 
 export function ContractDeployDetails(): JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const currentAccountStxAddress = useCurrentAccountStxAddressState();
   const [tab, setTab] = useState<'details' | 'code'>('details');
 

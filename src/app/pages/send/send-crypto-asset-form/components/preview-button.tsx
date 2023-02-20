@@ -7,9 +7,11 @@ export function PreviewButton(props: ButtonProps) {
 
   return (
     <Button
+      type="button"
       borderRadius="10px"
       data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
       height="48px"
+      mb="base"
       onClick={handleSubmit}
       width="100%"
       {...props}

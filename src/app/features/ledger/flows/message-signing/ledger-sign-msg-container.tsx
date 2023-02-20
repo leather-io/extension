@@ -21,7 +21,7 @@ import {
   useActionCancellableByUser,
   useLedgerResponseState,
 } from '@app/features/ledger/ledger-utils';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
@@ -39,7 +39,7 @@ interface LedgerSignMsgDataProps {
   children({ account, unsignedMessage }: LedgerSignMsgData): JSX.Element;
 }
 function LedgerSignMsgData({ children }: LedgerSignMsgDataProps) {
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const unsignedMessage = useSignedMessageType();
   if (!unsignedMessage || !account) return null;
   return children({ account, unsignedMessage });

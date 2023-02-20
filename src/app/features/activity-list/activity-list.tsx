@@ -3,10 +3,10 @@ import { useMemo } from 'react';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBitcoinPendingTransactions } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
+import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
-import { useCurrentBtcAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/bitcoin-account.hooks';
-import { useBitcoinFeature } from '@app/store/feature-flags/feature-flags.slice';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
@@ -16,7 +16,7 @@ import { SubmittedTransactionList } from './components/submitted-transaction-lis
 import { TransactionList } from './components/transaction-list/transaction-list';
 
 export function ActivityList() {
-  const bitcoinAddress = useCurrentBtcAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
     useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
   const bitcoinPendingTxs = useBitcoinPendingTransactions();
@@ -29,7 +29,7 @@ export function ActivityList() {
     transactions: stacksPendingTransactions,
   } = useStacksPendingTransactions();
   const submittedTransactions = useSubmittedTransactions();
-  const isBitcoinEnabled = useBitcoinFeature();
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   const isInitialLoading =
     isInitialLoadingBitcoinTransactions ||
@@ -41,9 +41,13 @@ export function ActivityList() {
     [bitcoinTransactions]
   );
 
+  const pendingTransactionIds = stacksPendingTransactions.map(tx => tx.tx_id);
   const transactionListStacksTxs = useMemo(
-    () => convertStacksTxsToListType(stacksTransactionsWithTransfers?.results),
-    [stacksTransactionsWithTransfers]
+    () =>
+      convertStacksTxsToListType(stacksTransactionsWithTransfers?.results).filter(
+        ({ transaction }) => !pendingTransactionIds.includes(transaction.tx.tx_id)
+      ),
+    [stacksTransactionsWithTransfers, pendingTransactionIds]
   );
 
   const hasSubmittedTransactions = submittedTransactions.length > 0;

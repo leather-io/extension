@@ -3,56 +3,40 @@ import * as btc from 'micro-btc-signer';
 
 import { NetworkModes } from '@shared/constants';
 
+import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkByMode } from './bitcoin.network';
-
-const coinTypeMap: Record<NetworkModes, 0 | 1> = {
-  mainnet: 0,
-  testnet: 1,
-};
-
-function getBitcoinCoinTypeIndexByNetwork(network: NetworkModes) {
-  return coinTypeMap[network];
-}
+import {
+  deriveAddressIndexZeroFromAccount,
+  getBitcoinCoinTypeIndexByNetwork,
+} from './bitcoin.utils';
 
 function getNativeSegWitAccountDerivationPath(network: NetworkModes, accountIndex: number) {
   return `m/84'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
 }
 
-export function deriveNativeSegWitAccountFromHdKey(keychain: HDKey, network: NetworkModes) {
+export function deriveNativeSegWitAccountKeychain(keychain: HDKey, network: NetworkModes) {
+  if (keychain.depth !== DerivationPathDepth.Root) throw new Error('Keychain passed is not a root');
   return (index: number) => keychain.derive(getNativeSegWitAccountDerivationPath(network, index));
 }
 
-export function deriveBip32KeychainFromExtendedPublicKey(xpub: string) {
-  if (!xpub) return;
-  return HDKey.fromExtendedKey(xpub);
+export function getNativeSegWitAddressIndex(keychain: HDKey, network: NetworkModes) {
+  if (keychain.depth !== DerivationPathDepth.AddressIndex)
+    throw new Error('Keychain passed is not an address index');
+
+  return btc.p2wpkh(keychain.publicKey!, getBtcSignerLibNetworkByMode(network));
 }
 
-interface DeriveNativeSegWitReceiveAddressIndexKeychainArgs {
+interface DeriveNativeSegWitReceiveAddressIndexArgs {
   xpub: string;
-  index: number;
   network: NetworkModes;
 }
-function deriveNativeSegWitReceiveAddressIndexKeychain({
+export function deriveNativeSegWitReceiveAddressIndex({
   xpub,
-  index,
   network,
-}: DeriveNativeSegWitReceiveAddressIndexKeychainArgs) {
+}: DeriveNativeSegWitReceiveAddressIndexArgs) {
   if (!xpub) return;
-  const keychain = deriveBip32KeychainFromExtendedPublicKey(xpub);
-  const zeroAddressIndex = keychain?.deriveChild(0).deriveChild(index);
-  return btc.p2wpkh(zeroAddressIndex?.publicKey!, getBtcSignerLibNetworkByMode(network));
-}
-
-interface DeriveNativeSegWitReceiveAddressIndexAddressArgs {
-  xpub: string;
-  index: number;
-  network: NetworkModes;
-}
-export function deriveNativeSegWitReceiveAddressIndexAddress({
-  xpub,
-  index,
-  network,
-}: DeriveNativeSegWitReceiveAddressIndexAddressArgs) {
-  if (!xpub) return;
-  return deriveNativeSegWitReceiveAddressIndexKeychain({ xpub, index, network })?.address;
+  const keychain = HDKey.fromExtendedKey(xpub);
+  if (!keychain) return;
+  const zeroAddressIndex = deriveAddressIndexZeroFromAccount(keychain);
+  return getNativeSegWitAddressIndex(zeroAddressIndex, network);
 }

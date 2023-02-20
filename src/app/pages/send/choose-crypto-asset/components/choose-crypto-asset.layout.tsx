@@ -9,14 +9,13 @@ export function ChooseCryptoAssetLayout({ children }: StackProps) {
       alignItems={['left', 'center']}
       flexGrow={1}
       flexDirection="column"
-      minHeight={['70vh', '90vh']}
       justifyContent="start"
-      mb="loose"
     >
       <PageTitle
         fontSize={3}
         maxWidth={['unset', 'unset', CENTERED_FULL_PAGE_MAX_WIDTH]}
         mb={['loose', 'loose', '48px']}
+        mt={['unset', 'loose']}
         px="loose"
         textAlign={['left', 'center']}
       >

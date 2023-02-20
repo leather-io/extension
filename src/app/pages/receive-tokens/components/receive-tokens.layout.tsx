@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
+import { RouteUrls } from '@shared/route-urls';
+
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Title } from '@app/components/typography';
@@ -12,15 +14,16 @@ import { QrCode } from './address-qr-code';
 
 interface ReceiveTokensLayoutProps {
   address: string;
-  accountName: string;
+  accountName?: string;
   onCopyAddressToClipboard(address: string): void;
+  title: string;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
-  const { address, accountName, onCopyAddressToClipboard } = props;
+  const { address, accountName, onCopyAddressToClipboard, title } = props;
   const navigate = useNavigate();
 
   return (
-    <BaseDrawer title="Receive" isShowing onClose={() => navigate(-1)}>
+    <BaseDrawer title={title} isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
         <Text color={color('text-caption')} mb="tight" textAlign="left">
           Share your account's unique address to receive tokens or collectibles. Including a memo is

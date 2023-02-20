@@ -11,8 +11,12 @@
           "description": "ONLY FIRST ITEM WILL SHOW IN WALLET.",
           "items": {
             "type": "object",
-            "required": ["purpose", "title", "text", "publishedAt", "dismissible", "chainTarget"],
+            "required": ["id", "purpose", "text", "publishedAt", "dismissible", "chainTarget"],
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the message. Used by wallet to know "
+              },
               "purpose": {
                 "type": "string",
                 "enum": ["info", "warning", "error"],
@@ -25,6 +29,14 @@
               "text": {
                 "type": "string",
                 "description": "Additional context to explain what the issue concerns"
+              },
+              "img": {
+                "type": "string",
+                "description": "URL or data-uri of an image"
+              },
+              "imgWidth": {
+                "type": "string",
+                "description": "Width of passed image"
               },
               "publishedAt": {
                 "type": "string",
@@ -45,7 +57,7 @@
               },
               "dismissible": {
                 "type": "boolean",
-                "description": "NOT IMPLEMENTED IN WALLET. Whether or not the message can be dismissed by the user"
+                "description": "Whether or not the message can be dismissed by the user"
               }
             }
           }
@@ -69,9 +81,13 @@
         "transak": { "$ref": "#/$defs/provider" }
       }
     },
-    "bitcoinFeatureEnabled": {
+    "bitcoinEnabled": {
       "type": "boolean",
       "description": "Determines whether or not the use of bitcoin is enabled in the wallet"
+    },
+    "bitcoinSendEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not the use of sending bitcoin is enabled in the wallet"
     },
     "feeEstimations": {
       "type": "object",

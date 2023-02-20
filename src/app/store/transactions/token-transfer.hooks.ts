@@ -31,10 +31,10 @@ import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 
-import { useCurrentAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
 
 function useMakeFungibleTokenTransfer(assetBalance?: StacksFungibleTokenAssetBalance) {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const network = useCurrentStacksNetworkState();
 
   return useMemo(() => {
@@ -56,7 +56,7 @@ function useMakeFungibleTokenTransfer(assetBalance?: StacksFungibleTokenAssetBal
 export function useGenerateStxTokenTransferUnsignedTx() {
   const { data: nextNonce } = useNextNonce();
   const network = useCurrentStacksNetworkState();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
 
   return useCallback(
     async (values?: StacksSendFormValues) => {
@@ -90,7 +90,7 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
   const { data: nextNonce } = useNextNonce();
   const network = useCurrentStacksNetworkState();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
 
   const tx = useAsync(
     async () => generateTx(values ?? undefined),
@@ -102,7 +102,7 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
 
 export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
   const { data: nextNonce } = useNextNonce();
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);
   const tokenCurrencyAssetBalance =
     getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
@@ -188,7 +188,7 @@ export function useFtTokenTransferUnsignedTx(
   values?: StacksSendFormValues
 ) {
   const generateTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
-  const account = useCurrentAccount();
+  const account = useCurrentStacksAccount();
   const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);
   const tokenCurrencyAssetBalance =
     getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);

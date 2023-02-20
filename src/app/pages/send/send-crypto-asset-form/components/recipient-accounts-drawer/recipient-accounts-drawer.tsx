@@ -8,13 +8,13 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { useStacksFtParams } from '../../form/stacks-sip10/use-stacks-ft-params';
+import { useStacksFtRouteState } from '../../form/stacks-sip10/use-stacks-ft-params';
 import { AccountListItem } from './account-list-item';
 
 const smallNumberOfAccountsToRenderWholeList = 10;
 
 export const RecipientAccountsDrawer = memo(() => {
-  const { contractId } = useStacksFtParams();
+  const { contractId } = useStacksFtRouteState();
   const { whenWallet } = useWalletType();
   const accounts = useStacksAccounts();
   const navigate = useNavigate();

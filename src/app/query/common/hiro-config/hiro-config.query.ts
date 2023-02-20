@@ -2,13 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
-import { BRANCH_NAME } from '@shared/environment';
+import { BRANCH_NAME, IS_DEV_ENV, WALLET_ENVIRONMENT } from '@shared/environment';
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
+import { useWalletType } from '@app/common/use-wallet-type';
+
+import localConfig from '../../../../../config/wallet-config.json';
+
 export interface HiroMessage {
+  id: string;
   title: string;
   text: string;
+  img?: string;
+  imgWidth?: string;
   purpose: 'error' | 'info' | 'warning';
   publishedAt: string;
   dismissible: boolean;
@@ -41,20 +48,24 @@ interface FeeEstimationsConfig {
 interface HiroConfig {
   messages: any;
   activeFiatProviders?: Record<string, ActiveFiatProvider>;
-  bitcoinFeatureEnabled: boolean;
+  bitcoinEnabled: boolean;
+  bitcoinSendEnabled: boolean;
   feeEstimationsMinMax?: FeeEstimationsConfig;
 }
 
-const defaultBranch = 'main';
+// TODO: BRANCH_NAME is not working here for config changes on PR branches
+// Playwright tests fail with config changes not on main
+const defaultBranch = IS_DEV_ENV || WALLET_ENVIRONMENT === 'testing' ? 'dev' : 'main';
 const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
   BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<HiroConfig> {
+  if (!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') return localConfig as HiroConfig;
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 
-export function useRemoteHiroConfig() {
+function useRemoteHiroConfig() {
   const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
@@ -87,10 +98,22 @@ export function useHasFiatProviders() {
   );
 }
 
-// ts-unused-exports:disable-next-line
-export function useConfigBitcoinFeatureEnabled() {
+export function useConfigBitcoinEnabled() {
+  const { whenWallet } = useWalletType();
   const config = useRemoteHiroConfig();
-  return config?.bitcoinFeatureEnabled;
+  return whenWallet({
+    ledger: false,
+    software: config?.bitcoinEnabled ?? true,
+  });
+}
+
+export function useConfigBitcoinSendEnabled() {
+  const { whenWallet } = useWalletType();
+  const config = useRemoteHiroConfig();
+  return whenWallet({
+    ledger: false,
+    software: config?.bitcoinSendEnabled ?? true,
+  });
 }
 
 export function useConfigFeeEstimationsMaxEnabled() {

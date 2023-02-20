@@ -1,7 +1,7 @@
-import validate from 'bitcoin-address-validation';
+import validate, { Network } from 'bitcoin-address-validation';
 import * as yup from 'yup';
 
-import { NetworkConfiguration } from '@shared/constants';
+import { NetworkConfiguration, NetworkModes } from '@shared/constants';
 import { isString } from '@shared/utils';
 
 import { validateAddressChain, validateStacksAddress } from '@app/common/stacks-utils';
@@ -9,7 +9,7 @@ import { validateAddressChain, validateStacksAddress } from '@app/common/stacks-
 export function btcAddressValidator() {
   return yup
     .string()
-    .defined()
+    .defined('Enter a bitcoin address')
     .test((input, context) => {
       if (!input) return false;
       if (!validate(input))
@@ -18,6 +18,20 @@ export function btcAddressValidator() {
         });
       return true;
     });
+}
+
+function btcAddressNetworkValidatorFactory(network: NetworkModes) {
+  return (value?: string) => {
+    if (!isString(value)) return false;
+    return validate(value, network as Network);
+  };
+}
+
+export function btcAddressNetworkValidator(network: NetworkModes) {
+  return yup.string().test({
+    test: btcAddressNetworkValidatorFactory(network),
+    message: 'Bitcoin address targets different network',
+  });
 }
 
 export function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfiguration) {

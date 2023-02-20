@@ -14,7 +14,7 @@ import {
 } from '@app/common/transactions/stacks/post-condition.utils';
 import { EventCard } from '@app/components/event-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useCurrentAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 interface PostConditionItemProps {
@@ -24,7 +24,7 @@ interface PostConditionItemProps {
 
 function PostConditionItemSuspense(props: PostConditionItemProps): JSX.Element | null {
   const { pc, isLast } = props;
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useCurrentStacksAccount();
   const pendingTransaction = useTransactionRequestState();
 
   const title = getPostConditionTitle(pc);

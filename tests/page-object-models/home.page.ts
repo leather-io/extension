@@ -14,13 +14,27 @@ export class HomePage {
     this.sendButton = page.getByTestId(HomePageSelectors.SendCryptoAssetBtn);
   }
 
-  async getAddress() {
-    // Open issue with Playwright's ability to copyToClipboard from legacy tests:
-    // https://github.com/microsoft/playwright/issues/8114#issuecomment-1103317576
-    // Also, an open issue to consistently determine `isMac` in the workaround:
-    // https://github.com/microsoft/playwright/issues/12168
-    // Using the `Receive` route to get the account address for now.
+  async goToReceiveModal() {
     await this.page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn).click();
+  }
+
+  // Open issue with Playwright's ability to copyToClipboard from legacy tests:
+  // https://github.com/microsoft/playwright/issues/8114#issuecomment-1103317576
+  // Also, an open issue to consistently determine `isMac` in the workaround:
+  // https://github.com/microsoft/playwright/issues/12168
+  // Using the `Receive` route to get the account address for now.
+  async getReceiveBtcAddress() {
+    await this.goToReceiveModal();
+    await this.page.getByTestId(HomePageSelectors.ReceiveBtcQrCodeBtn).click();
+    const displayerAddress = await this.page
+      .getByTestId(HomePageSelectors.AddressDisplayer)
+      .innerText();
+    return displayerAddress.replaceAll('\n', '');
+  }
+
+  async getReceiveStxAddress() {
+    await this.goToReceiveModal();
+    await this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn).click();
     const displayerAddress = await this.page
       .getByTestId(HomePageSelectors.AddressDisplayer)
       .innerText();

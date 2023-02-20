@@ -29,7 +29,7 @@ function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
   return ref;
 }
 
-export interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
+interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
   children?: ReactNode;
   enableGoBack?: boolean;
   icon?: JSX.Element;
