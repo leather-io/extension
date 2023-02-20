@@ -4,7 +4,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { test } from '../../fixtures/fixtures';
 
 test.describe('send btc', () => {
-  // TODO: Don't run these if we disable bitcoin sending
+  // TODO: Don't run these if we disable bitcoin sending?
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInExistingUser();
@@ -15,7 +15,7 @@ test.describe('send btc', () => {
 
   test.describe('btc send form', () => {
     test('can preview and send btc', async ({ page }) => {
-      await page.getByTestId(SendCryptoAssetSelectors.AmountFieldInput).fill('0.000001');
+      await page.getByTestId(SendCryptoAssetSelectors.AmountFieldInput).fill('0.00006');
       await page
         .getByTestId(SendCryptoAssetSelectors.RecipientFieldInput)
         .fill(TEST_ACCOUNT_2_BTC_ADDRESS);
