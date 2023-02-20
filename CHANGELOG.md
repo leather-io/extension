@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/hirosystems/stacks-wallet-web/compare/v4.0.0...v4.0.1) (2023-02-20)
+
+
+### Internal
+
+* ordinal modal ([a1e937a](https://github.com/hirosystems/stacks-wallet-web/commit/a1e937a058da988cf35ef0653b681a6e8ecf9cda))
+
 ## [4.0.0](https://github.com/hirosystems/stacks-wallet-web/compare/v3.34.2...v4.0.0) (2023-02-20)
 
 
