@@ -1,7 +1,11 @@
+import { useState } from 'react';
+
+import { bytesToHex } from '@stacks/common';
 import { useQuery } from '@tanstack/react-query';
 
-import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
-import { getTaprootAddress, hasOrdinals } from '@app/query/bitcoin/ordinals/utils';
+import { createCounter } from '@app/common/utils/counter';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
+import { getTaprootAddress } from '@app/query/bitcoin/ordinals/utils';
 import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -11,31 +15,49 @@ export function useNextFreshTaprootAddressQuery() {
   const keychain = useCurrentTaprootAccountKeychain();
   const client = useBitcoinClient();
 
+  const [highestKnownAccountActivity, setHighestKnownAccountActivity] = useState(0);
+
   return useQuery(
-    ['next-taproot-address', keychain, network.id] as const,
+    ['next-taproot-address', bytesToHex(keychain.pubKeyHash!), network.id] as const,
     async () => {
       if (!keychain) throw new Error('Expected keychain to be provided.');
 
-      async function isTaprootAccountBeingUsed(index: number): Promise<boolean> {
+      async function taprootAddressIndexActivity(index: number) {
         const address = getTaprootAddress(index, keychain, network.chain.bitcoin.network);
-        const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
-
-        return hasOrdinals(unspentTransactions);
+        const utxos = await client.addressApi.getUtxosByAddress(address);
+        return { address, utxos };
       }
 
-      const highestUsedAddressIndex = await recurseAccountsForActivity({
-        doesAddressHaveActivityFn: isTaprootAccountBeingUsed,
-      });
+      const taprootUtxosByIndex: { index: number; address: string; utxos: UtxoResponseItem[] }[] =
+        [];
+      const counter = createCounter(highestKnownAccountActivity);
 
-      const nextFreeAccountIndex = highestUsedAddressIndex + 1;
+      function hasFoundEmptyAddress() {
+        return taprootUtxosByIndex.some(({ utxos }) => utxos.length === 0);
+      }
 
-      const taprootAddress = getTaprootAddress(
-        nextFreeAccountIndex,
-        keychain,
-        network.chain.bitcoin.network
-      );
+      while (!hasFoundEmptyAddress() || taprootUtxosByIndex.length === 0) {
+        const { utxos, address } = await taprootAddressIndexActivity(counter.getValue());
+        taprootUtxosByIndex.push({
+          index: counter.getValue(),
+          utxos,
+          address,
+        });
+        counter.increment();
+      }
 
-      return taprootAddress;
+      const emptyAddresses = taprootUtxosByIndex.filter(({ utxos }) => utxos.length === 0);
+
+      if (emptyAddresses.length !== 1)
+        throw new Error('Should not have found multiple empty addresses');
+
+      const [emptyAddress] = emptyAddresses;
+
+      // Check shouldn't be necessary, but just in case
+      if (emptyAddress.utxos.length !== 0) throw new Error('Address found not empty');
+
+      setHighestKnownAccountActivity(emptyAddress.index - 1);
+      return emptyAddress.address;
     },
     {
       // This query needs to be run each time it is used as there is no way to
