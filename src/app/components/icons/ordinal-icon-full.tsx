@@ -1,8 +1,6 @@
-import { BoxProps, Svg } from '@stacks/ui';
-
-export function OrdinalIconFull(props: BoxProps) {
+export function OrdinalIconFull(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <Svg
+    <svg
       width={90}
       height={90}
       viewBox="0 0 90 90"
@@ -12,6 +10,6 @@ export function OrdinalIconFull(props: BoxProps) {
     >
       <circle cx={45} cy={45} r={32.5} fill="#fff" stroke="#fff" strokeWidth={9} />
       <circle cx={45} cy={45} r={44} stroke="#fff" strokeWidth={2} />
-    </Svg>
+    </svg>
   );
 }

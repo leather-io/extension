@@ -13,7 +13,6 @@ export function PreviewButton(props: ButtonProps) {
       height="48px"
       mb="base"
       onClick={handleSubmit}
-      type="button"
       width="100%"
       {...props}
     >

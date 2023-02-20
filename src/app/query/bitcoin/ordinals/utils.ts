@@ -43,6 +43,9 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
     title: yup.string().required(),
   })
   .required();
+export type OrdApiXyzGetInscriptionByInscriptionSchema = yup.InferType<
+  typeof ordApiXyzGetInscriptionByInscriptionSchema
+>;
 
 /**
  * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data
@@ -55,6 +58,8 @@ export const ordApiXyzGetTransactionOutput = yup
     inscriptions: yup.string().required(),
   })
   .required();
+
+export type OrdApiXyzGetTransactionOutput = yup.InferType<typeof ordApiXyzGetTransactionOutput>;
 
 export function hasOrdinals(data: Array<unknown>) {
   return data.length !== 0;
