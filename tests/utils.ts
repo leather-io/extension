@@ -4,3 +4,11 @@ export function json(arg: unknown) {
     contentType: 'application/json',
   };
 }
+
+export const wait = async (ms: number) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(true);
+    }, ms);
+  });
+};
