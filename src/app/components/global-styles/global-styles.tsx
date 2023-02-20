@@ -19,6 +19,10 @@ export const GlobalStyles = memo(() => {
       transition: filter 0.8s;
     }
 
+    img {
+      ${theme === 'dark' ? 'filter: invert(1) hue-rotate(-180deg)' : ''};
+    }
+
     body {
       &.no-scroll,
       &.no-scroll .main-content {
