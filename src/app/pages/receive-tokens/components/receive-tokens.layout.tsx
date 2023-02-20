@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
+import { RouteUrls } from '@shared/route-urls';
+
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Title } from '@app/components/typography';
@@ -21,7 +23,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   const navigate = useNavigate();
 
   return (
-    <BaseDrawer title={title} isShowing onClose={() => navigate(-1)}>
+    <BaseDrawer title={title} isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
         <Text color={color('text-caption')} mb="tight" textAlign="left">
           Share your account's unique address to receive tokens or collectibles. Including a memo is
