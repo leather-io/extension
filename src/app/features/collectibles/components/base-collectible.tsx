@@ -21,7 +21,16 @@ export function BaseCollectible({
   children,
 }: BaseCollectibleProps) {
   return (
-    <Box as="button" onClick={onClick}>
+    <Box
+      as="button"
+      onClick={onClick}
+      _focus={{
+        outline: '#CEDAFA solid 4px',
+      }}
+      sx={{
+        borderRadius: '16px',
+      }}
+    >
       <Box pb="base">
         <Box
           sx={{
