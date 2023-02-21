@@ -10,10 +10,11 @@ interface CryptoCurrencyAssetItemProps extends StackProps {
   assetSubBalance?: AllCryptoCurrencyAssetBalances;
   icon: JSX.Element;
   isPressable?: boolean;
+  address: string;
 }
 export const CryptoCurrencyAssetItem = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemProps, ref) => {
-    const { assetBalance, assetSubBalance, icon, isPressable, ...rest } = props;
+    const { assetBalance, assetSubBalance, icon, isPressable, address, ...rest } = props;
     const { balance, asset } = assetBalance;
 
     return (
@@ -25,6 +26,7 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         ref={ref}
         subBalance={assetSubBalance?.balance}
         title={asset.name}
+        address={address}
         {...rest}
       />
     );

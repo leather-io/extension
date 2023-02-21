@@ -44,13 +44,20 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       {...props}
     >
       {isBitcoinEnabled && (
-        <CryptoCurrencyAssetItem assetBalance={btcAssetBalance} icon={<Box as={BtcIcon} />} />
+        <CryptoCurrencyAssetItem
+          assetBalance={btcAssetBalance}
+          address={bitcoinAddress}
+          isPressable={true}
+          icon={<Box as={BtcIcon} />}
+        />
       )}
 
       <CryptoCurrencyAssetItem
         assetBalance={stxAssetBalance}
         assetSubBalance={stxUnachoredAssetBalance}
         icon={<StxAvatar {...props} />}
+        isPressable={true}
+        address={address}
       />
 
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />

@@ -1,10 +1,17 @@
-import { Flex, StackProps } from '@stacks/ui';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { FiCopy } from 'react-icons/fi';
+
+import { Box, Flex, StackProps, useClipboard } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
+import { color, truncateMiddle } from '@stacks/ui-utils';
+import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 
 import { Money } from '@shared/models/money.model';
 
 import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
@@ -21,11 +28,15 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   isPressable?: boolean;
   subBalance?: Money;
   title: string;
+  address: string;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
-    const { balance, caption, icon, isPressable, subBalance, title, ...rest } = props;
+    const { balance, caption, icon, isPressable, subBalance, title, address, ...rest } = props;
     const [component, bind] = usePressable(isPressable);
+    const { onCopy } = useClipboard(address);
+    const analytics = useAnalytics();
+    const [isHovered, setIsHovered] = useState(false);
 
     const amount = balance.decimals
       ? ftDecimals(balance.amount, balance.decimals || 0)
@@ -37,6 +48,31 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
     const formattedBalance = getFormattedBalance(amount);
     const isUnanchored = !!(subBalance && !balance.amount.isEqualTo(subBalance.amount));
 
+    function onHover() {
+      setIsHovered(true);
+    }
+
+    function onBlur() {
+      setIsHovered(false);
+    }
+
+    function onClick() {
+      void analytics.track('copy_address_to_clipboard');
+      onCopy();
+      toast.success('Address copied!');
+    }
+
+    const CopyIcon = (
+      <Flex alignItems="center" justifyContent="center" size="36px">
+        <Box
+          size="16px"
+          color={color('text-caption')}
+          data-testid={UserAreaSelectors.AccountCopyAddress}
+          as={FiCopy}
+          mt="2px"
+        />
+      </Flex>
+    );
     return (
       <Flex
         as={isPressable ? 'button' : 'div'}
@@ -45,10 +81,13 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
         ref={ref}
         {...rest}
         {...bind}
+        onClick={onClick}
+        onMouseOver={onHover}
+        onMouseOut={onBlur}
       >
-        <Flag img={icon} align="middle" width="100%">
+        <Flag img={isHovered ? CopyIcon : icon} align="middle" width="100%">
           <SpaceBetween width="100%">
-            <Text>{title}</Text>
+            <Text>{isHovered ? truncateMiddle(address, 6) : title}</Text>
             <Tooltip
               label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
               placement="left-start"
