@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
@@ -5,8 +6,10 @@ import { Form, Formik } from 'formik';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
+import { noop } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { whenPageMode } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
@@ -40,6 +43,18 @@ export function BtcSendForm() {
   const btcBalance = useBitcoinAssetBalance(currentAccountBtcAddress);
 
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
+  const [formState, setFormState] = useState(null);
+
+  useEffect(() => {
+    whenPageMode({
+      full: noop,
+      popup: () => {
+        // eslint-disable-next-line no-console
+        console.log('form values changes', formState);
+        localStorage.setItem('btc-form-state', JSON.stringify(formState));
+      },
+    })();
+  }, [formState]);
 
   const { validationSchema, currentNetwork, formRef, previewTransaction } = useBtcSendForm();
 
@@ -52,38 +67,43 @@ export function BtcSendForm() {
         innerRef={formRef}
         {...defaultSendFormFormikProps}
       >
-        {props => (
-          <Form>
-            <AmountField
-              balance={btcBalance.balance}
-              bottomInputOverlay={
-                <SendMaxButton
-                  balance={btcBalance.balance}
-                  sendMaxBalance={
-                    calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
-                  }
-                />
-              }
-            />
-            <FormFieldsLayout>
-              <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
-              <RecipientField
-                labelAction="Choose account"
-                name="recipient"
-                onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
-                placeholder="Address"
+        {props => {
+          setFormState(props.values as any);
+          return (
+            <Form>
+              <AmountField
+                balance={btcBalance.balance}
+                bottomInputOverlay={
+                  <SendMaxButton
+                    balance={btcBalance.balance}
+                    sendMaxBalance={
+                      calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
+                    }
+                  />
+                }
               />
-            </FormFieldsLayout>
-            {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
-            <FormErrors />
-            <PreviewButton />
-            <Box my="base">
-              <AvailableBalance availableBalance={btcBalance.balance} />
-            </Box>
-            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
-            <Outlet />
-          </Form>
-        )}
+              <FormFieldsLayout>
+                <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
+                <RecipientField
+                  labelAction="Choose account"
+                  name="recipient"
+                  onClickLabelAction={() =>
+                    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)
+                  }
+                  placeholder="Address"
+                />
+              </FormFieldsLayout>
+              {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
+              <FormErrors />
+              <PreviewButton />
+              <Box my="base">
+                <AvailableBalance availableBalance={btcBalance.balance} />
+              </Box>
+              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
+              <Outlet />
+            </Form>
+          );
+        }}
       </Formik>
     </SendCryptoAssetFormLayout>
   );
