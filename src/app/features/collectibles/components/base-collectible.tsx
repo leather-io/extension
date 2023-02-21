@@ -50,7 +50,7 @@ export function BaseCollectible({
           </Box>
         </Box>
       </Box>
-      <Box pb="base-tight" pl="tight">
+      <Box pb="base-tight" pl="tight" textAlign="initial">
         <Text pb="extra-tight" fontWeight="500" color={color('text-body')}>
           {title}
         </Text>
