@@ -123,6 +123,10 @@
           }
         }
       }
+    },
+    "nftMetadataEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not we display nft metadata in the wallet"
     }
   },
   "$defs": {
