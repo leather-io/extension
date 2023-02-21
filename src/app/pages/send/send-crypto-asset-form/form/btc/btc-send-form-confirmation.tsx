@@ -61,7 +61,8 @@ export function BtcSendFormConfirmation() {
           try {
             setIsLoading(true);
             await broadcastTransaction();
-            void analytics.track('bitcoin_broadcast_tx_successful', {
+            void analytics.track('broadcast_transaction', {
+              token: 'btc',
               amount: transferAmount,
               fee,
             });
