@@ -8,6 +8,7 @@ import {
   deserializePostCondition,
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
+import { toUnicode } from 'punycode';
 
 import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
@@ -324,3 +325,11 @@ export function logAndThrow(msg: string, args: any[] = []) {
   logger.error(msg, ...args);
   throw new Error(msg);
 }
+
+export const parseIfValidPunycode = (s: string) => {
+  try {
+    return toUnicode(s);
+  } catch {
+    return s;
+  }
+};

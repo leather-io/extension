@@ -147,6 +147,8 @@ export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId?: string) {
   );
 }
 
+// TODO: Remove?
+// ts-unused-exports:disable-next-line
 export function useStacksNonFungibleTokenAssetsUnanchored() {
   const account = useCurrentStacksAccount();
   return useUnanchoredStacksAccountBalanceQuery(account?.address ?? '', {

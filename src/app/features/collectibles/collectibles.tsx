@@ -1,26 +1,32 @@
-import { Box, Grid } from '@stacks/ui';
+import { Grid } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
 import { useGetOrdinalsQuery } from '@app/query/bitcoin/ordinals/ordinals.query';
+import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 
-import { AddCollectibles } from './add-collectibles';
+import { AddCollectible } from './components/add-collectible';
+import { Ordinals } from './components/ordinals';
 import { StacksCryptoAssets } from './components/stacks-crypto-assets';
-import { Ordinals } from './ordinals';
 
 export function Collectibles() {
   const ordinalsQuery = useGetOrdinalsQuery();
+  const isNftMetadataEnabled = useConfigNftMetadataEnabled();
 
   return (
-    <Box>
+    <>
       <Caption pb="base-loose">Collectibles</Caption>
       <Grid
-        gap={['base', 'base', '48px']}
-        templateColumns={['repeat(2, 2fr)', 'repeat(2, 2fr)', 'repeat(3, 1fr)']}
+        gap="base"
+        rowGap="extra-loose"
+        templateColumns={[
+          'repeat(auto-fill, minmax(164px, 1fr))',
+          'repeat(auto-fill, minmax(184px, 1fr))',
+        ]}
       >
-        <AddCollectibles />
+        <AddCollectible />
         <Ordinals query={ordinalsQuery} />
-        <StacksCryptoAssets />
+        {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
       </Grid>
-    </Box>
+    </>
   );
 }
