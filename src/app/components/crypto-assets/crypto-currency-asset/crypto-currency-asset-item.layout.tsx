@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { FiCopy } from 'react-icons/fi';
+import { FiCheck, FiCopy } from 'react-icons/fi';
 
 import { Box, Flex, StackProps, useClipboard } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
@@ -13,6 +13,7 @@ import { Money } from '@shared/models/money.model';
 import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { ftDecimals } from '@app/common/stacks-utils';
+import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { SpaceBetween } from '@app/components/layout/space-between';
@@ -34,13 +35,14 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
     const { balance, caption, icon, isPressable, subBalance, title, address, ...rest } = props;
     const [component, bind] = usePressable(isPressable);
-    const { onCopy } = useClipboard(address);
+    const { onCopy, hasCopied } = useClipboard(address);
     const analytics = useAnalytics();
     const [isHovered, setIsHovered] = useState(false);
 
     const amount = balance.decimals
       ? ftDecimals(balance.amount, balance.decimals || 0)
       : balance.amount.toString();
+
     const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
       '{symbol}',
       balance.symbol.toLowerCase()
@@ -64,13 +66,23 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
 
     const CopyIcon = (
       <Flex alignItems="center" justifyContent="center" size="36px">
-        <Box
-          size="16px"
-          color={color('text-caption')}
-          data-testid={UserAreaSelectors.AccountCopyAddress}
-          as={FiCopy}
-          mt="2px"
-        />
+        {hasCopied ? (
+          <Box
+            size="16px"
+            color={color('text-caption')}
+            data-testid={UserAreaSelectors.AccountCopyAddress}
+            as={FiCheck}
+            mt="2px"
+          />
+        ) : (
+          <Box
+            size="16px"
+            color={color('text-caption')}
+            data-testid={UserAreaSelectors.AccountCopyAddress}
+            as={FiCopy}
+            mt="2px"
+          />
+        )}
       </Flex>
     );
     return (
@@ -99,6 +111,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
             <Caption>{caption}</Caption>
+            {Number(amount) > 0 ? <AccountBalanceLabel address={address} /> : null}
             {isUnanchored && subBalance ? <SubBalance balance={subBalance} /> : null}
           </SpaceBetween>
         </Flag>
