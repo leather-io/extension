@@ -8,6 +8,7 @@ import { color, truncateMiddle } from '@stacks/ui-utils';
 import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
 
 import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
@@ -30,10 +31,12 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   subBalance?: Money;
   title: string;
   address: string;
+  currency?: CryptoCurrencies;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
-    const { balance, caption, icon, isPressable, subBalance, title, address, ...rest } = props;
+    const { balance, caption, icon, isPressable, subBalance, title, address, currency, ...rest } =
+      props;
     const [component, bind] = usePressable(isPressable);
     const { onCopy, hasCopied } = useClipboard(address);
     const analytics = useAnalytics();
@@ -111,7 +114,9 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
             <Caption>{caption}</Caption>
-            {Number(amount) > 0 ? <AccountBalanceLabel address={address} /> : null}
+            {Number(amount) > 0 ? (
+              <AccountBalanceLabel address={address} currency={currency} />
+            ) : null}
             {isUnanchored && subBalance ? <SubBalance balance={subBalance} /> : null}
           </SpaceBetween>
         </Flag>

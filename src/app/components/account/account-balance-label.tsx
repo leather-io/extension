@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import { CryptoCurrencies } from '@shared/models/currencies.model';
+
 import {
   AccountBalanceCaption,
   AccountBalanceLoading,
@@ -9,19 +11,19 @@ import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/bala
 
 interface AccountBalanceLabelProps {
   address: string;
+  currency?: CryptoCurrencies;
 }
-export const AccountBalanceLabel = memo(({ address }: AccountBalanceLabelProps) => {
-  const stxMarketData = useCryptoCurrencyMarketData('STX');
-  const { data: balances, isLoading } = useAnchoredStacksAccountBalances(address);
+export const AccountBalanceLabel = memo(
+  ({ address, currency = 'STX' }: AccountBalanceLabelProps) => {
+    const marketData = useCryptoCurrencyMarketData(currency);
+    const { data: balances, isLoading } = useAnchoredStacksAccountBalances(address);
 
-  if (isLoading) return <AccountBalanceLoading />;
+    if (isLoading) return <AccountBalanceLoading />;
 
-  if (!balances) return null;
+    if (!balances) return null;
 
-  return (
-    <AccountBalanceCaption
-      availableBalance={balances.stx.availableStx}
-      marketData={stxMarketData}
-    />
-  );
-});
+    return (
+      <AccountBalanceCaption availableBalance={balances.stx.availableStx} marketData={marketData} />
+    );
+  }
+);

@@ -49,6 +49,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
           address={bitcoinAddress}
           isPressable={true}
           icon={<Box as={BtcIcon} />}
+          currency="BTC"
         />
       )}
 
@@ -58,6 +59,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
         icon={<StxAvatar {...props} />}
         isPressable={true}
         address={address}
+        currency="STX"
       />
 
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
