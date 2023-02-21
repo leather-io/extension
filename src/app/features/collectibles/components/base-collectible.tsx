@@ -21,14 +21,7 @@ export function BaseCollectible({
   children,
 }: BaseCollectibleProps) {
   return (
-    <Box
-      tabindex="0"
-      onKeyDown={e => {
-        if (['Space', 'Enter'].includes(e.code)) {
-          onClick();
-        }
-      }}
-    >
+    <Box as="button" onClick={onClick}>
       <Box pb="base">
         <Box
           sx={{
@@ -38,7 +31,6 @@ export function BaseCollectible({
           }}
         >
           <Box
-            onClick={onClick}
             borderRadius="16px"
             backgroundColor="black"
             sx={{
@@ -52,7 +44,6 @@ export function BaseCollectible({
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            _hover={{ cursor: 'pointer' }}
             {...backgroundElementProps}
           >
             {children}
