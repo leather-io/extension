@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
@@ -6,13 +5,12 @@ import { Form, Formik } from 'formik';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
-import { noop } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { whenPageMode } from '@app/common/utils';
 import { Header } from '@app/components/header';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -43,20 +41,10 @@ export function BtcSendForm() {
   const btcBalance = useBitcoinAssetBalance(currentAccountBtcAddress);
 
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
-  const [formState, setFormState] = useState(null);
-
-  useEffect(() => {
-    whenPageMode({
-      full: noop,
-      popup: () => {
-        // eslint-disable-next-line no-console
-        console.log('form values changes', formState);
-        localStorage.setItem('btc-form-state', JSON.stringify(formState));
-      },
-    })();
-  }, [formState]);
 
   const { validationSchema, currentNetwork, formRef, previewTransaction } = useBtcSendForm();
+
+  const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
   return (
     <SendCryptoAssetFormLayout>
@@ -68,7 +56,7 @@ export function BtcSendForm() {
         {...defaultSendFormFormikProps}
       >
         {props => {
-          setFormState(props.values as any);
+          onFormStateChange(props.values);
           return (
             <Form>
               <AmountField

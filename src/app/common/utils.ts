@@ -304,6 +304,10 @@ export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
   return pageModeMap[pageMode];
 }
 
+export function isPopupMode() {
+  return pageMode === 'popup';
+}
+
 interface WhenChainIdMap<T> {
   [ChainID.Mainnet]: T;
   [ChainID.Testnet]: T;

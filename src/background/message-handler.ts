@@ -26,6 +26,11 @@ const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccoun
 // Persists keys in memory for the duration of the background scripts life
 const inMemoryKeys = new Map();
 
+const inMemoryFormState = new Map<number, object>();
+
+// Remove any persisted form state when a tab is closed
+chrome.tabs.onRemoved.addListener(tabId => inMemoryFormState.delete(tabId));
+
 export async function internalBackgroundMessageHandler(
   message: BackgroundMessages,
   sender: chrome.runtime.MessageSender,
@@ -46,7 +51,6 @@ export async function internalBackgroundMessageHandler(
 
     case InternalMethods.ShareInMemoryKeyToBackground: {
       const { keyId, secretKey } = message.payload;
-
       inMemoryKeys.set(keyId, secretKey);
       await backupWalletSaltForGaia(secretKey);
       break;
@@ -54,6 +58,17 @@ export async function internalBackgroundMessageHandler(
 
     case InternalMethods.RequestInMemoryKeys: {
       sendResponse(Object.fromEntries(inMemoryKeys));
+      break;
+    }
+
+    case InternalMethods.GetActiveFormState: {
+      sendResponse(inMemoryFormState.get(message.payload.tabId));
+      break;
+    }
+
+    case InternalMethods.SetActiveFormState: {
+      const { tabId, ...state } = message.payload;
+      inMemoryFormState.set(tabId, state);
       break;
     }
 
