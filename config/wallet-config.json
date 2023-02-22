@@ -93,5 +93,6 @@
     "maxValuesEnabled": false,
     "minValues": [2500, 3000, 3500],
     "minValuesEnabled": true
-  }
+  },
+  "nftMetadataEnabled": true
 }

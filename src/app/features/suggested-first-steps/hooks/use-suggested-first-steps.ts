@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/onboarding-types';
 
 import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance/balance.query';
-import { useAccountsNonFungibleTokenHoldings } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
+import { useAllAccountsNonFungibleTokenHoldingsTotal } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
 import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.query';
 import {
   useCurrentStacksAccount,
@@ -39,7 +39,8 @@ export function useSuggestedFirstSteps() {
 
   const firstFiveAccounts = accounts?.slice(0, 5);
   const accountsAvailableStxBalance = useAllAccountsAvailableStxBalance(firstFiveAccounts);
-  const accountsNonFungibleTokenHoldings = useAccountsNonFungibleTokenHoldings(firstFiveAccounts);
+  const accountsNonFungibleTokenHoldings =
+    useAllAccountsNonFungibleTokenHoldingsTotal(firstFiveAccounts);
 
   const isAddFundsStepComplete = useMemo(
     () => accountsAvailableStxBalance?.isGreaterThan(0),

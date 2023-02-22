@@ -13,6 +13,13 @@ export type RequestDerivedStxAccounts = BackgroundMessage<
   { secretKey: string; highestAccountIndex: number }
 >;
 
+type GetActiveFormState = BackgroundMessage<InternalMethods.GetActiveFormState, { tabId: number }>;
+
+type SetActiveFormState = BackgroundMessage<
+  InternalMethods.SetActiveFormState,
+  { tabId: number; symbol: string; amount?: string; recipient?: string }
+>;
+
 type ShareInMemoryKeyToBackground = BackgroundMessage<
   InternalMethods.ShareInMemoryKeyToBackground,
   { secretKey: string; keyId: string }
@@ -29,6 +36,8 @@ type OriginatingTabClosed = BackgroundMessage<
 
 export type BackgroundMessages =
   | RequestDerivedStxAccounts
+  | GetActiveFormState
+  | SetActiveFormState
   | ShareInMemoryKeyToBackground
   | RequestInMemoryKeys
   | RemoveInMemoryKeys

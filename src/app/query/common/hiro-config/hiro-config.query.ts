@@ -51,6 +51,7 @@ interface HiroConfig {
   bitcoinEnabled: boolean;
   bitcoinSendEnabled: boolean;
   feeEstimationsMinMax?: FeeEstimationsConfig;
+  nftMetadataEnabled: boolean;
 }
 
 // TODO: BRANCH_NAME is not working here for config changes on PR branches
@@ -142,4 +143,9 @@ export function useConfigFeeEstimationsMinValues() {
   if (!config.feeEstimationsMinMax.minValues) return;
   if (!Array.isArray(config.feeEstimationsMinMax.minValues)) return;
   return config.feeEstimationsMinMax.minValues.map(value => createMoney(value, 'STX'));
+}
+
+export function useConfigNftMetadataEnabled() {
+  const config = useRemoteHiroConfig();
+  return config?.nftMetadataEnabled ?? true;
 }

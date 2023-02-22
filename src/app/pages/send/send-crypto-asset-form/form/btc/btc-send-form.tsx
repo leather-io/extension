@@ -10,6 +10,7 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -43,6 +44,8 @@ export function BtcSendForm() {
 
   const { validationSchema, currentNetwork, formRef, previewTransaction } = useBtcSendForm();
 
+  const { onFormStateChange } = useUpdatePersistedSendFormValues();
+
   return (
     <SendCryptoAssetFormLayout>
       <Formik
@@ -52,38 +55,43 @@ export function BtcSendForm() {
         innerRef={formRef}
         {...defaultSendFormFormikProps}
       >
-        {props => (
-          <Form>
-            <AmountField
-              balance={btcBalance.balance}
-              bottomInputOverlay={
-                <SendMaxButton
-                  balance={btcBalance.balance}
-                  sendMaxBalance={
-                    calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
-                  }
-                />
-              }
-            />
-            <FormFieldsLayout>
-              <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
-              <RecipientField
-                labelAction="Choose account"
-                name="recipient"
-                onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
-                placeholder="Address"
+        {props => {
+          onFormStateChange(props.values);
+          return (
+            <Form>
+              <AmountField
+                balance={btcBalance.balance}
+                bottomInputOverlay={
+                  <SendMaxButton
+                    balance={btcBalance.balance}
+                    sendMaxBalance={
+                      calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
+                    }
+                  />
+                }
               />
-            </FormFieldsLayout>
-            {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
-            <FormErrors />
-            <PreviewButton />
-            <Box my="base">
-              <AvailableBalance availableBalance={btcBalance.balance} />
-            </Box>
-            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
-            <Outlet />
-          </Form>
-        )}
+              <FormFieldsLayout>
+                <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
+                <RecipientField
+                  labelAction="Choose account"
+                  name="recipient"
+                  onClickLabelAction={() =>
+                    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)
+                  }
+                  placeholder="Address"
+                />
+              </FormFieldsLayout>
+              {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
+              <FormErrors />
+              <PreviewButton />
+              <Box my="base">
+                <AvailableBalance availableBalance={btcBalance.balance} />
+              </Box>
+              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
+              <Outlet />
+            </Form>
+          );
+        }}
       </Formik>
     </SendCryptoAssetFormLayout>
   );
