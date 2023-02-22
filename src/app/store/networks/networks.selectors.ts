@@ -42,7 +42,7 @@ export const selectAppRequestedNetworkId = createSelector(selectNetworks, networ
   return findMatchingNetworkKey({ coreApiUrl, networkChainId, networks });
 });
 
-export const selectCurrentNetwork = createSelector(
+const selectCurrentNetwork = createSelector(
   selectNetworks,
   selectCurrentNetworkId,
   selectAppRequestedNetworkId,
