@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
+
 import { AppState, defaultState } from '@common/context';
 import { AppConfig, UserSession } from '@stacks/auth';
 import { AuthOptions } from '@stacks/connect';

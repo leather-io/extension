@@ -317,6 +317,11 @@ export function whenStxChainId(chainId: ChainID) {
   return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
 }
 
+type NetworkMap<T> = Record<NetworkModes, T>;
+export function whenNetwork(mode: NetworkModes) {
+  return <T>(networkMap: NetworkMap<T>): T => networkMap[mode];
+}
+
 export function sumNumbers(nums: number[]) {
   return nums.reduce((acc, num) => acc.plus(num), new BigNumber(0));
 }

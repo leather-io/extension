@@ -8,6 +8,7 @@ import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoi
 import { deriveNativeSegWitReceiveAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { isUndefined } from '@shared/utils';
 
+import { whenNetwork } from '@app/common/utils';
 import {
   formatBitcoinAccount,
   tempHardwareAccountForTesting,
@@ -15,10 +16,46 @@ import {
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import { selectSoftwareBitcoinNativeSegWitKeychain } from './bitcoin-keychain';
+import {
+  selectMainnetNativeSegWitKeychain,
+  selectTestnetNativeSegWitKeychain,
+} from './bitcoin-keychain';
+
+function useNativeSegWitCurrentNetworkAccountKeychain() {
+  const network = useCurrentNetwork();
+  return useSelector(
+    whenNetwork(network.chain.bitcoin.network)({
+      mainnet: selectMainnetNativeSegWitKeychain,
+      testnet: selectTestnetNativeSegWitKeychain,
+    })
+  );
+}
+
+export function useAllBitcoinNativeSegWitNetworksByAccount() {
+  const mainnetKeychainAtAccount = useSelector(selectMainnetNativeSegWitKeychain);
+  const testnetKeychainAtAccount = useSelector(selectTestnetNativeSegWitKeychain);
+
+  return useCallback(
+    (accountIndex: number) => {
+      if (!mainnetKeychainAtAccount || !testnetKeychainAtAccount)
+        throw new Error('Cannot derive addresses in non-software mode');
+      return {
+        mainnet: deriveNativeSegWitReceiveAddressIndex({
+          xpub: mainnetKeychainAtAccount(accountIndex).publicExtendedKey,
+          network: 'mainnet',
+        })?.address,
+        testnet: deriveNativeSegWitReceiveAddressIndex({
+          xpub: testnetKeychainAtAccount(accountIndex).publicExtendedKey,
+          network: 'testnet',
+        })?.address,
+      };
+    },
+    [mainnetKeychainAtAccount, testnetKeychainAtAccount]
+  );
+}
 
 function useBitcoinNativeSegwitAccount(index: number) {
-  const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain);
+  const keychain = useNativeSegWitCurrentNetworkAccountKeychain();
   return useMemo(() => {
     // TODO: Remove with bitcoin Ledger integration
     if (isUndefined(keychain)) return tempHardwareAccountForTesting;
@@ -69,7 +106,7 @@ export function useCurrentBitcoinNativeSegwitAddressIndexKeychain() {
 
 export function useSignBitcoinNativeSegwitTx() {
   const index = useCurrentAccountIndex();
-  const keychain = useSelector(selectSoftwareBitcoinNativeSegWitKeychain)?.(index);
+  const keychain = useNativeSegWitCurrentNetworkAccountKeychain()?.(index);
   return useCallback(
     (tx: btc.Transaction) => {
       if (isUndefined(keychain)) return;

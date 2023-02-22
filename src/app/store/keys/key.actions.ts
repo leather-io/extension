@@ -11,7 +11,7 @@ import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';
 
-import { getNativeSegwitAddressFromMnemonic } from '../accounts/blockchain/bitcoin/bitcoin-keychain';
+import { getNativeSegwitMainnetAddressFromMnemonic } from '../accounts/blockchain/bitcoin/bitcoin-keychain';
 import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-keychain';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
@@ -67,7 +67,7 @@ function setWalletEncryptionPassword(args: {
         const hasStxBalance = await doesStacksAddressHaveBalance(stxAddress);
         const hasNames = await doesStacksAddressHaveBnsName(stxAddress);
 
-        const btcAddress = getNativeSegwitAddressFromMnemonic(secretKey)(index);
+        const btcAddress = getNativeSegwitMainnetAddressFromMnemonic(secretKey)(index);
         const hasBtcBalance = await doesBitcoinAddressHaveBalance(btcAddress.address!);
         // TODO: add inscription check here also?
         return hasStxBalance || hasNames || hasBtcBalance;
