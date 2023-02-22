@@ -18,6 +18,8 @@ import { Body, Caption } from '@app/components/typography';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
+import { ReceiveCollectibleLayout } from '../receive/receive-collectible/receive-collectible.layout';
+
 export function ReceiveModal() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
@@ -36,7 +38,11 @@ export function ReceiveModal() {
     <BaseDrawer title="Select asset to receive" isShowing onClose={() => navigate('../')}>
       <Box mx="extra-loose">
         <Body>Share your account's unique address to receive any token or collectible</Body>
-        <Stack spacing="loose" mt="loose" mb="extra-loose">
+        <Caption mt="loose" style={{ fontSize: '16px' }}>
+          Token
+        </Caption>
+
+        <Stack spacing="loose" mt="base" mb="extra-loose">
           <Flag img={<BtcIcon />} spacing="base">
             <Flex justifyContent="space-between">
               <Box>
@@ -98,6 +104,9 @@ export function ReceiveModal() {
             </Flex>
           </Flag>
         </Stack>
+        <Caption style={{ fontSize: '16px' }}>Collectibles</Caption>
+
+        <ReceiveCollectibleLayout />
       </Box>
     </BaseDrawer>
   );
