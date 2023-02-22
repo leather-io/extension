@@ -103,7 +103,7 @@ export function SettingsDropdown() {
             <MenuItem
               data-testid={SettingsSelectors.ToggleTheme}
               onClick={wrappedCloseCallback(() => {
-                void analytics.track('change_theme_menu_item');
+                void analytics.track('click_change_theme_menu_item');
                 navigate(RouteUrls.ChangeTheme, { relative: 'path' });
               })}
             >
@@ -114,7 +114,10 @@ export function SettingsDropdown() {
               popup: (
                 <MenuItem
                   data-testid={SettingsMenuSelectors.OpenWalletInNewTab}
-                  onClick={() => openIndexPageInNewTab(location.pathname)}
+                  onClick={() => {
+                    void analytics.track('click_open_in_new_tab_menu_item');
+                    openIndexPageInNewTab(location.pathname);
+                  }}
                 >
                   <Stack isInline>
                     <Box>Open in new tab</Box>
@@ -152,7 +155,7 @@ export function SettingsDropdown() {
             <MenuItem
               data-testid={SettingsSelectors.ChangeNetworkAction}
               onClick={wrappedCloseCallback(() => {
-                void analytics.track('choose_to_change_network');
+                void analytics.track('click_change_network_menu_item');
                 navigate(RouteUrls.SelectNetwork, { relative: 'path' });
               })}
             >

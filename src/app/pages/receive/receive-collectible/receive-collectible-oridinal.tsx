@@ -44,7 +44,10 @@ export function ReceiveCollectibleOrdinal() {
               color={color('accent')}
               fontSize={1}
               isInline
-              onClick={() => openInNewTab('https://gamma.io/')}
+              onClick={() => {
+                void analytics.track('go_to_create_ordinal_on_gamma');
+                openInNewTab('https://gamma.io/ordinals');
+              }}
               spacing="extra-tight"
               textDecoration="underline"
               type="button"
@@ -59,7 +62,10 @@ export function ReceiveCollectibleOrdinal() {
               color={color('accent')}
               fontSize={1}
               isInline
-              onClick={() => openInNewTab('https://ordinalsbot.com/')}
+              onClick={() => {
+                void analytics.track('go_to_create_ordinal_on_ordinalsbot');
+                openInNewTab('https://ordinalsbot.com/');
+              }}
               spacing="extra-tight"
               textDecoration="underline"
               type="button"

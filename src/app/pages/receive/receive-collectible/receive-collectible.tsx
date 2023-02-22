@@ -51,7 +51,7 @@ export function ReceiveCollectible() {
                     borderRadius="10px"
                     mode="tertiary"
                     onClick={() => {
-                      analytics.track('select_inscription_to_add_new_collectible');
+                      void analytics.track('select_inscription_to_add_new_collectible');
                       navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddress } });
                     }}
                   >
