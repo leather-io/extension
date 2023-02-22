@@ -19,18 +19,18 @@ const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
  * Ordinals contain arbitrary data. When retrieving an ordinal, we should
  * classify it into one of the types below, indicating that it is handled
  * appropriately. Ordinals of types not ready to be handled by the app should be
- * classified as other.
+ * classified as `Other`.
  */
-const supportedOrdinalTypes = ['image', 'other'] as const;
-
-type SupportedOrdinalType = (typeof supportedOrdinalTypes)[number];
-
+export enum OrdinalType {
+  Image = 'IMAGE',
+  Other = 'OTHER',
+}
 interface BaseOrdinalInfo {
   /**
    * The kind of ordinal as classified by this app. Different kinds of ordinals
    * require different treatment (e.g., images vs documents).
    */
-  type: SupportedOrdinalType;
+  type: OrdinalType;
 
   /**
    * Title which can be rendered in the UI alongside the ordinal.
@@ -42,40 +42,21 @@ interface BaseOrdinalInfo {
    */
   infoUrl: string;
 }
-
 interface ImageOrdinalInfo extends BaseOrdinalInfo {
   /**
    * A URL of where the image can be downloaded from.
    */
-  type: 'image';
+  type: OrdinalType.Image;
   content: string;
 }
-
 interface OtherOrdinalInfo extends BaseOrdinalInfo {
   /**
    * A URL of where the image can be downloaded from.
    */
-  type: 'other';
+  type: OrdinalType.Other;
 }
 
 type OrdinalInfo = ImageOrdinalInfo | OtherOrdinalInfo;
-
-function whenOrdinalType(
-  mimeType: string,
-  branches: { [k in SupportedOrdinalType]?: () => OrdinalInfo }
-) {
-  if (mimeType.startsWith('image/') && branches.image) {
-    return branches.image();
-  }
-
-  if (branches.other) return branches.other();
-
-  throw new Error('Unhandled ordinal type.');
-}
-
-function createInfoUrl(contentPath: string) {
-  return `https://ordinals.com${contentPath}`.replace('content', 'inscription');
-}
 
 export function useGetOrdinalsQuery() {
   const network = useCurrentNetwork();
@@ -164,23 +145,26 @@ export function useGetOrdinalsQuery() {
           )
           .map(p => p.value);
 
-        foundOrdinals.concat(
-          validatedResDataOrdApiInscriptions.map(data =>
-            whenOrdinalType(data['content type'], {
-              image: () => ({
-                type: 'image',
-                title: data.title,
-                infoUrl: createInfoUrl(data.content),
-                content: `https://ordinals.com${data.content}`,
-              }),
-              other: () => ({
-                type: 'other',
-                title: data.title,
-                infoUrl: `https://ordinals.com${data.content}`.replace('content', 'inscription'),
-              }),
-            })
-          )
-        );
+        validatedResDataOrdApiInscriptions.forEach(data => {
+          // TODO: this if/else contains some repetition and works due to the
+          // limited amount of ordinal types currently supported. Perhaps worth
+          // converting to switch when new ordinal types are supported and
+          // extracting reusable code from each branch.
+          if (data['content type'].startsWith('image/')) {
+            foundOrdinals.push({
+              type: OrdinalType.Image,
+              title: data.title,
+              infoUrl: `https://ordinals.com${data.content}`.replace('content', 'inscription'),
+              content: `https://ordinals.com${data.content}`,
+            });
+          } else {
+            foundOrdinals.push({
+              type: OrdinalType.Other,
+              title: data.title,
+              infoUrl: `https://ordinals.com${data.content}`.replace('content', 'inscription'),
+            });
+          }
+        });
         index += 1;
       }
 
