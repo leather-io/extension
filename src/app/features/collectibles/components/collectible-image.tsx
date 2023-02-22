@@ -7,7 +7,10 @@ export function CollectibleImage(props: ImageCollectibleProps) {
   const { src, ...rest } = props;
   return (
     <CollectibleLayout {...rest}>
-      <img src={src} style={{ aspectRatio: '1 / 1', objectFit: 'cover' }} />
+      <img
+        src={src}
+        style={{ width: '100%', height: '100%', aspectRatio: '1 / 1', objectFit: 'cover' }}
+      />
     </CollectibleLayout>
   );
 }
