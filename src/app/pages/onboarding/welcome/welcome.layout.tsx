@@ -63,15 +63,15 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
           mt={['base', 'unset']}
         >
           <PageTitle isHeadline maxWidth={['75%', '85%', '90%']} mt={['tight', 'base', 'loose']}>
-            Explore the world of Stacks
+            Your gateway to Web3 on Bitcoin
           </PageTitle>
           <Text
             maxWidth={['unset', '90%']}
             mt={['base', null, null, 'extra-loose']}
             pr={['unset', '80px']}
           >
-            Hiro Wallet connects you to Stacks apps while keeping your account, data, and crypto
-            secure.
+            Connect to apps and manage your assets secured by Bitcoin with the most popular wallet
+            for the Stacks blockchain
           </Text>
           <Box>
             <PrimaryButton
@@ -85,7 +85,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
           </Box>
 
           <Flex flexDirection="column" mt={['base', 'base-loose', 'extra-loose']} fontSize="14px">
-            <Caption>Already have a Stacks account?</Caption>
+            <Caption>Already have a wallet?</Caption>
             <Box mt="tight">
               <Link
                 fontSize="inherit"
