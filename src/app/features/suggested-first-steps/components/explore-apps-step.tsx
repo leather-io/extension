@@ -14,8 +14,8 @@ interface ExploreAppsStepProps {
 export function ExploreAppsStep({ isComplete, onSelectStep }: ExploreAppsStepProps) {
   return (
     <SuggestedFirstStep
-      action="Find apps"
-      body="Try Stacks apps for finance, NFTs, blogging and more"
+      action="Explore apps"
+      body="Try Bitcoin-secured apps for finance, NFTs, blogging and more"
       imageFull={ExploreAppsFull}
       imageFullDone={ExploreAppsFullDone}
       imagePopup={ExploreAppsPopup}
