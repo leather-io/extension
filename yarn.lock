@@ -3468,15 +3468,15 @@
     jsontokens "^4.0.1"
     query-string "^6.13.1"
 
-"@stacks/auth@^6.1.2-pr.4e0feae.0", "@stacks/auth@^6.1.2-pr.f3e03fa.0":
-  version "6.1.2-pr.f3e03fa.0"
-  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-6.1.2-pr.f3e03fa.0.tgz#5481e6db6e5c3e26d2f70a3c3b2979fd07608558"
-  integrity sha512-mqeuEPzFNuHYb7kOcRsj03ceLCfMEGhpk6FUoIBsQPmDjPYP8b6bPIP+wU0hMJCQrQBpA3rdZaI22Cuhhkjw4A==
+"@stacks/auth@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-6.2.0.tgz#454011a9b2c4700915f1caab60bde8f17d1710bb"
+  integrity sha512-ZE2OKLV9IRKw37SJ2L4Quuf2NlkUONaMNa0+uuJBONTs8MYdyB6T3EjkmD/fvGxiN65dsCdDzDx7BWtWWonBrQ==
   dependencies:
-    "@stacks/common" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/encryption" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/network" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/profile" "^6.1.2-pr.f3e03fa.0"
+    "@stacks/common" "^6.0.0"
+    "@stacks/encryption" "^6.2.0"
+    "@stacks/network" "^6.1.1"
+    "@stacks/profile" "^6.2.0"
     cross-fetch "^3.1.5"
     jsontokens "^4.0.1"
 
@@ -3509,14 +3509,6 @@
     "@types/bn.js" "^5.1.0"
     "@types/node" "^18.0.4"
     buffer "^6.0.3"
-
-"@stacks/common@^6.1.2-pr.4e0feae.0", "@stacks/common@^6.1.2-pr.f3e03fa.0":
-  version "6.1.2-pr.f3e03fa.0"
-  resolved "https://registry.yarnpkg.com/@stacks/common/-/common-6.1.2-pr.f3e03fa.0.tgz#e70370a2589477c305a1d7b224b7c484db3583bc"
-  integrity sha512-Rq1ToKTamP2O3K3S+BysNmeN9FjvdCREzVeDpK+r5Xzkw7TTfr/bjNXdI30IB5QSxPfjXpqU2rb77WKJH9bUZQ==
-  dependencies:
-    "@types/bn.js" "^5.1.0"
-    "@types/node" "^18.0.4"
 
 "@stacks/connect-react@21.0.0":
   version "21.0.0"
@@ -3563,15 +3555,15 @@
     ripemd160-min "^0.0.6"
     varuint-bitcoin "^1.1.2"
 
-"@stacks/encryption@^6.1.2-pr.4e0feae.0", "@stacks/encryption@^6.1.2-pr.f3e03fa.0":
-  version "6.1.2-pr.f3e03fa.0"
-  resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-6.1.2-pr.f3e03fa.0.tgz#3fc5e412f8f440aed9f00cd8b91e8a4f513b090e"
-  integrity sha512-avx1phIylxRWxLiRXAL5QavAjMFPLN64VHLw8gh7A96B7hHmoWbo+DzKY2O8fe29H6A5mSEsXylPjMpES25vjg==
+"@stacks/encryption@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@stacks/encryption/-/encryption-6.2.0.tgz#86855aacc6e1f023994140cc4d54137f776f2dd6"
+  integrity sha512-l0jeTtnmP2fJJk4rHR8sUjFr67e8Pnz4p7RkiGZm7H+uQ6HKPchgAzySFzgO3EQegRpbUQA6UOPEWJRbdO/kzw==
   dependencies:
     "@noble/hashes" "1.1.5"
     "@noble/secp256k1" "1.7.1"
     "@scure/bip39" "1.1.0"
-    "@stacks/common" "^6.1.2-pr.f3e03fa.0"
+    "@stacks/common" "^6.0.0"
     "@types/node" "^18.0.4"
     base64-js "^1.5.1"
     bs58 "^5.0.0"
@@ -3608,14 +3600,6 @@
     "@stacks/common" "^4.3.5"
     cross-fetch "^3.1.5"
 
-"@stacks/network@^6.1.2-pr.4e0feae.0", "@stacks/network@^6.1.2-pr.f3e03fa.0":
-  version "6.1.2-pr.f3e03fa.0"
-  resolved "https://registry.yarnpkg.com/@stacks/network/-/network-6.1.2-pr.f3e03fa.0.tgz#614e6adef3613c9a5d035152496a1948859a4071"
-  integrity sha512-FclXUn47tB/edHJoaifcpyA1pNuoNpwJOOUDc477PN8TrBBB85Tc8BE6Ysps5KrJk3xp8o7e5oR/FF5xLzu1fw==
-  dependencies:
-    "@stacks/common" "^6.1.2-pr.f3e03fa.0"
-    cross-fetch "^3.1.5"
-
 "@stacks/prettier-config@0.0.10":
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/@stacks/prettier-config/-/prettier-config-0.0.10.tgz#a63915c1e466a1ca9b34d3947f448ac101764b94"
@@ -3642,14 +3626,14 @@
     schema-inspector "^2.0.2"
     zone-file "^2.0.0-beta.3"
 
-"@stacks/profile@^6.1.2-pr.4e0feae.0", "@stacks/profile@^6.1.2-pr.f3e03fa.0":
-  version "6.1.2-pr.f3e03fa.0"
-  resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-6.1.2-pr.f3e03fa.0.tgz#3e141433f38a9c4f42a05ef18dc450d068efda7c"
-  integrity sha512-PMX7si/Go3KcwQm0IEk/frtO0cHmnnk42QExFceuwhvSdSU9ZxPyyhLlG+04gNsX0G9cR5ZTPHag9Dq6t0pBXQ==
+"@stacks/profile@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-6.2.0.tgz#70e890a51736af6f7f17b1c4c7c30c270a651117"
+  integrity sha512-3Ib7Y4/gX33S6dywBarLTtCwV0t+1lQGNkpOMhU3tLxA0zgL5NPvfP0x33iZzG9oF0aj13y3z+mT1USVxPEVhQ==
   dependencies:
-    "@stacks/common" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/network" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/transactions" "^6.1.2-pr.f3e03fa.0"
+    "@stacks/common" "^6.0.0"
+    "@stacks/network" "^6.1.1"
+    "@stacks/transactions" "^6.2.0"
     jsontokens "^4.0.1"
     schema-inspector "^2.0.2"
     zone-file "^2.0.0-beta.3"
@@ -3684,15 +3668,15 @@
     base64-js "^1.5.1"
     jsontokens "^4.0.1"
 
-"@stacks/storage@^6.1.2-pr.4e0feae.0":
-  version "6.1.2-pr.f3e03fa.0"
-  resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-6.1.2-pr.f3e03fa.0.tgz#2c5ec73c668def97bc7fcced14192cbb56501b88"
-  integrity sha512-6XOhhXxZibk5pfJqw88Ly33hWfSnGvPZHm+2ugM+05wO0GAo9/nkl/GNjONE/QwA5ROAhhOaCOcGNTFTY1oFLw==
+"@stacks/storage@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@stacks/storage/-/storage-6.2.0.tgz#4743c1ca3d283476e13ba860293f4fd282c39479"
+  integrity sha512-RgNy57pCt+KdQzFdG/3BVFrXQewtzFO+HuneSiAbHbUej6CqaiZbY/eTaOldccQDsxCjQsS4I8WS9L8dg3Hbdg==
   dependencies:
-    "@stacks/auth" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/common" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/encryption" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/network" "^6.1.2-pr.f3e03fa.0"
+    "@stacks/auth" "^6.2.0"
+    "@stacks/common" "^6.0.0"
+    "@stacks/encryption" "^6.2.0"
+    "@stacks/network" "^6.1.1"
     base64-js "^1.5.1"
     jsontokens "^4.0.1"
 
@@ -3725,15 +3709,15 @@
     sha.js "^2.4.11"
     smart-buffer "^4.1.0"
 
-"@stacks/transactions@^6.1.2-pr.4e0feae.0", "@stacks/transactions@^6.1.2-pr.f3e03fa.0":
-  version "6.1.2-pr.f3e03fa.0"
-  resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-6.1.2-pr.f3e03fa.0.tgz#d9675a5373a6d5c14de9d5c5e4c99d4f13d97a67"
-  integrity sha512-54qjEHa3Jk/kkLWxqWD3mXKkJ8MZCmQP+YkZwV6FIrFUsXbMpHx5JP30Y5Rl2A77SFXIsxSVX0max5z/Wh4hig==
+"@stacks/transactions@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-6.2.0.tgz#cd7a68c32d4f361e358bca4fa6f424680fa84caf"
+  integrity sha512-FUqcCNhCC5VlPvfUeeC6TB0gUifFj06E9xlWKbi2jB+oObh6XNBu4fS6I4EKxF1tEtUX9RNXcVbKDgMlX38syw==
   dependencies:
     "@noble/hashes" "1.1.5"
     "@noble/secp256k1" "1.7.1"
-    "@stacks/common" "^6.1.2-pr.f3e03fa.0"
-    "@stacks/network" "^6.1.2-pr.f3e03fa.0"
+    "@stacks/common" "^6.0.0"
+    "@stacks/network" "^6.1.1"
     c32check "^2.0.0"
     lodash.clonedeep "^4.5.0"
 
@@ -3793,20 +3777,20 @@
     use-events "^1.4.1"
     use-onclickoutside "npm:use-onclickoutside-peer-deps@0.3.1"
 
-"@stacks/wallet-sdk@6.1.2-pr.4e0feae.0":
-  version "6.1.2-pr.4e0feae.0"
-  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-6.1.2-pr.4e0feae.0.tgz#3187836a28954ca2b5e3d9b51c45788c82e2a5b4"
-  integrity sha512-zmc4jKAVPwfBLca1tuCmsnonbOenAFuT4L0NWX5SJT5S/XAMoFNcYBwIsyJDwRR7FTq3yO94eyR+gls8Y32h+Q==
+"@stacks/wallet-sdk@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@stacks/wallet-sdk/-/wallet-sdk-6.2.0.tgz#d760b52e39901f6c7053e54fc719365de9fd3753"
+  integrity sha512-5mPn2NOAXLjp/hSD8Ot1wBhDRvcv5LewEAsznN9MG0wK01OxYCMTq0KzlgMZRWcBxUjyIh7XStIdUYGSYVj03Q==
   dependencies:
     "@scure/bip32" "1.1.3"
     "@scure/bip39" "1.1.0"
-    "@stacks/auth" "^6.1.2-pr.4e0feae.0"
-    "@stacks/common" "^6.1.2-pr.4e0feae.0"
-    "@stacks/encryption" "^6.1.2-pr.4e0feae.0"
-    "@stacks/network" "^6.1.2-pr.4e0feae.0"
-    "@stacks/profile" "^6.1.2-pr.4e0feae.0"
-    "@stacks/storage" "^6.1.2-pr.4e0feae.0"
-    "@stacks/transactions" "^6.1.2-pr.4e0feae.0"
+    "@stacks/auth" "^6.2.0"
+    "@stacks/common" "^6.0.0"
+    "@stacks/encryption" "^6.2.0"
+    "@stacks/network" "^6.1.1"
+    "@stacks/profile" "^6.2.0"
+    "@stacks/storage" "^6.2.0"
+    "@stacks/transactions" "^6.2.0"
     buffer "^6.0.3"
     c32check "^2.0.0"
     jsontokens "^4.0.1"

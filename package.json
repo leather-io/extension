@@ -153,7 +153,7 @@
     "@stacks/ui-core": "7.3.0",
     "@stacks/ui-theme": "7.5.0",
     "@stacks/ui-utils": "7.5.0",
-    "@stacks/wallet-sdk": "6.1.2-pr.4e0feae.0",
+    "@stacks/wallet-sdk": "6.2.0",
     "@styled-system/theme-get": "5.1.2",
     "@tanstack/query-sync-storage-persister": "4.24.4",
     "@tanstack/react-query": "4.24.4",

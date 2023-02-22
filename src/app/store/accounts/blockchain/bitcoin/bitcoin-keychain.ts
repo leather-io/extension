@@ -2,10 +2,11 @@ import { createSelector } from '@reduxjs/toolkit';
 import { HDKey } from '@scure/bip32';
 
 import { NetworkModes } from '@shared/constants';
+import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
   deriveNativeSegWitAccountKeychain,
-  getNativeSegWitAddressIndex,
+  getNativeSegWitAddressIndexDetails,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
@@ -35,7 +36,10 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
   return (accountIndex: number) => {
     const rootNode = mnemonicToRootNode(secretKey);
     const account = deriveNativeSegWitAccountKeychain(rootNode, 'mainnet')(accountIndex);
-    return getNativeSegWitAddressIndex(account, 'mainnet');
+    return getNativeSegWitAddressIndexDetails(
+      deriveAddressIndexZeroFromAccount(account),
+      'mainnet'
+    );
   };
 }
 
