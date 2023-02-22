@@ -23,7 +23,7 @@ export function SuggestedFirstStepsLayout({
         width="100%"
       >
         <Stack spacing="tight">
-          <Text fontSize={[1, 2]}>Welcome to Stacks 👋</Text>
+          <Text fontSize={[1, 2]}>Welcome to your gateway to Bitcoin Web3 👋</Text>
           <Title fontSize={[3, 4]}>Next steps for you</Title>
         </Stack>
         <Circle

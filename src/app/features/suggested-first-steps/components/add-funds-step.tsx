@@ -14,8 +14,8 @@ interface AddFundsStepProps {
 export function AddFundsStep({ isComplete, onSelectStep }: AddFundsStepProps) {
   return (
     <SuggestedFirstStep
-      action="Get STX"
-      body="Get some STX so you can start using apps"
+      action="Add funds"
+      body="Get some BTC or STX for using with apps"
       imageFull={AddFundsFull}
       imageFullDone={AddFundsFullDone}
       imagePopup={AddFundsPopup}
