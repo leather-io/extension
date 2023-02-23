@@ -55,7 +55,7 @@ export function ReceiveModal() {
                   </Button>
                   <Button
                     borderRadius="10px"
-                    data-testId={HomePageSelectors.ReceiveBtcQrCodeBtn}
+                    data-testid={HomePageSelectors.ReceiveBtcQrCodeBtn}
                     mode="tertiary"
                     onClick={() => navigate(RouteUrls.ReceiveBtc)}
                   >
@@ -85,7 +85,7 @@ export function ReceiveModal() {
                   </Button>
                   <Button
                     borderRadius="10px"
-                    data-testId={HomePageSelectors.ReceiveStxQrCodeBtn}
+                    data-testid={HomePageSelectors.ReceiveStxQrCodeBtn}
                     mode="tertiary"
                     onClick={() => navigate(RouteUrls.ReceiveStx)}
                   >
