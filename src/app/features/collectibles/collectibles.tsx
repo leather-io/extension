@@ -1,5 +1,6 @@
 import { Grid } from '@stacks/ui';
 
+import { useWalletType } from '@app/common/use-wallet-type';
 import { Caption } from '@app/components/typography';
 import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 
@@ -8,6 +9,7 @@ import { Ordinals } from './components/ordinals';
 import { StacksCryptoAssets } from './components/stacks-crypto-assets';
 
 export function Collectibles() {
+  const { whenWallet } = useWalletType();
   const isNftMetadataEnabled = useConfigNftMetadataEnabled();
 
   return (
@@ -21,8 +23,15 @@ export function Collectibles() {
           'repeat(auto-fill, minmax(184px, 1fr))',
         ]}
       >
-        <AddCollectible />
-        <Ordinals />
+        {whenWallet({
+          software: (
+            <>
+              <AddCollectible />
+              <Ordinals />
+            </>
+          ),
+          ledger: null,
+        })}
         {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
       </Grid>
     </>
