@@ -53,7 +53,7 @@ module.exports = {
     'no-warning-comments': [0],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': [
-      'warn',
+      'error',
       {
         additionalHooks: 'useRecoilCallback',
       },
