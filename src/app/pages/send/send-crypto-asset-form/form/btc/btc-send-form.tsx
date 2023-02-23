@@ -66,6 +66,7 @@ export function BtcSendForm() {
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
                 <RecipientField
                   labelAction="Choose account"
+                  lastChild
                   name="recipient"
                   onClickLabelAction={() =>
                     navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)

@@ -4,7 +4,19 @@ import * as yup from 'yup';
 import { NetworkConfiguration, NetworkModes } from '@shared/constants';
 import { isString } from '@shared/utils';
 
+import { FormErrorMessages } from '@app/common/error-messages';
 import { validateAddressChain, validateStacksAddress } from '@app/common/stacks-utils';
+
+function notCurrentAddressValidatorFactory(currentAddress: string) {
+  return (value: unknown) => value !== currentAddress;
+}
+
+export function notCurrentAddressValidator(currentAddress: string) {
+  return yup.string().test({
+    test: notCurrentAddressValidatorFactory(currentAddress),
+    message: FormErrorMessages.SameAddress,
+  });
+}
 
 export function btcAddressValidator() {
   return yup
@@ -39,10 +51,6 @@ export function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfigu
     if (!isString(value)) return false;
     return validateAddressChain(value, currentNetwork);
   };
-}
-
-export function stxNotCurrentAddressValidatorFactory(currentAddress: string) {
-  return (value: unknown) => value !== currentAddress;
 }
 
 export function stxAddressValidator(errorMsg: string) {

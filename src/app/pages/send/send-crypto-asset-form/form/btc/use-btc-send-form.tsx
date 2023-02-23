@@ -14,6 +14,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
+  notCurrentAddressValidator,
 } from '@app/common/validation/forms/address-validators';
 import {
   btcInsufficientBalanceValidator,
@@ -67,7 +68,8 @@ export function useBtcSendForm() {
       recipient: yup
         .string()
         .concat(btcAddressValidator())
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network)),
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
+        .concat(notCurrentAddressValidator(currentAccountBtcAddress)),
     }),
 
     async previewTransaction(
