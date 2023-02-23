@@ -42,6 +42,7 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
       }
       balanceLabel={<AccountBalanceLabel address={account.address} />}
       btcAddress={btcAddress}
+      index={account.index}
       isActive={false}
       isLoading={false}
       mt="loose"

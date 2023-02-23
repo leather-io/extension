@@ -8,7 +8,7 @@ test.describe('settings menu', () => {
     await onboardingPage.signUpNewUser();
   });
 
-  test('the correct menu item takes user to support page', async ({ page }) => {
+  test('that menu item takes user to support page', async ({ page }) => {
     await page.getByTestId(SettingsMenuSelectors.SettingsMenuBtn).click();
 
     const [supportPage] = await Promise.all([

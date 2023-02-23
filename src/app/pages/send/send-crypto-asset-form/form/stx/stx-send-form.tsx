@@ -97,6 +97,7 @@ export function StxSendForm() {
     feeType: FeeTypes[FeeTypes.Unknown],
     memo: '',
     nonce: nextNonce?.nonce,
+    recipientAddress: '',
     recipientAddressOrBnsName: '',
     ...routeState,
   });

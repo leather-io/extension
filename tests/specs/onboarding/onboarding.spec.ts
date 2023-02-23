@@ -8,12 +8,14 @@ test.describe('onboarding existing user', () => {
     await onboardingPage.signInExistingUser();
   });
 
-  test('restoring a wallet generates the correct bitcoin segwit address', async ({ homePage }) => {
+  test('that restoring a wallet generates the correct bitcoin segwit address', async ({
+    homePage,
+  }) => {
     const testAddress = await homePage.getReceiveBtcAddress();
     test.expect(testAddress).toEqual(TEST_ACCOUNT_1_BTC_ADDRESS);
   });
 
-  test('restoring a wallet generates the correct stacks address', async ({ homePage }) => {
+  test('that restoring a wallet generates the correct stacks address', async ({ homePage }) => {
     const testAddress = await homePage.getReceiveStxAddress();
     test.expect(testAddress).toEqual(TEST_ACCOUNT_1_STX_ADDRESS);
   });

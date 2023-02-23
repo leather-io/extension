@@ -69,7 +69,7 @@ export function useBtcSendForm() {
         .string()
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
-        .concat(notCurrentAddressValidator(currentAccountBtcAddress)),
+        .concat(notCurrentAddressValidator(currentAccountBtcAddress || '')),
     }),
 
     async previewTransaction(

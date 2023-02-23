@@ -20,7 +20,7 @@ export function stxRecipientValidator(
       message: FormErrorMessages.IncorrectNetworkAddress,
       test: stxAddressNetworkValidatorFactory(currentNetwork),
     })
-    .concat(notCurrentAddressValidator(currentAddress));
+    .concat(notCurrentAddressValidator(currentAddress || ''));
 }
 
 interface StxRecipientAddressOrBnsNameValidatorArgs {
@@ -34,7 +34,7 @@ export function stxRecipientAddressOrBnsNameValidator({
   currentNetwork,
 }: StxRecipientAddressOrBnsNameValidatorArgs) {
   return yup.string().test({
-    name: 'recipientAddressOrBnsName',
+    message: FormErrorMessages.InvalidAddress,
     test: async value => {
       try {
         await stxRecipientValidator(currentAddress, currentNetwork).validate(value);
