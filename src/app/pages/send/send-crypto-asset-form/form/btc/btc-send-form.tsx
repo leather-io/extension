@@ -8,7 +8,6 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -36,9 +35,8 @@ export function BtcSendForm() {
 
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
 
-  const { validationSchema, currentNetwork, formRef, previewTransaction } = useBtcSendForm();
-
-  const { onFormStateChange } = useUpdatePersistedSendFormValues();
+  const { validationSchema, currentNetwork, formRef, previewTransaction, onFormStateChange } =
+    useBtcSendForm();
 
   return (
     <SendCryptoAssetFormLayout>

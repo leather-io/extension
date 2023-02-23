@@ -72,6 +72,11 @@ export async function internalBackgroundMessageHandler(
       break;
     }
 
+    case InternalMethods.ClearActiveFormState: {
+      inMemoryFormState.delete(message.payload.tabId);
+      break;
+    }
+
     case InternalMethods.RemoveInMemoryKeys: {
       inMemoryKeys.clear();
       break;
