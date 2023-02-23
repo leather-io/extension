@@ -198,7 +198,7 @@
     "react-icons": "4.7.1",
     "react-lottie": "1.2.3",
     "react-redux": "8.0.5",
-    "react-router-dom": "6.8.0",
+    "react-router-dom": "6.8.1",
     "react-virtuoso": "4.0.8",
     "redux-persist": "6.0.0",
     "rxjs": "7.8.0",
