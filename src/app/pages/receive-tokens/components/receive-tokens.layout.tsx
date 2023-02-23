@@ -17,18 +17,23 @@ interface ReceiveTokensLayoutProps {
   accountName?: string;
   onCopyAddressToClipboard(address: string): void;
   title: string;
+  warning?: JSX.Element;
+  hasSubtitle?: boolean;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
-  const { address, accountName, onCopyAddressToClipboard, title } = props;
+  const { address, accountName, onCopyAddressToClipboard, title, warning, hasSubtitle } = props;
   const navigate = useNavigate();
 
   return (
     <BaseDrawer title={title} isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
-        <Text color={color('text-caption')} mb="tight" textAlign="left">
-          Share your account's unique address to receive tokens or collectibles. Including a memo is
-          not required.
-        </Text>
+        {hasSubtitle && (
+          <Text color={color('text-caption')} mb="tight" textAlign="left">
+            Share your account's unique address to receive tokens or collectibles. Including a memo
+            is not required.
+          </Text>
+        )}
+        {warning && warning}
         <Box mt="extra-loose" mx="auto">
           <QrCode principal={address} />
         </Box>

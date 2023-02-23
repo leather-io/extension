@@ -14,7 +14,8 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
 import { QrCodeIcon } from '@app/components/qr-code-icon';
-import { Body, Caption } from '@app/components/typography';
+import { ReceiveCollectible } from '@app/components/receive/receive-collectible';
+import { Caption } from '@app/components/typography';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -22,8 +23,6 @@ export function ReceiveModal() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const { onCopy: onCopyBitcoin } = useClipboard(btcAddress);
-
   const stxAddress = useCurrentAccountStxAddressState();
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
 
@@ -35,8 +34,9 @@ export function ReceiveModal() {
   return (
     <BaseDrawer title="Select asset to receive" isShowing onClose={() => navigate('../')}>
       <Box mx="extra-loose">
-        <Body>Share your account's unique address to receive any token or collectible</Body>
-        <Stack spacing="loose" mt="loose" mb="extra-loose">
+        <Caption style={{ fontSize: '14px' }}>Tokens</Caption>
+
+        <Stack spacing="loose" mt="base" mb="extra-loose">
           <Flag img={<BtcIcon />} spacing="base">
             <Flex justifyContent="space-between">
               <Box>
@@ -45,14 +45,6 @@ export function ReceiveModal() {
               </Box>
               <Stack>
                 <Box>
-                  <Button
-                    borderRadius="10px"
-                    mode="tertiary"
-                    mr="tight"
-                    onClick={() => copyToClipboard(onCopyBitcoin)}
-                  >
-                    <FiCopy />
-                  </Button>
                   <Button
                     borderRadius="10px"
                     data-testid={HomePageSelectors.ReceiveBtcQrCodeBtn}
@@ -98,6 +90,9 @@ export function ReceiveModal() {
             </Flex>
           </Flag>
         </Stack>
+        <Caption style={{ fontSize: '14px' }}>Collectibles</Caption>
+
+        <ReceiveCollectible />
       </Box>
     </BaseDrawer>
   );
