@@ -25,6 +25,7 @@ export function Ordinals({ query }: OrdinalsProps) {
           case OrdinalType.Image: {
             return (
               <CollectibleImage
+                key={ordinal.title}
                 onSelectCollectible={() => openInNewTab(ordinal.infoUrl)}
                 src={ordinal.content}
                 subtitle="Ordinal inscription"
@@ -35,6 +36,7 @@ export function Ordinals({ query }: OrdinalsProps) {
           case OrdinalType.Other: {
             return (
               <CollectibleOther
+                key={ordinal.title}
                 onSelectCollectible={() => openInNewTab(ordinal.infoUrl)}
                 subtitle="Ordinal inscription"
                 title={ordinal.title}
