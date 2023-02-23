@@ -31,7 +31,6 @@ export class OnboardingPage {
 
     await this.page.getByTestId(OnboardingSelectors.BackUpSecretKeyBtn).click();
     await this.setPassword();
-    await this.page.waitForURL('**' + RouteUrls.Fund);
   }
 
   async signInExistingUser() {
@@ -42,7 +41,6 @@ export class OnboardingPage {
     await this.page.getByTestId(OnboardingSelectors.SignInBtn).click();
 
     await this.setPassword();
-    await this.page.waitForURL('**' + RouteUrls.Fund);
     await this.page.waitForURL('**' + RouteUrls.Home);
     await this.page.getByTestId(HomePageSelectors.HomePageContainer).waitFor();
   }
