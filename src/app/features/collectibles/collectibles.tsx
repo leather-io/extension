@@ -14,7 +14,7 @@ export function Collectibles() {
 
   return (
     <>
-      <Caption pb="base-loose">Collectibles</Caption>
+      <Caption>Collectibles</Caption>
       <Grid
         gap="base"
         rowGap="extra-loose"

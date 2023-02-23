@@ -16,7 +16,7 @@ export function StacksBnsName(props: { bnsName: string }) {
       backgroundElementProps={backgroundProps}
       // TODO: Add later when makes sense with other collectibles
       // hoverText="Bitcoin Naming System"
-      subtitle="BNS Name"
+      subtitle="BNS name"
       title={bnsName}
     >
       <img alt="nft image" src={StacksNftBns} width="100px" />
