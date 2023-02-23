@@ -1,6 +1,6 @@
 import { TEST_ACCOUNT_2_BTC_ADDRESS } from '@tests/mocks/constants';
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { wait } from '@tests/utils';
+
+import { FormErrorMessages } from '@app/common/error-messages';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -14,30 +14,27 @@ test.describe('send btc', () => {
     await sendPage.selectBtcAndGoToSendForm();
   });
 
-  // Skipping bc I don't think we actually want to send btc in a test
-  // Getting an insufficient balance error now
   test.describe('btc send form', () => {
-    test.skip('can preview and send btc', async ({ page }) => {
-      await page.getByTestId(SendCryptoAssetSelectors.AmountFieldInput).fill('0.000001');
-      await wait(1000);
-      await page
-        .getByTestId(SendCryptoAssetSelectors.RecipientFieldInput)
-        .fill(TEST_ACCOUNT_2_BTC_ADDRESS);
-      await page.getByTestId(SendCryptoAssetSelectors.PreviewSendTxBtn).click();
-      const details = await page
-        .getByTestId(SendCryptoAssetSelectors.ConfirmationDetails)
-        .allInnerTexts();
+    test('that it shows preview of tx details to be confirmed', async ({ sendPage }) => {
+      await sendPage.amountInput.fill('0.0001');
+      await sendPage.recipientInput.fill(TEST_ACCOUNT_2_BTC_ADDRESS);
+      await sendPage.previewSendTxButton.click();
+      const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
+    });
 
-      const requestPromise = page.waitForRequest(/tx/);
-      await page.getByTestId(SendCryptoAssetSelectors.ConfirmSendTxBtn).click();
-      const request = await requestPromise;
-      const txData = request.postData();
-      const method = request.method();
-      const postUrl = request.url();
-      test.expect(txData).toBeTruthy();
-      test.expect(method).toEqual('POST');
-      test.expect(postUrl).toEqual('https://blockstream.info/api/tx');
+    test('that it shows preview of tx details after validation error is resolved', async ({
+      sendPage,
+    }) => {
+      await sendPage.amountInput.fill('0.00006');
+      await sendPage.amountInput.blur();
+      const errorMsg = await sendPage.amountInputErrorLabel.innerText();
+      test.expect(errorMsg).toEqual(FormErrorMessages.InsufficientFunds);
+
+      await sendPage.amountInput.fill('0.0001');
+      await sendPage.previewSendTxButton.click();
+      const details = await sendPage.confirmationDetails.allInnerTexts();
+      test.expect(details).toBeTruthy();
     });
   });
 });
