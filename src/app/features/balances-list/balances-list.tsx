@@ -1,7 +1,6 @@
 import { Box, Stack, StackProps } from '@stacks/ui';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 
-import { useWalletType } from '@app/common/use-wallet-type';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
@@ -28,7 +27,6 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const btcAssetBalance = useBitcoinAssetBalance(bitcoinAddress);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const isBitcoinEnabled = useConfigBitcoinEnabled();
-  const { whenWallet } = useWalletType();
 
   // Better handle loading state
   if (!stxAssetBalance || !stxUnachoredAssetBalance) return <LoadingSpinner />;
@@ -51,7 +49,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       />
 
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
-      {whenWallet({ software: <Collectibles />, ledger: null })}
+      <Collectibles />
     </Stack>
   );
 }
