@@ -17,6 +17,7 @@ export function WarningLabel({ children, ...rest }: WarningLabelProps) {
         isInline
         px="base"
         py="base-tight"
+        width="100%"
       >
         <Box
           _hover={{ cursor: 'pointer' }}

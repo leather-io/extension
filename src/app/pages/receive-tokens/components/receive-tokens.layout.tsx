@@ -17,9 +17,10 @@ interface ReceiveTokensLayoutProps {
   accountName?: string;
   onCopyAddressToClipboard(address: string): void;
   title: string;
+  warning?: JSX.Element;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
-  const { address, accountName, onCopyAddressToClipboard, title } = props;
+  const { address, accountName, onCopyAddressToClipboard, title, warning } = props;
   const navigate = useNavigate();
 
   return (
@@ -29,6 +30,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
           Share your account's unique address to receive tokens or collectibles. Including a memo is
           not required.
         </Text>
+        {warning && warning}
         <Box mt="extra-loose" mx="auto">
           <QrCode principal={address} />
         </Box>

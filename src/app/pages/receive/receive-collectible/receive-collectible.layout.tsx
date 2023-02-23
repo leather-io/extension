@@ -9,7 +9,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
-import { BtcIcon } from '@app/components/icons/btc-icon';
+import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Caption } from '@app/components/typography';
 import { useNextFreshTaprootAddressQuery } from '@app/query/bitcoin/ordinals/use-next-fresh-taproot-address.query';
@@ -30,55 +30,55 @@ export function ReceiveCollectibleLayout() {
   }
 
   return (
-      <Stack spacing="loose" mt="base" mb="extra-loose">
-        <Flag img={<BtcIcon />} spacing="base">
-          <Flex justifyContent="space-between">
+    <Stack spacing="loose" mt="base" mb="extra-loose">
+      <Flag img={<OrdinalIcon />} spacing="base">
+        <Flex justifyContent="space-between">
+          <Box>
+            Ordinal inscription
+            {isLoading ? (
+              <Caption mt="2px">Loading...</Caption>
+            ) : (
+              !isError && <Caption mt="2px">{truncateMiddle(btcAddress, 6)}</Caption>
+            )}
+          </Box>
+          <Stack>
             <Box>
-              Ordinal inscription
-              {isLoading ? (
-                <Caption mt="2px">Loading...</Caption>
-              ) : (
-                !isError && <Caption mt="2px">{truncateMiddle(btcAddress, 6)}</Caption>
-              )}
+              <Button
+                isDisabled={isLoading || isError}
+                borderRadius="10px"
+                mode="tertiary"
+                onClick={() => {
+                  void analytics.track('select_inscription_to_add_new_collectible');
+                  navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddress } });
+                }}
+              >
+                <FiCopy />
+              </Button>
             </Box>
-            <Stack>
-              <Box>
-                <Button
-                  isDisabled={isLoading || isError}
-                  borderRadius="10px"
-                  mode="tertiary"
-                  onClick={() => {
-                    analytics.track('select_inscription_to_add_new_collectible');
-                    navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddress } });
-                  }}
-                >
-                  <FiCopy />
-                </Button>
-              </Box>
-            </Stack>
-          </Flex>
-        </Flag>
-        <Flag img={<StxAvatar />} spacing="base">
-          <Flex justifyContent="space-between">
+          </Stack>
+        </Flex>
+      </Flag>
+      <Flag img={<StxAvatar />} spacing="base">
+        <Flex justifyContent="space-between">
+          <Box>
+            Stacks NFT
+            <Caption mt="2px">{truncateMiddle(stxAddress, 6)}</Caption>
+          </Box>
+          <Stack>
             <Box>
-              Stacks NFT
-              <Caption mt="2px">{truncateMiddle(stxAddress, 6)}</Caption>
+              <Button
+                borderRadius="10px"
+                mode="tertiary"
+                onClick={() => {
+                  copyToClipboard(onCopyStacks);
+                }}
+              >
+                <FiCopy />
+              </Button>
             </Box>
-            <Stack>
-              <Box>
-                <Button
-                  borderRadius="10px"
-                  mode="tertiary"
-                  onClick={() => {
-                    copyToClipboard(onCopyStacks);
-                  }}
-                >
-                  <FiCopy />
-                </Button>
-              </Box>
-            </Stack>
-          </Flex>
-        </Flag>
-      </Stack>
+          </Stack>
+        </Flex>
+      </Flag>
+    </Stack>
   );
 }
