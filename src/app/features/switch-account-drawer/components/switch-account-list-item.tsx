@@ -40,13 +40,13 @@ export const SwitchAccountListItem = memo(
     const { onCopy, hasCopied } = useClipboard(account.address || '');
     const { onCopy: onCopyBtc, hasCopied: hasCopiedBtc } = useClipboard(btcAddress || '');
 
-    const copyToClipboard = (e: React.MouseEvent) => {
+    const onCopyToClipboard = (e: React.MouseEvent) => {
       e.stopPropagation();
       void analytics.track('copy_address_to_clipboard');
       onCopy();
     };
 
-    const copyBtcToClipboard = (e: React.MouseEvent) => {
+    const onCopyBtcToClipboard = (e: React.MouseEvent) => {
       e.stopPropagation();
       void analytics.track('copy_btc_address_to_clipboard');
       onCopyBtc();
@@ -67,8 +67,8 @@ export const SwitchAccountListItem = memo(
         balanceLabel={<AccountBalanceLabel address={account.address} />}
         hasCopied={hasCopied}
         hasCopiedBtc={hasCopiedBtc}
-        copyToClipboard={copyToClipboard}
-        copyBtcToClipboard={copyBtcToClipboard}
+        onCopyToClipboard={onCopyToClipboard}
+        onCopyBtcToClipboard={onCopyBtcToClipboard}
         mt="loose"
         {...bind}
       >
