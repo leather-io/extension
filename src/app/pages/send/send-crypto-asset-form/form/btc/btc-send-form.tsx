@@ -30,10 +30,6 @@ import { TestnetBtcMessage } from './components/testnet-btc-message';
 import { useBtcSendForm } from './use-btc-send-form';
 
 export function BtcSendForm() {
-  useRouteHeader(
-    <Header hideActions onClose={() => navigate(RouteUrls.SendCryptoAsset)} title="Send" />
-  );
-
   const navigate = useNavigate();
   const routeState = useSendFormRouteState();
 
