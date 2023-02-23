@@ -32,7 +32,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignUp();
     await wallet.backUpKeyAndSetPassword();
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.goToSecretKey();
     await wallet.enterPasswordAndUnlockWallet();
@@ -45,7 +44,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignIn();
     await wallet.loginWithPreviousSecretKey(SECRET_KEY);
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.goToSecretKey();
     await wallet.enterPasswordAndUnlockWallet();
@@ -64,7 +62,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignUp();
     await wallet.backUpKeyAndSetPassword();
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.LockListItem));
@@ -85,7 +82,6 @@ describe(`Onboarding integration tests`, () => {
     );
     await wallet.decryptRecoveryCode(MAGIC_RECOVERY_PASSWORD);
     await wallet.enterNewPassword('lksjdflksjlfkjsdlfjsldf');
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     const homePageVisible = await wallet.page.isVisible(wallet.$homePageContainer);
     expect(homePageVisible).toBeTruthy();
@@ -95,7 +91,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignUp();
     await wallet.backUpKeyAndSetPassword();
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.waitForHideOnboardingsStepsButton();
   });
@@ -104,7 +99,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignIn();
     await wallet.loginWithPreviousSecretKey(SECRET_KEY);
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     const onboardingStepsVisible = await wallet.page.isVisible(wallet.$suggestedStepsList);
     expect(onboardingStepsVisible).toBeFalsy();
@@ -114,7 +108,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignUp();
     await wallet.backUpKeyAndSetPassword();
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.waitForHideOnboardingsStepsButton();
     await wallet.clickHideSteps();
@@ -124,7 +117,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignUp();
     await wallet.backUpKeyAndSetPassword();
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.waitForsuggestedStepsList();
     const stepsToStartBtns = await wallet.page.$$(wallet.$suggestedStepStartBtn);
@@ -137,7 +129,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignUp();
     await wallet.backUpKeyAndSetPassword();
-    await wallet.clickSkipFundAccountButton();
     await wallet.waitForHomePage();
     await wallet.waitForsuggestedStepsList();
     const noAssetsFundAccountLink = await wallet.page.$(wallet.$noAssetsFundAccountLink);
