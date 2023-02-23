@@ -65,6 +65,8 @@ export function BtcSendFormConfirmation() {
               token: 'btc',
               amount: transferAmount,
               fee,
+              inputs: psbt.inputs.length,
+              outputs: psbt.inputs.length,
             });
             await refetch();
             navigate(RouteUrls.Home);
