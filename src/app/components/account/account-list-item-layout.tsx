@@ -23,8 +23,8 @@ interface AccountListItemLayoutProps extends StackProps {
   balanceLabel: React.ReactNode;
   hasCopied?: boolean;
   hasCopiedBtc?: boolean;
-  copyToClipboard?(e: React.MouseEvent): void;
-  copyBtcToClipboard?(e: React.MouseEvent): void;
+  onCopyToClipboard?(e: React.MouseEvent): void;
+  onCopyBtcToClipboard?(e: React.MouseEvent): void;
   onSelectAccount(): void;
 }
 export function AccountListItemLayout(props: AccountListItemLayoutProps) {
@@ -39,9 +39,9 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     balanceLabel,
     onSelectAccount,
     hasCopied,
-    copyToClipboard,
+    onCopyToClipboard,
     hasCopiedBtc,
-    copyBtcToClipboard,
+    onCopyBtcToClipboard,
     children = null,
     ...rest
   } = props;
@@ -70,7 +70,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
             <CaptionDotSeparator>
               <Flex>
                 <Caption>{truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}</Caption>
-                {copyToClipboard && (
+                {onCopyToClipboard && (
                   <Tooltip
                     placement="right"
                     label={hasCopied ? 'Copied!' : 'Copy Stacks address'}
@@ -79,7 +79,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
                     <Stack>
                       <Box
                         _hover={{ cursor: 'pointer' }}
-                        onClick={e => copyToClipboard?.(e)}
+                        onClick={e => onCopyToClipboard?.(e)}
                         size="12px"
                         color={color('text-caption')}
                         data-testid={UserAreaSelectors.AccountCopyAddress}
@@ -94,7 +94,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
               {isBitcoinEnabled && (
                 <Flex>
                   <Caption>{truncateMiddle(btcAddress, 5)}</Caption>
-                  {copyBtcToClipboard && (
+                  {onCopyBtcToClipboard && (
                     <Tooltip
                       placement="right"
                       label={hasCopiedBtc ? 'Copied!' : 'Copy Bitcoin address'}
@@ -103,7 +103,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
                       <Stack>
                         <Box
                           _hover={{ cursor: 'pointer' }}
-                          onClick={e => copyBtcToClipboard?.(e)}
+                          onClick={e => onCopyBtcToClipboard?.(e)}
                           size="12px"
                           color={color('text-caption')}
                           data-testid={UserAreaSelectors.AccountCopyAddress}
