@@ -31,6 +31,7 @@ import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
@@ -54,6 +55,7 @@ import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-fo
 import { SendMaxButton } from '../../components/send-max-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
+import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { useStacksFtRouteState } from './use-stacks-ft-params';
 
@@ -67,6 +69,8 @@ export function StacksSip10FungibleTokenSendForm({}) {
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(
     pullContractIdFromIdentity(contractId)
   );
+  const routeState = useSendFormRouteState();
+
   logger.debug('info', ftMetadata);
 
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
@@ -80,6 +84,7 @@ export function StacksSip10FungibleTokenSendForm({}) {
   const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
+  const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
   const availableTokenBalance = assetBalance?.balance ?? createMoney(0, 'STX');
   const sendMaxBalance = useMemo(
@@ -95,6 +100,7 @@ export function StacksSip10FungibleTokenSendForm({}) {
     nonce: nextNonce?.nonce,
     recipientAddressOrBnsName: '',
     symbol,
+    ...routeState,
   });
 
   const validationSchema = yup.object({
@@ -146,35 +152,38 @@ export function StacksSip10FungibleTokenSendForm({}) {
         validationSchema={validationSchema}
         {...defaultSendFormFormikProps}
       >
-        {() => (
-          <NonceSetter>
-            <Form style={{ width: '100%' }}>
-              <AmountField
-                balance={availableTokenBalance}
-                bottomInputOverlay={
-                  <SendMaxButton
-                    balance={availableTokenBalance}
-                    sendMaxBalance={sendMaxBalance.toString()}
-                  />
-                }
-              />
-              <FormFieldsLayout>
-                <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
-                <StacksRecipientField contractId={contractId} />
-                <MemoField />
-              </FormFieldsLayout>
-              <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
-              <FormErrors />
-              <PreviewButton />
-              <EditNonceButton
-                onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
-                my={['loose', 'base']}
-              />
-              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-              <Outlet />
-            </Form>
-          </NonceSetter>
-        )}
+        {props => {
+          onFormStateChange(props.values);
+          return (
+            <NonceSetter>
+              <Form style={{ width: '100%' }}>
+                <AmountField
+                  balance={availableTokenBalance}
+                  bottomInputOverlay={
+                    <SendMaxButton
+                      balance={availableTokenBalance}
+                      sendMaxBalance={sendMaxBalance.toString()}
+                    />
+                  }
+                />
+                <FormFieldsLayout>
+                  <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
+                  <StacksRecipientField contractId={contractId} />
+                  <MemoField />
+                </FormFieldsLayout>
+                <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
+                <FormErrors />
+                <PreviewButton />
+                <EditNonceButton
+                  onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
+                  my={['loose', 'base']}
+                />
+                <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+                <Outlet />
+              </Form>
+            </NonceSetter>
+          );
+        }}
       </Formik>
     </SendCryptoAssetFormLayout>
   );

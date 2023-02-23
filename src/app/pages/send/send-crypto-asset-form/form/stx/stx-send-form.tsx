@@ -37,6 +37,7 @@ import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
@@ -59,10 +60,12 @@ import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-fo
 import { SendMaxButton } from '../../components/send-max-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
+import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 
 export function StxSendForm() {
   const navigate = useNavigate();
+  const routeState = useSendFormRouteState();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { data: nextNonce } = useNextNonce();
   const unsignedTx = useStxTokenTransferUnsignedTxState();
@@ -76,6 +79,7 @@ export function StxSendForm() {
   const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
+  const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
   const availableStxBalance = balances?.stx.availableStx ?? createMoney(0, 'STX');
   const sendMaxBalance = useMemo(
@@ -94,7 +98,7 @@ export function StxSendForm() {
     memo: '',
     nonce: nextNonce?.nonce,
     recipientAddressOrBnsName: '',
-    symbol: '',
+    ...routeState,
   });
 
   const validationSchema = yup.object({
@@ -137,35 +141,38 @@ export function StxSendForm() {
         validationSchema={validationSchema}
         {...defaultSendFormFormikProps}
       >
-        {props => (
-          <NonceSetter>
-            <Form>
-              <AmountField
-                balance={availableStxBalance}
-                bottomInputOverlay={
-                  <SendMaxButton
-                    balance={availableStxBalance}
-                    sendMaxBalance={sendMaxBalance.minus(props.values.fee).toString()}
-                  />
-                }
-              />
-              <FormFieldsLayout>
-                <SelectedAssetField icon={<StxAvatar />} name="Stacks" symbol="STX" />
-                <StacksRecipientField />
-                <MemoField lastChild />
-              </FormFieldsLayout>
-              <FeesRow fees={stxFees} isSponsored={false} mt="base" />
-              <FormErrors />
-              <PreviewButton />
-              <EditNonceButton
-                onEditNonce={() => navigate(RouteUrls.EditNonce)}
-                my={['loose', 'base']}
-              />
-              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-              <Outlet />
-            </Form>
-          </NonceSetter>
-        )}
+        {props => {
+          onFormStateChange(props.values);
+          return (
+            <NonceSetter>
+              <Form>
+                <AmountField
+                  balance={availableStxBalance}
+                  bottomInputOverlay={
+                    <SendMaxButton
+                      balance={availableStxBalance}
+                      sendMaxBalance={sendMaxBalance.minus(props.values.fee).toString()}
+                    />
+                  }
+                />
+                <FormFieldsLayout>
+                  <SelectedAssetField icon={<StxAvatar />} name="Stacks" symbol="STX" />
+                  <StacksRecipientField />
+                  <MemoField lastChild />
+                </FormFieldsLayout>
+                <FeesRow fees={stxFees} isSponsored={false} mt="base" />
+                <FormErrors />
+                <PreviewButton />
+                <EditNonceButton
+                  onEditNonce={() => navigate(RouteUrls.EditNonce)}
+                  my={['loose', 'base']}
+                />
+                <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+                <Outlet />
+              </Form>
+            </NonceSetter>
+          );
+        }}
       </Formik>
     </SendCryptoAssetFormLayout>
   );

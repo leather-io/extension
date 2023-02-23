@@ -20,6 +20,11 @@ type SetActiveFormState = BackgroundMessage<
   { tabId: number; symbol: string; amount?: string; recipient?: string }
 >;
 
+type ClearActiveFormState = BackgroundMessage<
+  InternalMethods.ClearActiveFormState,
+  { tabId: number }
+>;
+
 type ShareInMemoryKeyToBackground = BackgroundMessage<
   InternalMethods.ShareInMemoryKeyToBackground,
   { secretKey: string; keyId: string }
@@ -38,6 +43,7 @@ export type BackgroundMessages =
   | RequestDerivedStxAccounts
   | GetActiveFormState
   | SetActiveFormState
+  | ClearActiveFormState
   | ShareInMemoryKeyToBackground
   | RequestInMemoryKeys
   | RemoveInMemoryKeys

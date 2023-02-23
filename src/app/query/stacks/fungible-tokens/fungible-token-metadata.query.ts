@@ -16,6 +16,7 @@ const queryOptions = {
   refetchOnMount: false,
   refetchInterval: false,
   refetchOnReconnect: false,
+  refetchOnWindowFocus: false,
   retry: 0,
 } as const;
 

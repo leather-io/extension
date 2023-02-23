@@ -22,6 +22,7 @@ export enum InternalMethods {
   RequestDerivedStxAccounts = 'RequestDerivedStxAccounts',
   GetActiveFormState = 'GetActiveFormState',
   SetActiveFormState = 'SetActiveFormState',
+  ClearActiveFormState = 'ClearActiveFormState',
   ShareInMemoryKeyToBackground = 'ShareInMemoryKeyToBackground',
   RequestInMemoryKeys = 'RequestInMemoryKeys',
   RemoveInMemoryKeys = 'RemoveInMemoryKeys',
