@@ -115,7 +115,14 @@ function AppRoutesAfterUserHasConsented() {
           }
         />
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-        <Route path={RouteUrls.SignIn} element={<SignIn />} />
+        <Route
+          path={RouteUrls.SignIn}
+          element={
+            <OnboardingGate>
+              <SignIn />
+            </OnboardingGate>
+          }
+        />
         <Route path={RouteUrls.MagicRecoveryCode} element={<MagicRecoveryCode />} />
         <Route
           path={RouteUrls.AddNetwork}
