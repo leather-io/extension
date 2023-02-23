@@ -1,3 +1,28 @@
+## [4.1.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.0.2...v4.1.0) (2023-02-22)
+
+
+### Features
+
+* add outline ([e1aa1b3](https://github.com/hirosystems/stacks-wallet-web/commit/e1aa1b3cf98b5b3a2570be388730121f80e6b2e3))
+* metadata api working and refactor collectibles ([c2ceef2](https://github.com/hirosystems/stacks-wallet-web/commit/c2ceef29f6d56b54f459f4c42583ff9041e2d7a7))
+* persist popup mode state ([74916be](https://github.com/hirosystems/stacks-wallet-web/commit/74916be564a650a458ec80f7eea435fa5480d155))
+* stacks nft collectibles ([4f5ba2b](https://github.com/hirosystems/stacks-wallet-web/commit/4f5ba2b155c6f9bfb91f1d36ed94310ef5ad6035))
+
+
+### Bug Fixes
+
+* gamma route and add analytics ([4c00edc](https://github.com/hirosystems/stacks-wallet-web/commit/4c00edc632dc36064a42fec7c41e2346239ade6c))
+* tabIndex error, recreating html behaviour in js ([813c989](https://github.com/hirosystems/stacks-wallet-web/commit/813c989c4d34ebd58a23df8f652846d5a6ec1c95))
+* text alignment ([dc334a7](https://github.com/hirosystems/stacks-wallet-web/commit/dc334a745f3021d4e61796d8f19c6725b79e6310))
+
+
+### Internal
+
+* add wallet config btc msg ([8eefab6](https://github.com/hirosystems/stacks-wallet-web/commit/8eefab6d460b71aefc1519e455c555b391e8cdf8))
+* **analytics:** capture broadcast transaction token ([5942a54](https://github.com/hirosystems/stacks-wallet-web/commit/5942a54a8ffe5cd10dbb74767e2039ccb49480f5))
+* getting started copy ([0a89e89](https://github.com/hirosystems/stacks-wallet-web/commit/0a89e891d6da31d6fe9dd975e08a198c00286e2e))
+* persist in background mem ([bf76969](https://github.com/hirosystems/stacks-wallet-web/commit/bf7696958a5bf144d62e166427f6458c68c4410a))
+
 ## [4.0.2](https://github.com/hirosystems/stacks-wallet-web/compare/v4.0.1...v4.0.2) (2023-02-20)
 
 
