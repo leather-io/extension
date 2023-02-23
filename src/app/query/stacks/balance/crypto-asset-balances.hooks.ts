@@ -81,6 +81,7 @@ function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
       formatContractId(assetBalance.asset.contractAddress, assetBalance.asset.contractName)
     )
   );
+
   return useMemo(
     () =>
       initializedAssetBalances.map((assetBalance, i) => {

@@ -6,9 +6,9 @@ import { FormErrorMessages } from '@app/common/error-messages';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 
 import {
+  notCurrentAddressValidator,
   stxAddressNetworkValidatorFactory,
   stxAddressValidator,
-  stxNotCurrentAddressValidatorFactory,
 } from './address-validators';
 
 export function stxRecipientValidator(
@@ -20,10 +20,7 @@ export function stxRecipientValidator(
       message: FormErrorMessages.IncorrectNetworkAddress,
       test: stxAddressNetworkValidatorFactory(currentNetwork),
     })
-    .test({
-      message: FormErrorMessages.SameAddress,
-      test: stxNotCurrentAddressValidatorFactory(currentAddress || ''),
-    });
+    .concat(notCurrentAddressValidator(currentAddress));
 }
 
 interface StxRecipientAddressOrBnsNameValidatorArgs {

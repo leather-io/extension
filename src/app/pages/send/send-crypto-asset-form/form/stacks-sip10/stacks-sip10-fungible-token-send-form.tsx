@@ -169,7 +169,7 @@ export function StacksSip10FungibleTokenSendForm({}) {
                 <FormFieldsLayout>
                   <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
                   <StacksRecipientField contractId={contractId} />
-                  <MemoField />
+                  <MemoField lastChild />
                 </FormFieldsLayout>
                 <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
                 <FormErrors />
