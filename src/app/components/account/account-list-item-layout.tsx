@@ -1,7 +1,11 @@
-import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
+import { FiCopy } from 'react-icons/fi';
+
+import { Box, Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
+import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
+import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
 import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 
@@ -17,6 +21,10 @@ interface AccountListItemLayoutProps extends StackProps {
   accountName: React.ReactNode;
   avatar: React.ReactNode;
   balanceLabel: React.ReactNode;
+  hasCopied?: boolean;
+  hasCopiedBtc?: boolean;
+  copyToClipboard?(e: React.MouseEvent): void;
+  copyBtcToClipboard?(e: React.MouseEvent): void;
   onSelectAccount(): void;
 }
 export function AccountListItemLayout(props: AccountListItemLayoutProps) {
@@ -30,6 +38,10 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     avatar,
     balanceLabel,
     onSelectAccount,
+    hasCopied,
+    copyToClipboard,
+    hasCopiedBtc,
+    copyBtcToClipboard,
     children = null,
     ...rest
   } = props;
@@ -56,8 +68,54 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
           </Flex>
           <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
             <CaptionDotSeparator>
-              <Caption>{truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}</Caption>
-              {isBitcoinEnabled && <Caption>{truncateMiddle(btcAddress, 5)}</Caption>}
+              <Flex>
+                <Caption>{truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}</Caption>
+                {copyToClipboard && (
+                  <Tooltip
+                    placement="right"
+                    label={hasCopied ? 'Copied!' : 'Copy Stacks address'}
+                    hideOnClick={false}
+                  >
+                    <Stack>
+                      <Box
+                        _hover={{ cursor: 'pointer' }}
+                        onClick={e => copyToClipboard?.(e)}
+                        size="12px"
+                        color={color('text-caption')}
+                        data-testid={UserAreaSelectors.AccountCopyAddress}
+                        as={FiCopy}
+                        mt="2px"
+                        ml="4px"
+                      />
+                    </Stack>
+                  </Tooltip>
+                )}
+              </Flex>
+              {isBitcoinEnabled && (
+                <Flex>
+                  <Caption>{truncateMiddle(btcAddress, 5)}</Caption>
+                  {copyBtcToClipboard && (
+                    <Tooltip
+                      placement="right"
+                      label={hasCopiedBtc ? 'Copied!' : 'Copy Bitcoin address'}
+                      hideOnClick={false}
+                    >
+                      <Stack>
+                        <Box
+                          _hover={{ cursor: 'pointer' }}
+                          onClick={e => copyBtcToClipboard?.(e)}
+                          size="12px"
+                          color={color('text-caption')}
+                          data-testid={UserAreaSelectors.AccountCopyAddress}
+                          as={FiCopy}
+                          mt="2px"
+                          ml="4px"
+                        />
+                      </Stack>
+                    </Tooltip>
+                  )}
+                </Flex>
+              )}
               {balanceLabel}
             </CaptionDotSeparator>
           </Stack>
