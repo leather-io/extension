@@ -126,8 +126,11 @@ export async function fetchNamesForAddress(
 
   // Return BNSx name if available, otherwise return names from API.
   const [bnsxName, bnsNames] = await Promise.all([fetchBnsxName(client, address), fetchFromApi()]);
-  if (bnsxName !== null) return { names: [bnsxName] };
-  return bnsNames;
+  const bnsName = 'names' in bnsNames ? bnsNames.names[0] : null;
+  const names: string[] = [];
+  if (bnsName) names.push(bnsName);
+  if (bnsxName) names.push(bnsxName);
+  return { names };
 }
 
 // Fetch the owner of a name.
