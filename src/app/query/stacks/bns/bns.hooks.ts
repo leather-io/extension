@@ -14,13 +14,6 @@ export function useCurrentAccountNames() {
   });
 }
 
-export function useCurrentAccountNamesQuery() {
-  const principal = useCurrentAccountStxAddressState();
-  const namesQuery = useGetBnsNamesOwnedByAddress(principal);
-  if (principal === '') logger.error('No principal defined');
-  return namesQuery;
-}
-
 export function useGetAccountNamesByAddressQuery(address: string) {
   return useGetBnsNamesOwnedByAddress(address, { select: resp => resp.names ?? [] });
 }

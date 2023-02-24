@@ -6,7 +6,7 @@ import { CurrentAccountAvatar } from '@app/features/current-account/current-acco
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { AccountAddresses } from './account-addresses';
+import { AccountTotalBalance } from './account-total-balance';
 
 export const CurrentAccount = memo((props: StackProps) => {
   const currentAccount = useCurrentStacksAccount();
@@ -17,7 +17,7 @@ export const CurrentAccount = memo((props: StackProps) => {
       <Stack overflow="hidden" display="block" alignItems="flex-start" spacing="base-tight">
         <CurrentAccountName />
         <Stack isInline>
-          <AccountAddresses />
+          <AccountTotalBalance />
         </Stack>
       </Stack>
     </Stack>
