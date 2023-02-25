@@ -12,6 +12,7 @@ import {
 
 import { CollectibleImage } from './collectible-image';
 import { CollectibleOther } from './collectible-other';
+import { CollectibleText } from './collectible-text';
 
 interface InscriptionProps {
   path: string;
@@ -26,15 +27,21 @@ function Inscription({ path }: InscriptionProps) {
 
   const inscription = whenOrdinalType(data['content type'], {
     image: () => ({
-      type: 'image',
-      title: data.title,
       infoUrl: createInfoUrl(data.content),
       src: `https://ordinals.com${data.content}`,
+      title: data.title,
+      type: 'image',
+    }),
+    text: () => ({
+      contentSrc: `https://ordinals.com${data.content}`,
+      infoUrl: createInfoUrl(data.content),
+      title: data.title,
+      type: 'text',
     }),
     other: () => ({
-      type: 'other',
+      infoUrl: createInfoUrl(data.content),
       title: data.title,
-      infoUrl: `https://ordinals.com${data.content}`.replace('content', 'inscription'),
+      type: 'other',
     }),
   });
 
@@ -45,6 +52,17 @@ function Inscription({ path }: InscriptionProps) {
           key={inscription.title}
           onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
           src={inscription.src}
+          subtitle="Ordinal inscription"
+          title={inscription.title}
+        />
+      );
+    }
+    case 'text': {
+      return (
+        <CollectibleText
+          key={inscription.title}
+          onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          contentSrc={inscription.contentSrc}
           subtitle="Ordinal inscription"
           title={inscription.title}
         />

@@ -70,7 +70,7 @@ export function getTaprootAddress(index: number, keychain: HDKey, network: Netwo
  * appropriately and securely. Ordinals of types not ready to be handled by the
  * app should be classified as "other".
  */
-const supportedOrdinalTypes = ['image', 'other'] as const;
+const supportedOrdinalTypes = ['image', 'text', 'other'] as const;
 
 type SupportedOrdinalType = (typeof supportedOrdinalTypes)[number];
 
@@ -101,11 +101,20 @@ interface ImageOrdinalInfo extends BaseOrdinalInfo {
   src: string;
 }
 
+interface TextOrdinalInfo extends BaseOrdinalInfo {
+  type: 'text';
+
+  /**
+   * URL where the text content can be found.
+   */
+  contentSrc: string;
+}
+
 interface OtherOrdinalInfo extends BaseOrdinalInfo {
   type: 'other';
 }
 
-type OrdinalInfo = ImageOrdinalInfo | OtherOrdinalInfo;
+type OrdinalInfo = ImageOrdinalInfo | TextOrdinalInfo | OtherOrdinalInfo;
 
 export function createInfoUrl(contentPath: string) {
   return `https://ordinals.com${contentPath}`.replace('content', 'inscription');
@@ -117,6 +126,10 @@ export function whenOrdinalType(
 ) {
   if (mimeType.startsWith('image/') && branches.image) {
     return branches.image();
+  }
+
+  if (mimeType.startsWith('text') && branches.text) {
+    return branches.text();
   }
 
   if (branches.other) return branches.other();
