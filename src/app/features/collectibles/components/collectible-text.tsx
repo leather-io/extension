@@ -24,6 +24,7 @@ export function CollectibleText(props: CollectibleTextProps) {
         p="20px"
         sx={{
           overflow: 'hidden',
+          textAlign: 'left',
         }}
         _after={{
           content: '""',
