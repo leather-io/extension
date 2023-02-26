@@ -48,7 +48,7 @@ export function useGenerateSignedBitcoinTx() {
           throw new Error('Address reuse mode: wallet should have max 2 outputs');
 
         inputs.forEach(input => {
-          const p2wpkh = btc.p2wpkh(currentAddressIndexKeychain.publicKey!, networkMode);
+          const p2wpkh = btc.p2wpkh(currentAddressIndexKeychain?.publicKey!, networkMode);
           tx.addInput({
             txid: input.txid,
             index: input.vout,
@@ -79,7 +79,7 @@ export function useGenerateSignedBitcoinTx() {
     },
     [
       currentAccountBtcAddress,
-      currentAddressIndexKeychain.publicKey,
+      currentAddressIndexKeychain?.publicKey,
       feeRate,
       networkMode,
       signTx,

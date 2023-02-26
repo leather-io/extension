@@ -5,6 +5,7 @@ import {
   AuthenticationRequestEventDetails,
   DomEventName,
   ProfileUpdateRequestEventDetails,
+  PsbtRequestEventDetails,
   SignatureRequestEventDetails,
   TransactionRequestEventDetails,
 } from '@shared/inpage-types';
@@ -14,6 +15,7 @@ import {
   LegacyMessageToContentScript,
   MESSAGE_SOURCE,
   ProfileUpdateResponseMessage,
+  PsbtResponseMessage,
   SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
@@ -152,6 +154,27 @@ const provider: StacksProvider = {
         }
         if (typeof event.data.payload.transactionResponse !== 'string') {
           resolve(event.data.payload.transactionResponse);
+        }
+      };
+      window.addEventListener('message', handleMessage);
+    });
+  },
+  psbtRequest: async psbtRequest => {
+    const event = new CustomEvent<PsbtRequestEventDetails>(DomEventName.psbtRequest, {
+      detail: { psbtRequest },
+    });
+    document.dispatchEvent(event);
+    return new Promise((resolve, reject) => {
+      const handleMessage = (event: MessageEvent<PsbtResponseMessage>) => {
+        if (!isValidEvent(event, ExternalMethods.psbtResponse)) return;
+        if (event.data.payload?.psbtRequest !== psbtRequest) return;
+        window.removeEventListener('message', handleMessage);
+        if (event.data.payload.psbtResponse === 'cancel') {
+          reject(event.data.payload.psbtResponse);
+          return;
+        }
+        if (typeof event.data.payload.psbtResponse !== 'string') {
+          resolve(event.data.payload.psbtResponse);
         }
       };
       window.addEventListener('message', handleMessage);

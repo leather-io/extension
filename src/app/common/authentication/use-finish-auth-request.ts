@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { bytesToHex } from '@stacks/common';
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
@@ -15,7 +16,10 @@ import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-pa
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useAllBitcoinNativeSegWitNetworksByAccount } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import {
+  useAllBitcoinNativeSegWitNetworksByAccount,
+  useCurrentBitcoinNativeSegwitAddressIndexKeychain,
+} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
@@ -28,6 +32,7 @@ export function useFinishAuthRequest() {
   const { origin, tabId } = useAuthRequestParams();
 
   const deriveNativeSegWitAccountAtIndex = useAllBitcoinNativeSegWitNetworksByAccount();
+  const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexKeychain();
 
   return useCallback(
     async (accountIndex: number) => {
@@ -83,6 +88,9 @@ export function useFinishAuthRequest() {
             btcAddress: {
               p2wpkh: deriveNativeSegWitAccountAtIndex(accountIndex),
             },
+            btcPublicKey: {
+              p2wpkh: bytesToHex(currentAddressIndexKeychain?.publicKey!),
+            },
           },
         });
         keyActions.switchAccount(accountIndex);
@@ -106,6 +114,7 @@ export function useFinishAuthRequest() {
       appIcon,
       appName,
       deriveNativeSegWitAccountAtIndex,
+      currentAddressIndexKeychain?.publicKey,
       keyActions,
     ]
   );

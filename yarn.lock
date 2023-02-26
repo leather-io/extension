@@ -3460,7 +3460,7 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@stacks/auth@6.1.1", "@stacks/auth@^6.0.0", "@stacks/auth@^6.1.1":
+"@stacks/auth@6.1.1", "@stacks/auth@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/auth/-/auth-6.1.1.tgz#74fb7242ea531444400f9e3fab188a64eb5ef702"
   integrity sha512-as5ouLTFoNlcKiHzQ4H9dGAlrwj4aX0KxXr5CHV/BPAAzbLtrUNuJZBgAwVZWw65ebCr3JMTz8rMHTRvCO+ITA==
@@ -3515,12 +3515,12 @@
     "@types/node" "^18.0.4"
     buffer "^6.0.3"
 
-"@stacks/connect-react@21.0.0":
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-21.0.0.tgz#5e13b0f41ed9be81519297def9911f8ab38622b7"
-  integrity sha512-227YLm8S1imVEpGv/LZ487G/QKBoqdhEfC/n21TM1UwsQL2uzSKom/D4/nrDQaWzSApZ0eB3JB7TrOo2nHa2Hg==
+"@stacks/connect-react@5.0.6-alpha.fa5b858.0":
+  version "5.0.6-alpha.fa5b858.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-5.0.6-alpha.fa5b858.0.tgz#c8a7ad01458a7ff851e563c108a6456e0c1c3dc7"
+  integrity sha512-Nqe6lQZlQYRCGJJpMq5Fu11pfXbRfI0SKFtOlCEhYuYNKcI3RX/+F9rEiPuvIzk5R5F7NH9E5b9AHzIestkwXQ==
   dependencies:
-    "@stacks/connect" "7.1.0"
+    "@stacks/connect" "^5.0.6-alpha.fa5b858.0"
     jsontokens "^4.0.1"
 
 "@stacks/connect-ui@6.0.0":
@@ -3530,19 +3530,24 @@
   dependencies:
     "@stencil/core" "^2.17.1"
 
-"@stacks/connect@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-7.1.0.tgz#3774bf2729f8c7ff806ef5f419b500c0821f1d46"
-  integrity sha512-hkXzCGcBu9bzgsZd7RB28PUV6X2OFcOe529agbGrzyN6ZgubRszzMrSKOjptHxAJ++CK4F6XTIqjlnSdH5KHXA==
+"@stacks/connect-ui@^5.0.6-alpha.fa5b858.0":
+  version "5.5.4"
+  resolved "https://registry.yarnpkg.com/@stacks/connect-ui/-/connect-ui-5.5.4.tgz#f9612e2b05cbc0f013656ce16d07cdcb389bd0ca"
+  integrity sha512-xstC05PoxpPeA2HWytkJp/NJBtDEPDUoHuUyyvpuqS7f95rsHyx/tLFWv9ElxWiIbeMPPDEQipoy6S1qnZb8jw==
   dependencies:
-    "@stacks/auth" "^6.0.0"
-    "@stacks/connect-ui" "6.0.0"
-    "@stacks/network" "^6.0.0"
-    "@stacks/prettier-config" "0.0.8"
-    "@stacks/profile" "^6.0.0"
-    "@stacks/transactions" "^6.0.0"
+    "@stencil/core" "^2.17.1"
+
+"@stacks/connect@5.0.6-alpha.fa5b858.0", "@stacks/connect@^5.0.6-alpha.fa5b858.0":
+  version "5.0.6-alpha.fa5b858.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-5.0.6-alpha.fa5b858.0.tgz#57e7c9d6e50c98f31daef9f2242524056174057b"
+  integrity sha512-wUuA7xd1I3MErzW4pzjKIK+eP89zfET4jAyG8Ld8undK9EvgLteAVP0ANJZEy0mDoPrfavlFI/3YlAtfrcVUXg==
+  dependencies:
+    "@stacks/auth" "^6.1.1"
+    "@stacks/connect-ui" "^5.0.6-alpha.fa5b858.0"
+    "@stacks/network" "^6.1.1"
+    "@stacks/profile" "^6.1.1"
+    "@stacks/transactions" "^6.1.1"
     jsontokens "^4.0.1"
-    readable-stream "^3.6.0"
     url "^0.11.0"
 
 "@stacks/encryption@6.1.1", "@stacks/encryption@^6.1.1":
@@ -3589,7 +3594,7 @@
     eslint-plugin-import "2.25.3"
     eslint-plugin-prettier "4.0.0"
 
-"@stacks/network@6.1.1", "@stacks/network@^6.0.0", "@stacks/network@^6.1.1":
+"@stacks/network@6.1.1", "@stacks/network@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/network/-/network-6.1.1.tgz#b6b01a8045375a055bb6e5598f4ff68da2d722a8"
   integrity sha512-FXOujmszG/NkYKDVDRmPLmfSQJvcSfvucXLOq6SkkTOohxFgQrT7cgAydmEwBWDiEoPsuYPlE0grppcUYIO8rQ==
@@ -3612,14 +3617,7 @@
   dependencies:
     prettier "2.5"
 
-"@stacks/prettier-config@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@stacks/prettier-config/-/prettier-config-0.0.8.tgz#4db04dbca3982f74f4554ca522f37570125516e3"
-  integrity sha512-WpxCIB2wPk2TT0Zs9oABNQ7Y2wBx2sSqEeFtgJ1lBNY6bKT5B82l/CkbaHPmnUj0KOwauXaSv0rXnxomTNj9xA==
-  dependencies:
-    prettier "^2.3.0"
-
-"@stacks/profile@6.1.1", "@stacks/profile@^6.0.0", "@stacks/profile@^6.1.1":
+"@stacks/profile@6.1.1", "@stacks/profile@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/profile/-/profile-6.1.1.tgz#f956837a9a8d2360100a478fb55be7be3c94c83c"
   integrity sha512-r+cDdafKBkUUXtfGSo1MrzK090dqoJgJZaNUmkvoSW1V7b5sX1qkWx1zQJ/C74XOqBex1A6GAaVS62hnMC6E1w==
@@ -3685,7 +3683,7 @@
     base64-js "^1.5.1"
     jsontokens "^4.0.1"
 
-"@stacks/transactions@6.1.1", "@stacks/transactions@^6.0.0", "@stacks/transactions@^6.1.1":
+"@stacks/transactions@6.1.1", "@stacks/transactions@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@stacks/transactions/-/transactions-6.1.1.tgz#f686a560a78280f1ae148443d0ba78d8665f10f9"
   integrity sha512-RyM4Y+UWXpz/seMa9B6MDqpneW+PFdcHIeF36p8X+N1b5yBJardg6LdI7VWn5KG4hKofYttwaVTIjotKYGRIRw==
@@ -14370,11 +14368,6 @@ prettier@2.8.3:
   version "2.8.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.3.tgz#ab697b1d3dd46fb4626fbe2f543afe0cc98d8632"
   integrity sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==
-
-prettier@^2.3.0:
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.4.tgz#34dd2595629bfbb79d344ac4a91ff948694463c3"
-  integrity sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==
 
 pretty-error@^4.0.0:
   version "4.0.0"

@@ -1,16 +1,19 @@
 import React, { useContext, useState } from 'react';
+
 import { AppContext } from '@common/context';
-import { Box, Text, Flex, BoxProps } from '@stacks/ui';
+import { Box, BoxProps, Flex, Text } from '@stacks/ui';
+
 import { Auth } from './auth';
-import { Tab } from './tab';
-import { Status } from './status';
+import { Bitcoin } from './bitcoin';
+import { Bns } from './bns';
 import { Counter } from './counter';
 import { Debugger } from './debugger';
-import { Bns } from './bns';
+import { Profile } from './profile';
 import { Signature } from './signature';
-import { ProfileTab } from './profile-updater';
+import { Status } from './status';
+import { Tab } from './tab';
 
-type Tabs = 'status' | 'counter' | 'debug' | 'bns' | 'signature' | 'profile';
+type Tabs = 'status' | 'counter' | 'debug' | 'bns' | 'signature' | 'profile' | 'bitcoin';
 
 const Container: React.FC<BoxProps> = ({ children, ...props }) => {
   return (
@@ -45,6 +48,9 @@ const Page: React.FC<{ tab: Tabs; setTab: (value: Tabs) => void }> = ({ tab, set
           <Tab active={tab === 'profile'}>
             <Text onClick={() => setTab('profile')}>Profile</Text>
           </Tab>
+          <Tab active={tab === 'bitcoin'}>
+            <Text onClick={() => setTab('bitcoin')}>Bitcoin</Text>
+          </Tab>
         </Flex>
       </Container>
       <Container>
@@ -53,7 +59,8 @@ const Page: React.FC<{ tab: Tabs; setTab: (value: Tabs) => void }> = ({ tab, set
         {tab === 'debug' && <Debugger />}
         {tab === 'bns' && <Bns />}
         {tab === 'signature' && <Signature />}
-        {tab === 'profile' && <ProfileTab />}
+        {tab === 'profile' && <Profile />}
+        {tab === 'bitcoin' && <Bitcoin />}
       </Container>
     </>
   );
