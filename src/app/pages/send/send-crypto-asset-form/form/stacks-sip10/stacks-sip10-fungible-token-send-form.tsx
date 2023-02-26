@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { Form, Formik, FormikHelpers } from 'formik';
@@ -14,9 +14,9 @@ import { isEmpty, isString } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { pullContractIdFromIdentity } from '@app/common/utils';
 import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
@@ -35,7 +35,6 @@ import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/crypto-asset-balances.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
-import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/fungible-tokens/fungible-token-metadata.query';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
@@ -60,19 +59,13 @@ import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../.
 import { useStacksFtRouteState } from './use-stacks-ft-params';
 
 export function StacksSip10FungibleTokenSendForm({}) {
+  const [contractId, setContractId] = useState('');
   const { symbol } = useParams();
-
   const navigate = useNavigate();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { data: nextNonce } = useNextNonce();
-  const { contractId } = useStacksFtRouteState();
-  const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(
-    pullContractIdFromIdentity(contractId)
-  );
+  const { contractId: routeContractId } = useStacksFtRouteState();
   const routeState = useSendFormRouteState();
-
-  logger.debug('info', ftMetadata);
-
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
   const unsignedTx = useFtTokenTransferUnsignedTx(contractId);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
@@ -91,6 +84,10 @@ export function StacksSip10FungibleTokenSendForm({}) {
     () => convertAmountToBaseUnit(availableTokenBalance),
     [availableTokenBalance]
   );
+
+  useOnMount(() => {
+    setContractId(routeContractId);
+  });
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
     fee: '',
@@ -168,14 +165,14 @@ export function StacksSip10FungibleTokenSendForm({}) {
                 />
                 <FormFieldsLayout>
                   <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
-                  <StacksRecipientField contractId={contractId} />
+                  <StacksRecipientField />
                   <MemoField lastChild />
                 </FormFieldsLayout>
                 <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
                 <FormErrors />
                 <PreviewButton />
                 <EditNonceButton
-                  onEditNonce={() => navigate(RouteUrls.EditNonce, { state: { contractId } })}
+                  onEditNonce={() => navigate(RouteUrls.EditNonce)}
                   my={['loose', 'base']}
                 />
                 <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />

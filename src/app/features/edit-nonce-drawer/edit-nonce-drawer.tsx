@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
-import get from 'lodash.get';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
@@ -33,17 +32,12 @@ export function EditNonceDrawer() {
     StacksSendFormValues | StacksTransactionFormValues
   >();
   const [loadedNextNonce, setLoadedNextNonce] = useState<number | string>();
-  const location = useLocation();
-  const navigate = useNavigate();
 
-  const contractId = get(location.state, 'contractId');
+  const navigate = useNavigate();
 
   useOnMount(() => setLoadedNextNonce(values.nonce));
 
-  const onGoBack = useCallback(
-    () => navigate('..', { state: { contractId } }),
-    [contractId, navigate]
-  );
+  const onGoBack = useCallback(() => navigate('..'), [navigate]);
 
   const onBlur = useCallback(() => validateField('nonce'), [validateField]);
 
