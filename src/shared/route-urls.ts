@@ -37,15 +37,18 @@ export enum RouteUrls {
   ReceiveStx = '/receive/stx',
   ReceiveBtc = '/receive/btc',
   Send = '/send-transaction',
+  ViewSecretKey = '/view-secret-key',
 
+  // App requests
+  ProfileUpdateRequest = '/update-profile',
+  PsbtRequest = '/psbt',
+  SignatureRequest = '/signature',
   TransactionRequest = '/transaction',
   TransactionBroadcastError = 'broadcast-error',
   UnauthorizedRequest = '/unauthorized-request',
-  ViewSecretKey = '/view-secret-key',
+
   // Locked wallet route
   Unlock = '/unlock',
-  SignatureRequest = '/signature',
-  ProfileUpdateRequest = '/update-profile',
 
   // Modal routes
   ChangeTheme = 'change-theme',

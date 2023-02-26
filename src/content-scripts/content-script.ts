@@ -8,6 +8,7 @@ import {
   AuthenticationRequestEvent,
   DomEventName,
   ProfileUpdateRequestEvent,
+  PsbtRequestEvent,
   SignatureRequestEvent,
   TransactionRequestEvent,
 } from '@shared/inpage-types';
@@ -127,6 +128,16 @@ document.addEventListener(DomEventName.profileUpdateRequest, ((
     payload: event.detail.profileUpdateRequest,
     urlParam: 'request',
     method: ExternalMethods.profileUpdateRequest,
+  });
+}) as EventListener);
+
+// Listen for a CustomEvent (psbt request) coming from the web app
+document.addEventListener(DomEventName.psbtRequest, ((event: PsbtRequestEvent) => {
+  forwardDomEventToBackground({
+    path: RouteUrls.PsbtRequest,
+    payload: event.detail.psbtRequest,
+    urlParam: 'request',
+    method: ExternalMethods.psbtRequest,
   });
 }) as EventListener);
 

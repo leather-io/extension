@@ -142,7 +142,7 @@
     "@stacks/auth": "6.1.1",
     "@stacks/blockchain-api-client": "6.3.4",
     "@stacks/common": "6.0.0",
-    "@stacks/connect": "7.1.0",
+    "@stacks/connect": "5.0.6-alpha.fa5b858.0",
     "@stacks/connect-ui": "6.0.0",
     "@stacks/encryption": "6.1.1",
     "@stacks/network": "6.1.1",
@@ -226,7 +226,7 @@
     "@redux-devtools/remote": "0.8.0",
     "@schemastore/web-manifest": "0.0.5",
     "@sentry/webpack-plugin": "1.20.0",
-    "@stacks/connect-react": "21.0.0",
+    "@stacks/connect-react": "5.0.6-alpha.fa5b858.0",
     "@stacks/eslint-config": "1.2.0",
     "@stacks/prettier-config": "0.0.10",
     "@stacks/stacks-blockchain-api-types": "6.3.4",
@@ -317,9 +317,11 @@
     "webpack-hot-middleware": "2.25.3"
   },
   "resolutions": {
-    "socket.io-parser": "4.2.2",
+    "@stacks/connect": "5.0.6-alpha.fa5b858.0",
+    "@stacks/connect-react": "5.0.6-alpha.fa5b858.0",
     "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
+    "@types/react-dom": "17.0.2",
+    "socket.io-parser": "4.2.2"
   },
   "keywords": [
     "blockstack",

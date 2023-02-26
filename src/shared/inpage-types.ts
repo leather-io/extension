@@ -7,6 +7,7 @@ export enum DomEventName {
   structuredDataSignatureRequest = 'structuredDataSignatureRequest',
   transactionRequest = 'stacksTransactionRequest',
   profileUpdateRequest = 'profileUpdateRequest',
+  psbtRequest = 'psbtRequest',
 }
 
 export interface AuthenticationRequestEventDetails {
@@ -32,3 +33,9 @@ export interface ProfileUpdateRequestEventDetails {
 }
 
 export type ProfileUpdateRequestEvent = CustomEvent<ProfileUpdateRequestEventDetails>;
+
+export interface PsbtRequestEventDetails {
+  psbtRequest: string;
+}
+
+export type PsbtRequestEvent = CustomEvent<PsbtRequestEventDetails>;

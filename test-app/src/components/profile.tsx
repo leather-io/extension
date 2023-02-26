@@ -8,7 +8,7 @@ import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
 import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
 import { ProfileTabSelectors } from '@tests-legacy/integration/profile/profile-test-app.selectors';
 
-export const ProfileTab = () => {
+export const Profile = () => {
   const name = 'Name ' + new Date().getTime().toString();
   const avatarUrl =
     'https://byzantion.mypinata.cloud/ipfs/Qmb84UcaMr1MUwNbYBnXWHM3kEaDcYrKuPWwyRLVTNKELC/2256.png';
