@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { QueryPrefixes } from '@app/query/query-prefixes';
+
 export function useTextInscriptionContentQuery(contentSrc: string) {
   return useQuery(
-    ['ordinal-text-content', contentSrc] as const,
+    [QueryPrefixes.OrdinalTextContent, contentSrc] as const,
     async ({ queryKey }) => {
       const [_, contentSrc] = queryKey;
       const res = await fetch(contentSrc);
