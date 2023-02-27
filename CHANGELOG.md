@@ -1,3 +1,36 @@
+## [4.2.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.1.0...v4.2.0) (2023-02-27)
+
+
+### Features
+
+* add copy btn in account switching menu ([2399304](https://github.com/hirosystems/stacks-wallet-web/commit/2399304fef5e628c8e90986624dd8c766d15b546))
+* add ordinals address to receive modal ([1fd1b4b](https://github.com/hirosystems/stacks-wallet-web/commit/1fd1b4bb695e14c2d3ee7004275a108764bca16a))
+* add prefix ([1f8b20f](https://github.com/hirosystems/stacks-wallet-web/commit/1f8b20f6f0808c24da8d81485ea0dec5106043a3))
+* make ordinals occupy entire space ([81e3634](https://github.com/hirosystems/stacks-wallet-web/commit/81e363485881507b6ca85090ec33f71bc183b9d8))
+* return btc address during auth, closes [#2909](https://github.com/hirosystems/stacks-wallet-web/issues/2909), [#3092](https://github.com/hirosystems/stacks-wallet-web/issues/3092) ([bac34f5](https://github.com/hirosystems/stacks-wallet-web/commit/bac34f5d87e052474a96d57ffa885af46d1c6468))
+
+
+### Bug Fixes
+
+* asset page routing ([ddea6f2](https://github.com/hirosystems/stacks-wallet-web/commit/ddea6f2b274d5c675a0667e697f1953f99c64044))
+* bad derivation ([34b4016](https://github.com/hirosystems/stacks-wallet-web/commit/34b4016191839efb13aba5807927144c9058d68b))
+* btc recipient form validation ([95d110f](https://github.com/hirosystems/stacks-wallet-web/commit/95d110f1dccaf6b089a1e39e17ac19f0dcdbb3af))
+* collectibles map key errors ([58c053a](https://github.com/hirosystems/stacks-wallet-web/commit/58c053a9efaeb552bf589035a6ffb759a447253b))
+* collectibles on ledger ([3bdb4c5](https://github.com/hirosystems/stacks-wallet-web/commit/3bdb4c5fbd7c68fa05db12d2fd64970ad2dacc70))
+* receive modal console error ([66c1b3a](https://github.com/hirosystems/stacks-wallet-web/commit/66c1b3a938d0b9b077a75354298884b4eadebafd))
+* support form restore for non-btc currencies, clear on exit ([48430e8](https://github.com/hirosystems/stacks-wallet-web/commit/48430e83f61d2c298eaf644951f4a71abdb4a96d))
+
+
+### Internal
+
+* change copy ([ba5a9c7](https://github.com/hirosystems/stacks-wallet-web/commit/ba5a9c7a35dc09fdb01c240ebf7b8fab97a74096))
+* error when missing dep ([1aafea2](https://github.com/hirosystems/stacks-wallet-web/commit/1aafea20b6f48db366fc858a76998e66c129ac75))
+* improve ordinals query ([b9bfca3](https://github.com/hirosystems/stacks-wallet-web/commit/b9bfca3ac43e4aa32077fe53504798e713afea91))
+* next steps copy ([9397bbe](https://github.com/hirosystems/stacks-wallet-web/commit/9397bbea15b9902b441867eb281e8096753b6bb1))
+* remove fund step from onboarding ([77f69e1](https://github.com/hirosystems/stacks-wallet-web/commit/77f69e1d4f3bd5c5f6c1642a55059a7604e7e431))
+* single header instance ([8d50ef5](https://github.com/hirosystems/stacks-wallet-web/commit/8d50ef52bab18967ef231713b771171238e6cce0))
+* track input/output lengths, helpful for analysing fees ([f948cdc](https://github.com/hirosystems/stacks-wallet-web/commit/f948cdc4c218f77d0328abf9c4c7749e247350b1))
+
 ## [4.1.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.0.2...v4.1.0) (2023-02-22)
 
 
