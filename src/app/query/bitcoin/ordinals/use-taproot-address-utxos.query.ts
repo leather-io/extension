@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { createCounter } from '@app/common/utils/counter';
+import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -20,33 +21,36 @@ export function useTaprootAddressUtxosQuery() {
   const keychain = useCurrentTaprootAccountKeychain();
   const client = useBitcoinClient();
 
-  return useQuery(['taproot-address-utxos-metadata', keychain.pubKeyHash, network.id], async () => {
-    let currentNumberOfAddressesWithoutOrdinals = 0;
-    const counter = createCounter(0);
-    let foundUnspentTransactions: UtxoResponseItem[] = [];
-    while (
-      currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
-    ) {
-      const address = getTaprootAddress(
-        counter.getValue(),
-        keychain,
-        network.chain.bitcoin.network
-      );
+  return useQuery(
+    [QueryPrefixes.TaprootAddressUtxosMetadata, keychain.pubKeyHash, network.id],
+    async () => {
+      let currentNumberOfAddressesWithoutOrdinals = 0;
+      const counter = createCounter(0);
+      let foundUnspentTransactions: UtxoResponseItem[] = [];
+      while (
+        currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
+      ) {
+        const address = getTaprootAddress(
+          counter.getValue(),
+          keychain,
+          network.chain.bitcoin.network
+        );
 
-      const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
+        const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
 
-      if (!hasOrdinals(unspentTransactions)) {
-        currentNumberOfAddressesWithoutOrdinals += 1;
+        if (!hasOrdinals(unspentTransactions)) {
+          currentNumberOfAddressesWithoutOrdinals += 1;
+          counter.increment();
+          continue;
+        }
+
+        foundUnspentTransactions = foundUnspentTransactions.concat(unspentTransactions);
+
+        currentNumberOfAddressesWithoutOrdinals = 0;
         counter.increment();
-        continue;
       }
 
-      foundUnspentTransactions = foundUnspentTransactions.concat(unspentTransactions);
-
-      currentNumberOfAddressesWithoutOrdinals = 0;
-      counter.increment();
+      return foundUnspentTransactions;
     }
-
-    return foundUnspentTransactions;
-  });
+  );
 }

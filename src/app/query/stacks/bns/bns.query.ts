@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
+import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
@@ -34,7 +35,7 @@ export function useGetBnsNamesOwnedByAddress<T extends unknown = BnsNameFetcherR
   const limiter = useHiroApiRateLimiter();
   return useQuery({
     enabled: address !== '',
-    queryKey: ['bns-names-by-address', address],
+    queryKey: [QueryPrefixes.BnsNamesByAddress, address],
     queryFn: () => getBnsNameFetcherFactory(client, limiter)(address),
     ...bnsQueryOptions,
     ...options,
