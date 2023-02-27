@@ -31,9 +31,16 @@ function getAmountModifiedFontSize(props: GetAmountModifiedFontSize) {
 
 interface AmountFieldProps {
   balance: Money;
+  switchableAmount?: JSX.Element;
   bottomInputOverlay?: JSX.Element;
+  autofocus?: boolean;
 }
-export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
+export function AmountField({
+  balance,
+  switchableAmount,
+  bottomInputOverlay,
+  autofocus = false,
+}: AmountFieldProps) {
   const [field, meta] = useField('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
   const [previousTextLength, setPreviousTextLength] = useState(1);
@@ -78,25 +85,36 @@ export function AmountField({ balance, bottomInputOverlay }: AmountFieldProps) {
       px="extra-loose"
       spacing={['base', meta.error ? 'base' : '48px']}
     >
-      <Flex alignItems="center" height="55px" justifyContent="center">
-        <Input
-          _focus={{ border: 'none' }}
-          border="none"
-          caretColor={color('accent')}
-          data-testid={SendCryptoAssetSelectors.AmountFieldInput}
-          fontSize={fontSize + 'px'}
-          height="100%"
-          id={amountInputId}
-          maxLength={maxLength}
-          placeholder="0"
-          px="none"
-          textAlign="right"
-          width={!field.value.length ? '1ch' : previousTextLength + 'ch'}
-          {...field}
-        />
-        <Text fontSize={fontSize + 'px'} pl="tight">
-          {symbol.toUpperCase()}
-        </Text>
+      <Flex alignItems="center" flexDirection="column">
+        <Flex
+          alignItems="center"
+          height="55px"
+          justifyContent="center"
+          fontWeight={500}
+          color="#242629"
+        >
+          <Input
+            _focus={{ border: 'none' }}
+            border="none"
+            caretColor={color('accent')}
+            data-testid={SendCryptoAssetSelectors.AmountFieldInput}
+            fontSize={fontSize + 'px'}
+            height="100%"
+            id={amountInputId}
+            maxLength={maxLength}
+            placeholder="0"
+            px="none"
+            textAlign="right"
+            width={!field.value.length ? '1ch' : previousTextLength + 'ch'}
+            autoFocus={autofocus}
+            fontWeight={500}
+            {...field}
+          />
+          <Text fontSize={fontSize + 'px'} pl="tight">
+            {symbol.toUpperCase()}
+          </Text>
+        </Flex>
+        <Box mt="12px">{switchableAmount && switchableAmount}</Box>
       </Flex>
       {meta.error && meta.touched && (
         <ErrorLabel data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}>

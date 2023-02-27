@@ -38,6 +38,7 @@ import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
+import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
@@ -57,6 +58,7 @@ import { MemoField } from '../../components/memo-field';
 import { PreviewButton } from '../../components/preview-button';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
+import { SendFiatValue } from '../../components/send-fiat-value';
 import { SendMaxButton } from '../../components/send-max-button';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
@@ -80,6 +82,7 @@ export function StxSendForm() {
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
+  const stxMarketData = useCryptoCurrencyMarketData('STX');
 
   const availableStxBalance = balances?.stx.availableStx ?? createMoney(0, 'STX');
   const sendMaxBalance = useMemo(
@@ -149,6 +152,9 @@ export function StxSendForm() {
               <Form>
                 <AmountField
                   balance={availableStxBalance}
+                  switchableAmount={
+                    <SendFiatValue marketData={stxMarketData} assetSymbol={'STX'} />
+                  }
                   bottomInputOverlay={
                     <SendMaxButton
                       balance={availableStxBalance}
