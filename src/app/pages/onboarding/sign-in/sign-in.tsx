@@ -51,8 +51,7 @@ export const SignIn = () => {
                 <>
                   <Title as="h1">Sign in with Secret Key</Title>
                   <Text color={color('text-caption')}>
-                    Enter your 12 or 24 word Secret Key to sign in to Stacks Wallet with an existing
-                    Bitcoin or Stacks account
+                    Enter your 12- or 24-word Secret Key to sign in with an existing wallet
                   </Text>
                 </>
               )}

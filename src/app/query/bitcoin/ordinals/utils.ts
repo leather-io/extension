@@ -9,25 +9,6 @@ import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bi
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
 
 /**
- * Schema of data used from the `GET https://ordapi.xyz/address/:address` endpoint. Additional data
- * that is not currently used by the app may be returned by this endpoint.
- *
- * See API docs, https://ordapi.xyz/
- */
-// export const ordApiXyzGetInscriptionByAddressSchema = yup
-//   .array(
-//     yup.object({
-//       // NOTE: this next key is using a space " ", uncommon as that is.
-//       ['content type']: yup.string().required(),
-//
-//       content: yup.string().required(),
-//       preview: yup.string().required(),
-//       title: yup.string().required(),
-//     })
-//   )
-//   .required();
-
-/**
  * Schema of data used from the `GET https://ordapi.xyz/inscriptions/:id` endpoint. Additional data
  * that is not currently used by the app may be returned by this endpoint.
  *
@@ -43,9 +24,6 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
     title: yup.string().required(),
   })
   .required();
-export type OrdApiXyzGetInscriptionByInscriptionSchema = yup.InferType<
-  typeof ordApiXyzGetInscriptionByInscriptionSchema
->;
 
 /**
  * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data
@@ -84,4 +62,64 @@ export function getTaprootAddress(index: number, keychain: HDKey, network: Netwo
   if (!payment.address) throw new Error('Expected address to be defined.');
 
   return payment.address;
+}
+
+/**
+ * Ordinals contain arbitrary data. When retrieving an ordinal, it should be
+ * classified into one of the types below, indicating that the app can handle it
+ * appropriately and securely. Ordinals of types not ready to be handled by the
+ * app should be classified as "other".
+ */
+const supportedOrdinalTypes = ['image', 'other'] as const;
+
+type SupportedOrdinalType = (typeof supportedOrdinalTypes)[number];
+
+interface BaseOrdinalInfo {
+  /**
+   * The kind of ordinal as classified by this app. Different kinds of ordinals
+   * require different treatment (e.g., images vs documents).
+   */
+  type: SupportedOrdinalType;
+
+  /**
+   * Title which can be rendered in the UI alongside the ordinal.
+   */
+  title: string;
+
+  /**
+   * A link to a detailed techincal description about the ordinal.
+   */
+  infoUrl: string;
+}
+
+interface ImageOrdinalInfo extends BaseOrdinalInfo {
+  type: 'image';
+
+  /**
+   * URL where the image can be found.
+   */
+  src: string;
+}
+
+interface OtherOrdinalInfo extends BaseOrdinalInfo {
+  type: 'other';
+}
+
+type OrdinalInfo = ImageOrdinalInfo | OtherOrdinalInfo;
+
+export function createInfoUrl(contentPath: string) {
+  return `https://ordinals.com${contentPath}`.replace('content', 'inscription');
+}
+
+export function whenOrdinalType(
+  mimeType: string,
+  branches: { [k in SupportedOrdinalType]?: () => OrdinalInfo }
+) {
+  if (mimeType.startsWith('image/') && branches.image) {
+    return branches.image();
+  }
+
+  if (branches.other) return branches.other();
+
+  throw new Error('Unhandled ordinal type.');
 }

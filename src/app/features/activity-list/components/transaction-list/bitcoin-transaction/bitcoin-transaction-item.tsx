@@ -24,7 +24,10 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   const { handleOpenTxLink } = useExplorerLink();
   const analytics = useAnalytics();
   const caption = useMemo(() => getBitcoinTxCaption(transaction), [transaction]);
-  const value = useMemo(() => getBitcoinTxValue(bitcoinAddress, transaction), [transaction]);
+  const value = useMemo(
+    () => getBitcoinTxValue(bitcoinAddress, transaction),
+    [bitcoinAddress, transaction]
+  );
 
   if (!transaction) return null;
 

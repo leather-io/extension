@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FiAlertTriangle } from 'react-icons/fi';
+import { FiAlertCircle } from 'react-icons/fi';
 
 import { Box, Flex, Stack, StackProps, Text, color } from '@stacks/ui';
 
@@ -17,10 +17,11 @@ export function WarningLabel({ children, ...rest }: WarningLabelProps) {
         isInline
         px="base"
         py="base-tight"
+        width="100%"
       >
         <Box
           _hover={{ cursor: 'pointer' }}
-          as={FiAlertTriangle}
+          as={FiAlertCircle}
           color={color('feedback-alert')}
           size="16px"
           minWidth="min-content"

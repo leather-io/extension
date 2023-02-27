@@ -28,7 +28,7 @@ import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
 import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
-import { ReceiveCollectible } from '@app/pages/receive/receive-collectible/receive-collectible';
+import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
@@ -78,7 +78,7 @@ function AppRoutesAfterUserHasConsented() {
             {ledgerTxSigningRoutes}
           </Route>
           <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
-          <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectible />} />
+          <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
           <Route
             path={RouteUrls.ReceiveCollectibleOrdinal}
             element={<ReceiveCollectibleOrdinal />}

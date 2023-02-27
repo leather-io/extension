@@ -4,14 +4,25 @@ import { useSelector } from 'react-redux';
 import { deriveTaprootReceiveAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { isUndefined } from '@shared/utils';
 
+import { whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import { formatBitcoinAccount, tempHardwareAccountForTesting } from './bitcoin-account.models';
-import { selectSoftwareBitcoinTaprootKeychain } from './bitcoin-keychain';
+import { selectMainnetTaprootKeychain, selectTestnetTaprootKeychain } from './bitcoin-keychain';
+
+function useTaprootKeychainByAccount() {
+  const network = useCurrentNetwork();
+  return useSelector(
+    whenNetwork(network.chain.bitcoin.network)({
+      mainnet: selectMainnetTaprootKeychain,
+      testnet: selectTestnetTaprootKeychain,
+    })
+  );
+}
 
 function useBitcoinTaprootAccount(index: number) {
-  const keychain = useSelector(selectSoftwareBitcoinTaprootKeychain);
+  const keychain = useTaprootKeychainByAccount();
   return useMemo(() => {
     // TODO: Remove with bitcoin Ledger integration
     if (isUndefined(keychain)) return tempHardwareAccountForTesting;
@@ -35,10 +46,6 @@ function useDeriveTaprootAccountIndexAddressIndexZero(xpub: string) {
       }),
     [xpub, network]
   );
-}
-
-function useTaprootKeychainByAccount() {
-  return useSelector(selectSoftwareBitcoinTaprootKeychain);
 }
 
 export function useCurrentTaprootAccountKeychain() {

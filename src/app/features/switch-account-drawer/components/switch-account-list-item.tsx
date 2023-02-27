@@ -1,7 +1,10 @@
 import { memo } from 'react';
 
+import { useClipboard } from '@stacks/ui';
+
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
@@ -33,6 +36,22 @@ export const SwitchAccountListItem = memo(
       }, 80);
     };
 
+    const analytics = useAnalytics();
+    const { onCopy, hasCopied } = useClipboard(account.address || '');
+    const { onCopy: onCopyBtc, hasCopied: hasCopiedBtc } = useClipboard(btcAddress || '');
+
+    const onCopyToClipboard = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      void analytics.track('copy_address_to_clipboard');
+      onCopy();
+    };
+
+    const onCopyBtcToClipboard = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      void analytics.track('copy_btc_address_to_clipboard');
+      onCopyBtc();
+    };
+
     return (
       <AccountListItemLayout
         index={account.index}
@@ -46,6 +65,10 @@ export const SwitchAccountListItem = memo(
         onSelectAccount={handleClick}
         accountName={<AccountName account={account} />}
         balanceLabel={<AccountBalanceLabel address={account.address} />}
+        hasCopied={hasCopied}
+        hasCopiedBtc={hasCopiedBtc}
+        onCopyToClipboard={onCopyToClipboard}
+        onCopyBtcToClipboard={onCopyBtcToClipboard}
         mt="loose"
         {...bind}
       >

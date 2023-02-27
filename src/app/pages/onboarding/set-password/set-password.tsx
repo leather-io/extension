@@ -65,7 +65,7 @@ export const SetPasswordPage = () => {
           await finishSignIn(0);
         }
       } else {
-        navigate(RouteUrls.Fund, { state: { showSkipButton: true } });
+        navigate(RouteUrls.Home);
       }
     },
     [setPassword, decodedAuthRequest, wallet, navigate, finishSignIn]

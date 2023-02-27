@@ -15,6 +15,7 @@ import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-pa
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { useAllBitcoinNativeSegWitNetworksByAccount } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
@@ -25,6 +26,8 @@ export function useFinishAuthRequest() {
   const { walletType } = useWalletType();
   const accounts = useStacksAccounts();
   const { origin, tabId } = useAuthRequestParams();
+
+  const deriveNativeSegWitAccountAtIndex = useAllBitcoinNativeSegWitNetworksByAccount();
 
   return useCallback(
     async (accountIndex: number) => {
@@ -76,6 +79,11 @@ export function useFinishAuthRequest() {
           transitPublicKey: decodedAuthRequest.public_keys[0],
           scopes: decodedAuthRequest.scopes,
           account: legacyAccount,
+          additionalData: {
+            btcAddress: {
+              p2wpkh: deriveNativeSegWitAccountAtIndex(accountIndex),
+            },
+          },
         });
         keyActions.switchAccount(accountIndex);
         finalizeAuthResponse({
@@ -89,15 +97,16 @@ export function useFinishAuthRequest() {
     },
     [
       accounts,
+      wallet,
+      decodedAuthRequest,
+      authRequest,
+      origin,
+      tabId,
+      walletType,
       appIcon,
       appName,
-      authRequest,
-      decodedAuthRequest,
+      deriveNativeSegWitAccountAtIndex,
       keyActions,
-      origin,
-      wallet,
-      walletType,
-      tabId,
     ]
   );
 }

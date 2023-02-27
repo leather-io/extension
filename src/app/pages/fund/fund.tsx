@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -8,37 +8,16 @@ import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { SkipFundAccountButton } from './components/skip-fund-account-button';
 import { FundLayout } from './fund.layout';
 
-interface FundPageLocationStateProps {
-  state: { showSkipButton: boolean };
-}
 export function FundPage() {
-  const { state } = useLocation() as FundPageLocationStateProps;
   const navigate = useNavigate();
   const currentAccount = useCurrentStacksAccount();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 
-  const isOnboarding = state?.showSkipButton;
-
-  const onSkipFundAccount = () => navigate(RouteUrls.Home);
-
-  useRouteHeader(
-    <Header
-      actionButton={
-        isOnboarding ? <SkipFundAccountButton onSkipFundAccount={onSkipFundAccount} /> : undefined
-      }
-      hideActions={isOnboarding}
-      onClose={isOnboarding ? undefined : () => navigate(RouteUrls.Home)}
-      title={isOnboarding ? undefined : ' '}
-    />
-  );
+  useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} title=" " />);
 
   if (!currentAccount || !balances) return <FullPageLoadingSpinner />;
-
-  if (isOnboarding && balances?.stx.availableStx.amount.isGreaterThan(0))
-    return <Navigate to={RouteUrls.Home} />;
 
   return (
     <>

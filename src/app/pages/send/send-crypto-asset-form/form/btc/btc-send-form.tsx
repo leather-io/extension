@@ -6,11 +6,8 @@ import { Form, Formik } from 'formik';
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { Header } from '@app/components/header';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -30,10 +27,6 @@ import { TestnetBtcMessage } from './components/testnet-btc-message';
 import { useBtcSendForm } from './use-btc-send-form';
 
 export function BtcSendForm() {
-  useRouteHeader(
-    <Header hideActions onClose={() => navigate(RouteUrls.SendCryptoAsset)} title="Send" />
-  );
-
   const navigate = useNavigate();
   const routeState = useSendFormRouteState();
 
@@ -42,9 +35,8 @@ export function BtcSendForm() {
 
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
 
-  const { validationSchema, currentNetwork, formRef, previewTransaction } = useBtcSendForm();
-
-  const { onFormStateChange } = useUpdatePersistedSendFormValues();
+  const { validationSchema, currentNetwork, formRef, previewTransaction, onFormStateChange } =
+    useBtcSendForm();
 
   return (
     <SendCryptoAssetFormLayout>
@@ -74,6 +66,7 @@ export function BtcSendForm() {
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
                 <RecipientField
                   labelAction="Choose account"
+                  lastChild
                   name="recipient"
                   onClickLabelAction={() =>
                     navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)

@@ -1,6 +1,5 @@
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
-import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
@@ -54,7 +53,6 @@ export class WalletPage {
   $suggestedStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
   $suggestedStepDoneBadge = createTestSelector(OnboardingSelectors.StepItemDone);
   $noAssetsFundAccountLink = createTestSelector(OnboardingSelectors.NoAssetsFundAccountLink);
-  $skipFundAccountBtn = createTestSelector(FundPageSelectors.SkipFundAccountBtn);
 
   page: Page;
 
@@ -104,10 +102,6 @@ export class WalletPage {
 
   async clickHideSteps() {
     await this.page.click(this.$hideStepsBtn);
-  }
-
-  async clickSkipFundAccountButton() {
-    await this.page.click(this.$skipFundAccountBtn);
   }
 
   async waitForSettingsButton() {
@@ -220,7 +214,6 @@ export class WalletPage {
     await this.clickDenyAnalytics();
     await this.clickSignUp();
     await this.backUpKeyAndSetPassword();
-    await this.clickSkipFundAccountButton();
     await this.waitForHomePage();
   }
 

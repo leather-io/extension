@@ -29,6 +29,7 @@ export function ReceiveTokens() {
       address={currentAccount.address}
       onCopyAddressToClipboard={copyToClipboard}
       title="Receive"
+      hasSubtitle
     />
   );
 }

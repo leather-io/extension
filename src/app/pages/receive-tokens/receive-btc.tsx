@@ -6,6 +6,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
+import { ReceiveBtcModalWarning } from './components/receive-btc-warning';
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
 export function ReceiveBtcModal() {
@@ -25,6 +26,8 @@ export function ReceiveBtcModal() {
       address={btcAddress}
       onCopyAddressToClipboard={copyToClipboard}
       title="Bitcoin address"
+      warning={ReceiveBtcModalWarning()}
+      hasSubtitle={false}
     />
   );
 }

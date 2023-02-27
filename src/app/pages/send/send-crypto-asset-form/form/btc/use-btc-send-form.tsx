@@ -14,12 +14,14 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
+  notCurrentAddressValidator,
 } from '@app/common/validation/forms/address-validators';
 import {
   btcInsufficientBalanceValidator,
   btcMinimumSpendValidator,
 } from '@app/common/validation/forms/amount-validators';
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
+import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -39,9 +41,12 @@ export function useBtcSendForm() {
   const sendFormNavigate = useSendFormNavigate();
   const generateTx = useGenerateSignedBitcoinTx();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
+  const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
   return {
     formRef,
+
+    onFormStateChange,
 
     currentNetwork,
 
@@ -63,7 +68,8 @@ export function useBtcSendForm() {
       recipient: yup
         .string()
         .concat(btcAddressValidator())
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network)),
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
+        .concat(notCurrentAddressValidator(currentAccountBtcAddress)),
     }),
 
     async previewTransaction(

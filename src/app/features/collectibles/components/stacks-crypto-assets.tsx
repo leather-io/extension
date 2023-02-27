@@ -12,10 +12,10 @@ export function StacksCryptoAssets() {
   return (
     <>
       {names.map(name => (
-        <StacksBnsName bnsName={parseIfValidPunycode(name)} />
+        <StacksBnsName bnsName={parseIfValidPunycode(name)} key={name} />
       ))}
       {stacksNftsMetadataResp.map(nft =>
-        nft ? <StacksNonFungibleTokens metadata={nft?.metadata} /> : null
+        nft ? <StacksNonFungibleTokens key={nft?.token_uri} metadata={nft?.metadata} /> : null
       )}
     </>
   );
