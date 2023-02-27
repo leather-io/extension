@@ -5,6 +5,7 @@ import { StacksNftMetadataResponse } from '@shared/models/stacks-nft-metadata.mo
 
 import { fetcher } from '@app/common/api/wrapped-fetch';
 import { pullContractIdFromIdentity } from '@app/common/utils';
+import { QueryPrefixes } from '@app/query/query-prefixes';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 import { useAccountNonFungibleTokenHoldings } from './non-fungible-token-holdings.hooks';
@@ -40,7 +41,7 @@ export function useGetNonFungibleTokenMetadataListQuery() {
 
       return {
         enabled: !!tokenId,
-        queryKey: ['get-nft-metadata', principal, tokenId],
+        queryKey: [QueryPrefixes.GetNftMetadata, principal, tokenId],
         queryFn: () => fetchNonFungibleTokenMetadata(limiter)(principal, tokenId),
         ...queryOptions,
       };
