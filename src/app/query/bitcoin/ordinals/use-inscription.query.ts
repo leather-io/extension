@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { QueryPrefixes } from '@app/query/query-prefixes';
+
 import { ordApiXyzGetInscriptionByInscriptionSchema } from './utils';
 
 async function getInscriptionMetadata(path: string) {
@@ -11,8 +13,9 @@ async function getInscriptionMetadata(path: string) {
   const validatedData = await ordApiXyzGetInscriptionByInscriptionSchema.validate(data);
   return validatedData;
 }
+
 export function useInscriptionQuery(path: string) {
-  return useQuery(['inscription-metadata', path], () => getInscriptionMetadata(path), {
+  return useQuery([QueryPrefixes.InscriptionMetadata, path], () => getInscriptionMetadata(path), {
     staleTime: Infinity,
     cacheTime: Infinity,
   });
