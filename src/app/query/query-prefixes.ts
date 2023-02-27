@@ -8,5 +8,6 @@ export enum QueryPrefixes {
   InscriptionFromUtxo = 'inscription-from-utxo',
   BnsNamesByAddress = 'bns-names-by-address',
   InscriptionMetadata = 'inscription-metadata',
+  InscriptionFromTxid = 'inscription-from-txid',
   GetNftMetadata = 'get-nft-metadata',
 }
