@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { QueryPrefixes } from '@app/query/query-prefixes';
+
 import { OrdApiXyzGetTransactionOutput, ordApiXyzGetTransactionOutput } from './utils';
 
 const queryOptions = {
@@ -17,7 +19,7 @@ async function getInscriptionByTxid(txid: string): Promise<OrdApiXyzGetTransacti
 }
 
 function makeInscriptionMetadataQueryKey(txid: string) {
-  return ['inscription-from-txid', txid] as const;
+  return [QueryPrefixes.InscriptionFromTxid, txid] as const;
 }
 
 export function useInscriptionByTxidQuery(txid: string) {
