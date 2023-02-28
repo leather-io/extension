@@ -75,7 +75,7 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
                 type="checkbox"
                 name="confirmPasswordDisable"
                 defaultChecked={form.values.confirmPasswordDisable}
-                data-testid={SettingsSelectors.SignOutConfirmHasBackupCheckbox}
+                data-testid={SettingsSelectors.SignOutConfirmPasswordDisable}
               />
             </Box>
             <Caption userSelect="none">
