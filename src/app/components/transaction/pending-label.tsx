@@ -4,10 +4,15 @@ import { Box, Flex, Stack, Text, color } from '@stacks/ui';
 
 import { Tooltip } from '@app/components/tooltip';
 
-const pendingWaitingMessage =
+const DEFAULT_PENDING_WAITING_MESSAGE =
   'This transaction is waiting to be confirmed. Depending on network congestion, this may take anywhere from a few minutes, to a couple of hours.';
+interface PendingLabelProps {
+  pendingWaitingMessage?: string;
+}
 
-export function PendingLabel() {
+export function PendingLabel({
+  pendingWaitingMessage = DEFAULT_PENDING_WAITING_MESSAGE,
+}: PendingLabelProps) {
   return (
     <Flex alignItems="center">
       <Text color={color('feedback-alert')} fontSize={0} mr="2px">
