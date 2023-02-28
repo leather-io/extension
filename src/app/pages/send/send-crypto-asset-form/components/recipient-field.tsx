@@ -3,7 +3,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { TextInputField } from './text-input-field';
 
 interface RecipientFieldProps {
-  labelAction: string;
+  labelAction?: string;
   lastChild?: boolean;
   name: string;
   onBlur?(): void;

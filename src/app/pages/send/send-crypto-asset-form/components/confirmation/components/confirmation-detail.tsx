@@ -1,17 +1,17 @@
 import { ReactNode } from 'react';
 
-import { Text } from '@stacks/ui';
+import { StackProps, Text } from '@stacks/ui';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
-interface ConfirmationDetailProps {
+interface ConfirmationDetailProps extends StackProps {
   detail: string;
   value: ReactNode;
 }
-export function ConfirmationDetail({ detail, value }: ConfirmationDetailProps) {
+export function ConfirmationDetail({ detail, value, ...props }: ConfirmationDetailProps) {
   return (
-    <SpaceBetween>
+    <SpaceBetween {...props}>
       <Caption>{detail}</Caption>
       <Text>{value}</Text>
     </SpaceBetween>

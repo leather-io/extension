@@ -92,10 +92,10 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         width="100%"
         maxWidth="472px"
         bg="white"
-        borderTopLeftRadius="24px"
-        borderTopRightRadius="24px"
-        borderBottomLeftRadius={[0, '24px', '24px', '24px']}
-        borderBottomRightRadius={[0, '24px', '24px', '24px']}
+        borderTopLeftRadius="16px"
+        borderTopRightRadius="16px"
+        borderBottomLeftRadius={[0, '16px', '16px', '16px']}
+        borderBottomRightRadius={[0, '16px', '16px', '16px']}
         position="relative"
         mt={['auto', 'unset', 'unset', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}

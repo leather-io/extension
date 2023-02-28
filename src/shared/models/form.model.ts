@@ -8,6 +8,10 @@ export interface BitcoinSendFormValues {
   symbol: string;
 }
 
+export interface OrdinalSendFormValues {
+  recipient: string;
+}
+
 // TODO: Remove assetId and optional symbol with legacy send form
 export interface StacksSendFormValues {
   amount: number | string;

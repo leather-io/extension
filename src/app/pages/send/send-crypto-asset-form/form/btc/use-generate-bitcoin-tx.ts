@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { hexToBytes } from '@stacks/common';
 import * as btc from 'micro-btc-signer';
 
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
@@ -55,7 +54,7 @@ export function useGenerateSignedBitcoinTx() {
         inputs.forEach(input => {
           const p2wpkh = btc.p2wpkh(currentAddressIndexKeychain.publicKey!, networkMode);
           tx.addInput({
-            txid: hexToBytes(input.txid),
+            txid: input.txid,
             index: input.vout,
             witnessUtxo: {
               // script = 0014 + pubKeyHash
