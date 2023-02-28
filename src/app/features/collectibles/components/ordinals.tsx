@@ -1,11 +1,14 @@
+import { NavigateFunction, useNavigate } from 'react-router';
+
 import { UseQueryResult } from '@tanstack/react-query';
 
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+// import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
 import { useTaprootAddressUtxosQuery } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import { useTransactionsMetadataQuery } from '@app/query/bitcoin/ordinals/use-transactions-metadata.query';
 import {
   OrdApiXyzGetTransactionOutput,
+  OrdinalInfo,
   createInfoUrl,
   whenOrdinalType,
 } from '@app/query/bitcoin/ordinals/utils';
@@ -18,14 +21,20 @@ interface InscriptionProps {
   path: string;
 }
 
+function send(inscription: OrdinalInfo, navigate: NavigateFunction) {
+  console.log(inscription);
+  navigate('./send/ordinal-inscription/send', { state: inscription });
+}
+
 function Inscription({ path }: InscriptionProps) {
   const { isLoading, isError, data } = useInscriptionQuery(path);
+  const navigate = useNavigate();
 
   if (isLoading) return null; // TODO
 
   if (isError) return null; // TODO
 
-  const inscription = whenOrdinalType(data['content type'], {
+  const inscription = whenOrdinalType<OrdinalInfo>(data['content type'], {
     image: () => ({
       infoUrl: createInfoUrl(data.content),
       src: `https://ordinals.com${data.content}`,
@@ -50,7 +59,10 @@ function Inscription({ path }: InscriptionProps) {
       return (
         <CollectibleImage
           key={inscription.title}
-          onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          onSelectCollectible={() => {
+            send(inscription, navigate);
+            // openInNewTab(inscription.infoUrl)
+          }}
           src={inscription.src}
           subtitle="Ordinal inscription"
           title={inscription.title}
@@ -61,7 +73,10 @@ function Inscription({ path }: InscriptionProps) {
       return (
         <CollectibleText
           key={inscription.title}
-          onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          onSelectCollectible={() => {
+            send(inscription, navigate);
+            // openInNewTab(inscription.infoUrl)
+          }}
           contentSrc={inscription.contentSrc}
           subtitle="Ordinal inscription"
           title={inscription.title}
@@ -72,7 +87,10 @@ function Inscription({ path }: InscriptionProps) {
       return (
         <CollectibleOther
           key={inscription.title}
-          onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          onSelectCollectible={() => {
+            send(inscription, navigate);
+            // openInNewTab(inscription.infoUrl)
+          }}
           subtitle="Ordinal inscription"
           title={inscription.title}
         />

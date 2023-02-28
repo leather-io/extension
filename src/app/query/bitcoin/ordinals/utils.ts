@@ -114,15 +114,15 @@ interface OtherOrdinalInfo extends BaseOrdinalInfo {
   type: 'other';
 }
 
-type OrdinalInfo = ImageOrdinalInfo | TextOrdinalInfo | OtherOrdinalInfo;
+export type OrdinalInfo = ImageOrdinalInfo | TextOrdinalInfo | OtherOrdinalInfo;
 
 export function createInfoUrl(contentPath: string) {
   return `https://ordinals.com${contentPath}`.replace('content', 'inscription');
 }
 
-export function whenOrdinalType(
+export function whenOrdinalType<T>(
   mimeType: string,
-  branches: { [k in SupportedOrdinalType]?: () => OrdinalInfo }
+  branches: { [k in SupportedOrdinalType]?: () => T }
 ) {
   if (mimeType.startsWith('image/') && branches.image) {
     return branches.image();
