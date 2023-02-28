@@ -44,6 +44,9 @@ export class WalletPage {
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
   );
+  $signOutConfirmPasswordDisable = createTestSelector(
+    SettingsSelectors.SignOutConfirmPasswordDisable
+  );
   $signOutDeleteWalletBtn = createTestSelector(SettingsSelectors.BtnSignOutActuallyDeleteWallet);
   $enterPasswordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
   $unlockWalletBtn = createTestSelector(SettingsSelectors.UnlockWalletBtn);

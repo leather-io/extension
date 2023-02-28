@@ -9,6 +9,7 @@ export enum SettingsSelectors {
   CopyKeyToClipboardBtn = 'copy-key-to-clipboard-btn',
   SignOutListItem = 'settings-sign-out',
   SignOutConfirmHasBackupCheckbox = 'sign-out-confirm-has-backup-checkbox',
+  SignOutConfirmPasswordDisable = 'sign-out-confirm-password-disable',
   BtnSignOutReturnToHomeScreen = 'btn-sign-out-return-to-home-screen',
   BtnSignOutActuallyDeleteWallet = 'btn-sign-out-actually-delete-wallet',
   LockListItem = 'settings-lock',
