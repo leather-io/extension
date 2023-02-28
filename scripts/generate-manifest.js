@@ -14,8 +14,7 @@ function generateImageAssetUrlsWithSuffix(suffix) {
 
 const manifest = {
   author: 'Hiro PBC',
-  description:
-    'Hiro Wallet is a safe way to manage your STX, sign into apps, and protect your funds while interacting with Clarity smart contracts.',
+  description: 'The most popular and trusted wallet for apps built on Bitcoin',
   permissions: ['contextMenus', 'storage', '*://*/*'],
   manifest_version: 2,
   background: {
