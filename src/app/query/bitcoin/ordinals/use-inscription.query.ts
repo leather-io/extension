@@ -4,7 +4,7 @@ import { QueryPrefixes } from '@app/query/query-prefixes';
 
 import { ordApiXyzGetInscriptionByInscriptionSchema } from './utils';
 
-async function getInscriptionMetadata(path: string) {
+async function getInscription(path: string) {
   const res = await fetch(`https://ordapi.xyz${path}`);
 
   if (!res.ok) throw new Error('Error retrieving inscription metadata.');
@@ -14,7 +14,7 @@ async function getInscriptionMetadata(path: string) {
 }
 
 export function useInscriptionQuery(path: string) {
-  return useQuery([QueryPrefixes.InscriptionMetadata, path], () => getInscriptionMetadata(path), {
+  return useQuery([QueryPrefixes.InscriptionMetadata, path], () => getInscription(path), {
     enabled: !!path,
     staleTime: Infinity,
     cacheTime: Infinity,

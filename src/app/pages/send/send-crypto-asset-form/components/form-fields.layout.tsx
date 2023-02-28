@@ -10,7 +10,7 @@ export function FormFieldsLayout({ children }: FormFieldsProps) {
     <Flex
       border="1px solid"
       borderColor="#DCDDE2"
-      borderRadius="16px"
+      borderRadius="10px"
       flexDirection="column"
       mt="loose"
       width="100%"

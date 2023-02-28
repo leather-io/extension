@@ -23,3 +23,10 @@ export function deriveAddressIndexKeychainFromAccount(keychain: HDKey) {
 export function deriveAddressIndexZeroFromAccount(keychain: HDKey) {
   return deriveAddressIndexKeychainFromAccount(keychain)(0);
 }
+
+const ecdsaPublicKeyLength = 33;
+
+export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
+  if (pubKey.byteLength !== ecdsaPublicKeyLength) throw new Error('Invalid public key length');
+  return pubKey.slice(1);
+}

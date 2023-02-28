@@ -1,4 +1,4 @@
-export function Refresh(props: React.SVGProps<SVGSVGElement>) {
+export function RefreshIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width={16} height={16} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
