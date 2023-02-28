@@ -7,7 +7,7 @@ import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 import { Tooltip } from '@app/components/tooltip';
 
 import { PendingLabel } from '../transaction/pending-label';
-import { InMicroblockLabel } from '../transaction/in-microblock-label';
+import { MicroblockLabel } from '../transaction/microblock-label';
 
 interface TransactionStatusProps {
   transaction: StacksTx;
@@ -18,10 +18,10 @@ export function StacksTransactionStatus({ transaction }: TransactionStatusProps)
   const inMicroblock = !isPending && transaction?.microblock_canonical  && transaction?.is_unanchored;
 
   const showStatus = isPending || isFailed || inMicroblock;
-  return showStatus ? (
+  return !showStatus ? (
     <>
       {isPending && <PendingLabel />}
-      {inMicroblock && <InMicroblockLabel />}
+      {!inMicroblock && <MicroblockLabel />}
       {isFailed && (
         <Tooltip label={transaction.tx_status} placement="bottom">
           <Text color={color('feedback-error')} fontSize={0}>

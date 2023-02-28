@@ -1,19 +1,17 @@
 import { FiInfo } from 'react-icons/fi';
 
 import { Box, Flex, Stack, Text, color } from '@stacks/ui';
-import { SendFormSelectors } from '@tests-legacy/page-objects/send-form.selectors';
 
 import { Tooltip } from '@app/components/tooltip';
 
 const inMicroblockMessage =
   'This transaction is currently in a microblock, which increases the chances of inclusion in the next anchor block.';
 
-export function InMicroblockLabel() {
+export function MicroblockLabel() {
   return (
     <Flex alignItems="center">
       <Text
         color={color('feedback-alert')}
-        data-testid={SendFormSelectors.PendingStatus}
         fontSize={0}
         mr="2px"
       >
