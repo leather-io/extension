@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { createCounter } from '@app/common/utils/counter';
-
 import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -63,5 +62,5 @@ export function useTaprootAddressUtxosQuery() {
       currentNumberOfAddressesWithoutOrdinals = 0;
       addressIndexCounter.increment();
     }
-  );
+  });
 }

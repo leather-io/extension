@@ -6,7 +6,7 @@ import {
   TaprootUtxo,
   useTaprootAddressUtxosQuery,
 } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
-import { createInfoUrl, whenOrdinalType } from '@app/query/bitcoin/ordinals/utils';
+import { OrdinalInfo, createInfoUrl, whenOrdinalType } from '@app/query/bitcoin/ordinals/utils';
 
 import { CollectibleImage } from './collectible-image';
 import { CollectibleOther } from './collectible-other';
@@ -20,11 +20,11 @@ interface InscriptionProps {
 function Inscription({ path, utxo }: InscriptionProps) {
   const { isLoading, isError, data } = useInscriptionQuery(path);
   const navigate = useNavigate();
-  if (isLoading) return null; // TODO
 
-  if (isError) return null; // TODO
+  if (isLoading) return null;
+  if (isError) return null;
 
-  const inscription = whenOrdinalType(data['content type'], {
+  const inscription = whenOrdinalType<OrdinalInfo>(data['content type'], {
     image: () => ({
       infoUrl: createInfoUrl(data.content),
       src: `https://ordinals.com${data.content}`,
@@ -44,17 +44,16 @@ function Inscription({ path, utxo }: InscriptionProps) {
     }),
   });
 
+  function openSendInscriptionModal() {
+    navigate('', { state: { inscription, utxo } });
+  }
+
   switch (inscription.type) {
     case 'image': {
       return (
         <CollectibleImage
           key={inscription.title}
-          onSelectCollectible={() =>
-            navigate('/ord-send-test', {
-              state: { inscription: data, utxo },
-            })
-          }
-          // onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          onSelectCollectible={() => openSendInscriptionModal()}
           src={inscription.src}
           subtitle="Ordinal inscription"
           title={inscription.title}
@@ -65,12 +64,7 @@ function Inscription({ path, utxo }: InscriptionProps) {
       return (
         <CollectibleText
           key={inscription.title}
-          onSelectCollectible={() =>
-            navigate('/ord-send-test', {
-              state: { inscription: data, utxo },
-            })
-          }
-          // onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          onSelectCollectible={() => openSendInscriptionModal()}
           contentSrc={inscription.contentSrc}
           subtitle="Ordinal inscription"
           title={inscription.title}
@@ -81,12 +75,7 @@ function Inscription({ path, utxo }: InscriptionProps) {
       return (
         <CollectibleOther
           key={inscription.title}
-          onSelectCollectible={() =>
-            navigate('/ord-send-test', {
-              state: { inscription: data, utxo },
-            })
-          }
-          // onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          onSelectCollectible={() => openSendInscriptionModal()}
           subtitle="Ordinal inscription"
           title={inscription.title}
         />

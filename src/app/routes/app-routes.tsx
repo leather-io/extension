@@ -32,6 +32,9 @@ import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
+import { Home as SendOrdinalInscriptionHome } from '@app/pages/send/ordinal-inscription/home';
+import { Review as SendOrdinalInscriptionReview } from '@app/pages/send/ordinal-inscription/review';
+import { Send as SendOrdinalInscriptionSend } from '@app/pages/send/ordinal-inscription/send';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
@@ -86,6 +89,18 @@ function AppRoutesAfterUserHasConsented() {
           />
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
+
+          <Route path={RouteUrls.SendOrdinalInscription} element={<SendOrdinalInscriptionHome />}>
+            <Route
+              path={RouteUrls.SendOrdinalInscriptionSend}
+              element={<SendOrdinalInscriptionSend />}
+            />
+            <Route
+              path={RouteUrls.SendOrdinalInscriptionReview}
+              element={<SendOrdinalInscriptionReview />}
+            />
+          </Route>
+
           {settingsModalRoutes}
           {ledgerTxSigningRoutes}
         </Route>
