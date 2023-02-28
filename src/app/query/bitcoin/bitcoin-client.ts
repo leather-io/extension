@@ -1,97 +1,49 @@
-import { fetchBitcoinData } from './utils';
+import mempoolJS from '@mempool/mempool.js';
 
-class Configuration {
-  constructor(public baseUrl: string) {}
-}
+type MempoolApiClient = ReturnType<typeof mempoolJS>['bitcoin'];
 
-export interface UtxoResponseItem {
-  txid: string;
-  vout: number;
-  status: {
-    confirmed: boolean;
-    block_height: number;
-    block_hash: string;
-    block_time: number;
-  };
-  value: number;
-}
+export type UtxoResponseItem = Awaited<
+  ReturnType<MempoolApiClient['addresses']['getAddressTxsUtxo']>
+>[number];
 
 class AddressApi {
-  constructor(public configuration: Configuration) {}
+  constructor(public client: MempoolApiClient) {}
 
   async getTransactionsByAddress(address: string) {
-    return fetchBitcoinData({
-      errorMsg: 'No transactions fetched',
-      url: `${this.configuration.baseUrl}/address/${address}/txs`,
-    });
+    return this.client.addresses.getAddressTxs({ address });
   }
 
-  async getUtxosByAddress(address: string): Promise<UtxoResponseItem[]> {
-    return fetchBitcoinData({
-      errorMsg: 'No UTXOs fetched',
-      url: `${this.configuration.baseUrl}/address/${address}/utxo`,
-    });
+  async getUtxosByAddress(address: string) {
+    return this.client.addresses.getAddressTxsUtxo({ address });
   }
 }
 
-interface FeeEstimateEarnApiResponse {
-  fastestFee: number;
-  halfHourFee: number;
-  hourFee: number;
-}
-interface FeeEstimateMempoolSpaceApi {
-  fastestFee: number;
-  halfHourFee: number;
-  hourFee: number;
-  economyFee: number;
-  minimumFee: number;
-}
 class FeeEstimatesApi {
-  constructor(public configuration: Configuration) {}
+  constructor(public client: MempoolApiClient) {}
 
-  async getFeeEstimatesFromEarnApi(): Promise<FeeEstimateEarnApiResponse> {
-    return fetchBitcoinData({
-      errorMsg: 'No fee estimates fetched',
-      url: `https://bitcoinfees.earn.com/api/v1/fees/recommended`,
-    });
-  }
-
-  async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeEstimateMempoolSpaceApi> {
-    return fetchBitcoinData({
-      errorMsg: 'No fee estimates fetched',
-      url: ` https://mempool.space/api/v1/fees/recommended`,
-    });
+  async getFeeEstimatesFromMempoolSpaceApi() {
+    return this.client.fees.getFeesRecommended();
   }
 }
 
 class TransactionsApi {
-  constructor(public configuration: Configuration) {}
+  constructor(public client: MempoolApiClient) {}
 
-  async getBitcoinTransaction(txid: string) {
-    return fetch(`${this.configuration.baseUrl}/tx/${txid}`).then(res => res.json());
-  }
-
-  async broadcastTransaction(tx: string) {
-    return fetch(`${this.configuration.baseUrl}/tx`, {
-      method: 'POST',
-      body: tx,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+  async broadcastTransaction(txhex: string) {
+    return this.client.transactions.postTx({ txhex });
   }
 }
 
 export class BitcoinClient {
-  configuration: Configuration;
   addressApi: AddressApi;
   feeEstimatesApi: FeeEstimatesApi;
   transactionsApi: TransactionsApi;
+  mempoolJS: MempoolApiClient;
 
-  constructor(basePath: string) {
-    this.configuration = new Configuration(basePath);
-    this.addressApi = new AddressApi(this.configuration);
-    this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
-    this.transactionsApi = new TransactionsApi(this.configuration);
+  constructor(network: 'mainnet' | 'testnet' | 'signet') {
+    this.mempoolJS = mempoolJS({ network }).bitcoin;
+    this.addressApi = new AddressApi(this.mempoolJS);
+    this.feeEstimatesApi = new FeeEstimatesApi(this.mempoolJS);
+    this.transactionsApi = new TransactionsApi(this.mempoolJS);
   }
 }

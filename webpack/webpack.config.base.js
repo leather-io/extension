@@ -102,6 +102,9 @@ const config = {
       assert: require.resolve('assert'),
       fs: false,
       path: false,
+      http: false,
+      https: false,
+      zlib: false,
     },
   },
   optimization: {

@@ -4,6 +4,7 @@ import { hexToBytes } from '@stacks/common';
 import * as btc from 'micro-btc-signer';
 
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
+import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
@@ -77,8 +78,7 @@ export function useGenerateSignedBitcoinTx() {
         tx.finalize();
         return { hex: tx.hex, fee };
       } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log('Error signing bitcoin transaction', e);
+        logger.error('Error signing bitcoin transaction', e);
         return null;
       }
     },

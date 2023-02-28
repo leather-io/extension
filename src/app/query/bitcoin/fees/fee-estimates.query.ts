@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
-import { BitcoinClient } from '../bitcoin-client';
+import type { BitcoinClient } from '../bitcoin-client';
 
 function fetchBitcoinFeeEstimates(client: BitcoinClient) {
   return async () => {

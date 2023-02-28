@@ -3,8 +3,10 @@ import { useMemo } from 'react';
 import { hexToBytes } from '@stacks/common';
 import * as btc from 'micro-btc-signer';
 
-import { delay } from '@app/common/utils';
+import { createDelay } from '@app/common/utils';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
+
+const simulateSlowerBroadcast = createDelay(700);
 
 export function useBitcoinBroadcastTransaction(tx: string) {
   const client = useBitcoinClient();
@@ -14,10 +16,8 @@ export function useBitcoinBroadcastTransaction(tx: string) {
 
     async function broadcastTransaction() {
       const resp = await client.transactionsApi.broadcastTransaction(tx);
-      // simulate slower broadcast time to allow mempool refresh
-      await delay(700);
-      if (!resp.ok) throw new Error(await resp.text());
-      return resp.text();
+      await simulateSlowerBroadcast();
+      return resp;
     }
 
     return { psbt, broadcastTransaction };
