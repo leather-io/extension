@@ -1,14 +1,8 @@
-import { UseQueryResult } from '@tanstack/react-query';
-
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { useInscriptionByTxidQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
 import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
 import { useTaprootAddressUtxosQuery } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
-import { useTransactionsMetadataQuery } from '@app/query/bitcoin/ordinals/use-transactions-metadata.query';
-import {
-  OrdApiXyzGetTransactionOutput,
-  createInfoUrl,
-  whenOrdinalType,
-} from '@app/query/bitcoin/ordinals/utils';
+import { createInfoUrl, whenOrdinalType } from '@app/query/bitcoin/ordinals/utils';
 
 import { CollectibleImage } from './collectible-image';
 import { CollectibleOther } from './collectible-other';
@@ -84,31 +78,25 @@ function Inscription({ path }: InscriptionProps) {
   }
 }
 
-interface TransactionQueryLoaderProps {
-  transactionMetadataQuery: UseQueryResult<OrdApiXyzGetTransactionOutput>;
+interface InscriptionLoaderProps {
+  txid: string;
   children(path: string): JSX.Element;
 }
-function InscriptionQueryLoader({
-  transactionMetadataQuery,
-  children,
-}: TransactionQueryLoaderProps) {
-  if (transactionMetadataQuery.isLoading) return null; // TODO
-
-  if (transactionMetadataQuery.isError) return null; // TODO
-
-  return children(transactionMetadataQuery.data.inscriptions);
+function InscriptionLoader({ txid, children }: InscriptionLoaderProps) {
+  const { data: inscriptionDetails } = useInscriptionByTxidQuery(txid);
+  if (!inscriptionDetails) return null;
+  return children(inscriptionDetails.inscriptions);
 }
 
 export function Ordinals() {
-  const { data: utxos } = useTaprootAddressUtxosQuery();
-  const transactionsMetadata = useTransactionsMetadataQuery(utxos ?? []);
+  const { data: utxos = [] } = useTaprootAddressUtxosQuery();
 
   return (
     <>
-      {transactionsMetadata.map((query, i) => (
-        <InscriptionQueryLoader key={i} transactionMetadataQuery={query}>
+      {utxos.map(utxo => (
+        <InscriptionLoader key={utxo.txid} txid={utxo.txid}>
           {path => <Inscription path={path} />}
-        </InscriptionQueryLoader>
+        </InscriptionLoader>
       ))}
     </>
   );
